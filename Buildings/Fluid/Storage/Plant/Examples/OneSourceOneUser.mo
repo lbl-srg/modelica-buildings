@@ -32,6 +32,8 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
     "Nominal temperature of CHW supply";
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
+  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*1.01
+    "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.ChillerAndTankNoRemoteCharging cat(
     redeclare final package Medium=Medium,
@@ -55,8 +57,8 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.5*3600,0;
-        0.5*3600,5*4200*1.01; 0.75*3600,5*4200*1.01; 0.75*3600,0; 1*3600,0])
+  Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 1200,0;
+        1200,QCooLoa_flow_nominal; 2400,QCooLoa_flow_nominal; 2400,0; 1*3600,0])
     "Placeholder, prescribed cooling load"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.Continuous.LimPID conPI_pum2(

@@ -17,8 +17,6 @@ the consumer control valve simply tracks the return CHW temperature.
     "Nominal temperature of CHW supply";
   parameter Modelica.Units.SI.Temperature T_b_nominal=12+273.15
     "Nominal temperature of CHW return";
-  parameter Boolean allowFlowReversal=false
-    "Flow reversal setting on chiller branch";
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=
     p_a_nominal-p_b_nominal
     "Nominal pressure difference";
@@ -40,7 +38,7 @@ the consumer control valve simply tracks the return CHW temperature.
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal,
+    allowFlowReversal=true,
     V=1,
     p_start=p_a_nominal,
     T_start=T_b_nominal) "Volume representing the consumer"
