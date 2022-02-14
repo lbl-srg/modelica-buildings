@@ -32,8 +32,7 @@ model SeriesVariableFlow
     TMax=290.15,
     use_temperatureShift=false) "Main pump controller"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    k=datDes.mPumDis_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=datDes.mPumDis_flow_nominal)
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
 equation

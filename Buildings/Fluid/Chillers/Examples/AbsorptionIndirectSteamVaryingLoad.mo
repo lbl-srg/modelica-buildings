@@ -75,13 +75,14 @@ model AbsorptionIndirectSteamVaryingLoad
     duration=86400,
     offset=0) "Pump flow rate"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Controls.OBC.CDL.Continuous.Division QEva_QGen
+  Controls.OBC.CDL.Continuous.Divide QEva_QGen
     "Ratio of cooling provided over required steam"
     annotation (Placement(transformation(extent={{90,0},{110,20}})));
-  Controls.OBC.CDL.Continuous.Division QEva_P
+  Controls.OBC.CDL.Continuous.Divide QEva_P
     "Ratio of cooling provided over pump energy"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
-  Controls.OBC.CDL.Continuous.Gain gai(k=-1) "Gain to switch sign"
+  Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+    "Gain to switch sign"
     annotation (Placement(transformation(extent={{52,-50},{72,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TEnt(k=273.15 + 15)
     "Entering evaporator temperature"

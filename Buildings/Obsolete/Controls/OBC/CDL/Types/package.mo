@@ -1,6 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL;
 package Types "Package with type definitions"
   extends Modelica.Icons.Package;
+
 annotation (Documentation(info="<html>
 <p>
 This package contains type definitions.
