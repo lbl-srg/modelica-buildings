@@ -23,7 +23,7 @@ model DistrictCooling "Example model for district cooling system"
   parameter Modelica.Units.SI.Power PFan_nominal=5000
     "Fan power";
   // Control settings
-  parameter Modelica.Units.SI.Pressure dpSetPoi=68900
+  parameter Modelica.Units.SI.Pressure dpSetPoi=24500
     "Differential pressure setpoint";
   parameter Modelica.Units.SI.Temperature TCHWSet=273.15+7
     "Chilled water temperature setpoint";
@@ -47,7 +47,7 @@ model DistrictCooling "Example model for district cooling system"
   parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal=6000
    "Nominal pressure difference of the cooling tower valve";
   // Network
-  parameter Integer nLoa=1
+  parameter Integer nLoa=3
     "Number of served loads";
   parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=10
     "Nominal mass flow rate in each load";
@@ -62,6 +62,21 @@ model DistrictCooling "Example model for district cooling system"
     dis.con.pipDisSup.dp_nominal)+sum(
     dis.con.pipDisRet.dp_nominal)
     "Nominal pressure drop in the distribution line";
+  // Buildings
+  parameter String filNam[nLoa]={
+    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
+    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
+    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"}
+    "Library path of the file with thermal loads as time series";
+  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nLoa](
+    max=-Modelica.Constants.eps)={Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
+    string="#Peak space cooling load",
+    filNam=Modelica.Utilities.Files.loadResource(filNam[i])) for i in 1:nLoa}
+    "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
+  final parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal[nLoa](
+    each final min=0,
+    each final start=0.5)={-QCoo_flow_nominal[i]/(cp*buiETS[i].dT_nominal) for i in 1:nLoa}
+    "Nominal mass flow rate of building cooling side";
   Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel pla(
     perChi=perChi,
     dTApp=dTApp,
@@ -101,26 +116,30 @@ model DistrictCooling "Example model for district cooling system"
     redeclare final package Medium=Medium,
     nCon=nLoa,
     allowFlowReversal=false,
-    mDis_flow_nominal=m_flow_nominal,
-    mCon_flow_nominal=mCon_flow_nominal,
+    mDis_flow_nominal=sum(dis.mCon_flow_nominal),
+    mCon_flow_nominal=mBui_flow_nominal,
+    mEnd_flow_nominal=mBui_flow_nominal[nLoa],
     dpDis_nominal=fill(dpDis_sr_nominal,nLoa))
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
 
-  Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS(
-    redeclare package Medium = Medium,
-    filNam=
-        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos")
+  Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
+    redeclare each package Medium = Medium,
+    filNam=filNam,
+    mBui_flow_nominal=mBui_flow_nominal)
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-8,-36})));
+protected
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
+    Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default))
+    "Default specific heat capacity of medium";
 equation
-  connect(dis.ports_bCon[1], buiETS.port_aSerCoo)
-    annotation (Line(points={{28,0},{0,0},{0,42},{30,42}}, color={0,127,255}));
-  connect(buiETS.port_bSerCoo, dis.ports_aCon[1]) annotation (Line(points={{50,
-          42},{80,42},{80,0},{52,0}}, color={0,127,255}));
   connect(weaDat.weaBus, pla.weaBus) annotation (Line(
       points={{-60,30},{-30,30},{-30,-1.13333},{-29.9667,-1.13333}},
       color={255,204,51},
@@ -143,6 +162,10 @@ equation
           {-8,-60},{8,-60},{8,-16},{20,-16}}, color={0,127,255}));
   connect(senRelPre.port_a, pla.port_bSerCoo) annotation (Line(points={{-8,-26},
           {-8,-11.3333},{-20,-11.3333}}, color={0,127,255}));
+  connect(dis.ports_bCon, buiETS.port_aSerCoo)
+    annotation (Line(points={{28,0},{0,0},{0,42},{30,42}}, color={0,127,255}));
+  connect(buiETS.port_bSerCoo, dis.ports_aCon) annotation (Line(points={{50,42},
+          {80,42},{80,0},{52,0}}, color={0,127,255}));
   annotation (
     Icon(
       coordinateSystem(
@@ -153,8 +176,10 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/DistrictCooling.mos" "Simulate and plot"),
     experiment(
-      StopTime=31536000,
-      Tolerance=1e-06),
+      StartTime=12960000,
+      StopTime=13564800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>
 This model illustrates an example of integral district cooling system, consisted 

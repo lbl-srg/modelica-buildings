@@ -7,7 +7,7 @@ model BuildingTimeSeriesWithETS
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiWitETS(
     redeclare package Medium = Medium,
     filNam=
-        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos")
+        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium = Medium,

@@ -13,7 +13,7 @@ model BuildingTimeSeriesWithETS
       redeclare package Medium = Medium,
       QChiWat_flow_nominal=QCoo_flow_nominal),
       m_flow_nominal=mBui_flow_nominal);
-  parameter String filNam = "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos"
+  parameter String filNam
     "Library path of the file with thermal loads as time series";
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
