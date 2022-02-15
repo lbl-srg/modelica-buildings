@@ -110,14 +110,8 @@ model TwoSourcesThreeUsers
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal(nin=3)
     "Max of valve positions"
     annotation (Placement(transformation(extent={{60,-120},{40,-100}})));
-  Modelica.Blocks.Sources.BooleanConstant booFloDir
-    "Placeholder, constant normal direction"
-    annotation (Placement(transformation(extent={{-20,-140},{-40,-120}})));
-  Modelica.Blocks.Sources.Constant set_mTan_flow(k=0.75*m_flow_nominal)
-    "Placeholder, tank flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-  Modelica.Blocks.Sources.Constant set_mChi2_flow(k=0.75*m_flow_nominal)
-    "Placeholder, chiller 2 flow rate setpoint"
+  Modelica.Blocks.Sources.Constant set_mChi2Pum1_flow(k=0.75*m_flow_nominal)
+    "Placeholder, primary flow rate setpoint"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sources.Boundary_pT sou_p(
     redeclare final package Medium = Medium,
@@ -194,16 +188,19 @@ model TwoSourcesThreeUsers
     final dp_nominal=0.3*dp_nominal,
     final m_flow_nominal=m_flow_nominal) "Flow resistance user 1 to source 1"
     annotation (Placement(transformation(extent={{30,30},{10,50}})));
-  Modelica.Blocks.Sources.TimeTable set_QCooLoa1_flow(table=[0,0; 600,0; 600,
-        QCooLoa_flow_nominal; 2400,QCooLoa_flow_nominal; 2400,0; 3600,0])
+  Modelica.Blocks.Sources.TimeTable set_QCooLoa1_flow(table=[0,0; 3600/9*1,0;
+        3600/9*1,QCooLoa_flow_nominal; 3600/9*4,QCooLoa_flow_nominal; 3600/9*4,
+        0; 3600,0])
     "Cooling load"
     annotation (Placement(transformation(extent={{120,80},{100,100}})));
-  Modelica.Blocks.Sources.TimeTable set_QCooLoa2_flow(table=[0,0; 1200,0; 1200,
-        QCooLoa_flow_nominal; 3000,QCooLoa_flow_nominal; 3000,0; 3600,0])
+  Modelica.Blocks.Sources.TimeTable set_QCooLoa2_flow(table=[0,0; 3600/9*2,0;
+        3600/9*2,QCooLoa_flow_nominal; 3600/9*5,QCooLoa_flow_nominal; 3600/9*5,
+        0; 3600,0])
     "Cooling load"
     annotation (Placement(transformation(extent={{120,20},{100,40}})));
-  Modelica.Blocks.Sources.TimeTable set_QCooLoa3_flow(table=[0,0; 1800,0; 1800,
-        QCooLoa_flow_nominal; 3600,QCooLoa_flow_nominal]) "Cooling load"
+  Modelica.Blocks.Sources.TimeTable set_QCooLoa3_flow(table=[0,0; 3600/9*3,0;
+        3600/9*3,QCooLoa_flow_nominal; 3600/9*7,QCooLoa_flow_nominal; 3600/9*7,
+        0; 3600,0])                                       "Cooling load"
     annotation (Placement(transformation(extent={{120,-40},{100,-20}})));
   Modelica.Blocks.Math.Gain gaiUsr1(k=1/usr1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
@@ -220,6 +217,37 @@ model TwoSourcesThreeUsers
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,-60})));
+  Modelica.Blocks.Sources.BooleanTable booFloDir(table={3600/9*6,3600/9*8},
+      startValue=true) "Flow direction: True = normal; False = reverse"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={10,-210})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiTanCha
+    "Tank setpoint: True = positive (discharging); False = negative (charging)"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,-130})));
+  Modelica.Blocks.Sources.Constant set_mTan_flow_discharge(k=0.75*
+        m_flow_nominal) "Placeholder, tank flow rate setpoint when discharging"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-70,-170})));
+  Modelica.Blocks.Sources.Constant set_mTan_flow_charge(k=-0.75*m_flow_nominal)
+    "Placeholder, tank flow rate setpoint when charging" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-30,-170})));
+  Modelica.Blocks.Sources.BooleanTable booTanCha(table={3600/9*1,3600/9*6,3600/9
+        *8}, startValue=false)
+    "Tank charging status (local or remote): True = discharging; False = charging"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,-210})));
 equation
   connect(set_TRet.y,usr1. TSet) annotation (Line(points={{41,110},{44,110},{44,
           82},{65,82},{65,71}}, color={0,0,127}));
@@ -234,14 +262,11 @@ equation
           7},{86,-110},{62,-110}}, color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
-  connect(hysCat.y, cat.onOffLin) annotation (Line(points={{-2,-110},{-50,-110},
-          {-50,-72},{-51,-72}}, color={255,0,255}));
-  connect(booFloDir.y, cat.booFloDir) annotation (Line(points={{-41,-130},{-55,-130},
-          {-55,-72}}, color={255,0,255}));
-  connect(set_mTan_flow.y, cat.set_mTan_flow) annotation (Line(points={{-79,-130},
-          {-65,-130},{-65,-71}}, color={0,0,127}));
-  connect(set_mChi2_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-79,-90},
-          {-70,-90},{-70,-71},{-69,-71}}, color={0,0,127}));
+  connect(hysCat.y, cat.booOnOff) annotation (Line(points={{-2,-110},{-26,-110},
+          {-26,-92},{-50,-92},{-50,-72},{-51,-72}},
+                                color={255,0,255}));
+  connect(set_mChi2Pum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-79,
+          -90},{-70,-90},{-70,-71},{-69,-71}}, color={0,0,127}));
   connect(preDroChi1.port_b, chi1.port_a)
     annotation (Line(points={{-70,40},{-80,40},{-80,50}}, color={0,127,255}));
   connect(chi1.port_b, pumChi1.port_a)
@@ -309,7 +334,17 @@ equation
           -60},{126,162},{-90.6667,162}}, color={0,0,127}));
   connect(mulMin_dpUsr.y, conPI_PumChi1.u_m)
     annotation (Line(points={{-90,138},{-90,120},{-72,120}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Cvode"),
-        Diagram(coordinateSystem(extent={{-100,-140},{140,180}})), Icon(
+  connect(booFloDir.y, cat.booFloDir) annotation (Line(points={{10,-199},{10,-132},
+          {-34,-132},{-34,-100},{-55,-100},{-55,-72}}, color={255,0,255}));
+  connect(set_mTan_flow_discharge.y, swiTanCha.u1) annotation (Line(points={{-70,
+          -159},{-70,-150},{-58,-150},{-58,-142}}, color={0,0,127}));
+  connect(set_mTan_flow_charge.y, swiTanCha.u3) annotation (Line(points={{-30,-159},
+          {-30,-150},{-42,-150},{-42,-142}}, color={0,0,127}));
+  connect(booTanCha.y, swiTanCha.u2)
+    annotation (Line(points={{-50,-199},{-50,-142}}, color={255,0,255}));
+  connect(swiTanCha.y, cat.set_mTan_flow) annotation (Line(points={{-50,-118},{-50,
+          -112},{-65,-112},{-65,-71}}, color={0,0,127}));
+  annotation (experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
+        Diagram(coordinateSystem(extent={{-100,-220},{140,180}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end TwoSourcesThreeUsers;

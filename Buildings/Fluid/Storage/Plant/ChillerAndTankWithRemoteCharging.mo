@@ -36,9 +36,11 @@ model ChillerAndTankWithRemoteCharging
     use_inputFilter=false,
     l=1E-10,
     dpValve_nominal=1,
-    m_flow_nominal=m2_flow_nominal) "Valve in parallel to the pump (reverse direction)"
+    m_flow_nominal=m2_flow_nominal)
+    "Valve in parallel to the secondary pump (reverse direction)"
     annotation (Placement(transformation(extent={{-120,-30},{-140,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFloDirPum2 "Flow direction of pum2"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFloDirPum2
+    "Flow direction of secondary pump-valve group"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,70})));
