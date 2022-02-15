@@ -712,6 +712,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-07));
 end System7;
