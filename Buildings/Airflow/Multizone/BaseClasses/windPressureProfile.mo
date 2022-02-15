@@ -6,7 +6,7 @@ function windPressureProfile
   input Modelica.Units.SI.Angle incAng "Wind incidence angle";
   input Real[:] xd "Support points x-value";
   input Real[size(xd, 1)] yd "Support points y-value";
-  input Real[size(xd, 1)] d    "Derivative values at the support points";
+  input Real[size(xd, 1)] d "Derivative values at the support points";
 
   output Real z "Dependent variable without monotone interpolation, CpAct";
 

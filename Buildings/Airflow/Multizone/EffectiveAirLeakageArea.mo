@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance_V_flow(
+  extends Buildings.Airflow.Multizone.Coefficient_V_flow(
     m=0.65,
     final C=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 

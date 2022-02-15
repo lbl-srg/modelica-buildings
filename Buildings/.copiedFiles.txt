@@ -12,7 +12,6 @@ Buildings/Airflow/Multizone/BaseClasses/Examples/package.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/package.order
 Buildings/Airflow/Multizone/BaseClasses/PartialOneWayFlowElement.mo
 Buildings/Airflow/Multizone/BaseClasses/PowerLawResistanceParameters.mo
-Buildings/Airflow/Multizone/BaseClasses/PowerLawResistance_V_flow.mo
 Buildings/Airflow/Multizone/BaseClasses/TwoWayFlowElement.mo
 Buildings/Airflow/Multizone/BaseClasses/TwoWayFlowElementBuoyancy.mo
 Buildings/Airflow/Multizone/BaseClasses/ZonalFlow.mo

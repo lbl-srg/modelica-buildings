@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone;
 model Orifice "Orifice"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance_V_flow(
+  extends Buildings.Airflow.Multizone.Coefficient_V_flow(
     m=0.5,
     final C=CD*A*sqrt(2.0/rho_default));
 
