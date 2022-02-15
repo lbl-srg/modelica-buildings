@@ -724,7 +724,6 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uAftSupCoo"),
         Text(
-          visible=have_hotWatCoi,
           extent={{40,-170},{98,-186}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,

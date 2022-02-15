@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences;
 block ActiveAirFlow
-  "Output the active airflow setpoint for snap-acting controlled dual-duct terminal unit"
+  "Output the active airflow setpoint for dual-duct terminal unit using mixing control with inlet flow sensor"
 
   parameter Real VCooZonMax_flow(
     final quantity="VolumeFlowRate",
@@ -192,8 +192,8 @@ annotation (
 Documentation(info="<html>
 <p>
 This sequence sets the active cooling and heating maximum and the active minimum setpoints
-for snap-acting controlled dual-duct terminal unit.
-The implementation is according to the Section 5.11.4 of ASHRAE Guideline 36, May 2020.
+for dual-duct terminal unit using mixing control with inlet flow sensor.
+The implementation is according to the Section 5.12.4 of ASHRAE Guideline 36, May 2020.
 </p>
 <p>The setpoints shall vary depending on the mode of the zone group.</p>
 <table summary=\"summary\" border=\"1\">

@@ -356,9 +356,9 @@ annotation (defaultComponentName="ove",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-240},{140,240}})),
 Documentation(info="<html>
 <p>
-This block considers the overrides to the setpoints for snap-acting controlled
-dual-duct terminal unit.
-The implementation is according to the Section 5.11.7 of ASHRAE Guideline 36,
+This block considers the overrides to the setpoints for dual-duct terminal unit using
+mixing control with inlet flow sensor.
+The implementation is according to the Section 5.12.7 of ASHRAE Guideline 36,
 May 2020.
 </p>
 <p>

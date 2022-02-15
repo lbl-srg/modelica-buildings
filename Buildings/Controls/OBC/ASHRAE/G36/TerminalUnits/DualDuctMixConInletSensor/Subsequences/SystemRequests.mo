@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences;
-block SystemRequests "Output system requests for VAV terminal unit with reheat"
+block SystemRequests "Output system requests for dual-duct unit using mixing control with inlet flow sensor"
 
-  parameter Boolean have_duaSen
-    "True: the unit has dual inlet sensors";
   parameter Real thrTemDif(
     final unit="K",
     final quantity="TemperatureDifference")=3
@@ -82,10 +80,6 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     final unit="1") "Actual cooling damper position"
     annotation (Placement(transformation(extent={{-240,50},{-200,90}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooDamSta if not have_duaSen
-    "Cold duct damper is opening"
-    annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSupHea
     "After suppression period due to the heating setpoint change"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
@@ -125,17 +119,13 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     "Actual heating damper position"
     annotation (Placement(transformation(extent={{-240,-350},{-200,-310}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaDamSta if not have_duaSen
-    "Hot duct damper is opening"
-    annotation (Placement(transformation(extent={{-240,-380},{-200,-340}}),
-        iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonCooTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{200,340},{240,380}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yColDucPreResReq
     "Cold duct static pressure reset requests"
-    annotation (Placement(transformation(extent={{200,80},{240,120}}),
+    annotation (Placement(transformation(extent={{200,160},{240,200}}),
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonHeaTemResReq
     "Zone heating supply air temperature reset request"
@@ -143,7 +133,7 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
         iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotDucPreResReq
     "Hot duct static pressure reset requests"
-    annotation (Placement(transformation(extent={{200,-320},{240,-280}}),
+    annotation (Placement(transformation(extent={{200,-240},{240,-200}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaFanReq
     "Heating fan request"
@@ -372,32 +362,6 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt6
     "Heating fan request"
     annotation (Placement(transformation(extent={{80,-400},{100,-380}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conOne(
-    final k=1) if have_duaSen
-    "Constant 1"
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conOne1(
-    final k=1) if have_duaSen
-    "Constant 1"
-    annotation (Placement(transformation(extent={{80,-340},{100,-320}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2 if not have_duaSen
-    "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt if not have_duaSen
-    "Ensure zero request when the damper is not opening"
-    annotation (Placement(transformation(extent={{160,50},{180,70}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt1 if have_duaSen
-    "Two inputs product"
-    annotation (Placement(transformation(extent={{160,90},{180,110}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3 if not have_duaSen
-    "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{20,-370},{40,-350}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt2 if not have_duaSen
-    "Ensure zero request when the damper is not opening"
-    annotation (Placement(transformation(extent={{160,-350},{180,-330}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt3 if have_duaSen
-    "Two inputs product"
-    annotation (Placement(transformation(extent={{160,-310},{180,-290}})));
 
 equation
   connect(sub2.y, greThr1.u)
@@ -593,35 +557,11 @@ equation
     annotation (Line(points={{22,-390},{78,-390}}, color={255,0,255}));
   connect(booToInt6.y, yHeaFanReq)
     annotation (Line(points={{102,-390},{220,-390}}, color={255,127,0}));
-  connect(uCooDamSta, booToInt2.u)
-    annotation (Line(points={{-220,40},{18,40}}, color={255,0,255}));
-  connect(booToInt2.y, mulInt.u2) annotation (Line(points={{42,40},{140,40},{140,
-          54},{158,54}}, color={255,127,0}));
-  connect(swi4.y, mulInt.u1) annotation (Line(points={{142,180},{150,180},{150,66},
-          {158,66}}, color={255,127,0}));
-  connect(swi4.y, mulInt1.u1) annotation (Line(points={{142,180},{150,180},{150,
-          106},{158,106}}, color={255,127,0}));
-  connect(conOne.y, mulInt1.u2) annotation (Line(points={{102,70},{140,70},{140,
-          94},{158,94}}, color={255,127,0}));
-  connect(mulInt1.y, yColDucPreResReq)
-    annotation (Line(points={{182,100},{220,100}}, color={255,127,0}));
-  connect(mulInt.y, yColDucPreResReq) annotation (Line(points={{182,60},{190,60},
-          {190,100},{220,100}}, color={255,127,0}));
-  connect(uHeaDamSta, booToInt3.u)
-    annotation (Line(points={{-220,-360},{18,-360}}, color={255,0,255}));
-  connect(booToInt3.y, mulInt2.u2) annotation (Line(points={{42,-360},{140,-360},
-          {140,-346},{158,-346}}, color={255,127,0}));
-  connect(conOne1.y, mulInt3.u2) annotation (Line(points={{102,-330},{140,-330},
-          {140,-306},{158,-306}}, color={255,127,0}));
-  connect(swi1.y, mulInt3.u1) annotation (Line(points={{142,-220},{150,-220},{150,
-          -294},{158,-294}}, color={255,127,0}));
-  connect(swi1.y, mulInt2.u1) annotation (Line(points={{142,-220},{150,-220},{150,
-          -334},{158,-334}}, color={255,127,0}));
-  connect(mulInt3.y, yHotDucPreResReq)
-    annotation (Line(points={{182,-300},{220,-300}}, color={255,127,0}));
-  connect(mulInt2.y, yHotDucPreResReq) annotation (Line(points={{182,-340},{190,
-          -340},{190,-300},{220,-300}}, color={255,127,0}));
 
+  connect(swi1.y, yHotDucPreResReq)
+    annotation (Line(points={{142,-220},{220,-220}}, color={255,127,0}));
+  connect(swi4.y, yColDucPreResReq)
+    annotation (Line(points={{142,180},{220,180}}, color={255,127,0}));
 annotation (
   defaultComponentName="sysReq",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -724,7 +664,6 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uAftSupCoo"),
         Text(
-          visible=have_hotWatCoi,
           extent={{40,-170},{98,-186}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
@@ -782,23 +721,11 @@ annotation (
           extent={{-96,-162},{-56,-176}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaDam"),
-        Text(
-          extent={{-96,10},{-44,-8}},
-          lineColor={255,0,255},
-          pattern=LinePattern.Dash,
-          textString="uCooDamSta",
-          visible=not have_duaSen),
-        Text(
-          extent={{-96,-182},{-44,-200}},
-          lineColor={255,0,255},
-          pattern=LinePattern.Dash,
-          textString="uHeaDamSta",
-          visible=not have_duaSen)}),
+          textString="uHeaDam")}),
   Documentation(info="<html>
 <p>
-This sequence outputs the system reset requests for snap-acting controlled dual-duct
-terminal unit. The implementation is according to the Section 5.11.8 of ASHRAE
+This sequence outputs the system reset requests for dual-duct terminal unit using
+mixing control with inlet flow sensor. The implementation is according to the Section 5.12.8 of ASHRAE
 Guideline 36, May 2020. 
 </p>
 <h4>Cooling SAT reset requests <code>yZonCooTemResReq</code></h4>

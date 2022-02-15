@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor
 model DamperValves
   "Validate model for controlling damper and valve position of VAV reheat terminal unit"
 
-  DampersDualSensors
+  Dampers
     damValReh(kDam=1, V_flow_nominal=2)
     "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{80,20},{100,60}})));
