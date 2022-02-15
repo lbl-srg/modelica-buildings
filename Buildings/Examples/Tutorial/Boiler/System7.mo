@@ -710,5 +710,8 @@ First implementation.
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System7.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=172800));
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-07,
+      __Dymola_Algorithm="Cvode"));
 end System7;
