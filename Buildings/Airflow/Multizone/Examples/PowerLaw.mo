@@ -12,13 +12,13 @@ model PowerLaw "Model with powerlaw models"
     use_p_in=true,
     nPorts=1,
     T=278.15) "Room 1"
-              annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Fluid.Sources.Boundary_pT roo2(
     redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1,
     T=293.15) "Room 2"
-              annotation (Placement(transformation(
+    annotation (Placement(transformation(
         origin={90,70},
         extent={{-10,-10},{10,10}},
         rotation=180)));
@@ -27,7 +27,7 @@ model PowerLaw "Model with powerlaw models"
     height=6,
     offset=-3,
     startTime=0.25) "Ramp"
-                    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.Constant pressure(k=100000) "Pressure"
     annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
   Modelica.Blocks.Math.Add add "Add"
