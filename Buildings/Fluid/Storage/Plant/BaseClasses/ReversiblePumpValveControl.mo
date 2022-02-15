@@ -78,10 +78,10 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,-80})));
-  Controls.OBC.CDL.Interfaces.BooleanInput onOffLin
-    "Plant online/offline signal, true = online, false = offline" annotation (
-      Placement(transformation(extent={{-120,-90},{-100,-70}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Controls.OBC.CDL.Interfaces.BooleanInput booOnOff
+    "True = plant online, False = plant offline" annotation (Placement(
+        transformation(extent={{-120,-90},{-100,-70}}), iconTransformation(
+          extent={{-140,-90},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput yPum2 "Normalised speed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -157,7 +157,7 @@ equation
           60},{0,110}},                      color={0,0,127}));
     connect(conPI_pum2.u_m, um_mTan_flow) annotation (Line(points={{-58,60},{
           -50,60},{-50,90},{0,90},{0,110}},   color={0,0,127}));
-  connect(swiOnOff.u2, onOffLin)
+  connect(swiOnOff.u2, booOnOff)
     annotation (Line(points={{-62,-80},{-110,-80}}, color={255,0,255}));
   connect(swiOnOff.y, minPum2.u2) annotation (Line(points={{-38,-80},{-34,-80},{
           -34,-56},{-16,-56},{-16,-68}}, color={0,0,127}));

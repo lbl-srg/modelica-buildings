@@ -13,6 +13,8 @@ equation
           -166,0},{-180,0}}, color={0,127,255}));
   connect(pum2.port_b, jun1.port_1) annotation (Line(points={{-140,20},{-96,20},
           {-96,0},{-90,0}}, color={0,127,255}));
+  connect(pum1.m_flow_in, set_mPum1_flow)
+    annotation (Line(points={{-50,52},{-50,110}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})));

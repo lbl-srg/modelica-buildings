@@ -148,8 +148,6 @@ equation
     annotation (Line(points={{-40,40},{-10,40}},   color={0,127,255}));
   connect(jun1.port_2, pum1.port_a) annotation (Line(points={{-70,0},{-64,0},{-64,
           40},{-60,40}}, color={0,127,255}));
-  connect(pum1.m_flow_in, set_mPum1_flow)
-    annotation (Line(points={{-50,52},{-50,110}},           color={0,0,127}));
   connect(ideTan.m_flow,mTan_flow)  annotation (Line(points={{-7,-49},{-7,-46},
           {-40,-46},{-40,-110}}, color={0,0,127}));
   annotation (

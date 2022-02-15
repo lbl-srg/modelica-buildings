@@ -62,10 +62,10 @@ model ChillerAndTankWithRemoteCharging
             "Tank flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.BooleanTable booFloDir(table={0,3600/7*6})
-    "Flow direction (true = normal, false = reverse)"
+    "Flow direction: True = normal; False = reverse"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.BooleanTable booOnOffLin(table={3600/7*2})
-    "Plant online/offline (true = online, false = offline)"
+  Modelica.Blocks.Sources.BooleanTable booOnOff(table={3600/7*2})
+    "True = online; False = offline"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.TimeTable set_mChi_flow(table=[0,0; 3600/7,0; 3600/7,
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
@@ -76,9 +76,8 @@ equation
   connect(cat.port_b, sin.ports[1]) annotation (Line(points={{12,0},{35,0},{35,4.44089e-16},
           {50,4.44089e-16}}, color={0,127,255}));
 
-  connect(booOnOffLin.y, cat.onOffLin) annotation (Line(points={{-59,-30},{-20,
-          -30},{-20,-9},{-10,-9}},
-                            color={255,0,255}));
+  connect(booOnOff.y, cat.booOnOff) annotation (Line(points={{-59,-30},{-20,-30},
+          {-20,-9},{-10,-9}}, color={255,0,255}));
   connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,30},{-40,30},
           {-40,-4},{-10,-4},{-10,-5}},
                       color={255,0,255}));
