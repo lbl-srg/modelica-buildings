@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subseq
 block DampersSingleSensors
   "Output signals for controlling dampers of snap-acting controlled dual-duct terminal unit with single discharge airflow sensors"
 
-  parameter Boolean have_pressureIndependentDamper = true
+  parameter Boolean have_pressureIndependentDamper
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation(Dialog(group="Damper"));
   parameter Real V_flow_nominal(
@@ -102,6 +102,10 @@ block DampersSingleSensors
     "Discharge airflow setpoint"
     annotation (Placement(transformation(extent={{320,160},{360,200}}),
         iconTransformation(extent={{100,120},{140,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCooDam
+    "Check if cooling damper is opening"
+    annotation (Placement(transformation(extent={{320,-40},{360,0}}),
+        iconTransformation(extent={{100,-120},{140,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDamSet(
     final min=0,
     final max=1,
@@ -109,13 +113,17 @@ block DampersSingleSensors
     "Cold duct damper position setpoint"
     annotation (Placement(transformation(extent={{320,-120},{360,-80}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaDam
+    "Check if heating damper is opening"
+    annotation (Placement(transformation(extent={{320,-160},{360,-120}}),
+        iconTransformation(extent={{100,-180},{140,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDamSet(
     final min=0,
     final max=1,
     final unit="1")
     "Hot duct damper position setpoint"
     annotation (Placement(transformation(extent={{320,-220},{360,-180}}),
-        iconTransformation(extent={{100,-180},{140,-140}})));
+        iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Active airflow setpoint for cooling"
@@ -157,7 +165,7 @@ block DampersSingleSensors
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1) if have_pressureIndependentDamper
     "Block that can be disabled so remove the connection"
-    annotation (Placement(transformation(extent={{78,50},{98,70}})));
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer1(
     final k=0)
     "Constant zero"
@@ -224,7 +232,7 @@ block DampersSingleSensors
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer3(
     final k=0)
     "Constant zero"
-    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
+    annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if it is in cooling state or in deadband that switched from cooling state"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
@@ -252,6 +260,12 @@ block DampersSingleSensors
   Buildings.Controls.OBC.CDL.Continuous.Switch heaDamPos
     "Heating damper position"
     annotation (Placement(transformation(extent={{280,-210},{300,-190}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Check if cooling damper is opening"
+    annotation (Placement(transformation(extent={{280,-30},{300,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    "Check if heating damper is opening"
+    annotation (Placement(transformation(extent={{280,-150},{300,-130}})));
 
 equation
   connect(uCoo, lin.u)
@@ -276,7 +290,7 @@ equation
   connect(VDisSet_flowNor.y, conCooDam.u_s)
     annotation (Line(points={{42,100},{108,100}},  color={0,0,127}));
   connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{42,100},{60,100},{
-          60,60},{76,60}}, color={0,0,127}));
+          60,60},{78,60}}, color={0,0,127}));
   connect(VActMin_flow, lin.f1) annotation (Line(points={{-340,120},{-170,120},{
           -170,214},{-162,214}}, color={0,0,127}));
   connect(conZer1.y, lin1.x1) annotation (Line(points={{-258,90},{-230,90},{-230,
@@ -349,11 +363,11 @@ equation
     annotation (Line(points={{102,10},{114,10},{114,88}}, color={255,0,255}));
   connect(or1.y, damPos.u2)
     annotation (Line(points={{102,10},{158,10}}, color={255,0,255}));
-  connect(gai.y, damPos.u1) annotation (Line(points={{100,60},{140,60},{140,18},
+  connect(gai.y, damPos.u1) annotation (Line(points={{102,60},{140,60},{140,18},
           {158,18}}, color={0,0,127}));
   connect(conCooDam.y, damPos.u1) annotation (Line(points={{132,100},{140,100},{
           140,18},{158,18}}, color={0,0,127}));
-  connect(conZer3.y, damPos.u3) annotation (Line(points={{102,-150},{140,-150},{
+  connect(conZer3.y, damPos.u3) annotation (Line(points={{102,-160},{140,-160},{
           140,2},{158,2}}, color={0,0,127}));
   connect(greThr1.y, or3.u1) annotation (Line(points={{-258,180},{-240,180},{-240,
           -100},{78,-100}}, color={255,0,255}));
@@ -363,13 +377,13 @@ equation
     annotation (Line(points={{-340,-60},{78,-60}}, color={255,0,255}));
   connect(damPos.y, mul1.u1) annotation (Line(points={{182,10},{200,10},{200,-64},
           {218,-64}}, color={0,0,127}));
-  connect(booToRea.y, mul1.u2) annotation (Line(points={{102,-60},{180,-60},{180,
+  connect(booToRea.y, mul1.u2) annotation (Line(points={{102,-60},{160,-60},{160,
           -76},{218,-76}}, color={0,0,127}));
   connect(or3.y, cooDamPos.u2)
     annotation (Line(points={{102,-100},{278,-100}}, color={255,0,255}));
   connect(mul1.y, cooDamPos.u1) annotation (Line(points={{242,-70},{260,-70},{260,
           -92},{278,-92}}, color={0,0,127}));
-  connect(conZer3.y, cooDamPos.u3) annotation (Line(points={{102,-150},{140,-150},
+  connect(conZer3.y, cooDamPos.u3) annotation (Line(points={{102,-160},{140,-160},
           {140,-108},{278,-108}}, color={0,0,127}));
   connect(cooDamPos.y, yCooDamSet)
     annotation (Line(points={{302,-100},{340,-100}}, color={0,0,127}));
@@ -387,10 +401,22 @@ equation
           200,-176},{218,-176}}, color={0,0,127}));
   connect(mul2.y, heaDamPos.u1) annotation (Line(points={{242,-170},{260,-170},{
           260,-192},{278,-192}}, color={0,0,127}));
-  connect(conZer3.y, heaDamPos.u3) annotation (Line(points={{102,-150},{140,-150},
+  connect(conZer3.y, heaDamPos.u3) annotation (Line(points={{102,-160},{140,-160},
           {140,-208},{278,-208}}, color={0,0,127}));
   connect(heaDamPos.y, yHeaDamSet)
     annotation (Line(points={{302,-200},{340,-200}}, color={0,0,127}));
+  connect(uCooAHU, and1.u1) annotation (Line(points={{-340,-60},{0,-60},{0,-20},
+          {278,-20}}, color={255,0,255}));
+  connect(or3.y, and1.u2) annotation (Line(points={{102,-100},{180,-100},{180,-28},
+          {278,-28}}, color={255,0,255}));
+  connect(and1.y, yCooDam)
+    annotation (Line(points={{302,-20},{340,-20}}, color={255,0,255}));
+  connect(or4.y, and4.u2) annotation (Line(points={{102,-200},{180,-200},{180,-148},
+          {278,-148}}, color={255,0,255}));
+  connect(uHeaAHU, and4.u1) annotation (Line(points={{-340,-260},{40,-260},{40,-140},
+          {278,-140}}, color={255,0,255}));
+  connect(and4.y, yHeaDam)
+    annotation (Line(points={{302,-140},{340,-140}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="dam",
@@ -511,7 +537,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uHeaAHU"),
         Text(
-          extent={{44,-152},{96,-164}},
+          extent={{44,-172},{96,-184}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
@@ -529,7 +555,17 @@ annotation (
           points={{10,-48},{8,-22},{-38,36}},
           color={28,108,200},
           pattern=LinePattern.Dash,
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(
+          extent={{64,-94},{96,-104}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yCooDam"),
+        Text(
+          extent={{64,-152},{96,-162}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yHeaDam")}),
   Documentation(info="<html>
 <p>
 This sequence sets the dampers for snap-acting controlled dual-duct terminal unit

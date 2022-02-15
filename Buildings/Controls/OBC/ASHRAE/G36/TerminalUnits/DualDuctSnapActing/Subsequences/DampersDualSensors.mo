@@ -128,10 +128,18 @@ block DampersDualSensors
     "Heating air handler proven on status"
     annotation (Placement(transformation(extent={{-360,-330},{-320,-290}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDis_flow_Set(
+    final min=0,
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
+    "Discharge airflow setpoint"
+    annotation (Placement(transformation(extent={{320,270},{360,310}}),
+        iconTransformation(extent={{100,160},{140,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VColDucDis_flow_Set(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Cold duct discharge airflow setpoint"
+    final quantity="VolumeFlowRate")
+    "Cold duct discharge airflow setpoint"
     annotation (Placement(transformation(extent={{320,210},{360,250}}),
         iconTransformation(extent={{100,120},{140,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDamSet(
@@ -352,6 +360,9 @@ block DampersDualSensors
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
     "Make sure cooling damper is closed when it is in heating state"
     annotation (Placement(transformation(extent={{220,50},{240,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Total discharge airflow setpoint"
+    annotation (Placement(transformation(extent={{260,280},{280,300}})));
 
 equation
   connect(uCoo, lin.u)
@@ -552,6 +563,12 @@ equation
           84},{200,84},{200,66},{218,66}}, color={0,0,127}));
   connect(mul3.y, cooDamPos.u3) annotation (Line(points={{242,60},{260,60},{260,
           22},{278,22}}, color={0,0,127}));
+  connect(mul2.y, add2.u2) annotation (Line(points={{182,230},{200,230},{200,284},
+          {258,284}}, color={0,0,127}));
+  connect(mul.y, add2.u1) annotation (Line(points={{202,-70},{220,-70},{220,-20},
+          {150,-20},{150,296},{258,296}}, color={0,0,127}));
+  connect(add2.y, VDis_flow_Set)
+    annotation (Line(points={{282,290},{340,290}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="dam",
@@ -729,7 +746,13 @@ annotation (
           points={{10,-48},{8,-22},{-38,36}},
           color={28,108,200},
           pattern=LinePattern.Dash,
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(
+          extent={{44,186},{96,174}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          horizontalAlignment=TextAlignment.Right,
+          textString="VDis_flow_Set")}),
   Documentation(info="<html>
 <p>
 This sequence sets the dampers for snap-acting controlled dual-duct terminal unit
