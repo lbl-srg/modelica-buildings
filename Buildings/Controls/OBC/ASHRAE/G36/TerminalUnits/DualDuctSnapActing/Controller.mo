@@ -319,8 +319,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.ActiveAirFlow
     actAirSet(
     final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow)
-    "Active airflow setpoint"
+    final VHeaZonMax_flow=VHeaZonMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.SystemRequests
     sysReq(
@@ -409,8 +408,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final TiDam=TiDam,
     final TdDam=TdDam,
     final samplePeriod=samplePeriod,
-    final looHys=looHys)
-    if not have_duaSen
+    final looHys=looHys) if not have_duaSen
     "Dampers control when the unit has single discharge airflow sensor"
     annotation (Placement(transformation(extent={{0,-60},{20,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupHea(
