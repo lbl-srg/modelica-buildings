@@ -45,16 +45,16 @@ protected
 
   parameter Modelica.Units.SI.Area AClo=LClo*dpCloRat^(0.5 - mClo)
     "Closed area";
-  parameter Real kVal[2]={
-   CDOpe   *AOpe*sqrt(2/rho_default),
-   CDCloRat*AClo*sqrt(2/rho_default)}
-   "Flow coefficient, k = V_flow/ dp^m";
+  parameter Real CVal[2]=
+    {CDOpe*AOpe*sqrt(2/rho_default),
+    CDCloRat*AClo*sqrt(2/rho_default)}
+    "Flow coefficient, C = V_flow/ dp^m";
 
   parameter Real kT = rho_default * CDOpe * AOpe/3 *
     sqrt(Modelica.Constants.g_n /(Medium.T_default*conTP) * hOpe)
     "Constant coefficient for buoyancy driven air flow rate";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=kVal[1]*rho_default
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=CVal[1]*rho_default
       *sqrt(dp_turbulent)
     "Mass flow rate where regularization to laminar flow occurs for temperature-driven flow";
 
@@ -65,14 +65,14 @@ protected
 equation
   // Air flow rate due to static pressure difference
   VABpOpeClo_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=kVal,
-      dp=port_a1.p-port_a2.p,
-      m={mOpe, mClo},
-      a=a,
-      b=b,
-      c=c,
-      d=d,
-      dp_turbulent=dp_turbulent);
+    C=CVal,
+    dp=port_a1.p-port_a2.p,
+    m={mOpe, mClo},
+    a=a,
+    b=b,
+    c=c,
+    d=d,
+    dp_turbulent=dp_turbulent);
   VABp_flow = y*VABpOpeClo_flow[1] + (1-y)*VABpOpeClo_flow[2];
   A = y*AOpe + (1-y)*AClo;
   // Air flow rate due to buoyancy
@@ -100,17 +100,17 @@ set to the air flow rate through the crack posed by the open door, <i>V&#775;<su
 The air flow rate for the closed door is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    V&#775;<sub>clo</sub> = k<sub>clo</sub> &Delta;p<sup>mClo</sup>,
+    V&#775;<sub>clo</sub> = C<sub>clo</sub> &Delta;p<sup>mClo</sup>,
 </p>
 <p>
 where
 <i>V&#775;<sub>clo</sub></i> is the volume flow rate,
-<i>k<sub>clo</sub></i> is a flow coefficient and
+<i>C<sub>clo</sub></i> is a flow coefficient and
 <i>mClo</i> is the flow exponent.
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k<sub>clo</sub> = L<sub>clo</sub> C<sub>DCloRat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-mClo</sup>) (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
+C<sub>clo</sub> = L<sub>clo</sub> C<sub>DCloRat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-mClo</sup>) (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where
