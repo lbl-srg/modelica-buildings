@@ -5,7 +5,7 @@ model OneWayFlow
   package Medium = Buildings.Media.Specialized.Air.PerfectGas;
 
   Modelica.Units.SI.PressureDifference dP = ela.dp "Pressure difference over the tested elements";
-  Modelica.Units.SI.MassFlowRate[nTested]  m_flow_data=
+  Modelica.Units.SI.MassFlowRate[nTested] m_flow_data=
    {sen_ela.m_flow,
     sen_ori.m_flow,
     sen_pow_1dat.m_flow,
@@ -84,7 +84,7 @@ protected
   Points_m_flow pow_2dat(
     redeclare package Medium = Medium,
     mMea_flow_nominal={0.019, 0.029},
-    dpMea_nominal(displayUnit="Pa") = {4, 10}) "Powerlaw_2Datapoints"
+    dpMea_nominal = {4, 10}) "Powerlaw_2Datapoints"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Coefficient_m_flow pow_m_flow(
     redeclare package Medium = Medium,
