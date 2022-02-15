@@ -4,13 +4,12 @@ model PressurizationData
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
 
-
   parameter Real n50=3 "ACH50, air changes at 50 Pa";
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-88,0},{-68,20}})));
-  Fluid.Sources.Outside_CpLowRise       west(
+  Fluid.Sources.Outside_CpLowRise west(
     redeclare package Medium = Medium,
     s=5,
     azi=Buildings.Types.Azimuth.W,
