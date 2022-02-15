@@ -50,7 +50,7 @@ model Outside_CpData_Angles
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
     winSpeSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     winSpe=1,
-      winDirSou=Buildings.BoundaryConditions.Types.DataSource.Input)
+    winDirSou=Buildings.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
 equation

@@ -1,8 +1,9 @@
 within Buildings.Airflow.Multizone;
 model Points_m_flow
   "Powerlaw with flow coefficient and flow exponent fitted based on 2 datapoints"
-  extends Buildings.Airflow.Multizone.Coefficient_m_flow(final k=mMea_flow_nominal[
-        1]/(dpMea_nominal[1]^m2), final m=m2);
+  extends Buildings.Airflow.Multizone.Coefficient_m_flow(final k=
+    mMea_flow_nominal[1]/(dpMea_nominal[1]^m2),
+    final m=m2);
 
   parameter Modelica.Units.SI.PressureDifference dpMea_nominal[2](each displayUnit="Pa")
     "Pressure difference of two test points"
