@@ -32,7 +32,7 @@ wind pressure on the building facade.
 <p>
 Models for air flow through openings are in this package, while the models
 for wind pressure and outdoor air conditions are in the package
-<a href=\\\"modelica://Buildings.Fluid.Sources\\\">Buildings.Fluid.Sources</a>.
+<a href=\"modelica://Buildings.Fluid.Sources\">Buildings.Fluid.Sources</a>.
 </p>
 <p>
 Most models in this package are as described in Wetter (2005).
