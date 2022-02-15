@@ -26,15 +26,15 @@ model ChillerAndTankWithRemoteCharging
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
     "Nominal temperature of CHW return";
 
-  Buildings.Fluid.Storage.Plant.ChillerAndTankWithRemoteCharging cat(
-    redeclare final package Medium=Medium,
+  Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
+    redeclare final package Medium = Medium,
+    final allowRemoteCharging=true,
     final m1_flow_nominal=1,
     final m2_flow_nominal=1,
     final p_CHWS_nominal=p_CHWS_nominal,
     final p_CHWR_nominal=p_CHWR_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
-    final T_CHWR_nominal=T_CHWR_nominal)
-    "Plant with chiller and tank"
+    final T_CHWR_nominal=T_CHWR_nominal) "Plant with chiller and tank"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
@@ -72,7 +72,8 @@ model ChillerAndTankWithRemoteCharging
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 equation
   connect(sou.ports[1], cat.port_a)
-    annotation (Line(points={{-50,0},{-8,0}},  color={0,127,255}));
+    annotation (Line(points={{-50,0},{-26,0},{-26,0},{-8,0}},
+                                               color={0,127,255}));
   connect(cat.port_b, sin.ports[1]) annotation (Line(points={{12,0},{35,0},{35,4.44089e-16},
           {50,4.44089e-16}}, color={0,127,255}));
 
@@ -89,5 +90,5 @@ equation
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ChillerAndTankWithRemoteCharging;

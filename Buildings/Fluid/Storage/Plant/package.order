@@ -1,7 +1,6 @@
-ChillerAndTankNoRemoteCharging
-ChillerAndTankWithRemoteCharging
-TemperatureSource
+ChillerAndTank
 DummyUser
+TemperatureSource
 Examples
 Validation
 BaseClasses

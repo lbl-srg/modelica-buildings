@@ -48,7 +48,7 @@ block ReversiblePumpValveControl
         transformation(extent={{-120,0},{-100,20}}),   iconTransformation(
           extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput us_mTan_flow
-      "Tank mass flow rate setpoint" annotation (Placement(transformation(
+    "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={-70,110}), iconTransformation(

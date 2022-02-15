@@ -34,16 +34,17 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,60})));
-  Buildings.Fluid.Storage.Plant.ChillerAndTankWithRemoteCharging cat(
-    redeclare final package Medium=Medium,
+  Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
+    redeclare final package Medium = Medium,
     final m1_flow_nominal=0.75*m_flow_nominal,
     final m2_flow_nominal=0.75*m_flow_nominal,
     final p_CHWS_nominal=p_CHWS_nominal,
     final p_CHWR_nominal=p_CHWR_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal)
-    "Chiller and tank, tank can be charged remotely"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Chiller and tank, tank can be charged remotely" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-60})));
   Buildings.Fluid.Storage.Plant.DummyUser usr1(
