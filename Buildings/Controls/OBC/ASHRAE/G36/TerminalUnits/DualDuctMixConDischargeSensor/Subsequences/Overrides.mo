@@ -357,8 +357,8 @@ annotation (defaultComponentName="ove",
 Documentation(info="<html>
 <p>
 This block considers the overrides to the setpoints for dual-duct terminal unit using
-mixing control with inlet flow sensor.
-The implementation is according to the Section 5.12.7 of ASHRAE Guideline 36,
+mixing control with discharge flow sensor.
+The implementation is according to the Section 5.13.7 of ASHRAE Guideline 36,
 May 2020.
 </p>
 <p>

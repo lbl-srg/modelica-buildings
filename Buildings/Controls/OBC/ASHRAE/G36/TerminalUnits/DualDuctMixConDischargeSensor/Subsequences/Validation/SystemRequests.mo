@@ -69,7 +69,7 @@ equation
   connect(uCoo.y, sysReq_RehBox.uCoo)
     annotation (Line(points={{2,40},{18,40},{18,72},{58,72}},
       color={0,0,127}));
-  connect(disAirRate.y, sysReq_RehBox.VColDucDis_flow)
+  connect(disAirRate.y, sysReq_RehBox.VDis_flow)
     annotation (Line(points={{2,0},{22,0},{22,64},{58,64}}, color={0,0,127}));
   connect(sine1.y, TDisHeaSet.u)
     annotation (Line(points={{-68,-40},{-22,-40}}, color={0,0,127}));

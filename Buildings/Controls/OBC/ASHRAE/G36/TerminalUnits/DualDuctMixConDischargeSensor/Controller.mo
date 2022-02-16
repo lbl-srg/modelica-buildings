@@ -364,8 +364,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final dTHys=dTHys)
     "Minimum outdoor air and minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
-  Subsequences.Dampers
-    damDuaSen(
+  Subsequences.Dampers damDuaSen(
     final have_pressureIndependentDamper=have_pressureIndependentDamper,
     final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
@@ -421,8 +420,6 @@ equation
       Line(points={{-58,98},{-20,98},{-20,36},{-2,36}}, color={0,0,127}));
   connect(TDis, damDuaSen.TColSup) annotation (Line(points={{-260,70},{-180,70},
           {-180,33},{-2,33}}, color={0,0,127}));
-  connect(VColDucDis_flow, damDuaSen.VColDucDis_flow) annotation (Line(points={{
-          -260,40},{-52,40},{-52,30},{-2,30}}, color={0,0,127}));
   connect(uCooAHU, damDuaSen.uCooAHU) annotation (Line(points={{-260,10},{-44,10},
           {-44,27},{-2,27}}, color={255,0,255}));
   connect(actAirSet.VActMin_flow, damDuaSen.VActMin_flow) annotation (Line(
@@ -432,11 +429,10 @@ equation
   connect(TDis, damDuaSen.THotSup) annotation (Line(points={{-260,70},{-180,70},
           {-180,13},{-2,13}}, color={0,0,127}));
   connect(conLoo.yHea, damDuaSen.uHea) annotation (Line(points={{-178,204},{-32,
-          204},{-32,10},{-2,10}}, color={0,0,127}));
+          204},{-32,7},{-2,7}},   color={0,0,127}));
   connect(actAirSet.VActHeaMax_flow, damDuaSen.VActHeaMax_flow) annotation (
-      Line(points={{-58,82},{-36,82},{-36,7},{-2,7}}, color={0,0,127}));
-  connect(VHotDucDis_flow, damDuaSen.VHotDucDis_flow) annotation (Line(points={{
-          -260,-20},{-48,-20},{-48,4},{-2,4}}, color={0,0,127}));
+      Line(points={{-58,82},{-36,82},{-36,10},{-2,10}},
+                                                      color={0,0,127}));
   connect(uHeaAHU, damDuaSen.uHeaAHU) annotation (Line(points={{-260,-50},{-40,-50},
           {-40,1},{-2,1}}, color={255,0,255}));
   connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-260,-180},{0,-180},
@@ -449,8 +445,6 @@ equation
           29},{44,29},{44,-93},{58,-93}}, color={0,0,127}));
   connect(damDuaSen.yHeaDamSet, setOve.uHeaDamSet) annotation (Line(points={{22,
           6},{40,6},{40,-99},{58,-99}}, color={0,0,127}));
-  connect(damDuaSen.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points=
-         {{22,38},{36,38},{36,-85},{58,-85}}, color={0,0,127}));
   connect(setOve.VSet_flow, VSet_flow) annotation (Line(points={{82,-84},{100,-84},
           {100,290},{260,290}}, color={0,0,127}));
   connect(setOve.yCooDamSet, yCooDamSet) annotation (Line(points={{82,-90},{106,
@@ -475,20 +469,22 @@ equation
           -127},{98,-127}}, color={0,0,127}));
   connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-178,216},{-28,216},
           {-28,-130},{98,-130}}, color={0,0,127}));
-  connect(damDuaSen.VColDucDis_flow_Set, sysReq.VColDuc_flow_Set) annotation (
-      Line(points={{22,34},{48,34},{48,-133},{98,-133}}, color={0,0,127}));
-  connect(VColDucDis_flow, sysReq.VColDucDis_flow) annotation (Line(points={{-260,
-          40},{-52,40},{-52,-135},{98,-135}}, color={0,0,127}));
-  connect(uCooDam, sysReq.uCooDam) annotation (Line(points={{-260,-270},{36,-270},
-          {36,-138},{98,-138}}, color={0,0,127}));
-  connect(timSupHea.yAftSup, sysReq.uAftSupHea) annotation (Line(points={{-178,250},
-          {-104,250},{-104,-143},{98,-143}}, color={255,0,255}));
-  connect(TZonHeaSet, sysReq.TZonHeaSet) annotation (Line(points={{-260,240},{-214,
-          240},{-214,-146},{98,-146}}, color={0,0,127}));
-  connect(conLoo.yHea, sysReq.uHea) annotation (Line(points={{-178,204},{-32,204},
-          {-32,-149},{98,-149}}, color={0,0,127}));
-  connect(damDuaSen.VHotDucDis_flow_Set, sysReq.VHotDuc_flow_Set) annotation (
-      Line(points={{22,11},{32,11},{32,-152},{98,-152}}, color={0,0,127}));
+  connect(damDuaSen.VColDucDis_flow_Set, sysReq.VDis_flow_Set) annotation (Line(
+        points={{22,34},{48,34},{48,-146},{98,-146}}, color={0,0,127}));
+  connect(VColDucDis_flow, sysReq.VDis_flow) annotation (Line(points={{-260,40},
+          {-52,40},{-52,-149},{98,-149}}, color={0,0,127}));
+  connect(uCooDam, sysReq.uCooDam) annotation (Line(points={{-260,-270},{36,
+          -270},{36,-154},{98,-154}},
+                                color={0,0,127}));
+  connect(timSupHea.yAftSup, sysReq.uAftSupHea) annotation (Line(points={{-178,
+          250},{-104,250},{-104,-135},{98,-135}},
+                                             color={255,0,255}));
+  connect(TZonHeaSet, sysReq.TZonHeaSet) annotation (Line(points={{-260,240},{
+          -214,240},{-214,-138},{98,-138}},
+                                       color={0,0,127}));
+  connect(conLoo.yHea, sysReq.uHea) annotation (Line(points={{-178,204},{-32,
+          204},{-32,-141},{98,-141}},
+                                 color={0,0,127}));
   connect(VHotDucDis_flow, sysReq.VHotDucDis_flow) annotation (Line(points={{-260,
           -20},{-48,-20},{-48,-154},{98,-154}}, color={0,0,127}));
   connect(uHeaDam, sysReq.uHeaDam) annotation (Line(points={{-260,-300},{40,-300},

@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSe
 model DamperValves
   "Validate model for controlling damper and valve position of VAV reheat terminal unit"
 
-  Dampers
-    damValReh(kDam=1, V_flow_nominal=2)
+  Dampers damValReh(kDam=1, V_flow_nominal=2)
     "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{80,20},{100,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
@@ -61,13 +60,13 @@ equation
   connect(VActCooMax_flow.y, damValReh.VActCooMax_flow) annotation (Line(points={{42,80},
           {50,80},{50,56},{78,56}},         color={0,0,127}));
   connect(VActHeaMax_flow.y, damValReh.VActHeaMax_flow) annotation (Line(points={{-18,60},
-          {-4,60},{-4,27},{78,27}},          color={0,0,127}));
+          {-4,60},{-4,30},{78,30}},          color={0,0,127}));
   connect(VActMin_flow.y, damValReh.VActMin_flow) annotation (Line(points={{-18,20},
           {-2,20},{-2,42},{78,42}},     color={0,0,127}));
   connect(uCoo.y, damValReh.uCoo)
     annotation (Line(points={{-58,0},{0,0},{0,59},{78,59}}, color={0,0,127}));
   connect(uHea.y, damValReh.uHea) annotation (Line(points={{-18,-20},{2,-20},{2,
-          30},{78,30}}, color={0,0,127}));
+          27},{78,27}}, color={0,0,127}));
   connect(TZon.y, damValReh.TZon) annotation (Line(points={{-58,-80},{8,-80},{8,
           38},{78,38}}, color={0,0,127}));
 

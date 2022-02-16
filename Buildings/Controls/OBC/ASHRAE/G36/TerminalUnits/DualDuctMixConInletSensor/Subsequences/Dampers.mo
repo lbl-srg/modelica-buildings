@@ -674,7 +674,7 @@ annotation (
 <p>
 This sequence sets the dampers for dual-duct terminal unit using mixing control with
 inlet flow sensor.
-The implementation is according to Section 5.12.5.1 of ASHRAE Guideline 36, May 2020. The
+The implementation is according to Section 5.12.5 of ASHRAE Guideline 36, May 2020. The
 calculation is done following the steps below.
 </p>
 <ol>
@@ -694,16 +694,12 @@ no higher than the minimum.
 </li>
 </ul>
 </li>
-
-
 <li>
 When the zone state is deadband (<code>uCoo=0</code> and <code>uHea=0</code>), the cooling
 airflow set point <code>VColDucDis_flow_Set</code> shall be the minimum set point
 <code>VActMin_flow</code>. The cooling damper shall be modulated by a control loop
 to maintain the measured cooling airflow at set point. The heating damper shall be closed.
 </li>
-
-
 <li>
 When the zone state is heating (<code>uHea &gt; 0</code>), then the heating loop output
 <code>uHea</code> shall reset the heating supply airflow setpoint
