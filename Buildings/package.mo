@@ -393,6 +393,12 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">#2549</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System7
+    </td>
+    <td valign=\"top\">Changed block downstream of <code>greThrTRoo</code> from <code>and</code> to <code>or</code> block.
+                       This ensures that the system is off when the outdoor air or room air is sufficiently warm.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SpaceCooling.System2<br/>
                        Buildings.Examples.Tutorial.SpaceCooling.System3<br/>
     </td>
