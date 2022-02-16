@@ -37,3 +37,4 @@ createPlot(id=2,
   axes={1, 2}, 
   timeUnit="h", 
   displayUnits={"kW", "kWh"});
+  

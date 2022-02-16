@@ -49,8 +49,8 @@ model Indirect
     "Set to true to specify Q_flow_nominal and temeratures, or to false to specify effectiveness"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(
-    final min=0,
-    start=10000)
+    final max=0,
+    start=-100000)
     "Nominal heat transfer"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Temperature T_a1_nominal(

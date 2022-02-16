@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Examples;
+within Buildings.Experimental.DHC.Examples.Cooling;
 model DistrictCooling "Example model for district cooling system"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -153,8 +153,8 @@ equation
                                                color={0,0,127}));
   connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{60,-10},
           {80,-10},{80,-16},{60,-16}}, color={0,127,255}));
-  connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-40,
-          -11.3333},{-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}}, color={
+  connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-40,-11.3333},
+          {-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}},           color={
           0,127,255}));
   connect(dis.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,-10},
           {0,-10},{0,-11.3333},{-20,-11.3333}}, color={0,127,255}));

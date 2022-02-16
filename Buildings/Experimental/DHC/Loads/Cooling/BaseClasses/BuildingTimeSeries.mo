@@ -199,11 +199,11 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.CDL.Continuous.Add addPFan
     "Sum fan power"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
+  Modelica.Blocks.Math.Gain mulQReqHea_flow(
     u(final unit="W"),
     final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{272,30},{292,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqCoo_flow(
+  Modelica.Blocks.Math.Gain mulQReqCoo_flow(
     u(final unit="W"),
     final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
@@ -264,9 +264,9 @@ equation
   connect(addPPum.y, mulPPum.u)
     annotation (Line(points={{262,80},{268,80}}, color={0,0,127}));
   connect(mulQReqCoo_flow.y, QReqCoo_flow)
-    annotation (Line(points={{294,0},{320,0}}, color={0,0,127}));
+    annotation (Line(points={{293,0},{320,0}}, color={0,0,127}));
   connect(mulQReqHea_flow.y, QReqHea_flow)
-    annotation (Line(points={{294,40},{320,40}}, color={0,0,127}));
+    annotation (Line(points={{293,40},{320,40}}, color={0,0,127}));
   connect(loa.y[1], mulQReqCoo_flow.u)
     annotation (Line(points={{-259,0},{270,0}}, color={0,0,127}));
   connect(loa.y[2], mulQReqHea_flow.u) annotation (Line(points={{-259,0},{260,0},

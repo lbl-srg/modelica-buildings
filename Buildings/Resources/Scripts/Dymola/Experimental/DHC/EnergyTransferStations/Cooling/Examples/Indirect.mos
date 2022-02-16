@@ -1,5 +1,9 @@
-﻿// Simulate
-simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples.Indirect", tolerance=1e-6, stopTime=86400, numberOfIntervals=2000, resultFile="Indirect");
+// Simulate
+simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples.Indirect", 
+    stopTime=86400, 
+    tolerance=1e-06, 
+    numberOfIntervals=500,
+    resultFile="Indirect");
 // Plot commands
 removePlots(false);
 createPlot(id=1, 
@@ -8,7 +12,6 @@ createPlot(id=1,
   range={0.0, 24.0, 0.0, 20.0}, 
   grid=true, 
   filename="Indirect.mat",
-  bottomTitleType=0, 
   colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
   timeUnit="h", 
   displayUnits={"degC", "degC", "degC", "degC"});
@@ -49,5 +52,4 @@ createPlot(id=2,
 	axes={1,2},
 	displayUnits={"kW", "kWh"},
 	timeUnit="h");
-
-
+	
