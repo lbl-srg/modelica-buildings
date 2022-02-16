@@ -39,7 +39,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") if not have_duaSen
-                                     "Measured discharge airflow rate"
+    "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-280,400},{-240,440}}),
         iconTransformation(extent={{-140,160},{-100,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActSet_flow(
@@ -710,7 +710,7 @@ generate a Level 3 alarm.
 If the unit has single discharge flow sensor (<code>have_duaSen=false</code>):
 <ul>
 <li>
-If the cooling and heating fan serving the zone has been OFF (<code>uCooFan=false</code>
+If the cooling and heating fans serving the zone have been OFF (<code>uCooFan=false</code>
 and <code>uHeaFan=false</code>) for 10 minutes (<code>fanOffTim</code>), and the
 discharge airflow sensor reading <code>VDis_flow</code>
 is above 10% of the cooling maximum airflow setpoint <code>VCooZonMax_flow</code>,

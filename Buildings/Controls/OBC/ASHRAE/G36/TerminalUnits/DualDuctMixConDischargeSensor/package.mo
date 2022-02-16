@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits;
-package DualDuctMixConDischargeSensor "Sequences for dual duct terminal unit with mixing control through discharge airflow sensor"
+package DualDuctMixConDischargeSensor "Sequences for dual duct terminal unit using mixing control with discharge flow sensor"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences for dual duct terminal unit with mixing control
-through discharge airflow sensor.
+This package contains sequences for dual duct terminal unit using mixing control with discharge flow sensor.
 They are created according to Section 5.13 of ASHRAE Guideline 36, May 2020.
+Note that the sequence uses a single airflow sensor at the discharge outlet.
 </p>
 </html>"),
   Icon(graphics={
