@@ -10,7 +10,6 @@ model Outside_CpData
     each displayUnit="deg")
     "Wind incidence angles, relative to the surface normal (normal=0), first point must be 0, last smaller than 2 pi(=360 deg)";
   parameter Real Cp[:](
-    each final min=0,
     each final unit="1")
     "Cp values at the corresponding incAngSurNor";
 
@@ -23,12 +22,11 @@ model Outside_CpData
    "Change in pressure due to wind force";
 
   Real CpAct(
-    min=0,
     final unit="1") = Buildings.Airflow.Multizone.BaseClasses.windPressureProfile(
-    incAng=alpha,
-    xd=incAngExt,
-    yd=CpExt,
-    d=deri) "Actual wind pressure coefficient";
+      alpha=alpha,incAngTab=
+      incAngExt,
+      CpTab=CpExt,
+      d=deri) "Actual wind pressure coefficient";
 
   Modelica.Units.SI.Angle alpha = winDir-surOut
     "Wind incidence angle (0: normal to wall)";
@@ -36,7 +34,7 @@ model Outside_CpData
 
 protected
   final parameter Modelica.Units.SI.Angle surOut = azi-Modelica.Constants.pi
-    "Angle of surface that is used to compute angle of attack of wind";
+    "Angle of surface that is used to compute the wind incidence angle relative to the surface normal";
 
   final parameter Integer n=size(incAngSurNor, 1)
     "Number of data points provided by user";

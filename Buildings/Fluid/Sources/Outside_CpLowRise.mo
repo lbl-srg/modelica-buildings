@@ -12,10 +12,10 @@ model Outside_CpLowRise
 
   Modelica.Units.SI.Angle alpha = winDir-surOut
     "Wind incidence angle (0: normal to wall)";
-  Real CpAct(min=0, final unit="1")=
+  Real CpAct(final unit="1")=
    Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
      Cp0=Cp0,
-     incAng=alpha,
+     alpha=alpha,
      G=G)
    "Actual wind pressure coefficient";
   Modelica.Units.SI.Pressure pWin(displayUnit="Pa")=
@@ -67,7 +67,7 @@ For other buildings, the model
 <a href=\"modelica://Buildings.Fluid.Sources.Outside_CpData\">
 Buildings.Fluid.Sources.Outside_CpData</a> or
 <a href=\"modelica://Buildings.Fluid.Sources.Outside_Cp\">
-Buildings.Fluid.Sources.Outside_Cp</a> 
+Buildings.Fluid.Sources.Outside_Cp</a>
 should be used that takes
 the wind pressure coefficient as a parameter or an input.
 </p>

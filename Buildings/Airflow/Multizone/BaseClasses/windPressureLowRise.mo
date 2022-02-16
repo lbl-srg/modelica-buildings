@@ -2,9 +2,9 @@ within Buildings.Airflow.Multizone.BaseClasses;
 function windPressureLowRise "Wind pressure coefficient for low-rise buildings"
   extends Modelica.Icons.Function;
 
-  input Real Cp0(min=0)
+  input Real Cp0
     "Wind pressure coefficient for normal wind incidence angle";
-  input Modelica.Units.SI.Angle incAng
+  input Modelica.Units.SI.Angle alpha
     "Wind incidence angle (0: normal to wall)";
   input Real G "Natural logarithm of side ratio";
   output Real Cp "Wind pressure coefficient";
@@ -29,7 +29,7 @@ algorithm
   // Restrict incAng to [0...pi]
 
   // Change sign to positive
-  aR := if incAng < 0 then -incAng else incAng;
+  aR :=if alpha < 0 then -alpha else alpha;
   // Constrain to [0...2*pi]
   if aR > pi2 then
     aR := aR - integer(aR/pi2)*pi2;
@@ -157,6 +157,10 @@ which generally leads to better numeric performance.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 16, 2022, by Michael Wetter:<br/>
+Changed argment name to <code>alpha</code> for consistency with figure.
+</li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.

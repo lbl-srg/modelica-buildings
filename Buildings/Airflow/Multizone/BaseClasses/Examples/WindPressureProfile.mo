@@ -3,28 +3,36 @@ model WindPressureProfile
   "Test model for wind pressure profile function"
   extends Modelica.Icons.Example;
 
-  parameter Real table[:,:]=
-    [0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4]
-    "Table data";
+  parameter Modelica.Units.SI.Angle incAngSurNor[:](
+    each displayUnit="deg")=
+      {0, 45, 90, 135, 180, 225, 270, 315}*Modelica.Constants.pi/180
+    "Wind incidence angles, relative to the surface normal (normal=0), first point must be 0, last smaller than 2 pi(=360 deg)";
+  parameter Real Cp[:](
+    each final unit="1")=
+      {0.4, 0.1, -0.3, -0.35, -0.2, -0.35, -0.3, 0.1}
+    "Cp values at the corresponding incAngSurNor";
+
   Modelica.Units.SI.Angle  alpha "Wind incidence angle (0: normal to wall)";
-  Real Cp "Wind pressure coefficient";
+  Real CpAct "Wind pressure coefficient";
 
 protected
-  Real Radtable[:,:] = [Modelica.Constants.D2R*table[:,1],table[:,2]]
-  "Transforms table with input in degrees to radians";
+  final parameter Integer n=size(incAngSurNor, 1)
+    "Number of data points provided by user";
+  final parameter Modelica.Units.SI.Angle incAngExt[n + 3](each displayUnit=
+        "deg") = cat(
+    1,
+    {incAngSurNor[n - 1] - (2*Modelica.Constants.pi)},
+    incAngSurNor,
+    2*Modelica.Constants.pi .+ {incAngSurNor[1],incAngSurNor[2]})
+    "Extended number of incidence angles";
+  final parameter Real CpExt[n+3]=cat(1, {Cp[n-1]}, Cp, {Cp[1], Cp[2]})
+    "Extended number of Cp values";
 
-  //Extend table to ensure correct derivatives at 0 and 360.
-  Real prevPoint[1,2] = [Radtable[size(table, 1)-1, 1] - (2*Modelica.Constants.pi), Radtable[size(table, 1)-1, 2]]
-  "Second to last point of the input table";
-  Real nextPoint[1,2] = [Radtable[2, 1] + (2*Modelica.Constants.pi), Radtable[2, 2]]
-  "Second point of the input table";
-  Real exTable[:,:]=[prevPoint;Radtable;nextPoint]
-  "Add additional points to the transformed table";
-
-  //Arguments for windPressureProfile function
-  Real[:] xd=exTable[:,1] "Support points x-value";
-  Real[size(xd, 1)] yd=exTable[:,2] "Support points y-value";
-  Real[size(xd, 1)] d=Buildings.Utilities.Math.Functions.splineDerivatives(x=xd,y=yd,ensureMonotonicity=false) "Spline derivative values at the support points";
+  final parameter Real[n+3] deri=
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+      x=incAngExt,
+      y=CpExt,
+      ensureMonotonicity=false) "Derivatives for table interpolation";
 
   Modelica.Blocks.Sources.Ramp ramp(
     duration=500,
@@ -32,18 +40,26 @@ protected
     offset=-360)
     "Ramp model generating a singal from -360 to 720";
 
-
 initial equation
-  //continuity at 0 and 360 must be assured
-  assert(table[1,2]<>0 or table[end,2]<>360, "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
+  assert(size(incAngSurNor, 1) == size(Cp, 1), "In " + getInstanceName() +
+    ": Size of parameters are size(CpincAng, 1) = " + String(size(incAngSurNor,
+    1)) + " and size(Cp, 1) = " + String(size(Cp, 1)) + ". They must be equal.");
+
+  assert(abs(incAngSurNor[1]) < 1E-4, "In " + getInstanceName() +
+    ": First point in the table CpAngAtt must be 0.");
+
+  assert(2*Modelica.Constants.pi - incAngSurNor[end] > 1E-4, "In " +
+    getInstanceName() +
+    ": Last point in the table CpAngAtt must be smaller than 2 pi (360 deg).");
 
 equation
    alpha=Modelica.Constants.D2R*ramp.y;
-   Cp =Buildings.Airflow.Multizone.BaseClasses.windPressureProfile(
-    incAng=alpha,
-    xd=xd,
-    yd=yd,
-    d=d);
+   CpAct =Buildings.Airflow.Multizone.BaseClasses.windPressureProfile(
+    alpha=alpha,
+    incAngTab=incAngExt,
+    CpTab=CpExt,
+    d=deri) "Actual wind pressure coefficient";
+
 
   annotation (
 experiment(

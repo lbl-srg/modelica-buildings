@@ -3,43 +3,48 @@ function windPressureProfile
   "Function for the cubic spline interpolation of a wind pressure profile with given support points and spline derivatives at these support points"
   extends Modelica.Icons.Function;
 
-  input Modelica.Units.SI.Angle incAng "Wind incidence angle";
-  input Real[:] xd "Support points x-value";
-  input Real[size(xd, 1)] yd "Support points y-value";
-  input Real[size(xd, 1)] d "Derivative values at the support points";
+  input Modelica.Units.SI.Angle alpha "Wind incidence angle";
+  input Real incAngTab[:] "Tabulated points for angle";
+  input Real CpTab[size(incAngTab, 1)] "Tabulated points for Cp";
+  input Real[size(incAngTab, 1)] d "Derivative values at tabulated points";
 
-  output Real z "Dependent variable without monotone interpolation, CpAct";
+  output Real CpAct "Actual Cp value for given incidence angle alpha";
 
 protected
   Integer i "Integer to select data interval";
   Real aR "u, restricted to 0...2*pi";
 
 algorithm
-
   // Change sign to positive and constrain to [0...2*pi]
-  aR :=mod(incAng, 2*Modelica.Constants.pi);
+  aR :=mod(alpha, 2*Modelica.Constants.pi);
 
   i := 1;
-  for j in 1:size(xd, 1) - 1 loop
-    if aR > xd[j] then
+  for j in 1:size(incAngTab, 1) - 1 loop
+    if aR > incAngTab[j] then
       i := j;
     end if;
   end for;
 
   // Interpolate the data
-  z :=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-        x=aR,
-        x1=xd[i],
-        x2=xd[i + 1],
-        y1=yd[i],
-        y2=yd[i + 1],
-        y1d=d[i],
-        y2d=d[i + 1]);
+  CpAct :=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    x=aR,
+    x1=incAngTab[i],
+    x2=incAngTab[i + 1],
+    y1=CpTab[i],
+    y2=CpTab[i + 1],
+    y1d=d[i],
+    y2d=d[i + 1]);
 
   annotation (
 smoothOrder=1,
 Documentation(revisions="<html>
 <ul>
+<li>
+February 16, 2022, by Michael Wetter:<br/>
+Changed argment name to <code>alpha</code> for consistency with figure in
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise\">
+Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>
