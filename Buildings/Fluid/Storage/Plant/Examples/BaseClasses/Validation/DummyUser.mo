@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Validation;
+within Buildings.Fluid.Storage.Plant.Examples.BaseClasses.Validation;
 model DummyUser "Test model for the dummy user"
   extends Modelica.Icons.Example;
 
@@ -24,7 +24,7 @@ model DummyUser "Test model for the dummy user"
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
 
-  Buildings.Fluid.Storage.Plant.DummyUser ideUsr(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser ideUsr(
     redeclare package Medium = Medium,
     vol(T_start=15 + 273.15),
     m_flow_nominal=m_flow_nominal,

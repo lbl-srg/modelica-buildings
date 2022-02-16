@@ -49,7 +49,7 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-60})));
-  Buildings.Fluid.Storage.Plant.DummyUser usr1(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr1(
     redeclare package Medium = Medium2,
     m_flow_nominal=m_flow_nominal,
     p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
@@ -60,7 +60,7 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,60})));
-  Buildings.Fluid.Storage.Plant.DummyUser usr2(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr2(
     redeclare package Medium = Medium2,
     m_flow_nominal=m_flow_nominal,
     p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
@@ -71,7 +71,7 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,0})));
-  Buildings.Fluid.Storage.Plant.DummyUser usr3(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr3(
     redeclare package Medium = Medium2,
     m_flow_nominal=m_flow_nominal,
     p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,

@@ -48,7 +48,7 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
     final T_CHWR_nominal=T_CHWR_nominal)
     "Chiller and tank"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.Storage.Plant.DummyUser usr(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr(
     redeclare package Medium = Medium2,
     m_flow_nominal=m_flow_nominal,
     p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant;
+within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
 model DummyUser "Dummy user model"
 /*
 For simplification, instead of setting up a heat exchanger to a room model,
