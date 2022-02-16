@@ -128,9 +128,6 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
   parameter Real damPosHys(unit="1")
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real valPosHys(unit="1")
-    "Near zero valve position, below which the valve will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced", group="Control loops"));
@@ -542,10 +539,6 @@ equation
           {32,-50},{32,-140},{98,-140}}, color={255,0,255}));
   connect(damSinSen.yHeaDam, sysReq.uHeaDamSta) annotation (Line(points={{22,-56},
           {28,-56},{28,-159},{98,-159}}, color={255,0,255}));
-  connect(damDuaSen.VDis_flow_Set, ala.VActSet_flow) annotation (Line(points={{22,
-          38},{36,38},{36,-205},{98,-205}}, color={0,0,127}));
-  connect(damSinSen.VDis_flow_Set, ala.VActSet_flow) annotation (Line(points={{22,
-          -26},{36,-26},{36,-205},{98,-205}}, color={0,0,127}));
   connect(VColDucDis_flow, ala.VColDucDis_flow) annotation (Line(points={{-260,40},
           {-52,40},{-52,-212},{98,-212}}, color={0,0,127}));
   connect(uCooAHU, ala.uCooFan) annotation (Line(points={{-260,10},{-44,10},{-44,
@@ -594,6 +587,8 @@ equation
         points={{22,-26},{36,-26},{36,-133},{98,-133}}, color={0,0,127}));
   connect(damSinSen.VDis_flow_Set, sysReq.VHotDuc_flow_Set) annotation (Line(
         points={{22,-26},{36,-26},{36,-152},{98,-152}}, color={0,0,127}));
+  connect(setOve.VSet_flow, ala.VActSet_flow) annotation (Line(points={{82,-84},
+          {90,-84},{90,-205},{98,-205}}, color={0,0,127}));
 
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -797,7 +792,6 @@ heating fan request <code>yHeaFanReq</code>.
 It also outputs the alarms about the low airflow <code>yLowFloAla</code>,
 leaking dampers, and airflow sensor(s) calibration alarm.
 </p>
-
 <p>The sequence consists of six subsequences.</p>
 <h4>a. Heating and cooling control loop</h4>
 <p>
