@@ -1,15 +1,16 @@
 within Buildings.Fluid.Storage.Plant;
 model ChillerAndTank
   "(Draft) Model of a plant with a chiller and a tank where the tank can potentially be charged remotely"
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component";
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+    final m1_flow_nominal = m2_flow_nominal,
+    final m2_flow_nominal = mChi_flow_nominal + mTan_flow_nominal);
 
   parameter Boolean allowRemoteCharging = true
     "Turns the plant to a prosumer";
 
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal=1
     "Nominal mass flow rate for the chiller branch";
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal=1
     "Nominal mass flow rate for the tank branch";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=
     p_CHWS_nominal-p_CHWR_nominal
@@ -24,100 +25,68 @@ model ChillerAndTank
     "Nominal temperature of CHW return";
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
-    redeclare package Medium = Medium,
+    redeclare package Medium = Medium2,
     final dp_nominal=dp_nominal/10,
-    final m_flow_nominal=m1_flow_nominal) "Flow resistance on chiller branch"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Fluid.FixedResistances.Junction jun1(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal={m1_flow_nominal+m2_flow_nominal,
-                   -m1_flow_nominal,-m2_flow_nominal},
-    dp_nominal={0,0,0},
-    T_start=T_CHWR_nominal) "Junction near the return line"
-                                    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+    final m_flow_nominal=mChi_flow_nominal) "Flow resistance on chiller branch"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-80,0})));
-  Buildings.Fluid.FixedResistances.Junction jun2(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal={m1_flow_nominal,m2_flow_nominal,
-                   -m1_flow_nominal-m2_flow_nominal},
-    dp_nominal={0,0,0},
-    T_start=T_CHWS_nominal)
-    "Junction near the supply line" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={100,0})));
+        origin={70,-10})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
-    redeclare package Medium = Medium,
+    redeclare package Medium = Medium2,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal/10,
-    final m_flow_nominal=m2_flow_nominal) "Flow resistance on tank branch"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    p(start=p_CHWR_nominal),
-    redeclare package Medium = Medium,
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-190,-10},{-170,10}}),
-        iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    p(start=p_CHWS_nominal),
-    redeclare final package Medium = Medium,
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{150,-10},{130,10}}),
-        iconTransformation(extent={{110,-10},{90,10}})));
+    final m_flow_nominal=mTan_flow_nominal) "Flow resistance on tank branch"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={72,-70})));
   Modelica.Blocks.Interfaces.RealInput set_mPum1_flow
     "Primary pump mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,130}), iconTransformation(
+        origin={40,130}),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,90})));
 
   Buildings.Fluid.Storage.Plant.TemperatureSource ideChi(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal,
+    redeclare package Medium = Medium2,
+    m_flow_nominal=mChi_flow_nominal,
     p_nominal=p_CHWS_nominal,
     T_a_nominal=T_CHWR_nominal,
     T_b_nominal=T_CHWS_nominal) "Ideal chiller"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Fluid.Storage.Plant.TemperatureSource ideTan(
-    redeclare package Medium = Medium,
+    redeclare package Medium = Medium2,
     final allowFlowReversal=true,
-    m_flow_nominal=m2_flow_nominal,
+    m_flow_nominal=mTan_flow_nominal,
     p_nominal=p_CHWS_nominal,
     T_a_nominal=T_CHWR_nominal,
     T_b_nominal=T_CHWS_nominal) "Ideal tank"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    annotation (Placement(transformation(extent={{18,-80},{38,-60}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
-    redeclare package Medium = Medium,
-    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=m1_flow_nominal/1.2*{0,1.2,2})),
+    redeclare package Medium = Medium2,
+    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=mChi_flow_nominal/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
-    m_flow_nominal=m1_flow_nominal,
+    m_flow_nominal=mChi_flow_nominal,
     m_flow_start=0,
     T_start=T_CHWR_nominal) "Primary CHW pump"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Modelica.Blocks.Interfaces.RealOutput mTan_flow
     "Mass flow rate through the tank" annotation (Dialog(group=
           "Time varying output signal"), Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-40,-110}), iconTransformation(
+        origin={10,-110}),  iconTransformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={90,-110})));
+        rotation=180,
+        origin={110,-20})));
   Buildings.Fluid.Movers.SpeedControlled_y pum2(
-    redeclare package Medium = Medium,
-    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=(m1_flow_nominal +
-            m2_flow_nominal)/1.2*{0,1.2,2})),
+    redeclare package Medium = Medium2,
+    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=(mChi_flow_nominal +
+            mTan_flow_nominal)/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -125,171 +94,169 @@ model ChillerAndTank
     T_start=T_CHWR_nominal) "Secondary pump" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-150,20})));
+        origin={-78,-20})));
 
   Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl pum2Con
     if allowRemoteCharging
     "Control block for secondary pump-valve group"
-    annotation (Placement(transformation(extent={{-140,78},{-120,100}})));
+    annotation (Placement(transformation(extent={{-58,80},{-38,102}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booOnOff
     if allowRemoteCharging
     "Plant status: true = online; false = offline" annotation (Placement(
-        transformation(extent={{-200,70},{-180,90}}), iconTransformation(extent=
+        transformation(extent={{-120,70},{-100,90}}), iconTransformation(extent=
            {{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
     if allowRemoteCharging
     "Flow direction: true = normal; false = reverse" annotation (Placement(
-        transformation(extent={{-200,90},{-180,110}}), iconTransformation(
-          extent={{-140,-70},{-100,-30}})));
+        transformation(extent={{-120,90},{-100,110}}), iconTransformation(
+          extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput set_mTan_flow if allowRemoteCharging
     "Tank mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-160,130}), iconTransformation(
+        origin={-80,130}),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,50})));
+        origin={-110,20})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
-    redeclare package Medium = Medium,
+    redeclare package Medium = Medium2,
     use_inputFilter=false,
     l=1E-10,
     dpValve_nominal=1,
-    m_flow_nominal=m1_flow_nominal+m2_flow_nominal) if allowRemoteCharging
+    m_flow_nominal=mChi_flow_nominal+mTan_flow_nominal) if allowRemoteCharging
     "Valve in series to the pump (normal direction)"
-    annotation (Placement(transformation(extent={{-120,22},{-100,42}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
-    redeclare package Medium = Medium,
+    redeclare package Medium = Medium2,
     use_inputFilter=false,
     l=1E-10,
     dpValve_nominal=1,
-    m_flow_nominal=m2_flow_nominal) if allowRemoteCharging
+    m_flow_nominal=mTan_flow_nominal) if allowRemoteCharging
     "Valve in parallel to the secondary pump (reverse direction)"
-    annotation (Placement(transformation(extent={{-120,-30},{-140,-10}})));
+    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiFloDirPum1
     if allowRemoteCharging "Switches off pum1 when tank charged remotely"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-50,90})));
+        origin={30,90})));
   Modelica.Blocks.Sources.Constant conZero(k=0) if allowRemoteCharging
                                                 "Constant y = 0"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-90,90})));
-  BaseClasses.FluidThrough pasVal1(redeclare package Medium = Medium)
+        origin={-10,90})));
+  BaseClasses.FluidThrough pasVal1(redeclare package Medium = Medium2)
     if not allowRemoteCharging "Replaces val1 when remote charging not allowed"
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
+    annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
   BaseClasses.SignalThrough pasSwiFloDirPum1 if not allowRemoteCharging
     "Replaces swiFloDirPum1 when remote charging not allowed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-10,90})));
+        origin={70,90})));
   Modelica.Blocks.Interfaces.RealInput yPum2 if not allowRemoteCharging
                                              "Secondary pump speed input"
-    annotation (Placement(transformation(extent={{-200,50},{-180,70}}),
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}}),
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,110})));
+        origin={-80,110})));
 equation
-  connect(preDro2.port_b, jun2.port_3)
-    annotation (Line(points={{60,-60},{100,-60},{100,-10}},
-                                                 color={0,127,255}));
-  connect(preDro1.port_b, jun2.port_1)
-    annotation (Line(points={{60,40},{84,40},{84,0},{90,0}},
-                                                        color={0,127,255}));
-  connect(jun2.port_2, port_b)
-    annotation (Line(points={{110,0},{140,0}}, color={0,127,255}));
-  connect(ideChi.port_b, preDro1.port_a) annotation (Line(points={{10,40},{10,40},
-          {10,40},{40,40}}, color={0,127,255}));
+  connect(ideChi.port_b, preDro1.port_a) annotation (Line(points={{40,-10},{60,-10}},
+                            color={0,127,255}));
   connect(ideTan.port_b, preDro2.port_a)
-    annotation (Line(points={{10,-60},{40,-60}}, color={0,127,255}));
-  connect(jun1.port_3, ideTan.port_a) annotation (Line(points={{-80,-10},{-80,
-          -60},{-10,-60}},   color={0,127,255}));
+    annotation (Line(points={{38,-70},{62,-70}}, color={0,127,255}));
   connect(pum1.port_b, ideChi.port_a)
-    annotation (Line(points={{-40,40},{-10,40}},   color={0,127,255}));
-  connect(jun1.port_2, pum1.port_a) annotation (Line(points={{-70,0},{-64,0},{-64,
-          40},{-60,40}}, color={0,127,255}));
-  connect(ideTan.m_flow,mTan_flow)  annotation (Line(points={{-7,-49},{-7,-46},
-          {-40,-46},{-40,-110}}, color={0,0,127}));
-  connect(booFloDir, pum2Con.booFloDir) annotation (Line(points={{-190,100},{-174,
-          100},{-174,85.7},{-142,85.7}},     color={255,0,255}));
-  connect(jun1.port_1, val2.port_a) annotation (Line(points={{-90,0},{-94,0},{-94,
-          -20},{-120,-20}}, color={0,127,255}));
-  connect(val2.port_b, port_a) annotation (Line(points={{-140,-20},{-164,-20},{-164,
-          0},{-180,0}}, color={0,127,255}));
-  connect(val1.port_b, jun1.port_1) annotation (Line(points={{-100,32},{-94,32},
-          {-94,0},{-90,0}}, color={0,127,255}));
-  connect(pum2Con.yVal2, val2.y) annotation (Line(points={{-127,76.9},{-127,40},
-          {-130,40},{-130,-8}}, color={0,0,127}));
-  connect(pum2Con.yVal1, val1.y) annotation (Line(points={{-123,76.9},{-110,76.9},
-          {-110,44}}, color={0,0,127}));
-  connect(pum2Con.um_mTan_flow, ideTan.m_flow) annotation (Line(points={{-141,
-          96.7},{-170,96.7},{-170,-46},{-8,-46},{-8,-49},{-7,-49}},
+    annotation (Line(points={{0,-10},{20,-10}},    color={0,127,255}));
+  connect(ideTan.m_flow,mTan_flow)  annotation (Line(points={{21,-59},{10,-59},{
+          10,-110}},             color={0,0,127}));
+  connect(booFloDir, pum2Con.booFloDir) annotation (Line(points={{-110,100},{-90,
+          100},{-90,87.7},{-60,87.7}},       color={255,0,255}));
+  connect(pum2Con.yVal2, val2.y) annotation (Line(points={{-41,78.9},{-41,8},{-32,
+          8},{-32,-52},{-50,-52},{-50,-58}},
+                                color={0,0,127}));
+  connect(pum2Con.yVal1, val1.y) annotation (Line(points={{-45,78.9},{-46,78.9},
+          {-46,8},{-50,8},{-50,2}},
+                      color={0,0,127}));
+  connect(pum2Con.um_mTan_flow, ideTan.m_flow) annotation (Line(points={{-59,98.7},
+          {-62,98.7},{-62,106},{-26,106},{-26,22},{10,22},{10,-59},{21,-59}},
         color={0,0,127}));
-  connect(pum2Con.us_mTan_flow, set_mTan_flow) annotation (Line(points={{-141,92.3},
-          {-160,92.3},{-160,130}},       color={0,0,127}));
-  connect(pum2.port_a, port_a) annotation (Line(points={{-160,20},{-164,20},{
-          -164,0},{-180,0}}, color={0,127,255}));
+  connect(pum2Con.us_mTan_flow, set_mTan_flow) annotation (Line(points={{-59,94.3},
+          {-80,94.3},{-80,130}},         color={0,0,127}));
   connect(pum2.port_b, val1.port_a)
-    annotation (Line(points={{-140,20},{-124,20},{-124,32},{-120,32}},
+    annotation (Line(points={{-68,-20},{-64,-20},{-64,-10},{-60,-10}},
                                                    color={0,127,255}));
-  connect(pum2.y, pum2Con.yPum2) annotation (Line(points={{-150,32},{-150,70},{-131,
-          70},{-131,76.9}},      color={0,0,127}));
-  connect(swiFloDirPum1.u2, booFloDir) annotation (Line(points={{-50,102},{-50,108},
-          {-174,108},{-174,100},{-190,100}},
-                                          color={255,0,255}));
-  connect(swiFloDirPum1.u1, set_mPum1_flow) annotation (Line(points={{-42,102},{
-          -42,116},{-40,116},{-40,130}},
-                                   color={0,0,127}));
+  connect(pum2.y, pum2Con.yPum2) annotation (Line(points={{-78,-8},{-78,20},{-49,
+          20},{-49,78.9}},       color={0,0,127}));
+  connect(swiFloDirPum1.u2, booFloDir) annotation (Line(points={{30,102},{30,110},
+          {-90,110},{-90,100},{-110,100}},color={255,0,255}));
+  connect(swiFloDirPum1.u1, set_mPum1_flow) annotation (Line(points={{38,102},{38,
+          110},{40,110},{40,130}}, color={0,0,127}));
   connect(pum1.m_flow_in,swiFloDirPum1. y)
-    annotation (Line(points={{-50,52},{-50,78}}, color={0,0,127}));
-  connect(conZero.y,swiFloDirPum1. u3) annotation (Line(points={{-90,101},{-90,106},
-          {-58,106},{-58,102}},
-                              color={0,0,127}));
-  connect(pum2Con.booOnOff, booOnOff) annotation (Line(points={{-142,81.3},{-142,
-          80},{-190,80}},              color={255,0,255}));
-  connect(pum2.port_b, pasVal1.port_a) annotation (Line(points={{-140,20},{-124,
-          20},{-124,10},{-120,10}}, color={0,127,255}));
-  connect(pasSwiFloDirPum1.u, set_mPum1_flow) annotation (Line(points={{-10,101},
-          {-10,116},{-40,116},{-40,130}}, color={0,0,127}));
-  connect(pasSwiFloDirPum1.y, pum1.m_flow_in) annotation (Line(points={{-10,79},
-          {-10,60},{-50,60},{-50,52}}, color={0,0,127}));
+    annotation (Line(points={{-10,2},{-10,70},{30,70},{30,78}},
+                                                 color={0,0,127}));
+  connect(conZero.y,swiFloDirPum1. u3) annotation (Line(points={{-10,101},{-10,106},
+          {22,106},{22,102}}, color={0,0,127}));
+  connect(pum2Con.booOnOff, booOnOff) annotation (Line(points={{-60,83.3},{-60,84},
+          {-80,84},{-80,80},{-110,80}},color={255,0,255}));
+  connect(pum2.port_b, pasVal1.port_a) annotation (Line(points={{-68,-20},{-64,-20},
+          {-64,-32},{-60,-32}},     color={0,127,255}));
+  connect(pasSwiFloDirPum1.u, set_mPum1_flow) annotation (Line(points={{70,101},
+          {70,110},{40,110},{40,130}},    color={0,0,127}));
+  connect(pasSwiFloDirPum1.y, pum1.m_flow_in) annotation (Line(points={{70,79},{
+          70,70},{-10,70},{-10,2}},    color={0,0,127}));
   connect(pum2.y, yPum2)
-    annotation (Line(points={{-150,32},{-150,60},{-190,60}}, color={0,0,127}));
-  connect(pasVal1.port_b, jun1.port_1) annotation (Line(points={{-100,10},{-94,
-          10},{-94,0},{-90,0}}, color={0,127,255}));
+    annotation (Line(points={{-78,-8},{-78,20},{-110,20}},   color={0,0,127}));
+  connect(preDro1.port_b, port_a2) annotation (Line(points={{80,-10},{86,-10},{86,
+          -60},{100,-60}}, color={0,127,255}));
+  connect(preDro2.port_b, port_a2) annotation (Line(points={{82,-70},{86,-70},{86,
+          -60},{100,-60}}, color={0,127,255}));
+  connect(pasVal1.port_b, pum1.port_a) annotation (Line(points={{-40,-32},{-26,-32},
+          {-26,-10},{-20,-10}}, color={0,127,255}));
+  connect(val1.port_b, pum1.port_a)
+    annotation (Line(points={{-40,-10},{-20,-10}}, color={0,127,255}));
+  connect(val2.port_a, pum1.port_a) annotation (Line(points={{-40,-70},{-26,-70},
+          {-26,-10},{-20,-10}}, color={0,127,255}));
+  connect(ideTan.port_a, pum1.port_a) annotation (Line(points={{18,-70},{-26,-70},
+          {-26,-10},{-20,-10}}, color={0,127,255}));
+  connect(pum2.port_a, port_b2) annotation (Line(points={{-88,-20},{-88,-60},{-100,
+          -60}}, color={0,127,255}));
+  connect(val2.port_b, port_b2) annotation (Line(points={{-60,-70},{-88,-70},{-88,
+          -60},{-100,-60}}, color={0,127,255}));
+  connect(port_b1, port_a1)
+    annotation (Line(points={{100,60},{-100,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
-          points={{-80,-20},{-20,-20}},
+          points={{-30,-110},{30,-110}},
           color={28,108,200},
           pattern=LinePattern.Dash,
           visible=allowRemoteCharging), Polygon(
-          points={{-80,-20},{-60,-14},{-60,-26},{-80,-20}},
+          points={{-30,-110},{-10,-104},{-10,-116},{-30,-110}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=allowRemoteCharging),
-        Line(points={{0,0},{0,-20},{30,-20},{30,-60},{60,-60},{60,0}}, color={0,
+        Line(points={{-60,0},{-60,-20},{0,-20},{0,-60},{60,-60},{60,0}},
+                                                                       color={0,
               0,0}),
-        Line(points={{-90,0},{0,0},{0,60},{60,60},{60,0},{90,0}}, color={0,0,0}),
+        Line(points={{-100,0},{-60,0},{-60,60},{60,60},{60,0},{100,0}},
+                                                                  color={0,0,0}),
         Ellipse(
-          extent={{10,82},{54,40}},
+          extent={{-22,80},{22,38}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{10,-10},{50,-72}},
+          extent={{-20,-8},{20,-70}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,20},{-20,20}}, color={28,108,200}),
+        Line(points={{-30,-90},{30,-90}},color={28,108,200}),
         Polygon(
-          points={{-20,20},{-40,26},{-40,14},{-20,20}},
+          points={{30,-90},{10,-84},{10,-96},{30,-90}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Line(points={{16,76},{52,68}}, color={0,0,0}),
-        Line(points={{52,56},{18,46}}, color={0,0,0})}),         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{140,120}})));
+        Line(points={{-16,74},{20,66}},color={0,0,0}),
+        Line(points={{20,54},{-14,44}},color={0,0,0})}),         Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,120}})));
 end ChillerAndTank;
