@@ -55,7 +55,7 @@ model TemperatureSource
         origin={-70,110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-70,110})));
+        origin={-60,110})));
   Buildings.Fluid.Sources.PropertySource_T proSouT(
     redeclare package Medium = Medium,
     final use_T_in=true,

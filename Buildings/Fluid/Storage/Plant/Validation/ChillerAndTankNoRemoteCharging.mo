@@ -33,18 +33,18 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
     nPorts=1)
     "Source representing CHW return line"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-70,-30})));
+        origin={70,-30})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium2,
     final p=p_CHWS_nominal,
     final T=T_CHWS_nominal,
     nPorts=1) "Sink representing CHW supply line"
     annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={70,-30})));
+        origin={-70,-30})));
   Modelica.Blocks.Sources.TimeTable set_mPum2_flow(table=[0,1; 900,1; 900,-1;
         1800,-1; 1800,0; 2700,0; 2700,1; 3600,1])
             "Secondary mass flow rate setpoint"
@@ -67,20 +67,20 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
         rotation=180,
         origin={-10,90})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW(
-    nPorts=1,
     redeclare package Medium = Medium1,
     m_flow=1,
-    T=305.15) "Source representing CDW supply line"
-    annotation (Placement(transformation(extent={{80,20},{60,40}})));
+    T=305.15,
+    nPorts=1) "Source representing CDW supply line"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.Sources.Boundary_pT                 sinCDW(
     redeclare final package Medium = Medium1,
     final p=300000,
     final T=310.15,
     nPorts=1) "Sink representing CDW return line" annotation (
       Placement(transformation(
-        extent={{10,10},{-10,-10}},
+        extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={-70,30})));
+        origin={70,30})));
 equation
 
   connect(gain2.y, conPID_Pum2.u_m)
@@ -94,14 +94,14 @@ equation
           {-16,0},{-16,9},{-11,9}},      color={0,0,127}));
   connect(conPID_Pum2.y, cat.yPum2)
     annotation (Line(points={{-39,70},{-8,70},{-8,11}}, color={0,0,127}));
-  connect(sou.ports[1], cat.port_b2) annotation (Line(points={{-60,-30},{-16,-30},
-          {-16,-6},{-10,-6}}, color={0,127,255}));
-  connect(cat.port_a2, sin.ports[1]) annotation (Line(points={{10,-6},{54,-6},{54,
-          -30},{60,-30}}, color={0,127,255}));
-  connect(souCDW.ports[1], cat.port_b1) annotation (Line(points={{60,30},{16,30},
-          {16,6},{10,6}}, color={0,127,255}));
-  connect(cat.port_a1, sinCDW.ports[1]) annotation (Line(points={{-10,6},{-54,6},
-          {-54,30},{-60,30}}, color={0,127,255}));
+  connect(sin.ports[1], cat.port_b2) annotation (Line(points={{-60,-30},{-16,
+          -30},{-16,-6},{-10,-6}}, color={0,127,255}));
+  connect(sou.ports[1], cat.port_a2) annotation (Line(points={{60,-30},{16,-30},
+          {16,-6},{10,-6}}, color={0,127,255}));
+  connect(souCDW.ports[1], cat.port_a1) annotation (Line(points={{-60,30},{-20,
+          30},{-20,6},{-10,6}}, color={0,127,255}));
+  connect(cat.port_b1, sinCDW.ports[1]) annotation (Line(points={{10,6},{54,6},
+          {54,30},{60,30}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

@@ -47,7 +47,7 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal)
     "Chiller and tank"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr(
     redeclare package Medium = Medium2,
     m_flow_nominal=m_flow_nominal,
@@ -108,18 +108,18 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-10,-70})));
+        origin={50,-70})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue=
         m_flow_nominal/2) "Primary pump signal" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-50,-70})));
+        origin={-10,-70})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW(
-    nPorts=1,
     redeclare package Medium = Medium1,
     m_flow=1,
-    T=305.15) "Source representing CDW supply line"
+    T=305.15,
+    nPorts=1) "Source representing CDW supply line"
     annotation (Placement(transformation(extent={{-10,10},{-30,30}})));
   Buildings.Fluid.Sources.Boundary_pT                 sinCDW(
     redeclare final package Medium = Medium1,
@@ -148,27 +148,27 @@ equation
   connect(usr.dp, gaiPum2.u) annotation (Line(points={{47,-9},{46,-9},{46,88},{-20,
           88},{-20,82}},           color={0,0,127}));
   connect(conPI_pum2.y, cat.yPum2)
-    annotation (Line(points={{-50,29},{-50,20},{-58,20},{-58,11}},
+    annotation (Line(points={{-50,29},{-50,20},{-42,20},{-42,11}},
                                                          color={0,0,127}));
   connect(hysPum1.y, booToReaPum1.u)
-    annotation (Line(points={{-22,-70},{-38,-70}},
-                                                 color={255,0,255}));
+    annotation (Line(points={{38,-70},{2,-70}},  color={255,0,255}));
   connect(booToReaPum1.y, cat.set_mPum1_flow)
-    annotation (Line(points={{-62,-70},{-68,-70},{-68,9},{-61,9}},
+    annotation (Line(points={{-22,-70},{-30,-70},{-30,9},{-39,9}},
                                                         color={0,0,127}));
-  connect(hysPum1.u,usr. yVal_actual) annotation (Line(points={{2,-70},{22,-70},
-          {22,-9},{43,-9}}, color={0,0,127}));
+  connect(hysPum1.u,usr. yVal_actual) annotation (Line(points={{62,-70},{68,-70},
+          {68,-4},{43,-4},{43,-9}},
+                            color={0,0,127}));
   connect(gaiPum2.y, conPI_pum2.u_m)
     annotation (Line(points={{-20,59},{-20,40},{-38,40}}, color={0,0,127}));
-  connect(cat.port_b2, preDro2.port_b) annotation (Line(points={{-60,-6},{-64,-6},
-          {-64,-40},{-10,-40}}, color={0,127,255}));
-  connect(cat.port_b2, sou_p.ports[1]) annotation (Line(points={{-60,-6},{-64,-6},
-          {-64,-20},{-80,-20}}, color={0,127,255}));
-  connect(cat.port_a2, preDro1.port_a) annotation (Line(points={{-40,-6},{-18,-6},
-          {-18,-20},{-10,-20}}, color={0,127,255}));
-  connect(souCDW.ports[1], cat.port_b1) annotation (Line(points={{-30,20},{-34,
-          20},{-34,6},{-40,6}}, color={0,127,255}));
-  connect(sinCDW.ports[1], cat.port_a1) annotation (Line(points={{-80,20},{-66,
-          20},{-66,6},{-60,6}}, color={0,127,255}));
+  connect(cat.port_b2, preDro1.port_a) annotation (Line(points={{-40,-6},{-16,
+          -6},{-16,-20},{-10,-20}}, color={0,127,255}));
+  connect(preDro2.port_b, cat.port_a2) annotation (Line(points={{-10,-40},{-66,
+          -40},{-66,-6},{-60,-6}}, color={0,127,255}));
+  connect(sou_p.ports[1], cat.port_a2) annotation (Line(points={{-80,-20},{-66,
+          -20},{-66,-6},{-60,-6}}, color={0,127,255}));
+  connect(cat.port_b1, sinCDW.ports[1]) annotation (Line(points={{-60,6},{-74,6},
+          {-74,20},{-80,20}}, color={0,127,255}));
+  connect(cat.port_a1, souCDW.ports[1]) annotation (Line(points={{-40,6},{-34,6},
+          {-34,20},{-30,20}}, color={0,127,255}));
   annotation(experiment(Tolerance=1e-06, StopTime=3600));
 end OneSourceOneUser;

@@ -46,7 +46,7 @@ block ReversiblePumpValveControl
   Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
     "Flow direction, true = normal, false = reverse" annotation (Placement(
         transformation(extent={{-120,0},{-100,20}}),   iconTransformation(
-          extent={{-140,-50},{-100,-10}})));
+          extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput us_mTan_flow
     "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -54,7 +54,7 @@ block ReversiblePumpValveControl
           origin={-70,110}), iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-110,30})));
+          origin={-110,40})));
   Modelica.Blocks.Interfaces.RealInput um_mTan_flow
       "Measured tank mass flow rate" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -62,7 +62,7 @@ block ReversiblePumpValveControl
           origin={10,110}),  iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-110,70})));
+          origin={-110,80})));
   Controls.OBC.CDL.Continuous.Min minPum2 "Offline signal overrides all"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -81,7 +81,7 @@ block ReversiblePumpValveControl
   Controls.OBC.CDL.Interfaces.BooleanInput booOnOff
     "True = plant online, False = plant offline" annotation (Placement(
         transformation(extent={{-120,-90},{-100,-70}}), iconTransformation(
-          extent={{-140,-90},{-100,-50}})));
+          extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput yPum2 "Normalised speed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -89,7 +89,7 @@ block ReversiblePumpValveControl
         origin={-10,-110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-10,-110})));
+        origin={0,-110})));
   Modelica.Blocks.Interfaces.RealOutput yVal2 "Valve position" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -97,7 +97,7 @@ block ReversiblePumpValveControl
         origin={90,-110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={70,-110})));
+        origin={80,-110})));
   Modelica.Blocks.Interfaces.RealOutput yVal1 "Valve position" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -105,7 +105,7 @@ block ReversiblePumpValveControl
         origin={40,-110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={30,-110})));
+        origin={40,-110})));
 equation
 
   connect(conOne.y,swiOnOff. u1) annotation (Line(points={{-79,-10},{-66,-10},{-66,
