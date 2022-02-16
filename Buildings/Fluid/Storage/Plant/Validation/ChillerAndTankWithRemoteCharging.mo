@@ -62,31 +62,40 @@ model ChillerAndTankWithRemoteCharging
         -1; 3600/7*3,-1; 3600/7*3,0; 3600/7*4,0; 3600/7*4,1; 3600/7*6,1; 3600/7
         *6,-1])
             "Tank flow rate setpoint"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Blocks.Sources.BooleanTable booFloDir(table={0,3600/7*6})
     "Flow direction: True = normal; False = reverse"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.BooleanTable booOnOff(table={3600/7*2})
     "True = online; False = offline"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.TimeTable set_mChi_flow(table=[0,0; 3600/7,0; 3600/7,
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Fluid.Storage.Plant.CDWPlaceholder CDW(
-    redeclare final package Medium = Medium1)
-    "Placeholder for CHW loop" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+  Buildings.Fluid.Sources.Boundary_pT sinCDW(
+    redeclare final package Medium = Medium1,
+    final p=300000,
+    final T=310.15,
+    nPorts=1) "Sink representing CDW return line" annotation (
+      Placement(transformation(
+        extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={10,30})));
+        origin={-70,30})));
+  Buildings.Fluid.Sources.MassFlowSource_T souCDW(
+    nPorts=1,
+    redeclare package Medium = Medium1,
+    m_flow=1,
+    T=305.15) "Source representing CDW supply line"
+    annotation (Placement(transformation(extent={{80,20},{60,40}})));
 equation
 
   connect(booOnOff.y, cat.booOnOff) annotation (Line(points={{-59,-70},{-10,-70},
           {-10,-9}},          color={255,0,255}));
-  connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,10},{-34,10},
-          {-34,-2},{-10,-2}},
+  connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,0},{-56,0},
+          {-56,-2},{-10,-2}},
                       color={255,0,255}));
   connect(set_mTan_flow.y, cat.set_mTan_flow)
-    annotation (Line(points={{-59,50},{-14,50},{-14,2},{-9,2}},
+    annotation (Line(points={{-59,60},{-14,60},{-14,2},{-9,2}},
                                                         color={0,0,127}));
   connect(set_mChi_flow.y, cat.set_mPum1_flow)
     annotation (Line(points={{-59,90},{-9,90},{-9,9}},  color={0,0,127}));
@@ -94,10 +103,10 @@ equation
           -54,-30},{-60,-30}}, color={0,127,255}));
   connect(cat.port_a2, sin.ports[1]) annotation (Line(points={{12,-6},{54,-6},{54,
           -30},{60,-30}}, color={0,127,255}));
-  connect(CDW.port_b, cat.port_a1) annotation (Line(points={{-1.77636e-15,30},{-16,
-          30},{-16,6},{-8,6}}, color={0,127,255}));
-  connect(CDW.port_a, cat.port_b1) annotation (Line(points={{20,30},{24,30},{24,
-          6},{12,6}}, color={0,127,255}));
+  connect(souCDW.ports[1], cat.port_b1) annotation (Line(points={{60,30},{18,30},
+          {18,6},{12,6}}, color={0,127,255}));
+  connect(cat.port_a1, sinCDW.ports[1]) annotation (Line(points={{-8,6},{-54,6},
+          {-54,30},{-60,30}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

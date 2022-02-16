@@ -251,12 +251,21 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-210})));
-  Buildings.Fluid.Storage.Plant.CDWPlaceholder CDW(
-    redeclare final package Medium = Medium1)
-    "Placeholder for CHW loop" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-90,-60})));
+  Buildings.Fluid.Sources.MassFlowSource_T souCDW(
+    nPorts=1,
+    redeclare package Medium = Medium1,
+    m_flow=1,
+    T=305.15) "Source representing CDW supply line"
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinCDW(
+    redeclare final package Medium = Medium1,
+    final p=300000,
+    final T=310.15,
+    nPorts=1) "Sink representing CDW return line" annotation (
+      Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-90,-90})));
 equation
   connect(set_TRet.y,usr1. TSet) annotation (Line(points={{41,110},{44,110},{44,
           82},{65,82},{65,71}}, color={0,0,127}));
@@ -353,10 +362,10 @@ equation
           -40},{-54,-50}}, color={0,127,255}));
   connect(preDroS2U2.port_a, cat.port_a2)
     annotation (Line(points={{-30,0},{-54,0},{-54,-50}}, color={0,127,255}));
-  connect(CDW.port_a, cat.port_b1) annotation (Line(points={{-90,-50},{-90,-44},
-          {-66,-44},{-66,-50}}, color={0,127,255}));
-  connect(CDW.port_b, cat.port_a1) annotation (Line(points={{-90,-70},{-90,-76},
-          {-66,-76},{-66,-70}}, color={0,127,255}));
+  connect(souCDW.ports[1], cat.port_b1) annotation (Line(points={{-80,-30},{-66,
+          -30},{-66,-50}}, color={0,127,255}));
+  connect(cat.port_a1, sinCDW.ports[1]) annotation (Line(points={{-66,-70},{-66,
+          -90},{-80,-90}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
         Diagram(coordinateSystem(extent={{-120,-220},{140,180}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));

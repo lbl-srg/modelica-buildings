@@ -115,13 +115,21 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-50,-70})));
-  Buildings.Fluid.Storage.Plant.CDWPlaceholder CDW(
-    redeclare final package Medium = Medium1) 
-    "Placeholder for CHW loop" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-88,30})));
+  Buildings.Fluid.Sources.MassFlowSource_T souCDW(
+    nPorts=1,
+    redeclare package Medium = Medium1,
+    m_flow=1,
+    T=305.15) "Source representing CDW supply line"
+    annotation (Placement(transformation(extent={{-10,10},{-30,30}})));
+  Buildings.Fluid.Sources.Boundary_pT                 sinCDW(
+    redeclare final package Medium = Medium1,
+    final p=300000,
+    final T=310.15,
+    nPorts=1) "Sink representing CDW return line" annotation (
+      Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-90,20})));
 equation
   connect(set_TRet.y,usr. TSet)
     annotation (Line(points={{21,30},{32,30},{32,-15},{39,-15}},
@@ -158,9 +166,9 @@ equation
           {-64,-20},{-80,-20}}, color={0,127,255}));
   connect(cat.port_a2, preDro1.port_a) annotation (Line(points={{-40,-6},{-18,-6},
           {-18,-20},{-10,-20}}, color={0,127,255}));
-  connect(CDW.port_b, cat.port_a1)
-    annotation (Line(points={{-88,20},{-88,6},{-60,6}}, color={0,127,255}));
-  connect(CDW.port_a, cat.port_b1) annotation (Line(points={{-88,40},{-88,42},{
-          -74,42},{-74,18},{-32,18},{-32,6},{-40,6}}, color={0,127,255}));
+  connect(souCDW.ports[1], cat.port_b1) annotation (Line(points={{-30,20},{-34,
+          20},{-34,6},{-40,6}}, color={0,127,255}));
+  connect(sinCDW.ports[1], cat.port_a1) annotation (Line(points={{-80,20},{-66,
+          20},{-66,6},{-60,6}}, color={0,127,255}));
   annotation(experiment(Tolerance=1e-06, StopTime=3600));
 end OneSourceOneUser;
