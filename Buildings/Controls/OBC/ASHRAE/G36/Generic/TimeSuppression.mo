@@ -2,16 +2,17 @@ within Buildings.Controls.OBC.ASHRAE.G36.Generic;
 block TimeSuppression
   "Calculate a time-delay period after change in set point"
 
-  parameter Real samplePeriod(
-    final unit="s",
-    final quantity="Time")=120
-    "Sample period of component, set to the same value as the trim and respond that process static pressure reset";
-  parameter Real chaRat=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC";
+  parameter Real chaRat(final unit="s/K")=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC. For cooling or heating request, it should be 540 seconds, for temperature alarms, it should be 1080 seconds";
   parameter Real maxTim(
     final unit="s",
     final quantity="Time")=1800
-    "Maximum suppression time";
+    "Maximum suppression time. For cooling or heating request, it should be 1800 seconds, for temperature alarms, it should be 7200 seconds";
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=120
+    "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
+    annotation (Dialog(tab="Advanced"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
@@ -35,6 +36,10 @@ block TimeSuppression
     "True when there is no setpoint change, or suppression time has passed after setpoint change"
     annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Min supTim
+    "Calculated suppression time due to the setpoint change"
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Discrete.Sampler samSet(
@@ -71,9 +76,6 @@ protected
     final h=0.5*dTHys)
     "Check if there is setpoint change"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min supTim
-    "Calculated suppression time due to the setpoint change"
-    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Time of the model"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
