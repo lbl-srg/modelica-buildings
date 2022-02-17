@@ -244,8 +244,8 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-140,-30})));
-  Modelica.Blocks.Sources.BooleanTable booTanCha(table={3600/9*1,3600/9*6,3600/9
-        *8}, startValue=false)
+  Modelica.Blocks.Sources.BooleanTable booTanCha(table={3600/9*1,3600/9*6,3600/
+        9*8},startValue=false)
     "Tank charging status (local or remote): True = discharging; False = charging"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -281,9 +281,9 @@ equation
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
   connect(hysCat.y, cat.booOnOff) annotation (Line(points={{-2,-110},{-44,-110},
-          {-44,-48},{-51,-48}}, color={255,0,255}));
+          {-44,-48},{-50,-48}}, color={255,0,255}));
   connect(set_mChi2Pum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-119,
-          -70},{-76,-70},{-76,-49},{-69,-49}}, color={0,0,127}));
+          -70},{-76,-70},{-76,-49},{-70,-49}}, color={0,0,127}));
   connect(preDroChi1.port_b, chi1.port_a)
     annotation (Line(points={{-70,40},{-80,40},{-80,50}}, color={0,127,255}));
   connect(chi1.port_b, pumChi1.port_a)
