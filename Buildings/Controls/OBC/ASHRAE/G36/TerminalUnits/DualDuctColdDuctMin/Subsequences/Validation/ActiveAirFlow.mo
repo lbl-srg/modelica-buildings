@@ -1,7 +1,7 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixColdDuct.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Validation;
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for VAV terminal unit with reheat"
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixColdDuct.Subsequences.ActiveAirFlow
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow
     actAirSet_RehBox(
     VDisCooSetMax_flow=0.075,
     VDisSetMin_flow=0.017,
@@ -13,7 +13,7 @@ model ActiveAirFlow
     have_CO2Sen=true)
     "Output the active airflow setpoint for VAV reheat terminal unit"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixColdDuct.Subsequences.ActiveAirFlow
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow
     actAirSet_RehBox1(
     VDisCooSetMax_flow=0.075,
     VDisSetMin_flow=0.017,

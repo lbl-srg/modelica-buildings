@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixColdDuct.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences;
 package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>

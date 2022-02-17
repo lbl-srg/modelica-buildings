@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor;
-block Controller "Controller for dual-duct terminal unit using mixing control with inlet flow sensor"
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin;
+block Controller "Controller for dual-duct terminal unit with cold-duct minimum control"
 
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -302,12 +302,12 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     annotation (Placement(transformation(extent={{240,-320},{280,-280}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.ActiveAirFlow
-    actAirSet(
-    final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow) "Active airflow setpoint"
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow
+    actAirSet(final VCooZonMax_flow=VCooZonMax_flow, final VHeaZonMax_flow=
+        VHeaZonMax_flow,
+    final floHys=floHys) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.SystemRequests
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.SystemRequests
     sysReq(
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
@@ -328,7 +328,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final conThr=conThr)
     "Heating and cooling control loop"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Alarms
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Alarms
     ala(
     final staPreMul=staPreMul,
     final VCooZonMax_flow=VCooZonMax_flow,
@@ -339,7 +339,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final floHys=floHys,
     final damPosHys=damPosHys) "Generate alarms"
     annotation (Placement(transformation(extent={{100,-240},{120,-220}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Overrides
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Overrides
     setOve(
     final VZonMin_flow=VZonMin_flow,
     final VCooZonMax_flow=VCooZonMax_flow,
@@ -372,7 +372,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final dTHys=dTHys)
     "Minimum outdoor air and minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Dampers
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers
     damDuaSen(
     final have_pressureIndependentDamper=have_pressureIndependentDamper,
     final controllerTypeDam=controllerTypeDam,
@@ -391,6 +391,25 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final dTHys=dTHys)
     "Specify suppresion time due to the zone heating setpoint change and check if it has passed the suppresion period"
     annotation (Placement(transformation(extent={{-200,240},{-180,260}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(
+    final k=VCooZonMax_flow)
+    "Cooling maximum flow"
+    annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax(
+    final k=VHeaZonMax_flow)
+    "Heating maximum flow"
+    annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Sum of minimum flow and cooling maximum flow"
+    annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+    final h=floHys)
+    "Check if cooling maximum is greater than the sum of minimum and heating maximum flow"
+    annotation (Placement(transformation(extent={{20,280},{40,300}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="Warning: the sum of minimum flow and heating maximum flow is greater than the cooling maximum flow.")
+    "Generate warning when the cooling maximum is less than the sum of heating maximum and the minimum flow"
+    annotation (Placement(transformation(extent={{60,280},{80,300}})));
 
 equation
   connect(TZon, timSupCoo.TZon) annotation (Line(points={{-260,300},{-220,300},{
@@ -525,6 +544,16 @@ equation
           {-40,33},{-2,33}}, color={0,0,127}));
   connect(THotSup, damDuaSen.THotSup) annotation (Line(points={{-260,-50},{-56,-50},
           {-56,13},{-2,13}}, color={0,0,127}));
+  connect(heaMax.y, add2.u1) annotation (Line(points={{-58,260},{-50,260},{-50,246},
+          {-42,246}}, color={0,0,127}));
+  connect(setPoi.VOccZonMin_flow, add2.u2) annotation (Line(points={{-138,154},{
+          -120,154},{-120,234},{-42,234}}, color={0,0,127}));
+  connect(cooMax.y, gre.u1)
+    annotation (Line(points={{-18,290},{18,290}}, color={0,0,127}));
+  connect(add2.y, gre.u2) annotation (Line(points={{-18,240},{0,240},{0,282},{18,
+          282}}, color={0,0,127}));
+  connect(gre.y, assMes.u)
+    annotation (Line(points={{42,290},{58,290}}, color={255,0,255}));
 
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -693,8 +722,8 @@ annotation (defaultComponentName="duaDucCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-320},{240,320}})),
   Documentation(info="<html>
 <p>
-Controller for dual-duct terminal unit using mixing control with inlet flow sensor
-according to Section 5.12 of ASHRAE
+Controller for dual-duct terminal unit with cold-duct minimum control
+according to Section 5.14 of ASHRAE
 Guideline 36, May 2020. It outputs discharge airflow setpoint <code>VSet_flow</code>,
 cold and hot duct dampers position setpoint (<code>yCooDamSet</code>, <code>yHeaDamSet</code>),
 cooling supply temperature setpoint reset request <code>yZonCooTemResReq</code>,
@@ -718,43 +747,43 @@ heating and cooling control loop signal.
 <h4>b. Active airflow setpoint calculation</h4>
 <p>
 This sequence sets the active maximum airflow according to
-Section 5.12.4. Depending on operation modes <code>uOpeMod</code>, it sets the
+Section 5.14.4. Depending on operation modes <code>uOpeMod</code>, it sets the
 airflow rate limits for cooling and heating supply. 
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.ActiveAirFlow\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.ActiveAirFlow</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow</a>.
 </p>
 <h4>c. Dampers control</h4>
 <p>
 This sequence sets the dampers position setpoints.
-The implementation is according to Section 5.12.5. The sequence outputs 
+The implementation is according to Section 5.14.5. The sequence outputs 
 discharge airflow rate setpoint <code>VSet_flow</code>, cold and hot ducts damper
 position setpoints (<code>yCooDamSet</code>, <code>yHeaDamSet</code>). See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Dampers\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Dampers</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers</a>.
 </p>
 <h4>d. System reset requests generation</h4>
 <p>
-According to Section 5.12.8, this sequence outputs the system reset requests, i.e.
+According to Section 5.14.8, this sequence outputs the system reset requests, i.e.
 cooling and heating supply air temperature reset requests (<code>yZonCooTemResReq</code> and
 <code>yZonHeaTemResReq</code>),
 cold and hot duct static pressure reset requests (<code>yColDucPreResReq</code> and
 <code>yHotDucPreResReq</code>), and the heating fan requests
 <code>yHeaFanReq</code>. 
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.SystemRequests\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.SystemRequests</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.SystemRequests\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.SystemRequests</a>.
 </p>
 <h4>e. Alarms</h4>
 <p>
-According to Section 5.12.6, this sequence outputs the alarms of low discharge flow,
+According to Section 5.14.6, this sequence outputs the alarms of low discharge flow,
 leaking dampers and airflow sensor calibration alarm.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Alarms\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Alarms</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Alarms\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Alarms</a>.
 </p>
 <h4>f. Testing and commissioning overrides</h4>
 <p>
-According to Section 5.12.7, this sequence allows the override the aiflow and dampers position setpoints.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Overrides\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Overrides</a>.
+According to Section 5.14.7, this sequence allows the override the aiflow and dampers position setpoints.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Overrides\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Overrides</a>.
 </p>
 </html>", revisions="<html>
 <ul>

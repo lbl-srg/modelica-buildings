@@ -1,10 +1,10 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixColdDuct;
-package Subsequences "Package of subsequences for terminal unit with reheat"
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin;
+package Subsequences "Package of subsequences for dual-duct terminal unit with cold-duct minimum control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for VAV terminal unit with reheat only unit.
-They are created according to Section 5.6 of ASHRAE Guideline 36, May 2020.
+This package contains subsequences for dual-duct terminal unit with cold-duct minimum control.
+They are created according to Section 5.14 of ASHRAE Guideline 36, May 2020.
 </p>
 </html>"),
   Icon(graphics={

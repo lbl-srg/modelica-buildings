@@ -1,9 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits;
-package DualDuctMixColdDuct "Sequences for dual duct terminal unit with cold duct minimum control"
+package DualDuctColdDuctMin "Sequences for dual duct terminal unit with cold duct minimum control"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences for dual duct terminal unit with cold duct minimum control.
+This package contains sequences for dual duct terminal unit with cold-duct minimum control.
 They are created according to Section 5.14 of ASHRAE Guideline 36, May 2020.
+Note that the sequence uses two airflow sensors, one at each inlet.
 </p>
 </html>"),
   Icon(graphics={
@@ -40,4 +41,4 @@ They are created according to Section 5.14 of ASHRAE Guideline 36, May 2020.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{-80.0,-80.0},{-20.0,-20.0}})}));
-end DualDuctMixColdDuct;
+end DualDuctColdDuctMin;

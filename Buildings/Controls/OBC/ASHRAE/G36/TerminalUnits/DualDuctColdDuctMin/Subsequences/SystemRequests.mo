@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences;
-block SystemRequests "Output system requests for dual-duct unit using mixing control with inlet flow sensor"
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences;
+block SystemRequests "Output system requests for dual-duct unit with cold-duct minimum control"
 
   parameter Real thrTemDif(
     final unit="K",
@@ -724,8 +724,8 @@ annotation (
           textString="uHeaDam")}),
   Documentation(info="<html>
 <p>
-This sequence outputs the system reset requests for dual-duct terminal unit using
-mixing control with inlet flow sensor. The implementation is according to the Section 5.12.8 of ASHRAE
+This sequence outputs the system reset requests for dual-duct terminal unit with
+cold-duct minimum control. The implementation is according to the Section 5.14.8 of ASHRAE
 Guideline 36, May 2020. 
 </p>
 <h4>Cooling SAT reset requests <code>yZonCooTemResReq</code></h4>
