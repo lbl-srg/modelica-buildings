@@ -24,6 +24,28 @@ model ChillerAndTank
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
     "Nominal temperature of CHW return";
 
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi(
+    QEva_flow_nominal=-1E6,
+    COP_nominal=3,
+    PLRMax=1,
+    PLRMinUnl=0.3,
+    PLRMin=0.3,
+    etaMotor=1,
+    mEva_flow_nominal=mChi_flow_nominal,
+    mCon_flow_nominal=mChi_flow_nominal*1.2,
+    TEvaLvg_nominal=280.15,
+    capFunT={1,0,0,0,0,0},
+    EIRFunT={1,0,0,0,0,0},
+    EIRFunPLR={1,0,0},
+    TEvaLvgMin=276.15,
+    TEvaLvgMax=288.15,
+    TConEnt_nominal=310.15,
+    TConEntMin=303.15,
+    TConEntMax=333.15)
+    "Chiller performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{-100,82},{-80,102}})));
+
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare package Medium = Medium2,
     final dp_nominal=dp_nominal/10,
@@ -48,14 +70,6 @@ model ChillerAndTank
         rotation=0,
         origin={-110,100})));
 
-  Buildings.Fluid.Storage.Plant.TemperatureSource ideTan(
-    redeclare package Medium = Medium2,
-    final allowFlowReversal=true,
-    m_flow_nominal=mTan_flow_nominal,
-    p_nominal=p_CHWS_nominal,
-    T_a_nominal=T_CHWR_nominal,
-    T_b_nominal=T_CHWS_nominal) "Ideal tank"
-    annotation (Placement(transformation(extent={{-20,-80},{-40,-60}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
     redeclare package Medium = Medium2,
     per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=mChi_flow_nominal/1.2*{0,1.2,2})),
@@ -116,6 +130,7 @@ model ChillerAndTank
     redeclare package Medium = Medium2,
     use_inputFilter=true,
     y_start=0,
+    dpFixed_nominal=0.1*dp_nominal,
     l=1E-10,
     dpValve_nominal=1,
     m_flow_nominal=mChi_flow_nominal+mTan_flow_nominal) if allowRemoteCharging
@@ -125,6 +140,7 @@ model ChillerAndTank
     redeclare package Medium = Medium2,
     use_inputFilter=true,
     y_start=0,
+    dpFixed_nominal=0.1*dp_nominal,
     l=1E-10,
     dpValve_nominal=1,
     m_flow_nominal=mTan_flow_nominal) if allowRemoteCharging
@@ -140,10 +156,11 @@ model ChillerAndTank
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,90})));
-  BaseClasses.FluidThrough pasVal1(redeclare package Medium = Medium2)
+  Buildings.Fluid.Storage.Plant.BaseClasses.FluidThrough pasVal1(redeclare
+      package                                                                      Medium = Medium2)
     if not allowRemoteCharging "Replaces val1 when remote charging not allowed"
     annotation (Placement(transformation(extent={{60,-42},{40,-22}})));
-  BaseClasses.SignalThrough pasSwiFloDirPum1 if not allowRemoteCharging
+  Buildings.Fluid.Storage.Plant.BaseClasses.SignalThrough pasSwiFloDirPum1 if not allowRemoteCharging
     "Replaces swiFloDirPum1 when remote charging not allowed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -161,6 +178,8 @@ model ChillerAndTank
     final dp1_nominal=0,
     final dp2_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    p2_start=p_CHWS_nominal,
+    T2_start=T_CHWS_nominal,
     final per=perChi)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -173,43 +192,32 @@ model ChillerAndTank
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,10})));
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi(
-    QEva_flow_nominal=-1E6,
-    COP_nominal=3,
-    PLRMax=1,
-    PLRMinUnl=0.3,
-    PLRMin=0.3,
-    etaMotor=1,
-    mEva_flow_nominal=mChi_flow_nominal,
-    mCon_flow_nominal=mChi_flow_nominal*1.2,
-    TEvaLvg_nominal=280.15,
-    capFunT={1,0,0,0,0,0},
-    EIRFunT={1,0,0,0,0,0},
-    EIRFunPLR={1,0,0},
-    TEvaLvgMin=276.15,
-    TEvaLvgMax=288.15,
-    TConEnt_nominal=310.15,
-    TConEntMin=303.15,
-    TConEntMax=333.15)
-    "Chiller performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-100,82},{-80,102}})));
+  Buildings.Fluid.Storage.Stratified tan(
+    redeclare package Medium = Medium2,
+    allowFlowReversal=true,
+    hTan=3,
+    dIns=0.3,
+    VTan=1,
+    nSeg=7,
+    show_T=true,
+    m_flow_nominal=mTan_flow_nominal,
+    p_start=p_CHWS_nominal,
+    T_start=T_CHWS_nominal,
+    TFlu_start=linspace(
+        T_CHWR_nominal,
+        T_CHWS_nominal,
+        tan.nSeg)) "Tank"
+    annotation (Placement(transformation(extent={{-20,-80},{-40,-60}})));
+  Modelica.Fluid.Sensors.MassFlowRate sen_m_flow(redeclare package Medium = Medium2, final
+      allowFlowReversal=true) "Flow rate sensor"
+    annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
 equation
-  connect(ideTan.port_b, preDro2.port_a)
-    annotation (Line(points={{-40,-70},{-60,-70}},
-                                                 color={0,127,255}));
-  connect(ideTan.m_flow,mTan_flow)  annotation (Line(points={{-24,-59},{-24,-50},
-          {-10,-50},{-10,-110}}, color={0,0,127}));
   connect(pum2Con.yVal2, val2.y) annotation (Line(points={{62,78.9},{62,78.9},{
           62,34},{36,34},{36,-50},{50,-50},{50,-58}},
                                 color={0,0,127}));
   connect(pum2Con.yVal1, val1.y) annotation (Line(points={{66,78.9},{66,78.9},{
           66,26},{50,26},{50,2}},
                       color={0,0,127}));
-  connect(pum2Con.um_mTan_flow, ideTan.m_flow) annotation (Line(points={{81,99.8},
-          {86,99.8},{86,108},{46,108},{46,40},{-10,40},{-10,-50},{-24,-50},{-24,
-          -59}},
-        color={0,0,127}));
   connect(pum2Con.us_mTan_flow, set_mTan_flow) annotation (Line(points={{81,95.4},
           {90,95.4},{90,118},{80,118},{80,130}},
                                          color={0,0,127}));
@@ -248,8 +256,6 @@ equation
     annotation (Line(points={{20,-10},{40,-10}}, color={0,127,255}));
   connect(pasVal1.port_b, pum1.port_a) annotation (Line(points={{40,-32},{30,
           -32},{30,-10},{20,-10}}, color={0,127,255}));
-  connect(pum1.port_a, ideTan.port_a) annotation (Line(points={{20,-10},{30,-10},
-          {30,-70},{-20,-70}}, color={0,127,255}));
   connect(val2.port_a, pum1.port_a) annotation (Line(points={{40,-70},{30,-70},
           {30,-10},{20,-10}}, color={0,127,255}));
   connect(pum2Con.booOnOff, booOnOff) annotation (Line(points={{82,82.2},{82,82},
@@ -274,6 +280,17 @@ equation
           {42,-3},{42,30},{54,30},{54,99.8},{59,99.8}}, color={0,0,127}));
   connect(val2.y_actual, pum2Con.yVal2_actual) annotation (Line(points={{55,-63},
           {60,-63},{60,-44},{96,-44},{96,8},{59,8},{59,95.4}}, color={0,0,127}));
+  connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{10,-59},{10,
+          -56},{-10,-56},{-10,-110}}, color={0,0,127}));
+  connect(sen_m_flow.m_flow, pum2Con.um_mTan_flow) annotation (Line(points={{10,
+          -59},{10,-56},{-10,-56},{-10,64},{50,64},{50,108},{88,108},{88,99.8},
+          {81,99.8}}, color={0,0,127}));
+  connect(preDro2.port_a, tan.port_b)
+    annotation (Line(points={{-60,-70},{-40,-70}}, color={0,127,255}));
+  connect(sen_m_flow.port_a, pum1.port_a) annotation (Line(points={{20,-70},{30,
+          -70},{30,-10},{20,-10}}, color={0,127,255}));
+  connect(sen_m_flow.port_b, tan.port_a)
+    annotation (Line(points={{0,-70},{-20,-70}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
           points={{-30,-110},{30,-110}},

@@ -25,7 +25,7 @@ block ReversiblePumpValveControl
     Td=1,
     k=5,
     Ti=50,
-    reverseActing=false)
+    reverseActing=true)
              "PI controller for val2" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -120,11 +120,6 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,-130})));
-  Buildings.Controls.OBC.CDL.Logical.And andPum2 "Plant online AND normal direction"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-60,-50})));
   Buildings.Controls.OBC.CDL.Logical.And3 and3Val1
     "Plant online AND normal direction AND val2 closed" annotation (Placement(
         transformation(
@@ -140,6 +135,18 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-50})));
+  Buildings.Controls.OBC.CDL.Logical.Not notVal2
+    "Reverses flow direction signal for val2" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={50,-16})));
+  Buildings.Controls.OBC.CDL.Logical.And3 and3Pum2
+    "Plant online AND normal direction AND val2 closed" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-60,-50})));
 equation
 
   connect(conPI_pum2.y,gaiPum2. u)
@@ -174,12 +181,6 @@ equation
           10},{-42,-118}}, color={0,0,127}));
   connect(gaiVal2.y, swiVal2.u1) annotation (Line(points={{-10,19},{-10,10},{78,
           10},{78,-118}}, color={0,0,127}));
-  connect(booOnOff, andPum2.u2) annotation (Line(points={{-110,-20},{-68,-20},{-68,
-          -38}}, color={255,0,255}));
-  connect(booFloDir, andPum2.u1)
-    annotation (Line(points={{-110,0},{-60,0},{-60,-38}}, color={255,0,255}));
-  connect(andPum2.y, swiPum1.u2) annotation (Line(points={{-60,-62},{-60,-70},{-50,
-          -70},{-50,-118}}, color={255,0,255}));
   connect(booOnOff, and3Val1.u3) annotation (Line(points={{-110,-20},{-8,-20},{-8,
           -38}}, color={255,0,255}));
   connect(booFloDir, and3Val1.u2) annotation (Line(points={{-110,0},{0,0},{0,-20},
@@ -188,10 +189,9 @@ equation
     annotation (Line(points={{82,70},{110,70}}, color={0,0,127}));
   connect(lesThrVal2.y, and3Val1.u1) annotation (Line(points={{58,70},{34,70},{34,
           40},{8,40},{8,-38}}, color={255,0,255}));
-  connect(booOnOff, and3Val2.u3) annotation (Line(points={{-110,-20},{52,-20},{52,
-          -38}}, color={255,0,255}));
-  connect(and3Val2.u2, booFloDir)
-    annotation (Line(points={{60,-38},{60,0},{-110,0}}, color={255,0,255}));
+  connect(booOnOff, and3Val2.u3) annotation (Line(points={{-110,-20},{20,-20},{
+          20,-34},{52,-34},{52,-38}},
+                 color={255,0,255}));
   connect(and3Val2.u1, lesThrVal1.y) annotation (Line(points={{68,-38},{68,16},{
           52,16},{52,30},{58,30}}, color={255,0,255}));
   connect(lesThrVal1.u, yVal1_actual)
@@ -200,6 +200,18 @@ equation
           -2.22045e-15,-70},{10,-70},{10,-116}}, color={255,0,255}));
   connect(and3Val2.y, swiVal2.u2) annotation (Line(points={{60,-62},{60,-70},{
           70,-70},{70,-118}}, color={255,0,255}));
+  connect(and3Val2.u2, notVal2.y)
+    annotation (Line(points={{60,-38},{60,-28},{50,-28}}, color={255,0,255}));
+  connect(notVal2.u, booFloDir)
+    annotation (Line(points={{50,-4},{50,0},{-110,0}}, color={255,0,255}));
+  connect(and3Pum2.u3, booOnOff) annotation (Line(points={{-68,-38},{-68,-20},{
+          -110,-20}}, color={255,0,255}));
+  connect(and3Pum2.u2, booFloDir)
+    annotation (Line(points={{-60,-38},{-60,0},{-110,0}}, color={255,0,255}));
+  connect(and3Pum2.u1, lesThrVal2.y) annotation (Line(points={{-52,-38},{-52,
+          -30},{8,-30},{8,40},{34,40},{34,70},{58,70}}, color={255,0,255}));
+  connect(and3Pum2.y, swiPum1.u2) annotation (Line(points={{-60,-62},{-60,-70},
+          {-50,-70},{-50,-118}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-160},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end ReversiblePumpValveControl;

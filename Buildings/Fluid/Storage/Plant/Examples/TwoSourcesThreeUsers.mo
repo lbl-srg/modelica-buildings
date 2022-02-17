@@ -283,7 +283,7 @@ equation
   connect(hysCat.y, cat.booOnOff) annotation (Line(points={{-2,-110},{-44,-110},
           {-44,-48},{-50,-48}}, color={255,0,255}));
   connect(set_mChi2Pum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-119,
-          -70},{-76,-70},{-76,-49},{-70,-49}}, color={0,0,127}));
+          -70},{-80,-70},{-80,-49},{-70,-49}}, color={0,0,127}));
   connect(preDroChi1.port_b, chi1.port_a)
     annotation (Line(points={{-70,40},{-80,40},{-80,50}}, color={0,127,255}));
   connect(chi1.port_b, pumChi1.port_a)
