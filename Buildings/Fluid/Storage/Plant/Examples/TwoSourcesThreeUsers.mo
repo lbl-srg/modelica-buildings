@@ -24,17 +24,6 @@ model TwoSourcesThreeUsers
   parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*1.01
     "Nominal cooling load of one consumer";
 
-  Buildings.Fluid.Storage.Plant.TemperatureSource chi1(
-    redeclare final package Medium = Medium2,
-    allowFlowReversal=true,
-    m_flow_nominal=1.5*m_flow_nominal,
-    p_nominal=p_CHWR_nominal,
-    T_a_nominal=T_CHWR_nominal,
-    T_b_nominal=T_CHWS_nominal) "Dummy chill source as chiller 1" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-80,60})));
   Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
@@ -123,7 +112,7 @@ model TwoSourcesThreeUsers
     nPorts=1) "Pressurisation point" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,40})));
+        origin={-170,40})));
   Buildings.Fluid.FixedResistances.PressureDrop preDroChi1(
     redeclare package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal,
@@ -251,21 +240,62 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-10})));
-  Buildings.Fluid.Sources.MassFlowSource_T souCDW(
+  Buildings.Fluid.Sources.MassFlowSource_T souCDW2(
     redeclare package Medium = Medium1,
     m_flow=1,
     T=305.15,
     nPorts=1) "Source representing CDW supply line"
     annotation (Placement(transformation(extent={{-108,-50},{-88,-30}})));
-  Buildings.Fluid.Sources.Boundary_pT sinCDW(
+  Buildings.Fluid.Sources.Boundary_pT sinCDW2(
     redeclare final package Medium = Medium1,
     final p=300000,
     final T=310.15,
-    nPorts=1) "Sink representing CDW return line" annotation (
-      Placement(transformation(
+    nPorts=1) "Sink representing CDW return line" annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-100,-100})));
+  Buildings.Fluid.Chillers.ElectricEIR chi1(
+    redeclare final package Medium1 = Medium1,
+    redeclare final package Medium2 = Medium2,
+    m1_flow_nominal=1.2*chi1.m2_flow_nominal,
+    m2_flow_nominal=1.5*m_flow_nominal,
+    final dp1_nominal=0,
+    final dp2_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    p2_start=p_CHWS_nominal,
+    T2_start=T_CHWS_nominal,
+    final per=cat.perChi)
+    "Placeholder chiller" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-110,60})));
+  Buildings.Fluid.Sources.MassFlowSource_T souCDW1(
+    redeclare package Medium = Medium1,
+    m_flow=1,
+    T=305.15,
+    nPorts=1) "Source representing CDW supply line"
+    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
+  Buildings.Fluid.Sources.Boundary_pT sinCDW1(
+    redeclare final package Medium = Medium1,
+    final p=300000,
+    final T=310.15,
+    nPorts=1) "Sink representing CDW return line" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-150,70})));
+  Modelica.Blocks.Sources.Constant set_TEvaLvg_chi1(k=T_CHWS_nominal)
+    "Constant setpoint" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-90,150})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chi1On(k=true)
+    "Placeholder, chi1 always on" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-120,150})));
 equation
   connect(set_TRet.y,usr1. TSet) annotation (Line(points={{41,110},{44,110},{44,
           82},{65,82},{65,71}}, color={0,0,127}));
@@ -284,12 +314,8 @@ equation
           {-44,-48},{-50,-48}}, color={255,0,255}));
   connect(set_mChi2Pum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-119,
           -70},{-80,-70},{-80,-49},{-70,-49}}, color={0,0,127}));
-  connect(preDroChi1.port_b, chi1.port_a)
-    annotation (Line(points={{-70,40},{-80,40},{-80,50}}, color={0,127,255}));
-  connect(chi1.port_b, pumChi1.port_a)
-    annotation (Line(points={{-80,70},{-80,80},{-70,80}}, color={0,127,255}));
   connect(sou_p.ports[1], preDroChi1.port_b)
-    annotation (Line(points={{-100,40},{-70,40}},        color={0,127,255}));
+    annotation (Line(points={{-160,40},{-70,40}},        color={0,127,255}));
   connect(set_dpUsr.y, conPI_PumChi1.u_s)
     annotation (Line(points={{-60,139},{-60,122}}, color={0,0,127}));
   connect(conPI_PumChi1.y, pumChi1.y)
@@ -353,19 +379,30 @@ equation
     annotation (Line(points={{-159,-10},{-122,-10}}, color={255,0,255}));
   connect(swiTanCha.y, cat.set_mTan_flow) annotation (Line(points={{-98,-10},{-62,
           -10},{-62,-49}},             color={0,0,127}));
-  connect(sinCDW.ports[1], cat.port_b1) annotation (Line(points={{-90,-100},{
-          -66,-100},{-66,-70}},
-                           color={0,127,255}));
+  connect(sinCDW2.ports[1], cat.port_b1) annotation (Line(points={{-90,-100},{-66,
+          -100},{-66,-70}}, color={0,127,255}));
   connect(cat.port_a2, preDroU3S2.port_b) annotation (Line(points={{-54,-70},{-54,
           -80},{10,-80}}, color={0,127,255}));
   connect(cat.port_a2, preDroU2S2.port_b) annotation (Line(points={{-54,-70},{-54,
           -80},{-4,-80},{-4,-20},{10,-20}}, color={0,127,255}));
-  connect(cat.port_a1, souCDW.ports[1]) annotation (Line(points={{-66,-50},{-66,
+  connect(cat.port_a1, souCDW2.ports[1]) annotation (Line(points={{-66,-50},{-66,
           -40},{-88,-40}}, color={0,127,255}));
   connect(cat.port_b2, preDroS2U3.port_a) annotation (Line(points={{-54,-50},{-54,
           -40},{-30,-40}}, color={0,127,255}));
   connect(cat.port_b2, preDroS2U2.port_a) annotation (Line(points={{-54,-50},{-54,
           -40},{-36,-40},{-36,0},{-30,0}}, color={0,127,255}));
+  connect(preDroChi1.port_b, chi1.port_a2) annotation (Line(points={{-70,40},{
+          -104,40},{-104,50}}, color={0,127,255}));
+  connect(chi1.port_b2, pumChi1.port_a) annotation (Line(points={{-104,70},{
+          -104,80},{-70,80}}, color={0,127,255}));
+  connect(chi1.port_a1, souCDW1.ports[1]) annotation (Line(points={{-116,70},{
+          -134,70},{-134,110},{-140,110}}, color={0,127,255}));
+  connect(sinCDW1.ports[1], chi1.port_b1) annotation (Line(points={{-140,70},{
+          -140,44},{-116,44},{-116,50}}, color={0,127,255}));
+  connect(set_TEvaLvg_chi1.y, chi1.TSet) annotation (Line(points={{-90,139},{
+          -90,82},{-107,82},{-107,72}}, color={0,0,127}));
+  connect(chi1On.y, chi1.on) annotation (Line(points={{-120,138},{-120,78},{
+          -113,78},{-113,72}}, color={255,0,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
         Diagram(coordinateSystem(extent={{-180,-140},{140,180}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));

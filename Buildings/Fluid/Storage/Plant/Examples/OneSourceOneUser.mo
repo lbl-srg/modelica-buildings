@@ -153,7 +153,7 @@ equation
   connect(hysPum1.y, booToReaPum1.u)
     annotation (Line(points={{38,-70},{2,-70}},  color={255,0,255}));
   connect(booToReaPum1.y, cat.set_mPum1_flow)
-    annotation (Line(points={{-22,-70},{-30,-70},{-30,9},{-39,9}},
+    annotation (Line(points={{-22,-70},{-30,-70},{-30,10},{-39,10}},
                                                         color={0,0,127}));
   connect(hysPum1.u,usr. yVal_actual) annotation (Line(points={{62,-70},{68,-70},
           {68,-4},{43,-4},{43,-9}},

@@ -194,7 +194,7 @@ model ChillerAndTank
         origin={-90,10})));
   Buildings.Fluid.Storage.Stratified tan(
     redeclare package Medium = Medium2,
-    allowFlowReversal=true,
+    final allowFlowReversal=true,
     hTan=3,
     dIns=0.3,
     VTan=1,
@@ -208,8 +208,9 @@ model ChillerAndTank
         T_CHWS_nominal,
         tan.nSeg)) "Tank"
     annotation (Placement(transformation(extent={{-20,-80},{-40,-60}})));
-  Modelica.Fluid.Sensors.MassFlowRate sen_m_flow(redeclare package Medium = Medium2, final
-      allowFlowReversal=true) "Flow rate sensor"
+  Modelica.Fluid.Sensors.MassFlowRate sen_m_flow(
+    redeclare package Medium = Medium2,
+    final allowFlowReversal=true) "Flow rate sensor"
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
 equation
   connect(pum2Con.yVal2, val2.y) annotation (Line(points={{62,78.9},{62,78.9},{
