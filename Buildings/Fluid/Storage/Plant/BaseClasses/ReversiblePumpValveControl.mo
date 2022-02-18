@@ -25,7 +25,7 @@ block ReversiblePumpValveControl
     Td=1,
     k=5,
     Ti=50,
-    reverseActing=true)
+    reverseActing=false)
              "PI controller for val2" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
