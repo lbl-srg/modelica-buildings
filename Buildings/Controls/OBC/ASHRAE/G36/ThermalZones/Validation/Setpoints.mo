@@ -3,10 +3,8 @@ model Setpoints "Validate block for zone set point"
 
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints TZonSet(
     final have_occSen=true,
-    final sinAdj=false,
-    final cooAdj=true,
-    final have_winSen=true,
-    final heaAdj=true) "Block that determines the thermal zone setpoints"
+    final have_winSen=true)
+                       "Block that determines the thermal zone setpoints"
     annotation (Placement(transformation(extent={{100,40},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
@@ -26,8 +24,7 @@ model Setpoints "Validate block for zone set point"
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
-    final freqHz=1/28800)
-    "Cooling setpoint adjustment"
+    final freqHz=1/28800) "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
     final freqHz=1/28800,
@@ -55,8 +52,7 @@ model Setpoints "Validate block for zone set point"
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
-    final period=14400,
-    final startTime=1200)
+    final period=14400, final shift=1200)
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
@@ -84,20 +80,20 @@ equation
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-18,-90},{-2,-90}},  color={255,0,255}));
   connect(TZonCooSetOcc.y, TZonSet.TZonCooSetOcc) annotation (Line(points={{-58,90},
-          {-52,90},{-52,108},{50,108},{50,74},{98,74}}, color={0,0,127}));
+          {-50,90},{-50,110},{44,110},{44,74},{98,74}}, color={0,0,127}));
   connect(TZonHeaSetOcc.y, TZonSet.TZonHeaSetOcc) annotation (Line(points={{-18,90},
-          {46,90},{46,66},{98,66}},     color={0,0,127}));
+          {40,90},{40,66},{98,66}},     color={0,0,127}));
   connect(TZonCooSetUno.y, TZonSet.TZonCooSetUno) annotation (Line(points={{-58,50},
           {-52,50},{-52,71},{98,71}},     color={0,0,127}));
   connect(TZonHeaSetUno.y, TZonSet.TZonHeaSetUno) annotation (Line(points={{-18,50},
           {-12,50},{-12,63},{98,63}}, color={0,0,127}));
   connect(cooDemLimLev.y, TZonSet.uCooDemLimLev)
-    annotation (Line(points={{-98,-60},{-80,-60},{-80,-40},{42,-40},{42,52},{98,
+    annotation (Line(points={{-98,-60},{-80,-60},{-80,-40},{40,-40},{40,52},{98,
           52}}, color={255,127,0}));
   connect(heaDemLimLev.y, TZonSet.uHeaDemLimLev)
-    annotation (Line(points={{-18,-60},{46,-60},{46,49},{98,49}}, color={255,127,0}));
+    annotation (Line(points={{-18,-60},{44,-60},{44,49},{98,49}}, color={255,127,0}));
   connect(booToInt.y, TZonSet.uOpeMod)
-    annotation (Line(points={{22,-90},{38,-90},{38,78},{98,78}}, color={255,127,0}));
+    annotation (Line(points={{22,-90},{36,-90},{36,78},{98,78}}, color={255,127,0}));
   connect(winSta.y, swi2.u2)
     annotation (Line(points={{82,-20},{92,-20},{92,0},{-40,0},{-40,20},{-22,20}},
           color={255,0,255}));
@@ -112,15 +108,15 @@ equation
     annotation (Line(points={{-58,20},{-48,20},{-48,12},{-22,12}}, color={0,0,127}));
   connect(heaSetAdj.y, swi1.u3)
     annotation (Line(points={{-58,-20},{-48,-20},{-48,-28},{-22,-28}}, color={0,0,127}));
-  connect(swi2.y, TZonSet.setAdj)
-    annotation (Line(points={{2,20},{18,20},{18,59},{98,59}}, color={0,0,127}));
   connect(swi1.y, TZonSet.heaSetAdj)
-    annotation (Line(points={{2,-20},{22,-20},{22,56},{98,56}}, color={0,0,127}));
+    annotation (Line(points={{2,-20},{20,-20},{20,56},{98,56}}, color={0,0,127}));
   connect(occSta.y, TZonSet.uOcc) annotation (Line(points={{82,20},{88,20},{88,
           45},{98,45}}, color={255,0,255}));
   connect(winSta.y, TZonSet.uWin) annotation (Line(points={{82,-20},{92,-20},{
           92,42},{98,42}}, color={255,0,255}));
 
+  connect(swi2.y, TZonSet.cooSetAdj) annotation (Line(points={{2,20},{10,20},{
+          10,58},{98,58}}, color={0,0,127}));
 annotation (
   experiment(StopTime=28800, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/ThermalZones/Validation/Setpoints.mos"

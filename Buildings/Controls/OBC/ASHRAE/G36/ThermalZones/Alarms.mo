@@ -177,7 +177,7 @@ block Alarms "Zone level alarms"
   Buildings.Controls.OBC.CDL.Logical.Not not5 if have_CO2Sen "Logical not"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final t=1.1*Co2Set,
+    final t=1.1*CO2Set,
     final h=ppmHys) if have_CO2Sen
     "Check if the CO2 concentration exceeds setpoint plus 10%"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));

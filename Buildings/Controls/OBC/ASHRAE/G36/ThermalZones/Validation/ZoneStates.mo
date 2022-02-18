@@ -4,15 +4,15 @@ model ZoneStates "Validation models of determining zone state"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uCoo(
     period=2,
+    final shift=1,
     offset=0,
-    startTime=1,
     amplitude=1) "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uHea(
     period=2,
+    final shift=2,
     offset=0,
-    amplitude=1,
-    startTime=2) "Heating control signal"
+    amplitude=1) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(uHea.y, zonSta.uHea) annotation (Line(points={{-58,30},{-50,30},{-50,

@@ -14,7 +14,7 @@ block Setpoints
     "True: cooling and heating setpoint can be adjusted separately"
     annotation (Dialog(group="Setpoint adjustable setting", enable=have_locAdj));
   parameter Boolean ignDemLim = true
-    "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
+    "True: exempt the individual zone from demand limit setpoint adjustment"
     annotation(Dialog(group="Setpoint adjustable setting"));
   parameter Real TZonCooOnMax(
     final unit="K",
@@ -1188,20 +1188,20 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="Setpoints recognition"),
         Text(
-          extent={{-380,232},{-188,182}},
+          extent={{-350,214},{-188,188}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Local setpoints adjustment"),
         Text(
-          extent={{-288,-328},{-28,-358}},
+          extent={{-232,-336},{-28,-358}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Adjust setpoints due to occupancy"),
         Text(
-          extent={{-34,-384},{252,-430}},
+          extent={{26,-396},{236,-420}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1220,7 +1220,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-394,-540},{-184,-584}},
+          extent={{-388,-542},{-228,-572}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1228,7 +1228,7 @@ annotation (
           textString="Setpoints limited
 in the range"),
         Text(
-          extent={{-124,-526},{76,-594}},
+          extent={{-88,-502},{60,-540}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1236,7 +1236,7 @@ in the range"),
           textString="Limit occupied by
 unoccupied"),
         Text(
-          extent={{34,-478},{298,-564}},
+          extent={{152,-506},{298,-564}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1244,7 +1244,7 @@ unoccupied"),
           textString="Confine cooling setpoint
 by heating one"),
         Text(
-          extent={{-390,-102},{-188,-190}},
+          extent={{-384,-150},{-188,-190}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
