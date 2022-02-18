@@ -49,7 +49,6 @@ regressiontest: clean
 	pip install -r requirements.txt --no-deps
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	rm -rf virEnv
-	git checkout build/html/.buildinfo
 	git diff --exit-code .
 
 dirhtml:
