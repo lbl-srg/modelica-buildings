@@ -1,16 +1,8 @@
 within Buildings.Fluid.Storage.Plant.Validation;
 model ChillerAndTankWithRemoteCharging
-  "(Draft)"
+  "(Draft) Validation model of the plant allowing remote charging"
 /* 
-    Operation modes implemented in time tables:
-        plant   | chiller | tank       | flow direction | tank flow rate
-     1. offline   off       off          N/A              0
-     2. offline   on        charging     N/A              -1
-     3. online    on        charging     normal           -1
-     4. online    on        off          normal           0
-     5. online    on        discharging  normal           1
-     6. online    off       discharging  normal           1
-     7. online    off       charging     reverse          -1
+
 */
 
   extends Modelica.Icons.Example;
@@ -90,7 +82,7 @@ model ChillerAndTankWithRemoteCharging
 equation
 
   connect(booOnOff.y, cat.booOnOff) annotation (Line(points={{-59,-70},{-10,-70},
-          {-10,-9}},          color={255,0,255}));
+          {-10,-10}},         color={255,0,255}));
   connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,0},{-56,0},
           {-56,-2},{-10,-2}},
                       color={255,0,255}));
@@ -98,7 +90,7 @@ equation
     annotation (Line(points={{-59,60},{-14,60},{-14,2},{-9,2}},
                                                         color={0,0,127}));
   connect(set_mChi_flow.y, cat.set_mPum1_flow)
-    annotation (Line(points={{-59,90},{-9,90},{-9,9}},  color={0,0,127}));
+    annotation (Line(points={{-59,90},{-9,90},{-9,10}}, color={0,0,127}));
   connect(cat.port_b2, sin.ports[1]) annotation (Line(points={{-8,-6},{-54,-6},
           {-54,-30},{-60,-30}}, color={0,127,255}));
   connect(sou.ports[1], cat.port_a2) annotation (Line(points={{60,-30},{18,-30},
@@ -110,5 +102,93 @@ equation
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ChillerAndTankWithRemoteCharging.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+(Draft) This is a validation model where the plant is configured to allow
+remotely charging the tank.
+<p>
+Operation modes implemented in time tables:
+</p>
+<table summary= \"operation modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th></th>
+    <th>Plant</th>
+    <th>Chiller</th>
+    <th>Tank</th>
+    <th>Flow direction</th>
+    <th>Tank flow rate setpoint</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1.</td>
+    <td>offline</td>
+    <td>off</td>
+    <td>off</td>
+    <td>N/A</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>2.</td>
+    <td>offline</td>
+    <td>on</td>
+    <td>charging</td>
+    <td>N/A</td>
+    <td>-1</td>
+  </tr>
+  <tr>
+    <td>3.</td>
+    <td>offline</td>
+    <td>on</td>
+    <td>charging</td>
+    <td>normal</td>
+    <td>-1</td>
+  </tr>
+  <tr>
+    <td>4.</td>
+    <td>online</td>
+    <td>on</td>
+    <td>off</td>
+    <td>normal</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>5.</td>
+    <td>online</td>
+    <td>on</td>
+    <td>discharging</td>
+    <td>normal</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>6.</td>
+    <td>online</td>
+    <td>off</td>
+    <td>discharging</td>
+    <td>normal</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>7.</td>
+    <td>online</td>
+    <td>off</td>
+    <td>charging</td>
+    <td>reverse</td>
+    <td>-1</td>
+  </tr>
+</tbody>
+</table>
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end ChillerAndTankWithRemoteCharging;
