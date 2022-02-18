@@ -13,7 +13,7 @@ To get the same configuration as is used during development, run
 ```
 python -m venv virEnv
 source virEnv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt --no-deps
 make build
 deactivate
 rm -rf virEnv
