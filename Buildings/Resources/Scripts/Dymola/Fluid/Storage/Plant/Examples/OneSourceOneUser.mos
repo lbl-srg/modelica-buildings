@@ -1,0 +1,24 @@
+simulateModel("Buildings.Fluid.Storage.Plant.Examples.OneSourceOneUser", 
+ stopTime=3600, 
+ tolerance=1e-06, 
+ method="dassl",
+ resultFile="OneSourceOneUser");
+// Plot commands
+createPlot(id=1,
+ position={15, 15, 1027, 480},
+ y={"cat.pum1.m_flow", "cat.mTan_flow", "cat.pum2.m_flow"},
+ range={0.0, 3600.0, -1.0, 1.0},
+ grid=true,
+ subPlot=101,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ timeUnit="s",
+ displayUnits={"kg/s", "kg/s", "kg/s"});
+createPlot(id=1,
+ position={15, 15, 1027, 480},
+ y={"usr.yVal_actual"},
+ range={0.0, 3600.0, -0.2, 1.2},
+ autoscale=false,
+ grid=true,
+ subPlot=102,
+ colors={{28,108,200}},
+ timeUnit="s");

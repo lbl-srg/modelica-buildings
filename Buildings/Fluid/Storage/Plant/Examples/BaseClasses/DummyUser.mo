@@ -91,7 +91,7 @@ the consumer control valve simply tracks the return CHW temperature.
         origin={-110,80}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,90})));
+        origin={-110,80})));
   Modelica.Blocks.Interfaces.RealInput TSet "CHW return setpoint" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -99,7 +99,7 @@ the consumer control valve simply tracks the return CHW temperature.
         origin={-110,60}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,50})));
+        origin={-110,40})));
   Modelica.Blocks.Interfaces.RealOutput yVal_actual
     "Consumer control valve actuator position" annotation (Placement(
         transformation(
@@ -108,7 +108,7 @@ the consumer control valve simply tracks the return CHW temperature.
         origin={110,40}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-70,110})));
+        origin={-60,110})));
   Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = Medium)
     "Differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
@@ -120,7 +120,7 @@ the consumer control valve simply tracks the return CHW temperature.
         origin={110,-80}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-30,110})));
+        origin={-20,110})));
 equation
   connect(val.port_b, vol.ports[1])
     annotation (Line(points={{-60,0},{1,0}}, color={0,127,255}));

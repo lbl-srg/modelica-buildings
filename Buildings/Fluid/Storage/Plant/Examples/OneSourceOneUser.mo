@@ -1,18 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Examples;
-model OneSourceOneUser "(Draft) District system with one source and one user"
-/*
-- Controls -
-  Primary pump:
-    Tracks consumer control valve position con.yVal,
-    closes at y.Val < 0.05,
-    reopens at y.Val > 0.5.
-  Secondary pump:
-    Maintains constant consumer pressure head con.dp.
-- Pressure -
-  Assuming the plant takes 10% of total pressure head,
-    supply and return pipes 30% each,
-    consumer 30%.
-*/
+model OneSourceOneUser "(Draft) Simple system model with one source and one user"
   extends Modelica.Icons.Example;
 
   package Medium1 = Buildings.Media.Water "Medium model for CDW";
@@ -33,7 +20,7 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
     "Nominal temperature of CHW supply";
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
-  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*1.01
+  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.9
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
@@ -85,8 +72,8 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
     final dp_nominal=dp_nominal*0.3,
     final m_flow_nominal=m_flow_nominal) "Flow resistance of the consumer"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Modelica.Blocks.Sources.Constant set_dpCon(k=1)
-    "Normalised consumer differential pressure setpoint"
+  Modelica.Blocks.Sources.Constant set_dpUsr(k=1)
+    "Normalised differential pressure setpoint of the user"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,70})));
@@ -103,18 +90,6 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-20,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum1(uLow=0.05, uHigh=0.5)
-    "Primary pump shuts off at con.yVal = 0.05 and restarts at 0.5" annotation (
-     Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={50,-70})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue=
-        m_flow_nominal/2) "Primary pump signal" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-10,-70})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW(
     redeclare package Medium = Medium1,
     m_flow=1,
@@ -130,12 +105,15 @@ model OneSourceOneUser "(Draft) District system with one source and one user"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-90,20})));
+  Modelica.Blocks.Sources.Constant set_mChi_flow(k=m_flow_nominal/2)
+    "Primary pump flow rate setpoint"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
   connect(set_TRet.y,usr. TSet)
-    annotation (Line(points={{21,30},{32,30},{32,-15},{39,-15}},
+    annotation (Line(points={{21,30},{32,30},{32,-16},{39,-16}},
                                                             color={0,0,127}));
   connect(preQCooLoa_flow.y,usr. QCooLoa_flow)
-    annotation (Line(points={{21,60},{34,60},{34,-11},{39,-11}},
+    annotation (Line(points={{21,60},{34,60},{34,-12},{39,-12}},
                                                              color={0,0,127}));
   connect(preDro1.port_b,usr. port_a)
     annotation (Line(points={{10,-20},{40,-20}},
@@ -143,21 +121,13 @@ equation
   connect(usr.port_b, preDro2.port_a)
     annotation (Line(points={{60,-20},{60,-40},{10,-40}},
                                                         color={0,127,255}));
-  connect(set_dpCon.y, conPI_pum2.u_s)
+  connect(set_dpUsr.y, conPI_pum2.u_s)
     annotation (Line(points={{-50,59},{-50,52}},             color={0,0,127}));
-  connect(usr.dp, gaiPum2.u) annotation (Line(points={{47,-9},{46,-9},{46,88},{-20,
+  connect(usr.dp, gaiPum2.u) annotation (Line(points={{48,-9},{48,-9},{48,88},{-20,
           88},{-20,82}},           color={0,0,127}));
   connect(conPI_pum2.y, cat.yPum2)
     annotation (Line(points={{-50,29},{-50,20},{-42,20},{-42,11}},
                                                          color={0,0,127}));
-  connect(hysPum1.y, booToReaPum1.u)
-    annotation (Line(points={{38,-70},{2,-70}},  color={255,0,255}));
-  connect(booToReaPum1.y, cat.set_mPum1_flow)
-    annotation (Line(points={{-22,-70},{-30,-70},{-30,10},{-39,10}},
-                                                        color={0,0,127}));
-  connect(hysPum1.u,usr. yVal_actual) annotation (Line(points={{62,-70},{68,-70},
-          {68,-4},{43,-4},{43,-9}},
-                            color={0,0,127}));
   connect(gaiPum2.y, conPI_pum2.u_m)
     annotation (Line(points={{-20,59},{-20,40},{-38,40}}, color={0,0,127}));
   connect(cat.port_b2, preDro1.port_a) annotation (Line(points={{-40,-6},{-16,
@@ -170,5 +140,40 @@ equation
           {-74,20},{-80,20}}, color={0,127,255}));
   connect(cat.port_a1, souCDW.ports[1]) annotation (Line(points={{-40,6},{-34,6},
           {-34,20},{-30,20}}, color={0,127,255}));
-  annotation(experiment(Tolerance=1e-06, StopTime=3600));
+  connect(set_mChi_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-39,-70},
+          {-26,-70},{-26,10},{-39,10}}, color={0,0,127}));
+  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OneSourceOneUser.mos"
+        "Simulate and plot"),
+experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>
+<p>
+(Draft) This is a simple system model with only one source and one user.
+The source uses the plant model
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.ChillerAndTank\">
+Buildings.Fluid.Storage.Plant.ChillerAndTank</a>
+which is configured here not to allow charging the tank remotely.
+It is therefore equivalent to having the tank in place of the common pipe.
+</p>
+The primary and secondary pumps are controlled as such:
+<ul>
+<li>
+The primary pump is set to a constant flow rate at all time.
+</li>
+<li>
+The secondary pump is set to track the available head at the user.
+</li>
+</ul>
+<p>
+Under these settings, the tank is charged whenever the chiller outputs more than
+needed by the user and discharges whenever the chiller outputs less than needed.
+The capacity of the tank is not considered.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end OneSourceOneUser;
