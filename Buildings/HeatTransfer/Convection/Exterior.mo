@@ -35,9 +35,9 @@ protected
     "Small value for wind velocity below which equations are regularized";
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
   final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
-  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+  final parameter Boolean is_ceiling = abs(sinTil) < 10E-10 and cosTil > 0
     "Flag, true if the surface is a ceiling";
-  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+  final parameter Boolean is_floor = abs(sinTil) < 10E-10 and cosTil < 0
     "Flag, true if the surface is a floor";
 
   parameter Real R(fixed=false) "Surface roughness";
@@ -70,9 +70,9 @@ equation
     // Even if hCon is a step function with a step at zero,
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
-    if isCeiling then
+    if is_ceiling then
        qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
-    elseif isFloor then
+    elseif is_floor then
        qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
     else
        qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
@@ -230,6 +230,12 @@ Engineering Research Laboratory, Champaign, IL.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 May 7, 2020, by Michael Wetter:<br/>
 Set wind direction modifier to a constant as wind velocity approaches zero.<br/>

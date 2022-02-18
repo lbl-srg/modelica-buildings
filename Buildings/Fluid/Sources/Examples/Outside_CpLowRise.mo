@@ -56,7 +56,7 @@ equation
     Documentation(info="<html>
 <p>
 This model demonstrates the use of a source for ambient conditions that computes
-the wind pressure on a facade of a low-rise building.
+the wind pressure on a facade of a low-rise building using the equation from Swami and Chandra (1987).
 Weather data are used for San Francisco, for a period of a week
 where the wind blows primarily from North-West.
 The plot shows that the wind pressure on the north- and west-facing
