@@ -213,5 +213,66 @@ equation
   connect(and3Pum2.y, swiPum1.u2) annotation (Line(points={{-60,-62},{-60,-70},
           {-50,-70},{-50,-118}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-160},{100,100}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This is a control block for the secondary pump-valve group in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.ChillerAndTank\">
+Buildings.Fluid.Storage.Plant.ChillerAndTank</a>.
+This block is conditionally enabled when the plant is configured to allow
+remotely charging the tank.
+</p>
+<p>
+The secondary pump and two control valves are controlled as such:
+</p>
+<ul>
+<li>
+The pump is controlled to track a flow rate setpoint of the tank
+(can be both positive [discharging] or negative [charging])
+under the following conditions:
+<ul>
+<li>
+The plant is online, AND
+</li>
+<li>
+the flow direction is \"normal\" (<code>= true</code>), AND
+</li>
+<li>
+<code>val2</code> (in parallel to the pump) is at most 5% open.
+</li>
+</ul>
+Otherwise the pump is off.
+</li>
+<li>
+The valve in series with the pump (<code>val1</code>) is controlled to open fully
+under the same conditions that allow the pump to be on.
+Otherwise the valve is closed.
+</li>
+<li>
+The valve in parallel with the pump (<code>val2</code>) is controlled
+to track a negative flow rate setpoint of the tank (charging)
+under the following conditions:
+<ul>
+<li>
+The plant is online, AND
+</li>
+<li>
+the flow direction is \"reverse\" (<code>= false</code>), AND
+</li>
+<li>
+<code>val1</code> (in series to the pump) is at most 5% open.
+</li>
+</ul>
+Otherwise the valve is closed.
+</li>
+</ul>
+</html>"));
 end ReversiblePumpValveControl;

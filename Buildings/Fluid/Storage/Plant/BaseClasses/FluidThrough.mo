@@ -14,5 +14,13 @@ equation
     Documentation(info="<html>
 Fluid directly passes through the two ports.
 This is used to replace conditionally-enabled components with a connection.
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
 </html>"));
 end FluidThrough;

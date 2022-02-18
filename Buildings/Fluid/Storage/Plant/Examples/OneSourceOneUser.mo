@@ -153,7 +153,9 @@ Buildings.Fluid.Storage.Plant.ChillerAndTank</a>
 which is configured here not to allow charging the tank remotely.
 It is therefore equivalent to having the tank in place of the common pipe.
 </p>
+<p>
 The primary and secondary pumps are controlled as such:
+</p>
 <ul>
 <li>
 The primary pump is set to a constant flow rate at all time.
