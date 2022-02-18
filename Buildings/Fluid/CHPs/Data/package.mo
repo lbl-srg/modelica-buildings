@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs;
-package Data
+package Data "Performance data for CHP models"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation(preferredView="info",
