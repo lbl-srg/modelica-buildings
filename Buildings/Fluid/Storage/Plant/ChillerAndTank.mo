@@ -130,19 +130,17 @@ model ChillerAndTank
     redeclare package Medium = Medium2,
     use_inputFilter=true,
     y_start=0,
-    dpFixed_nominal=0.1*dp_nominal,
     l=1E-10,
-    dpValve_nominal=1,
-    m_flow_nominal=mChi_flow_nominal+mTan_flow_nominal) if allowRemoteCharging
+    dpValve_nominal=6000,
+    m_flow_nominal=m2_flow_nominal)                     if allowRemoteCharging
     "Valve in series to the pump (normal direction)"
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium2,
     use_inputFilter=true,
     y_start=0,
-    dpFixed_nominal=0.1*dp_nominal,
     l=1E-10,
-    dpValve_nominal=1,
+    dpValve_nominal=6000,
     m_flow_nominal=mTan_flow_nominal) if allowRemoteCharging
     "Valve in parallel to the secondary pump (reverse direction)"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
@@ -157,7 +155,7 @@ model ChillerAndTank
         rotation=90,
         origin={-50,90})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidThrough pasVal1(redeclare
-      package                                                                      Medium = Medium2)
+      package Medium =                                                                      Medium2)
     if not allowRemoteCharging "Replaces val1 when remote charging not allowed"
     annotation (Placement(transformation(extent={{60,-42},{40,-22}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.SignalThrough pasSwiFloDirPum1 if not allowRemoteCharging

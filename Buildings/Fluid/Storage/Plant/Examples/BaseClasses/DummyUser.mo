@@ -25,7 +25,7 @@ the consumer control valve simply tracks the return CHW temperature.
     redeclare package Medium = Medium,
     use_inputFilter=false,
     l=1E-10,
-    dpValve_nominal=1,
+    dpValve_nominal=6000,
     m_flow_nominal=m_flow_nominal,
     y_start=0) "User control valve"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -39,7 +39,7 @@ the consumer control valve simply tracks the return CHW temperature.
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=true,
-    V=1,
+    V=0.5,
     p_start=p_a_nominal,
     T_start=T_b_nominal) "Volume representing the consumer"
     annotation (

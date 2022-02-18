@@ -21,7 +21,7 @@ model TwoSourcesThreeUsers
     "Nominal temperature of CHW supply";
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
-  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*1.01
+  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.85
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
