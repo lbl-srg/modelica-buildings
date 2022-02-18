@@ -1,0 +1,15 @@
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.ChillerAndTankNoRemoteCharging", 
+ stopTime=3600, 
+ tolerance=1e-06, 
+ method="dassl",
+ resultFile="ChillerAndTankNoRemoteCharging");
+// Plot commands
+createPlot(id=1,
+ position={15, 15, 961, 426},
+ y={"cat.pum1.m_flow", "cat.mTan_flow", "cat.pum2.m_flow"},
+ range={0.0, 3600.0, -4.0, 6.0},
+ grid=true,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ timeUnit="s",
+ displayUnits={"kg/s", "kg/s", "kg/s"});
+

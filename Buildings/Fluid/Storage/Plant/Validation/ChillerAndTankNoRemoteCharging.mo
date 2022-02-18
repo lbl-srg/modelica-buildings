@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model ChillerAndTankNoRemoteCharging "(Draft)"
+model ChillerAndTankNoRemoteCharging
+  "(Draft) Validation model of the plant not allowing remote charging"
   extends Modelica.Icons.Example;
 
   package Medium1 = Buildings.Media.Water "Medium model";
@@ -48,7 +49,7 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
   Modelica.Blocks.Sources.TimeTable set_mPum2_flow(table=[0,1; 900,1; 900,-1;
         1800,-1; 1800,0; 2700,0; 2700,1; 3600,1])
             "Secondary mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Modelica.Blocks.Sources.Constant set_mPum1_flow(k=cat.m1_flow_nominal)
     "Primary pump mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -59,20 +60,20 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-50,70})));
+        origin={-50,50})));
   Modelica.Blocks.Math.Gain gain2(k=1/cat.m2_flow_nominal) "Gain"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-10,90})));
+        origin={-10,70})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW(
     redeclare package Medium = Medium1,
     m_flow=1,
     T=305.15,
     nPorts=1) "Source representing CDW supply line"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Fluid.Sources.Boundary_pT                 sinCDW(
+  Buildings.Fluid.Sources.Boundary_pT sinCDW(
     redeclare final package Medium = Medium1,
     final p=300000,
     final T=310.15,
@@ -84,16 +85,16 @@ model ChillerAndTankNoRemoteCharging "(Draft)"
 equation
 
   connect(gain2.y, conPID_Pum2.u_m)
-    annotation (Line(points={{-21,90},{-50,90},{-50,82}},
+    annotation (Line(points={{-21,70},{-50,70},{-50,62}},
                                                    color={0,0,127}));
-  connect(cat.mTan_flow, gain2.u) annotation (Line(points={{11,-2},{14,-2},{14,90},
-          {2,90}},  color={0,0,127}));
+  connect(cat.mTan_flow, gain2.u) annotation (Line(points={{11,-2},{16,-2},{16,70},
+          {2,70}},  color={0,0,127}));
   connect(set_mPum2_flow.y, conPID_Pum2.u_s)
-    annotation (Line(points={{-79,70},{-62,70}},             color={0,0,127}));
+    annotation (Line(points={{-79,50},{-62,50}},             color={0,0,127}));
   connect(set_mPum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-59,0},
-          {-16,0},{-16,9},{-11,9}},      color={0,0,127}));
+          {-16,0},{-16,10},{-11,10}},    color={0,0,127}));
   connect(conPID_Pum2.y, cat.yPum2)
-    annotation (Line(points={{-39,70},{-8,70},{-8,11}}, color={0,0,127}));
+    annotation (Line(points={{-39,50},{-8,50},{-8,11}}, color={0,0,127}));
   connect(sin.ports[1], cat.port_b2) annotation (Line(points={{-60,-30},{-16,
           -30},{-16,-6},{-10,-6}}, color={0,127,255}));
   connect(sou.ports[1], cat.port_a2) annotation (Line(points={{60,-30},{16,-30},
@@ -102,8 +103,23 @@ equation
           30},{-20,6},{-10,6}}, color={0,127,255}));
   connect(cat.port_b1, sinCDW.ports[1]) annotation (Line(points={{10,6},{54,6},
           {54,30},{60,30}}, color={0,127,255}));
-  annotation (
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ChillerAndTankNoRemoteCharging.mos"
+        "Simulate and plot"),
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+(Draft) This is a validation model where the plant is configured not to allow
+remotely charging the tank.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end ChillerAndTankNoRemoteCharging;

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "cat.pum1.m_flow",
+    "cat.mTan_flow",
+    "cat.pum2.m_flow"
+  };
