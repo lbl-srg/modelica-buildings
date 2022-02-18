@@ -100,10 +100,10 @@ model ChillerAndTank
     if allowRemoteCharging "Control block for secondary pump-valve group"
     annotation (Placement(transformation(extent={{80,80},{60,102}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booOnOff
-    if allowRemoteCharging
-    "Plant status: true = online; false = offline" annotation (Placement(
-        transformation(extent={{120,70},{100,90}}),   iconTransformation(extent={{-140,
-            -120},{-100,-80}})));
+    if allowRemoteCharging "Plant status: true = on; false = off"
+                                                   annotation (Placement(
+        transformation(extent={{120,70},{100,90}}),
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
     if allowRemoteCharging
     "Flow direction: true = normal; false = reverse" annotation (Placement(
@@ -124,7 +124,8 @@ model ChillerAndTank
     y_start=0,
     l=1E-5,
     dpValve_nominal=0.1*dp_nominal,
-    m_flow_nominal=m2_flow_nominal)                     if allowRemoteCharging
+    m_flow_nominal=m2_flow_nominal)
+    if allowRemoteCharging
     "Valve in series to the pump (normal direction)"
     annotation (Placement(transformation(extent={{30,-20},{10,0}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
@@ -147,10 +148,11 @@ model ChillerAndTank
         rotation=90,
         origin={-50,90})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidThrough pasVal1(redeclare
-      package Medium =                                                                      Medium2)
+      package Medium = Medium2)
     if not allowRemoteCharging "Replaces val1 when remote charging not allowed"
     annotation (Placement(transformation(extent={{30,-42},{10,-22}})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.SignalThrough pasSwiFloDirPum1 if not allowRemoteCharging
+  Buildings.Fluid.Storage.Plant.BaseClasses.SignalThrough pasSwiFloDirPum1
+    if not allowRemoteCharging
     "Replaces swiFloDirPum1 when remote charging not allowed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -335,5 +337,82 @@ equation
           pattern=LinePattern.None),
         Line(points={{16,74},{-20,66}},color={0,0,0}),
         Line(points={{-20,54},{14,44}},color={0,0,0})}),         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,120}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,120}})),
+    Documentation(info="<html>
+<p>
+This plant model has a chiller and a stratified tank.
+By setting <code>allowRemoteCharging = false</code>,
+this model is effectively replacing a common pipe with a tank.
+By setting <code>allowRemoteCharging = true</code>,
+the tank can be charged by the CHW network instead of its own chiller.
+</p>
+<p>
+When remote charging is enabled, the plant's operation mode is determined by
+two boolean inputs:
+</p>
+<ul>
+<li>
+<code>booFloDir</code> determines the direction flow direction of the plant.
+It has reverse flow when and only when the tank is being charged remotely.
+</li>
+<li>
+<code>booOnOff</code> determines whether the plant outputs CHW to the network.
+When it is off, the plant still allows the tank to be charged remotely
+(if the flow direction is set to reverse at the same time).
+</li>
+</ul>
+<p>
+When remote charging is allowed, the secondary pump and two conditionally-enabled
+control valves are controlled by
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl\">
+Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl</a> as such:
+</p>
+<ul>
+<li>
+The pump is controlled to track a flow rate setpoint of the tank
+(can be both positive [discharging] or negative [charging])
+under the following conditions:
+<ul>
+<li>
+The plant is on, AND
+</li>
+<li>
+the flow direction is \"normal\" (<code>= true</code>), AND
+</li>
+<li>
+<code>val2</code> (in parallel to the pump) is at most 5% open.
+</li>
+</ul>
+Otherwise the pump is off.
+</li>
+<li>
+The valve in series with the pump (<code>val1</code>) is controlled to open fully
+under the same conditions that allow the pump to be on.
+Otherwise the valve is closed.
+</li>
+<li>
+The valve in parallel with the pump (<code>val2</code>) is controlled
+to track a negative flow rate setpoint of the tank (charging)
+under the following conditions:
+<ul>
+<li>
+The flow direction is \"reverse\" (<code>= false</code>), AND
+</li>
+<li>
+<code>val1</code> (in series to the pump) is at most 5% open.
+</li>
+</ul>
+Otherwise the valve is closed.
+Not that it is NOT closed when the plant is \"off\".
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end ChillerAndTank;
