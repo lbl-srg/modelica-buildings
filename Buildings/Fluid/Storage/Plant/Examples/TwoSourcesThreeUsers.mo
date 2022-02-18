@@ -21,7 +21,7 @@ model TwoSourcesThreeUsers
     "Nominal temperature of CHW supply";
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
-  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.85
+  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.5
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
@@ -306,9 +306,8 @@ equation
   connect(usr3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-54},
           {86,-54},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color={0,0,
           127}));
-  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,6},{
-          86,6},{86,-110},{62,-110}},
-                                   color={0,0,127}));
+  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,6},{86,
+          6},{86,-110},{62,-110}}, color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
   connect(hysCat.y, cat.booOnOff) annotation (Line(points={{-2,-110},{-44,-110},
@@ -356,8 +355,8 @@ equation
     annotation (Line(points={{99,-30},{68,-30},{68,-49}}, color={0,0,127}));
   connect(usr1.dpUsr, gaiUsr1.u)
     annotation (Line(points={{71,62},{71,60},{98,60}}, color={0,0,127}));
-  connect(usr2.dpUsr, gaiUsr2.u) annotation (Line(points={{71,2},{71,
-          1.55431e-15},{98,1.55431e-15}}, color={0,0,127}));
+  connect(usr2.dpUsr, gaiUsr2.u) annotation (Line(points={{71,2},{71,1.55431e-15},
+          {98,1.55431e-15}}, color={0,0,127}));
   connect(usr3.dpUsr, gaiUsr3.u) annotation (Line(points={{71,-58},{72,-58},{72,
           -60},{98,-60}}, color={0,0,127}));
   connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{121,60},{126,

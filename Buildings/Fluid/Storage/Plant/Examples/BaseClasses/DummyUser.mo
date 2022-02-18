@@ -18,8 +18,8 @@ model DummyUser "Dummy user model"
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium,
     use_inputFilter=false,
-    l=1E-10,
-    dpValve_nominal=6000,
+    l=1E-5,
+    dpValve_nominal=0.1*dp_nominal,
     m_flow_nominal=m_flow_nominal,
     y_start=0) "User control valve"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -89,8 +89,7 @@ model DummyUser "Dummy user model"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-60,110})));
-  Buildings.Fluid.Sensors.RelativePressure dpSen(
-    redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = Medium)
     "Differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Modelica.Blocks.Interfaces.RealOutput dpUsr

@@ -194,7 +194,7 @@ model ChillerAndTank
     final allowFlowReversal=true,
     hTan=3,
     dIns=0.3,
-    VTan=1,
+    VTan=10,
     nSeg=7,
     show_T=true,
     m_flow_nominal=mTan_flow_nominal,
