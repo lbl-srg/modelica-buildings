@@ -1,9 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Validation;
 model ChillerAndTankWithRemoteCharging
   "(Draft) Validation model of the plant allowing remote charging"
-/* 
-
-*/
 
   extends Modelica.Icons.Example;
 

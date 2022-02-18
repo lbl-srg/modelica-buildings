@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Examples;
 model TwoSourcesThreeUsers
-  "(Draft) District model with two sources and three users"
+  "(Draft) District system model with two sources and three users"
   extends Modelica.Icons.Example;
 
   package Medium1 = Buildings.Media.Water "Medium model for CDW";
@@ -19,14 +19,14 @@ model TwoSourcesThreeUsers
     "Nominal temperature of CHW return";
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
     "Nominal temperature of CHW supply";
-  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.5
+  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.6
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
-    final mChi_flow_nominal=0.75*m_flow_nominal,
-    final mTan_flow_nominal=0.75*m_flow_nominal,
+    final mChi_flow_nominal=0.3*m_flow_nominal,
+    final mTan_flow_nominal=0.3*m_flow_nominal,
     final p_CHWS_nominal=p_CHWS_nominal,
     final p_CHWR_nominal=p_CHWR_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
@@ -246,7 +246,7 @@ model TwoSourcesThreeUsers
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final m1_flow_nominal=1.2*chi1.m2_flow_nominal,
-    final m2_flow_nominal=1.5*m_flow_nominal,
+    final m2_flow_nominal=0.7*m_flow_nominal,
     final dp1_nominal=0,
     final dp2_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -395,7 +395,107 @@ equation
     annotation (Line(points={{-160,30},{-50,30},{-50,40}}, color={0,127,255}));
   connect(cheValChi1Pum.port_b, preDroS1U2.port_a) annotation (Line(points={{-70,
           80},{-36,80},{-36,20},{-30,20}}, color={0,127,255}));
-  annotation (experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/TwoSourcesThreeUsers.mos"
+        "Simulate and plot"),
+        experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
         Diagram(coordinateSystem(extent={{-180,-140},{140,180}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+(Draft)
+This is a district system model with two CHW sources and three users
+as described in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</p>
+<p>
+The first source is a simplified CHW plant with only a chiller,
+a single supply pump, and a check valve (with series resistance built in).
+This supply pump is controlled to ensure that all users have enough pressure head.
+The system is pressurised before this supply pump.
+</p>
+<p>
+The second source has a chiller and a stratified CHW tank. Its piping is arranged
+in a way that allows the tank to be charged remotely by the other source.
+Its supply pump is controlled to maintain the flow rate setpoint of the tank.
+This plant is offline when the most open control valve of all users is less than
+5% open and is back online when this value is more than 50%.
+</p>
+<p>
+The timetables give the system the following behaviour:
+</p>
+<table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th>Time slots</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>User 1</td>
+    <td>-</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>User 2</td>
+    <td>-</td>
+    <td>-</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>User 3</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Tank <br>(being charged)</td>
+    <td>Local</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>Remote</td>
+    <td>Remote</td>
+    <td>-</td>
+  </tr>
+</tbody>
+</table>
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end TwoSourcesThreeUsers;
