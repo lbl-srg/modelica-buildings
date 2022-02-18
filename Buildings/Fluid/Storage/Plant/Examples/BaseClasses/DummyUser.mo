@@ -1,14 +1,8 @@
 within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
 model DummyUser "Dummy user model"
-/*
-For simplification, instead of setting up a heat exchanger to a room model,
-the consumer control valve simply tracks the return CHW temperature.  
-*/
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component";
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    m_flow_nominal=1);
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
-    "Nominal mass flow rate";
   parameter Modelica.Units.SI.AbsolutePressure p_a_nominal=800000
     "Nominal pressure of the CHW supply line";
   parameter Modelica.Units.SI.AbsolutePressure p_b_nominal=300000
@@ -70,20 +64,6 @@ the consumer control valve simply tracks the return CHW temperature.
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-10,60})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    p(start=p_a_nominal),
-    redeclare package Medium = Medium,
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
-        iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    p(start=p_b_nominal),
-    redeclare package Medium = Medium,
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}),
-        iconTransformation(extent={{110,-10},{90,10}})));
   Modelica.Blocks.Interfaces.RealInput QCooLoa_flow
     "Cooling load of the consumer" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -109,12 +89,12 @@ the consumer control valve simply tracks the return CHW temperature.
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-60,110})));
-  Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure dpSen(
+    redeclare package Medium = Medium)
     "Differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput dp
-    "Differential pressure of the consumer" annotation (Placement(
-        transformation(
+  Modelica.Blocks.Interfaces.RealOutput dpUsr
+    "Differential pressure of the user" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,-80}), iconTransformation(
@@ -138,26 +118,26 @@ equation
           {-70,12}}, color={0,0,127}));
   connect(TUsr.T, conPI.u_m)
     annotation (Line(points={{19,-30},{-50,-30},{-50,48}}, color={0,0,127}));
-  connect(val.port_a, port_a)
-    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
-  connect(preDro.port_b, port_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(heaCon.Q_flow, QCooLoa_flow)
     annotation (Line(points={{22,80},{-110,80}}, color={0,0,127}));
   connect(conPI.u_s, TSet)
     annotation (Line(points={{-62,60},{-110,60}}, color={0,0,127}));
-  connect(port_a, dpSen.port_a) annotation (Line(
-      points={{-100,0},{-100,-50},{-10,-50}},
+  connect(dpSen.p_rel, dpUsr)
+    annotation (Line(points={{0,-59},{0,-80},{110,-80}}, color={0,0,127}));
+  connect(val.y_actual, yVal_actual)
+    annotation (Line(points={{-65,7},{-65,40},{110,40}}, color={0,0,127}));
+  connect(val.port_a, port_a)
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+  connect(dpSen.port_a, port_a) annotation (Line(
+      points={{-10,-50},{-100,-50},{-100,0}},
       color={0,127,255},
       pattern=LinePattern.Dash));
+  connect(preDro.port_b, port_b)
+    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(dpSen.port_b, port_b) annotation (Line(
       points={{10,-50},{100,-50},{100,0}},
       color={0,127,255},
       pattern=LinePattern.Dash));
-  connect(dpSen.p_rel, dp)
-    annotation (Line(points={{0,-59},{0,-80},{110,-80}}, color={0,0,127}));
-  connect(val.y_actual, yVal_actual)
-    annotation (Line(points={{-65,7},{-65,40},{110,40}}, color={0,0,127}));
   annotation (Icon(graphics={Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -165,5 +145,19 @@ equation
           fillPattern=FillPattern.Sphere), Text(
           extent={{-58,-104},{62,-132}},
           textColor={0,0,127},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>
+(Draft)
+For simplicity, instead of setting up a heat exchanger to a room model,
+the consumer control valve simply tracks the return CHW temperature.  
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end DummyUser;

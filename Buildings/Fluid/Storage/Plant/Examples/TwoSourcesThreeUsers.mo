@@ -298,16 +298,17 @@ model TwoSourcesThreeUsers
         origin={-120,150})));
 equation
   connect(set_TRet.y,usr1. TSet) annotation (Line(points={{41,110},{44,110},{44,
-          82},{65,82},{65,71}}, color={0,0,127}));
+          82},{64,82},{64,71}}, color={0,0,127}));
   connect(set_TRet.y,usr2. TSet) annotation (Line(points={{41,110},{44,110},{44,
-          22},{65,22},{65,11}}, color={0,0,127}));
+          22},{64,22},{64,11}}, color={0,0,127}));
   connect(set_TRet.y,usr3. TSet) annotation (Line(points={{41,110},{44,110},{44,
-          -38},{65,-38},{65,-49}}, color={0,0,127}));
-  connect(usr3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-53},
-          {86,-53},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color={0,0,
+          -38},{64,-38},{64,-49}}, color={0,0,127}));
+  connect(usr3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-54},
+          {86,-54},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color={0,0,
           127}));
-  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,7},{86,
-          7},{86,-110},{62,-110}}, color={0,0,127}));
+  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,6},{
+          86,6},{86,-110},{62,-110}},
+                                   color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
   connect(hysCat.y, cat.booOnOff) annotation (Line(points={{-2,-110},{-44,-110},
@@ -320,8 +321,8 @@ equation
     annotation (Line(points={{-60,139},{-60,122}}, color={0,0,127}));
   connect(conPI_PumChi1.y, pumChi1.y)
     annotation (Line(points={{-60,99},{-60,92}},  color={0,0,127}));
-  connect(usr1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,67},
-          {86,67},{86,-110},{62,-110},{62,-109.333}},color={0,0,127}));
+  connect(usr1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,66},
+          {86,66},{86,-110},{62,-110},{62,-109.333}},color={0,0,127}));
   connect(preDroS2U3.port_b,usr3. port_a)
     annotation (Line(points={{-10,-40},{60,-40},{60,-50}}, color={0,127,255}));
   connect(usr3.port_b,preDroU3S2. port_a)
@@ -348,18 +349,17 @@ equation
   connect(preDroU1S1.port_b, preDroChi1.port_a)
     annotation (Line(points={{10,40},{-50,40}}, color={0,127,255}));
   connect(set_QCooLoa1_flow.y,usr1. QCooLoa_flow)
-    annotation (Line(points={{99,90},{69,90},{69,71}}, color={0,0,127}));
+    annotation (Line(points={{99,90},{68,90},{68,71}}, color={0,0,127}));
   connect(set_QCooLoa2_flow.y,usr2. QCooLoa_flow)
-    annotation (Line(points={{99,30},{69,30},{69,11}}, color={0,0,127}));
+    annotation (Line(points={{99,30},{68,30},{68,11}}, color={0,0,127}));
   connect(set_QCooLoa3_flow.y,usr3. QCooLoa_flow)
-    annotation (Line(points={{99,-30},{69,-30},{69,-49}}, color={0,0,127}));
-  connect(usr1.dp,gaiUsr1. u)
-    annotation (Line(points={{71,63},{71,60},{98,60}}, color={0,0,127}));
-  connect(usr2.dp,gaiUsr2. u) annotation (Line(points={{71,3},{71,1.55431e-15},{
-          98,1.55431e-15}}, color={0,0,127}));
-  connect(usr3.dp,gaiUsr3. u) annotation (Line(points={{71,-57},{72,-57},{72,
-          -60},{98,-60}},
-                     color={0,0,127}));
+    annotation (Line(points={{99,-30},{68,-30},{68,-49}}, color={0,0,127}));
+  connect(usr1.dpUsr, gaiUsr1.u)
+    annotation (Line(points={{71,62},{71,60},{98,60}}, color={0,0,127}));
+  connect(usr2.dpUsr, gaiUsr2.u) annotation (Line(points={{71,2},{71,
+          1.55431e-15},{98,1.55431e-15}}, color={0,0,127}));
+  connect(usr3.dpUsr, gaiUsr3.u) annotation (Line(points={{71,-58},{72,-58},{72,
+          -60},{98,-60}}, color={0,0,127}));
   connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{121,60},{126,
           60},{126,142},{-9.33333,142}},
                                      color={0,0,127}));

@@ -123,8 +123,8 @@ equation
                                                         color={0,127,255}));
   connect(set_dpUsr.y, conPI_pum2.u_s)
     annotation (Line(points={{-50,59},{-50,52}},             color={0,0,127}));
-  connect(usr.dp, gaiPum2.u) annotation (Line(points={{48,-9},{48,-9},{48,88},{-20,
-          88},{-20,82}},           color={0,0,127}));
+  connect(usr.dpUsr, gaiPum2.u) annotation (Line(points={{48,-9},{48,-9},{48,88},
+          {-20,88},{-20,82}}, color={0,0,127}));
   connect(conPI_pum2.y, cat.yPum2)
     annotation (Line(points={{-50,29},{-50,20},{-42,20},{-42,11}},
                                                          color={0,0,127}));
