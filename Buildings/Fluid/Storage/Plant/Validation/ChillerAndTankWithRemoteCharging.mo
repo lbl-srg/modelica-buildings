@@ -56,7 +56,7 @@ model ChillerAndTankWithRemoteCharging
     "Flow direction: True = normal; False = reverse"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.BooleanTable booOnOff(table={3600/7*2})
-    "True = online; False = offline"
+    "True = on; False = off"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.TimeTable set_mChi_flow(table=[0,0; 3600/7,0; 3600/7,
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
@@ -123,7 +123,7 @@ Operation modes implemented in time tables:
 <tbody>
   <tr>
     <td>1.</td>
-    <td>offline</td>
+    <td>off</td>
     <td>off</td>
     <td>off</td>
     <td>N/A</td>
@@ -131,7 +131,7 @@ Operation modes implemented in time tables:
   </tr>
   <tr>
     <td>2.</td>
-    <td>offline</td>
+    <td>off</td>
     <td>on</td>
     <td>charging</td>
     <td>N/A</td>
@@ -139,7 +139,7 @@ Operation modes implemented in time tables:
   </tr>
   <tr>
     <td>3.</td>
-    <td>offline</td>
+    <td>on</td>
     <td>on</td>
     <td>charging</td>
     <td>normal</td>
@@ -147,7 +147,7 @@ Operation modes implemented in time tables:
   </tr>
   <tr>
     <td>4.</td>
-    <td>online</td>
+    <td>on</td>
     <td>on</td>
     <td>off</td>
     <td>normal</td>
@@ -155,7 +155,7 @@ Operation modes implemented in time tables:
   </tr>
   <tr>
     <td>5.</td>
-    <td>online</td>
+    <td>on</td>
     <td>on</td>
     <td>discharging</td>
     <td>normal</td>
@@ -163,7 +163,7 @@ Operation modes implemented in time tables:
   </tr>
   <tr>
     <td>6.</td>
-    <td>online</td>
+    <td>on</td>
     <td>off</td>
     <td>discharging</td>
     <td>normal</td>
@@ -171,7 +171,7 @@ Operation modes implemented in time tables:
   </tr>
   <tr>
     <td>7.</td>
-    <td>online</td>
+    <td>on</td>
     <td>off</td>
     <td>charging</td>
     <td>reverse</td>
