@@ -13,14 +13,12 @@ model TwoSourcesThreeUsers
   parameter Modelica.Units.SI.AbsolutePressure p_CHWS_nominal=
     p_CHWR_nominal+dp_nominal
     "Nominal pressure at CHW supply line";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=500000
+  parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=300000
     "Nominal pressure at CHW return line";
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
     "Nominal temperature of CHW return";
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
     "Nominal temperature of CHW supply";
-  parameter Boolean allowFlowReversal=false
-    "Flow reversal setting";
   parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.5
     "Nominal cooling load of one consumer";
 
@@ -75,11 +73,10 @@ model TwoSourcesThreeUsers
     redeclare package Medium = Medium2,
     per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=(m_flow_nominal*1.5)/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=true,
     addPowerToMedium=false,
     final y_start=1,
     T_start=T_CHWR_nominal) "Supply pump for chiller 1" annotation (Placement(
-        transformation(extent={{-70,70},{-50,90}}, rotation=0)));
+        transformation(extent={{-50,30},{-70,50}}, rotation=0)));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin_dpUsr(nin=3)
     "Min of pressure head measured from all users"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -112,17 +109,7 @@ model TwoSourcesThreeUsers
     nPorts=1) "Pressurisation point" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,40})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroChi1(
-    redeclare package Medium = Medium2,
-    final allowFlowReversal=allowFlowReversal,
-    final dp_nominal=dp_nominal/10,
-    final m_flow_nominal=1.5*m_flow_nominal)
-                                         "Flow resistance" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-60,40})));
+        origin={-170,30})));
   Buildings.Controls.Continuous.LimPID conPI_PumChi1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
@@ -258,8 +245,8 @@ model TwoSourcesThreeUsers
   Buildings.Fluid.Chillers.ElectricEIR chi1(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
-    m1_flow_nominal=1.2*chi1.m2_flow_nominal,
-    m2_flow_nominal=1.5*m_flow_nominal,
+    final m1_flow_nominal=1.2*chi1.m2_flow_nominal,
+    final m2_flow_nominal=1.5*m_flow_nominal,
     final dp1_nominal=0,
     final dp2_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -296,6 +283,12 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-120,150})));
+  Buildings.Fluid.FixedResistances.CheckValve cheValChi1Pum(
+    redeclare package Medium = Medium2,
+    m_flow_nominal=chi1.vol2.m_flow_nominal,
+    dpValve_nominal=0.1*dp_nominal,
+    dpFixed_nominal=0.1*dp_nominal) "Check valve with series resistance"
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 equation
   connect(set_TRet.y,usr1. TSet) annotation (Line(points={{41,110},{44,110},{44,
           82},{64,82},{64,71}}, color={0,0,127}));
@@ -314,12 +307,10 @@ equation
           {-44,-48},{-50,-48}}, color={255,0,255}));
   connect(set_mChi2Pum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-119,
           -70},{-80,-70},{-80,-49},{-70,-49}}, color={0,0,127}));
-  connect(sou_p.ports[1], preDroChi1.port_b)
-    annotation (Line(points={{-160,40},{-70,40}},        color={0,127,255}));
   connect(set_dpUsr.y, conPI_PumChi1.u_s)
     annotation (Line(points={{-60,139},{-60,122}}, color={0,0,127}));
   connect(conPI_PumChi1.y, pumChi1.y)
-    annotation (Line(points={{-60,99},{-60,92}},  color={0,0,127}));
+    annotation (Line(points={{-60,99},{-60,52}},  color={0,0,127}));
   connect(usr1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,66},
           {86,66},{86,-110},{62,-110},{62,-109.333}},color={0,0,127}));
   connect(preDroS2U3.port_b,usr3. port_a)
@@ -331,22 +322,14 @@ equation
                             color={0,127,255}));
   connect(usr2.port_b,preDroU2S2. port_a)
     annotation (Line(points={{60,-10},{60,-20},{30,-20}}, color={0,127,255}));
-  connect(pumChi1.port_b,preDroS1U2. port_a) annotation (Line(points={{-50,80},{
-          -36,80},{-36,20},{-30,20}}, color={0,127,255}));
   connect(preDroS1U2.port_b,usr2. port_a) annotation (Line(points={{-10,20},{60,
           20},{60,10}},         color={0,127,255}));
   connect(usr2.port_b,preDroU2S1. port_a) annotation (Line(points={{60,-10},{60,
           -20},{34,-20},{34,0},{30,0}}, color={0,127,255}));
-  connect(preDroU2S1.port_b, preDroChi1.port_a) annotation (Line(points={{10,0},
-          {4,0},{4,40},{-50,40}}, color={0,127,255}));
-  connect(pumChi1.port_b,preDroS1U1. port_a)
-    annotation (Line(points={{-50,80},{-30,80}}, color={0,127,255}));
   connect(preDroS1U1.port_b,usr1. port_a)
     annotation (Line(points={{-10,80},{60,80},{60,70}}, color={0,127,255}));
   connect(usr1.port_b,preDroU1S1. port_a)
     annotation (Line(points={{60,50},{60,40},{30,40}}, color={0,127,255}));
-  connect(preDroU1S1.port_b, preDroChi1.port_a)
-    annotation (Line(points={{10,40},{-50,40}}, color={0,127,255}));
   connect(set_QCooLoa1_flow.y,usr1. QCooLoa_flow)
     annotation (Line(points={{99,90},{68,90},{68,71}}, color={0,0,127}));
   connect(set_QCooLoa2_flow.y,usr2. QCooLoa_flow)
@@ -390,18 +373,28 @@ equation
           -40},{-30,-40}}, color={0,127,255}));
   connect(cat.port_b2, preDroS2U2.port_a) annotation (Line(points={{-54,-50},{-54,
           -40},{-36,-40},{-36,0},{-30,0}}, color={0,127,255}));
-  connect(preDroChi1.port_b, chi1.port_a2) annotation (Line(points={{-70,40},{
-          -104,40},{-104,50}}, color={0,127,255}));
-  connect(chi1.port_b2, pumChi1.port_a) annotation (Line(points={{-104,70},{
-          -104,80},{-70,80}}, color={0,127,255}));
   connect(chi1.port_a1, souCDW1.ports[1]) annotation (Line(points={{-116,70},{
           -134,70},{-134,110},{-140,110}}, color={0,127,255}));
   connect(sinCDW1.ports[1], chi1.port_b1) annotation (Line(points={{-140,70},{
           -140,44},{-116,44},{-116,50}}, color={0,127,255}));
-  connect(set_TEvaLvg_chi1.y, chi1.TSet) annotation (Line(points={{-90,139},{
-          -90,82},{-107,82},{-107,72}}, color={0,0,127}));
+  connect(set_TEvaLvg_chi1.y, chi1.TSet) annotation (Line(points={{-90,139},{-90,
+          112},{-107,112},{-107,72}},   color={0,0,127}));
   connect(chi1On.y, chi1.on) annotation (Line(points={{-120,138},{-120,78},{
           -113,78},{-113,72}}, color={255,0,255}));
+  connect(chi1.port_b2, cheValChi1Pum.port_a) annotation (Line(points={{-104,70},
+          {-104,80},{-90,80}},  color={0,127,255}));
+  connect(preDroU1S1.port_b, pumChi1.port_a)
+    annotation (Line(points={{10,40},{-50,40}}, color={0,127,255}));
+  connect(pumChi1.port_b, chi1.port_a2) annotation (Line(points={{-70,40},{-104,
+          40},{-104,50}}, color={0,127,255}));
+  connect(preDroU2S1.port_b, pumChi1.port_a) annotation (Line(points={{10,0},{4,
+          0},{4,40},{-50,40}}, color={0,127,255}));
+  connect(cheValChi1Pum.port_b, preDroS1U1.port_a)
+    annotation (Line(points={{-70,80},{-30,80}}, color={0,127,255}));
+  connect(sou_p.ports[1], pumChi1.port_a)
+    annotation (Line(points={{-160,30},{-50,30},{-50,40}}, color={0,127,255}));
+  connect(cheValChi1Pum.port_b, preDroS1U2.port_a) annotation (Line(points={{-70,
+          80},{-36,80},{-36,20},{-30,20}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
         Diagram(coordinateSystem(extent={{-180,-140},{140,180}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));

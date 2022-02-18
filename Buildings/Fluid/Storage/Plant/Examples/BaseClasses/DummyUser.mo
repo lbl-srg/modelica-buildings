@@ -141,10 +141,8 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           fillColor={244,125,35},
-          fillPattern=FillPattern.Sphere), Text(
-          extent={{-58,-104},{62,-132}},
-          textColor={0,0,127},
-          textString="%name")}), Documentation(info="<html>
+          fillPattern=FillPattern.Sphere)}),
+                                 Documentation(info="<html>
 <p>
 (Draft)
 For simplicity, instead of setting up a heat exchanger to a room model,
