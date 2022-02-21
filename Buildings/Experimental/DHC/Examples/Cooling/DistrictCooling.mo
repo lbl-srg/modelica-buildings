@@ -5,54 +5,74 @@ model DistrictCooling "Example model for district cooling system"
     "Medium model for water";
   // Chiller and cooling tower
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
-    "Performance data of chiller";
+    "Performance data of chiller"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.MassFlowRate mCHW_flow_nominal=18.3
-    "Nominal chilled water mass flow rate";
+    "Nominal chilled water mass flow rate"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal=34.7
-    "Nominal condenser water mass flow rate";
+    "Nominal condenser water mass flow rate"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=44.8*1000
-    "Nominal chilled water side pressure";
+    "Nominal chilled water side pressure"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.PressureDifference dpCW_nominal=46.2*1000
-    "Nominal condenser water side pressure";
+    "Nominal condenser water side pressure"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
-    "Nominal cooling capaciaty (Negative means cooling)";
+    "Nominal cooling capaciaty (Negative means cooling)"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.MassFlowRate mMin_flow=0.03
-    "Minimum mass flow rate of single chiller";
+    "Minimum mass flow rate of single chiller"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.TemperatureDifference dTApp=3
-    "Approach temperature";
+    "Approach temperature"
+    annotation (Dialog(group="Chiller and cooling tower"));
   parameter Modelica.Units.SI.Power PFan_nominal=5000
-    "Fan power";
+    "Fan power"
+    annotation (Dialog(group="Chiller and cooling tower"));
+  parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal=6000
+   "Nominal pressure difference of the cooling tower valve"
+   annotation (Dialog(group="Chiller and cooling tower"));
   // Control settings
   parameter Modelica.Units.SI.Pressure dpSetPoi=24500
-    "Differential pressure setpoint";
+    "Differential pressure setpoint"
+    annotation (Dialog(group="Control settings"));
   parameter Modelica.Units.SI.Temperature TCHWSet=273.15+7
-    "Chilled water temperature setpoint";
+    "Chilled water temperature setpoint"
+    annotation (Dialog(group="Control settings"));
   parameter Modelica.Units.SI.Time tWai=30
-    "Waiting time";
+    "Waiting time"
+    annotation (Dialog(group="Control settings"));
   // Pumps
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCHW_flow_nominal/1000*{0.2,0.6,0.8,1.0},
       dp=(dpCHW_nominal+dpSetPoi+18000+30000)*{1.5,1.3,1.0,0.6}))
-    "Performance data for chilled water pumps";
+    "Performance data for chilled water pumps"
+    annotation (Dialog(group="Pumps"));
   parameter Buildings.Fluid.Movers.Data.Generic perCWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
       dp=(dpCW_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
-    "Performance data for condenser water pumps";
+    "Performance data for condenser water pumps"
+    annotation (Dialog(group="Pumps"));
   parameter Modelica.Units.SI.Pressure dpCHWPumVal_nominal=6000
-    "Nominal pressure drop of chilled water pump valve";
+    "Nominal pressure drop of chilled water pump valve"
+    annotation (Dialog(group="Pumps"));
   parameter Modelica.Units.SI.Pressure dpCWPumVal_nominal=6000
-    "Nominal pressure drop of chilled water pump valve";
-  parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal=6000
-   "Nominal pressure difference of the cooling tower valve";
+    "Nominal pressure drop of chilled water pump valve"
+    annotation (Dialog(group="Pumps"));
   // Network
   parameter Integer nLoa=3
-    "Number of served loads";
+    "Number of served loads"
+    annotation (Dialog(group="Network"));
   parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=10
-    "Nominal mass flow rate in each load";
+    "Nominal mass flow rate in each load"
+    annotation (Dialog(group="Network"));
   parameter Modelica.Units.SI.PressureDifference dpDis_sr_nominal=1500
-    "Nominal pressure drop for supply/return resistance";
+    "Nominal pressure drop for supply/return resistance"
+    annotation (Dialog(group="Network"));
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa]=fill(mLoa_flow_nominal,nLoa)
     "Nominal mass flow rate in each connection line";
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(
@@ -67,7 +87,8 @@ model DistrictCooling "Example model for district cooling system"
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"}
-    "Library path of the file with thermal loads as time series";
+    "Library path of the file with thermal loads as time series"
+    annotation (Dialog(group="Buildings"));
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nLoa](
     max=-Modelica.Constants.eps)={Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
@@ -120,14 +141,16 @@ model DistrictCooling "Example model for district cooling system"
     mCon_flow_nominal=mBui_flow_nominal,
     mEnd_flow_nominal=mBui_flow_nominal[nLoa],
     dpDis_nominal=fill(dpDis_sr_nominal,nLoa))
+    "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
-
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     redeclare each package Medium = Medium,
     filNam=filNam,
     mBui_flow_nominal=mBui_flow_nominal)
+    "Vectorized time series building load model connected with ETS for cooling."
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
+    "Relative pressure drop sensor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -153,8 +176,8 @@ equation
                                                color={0,0,127}));
   connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{60,-10},
           {80,-10},{80,-16},{60,-16}}, color={0,127,255}));
-  connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-40,-11.3333},
-          {-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}},           color={
+  connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-40,
+          -11.3333},{-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}}, color={
           0,127,255}));
   connect(dis.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,-10},
           {0,-10},{0,-11.3333},{-20,-11.3333}}, color={0,127,255}));
@@ -166,7 +189,7 @@ equation
     annotation (Line(points={{28,0},{0,0},{0,42},{30,42}}, color={0,127,255}));
   connect(buiETS.port_bSerCoo, dis.ports_aCon) annotation (Line(points={{50,42},
           {80,42},{80,0},{52,0}}, color={0,127,255}));
-  annotation (
+    annotation (Dialog(group="Network"),
     Icon(
       coordinateSystem(
         preserveAspectRatio=false)),
@@ -174,7 +197,7 @@ equation
       coordinateSystem(
       preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/DistrictCooling.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/DistrictCooling.mos" "Simulate and plot"),
     experiment(
       StartTime=12960000,
       StopTime=13564800,

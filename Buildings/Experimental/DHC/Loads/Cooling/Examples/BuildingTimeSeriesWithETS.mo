@@ -8,6 +8,7 @@ model BuildingTimeSeriesWithETS
     redeclare package Medium = Medium,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")
+  "Building TIme Series load coupled with ETS"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium = Medium,
@@ -27,6 +28,7 @@ model BuildingTimeSeriesWithETS
     "District supply temperature setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
   connect(TDisSup.y, supChiWat.T_in) annotation (Line(points={{-79,0},{-70,0},{

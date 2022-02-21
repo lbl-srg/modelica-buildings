@@ -12,7 +12,8 @@ model PartialBuildingWithETS
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
     final start=0.5)
-    "Nominal mass flow rate";
+    "Nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpSup(
     final min=0,
     displayUnit="Pa")=5000

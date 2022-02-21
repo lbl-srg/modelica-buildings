@@ -22,16 +22,19 @@ model Indirect
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal(
     final min=0,
     final start=0.5)
-    "Nominal mass flow rate of district cooling side";
+    "Nominal mass flow rate of district cooling side"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
     final min=0,
     final start=0.5)
-    "Nominal mass flow rate of building cooling side";
+    "Nominal mass flow rate of building cooling side"
+    annotation(Dialog(group="Nominal condition"));
   // Primary supply control valve
   parameter Modelica.Units.SI.PressureDifference dpConVal_nominal(
     final min=0,
     displayUnit="Pa")=6000
-    "Nominal pressure drop of fully open control valve";
+    "Nominal pressure drop of fully open control valve"
+    annotation(Dialog(group="Nominal condition"));
   // Heat exchanger
   parameter Modelica.Units.SI.PressureDifference dp1_nominal(
     final min=0,

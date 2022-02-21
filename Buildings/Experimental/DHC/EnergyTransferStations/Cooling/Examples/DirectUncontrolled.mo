@@ -5,9 +5,11 @@ extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=-18000
-    "Nominal cooling load (Negative for cooling)";
+    "Nominal cooling load (Negative for cooling)"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=-Q_flow_nominal/(cp*(16-7))
-    "Nominal mass flow rate";
+    "Nominal mass flow rate"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
       Medium.p_default,
@@ -22,7 +24,8 @@ extends Modelica.Icons.Example;
     dpSup=6000,
     dpRet=6000,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1) "Direct cooling energy transfer station"
+    nPorts_aChiWat=1)
+    "Direct cooling energy transfer station"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium=Medium,

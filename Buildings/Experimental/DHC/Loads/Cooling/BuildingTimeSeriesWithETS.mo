@@ -1,8 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Cooling;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS for cooling"
-  replaceable package Medium=Buildings.Media.Water
-    "Medium model";
   extends BaseClasses.PartialBuildingWithETS(
     redeclare BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
@@ -13,8 +11,8 @@ model BuildingTimeSeriesWithETS
       redeclare package Medium = Medium,
       QChiWat_flow_nominal=QCoo_flow_nominal),
       m_flow_nominal=mBui_flow_nominal);
-  parameter String filNam
-    "Library path of the file with thermal loads as time series";
+  replaceable package Medium=Buildings.Media.Water
+    "Medium model";
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
@@ -35,6 +33,8 @@ model BuildingTimeSeriesWithETS
     final start=0.5)=-QCoo_flow_nominal/(cp*dT_nominal)
     "Nominal mass flow rate of building cooling side"
     annotation (Dialog(group="Nominal condition"));
+  parameter String filNam
+    "Library path of the file with thermal loads as time series";
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(

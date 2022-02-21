@@ -5,11 +5,14 @@ model DirectControlled "Example model for direct cooling energy transfer station
   package Medium=Buildings.Media.Water
     "Water medium";
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=0.5
-    "Nominal mass flow rate of district cooling supply";
+    "Nominal mass flow rate of district cooling supply"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=-18000
-    "Nominal cooling load (Negative for cooling)";
+    "Nominal cooling load (Negative for cooling)"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal=-Q_flow_nominal/(cp*(18-7))
-    "Nominal mass flow rate of building cooling supply";
+    "Nominal mass flow rate of building cooling supply"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
       Medium.p_default,
@@ -31,7 +34,8 @@ model DirectControlled "Example model for direct cooling energy transfer station
     yMax=1,
     yMin=0.01,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1) "Energy transfer station"
+    nPorts_aChiWat=1)
+    "Energy transfer station"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   Modelica.Blocks.Sources.Constant TSetDisRet_min(k=273.15 + 16)
@@ -79,7 +83,8 @@ model DirectControlled "Example model for direct cooling energy transfer station
   Modelica.Blocks.Sources.Ramp ram(
     height=1,
     duration(displayUnit="h") = 3600,
-    startTime(displayUnit="h")) "Ramp load from zero"
+    startTime(displayUnit="h"))
+    "Ramp load from zero"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
   Modelica.Blocks.Sources.CombiTimeTable QCoo(
     table=[

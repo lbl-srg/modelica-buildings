@@ -5,9 +5,11 @@ model Indirect
   package Medium=Buildings.Media.Water
     "Water medium";
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=0.5
-    "Nominal mass flow rate of district cooling supply";
+    "Nominal mass flow rate of district cooling supply"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal=0.5
-    "Nominal mass flow rate of building cooling supply";
+    "Nominal mass flow rate of building cooling supply"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
       Medium.p_default,
@@ -35,6 +37,7 @@ model Indirect
     reverseActing=false,
     nPorts_bChiWat=1,
     nPorts_aChiWat=1)
+    "Direct cooling energy transfer station"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,

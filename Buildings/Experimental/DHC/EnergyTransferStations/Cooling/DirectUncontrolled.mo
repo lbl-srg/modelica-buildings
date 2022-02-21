@@ -20,7 +20,8 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems w
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
     final start=0.5)
-    "Nominal mass flow rate";
+    "Nominal mass flow rate"
+    annotation(Dialog(group="Nominal condition"));
   // Pressure drops
   parameter Modelica.Units.SI.PressureDifference dpSup(
     final min=0,
@@ -69,10 +70,13 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems w
     "District supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{-78,-290},{-58,-270}})));
   Modelica.Blocks.Math.Add dTdis(k1=-1, k2=1)
+    "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Modelica.Blocks.Math.Product pro
+    "Product"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
   Modelica.Blocks.Math.Gain cp(k=cp_default)
+    "Specific heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="Power",

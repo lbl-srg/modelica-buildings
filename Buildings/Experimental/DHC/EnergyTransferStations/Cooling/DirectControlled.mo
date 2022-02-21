@@ -21,24 +21,29 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal(
     final min=0,
     final start=0.5)
-    "Nominal mass flow rate of district cooling side";
+    "Nominal mass flow rate of district cooling side"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
     final min=0,
     final start=0.5)
-    "Nominal mass flow rate of building cooling side";
+    "Nominal mass flow rate of building cooling side"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mByp_flow_nominal(
     final min=0,
     final start=0.5)
-    "Nominal mass flow rate through the bypass segment";
+    "Nominal mass flow rate through the bypass segment"
+    annotation(Dialog(group="Nominal condition"));
   // Pressure drops
   parameter Modelica.Units.SI.PressureDifference dpConVal_nominal(
     final min=0,
     displayUnit="Pa")=6000
-    "Nominal pressure drop in the control valve";
+    "Nominal pressure drop in the control valve"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpCheVal_nominal(
     final min=0,
     displayUnit="Pa")=6000
-    "Nominal pressure drop in the check valve";
+    "Nominal pressure drop in the check valve"
+    annotation(Dialog(group="Nominal condition"));
   // Controller parameters
   parameter Real k(
     final min=0,
@@ -119,7 +124,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{60,-114},{80,-94}})));
   Modelica.Blocks.Math.Product pro
-  "product"
+  "Product"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Modelica.Blocks.Math.Gain cp(
     final k=cp_default)
@@ -168,13 +173,17 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{230,190},{250,210}})));
-  Modelica.Blocks.Logical.OnOffController onOffController(bandwidth=0.2)
+  Modelica.Blocks.Logical.OnOffController onOffCon(bandwidth=0.2)
+    "On off control for the control valve"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Modelica.Blocks.Logical.Switch switch1
+  Modelica.Blocks.Logical.Switch swi1
+    "Switch between full opening and PI control signal."
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Constant const(k=1)
+    "Full opening of the control valve."
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Modelica.Blocks.Logical.Not not1
+  "Revise the on/off signal"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -232,20 +241,20 @@ equation
     annotation (Line(points={{-50,190},{-50,0},{-50,0}}, color={0,127,255}));
   connect(cheVal.port_b, jun.port_3)
     annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
-  connect(con.y, switch1.u3) annotation (Line(points={{-199,0},{-106,0},{-106,62},
-          {-82,62}}, color={0,0,127}));
-  connect(const.y, switch1.u1) annotation (Line(points={{-139,130},{-106,130},{-106,
-          78},{-82,78}}, color={0,0,127}));
-  connect(TSetDisRet, onOffController.reference) annotation (Line(points={{-318,
-          0},{-270,0},{-270,76},{-182,76}}, color={0,0,127}));
-  connect(senTBuiRet.T, onOffController.u) annotation (Line(points={{-210,189},{
-          -210,64},{-182,64}}, color={0,0,127}));
-  connect(switch1.y, conVal.y)
-    annotation (Line(points={{-59,70},{0,70},{0,188}}, color={0,0,127}));
-  connect(onOffController.y, not1.u)
-    annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
-  connect(not1.y, switch1.u2)
+  connect(const.y, swi1.u1) annotation (Line(points={{-139,130},{-110,130},{
+          -110,80},{-82,80},{-82,78}}, color={0,0,127}));
+  connect(not1.y, swi1.u2)
     annotation (Line(points={{-119,70},{-82,70}}, color={255,0,255}));
+  connect(con.y, swi1.u3) annotation (Line(points={{-199,0},{-110,0},{-110,62},
+          {-82,62}}, color={0,0,127}));
+  connect(swi1.y, conVal.y)
+    annotation (Line(points={{-59,70},{0,70},{0,188}}, color={0,0,127}));
+  connect(senTBuiRet.T, onOffCon.u) annotation (Line(points={{-210,189},{-210,
+          64},{-182,64}}, color={0,0,127}));
+  connect(TSetDisRet, onOffCon.reference) annotation (Line(points={{-318,0},{
+          -260,0},{-260,76},{-182,76}}, color={0,0,127}));
+  connect(onOffCon.y, not1.u)
+    annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 Direct cooling energy transfer station (ETS) model with in-building pumping and 
