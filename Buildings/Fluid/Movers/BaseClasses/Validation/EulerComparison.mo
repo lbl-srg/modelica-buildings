@@ -10,7 +10,7 @@ model EulerComparison
     "Constant density";
 
   Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13 per1
-    "Mover curves with flow rate, pressure rise, and power";
+    "Mover performance curves with flow rate, pressure rise, and power";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per=per1,
     rho_default=rhoCon,

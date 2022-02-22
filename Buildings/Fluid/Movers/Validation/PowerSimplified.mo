@@ -8,7 +8,7 @@ model PowerSimplified
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
 
-  parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
+  parameter Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
@@ -20,7 +20,7 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
-    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
       powMet=
         Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
@@ -73,13 +73,13 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
   connect(bou.ports[1], pump_Nrpm.port_a) annotation (Line(
-      points={{-82,22.6667},{-82,60},{-60,60}},
+      points={{-82,18.6667},{-82,60},{-60,60}},
       color={0,127,255}));
   connect(pump_dp.port_a, bou.ports[2]) annotation (Line(
       points={{-60,20},{-82,20}},
       color={0,127,255}));
   connect(pump_m_flow.port_a, bou.ports[3]) annotation (Line(
-      points={{-60,-20},{-82,-20},{-82,17.3333}},
+      points={{-60,-20},{-82,-20},{-82,21.3333}},
       color={0,127,255}));
   connect(pump_Nrpm.port_b, res[1].port_a) annotation (Line(
       points={{-40,60},{0,60},{0,20},{20,20}},
@@ -91,7 +91,7 @@ equation
       points={{-40,-20},{0,-20},{0,20},{20,20}},
       color={0,127,255}));
   connect(sink.ports[1:3], res.port_b) annotation (Line(
-      points={{80,17.3333},{60,17.3333},{60,20},{40,20}},
+      points={{80,21.3333},{60,21.3333},{60,20},{40,20}},
       color={0,127,255}));
   connect(ramp.y, pump_Nrpm.Nrpm) annotation (Line(
       points={{-59,80},{-50,80},{-50,72}},
