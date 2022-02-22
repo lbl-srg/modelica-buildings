@@ -141,19 +141,19 @@ model StaticReset
     k=0.5,
     Ti=15) "PI controller"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=2/dp_nominal) "Gain"
+  Modelica.Blocks.Math.Gain gai1(k=2/dp_nominal) "Gain"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,180})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=2/dp_nominal) "Gain"
+  Modelica.Blocks.Math.Gain gai2(k=2/dp_nominal) "Gain"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,78})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=2/dp_nominal) "Gain"
+  Modelica.Blocks.Math.Gain gai3(k=2/dp_nominal) "Gain"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -196,7 +196,7 @@ equation
   connect(pDucSta3.p_rel, gai3.u)
     annotation (Line(points={{-50,-41},{-50,-34}}, color={0,0,127}));
   connect(gai3.y, conPID3.u_m)
-    annotation (Line(points={{-50,-10},{-50,-2}}, color={0,0,127}));
+    annotation (Line(points={{-50,-11},{-50,-2}}, color={0,0,127}));
   connect(conPID3.y, fan3.y)
     annotation (Line(points={{-39,10},{0,10},{0,-8}}, color={0,0,127}));
   connect(fan3.port_b, dp31.port_a)
@@ -210,7 +210,7 @@ equation
   connect(pDucSta2.p_rel, gai2.u)
     annotation (Line(points={{-50,59},{-50,66}}, color={0,0,127}));
   connect(gai2.y, conPID2.u_m)
-    annotation (Line(points={{-50,90},{-50,98}}, color={0,0,127}));
+    annotation (Line(points={{-50,89},{-50,98}}, color={0,0,127}));
   connect(pDucSta2.port_a, dp22.port_a) annotation (Line(
       points={{-40,50},{60,50},{60,80}},
       color={0,127,255},
@@ -227,7 +227,7 @@ equation
     annotation (Line(points={{-50,161},{-50,168}},
                                                  color={0,0,127}));
   connect(gai1.y,conPID1. u_m)
-    annotation (Line(points={{-50,192},{-50,200}},
+    annotation (Line(points={{-50,191},{-50,200}},
                                                  color={0,0,127}));
   connect(y.y, conPID1.u_s) annotation (Line(points={{-79,220},{-68,220},{-68,212},
           {-62,212}}, color={0,0,127}));
