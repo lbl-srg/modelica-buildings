@@ -16,8 +16,8 @@ block SideHot
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 120 "Time constant of integrator block" annotation (Dialog(enable=
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       120 "Time constant of integrator block" annotation (Dialog(enable=
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   PIDWithEnable conColRej(
@@ -123,16 +123,14 @@ block SideHot
     nin=3)
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addDea(
-    p=dTDea,
-    k=1)
+    p=dTDea)
     "Add dead band"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
   Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(
     samplePeriod=60)
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addLoc(
-    p=dTLoc,
-    k=1)
+    p=dTLoc)
     "Add temperature difference for lockout"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Less isBelLoc(

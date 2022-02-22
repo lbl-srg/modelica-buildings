@@ -29,9 +29,9 @@ protected
 
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
   final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
-  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+  final parameter Boolean is_ceiling = abs(sinTil) < 10E-10 and cosTil > 0
     "Flag, true if the surface is a ceiling";
-  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+  final parameter Boolean is_floor = abs(sinTil) < 10E-10 and cosTil < 0
     "Flag, true if the surface is a floor";
 
 initial equation
@@ -47,10 +47,10 @@ equation
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
     if homotopyInitialization then
-      if isCeiling then
+      if is_ceiling then
          q_flow = u*homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT),
                       simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT0));
-      elseif isFloor then
+      elseif is_floor then
          q_flow = u*homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT),
                       simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT0));
       else
@@ -58,9 +58,9 @@ equation
                       simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT0));
       end if;
     else
-      if isCeiling then
+      if is_ceiling then
          q_flow = u*Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
-      elseif isFloor then
+      elseif is_floor then
          q_flow = u*Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
       else
          q_flow = u*Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
@@ -156,6 +156,12 @@ control signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

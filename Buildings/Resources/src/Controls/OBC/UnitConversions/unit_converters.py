@@ -482,9 +482,12 @@ class UnitConversionsModeler(object):
             "  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
             "  constant Real p = " + x['adder'] + " \"Adder\";\n"
             "\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(\n"\
+            "    final k = k) \"Gain factor\"\n"\
+            "    annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));\n"\
+            "\n"\
             "  Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(\n"\
-            "    final p = p,\n"\
-            "    final k = k) \"Unit converter\"\n"\
+            "    final p = p) \"Unit converter\"\n"\
             "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
             "\n")
             else:
@@ -495,12 +498,24 @@ class UnitConversionsModeler(object):
             "    final k = k) \"Unit converter\"\n"\
             "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
             "\n")
-            file.write(\
+            if int(eval(x['adder'])) != 0:
+                file.write(\
+            "equation\n"\
+            "  connect(conv.y, y)\n"\
+            "    annotation (Line(points={{12,0},{60,0},{60,0},{120,0}},color={0,0,127}));\n"\
+            "  connect(u, gai.u)\n"\
+            "    annotation (Line(points={{-120,0},{-70,0}}, color={0,0,127}));\n"\
+            "  connect(gai.y, conv.u)\n"\
+            "    annotation (Line(points={{-46,0},{-12,0}}, color={0,0,127}));\n"\
+            "\n")
+            else:
+                file.write(\
             "equation\n"\
             "  connect(u, conv.u)\n"\
             "    annotation (Line(points={{-120,0},{-12,0}},color={0,0,127}));\n"\
             "  connect(conv.y, y)\n"\
-            "    annotation (Line(points={{12,0},{120,0}},color={0,0,127}));\n"\
+            "    annotation (Line(points={{12,0},{120,0}},color={0,0,127}));\n")
+            file.write(\
             "  annotation (\n"\
             "      defaultComponentName = \"" + model_name[0].lower() + model_name[1:]  + "\",\n"\
             "    Icon(graphics={\n"\

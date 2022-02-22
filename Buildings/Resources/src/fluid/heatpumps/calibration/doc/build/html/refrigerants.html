@@ -2,22 +2,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Refrigerant thermodynamic properties &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,9 +28,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -133,17 +134,17 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="module-PythonModel.refrigerants">
+  <section id="module-PythonModel.refrigerants">
 <span id="refrigerant-thermodynamic-properties"></span><h1>Refrigerant thermodynamic properties<a class="headerlink" href="#module-PythonModel.refrigerants" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="PythonModel.refrigerants.R410A">
-<em class="property">class </em><code class="sig-prename descclassname">PythonModel.refrigerants.</code><code class="sig-name descname">R410A</code><a class="headerlink" href="#PythonModel.refrigerants.R410A" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.refrigerants.</span></span><span class="sig-name descname"><span class="pre">R410A</span></span><a class="headerlink" href="#PythonModel.refrigerants.R410A" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for the evaluation of properties of refrigerant R410A.</p>
 <p>Properties are based on commercial refrigerant Dupont Suva 410A.</p>
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_IsentropicExponent_vT">
-<code class="sig-name descname">get_IsentropicExponent_vT</code><span class="sig-paren">(</span><em class="sig-param">v</em>, <em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_IsentropicExponent_vT" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_IsentropicExponent_vT">
+<span class="sig-name descname"><span class="pre">get_IsentropicExponent_vT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_IsentropicExponent_vT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the isentropic exponent.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -157,7 +158,7 @@
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_IsentropicExponent_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
 <span class="go">&#39;1.3862&#39;</span>
 </pre></div>
@@ -166,9 +167,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_SaturatedLiquidEnthalpy">
-<code class="sig-name descname">get_SaturatedLiquidEnthalpy</code><span class="sig-paren">(</span><em class="sig-param">TLiq</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedLiquidEnthalpy" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_SaturatedLiquidEnthalpy">
+<span class="sig-name descname"><span class="pre">get_SaturatedLiquidEnthalpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TLiq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedLiquidEnthalpy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the specific enthalpy of saturated liquid refrigerant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -179,7 +180,7 @@
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedLiquidEnthalpy</span><span class="p">(</span><span class="mf">305.25</span><span class="p">)</span>
 <span class="go">&#39;252787.45&#39;</span>
 </pre></div>
@@ -188,9 +189,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_SaturatedLiquidPressure">
-<code class="sig-name descname">get_SaturatedLiquidPressure</code><span class="sig-paren">(</span><em class="sig-param">TLiq</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedLiquidPressure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_SaturatedLiquidPressure">
+<span class="sig-name descname"><span class="pre">get_SaturatedLiquidPressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TLiq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedLiquidPressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the pressure of saturated liquid refrigerant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -201,7 +202,7 @@
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedLiquidPressure</span><span class="p">(</span><span class="mf">305.25</span><span class="p">)</span>
 <span class="go">&#39;1989639.98&#39;</span>
 </pre></div>
@@ -210,9 +211,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_SaturatedVaporEnthalpy">
-<code class="sig-name descname">get_SaturatedVaporEnthalpy</code><span class="sig-paren">(</span><em class="sig-param">TVap</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedVaporEnthalpy" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_SaturatedVaporEnthalpy">
+<span class="sig-name descname"><span class="pre">get_SaturatedVaporEnthalpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TVap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedVaporEnthalpy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the specific enthalpy of saturated liquid refrigerant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -229,7 +230,7 @@ DuPont Suva R410A. An expression similar to the saturated
 liquid enthalpy was used.</p>
 </div>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedVaporEnthalpy</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
 <span class="go">&#39;425094.18&#39;</span>
 </pre></div>
@@ -238,9 +239,9 @@ liquid enthalpy was used.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_SaturatedVaporPressure">
-<code class="sig-name descname">get_SaturatedVaporPressure</code><span class="sig-paren">(</span><em class="sig-param">TVap</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedVaporPressure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_SaturatedVaporPressure">
+<span class="sig-name descname"><span class="pre">get_SaturatedVaporPressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TVap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SaturatedVaporPressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the pressure of saturated refrigerant vapor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -251,7 +252,7 @@ liquid enthalpy was used.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedVaporPressure</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
 <span class="go">&#39;1082792.93&#39;</span>
 </pre></div>
@@ -260,9 +261,9 @@ liquid enthalpy was used.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_SpecificIsobaricHeatCapacity_vT">
-<code class="sig-name descname">get_SpecificIsobaricHeatCapacity_vT</code><span class="sig-paren">(</span><em class="sig-param">v</em>, <em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SpecificIsobaricHeatCapacity_vT" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_SpecificIsobaricHeatCapacity_vT">
+<span class="sig-name descname"><span class="pre">get_SpecificIsobaricHeatCapacity_vT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SpecificIsobaricHeatCapacity_vT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the specific isobaric heat capacity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -276,7 +277,7 @@ liquid enthalpy was used.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SpecificIsobaricHeatCapacity_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
 <span class="go">&#39;1167.01&#39;</span>
 </pre></div>
@@ -285,9 +286,9 @@ liquid enthalpy was used.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_SpecificIsochoricHeatCapacity_vT">
-<code class="sig-name descname">get_SpecificIsochoricHeatCapacity_vT</code><span class="sig-paren">(</span><em class="sig-param">v</em>, <em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SpecificIsochoricHeatCapacity_vT" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_SpecificIsochoricHeatCapacity_vT">
+<span class="sig-name descname"><span class="pre">get_SpecificIsochoricHeatCapacity_vT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_SpecificIsochoricHeatCapacity_vT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the specific isochoric heat capacity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -301,7 +302,7 @@ liquid enthalpy was used.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SpecificIsochoricHeatCapacity_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
 <span class="go">&#39;841.85&#39;</span>
 </pre></div>
@@ -310,9 +311,9 @@ liquid enthalpy was used.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_VaporPressure">
-<code class="sig-name descname">get_VaporPressure</code><span class="sig-paren">(</span><em class="sig-param">TVap</em>, <em class="sig-param">vVap</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_VaporPressure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_VaporPressure">
+<span class="sig-name descname"><span class="pre">get_VaporPressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TVap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vVap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_VaporPressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the pressure of refrigerant vapor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -328,7 +329,7 @@ liquid enthalpy was used.</p>
 <p>The pressure is calculated fromthe Martin-Hou equation of state for
 refrigerant  R410A.</p>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_VaporPressure</span><span class="p">(</span><span class="mf">289.64</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
 <span class="go">&#39;1083546.30&#39;</span>
 </pre></div>
@@ -337,9 +338,9 @@ refrigerant  R410A.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.get_VaporSpecificVolume">
-<code class="sig-name descname">get_VaporSpecificVolume</code><span class="sig-paren">(</span><em class="sig-param">p</em>, <em class="sig-param">T</em>, <em class="sig-param">tol=1e-06</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_VaporSpecificVolume" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.get_VaporSpecificVolume">
+<span class="sig-name descname"><span class="pre">get_VaporSpecificVolume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.get_VaporSpecificVolume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the Specific of refrigerant vapor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -354,7 +355,7 @@ refrigerant  R410A.</p>
 </dl>
 <p>Uses the Martin-Hou equation of state to determine specific volume.</p>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_VaporSpecificVolume</span><span class="p">(</span><span class="mf">1083546.3</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
 <span class="go">&#39;0.02500001&#39;</span>
 </pre></div>
@@ -363,9 +364,9 @@ refrigerant  R410A.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.refrigerants.R410A.modelicaModelPath">
-<code class="sig-name descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.refrigerants.R410A.modelicaModelPath">
+<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.refrigerants.R410A.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Returns the full path to the refrigerant package in the Buildings</dt><dd><p>library.</p>
 </dd>
@@ -376,7 +377,7 @@ refrigerant  R410A.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Media.Refrigerants.R410A&#39;</span>
 </pre></div>
@@ -387,7 +388,7 @@ refrigerant  R410A.</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -406,7 +407,7 @@ refrigerant  R410A.</p>
     </p>
     <p>
         &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>
