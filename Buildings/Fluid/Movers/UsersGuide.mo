@@ -491,7 +491,7 @@ P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>mot</sub><br/>
 </p>
 </li>
 <li>
-Otherwise, the given power data directly refer to <i>P<sub>ele<sub></i>.
+Otherwise, the given power data directly refer to <i>P<sub>ele</sub></i>.
 The total efficiency is therefore computed as
 <p align=\"center\" style=\"font-style:italic;\">
 &eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
@@ -502,7 +502,7 @@ and the two efficiency components are computed as
 &eta;<sub>mot</sub> = &eta;.
 </p>
 </li>
-<ul>
+</ul>
 </li>
 <li>
 If <code>per.use_eulerNumber</code>,

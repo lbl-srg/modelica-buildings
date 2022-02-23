@@ -734,6 +734,7 @@ or consumed power. They are treated differently. The user can specify this
 by setting the value of <code>use_hydraulicPerformance</code>.
 This is applicable to <code>use_powerCharacteristic</code>
 and <code>use_eulerNumber</code>.
+</p>
 <ul>
 <li>
 If <code>use_hydraulicPerformance</code>,<br/>
@@ -754,7 +755,6 @@ Else,<br/>
 <code>etaMot = eta</code>.
 </li>
 </ul>
-</p>
 
 <h4>Implementation</h4>
 <p>
