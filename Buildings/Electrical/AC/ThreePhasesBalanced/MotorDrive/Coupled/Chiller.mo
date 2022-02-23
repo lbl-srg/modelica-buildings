@@ -5,12 +5,10 @@ model Chiller "Motor coupled chiller"
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
- extends InductionMotors.BaseClasses.PartialOnePort(
+ extends Buildings.Electrical.Interfaces.PartialOnePort(
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal(redeclare
-        package PhaseSystem =
-                      Buildings.Electrical.PhaseSystems.OnePhase));
+    redeclare replaceable Interfaces.Terminal_n terminal);
 
  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0)= -P_nominal * COP_nominal
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"

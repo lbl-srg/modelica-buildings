@@ -4,12 +4,10 @@ model Pump "Motor coupled chiller"
   port_a(p(start=Medium.p_default)),
   port_b(p(start=Medium.p_default)));
 
-  extends InductionMotors.BaseClasses.PartialOnePort(
+  extends Buildings.Electrical.Interfaces.PartialOnePort(
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal(redeclare
-        package PhaseSystem =
-                      Buildings.Electrical.PhaseSystems.OnePhase));
+    redeclare replaceable Interfaces.Terminal_n terminal);
   parameter Modelica.Units.SI.Frequency f_base=60 "Frequency of the source";
   parameter Integer pole = 4 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
