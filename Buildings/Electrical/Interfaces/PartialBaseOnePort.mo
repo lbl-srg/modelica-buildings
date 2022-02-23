@@ -1,4 +1,4 @@
-within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors.BaseClasses;
+within Buildings.Electrical.Interfaces;
 model PartialBaseOnePort "Model of a generic one port component"
 
   replaceable Buildings.Electrical.Interfaces.BaseTerminal terminal

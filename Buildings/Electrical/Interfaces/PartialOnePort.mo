@@ -1,4 +1,4 @@
-within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors.BaseClasses;
+within Buildings.Electrical.Interfaces;
 model PartialOnePort "Model of a generic one port component with phase systems"
 
   replaceable package PhaseSystem =
@@ -6,7 +6,8 @@ model PartialOnePort "Model of a generic one port component with phase systems"
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem
   "Phase system";
 
-  extends PartialBaseOnePort(redeclare replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+  extends Buildings.Electrical.Interfaces.PartialBaseOnePort(
+                             redeclare replaceable Buildings.Electrical.Interfaces.Terminal terminal(
   redeclare replaceable package PhaseSystem = PhaseSystem));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

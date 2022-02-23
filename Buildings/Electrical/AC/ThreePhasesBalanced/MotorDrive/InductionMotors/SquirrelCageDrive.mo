@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors;
 model SquirrelCageDrive "Squirrel cage type induction motor with electrical interface and built-in speed control"
-  extends BaseClasses.PartialOnePort(
+  extends Buildings.Electrical.Interfaces.PartialOnePort(
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
