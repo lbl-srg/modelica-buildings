@@ -25,7 +25,8 @@ This function computes the following correlation:
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
 </p>
 <p>
-where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
+where <i>y=&eta; &frasl; &eta;<sub>p</sub></i> (note that <i>&eta;</i>
+refers to the hydraulic efficiency instead of total efficiency),
 <i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>,
 with the subscript <i>p</i> denoting the condition where
 the mover is operating at peak efficiency, and

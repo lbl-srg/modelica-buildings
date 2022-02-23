@@ -422,12 +422,12 @@ If the control loop reacts too slow, do the opposite.
 <h5>Efficiency and electrical power consumption</h5>
 <p>
 All models compute the motor power draw <i>P<sub>ele</sub></i>,
-the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
-<i>W<sub>flo</sub></i> and the heat dissipated into the medium
+the hydraulic power input <i>W&#775;<sub>hyd</sub></i>, the flow work
+<i>W&#775;<sub>flo</sub></i> and the heat dissipated into the medium
 <i>Q</i>. Based on the first law, the flow work is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  W<sub>flo</sub> = | V&#775; &Delta;p |,
+  W&#775;<sub>flo</sub> = | V&#775; &Delta;p |,
 </p>
 <p>
 where <i>V&#775;</i> is the volume flow rate and
@@ -437,22 +437,22 @@ If the motor is cooled by the fluid, as indicated by
 <code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q = P<sub>ele</sub> - W<sub>flo</sub>.
+Q = P<sub>ele</sub> - W&#775;<sub>flo</sub>.
 </p>
 
 <p>
 If <code>per.motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
-and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
+and only the shaft, or hydraulic, work <i>W&#775;<sub>hyd</sub></i> enters the thermodynamic
 control volume. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q = W<sub>hyd</sub> - W<sub>flo</sub>.
+Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 </p>
 <p>The efficiencies are computed as</p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
-  &eta;<sub>hyd</sub> = W<sub>flo</sub> &frasl; W<sub>hyd</sub> <br/>
-  &eta;<sub>mot</sub> = W<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
+&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
+&eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; W&#775;<sub>hyd</sub> <br/>
+&eta;<sub>mot</sub> = W&#775;<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
 </p>
 <p>where
 <i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency,
@@ -464,40 +464,59 @@ There are three paths of computation. They are selected by the enumeration
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
 Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>
 which handles three <code>use_</code> switches.
+The user is also able to specify whether the power data provided refer to
+the shaft power (hydraulic power, brake horsepower) or consumed power
+via <code>per.use_hydraulicPerformance</code>.
 </p>
 <ul>
 <li>
-If <code>per.use_powerCharacteristic=true</code>,
-then a set of data points for the power <i>P<sub>ele</sub></i> versus different
-volume flow rates at full speed needs to be provided by the user.
-Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
-<i>P<sub>ele</sub></i>, the total efficiency is computed as
-<br/>
+If <code>per.use_powerCharacteristic</code>,
+a set of data points for the power versus different volume flow rates
+at nominal speed needs to be provided by the user.
+<ul>
+<li>
+If <code>per.use_hydraulicPerformance</code>, the given power data refer to
+<i>W&#775;<sub>hyd</sub></i> and are used to compute the hydraulic efficiency
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
+&eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; W&#775;<sub>hyd</sub>
 </p>
-and the two other efficiencies
-<i>&eta;<sub>hyd</sub></i>
-and <i>&eta;<sub>mot</sub></i> are computed as
-<br/>
+The hydraulic effciency <i>&eta;<sub>hyd</sub></i> is also bounded from zero
+because it will be used as denominator in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PowerInterface\">
+Buildings.Fluid.Movers.BaseClasses.PowerInterface</a>.
+Then <i>&eta;<sub>Mot</sub></i> is assumed constant (by default 0.7) and
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>hyd</sub> = 1,<br/>
-  &eta;<sub>mot</sub> = &eta;.
+P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>mot</sub><br/>
+&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub>
 </p>
 </li>
 <li>
-If <code>per.use_eulerNumber=true</code>,
-the model finds the total efficiency <i>&eta;</i>
+Otherwise, the given power data directly refer to <i>P<sub>ele<sub></i>.
+The total efficiency is therefore computed as
+<p align=\"center\" style=\"font-style:italic;\">
+&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
+</p>
+and the two efficiency components are computed as
+<p align=\"center\" style=\"font-style:italic;\">
+&eta;<sub>hyd</sub> = 1,<br/>
+&eta;<sub>mot</sub> = &eta;.
+</p>
+</li>
+<ul>
+</li>
+<li>
+If <code>per.use_eulerNumber</code>,
+the model finds the hydraulic efficiency <i>&eta;<sub>hyd</sub></i>
 by evaluating the following correlation:
 <br/>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
 <br/>
 </p>
-where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
-<i>x=log10(Eu &frasl;E u<sub>p</sub>)</i>, 
+where <i>y=&eta;<sub>hyd</sub> &frasl; &eta;<sub>hyd,p</sub></i>,
+<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>, 
 with the subscript <i>p</i> denoting the condition where
-the mover is operating at peak efficiency.
+the mover is operating at peak hydraulic efficiency.
 The modified dimensionless Euler number is defined as
 <br/>
 <p align=\"center\">
@@ -510,14 +529,28 @@ and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/Enginee
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
 <br/>
-After the total efficiency is found,
-the power and other two efficiencies are computed as
+Similar to the previous computation path, the user can specify whether the given
+peak values refer to the hydraulic efficiency or the total efficiency
+using the switch <code>use_hydraulicPerformance</code>.
+<ul>
+<li>
+If <code>use_hydraulicPerformance</code>, <i>&eta;<sub>mot</sub></i> is assumed
+constant (by default 0.7) and
 <p align=\"center\" style=\"font-style:italic;\">
-  P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;<br/>
-  &eta;<sub>hyd</sub> = 1<br/>
-  &eta;<sub>mot</sub> = &eta;
+P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>hyd</sub>,<br/>
+&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub>
 </p>
-However, to prevent the computed power from approaching infinity when the eficiency
+</li>
+<li>
+Otherwise,
+<p align=\"center\" style=\"font-style:italic;\">
+P<sub>ele</sub> = W&#775;<sub>flo</sub> &frasl; &eta;<br/>
+&eta;<sub>hyd</sub> = 1<br/>
+&eta;<sub>mot</sub> = &eta;
+</p>
+</li>
+</ul>
+To prevent the computed power from approaching infinity when the eficiency
 approaches zero, the computed power is replaced by extrapolation
 when flow rate or pressure rise is below 10% of their maximum.<br/>
 This computation path is implemented in
@@ -526,15 +559,15 @@ Buildings.Fluid.Movers.BaseClasses.Euler</a>.<br/>
 <br/>
 </li>
 <li>
-Finally, if <code>per.use_motorEfficiency=true</code>, then
+Finally, if <code>per.use_motorEfficiency</code>, then
 performance data for
-<i>&eta;<sub>hyd</sub></i> and
- <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence
-the model computes
+<i>&eta;<sub>hyd</sub></i> and <i>&eta;<sub>mot</sub></i> need to be provided
+by the user as lists versus <i>V&#775;</i> (or simply two constants
+by providing only one value to the arrays). The model computes
 <br/>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
-  P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;.
+&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
+P<sub>ele</sub> = W&#775;<sub>flo</sub> &frasl; &eta;.
 </p>
 The efficiency data for the motor are a list of points
 <i>V&#775;</i> and <i>&eta;<sub>mot</sub></i>.

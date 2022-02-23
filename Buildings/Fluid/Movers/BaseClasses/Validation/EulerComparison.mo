@@ -68,7 +68,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
 Documentation(
 info="<html>
 <p>
-This simple model validates the power computation path
+This model validates the power computation path
 using the Euler number and its correlation as implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.

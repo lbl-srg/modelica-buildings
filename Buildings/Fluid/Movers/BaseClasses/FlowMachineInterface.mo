@@ -545,18 +545,6 @@ equation
     //   causing a division by zero.
     // Earlier versions of the model computed WFlo = eta * P, but this caused
     //   a division by zero.
-    // In this path, the data may provide:
-    // - either shaft work (brake horsepower) (per.use_hydraulicPerformance==true)
-    //     where the computed efficiency corresponds to etaHyd
-    //     which is here bounded away from zero because etaHyd will be used as
-    //     denominator in Buildings.Fluid.Movers.BaseClasses.PowerInterface.
-    //     However, this treatment makes the equation system more non-linear
-    //     and thus is only used when necessary.
-    //     In this case etaMot is assumed constant (default 0.7).
-    // - or consumed power (per.use_hydraulicPerformance==false)
-    //     where the computed efficiency corresponds to eta.
-    //     In this case etaHyd = 1 (thus no need for non-zero treatment)
-    //     and etaMot = eta.
     // Earlier versions assumed the given power curve is always the consumed power
     //   and used etaMot=sqrt(eta), but as eta->0, this function has
     //   an infinite derivative.
@@ -697,7 +685,7 @@ This is an interface that implements the functions to compute the head, power dr
 and efficiency of fans and pumps.
 </p>
 <p>
-The nominal hydraulic characteristic (volume flow rate versus total pressure)
+The nominal hydraulic characteristic (total pressure versus volume flow rate)
 is given by a set of data points
 using the data record <code>per</code>, which is an instance of
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
@@ -710,13 +698,13 @@ The fan or pump's energy balance can be specified in three paths:
 </p>
 <ul>
 <li>
-If <code>per.use_powerCharacteristic = true</code>, then the data points for
+If <code>per.use_powerCharacteristic</code>, then the data points for
 normalized volume flow rate versus power consumption
 is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work.
 </li>
 <li>
-If <code>per.use_eulerNumber = true</code>, 
+If <code>per.use_eulerNumber</code>, 
 then the operation condition at peak efficiency
 is used to compute the efficiency and then the power 
 by evaluating 
@@ -726,7 +714,7 @@ Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 <li>
 Else, the data points for
 normalized volume flow rate versus efficiency is used to determine the efficiency,
-and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
+and then the power consumption. The default is a constant efficiency of <i>0.49</i>.
 This path corresponds to <code>per.use_motorEfficiency = true</code> 
 but is used as the fallback option.
 </li>
@@ -735,11 +723,37 @@ but is used as the fallback option.
 These <code>use_</code> switches are handled by the enumeration
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
 Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>.
-</p>
-<p>
 For exceptions to this general rule, check the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
+</p>
+<p>
+The model also takes into consideration that the power data given in
+<code>per</code> may correspond to shaft power (brake horsepower)
+or consumed power. They are treated differently. The user can specify this
+by setting the value of <code>use_hydraulicPerformance</code>.
+This is applicable to <code>use_powerCharacteristic</code>
+and <code>use_eulerNumber</code>.
+<ul>
+<li>
+If <code>use_hydraulicPerformance</code>,<br/>
+<code>etaHyd = per.dp * per.V_flow / per.P</code>,<br/>
+<code>PEle = per.P / etaMot</code>, and<br/>
+<code>eta = etaHyd * etaMot</code>,<br/>
+where <code>etaHyd</code> is bounded away from zero because it will be used
+as denominator in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PowerInterface\">
+Buildings.Fluid.Movers.BaseClasses.PowerInterface</a>.
+However, this bounding increases the non-linearity of the equation system
+and is avoided in other situations by simply assigning it as a constant 1.
+</li>
+<li>
+Else,<br/>
+<code>eta = per.dp * per.V_flow / per.P</code>,<br/>
+<code>etaHyd = 1</code>, and<br/>
+<code>etaMot = eta</code>.
+</li>
+</ul>
 </p>
 
 <h4>Implementation</h4>
@@ -765,7 +779,7 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
-October 18, 2021, by Hongxiang Fu:<br/>
+February 23, 2022, by Hongxiang Fu:<br/>
 To support the implementation of
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>:
@@ -785,8 +799,13 @@ with the enumeration
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
 Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>.
 </li>
+<li>
+Added a switch <code>use_hydraulicPerformance</code> to differentiate the power
+computation for power data given as shaft power (brake horsepower) or consumed
+power.
+</li>
 </ul>
-This is for
+These are for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>
