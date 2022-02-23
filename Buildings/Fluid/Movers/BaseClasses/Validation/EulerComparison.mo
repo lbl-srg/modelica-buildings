@@ -20,11 +20,13 @@ model EulerComparison
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Movers.Data.Generic per2(
     final powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
+    final use_hydraulicPerformance=per1.use_hydraulicPerformance,
     pressure=per1.pressure,
     power=per1.power,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
       pressure=per2.pressure,
-      power=per2.power))
+      power=per2.power,
+      use_hydraulicPerformance=per1.use_hydraulicPerformance))
     "Peak condition";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per=per2,

@@ -9,7 +9,8 @@ model PowerEuler
     powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
       pressure=per.pressure,
-      power=per.power))
+      power=per.power,
+      use_hydraulicPerformance=per.use_hydraulicPerformance))
     "Peak condition";
 
   annotation (

@@ -6,12 +6,15 @@ function getPeak
     pressure "Pressure vs. flow rate";
   input BaseClasses.Characteristics.powerParameters
     power "Power vs. flow rate";
+  input Boolean use_hydraulicPerformance
+    "Data correspond to hydraulic performance instead of total performance";
   output Buildings.Fluid.Movers.BaseClasses.Euler.peak
     peak "Operation point at maximum efficiency";
 
 protected
   Integer n = size(pressure.V_flow, 1) "Number of data points";
   Real eta[size(pressure.V_flow,1)] "Efficiency series";
+  Real eta_internal "Intermediate variable";
   Boolean etaLes "Efficiency series has less than four points";
   Boolean etaMon "Efficiency series is monotonic";
 
@@ -34,9 +37,9 @@ algorithm
           level = AssertionLevel.warning);
 
   if etaLes or etaMon then
-    peak.eta:=max(eta);
+    eta_internal:=max(eta);
     for i in 1:n loop
-      if abs(eta[i]-peak.eta)<1E-6 then
+      if abs(eta[i]-eta_internal)<1E-6 then
         peak.V_flow:=pressure.V_flow[i];
         peak.dp:=pressure.dp[i];
       end if;
@@ -63,10 +66,18 @@ algorithm
         peak.V_flow:=r[i,1];
       end if;
     end for;
-    peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+    eta_internal:=Buildings.Utilities.Math.Functions.smoothInterpolation(
       x=peak.V_flow,xSup=pressure.V_flow,ySup=eta,ensureMonotonicity=false);
     peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
       x=peak.V_flow,xSup=pressure.V_flow,ySup=pressure.dp,ensureMonotonicity=false);
+  end if;
+
+  if use_hydraulicPerformance then
+    peak.etaHyd := eta_internal;
+    peak.eta := peak.etaHyd * peak.etaMot;
+  else
+    peak.eta := eta_internal;
+    peak.etaHyd := peak.eta / peak.etaHyd;
   end if;
 
   annotation(smoothOrder=1,

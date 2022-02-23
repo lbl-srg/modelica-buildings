@@ -41,10 +41,16 @@ record Generic "Generic data record for movers"
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
     V_flow=0,
     dp=0,
-    eta=0.7)
+    etaHyd=0.7,
+    etaMot=0.7,
+    eta=0.49)
     "Volume flow rate, pressure rise, and efficiency at peak condition (used as input under EulerNumber path)"
     annotation (Dialog(group="Power computation",
-                      enable=use_eulerNumber));
+                       enable=use_eulerNumber));
+  parameter Boolean use_hydraulicPerformance=false
+    "Data correspond to hydraulic efficiency and shaft power (BHP) instead of total efficiency and electric consumption"
+    annotation (Dialog(group="Power computation",
+                       enable=use_powerCharacteristic or use_eulerNumber));
 
   // 3.motorEfficiency path
   parameter

@@ -44,7 +44,8 @@ model StaticReset
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
       pressure=per1.pressure,
-      power=per1.power))
+      power=per1.power,
+      use_hydraulicPerformance=per1.use_hydraulicPerformance))
     "Performance record for EulerNumber";
   Buildings.Fluid.Movers.SpeedControlled_y fan2(
     redeclare package Medium = Medium,
