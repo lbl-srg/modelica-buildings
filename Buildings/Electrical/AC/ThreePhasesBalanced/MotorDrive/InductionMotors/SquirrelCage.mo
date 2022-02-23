@@ -1,12 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors;
-model SquirrelCage
-  "Squirrel cage type induction motor with electrical interface"
+model SquirrelCage "Squirrel cage type induction motor with electrical interface"
   extends BaseClasses.PartialOnePort(
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal(redeclare
-        package PhaseSystem =
-                      Buildings.Electrical.PhaseSystems.OnePhase));
+    redeclare replaceable Interfaces.Terminal_n terminal);
 
   Modelica.Units.SI.Angle theta_s "Phase angel";
   Modelica.Units.SI.AngularVelocity omega "Angular frequency";

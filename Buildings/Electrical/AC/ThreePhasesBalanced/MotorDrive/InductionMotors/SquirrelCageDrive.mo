@@ -3,9 +3,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   extends BaseClasses.PartialOnePort(
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal(redeclare
-        package PhaseSystem =
-                      Buildings.Electrical.PhaseSystems.OnePhase));
+    redeclare replaceable Interfaces.Terminal_n terminal);
 
   Modelica.Units.SI.Angle theta_s "Phase angel";
   Modelica.Units.SI.AngularVelocity omega "Angular frequency";
