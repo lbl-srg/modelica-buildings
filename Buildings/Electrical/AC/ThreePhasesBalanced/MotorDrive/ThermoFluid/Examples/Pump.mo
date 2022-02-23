@@ -9,11 +9,11 @@ model Pump "Test model for heat pump with mechanical interface"
   parameter Modelica.Units.SI.Torque tauMot = 0.05
     "Constant torque (if negative, torque is acting as load in positive direction of rotation)";
   parameter Modelica.Units.SI.Inertia JLoad = 0.01 "Moment of inertia";
-  Buildings.Fluid.Sources.Boundary_pT sou1(nPorts=1, redeclare package Medium
-      = Medium)
+  Buildings.Fluid.Sources.Boundary_pT sou1(nPorts=1, redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
-      = Medium, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+        Medium, nPorts=1)
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,

@@ -38,10 +38,10 @@ model Pump
     dp2_nominal=1/4*dp_nominal)
     annotation (Placement(transformation(extent={{-10,-24},{10,-44}})));
 
-  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium
-      = Medium) annotation (Placement(transformation(extent={{20,10},{0,-10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium =
+        Medium) annotation (Placement(transformation(extent={{20,10},{0,-10}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-30,-38},{-50,-18}})));
   Buildings.Fluid.HeatExchangers.SensibleCooler_T coo2(
     redeclare package Medium = Medium,
