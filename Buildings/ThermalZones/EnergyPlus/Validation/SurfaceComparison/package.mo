@@ -1,5 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation;
 package SurfaceComparison "Collection of models used to validate zone surface coupling against EnergyPlus"
+  extends Modelica.Icons.Package;
+
   annotation (Documentation(info="<html>
 <p>
 Package containing models used to compare 
