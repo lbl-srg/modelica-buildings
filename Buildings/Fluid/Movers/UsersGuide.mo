@@ -460,7 +460,10 @@ Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 <i>Q</i> is the heat released by the motor.
 </p>
 <p>
-There are three paths of computation. They are selected by the enumeration
+There are three paths of computation implemented in
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
+They are selected by the enumeration
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
 Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>
 which handles three <code>use_</code> switches.
@@ -569,9 +572,6 @@ by providing only one value to the arrays). The model computes
 &eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
 P<sub>ele</sub> = W&#775;<sub>flo</sub> &frasl; &eta;.
 </p>
-The efficiency data for the motor are a list of points
-<i>V&#775;</i> and <i>&eta;<sub>mot</sub></i>.
-<br/>
 </li>
 </ul>
 <h5>Fluid volume of the component</h5>
