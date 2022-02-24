@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
-  parameter Integer nChi
+  parameter Integer nChi=2
     "Total number of chiller, which is also the total number of chilled water isolation valve";
   parameter Real chaChiWatIsoTim(
     final unit="s",

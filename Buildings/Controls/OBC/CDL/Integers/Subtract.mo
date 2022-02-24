@@ -6,9 +6,9 @@ block Subtract "Output the difference of the two inputs"
   Interfaces.IntegerInput u2
     "Connector of Integer input signal 2"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.IntegerInput y
+  Interfaces.IntegerOutput y
     "Connector of Integer output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{80,-20},{120,20}}),
         iconTransformation(extent={{80,-20},{120,20}})));
 
 equation

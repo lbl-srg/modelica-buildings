@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block ReduceDemand "Sequence for reducing operating chiller demand"
 
-  parameter Integer nChi "Total number of chillers in the plant";
+  parameter Integer nChi=2 "Total number of chillers in the plant";
   parameter Real chiDemRedFac = 0.75
     "Demand reducing factor of current operating chillers";
   parameter Real holChiDemTim(
@@ -14,9 +14,10 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Demand limit: true=limit chiller demand"
     annotation (Placement(transformation(extent={{-200,140},{-160,180}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
-        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
-                                "Current chiller load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
+    "Current chiller load"
     annotation (Placement(transformation(extent={{-200,110},{-160,150}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
@@ -37,9 +38,10 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
-       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
-                                "Chiller demand setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
+    "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{160,70},{200,110}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiDemRed
@@ -70,7 +72,7 @@ protected
     final uHigh=fill(chiDemRedFac + 0.05 + 0.01, nChi))
     "Check if actual demand has already reduced at instant when receiving stage change signal"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nChi]
     "Output result of first input divided by second input"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
@@ -81,7 +83,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
+    final nout=nChi)
     "Replicate boolean input "
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
@@ -103,12 +106,11 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(final nout=nChi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nChi]
     "Percentage of the current load"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nChi](
-    final p=fill(1e-6, nChi),
-    final k=fill(1, nChi))
+    final p=fill(1e-6, nChi))
     "Add a small value to avoid potentially zero denominator"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(

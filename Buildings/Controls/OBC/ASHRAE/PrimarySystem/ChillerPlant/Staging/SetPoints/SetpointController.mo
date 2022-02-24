@@ -415,9 +415,7 @@ protected
     staMat=staMat) "Calculates chiller status setpoint vector"
     annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add lift(
-    final k1=1,
-    final k2=-1) if anyVsdCen
+  Buildings.Controls.OBC.CDL.Continuous.Subtract lift if anyVsdCen
     "Calculates chiller lift for variable speed centrifugal chiller containing configurations"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
 

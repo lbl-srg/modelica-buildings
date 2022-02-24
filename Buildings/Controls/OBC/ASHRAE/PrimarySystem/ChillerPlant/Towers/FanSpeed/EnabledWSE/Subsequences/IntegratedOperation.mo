@@ -86,9 +86,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiSum minCycLoa(final nin=nChi)
     "Sum of minimum cycling load for all chillers"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div "Output first input divided by second input"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1 "Output first input divided by second input"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));

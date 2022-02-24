@@ -105,7 +105,7 @@ block Initial "Outputs the initial stage"
     "Check if the initial predicted heat exchange leaving water temperature is greater than chilled water supply temperature setpoint less offset"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if have_WSE
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
 
@@ -123,9 +123,8 @@ block Initial "Outputs the initial stage"
 
 equation
   connect(reaToInt.y, yIni)
-    annotation (Line(points={{182,40},{200,40},{200,0},{250,0}},
-                                               color={255,127,0}));
-  connect(feedback.y,hys1. u)
+    annotation (Line(points={{182,40},{200,40},{200,0},{250,0}}, color={255,127,0}));
+  connect(sub1.y,hys1. u)
     annotation (Line(points={{-88,90},{-62,90}}, color={0,0,127}));
   connect(noWSE.y,swi. u2)
     annotation (Line(points={{-38,50},{-20,50},{-20,90},{58,90}},
@@ -141,19 +140,17 @@ equation
   connect(wseTOut.uTunPar,uTunPar)
     annotation (Line(points={{-142,22},{-180,22},{-180,0},{-260,0}},
       color={0,0,127}));
-  connect(wseTOut.y,feedback. u2)
-    annotation (Line(points={{-118,30},{-100,30},{-100,78}},   color={0,0,127}));
-  connect(TChiWatSupSet,feedback. u1)
-    annotation (Line(points={{-260,110},{-170,110},{-170,90},{-112,90}},
+  connect(wseTOut.y,sub1. u2)
+    annotation (Line(points={{-118,30},{-112,30},{-112,84}},   color={0,0,127}));
+  connect(TChiWatSupSet,sub1. u1)
+    annotation (Line(points={{-260,110},{-170,110},{-170,96},{-112,96}},
       color={0,0,127}));
   connect(staZer.y,swi. u1)
-    annotation (Line(points={{22,110},{40,110},{40,98},{58,98}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{22,110},{40,110},{40,98},{58,98}}, color={0,0,127}));
   connect(uUp, intToRea.u) annotation (Line(points={{-260,-40},{-100,-40},{-100,
-          0},{-62,0}},     color={255,127,0}));
+          0},{-62,0}}, color={255,127,0}));
   connect(swi.y, reaToInt.u) annotation (Line(points={{82,90},{140,90},{140,40},
-          {158,40}},
-                   color={0,0,127}));
+          {158,40}}, color={0,0,127}));
   connect(intToRea.y, triSam.u)
     annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
   connect(triSam.y, swi.u3)

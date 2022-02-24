@@ -181,10 +181,10 @@ block PartLoadRatios
         iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
-  final parameter Real small = CDL.Constants.small
+  final parameter Real small = Buildings.Controls.OBC.CDL.Constants.small
   "Small number to avoid division with zero";
 
-  Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
+  Buildings.Controls.OBC.CDL.Continuous.Divide opePlrSta
     "Calculates operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
@@ -263,11 +263,11 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Logical equality"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division minOpePlrUp
+  Buildings.Controls.OBC.CDL.Continuous.Divide minOpePlrUp
    "Calculates minimum OPLR of one stage up"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division opePlrUp
+  Buildings.Controls.OBC.CDL.Continuous.Divide opePlrUp
     "Calculates operating part load ratio at the next stage up"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 
@@ -275,11 +275,11 @@ protected
     final k=0.9) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-200,-360},{-180,-340}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) if anyVsdCen "Subtract"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{-80,-420},{-60,-400}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div if anyVsdCen
+  Buildings.Controls.OBC.CDL.Continuous.Divide div if anyVsdCen
     "Division"
     annotation (Placement(transformation(extent={{-20,-370},{0,-350}})));
 
@@ -291,20 +291,20 @@ protected
     final k=1.4) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-200,-560},{-180,-540}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k2=-1) if anyVsdCen "Subtract"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{-80,-500},{-60,-480}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product mult0 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mult0 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{-140,-460},{-120,-440}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product mult1 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mult1 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{-140,-540},{-120,-520}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product mult2 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mult2 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{40,-440},{60,-420}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product mult3 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mult3 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{100,-510},{120,-490}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Add"
@@ -334,11 +334,11 @@ protected
     final t=-0.5) "Less than threshold"
     annotation (Placement(transformation(extent={{200,-110},{220,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division opePlrDow
+  Buildings.Controls.OBC.CDL.Continuous.Divide opePlrDow
     "Calculates operating part load ratio of the next stage down"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division minOpePlr
+  Buildings.Controls.OBC.CDL.Continuous.Divide minOpePlr
     "Calculates minimum OPLR of the current stage"
     annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
 
@@ -417,7 +417,7 @@ protected
     "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=avePer) if anyVsdCen
     annotation (Placement(transformation(extent={{300,-330},{320,-310}})));
 
@@ -454,11 +454,11 @@ equation
           {400,-120}},           color={0,0,127}));
   connect(minOpePlrUp.y, yOpeUpMin) annotation (Line(points={{-178,-190},{-60,-190},
           {-60,-280},{240,-280},{240,-240},{400,-240}},        color={0,0,127}));
-  connect(uLifMin, add2.u2) annotation (Line(points={{-400,-420},{-200,-420},{-200,
+  connect(uLifMin, sub2.u2) annotation (Line(points={{-400,-420},{-200,-420},{-200,
           -416},{-82,-416}},  color={0,0,127}));
   connect(const.y, div.u1) annotation (Line(points={{-178,-350},{-40,-350},{-40,
           -354},{-22,-354}}, color={0,0,127}));
-  connect(add2.y, div.u2) annotation (Line(points={{-58,-410},{-40,-410},{-40,-366},
+  connect(sub2.y, div.u2) annotation (Line(points={{-58,-410},{-40,-410},{-40,-366},
           {-22,-366}}, color={0,0,127}));
   connect(const1.y, mult0.u2) annotation (Line(points={{-178,-470},{-150,-470},{
           -150,-456},{-142,-456}}, color={0,0,127}));
@@ -469,13 +469,13 @@ equation
         color={0,0,127}));
   connect(const2.y, mult1.u2) annotation (Line(points={{-178,-550},{-160,-550},{
           -160,-536},{-142,-536}}, color={0,0,127}));
-  connect(mult0.y, add1.u1) annotation (Line(points={{-118,-450},{-110,-450},{-110,
+  connect(mult0.y, sub1.u1) annotation (Line(points={{-118,-450},{-110,-450},{-110,
           -484},{-82,-484}},  color={0,0,127}));
-  connect(mult1.y, add1.u2) annotation (Line(points={{-118,-530},{-108,-530},{-108,
+  connect(mult1.y, sub1.u2) annotation (Line(points={{-118,-530},{-108,-530},{-108,
           -496},{-82,-496}},  color={0,0,127}));
   connect(div.y, mult2.u1) annotation (Line(points={{2,-360},{20,-360},{20,-424},
           {38,-424}}, color={0,0,127}));
-  connect(add1.y, mult2.u2) annotation (Line(points={{-58,-490},{20,-490},{20,-436},
+  connect(sub1.y, mult2.u2) annotation (Line(points={{-58,-490},{20,-490},{20,-436},
           {38,-436}},       color={0,0,127}));
   connect(div.y, mult3.u1) annotation (Line(points={{2,-360},{80,-360},{80,-494},
           {98,-494}},
@@ -490,7 +490,7 @@ equation
           {158,-466}}, color={0,0,127}));
   connect(swi.y,greThr. u) annotation (Line(points={{222,150},{248,150},{248,210},
           {258,210}}, color={0,0,127}));
-  connect(uLifMax, add2.u1) annotation (Line(points={{-400,-360},{-220,-360},{-220,
+  connect(uLifMax, sub2.u1) annotation (Line(points={{-400,-360},{-220,-360},{-220,
           -388},{-100,-388},{-100,-404},{-82,-404}},  color={0,0,127}));
   connect(opePlrDow.y, yOpeDow)
     annotation (Line(points={{-178,-80},{400,-80}}, color={0,0,127}));

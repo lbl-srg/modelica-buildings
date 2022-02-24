@@ -24,7 +24,7 @@ block Speed
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage index that does not include the WSE"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
     "Water side economizer status: true = ON, false = OFF"
@@ -43,49 +43,47 @@ block Speed
 protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumOn(
     final nin=totSta) if not fixSpe
-                       "Number of condenser water pump should be on"
+    "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumSpe(
     final nin=totSta) if not fixSpe
-                        "Condenser water pump speed"
+    "Condenser water pump speed"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt if not fixSpe
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[totSta](
     final k=desConWatPumSpe) if not fixSpe
-                             "Condenser water pump speed setpoint"
+    "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[totSta](
     final k=desConWatPumNum) if not fixSpe
-                             "Number of condenser water pump should be on"
+    "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea if not fixSpe
     "Convert integer to real number"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[totSta](
     final k=staVec) if not fixSpe
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=0.5) if have_WSE
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 if not fixSpe
-                                                 "Add two real inputs"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    "Add two real inputs"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=totSta) if not fixSpe
-                       "Replicate real input"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[totSta](
-    final k1=fill(-1, totSta),
-    final k2=fill(1, totSta)) if not fixSpe
-                              "Add two real inputs"
+    "Replicate real input"
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[totSta] if not fixSpe
+    "Add two real inputs"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totSta](
     final t=fill(-0.1, totSta)) if not fixSpe
-                                 "Identify current stage"
+    "Identify current stage"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totSta]
     if not fixSpe
@@ -93,7 +91,7 @@ protected
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=totSta) if not fixSpe
-                      "Current stage index"
+    "Current stage index"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
     final k=0) if not have_WSE
@@ -117,7 +115,7 @@ equation
   connect(con2.y,conWatPumOn. u)
     annotation (Line(points={{2,-20},{18,-20}}, color={0,0,127}));
   connect(uChiSta,intToRea. u)
-    annotation (Line(points={{-160,60},{-122,60}},color={255,127,0}));
+    annotation (Line(points={{-160,100},{-122,100}}, color={255,127,0}));
   connect(conWatPumSpe.y, yDesConWatPumSpe)
     annotation (Line(points={{102,20},{160,20}}, color={0,0,127}));
   connect(yConWatPumNum, reaToInt.y)
@@ -127,16 +125,12 @@ equation
   connect(uWSE, booToRea.u)
     annotation (Line(points={{-160,-40},{-122,-40}}, color={255,0,255}));
   connect(intToRea.y, add2.u1)
-    annotation (Line(points={{-98,60},{-90,60},{-90,66},{-82,66}}, color={0,0,127}));
+    annotation (Line(points={{-98,100},{-90,100},{-90,106},{-82,106}}, color={0,0,127}));
   connect(booToRea.y, add2.u2)
-    annotation (Line(points={{-98,-40},{-90,-40},{-90,54},{-82,54}}, color={0,0,127}));
+    annotation (Line(points={{-98,-40},{-90,-40},{-90,94},{-82,94}}, color={0,0,127}));
   connect(add2.y, reaRep.u)
-    annotation (Line(points={{-58,60},{-42,60}}, color={0,0,127}));
-  connect(con3.y, add1.u1)
-    annotation (Line(points={{-18,100},{-10,100},{-10,86},{-2,86}},color={0,0,127}));
-  connect(reaRep.y, add1.u2)
-    annotation (Line(points={{-18,60},{-8,60},{-8,74},{-2,74}}, color={0,0,127}));
-  connect(add1.y,greEquThr. u)
+    annotation (Line(points={{-58,100},{-42,100}}, color={0,0,127}));
+  connect(sub1.y,greEquThr. u)
     annotation (Line(points={{22,80},{38,80}}, color={0,0,127}));
   connect(greEquThr.y, booToInt.u)
     annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
@@ -149,15 +143,19 @@ equation
     annotation (Line(points={{102,80},{120,80},{120,40},{-80,40},{-80,0},{-62,0}},
       color={255,127,0}));
   connect(con4.y, add2.u2)
-    annotation (Line(points={{-98,0},{-90,0},{-90,54},{-82,54}}, color={0,0,127}));
-  connect(uChiSta, conWatPumOn1.index) annotation (Line(points={{-160,60},{-130,
-          60},{-130,-80},{30,-80},{30,-72}}, color={255,127,0}));
+    annotation (Line(points={{-98,0},{-90,0},{-90,94},{-82,94}}, color={0,0,127}));
+  connect(uChiSta, conWatPumOn1.index) annotation (Line(points={{-160,100},{-130,
+          100},{-130,-80},{30,-80},{30,-72}},color={255,127,0}));
   connect(con5.y, conWatPumOn1.u)
     annotation (Line(points={{2,-60},{18,-60}}, color={0,0,127}));
   connect(conWatPumOn1.y, reaToInt1.u)
     annotation (Line(points={{42,-60},{58,-60}}, color={0,0,127}));
   connect(reaToInt1.y, yConWatPumNum) annotation (Line(points={{82,-60},{120,-60},
           {120,-20},{160,-20}}, color={255,127,0}));
+  connect(reaRep.y, sub1.u1) annotation (Line(points={{-18,100},{-10,100},{-10,86},
+          {-2,86}}, color={0,0,127}));
+  connect(con3.y, sub1.u2) annotation (Line(points={{-18,60},{-10,60},{-10,74},{
+          -2,74}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="conPumSpe",

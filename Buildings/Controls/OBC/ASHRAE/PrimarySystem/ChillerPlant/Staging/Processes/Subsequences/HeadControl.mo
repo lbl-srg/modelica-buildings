@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processe
 block HeadControl
   "Sequences for enabling or disabling head pressure control for the chiller being enabled or disabled"
 
-  parameter Integer nChi "Total number of chiller";
+  parameter Integer nChi=2 "Total number of chiller";
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",

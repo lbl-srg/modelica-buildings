@@ -26,24 +26,24 @@ protected
 
 equation
   connect(conLoo.y, witWSE.uHeaPreCon)
-    annotation (Line(points={{-39,80},{-24,80},{-24,68},{-2,68}}, color={0,0,127}));
+    annotation (Line(points={{-38,80},{-24,80},{-24,68},{-2,68}}, color={0,0,127}));
   connect(desPumSpe.y, witWSE.desConWatPumSpe)
-    annotation (Line(points={{-39,40},{-20,40},{-20,64},{-2,64}}, color={0,0,127}));
+    annotation (Line(points={{-38,40},{-20,40},{-20,64},{-2,64}}, color={0,0,127}));
   connect(enaWSE.y, witWSE.uWSE)
-    annotation (Line(points={{-39,0},{-16,0},{-16,56},{-2,56}}, color={255,0,255}));
+    annotation (Line(points={{-38,0},{-16,0},{-16,56},{-2,56}}, color={255,0,255}));
   connect(enaPreCon.y, witWSE.uHeaPreEna)
-    annotation (Line(points={{-39,-40},{-12,-40},{-12,52},{-2,52}}, color={255,0,255}));
+    annotation (Line(points={{-38,-40},{-12,-40},{-12,52},{-2,52}}, color={255,0,255}));
   connect(conLoo.y, noWSE.uHeaPreCon)
-    annotation (Line(points={{-39,80},{-24,80},{-24,-72},{-2,-72}}, color={0,0,127}));
+    annotation (Line(points={{-38,80},{-24,80},{-24,-72},{-2,-72}}, color={0,0,127}));
   connect(desPumSpe.y, noWSE.desConWatPumSpe)
-    annotation (Line(points={{-39,40},{-20,40},{-20,-76},{-2,-76}}, color={0,0,127}));
+    annotation (Line(points={{-38,40},{-20,40},{-20,-76},{-2,-76}}, color={0,0,127}));
   connect(enaWSE.y, not1.u)
-    annotation (Line(points={{-39,0},{-2,0}}, color={255,0,255}));
+    annotation (Line(points={{-38,0},{-2,0}}, color={255,0,255}));
   connect(not1.y, noWSE.uWSE)
-    annotation (Line(points={{21,0},{40,0},{40,-60},{-16,-60},{-16,-84},
-      {-2,-84}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{40,0},{40,-60},{-16,-60},{-16,-84},{-2,-84}},
+                 color={255,0,255}));
   connect(enaPreCon.y, noWSE.uHeaPreEna)
-    annotation (Line(points={{-39,-40},{-12,-40},{-12,-88},{-2,-88}}, color={255,0,255}));
+    annotation (Line(points={{-38,-40},{-12,-40},{-12,-88},{-2,-88}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),

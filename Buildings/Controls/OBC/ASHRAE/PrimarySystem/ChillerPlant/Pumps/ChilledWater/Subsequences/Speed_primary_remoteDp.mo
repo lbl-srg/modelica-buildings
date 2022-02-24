@@ -81,7 +81,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(

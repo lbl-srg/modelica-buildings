@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block Controller "Chiller plant controller"
 
   parameter Boolean closeCoupledPlant=false
@@ -1442,10 +1442,10 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChiWatPum]
     "Boolean to real"
     annotation (Placement(transformation(extent={{680,490},{700,510}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nChiWatPum]
     "Chilled water pump speed setpoint"
     annotation (Placement(transformation(extent={{740,470},{760,490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nChiWatPum]
     "Chilled water pump speed setpoint"
     annotation (Placement(transformation(extent={{760,140},{780,160}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatPumSpe1(
@@ -1458,7 +1458,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3[nChi]
     "Boolean to real"
     annotation (Placement(transformation(extent={{680,250},{700,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro4[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4[nChi]
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{760,230},{780,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpeVal[nChi](

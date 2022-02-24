@@ -125,10 +125,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe_max(
     final k=maxPumSpe) "Maximum pump speed"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(

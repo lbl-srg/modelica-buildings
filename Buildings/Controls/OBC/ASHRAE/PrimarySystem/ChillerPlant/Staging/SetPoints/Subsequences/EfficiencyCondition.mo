@@ -13,15 +13,15 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(
     final unit="1")
-    "Operative part load ratio of the current stage" annotation (Placement(
-        transformation(extent={{-140,0},{-100,40}}), iconTransformation(extent=
-            {{-140,30},{-100,70}})));
+    "Operative part load ratio of the current stage"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+        iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(
     final unit="1")
-    "Staging part load ratio of the next stage up" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent=
-           {{-140,-70},{-100,-30}})));
+    "Staging part load ratio of the next stage up"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Efficiency condition for chiller staging"
@@ -41,8 +41,8 @@ protected
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add(
-    final k2=-1) "Subtracts part load ratios"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+    "Subtracts part load ratios"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
@@ -50,11 +50,11 @@ equation
     annotation (Line(points={{42,0},{100,0}},color={255,0,255}));
   connect(hysOpe.y, truDel.u)
     annotation (Line(points={{2,0},{18,0}}, color={255,0,255}));
-  connect(add.y, hysOpe.u)
+  connect(sub.y, hysOpe.u)
     annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
-  connect(uOpe, add.u1) annotation (Line(points={{-120,20},{-80,20},{-80,6},{-62,
+  connect(uOpe, sub.u1) annotation (Line(points={{-120,20},{-80,20},{-80,6},{-62,
           6}}, color={0,0,127}));
-  connect(uStaUp, add.u2) annotation (Line(points={{-120,-20},{-80,-20},{-80,-6},
+  connect(uStaUp, sub.u2) annotation (Line(points={{-120,-20},{-80,-20},{-80,-6},
           {-62,-6}}, color={0,0,127}));
 
 annotation (defaultComponentName = "effCon",

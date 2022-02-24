@@ -193,8 +193,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or orStaUp1 if have_WSE "Or for staging up"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback add0 if have_WSE
-    "Adder for temperatures"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
+    "Temperature difference"
     annotation (Placement(transformation(extent={{-110,-120},{-90,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
@@ -223,8 +223,7 @@ equation
   connect(uStaUp, effCon.uStaUp) annotation (Line(points={{-180,90},{-150,90},{-150,
           95},{-102,95}},        color={0,0,127}));
   connect(TChiWatSupSet, faiSafCon.TChiWatSupSet) annotation (Line(points={{-180,
-          -110},{-140,-110},{-140,29},{-102,29}},
-                                              color={0,0,127}));
+          -110},{-140,-110},{-140,29},{-102,29}}, color={0,0,127}));
   connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-180,-150},
           {-130,-150},{-130,26},{-102,26}},color={0,0,127}));
   connect(dpChiWatPumSet_local, faiSafCon.dpChiWatPumSet_local) annotation (
@@ -239,37 +238,33 @@ equation
           {20,0},{98,0}},   color={255,0,255}));
   connect(orStaUp.y, logSwi.u1) annotation (Line(points={{2,40},{10,40},{10,8},
           {98,8}}, color={255,0,255}));
-  connect(add0.y, hysTSup1.u)
-    annotation (Line(points={{-88,-110},{-80,-110},{-80,-120},{-62,-120}},
-                                                   color={0,0,127}));
+  connect(sub1.y, hysTSup1.u)
+    annotation (Line(points={{-88,-110},{-80,-110},{-80,-120},{-62,-120}}, color={0,0,127}));
   connect(hysTSup.y, truDel.u)
     annotation (Line(points={{-38,-80},{-22,-80}},color={255,0,255}));
   connect(hysTSup1.y, truDel1.u)
-    annotation (Line(points={{-38,-120},{-22,-120}},
-                                                  color={255,0,255}));
+    annotation (Line(points={{-38,-120},{-22,-120}}, color={255,0,255}));
   connect(truDel.y, orStaUp1.u1) annotation (Line(points={{2,-80},{38,-80}},
                           color={255,0,255}));
   connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{2,-120},{10,-120},{10,
           -88},{38,-88}},   color={255,0,255}));
   connect(orStaUp1.y, logSwi.u3) annotation (Line(points={{62,-80},{70,-80},{70,
-          -8},{98,-8}},                  color={255,0,255}));
+          -8},{98,-8}}, color={255,0,255}));
   connect(noWSE.y, logSwi.u2)
-    annotation (Line(points={{2,0},{98,0}},    color={255,0,255}));
+    annotation (Line(points={{2,0},{98,0}}, color={255,0,255}));
   connect(noWSE.y, logSwi.u3) annotation (Line(points={{2,0},{30,0},{30,-8},{98,
           -8}},    color={255,0,255}));
   connect(u, intGreThr.u)
-    annotation (Line(points={{-180,-180},{-102,-180}},
-                                                     color={255,127,0}));
+    annotation (Line(points={{-180,-180},{-102,-180}}, color={255,127,0}));
   connect(logSwi.y, y)
     annotation (Line(points={{122,0},{180,0}}, color={255,0,255}));
-  connect(add0.y, hysTSup.u) annotation (Line(points={{-88,-110},{-80,-110},{-80,
-          -80},{-62,-80}},
-                      color={0,0,127}));
-  connect(TChiWatSup, add0.u1) annotation (Line(points={{-180,-150},{-130,-150},
-          {-130,-110},{-112,-110}},
-                                  color={0,0,127}));
-  connect(TChiWatSupSet, add0.u2) annotation (Line(points={{-180,-110},{-140,-110},
-          {-140,-132},{-100,-132},{-100,-122}}, color={0,0,127}));
+  connect(sub1.y, hysTSup.u) annotation (Line(points={{-88,-110},{-80,-110},{-80,
+          -80},{-62,-80}}, color={0,0,127}));
+  connect(TChiWatSup, sub1.u1) annotation (Line(points={{-180,-150},{-130,-150},
+          {-130,-104},{-112,-104}}, color={0,0,127}));
+  connect(TChiWatSupSet, sub1.u2) annotation (Line(points={{-180,-110},{-140,
+          -110},{-140,-132},{-112,-132},{-112,-116}},
+                                                color={0,0,127}));
   connect(uAvaCur, not1.u)
     annotation (Line(points={{-180,-60},{-122,-60}}, color={255,0,255}));
   connect(not1.y, orStaUp.u3) annotation (Line(points={{-98,-60},{-40,-60},{-40,

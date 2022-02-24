@@ -160,16 +160,13 @@ protected
     "Calculates the predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 "Subtract"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=1,
-    final k2=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "Subtract"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
@@ -216,7 +213,7 @@ equation
   connect(pre.y,wseTun.uWseSta)
     annotation (Line(points={{162,-50},{170,-50},{170,-70},{-150,-70},{-150,-85},
           {-142,-85}},color={255,0,255}));
-  connect(TChiWatRet, add1.u1)
+  connect(TChiWatRet, sub1.u1)
     annotation (Line(points={{-200,60},{-140,60},{-140,-4},{-102,-4}},
           color={0,0,127}));
   connect(truFalHol.y, pre.u)
@@ -231,20 +228,20 @@ equation
     color={255,0,255}));
   connect(timer.y, enaTChiWatRet.u)
     annotation (Line(points={{42,-10},{58,-10}}, color={0,0,127}));
-  connect(TChiWatRetDow, add1.u2)
+  connect(TChiWatRetDow, sub1.u2)
     annotation (Line(points={{-200,20},{-160,20},{-160,-16},{-102,-16}},
     color={0,0,127}));
-  connect(add1.y, hys.u)
+  connect(sub1.y, hys.u)
     annotation (Line(points={{-78,-10},{-62,-10}},color={0,0,127}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-90},{-110,-90},
           {-110,42},{-102,42}},color={0,0,127}));
-  connect(wseTOut.y, add2.u2) annotation (Line(points={{-78,50},{-50,50},{-50,44},
+  connect(wseTOut.y, sub2.u2) annotation (Line(points={{-78,50},{-50,50},{-50,44},
           {-22,44}}, color={0,0,127}));
-  connect(TChiWatRet, add2.u1) annotation (Line(points={{-200,60},{-140,60},{-140,
+  connect(TChiWatRet, sub2.u1) annotation (Line(points={{-200,60},{-140,60},{-140,
           70},{-50,70},{-50,56},{-22,56}}, color={0,0,127}));
-  connect(add2.y, enaTWet.u)
+  connect(sub2.y, enaTWet.u)
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
     annotation (Line(points={{-119,-90},{200,-90}}, color={0,0,127}));

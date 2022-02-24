@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block ControlLoop
   "Sequence to generate head pressure control signal if it is not available from the chiller controller"
   parameter Real minChiLif(
@@ -53,31 +53,32 @@ block ControlLoop
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=1/minChiLif)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1/minChiLif)
     "Normalized by minimum allowable lift at minimum load for chiller"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
 equation
-  connect(TConWatRet, feedback.u1)
-    annotation (Line(points={{-120,-20},{-72,-20}}, color={0,0,127}));
-  connect(TChiWatSup, feedback.u2)
-    annotation (Line(points={{-120,-80},{-60,-80},{-60,-32}}, color={0,0,127}));
+  connect(TConWatRet, sub1.u1)
+    annotation (Line(points={{-120,-20},{-80,-20},{-80,-14},{-72,-14}},
+                                                    color={0,0,127}));
   connect(con.y, conPID.u_s)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(conPID.y, yHeaPreCon)
     annotation (Line(points={{42,60},{60,60},{60,0},{120,0}}, color={0,0,127}));
-  connect(feedback.y, gai.u)
+  connect(sub1.y, gai.u)
     annotation (Line(points={{-48,-20},{-22,-20}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{2,-20},{30,-20},{30,48}}, color={0,0,127}));
   connect(uHeaPreEna, conPID.trigger)
     annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
 
+  connect(TChiWatSup, sub1.u2) annotation (Line(points={{-120,-80},{-80,-80},{
+          -80,-26},{-72,-26}}, color={0,0,127}));
 annotation (
   defaultComponentName= "chiHeaPreLoo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

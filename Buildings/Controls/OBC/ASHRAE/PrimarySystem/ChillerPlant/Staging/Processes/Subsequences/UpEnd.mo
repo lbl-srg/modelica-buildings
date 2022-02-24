@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block UpEnd "Sequence for ending stage-up process"
 
-  parameter Integer nChi "Total number of chillers";
+  parameter Integer nChi=2 "Total number of chillers";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
 
