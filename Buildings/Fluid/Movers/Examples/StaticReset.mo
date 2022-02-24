@@ -54,8 +54,8 @@ model StaticReset
     pressure=per1.pressure,
     powMet=
       Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
-    hydraulicEfficiency(eta = {1}),
-    motorEfficiency(eta = {0.5}))
+    hydraulicEfficiency(eta = {0.7}),
+    motorEfficiency(eta = {0.7}))
     "Performance record for MotorEfficiency";
   Buildings.Fluid.Movers.SpeedControlled_y fan3(
     redeclare package Medium = Medium,
