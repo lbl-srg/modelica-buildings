@@ -538,10 +538,11 @@ using the switch <code>use_hydraulicPerformance</code>.
 <ul>
 <li>
 If <code>use_hydraulicPerformance</code>, <i>&eta;<sub>mot</sub></i> is assumed
-constant (by default 0.7) and
+constant (by default 0.7),
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>hyd</sub>,<br/>
-&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub>
+&eta;<sub>hyd</sub> = &eta; &frasl; &eta;<sub>mot</sub>,<br/>
+&eta;<sub>mot</sub> = 0.7
 </p>
 </li>
 <li>
