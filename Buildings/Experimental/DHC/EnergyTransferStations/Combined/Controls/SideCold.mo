@@ -14,10 +14,11 @@ model SideCold
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)=
-       120 "Time constant of integrator block" annotation (Dialog(enable=
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(
+    min=Buildings.Controls.OBC.CDL.Constants.small)=120
+    "Time constant of integrator block"
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCol
     "Cold rejection control signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
@@ -34,15 +35,15 @@ model SideCold
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x1[nSouAmb](
     final k={(i-1) for i in 1:nSouAmb})
     "x1"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
     final nout=nSouAmb)
     "Replicate control signal"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-20,0})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0)));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](
     each final k=0)
     "f1"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](
     each final k=1)
     "f2"
@@ -50,7 +51,7 @@ model SideCold
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](
     final k={(i) for i in 1:nSouAmb})
     "x2"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Combined.Controls.PIDWithEnable conTChiWatSup(
     final k=k,
     final Ti=Ti,
@@ -59,7 +60,7 @@ model SideCold
     final yMax=1,
     final reverseActing=false)
     "Controller for CHWST"
-    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
+    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFunTChiSupSet
     "Mapping function for CHWST reset"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
@@ -70,9 +71,13 @@ model SideCold
     "Minimum value of chilled water supply temperature"
     annotation (Placement(transformation(extent={{62,50},{82,70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=nSouAmb, k=-nSouAmb)
+    p=nSouAmb)
     "One minus control loop output"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    k=-nSouAmb)
+    "Gain factor"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     "CHWST reset signal"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
@@ -81,15 +86,14 @@ model SideCold
     "Zero"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter subNumSou(
-    p=-nSouAmb,
-    k=1)
+    p=-nSouAmb)
     "Control signal minus nSouAmb"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Ambient source control signal"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLimHea(raisingSlewRate
-      =0.1) "Limit the rate of change"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLimHea(
+    raisingSlewRate=0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
     "Enable signal for heating or cooling"
@@ -129,44 +133,41 @@ model SideCold
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 equation
   connect(x1.y,mapFun.x1)
-    annotation (Line(points={{22,20},{36,20},{36,8},{98,8}},color={0,0,127}));
+    annotation (Line(points={{62,20},{80,20},{80,8},{98,8}},color={0,0,127}));
   connect(rep.y,mapFun.u)
-    annotation (Line(points={{-8,0},{98,0}},color={0,0,127}));
+    annotation (Line(points={{12,0},{98,0}},color={0,0,127}));
   connect(f1.y,mapFun.f1)
-    annotation (Line(points={{22,-20},{36,-20},{36,4},{98,4}},color={0,0,127}));
+    annotation (Line(points={{62,-30},{80,-30},{80,4},{98,4}},color={0,0,127}));
   connect(f2.y,mapFun.f2)
-    annotation (Line(points={{12,120},{40,120},{40,-8},{98,-8}},color={0,0,127}));
+    annotation (Line(points={{12,120},{30,120},{30,-8},{98,-8}},color={0,0,127}));
   connect(x2.y,mapFun.x2)
-    annotation (Line(points={{22,-60},{44,-60},{44,-4},{98,-4}},color={0,0,127}));
+    annotation (Line(points={{62,-60},{90,-60},{90,-4},{98,-4}},color={0,0,127}));
   connect(TSet,conTChiWatSup.u_s)
-    annotation (Line(points={{-200,40},{-148,40},{-148,-20},{-132,-20}},color={0,0,127}));
+    annotation (Line(points={{-200,40},{-172,40},{-172,-20},{-152,-20}},color={0,0,127}));
   connect(TBot,conTChiWatSup.u_m)
-    annotation (Line(points={{-200,-80},{-120,-80},{-120,-32}},color={0,0,127}));
+    annotation (Line(points={{-200,-80},{-140,-80},{-140,-32}},color={0,0,127}));
   connect(f2[1].y,mapFunTChiSupSet.x2)
-    annotation (Line(points={{12,120},{40,120},{40,76},{98,76}},color={0,0,127}));
+    annotation (Line(points={{12,120},{30,120},{30,76},{98,76}},color={0,0,127}));
   connect(minTChiWatSup.y,mapFunTChiSupSet.f2)
     annotation (Line(points={{84,60},{90,60},{90,72},{98,72}},color={0,0,127}));
   connect(TSet,mapFunTChiSupSet.f1)
     annotation (Line(points={{-200,40},{20,40},{20,84},{98,84}},color={0,0,127}));
-  connect(conTChiWatSup.y,addPar.u)
-    annotation (Line(points={{-108,-20},{-102,-20}},color={0,0,127}));
   connect(uCol,subNumSou.u)
     annotation (Line(points={{-200,0},{-160,0},{-160,100},{-82,100}},color={0,0,127}));
   connect(max1.y,mapFunTChiSupSet.u)
     annotation (Line(points={{-8,80},{98,80}},color={0,0,127}));
   connect(uCol,min1.u1)
-    annotation (Line(points={{-200,0},{-80,0},{-80,6},{-62,6}},color={0,0,127}));
+    annotation (Line(points={{-200,0},{-80,0},{-80,6},{-42,6}},color={0,0,127}));
   connect(addPar.y,min1.u2)
-    annotation (Line(points={{-78,-20},{-70,-20},{-70,-6},{-62,-6}},color={0,0,127}));
+    annotation (Line(points={{-58,-20},{-50,-20},{-50,-6},{-42,-6}},color={0,0,127}));
   connect(min1.y,rep.u)
-    annotation (Line(points={{-38,0},{-32,0}},color={0,0,127}));
+    annotation (Line(points={{-18,0},{-12,0}},color={0,0,127}));
   connect(mapFun.y,yAmb)
     annotation (Line(points={{122,0},{140,0},{140,40},{200,40}},color={0,0,127}));
   connect(ramLimHea.y,TChiWatSupSet)
     annotation (Line(points={{162,80},{200,80}},color={0,0,127}));
   connect(uHeaCoo,conTChiWatSup.uEna)
-    annotation (Line(points={{-200,120},{-140,120},{-140,-40},{-124,-40},{-124,
-          -32}},                                                                     color={255,0,255}));
+    annotation (Line(points={{-200,120},{-166,120},{-166,-40},{-144,-40},{-144,-32}},color={255,0,255}));
   connect(zer.y,mapFunTChiSupSet.x1)
     annotation (Line(points={{-58,60},{0,60},{0,88},{98,88}},color={0,0,127}));
   connect(uCol,greThr.u)
@@ -183,6 +184,10 @@ equation
     annotation (Line(points={{-58,60},{-40,60},{-40,74},{-32,74}},color={0,0,127}));
   connect(subNumSou.y,max1.u1)
     annotation (Line(points={{-58,100},{-40,100},{-40,86},{-32,86}},color={0,0,127}));
+  connect(conTChiWatSup.y, gai.u)
+    annotation (Line(points={{-128,-20},{-122,-20}}, color={0,0,127}));
+  connect(gai.y, addPar.u)
+    annotation (Line(points={{-98,-20},{-82,-20}}, color={0,0,127}));
   annotation (
     defaultComponentName="conCol",
     Documentation(

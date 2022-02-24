@@ -493,7 +493,10 @@ Controls
    Schematic diagram of a controller that switches a coil on and off.
    In the top configuration, the hysteresis avoids numerical problems
    (and short-cycling) if the control input remains close to the
-   set point. The bottom configuration can cause the integration to
+   set point. The bottom configuration uses an inequality comparison
+   `Modelica.Blocks.Logical.GreaterThreshold <https://simulationresearch.lbl.gov/modelica/releases/msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold>`_
+   which has no hysteresis.
+   This can cause the integration to
    stall if the input signal to the threshold block is the solution
    of an iterative solver and remains around 293.15 Kelvin.
 
@@ -502,6 +505,11 @@ hysteresis such as shown in the top configuration of the model above.
 If no hysteresis is used, then numerical problems can occur if the
 variable that is input to the controller depends on a variable
 that is computed by an iterative algorithm.
+To avoid this, the Modelica Buildings Library contains inequality blocks
+such as
+`Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold <https://simulationresearch.lbl.gov/modelica/releases/v8.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold>`_
+that have a hysteresis parameter.
+
 Examples of a iterative algorithms are nonlinear equation solvers
 or time integration algorithms with variable step size (such as
 the radau and dassl solver in Dymola).

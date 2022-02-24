@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs;
-model ThermalElectricalFollowing
+model ThermalElectricalFollowing "CHP model that can be thermal or electrical load following"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare Buildings.Fluid.MixingVolumes.MixingVolume vol(
       final V=per.capHeaRec/rhoWat/cWat),

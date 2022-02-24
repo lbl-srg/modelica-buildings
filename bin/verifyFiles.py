@@ -43,7 +43,9 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "modelica://AixLib",
                 "modelica://BuildingSystems",
 	        "modelica://IDEAS",
-                "modelica://https://"]
+                "modelica://https://",
+                ">>>>>>",
+                "<<<<<<"]
 
 if LIBNAME != "IBPSA":
     INVALID_IN_ALL.append("modelica://IBPSA")
@@ -76,7 +78,7 @@ def report_empty_statements(fileName, start_line, next_line):
     filObj=open(fileName, 'r')
     filTex=filObj.readlines()
     found_loop = False
-    iLin = 1;
+    iLin = 1
     for lin in filTex:
         if lin.rstrip().endswith(start_line):
             found_loop = True

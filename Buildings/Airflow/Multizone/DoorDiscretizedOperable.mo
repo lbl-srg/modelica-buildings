@@ -33,28 +33,27 @@ protected
   parameter Modelica.Units.SI.Area AOpe=wOpe*hOpe "Open aperture area";
   parameter Modelica.Units.SI.Area AClo(fixed=false) "Closed aperture area";
 
- Real kOpe "Open aperture flow coefficient, k = V_flow/ dp^m";
- Real kClo "Closed aperture flow coefficient, k = V_flow/ dp^m";
+  Real COpe "Open aperture flow coefficient, C = V_flow/ dp^m";
+  Real CClo "Closed aperture flow coefficient, C = V_flow/ dp^m";
 
  Real fraOpe "Fraction of aperture that is open";
 initial equation
   AClo=CDClo/CDCloRat * LClo * dpCloRat^(0.5-mClo);
 equation
   fraOpe =y;
-  kClo = CDClo * AClo/nCom * sqrt(2/rho_default);
-  kOpe = CDOpe * AOpe/nCom * sqrt(2/rho_default);
+  CClo = CDClo * AClo/nCom * sqrt(2/rho_default);
+  COpe = CDOpe * AOpe/nCom * sqrt(2/rho_default);
 
   // flow exponent
   m    = fraOpe*mOpe + (1-fraOpe)*mClo;
   // opening area
   A = fraOpe*AOpe + (1-fraOpe)*AClo;
   // friction coefficient for power law
-  kVal = fraOpe*kOpe + (1-fraOpe)*kClo;
+  CVal = fraOpe*COpe + (1-fraOpe)*CClo;
 
   // orifice equation
   for i in 1:nCom loop
-    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLaw(
-      k=kVal,
+    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLaw(C=CVal,
       dp=dpAB[i],
       m=m,
       dp_turbulent=dp_turbulent);
