@@ -47,8 +47,7 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{120,0},{160,40}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
-    delta=300)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
 

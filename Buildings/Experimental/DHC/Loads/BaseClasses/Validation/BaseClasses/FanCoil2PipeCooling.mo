@@ -27,8 +27,8 @@ model FanCoil2PipeCooling
     "Gain of controller";
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
-  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
-     = 250 "Load side pressure drop"
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")=
+       250 "Load side pressure drop"
     annotation (Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConCoo=hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
@@ -76,16 +76,14 @@ model FanCoil2PipeCooling
     final w_a2_nominal=w_aLoaCoo_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiMasFlo(
-    k=mChiWat_flow_nominal)
-    "Scale water flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiMasFlo(k=
+        mChiWat_flow_nominal) "Scale water flow rate"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(
     final y=hexWetNtu.Q2_flow)
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
-    k=mLoaCoo_flow_nominal)
-    "Scale air flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+        mLoaCoo_flow_nominal) "Scale air flow rate"
     annotation (Placement(transformation(extent={{52,170},{72,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium=Medium2,
@@ -105,12 +103,14 @@ model FanCoil2PipeCooling
     final QHea_flow_nominal=QRooHea_flow_nominal)
     "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
-    k=1/QCoo_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
+        QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-88,210},{-68,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
-    k=1/QCoo_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo1(k=1/
+        QCoo_flow_nominal) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,190})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     t=1E-4,
     h=0.5E-4)

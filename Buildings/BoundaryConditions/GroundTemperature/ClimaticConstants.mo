@@ -10,6 +10,22 @@ package ClimaticConstants "Surface temperature climatic constants"
       "Surface temperature amplitude";
     parameter Modelica.Units.SI.Duration sinPha(displayUnit="d")
       "Phase lag of soil surface temperature";
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datCliCon",
+      Documentation(info=
+                   "<html>
+  <p>
+  This is a generic record for climatic conditions.
+  </p>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  February 11, 2022, by Michael Wetter:<br/>
+  Added <code>defaultComponentPrefixes</code> and documentation.
+  </li>
+  </ul>
+  </html>"));
   end Generic;
 
   record Boston =

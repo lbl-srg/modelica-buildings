@@ -66,14 +66,14 @@
 ! ***GENERAL SIMULATION PARAMETERS***
 ! Number of Zones: 6
 
-  Version,9.5;
+  Version,9.6;
 
   SimulationControl,
     YES,                     !- Do Zone Sizing Calculation
     YES,                     !- Do System Sizing Calculation
     YES,                     !- Do Plant Sizing Calculation
-    No,                     !- Run Simulation for Sizing Periods
-    Yes,                      !- Run Simulation for Weather File Run Periods
+    No,                      !- Run Simulation for Sizing Periods
+    Yes,                     !- Run Simulation for Weather File Run Periods
     No,                      !- Do HVAC Sizing Simulation for Sizing Periods
     1;                       !- Maximum Number of HVAC Sizing Simulation Passes
 
@@ -92,8 +92,8 @@
     1,                       !- Begin Month
     1,                       !- Begin Day of Month
     ,                        !- Begin Year
-    7,                      !- End Month
-    1,                      !- End Day of Month
+    7,                       !- End Month
+    1,                       !- End Day of Month
     ,                        !- End Year
     Sunday,                  !- Day of Week for Start Day
     No,                      !- Use Weather File Holidays and Special Days
@@ -652,6 +652,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_ceiling,         !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -668,6 +669,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -684,6 +686,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -700,6 +703,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -716,6 +720,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_ceiling,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -732,6 +737,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -747,6 +753,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -763,6 +770,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -779,6 +787,7 @@
     Roof,                    !- Surface Type
     Attic Non-res Roof,      !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -794,6 +803,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -810,6 +820,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -826,6 +837,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -842,6 +854,7 @@
     Floor,                   !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Attic,                   !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -858,6 +871,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_core,        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -874,6 +888,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -890,6 +905,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_wall_west,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -906,6 +922,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_wall_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -922,6 +939,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_wall_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -938,6 +956,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Core_ZN,                 !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_wall_east,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -954,6 +973,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -970,6 +990,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -986,6 +1007,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_wall_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1002,6 +1024,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_south,      !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1018,6 +1041,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1034,6 +1058,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_1,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_wall_south,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1050,6 +1075,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_east,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1066,6 +1092,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1082,6 +1109,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1098,6 +1126,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_wall_east,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1114,6 +1143,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_wall_east,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1130,6 +1160,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_2,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_east,       !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1146,6 +1177,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1162,6 +1194,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1178,6 +1211,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_2_wall_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1194,6 +1228,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1210,6 +1245,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_north,      !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1226,6 +1262,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_3,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_4_wall_north,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1242,6 +1279,7 @@
     Ceiling,                 !- Surface Type
     Attic Non-res Floor,     !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Attic_floor_perimeter_west,  !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1258,6 +1296,7 @@
     Floor,                   !- Surface Type
     ext-slab,                !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1274,6 +1313,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Core_ZN_wall_west,       !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1290,6 +1330,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_3_wall_west,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1306,6 +1347,7 @@
     Wall,                    !- Surface Type
     int-walls,               !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Perimeter_ZN_1_wall_west,!- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
@@ -1322,6 +1364,7 @@
     Wall,                    !- Surface Type
     Mass Non-res Ext Wall,   !- Construction Name
     Perimeter_ZN_4,          !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
@@ -1662,12 +1705,12 @@
 
   People,
     Core_ZN People,          !- Name
-    Core_ZN,                 !- Zone or ZoneList Name
+    Core_ZN,                 !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -1684,12 +1727,12 @@
 
   People,
     Perimeter_ZN_1 People,   !- Name
-    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    Perimeter_ZN_1,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -1706,12 +1749,12 @@
 
   People,
     Perimeter_ZN_2 People,   !- Name
-    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    Perimeter_ZN_2,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -1728,12 +1771,12 @@
 
   People,
     Perimeter_ZN_3 People,   !- Name
-    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    Perimeter_ZN_3,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -1750,12 +1793,12 @@
 
   People,
     Perimeter_ZN_4 People,   !- Name
-    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    Perimeter_ZN_4,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_OCC_SCH,            !- Number of People Schedule Name
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    18.58,                   !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    18.58,                   !- Floor Area per Person {m2/person}
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
@@ -1774,7 +1817,7 @@
 
   Lights,
     Core_ZN_Lights,          !- Name
-    Core_ZN,                 !- Zone or ZoneList Name
+    Core_ZN,                 !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1789,7 +1832,7 @@
 
   Lights,
     Perimeter_ZN_1_Lights,   !- Name
-    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    Perimeter_ZN_1,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1804,7 +1847,7 @@
 
   Lights,
     Perimeter_ZN_2_Lights,   !- Name
-    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    Perimeter_ZN_2,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1819,7 +1862,7 @@
 
   Lights,
     Perimeter_ZN_3_Lights,   !- Name
-    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    Perimeter_ZN_3,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1834,7 +1877,7 @@
 
   Lights,
     Perimeter_ZN_4_Lights,   !- Name
-    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    Perimeter_ZN_4,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_LIGHT_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
@@ -1851,7 +1894,7 @@
 
   ElectricEquipment,
     Core_ZN_MiscPlug_Equip,  !- Name
-    Core_ZN,                 !- Zone or ZoneList Name
+    Core_ZN,                 !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1864,7 +1907,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_1_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    Perimeter_ZN_1,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1877,7 +1920,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_2_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    Perimeter_ZN_2,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1890,7 +1933,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_3_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    Perimeter_ZN_3,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1903,7 +1946,7 @@
 
   ElectricEquipment,
     Perimeter_ZN_4_MiscPlug_Equip,  !- Name
-    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    Perimeter_ZN_4,          !- Zone or ZoneList or Space or SpaceList Name
     BLDG_EQUIP_SCH,          !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Design Level {W}
@@ -1997,37 +2040,41 @@
 !    0.0000,                  !- Temperature Term Coefficient
 !    0.0000,                  !- Velocity Term Coefficient
 !    0.0000;                  !- Velocity Squared Term Coefficient
-
 ! ***INTERNAL MASS***
 
   InternalMass,
     Core_ZN Internal Mass,   !- Name
     InteriorFurnishings,     !- Construction Name
     Core_ZN,                 !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     299.3148;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_1 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_1,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     226.9000;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_2 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_2,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     134.6000;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_3 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_3,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     226.9000;                !- Surface Area {m2}
 
   InternalMass,
     Perimeter_ZN_4 Internal Mass,  !- Name
     InteriorFurnishings,     !- Construction Name
     Perimeter_ZN_4,          !- Zone or ZoneList Name
+    ,                        !- Space or SpaceList Name
     134.6000;                !- Surface Area {m2}
 
 ! ***INTERNAL GAINS SCHEDULES***
@@ -3590,32 +3637,27 @@
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:1_OA,             !- Name
     PSZ-AC:1_OA_Controllers, !- Controller List Name
-    PSZ-AC:1_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:1 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:1_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:2_OA,             !- Name
     PSZ-AC:2_OA_Controllers, !- Controller List Name
-    PSZ-AC:2_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:2 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:2_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:3_OA,             !- Name
     PSZ-AC:3_OA_Controllers, !- Controller List Name
-    PSZ-AC:3_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:3 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:3_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:4_OA,             !- Name
     PSZ-AC:4_OA_Controllers, !- Controller List Name
-    PSZ-AC:4_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:4 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:4_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   AirLoopHVAC:OutdoorAirSystem,
     PSZ-AC:5_OA,             !- Name
     PSZ-AC:5_OA_Controllers, !- Controller List Name
-    PSZ-AC:5_OA_Equipment,   !- Outdoor Air Equipment List Name
-    PSZ-AC:5 Availability Manager List;  !- Availability Manager List Name
+    PSZ-AC:5_OA_Equipment;   !- Outdoor Air Equipment List Name
 
   OutdoorAir:NodeList,
     PSZ-AC:1_OANode List;    !- Node or NodeList Name 1
@@ -3934,17 +3976,17 @@
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: Weekdays,           !- Field 2
-    Until: 06:00,0,       !- Field 3
-    Until: 22:00,0,       !- Field 5
-    Until: 24:00,0,       !- Field 7
+    Until: 06:00,0,          !- Field 3
+    Until: 22:00,0,          !- Field 5
+    Until: 24:00,0,          !- Field 7
     For: Saturday,           !- Field 9
-    Until: 06:00,0,       !- Field 10
-    Until: 18:00,0,       !- Field 12
-    Until: 24:00,0,       !- Field 14
+    Until: 06:00,0,          !- Field 10
+    Until: 18:00,0,          !- Field 12
+    Until: 24:00,0,          !- Field 14
     For: WinterDesignDay,    !- Field 16
     Until: 24:00,21.0,       !- Field 17
     For: AllOtherDays,       !- Field 19
-    Until: 24:00,0;       !- Field 20
+    Until: 24:00,0;          !- Field 20
 
   Schedule:Compact,
     MinOA_Sched,             !- Name
@@ -4363,7 +4405,6 @@
     For: AllDays,            !- Field 2
     Until: 24:00,60.0;       !- Field 3
 
-
 ! ***GENERAL REPORTING***
 
   OutputControl:ReportingTolerances,
@@ -4407,3 +4448,4 @@
 
   OutputControl:Table:Style,
     HTML;                    !- Column Separator
+

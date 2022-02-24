@@ -249,13 +249,61 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">#2126</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Coefficient_V_flow<br/>
+                     Buildings.Airflow.Multizone.Coefficient_m_flow<br/>
+                     Buildings.Airflow.Multizone.Point_m_flow<br/>
+                     Buildings.Airflow.Multizone.Points_m_flow<br/>
+                     Buildings.Airflow.Multizone.Table_V_flow<br/>
+                     Buildings.Airflow.Multizone.Table_m_flow
+    </td>
+    <td valign=\"top\">Added new component models for multizone air exchange.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
     </td>
-    <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
-                       which can be used to vary boundary conditions over the length of a pipe.
+    <td valign=\"top\">Added model for multiple plug flow pipes in series,
+                     which can be used to vary boundary conditions over the length of a pipe.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Outside_CpData
+    </td>
+    <td valign=\"top\">Added new component model that allows specifying a wind pressure profile for an exterior construction.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
+                     Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
+                     Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
+                     Buildings.Controls.OBC.CDL.Integers.Subtact
+    </td>
+    <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
+    </td>
+    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Ice.ControlledTank<br/>
+                     Buildings.Fluid.Storage.Ice.Tank
+    </td>
+    <td valign=\"top\">Added models for ice storage tank whose performance is characterized by performance curves.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
     </td>
 </tr>
 </table>
@@ -305,6 +353,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\"># 2544</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SunRiseSet
+    </td>
+    <td valign=\"top\">Changed implementation to avoid NaN in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
     </td>
 </tr>
@@ -336,6 +391,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed cooling coil model.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">#2549</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System7
+    </td>
+    <td valign=\"top\">Changed block downstream of <code>greThrTRoo</code> from <code>and</code> to <code>or</code> block.
+                       This ensures that the system is off when the outdoor air or room air is sufficiently warm.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SpaceCooling.System2<br/>
@@ -396,6 +457,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower
+    </td>
+    <td valign=\"top\">Added a temperature sensor for better measurement of the entering water temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
@@ -416,13 +486,32 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2713\">Buidings, #2713</a>.
   </td>
   </tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Files.Examples.CSVReader
+    </td>
+    <td valign=\"top\">Updated example so it works with future versions of the Modelica Standard Library which
+                       supports reading csv files.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1572\">IBPSA #1572</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
     </td>
     <td valign=\"top\">Reimplemented function to avoid a potential overflow caused by the <code>cosh</code> function.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1531\">IBPSA #1531</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem
+    </td>
+    <td valign=\"top\">Added a temperature sensor for better measurement of the entering water temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">#2866</a>.
     </td>
 </tr>
 </table>
@@ -481,25 +570,69 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.Continuous.PIDHysteresis
     </td>
     <td valign=\"top\">Moved blocks to <code>Buildings.Obsolete.Controls.Continuous</code>.<br/>
-                This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, #1522</a>.<br/>
-                For Dymola, a conversion script makes this change.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, #1522</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Add<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Add<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.AddParameter
+    </td>
+    <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Feedback
+    </td>
+    <td valign=\"top\">Moved the class to <code>Obsolete</code> package.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Division<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Gain<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.MovingMean<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Product<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Product<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter
+    </td>
+    <td valign=\"top\">Renamed the blocks to <code>Divide</code>, <code>MultiplyByParameter</code>, <code>MovingAverage</code>,
+                       <code>Multiply</code>, <code>LimitSlewRate</code>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput<br/>
+                       Buildings.Controls.OBC.CDL.Interfaces.DayTypeOutput<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.IsHoliday<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.Examples.DayType<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck<br/>
+                       Buildings.Controls.OBC.CDL.Types.Day
+    </td>
+    <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\"># 2580</a>.<br/>
-                For Dymola, a conversion script makes this change.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\"># 2580</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
-<tr><td valign=\"top\">
-    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.RealReplicator
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
+                       Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
+                       Buildings.Controls.OBC.CDL.Routing.RealReplicator
     </td>
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
@@ -548,6 +681,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
  <tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
@@ -646,7 +782,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
-    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    <td valign=\"top\">R" + "emoved support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
@@ -693,13 +829,28 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">#2594</a>.<br/>
                        Changed model structure to separate building and HVAC system.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">#2652</a>.<br/>
+                       Changed parameter declarations and added to Guideline 36 models the optimal start up calculation.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Python36
+    </td>
+    <td valign=\"top\">Replaced package with <code>Buildings.Utilities.IO.Python_3_8</code>
+                       and moved the old package to <code>Buildings.Obsolete.Utilities.IO.Python36</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2599\">#2599</a>.<br/>
+                       For Dymola, a conversion script will rename models that use <code>Python36</code>
+                       to use <code>Python_3_8</code>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
-<tr><td valign=\"top\">IBPSA.Utilities.Math.Polynominal<br/>
-                       IBPSA.Utilities.Math.Examples.Polynominal
+<tr><td valign=\"top\">Buildings.Utilities.Math.Polynominal<br/>
+                         Buildings.Utilities.Math.Examples.Polynominal
     </td>
     <td valign=\"top\">Corrected name to <code>Polynomial</code>.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1524\">IBPSA, #1524</a>.<br/>
@@ -799,10 +950,10 @@ units are wrong or errors in documentation):
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2556\">Buildings, #2556</a>.
         </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python36</b>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
    </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Utilities.IO.Python36.Functions.Examples.Exchange
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
    </td>
    <td valign=\"top\">Removed call to impure function <code>removeFile</code>.
                       This removal is required for MSL 4.0.0.<br/>
@@ -10054,16 +10205,26 @@ The development of the Buildings library is organized by<br/>
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Acknowledgements</font></h4>
 <p>
- The development of this library was supported
+ The development of this library was supported by:
 </p>
  <ul>
- <li>by the Assistant Secretary for
-  Energy Efficiency and Renewable Energy, Office of Building
-  Technologies of the U.S. Department of Energy, under
-  contracts No. DE-AC02-05CH11231 and DE-EE0007688, and
+ <li>The U.S. Department of Energy, Assistant Secretary for
+  Energy Efficiency and Renewable Energy,
+  <ul>
+  <li>
+  Office of Building
+  Technologies, under Contracts Number DE-AC02-05CH11231 and DE-EE0007688,
+  </li>
+  <li>
+  Advanced Manufacturing Office, under Award Number DE-EE0009139, and
  </li>
+  <li>
+  Geothermal Technologies Office, under Award Number DE-AC02-05CH11231.
+  </li>
+  </ul>
+  </li>
  <li>
-  by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
+  The California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, Award Number 500-10-052.
  </li>
  </ul>
 <p>
@@ -10184,7 +10345,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2020
+Modelica Buildings Library. Copyright (c) 1998-2022
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory
@@ -10415,7 +10576,7 @@ particular package.<br/>
                     one or several building envelope models.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python36.UsersGuide\">Utilities.IO.Python36</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">Utilities.IO.Python_3_8</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
 </tr>

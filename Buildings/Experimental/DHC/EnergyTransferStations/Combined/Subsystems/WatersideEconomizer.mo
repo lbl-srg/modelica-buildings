@@ -54,8 +54,8 @@ model WatersideEconomizer
     min=0)=1
     "Gain of controller"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 60 "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       60 "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
@@ -127,9 +127,8 @@ model WatersideEconomizer
     use_inputFilter=false) if have_val1
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=m1_flow_nominal) if not have_val1
-    "Scale to nominal mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+        m1_flow_nominal) if not have_val1 "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{10,100},{-10,120}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val2(
     redeclare final package Medium = Medium2,

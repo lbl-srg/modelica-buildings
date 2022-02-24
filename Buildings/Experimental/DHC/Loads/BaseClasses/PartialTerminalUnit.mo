@@ -285,55 +285,39 @@ partial model PartialTerminalUnit
     "Chilled water outlet port"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
-    u(final unit="W"),
-    final k=1/facMul) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHea_flow(u(
+        final unit="W"), final k=1/facMul)
+    if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea) "Scaling"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqCoo_flow(
-    u(final unit="W"),
-    final k=1/facMul) if have_QReq_flow and (have_chiWat or have_eleCoo)
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqCoo_flow(u(
+        final unit="W"), final k=1/facMul)
+    if have_QReq_flow and (have_chiWat or have_eleCoo) "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQActHea_flow(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_heaWat or have_chaOve or have_eleHea
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQActHea_flow(u(
+        final unit="W"), final k=facMul*facMulZon)
+    if have_heaWat or have_chaOve or have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQActCoo_flow(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_chiWat or have_eleCoo
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQActCoo_flow(u(
+        final unit="W"), final k=facMul*facMulZon) if have_chiWat or
+    have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_eleHea
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPHea(u(final
+        unit="W"), final k=facMul*facMulZon) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_eleCoo
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPCoo(u(final
+        unit="W"), final k=facMul*facMulZon) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{160,150},{180,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_fan
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPFan(u(final
+        unit="W"), final k=facMul*facMulZon) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_pum
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPPum(u(final
+        unit="W"), final k=facMul*facMulZon) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulMasFloReqHeaWat(
-    u(final unit="kg/s"),
-    final k=facMul*facMulZon) if have_heaWat
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulMasFloReqHeaWat(
+      u(final unit="kg/s"), final k=facMul*facMulZon) if have_heaWat "Scaling"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulMasFloReqChiWat(
-    u(final unit="kg/s"),
-    final k=facMul*facMulZon) if have_chiWat
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulMasFloReqChiWat(
+      u(final unit="kg/s"), final k=facMul*facMulZon) if have_chiWat "Scaling"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulHeaWatFloInl(
     redeclare final package Medium=Medium1,

@@ -19,9 +19,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-72,8},{-64,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHea(k=1E6) "Gain for heating"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHea(k=1E6)
+    "Gain for heating"
     annotation (Placement(transformation(extent={{-58,30},{-50,38}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiCoo(k=-1E6) "Gain for cooling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiCoo(k=-1E6)
+    "Gain for cooling"
     annotation (Placement(transformation(extent={{-58,8},{-50,16}})));
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
     "Sum of heating and cooling heat flow rate"
@@ -49,11 +51,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annotation (Placement(transformation(extent={{-92,30},{-84,38}})));
   BaseClasses.DaySchedule TSetCoo(table=[0.0,273.15 + 27]) "Cooling setpoint"
     annotation (Placement(transformation(extent={{-92,8},{-84,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean PHea(delta=3600)
-  "Hourly averaged heating power"
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage PHea(delta=3600)
+    "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{-20,48},{-12,56}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean PCoo(delta=3600)
-  "Hourly averaged cooling power"
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage PCoo(delta=3600)
+    "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
 equation
   connect(TRooAir.T,conHea. u_m) annotation (Line(
