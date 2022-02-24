@@ -2,18 +2,14 @@ within Buildings.Fluid.Movers.BaseClasses.Euler;
 function getPeak
   "Find peak condition from power characteristics"
   extends Modelica.Icons.Function;
-  input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
-    pressure "Pressure vs. flow rate";
-  input BaseClasses.Characteristics.powerParameters
-    power "Power vs. flow rate";
-  input Boolean use_hydraulicPerformance
-    "Data correspond to hydraulic performance instead of total performance";
+  input Buildings.Fluid.Movers.Data.Generic per
+    "Performance data";
   output Buildings.Fluid.Movers.BaseClasses.Euler.peak
     peak "Operation point at maximum efficiency";
 
 protected
-  Integer n = size(pressure.V_flow, 1) "Number of data points";
-  Real eta[size(pressure.V_flow,1)] "Efficiency series";
+  Integer n = size(per.pressure.V_flow, 1) "Number of data points";
+  Real eta[size(per.pressure.V_flow,1)] "Efficiency series";
   Real eta_internal "Intermediate variable";
   Boolean etaLes "Efficiency series has less than four points";
   Boolean etaMon "Efficiency series is monotonic";
@@ -23,7 +19,8 @@ protected
   Real r[3,2] "Roots";
 algorithm
 
-  eta:=pressure.V_flow.*pressure.dp./power.P;
+  assert(max(per.power.P)>1E-6,"No valid mover curve provided");
+  eta:=per.pressure.V_flow.*per.pressure.dp./per.power.P;
   etaLes:=n<4;
   etaMon:=Buildings.Utilities.Math.Functions.isMonotonic(
     x=eta,strict=false);
@@ -40,19 +37,19 @@ algorithm
     eta_internal:=max(eta);
     for i in 1:n loop
       if abs(eta[i]-eta_internal)<1E-6 then
-        peak.V_flow:=pressure.V_flow[i];
-        peak.dp:=pressure.dp[i];
+        peak.V_flow:=per.pressure.V_flow[i];
+        peak.dp:=per.pressure.dp[i];
       end if;
     end for;
   else
 
     // Constructs the matrix equation A b = y, where
     //   A is a 5-by-n design matrix,
-    //   b is a parameter vector with length 5 (corresponds to a quartic regression),
+    //   b is a parameter vector with length 5 (quartic regression),
     //   and y = eta is the response vector with length n.
     A[:,1]:=ones(n); // Avoids 0^0
     for i in 2:5 loop
-      A[:,i]:=pressure.V_flow[:].^(i-1);
+      A[:,i]:=per.pressure.V_flow[:].^(i-1);
     end for;
     b:=Modelica.Math.Matrices.leastSquares(A,eta);
 
@@ -62,17 +59,23 @@ algorithm
     r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
     for i in 1:3 loop
       if abs(r[i,2])<=1E-6 and
-        r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[end] then
+        r[i,1]>per.pressure.V_flow[1] and r[i,1]<per.pressure.V_flow[end] then
         peak.V_flow:=r[i,1];
       end if;
     end for;
     eta_internal:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x=peak.V_flow,xSup=pressure.V_flow,ySup=eta,ensureMonotonicity=false);
+      x=peak.V_flow,
+      xSup=per.pressure.V_flow,
+      ySup=eta,
+      ensureMonotonicity=false);
     peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x=peak.V_flow,xSup=pressure.V_flow,ySup=pressure.dp,ensureMonotonicity=false);
+      x=peak.V_flow,
+      xSup=per.pressure.V_flow,
+      ySup=per.pressure.dp,
+      ensureMonotonicity=false);
   end if;
 
-  if use_hydraulicPerformance then
+  if per.use_hydraulicPerformance then
     peak.etaHyd := eta_internal;
     peak.eta := peak.etaHyd * peak.etaMot;
   else
@@ -84,10 +87,8 @@ algorithm
               Documentation(info="<html>
 <p>
 On the mover curves provided via
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>,
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a> or equivalent,
 this function finds the peak point with the highest efficiency <i>&eta;</i>
 and the corresponding flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i>.
 The results are output as an instance of
@@ -99,7 +100,7 @@ issues a warning stating that the computation may be highly inaccurate.
 </p>
 <p>
 To find the peak efficiency, the function first runs a quartic regression on
-<i>&eta;</i> vs. <i>V&#775;</i>. Then it solves its derivative to find an extremem.
+<i>&eta;</i> vs. <i>V&#775;</i>. Then it solves its derivative to find an extremum.
 It assumes there is only one extremum within the given range of <i>V&#775;</i>.
 </p>
 </html>",

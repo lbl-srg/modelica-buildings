@@ -7,10 +7,7 @@ model PowerEuler
 
   parameter Data.Generic perPea(
     powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
-      pressure=per.pressure,
-      power=per.power,
-      use_hydraulicPerformance=per.use_hydraulicPerformance))
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per))
     "Peak condition";
 
   annotation (

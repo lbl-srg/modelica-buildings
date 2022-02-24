@@ -23,10 +23,7 @@ model EulerComparison
     final use_hydraulicPerformance=per1.use_hydraulicPerformance,
     pressure=per1.pressure,
     power=per1.power,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
-      pressure=per2.pressure,
-      power=per2.power,
-      use_hydraulicPerformance=per1.use_hydraulicPerformance))
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per1))
     "Peak condition";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per=per2,
