@@ -18,7 +18,7 @@ model BoilerPolynomialSteam
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
-  parameter Modelica.Units.SI.Temperature T_nominal = 353.15
+  parameter Modelica.Units.SI.Temperature T_nominal = 373.15
     "Temperature used to compute nominal efficiency 
     (only used if efficiency curve depends on temperature)";
 
@@ -219,6 +219,8 @@ equation
 <p>
 This model represents a steam boiler that discharges saturated 
 steam and has an efficiency curve defined by a polynomial.
+The efficiency in this model represents the fuel-to-water 
+efficiency (e.g., thermal efficiency).
 This model is similar to the 
 <a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\"> 
 Buildings.Fluid.Boilers.BoilerPolynomial</a> for the efficiency 
@@ -231,13 +233,15 @@ Water enters <code>port_a</code> in liquid state and exits
 </li> 
 <li>
 The liquid and vapor phases are at equilibrium; thus, the steam
-boiler is constrained to saturated states only. 
+boiler is constrained to saturated states only with the volume
+containing a wet steam mixture. 
 </li>
 <li>
 If the boiler is configured in steady state, several blocks involving
 the heat flow rate are conditionally removed to avoid overconstraining
-the model. The removed blocks are within the green region in the below
-figure:
+the model. This is because the discharging fluid is constrained at 
+a saturated state. The blocks that are conditionally removed as a 
+result are within the green region in the below figure:
 </li>
 </ul>
 
@@ -253,20 +257,24 @@ the split-medium approach using the
 Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium</a> interface model.
 The saturated mixing volume for an evaporation process 
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation\">
-Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation</a> is 
+Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation</a> 
 represents the phase change process of water from liquid 
 to vapor at equilibrium.
 </p>
 <h4>Reference</h4>
 <p>
 Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2021. “A New Steam 
-Medium Model for Fast and Accurate Simulation of District 
-Heating Systems.” engrXiv. October 8. 
-<a href=\"https://engrxiv.org/cqfmv/\">doi:10.31224/osf.io/cqfmv</a>
+Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
+Approach for Water and Steam Thermodynamics with Practical 
+Applications in District Heating System Simulation.” Preprint. February 24. 
+<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2022 by Kathryn Hinkelman:<br/>
+Refactored base classes for improved extensibility and relocated models into Steam subpackages.
+</li>
 <li>
 July 22, 2021 by Kathryn Hinkelman:<br/>
 First implementation.
