@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor;
-package Subsequences "Package of subsequences for terminal unit with reheat"
+package Subsequences "Package of subsequences for dual-duct terminal unit using mixing control with inlet sensor"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for VAV terminal unit with reheat only unit.
-They are created according to Section 5.6 of ASHRAE Guideline 36, May 2020.
+This package contains subsequences for dual-duct terminal unit using mixing control with inlet sensor.
+They are created according to Section 5.12 of ASHRAE Guideline 36, May 2020.
 </p>
 </html>"),
   Icon(graphics={

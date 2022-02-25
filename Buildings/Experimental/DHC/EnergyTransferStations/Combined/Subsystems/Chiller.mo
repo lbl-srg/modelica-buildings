@@ -4,8 +4,8 @@ model Chiller
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
-    choice(redeclare package Medium=
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (                       property_T=293.15,X_a=0.40)
+    choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15,X_a=0.40)
     "Propylene glycol water, 40% mass fraction")));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -35,10 +35,10 @@ model Chiller
   parameter Modelica.Units.SI.Pressure dpValEva_nominal=dpEva_nominal/2
     "Nominal pressure drop accross control valve on evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TConWatEntMin(displayUnit="degC") =
+  parameter Modelica.Units.SI.Temperature TConWatEntMin(displayUnit="degC")=
     dat.TConEntMin "Minimum value of condenser water entering temperature"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.Units.SI.Temperature TEvaWatEntMax(displayUnit="degC") =
+  parameter Modelica.Units.SI.Temperature TEvaWatEntMax(displayUnit="degC")=
     dat.TEvaLvgMax - dat.QEva_flow_nominal/cp_default/dat.mEva_flow_nominal
     "Maximum value of evaporator water entering temperature"
     annotation (Dialog(group="Controls"));
@@ -219,14 +219,16 @@ model Chiller
     annotation (Placement(transformation(extent={{-60,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     annotation (Placement(transformation(extent={{160,-150},{180,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=dat.mCon_flow_nominal)
-    "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={-100,114})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
-    final k=dat.mEva_flow_nominal)
-    "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={-100,-22})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=dat.mCon_flow_nominal)
+    "Scale to nominal mass flow rate" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-100,114})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=dat.mEva_flow_nominal)
+    "Scale to nominal mass flow rate" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-100,-22})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -246,19 +248,21 @@ equation
   connect(splEva.port_3,valEva.port_3)
     annotation (Line(points={{-140,-70},{-140,-80},{120,-80},{120,-70}},color={0,127,255}));
   connect(con.yValEva,valEva.y)
-    annotation (Line(points={{-48,136},{-32,136},{-32,120},{160,120},{160,-40},{120,-40},{120,-48}},color={0,0,127}));
+    annotation (Line(points={{-48,137},{-32,137},{-32,120},{160,120},{160,-40},{
+          120,-40},{120,-48}},                                                                      color={0,0,127}));
   connect(con.yValCon,valCon.y)
-    annotation (Line(points={{-48,132},{-44,132},{-44,90},{-160,90},{-160,40},{-140,40},{-140,48}},color={0,0,127}));
+    annotation (Line(points={{-48,133},{-44,133},{-44,90},{-160,90},{-160,40},{-140,
+          40},{-140,48}},                                                                          color={0,0,127}));
   connect(con.yChi,chi.on)
-    annotation (Line(points={{-48,148},{-36,148},{-36,3},{-12,3}},color={255,0,255}));
+    annotation (Line(points={{-48,146},{-36,146},{-36,3},{-12,3}},color={255,0,255}));
   connect(uHea,con.uHea)
-    annotation (Line(points={{-220,188},{-180,188},{-180,148},{-72,148}},color={255,0,255}));
+    annotation (Line(points={{-220,188},{-180,188},{-180,147},{-72,147}},color={255,0,255}));
   connect(uCoo,con.uCoo)
-    annotation (Line(points={{-220,168},{-186,168},{-186,146},{-72,146}},color={255,0,255}));
+    annotation (Line(points={{-220,168},{-186,168},{-186,143},{-72,143}},color={255,0,255}));
   connect(senTConEnt.T,con.TConWatEnt)
-    annotation (Line(points={{-31,40},{-78,40},{-78,136},{-72,136}},color={0,0,127}));
+    annotation (Line(points={{-31,40},{-78,40},{-78,133},{-72,133}},color={0,0,127}));
   connect(senTEvaEnt.T,con.TEvaWatEnt)
-    annotation (Line(points={{9,-40},{-80,-40},{-80,138},{-72,138}},color={0,0,127}));
+    annotation (Line(points={{9,-40},{-80,-40},{-80,137},{-72,137}},color={0,0,127}));
   connect(splConMix.port_2,port_bHeaWat)
     annotation (Line(points={{130,60},{140,60},{140,100},{-180,100},{-180,60},{-200,60}},color={0,127,255}));
   connect(splEva.port_2,port_bChiWat)
@@ -292,7 +296,7 @@ equation
   connect(pumCon.P,add2.u1)
     annotation (Line(points={{-89,69},{-60,69},{-60,-134},{158,-134}},color={0,0,127}));
   connect(con.yChi,booToRea.u)
-    annotation (Line(points={{-48,148},{-36,148},{-36,180},{-58,180}},color={255,0,255}));
+    annotation (Line(points={{-48,146},{-36,146},{-36,180},{-58,180}},color={255,0,255}));
   connect(booToRea.y,gai2.u)
     annotation (Line(points={{-82,180},{-120,180},{-120,0},{-100,0},{-100,-10}},color={0,0,127}));
   connect(gai2.y,pumEva.m_flow_in)

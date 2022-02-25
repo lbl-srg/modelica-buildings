@@ -1,6 +1,7 @@
 ActiveAirFlow
 Alarms
-DamperValves
+DampersDualSensors
+DampersSingleSensors
 Overrides
 SystemRequests
 Validation

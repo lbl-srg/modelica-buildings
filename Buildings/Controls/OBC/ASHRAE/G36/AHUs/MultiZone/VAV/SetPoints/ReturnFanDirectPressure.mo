@@ -91,7 +91,7 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{120,-170},{160,-130}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
@@ -114,7 +114,7 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div "Normalized the control error"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div "Normalized the control error"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linRetFanSpe "Return fan speed"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));

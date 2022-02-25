@@ -32,10 +32,10 @@ model HeatPump "Base subsystem with water-to-water heat pump"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate Q1_flow_nominal(min=0)
     "Heating heat flow rate" annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dT1_nominal(final min=0) =
+  parameter Modelica.Units.SI.TemperatureDifference dT1_nominal(final min=0)=
     5 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dT2_nominal(final max=0) =
+  parameter Modelica.Units.SI.TemperatureDifference dT2_nominal(final max=0)=
     -5 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
@@ -50,10 +50,10 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   parameter Boolean allowFlowReversal2=false
     "Set to true to allow flow reversal on evaporator side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
-  final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)=
     heaPum.m1_flow_nominal "Mass flow rate on condenser side"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)=
     heaPum.m2_flow_nominal "Mass flow rate on evaporator side"
     annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
@@ -198,10 +198,10 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   Modelica.Blocks.Sources.Constant one(final k=1) if not have_pumCon
     "Replacement variable"
     annotation (Placement(transformation(extent={{60,-110},{40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product floCon if have_pumCon
+  Buildings.Controls.OBC.CDL.Continuous.Multiply floCon if have_pumCon
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product floEva
+  Buildings.Controls.OBC.CDL.Continuous.Multiply floEva
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 protected

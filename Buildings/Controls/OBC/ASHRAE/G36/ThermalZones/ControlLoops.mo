@@ -4,31 +4,22 @@ block ControlLoops "Heating and cooling control loops"
   parameter Real kCooCon=1
     "Gain of controller for cooling control loop"
     annotation (Dialog(group="Cooling control"));
-  parameter Real TiCooCon(
-    final unit="s",
-    final quantity="Time")=0.5
+  parameter Real TiCooCon(unit="s")=0.5
     "Time constant of integrator block for cooling control loop"
     annotation (Dialog(group="Cooling control"));
   parameter Real kHeaCon=1
     "Gain of controller for heating control loop"
     annotation (Dialog(group="Heating control"));
-  parameter Real TiHeaCon(
-    final unit="s",
-    final quantity="Time")=0.5
+  parameter Real TiHeaCon(unit="s")=0.5
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(group="Heating control"));
-  parameter Real timChe(
-    final unit="s",
-    final quantity="Time") = 30
+  parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced"));
-  parameter Real dTHys(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.25
+  parameter Real dTHys(unit="K")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced"));
-  parameter Real conThr(
-    final unit="1")=0.1
+  parameter Real conThr(unit="1")=0.1
     "Threshold value to check if the controller output is near zero"
     annotation (Dialog(tab="Advanced"));
 
@@ -67,7 +58,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kCooCon,
-    final Ti=TiCooCon) "Cooling controller"
+    final Ti=TiCooCon,
+    final reverseActing=false)
+    "Cooling controller"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Less enaHeaLoo(
     final h=dTHys)
@@ -89,7 +82,7 @@ protected
     final realFalse=1)
     "Output zero control signal when the cooling loop should be disabled"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product cooConSig
+  Buildings.Controls.OBC.CDL.Continuous.Multiply cooConSig
     "Cooling control loop signal"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaCon(
@@ -109,7 +102,7 @@ protected
     final realFalse=1)
     "Output zero control signal when the heating loop should be disabled"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product heaConSig
+  Buildings.Controls.OBC.CDL.Continuous.Multiply heaConSig
     "Heating control loop signal"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon(

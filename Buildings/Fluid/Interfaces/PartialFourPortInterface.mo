@@ -22,34 +22,56 @@ partial model PartialFourPortInterface
 
   Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.Units.SI.PressureDifference dp1(displayUnit="Pa") = port_a1.p -
-    port_b1.p "Pressure difference between port_a1 and port_b1";
+  Modelica.Units.SI.PressureDifference dp1(displayUnit="Pa") = port_a1.p - port_b1.p
+    "Pressure difference between port_a1 and port_b1";
 
   Medium2.MassFlowRate m2_flow = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.Units.SI.PressureDifference dp2(displayUnit="Pa") = port_a2.p -
-    port_b2.p "Pressure difference between port_a2 and port_b2";
+  Modelica.Units.SI.PressureDifference dp2(displayUnit="Pa") = port_a2.p - port_b2.p
+    "Pressure difference between port_a2 and port_b2";
 
   Medium1.ThermodynamicState sta_a1=
+    if allowFlowReversal1 then
       Medium1.setState_phX(port_a1.p,
-                           noEvent(actualStream(port_a1.h_outflow)),
-                           noEvent(actualStream(port_a1.Xi_outflow)))
+                          noEvent(actualStream(port_a1.h_outflow)),
+                          noEvent(actualStream(port_a1.Xi_outflow)))
+    else
+      Medium1.setState_phX(port_a1.p,
+                          inStream(port_a1.h_outflow),
+                          inStream(port_a1.Xi_outflow))
       if show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=
+    if allowFlowReversal1 then
       Medium1.setState_phX(port_b1.p,
-                           noEvent(actualStream(port_b1.h_outflow)),
-                           noEvent(actualStream(port_b1.Xi_outflow)))
-      if show_T "Medium properties in port_b1";
+                          noEvent(actualStream(port_b1.h_outflow)),
+                          noEvent(actualStream(port_b1.Xi_outflow)))
+    else
+      Medium1.setState_phX(port_b1.p,
+                          port_b1.h_outflow,
+                          port_b1.Xi_outflow)
+       if show_T "Medium properties in port_b1";
+
   Medium2.ThermodynamicState sta_a2=
+    if allowFlowReversal2 then
       Medium2.setState_phX(port_a2.p,
-                           noEvent(actualStream(port_a2.h_outflow)),
-                           noEvent(actualStream(port_a2.Xi_outflow)))
+                          noEvent(actualStream(port_a2.h_outflow)),
+                          noEvent(actualStream(port_a2.Xi_outflow)))
+    else
+      Medium2.setState_phX(port_a2.p,
+                          inStream(port_a2.h_outflow),
+                          inStream(port_a2.Xi_outflow))
       if show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
+    if allowFlowReversal2 then
       Medium2.setState_phX(port_b2.p,
-                           noEvent(actualStream(port_b2.h_outflow)),
-                           noEvent(actualStream(port_b2.Xi_outflow)))
-      if show_T "Medium properties in port_b2";
+                          noEvent(actualStream(port_b2.h_outflow)),
+                          noEvent(actualStream(port_b2.Xi_outflow)))
+    else
+      Medium2.setState_phX(port_b2.p,
+                          port_b2.h_outflow,
+                          port_b2.Xi_outflow)
+       if show_T "Medium properties in port_b2";
+
 protected
   Medium1.ThermodynamicState state_a1_inflow=
     Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
@@ -81,6 +103,23 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2022, by Michael Wetter:<br/>
+If <code>allowFlowReversal==false</code>, removed <code>noEvent()</code> declaration
+for <code>sta_a</code> and for <code>sta_b</code> because the variable is either
+already used with <code>inStream()</code> in the computation of <code>state_*_inflow</code>,
+or the result of a variable of the model that already may generate an event.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1578\">IBPSA, #1578</a>.
+</li>
+<li>
+February 2, 2022, by Hongxiang Fu:<br/>
+If <code>allowFlowReversal==false</code>, replaced <code>actualStream()</code>
+with <code>inStream()</code> for <code>sta_a</code> and
+removed <code>actualStream()</code> for <code>sta_b</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1578\">IBPSA, #1578</a>.
+</li>
 <li>
 March 30, 2021, by Michael Wetter:<br/>
 Added annotation <code>HideResult=true</code>.<br/>

@@ -31,14 +31,12 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Type converter"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt
-    "Product"
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt "Product"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Type converter"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt1
-    "Product"
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1 "Product"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
 equation

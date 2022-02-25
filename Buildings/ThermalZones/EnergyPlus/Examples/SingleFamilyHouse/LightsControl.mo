@@ -36,8 +36,7 @@ model LightsControl
     t=22*3600)
     "Check whether time is earlier than 22:00"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Controls.OBC.CDL.Continuous.Add timToSunSet(
-    k2=-1)
+  Controls.OBC.CDL.Continuous.Subtract timToSunSet
     "Time to next sunset"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(

@@ -8,16 +8,8 @@ block Controller
     "Check if the zone has occupancy sensor";
   parameter Boolean have_heaCoi=true
     "True if the air handling unit has heating coil";
-  parameter Boolean have_CO2Sen=false "True: the zone has CO2 sensor";
-  parameter Boolean have_typTerUniWitCO2=false
-    "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAVWitCO2 and not have_parFanPowUniWitCO2)));
-  parameter Boolean have_parFanPowUniWitCO2=false
-    "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAVWitCO2 and not have_typTerUniWitCO2)));
-  parameter Boolean have_SZVAVWitCO2=false
-    "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUniWitCO2 and not have_typTerUniWitCO2)));
+  parameter Boolean have_CO2Sen=true
+    "True: the zone has CO2 sensor";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
   parameter Real THeaSetOcc(
@@ -51,12 +43,6 @@ block Controller
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonMin_flow(unit="m3/s")
-                       "Design zone minimum airflow setpoint"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(unit="m3/s")
-    "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and not have_SZVAVWitCO2, group="Design conditions"));
   parameter Real CO2Set=894
     "CO2 concentration setpoint, ppm"
     annotation(Dialog(enable=have_CO2Sen, group="Design conditions"));
@@ -748,16 +734,16 @@ block Controller
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_typTerUniWitCO2=have_typTerUniWitCO2,
-    final have_parFanPowUniWitCO2=have_parFanPowUniWitCO2,
-    final have_SZVAVWitCO2=have_SZVAVWitCO2,
+    final have_typTerUniWitCO2=false,
+    final have_parFanPowUniWitCO2=false,
+    final have_SZVAVWitCO2=true,
     final permit_occStandby=permit_occStandby,
     final AFlo=AFlo,
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,
-    final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow,
+    final VZonMin_flow=0,
+    final VCooZonMax_flow=0,
     final CO2Set=CO2Set,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
@@ -877,8 +863,8 @@ equation
           394},{-22,394}},   color={0,0,127}));
   connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{58,179},{-50,179},
           {-50,394},{-22,394}},    color={0,0,127}));
-  connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{1,340},{14,340},
-          {14,143},{58,143}},       color={255,127,0}));
+  connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{2,340},{14,
+          340},{14,143},{58,143}},  color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-198,-90},{-180,-90},{-180,
           -98},{-152,-98}},        color={255,127,0}));
   connect(intEqu.y, switch.u) annotation (Line(points={{-128,-90},{-122,-90}},
@@ -906,8 +892,8 @@ equation
                                         color={0,0,127}));
   connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-98,-90},{0,-90},{
           0,42},{58,42}},              color={255,0,255}));
-  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{1,340},{14,340},
-          {14,46},{58,46}},           color={255,127,0}));
+  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{2,340},{14,
+          340},{14,46},{58,46}},      color={255,127,0}));
   connect(cooCoi.TSup, TSup) annotation (Line(points={{58,54},{-60,54},{-60,100},
           {-280,100}},      color={0,0,127}));
   connect(switch.y, conEco.uSupFan) annotation (Line(points={{-98,-90},{0,-90},{

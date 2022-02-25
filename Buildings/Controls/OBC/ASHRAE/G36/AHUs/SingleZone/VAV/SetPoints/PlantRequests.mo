@@ -62,7 +62,7 @@ block PlantRequests
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Feedback cooSupTemDif
+  Buildings.Controls.OBC.CDL.Continuous.Subtract cooSupTemDif
     "Find the cooling supply temperature difference to the setpoint"
     annotation (Placement(transformation(extent={{-170,190},{-150,210}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
@@ -129,7 +129,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Send 1 chiller plant request"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback heaSupTemDif if have_heaCoi
+  Buildings.Controls.OBC.CDL.Continuous.Subtract heaSupTemDif if have_heaCoi
     "Find the heating supply temperature difference to the setpoint"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
@@ -191,9 +191,9 @@ protected
 
 equation
   connect(TSup, cooSupTemDif.u1)
-    annotation (Line(points={{-220,200},{-172,200}}, color={0,0,127}));
-  connect(TSupCoo, cooSupTemDif.u2) annotation (Line(points={{-220,160},{-160,160},
-          {-160,188}}, color={0,0,127}));
+    annotation (Line(points={{-220,200},{-180,200},{-180,206},{-172,206}}, color={0,0,127}));
+  connect(TSupCoo, cooSupTemDif.u2) annotation (Line(points={{-220,160},{-190,160},
+          {-190,194},{-172,194}}, color={0,0,127}));
   connect(cooSupTemDif.y, greThr.u)
     annotation (Line(points={{-148,200},{-82,200}}, color={0,0,127}));
   connect(greThr.y, truDel.u)
@@ -245,7 +245,7 @@ equation
   connect(intSwi3.y, yChiPlaReq)
     annotation (Line(points={{102,20},{220,20}}, color={255,127,0}));
   connect(TSup, heaSupTemDif.u2) annotation (Line(points={{-220,200},{-180,200},
-          {-180,-60},{-140,-60},{-140,-52}}, color={0,0,127}));
+          {-180,-46},{-152,-46}}, color={0,0,127}));
   connect(greThr3.y, truDel2.u)
     annotation (Line(points={{-58,-40},{-42,-40}}, color={255,0,255}));
   connect(greThr4.y, truDel3.u)
@@ -299,7 +299,7 @@ equation
   connect(yChiWatResReq, yChiWatResReq)
     annotation (Line(points={{220,200},{220,200}}, color={255,127,0}));
   connect(TSupHeaEco, heaSupTemDif.u1)
-    annotation (Line(points={{-220,-40},{-152,-40}}, color={0,0,127}));
+    annotation (Line(points={{-220,-40},{-160,-40},{-160,-34},{-152,-34}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="sinAHUPlaReq",

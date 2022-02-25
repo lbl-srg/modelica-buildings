@@ -360,7 +360,7 @@ block Controller
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movAve(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(
     final delta=aveTimRan)
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
         or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)

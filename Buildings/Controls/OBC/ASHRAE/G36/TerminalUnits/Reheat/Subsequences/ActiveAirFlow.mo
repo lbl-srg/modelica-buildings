@@ -85,7 +85,7 @@ protected
     final realTrue=1)
     "If in occupied mode, output 1"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
@@ -106,7 +106,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Max max2
     "Maximum of inputs"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
     "Product of inputs"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -118,7 +118,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Active heating minimu flow setpoint"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
     "Product of inputs"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo1(
@@ -254,7 +254,7 @@ equation
     annotation (Line(points={{182,-120},{220,-120}}, color={0,0,127}));
 
 annotation (
-  defaultComponentName="actAirSet_RehBox",
+  defaultComponentName="actAirSet",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,220}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={Rectangle(

@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits;
-package DualDuctMixConInletSensor "Sequences for dual duct terminal unit with mixing control through inlet airflow sensors"
+package DualDuctMixConInletSensor "Sequences for dual duct terminal unit using mixing control with inlet sensor"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences for dual duct terminal unit with mixing control
-through inlet airflow sensors.
+This package contains sequences for dual duct terminal unit using mixing control with inlet sensor.
 They are created according to Section 5.12 of ASHRAE Guideline 36, May 2020.
+Note that the sequence uses two airflow sensors, one at each inlet.
 </p>
 </html>"),
   Icon(graphics={

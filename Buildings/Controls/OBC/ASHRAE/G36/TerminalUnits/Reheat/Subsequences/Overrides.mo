@@ -99,7 +99,7 @@ block Overrides "Software switches to override setpoints"
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
     annotation (Placement(transformation(extent={{28,130},{48,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add up inputs"
-    annotation (Placement(transformation(extent={{62,170},{82,190}})));
+    annotation (Placement(transformation(extent={{60,170},{80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Check if the airflow setpoint should be overrided"
@@ -151,7 +151,7 @@ block Overrides "Software switches to override setpoints"
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Valve position setpoint after considering override"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
@@ -181,16 +181,18 @@ equation
     annotation (Line(points={{-58,120},{-42,120}}, color={255,0,255}));
   connect(cooMax.y, add2.u1) annotation (Line(points={{-18,160},{0,160},{0,146},
           {26,146}},color={0,0,127}));
-  connect(zerFlo.y, add1.u1) annotation (Line(points={{-18,200},{20,200},{20,186},
-          {60,186}}, color={0,0,127}));
+  connect(zerFlo.y, add1.u1) annotation (Line(points={{-18,200},{20,200},{20,
+          186},{58,186}},
+                     color={0,0,127}));
   connect(forZerFlo.y, or3.u1) annotation (Line(points={{-58,200},{-50,200},{-50,
           48},{-22,48}},color={255,0,255}));
   connect(forCooMax.y, or3.u2) annotation (Line(points={{-58,160},{-50,160},{-50,
           40},{-22,40}},color={255,0,255}));
   connect(forMinFlo.y, or3.u3) annotation (Line(points={{-58,120},{-50,120},{-50,
           32},{-22,32}}, color={255,0,255}));
-  connect(add1.y, swi.u1) annotation (Line(points={{84,180},{90,180},{90,28},{98,
-          28}}, color={0,0,127}));
+  connect(add1.y, swi.u1) annotation (Line(points={{82,180},{90,180},{90,28},{
+          98,28}},
+                color={0,0,127}));
   connect(VActSet_flow, swi.u3) annotation (Line(points={{-160,0},{80,0},{80,12},
           {98,12}}, color={0,0,127}));
   connect(swi.y, VSet_flow)
@@ -229,14 +231,14 @@ equation
           -90,72},{-82,72}}, color={255,127,0}));
   connect(forMinFlo1.y, heaMax.u)
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
-  connect(add2.y, add1.u2) annotation (Line(points={{50,140},{54,140},{54,174},{
-          60,174}}, color={0,0,127}));
+  connect(add2.y, add1.u2) annotation (Line(points={{50,140},{54,140},{54,174},
+          {58,174}},color={0,0,127}));
   connect(minFlo.y, add4.u1) annotation (Line(points={{-18,120},{-12,120},{-12,106},
           {-8,106}}, color={0,0,127}));
   connect(heaMax.y, add4.u2) annotation (Line(points={{-18,80},{-12,80},{-12,94},
           {-8,94}}, color={0,0,127}));
-  connect(add4.y, add2.u2) annotation (Line(points={{16,100},{22,100},{22,134},{
-          26,134}}, color={0,0,127}));
+  connect(add4.y, add2.u2) annotation (Line(points={{16,100},{20,100},{20,134},
+          {26,134}},color={0,0,127}));
   connect(or3.y, or1.u1) annotation (Line(points={{2,40},{20,40},{20,20},{38,20}},
         color={255,0,255}));
   connect(forMinFlo1.y, or1.u2) annotation (Line(points={{-58,80},{-50,80},{-50,
@@ -252,7 +254,7 @@ equation
   connect(pro.y,yValSet)
     annotation (Line(points={{102,-180},{160,-180}}, color={0,0,127}));
 
-annotation (defaultComponentName="rehBoxOve",
+annotation (defaultComponentName="ove",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
@@ -280,10 +282,10 @@ annotation (defaultComponentName="rehBoxOve",
           pattern=LinePattern.Dash,
           textString="uDamSet"),
         Text(
-          extent={{-98,28},{-48,14}},
+          extent={{-96,28},{-46,14}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="oveFloSet"),
+          textString="oveDamPos"),
         Text(
           extent={{58,6},{98,-6}},
           lineColor={0,0,127},

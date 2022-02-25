@@ -1,5 +1,6 @@
 Abs
 Add
+AddParameter
 Change
 Equal
 Greater
@@ -13,6 +14,7 @@ LessThreshold
 Max
 Min
 MultiSum
+Multiply
 OnCounter
-Product
+Subtract
 Switch

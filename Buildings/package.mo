@@ -249,13 +249,51 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">#2126</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Coefficient_V_flow<br/>
+                     Buildings.Airflow.Multizone.Coefficient_m_flow<br/>
+                     Buildings.Airflow.Multizone.Point_m_flow<br/>
+                     Buildings.Airflow.Multizone.Points_m_flow<br/>
+                     Buildings.Airflow.Multizone.Table_V_flow<br/>
+                     Buildings.Airflow.Multizone.Table_m_flow
+    </td>
+    <td valign=\"top\">Added new component models for multizone air exchange.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
     </td>
-    <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
-                       which can be used to vary boundary conditions over the length of a pipe.
+    <td valign=\"top\">Added model for multiple plug flow pipes in series,
+                     which can be used to vary boundary conditions over the length of a pipe.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Outside_CpData
+    </td>
+    <td valign=\"top\">Added new component model that allows specifying a wind pressure profile for an exterior construction.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
+                     Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
+                     Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
+                     Buildings.Controls.OBC.CDL.Integers.Subtact
+    </td>
+    <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
+    </td>
+    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
@@ -264,7 +302,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Ice.ControlledTank<br/>
                      Buildings.Fluid.Storage.Ice.Tank
     </td>
-    <td valign=\"top\">Models for ice storage tank whose performance is characterized by performance curves.<br/>
+    <td valign=\"top\">Added models for ice storage tank whose performance is characterized by performance curves.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
     </td>
 </tr>
@@ -353,6 +391,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed cooling coil model.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">#2549</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System7
+    </td>
+    <td valign=\"top\">Changed block downstream of <code>greThrTRoo</code> from <code>and</code> to <code>or</code> block.
+                       This ensures that the system is off when the outdoor air or room air is sufficiently warm.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SpaceCooling.System2<br/>
@@ -526,41 +570,69 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.Continuous.PIDHysteresis
     </td>
     <td valign=\"top\">Moved blocks to <code>Buildings.Obsolete.Controls.Continuous</code>.<br/>
-                This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, #1522</a>.<br/>
-                For Dymola, a conversion script makes this change.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, #1522</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput<br/>
-                         Buildings.Controls.OBC.CDL.Interfaces.DayTypeOutput<br/>
-                         Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
-                         Buildings.Controls.OBC.CDL.Conversions.IsHoliday<br/>
-                         Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay<br/>
-                         Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay<br/>
-                         Buildings.Controls.OBC.CDL.Discrete.Examples.DayType<br/>
-                         Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck<br/>
-                         Buildings.Controls.OBC.CDL.Types.Day<br/>
-
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Add<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Add<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.AddParameter
+    </td>
+    <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Feedback
+    </td>
+    <td valign=\"top\">Moved the class to <code>Obsolete</code> package.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Division<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Gain<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.MovingMean<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Product<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Product<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter
+    </td>
+    <td valign=\"top\">Renamed the blocks to <code>Divide</code>, <code>MultiplyByParameter</code>, <code>MovingAverage</code>,
+                       <code>Multiply</code>, <code>LimitSlewRate</code>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput<br/>
+                       Buildings.Controls.OBC.CDL.Interfaces.DayTypeOutput<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.IsHoliday<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.IsNonWorkingDay<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.Examples.DayType<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.Validation.DayTypeCheck<br/>
+                       Buildings.Controls.OBC.CDL.Types.Day
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
-                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
-                For Dymola, a conversion script makes this change.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
-  </tr>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\"># 2580</a>.<br/>
-                For Dymola, a conversion script makes this change.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\"># 2580</a>.<br/>
+                       For Dymola, a conversion script makes this change.
     </td>
 </tr>
-<tr><td valign=\"top\">
-    Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
-    Buildings.Controls.OBC.CDL.Routing.RealReplicator
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
+                       Buildings.Controls.OBC.CDL.Routing.IntegerReplicator<br/>
+                       Buildings.Controls.OBC.CDL.Routing.RealReplicator
     </td>
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
@@ -710,7 +782,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
-    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    <td valign=\"top\">R" + "emoved support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>

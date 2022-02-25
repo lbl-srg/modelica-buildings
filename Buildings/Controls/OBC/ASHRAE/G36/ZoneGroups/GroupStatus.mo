@@ -165,11 +165,11 @@ protected
     "Longest warm up time"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=numZon)
+    final nin=numZon)
     "Check if there is any zone that the zone temperature is lower than its occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=numZon)
+    final nin=numZon)
     "Check if there is any zone that the zone temperature is higher than its occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(
@@ -185,7 +185,7 @@ protected
     final nin=numZon) "Total number of cold zone"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetBac(
-   final nu=numZon)
+   final nin=numZon)
     "Check if all zones have ended the setback mode"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[numZon]
@@ -195,17 +195,17 @@ protected
     final nin=numZon) "Total number of hot zones"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd endSetUp(
-    final nu=numZon)
+    final nin=numZon)
     "Check if all zones have ended the setup mode"
     annotation (Placement(transformation(extent={{-2,-190},{18,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(
     final nin=numZon)
     "Sum of all zones unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoHea
+  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoHea
     "Difference between unoccupied heating setpoint and zone temperature"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1 "Average difference"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Average difference"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
     final k=numZon) "Total number of zones"
@@ -219,10 +219,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(
     final nin=numZon) "Sum of all zones temperature"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback difUnoCoo
+  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoCoo
     "Difference between unoccupied cooling setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div2 "Average difference"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Average difference"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=uLow,
@@ -239,11 +239,11 @@ protected
     "Minimum time to next occupied period"
     annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr schOcc(
-    final nu=numZon)
+    final nin=numZon)
     "Check if the group should be in occupied mode according to the schedule"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr oveRidOcc(
-    final nu=numZon)
+    final nin=numZon)
     "Check if the group should be in occupied mode according to the zone override"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
   Buildings.Controls.OBC.CDL.Logical.Or groOcc
@@ -261,7 +261,7 @@ protected
     final realFalse=1)
     "When any zone becomes occpuied, output zero"
     annotation (Placement(transformation(extent={{0,230},{20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "When it is occupied, output zero"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
 
@@ -313,19 +313,15 @@ equation
     annotation (Line(points={{-58,-90},{38,-90}}, color={255,0,255}));
   connect(totZon.y, intToRea.u)
     annotation (Line(points={{-58,120},{-42,120}}, color={255,127,0}));
-  connect(sumTem.y, difUnoHea.u2)
-    annotation (Line(points={{-58,-200},{-40,-200},{-40,-32}}, color={0,0,127}));
-  connect(sumTem.y, difUnoCoo.u1) annotation (Line(points={{-58,-200},{-40,-200},
-          {-40,-120},{-32,-120}}, color={0,0,127}));
-  connect(sumUnoCoo.y, difUnoCoo.u2) annotation (Line(points={{-58,-150},{-20,-150},
-          {-20,-132}},color={0,0,127}));
+  connect(sumTem.y, difUnoCoo.u1) annotation (Line(points={{-58,-200},{-50,-200},
+          {-50,-114},{-32,-114}}, color={0,0,127}));
   connect(sumUnoHea.y, difUnoHea.u1)
-    annotation (Line(points={{-58,-20},{-52,-20}}, color={0,0,127}));
+    annotation (Line(points={{-58,-20},{-50,-20},{-50,-14},{-42,-14}}, color={0,0,127}));
   connect(intToRea.y, div1.u2) annotation (Line(points={{-18,120},{0,120},{0,-26},
           {18,-26}},color={0,0,127}));
   connect(intToRea.y, div2.u2) annotation (Line(points={{-18,120},{0,120},{0,-136},
           {18,-136}},color={0,0,127}));
-  connect(difUnoHea.y, div1.u1) annotation (Line(points={{-28,-20},{-10,-20},{-10,
+  connect(difUnoHea.y, div1.u1) annotation (Line(points={{-18,-20},{-10,-20},{-10,
           -14},{18,-14}}, color={0,0,127}));
   connect(difUnoCoo.y, div2.u1) annotation (Line(points={{-8,-120},{8,-120},{8,-124},
           {18,-124}},color={0,0,127}));
@@ -371,6 +367,10 @@ equation
           {58,226}}, color={0,0,127}));
   connect(pro.y, nexOcc) annotation (Line(points={{82,220},{94,220},{94,220},{120,
           220}}, color={0,0,127}));
+  connect(sumTem.y, difUnoHea.u2) annotation (Line(points={{-58,-200},{-50,-200},
+          {-50,-26},{-42,-26}}, color={0,0,127}));
+  connect(sumUnoCoo.y, difUnoCoo.u2) annotation (Line(points={{-58,-150},{-40,-150},
+          {-40,-126},{-32,-126}}, color={0,0,127}));
 
 annotation (
   defaultComponentName = "groSta",

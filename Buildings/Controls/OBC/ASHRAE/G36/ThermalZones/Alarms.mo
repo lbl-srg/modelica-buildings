@@ -42,7 +42,7 @@ block Alarms "Zone level alarms"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone heating setpoint"
-    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+    annotation (Placement(transformation(extent={{-240,86},{-200,126}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uResSet
     "True: zone setpoint temperature is being resetted"
@@ -66,7 +66,7 @@ block Alarms "Zone level alarms"
     annotation (Placement(transformation(extent={{240,-200},{280,-160}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Feedback lowTem
+  Buildings.Controls.OBC.CDL.Continuous.Subtract lowTem
     "Zone temperature below the heating setpoint"
     annotation (Placement(transformation(extent={{-170,90},{-150,110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold twoDegLow(
@@ -79,7 +79,7 @@ block Alarms "Zone level alarms"
     final h=dTHys)
     "Check if the zone temperature is 3 degC lower than the heating setpoint"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback higTem
+  Buildings.Controls.OBC.CDL.Continuous.Subtract higTem
     "Zone temperature above the cooling setpoint"
     annotation (Placement(transformation(extent={{-170,210},{-150,230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold twoDegHig(
@@ -171,13 +171,13 @@ block Alarms "Zone level alarms"
     "Check if it has been in unoccupied mode for long time and CO2 concentration exceeds threshold"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert lowTemAla4(
-    final message="Warning: the zone CO2 concentration exceeds 600 ppm in unoccupied mode. The CO2 sensor may be out of calibration.") if
-       have_CO2Sen "Level 3 CO2 alarm"
+    final message="Warning: the zone CO2 concentration exceeds 600 ppm in unoccupied mode. The CO2 sensor may be out of calibration.")
+    if have_CO2Sen "Level 3 CO2 alarm"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 if have_CO2Sen "Logical not"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final t=1.1*Co2Set,
+    final t=1.1*CO2Set,
     final h=ppmHys) if have_CO2Sen
     "Check if the CO2 concentration exceeds setpoint plus 10%"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
@@ -195,8 +195,8 @@ block Alarms "Zone level alarms"
     "Level 2 CO2 concentration alarm"
     annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert lowTemAla5(
-    final message="Warning: the zone CO2 concentration exceeds setpoint plus 10%.") if
-       have_CO2Sen "Level 2 CO2 alarm"
+    final message="Warning: the zone CO2 concentration exceeds setpoint plus 10%.")
+    if have_CO2Sen "Level 2 CO2 alarm"
     annotation (Placement(transformation(extent={{200,-230},{220,-210}})));
   Buildings.Controls.OBC.CDL.Integers.Add temAla
     "Zone temperature alarm"
@@ -244,8 +244,8 @@ block Alarms "Zone level alarms"
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant unoMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied) if
-       have_CO2Sen "Unoccupied mode"
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
+    if have_CO2Sen "Unoccupied mode"
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay twoHou(
     final delayTime=modChe) if have_CO2Sen
@@ -275,11 +275,11 @@ equation
   connect(higTem.y, thrDegHig.u) annotation (Line(points={{-148,220},{-140,220},
           {-140,180},{-122,180}}, color={0,0,127}));
   connect(TZon, higTem.u1)
-    annotation (Line(points={{-220,220},{-172,220}}, color={0,0,127}));
-  connect(TZonCooSet, higTem.u2) annotation (Line(points={{-220,180},{-160,180},
-          {-160,208}}, color={0,0,127}));
+    annotation (Line(points={{-220,220},{-180,220},{-180,226},{-172,226}}, color={0,0,127}));
+  connect(TZonCooSet, higTem.u2) annotation (Line(points={{-220,180},{-190,180},
+          {-190,214},{-172,214}}, color={0,0,127}));
   connect(TZonHeaSet, lowTem.u1)
-    annotation (Line(points={{-220,100},{-172,100}}, color={0,0,127}));
+    annotation (Line(points={{-220,106},{-172,106}}, color={0,0,127}));
   connect(cooDowMod.y, intEqu3.u1)
     annotation (Line(points={{-158,-20},{-122,-20}}, color={255,127,0}));
   connect(warUpMod.y, intEqu4.u1)
@@ -297,8 +297,7 @@ equation
   connect(or2.y, or1.u2) annotation (Line(points={{-58,-20},{-50,-20},{-50,12},
           {-42,12}},color={255,0,255}));
   connect(or1.y, notSupTemAla.u)
-    annotation (Line(points={{-18,20},{-2,20}},
-                                              color={255,0,255}));
+    annotation (Line(points={{-18,20},{-2,20}}, color={255,0,255}));
   connect(twoDegHig.y, and2.u1)
     annotation (Line(points={{-98,220},{-82,220}}, color={255,0,255}));
   connect(thrDegHig.y, and1.u1)
@@ -398,7 +397,7 @@ equation
   connect(co2Ala.y, yCO2Ala)
     annotation (Line(points={{162,-180},{260,-180}}, color={255,127,0}));
   connect(TZon, lowTem.u2) annotation (Line(points={{-220,220},{-180,220},{-180,
-          80},{-160,80},{-160,88}}, color={0,0,127}));
+          94},{-172,94}},           color={0,0,127}));
   connect(tenMinDur3.y, higTemAla.u2)
     annotation (Line(points={{-18,180},{58,180}}, color={255,0,255}));
   connect(tenMinDur1.y, lowTemAla.u2)

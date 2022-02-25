@@ -162,10 +162,10 @@ protected
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for fixed or differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-98,150},{-78,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1) if use_enthalpy
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if use_enthalpy
     "Add block that determines the difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,244},{-120,264}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch maxOutDam
@@ -198,8 +198,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k2=-1) if use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+    if use_fixed_plus_differential_drybulb
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCutTem(
@@ -219,17 +219,17 @@ protected
 equation
   connect(maxOutDam.y, yOutDamPosMax)
     annotation (Line(points={{62,-140},{200,-140}}, color={0,0,127}));
-  connect(TOut, add1.u1)
+  connect(TOut, sub1.u1)
     annotation (Line(points={{-200,270},{-160,270},{-160,260},{-142,260}},color={0,0,127}));
-  connect(TCut, add1.u2) annotation (Line(points={{-200,240},{-160,240},{-160,248},
+  connect(TCut, sub1.u2) annotation (Line(points={{-200,240},{-160,240},{-160,248},
           {-142,248}}, color={0,0,127}));
-  connect(add1.y, hysOutTem.u)
+  connect(sub1.y, hysOutTem.u)
     annotation (Line(points={{-118,254},{-102,254}}, color={0,0,127}));
-  connect(hOut, add2.u1)
+  connect(hOut, sub2.u1)
     annotation (Line(points={{-200,180},{-160,180},{-160,166},{-142,166}},color={0,0,127}));
-  connect(hCut, add2.u2) annotation (Line(points={{-200,150},{-160,150},{-160,154},
+  connect(hCut, sub2.u2) annotation (Line(points={{-200,150},{-160,150},{-160,154},
           {-142,154}}, color={0,0,127}));
-  connect(add2.y, hysOutEnt.u)
+  connect(sub2.y, hysOutEnt.u)
     annotation (Line(points={{-118,160},{-100,160}}, color={0,0,127}));
   connect(hysOutTem.y, nor1.u1)
     annotation (Line(points={{-78,254},{-14,254},{-14,188},{16,188}},
@@ -280,11 +280,11 @@ equation
     annotation (Line(points={{-58,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
   connect(not3.y, andEnaDis.u3)
     annotation (Line(points={{-22,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
-  connect(TRet, add3.u2) annotation (Line(points={{-200,210},{-160,210},{-160,204},
+  connect(TRet, sub3.u2) annotation (Line(points={{-200,210},{-160,210},{-160,204},
           {-142,204}}, color={0,0,127}));
-  connect(TOut, add3.u1) annotation (Line(points={{-200,270},{-160,270},{-160,260},
+  connect(TOut, sub3.u1) annotation (Line(points={{-200,270},{-160,270},{-160,260},
           {-152,260},{-152,216},{-142,216}}, color={0,0,127}));
-  connect(add3.y, hysCutTem.u)
+  connect(sub3.y, hysCutTem.u)
     annotation (Line(points={{-118,210},{-102,210}}, color={0,0,127}));
   connect(hysCutTem.y, nor2.u2) annotation (Line(points={{-78,210},{-38,210},{
           -38,246},{16,246}}, color={255,0,255}));

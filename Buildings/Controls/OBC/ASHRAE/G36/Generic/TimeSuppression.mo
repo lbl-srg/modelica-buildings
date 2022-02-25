@@ -2,16 +2,17 @@ within Buildings.Controls.OBC.ASHRAE.G36.Generic;
 block TimeSuppression
   "Calculate a time-delay period after change in set point"
 
-  parameter Real samplePeriod(
-    final unit="s",
-    final quantity="Time")=120
-    "Sample period of component, set to the same value as the trim and respond that process static pressure reset";
-  parameter Real chaRat=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC";
+  parameter Real chaRat(final unit="s/K")=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC. For cooling or heating request, it should be 540 seconds, for temperature alarms, it should be 1080 seconds";
   parameter Real maxTim(
     final unit="s",
     final quantity="Time")=1800
-    "Maximum suppression time";
+    "Maximum suppression time. For cooling or heating request, it should be 1800 seconds, for temperature alarms, it should be 7200 seconds";
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=120
+    "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
+    annotation (Dialog(tab="Advanced"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
@@ -35,6 +36,10 @@ block TimeSuppression
     "True when there is no setpoint change, or suppression time has passed after setpoint change"
     annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Min supTim
+    "Calculated suppression time due to the setpoint change"
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Discrete.Sampler samSet(
@@ -71,20 +76,16 @@ protected
     final h=0.5*dTHys)
     "Check if there is setpoint change"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min supTim
-    "Calculated suppression time due to the setpoint change"
-    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Time of the model"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=chaRat)
     "Setpoint change rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate difference of previous and current setpoints"
-    annotation (Placement(transformation(extent={{-20,140},{0,160}})));
+    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=samplePeriod)
     "Sample period time"
@@ -113,9 +114,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Greater pasSup
     "Check if the change has been suppressed by sufficient time"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback temDif
+  Buildings.Controls.OBC.CDL.Continuous.Subtract temDif
     "Difference between setpoint and zone temperature"
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
     "Zone temperature at the moment when there is setpoint change"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
@@ -143,16 +144,10 @@ equation
   connect(con.y,gre1. u2)
     annotation (Line(points={{-118,80},{-100,80},{-100,102},{-82,102}},
       color={0,0,127}));
-  connect(uniDel.y,add1. u1)
-    annotation (Line(points={{-58,170},{-40,170},{-40,156},{-22,156}},
-      color={0,0,127}));
-  connect(samSet.y, add1.u2)
-    annotation (Line(points={{-118,170},{-100,170},{-100,144},{-22,144}},
-      color={0,0,127}));
   connect(gre1.y,swi. u2)
     annotation (Line(points={{-58,110},{38,110}}, color={255,0,255}));
-  connect(add1.y,swi. u1)
-    annotation (Line(points={{2,150},{20,150},{20,118},{38,118}},
+  connect(sub1.y,swi. u1)
+    annotation (Line(points={{2,140},{20,140},{20,118},{38,118}},
       color={0,0,127}));
   connect(conZer.y,swi. u3)
     annotation (Line(points={{2,80},{20,80},{20,102},{38,102}}, color={0,0,127}));
@@ -164,11 +159,9 @@ equation
     annotation (Line(points={{102,-150},{110,-150},{110,-170},{-90,-170},{-90,-156},
           {-82,-156}}, color={255,0,255}));
   connect(gai.y,supTim. u1)
-    annotation (Line(points={{42,30},{60,30},{60,16},{78,16}},
-      color={0,0,127}));
+    annotation (Line(points={{42,30},{60,30},{60,16},{78,16}}, color={0,0,127}));
   connect(maxSupTim.y,supTim. u2)
-    annotation (Line(points={{42,-10},{60,-10},{60,4},{78,4}},
-      color={0,0,127}));
+    annotation (Line(points={{42,-10},{60,-10},{60,4},{78,4}}, color={0,0,127}));
   connect(lat.y, pasSupTim.u2) annotation (Line(points={{-58,-150},{-50,-150},{-50,
           -100},{138,-100}}, color={255,0,255}));
   connect(lat1.y, pasSupTim.u1) annotation (Line(points={{102,-80},{120,-80},{120,
@@ -188,19 +181,23 @@ equation
   connect(TZon, triSam1.u)
     annotation (Line(points={{-200,-20},{-122,-20}}, color={0,0,127}));
   connect(triSam.y, temDif.u1)
-    annotation (Line(points={{-98,30},{-72,30}}, color={0,0,127}));
-  connect(triSam1.y, temDif.u2)
-    annotation (Line(points={{-98,-20},{-60,-20},{-60,18}}, color={0,0,127}));
+    annotation (Line(points={{-98,30},{-80,30},{-80,36},{-62,36}}, color={0,0,127}));
   connect(edg.y, triSam1.trigger) annotation (Line(points={{-18,-120},{40,-120},
           {40,-86},{-80,-86},{-80,-40},{-110,-40},{-110,-31.8}}, color={255,0,255}));
   connect(edg.y, triSam.trigger) annotation (Line(points={{-18,-120},{40,-120},{
           40,-86},{-80,-86},{-80,10},{-110,10},{-110,18.2}}, color={255,0,255}));
   connect(temDif.y, abs2.u)
-    annotation (Line(points={{-48,30},{-22,30}}, color={0,0,127}));
+    annotation (Line(points={{-38,30},{-22,30}}, color={0,0,127}));
   connect(abs2.y, gai.u)
     annotation (Line(points={{2,30},{18,30}}, color={0,0,127}));
   connect(supTim.y, pasSup.u2) annotation (Line(points={{102,10},{120,10},{120,-40},
           {0,-40},{0,-158},{18,-158}}, color={0,0,127}));
+  connect(uniDel.y, sub1.u2) annotation (Line(points={{-58,170},{-40,170},{-40,134},
+          {-22,134}}, color={0,0,127}));
+  connect(samSet.y, sub1.u1) annotation (Line(points={{-118,170},{-100,170},{-100,
+          146},{-22,146}}, color={0,0,127}));
+  connect(triSam1.y, temDif.u2) annotation (Line(points={{-98,-20},{-70,-20},{-70,
+          24},{-62,24}}, color={0,0,127}));
 
 annotation (defaultComponentName="timSup",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

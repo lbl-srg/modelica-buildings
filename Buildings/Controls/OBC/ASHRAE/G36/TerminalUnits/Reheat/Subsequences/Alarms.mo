@@ -122,7 +122,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     annotation (Placement(transformation(extent={{240,-320},{280,-280}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,300},{-160,320}})));
@@ -142,7 +142,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
@@ -177,7 +177,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt
     "Low flow alarms"
     annotation (Placement(transformation(extent={{200,270},{220,290}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
@@ -204,7 +204,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final k=VCooZonMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.1)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
@@ -259,8 +259,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-17,
-    final k=1)
+    final p=-17)
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les2(
@@ -268,8 +267,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-320},{-100,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-8,
-    final k=1)
+    final p=-8)
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-360},{-160,-340}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
@@ -327,7 +325,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-390},{160,-370}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt1
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{200,-310},{220,-290}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
@@ -340,8 +338,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Check if valve position is near zero"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=3,
-    final k=1)
+    final p=3)
     "AHU supply temperature plus 3 degree"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre2(
@@ -545,7 +542,7 @@ equation
   connect(booToInt6.y, yLeaValAla)
     annotation (Line(points={{162,-110},{260,-110}}, color={255,127,0}));
 
-annotation (defaultComponentName="rehBoxAla",
+annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(

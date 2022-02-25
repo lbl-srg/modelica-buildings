@@ -48,9 +48,8 @@ model IdealHeaterCooler
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=Q_flow_nominal)
-    "Gain for heat flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=Q_flow_nominal) "Gain for heat flow rate"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
