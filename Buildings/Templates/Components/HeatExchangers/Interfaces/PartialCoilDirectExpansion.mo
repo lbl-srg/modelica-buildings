@@ -21,8 +21,6 @@ partial model PartialCoilDirectExpansion
 
   outer parameter Boolean have_dryCon
     "Set to true for purely sensible cooling of the condenser";
-  outer parameter String funStr
-    "String used to identify the coil function";
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

@@ -1,3 +1,8 @@
 BugGroupStatus
 NestedUndeclaredExpandable
+RecordPropagation
+RecordPropagation1
+RecordPropagation2
+RecordPropagationConstant
+RecordPropagationNoRedeclare
 ExternDataEvaluation

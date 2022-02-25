@@ -33,16 +33,13 @@ model WaterBasedHeating "Hot water coil"
         rotation=-90,
         origin={-40,-60})));
 
-  replaceable
-    Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU hex
+
+  replaceable Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU hex
     constrainedby
     Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
       redeclare final package Medium1 = MediumHea,
       redeclare final package Medium2 = MediumAir,
-      final m1_flow_nominal=mWat_flow_nominal,
-      final m2_flow_nominal=mAir_flow_nominal,
-      final dp1_nominal=dpHex1_nominal,
-      final dp2_nominal=dpAir_nominal)
+      final datRec=datRecHex)
     "Heat exchanger"
     annotation (choices(
         choice(redeclare replaceable

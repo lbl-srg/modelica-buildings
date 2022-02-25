@@ -80,10 +80,14 @@ protected
     final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
           datRec.dpWat_nominal else 0)
     "Design and operating parameters of the control valve";
-  parameter Modelica.Units.SI.PressureDifference dpHex1_nominal=
-    if typVal==Buildings.Templates.Components.Types.Valve.None then
-      datRec.dpWat_nominal else 0
-    "Liquid pressure drop for heat exchanger parameterization";
+  parameter Buildings.Templates.Components.Valves.Interfaces.Data datRecHex(
+    final typ=typHex,
+    final m1_flow_nominal=datRec.mWat_flow_nominal,
+    final m2_flow_nominal=datRec.mAir_flow_nominal,
+    final dp1_nominal=if typVal==Buildings.Templates.Components.Types.Valve.None then
+      datRec.dpWat_nominal else 0,
+    final dp2_nominal=dpAir_nominal)
+    "Design and operating parameters of the heat exchanger";
 
   annotation (
   Icon(

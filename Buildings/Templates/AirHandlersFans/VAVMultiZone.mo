@@ -9,7 +9,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
     nZon(final min=2),
     redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone datRec(
-      typCoiHeaPre=coiHeaPre.typ,
+      final typCoiHeaPre=coiHeaPre.typ,
       typCoiCoo=coiCoo.typ,
       typCoiHeaReh=coiHeaReh.typ,
       typValCoiHeaPre=coiHeaPre.typVal,

@@ -13,10 +13,10 @@ model ElectricHeating "Electric heating coil"
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     redeclare final package Medium = MediumAir,
-      final Q_flow_nominal=Q_flow_nominal,
-      final m_flow_nominal=mAir_flow_nominal,
-      final dp_nominal=dpAir_nominal,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final Q_flow_nominal=Q_flow_nominal,
+    final m_flow_nominal=mAir_flow_nominal,
+    final dp_nominal=dpAir_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

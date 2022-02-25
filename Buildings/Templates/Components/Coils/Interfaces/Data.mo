@@ -2,18 +2,18 @@ within Buildings.Templates.Components.Coils.Interfaces;
 record Data
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Templates.Components.Types.Coil typ
+  constant Buildings.Templates.Components.Types.Coil typ
     "Equipment type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Valve typVal
+    annotation (Dialog(group="Configuration"));
+  constant Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.HeatExchanger typHex
+    annotation (Dialog(group="Configuration"));
+  constant Buildings.Templates.Components.Types.HeatExchanger typHex
     "Type of heat exchanger"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_sou
+    annotation (Dialog(group="Configuration"));
+  constant Boolean have_sou
     "Set to true for fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0,
