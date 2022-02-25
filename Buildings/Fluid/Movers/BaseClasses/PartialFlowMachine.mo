@@ -417,24 +417,18 @@ equation
   connect(senRelPre.port_a, preSou.port_b) annotation (Line(points={{58,-20.5},{
           80,-20.5},{80,0},{60,0}},
                                color={0,127,255}));
-  connect(heaDis.etaHyd,eff. etaHyd) annotation (Line(points={{18,-60},{10,-60},
-          {10,-65},{-11,-65}},                     color={0,0,127}));
-  connect(heaDis.V_flow,eff. V_flow) annotation (Line(points={{18,-66},{14,-66},
-          {14,-53.2},{-6,-53.2},{-11,-53.2}},
-                                     color={0,0,127}));
-  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-11,-59},{0,-59},{0,-80},
-          {18,-80}},      color={0,0,127}));
-  connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-11,-56},{-8,-56},{-8,
-          -74},{18,-74}}, color={0,0,127}));
+  connect(heaDis.V_flow,eff. V_flow) annotation (Line(points={{18,-60},{14,-60},
+          {14,-52},{-11,-52}},       color={0,0,127}));
+  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-11,-60},{0,-60},{0,
+          -80},{18,-80}}, color={0,0,127}));
+  connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-11,-56},{4,-56},{4,
+          -66},{18,-66}}, color={0,0,127}));
   connect(rho_inlet.y,eff. rho) annotation (Line(points={{-69,-64},{-69,-64},{-34,
           -64}},                          color={0,0,127}));
   connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-34,
           -54},{-40,-54},{-40,-11}},               color={0,0,127}));
-  connect(eff.PEle, P) annotation (Line(points={{-11,-59},{0,-59},{0,-50},{90,
-          -50},{90,90},{110,90}},
-                             color={0,0,127}));
-  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-86},
-          {48,-86}},      color={0,0,127}));
+  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{4,-56},{4,
+          -86},{48,-86}}, color={0,0,127}));
   connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
           {18,70.5}},     color={0,0,127}));
 
@@ -444,11 +438,16 @@ equation
           70},{110,70}},
                      color={0,0,127}));
   connect(port_a, vol.ports[1])
-    annotation (Line(points={{-100,0},{-78,0},{-78,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-79,0},{-79,0}}, color={0,127,255}));
   connect(vol.ports[2], senMasFlo.port_a)
-    annotation (Line(points={{-82,0},{-82,0},{-50,0}}, color={0,127,255}));
+    annotation (Line(points={{-81,0},{-81,0},{-50,0}}, color={0,127,255}));
   connect(senMasFlo.port_b, preSou.port_a)
     annotation (Line(points={{-30,0},{40,0},{40,0}}, color={0,127,255}));
+  connect(eff.WHyd, heaDis.WHyd) annotation (Line(points={{-11,-58},{2,-58},{2,
+          -74},{18,-74}}, color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-11,-60},{0,-60},{0,-50},{90,
+          -50},{90,90},{110,90}},
+                             color={0,0,127}));
    annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={

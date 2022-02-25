@@ -68,8 +68,8 @@ model FlowMachineInterface
   Modelica.Blocks.Interfaces.RealOutput V_flow(
     quantity="VolumeFlowRate",
     final unit="m3/s") "Volume flow rate"
-    annotation (Placement(transformation(extent={{100,38},{120,58}}),
-        iconTransformation(extent={{100,38},{120,58}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+        iconTransformation(extent={{100,50},{120,70}})));
 
   Modelica.Blocks.Interfaces.RealInput dp_in(
     quantity="PressureDifference",
@@ -88,18 +88,25 @@ model FlowMachineInterface
     final unit="W") "Flow work"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
+  Modelica.Blocks.Interfaces.RealOutput WHyd(
+    quantity="Power",
+    final unit="W") "Hydraulic work (shaft work, brake horsepower)"
+    annotation (Placement(
+        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={
+            {100,-10},{120,10}})));
+
   Modelica.Blocks.Interfaces.RealOutput PEle(
     quantity="Power",
     final unit="W") "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}}),
-        iconTransformation(extent={{100,-20},{120,0}})));
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+        iconTransformation(extent={{100,-30},{120,-10}})));
 
   Modelica.Blocks.Interfaces.RealOutput eta(
     final quantity="Efficiency",
     final unit="1",
     start = 0.49) "Overall efficiency"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
   // A start value is given to suppress the following translation warning:
   //   "Some variables are iteration variables of the initialization problem:
   //   but they are not given any explicit start values. Zero will be used."
@@ -107,8 +114,8 @@ model FlowMachineInterface
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
     final unit="1") "Hydraulic efficiency"
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
-        iconTransformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
+        iconTransformation(extent={{100,-90},{120,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
@@ -535,6 +542,8 @@ equation
 
   // Flow work
   WFlo = dp_internal*V_flow;
+  // Hydraulic work
+  WHyd = PEle * etaMot;
   // Power consumption - three computation paths
   if per.use_powerCharacteristic then
     // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
@@ -557,13 +566,14 @@ equation
     if per.use_hydraulicPerformance then
       etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
                  x1=WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                   x1=P_internal, x2=1E-5, deltaX=1E-6),
+                             x1=P_internal, x2=1E-5, deltaX=1E-6),
                  x2=1E-6, deltaX=1E-7);
       PEle = P_internal/etaMot;
       etaMot = per.motorEfficiency.eta[1];
       eta = etaHyd * etaMot;
     else
-      eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=P_internal, x2=1E-5, deltaX=1E-6);
+      eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                     x1=P_internal, x2=1E-5, deltaX=1E-6);
       PEle = P_internal;
       etaHyd = 1;
       etaMot = eta;
@@ -605,19 +615,19 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={
-        Text(extent={{56,66},{106,52}},
+        Text(extent={{56,84},{106,70}},
           textColor={0,0,127},
           textString="dp"),
-        Text(extent={{56,8},{106,-6}},
+        Text(extent={{56,-10},{106,-24}},
           textColor={0,0,127},
           textString="PEle"),
-        Text(extent={{52,-22},{102,-36}},
+        Text(extent={{48,-48},{98,-62}},
           textColor={0,0,127},
           textString="eta"),
-        Text(extent={{50,-52},{100,-66}},
+        Text(extent={{50,-68},{100,-82}},
           textColor={0,0,127},
           textString="etaHyd"),
-        Text(extent={{50,-72},{100,-86}},
+        Text(extent={{50,-86},{100,-100}},
           textColor={0,0,127},
           textString="etaMot"),
         Ellipse(
@@ -667,10 +677,10 @@ equation
           smooth=Smooth.Bezier,
           origin={-43,-31},
           rotation=90),
-        Text(extent={{56,36},{106,22}},
+        Text(extent={{56,28},{106,14}},
           textColor={0,0,127},
           textString="WFlo"),
-        Text(extent={{56,94},{106,80}},
+        Text(extent={{56,66},{106,52}},
           textColor={0,0,127},
           textString="V_flow"),
         Line(
@@ -684,7 +694,13 @@ equation
         Line(
           points={{-70,86},{-40,84},{8,68},{36,42}},
           color={0,0,0},
-          smooth=Smooth.Bezier)}),
+          smooth=Smooth.Bezier),
+        Text(extent={{56,102},{106,88}},
+          textColor={0,0,127},
+          textString="y_out"),
+        Text(extent={{56,8},{106,-6}},
+          textColor={0,0,127},
+          textString="WHyd")}),
     Documentation(info="<html>
 <p>
 This is an interface that implements the functions to compute the head, power draw
