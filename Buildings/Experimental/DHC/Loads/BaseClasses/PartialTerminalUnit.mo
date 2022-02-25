@@ -285,55 +285,39 @@ partial model PartialTerminalUnit
     "Chilled water outlet port"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
-    u(final unit="W"),
-    final k=1/facMul) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHea_flow(u(
+        final unit="W"), final k=1/facMul)
+    if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea) "Scaling"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqCoo_flow(
-    u(final unit="W"),
-    final k=1/facMul) if have_QReq_flow and (have_chiWat or have_eleCoo)
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqCoo_flow(u(
+        final unit="W"), final k=1/facMul)
+    if have_QReq_flow and (have_chiWat or have_eleCoo) "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQActHea_flow(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_heaWat or have_chaOve or have_eleHea
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQActHea_flow(u(
+        final unit="W"), final k=facMul*facMulZon)
+    if have_heaWat or have_chaOve or have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQActCoo_flow(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_chiWat or have_eleCoo
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQActCoo_flow(u(
+        final unit="W"), final k=facMul*facMulZon) if have_chiWat or
+    have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_eleHea
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPHea(u(final
+        unit="W"), final k=facMul*facMulZon) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_eleCoo
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPCoo(u(final
+        unit="W"), final k=facMul*facMulZon) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{160,150},{180,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_fan
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPFan(u(final
+        unit="W"), final k=facMul*facMulZon) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
-    u(final unit="W"),
-    final k=facMul*facMulZon) if have_pum
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPPum(u(final
+        unit="W"), final k=facMul*facMulZon) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulMasFloReqHeaWat(
-    u(final unit="kg/s"),
-    final k=facMul*facMulZon) if have_heaWat
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulMasFloReqHeaWat(
+      u(final unit="kg/s"), final k=facMul*facMulZon) if have_heaWat "Scaling"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulMasFloReqChiWat(
-    u(final unit="kg/s"),
-    final k=facMul*facMulZon) if have_chiWat
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulMasFloReqChiWat(
+      u(final unit="kg/s"), final k=facMul*facMulZon) if have_chiWat "Scaling"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulHeaWatFloInl(
     redeclare final package Medium=Medium1,
@@ -440,14 +424,14 @@ Partial model to be used for modeling an HVAC terminal unit.
 </p>
 <p>
 The models inheriting from this class are typically used in conjunction with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.FlowDistribution</a>. They must
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
 compute a so-called required mass flow rate defined as the heating or chilled
 water mass flow rate needed to meet the load.
 It can be approximated using a control loop to avoid inverting a heat
 exchanger model as illustrated in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples\">
-Buildings.Experimental.DHC.Loads.Examples</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Examples\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Examples</a>.
 </p>
 <p>
 The model connectivity can be modified to address various use cases:
@@ -455,8 +439,8 @@ The model connectivity can be modified to address various use cases:
 <ul>
 <li>
 On the source side (typically connected to
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.FlowDistribution</a>):
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>):
 <ul>
 <li>
 Fluid ports for chilled water and heating water can be conditionally
@@ -480,12 +464,12 @@ can be conditionally instantiated by setting <code>have_heaPor</code> to true.
 Real input connectors can be conditionally instantiated by setting
 <code>have_QReq_flow</code> to true. Those connectors can be used to provide
 heating and cooling loads as time series, see
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries\">
-Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries</a>
 for an illustration of that use case.
 The impact on the room air temperature of an unmet load can be assessed with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoomODE\">
-Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE\">
+Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE</a>.
 </li>
 </ul>
 </li>
@@ -498,22 +482,22 @@ an infinite capacity.
 <h4>Connection with the flow distribution model</h4>
 <p>
 When connecting the model to
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.FlowDistribution</a>:
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
 </p>
 <ul>
 <li>
 The nominal pressure drop on the source side (heating or chilled water) is
 irrelevant as the computation of the pump head relies on a specific algorithm
 described in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </li>
 <li>
 The parameter <code>allowFlowReversal</code> must be set to <code>false</code> (default)
 in consistency with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
 This requirement only applies to the source side.
 On the load side one is free to use whatever option suitable for the modeling needs.
 Note that typically for an air flow network connected to the outdoor
@@ -556,8 +540,8 @@ Both multiplier factors are of type real (as opposed to integer) to allow
 for instance modeling a set of terminal units based on manufacturer data,
 while still being able to size the full set based on a peak load.
 See
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling\">
-Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.TerminalUnitScaling\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Validation.TerminalUnitScaling</a>
 for an illustration of the use case when heating and cooling loads are
 provided as time series.
 </p>

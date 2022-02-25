@@ -4,6 +4,6 @@ compareVars :=
     "TDewPoi.T",
     "dewBulPhi1.TDewPoi",
     "TDewPoi1.T",
-    "add.y",
-    "add1.y"
+    "sub.y",
+    "sub1.y"
   };

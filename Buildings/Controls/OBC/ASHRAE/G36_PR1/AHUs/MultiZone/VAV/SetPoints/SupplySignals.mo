@@ -4,7 +4,7 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for supply air temperature signal";
-  parameter Real kTSup(final unit="1/K")=0.05
+  parameter Real kTSup=0.05
     "Gain of controller for supply air temperature signal";
   parameter Real TiTSup(
     final unit="s",

@@ -15,9 +15,9 @@ partial model PartialConstruction
 
   parameter Modelica.Units.SI.Angle til "Surface tilt";
 
-  final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
+  final parameter Boolean is_floor=til > 2.74889125 and til < 3.53428875
     "Flag, true if construction is a floor" annotation (Evaluate=true);
-  final parameter Boolean isCeiling=til > -0.392699 and til < 0.392699
+  final parameter Boolean is_ceiling=til > -0.392699 and til < 0.392699
     "Flag, true if construction is a floor" annotation (Evaluate=true);
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a
@@ -114,6 +114,12 @@ Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Propagated parameters for optionally adding states at the surface.<br/>

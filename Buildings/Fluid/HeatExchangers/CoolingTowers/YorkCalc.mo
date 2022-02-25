@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+  extends
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
     TWatIn_nominal(fixed=false),
     TWatOut_nominal(fixed=false),
     fanRelPowDer(each fixed=false));
@@ -18,7 +19,7 @@ model YorkCalc
 
   Modelica.Units.SI.TemperatureDifference TRan(displayUnit="K") = T_a - T_b
     "Range temperature";
-  Modelica.Units.SI.TemperatureDifference TAppAct(displayUnit="K") =
+  Modelica.Units.SI.TemperatureDifference TAppAct(displayUnit="K")=
     Buildings.Utilities.Math.Functions.spliceFunction(
     pos=TAppCor,
     neg=TAppFreCon,
@@ -42,7 +43,7 @@ protected
     "Maximum possible temperature difference";
   Modelica.Units.SI.TemperatureDifference TAppCor(
     min=0,
-    displayUnit="K") =
+    displayUnit="K")=
     Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
     TRan=TRan,
     TWetBul=TAir,
@@ -151,22 +152,6 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{78,-58},{102,-62}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{78,-60},{82,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{70,-58},{104,-96}},
-          textColor={0,0,127},
-          textString="TLvg"),
         Rectangle(
           extent={{70,56},{82,52}},
           lineColor={0,0,255},
