@@ -1,12 +1,11 @@
 BaseNoEconomizer
-CoilCoolingCounterFlow
-CoilCoolingEffectivenessNTU
-CoilCoolingDXMultiStage
-CoilCoolingDXVariableSpeed
-CoilHeatingEffectivenessNTU
-CoilHeatingEffectivenessNTU2WV
-CoilHeatingEffectivenessNTU3WV
-CoilHeatingElectric
+CoilWaterBasedCooling
+CoilEvaporatorMultiStage
+CoilEvaporatorVariableSpeed
+CoilWaterBasedHeating
+CoilWaterBasedHeating2WV
+CoilWaterBasedHeating3WV
+CoilElectricHeating
 DedicatedDampersAirflow
 DedicatedDampersPressure
 FanRelief
@@ -16,5 +15,5 @@ FanSupplyDrawSingleVariable
 NoRelief
 VAVMultiZoneG36Airflow
 VAVMultiZoneG36Pressure
-VAVMultiZoneGeneric
+VAVMultiZoneOpenLoop
 UserProject

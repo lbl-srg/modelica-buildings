@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model CoilCoolingEffectivenessNTU
-  extends BaseNoEconomizer(redeclare
-      UserProject.AHUs.CoilCoolingEffectivenessNTU VAV_1);
+model CoilWaterBasedCooling
+  extends BaseNoEconomizer(redeclare UserProject.AHUs.CoilWaterBasedCooling
+      VAV_1);
 
   Fluid.Sources.Boundary_pT bou2(
     redeclare final package Medium = MediumCoo,
@@ -13,9 +13,9 @@ model CoilCoolingEffectivenessNTU
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 equation
   connect(bou2.ports[1], VAV_1.port_coiCooSup)
-    annotation (Line(points={{-40,-50},{2,-50},{2,-19.8}}, color={0,127,255}));
+    annotation (Line(points={{-40,-50},{3,-50},{3,-19.8}}, color={0,127,255}));
   connect(bou3.ports[1], VAV_1.port_coiCooRet)
-    annotation (Line(points={{-40,-80},{6,-80},{6,-19.8}}, color={0,127,255}));
+    annotation (Line(points={{-40,-80},{-3,-80},{-3,-20}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));
-end CoilCoolingEffectivenessNTU;
+end CoilWaterBasedCooling;

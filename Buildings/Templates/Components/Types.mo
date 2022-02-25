@@ -4,8 +4,10 @@ package Types "Generic types for template components"
   type Coil = enumeration(
       ElectricHeating
       "Electric heating coil",
-      Evaporator
-      "Evaporator coil (direct expansion)",
+      EvaporatorMultiStage
+      "Evaporator coil with multi-stage compressor",
+      EvaporatorVariableSpeed
+      "Evaporator coil with variable speed compressor",
       None
       "No coil",
       WaterBasedCooling

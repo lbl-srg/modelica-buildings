@@ -21,8 +21,6 @@ partial model AirHandler "Base interface class for air handler"
     "External parameter file";
 
   replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data datRec(
-    final id=id,
-    final dat=dat,
     final typ=typ,
     final typFanSup=typFanSup,
     final typFanRet=typFanRet,
@@ -78,15 +76,15 @@ partial model AirHandler "Base interface class for air handler"
       Evaluate=true,
       Dialog(group="Configuration"));
 
-  parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=0
+  final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
+    datRec.mAirSup_flow_nominal
     "Supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition",
-      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=0
+  final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
+    datRec.mAirRet_flow_nominal
     "Return air mass flow rate"
-    annotation (Dialog(group="Nominal condition",
-      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"

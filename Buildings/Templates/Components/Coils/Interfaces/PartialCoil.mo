@@ -21,21 +21,21 @@ partial model PartialCoil
   parameter Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
     annotation (Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.HeatExchanger typHex
-    "Type of heat exchanger"
-    annotation (Dialog(group="Configuration"));
-  parameter Boolean have_sou = false
+  final parameter Boolean have_sou=
+    typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+    typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_weaBus = false
-    "Set to true to use a waether bus"
+  final parameter Boolean have_weaBus=
+    typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+    typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed
+    "Set to true to use a weather bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Components.Coils.Interfaces.Data datRec(
     final have_sou=have_sou,
     final typ=typ,
-    final typVal=typVal,
-    final typHex=typHex)
+    final typVal=typVal)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
@@ -45,6 +45,9 @@ partial model PartialCoil
     final min=0,
     displayUnit="Pa") = datRec.dpAir_nominal
     "Air pressure drop";
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
+    datRec.Q_flow_nominal
+    "Nominal heat flow rate";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare package Medium = MediumSou) if have_sou
@@ -80,14 +83,6 @@ protected
     final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
           datRec.dpWat_nominal else 0)
     "Design and operating parameters of the control valve";
-  parameter Buildings.Templates.Components.Valves.Interfaces.Data datRecHex(
-    final typ=typHex,
-    final m1_flow_nominal=datRec.mWat_flow_nominal,
-    final m2_flow_nominal=datRec.mAir_flow_nominal,
-    final dp1_nominal=if typVal==Buildings.Templates.Components.Types.Valve.None then
-      datRec.dpWat_nominal else 0,
-    final dp2_nominal=dpAir_nominal)
-    "Design and operating parameters of the heat exchanger";
 
   annotation (
   Icon(

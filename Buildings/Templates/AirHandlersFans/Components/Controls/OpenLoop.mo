@@ -46,15 +46,15 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={-60,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1) if coiCoo.typ
-     == Buildings.Templates.Components.Types.Coil.WaterBasedCooling or coiCoo.typHex
-     == Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed
+     == Buildings.Templates.Components.Types.Coil.WaterBasedCooling or coiCoo.typ
+     == Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed
      annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,110})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yCoiCooSta(k=1)
-    if coiCoo.typHex == Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage
+    if coiCoo.typ == Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));

@@ -16,10 +16,7 @@ model BaseNoEconomizer
       "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
     annotation (Placement(transformation(extent={{76,76},{96,96}})));
 
-  UserProject.DataTopLevel datTop(
-    VAV_1(
-      final id=VAV_1.id,
-      final dat=dat,
+  UserProject.DataTopLevel datTop(VAV_1(
       final typ=VAV_1.typ,
       final typFanSup=VAV_1.typFanSup,
       final typFanRet=VAV_1.typFanRet,
@@ -27,15 +24,15 @@ model BaseNoEconomizer
       final have_souCoiCoo=VAV_1.have_souCoiCoo,
       final have_souCoiHeaPre=VAV_1.have_souCoiHeaPre,
       final have_souCoiHeaReh=VAV_1.have_souCoiHeaReh,
+      mAirSup_flow_nominal=1,
+      mAirRet_flow_nominal=1,
       final typCoiHeaPre=VAV_1.coiHeaPre.typ,
       final typCoiCoo=VAV_1.coiCoo.typ,
       final typCoiHeaReh=VAV_1.coiHeaReh.typ,
       final typValCoiHeaPre=VAV_1.coiHeaPre.typVal,
       final typValCoiCoo=VAV_1.coiCoo.typVal,
       final typValCoiHeaReh=VAV_1.coiHeaReh.typVal,
-      final typHexCoiHeaPre=VAV_1.coiHeaPre.typHex,
-      final typHexCoiCoo=VAV_1.coiCoo.typHex,
-      final typHexCoiHeaReh=VAV_1.coiHeaReh.typHex,
+      mOutMin_flow_nominal=0.2,
       final typDamOut=VAV_1.secOutRel.typDamOut,
       final typDamOutMin=VAV_1.secOutRel.typDamOutMin,
       final typDamRet=VAV_1.secOutRel.typDamRet,

@@ -1,5 +1,6 @@
 ElectricHeating
-Evaporator
+EvaporatorMultiStage
+EvaporatorVariableSpeed
 None
 WaterBasedCooling
 WaterBasedHeating

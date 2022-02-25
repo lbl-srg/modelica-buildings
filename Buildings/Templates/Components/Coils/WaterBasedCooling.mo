@@ -2,10 +2,7 @@ within Buildings.Templates.Components.Coils;
 model WaterBasedCooling "Chilled water coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
-    final typHex=hex.typ,
     final typVal=val.typ,
-    final have_sou=true,
-    final have_weaBus=false,
     port_aSou(redeclare final package Medium = MediumCoo),
     port_bSou(redeclare final package Medium = MediumCoo));
 
@@ -17,10 +14,15 @@ model WaterBasedCooling "Chilled water coil"
     "Liquid mass flow rate";
   final parameter Modelica.Units.SI.PressureDifference dpWat_nominal=
     datRec.dpWat_nominal
-    "Liquid pressure drop";
+    "Liquid pressure drop across coil";
   final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     datRec.dpValve_nominal
-    "Nominal pressure drop of fully open valve";
+    "Nominal pressure drop across fully open valve";
+
+  parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
+    "Heat exchanger configuration"
+    annotation (Evaluate=true);
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
@@ -33,20 +35,23 @@ model WaterBasedCooling "Chilled water coil"
         rotation=-90,
         origin={-40,-60})));
 
-  replaceable Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow
-    hex constrainedby
-    Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
-      redeclare final package Medium1 = MediumCoo,
-      redeclare final package Medium2 = MediumAir,
-      final datRec=datRecHex)
+  // We allow for declaration but not through the parameter dialog box.
+  replaceable Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hex(
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    final use_Q_flow_nominal=true,
+    final Q_flow_nominal=Q_flow_nominal,
+    final T_a1_nominal=datRec.TWatEnt_nominal,
+    final T_a2_nominal=datRec.TAirEnt_nominal,
+    final w_a2_nominal=datRec.wAirEnt_nominal,
+    final dp1_nominal=dpWat_nominal,
+    final dp2_nominal=dpAir_nominal)
+  constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
+    redeclare final package Medium1 = MediumCoo,
+    redeclare final package Medium2 = MediumAir,
+    final m1_flow_nominal=mWat_flow_nominal,
+    final m2_flow_nominal=mAir_flow_nominal)
     "Heat exchanger"
-    annotation (choices(
-      choice(redeclare replaceable
-        Buildings.Templates.Components.HeatExchangers.WetCoilCounterFlow hex
-        "Discretized wet heat exchanger model"),
-      choice(redeclare replaceable
-        Buildings.Templates.Components.HeatExchangers.WetCoilEffectivenessNTU
-        hex "Effectiveness-NTU wet heat exchanger model")),
+    annotation (
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(

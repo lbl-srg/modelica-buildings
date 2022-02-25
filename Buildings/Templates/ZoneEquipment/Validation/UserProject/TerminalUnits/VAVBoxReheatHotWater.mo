@@ -3,8 +3,7 @@ model VAVBoxReheatHotWater
   extends Buildings.Templates.ZoneEquipment.VAVBoxReheat(
                                                    redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-      redeclare replaceable Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
-      hex "Epsilon-NTU heat exchanger model", redeclare replaceable
+      redeclare replaceable
         Buildings.Templates.Components.Valves.TwoWayModulating val));
   annotation (
     defaultComponentName="ter",
