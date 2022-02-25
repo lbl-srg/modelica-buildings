@@ -102,7 +102,7 @@ First implementation.
         preserveAspectRatio=false,
         extent={{-120,-100},{160,60}})),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingRCZ6.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingRCZ6.mos" "Simulate and plot"),
     experiment(
       StopTime=604800,
       Tolerance=1e-06));

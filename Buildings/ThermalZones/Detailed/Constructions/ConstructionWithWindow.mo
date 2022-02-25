@@ -7,15 +7,15 @@ model ConstructionWithWindow
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Area AWin "Heat transfer area of window"
-      annotation (Dialog(group="Glazing system"));
+  parameter Modelica.Units.SI.Area AWin "Heat transfer area of window"
+    annotation (Dialog(group="Glazing system"));
   parameter Real fFra(
     min=0,
     max=1) = 0.1 "Fraction of window frame divided by total window area"
     annotation (Dialog(group="Glazing system"));
-  final parameter Modelica.SIunits.Area AFra = fFra*AWin "Frame area"
+  final parameter Modelica.Units.SI.Area AFra=fFra*AWin "Frame area"
     annotation (Dialog(group="Glazing system"));
-  final parameter Modelica.SIunits.Area AGla=AWin - AFra "Glass area"
+  final parameter Modelica.Units.SI.Area AGla=AWin - AFra "Glass area"
     annotation (Dialog(group="Glazing system"));
   parameter Boolean linearizeRadiation = true
     "Set to true to linearize emissive power"
@@ -70,8 +70,8 @@ model ConstructionWithWindow
      annotation (Placement(transformation(extent={{-310,
             -270},{-290,-250}}), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
-  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
-       haveShade
+  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1)
+    if haveShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-340,40},{-300,80}}),
         iconTransformation(extent={{-340,40},{-300,80}})));

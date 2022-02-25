@@ -1,6 +1,12 @@
-BooleanReplicator
-IntegerReplicator
+BooleanScalarReplicator
+BooleanVectorFilter
+BooleanVectorReplicator
+IntegerScalarReplicator
+IntegerVectorFilter
+IntegerVectorReplicator
 RealExtractSignal
 RealExtractor
-RealReplicator
+RealScalarReplicator
+RealVectorFilter
+RealVectorReplicator
 Validation

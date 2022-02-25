@@ -4,8 +4,7 @@ model FixedShade "Model for exterior shade due to overhang and/or side fin"
   parameter Buildings.ThermalZones.Detailed.BaseClasses.ParameterConstructionWithWindow conPar
     "Construction parameters";
 
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 South";
 
   Modelica.Blocks.Routing.Multiplex4 mulFraSun(
@@ -45,7 +44,6 @@ protected
     "Integer used to pick the appropriate output signal";
 
   HeatTransfer.Windows.BaseClasses.Overhang ove(
-    final lat=lat,
     final azi=conPar.azi,
     final hWin=conPar.hWin,
     final wWin=conPar.wWin,
@@ -271,6 +269,12 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

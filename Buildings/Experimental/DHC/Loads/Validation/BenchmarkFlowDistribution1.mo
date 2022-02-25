@@ -11,38 +11,35 @@ model BenchmarkFlowDistribution1
   parameter Integer nLoa=5
     "Number of served loads"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=273.15+40
+    displayUnit="degC") = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
+  parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aHeaWat_nominal-5
+    displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
+  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal(
     min=273.15,
-    displayUnit="degC")=273.15+20
+    displayUnit="degC") = 273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(
-    min=0)=1
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal(min=0) = 1
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=nLoa*1500*2+2*500+30000
-    "Nominal pressure drop in the distribution line";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=nLoa*1500*2 + 2*500
+       + 30000 "Nominal pressure drop in the distribution line";
   parameter Real facMul=10
     "Mulitplier factor for terminal units"
     annotation (Dialog(group="Scaling"));
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(
-    ter.mHeaWat_flow_nominal)*facMul
-    "Nominal mass flow rate in the distribution line";
-  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
-    string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))/facMul
-    "Design heating heat flow rate (>=0)"
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(ter.mHeaWat_flow_nominal)
+      *facMul "Nominal mass flow rate in the distribution line";
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
+     = Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+    "#Peak space heating load", filNam=Modelica.Utilities.Files.loadResource(
+    filNam))/facMul "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium=Medium1,
@@ -82,11 +79,11 @@ model BenchmarkFlowDistribution1
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));

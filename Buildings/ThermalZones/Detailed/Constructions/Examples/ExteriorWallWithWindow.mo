@@ -1,14 +1,16 @@
 within Buildings.ThermalZones.Detailed.Constructions.Examples;
 model ExteriorWallWithWindow "Test model for an exterior wall with a window"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Area A=3*10
+  parameter Modelica.Units.SI.Area A=3*10
     "Heat transfer area of wall and window";
-  parameter Modelica.SIunits.Length hWin = 2 "Window height";
-  parameter Modelica.SIunits.Length wWin = 3 "Window width";
-  parameter Modelica.SIunits.Area AWin=hWin*wWin
+  parameter Modelica.Units.SI.Length hWin=2 "Window height";
+  parameter Modelica.Units.SI.Length wWin=3 "Window width";
+  parameter Modelica.Units.SI.Area AWin=hWin*wWin
     "Heat transfer area of frame and window";
   parameter Real fFra=0.1
     "Fraction of window frame divided by total window area";
+  final parameter Modelica.Units.SI.Area AFra=fFra*AWin "Frame area";
+  final parameter Modelica.Units.SI.Area AGla=AWin - AFra "Glass area";
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
   parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
@@ -46,7 +48,6 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     nCon=1,
     linearizeRadiation = linearizeRadiation,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
-    lat=0.73268921998722,
     conPar={conPar})
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{94,-14},{134,26}})));
@@ -105,8 +106,8 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     each absIR_glass=glaSys.shade.absIR_b,
     each tauIR_air=glaSys.shade.tauIR_a,
     each tauIR_glass=glaSys.shade.tauIR_b,
-    each A=AGla) if
-     glaSys.haveShade "Interior shade radiation model"
+    each A=AGla)
+  if glaSys.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 protected
   Modelica.Blocks.Math.Sum sumJ[1](each nin=if glaSys.haveShade then 2 else 1)
@@ -285,6 +286,12 @@ This model tests the exterior constructions with windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 February 18, 2020, by Michael Wetter:<br/>
 Corrected wrong parameter assignment.<br/>

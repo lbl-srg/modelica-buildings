@@ -20,8 +20,7 @@ model ExportedModel "Model to be exported as an FMU"
         uExt(
           y=oveWriSet_u),
         activate(
-          y=oveWriSet_activate)
-      ),
+          y=oveWriSet_activate)),
       oveWriAct(
         uExt(
           y=oveWriAct_u),

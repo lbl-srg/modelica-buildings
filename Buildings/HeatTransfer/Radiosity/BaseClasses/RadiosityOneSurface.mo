@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Radiosity.BaseClasses;
 partial model RadiosityOneSurface
   "Model for the radiosity balance of a device with one surface"
   extends Buildings.BaseClasses.BaseIcon;
-  parameter Modelica.SIunits.Area A "Surface area";
+  parameter Modelica.Units.SI.Area A "Surface area";
 
   Buildings.HeatTransfer.Interfaces.RadiosityInflow JIn(start=A*0.8*Modelica.Constants.sigma*293.15^4)
     "Incoming radiosity"

@@ -6,16 +6,16 @@ model HeatCapacity
     "Parameter, equal to true if the window has a shade"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.HeatCapacity C
+  parameter Modelica.Units.SI.HeatCapacity C
     "Heat capacity of element (= cp*m)";
 
-  Modelica.Blocks.Interfaces.RealInput ySha if
-       haveShade
+  Modelica.Blocks.Interfaces.RealInput ySha
+    if haveShade
     "Control signal for shade"
   annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput yCom if
-     haveShade
+  Modelica.Blocks.Interfaces.RealInput yCom
+  if haveShade
   "Input 1-y"
   annotation (Placement(transformation(
           extent={{-140,-60},{-100,-20}}),
@@ -29,24 +29,22 @@ model HeatCapacity
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portSha(
     T = TSha,
-    Q_flow = QSha_flow) if
-       haveShade
+    Q_flow = QSha_flow)
+    if haveShade
     "Heat port to shaded part of the window"
    annotation (Placement(transformation(extent={{95,35},{105,45}}),
         iconTransformation(extent={{95,35},{105,45}})));
 
-  Modelica.SIunits.Temperature TUns(
-    start=293.15)
+  Modelica.Units.SI.Temperature TUns(start=293.15)
     "Temperature of unshaded part of window";
 
-  Modelica.SIunits.Temperature TSha(
-    start=293.15)
+  Modelica.Units.SI.Temperature TSha(start=293.15)
     "Temperature of unshaded part of window";
 
-  Modelica.SIunits.TemperatureSlope der_TUns(start=0)
+  Modelica.Units.SI.TemperatureSlope der_TUns(start=0)
     "Time derivative of temperature (= der(T))";
 
-  Modelica.SIunits.TemperatureSlope der_TSha(start=0)
+  Modelica.Units.SI.TemperatureSlope der_TSha(start=0)
     "Time derivative of temperature (= der(T))";
 
 protected
@@ -59,7 +57,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput yCom_internal
     "Internal connector";
 
-  Modelica.SIunits.HeatFlowRate QSha_flow
+  Modelica.Units.SI.HeatFlowRate QSha_flow
     "Heat flow rate for shaded part of the window";
 
 equation
@@ -103,11 +101,11 @@ equation
              color={255,0,0}),
         Text(
           extent={{-94,64},{-60,22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySha"),
         Text(
           extent={{-92,-16},{-58,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCom"),
         Ellipse(
           extent={{-6,-35},{6,-46}},

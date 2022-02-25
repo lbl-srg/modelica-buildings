@@ -55,7 +55,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch "Switch to assign cooling coil control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -95,7 +95,7 @@ equation
         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        textColor={0,0,255})}),
         Diagram(coordinateSystem(
           preserveAspectRatio=false)),
 Documentation(info="<html>

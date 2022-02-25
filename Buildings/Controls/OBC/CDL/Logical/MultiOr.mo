@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block MultiOr
   "Logical MultiOr, y = u[1] or u[2] or u[3] or ..."
-  parameter Integer nu(
+  parameter Integer nin(
     min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
-  Interfaces.BooleanInput u[nu]
+  Interfaces.BooleanInput u[nin]
     "Connector of Boolean input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Interfaces.BooleanOutput y
@@ -13,7 +13,7 @@ block MultiOr
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Boolean uTemp[nu]
+  Boolean uTemp[nin]
     "Temporary variable";
 
 equation
@@ -26,8 +26,9 @@ equation
       1) loop
       uTemp[i]=u[i] or uTemp[i-1];
     end for;
-    y=uTemp[nu];
-  elseif(size(
+    y=uTemp[nin];
+  elseif
+        (size(
     u,
     1) == 1) then
     uTemp[1]=u[1];
@@ -49,10 +50,10 @@ equation
         Text(
           extent={{-144,150},{156,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-80,52},{56,-52}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="OR"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -82,8 +83,13 @@ Buildings.Controls.OBC.CDL.Logical.Validation.MultiOr</a>
 for an example.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+July 26, 2021, by Jianjun Hu:<br/>
+Renamed parameter <code>nu</code> to <code>nin</code>. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.
+</li>
 <li>
 June 6, 2019, by Milica Grahovac:<br/>
 First implementation.

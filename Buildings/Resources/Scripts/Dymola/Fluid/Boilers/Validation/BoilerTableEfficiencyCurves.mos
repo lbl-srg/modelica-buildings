@@ -1,0 +1,23 @@
+simulateModel("Buildings.Fluid.Boilers.Validation.BoilerTableEfficiencyCurves",
+ tolerance=1e-6,
+ stopTime=3600,
+ method="CVode",
+ resultFile="BoilerTableEfficiencyCurves");
+removePlots(true);
+createPlot(id=1,
+ position={15, 10, 717, 370},
+ x="TIn.y",
+ bottomTitleType=2,
+ bottomTitle="Inlet Temperature [degC]",
+ y={"boi1.eta", "boi2.eta", "boi3.eta"},
+ leftTitleType=2,
+ leftTitle="Efficiency [1]",
+ range={290.0, 345.0, 0.86, 1.0},
+ erase=false,
+ grid=true,
+ filename="BoilerTableEfficiencyCurves.mat",
+ legends={"y=5%", "y=50%", "y=100%"},
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ timeUnit="degC",
+ displayUnits={"1", "1", "1"});
+

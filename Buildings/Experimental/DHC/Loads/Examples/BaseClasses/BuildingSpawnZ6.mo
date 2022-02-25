@@ -13,25 +13,23 @@ model BuildingSpawnZ6
     "Medium model";
   parameter Integer nZon=5
     "Number of conditioned thermal zones";
-  parameter Integer facMulTerUni[nZon]={5 for i in 1:nZon}
+  parameter Real facMulTerUni[nZon]={5 for i in 1:nZon}
     "Multiplier factor for terminal units";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(
-    1,
-    nZon)
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal[nZon]=fill(1, nZon)
     "Load side mass flow rate at nominal conditions (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal[nZon]=fill(
-    2000,
-    nZon) ./ facMulTerUni
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal[nZon]=fill(2000,
+      nZon) ./ facMulTerUni
     "Design heating heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal[nZon]=fill(
-    -2000,
-    nZon) ./ facMulTerUni
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nZon]=fill(-2000,
+      nZon) ./ facMulTerUni
     "Design cooling heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
+  parameter String epwName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"
+    "Name of the weather file";
   parameter String weaName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Name of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
@@ -102,6 +100,8 @@ model BuildingSpawnZ6
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       idfName),
+    epwName=Modelica.Utilities.Files.loadResource(
+      epwName),
     weaName=Modelica.Utilities.Files.loadResource(
       weaName))
     "Building outer component"
@@ -137,7 +137,7 @@ model BuildingSpawnZ6
     nPorts_a1=nZon,
     nPorts_b1=nZon)
     "Heating water distribution system"
-    annotation (Placement(transformation(extent={{-236,-188},{-216,-168}})));
+    annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium=Medium,
     m_flow_nominal=sum(
@@ -148,7 +148,7 @@ model BuildingSpawnZ6
     nPorts_a1=nZon,
     nPorts_b1=nZon)
     "Chilled water distribution system"
-    annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
+    annotation (Placement(transformation(extent={{-198,-270},{-178,-250}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])
     annotation (Line(points={{-39,154},{-26,154},{-26,121},{-22,121}},color={0,0,127},smooth=Smooth.None));
@@ -189,25 +189,28 @@ equation
   connect(terUni[5].port_bLoa,znPerimeter_ZN_4.ports[2])
     annotation (Line(points={{-140,20},{-20,20},{-20,-119.1},{46,-119.1}},color={0,127,255}));
   connect(terUni.port_bHeaWat,disFloHea.ports_a1)
-    annotation (Line(points={{-116,0},{-40,0},{-40,-172},{-216,-172}},color={0,127,255}));
+    annotation (Line(points={{-116,0},{-116,-174},{-180,-174}},       color={0,127,255}));
   connect(disFloHea.ports_b1,terUni.port_aHeaWat)
-    annotation (Line(points={{-236,-172},{-260,-172},{-260,0},{-140,0}},color={0,127,255}));
+    annotation (Line(points={{-200,-174},{-226,-174},{-226,0},{-140,0}},color={0,127,255}));
   connect(disFloCoo.ports_b1,terUni.port_aChiWat)
-    annotation (Line(points={{-160,-214},{-264,-214},{-264,2},{-140,2}},color={0,127,255}));
+    annotation (Line(points={{-198,-254},{-216,-254},{-216,2},{-140,2}},color={0,127,255}));
   connect(terUni.port_bChiWat,disFloCoo.ports_a1)
-    annotation (Line(points={{-116,2},{-38,2},{-38,-214},{-140,-214}},color={0,127,255}));
+    annotation (Line(points={{-116,2},{-116,-8},{-124,-8},{-124,-254},{-178,-254}},
+                                                                      color={0,127,255}));
   connect(terUni.mReqChiWat_flow,disFloCoo.mReq_flow)
-    annotation (Line(points={{-115,4},{-104,4},{-104,-80},{-180,-80},{-180,-224},
-          {-161,-224}},                                                                       color={0,0,127}));
+    annotation (Line(points={{-115,4},{-102,4},{-102,-234},{-210,-234},{-210,-264},
+          {-199,-264}},                                                                       color={0,0,127}));
   connect(terUni.mReqHeaWat_flow,disFloHea.mReq_flow)
-    annotation (Line(points={{-115,6},{-100,6},{-100,-90.5},{-237,-90.5},{-237,-182}},color={0,0,127}));
+    annotation (Line(points={{-115,6},{-100,6},{-100,-88},{-220,-88},{-220,-184},
+          {-201,-184}},                                                               color={0,0,127}));
   connect(terUni.PFan,mulSum.u)
     annotation (Line(points={{-115,10},{-100,10},{-100,220},{216,220},{216,120},
           {228,120}},                                                                      color={0,0,127}));
   connect(disFloHea.PPum,mulSum3.u[1])
-    annotation (Line(points={{-215,-186},{216,-186},{216,81},{228,81}},    color={0,0,127}));
+    annotation (Line(points={{-179,-188},{220,-188},{220,81},{228,81}},    color={0,0,127}));
   connect(disFloCoo.PPum,mulSum3.u[2])
-    annotation (Line(points={{-139,-228},{222,-228},{222,79},{228,79}},color={0,0,127}));
+    annotation (Line(points={{-177,-268},{-116,-268},{-116,-188},{220,-188},{220,
+          79},{228,79}},                                               color={0,0,127}));
   connect(znCore_ZN.TAir,terUni[1].TSen)
     annotation (Line(points={{65,80},{80,80},{80,198},{-152,198},{-152,12},{
           -141,12}},                                                                            color={0,0,127}));
@@ -227,24 +230,23 @@ equation
     annotation (Line(points={{-258,220},{-200,220},{-200,14},{-141,14}},color={0,0,127}));
   connect(minTSet.y,terUni.TSetHea)
     annotation (Line(points={{-258,260},{-180,260},{-180,16},{-141,16}},color={0,0,127}));
-  connect(ports_aChiWat[1],disFloCoo.port_a)
-    annotation (Line(points={{-300,-260},{-230,-260},{-230,-220},{-160,-220}},
-                                                      color={0,127,255}));
-  connect(ports_bChiWat[1],disFloCoo.port_b)
-    annotation (Line(points={{300,-260},{80,-260},{80,-220},{-140,-220}},
-                                                     color={0,127,255}));
-  connect(ports_aHeaWat[1],disFloHea.port_a)
-    annotation (Line(points={{-300,-60},{-280,-60},{-280,-178},{-236,-178}},color={0,127,255}));
-  connect(disFloHea.port_b,ports_bHeaWat[1])
-    annotation (Line(points={{-216,-178},{280,-178},{280,-60},{300,-60}},color={0,127,255}));
-  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-215,
-          -184},{214,-184},{214,280},{268,280}}, color={0,0,127}));
+  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-179,
+          -186},{212,-186},{212,280},{268,280}}, color={0,0,127}));
   connect(mulSum3.y, mulPPum.u)
     annotation (Line(points={{252,80},{268,80}}, color={0,0,127}));
   connect(mulSum.y, mulPFan.u)
     annotation (Line(points={{252,120},{268,120}}, color={0,0,127}));
-  connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{
-          -139,-226},{218,-226},{218,240},{268,240}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{-177,
+          -266},{-108,-266},{-108,-176},{216,-176},{216,128},{220,128},{220,240},
+          {268,240}},                                 color={0,0,127}));
+  connect(mulHeaWatInl[1].port_b, disFloHea.port_a) annotation (Line(points={{-260,
+          -60},{-240,-60},{-240,-180},{-200,-180}}, color={0,127,255}));
+  connect(mulChiWatInl[1].port_b, disFloCoo.port_a)
+    annotation (Line(points={{-260,-260},{-198,-260}}, color={0,127,255}));
+  connect(mulChiWatOut[1].port_a, disFloCoo.port_b)
+    annotation (Line(points={{260,-260},{-178,-260}}, color={0,127,255}));
+  connect(mulHeaWatOut[1].port_a, disFloHea.port_b) annotation (Line(points={{260,
+          -60},{240,-60},{240,-180},{-180,-180}}, color={0,127,255}));
   annotation (
     Documentation(
       info="
@@ -263,6 +265,11 @@ is unconditionned, with a free floating temperature.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 15, 2021, by Michael Wetter:<br/>
+Added parameter <code>epwName</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">#2054</a>.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

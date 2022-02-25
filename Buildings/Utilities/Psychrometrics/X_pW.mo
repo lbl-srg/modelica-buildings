@@ -12,8 +12,11 @@ block X_pW "Humidity ratio for given water vapor pressure"
                                            start=2000,
                                            nominal=1000) "Water vapor pressure"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
-    "Water mass fraction per mass of dry air";
+  output Modelica.Units.SI.MassFraction x_w(
+    min=0,
+    max=1,
+    nominal=0.01,
+    start=0.001) "Water mass fraction per mass of dry air";
 equation
   X_w = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=p_w, p=p_in_internal);
   x_w = X_w/(1-X_w);
@@ -51,9 +54,9 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-92,52},{-36,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="pW"), Text(
           extent={{46,44},{94,-24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="X")}));
 end X_pW;

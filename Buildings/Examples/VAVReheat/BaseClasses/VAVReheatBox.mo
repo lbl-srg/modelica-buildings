@@ -8,28 +8,23 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
 
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate";
   parameter Real ratVFloHea(start=0.3, min=0, max=1, unit="1")
     "Maximum air flow rate ratio in heating mode";
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    start=55 + 273.15,
-    displayUnit="degC")
-    "Reheat coil nominal inlet water temperature";
-  parameter Modelica.SIunits.Temperature THotWatOut_nominal(
-    start=THotWatInl_nominal-10,
-    displayUnit="degC")
+  parameter Modelica.Units.SI.Volume VRoo "Room volume";
+  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(start=55 + 273.15,
+      displayUnit="degC") "Reheat coil nominal inlet water temperature";
+  parameter Modelica.Units.SI.Temperature THotWatOut_nominal(start=
+        THotWatInl_nominal - 10, displayUnit="degC")
     "Reheat coil nominal outlet water temperature";
-  parameter Modelica.SIunits.Temperature TAirInl_nominal(
-    start=12 + 273.15,
-    displayUnit="degC")
-    "Inlet air nominal temperature";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    start=m_flow_nominal * ratVFloHea * cpAir * (32 + 273.15 - TAirInl_nominal))
+  parameter Modelica.Units.SI.Temperature TAirInl_nominal(start=12 + 273.15,
+      displayUnit="degC") "Inlet air nominal temperature";
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(start=
+        m_flow_nominal*ratVFloHea*cpAir*(32 + 273.15 - TAirInl_nominal))
     "Nominal heating heat flow rate";
-  final parameter Modelica.SIunits.MassFlowRate mHotWat_flow_nominal=
-    QHea_flow_nominal / (cpWatLiq * (THotWatInl_nominal - THotWatOut_nominal))
+  final parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal=
+      QHea_flow_nominal/(cpWatLiq*(THotWatInl_nominal - THotWatOut_nominal))
     "Nominal mass flow rate of hot water to reheat coil";
   Modelica.Fluid.Interfaces.FluidPort_a port_aAir(
     redeclare package Medium=MediumA)
@@ -41,12 +36,13 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
-  Modelica.Blocks.Interfaces.RealInput yVAV
+  Modelica.Blocks.Interfaces.RealInput yVAV(final unit="1")
     "Signal for VAV damper"
     annotation (
-      Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual VAV damper position"
+      Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Modelica.Blocks.Interfaces.RealOutput y_actual(final unit="1")
+  "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium =
@@ -57,10 +53,14 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
       MediumW) "Hot water outlet port"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
         iconTransformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput TSup "Supply Air Temperature"
+  Modelica.Blocks.Interfaces.RealOutput TSup(
+     final unit = "K",
+     displayUnit = "degC")
+     "Supply Air Temperature"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput VSup_flow
+  Modelica.Blocks.Interfaces.RealOutput VSup_flow(
+    final unit="m3/s")
     "Supply Air Volumetric Flow Rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
@@ -98,8 +98,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal)
-    "Supply Air Temperature Sensor"
+    allowFlowReversal=allowFlowReversal) "Supply Air Temperature Sensor"
     annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -116,16 +115,28 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,80})));
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val(
+    redeclare package Medium = MediumW,
+    allowFlowReversal=false,
+    m_flow_nominal=mHotWat_flow_nominal,
+    from_dp=true,
+    dpValve_nominal=3000,
+    use_inputFilter=false,
+    dpFixed_nominal=3000) "Valve for terminal heater"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+  Modelica.Blocks.Interfaces.RealInput yHea
+    "Actuator position for heating valve (0: closed, 1: open)" annotation (
+      Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
 protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Water specific heat capacity";
 equation
-  connect(vav.y, yVAV) annotation (Line(points={{-12,10},{-40,10},{-40,60},{-120,
-          60}}, color={0,0,127}));
+  connect(vav.y, yVAV) annotation (Line(points={{-12,10},{-48,10},{-48,80},{
+          -120,80}},
+                color={0,0,127}));
   connect(vav.y_actual, y_actual)
     annotation (Line(points={{-7,15},{-7,24},{20,24},{20,0},{110,0}},
                                                           color={0,0,127}));
@@ -134,8 +145,6 @@ equation
   connect(vav.port_a, terHea.port_b2)
     annotation (Line(points={{-4.44089e-16,0},{3.55271e-15,0},{3.55271e-15,-20}},
                                                            color={0,127,255}));
-  connect(port_aHotWat, terHea.port_a1) annotation (Line(points={{-100,0},{-12,
-          0},{-12,-20}},       color={0,127,255}));
   connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-100,-60},{
           -12,-60},{-12,-40}}, color={0,127,255}));
   connect(vav.port_b, senTem.port_a) annotation (Line(points={{6.66134e-16,20},{
@@ -150,6 +159,12 @@ equation
                              color={0,0,127}));
   connect(senTem.T, TSup) annotation (Line(points={{11,40},{110,40}},
                 color={0,0,127}));
+  connect(port_aHotWat, val.port_a)
+    annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
+  connect(val.port_b, terHea.port_a1)
+    annotation (Line(points={{-50,0},{-12,0},{-12,-20}}, color={0,127,255}));
+  connect(yHea, val.y)
+    annotation (Line(points={{-120,40},{-60,40},{-60,12}}, color={0,0,127}));
   annotation (Icon(
     graphics={
         Rectangle(
@@ -228,13 +243,13 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-100,-18},{-20,-24}},
+          extent={{-98,-20},{-18,-24}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,0,255},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-100,-42},{-20,-48}},
+          extent={{-100,-42},{-20,-46}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
@@ -243,7 +258,7 @@ equation
           extent={{-12,3},{12,-3}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,0,255},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
           origin={-97,-12},
           rotation=90),
@@ -254,7 +269,20 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           origin={-97,-54},
-          rotation=90)}),       Documentation(info="<html>
+          rotation=90),
+        Line(points={{-100,80},{-38,80},{-38,38},{-10,38}}, color={0,0,127}),
+        Polygon(
+          points={{-78,-14},{-78,-30},{-66,-22},{-78,-14}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-54,-14},{-54,-30},{-66,-22},{-54,-14}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-100,30},{-66,30},{-66,-2},{-66,-20}}, color={0,0,127})}),
+                                Documentation(info="<html>
 <p>
 Model for a VAV terminal box with a water reheat coil and pressure independent damper.
 The pressure independent damper model includes an idealized flow rate controller
@@ -263,6 +291,12 @@ as a control signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2021, by Michael Wetter:<br/>
+Changed model to include the hydraulic configurations of the cooling coil,
+heating coil and VAV terminal box.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2594\">issue #2594</a>.
+</li>
 <li>
 February 12, 2021, by Baptiste Ravache:<br/>
 First implementation, based on <a href=\"modelica://Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch\">

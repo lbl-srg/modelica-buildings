@@ -1,8 +1,5 @@
 CoolingCoilHumidifyingHeating
-ElectricChillerParallel
 ElectricHeater
-FlowMachine_m
-FlowMachine_y
 HeatExchanger_TSet
 IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide

@@ -5,16 +5,16 @@ model ControllerChillerDXHeatingEconomizer
 
   Modelica.Blocks.Sources.Sine mixAirTem(
     amplitude=7.5,
-    freqHz=1/86400,
+    f=1/86400,
     offset=20 + 273.15) "Mixed air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Sine retAirTem(
     amplitude=10,
-    freqHz=1/86400,
+    f=1/86400,
     offset=21 + 273.15) "Return air temperature"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Modelica.Blocks.Sources.Sine outAirTem(
-    freqHz=1/86400,
+    f=1/86400,
     amplitude=6,
     offset=18 + 273.15) "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
@@ -51,7 +51,7 @@ model ControllerChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Sources.Sine supAirTem(
     amplitude=7,
-    freqHz=1/86400,
+    f=1/86400,
     offset=13 + 273.15) "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation

@@ -11,39 +11,36 @@ model BenchmarkFlowDistribution2
   parameter Integer nLoa=5
     "Number of served loads"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15+40
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
+  parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aHeaWat_nominal-5
+    displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15+20
+  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal=273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal=1
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau=120
+  parameter Modelica.Units.SI.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition"));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
   parameter Real facMul=10
     "Mulitplier factor for terminal units"
     annotation (Dialog(group="Scaling"));
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=ter.mHeaWat_flow_nominal*facMul
-    "Nominal mass flow rate in each connection line";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(
-    mCon_flow_nominal)
-    "Nominal mass flow rate in the distribution line";
-  final parameter Modelica.SIunits.PressureDifference dp_nominal=sum(
-    dis.con.pipDisSup.dp_nominal)+sum(
-    dis.con.pipDisRet.dp_nominal)+max(
-    ter.dpSou_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa]=ter.mHeaWat_flow_nominal
+      *facMul "Nominal mass flow rate in each connection line";
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(
+      mCon_flow_nominal) "Nominal mass flow rate in the distribution line";
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal=sum(dis.con.pipDisSup.dp_nominal)
+       + sum(dis.con.pipDisRet.dp_nominal) + max(ter.dpSou_nominal)
     "Nominal pressure drop in the distribution line";
-  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=Loads.BaseClasses.getPeakLoad(
-    string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))/facMul
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
+      Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
+      Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeatingValve ter[nLoa](
@@ -75,11 +72,11 @@ model BenchmarkFlowDistribution2
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -134,8 +131,7 @@ protected
     T=Medium1.T_default,
     p=Medium1.p_default,
     X=Medium1.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium1.density(
-    sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium1.density(sta_default)
     "Density, used to compute fluid volume";
 equation
   connect(loa.y[2],reaRep1.u)

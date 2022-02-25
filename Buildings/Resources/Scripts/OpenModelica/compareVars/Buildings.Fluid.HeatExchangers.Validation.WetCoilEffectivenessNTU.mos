@@ -1,17 +1,12 @@
 compareVars :=
   {
-    "hexDis.Q1_flow",
     "hexWetNTU.Q1_flow",
     "hexWetNTU_TX.Q1_flow",
-    "hexDis.sta_b2.T",
     "hexWetNTU.sta_b2.T",
     "hexWetNTU_TX.sta_b2.T",
-    "relHumOut_dis.phi",
     "relHumOut_eps.phi",
-    "hexDis.SHR",
     "hexWetNTU.SHR",
     "hexWetNTU.dryFra",
-    "hexDis.UA_nominal",
     "hexWetNTU.UA_nominal",
     "hexWetNTU_TX.UA_nominal"
   };

@@ -43,6 +43,6 @@ Implementation based on Functions.regNonZeroPower.
 </ul>
 </html>"), Icon(graphics={   Text(
           extent={{-88,38},{92,-34}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="regNonZeroPower()")}));
 end RegNonZeroPower;

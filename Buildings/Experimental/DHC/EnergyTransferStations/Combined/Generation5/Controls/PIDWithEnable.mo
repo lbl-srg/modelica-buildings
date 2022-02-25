@@ -7,14 +7,17 @@ block PIDWithEnable
   parameter Real k(
     min=0)=1
     "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=0.5
-    "Time constant of integrator block"
-    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(
-    min=0)=0.1
-    "Time constant of derivative block"
-    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
+     = 0.5 "Time constant of integrator block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+    "Time constant of derivative block" annotation (Dialog(enable=
+          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real r(
+    min=100*Modelica.Constants.eps)=1
+    "Typical range of control error, used for scaling the control error";
   parameter Real yMin=0
     "Lower limit of output";
   parameter Real yMax=1
@@ -39,14 +42,16 @@ block PIDWithEnable
     final k=k,
     final Ti=Ti,
     final Td=Td,
+    final r=r,
     final controllerType=controllerType,
     final yMin=yMin,
     final yMax=yMax,
-    final reverseActing=reverseActing)
+    final reverseActing=reverseActing,
+    final y_reset=y_reset)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valDis(
     final k=0)
@@ -84,7 +89,7 @@ equation
     Documentation(
       info="<html>
 <p>
-This is an update of 
+This is an update of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
 with an additional Boolean input representing an enable signal.
@@ -94,7 +99,7 @@ with an additional Boolean input representing an enable signal.
 When enabled, the controller output is identical to
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
-(and the controller integral term is reset to <code>yMin</code> at 
+(and the controller integral term is reset to <code>yMin</code> at
 enabling time).
 </li>
 <li>

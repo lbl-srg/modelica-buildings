@@ -5,9 +5,9 @@ model Distribution2Pipe
     redeclare Connection2Pipe con[nCon](
       final dpDis_nominal=dpDis_nominal),
     redeclare model Model_pipDis=Fluid.FixedResistances.LosslessPipe);
-  parameter Modelica.SIunits.PressureDifference dpDis_nominal[nCon]
+  parameter Modelica.Units.SI.PressureDifference dpDis_nominal[nCon]
     "Pressure drop in distribution line (supply only, not counting return line)"
-    annotation (Dialog(tab="General",group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   annotation (
     Documentation(
       info="<html>

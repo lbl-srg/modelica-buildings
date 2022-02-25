@@ -2,19 +2,18 @@ within Buildings.Electrical.Examples;
 model RenewableSources
   "Example model that shows the impact of renewable sources on the electrical grid"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Frequency f = 60 "Nominal grid frequency";
-  parameter Modelica.SIunits.Voltage V_nominal = 480 "Nominal grid voltage";
-  parameter Modelica.SIunits.Power PLoa_nominal = 3500
-    "Nominal power of a load";
-  parameter Modelica.SIunits.Power PWin = PLoa_nominal*4
+  parameter Modelica.Units.SI.Frequency f=60 "Nominal grid frequency";
+  parameter Modelica.Units.SI.Voltage V_nominal=480 "Nominal grid voltage";
+  parameter Modelica.Units.SI.Power PLoa_nominal=3500 "Nominal power of a load";
+  parameter Modelica.Units.SI.Power PWin=PLoa_nominal*4
     "Nominal power of the wind turbine";
-  parameter Modelica.SIunits.Power PSun = PLoa_nominal*1.0
+  parameter Modelica.Units.SI.Power PSun=PLoa_nominal*1.0
     "Nominal power of the PV";
-  parameter Modelica.SIunits.DensityOfHeatFlowRate W_m2_nominal = 1000
+  parameter Modelica.Units.SI.DensityOfHeatFlowRate W_m2_nominal=1000
     "Nominal solar power per unit area";
   parameter Real eff_PV = 0.12*0.85*0.9
     "Nominal solar power conversion efficiency (this should consider converion efficiency, area covered, AC/DC losses)";
-  parameter Modelica.SIunits.Area A_PV = PSun/eff_PV/W_m2_nominal
+  parameter Modelica.Units.SI.Area A_PV=PSun/eff_PV/W_m2_nominal
     "Nominal area of a P installation";
 
   AC.ThreePhasesBalanced.Sources.Grid gri(
@@ -114,7 +113,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.85,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.S,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
@@ -126,7 +124,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.8,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.E,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
@@ -138,7 +135,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.8,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.W,
     til=0.34906585039887) "PV"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -150,7 +146,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.9,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.S,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
@@ -162,7 +157,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.95,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.W,
     til=0.61086523819802) "PV"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
@@ -174,7 +168,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.9,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.E,
     til=0.43633231299858) "PV"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
@@ -186,7 +179,6 @@ model RenewableSources
     linearized=false,
     V_nominal=V_nominal,
     pf=0.97,
-    lat=weaDat.lat,
     azi=Buildings.Types.Azimuth.S,
     til=0.5235987755983) "PV"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
@@ -549,7 +541,13 @@ equation
       pattern=LinePattern.Dot));
   annotation (
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 2, 2015, by Michael Wetter:<br/>
 Changed signals for post-processing to avoid using the conditionally

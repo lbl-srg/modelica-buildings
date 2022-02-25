@@ -66,7 +66,7 @@ partial block PartialCoolingCapacity
     "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
 
 protected
-  final parameter Modelica.SIunits.MassFlowRate m_flow_small = 1E-4 * sta[nSta].nomVal.m_flow_nominal
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_small=1E-4*sta[nSta].nomVal.m_flow_nominal
     "Small mass flow rate for regularization";
 
   Boolean checkBoundsTEva[nSta]
@@ -77,13 +77,13 @@ protected
 initial algorithm
   // Verify correctness of performance curves, and write warning if error is bigger than 10%
    for iSta in 1:nSta loop
-     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
-       Buildings.Utilities.Math.Functions.biquadratic(
-         a=sta[iSta].perCur.capFunT,
-         x1=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
-         x2=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
-         msg="Capacity as a function of temperature ",
-         curveName="sta[" + String(iSta) + "].perCur.capFunT");
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
+      Buildings.Utilities.Math.Functions.biquadratic(
+        a=sta[iSta].perCur.capFunT,
+        x1=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
+        x2=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
+      msg="Capacity as a function of temperature ",
+      curveName="sta[" + String(iSta) + "].perCur.capFunT");
 
      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
        Buildings.Fluid.Utilities.extendedPolynomial(
@@ -94,13 +94,13 @@ initial algorithm
          msg="Capacity as a function of normalized mass flow rate ",
          curveName="sta[" + String(iSta) + "].perCur.capFunFF");
 
-     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
-       Buildings.Utilities.Math.Functions.biquadratic(
-         a=sta[iSta].perCur.EIRFunT,
-         x1=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
-         x2=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
-         msg="EIR as a function of temperature ",
-         curveName="sta[" + String(iSta) + "].perCur.EIRFunT");
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
+      Buildings.Utilities.Math.Functions.biquadratic(
+        a=sta[iSta].perCur.EIRFunT,
+        x1=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
+        x2=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
+      msg="EIR as a function of temperature ",
+      curveName="sta[" + String(iSta) + "].perCur.EIRFunT");
 
      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
        Buildings.Fluid.Utilities.extendedPolynomial(
@@ -123,31 +123,37 @@ equation
     for iSta in 1:nSta loop
    // Check whether data are outside of bounds
       when ( stage == iSta and pre(checkBoundsTEva[stage])) then
-        assert( not (TEvaIn > sta[stage].perCur.TEvaInMax or TEvaIn < sta[stage].perCur.TEvaInMin),
-        "*** Warning: Evaporator temperature TEvaIn is out of bounds in DX coil model at time = " + String(time) + ".
+      assert(
+        not (TEvaIn > sta[stage].perCur.TEvaInMax or TEvaIn < sta[stage].perCur.TEvaInMin),
+        "*** Warning: Evaporator temperature TEvaIn is out of bounds in DX coil model at time = "
+           + String(time) + ".
     stage     = " + String(iSta) + "
-    TEvaInMin = " + String(sta[iSta].perCur.TEvaInMin) + " Kelvin (" +
-        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) + " degC)
-    TEvaIn    = " + String(TEvaIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TEvaIn)) + " degC)
-    TEvaInMax = " + String(sta[iSta].perCur.TEvaInMax) + " Kelvin (" +
-        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
+    TEvaInMin = " + String(sta[iSta].perCur.TEvaInMin) + " Kelvin (" + String(
+          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) + " degC)
+    TEvaIn    = " + String(TEvaIn) + " Kelvin (" + String(
+          Modelica.Units.Conversions.to_degC(TEvaIn)) + " degC)
+    TEvaInMax = " + String(sta[iSta].perCur.TEvaInMax) + " Kelvin (" + String(
+          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
     Extrapolation can introduce large errors.
     This warning will only be reported once for each stage.",
-        level = AssertionLevel.warning);
+        level=AssertionLevel.warning);
         checkBoundsTEva[iSta] = false;
       end when;
       when ( stage == iSta and pre(checkBoundsTCon[stage])) then
-        assert( not ( TConIn > sta[stage].perCur.TConInMax or TConIn < sta[stage].perCur.TConInMin),
-        "*** Warning: Condenser temperature TConIn is out of bounds in DX coil model at time = " + String(time) + ".
+      assert(
+        not (TConIn > sta[stage].perCur.TConInMax or TConIn < sta[stage].perCur.TConInMin),
+        "*** Warning: Condenser temperature TConIn is out of bounds in DX coil model at time = "
+           + String(time) + ".
     stage     = " + String(iSta) + "
-    TConInMin = " + String(sta[iSta].perCur.TConInMin) + " Kelvin (" +
-        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMin)) + " degC)
-    TConIn    = " + String(TConIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TConIn)) + " degC)
-    TConInMax = " + String(sta[iSta].perCur.TConInMax) + " Kelvin (" +
-        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
+    TConInMin = " + String(sta[iSta].perCur.TConInMin) + " Kelvin (" + String(
+          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TConInMin)) + " degC)
+    TConIn    = " + String(TConIn) + " Kelvin (" + String(
+          Modelica.Units.Conversions.to_degC(TConIn)) + " degC)
+    TConInMax = " + String(sta[iSta].perCur.TConInMax) + " Kelvin (" + String(
+          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
     Extrapolation can introduce large errors.
     This warning will only be reported once for each stage.",
-        level = AssertionLevel.warning);
+        level=AssertionLevel.warning);
         checkBoundsTCon[iSta] = false;
       end when;
     end for;
@@ -166,12 +172,12 @@ if stage > 0 then
     // (for unreasonable temperatures), we constrain its return value to be
     // non-negative.
     cap_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
-      x1=Buildings.Utilities.Math.Functions.biquadratic(
-        a=sta[iSta].perCur.capFunT,
-        x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
-        x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
-      x2=0.001,
-      deltaX=0.0001)
+        x1=Buildings.Utilities.Math.Functions.biquadratic(
+          a=sta[iSta].perCur.capFunT,
+          x1=Modelica.Units.Conversions.to_degC(TEvaIn),
+          x2=Modelica.Units.Conversions.to_degC(TConIn)),
+        x2=0.001,
+        deltaX=0.0001)
         "Cooling capacity modification factor as function of temperature";
     cap_FF[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
       x=ff[iSta],
@@ -180,12 +186,12 @@ if stage > 0 then
       xMax=sta[iSta].perCur.ffMin);
     //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
-      x1=Buildings.Utilities.Math.Functions.biquadratic(
-        a=sta[iSta].perCur.EIRFunT,
-        x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
-        x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
-      x2=0.001,
-      deltaX=0.0001);
+        x1=Buildings.Utilities.Math.Functions.biquadratic(
+          a=sta[iSta].perCur.EIRFunT,
+          x1=Modelica.Units.Conversions.to_degC(TEvaIn),
+          x2=Modelica.Units.Conversions.to_degC(TConIn)),
+        x2=0.001,
+        deltaX=0.0001);
     EIR_FF[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
        x=ff[iSta],
        c=sta[iSta].perCur.EIRFunFF,
@@ -212,7 +218,7 @@ if stage > 0 then
                     graphics={
         Text(
           extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textStyle={TextStyle.Italic},
           textString="f(T,m)")}),
           Documentation(info="<html>

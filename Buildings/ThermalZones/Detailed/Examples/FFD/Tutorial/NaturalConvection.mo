@@ -50,8 +50,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    nConBou = nConBou,
    nSurBou = nSurBou,
    samplePeriod = 60,
-    lat=0.012787839282646,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+   massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
@@ -232,7 +231,6 @@ surBou(
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate}),
-  lat = 0.012787839282646,
   AFlo = 1*1,
   hRoo = 1,
   linearizeRadiation = false,
@@ -334,6 +332,12 @@ Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 07, 2017, by Thierry Nouidui:<br/>
 Refactored the FFD C-code and revised the documentation.

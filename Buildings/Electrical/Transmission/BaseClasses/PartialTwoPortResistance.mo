@@ -3,11 +3,11 @@ partial model PartialTwoPortResistance
   "Partial model of a resistive element that links two electrical connectors"
   extends Interfaces.PartialTwoPort;
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
-  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref";
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature";
-  parameter Modelica.SIunits.Temperature M = 507.65
+  parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref";
+  parameter Modelica.Units.SI.Temperature T_ref=298.15 "Reference temperature";
+  parameter Modelica.Units.SI.Temperature M=507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
-  Modelica.SIunits.Resistance R_actual
+  Modelica.Units.SI.Resistance R_actual
     "Actual resistance = R*(M + T_heatPort)/(M + T_ref) ";
 equation
   Connections.branch(terminal_p.theta, terminal_n.theta);
@@ -16,8 +16,8 @@ equation
   assert(R_actual>=0,
    "The value of R_actual must be positive, check reference and actual temperatures.");
 
-  R_actual = R*(M + Modelica.SIunits.Conversions.to_degC(T_heatPort))/
-  (M + Modelica.SIunits.Conversions.to_degC(T_ref));
+  R_actual =R*(M + Modelica.Units.Conversions.to_degC(T_heatPort))/(M +
+    Modelica.Units.Conversions.to_degC(T_ref));
 
   terminal_p.i = - terminal_n.i;
 
@@ -29,7 +29,7 @@ equation
                                                                   graphics={
           Text(
             extent={{-142,-30},{144,-62}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R"),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{90,0}}, color={0,0,0}),

@@ -14,47 +14,42 @@ model FlowDistributionPumpControl
   parameter Real facMul=10
     "Scaling factor for terminal units"
     annotation (Dialog(group="Scaling"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal=1
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15+40
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
+  parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aHeaWat_nominal-5
+    displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15+20
+  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal=273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau=120
+  parameter Modelica.Units.SI.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpDis_nominal[nLoa](
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpDis_nominal[nLoa](
     each min=0,
-    each displayUnit="Pa")=1/2 .* cat(
+    each displayUnit="Pa") = 1/2 .* cat(
     1,
     {dp_nominal*0.2},
-    fill(
-      dp_nominal*0.8/(nLoa-1),
-      nLoa-1))
+    fill(dp_nominal*0.8/(nLoa - 1), nLoa - 1))
     "Pressure drop between each connected unit at nominal conditions (supply line)";
-  parameter Modelica.SIunits.PressureDifference dpSet=max(
-    terUniHea.dpSou_nominal)
+  parameter Modelica.Units.SI.PressureDifference dpSet=max(terUniHea.dpSou_nominal)
     "Pressure difference set point";
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=
-    terUniHea.mHeaWat_flow_nominal*facMul
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa]=
+      terUniHea.mHeaWat_flow_nominal*facMul
     "Nominal mass flow rate in each connection line";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(
-    mCon_flow_nominal)
-    "Nominal mass flow rate in the distribution line";
-  final parameter Modelica.SIunits.PressureDifference dp_nominal=max(
-    terUniHea.dpSou_nominal)+2*nLoa*5000
-    "Nominal pressure drop in the distribution line";
-  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=Loads.BaseClasses.getPeakLoad(
-    string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))/facMul
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(
+      mCon_flow_nominal) "Nominal mass flow rate in the distribution line";
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal=max(terUniHea.dpSou_nominal)
+       + 2*nLoa*5000 "Nominal pressure drop in the distribution line";
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
+      Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
+      Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
@@ -87,11 +82,11 @@ model FlowDistributionPumpControl
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,60},{-108,80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,20},{-108,40}})));
@@ -235,8 +230,7 @@ protected
     T=Medium1.T_default,
     p=Medium1.p_default,
     X=Medium1.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium1.density(
-    sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium1.density(sta_default)
     "Density, used to compute fluid volume";
 equation
   connect(loa.y[2],reaRep1.u)
@@ -344,5 +338,5 @@ First implementation.
         preserveAspectRatio=false,
         extent={{-220,-240},{200,240}})),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/FlowDistributionPumpControl.mos" "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/FlowDistributionPumpControl.mos" "Simulate and plot"));
 end FlowDistributionPumpControl;

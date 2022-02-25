@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "conHea.TRooSet",
+    "conHea.TRoo",
+    "conHea.TSupSet",
+    "conHea.y",
+    "conHea.yPum",
+    "conHea.on"
+  };

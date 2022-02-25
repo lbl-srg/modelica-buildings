@@ -183,7 +183,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "Ensuring the system efficiency will not be negative"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
@@ -306,67 +306,67 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,158},{100,118}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,98},{-34,86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="sumDesZonPop"),
         Text(
           extent={{-96,-62},{-52,-76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uSupFan"),
         Text(
           extent={{-96,-82},{-50,-96}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uOpeMod"),
         Text(
           extent={{-98,78},{-12,62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesPopBreZon_flow"),
         Text(
           extent={{-98,58},{-12,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesAreBreZon_flow"),
         Text(
           extent={{-98,38},{-34,26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="desSysVenEff"),
         Text(
           extent={{-98,18},{-30,4}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VUncOutAir_flow"),
         Text(
           extent={{-98,-2},{-34,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSysPriAir_flow"),
         Text(
           extent={{-98,-22},{-28,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uOutAirFra_max"),
         Text(
           extent={{42,-74},{102,-86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yReqOutAir"),
         Text(
           extent={{20,88},{96,72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesUncOutAir_flow"),
         Text(
           extent={{30,60},{98,44}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yAveOutAirFraPlu"),
         Text(
           extent={{34,30},{98,12}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesOutAir_flow"),
         Text(
           extent={{38,-10},{98,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VEffOutAir_flow"),
         Text(
           extent={{18,-40},{98,-56}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="effOutAir_normalized")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{240,240}})),
 Documentation(info="<html>

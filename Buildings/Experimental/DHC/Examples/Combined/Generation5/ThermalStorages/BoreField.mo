@@ -17,22 +17,33 @@ model BoreField "Geothermal borefield model"
           kSoi=2.3,
           cSoi=1000,
           dSoi=2600),
-      final conDat=
-          Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
-          borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
-          dp_nominal=35000,
-          hBor=300,
-          rBor=0.095,
-          nBor=350,
-          cooBor={dBor*{mod(i - 1, 10),floor((i - 1)/10)} for i in 1:350},
-          dBor=dBor,
-          rTub=0.02,
-          kTub=0.5,
-          eTub=0.0037,
-          xC=0.05)),
-    final show_T=true);
-  parameter Integer dBor = 10
+      final conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
+        borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
+        dp_nominal=35000,
+        hBor=300,
+        rBor=0.095,
+        nBor=350,
+        cooBor=cooBor,
+        dBor=1,
+        rTub=0.02,
+        kTub=0.5,
+        eTub=0.0037,
+        xC=0.05)),
+    show_T=true);
+  /* 
+  Some parameters (such as nBor) cannot be propagated down to 
+  borFieDat.conDat otherwise Dymola fails to expand.
+  We assign them literally within borFieDat.conDat and propagate them up here
+  to compute dependent parameters.
+  */
+  parameter Integer nBor = borFieDat.conDat.nBor
+    "Length of borehole"
+    annotation(Evaluate=true);
+  parameter Real dxyBor = 10
     "Distance between boreholes";
+  final parameter Modelica.Units.SI.Length cooBor[nBor,2]={dxyBor*{mod(i - 1,
+      10),floor((i - 1)/10)} for i in 1:nBor}
+    "Cartesian coordinates of the boreholes in meters";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
     "Rate at which heat is extracted from soil"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),

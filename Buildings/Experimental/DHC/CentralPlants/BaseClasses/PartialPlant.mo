@@ -1,8 +1,6 @@
 within Buildings.Experimental.DHC.CentralPlants.BaseClasses;
 partial model PartialPlant
   "Partial class for modeling a central plant"
-  import TypDisSys=Buildings.Experimental.DHC.Types.DistrictSystemType
-    "District system type enumeration";
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
@@ -12,7 +10,8 @@ partial model PartialPlant
     annotation(Dialog(enable=
       typ == TypDisSys.CombinedGeneration1 or
       typ == TypDisSys.HeatingGeneration1));
-  parameter TypDisSys typ=TypDisSys.CombinedGeneration2to4
+  parameter Buildings.Experimental.DHC.Types.DistrictSystemType
+  typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4
     "Type of district system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
@@ -24,7 +23,8 @@ partial model PartialPlant
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nFue=0
+  // Placeholder parameter
+  final parameter Integer nFue=0
     "Number of fuel types (0 means no combustion system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
@@ -36,15 +36,15 @@ partial model PartialPlant
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
+  final parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
      annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration5
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_serAmb
     "Fluid connector for ambient water service supply line"
     annotation (
       Placement(transformation(extent={{-310,30},{-290,50}}),
@@ -52,8 +52,8 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration5
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_serAmb
     "Fluid connector for ambient water service return line"
     annotation (
       Placement(transformation(extent={{290,30},{310,50}}),
@@ -61,9 +61,7 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_hea
     "Fluid connector for heating service supply line"
     annotation (Placement(
       transformation(extent={{-310,-10},{-290,10}}),    iconTransformation(
@@ -71,9 +69,7 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumHea_b,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if
-    typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+    h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if have_hea
     "Fluid connector for heating service return line"
     annotation (Placement(
         transformation(extent={{290,-10},{310,10}}),    iconTransformation(
@@ -81,19 +77,15 @@ partial model PartialPlant
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_coo
     "Fluid connector for cooling service supply line"
     annotation (Placement(transformation(extent={{-310,-50},{-290,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+ if have_coo
     "Fluid connector for cooling service return line"
     annotation (Placement(
       transformation(extent={{290,-50},{310,-30}}),   iconTransformation(
@@ -128,6 +120,16 @@ partial model PartialPlant
     annotation (
       Placement(transformation(extent={{300,100},{340,140}}),
         iconTransformation(extent={{300,80},{380,160}})));
+protected
+  final parameter Boolean have_hea=typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and
+  typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
+  "Boolean flag to enable fluid connectors for heating service line";
+  final parameter Boolean have_coo=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or
+  typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4 or
+  typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling
+  "Boolean flag to enable fluid connectors for cooling service line";
+  final parameter Boolean have_serAmb=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
+  "Boolean flag to enable fluid connector for ambient water service line";
   annotation (
     defaultComponentName="plan",
     Documentation(
@@ -148,6 +150,10 @@ return.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 20, 2021, by Mingzhe Liu:<br/>
+Refactored <code>if</code> statement to correctly enable and disable the fluid connector under different system types.
+</li>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>
 First implementation.
@@ -171,7 +177,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-148,-326},{152,-366}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-142,300},{-140,372}},
@@ -187,29 +193,28 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+          visible=have_hea),
         Rectangle(
           extent={{140,-48},{300,-32}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling),
+          visible=have_coo),
         Rectangle(
           extent={{-300,32},{-140,48}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5),
+          visible=have_serAmb),
         Rectangle(
           extent={{140,32},{300,48}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5),
+          visible=have_serAmb),
         Rectangle(
           extent={{-140,140},{140,-142}},
           lineColor={27,0,55},
@@ -221,15 +226,14 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+          visible=have_hea),
         Rectangle(
           extent={{-300,-48},{-140,-32}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling)}),
+          visible=have_coo)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,

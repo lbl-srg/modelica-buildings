@@ -38,7 +38,7 @@ equation
         extent={{-100,-100},{100,100}}),
       graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-148,104},{152,144}},
           textString="%name"),
         Rectangle(
@@ -67,13 +67,13 @@ equation
           smooth=Smooth.Bezier),
         Text(
           extent={{-147,-152},{153,-112}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="freqHz=%freqHz"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>
@@ -89,7 +89,7 @@ Block that outputs a <code>sine</code>.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

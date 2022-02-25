@@ -3,7 +3,7 @@ model PlugFlowAIT
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
-  parameter Modelica.SIunits.Length Lcap=1
+  parameter Modelica.Units.SI.Length Lcap=1
     "Length over which transient effects typically take place";
   parameter Real R80(unit="(m.K)/W")=1/(2*0.024*Modelica.Constants.pi)
       *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07) "Thermal resistance per unit length of service pipes";
@@ -12,12 +12,12 @@ model PlugFlowAIT
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Time tauHeaTra=6500
+  parameter Modelica.Units.SI.Time tauHeaTra=6500
     "Time constant for heat transfer, default 20 minutes";
 
-  parameter Modelica.SIunits.Length thickness=0.0032 "Pipe wall thickness";
+  parameter Modelica.Units.SI.Length thickness=0.0032 "Pipe wall thickness";
 
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
@@ -60,7 +60,6 @@ model PlugFlowAIT
     kIns=0.024,
     length=115,
     allowFlowReversal=allowFlowReversal,
-    nPorts=2,
     m_flow_nominal=0.3,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
@@ -69,7 +68,7 @@ model PlugFlowAIT
     rhoPip=8000,
     initDelay=false,
     m_flow_start=0) "Pipe 1"
-    annotation (Placement(transformation(extent={{50,0},{30,20}})));
+    annotation (Placement(transformation(extent={{60,0},{40,20}})));
   PlugFlowPipe pip4(
     dh = 0.0337 - 2*0.0032,
     redeclare package Medium = Medium,
@@ -79,7 +78,6 @@ model PlugFlowAIT
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
     thickness=thickness,
-    nPorts=2,
     R=R80,
     cPip=500,
     rhoPip=8000,
@@ -97,7 +95,6 @@ model PlugFlowAIT
     kIns=0.024,
     dIns=0.045,
     allowFlowReversal=allowFlowReversal,
-    nPorts=2,
     m_flow_nominal=0.3,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
@@ -114,7 +111,6 @@ model PlugFlowAIT
     dIns=0.045,
     kIns=0.024,
     allowFlowReversal=allowFlowReversal,
-    nPorts=1,
     m_flow_nominal=0.3,
     thickness=thickness,
     dh=0.0337 - 2*0.0032,
@@ -134,7 +130,6 @@ model PlugFlowAIT
     dIns=0.045,
     kIns=0.024,
     allowFlowReversal=allowFlowReversal,
-    nPorts=1,
     m_flow_nominal=0.3,
     thickness=thickness,
     dh=0.0337 - 2*0.0032,
@@ -210,7 +205,6 @@ model PlugFlowAIT
     kIns=0.024,
     length=20,
     allowFlowReversal=allowFlowReversal,
-    nPorts=2,
     m_flow_nominal=0.3,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
@@ -261,6 +255,32 @@ model PlugFlowAIT
         rotation=180,
         origin={46,56})));
 
+  Buildings.Fluid.FixedResistances.Junction splPip1(
+    redeclare package Medium = Medium,
+    m_flow_nominal={pip1.m_flow_nominal,pip5.m_flow_nominal,pip4.m_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    "Splitter coming out of pip1"
+    annotation (Placement(transformation(extent={{30,20},{10,0}})));
+  Buildings.Fluid.FixedResistances.Junction splPip2(
+    redeclare package Medium = Medium,
+    m_flow_nominal={pip5.m_flow_nominal,pip2.m_flow_nominal,pip3.m_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    "Splitter coming out of pip5"
+    annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-62,-110},{-58,-110},{-58,-94}},
@@ -280,12 +300,12 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
     annotation (Line(points={{21,-130},{38,-130}},        color={0,0,127}));
-  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{20,40},{20,40},
-          {40,40},{40,20}}, color={191,0,0}));
-  connect(pip1.heatPort, pip0.heatPort) annotation (Line(points={{40,20},{40,26},
+  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{20,40},{50,40},
+          {50,20}},         color={191,0,0}));
+  connect(pip1.heatPort, pip0.heatPort) annotation (Line(points={{50,20},{50,26},
           {100,26},{100,-10},{90,-10}},
                                       color={191,0,0}));
-  connect(pip1.heatPort, pip2.heatPort) annotation (Line(points={{40,20},{40,26},
+  connect(pip1.heatPort, pip2.heatPort) annotation (Line(points={{50,20},{50,26},
           {-78,26}},                   color={191,0,0}));
   connect(pip5.heatPort, pip2.heatPort) annotation (Line(points={{-10,20},{-10,26},
           {-78,26}},                       color={191,0,0}));
@@ -316,29 +336,21 @@ equation
   connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{93.6,128},{
           100,128},{100,140},{114,140}},
                                color={0,0,127}));
-  connect(pip1.port_a, pip0.ports_b[1])
-    annotation (Line(points={{50,10},{78,10},{78,0}}, color={0,127,255}));
-  connect(pip1.ports_b[1], pip4.port_a)
-    annotation (Line(points={{30,8},{10,8},{10,30}}, color={0,127,255}));
-  connect(pip5.port_a, pip1.ports_b[2])
-    annotation (Line(points={{0,10},{30,10},{30,12}}, color={0,127,255}));
-  connect(pip4.ports_b[1], senTem_p4.port_a)
-    annotation (Line(points={{8,50},{8,70}},        color={0,127,255}));
-  connect(Point5.ports[1], pip4.ports_b[2]) annotation (Line(points={{36,56},{
-          36,56},{12,56},{12,50}}, color={0,127,255}));
-  connect(pip5.ports_b[1], senTemIn_p2.port_b)
-    annotation (Line(points={{-20,8},{-60,8}},          color={0,127,255}));
-  connect(pip3.port_a, pip5.ports_b[2])
-    annotation (Line(points={{-50,-10},{-50,12},{-20,12}},
-                                                         color={0,127,255}));
+  connect(pip1.port_a, pip0.port_b)
+    annotation (Line(points={{60,10},{80,10},{80,0}}, color={0,127,255}));
+  connect(pip4.port_b, senTem_p4.port_a)
+    annotation (Line(points={{10,50},{10,60},{8,60},{8,70}},
+                                                    color={0,127,255}));
+  connect(Point5.ports[1], pip4.port_b) annotation (Line(points={{36,56},{36,56},
+          {10,56},{10,50}},        color={0,127,255}));
   connect(senTemIn_p2.port_a, pip2.port_a)
     annotation (Line(points={{-80,8},{-88,8},{-88,16}},   color={0,127,255}));
-  connect(pip2.ports_b[1], senTem_p2.port_a)
+  connect(pip2.port_b, senTem_p2.port_a)
     annotation (Line(points={{-88,36},{-88,46}},          color={0,127,255}));
-  connect(pip3.ports_b[1], senTem_p3.port_a) annotation (Line(points={{-50,-30},
+  connect(pip3.port_b, senTem_p3.port_a) annotation (Line(points={{-50,-30},
           {-50,-40}},           color={0,127,255}));
-  connect(ExcludedBranch.ports[1], pip0.ports_b[2]) annotation (Line(points={{82,30},
-          {82,0}},                       color={0,127,255}));
+  connect(ExcludedBranch.ports[1], pip0.port_b) annotation (Line(points={{82,30},
+          {82,16},{82,0},{80,0}},        color={0,127,255}));
   connect(switch1.y, Point5.m_flow_in) annotation (Line(points={{109,64},{58,64}},
                             color={0,0,127}));
   connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{114,140},{100,140},
@@ -348,13 +360,24 @@ equation
   connect(lessThreshold.y, switch1.u2) annotation (Line(points={{75.2,128},{66,
           128},{66,104},{140,104},{140,64},{132,64}},
                                                     color={255,0,255}));
+  connect(pip5.port_a, splPip1.port_2)
+    annotation (Line(points={{0,10},{10,10}},color={0,127,255}));
+  connect(pip1.port_b, splPip1.port_1)
+    annotation (Line(points={{40,10},{30,10}}, color={0,127,255}));
+  connect(splPip1.port_3, pip4.port_a) annotation (Line(points={{20,20},{20,24},
+          {10,24},{10,30}}, color={0,127,255}));
+  connect(senTemIn_p2.port_b, splPip2.port_2)
+    annotation (Line(points={{-60,8},{-60,10},{-50,10}}, color={0,127,255}));
+  connect(pip5.port_b, splPip2.port_1)
+    annotation (Line(points={{-20,10},{-30,10}}, color={0,127,255}));
+  connect(pip3.port_a, splPip2.port_3) annotation (Line(points={{-50,-10},{-50,-4},
+          {-40,-4},{-40,0}}, color={0,127,255}));
   annotation (
     experiment(
       StopTime=603900,
       Interval=900,
       Tolerance=1e-006),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowAIT.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowAIT.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>

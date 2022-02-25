@@ -3,7 +3,7 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09
+  parameter Modelica.Units.SI.Temperature T_start=273.15 + 22.09
     "Initial temperature of the sandbox";
 
   // mSenFac is set to its numerical value because it is a constant in the borehole model.
@@ -93,8 +93,7 @@ equation
           -14},{-52,-14}},
                         color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=186360),
-  __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/Sandbox.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/Sandbox.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>

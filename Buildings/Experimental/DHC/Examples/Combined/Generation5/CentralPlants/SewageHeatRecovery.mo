@@ -5,25 +5,23 @@ model SewageHeatRecovery
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
-    final nFue=0,
     final have_eleCoo=false,
     final have_weaBus=false,
-    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5);
+    final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5);
 
-  parameter Modelica.SIunits.MassFlowRate mSew_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mSew_flow_nominal
     "Sewage water nominal mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+    annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "District water nominal mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.PressureDifference dpSew_nominal
+    annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.PressureDifference dpSew_nominal
     "Sewage side pressure drop at nominal mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.PressureDifference dpDis_nominal
+    annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.PressureDifference dpDis_nominal
     "District side pressure drop at nominal mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Efficiency epsHex
-    "Heat exchanger effectiveness";
+    annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.Efficiency epsHex "Heat exchanger effectiveness";
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSewWat(
     final unit="K",

@@ -9,11 +9,11 @@ model BuildingWithETS
   package MediumS=Modelica.Media.Water.WaterIF97_ph (
     h_default=2770E3)
     "Steam";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal=1E4
+  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=1E4
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=-1E4
+  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=-1E4
     "Nominal mass flow rate";
   Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.BuildingWithETS buiHeaGen1(
     redeclare final package MediumSerHea_a=MediumS,

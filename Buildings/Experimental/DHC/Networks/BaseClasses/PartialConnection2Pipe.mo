@@ -14,12 +14,12 @@ partial model PartialConnection2Pipe
   parameter Boolean show_entFlo=false
     "Set to true to output enthalpy flow rate difference"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate in the connection line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -30,9 +30,11 @@ partial model PartialConnection2Pipe
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.Time tau=10
+  parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
@@ -215,8 +217,8 @@ partial model PartialConnection2Pipe
       rotation=90,
       origin={0,80})));
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
-    Medium.setState_pTX(
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default))
@@ -326,7 +328,7 @@ First implementation.
         Text(
           extent={{-152,-104},{148,-144}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-76,12},{-20,-12}},
           fillColor={0,0,0},

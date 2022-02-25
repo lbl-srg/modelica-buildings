@@ -4,9 +4,11 @@ model InternalResistancesOneUTube
   extends
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialInternalResistances;
 
-  parameter Modelica.SIunits.ThermalResistance Rgg_val "Thermal resistance between the two grout zones";
-  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi
-    *(borFieDat.conDat.rBor^2 - 2*borFieDat.conDat.rTub^2)
+  parameter Modelica.Units.SI.ThermalResistance Rgg_val
+    "Thermal resistance between the two grout zones";
+  parameter Modelica.Units.SI.HeatCapacity Co_fil=borFieDat.filDat.dFil*
+      borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi*(borFieDat.conDat.rBor^2
+       - 2*borFieDat.conDat.rTub^2)
     "Heat capacity of the whole filling material";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(R=RCondGro_val)
@@ -22,8 +24,8 @@ model InternalResistancesOneUTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(
     C=Co_fil/2,
     T(start=T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
-       dynFil
+    der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    if dynFil
     "Heat capacity of the filling material" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -32,8 +34,8 @@ model InternalResistancesOneUTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(
     C=Co_fil/2,
     T(start=T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
-       dynFil
+    der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    if dynFil
     "Heat capacity of the filling material" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -118,7 +120,7 @@ First implementation.
           color={0,0,0},
           thickness=1),          Text(
           extent={{-100,144},{100,106}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}));

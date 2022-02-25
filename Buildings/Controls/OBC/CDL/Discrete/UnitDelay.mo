@@ -61,7 +61,7 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -104,22 +104,22 @@ Modelica Standard Library.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-30.0,0.0},{30.0,0.0}},
           color={0,0,127}),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-90.0,10.0},{90.0,90.0}},
           textString="1"),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-90.0,-90.0},{90.0,-10.0}},
           textString="z"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}));
 end UnitDelay;

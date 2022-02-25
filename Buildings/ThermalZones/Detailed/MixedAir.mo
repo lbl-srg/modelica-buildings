@@ -82,8 +82,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
 
   ////////////////////////////////////////////////////////////////////////////
   // Input connectors
-  Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
-       haveShade
+  Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1)
+    if haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
         iconTransformation(extent={{-232,164},{-200,196}})));
@@ -139,6 +139,12 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 8, 2019, by Michael Wetter:<br/>
 Propagated parameter <code>mSenFac</code>.<br/>
@@ -243,11 +249,11 @@ First implementation.
             {200,200}}), graphics={
         Text(
           extent={{-198,198},{-122,166}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha"),
         Text(
           extent={{-190,44},{-128,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="C_flow",
           visible=use_C_flow)}));
 end MixedAir;
