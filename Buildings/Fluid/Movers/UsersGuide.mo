@@ -537,21 +537,29 @@ peak values refer to the hydraulic efficiency or the total efficiency
 using the switch <code>use_hydraulicPerformance</code>.
 <ul>
 <li>
-If <code>use_hydraulicPerformance</code>, <i>&eta;<sub>mot</sub></i> is assumed
-constant (by default 0.7),
+If <code>use_hydraulicPerformance</code>,
+<i>W&#775;<sub>hyd</sub></i> and <i>&eta;<sub>hyd</sub></i> are obtained from data
+and <i>&eta;<sub>mot</sub></i> is assumed constant (by default 0.7). Then
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>hyd</sub>,<br/>
-&eta;<sub>hyd</sub> = &eta; &frasl; &eta;<sub>mot</sub>,<br/>
+P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>mot</sub>,<br/>
+&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub>,<br/>
 &eta;<sub>mot</sub> = 0.7
 </p>
 </li>
 <li>
-Otherwise,
+Otherwise, <i>P<sub>ele</sub></i> and <i>&eta;</i> are obtained from data.
+The other two efficiency components are given straightforward assignments
+to simplify the system of equations.
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele</sub> = W&#775;<sub>flo</sub> &frasl; &eta;<br/>
 &eta;<sub>hyd</sub> = 1<br/>
 &eta;<sub>mot</sub> = &eta;
 </p>
+The reason that the value of <i>&eta;</i> is given to <i>&eta;<sub>mot</sub></i>
+instead of <i>&eta;<sub>hyd</sub></i> is that <i>&eta;<sub>hyd</sub></i>
+must be bounded away from zero for being a denominator in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PowerInterface\">
+Buildings.Fluid.Movers.BaseClasses.PowerInterface</a> anyway.
 </li>
 </ul>
 To prevent the computed power from approaching infinity when the eficiency
