@@ -27,18 +27,6 @@ This is useful comparing power computation results
 against other methods.
 </li>
 <li>
-<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.initialTable\">
-Buildings.Fluid.Movers.BaseClasses.Euler.initialTable</a>
-assigns initial values to look-up tables that both satisfy format requirements
-of <a href=\"modelica://Modelica.Blocks.Tables.CombiTable2D\">
-Modelica.Blocks.Tables.CombiTable2D</a>
-and are consistent with the dimensions set out by
-<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
-Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.
-This is to avoid error messages when the look-up tables are not used
-and left at default values.
-</li>
-<li>
 The computed look-up tables are stored in
 <a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
 Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.

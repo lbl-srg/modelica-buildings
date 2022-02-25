@@ -236,6 +236,8 @@ protected
   Modelica.Units.SI.Power P_internal
     "If per.use_hydraulicPerformance, PEle = P_internal / etaMot, otherwise PEle = P_internal";
 
+  Buildings.Controls.OBC.CDL.Continuous.Divide divByRho "Divide by density";
+
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
     Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
       peak=per.peak,
@@ -247,10 +249,12 @@ protected
   Modelica.Blocks.Tables.CombiTable2Ds effTab(
     final table=curEu.eta,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    if per.use_eulerNumber
     "Look-up table for mover efficiency";
   Modelica.Blocks.Tables.CombiTable2Ds powTab(
     final table=curEu.P,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    if per.use_eulerNumber
     "Look-up table for mover power";
 
 function getPerformanceDataAsString
@@ -383,13 +387,15 @@ equation
   connect(r_N, y_in);
   y_out=r_N;
 
-  V_flow = m_flow/rho;
+  connect(divByRho.u1,m_flow);
+  connect(divByRho.u2,rho);
+  connect(divByRho.y,V_flow);
 
   //For power computation via EulerNumber path.
   connect(effTab.u1, dp_internal);
-  effTab.u2 = V_flow;
+  connect(effTab.u2, divByRho.y);
   connect(powTab.u1, dp_internal);
-  powTab.u2 = V_flow;
+  connect(powTab.u2, V_flow);
 
   // Hydraulic equations
   r_V = V_flow/V_flow_max;
@@ -563,8 +569,8 @@ equation
       etaMot = eta;
     end if;
   elseif per.use_eulerNumber then
-    eta = effTab.y;
-    PEle = powTab.y;
+    connect(effTab.y,eta);
+    connect(powTab.y,PEle);
     P_internal=PEle;
     if per.use_hydraulicPerformance then
       etaMot = per.peak.etaMot;

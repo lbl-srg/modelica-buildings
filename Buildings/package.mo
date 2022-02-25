@@ -331,7 +331,6 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Euler.computeTables<br/>
         Buildings.Fluid.Movers.BaseClasses.Euler.correlation<br/>
         Buildings.Fluid.Movers.BaseClasses.Euler.getPeak<br/>
-        Buildings.Fluid.Movers.BaseClasses.Euler.initialTable<br/>
         Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables<br/>
         Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
         Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison<br/>
