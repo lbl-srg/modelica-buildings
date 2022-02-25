@@ -14,11 +14,11 @@ model BoilerPolynomialSteam
      "Steam medium - port_b (oulet)";
 
   // Nominal conditions
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
-  parameter Modelica.SIunits.Temperature T_nominal = 353.15
+  parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
+  parameter Modelica.Units.SI.Temperature T_nominal = 353.15
     "Temperature used to compute nominal efficiency 
     (only used if efficiency curve depends on temperature)";
 
@@ -29,17 +29,17 @@ model BoilerPolynomialSteam
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
   parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
    annotation (choicesAllMatching = true);
-  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
+  parameter Modelica.Units.SI.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
-  parameter Modelica.SIunits.Volume V = 1.5E-6*Q_flow_nominal
+  parameter Modelica.Units.SI.Volume V = 1.5E-6*Q_flow_nominal
     "Total internal volume of boiler"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry = 1.5E-3*Q_flow_nominal
+  parameter Modelica.Units.SI.Mass mDry = 1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   // Variables
-  Modelica.SIunits.Efficiency eta=
+  Modelica.Units.SI.Efficiency eta=
     if effCur == Buildings.Fluid.Types.EfficiencyCurves.Constant then
       a[1]
     elseif effCur == Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
@@ -51,13 +51,13 @@ model BoilerPolynomialSteam
         x2=MediumSte.saturationTemperature(port_a.p))
     else 0
     "Boiler efficiency";
-  Modelica.SIunits.Power QFue_flow = y_internal * Q_flow_nominal/eta_nominal
+  Modelica.Units.SI.Power QFue_flow = y_internal * Q_flow_nominal/eta_nominal
     "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow = eta * QFue_flow
+  Modelica.Units.SI.Power QWat_flow = eta * QFue_flow
     "Heat transfer from gas into water";
-  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
+  Modelica.Units.SI.MassFlowRate mFue_flow = QFue_flow/fue.h
     "Fuel mass flow rate";
-  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
+  Modelica.Units.SI.VolumeFlowRate VFue_flow = mFue_flow/fue.d
     "Fuel volume flow rate";
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) if not steadyDynamics

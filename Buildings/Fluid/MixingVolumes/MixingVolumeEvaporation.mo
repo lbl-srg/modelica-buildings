@@ -29,7 +29,7 @@ model MixingVolumeEvaporation
         origin={110,70})));
 
   // Parameter
-  parameter Modelica.SIunits.Volume V "Total volume";
+  parameter Modelica.Units.SI.Volume V "Total volume";
 
 // Variables
   MediumWat.ThermodynamicState state_saturated
@@ -40,8 +40,8 @@ model MixingVolumeEvaporation
     then StateSelect.default else StateSelect.prefer)
     "Pressure inside volume";
   MediumSte.Temperature T(start=T_start) "Temperature inside volume";
-  Modelica.SIunits.Volume VSte(final start=VSte_start) "Volume of steam vapor";
-  Modelica.SIunits.Volume VWat(
+  Modelica.Units.SI.Volume VSte(final start=VSte_start) "Volume of steam vapor";
+  Modelica.Units.SI.Volume VWat(
     start=VWat_start,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     then StateSelect.default else StateSelect.prefer)
@@ -50,29 +50,29 @@ model MixingVolumeEvaporation
   MediumWat.SpecificEnthalpy hWat "Specific enthalpy of liquid water";
   MediumSte.Density rhoSte "Density of steam vapor";
   MediumWat.Density rhoWat "Density of liquid water";
-  Modelica.SIunits.Mass m "Total mass of volume";
-  Modelica.SIunits.Energy U(final start=U_start) "Internal energy";
-  Modelica.SIunits.MassFlowRate mWat_flow "Feed water mass flow rate";
-  Modelica.SIunits.MassFlowRate mSte_flow "Steam mass flow rate";
+  Modelica.Units.SI.Mass m "Total mass of volume";
+  Modelica.Units.SI.Energy U(final start=U_start) "Internal energy";
+  Modelica.Units.SI.MassFlowRate mWat_flow "Feed water mass flow rate";
+  Modelica.Units.SI.MassFlowRate mSte_flow "Steam mass flow rate";
 
   // Initialization
-  parameter Modelica.SIunits.Volume VWat_start=V/2
+  parameter Modelica.Units.SI.Volume VWat_start=V/2
     "Start value of liquid volume"
     annotation (Dialog(tab="Initialization"));
-  final parameter Modelica.SIunits.Volume VSte_start= V-VWat_start
+  final parameter Modelica.Units.SI.Volume VSte_start= V-VWat_start
   "Start value of steam vapor volume";
   final parameter MediumWat.ThermodynamicState state_start = MediumWat.setState_pTX(
       T=T_start,
       p=p_start,
       X=MediumWat.X_default) "Medium state at default values";
-  final parameter Modelica.SIunits.Density rhoWat_start=MediumWat.density(
+  final parameter Modelica.Units.SI.Density rhoWat_start=MediumWat.density(
     state=state_start) "Density, used to compute fluid mass";
-  final parameter Modelica.SIunits.Density rhoSte_start=MediumSte.density(
+  final parameter Modelica.Units.SI.Density rhoSte_start=MediumSte.density(
     state=state_start) "Density, used to compute fluid mass";
-  final parameter Modelica.SIunits.SpecificEnthalpy hSteStart=
+  final parameter Modelica.Units.SI.SpecificEnthalpy hSteStart=
     MediumSte.specificEnthalpy_pTX(p_start, T_start, MediumSte.X_default)
     "Start value for specific enthalpy";
-  final parameter Modelica.SIunits.Energy U_start=
+  final parameter Modelica.Units.SI.Energy U_start=
     VWat_start*rhoWat_start*MediumWat.specificEnthalpy(state_start) +
     VSte_start*rhoSte_start*MediumSte.specificEnthalpy(state_start) -
     p_start*V
@@ -87,7 +87,7 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem if not steadyDynamics
     "Prescribed temperature"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Blocks.Sources.RealExpression portT(y=T) if  not steadyDynamics
+  Modelica.Blocks.Sources.RealExpression portT(y=T)  if not steadyDynamics
     "Port temperature"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen if not steadyDynamics
