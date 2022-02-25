@@ -20,23 +20,37 @@ record VAVMultiZone
   parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
     "Type of valve for heating coil in reheat position"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.Fan typFanSup
+    "Type of supply fan"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
     "Minimum outdoor air mass flow rate"
     annotation (Dialog(group="Schedule.Mechanical"));
 
+  parameter Buildings.Templates.Components.Fans.Interfaces.Data fanSup(
+    final typ=typFanSup,
+    m_flow_nominal=mAirSup_flow_nominal)
+    "Supply fan"
+    annotation(Dialog(group="Schedule.Mechanical",
+      enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
+
   extends Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data(
+    fanRel(
+      m_flow_nominal=mAirRet_flow_nominal),
+    fanRet(
+      m_flow_nominal=mAirRet_flow_nominal),
     damOut(
-      final m_flow_nominal=mAirSup_flow_nominal,
+      m_flow_nominal=mAirSup_flow_nominal,
       dp_nominal=10),
     damOutMin(
-      final m_flow_nominal=mOutMin_flow_nominal,
+      m_flow_nominal=mOutMin_flow_nominal,
       dp_nominal=10),
     damRel(
-      final m_flow_nominal=mAirRet_flow_nominal,
+      m_flow_nominal=mAirRet_flow_nominal,
       dp_nominal=10),
     damRet(
-      final m_flow_nominal=mAirRet_flow_nominal,
+      m_flow_nominal=mAirRet_flow_nominal,
       dp_nominal=10))
     annotation (
       Dialog(group="Schedule.Mechanical"));
@@ -67,6 +81,7 @@ record VAVMultiZone
     "Heating coil in reheat position"
     annotation (Dialog(group="Schedule.Mechanical",
       enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
+
 
   parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=100
     "Total pressure rise"

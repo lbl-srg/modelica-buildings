@@ -1,6 +1,7 @@
 within Buildings.Templates.Components.Fans.Interfaces;
 partial model PartialFan "Interface class for fans"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    final m_flow_nominal=datRec.m_flow_nominal);
 
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
@@ -8,10 +9,7 @@ partial model PartialFan "Interface class for fans"
   parameter Boolean have_senFlo
     "Set to true for air flow measurement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nFan(final min=1) = 1
-    "Number of fans"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
+
 
   parameter Buildings.Templates.Components.Types.FanSingle typSin=
     Buildings.Templates.Components.Types.FanSingle.Housed
@@ -25,22 +23,15 @@ partial model PartialFan "Interface class for fans"
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Total pressure rise"
-    annotation (
-      Dialog(group="Nominal condition",
-      enable=typ <> Buildings.Templates.Components.Types.Fan.None));
+  parameter Buildings.Templates.Components.Fans.Interfaces.Data datRec(
+    final typ=typ,
+    final nFan=nFan)
+    "Design and operating parameters";
 
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
-    pressure(
-      V_flow={0, 1, 2} * m_flow_nominal / 1.2 / nFan,
-      dp={1.5, 1, 0} * dp_nominal))
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Performance data"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(enable=typ <> Buildings.Templates.Components.Types.Fan.None),
-      Placement(transformation(extent={{-90,-88},{-70,-68}})));
+  final parameter Integer nFan = datRec.nFan
+    "Number of fans";
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal=datRec.dp_nominal
+    "Total pressure rise";
 
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Fan.None

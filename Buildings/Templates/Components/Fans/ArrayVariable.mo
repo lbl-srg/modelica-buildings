@@ -7,7 +7,7 @@ model ArrayVariable "Fan array - Variable speed"
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare each final package Medium=Medium,
     each final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    each final per=per)
+    each final per=datRec.per)
     "Fan"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -25,7 +25,7 @@ model ArrayVariable "Fan array - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product sigCon
+  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -110,7 +110,7 @@ All fans are commanded with the same on/off signal (VFD run).
 All fans are controlled to the same speed.
 </li>
 <li>
-A single common status signal is returned 
+A single common status signal is returned
 (true when all fans are on).
 </li>
 </ul>

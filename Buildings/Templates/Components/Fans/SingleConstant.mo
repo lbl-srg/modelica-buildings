@@ -1,14 +1,13 @@
 within Buildings.Templates.Components.Fans;
 model SingleConstant "Single fan - Constant speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.SingleConstant,
-    final nFan=1);
+    final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare final package Medium =Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final per=per)
+    final per=datRec.per)
     "Fan"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));

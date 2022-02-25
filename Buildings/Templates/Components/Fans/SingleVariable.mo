@@ -1,14 +1,13 @@
 within Buildings.Templates.Components.Fans;
 model SingleVariable "Single fan - Variable speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.SingleVariable,
-    final nFan=1);
+    final typ=Buildings.Templates.Components.Types.Fan.SingleVariable);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare final package Medium =Medium,
+    redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final per=per)
+    final per=datRec.per)
     "Fan"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -20,7 +19,7 @@ model SingleVariable "Single fan - Variable speed"
         rotation=-90,
         origin={-20,70})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product sigCon
+  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

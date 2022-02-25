@@ -1,9 +1,7 @@
 within Buildings.Templates.Components.Fans;
 model None "No fan"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.None,
-    final nFan=1,
-    dp_nominal=0);
+    final typ=Buildings.Templates.Components.Types.Fan.None);
 
 equation
   connect(port_a, V_flow.port_a)

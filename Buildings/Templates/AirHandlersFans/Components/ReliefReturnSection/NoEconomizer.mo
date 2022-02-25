@@ -18,8 +18,7 @@ model NoEconomizer "No air economizer"
   replaceable Buildings.Templates.Components.Fans.SingleVariable fanRet
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=dpFan_nominal,
+      final datRec=datRec.fanRet,
       final have_senFlo=
         typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)

@@ -1,7 +1,7 @@
 BaseNoEconomizer
-CoilWaterBasedCooling
 CoilEvaporatorMultiStage
 CoilEvaporatorVariableSpeed
+CoilWaterBasedCooling
 CoilWaterBasedHeating
 CoilWaterBasedHeating2WV
 CoilWaterBasedHeating3WV

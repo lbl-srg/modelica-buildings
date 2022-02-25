@@ -18,7 +18,10 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       typDamOut=secOutRel.typDamOut,
       typDamOutMin=secOutRel.typDamOutMin,
       typDamRet=secOutRel.typDamRet,
-      typDamRel=secOutRel.typDamRel),
+      typDamRel=secOutRel.typDamRel,
+      typFanSup=typFanSup,
+      typFanRel=typFanRel,
+      typFanRet=typFanRet),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
     final have_souCoiCoo=coiCoo.have_sou,
@@ -28,8 +31,8 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
       fanSupDra.typ elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
       then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=secOutRel.typFanRet,
-    final typFanRel=secOutRel.typFanRel);
+    final typFanRel=secOutRel.typFanRel,
+    final typFanRet=secOutRel.typFanRet);
 
   final parameter Boolean have_senPreBui=
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
@@ -72,8 +75,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final m_flow_nominal=mAirSup_flow_nominal,
-      final dp_nominal=datRec.dpFanSup_nominal,
+      final datRec=datRec.fanSup,
       final have_senFlo=ctr.typCtrFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Blow through"
@@ -112,8 +114,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final m_flow_nominal=mAirSup_flow_nominal,
-      final dp_nominal=datRec.dpFanSup_nominal,
+      final datRec=datRec.fanSup,
       final have_senFlo=ctr.typCtrFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Draw through"

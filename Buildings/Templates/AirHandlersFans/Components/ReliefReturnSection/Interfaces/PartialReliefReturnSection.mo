@@ -24,6 +24,8 @@ partial model PartialReliefReturnSection "Relief/return air section"
     "Set to true in case of heat recovery";
 
   parameter Data datRec(
+    final typFanRel=typFanRel,
+    final typFanRet=typFanRet,
     final typDamRel=typDamRel)
     "Design and operating parameters";
 

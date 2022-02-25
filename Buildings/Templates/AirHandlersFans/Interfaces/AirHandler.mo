@@ -22,9 +22,9 @@ partial model AirHandler "Base interface class for air handler"
 
   replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data datRec(
     final typ=typ,
-    final typFanSup=typFanSup,
-    final typFanRet=typFanRet,
-    final typFanRel=typFanRel,
+    typFanSup=typFanSup,
+    typFanRet=typFanRet,
+    typFanRel=typFanRel,
     final have_souCoiCoo=have_souCoiCoo,
     final have_souCoiHeaPre=have_souCoiHeaPre,
     final have_souCoiHeaReh=have_souCoiHeaReh)

@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.AirHandlersFans.Validation.CoilHeatingEffectivenessNTU3WV",
+simulateModel("Buildings.Templates.AirHandlersFans.Validation.BaseNoEconomizer",
     method="cvode",
     tolerance=1e-6,
     stopTime=1.0,
-    resultFile="CoilHeatingEffectivenessNTU3WV");
+    resultFile="BaseNoEconomizer");
 createPlot(
     id=1,
     position={15, 15, 1192, 772},

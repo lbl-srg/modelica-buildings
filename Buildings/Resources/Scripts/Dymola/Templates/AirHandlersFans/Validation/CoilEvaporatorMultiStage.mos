@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.AirHandlersFans.Validation.CoilCoolingCounterFlow",
+simulateModel("Buildings.Templates.AirHandlersFans.Validation.CoilEvaporatorMultiStage",
     method="cvode",
     tolerance=1e-6,
     stopTime=1.0,
-    resultFile="CoilCoolingCounterFlow");
+    resultFile="CoilEvaporatorMultiStage");
 createPlot(
     id=1,
     position={15, 15, 1192, 772},
