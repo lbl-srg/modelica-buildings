@@ -45,7 +45,7 @@ protected
     final uHigh=0) if not warmUpByTimeDelay
     "Check if actual engine temperature is higher than the nominal value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
  if not warmUpByTimeDelay
     "Difference between actual engine temperature and the nominal value"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -54,7 +54,7 @@ protected
     final k=TEngNom)
     "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
  if not warmUpByTimeDelay
     "Difference between actual power output and demand"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
@@ -70,17 +70,17 @@ protected
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
 equation
-  connect(add.y, hysTem.u)
+  connect(sub.y, hysTem.u)
     annotation (Line(points={{-28,0},{-12,0}}, color={0,0,127}));
-  connect(TEng, add.u1)
+  connect(TEng, sub.u1)
     annotation (Line(points={{-120,20},{-80,20},{-80,6},{-52,6}}, color={0,0,127}));
-  connect(temEngNom.y, add.u2)
+  connect(temEngNom.y, sub.u2)
     annotation (Line(points={{-66,-20},{-60,-20},{-60, -6},{-52,-6}}, color={0,0,127}));
   connect(actWarUp, timer.u)
     annotation (Line(points={{-120,60},{-2,60}},    color={255,0,255}));
-  connect(add1.y, hysPow.u)
+  connect(sub1.y, hysPow.u)
     annotation (Line(points={{-28,-60},{-12,-60}}, color={0,0,127}));
-  connect(PEle, add1.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,-66},
+  connect(PEle, sub1.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,-66},
           {-52,-66}}, color={0,0,127}));
   connect(hysTem.y, or2.u1) annotation (Line(points={{12,0},{20,0},{20,-20},{28,
           -20}}, color={255,0,255}));
@@ -90,7 +90,7 @@ equation
     annotation (Line(points={{52,-20},{58,-20}}, color={255,0,255}));
   connect(pre.y, y) annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}},
         color={255,0,255}));
-  connect(PEleNet, add1.u1) annotation (Line(points={{-120,-40},{-80,-40},{-80,
+  connect(PEleNet, sub1.u1) annotation (Line(points={{-120,-40},{-80,-40},{-80,
           -54},{-52,-54}}, color={0,0,127}));
   connect(timer.passed, y) annotation (Line(points={{22,52},{60,52},{60,0},{120,
           0}}, color={255,0,255}));

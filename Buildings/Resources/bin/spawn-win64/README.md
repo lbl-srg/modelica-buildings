@@ -72,7 +72,7 @@ export Clang_DIR=/path/to/clang/
 ```
 
 * Install Graal from https://github.com/graalvm/graalvm-ce-builds/releases. Spawn requires the java11 "ce" package, which is the community open source version.
-Extract the graal tarball and include the bin directory in the system path. After installing graal the "native-image" utility must be installed separately according to the directions here https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image.
+Extract the graal tarball and include the bin directory in the system path. After installing graal the "native-image" utility must be installed separately according to the directions here https://www.graalvm.org/reference-manual/native-image/#install-native-image.
 
 ```shell
 gu install native-image

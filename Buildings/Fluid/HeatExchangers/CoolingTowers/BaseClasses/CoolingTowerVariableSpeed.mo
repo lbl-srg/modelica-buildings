@@ -95,12 +95,6 @@ initial equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-54,6},{58,-114}},
-          textColor={255,255,255},
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Solid,
-          textString="Merkel"),
         Ellipse(
           extent={{-54,62},{0,50}},
           lineColor={255,255,255},
@@ -134,17 +128,7 @@ initial equation
           textColor={0,0,127},
           textString="PFan"),
         Rectangle(
-          extent={{78,-60},{82,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{70,-58},{104,-96}},
-          textColor={0,0,127},
-          textString="TLvg"),
-        Rectangle(
-          extent={{78,-58},{102,-62}},
+          extent={{-100,41},{-70,38}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},

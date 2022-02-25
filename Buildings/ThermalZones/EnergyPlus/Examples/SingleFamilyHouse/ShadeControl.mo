@@ -167,9 +167,7 @@ protected
     HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
       "Prescribed heat flow rate"
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-    Controls.OBC.CDL.Continuous.Gain gai(
-      k=-5000)
-      "Gain"
+    Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-5000) "Gain"
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
     Controls.OBC.CDL.Continuous.PID conPID(
       Ti=120,

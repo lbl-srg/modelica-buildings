@@ -99,7 +99,7 @@ block RoomVAV "Controller for room VAV box"
     final uHigh=0)
     "Output true if room temperature below heating set point"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback dTHea
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHea
     "Heating loop control error"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(
@@ -112,7 +112,7 @@ block RoomVAV "Controller for room VAV box"
     "The difference between cooling and heating set points must be greater than dTHys")
     "Assert message"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback dTSet
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTSet
     "Difference between cooling and heating set points"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=dTHys)
@@ -146,12 +146,13 @@ equation
   connect(reqFlo.y, yDam)
     annotation (Line(points={{92,0},{110,0}},               color={0,0,127}));
 
-  connect(TRooHeaSet, dTHea.u1) annotation (Line(points={{-120,60},{-70,60},{-70,
-          140},{-52,140}}, color={0,0,127}));
+  connect(TRooHeaSet, dTHea.u1) annotation (Line(points={{-120,60},{-70,60},{
+          -70,146},{-52,146}},
+                           color={0,0,127}));
   connect(dTHea.y, hysWitHol.u)
     annotation (Line(points={{-28,140},{-12,140}}, color={0,0,127}));
-  connect(TRoo, dTHea.u2) annotation (Line(points={{-120,-70},{-80,-70},{-80,120},
-          {-40,120},{-40,128}}, color={0,0,127}));
+  connect(TRoo, dTHea.u2) annotation (Line(points={{-120,-70},{-80,-70},{-80,
+          134},{-52,134}},      color={0,0,127}));
   connect(minFloCoo.y, swi.u3) annotation (Line(points={{-38,40},{-20,40},{-20,52},
           {-12,52}}, color={0,0,127}));
   connect(minFloHea.y, swi.u1) annotation (Line(points={{-38,100},{-20,100},{-20,
@@ -161,10 +162,11 @@ equation
           {-16,80},{-16,60},{-12,60}}, color={255,0,255}));
   connect(swi.y, reqFlo.f1)
     annotation (Line(points={{12,60},{20,60},{20,4},{68,4}}, color={0,0,127}));
-  connect(TRooCooSet, dTSet.u1) annotation (Line(points={{-120,0},{-90,0},{-90,-120},
-          {-52,-120}}, color={0,0,127}));
-  connect(TRooHeaSet, dTSet.u2) annotation (Line(points={{-120,60},{-70,60},{-70,
-          -140},{-40,-140},{-40,-132}}, color={0,0,127}));
+  connect(TRooCooSet, dTSet.u1) annotation (Line(points={{-120,0},{-90,0},{-90,
+          -114},{-52,-114}},
+                       color={0,0,127}));
+  connect(TRooHeaSet, dTSet.u2) annotation (Line(points={{-120,60},{-70,60},{
+          -70,-126},{-52,-126}},        color={0,0,127}));
   connect(dTSet.y, greThr.u)
     annotation (Line(points={{-28,-120},{-12,-120}}, color={0,0,127}));
   connect(greThr.y, assMes.u)
