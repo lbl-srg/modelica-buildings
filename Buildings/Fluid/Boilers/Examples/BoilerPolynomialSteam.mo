@@ -10,20 +10,20 @@ model BoilerPolynomialSteam
      "Steam medium - port_b (oulet)";
 
   // Nominal conditions
-  parameter Modelica.SIunits.AbsolutePressure p_nominal = 300000
+  parameter Modelica.Units.SI.AbsolutePressure p_nominal = 300000
     "Nominal pressure";
-  parameter Modelica.SIunits.Temperature T_nominal=
+  parameter Modelica.Units.SI.Temperature T_nominal=
     MediumSte.saturationTemperature(p_nominal)
     "Nominal saturation temperature";
-  parameter Modelica.SIunits.Power Q_flow_nominal = 50000 "Nominal power";
-  parameter Modelica.SIunits.SpecificEnthalpy dh_nominal=
+  parameter Modelica.Units.SI.Power Q_flow_nominal = 50000 "Nominal power";
+  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
     MediumSte.specificEnthalpy(
       MediumSte.setState_pTX(p=p_nominal, T=T_nominal, X=MediumSte.X_default))
     "Nominal change in enthalpy";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
     Q_flow_nominal/dh_nominal/2
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
 
   Modelica.Blocks.Sources.TimeTable y(

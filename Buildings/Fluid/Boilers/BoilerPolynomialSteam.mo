@@ -66,9 +66,8 @@ model BoilerPolynomialSteam
   Modelica.Blocks.Interfaces.RealOutput VLiq(
     final quantity="Volume",
     final unit="m3",
-    min=0)
-    "Output liquid water volume"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    min=0) "Output liquid water volume"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if not steadyDynamics
     "Heat port, can be used to connect to ambient"
     annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
@@ -99,6 +98,11 @@ model BoilerPolynomialSteam
     "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
+  Modelica.Blocks.Interfaces.RealOutput QFueFlo(
+    final quantity="HeatFlowRate",
+    final unit="W",
+    min=0) "Heat flow rate of the fuel"
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
 protected
   final parameter Boolean steadyDynamics=
     if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then true
@@ -114,14 +118,18 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo if not steadyDynamics
   "Prescribed heat flow (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-49,-40},{-29,-20}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow) if not steadyDynamics
-  "Heat transfer from gas into water (if heatPort is connected)"
+  Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
+    if not steadyDynamics
+    "Heat transfer from gas into water (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA) if not steadyDynamics
     "Overall thermal conductance (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
 
+  Modelica.Blocks.Sources.RealExpression QFue_flow_out(y=QFue_flow)
+    "Heat flow rate of the fuel"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 initial equation
   if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
     assert(size(a, 1) == 6,
@@ -173,8 +181,11 @@ equation
     annotation (Line(points={{-100,0},{-60,0}}, color={0,127,255}));
   connect(res.port_b, vol.port_a)
     annotation (Line(points={{-40,0},{0,0}}, color={0,127,255}));
-  connect(vol.VLiq,VLiq)  annotation (Line(points={{21,7},{80,7},{80,80},{110,80}},
+  connect(vol.VLiq,VLiq)  annotation (Line(points={{21,7},{80,7},{80,60},{110,
+          60}},
         color={0,0,127}));
+  connect(QFue_flow_out.y, QFueFlo)
+    annotation (Line(points={{81,90},{110,90}}, color={0,0,127}));
   annotation (
     defaultComponentName="boi",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
