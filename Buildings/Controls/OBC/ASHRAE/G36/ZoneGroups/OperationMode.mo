@@ -20,39 +20,39 @@ block OperationMode "Block that outputs the operation mode"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Zone occupancy status: true=occupied, false=unoccupied"
     annotation (Placement(transformation(extent={{-400,350},{-360,390}}),
-      iconTransformation(extent={{-140,120},{-100,160}})));
+      iconTransformation(extent={{-140,160},{-100,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     final quantity="Time")
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-400,310},{-360,350}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
+      iconTransformation(extent={{-140,140},{-100,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput maxCooDowTim(
     final unit="s",
     final quantity="Time") "Maximum cool-down time among all the zones"
     annotation (Placement(transformation(extent={{-400,260},{-360,300}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigOccCoo
     "True when there is zone with the temperature being higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-400,210},{-360,250}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput maxWarUpTim(
     final unit="s",
     final quantity="Time") "Maximum warm-up time among all the zones"
     annotation (Placement(transformation(extent={{-400,160},{-360,200}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccHeaHig
     "True when there is zone with the temperature being lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{-400,110},{-360,150}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeWin
     "Total number of zones with opening window"
     annotation (Placement(transformation(extent={{-400,70},{-360,110}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totColZon
     "Total number of cold zone"
     annotation (Placement(transformation(extent={{-400,10},{-360,50}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetBac
     "True when the average zone temperature falls below the average unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-400,-40},{-360,0}}),
@@ -78,15 +78,15 @@ block OperationMode "Block that outputs the operation mode"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totHotZon
     "Total number of hot zone"
     annotation (Placement(transformation(extent={{-400,-210},{-360,-170}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetUp
     "True when the average zone temperature rises above the average unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-400,-260},{-360,-220}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+      iconTransformation(extent={{-140,-180},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndSetUp
     "True when the setup mode could end"
     annotation (Placement(transformation(extent={{-400,-290},{-360,-250}}),
-      iconTransformation(extent={{-140,-160},{-100,-120}})));
+      iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod
     "Operation mode"
     annotation (Placement(transformation(extent={{360,-18},{400,22}}),
@@ -716,20 +716,20 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Cool-down mode")}),
-   Icon(coordinateSystem(extent={{-100,-160},{100,160}}),
+   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
         graphics={
         Rectangle(
-        extent={{-100,-160},{100,160}},
+        extent={{-100,-200},{100,200}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,108},{-44,96}},
+          extent={{-98,148},{-44,136}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxCooDowTim"),
         Text(
-          extent={{-98,66},{-50,56}},
+          extent={{-98,106},{-50,96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxWarUpTim"),
@@ -739,31 +739,31 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
-          extent={{-120,200},{100,160}},
+          extent={{-100,240},{100,200}},
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-100,128},{-68,112}},
+          extent={{-100,168},{-68,152}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
-          extent={{-100,144},{-82,136}},
-          lineColor={0,0,127},
+          extent={{-100,188},{-76,176}},
+          lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
-          extent={{-98,88},{-50,76}},
+          extent={{-98,128},{-50,116}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHigOccCoo"),
         Text(
-          extent={{-98,46},{-48,34}},
+          extent={{-98,86},{-48,74}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOccHeaHig"),
         Text(
-          extent={{-98,6},{-60,-4}},
+          extent={{-98,26},{-60,16}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totColZon"),
@@ -783,12 +783,12 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
-          extent={{-98,-94},{-62,-104}},
+          extent={{-98,-114},{-62,-124}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totHotZon"),
         Text(
-          extent={{-98,-134},{-52,-146}},
+          extent={{-98,-174},{-52,-186}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetUp"),
@@ -798,12 +798,12 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uSetBac"),
         Text(
-          extent={{-98,-114},{-66,-126}},
+          extent={{-98,-154},{-66,-166}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSetUp"),
         Text(
-          extent={{-100,26},{-62,16}},
+          extent={{-100,46},{-62,36}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeWin")}),

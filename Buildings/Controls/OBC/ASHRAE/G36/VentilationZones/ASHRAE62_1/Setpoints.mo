@@ -40,7 +40,7 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
     annotation(Dialog(enable=not have_SZVAVWitCO2, group="Design conditions"));
   parameter Real VCooZonMax_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s")
+    final unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
     annotation(Dialog(enable=have_CO2Sen and not have_SZVAVWitCO2, group="Design conditions"));
   parameter Real CO2Set=894
