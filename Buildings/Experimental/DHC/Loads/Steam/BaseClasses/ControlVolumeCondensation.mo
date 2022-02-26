@@ -2,7 +2,9 @@
 model ControlVolumeCondensation
   "Control volume model exhibiting the condensation process of water"
   extends
-    Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume;
+    Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume(
+      redeclare final package Medium_a=MediumSte,
+      redeclare final package Medium_b=MediumWat);
 equation
   // boundary conditions at the ports
   port_a.m_flow = mSte_flow;

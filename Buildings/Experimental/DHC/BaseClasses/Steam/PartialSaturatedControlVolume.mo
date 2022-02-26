@@ -2,8 +2,6 @@
 partial model PartialSaturatedControlVolume
   "Partial control volume for evaporation/condensation processes"
   extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
-    redeclare final package Medium_a=MediumWat,
-    redeclare final package Medium_b=MediumSte,
     p_start=1e6,
     T_start=MediumSte.saturationTemperature(p_start));
 

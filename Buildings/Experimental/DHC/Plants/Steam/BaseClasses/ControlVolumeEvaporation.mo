@@ -1,7 +1,9 @@
 ﻿within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
 model ControlVolumeEvaporation
   "Control volume model exhibiting the evaporation process of water"
-  extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume;
+  extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume(
+    redeclare final package Medium_a=MediumWat,
+    redeclare final package Medium_b=MediumSte);
 equation
 // boundary conditions at the ports
   port_a.m_flow = mWat_flow;
