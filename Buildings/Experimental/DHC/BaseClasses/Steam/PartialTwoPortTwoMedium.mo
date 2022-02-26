@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Interfaces;
+﻿within Buildings.Experimental.DHC.BaseClasses.Steam;
 partial model PartialTwoPortTwoMedium
   "Partial model with two ports with two separate medium models without storing mass or energy"
 
@@ -94,9 +94,15 @@ phase change is inherently present. The split-medium approach
 enables a numerically-efficient liquid water model (i.e., 
 <a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity\">
 Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>) 
-to be implemented alongside an efficient model (i.e., 
-<a href=\"modelica://Buildings.Media.Steam\">Buildings.Media.Steam</a>). 
-Through their combined used, pressure and density calculations are decoupled, 
+to be implemented alongside various water/steam models for other phases.
+For most applications, 
+an efficient model (i.e., <a href=\"modelica://Modelica.Media.Water.StandardWater\">Modelica.Media.Water.StandardWater</a>
+is suitable as it covers the largest range of pressure-temperature conditions through 
+its implementation of the IAPWS-IF97 water/steam formulation.
+If a reduce pressure-temperature range is applicable, 
+<a href=\"modelica://Buildings.Media.Steam\">Buildings.Media.Steam</a>)
+provides a more efficient implementation.  
+Through the split-medium approach, pressure and density calculations are decoupled, 
 eliminating costly nonlinear systems of equations. 
 This interface model also includes parameters for mass and 
 energy dynamics as well as initialization.   
@@ -104,10 +110,10 @@ energy dynamics as well as initialization.
 <h4>Reference</h4>
 <p>
 Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2021. “A New Steam 
-Medium Model for Fast and Accurate Simulation of District 
-Heating Systems.” engrXiv. October 8. 
-<a href=\"https://engrxiv.org/cqfmv/\">doi:10.31224/osf.io/cqfmv</a>
+Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
+Approach for Water and Steam Thermodynamics with Practical 
+Applications in District Heating System Simulation.” Preprint. February 24. 
+<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>
 </p>
 </html>", revisions="<html>
 <ul>

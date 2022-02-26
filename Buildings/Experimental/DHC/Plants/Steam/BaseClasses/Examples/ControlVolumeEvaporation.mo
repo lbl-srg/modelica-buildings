@@ -1,5 +1,5 @@
-within Buildings.Fluid.MixingVolumes.Examples;
-model MixingVolumeEvaporation
+within Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples;
+model ControlVolumeEvaporation
   "Example model for heat transfer with the evaporation mixing volume"
   extends Modelica.Icons.Example;
 
@@ -8,7 +8,7 @@ package MediumSte = Buildings.Media.Steam
 package MediumWat = Buildings.Media.Water
     "Water medium - Medium model for port_a (inlet)";
 
-  Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation volDyn(
+  Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation volDyn(
     V=1,
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,
@@ -16,7 +16,7 @@ package MediumWat = Buildings.Media.Water
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true) "Dynamic volume"
     annotation (Placement(transformation(extent={{20,0},{40,-20}})));
-  Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation volSte(
+  Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation volSte(
     V=1,
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,
@@ -91,6 +91,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(Tolerance=1E-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeEvaporation.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Steam/BaseClasses/Examples/ControlVolumeEvaporation.mos"
         "Simulate and plot"));
-end MixingVolumeEvaporation;
+end ControlVolumeEvaporation;

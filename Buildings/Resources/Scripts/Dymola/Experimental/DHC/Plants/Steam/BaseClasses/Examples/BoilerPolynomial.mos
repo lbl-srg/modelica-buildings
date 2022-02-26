@@ -1,11 +1,11 @@
 // Simulate
-simulateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialSteam", stopTime=3600, tolerance=1e-06, resultFile="BoilerPolynomialSteam");
+simulateModel("Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.BoilerPolynomial", stopTime=3600, tolerance=1e-06, resultFile="BoilerPolynomial");
 // Plot commands
 createPlot(id=1, position={33, 21, 614, 476}, 
 	y={"y.y"}, 
 	range={0.0, 3600.0, -0.5, 1.5}, 
 	grid=true, 
-	filename="BoilerPolynomialSteam.mat", 
+	filename="BoilerPolynomial.mat", 
 	colors={{28,108,200}});
 createPlot(id=1, position={33, 21, 614, 476}, 
 	y={"boiDyn.QFue_flow", "boiSte.QFue_flow"}, 

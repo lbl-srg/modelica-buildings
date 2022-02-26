@@ -1,8 +1,8 @@
-﻿within Buildings.Fluid.Boilers;
-model BoilerPolynomialSteam
+﻿within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
+model BoilerPolynomial
   "A equilibrium boiler with water phase change from liquid to vapor, discharging
   saturated steam vapor, with the efficiency curve described by a polynomial."
-  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
+  extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte);
 
@@ -76,7 +76,7 @@ model BoilerPolynomialSteam
     T(start=T_start)) if not steadyDynamics
     "Heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
-  MixingVolumes.MixingVolumeEvaporation vol(
+  Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation vol(
     redeclare final package MediumSte = MediumSte,
     redeclare final package MediumWat = MediumWat,
     final allowFlowReversal=allowFlowReversal,
@@ -246,7 +246,7 @@ result are within the green region in the below figure:
 </ul>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/BoilerPolynomialSteam.png\" border=\"1\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Steam/BaseClasses/BoilerPolynomial.png\" border=\"1\"
 alt=\"Boiler polynomial steam with blocks in green conditionally removed if steady state\"/>
 </p>
 <h4>Implementation</h4>
@@ -256,8 +256,8 @@ the split-medium approach using the
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium\">
 Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium</a> interface model.
 The saturated mixing volume for an evaporation process 
-<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation\">
-Buildings.Fluid.MixingVolumes.MixingVolumeEvaporation</a> 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation\">
+Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation</a> 
 represents the phase change process of water from liquid 
 to vapor at equilibrium.
 </p>
@@ -281,4 +281,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end BoilerPolynomialSteam;
+end BoilerPolynomial;

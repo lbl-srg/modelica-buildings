@@ -1,0 +1,10 @@
+within Buildings.Experimental.DHC.BaseClasses;
+package Steam "fixme: add brief description"
+  extends Modelica.Icons.Package;
+
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+fixme: add a package description.
+</p>
+</html>"));
+end Steam;

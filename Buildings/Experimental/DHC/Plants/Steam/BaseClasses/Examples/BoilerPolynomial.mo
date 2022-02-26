@@ -1,5 +1,5 @@
-within Buildings.Fluid.Boilers.Examples;
-model BoilerPolynomialSteam
+within Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples;
+model BoilerPolynomial
   "Example model for the steam boiler with a polynomial efficiency curve"
   extends Modelica.Icons.Example;
 
@@ -47,7 +47,7 @@ model BoilerPolynomialSteam
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Fluid.Boilers.BoilerPolynomialSteam boiDyn(
+  Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial boiDyn(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -57,7 +57,7 @@ model BoilerPolynomialSteam
     dp_nominal=dp_nominal)
     "Steam boiler with dynamic balance"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Boilers.BoilerPolynomialSteam boiSte(
+  Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial boiSte(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -83,7 +83,7 @@ equation
   connect(boiSte.port_b, sin.ports[2])
     annotation (Line(points={{20,-50},{50,
           -50},{50,-14},{62,-14}}, color={0,127,255}));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialSteam.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Steam/BaseClasses/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>
@@ -103,4 +103,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end BoilerPolynomialSteam;
+end BoilerPolynomial;

@@ -1,7 +1,7 @@
-﻿within Buildings.Fluid.MixingVolumes;
-model MixingVolumeEvaporation
+﻿within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
+model ControlVolumeEvaporation
   "Mixing volume model exhibiting the evaporation process of water"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium(
+  extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte,
     p_start=1000000,
@@ -313,19 +313,19 @@ The liquid and vapor components in the volume are at equilibrium.
 </ul>
 <p>
 This model is instantiated in 
-<a href = \"modelica://Buildings.Fluid.Boilers.BoilerPolynomialSteam\">
-Buildings.Fluid.Boilers.BoilerPolynomialSteam</a>, which exhibits
+<a href = \"modelica://Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial\">
+Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial</a>, which exhibits
 phase change process of water from liquid state to vapor state.
 </p>
 
 <h4>Reference</h4>
 <p>
 Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2021. “A New Steam 
-Medium Model for Fast and Accurate Simulation of District 
-Heating Systems.” engrXiv. October 8. 
-<a href=\"https://engrxiv.org/cqfmv/\">doi:10.31224/osf.io/cqfmv</a>
+Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
+Approach for Water and Steam Thermodynamics with Practical 
+Applications in District Heating System Simulation.” Preprint. February 24. 
+<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>
 </p>
 
 </html>"));
-end MixingVolumeEvaporation;
+end ControlVolumeEvaporation;
