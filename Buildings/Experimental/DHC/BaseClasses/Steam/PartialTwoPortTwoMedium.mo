@@ -113,7 +113,7 @@ Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter,
 Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
 Approach for Water and Steam Thermodynamics with Practical 
 Applications in District Heating System Simulation.” Preprint. February 24. 
-<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>
+<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>.
 </p>
 </html>", revisions="<html>
 <ul>
