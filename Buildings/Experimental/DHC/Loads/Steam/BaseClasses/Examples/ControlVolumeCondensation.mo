@@ -32,13 +32,13 @@ package MediumWat =
     redeclare package Medium = MediumSte,
     use_m_flow_in=true,
     T=453.15,
-    nPorts=1) "Flow source and sink"
+    nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = MediumSte,
     use_m_flow_in=true,
     T=453.15,
-    nPorts=1) "Flow source and sink"
+    nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumWat,

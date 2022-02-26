@@ -29,13 +29,13 @@ package MediumWat =
     redeclare package Medium = MediumWat,
     use_m_flow_in=true,
     T=313.15,
-    nPorts=1) "Flow source and sink"
+    nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = MediumWat,
     use_m_flow_in=true,
     T=313.15,
-    nPorts=1) "Flow source and sink"
+    nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumSte,
@@ -45,12 +45,12 @@ package MediumWat =
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1,
     offset=1,
-    height=-2)
+    height=-2) "Ramp"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Blocks.Sources.Constant const(k=-1000000)
+  Modelica.Blocks.Sources.Constant const(k=-1000000) "Heat loss"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
