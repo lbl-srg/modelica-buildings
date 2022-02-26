@@ -1,6 +1,7 @@
 ﻿within Buildings.Experimental.DHC.BaseClasses.Steam;
 partial model PartialSaturatedControlVolume
   "Partial control volume for evaporation/condensation processes"
+  extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     p_start=1e6,
     T_start=MediumSte.saturationTemperature(p_start));
@@ -154,10 +155,6 @@ annotation (defaultComponentName="vol",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          extent={{-152,102},{148,142}},
-          textString="%name",
-          lineColor={0,0,255}),
        Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

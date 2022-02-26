@@ -2,6 +2,7 @@
 model BoilerPolynomial
   "A equilibrium boiler with water phase change from liquid to vapor, discharging
   saturated steam vapor, with the efficiency curve described by a polynomial."
+  extends Buildings.BaseClasses.BaseIconLow;
   extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte);
@@ -189,10 +190,6 @@ equation
   annotation (
     defaultComponentName="boi",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Text(
-          extent={{-149,-124},{151,-164}},
-          lineColor={0,0,255},
-          textString="%name"),
         Rectangle(
           extent={{-80,60},{80,-60}},
           lineColor={0,0,255},
