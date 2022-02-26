@@ -4,19 +4,55 @@ partial model PartialSaturatedControlVolume
   extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte,
-    p_start=1000000,
-    T_start=453.15);
+    p_start=1e6,
+    T_start=MediumSte.saturationTemperature(p_start));
 
   // Medium declarations
   replaceable package MediumWat =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity
-    "Liquid water medium - port_a(inlet)";
+    "Liquid water medium";
   replaceable package MediumSte = Buildings.Media.Steam
-     "Steam medium - port_b(oulet)";
+     "Steam medium";
+
+  // Parameters
+  parameter Modelica.Units.SI.Volume V "Total volume";
+  // Initialization
+  parameter Modelica.Units.SI.Volume VWat_start=V/2
+    "Start value of liquid volume"
+    annotation (Dialog(tab="Initialization"));
+
+  // Variables
+  MediumWat.ThermodynamicState stateWat(p=p, T=T)
+    "Saturated state, liquid water";
+  MediumWat.ThermodynamicState stateSte(p=p, T=T)
+    "Saturated state, steam";
+  MediumSte.AbsolutePressure p(
+    final start=p_start,
+    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    then StateSelect.default else StateSelect.prefer)
+    "Pressure inside volume";
+  MediumSte.Temperature T(final start=T_start) "Temperature inside volume";
+  Modelica.Units.SI.Volume VSte "Volume of steam vapor";
+  Modelica.Units.SI.Volume VWat(
+    final start=VWat_start,
+    fixed=true,
+    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    then StateSelect.default else StateSelect.prefer)
+    "Volume of liquid water phase";
+  Modelica.Units.SI.VolumeFlowRate VWat_flow(start=0) = der(VWat)
+    "Volumetric flow rate of liquid water";
+  MediumSte.SpecificEnthalpy hSte "Specific enthalpy of steam vapor";
+  MediumWat.SpecificEnthalpy hWat "Specific enthalpy of liquid water";
+  MediumSte.Density rhoSte "Density of steam vapor";
+  MediumWat.Density rhoWat "Density of liquid water";
+  Modelica.Units.SI.Mass m "Total mass of volume";
+  Modelica.Units.SI.Energy U "Internal energy";
+  Modelica.Units.SI.MassFlowRate mWat_flow "Feed water mass flow rate";
+  Modelica.Units.SI.MassFlowRate mSte_flow "Steam mass flow rate";
 
   // Input
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
-    T(start=T_start)) if not steadyDynamics "Heat port"
+    T(final start=T_start)) if not steadyDynamics "Heat port"
   annotation (Placement(transformation(extent={{-10,-90},{10,-110}})));
   //Output
   Modelica.Blocks.Interfaces.RealOutput VLiq(unit="m3") "Liquid volume"
@@ -28,60 +64,9 @@ partial model PartialSaturatedControlVolume
         rotation=0,
         origin={110,70})));
 
-  // Parameter
-  parameter Modelica.Units.SI.Volume V "Total volume";
-
-// Variables
-  MediumWat.ThermodynamicState state_saturated
-    "Saturated state";
-  MediumSte.AbsolutePressure p(
-    start=p_start,
-    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.prefer)
-    "Pressure inside volume";
-  MediumSte.Temperature T(start=T_start) "Temperature inside volume";
-  Modelica.Units.SI.Volume VSte(final start=VSte_start) "Volume of steam vapor";
-  Modelica.Units.SI.Volume VWat(
-    start=VWat_start,
-    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.prefer)
-    "Volume of liquid water phase";
-  MediumSte.SpecificEnthalpy hSte "Specific enthalpy of steam vapor";
-  MediumWat.SpecificEnthalpy hWat "Specific enthalpy of liquid water";
-  MediumSte.Density rhoSte "Density of steam vapor";
-  MediumWat.Density rhoWat "Density of liquid water";
-  Modelica.Units.SI.Mass m "Total mass of volume";
-  Modelica.Units.SI.Energy U(final start=U_start) "Internal energy";
-  Modelica.Units.SI.MassFlowRate mWat_flow "Feed water mass flow rate";
-  Modelica.Units.SI.MassFlowRate mSte_flow "Steam mass flow rate";
-
-  // Initialization
-  parameter Modelica.Units.SI.Volume VWat_start=V/2
-    "Start value of liquid volume"
-    annotation (Dialog(tab="Initialization"));
-  final parameter Modelica.Units.SI.Volume VSte_start= V-VWat_start
-  "Start value of steam vapor volume";
-  final parameter MediumWat.ThermodynamicState state_start = MediumWat.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=MediumWat.X_default) "Medium state at default values";
-  final parameter Modelica.Units.SI.Density rhoWat_start=MediumWat.density(
-    state=state_start) "Density, used to compute fluid mass";
-  final parameter Modelica.Units.SI.Density rhoSte_start=MediumSte.density(
-    state=state_start) "Density, used to compute fluid mass";
-  final parameter Modelica.Units.SI.SpecificEnthalpy hSteStart=
-    MediumSte.specificEnthalpy_pTX(p_start, T_start, MediumSte.X_default)
-    "Start value for specific enthalpy";
-  final parameter Modelica.Units.SI.Energy U_start=
-    VWat_start*rhoWat_start*MediumWat.specificEnthalpy(state_start) +
-    VSte_start*rhoSte_start*MediumSte.specificEnthalpy(state_start) -
-    p_start*V
-    "Starting internal energy";
-
 protected
   final parameter Boolean steadyDynamics=
-    if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then true
-      else false
+    energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     "= true, if steady state formulation";
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem if not steadyDynamics
@@ -109,16 +94,10 @@ initial equation
   end if;
 
 // Initial conditions
-  if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-    // No intial condition is given here to avoid overspecification in models
-    // that use this base class.
-  elseif energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+  if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
     der(T) = 0;
   end if;
-
-  if massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-     VWat = VWat_start;
-  elseif massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+  if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
     der(p)=0;
   end if;
 
@@ -136,11 +115,12 @@ equation
   end if;
 
   // Energy balance
-  connect(heaFloSen.Q_flow, Q_flow_internal) "Needed because of conditional input";
+
   if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    U = U_start;
+    der(U) = 0;
     Q_flow_internal = 0;
   else
+    connect(heaFloSen.Q_flow, Q_flow_internal) "Needed because of conditional input";
     der(U) = Q_flow_internal
             + port_a.m_flow*actualStream(port_a.h_outflow)
             + port_b.m_flow*actualStream(port_b.h_outflow)
@@ -148,13 +128,11 @@ equation
   end if;
 
 // Properties of saturated liquid and steam
-  state_saturated.p = p;
-  state_saturated.T = T;
   T = MediumSte.saturationTemperature(p);
-  hSte=MediumSte.specificEnthalpy(state_saturated);
-  hWat=MediumWat.specificEnthalpy(state_saturated);
-  rhoSte=MediumSte.density(state_saturated);
-  rhoWat=MediumWat.density(state_saturated);
+  hSte=MediumSte.specificEnthalpy(stateSte);
+  hWat=MediumWat.specificEnthalpy(stateWat);
+  rhoSte=MediumSte.density(stateSte);
+  rhoWat=MediumWat.density(stateWat);
 
 // boundary conditions at the ports
   port_a.p = p;
@@ -188,17 +166,7 @@ annotation (defaultComponentName="vol",
           fillPattern=FillPattern.Sphere,
           fillColor=DynamicSelect({170,213,255},
           min(1, max(0, (1-(T-273.15)/50)))*{28,108,200}
-          +min(1, max(0, (T-273.15)/50))*{255,0,0})),
-      Line(
-        points={{0,40},{-40,20},{0,-20},{-40,-40}},
-        color={0,0,0},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}}),
-      Line(
-        points={{40,40},{0,20},{40,-20},{0,-40}},
-        color={0,0,0},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}})}),
+          +min(1, max(0, (T-273.15)/50))*{255,0,0}))}),
     Documentation(revisions="<html>
 <ul>
 <li>

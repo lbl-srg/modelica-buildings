@@ -1,15 +1,17 @@
-within Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples;
-model ControlVolumeEvaporation
-  "Example model for heat transfer with the evaporation control volume"
+within Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples;
+model ControlVolumeCondensation
+  "Example model for heat transfer with the condensation control volume"
   extends Modelica.Icons.Example;
 
-package MediumSte = Buildings.Media.Steam
-    "Steam medium - Medium model for port_b (outlet)";
+package MediumSte = Buildings.Media.Steam (
+  T_default=273.15+180,
+  p_default=1e6)
+    "Steam medium - Medium model for port_a (inlet)";
 package MediumWat =
       Buildings.Media.Specialized.Water.TemperatureDependentDensity
-    "Water medium - Medium model for port_a (inlet)";
+    "Water medium - Medium model for port_b (outlet)";
 
-  Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation volDyn(
+  Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation volDyn(
     V=1,
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,
@@ -17,7 +19,8 @@ package MediumWat =
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true) "Dynamic volume"
     annotation (Placement(transformation(extent={{20,0},{40,-20}})));
-  Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation volSte(
+  Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation volSte(
+    T_start=393.15,
     V=1,
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,
@@ -26,31 +29,32 @@ package MediumWat =
     allowFlowReversal=true) "Steady volume"
     annotation (Placement(transformation(extent={{20,-40},{40,-60}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
-    redeclare package Medium = MediumWat,
+    redeclare package Medium = MediumSte,
     use_m_flow_in=true,
-    T=313.15,
+    T=453.15,
     nPorts=1) "Flow source and sink"
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou1(
-    redeclare package Medium = MediumWat,
+    redeclare package Medium = MediumSte,
     use_m_flow_in=true,
-    T=313.15,
+    T=453.15,
     nPorts=1) "Flow source and sink"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
-    redeclare package Medium = MediumSte,
+    redeclare package Medium = MediumWat,
     p=volDyn.p_start,
+    T=293.15,
     nPorts=2) "Boundary condition"
     annotation (Placement(transformation(extent={{80,-22},{60,-2}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1,
-    offset=1,
-    height=-2)
+    offset=2,
+    height=-1) "Ramp signal"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Blocks.Sources.Constant const(k=-1000000)
+  Modelica.Blocks.Sources.Constant const(k=-10000) "Heat loss"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
@@ -79,19 +83,19 @@ equation
   annotation (Documentation(
         info="<html>
 <p>
-This model demonstrates the use of the control volume with evaporation.
+This model demonstrates the use of the control volume with condensation.
 The dynamic volume includes heat conduction to the ambient while the
 steady volume heat balance is only dependent on the mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 22, 2021 by Kathryn Hinkelman:<br/>
+February 26, 2022 by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
 experiment(Tolerance=1E-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Steam/BaseClasses/Examples/ControlVolumeEvaporation.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Steam/BaseClasses/Examples/ControlVolumeCondensation.mos"
         "Simulate and plot"));
-end ControlVolumeEvaporation;
+end ControlVolumeCondensation;

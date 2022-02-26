@@ -4,7 +4,8 @@ model BoilerPolynomial
   extends Modelica.Icons.Example;
 
   // Medium declarations
-  package MediumWat = Buildings.Media.Water
+  package MediumWat =
+      Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - port_a (inlet)";
   package MediumSte = Buildings.Media.Steam
      "Steam medium - port_b (oulet)";

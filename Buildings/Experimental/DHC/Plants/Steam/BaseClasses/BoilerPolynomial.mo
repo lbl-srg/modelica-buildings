@@ -87,7 +87,7 @@ model BoilerPolynomial
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final V=V)
-    "Steam/water mixing volume"
+    "Steam/water control volume"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumWat,
