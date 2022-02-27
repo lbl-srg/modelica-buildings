@@ -5,8 +5,8 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
-  Modelica.Units.SI.Angle theta_s "Phase angel";
-  Modelica.Units.SI.AngularVelocity omega "Angular frequency";
+  Modelica.Units.SI.Angle theta_s "Supply voltage phase angel";
+  Modelica.Units.SI.AngularVelocity omega "Supply voltage angular frequency";
   Modelica.Units.SI.AngularVelocity omega_r "Rotor angular frequency";
 
   Modelica.Units.SI.Voltage v[:] = terminal.v
@@ -18,11 +18,11 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
   parameter Integer n = 3 "Number of phases";
   parameter Modelica.Units.SI.Inertia J(min=0) = 2 "Moment of inertia";
 
-  parameter Modelica.Units.SI.Resistance R_s=0.013 "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r=0.009 "Electric resistance of rotor";
-  parameter Modelica.Units.SI.Reactance X_s=0.14 "Complex component of the impedance of stator";
-  parameter Modelica.Units.SI.Reactance X_r=0.12 "Complex component of the impedance of rotor";
-  parameter Modelica.Units.SI.Reactance X_m=2.4 "Complex component of the magnetizing reactance";
+  parameter Modelica.Units.SI.Resistance R_s = 0.013 "Electric resistance of stator";
+  parameter Modelica.Units.SI.Resistance R_r = 0.009 "Electric resistance of rotor";
+  parameter Modelica.Units.SI.Reactance X_s = 0.14 "Complex component of the impedance of stator";
+  parameter Modelica.Units.SI.Reactance X_r = 0.12 "Complex component of the impedance of rotor";
+  parameter Modelica.Units.SI.Reactance X_m = 2.4 "Complex component of the magnetizing reactance";
 
   Modelica.Units.SI.Torque tau_e "Electromagenetic torque of rotor";
   Modelica.Units.SI.Power pow_gap "Air gap power";
@@ -54,17 +54,17 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
         iconTransformation(extent={{100,60},{140,100}})));
   Modelica.Blocks.Interfaces.RealOutput Q(
     quantity = "Power",
-    unit = "W")
+    unit = "var")
     "Reactive power"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,20},{140,60}})));
-  Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi))
+  Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms)
+  Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true)
+  Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true) "Speed connector"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   BaseClasses.MotorMachineInterface torSpe(
   n=n,

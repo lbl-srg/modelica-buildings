@@ -10,11 +10,11 @@ model Chiller "Motor coupled chiller"
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
- parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0)= -P_nominal * COP_nominal
+ parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
 
- parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0)= P_nominal - QEva_flow_nominal
+ parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -28,8 +28,8 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
-    "Nominal rotational speed for flow characteristic"
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal = 1500
+    "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
  // Efficiency
   parameter Boolean use_eta_Carnot_nominal = true
@@ -71,20 +71,19 @@ model Chiller "Motor coupled chiller"
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
-  parameter Modelica.Units.SI.Frequency f_base=50 "Frequency of the source";
-  parameter Integer pole=2 "Number of pole pairs";
-  parameter Integer n=3 "Number of phases";
-  parameter Modelica.Units.SI.Inertia JMotor=10 "Moment of inertia";
-  parameter Modelica.Units.SI.Resistance R_s=24.5
+  parameter Integer pole = 2 "Number of pole pairs";
+  parameter Integer n = 3 "Number of phases";
+  parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
+  parameter Modelica.Units.SI.Resistance R_s = 24.5
     "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r=23 "Electric resistance of rotor";
-  parameter Modelica.Units.SI.Reactance X_s=10
+  parameter Modelica.Units.SI.Resistance R_r = 23 "Electric resistance of rotor";
+  parameter Modelica.Units.SI.Reactance X_s = 10
     "Complex component of the impedance of stator";
-  parameter Modelica.Units.SI.Reactance X_r=40
+  parameter Modelica.Units.SI.Reactance X_r = 40
     "Complex component of the impedance of rotor";
-  parameter Modelica.Units.SI.Reactance X_m=25
+  parameter Modelica.Units.SI.Reactance X_m = 25
     "Complex component of the magnetizing reactance";
-  parameter Modelica.Units.SI.Inertia JLoad=2 "Moment of inertia";
+  parameter Modelica.Units.SI.Inertia JLoad = 2 "Load inertia";
 
   ThermoFluid.Chiller mecChi(
     redeclare package Medium1 = Medium1,
@@ -109,27 +108,36 @@ model Chiller "Motor coupled chiller"
     Nrpm_nominal=Nrpm_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau)
+  Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau) "Chiller torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W")
     "Real power"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),  iconTransformation(extent={{100,20},
             {120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput Q "Reactive power"
+  Modelica.Blocks.Interfaces.RealOutput Q(quantity="Power", unit="var")
+  "Reactive power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
                                                                       iconTransformation(extent={{100,-40},
             {120,-20}})));
-  Modelica.Blocks.Interfaces.RealInput setPoi annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,90}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,90})));
-  Modelica.Blocks.Interfaces.RealInput meaPoi annotation (Placement(transformation(extent={{-120,20},{-100,40}}),
+  Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target" annotation (Placement(transformation(extent={{-120,20},{-100,40}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
-  InductionMotors.SquirrelCageDrive simMot
+  InductionMotors.SquirrelCageDrive simMot(
+    pole=pole,
+    n=n,
+    J=JMotor,
+    R_s=R_s,
+    R_r=R_r,
+    X_s=X_s,
+    X_r=X_r,
+    X_m=X_m)
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 protected
   constant Boolean COP_is_for_cooling = true

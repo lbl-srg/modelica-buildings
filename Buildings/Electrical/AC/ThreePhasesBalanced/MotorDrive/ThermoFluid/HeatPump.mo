@@ -4,11 +4,11 @@ model HeatPump "Heat pump with mechanical interface"
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
- parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal=-P_nominal*(
+ parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal = -P_nominal*(
       COP_nominal - 1)
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0)= P_nominal - QEva_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -22,11 +22,11 @@ model HeatPump "Heat pump with mechanical interface"
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
-    "Nominal rotational speed for flow characteristic"
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal = 1500
+    "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Inertia loaIne=1;
-  Modelica.Units.SI.Torque tauPum;
+  parameter Modelica.Units.SI.Inertia loaIne = 1 "Heat pump inertia";
+  Modelica.Units.SI.Torque tauHea "Heat pump torque";
 
  // Efficiency
   parameter Boolean use_eta_Carnot_nominal = true
@@ -42,10 +42,10 @@ model HeatPump "Heat pump with mechanical interface"
     "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
-  parameter Modelica.Units.SI.Temperature TCon_nominal=303.15
+  parameter Modelica.Units.SI.Temperature TCon_nominal = 303.15
     "Condenser temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
-  parameter Modelica.Units.SI.Temperature TEva_nominal=278.15
+  parameter Modelica.Units.SI.Temperature TEva_nominal = 278.15
     "Evaporator temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
@@ -68,7 +68,7 @@ model HeatPump "Heat pump with mechanical interface"
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Fluid.HeatPumps.Carnot_y heaPum(
     redeclare package Medium1 = Medium1,
@@ -86,19 +86,19 @@ model HeatPump "Heat pump with mechanical interface"
     TAppEva_nominal=TAppEva_nominal,
     P_nominal=P_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne) annotation (
+  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne) "Heat pump inertia" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,80})));
-  Modelica.Mechanics.Rotational.Sources.Torque tor
+  Modelica.Mechanics.Rotational.Sources.Torque tor "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(y=-tauPum)
+  Modelica.Blocks.Sources.RealExpression tauSor(y=-tauHea)
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe annotation (Placement(transformation(extent={{10,50},
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s" annotation (Placement(transformation(extent={{10,50},
             {30,70}})));
 public
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm
@@ -131,7 +131,7 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
 
 equation
-  heaPum.P = Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8)*tauPum;
+  heaPum.P = Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8)*tauHea;
 
   connect(port_a1, heaPum.port_a1) annotation (Line(points={{-100,60},{-60,60},{
           -60,6},{-10,6}}, color={0,127,255}));
@@ -156,11 +156,11 @@ equation
   connect(multiProduct.y, heaPum.y) annotation (Line(points={{-81.02,40},{-90,
           40},{-90,9},{-12,9}}, color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[1]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,42.8},{-68,42.8}},     color={0,0,127}));
+          {-50,38.6},{-68,38.6}},     color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[2]) annotation (Line(points={{-41,40},{-50,
           40},{-50,40},{-68,40}}, color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[3]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,37.2},{-68,37.2}},     color={0,0,127}));
+          {-50,41.4},{-68,41.4}},     color={0,0,127}));
   annotation (defaultComponentName = "hea",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={

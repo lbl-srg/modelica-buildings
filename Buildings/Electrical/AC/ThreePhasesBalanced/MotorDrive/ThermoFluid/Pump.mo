@@ -5,11 +5,10 @@ model Pump
   port_a(p(start=Medium.p_default)),
   port_b(p(start=Medium.p_default)));
 
-  Modelica.Units.SI.Torque tauPum;
-  parameter Modelica.Units.SI.Inertia loaIne=1;
+  Modelica.Units.SI.Torque tauPum "Pump torque";
+  parameter Modelica.Units.SI.Inertia loaIne = 1 "Pump inertia";
 
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
-  "Mechanical connector"
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
   annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pum(
     redeclare package Medium = Medium,
@@ -32,19 +31,19 @@ model Pump
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne) annotation (
+  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne) "Pump inertia" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,80})));
-  Modelica.Mechanics.Rotational.Sources.Torque tor
+  Modelica.Mechanics.Rotational.Sources.Torque tor "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Sources.RealExpression tauSor(y=-tauPum)
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe annotation (Placement(transformation(extent={{10,50},
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s" annotation (Placement(transformation(extent={{10,50},
             {30,70}})));
 public
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm

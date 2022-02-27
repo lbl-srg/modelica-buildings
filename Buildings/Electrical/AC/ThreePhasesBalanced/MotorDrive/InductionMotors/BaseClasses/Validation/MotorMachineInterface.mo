@@ -3,7 +3,7 @@ model MotorMachineInterface "Validate model MotorMachineInterface"
   import Modelica.Constants.pi;
   extends Modelica.Icons.Example;
 
-  parameter Integer pole=4 "Number of pole pairs";
+  parameter Integer pole = 4 "Number of pole pairs";
   parameter Modelica.Units.SI.Frequency f = 60 "Fequency";
 
   MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface torSpe(pole=pole)

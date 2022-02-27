@@ -8,20 +8,19 @@ model Pump "Motor coupled chiller"
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
-  parameter Modelica.Units.SI.Frequency f_base=60 "Frequency of the source";
   parameter Integer pole = 4 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
-  parameter Modelica.Units.SI.Inertia JMotor(min=0) = 2 "Moment of inertia";
+  parameter Modelica.Units.SI.Inertia JMotor(min=0) = 2 "Motor inertia";
 
-  parameter Modelica.Units.SI.Resistance R_s=0.013 "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r=0.009 "Electric resistance of rotor";
-  parameter Modelica.Units.SI.Reactance X_s=0.14 "Complex component of the impedance of stator";
-  parameter Modelica.Units.SI.Reactance X_r=0.12 "Complex component of the impedance of rotor";
-  parameter Modelica.Units.SI.Reactance X_m=2.4 "Complex component of the magnetizing reactance";
+  parameter Modelica.Units.SI.Resistance R_s = 0.013 "Electric resistance of stator";
+  parameter Modelica.Units.SI.Resistance R_r = 0.009 "Electric resistance of rotor";
+  parameter Modelica.Units.SI.Reactance X_s = 0.14 "Complex component of the impedance of stator";
+  parameter Modelica.Units.SI.Reactance X_r = 0.12 "Complex component of the impedance of rotor";
+  parameter Modelica.Units.SI.Reactance X_m = 2.4 "Complex component of the magnetizing reactance";
 
-  parameter Modelica.Units.SI.Inertia JLoad=2 "Moment of inertia";
+  parameter Modelica.Units.SI.Inertia JLoad = 2 "Pump inertia";
 
-  Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau)
+  Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau) "Pump torque block"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   ThermoFluid.Pump pum(
     redeclare package Medium = Medium,
@@ -40,24 +39,33 @@ model Pump "Motor coupled chiller"
     "Real power"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput Q "Reactive power"
+  Modelica.Blocks.Interfaces.RealOutput Q(quantity="Power",unit="var")
+  "Reactive power"
     annotation (Placement(transformation(extent={{100,60},{120,80}}),
         iconTransformation(extent={{100,60},{120,80}})));
-  Modelica.Blocks.Interfaces.RealInput setPoi annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80})));
-  Modelica.Blocks.Interfaces.RealInput meaPoi annotation (Placement(transformation(extent={{-120,40},
+  Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target" annotation (Placement(transformation(extent={{-120,40},
             {-100,60}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-10,-78},{10,-58}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-  InductionMotors.SquirrelCageDrive simMot
+  InductionMotors.SquirrelCageDrive simMot(
+    pole=pole,
+    n=n,
+    J=JMotor,
+    R_s=R_s,
+    R_r=R_r,
+    X_s=X_s,
+    X_r=X_r,
+    X_m=X_m)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
 

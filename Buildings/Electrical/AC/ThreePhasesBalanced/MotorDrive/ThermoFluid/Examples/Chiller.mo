@@ -3,10 +3,10 @@ model Chiller "Test model for chiller with mechanical interface"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Water;
-  parameter Modelica.Units.SI.Torque tauMot=20
-  "Constant torque (if negative, torque is acting as load in positive direction of rotation)";
-  parameter Modelica.Units.SI.Inertia JLoad=30
-  "Moment of inertia";
+  parameter Modelica.Units.SI.Torque tau = 20
+  "Provided torque";
+  parameter Modelica.Units.SI.Inertia JLoad = 30
+  "Load inertia";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium1,
@@ -53,7 +53,7 @@ model Chiller "Test model for chiller with mechanical interface"
     chi(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(useSupport=false,
-                                                              tau_constant=tauMot)
+                                                              tau_constant=tau)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2,
       nPorts=1)

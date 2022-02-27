@@ -52,7 +52,6 @@ model Chiller "Test model for motor coupled chiller model"
     COP_nominal=COP_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000,
-    f_base=60,
     pole=4,
     JMotor=5,
     R_s=0.641,

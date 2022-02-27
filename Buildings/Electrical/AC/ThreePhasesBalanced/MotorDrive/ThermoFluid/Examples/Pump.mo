@@ -4,11 +4,11 @@ model Pump "Test model for heat pump with mechanical interface"
   package Medium = Buildings.Media.Water;
 
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(tau_constant=
-        tauMot)
+        tau)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  parameter Modelica.Units.SI.Torque tauMot = 0.05
-    "Constant torque (if negative, torque is acting as load in positive direction of rotation)";
-  parameter Modelica.Units.SI.Inertia JLoad = 0.01 "Moment of inertia";
+  parameter Modelica.Units.SI.Torque tau = 0.05
+    "Provided torque";
+  parameter Modelica.Units.SI.Inertia JLoad = 0.01 "Load inertia";
   Buildings.Fluid.Sources.Boundary_pT sou1(nPorts=1, redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));

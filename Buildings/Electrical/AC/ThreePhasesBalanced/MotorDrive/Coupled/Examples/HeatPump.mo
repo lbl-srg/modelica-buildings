@@ -60,7 +60,6 @@ model HeatPump "Test model for motor coupled heat pump model"
     etaCarnot_nominal=0.5,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    f_base=60,
     pole=4,
     JMotor=5,
     R_s=0.641,

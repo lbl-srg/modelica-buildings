@@ -5,13 +5,13 @@ model MotorMachineInterface
   parameter Integer pole = 2 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
 
-  parameter Modelica.Units.SI.Resistance R_s=0.013 "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r=0.009 "Electric resistance of rotor";
-  parameter Modelica.Units.SI.Reactance X_s=0.14 "Complex component of the impedance of stator";
-  parameter Modelica.Units.SI.Reactance X_r=0.12 "Complex component of the impedance of rotor";
-  parameter Modelica.Units.SI.Reactance X_m=2.4 "Complex component of the magnetizing reactance";
+  parameter Modelica.Units.SI.Resistance R_s = 0.013 "Electric resistance of stator";
+  parameter Modelica.Units.SI.Resistance R_r = 0.009 "Electric resistance of rotor";
+  parameter Modelica.Units.SI.Reactance X_s = 0.14 "Complex component of the impedance of stator";
+  parameter Modelica.Units.SI.Reactance X_r = 0.12 "Complex component of the impedance of rotor";
+  parameter Modelica.Units.SI.Reactance X_m = 2.4 "Complex component of the magnetizing reactance";
 
-  Modelica.Blocks.Interfaces.RealInput V_rms(unit="V") "Prescribed rms voltage"
+  Modelica.Blocks.Interfaces.RealInput V_rms(unit="V") "Prescribed RMS voltage"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
