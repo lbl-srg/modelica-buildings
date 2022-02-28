@@ -4,21 +4,21 @@ model BugGroupStatus
   parameter Integer nGro = 1;
   parameter Integer nZonGro[nGro] = fill(1, nGro);
 
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant zonOcc(k=true);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOcc(k=true);
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tNexOcc(k=1);
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooTim(k=1);
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uWarTim(k=1);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOccHeaHig(k=true);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHigOccCoo(k=true);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uUnoHeaHig(k=true);
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetOff(k=1);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uEndSetBac(k=true);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHigUnoCoo(k=true);
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOff(k=1);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uEndSetUp(k=true);
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirZon(k=1);
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWin(k=true);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant zonOcc(k=true);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOcc(k=true);
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tNexOcc(k=1);
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooTim(k=1);
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uWarTim(k=1);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uOccHeaHig(k=true);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHigOccCoo(k=true);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uUnoHeaHig(k=true);
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetOff(k=1);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uEndSetBac(k=true);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHigUnoCoo(k=true);
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOff(k=1);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uEndSetUp(k=true);
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirZon(k=1);
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWin(k=true);
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta[nGro](final
       numZon=nZonGro)

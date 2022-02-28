@@ -15,7 +15,7 @@ partial model PartialOutdoorSection "Outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
-  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco
+  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
   parameter Data datRec(
@@ -29,11 +29,6 @@ partial model PartialOutdoorSection "Outdoor air section"
   final parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
     datRec.damOutMin.m_flow_nominal
     "Minimum outdoor air mass flow rate";
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"

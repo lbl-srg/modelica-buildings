@@ -5,8 +5,7 @@ model NoEconomizer
     redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.NoEconomizer
       secOutRel "No air economizer",
-    nZon=2,
-    nGro=1);
+    nZon=2);
 
   annotation (
     defaultComponentName="ahu");

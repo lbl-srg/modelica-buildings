@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-zone VAV air-handling unit"
   /*
-  Bindings for the parameter record cannot be made final if propagation
+  In Dymola only, bindings for the parameter record cannot be made final if propagation
   from a top-level record (whole building) is needed.
   Instead those parameter declarations are annoted with enable=false
   in the record class.
@@ -21,7 +21,11 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       typDamRel=secOutRel.typDamRel,
       typFanSup=typFanSup,
       typFanRel=typFanRel,
-      typFanRet=typFanRet),
+      typFanRet=typFanRet,
+      typSecOutRel=typSecOutRel,
+      typSecRel=secOutRel.typSecRel,
+      minOADes=ctl.minOADes,
+      buiPreCon=ctl.buiPreCon),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
     final have_souCoiCoo=coiCoo.have_sou,
@@ -38,7 +42,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan and
-    secOutRel.typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+    secOutRel.typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
     "Set to true if building static pressure sensor is used"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -51,8 +55,8 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
-      final typCtrFanRet=ctr.typCtrFanRet,
-      final typCtrEco=ctr.typCtrEco,
+      final typCtlFanRet=ctl.typCtlFanRet,
+      final typCtlEco=ctl.typCtlEco,
       datRec(
         final damOut=datRec.damOut,
         final damOutMin=datRec.damOutMin,
@@ -66,7 +70,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.use_TMix,
+    final have_sen=ctl.use_TMix,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal) "Mixed air temperature sensor"
     annotation (Dialog(group="Supply air section", enable=false), Placement(
@@ -76,7 +80,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final datRec=datRec.fanSup,
-      final have_senFlo=ctr.typCtrFanRet==
+      final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Blow through"
     annotation (
@@ -115,7 +119,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final datRec=datRec.fanSup,
-      final have_senFlo=ctr.typCtrFanRet==
+      final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Draw through"
     annotation (
@@ -130,15 +134,17 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
-  inner replaceable Components.Controls.OpenLoop ctr constrainedby
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct
+  inner replaceable Components.Controls.OpenLoop ctl constrainedby
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
+      final datRec=datRec.ctl,
+      final nZon=nZon)
     "AHU controller"
     annotation (
       choices(
         choice(redeclare replaceable
-          Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctr
+          Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
           "Guideline 36 controller"),
-        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctr
+        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
           "Open loop controller")),
     Dialog(group="Controls"),
     Placement(transformation(extent={{-220,-10},{-200,10}})));
@@ -202,8 +208,8 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb
-         or ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
+    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb
+         or ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air temperature sensor"
@@ -212,7 +218,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
     annotation (Dialog(group="Exhaust/relief/return section"),
@@ -312,7 +318,7 @@ equation
   connect(bui.ports[1], pAirBui_rel.port_a) annotation (Line(points={{39,72},{39,
           60},{10,60},{10,38}}, color={0,127,255}));
 
-  connect(ctr.busTer, busTer) annotation (Line(
+  connect(ctl.busTer, busTer) annotation (Line(
       points={{-200,0},{300,0}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -320,7 +326,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(ctr.bus, bus) annotation (Line(
+  connect(ctl.bus, bus) annotation (Line(
       points={{-220,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(

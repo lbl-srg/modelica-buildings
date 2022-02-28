@@ -1,9 +1,12 @@
 BugGroupStatus
 NestedUndeclaredExpandable
+RecordConstructor
 RecordPropagation
-RecordPropagation1
-RecordPropagation2
+RecordPropagationSimple1
+RecordPropagationSimple2
 RecordPropagationConstant
 RecordPropagationNoRedeclare
+RedeclareFinal
 StartValueNotUsed
+Test
 ExternDataEvaluation

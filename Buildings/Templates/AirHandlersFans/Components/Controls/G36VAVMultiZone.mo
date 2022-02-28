@@ -2,59 +2,31 @@ within Buildings.Templates.AirHandlersFans.Components.Controls;
 block G36VAVMultiZone
   "Guideline 36 controller for multiple-zone VAV air-handling unit"
   extends
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct(
-      final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone,
-      final use_TMix=true);
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
+      final nGro=nGro,
+      final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone);
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes=
-    if secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
-    elseif secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-    elseif secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
-    else Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
-    "Design of minimum outdoor air and economizer function"
-    annotation (Dialog(group="Economizer design"));
+  parameter String idZon[nZon]
+    "Zone (or terminal unit) names"
+    annotation(Evaluate=true,
+    Dialog(group="Configuration"));
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=
-    if secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-    elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan
-      then (if typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
-        then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-        elseif typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
-          then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-        else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper)
-    else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-    "Type of building pressure control system"
-    annotation (Dialog(group="Economizer design"));
-
-  // See FIXME below for those parameters.
-  parameter String namGroZon[nZon] = fill(namGro[1], nZon)
+  parameter String namGroZon[nZon]
     "Name of group which each zone belongs to"
+    annotation(Evaluate=true,
+    Dialog(group="Configuration"));
+
+  final parameter Integer nGro(min=1)=
+    Buildings.Templates.BaseClasses.countUniqueStrings(namGroZon)
+    "Number of zone groups"
+    annotation (
+    Evaluate=true,
+    Dialog(group="Configuration"));
+
+  final parameter String namGro[nGro]=
+    Buildings.Templates.BaseClasses.getUniqueStrings(namGroZon)
+    "Group names"
     annotation(Evaluate=true);
-
-  parameter Boolean have_perZonRehBox = true
-    "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));
-
-  /* FIXME: Evaluate function call at compile time, FE ExternData.
-
-  parameter String namGroZon[nZon] = {
-    dat.getString(varName=idTerArr[i] + ".identification.namGro.value")
-    for i in 1:nZon}
-    "Name of group which each zone belongs to"
-    annotation(Evaluate=true);
-
-  parameter Boolean have_perZonRehBox = Modelica.Math.BooleanVectors.anyTrue({
-      dat.getBoolean(varName=idTerArr[i] + ".control.isPerZonWitReh.value")
-      for i in 1:nZon})
-    "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"), Evaluate=true);
-  */
 
   final parameter Boolean isZonInGro[nGro, nZon] = {
     {namGroZon[i] == namGro[j] for i in 1:nZon} for j in 1:nGro}
@@ -68,116 +40,89 @@ block G36VAVMultiZone
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
+  parameter Boolean have_perZonRehBox=false
+    "Set to true if there is any VAV-reheat boxes on perimeter zones"
+    annotation (Dialog(group="System and building parameters"));
+
   /*
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller
   */
 
-  final parameter Boolean have_duaDucBox = Modelica.Math.BooleanVectors.anyTrue({
-      Modelica.Utilities.Strings.find(
-        dat.getString(varName=idTerArr[i] + ".identification.subtype.value"),
-        "dual",
-        caseSensitive=false) <> 0
-      for i in 1:nZon})
-    "Check if the AHU serves dual duct boxes"
+  parameter Boolean have_duaDucBox=false
+    "Set to true if the AHU serves dual duct boxes"
+    annotation (Dialog(group="System and building parameters"));
+
+  parameter Boolean have_freSta=false
+    "Set to true if the system is equipped with freeze stat"
     annotation (Dialog(group="System and building parameters"));
 
   // FIXME #1913: not used, not clear.
   /*
   final parameter Boolean have_airFloMeaSta=
-    typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
+    typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
     "Check if the AHU has supply airflow measuring station"
     annotation (Dialog(group="System and building parameters"));
   */
 
-  // ----------- parameters for fan speed control  -----------
+  final parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
+    datRec.pAirSupSet_rel_max
+    "Maximum supply duct static pressure set point";
 
-  parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
-    dat.getReal(varName=id + ".control.airflow.pAirSupSet_rel_max.value")
-    "Maximum supply duct static pressure set point"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure set point"));
+  final parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min=
+    datRec.pAirRetSet_rel_min
+    "Return fan minimum discharge static pressure set point";
 
-  parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min(
-    final min=2.4, start=10)=
-    dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_min.value")
-    "Return fan minimum discharge static pressure set point"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+  final parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max=
+    datRec.pAirRetSet_rel_max
+    "Return fan maximum discharge static pressure set point";
 
-  parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
-    final min=pAirRetSet_rel_min+1, start=100)=
-    dat.getReal(varName=id + ".control.airflow.pAirRetSet_rel_max.value")
-    "Return fan maximum discharge static pressure set point"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
-
-  parameter Real ySpeFanSup_min(final unit="1", final min=0, final max=1, start=0.1)=
-    dat.getReal(varName=id + ".control.airflow.ySpeFanSup_min.value")
-    "Lowest allowed fan speed if fan is on"
-    annotation (Dialog(group="Fan speed PID controller"));
+  final parameter Real ySpeFanSup_min=
+    datRec.ySpeFanSup_min
+    "Lowest allowed fan speed if fan is on";
 
   // FIXME: the definition of that parameter is unclear.
   final parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow=
     secOutRel.mAirSup_flow_nominal / 1.2
-    "Maximum expected system primary airflow at design stage"
-    annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
+    "Maximum expected system primary airflow at design stage";
 
-  parameter Real nPeaSys_nominal=
-    dat.getReal(varName=id + ".control.ventilation.nPeaSys_nominal.value")
-    "Peak system population"
-    annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
+  final parameter Real nPeaSys_nominal=
+    datRec.nPeaSys_nominal
+    "Peak system population";
 
-  parameter Modelica.Units.SI.Temperature TAirSupSet_min(
-    displayUnit="degC")=
-    dat.getReal(varName=id + ".control.temperature.TAirSupSet_min.value")
-    "Lowest supply air temperature set point"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+  final parameter Modelica.Units.SI.Temperature TAirSupSet_min(
+    displayUnit="degC")=datRec.TAirSupSet_min
+    "Lowest supply air temperature set point";
 
-  parameter Modelica.Units.SI.Temperature TAirSupSet_max(
-    displayUnit="degC")=
-    dat.getReal(varName=id + ".control.temperature.TAirSupSet_max.value")
-    "Highest supply air temperature set point"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+  final parameter Modelica.Units.SI.Temperature TAirSupSet_max(
+    displayUnit="degC")=datRec.TAirSupSet_max
+    "Highest supply air temperature set point";
 
-  parameter Modelica.Units.SI.Temperature TAirOutRes_min(
-    displayUnit="degC")=
-    dat.getReal(varName=id + ".control.temperature.TAirOutRes_min.value")
-    "Lowest outdoor air temperature reset range"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+  final parameter Modelica.Units.SI.Temperature TAirOutRes_min(
+    displayUnit="degC")=datRec.TAirOutRes_min
+    "Lowest outdoor air temperature reset range";
 
-  parameter Modelica.Units.SI.Temperature TAirOutRes_max(
-    displayUnit="degC")=
-    dat.getReal(varName=id + ".control.temperature.TAirOutRes_max.value")
-    "Highest outdoor air temperature reset range"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+  final parameter Modelica.Units.SI.Temperature TAirOutRes_max(
+    displayUnit="degC")=datRec.TAirOutRes_max
+    "Highest outdoor air temperature reset range";
 
-  parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(start=12)=
-    dat.getReal(varName=id + ".control.airflow.pAirBuiSet_rel.value")
-    "Building static pressure set point"
-    annotation (Dialog(tab="Pressure control",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+  final parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(start=12)=
+    datRec.pAirBuiSet_rel
+    "Building static pressure set point";
 
-  parameter Real ySpeFanRet_min(final unit="1", final min=0, final max=1, start=0.1)=
-    dat.getReal(varName=id + ".control.airflow.ySpeFanRet_min.value")
-    "Minimum relief/return fan speed"
-    annotation (Dialog(tab="Pressure control", group="Relief fans",
-      enable=secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief));
+  final parameter Real ySpeFanRet_min(final unit="1", final min=0, final max=1, start=0.1)=
+    datRec.ySpeFanRet_min
+    "Minimum relief/return fan speed";
 
-  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
-     dat.getReal(varName=id + ".control.airflow.dpDamOutMin_nominal.value")
-     "Design minimum outdoor air damper differential pressure"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
+  final parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
+    datRec.dpDamOutMin_nominal
+    "Design minimum outdoor air damper differential pressure";
 
-  parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
-    dat.getReal(varName=id + ".control.airflow.dVFanRet_flow.value")
-    "Airflow differential between supply and return fans to maintain building pressure at set point"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
+  final parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
+    datRec.dVFanRet_flow
+    "Airflow differential between supply and return fans to maintain building pressure at set point";
 
   // FIXME #1913: incorrect parameter propagation in controller.
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctr(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctl(
     retFanDpCon(final disMinSpe=ySpeFanRet_min, disMaxSpe=1),
     final minOADes=minOADes,
     final buiPreCon=buiPreCon,
@@ -310,20 +255,20 @@ equation
   /* Control point connection - start */
 
   // Inputs from AHU bus
-  connect(bus.pAirSup_rel, ctr.ducStaPre);
-  connect(bus.TAirOut, ctr.TOut);
-  connect(bus.fanSup.y_actual, ctr.uSupFan);
-  connect(bus.TAirSup, ctr.TSup);
-  connect(bus.VAirOut_flow, ctr.VOut_flow);
-  connect(bus.VAirOutMin_flow, ctr.VOut_flow);
-  connect(bus.dpAirOutMin, ctr.dpMinOutDam);
-  connect(bus.hAirOut, ctr.hOut);
-  connect(bus.TAirMix, ctr.TMix);
-  connect(bus.pAirBui_rel, ctr.dpBui);
-  connect(bus.fanSup.V_flow, ctr.VSup_flow);
-  connect(bus.fanRet.V_flow, ctr.VRet_flow);
-  connect(bus.coiCoo.y_actual, ctr.uCooCoi);
-  connect(bus.coiHea.y_actual, ctr.uHeaCoi);
+  connect(bus.pAirSup_rel, ctl.ducStaPre);
+  connect(bus.TAirOut, ctl.TOut);
+  connect(bus.fanSup.y_actual, ctl.uSupFan);
+  connect(bus.TAirSup, ctl.TSup);
+  connect(bus.VAirOut_flow, ctl.VOut_flow);
+  connect(bus.VAirOutMin_flow, ctl.VOut_flow);
+  connect(bus.dpAirOutMin, ctl.dpMinOutDam);
+  connect(bus.hAirOut, ctl.hOut);
+  connect(bus.TAirMix, ctl.TMix);
+  connect(bus.pAirBui_rel, ctl.dpBui);
+  connect(bus.fanSup.V_flow, ctl.VSup_flow);
+  connect(bus.fanRet.V_flow, ctl.VRet_flow);
+  connect(bus.coiCoo.y_actual, ctl.uCooCoi);
+  connect(bus.coiHea.y_actual, ctl.uHeaCoi);
 
   connect(bus.fanSup.y_actual, yFanSup_actual.u);
   connect(bus.TAirSup, TAirSup.u);
@@ -357,24 +302,24 @@ equation
   connect(busTer.uWin, repSigZon.uWin);
 
   // Outputs to AHU bus
-  connect(ctr.ySupFan, bus.fanSup.y);
-  connect(ctr.yMinOutDamPos, bus.damOutMin.y);
-  connect(ctr.yRetDamPos, bus.damRet.y);
-  connect(ctr.yRelDamPos, bus.damRel.y);
-  connect(ctr.yOutDamPos, bus.damOut.y);
-  connect(ctr.yEneCHWPum, bus.yPumCHW);
-  connect(ctr.ySupFanSpe, bus.fanSup.ySpe);
-  connect(ctr.yRetFanSpe, bus.fanRet.ySpe);
-  connect(ctr.yRelFanSpe, bus.fanRet.ySpe);
-  connect(ctr.yCooCoi, bus.coiCoo.y);
-  connect(ctr.yHeaCoi, bus.coiHea.y);
-  connect(ctr.yAla, bus.ala);
-  connect(ctr.yExhDam, bus.damRel.y);
+  connect(ctl.ySupFan, bus.fanSup.y);
+  connect(ctl.yMinOutDamPos, bus.damOutMin.y);
+  connect(ctl.yRetDamPos, bus.damRet.y);
+  connect(ctl.yRelDamPos, bus.damRel.y);
+  connect(ctl.yOutDamPos, bus.damOut.y);
+  connect(ctl.yEneCHWPum, bus.yPumCHW);
+  connect(ctl.ySupFanSpe, bus.fanSup.ySpe);
+  connect(ctl.yRetFanSpe, bus.fanRet.ySpe);
+  connect(ctl.yRelFanSpe, bus.fanRet.ySpe);
+  connect(ctl.yCooCoi, bus.coiCoo.y);
+  connect(ctl.yHeaCoi, bus.coiHea.y);
+  connect(ctl.yAla, bus.ala);
+  connect(ctl.yExhDam, bus.damRel.y);
 
-  connect(ctr.yChiWatResReq, bus.reqCHWRes);
-  connect(ctr.yChiPlaReq, bus.reqCHWPla);
-  connect(ctr.yHotWatResReq, bus.reqHHWRes);
-  connect(ctr.yHotWatPlaReq, bus.reqHHWPla);
+  connect(ctl.yChiWatResReq, bus.reqCHWRes);
+  connect(ctl.yChiPlaReq, bus.reqCHWPla);
+  connect(ctl.yHotWatResReq, bus.reqHHWRes);
+  connect(ctl.yHotWatPlaReq, bus.reqHHWPla);
 
   // Outputs to terminal unit bus
   connect(VDesUncOutAir_flow.y, busTer.VDesUncOutAir_flow);
@@ -384,41 +329,41 @@ equation
   connect(yFanSup_actual.y, busTer.yFanSup_actual);
 
   // FIXME
-  connect(FIXME_TOutCut.y, ctr.TOutCut);
-  connect(FIXME_TOutCut.y, ctr.hOutCut);
-  connect(FIXME_uOutDamPos.y, ctr.uOutDamPos);
-  connect(FIXME_uSupFanSpe.y, ctr.uSupFanSpe);
-  connect(FIXME_uFreSta.y, ctr.uFreSta);
-  connect(FIXME_uFreStaRes.y, ctr.uFreStaRes);
-  connect(FIXME_uSofSwiRes.y, ctr.uSofSwiRes);
-  connect(FIXME_uRelFanSpe.y, ctr.uRelFanSpe);
+  connect(FIXME_TOutCut.y, ctl.TOutCut);
+  connect(FIXME_TOutCut.y, ctl.hOutCut);
+  connect(FIXME_uOutDamPos.y, ctl.uOutDamPos);
+  connect(FIXME_uSupFanSpe.y, ctl.uSupFanSpe);
+  connect(FIXME_uFreSta.y, ctl.uFreSta);
+  connect(FIXME_uFreStaRes.y, ctl.uFreStaRes);
+  connect(FIXME_uSofSwiRes.y, ctl.uSofSwiRes);
+  connect(FIXME_uRelFanSpe.y, ctl.uRelFanSpe);
   connect(FIXME_yMinOutDamPos.y, bus.damOutMin.y);
   connect(FIXME_yRelDamPos.y, bus.damRel.y);
   connect(FIXME_yFanRet.y, bus.fanRet.y);
 
   /* Control point connection - stop */
 
-  connect(zonToSys.ySumDesZonPop,ctr. sumDesZonPop) annotation (Line(points={{-118,
+  connect(zonToSys.ySumDesZonPop,ctl. sumDesZonPop) annotation (Line(points={{-118,
           -13},{-60,-13},{-60,40.9091},{-44,40.9091}},
                                                color={0,0,127}));
-  connect(zonToSys.VSumDesPopBreZon_flow,ctr. VSumDesPopBreZon_flow)
+  connect(zonToSys.VSumDesPopBreZon_flow,ctl. VSumDesPopBreZon_flow)
     annotation (Line(points={{-118,-16},{-58,-16},{-58,34.3636},{-44,34.3636}},
                                                                       color={0,0,
           27}));
-  connect(zonToSys.VSumDesAreBreZon_flow,ctr. VSumDesAreBreZon_flow)
+  connect(zonToSys.VSumDesAreBreZon_flow,ctl. VSumDesAreBreZon_flow)
     annotation (Line(points={{-118,-19},{-56,-19},{-56,31.0909},{-44,31.0909}},
                                                                       color={0,0,
           127}));
-  connect(zonToSys.yDesSysVenEff,ctr. uDesSysVenEff) annotation (Line(points={{-118,
+  connect(zonToSys.yDesSysVenEff,ctl. uDesSysVenEff) annotation (Line(points={{-118,
           -22},{-54,-22},{-54,26.1818},{-44,26.1818}},
                                                color={0,0,127}));
-  connect(zonToSys.VSumUncOutAir_flow,ctr. VSumUncOutAir_flow) annotation (Line(
+  connect(zonToSys.VSumUncOutAir_flow,ctl. VSumUncOutAir_flow) annotation (Line(
         points={{-118,-25},{-52,-25},{-52,21.2727},{-44,21.2727}},
                                                        color={0,0,127}));
-  connect(zonToSys.VSumSysPriAir_flow,ctr. VSumSysPriAir_flow) annotation (Line(
+  connect(zonToSys.VSumSysPriAir_flow,ctl. VSumSysPriAir_flow) annotation (Line(
         points={{-118,-31},{-48,-31},{-48,18},{-44,18}},
                                                        color={0,0,127}));
-  connect(zonToSys.uOutAirFra_max,ctr. uOutAirFra_max) annotation (Line(points={{-118,
+  connect(zonToSys.uOutAirFra_max,ctl. uOutAirFra_max) annotation (Line(points={{-118,
           -28},{-50,-28},{-50,13.0909},{-44,13.0909}},
                                                  color={0,0,127}));
   connect(staGro.uGroOcc, opeModSel.uOcc) annotation (Line(points={{-118,139},{-104,
@@ -449,15 +394,15 @@ equation
                                              color={255,0,255}));
   connect(staGro.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-118,101},
           {-104,101},{-104,122},{-102,122}},   color={255,127,0}));
-  connect(ctr.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
+  connect(ctl.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
     annotation (Line(points={{44,47.4545},{70,47.4545},{70,60},{78,60}},
                                                   color={0,0,127}));
-  connect(ctr.yReqOutAir, yReqOutAir.u)
+  connect(ctl.yReqOutAir, yReqOutAir.u)
     annotation (Line(points={{44,32.7273},{70,32.7273},{70,30},{78,30}},
                                                 color={255,0,255}));
-  connect(reqZonTemRes.y,ctr. uZonTemResReq) annotation (Line(points={{-118,20},
+  connect(reqZonTemRes.y,ctl. uZonTemResReq) annotation (Line(points={{-118,20},
           {-62,20},{-62,54},{-44,54}},   color={255,127,0}));
-  connect(reqZonPreRes.y,ctr. uZonPreResReq)
+  connect(reqZonPreRes.y,ctl. uZonPreResReq)
     annotation (Line(points={{-118,60},{-60,60},{-60,67.0909},{-44,67.0909}},
                                                   color={255,127,0}));
 
@@ -491,11 +436,11 @@ equation
     annotation (Line(points={{-150,103},{-142,103}}, color={0,0,127}));
   connect(repSigZon.yWin, staGro.uWin)
     annotation (Line(points={{-150,101},{-142,101}}, color={255,0,255}));
-  connect(ctr.yAveOutAirFraPlu, zonToSys.yAveOutAirFraPlu) annotation (Line(
+  connect(ctl.yAveOutAirFraPlu, zonToSys.yAveOutAirFraPlu) annotation (Line(
         points={{44,42.5455},{60,42.5455},{60,-80},{-160,-80},{-160,-20},{-142,
           -20}},
         color={0,0,127}));
-  connect(opeModSel.yOpeMod, ctr.uOpeMod) annotation (Line(points={{-78,120},{
+  connect(opeModSel.yOpeMod, ctl.uOpeMod) annotation (Line(points={{-78,120},{
           -60,120},{-60,70.3636},{-44,70.3636}},
                                              color={255,127,0}));
   connect(staGro.yColZon, opeModSel.totColZon) annotation (Line(points={{-118,122},
@@ -504,9 +449,9 @@ equation
           {-108,120},{-108,118},{-102,118}}, color={255,0,255}));
   connect(FIXME_TAirSupSet.y, TAirSupSet.u)
     annotation (Line(points={{-258,-120},{-12,-120}},color={0,0,127}));
-  connect(ctr.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
+  connect(ctl.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
           {70,-8.18182},{70,-30},{78,-30}}, color={0,0,127}));
-  connect(ctr.yRelFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-13.0909},
+  connect(ctl.yRelFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-13.0909},
           {52,-13.0909},{52,-30},{78,-30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

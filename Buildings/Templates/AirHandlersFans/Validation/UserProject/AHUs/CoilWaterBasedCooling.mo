@@ -3,8 +3,7 @@ model CoilWaterBasedCooling
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
     "Chilled water coil",
-    nZon=2,
-    nGro=1);
+    nZon=2);
 
   annotation (
     defaultComponentName="ahu");

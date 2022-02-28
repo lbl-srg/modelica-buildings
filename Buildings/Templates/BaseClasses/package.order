@@ -1,3 +1,5 @@
 PassThroughFluid
 getArraySize1D
 getReal
+getUniqueStrings
+countUniqueStrings

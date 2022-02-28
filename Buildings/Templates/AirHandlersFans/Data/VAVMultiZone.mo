@@ -23,6 +23,18 @@ record VAVMultiZone
   parameter Buildings.Templates.Components.Types.Fan typFanSup
     "Type of supply fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection typSecOutRel
+    "Type of  outdoor/relief/return air section"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
+    "Relief/return air section type"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
+    "Design of minimum outdoor air and economizer function"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
+    "Type of building pressure control system"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
     "Minimum outdoor air mass flow rate"
@@ -82,7 +94,6 @@ record VAVMultiZone
     annotation (Dialog(group="Schedule.Mechanical",
       enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
 
-
   parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=100
     "Total pressure rise"
     annotation (
@@ -94,6 +105,11 @@ record VAVMultiZone
       Dialog(group="Schedule.Mechanical",
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
+
+  parameter Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.DataVAVMultiZone ctl(
+    final typFanSup=typFanSup,
+    final typFanRet=typFanRet)
+    "Control parameters";
 
 annotation (
   defaultComponentPrefixes = "parameter",

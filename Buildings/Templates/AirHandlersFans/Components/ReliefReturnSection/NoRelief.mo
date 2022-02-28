@@ -12,7 +12,7 @@ model NoRelief "No relief branch"
       redeclare final package Medium = MediumAir,
       final datRec=datRec.fanRet,
       final have_senFlo=
-        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
+        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)
     "Return fan"
     annotation (

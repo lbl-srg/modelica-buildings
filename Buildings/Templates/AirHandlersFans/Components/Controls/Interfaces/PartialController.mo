@@ -1,37 +1,26 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
 partial block PartialController
 
-  parameter AirHandlersFans.Types.Controller typ
+  parameter Buildings.Templates.AirHandlersFans.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter Integer nZon
+  parameter Integer nZon
     "Number of served zones";
-  outer parameter Integer nGro
-    "Number of zone groups";
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
 
-  // See FIXME below for those parameters.
-  parameter String idTerArr[nZon]={"Box_1", "Box_1"}
-    "Array of tags of served terminal units"
-    annotation(Evaluate=true);
-  parameter String namGro[nGro]={"First floor"}
-    "Array of group names"
-    annotation(Evaluate=true);
+  outer parameter Buildings.Templates.Components.Types.Fan typFanSup
+    "Type of supply fan";
+  outer parameter Buildings.Templates.Components.Types.Fan typFanRet
+    "Type of relief/return fan";
 
-  /*
-  parameter String idTerArr[nZon]=
-    dat.getStringArray1D(id + ".identification.idTerArr.value", nZon)
-    "Served terminal units - Array of system identifiers"
-    annotation(Evaluate=true);
-  parameter String namGro[nGro]=
-    dat.getStringArray1D(id + ".identification.namGro.value", nGro)
-    "Array of group names"
-    annotation(Evaluate=true);
-    */
+  replaceable parameter
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.Data
+    datRec(
+      final typ=typ,
+      final nZon=nZon,
+      final typFanSup=typFanSup,
+      final typFanRet=typFanRet)
+    "Design and operating parameters";
 
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "AHU control bus"

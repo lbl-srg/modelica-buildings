@@ -143,7 +143,7 @@ block G36VAVBoxReheat
     "Design zone population";
 
   // FIXME: missing default parameter assignment, see non final binding below.
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctr(
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctl(
     controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     staPreMul=1,
     hotWatRes=1,
@@ -238,21 +238,21 @@ block G36VAVBoxReheat
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 equation
   /* Control point connection - start */
-  connect(ctr.yDamSet, bus.damVAV.y);
-  connect(ctr.yValSet, bus.coiHea.y);
+  connect(ctl.yDamSet, bus.damVAV.y);
+  connect(ctl.yValSet, bus.coiHea.y);
 
   connect(bus.VAirDis_flow, zonOutAirSet.VDis_flow);
-  connect(bus.TAirDis, ctr.TDis);
-  connect(bus.VAirDis_flow, ctr.VDis_flow);
-  connect(bus.damVAV.y_actual, ctr.uDam);
+  connect(bus.TAirDis, ctl.TDis);
+  connect(bus.VAirDis_flow, ctl.VDis_flow);
+  connect(bus.damVAV.y_actual, ctl.uDam);
 
   connect(bus.coiHea.y_actual, FIXME_uVal.u);
 
-  connect(bus.yFanSup_actual, ctr.uFan);
+  connect(bus.yFanSup_actual, ctl.uFan);
 
-  connect(bus.ppmCO2, ctr.ppmCO2);
-  connect(bus.uWin, ctr.uWin);
-  connect(bus.TAirZon, ctr.TZon);
+  connect(bus.ppmCO2, ctl.ppmCO2);
+  connect(bus.uWin, ctl.uWin);
+  connect(bus.TAirZon, ctl.TZon);
 
   connect(bus.uOcc, TZonSet.uOcc);
   connect(bus.uWin, TZonSet.uWin);
@@ -266,9 +266,9 @@ equation
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
 
-  connect(bus.TAirSup, ctr.TSup);
-  connect(bus.TAirSupSet, ctr.TSupSet);
-  connect(bus.yOpeMod, ctr.uOpeMod);
+  connect(bus.TAirSup, ctl.TSup);
+  connect(bus.TAirSupSet, ctl.TSupSet);
+  connect(bus.yOpeMod, ctl.uOpeMod);
   connect(bus.yOpeMod, TZonSet.uOpeMod);
   connect(bus.TAirZonCooOccSet, TZonSet.TZonCooSetOcc);
   connect(bus.TAirZonCooUnoSet, TZonSet.TZonCooSetUno);
@@ -279,8 +279,8 @@ equation
   connect(bus.uCooDemLimLev, TZonSet.uCooDemLimLev);
   connect(bus.uHeaDemLimLev, TZonSet.uHeaDemLimLev);
 
-  connect(ctr.yZonTemResReq, bus.yReqZonTemRes);
-  connect(ctr.yZonPreResReq, bus.yReqZonPreRes);
+  connect(ctl.yZonTemResReq, bus.yReqZonTemRes);
+  connect(ctl.yZonPreResReq, bus.yReqZonPreRes);
   connect(bus.yReqOutAir, zonOutAirSet.uReqOutAir);
   connect(bus.VDesUncOutAir_flow, zonOutAirSet.VUncOut_flow_nominal);
 
@@ -306,21 +306,21 @@ equation
   connect(zonSta.yEndSetUp, bus.yEndSetUp);
   /* Control point connection - end */
 
-  connect(TZonSet.TZonCooSet, ctr.TZonCooSet)
+  connect(TZonSet.TZonCooSet, ctl.TZonCooSet)
     annotation (Line(points={{-38,8},{
           -22,8},{-22,17},{-2,17}}, color={0,0,127}));
-  connect(TZonSet.TZonHeaSet, ctr.TZonHeaSet)
+  connect(TZonSet.TZonHeaSet, ctl.TZonHeaSet)
     annotation (Line(points={{-38,0},{
           -20,0},{-20,15},{-2,15}}, color={0,0,127}));
-  connect(FIXME_uHotPla.y, ctr.uHotPla) annotation (Line(points={{-218,-80},{-8,
+  connect(FIXME_uHotPla.y, ctl.uHotPla) annotation (Line(points={{-218,-80},{-8,
           -80},{-8,-18.8},{-2,-18.8}},  color={255,0,255}));
-  connect(FIXME_uOve.y, ctr.oveFloSet) annotation (Line(points={{-218,80},{-10,80},
+  connect(FIXME_uOve.y, ctl.oveFloSet) annotation (Line(points={{-218,80},{-10,80},
           {-10,-6},{-2,-6}}, color={255,127,0}));
-  connect(FIXME_uOve.y, ctr.oveDamPos) annotation (Line(points={{-218,80},{-10,80},
+  connect(FIXME_uOve.y, ctl.oveDamPos) annotation (Line(points={{-218,80},{-10,80},
           {-10,-8},{-2,-8}}, color={255,127,0}));
-  connect(FIXME_uHeaOff.y, ctr.uHeaOff) annotation (Line(points={{-218,40},{-14,
+  connect(FIXME_uHeaOff.y, ctl.uHeaOff) annotation (Line(points={{-218,40},{-14,
           40},{-14,-10},{-2,-10}}, color={255,0,255}));
-  connect(FIXME_uVal.y, ctr.uVal) annotation (Line(points={{-219,-40},{-12,-40},
+  connect(FIXME_uVal.y, ctl.uVal) annotation (Line(points={{-219,-40},{-12,-40},
           {-12,-14},{-2,-14}}, color={0,0,127}));
   connect(uCooDemLimLev.y, TZonSet.uCooDemLimLev) annotation (Line(points={{-98,
           180},{-70,180},{-70,-8},{-62,-8}}, color={255,127,0}));

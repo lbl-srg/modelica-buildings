@@ -11,11 +11,6 @@ model BaseNoEconomizer
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  inner parameter ExternData.JSONFile dat(
-    fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
-    annotation (Placement(transformation(extent={{76,76},{96,96}})));
-
   UserProject.DataTopLevel datTop(VAV_1(
       final typ=VAV_1.typ,
       final typFanSup=VAV_1.typFanSup,
@@ -42,7 +37,6 @@ model BaseNoEconomizer
   inner replaceable UserProject.AHUs.NoEconomizer VAV_1 constrainedby
     Buildings.Templates.AirHandlersFans.VAVMultiZone(
     datRec=datTop.VAV_1,
-    id="VAV_1",
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));

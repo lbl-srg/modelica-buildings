@@ -39,11 +39,6 @@ partial model PartialPump "Interface class for pumps"
       Dialog(enable=typ <> Buildings.Templates.Components.Types.Pum.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-
   Buildings.Templates.Components.Interfaces.Bus bus
     "Control bus"
     annotation (

@@ -28,20 +28,20 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
         rotation=0,
         origin={-120,-200})));
 
-  inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctr
+  inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
     constrainedby
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
     "Terminal unit controller"
     annotation (
     choices(
-      choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctr
+      choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
         "Open loop control")),
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Templates.Components.Sensors.VolumeFlowRate VAirDis_flow(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly,
+    final have_sen=ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly,
     final m_flow_nominal=mAir_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross)
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
@@ -50,7 +50,7 @@ equation
   connect(damVAV.bus, bus.damVAV);
   connect(VAirDis_flow.y, bus.VAirDis_flow);
   /* Control point connection - end */
-  connect(bus,ctr. bus) annotation (Line(
+  connect(bus,ctl. bus) annotation (Line(
       points={{-300,0},{-10,0}},
       color={255,204,51},
       thickness=0.5));

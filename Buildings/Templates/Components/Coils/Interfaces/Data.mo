@@ -18,7 +18,7 @@ record Data
     start=0) = if typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
      datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
-    else 1e4
+    else 1
     "Air mass flow rate"
     annotation (
       Dialog(group="Nominal condition",

@@ -30,8 +30,8 @@ model SingleDamper "Single common OA damper and OA measurement by AFMS"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
-    final have_sen=typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
-         or typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
+         or typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=m_flow_nominal) "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

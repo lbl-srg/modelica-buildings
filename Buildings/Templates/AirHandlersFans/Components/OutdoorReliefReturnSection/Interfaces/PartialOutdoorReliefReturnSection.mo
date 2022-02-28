@@ -38,14 +38,14 @@ partial model PartialOutdoorReliefReturnSection
     annotation (Evaluate=true,
       Dialog(group="Configuration",
         enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief));
-  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet=
+  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
     "Return fan control type"
     annotation (Evaluate=true,
       Dialog(
         group="Configuration",
         enable=typFanRet<>Buildings.Templates.Components.Types.Fan.None));
-  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco=
+  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtlEco=
     Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulb
     "Economizer control type"
     annotation (Evaluate=true,
@@ -57,7 +57,9 @@ partial model PartialOutdoorReliefReturnSection
     final typDamOut=typDamOut,
     final typDamOutMin=typDamOutMin,
     final typDamRet=typDamRet,
-    final typDamRel=typDamRel)
+    final typDamRel=typDamRel,
+    final typFanRel=typFanRel,
+    final typFanRet=typFanRet)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
@@ -89,11 +91,6 @@ partial model PartialOutdoorReliefReturnSection
   parameter Modelica.Units.SI.PressureDifference dpDamRet_nominal=
     datRec.damRet.dp_nominal
     "Return air damper pressure drop";
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -299,12 +296,12 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
         extent={{580,360},{660,440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
           points={{490,600},{620,600},{620,440}},
           color={0,0,0},
           thickness=1),
@@ -319,14 +316,14 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None and
-          (typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-460,-160},{-380,-240}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg"),
       Bitmap(
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None and
-          (typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-430,-240},{-410,-440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
@@ -339,14 +336,14 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
         visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.None and
-          (typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-460,-840},{-380,-760}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg"),
       Bitmap(
         visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.None and
-          (typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-430,-760},{-410,-560}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
@@ -359,18 +356,18 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
         extent={{260,760},{340,840}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-            typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+            typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
           points={{260,800},{220,800},{220,658}},
           color={0,0,0},
           thickness=1),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-            typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+            typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
           points={{380,800},{340,800}},
           color={0,0,0},
           thickness=1)}),

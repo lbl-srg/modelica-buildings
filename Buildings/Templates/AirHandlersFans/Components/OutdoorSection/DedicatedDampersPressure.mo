@@ -38,8 +38,8 @@ model DedicatedDampersPressure
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
     final have_sen=
-      typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-      typCtrEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+      typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+      typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirOutMin_flow_nominal)
     "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));

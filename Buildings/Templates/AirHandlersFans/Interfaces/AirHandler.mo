@@ -12,13 +12,11 @@ partial model AirHandler "Base interface class for air handler"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
 
-  inner parameter String id
-    "System tag"
+  inner parameter Integer nZon(min=1)
+    "Number of served zones"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
 
   replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data datRec(
     final typ=typ,
@@ -64,17 +62,6 @@ partial model AirHandler "Base interface class for air handler"
   inner parameter Buildings.Templates.Components.Types.Fan typFanRel
     "Type of relief fan"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  inner parameter Integer nZon(min=1)
-    "Number of served zones"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-  inner parameter Integer nGro(min=1)
-    "Number of zone groups"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
 
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
     datRec.mAirSup_flow_nominal

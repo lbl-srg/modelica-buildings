@@ -9,11 +9,6 @@ partial model PartialHeatRecovery
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
     "Control bus" annotation (Placement(transformation(

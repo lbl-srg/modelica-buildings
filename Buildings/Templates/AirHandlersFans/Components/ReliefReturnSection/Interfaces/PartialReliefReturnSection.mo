@@ -18,7 +18,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet
+  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
     "Return fan control type";
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
@@ -39,11 +39,6 @@ partial model PartialReliefReturnSection "Relief/return air section"
       Dialog(group="Nominal condition",
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -105,7 +100,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
   Buildings.Templates.Components.Sensors.DifferentialPressure pAirRet_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-      typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
+      typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
     "Return fan discharge static pressure sensor"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 equation
