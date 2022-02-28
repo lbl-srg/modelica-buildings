@@ -125,7 +125,15 @@ model HeatPump "Motor coupled heat pump"
   Modelica.Blocks.Interfaces.RealInput meaPoi annotation (Placement(transformation(extent={{-120,20},
             {-100,40}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
-  InductionMotors.SquirrelCageDrive simMot
+  InductionMotors.SquirrelCageDrive simMot(
+    pole=pole,
+    n=n,
+    J=JMotor,
+    R_s=R_s,
+    R_r=R_r,
+    X_s=X_s,
+    X_r=X_r,
+    X_m=X_m)
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 protected
   constant Boolean COP_is_for_cooling = true
