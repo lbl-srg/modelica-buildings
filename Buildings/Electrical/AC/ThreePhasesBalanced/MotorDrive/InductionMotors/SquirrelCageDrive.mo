@@ -106,6 +106,9 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   X_r=X_r,
   X_m=X_m)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+initial equation
+  omega_r=0;
+
 equation
   // Assign values for motor model calculation from electrical interface
   theta_s = PhaseSystem.thetaRef(terminal.theta);
