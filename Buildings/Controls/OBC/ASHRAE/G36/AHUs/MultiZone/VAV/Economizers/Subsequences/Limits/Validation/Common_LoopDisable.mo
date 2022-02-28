@@ -16,7 +16,8 @@ model Common_LoopDisable
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   // Fan Status
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(final k=false) "Fan is off"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
+    final k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
 
   // Operation Mode
@@ -26,10 +27,6 @@ model Common_LoopDisable
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   // Freeze Protection Stage
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage2)
-    "Freeze protection stage is 2"
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
     final duration=1800,
@@ -50,16 +47,13 @@ model Common_LoopDisable
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
-  Common
-    damLim
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common damLim
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Common
-    damLim1
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common damLim1
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Common
-    damLim2
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common damLim2
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
@@ -77,10 +71,6 @@ protected
     final quantity="VolumeFlowRate")=0.2
     "Maximum increase in airflow volume during the example simulation";
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage1)
-    "Freeze protection stage is 1"
-    annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
@@ -88,10 +78,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus1(
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage1)
-    "Freeze protection stage is 1"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
@@ -107,24 +93,18 @@ equation
       Line(points={{-178,30},{-150,30},{-150,-2},{-122,-2}}, color={0,0,127}));
   connect(fanSta.y, damLim.uSupFan)
     annotation (Line(points={{-178,-10},{-178,-10},{-122,-10}}, color={255,0,255}));
-  connect(freProSta.y, damLim.uFreProSta)
-    annotation (Line(points={{-178,-90},{-140,-90},{-140,-14},{-122,-14}}, color={255,127,0}));
   connect(VOut1_flow.y, damLim1.VOut_flow_normalized) annotation (Line(points={{-38,70},
           {0,70},{0,-6},{18,-6}},          color={0,0,127}));
   connect(VOutMinSet1_flow.y, damLim1.VOutMinSet_flow_normalized) annotation (
       Line(points={{-38,30},{-10,30},{-10,-2},{18,-2}}, color={0,0,127}));
   connect(fanStatus1.y, damLim1.uSupFan)
     annotation (Line(points={{-38,-10},{18,-10}}, color={255,0,255}));
-  connect(freProSta1.y, damLim1.uFreProSta)
-    annotation (Line(points={{-38,-90},{0,-90},{0,-14},{18,-14}}, color={255,127,0}));
   connect(VOut2_flow.y, damLim2.VOut_flow_normalized)
     annotation (Line(points={{102,70},{140,70},{140,-6},{158,-6}}, color={0,0,127}));
   connect(VOutMinSet2_flow.y, damLim2.VOutMinSet_flow_normalized)
     annotation (Line(points={{102,30},{130,30},{130,-2},{158,-2}}, color={0,0,127}));
   connect(fanStatus2.y, damLim2.uSupFan)
     annotation (Line(points={{102,-10},{158,-10}}, color={255,0,255}));
-  connect(freProSta2.y, damLim2.uFreProSta)
-    annotation (Line(points={{102,-90},{140,-90},{140,-14},{158,-14}},color={255,127,0}));
   connect(opeMod.y, damLim.uOpeMod)
     annotation (Line(points={{-178,-50},{-150,-50},{-150,-18},{-122,-18}}, color={255,127,0}));
   connect(opeMod1.y, damLim1.uOpeMod)
@@ -134,7 +114,7 @@ equation
 
 annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/Limits_LoopDisable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Limits/Validation/Common_LoopDisable.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -175,14 +155,14 @@ annotation (
 Documentation(info="<html>
 <p>
 This example validates enable/disable conditions for
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common</a>
 for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOpeMod</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 06, 2017, by Milica Grahovac:<br/>
+February 5, 2022, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
