@@ -10,8 +10,8 @@ model EvaporatorVariableSpeed
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed hex(
     redeclare final package Medium = MediumAir,
-    final datCoi=datRec.datCoi,
-    final minSpeRat=datRec.datCoi.minSpeRat,
+    final datCoi=dat.datCoi,
+    final minSpeRat=dat.datCoi.minSpeRat,
     final dp_nominal=dpAir_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heat exchanger"

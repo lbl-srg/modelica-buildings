@@ -8,7 +8,7 @@ model NoEconomizer "No air economizer"
 
   Buildings.Templates.Components.Dampers.TwoPosition damOut(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damOut)
+    final dat=dat.damOut)
     "Outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

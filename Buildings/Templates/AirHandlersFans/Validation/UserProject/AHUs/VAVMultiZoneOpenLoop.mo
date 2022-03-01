@@ -1,6 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model VAVMultiZoneOpenLoop
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    nZon=2,
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
         redeclare replaceable
@@ -18,9 +19,7 @@ model VAVMultiZoneOpenLoop
         Buildings.Templates.Components.Valves.TwoWayModulating val)
       "Chilled water coil",
     redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable
-      fanSupDra,
-    nZon=2,
-    nGro=1);
+      fanSupDra);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

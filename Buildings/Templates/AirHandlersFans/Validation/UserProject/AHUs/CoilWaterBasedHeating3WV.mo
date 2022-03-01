@@ -4,8 +4,7 @@ model CoilWaterBasedHeating3WV
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
         redeclare Buildings.Templates.Components.Valves.ThreeWayModulating val),
-    nZon=2,
-    nGro=1);
+    nZon=2);
   annotation (
     defaultComponentName="ahu");
 end CoilWaterBasedHeating3WV;

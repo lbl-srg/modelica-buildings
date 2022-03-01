@@ -3,8 +3,7 @@ model FanSupplyBlowSingleConstant
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.Components.Fans.None fanSupDra,
     nZon=2,
-    nGro=1,
-    redeclare replaceable Buildings.Templates.Components.Fans.SingleConstant
+        redeclare replaceable Buildings.Templates.Components.Fans.SingleConstant
       fanSupBlo);
 
   annotation (

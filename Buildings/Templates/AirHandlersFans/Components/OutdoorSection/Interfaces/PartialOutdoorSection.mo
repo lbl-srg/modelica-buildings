@@ -18,16 +18,16 @@ partial model PartialOutdoorSection "Outdoor air section"
   outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
-  parameter Data datRec(
+  parameter Data dat(
     final typDamOut=typDamOut,
     final typDamOutMin=typDamOutMin)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    datRec.damOut.m_flow_nominal
+    dat.damOut.m_flow_nominal
     "Air mass flow rate";
   final parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
-    datRec.damOutMin.m_flow_nominal
+    dat.damOutMin.m_flow_nominal
     "Minimum outdoor air mass flow rate";
 
   parameter Boolean allowFlowReversal = true

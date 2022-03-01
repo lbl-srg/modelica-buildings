@@ -7,7 +7,7 @@ model ArrayVariable "Fan array - Variable speed"
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare each final package Medium=Medium,
     each final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    each final per=datRec.per)
+    each final per=dat.per)
     "Fan"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));

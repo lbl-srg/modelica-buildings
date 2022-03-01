@@ -3,7 +3,7 @@ partial block PartialVAVMultizone
   "Partial control block for multiple zone VAV"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController(
-    redeclare Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.DataVAVMultiZone datRec(
+    redeclare Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.DataVAVMultiZone dat(
       typSecRel=secOutRel.typSecRel));
 
   outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
@@ -32,11 +32,12 @@ partial block PartialVAVMultizone
         group="System and building parameters",
         enable=typFanRet <> Buildings.Templates.Components.Types.Fan.None));
 
-  parameter Boolean use_TMix=false
+  parameter Boolean use_TMix=true
     "Set to true if mixed air temperature measurement is enabled"
     annotation(Dialog(
      group="Economizer freeze protection",
-     enable=secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
+     enable=typ<>Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+     secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
 
   final parameter Boolean use_enthalpy=
     typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb

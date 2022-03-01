@@ -32,21 +32,21 @@ partial model PartialCoil
     "Set to true to use a weather bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Buildings.Templates.Components.Coils.Interfaces.Data datRec(
+  parameter Buildings.Templates.Components.Coils.Interfaces.Data dat(
     final have_sou=have_sou,
     final typ=typ,
     final typVal=typVal)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
-    final min=0) = datRec.mAir_flow_nominal
+    final min=0) = dat.mAir_flow_nominal
     "Air mass flow rate";
   final parameter Modelica.Units.SI.PressureDifference dpAir_nominal(
     final min=0,
-    displayUnit="Pa") = datRec.dpAir_nominal
+    displayUnit="Pa") = dat.dpAir_nominal
     "Air pressure drop";
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
-    datRec.Q_flow_nominal
+    dat.Q_flow_nominal
     "Nominal heat flow rate";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
@@ -76,12 +76,12 @@ partial model PartialCoil
         rotation=0,
         origin={0,100})));
 protected
-  parameter Buildings.Templates.Components.Valves.Interfaces.Data datRecVal(
+  parameter Buildings.Templates.Components.Valves.Interfaces.Data datVal(
     final typ=typVal,
-    final m_flow_nominal=datRec.mWat_flow_nominal,
-    final dpValve_nominal=datRec.dpValve_nominal,
+    final m_flow_nominal=dat.mWat_flow_nominal,
+    final dpValve_nominal=dat.dpValve_nominal,
     final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
-          datRec.dpWat_nominal else 0)
+          dat.dpWat_nominal else 0)
     "Design and operating parameters of the control valve";
 
   annotation (

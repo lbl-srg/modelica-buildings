@@ -10,7 +10,7 @@ model EvaporatorMultiStage
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage hex(
     redeclare final package Medium = MediumAir,
-    final datCoi=datRec.datCoi,
+    final datCoi=dat.datCoi,
     final dp_nominal=dpAir_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heat exchanger"

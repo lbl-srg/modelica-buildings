@@ -4,8 +4,7 @@ model FanRelief
     secOutRel(redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan
         secRel "Relief fan with two-position relief damper"),
-    nZon=2,
-    nGro=1);
+    nZon=2);
 
   annotation (
     defaultComponentName="ahu");

@@ -17,9 +17,9 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
-      datRec(
-        final damOut=datRec.damOut,
-        final damOutMin=datRec.damOutMin))
+      dat(
+        final damOut=dat.damOut,
+        final damOutMin=dat.damOutMin))
     "Outdoor air section"
     annotation (
     choices(
@@ -39,16 +39,17 @@ model EconomizerNoRelief "Air economizer - No relief branch"
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief
     secRel(
       redeclare final package MediumAir = MediumAir,
-      datRec(
-        final damRel=datRec.damRel),
-      final dpFan_nominal=dpFan_nominal)
+      dat(
+        final damRel=dat.damRel,
+        final fanRel=dat.fanRel,
+        final fanRet=dat.fanRet))
     "Relief/return air section"
     annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-18,66},{18,94}})));
 
   Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damRet,
+    final dat=dat.damRet,
     final text_rotation=90)
     "Return air damper"
     annotation (Placement(

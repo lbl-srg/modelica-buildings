@@ -4,8 +4,7 @@ model DedicatedDampersAirflow
     secOutRel(redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow
         secOut "Dedicated minimum OA damper (two-position) with AFMS"),
-    nZon=2,
-    nGro=1);
+    nZon=2);
 
   annotation (
     defaultComponentName="ahu");

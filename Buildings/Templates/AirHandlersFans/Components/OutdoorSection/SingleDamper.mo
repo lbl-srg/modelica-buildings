@@ -8,7 +8,7 @@ model SingleDamper "Single common OA damper and OA measurement by AFMS"
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damOut)
+    final dat=dat.damOut)
     "Outdoor air damper"
     annotation (
       Placement(transformation(

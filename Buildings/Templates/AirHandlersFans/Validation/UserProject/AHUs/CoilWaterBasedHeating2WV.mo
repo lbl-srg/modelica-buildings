@@ -5,8 +5,7 @@ model CoilWaterBasedHeating2WV
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
         redeclare replaceable
         Buildings.Templates.Components.Valves.TwoWayModulating val),
-    nZon=2,
-    nGro=1);
+    nZon=2);
   annotation (
     defaultComponentName="ahu");
 end CoilWaterBasedHeating2WV;

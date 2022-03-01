@@ -5,14 +5,14 @@ model ElectricHeating "Electric heating coil"
     final typVal=Buildings.Templates.Components.Types.Valve.None);
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final min=0)=
-    datRec.Q_flow_nominal
+    dat.Q_flow_nominal
     "Nominal heat flow rate";
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     redeclare final package Medium = MediumAir,
-    final Q_flow_nominal=datRec.Q_flow_nominal,
-    final m_flow_nominal=datRec.mAir_flow_nominal,
-    final dp_nominal=datRec.dpAir_nominal,
+    final Q_flow_nominal=dat.Q_flow_nominal,
+    final m_flow_nominal=dat.mAir_flow_nominal,
+    final dp_nominal=dat.dpAir_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

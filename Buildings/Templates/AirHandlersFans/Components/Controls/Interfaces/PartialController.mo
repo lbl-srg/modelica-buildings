@@ -15,9 +15,8 @@ partial block PartialController
 
   replaceable parameter
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.Data
-    datRec(
+    dat(
       final typ=typ,
-      final nZon=nZon,
       final typFanSup=typFanSup,
       final typFanRet=typFanRet)
     "Design and operating parameters";

@@ -38,7 +38,7 @@ package Interfaces "Classes defining the component interfaces"
 
   partial model PartialValve
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-      final m_flow_nominal=datRec.m_flow_nominal);
+      final m_flow_nominal=dat.m_flow_nominal);
 
     parameter Buildings.Templates.Components.Types.Valve typ
       "Equipment type"
@@ -51,18 +51,18 @@ package Interfaces "Classes defining the component interfaces"
       "True to flip text horizontally in icon layer"
       annotation(Dialog(tab="Graphics", enable=false));
 
-    parameter Buildings.Templates.Components.Valves.Interfaces.Data datRec(
+    parameter Buildings.Templates.Components.Valves.Interfaces.Data dat(
       final typ=typ)
       "Design and operating parameters";
 
     final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
-      datRec.dpValve_nominal
+      dat.dpValve_nominal
       "Nominal pressure drop of fully open valve";
     final parameter Modelica.Units.SI.PressureDifference dpFixed_nominal=
-      datRec.dpFixed_nominal
+      dat.dpFixed_nominal
       "Nominal pressure drop of pipes and other equipment in flow leg";
     final parameter Modelica.Units.SI.PressureDifference dpFixedByp_nominal=
-      datRec.dpFixedByp_nominal
+      dat.dpFixedByp_nominal
       "Nominal pressure drop in the bypass line";
 
     Modelica.Fluid.Interfaces.FluidPort_a portByp_a(

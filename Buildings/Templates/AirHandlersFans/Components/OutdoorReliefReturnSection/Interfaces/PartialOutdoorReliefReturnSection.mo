@@ -53,7 +53,7 @@ partial model PartialOutdoorReliefReturnSection
         group="Configuration",
         enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
 
-  parameter Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data datRec(
+  parameter Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data dat(
     final typDamOut=typDamOut,
     final typDamOutMin=typDamOutMin,
     final typDamRet=typDamRet,
@@ -63,33 +63,26 @@ partial model PartialOutdoorReliefReturnSection
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
-    datRec.damOut.m_flow_nominal
+    dat.damOut.m_flow_nominal
     "Supply air mass flow rate";
   final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
-    datRec.damRet.m_flow_nominal
+    dat.damRet.m_flow_nominal
     "Return air mass flow rate";
   final parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
-    datRec.damOutMin.m_flow_nominal
+    dat.damOutMin.m_flow_nominal
     "Minimum outdoor air mass flow rate";
 
-  parameter Modelica.Units.SI.PressureDifference dpFan_nominal
-    "Relief/return fan total pressure rise"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
-          typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-
-  parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal=
-    datRec.damOut.dp_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal=
+    dat.damOut.dp_nominal
     "Outdoor air damper pressure drop";
-  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
-    datRec.damOutMin.dp_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
+    dat.damOutMin.dp_nominal
     "Minimum outdoor air damper pressure drop";
-  parameter Modelica.Units.SI.PressureDifference dpDamRel_nominal=
-    datRec.damRel.dp_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpDamRel_nominal=
+    dat.damRel.dp_nominal
     "Relief air damper pressure drop";
-  parameter Modelica.Units.SI.PressureDifference dpDamRet_nominal=
-    datRec.damRet.dp_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpDamRet_nominal=
+    dat.damRet.dp_nominal
     "Return air damper pressure drop";
 
   parameter Boolean allowFlowReversal = true

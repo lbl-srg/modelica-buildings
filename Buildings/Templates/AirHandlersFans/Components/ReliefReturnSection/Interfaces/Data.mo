@@ -22,7 +22,6 @@ record Data
     "Return fan"
     annotation(Dialog(group="Schedule.Mechanical",
       enable=typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-
   parameter Buildings.Templates.Components.Dampers.Interfaces.Data damRel(
     final typ=typDamRel)
     "Relief damper"

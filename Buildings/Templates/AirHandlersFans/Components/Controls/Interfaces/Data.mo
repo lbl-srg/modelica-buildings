@@ -5,9 +5,6 @@ record Data
   parameter Buildings.Templates.AirHandlersFans.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nZon
-    "Number of served zones"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Fan typFanSup
     "Type of supply fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));

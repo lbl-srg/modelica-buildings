@@ -7,7 +7,7 @@ model SingleConstant "Single fan - Constant speed"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare final package Medium =Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final per=datRec.per)
+    final per=dat.per)
     "Fan"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));

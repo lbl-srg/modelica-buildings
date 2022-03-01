@@ -3,8 +3,7 @@ model CoilElectricHeating
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating
       coiHeaPre "Electric heating coil",
-    nZon=2,
-    nGro=1);
+    nZon=2);
   annotation (
     defaultComponentName="ahu");
 end CoilElectricHeating;

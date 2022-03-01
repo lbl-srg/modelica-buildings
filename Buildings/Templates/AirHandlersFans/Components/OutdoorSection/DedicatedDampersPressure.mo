@@ -9,7 +9,7 @@ model DedicatedDampersPressure
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damOut)
+    final dat=dat.damOut)
     "Economizer outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -17,7 +17,7 @@ model DedicatedDampersPressure
         origin={0,0})));
   Buildings.Templates.Components.Dampers.TwoPosition damOutMin(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damOutMin)
+    final dat=dat.damOutMin)
     "Minimum outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

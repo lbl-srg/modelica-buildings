@@ -18,7 +18,7 @@ partial model AirHandler "Base interface class for air handler"
       Evaluate=true,
       Dialog(group="Configuration"));
 
-  replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data datRec(
+  replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data dat(
     final typ=typ,
     typFanSup=typFanSup,
     typFanRet=typFanRet,
@@ -64,12 +64,12 @@ partial model AirHandler "Base interface class for air handler"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
-    datRec.mAirSup_flow_nominal
+    dat.mAirSup_flow_nominal
     "Supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
-    datRec.mAirRet_flow_nominal
+    dat.mAirRet_flow_nominal
     "Return air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 

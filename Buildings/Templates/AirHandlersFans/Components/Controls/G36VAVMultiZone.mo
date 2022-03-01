@@ -3,7 +3,6 @@ block G36VAVMultiZone
   "Guideline 36 controller for multiple-zone VAV air-handling unit"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
-      final nGro=nGro,
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone);
 
   parameter String idZon[nZon]
@@ -16,7 +15,7 @@ block G36VAVMultiZone
     annotation(Evaluate=true,
     Dialog(group="Configuration"));
 
-  final parameter Integer nGro(min=1)=
+  final parameter Integer nGro(final min=1)=
     Buildings.Templates.BaseClasses.countUniqueStrings(namGroZon)
     "Number of zone groups"
     annotation (
@@ -33,7 +32,7 @@ block G36VAVMultiZone
     "True if zone belongs to group"
     annotation(Evaluate=true);
 
-  final parameter Integer nZonGro[nGro] = {
+  final parameter Integer nZonGro[nGro](each final min=1) = {
     Modelica.Math.BooleanVectors.countTrue({
       namGroZon[j] == namGro[i] for j in 1:nZon})
     for i in 1:nGro}
@@ -65,19 +64,19 @@ block G36VAVMultiZone
   */
 
   final parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
-    datRec.pAirSupSet_rel_max
+    dat.pAirSupSet_rel_max
     "Maximum supply duct static pressure set point";
 
   final parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min=
-    datRec.pAirRetSet_rel_min
+    dat.pAirRetSet_rel_min
     "Return fan minimum discharge static pressure set point";
 
   final parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max=
-    datRec.pAirRetSet_rel_max
+    dat.pAirRetSet_rel_max
     "Return fan maximum discharge static pressure set point";
 
   final parameter Real ySpeFanSup_min=
-    datRec.ySpeFanSup_min
+    dat.ySpeFanSup_min
     "Lowest allowed fan speed if fan is on";
 
   // FIXME: the definition of that parameter is unclear.
@@ -86,39 +85,39 @@ block G36VAVMultiZone
     "Maximum expected system primary airflow at design stage";
 
   final parameter Real nPeaSys_nominal=
-    datRec.nPeaSys_nominal
+    dat.nPeaSys_nominal
     "Peak system population";
 
   final parameter Modelica.Units.SI.Temperature TAirSupSet_min(
-    displayUnit="degC")=datRec.TAirSupSet_min
+    displayUnit="degC")=dat.TAirSupSet_min
     "Lowest supply air temperature set point";
 
   final parameter Modelica.Units.SI.Temperature TAirSupSet_max(
-    displayUnit="degC")=datRec.TAirSupSet_max
+    displayUnit="degC")=dat.TAirSupSet_max
     "Highest supply air temperature set point";
 
   final parameter Modelica.Units.SI.Temperature TAirOutRes_min(
-    displayUnit="degC")=datRec.TAirOutRes_min
+    displayUnit="degC")=dat.TAirOutRes_min
     "Lowest outdoor air temperature reset range";
 
   final parameter Modelica.Units.SI.Temperature TAirOutRes_max(
-    displayUnit="degC")=datRec.TAirOutRes_max
+    displayUnit="degC")=dat.TAirOutRes_max
     "Highest outdoor air temperature reset range";
 
   final parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(start=12)=
-    datRec.pAirBuiSet_rel
+    dat.pAirBuiSet_rel
     "Building static pressure set point";
 
   final parameter Real ySpeFanRet_min(final unit="1", final min=0, final max=1, start=0.1)=
-    datRec.ySpeFanRet_min
+    dat.ySpeFanRet_min
     "Minimum relief/return fan speed";
 
   final parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
-    datRec.dpDamOutMin_nominal
+    dat.dpDamOutMin_nominal
     "Design minimum outdoor air damper differential pressure";
 
   final parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
-    datRec.dVFanRet_flow
+    dat.dVFanRet_flow
     "Airflow differential between supply and return fans to maintain building pressure at set point";
 
   // FIXME #1913: incorrect parameter propagation in controller.

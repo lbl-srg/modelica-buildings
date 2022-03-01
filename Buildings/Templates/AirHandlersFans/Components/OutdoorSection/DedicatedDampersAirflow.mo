@@ -10,7 +10,7 @@ measurement by AFMS"
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damOut)
+    final dat=dat.damOut)
     "Economizer outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -18,7 +18,7 @@ measurement by AFMS"
         origin={0,0})));
   Buildings.Templates.Components.Dampers.Modulating damOutMin(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damOutMin)
+    final dat=dat.damOutMin)
     "Minimum outdoor air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

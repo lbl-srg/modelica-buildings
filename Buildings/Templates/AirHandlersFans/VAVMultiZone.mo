@@ -8,7 +8,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   */
   extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
     nZon(final min=2),
-    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone datRec(
+    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat(
       typCoiHeaPre=coiHeaPre.typ,
       typCoiCoo=coiCoo.typ,
       typCoiHeaReh=coiHeaReh.typ,
@@ -22,7 +22,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       typFanSup=typFanSup,
       typFanRel=typFanRel,
       typFanRet=typFanRet,
-      typSecOutRel=typSecOutRel,
+      typCtl=ctl.typ,
       typSecRel=secOutRel.typSecRel,
       minOADes=ctl.minOADes,
       buiPreCon=ctl.buiPreCon),
@@ -57,12 +57,11 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       redeclare final package MediumAir = MediumAir,
       final typCtlFanRet=ctl.typCtlFanRet,
       final typCtlEco=ctl.typCtlEco,
-      datRec(
-        final damOut=datRec.damOut,
-        final damOutMin=datRec.damOutMin,
-        final damRel=datRec.damRel,
-        final damRet=datRec.damRet),
-      final dpFan_nominal=datRec.dpFanRet_nominal)
+      dat(
+        final damOut=dat.damOut,
+        final damOutMin=dat.damOutMin,
+        final damRel=dat.damRel,
+        final damRet=dat.damRet))
     "Outdoor/relief/return air section"
     annotation (
       Dialog(group="Outdoor/relief/return air section"),
@@ -79,7 +78,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final datRec=datRec.fanSup,
+      final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Blow through"
@@ -118,7 +117,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final datRec=datRec.fanSup,
+      final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Draw through"
@@ -136,7 +135,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Components.Controls.OpenLoop ctl constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
-      final datRec=datRec.ctl,
+      final dat=dat.ctl,
       final nZon=nZon)
     "AHU controller"
     annotation (
@@ -226,7 +225,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final datRec=datRec.coiHeaPre)
+      final dat=dat.coiHeaPre)
     "Heating coil in preheat position"
     annotation (
     choices(
@@ -245,7 +244,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final datRec=datRec.coiCoo)
+      final dat=dat.coiCoo)
     "Cooling coil"
     annotation (
     choices(
@@ -257,7 +256,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final datRec=datRec.coiHeaReh)
+      final dat=dat.coiHeaReh)
     "Heating coil in reheat position"
     annotation (
     choices(

@@ -5,8 +5,7 @@ model DedicatedDampersPressure
         Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure
         secOut
         "Dedicated minimum OA damper (two-position) with differential pressure sensor"),
-    nZon=2,
-    nGro=1);
+    nZon=2);
 
   annotation (
     defaultComponentName="ahu");

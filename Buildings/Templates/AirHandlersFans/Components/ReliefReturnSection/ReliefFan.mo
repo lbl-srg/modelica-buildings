@@ -9,7 +9,7 @@ model ReliefFan "Relief fan with two-position relief damper"
 
   Buildings.Templates.Components.Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damRel,
+    final dat=dat.damRel,
     final text_flip=true)
     "Relief damper"
     annotation (Placement(transformation(
@@ -19,7 +19,7 @@ model ReliefFan "Relief fan with two-position relief damper"
   replaceable Buildings.Templates.Components.Fans.SingleVariable fanRel
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.fanRel,
+    final dat=dat.fanRel,
     final have_senFlo=false,
     final text_flip=true,
     typSin=Buildings.Templates.Components.Types.FanSingle.Propeller)

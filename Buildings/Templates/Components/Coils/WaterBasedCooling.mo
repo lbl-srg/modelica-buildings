@@ -10,13 +10,13 @@ model WaterBasedCooling "Chilled water coil"
     "Source side medium";
 
   final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
-    datRec.mWat_flow_nominal
+    dat.mWat_flow_nominal
     "Liquid mass flow rate";
   final parameter Modelica.Units.SI.PressureDifference dpWat_nominal=
-    datRec.dpWat_nominal
+    dat.dpWat_nominal
     "Liquid pressure drop across coil";
   final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
-    datRec.dpValve_nominal
+    dat.dpValve_nominal
     "Nominal pressure drop across fully open valve";
 
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
@@ -27,7 +27,7 @@ model WaterBasedCooling "Chilled water coil"
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
       final package Medium = MediumCoo,
-      final datRec=datRecVal)
+      final dat=datVal)
     "Valve"
     annotation (
       choicesAllMatching=true,
@@ -40,9 +40,9 @@ model WaterBasedCooling "Chilled water coil"
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final use_Q_flow_nominal=true,
     final Q_flow_nominal=Q_flow_nominal,
-    final T_a1_nominal=datRec.TWatEnt_nominal,
-    final T_a2_nominal=datRec.TAirEnt_nominal,
-    final w_a2_nominal=datRec.wAirEnt_nominal,
+    final T_a1_nominal=dat.TWatEnt_nominal,
+    final T_a2_nominal=dat.TAirEnt_nominal,
+    final w_a2_nominal=dat.wAirEnt_nominal,
     final dp1_nominal=dpWat_nominal,
     final dp2_nominal=dpAir_nominal)
   constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(

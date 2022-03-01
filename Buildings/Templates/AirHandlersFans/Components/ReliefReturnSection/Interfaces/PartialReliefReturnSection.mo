@@ -23,17 +23,25 @@ partial model PartialReliefReturnSection "Relief/return air section"
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
 
-  parameter Data datRec(
+  parameter Data dat(
     final typFanRel=typFanRel,
     final typFanRet=typFanRet,
     final typDamRel=typDamRel)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    datRec.damRel.m_flow_nominal
+    if typFanRet <> Buildings.Templates.Components.Types.Fan.None then dat.fanRet.m_flow_nominal
+    elseif typFanRel <> Buildings.Templates.Components.Types.Fan.None then dat.fanRel.m_flow_nominal
+    elseif typDamRel <> Buildings.Templates.Components.Types.Damper.None then dat.damRel.m_flow_nominal
+    else 0
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpFan_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpFan_nominal=
+    if typFanRel <> Buildings.Templates.Components.Types.Fan.None then
+      dat.fanRel.dp_nominal
+    elseif typFanRet <> Buildings.Templates.Components.Types.Fan.None then
+      dat.fanRet.dp_nominal
+    else 0
     "Relief/return fan total pressure rise"
     annotation (
       Dialog(group="Nominal condition",

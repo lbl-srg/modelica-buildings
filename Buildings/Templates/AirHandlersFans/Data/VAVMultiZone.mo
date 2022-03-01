@@ -20,11 +20,8 @@ record VAVMultiZone
   parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
     "Type of valve for heating coil in reheat position"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Fan typFanSup
-    "Type of supply fan"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection typSecOutRel
-    "Type of  outdoor/relief/return air section"
+  parameter Buildings.Templates.AirHandlersFans.Types.Controller typCtl
+    "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
     "Relief/return air section type"
@@ -94,24 +91,17 @@ record VAVMultiZone
     annotation (Dialog(group="Schedule.Mechanical",
       enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
 
-  parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=100
-    "Total pressure rise"
-    annotation (
-      Dialog(group="Schedule.Mechanical",
-        enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.Units.SI.PressureDifference dpFanRet_nominal=100
-    "Total pressure rise"
-    annotation (
-      Dialog(group="Schedule.Mechanical",
-        enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
-          typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-
   parameter Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.DataVAVMultiZone ctl(
     final typFanSup=typFanSup,
-    final typFanRet=typFanRet)
-    "Control parameters";
+    final typFanRet=typFanRet,
+    final typ=typCtl,
+    final typSecRel=typSecRel,
+    final minOADes=minOADes,
+    final buiPreCon=buiPreCon)
+    "Relief/return air section type"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
 annotation (
   defaultComponentPrefixes = "parameter",
-  defaultComponentName = "datRec");
+  defaultComponentName = "dat");
 end VAVMultiZone;

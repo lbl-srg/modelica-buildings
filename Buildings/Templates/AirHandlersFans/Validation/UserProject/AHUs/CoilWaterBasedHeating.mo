@@ -3,8 +3,7 @@ model CoilWaterBasedHeating
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre,
-    nZon=2,
-    nGro=1);
+    nZon=2);
   annotation (
     defaultComponentName="ahu");
 end CoilWaterBasedHeating;

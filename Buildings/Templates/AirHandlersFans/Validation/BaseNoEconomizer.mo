@@ -12,31 +12,35 @@ model BaseNoEconomizer
     "Heating medium (such as HHW)";
 
   UserProject.DataTopLevel datTop(VAV_1(
-      final typ=VAV_1.typ,
-      final typFanSup=VAV_1.typFanSup,
-      final typFanRet=VAV_1.typFanRet,
-      final typFanRel=VAV_1.typFanRel,
-      final have_souCoiCoo=VAV_1.have_souCoiCoo,
-      final have_souCoiHeaPre=VAV_1.have_souCoiHeaPre,
-      final have_souCoiHeaReh=VAV_1.have_souCoiHeaReh,
-      mAirSup_flow_nominal=1,
-      mAirRet_flow_nominal=1,
-      final typCoiHeaPre=VAV_1.coiHeaPre.typ,
-      final typCoiCoo=VAV_1.coiCoo.typ,
-      final typCoiHeaReh=VAV_1.coiHeaReh.typ,
-      final typValCoiHeaPre=VAV_1.coiHeaPre.typVal,
-      final typValCoiCoo=VAV_1.coiCoo.typVal,
-      final typValCoiHeaReh=VAV_1.coiHeaReh.typVal,
-      mOutMin_flow_nominal=0.2,
-      final typDamOut=VAV_1.secOutRel.typDamOut,
-      final typDamOutMin=VAV_1.secOutRel.typDamOutMin,
-      final typDamRet=VAV_1.secOutRel.typDamRet,
-      final typDamRel=VAV_1.secOutRel.typDamRel))
+    mAirSup_flow_nominal=1,
+    mAirRet_flow_nominal=1,
+    mOutMin_flow_nominal=0.2,
+    final typ=VAV_1.typ,
+    final typFanSup=VAV_1.typFanSup,
+    final typFanRet=VAV_1.typFanRet,
+    final typFanRel=VAV_1.typFanRel,
+    final have_souCoiCoo=VAV_1.have_souCoiCoo,
+    final have_souCoiHeaPre=VAV_1.have_souCoiHeaPre,
+    final have_souCoiHeaReh=VAV_1.have_souCoiHeaReh,
+    final typCoiHeaPre=VAV_1.coiHeaPre.typ,
+    final typCoiCoo=VAV_1.coiCoo.typ,
+    final typCoiHeaReh=VAV_1.coiHeaReh.typ,
+    final typValCoiHeaPre=VAV_1.coiHeaPre.typVal,
+    final typValCoiCoo=VAV_1.coiCoo.typVal,
+    final typValCoiHeaReh=VAV_1.coiHeaReh.typVal,
+    final typDamOut=VAV_1.secOutRel.typDamOut,
+    final typDamOutMin=VAV_1.secOutRel.typDamOutMin,
+    final typDamRet=VAV_1.secOutRel.typDamRet,
+    final typDamRel=VAV_1.secOutRel.typDamRel,
+    final typCtl=VAV_1.ctl.typ,
+    final typSecRel=VAV_1.secOutRel.typSecRel,
+    final minOADes=VAV_1.ctl.minOADes,
+    final buiPreCon=VAV_1.ctl.buiPreCon))
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
 
   inner replaceable UserProject.AHUs.NoEconomizer VAV_1 constrainedby
     Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    datRec=datTop.VAV_1,
+    dat=datTop.VAV_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));

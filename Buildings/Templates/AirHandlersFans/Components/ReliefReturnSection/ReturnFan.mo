@@ -9,7 +9,7 @@ model ReturnFan "Return fan with modulating relief damper"
 
   Buildings.Templates.Components.Dampers.Modulating damRel(
     redeclare final package Medium = MediumAir,
-    final datRec=datRec.damRel,
+    final dat=dat.damRel,
     final text_flip=true)
     "Relief damper"
     annotation (Placement(transformation(
@@ -19,7 +19,7 @@ model ReturnFan "Return fan with modulating relief damper"
   replaceable Buildings.Templates.Components.Fans.SingleVariable fanRet
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final datRec=datRec.fanRet,
+      final dat=dat.fanRet,
       final have_senFlo=
         typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)

@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Fans.Interfaces;
 partial model PartialFan "Interface class for fans"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=datRec.m_flow_nominal);
+    final m_flow_nominal=dat.m_flow_nominal);
 
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
@@ -23,14 +23,14 @@ partial model PartialFan "Interface class for fans"
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  parameter Buildings.Templates.Components.Fans.Interfaces.Data datRec(
+  parameter Buildings.Templates.Components.Fans.Interfaces.Data dat(
     final typ=typ,
     final nFan=nFan)
     "Design and operating parameters";
 
-  final parameter Integer nFan = datRec.nFan
+  final parameter Integer nFan = dat.nFan
     "Number of fans";
-  final parameter Modelica.Units.SI.PressureDifference dp_nominal=datRec.dp_nominal
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal=dat.dp_nominal
     "Total pressure rise";
 
   Buildings.Templates.Components.Interfaces.Bus bus
