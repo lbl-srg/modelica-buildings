@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
-model DirectUncontrolled "Example model for the direct cooling energy transfer station with 
-  uncontrolled district-building fluid transfer within the ETS"
+model DirectUncontrolled "Example model for the direct cooling energy transfer 
+  station with uncontrolled district-building fluid transfer within the ETS"
 extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";

@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
 model Indirect
-  "Example model for indirect cooling energy transfer station that has a closed chilled water loop on the building side"
+  "Example model for indirect cooling energy transfer station that has 
+  a closed chilled water loop on the building side"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";

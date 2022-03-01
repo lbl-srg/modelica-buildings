@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
-model DirectUncontrolled "Direct cooling ETS model for district energy systems without in-building 
-  pumping or deltaT control"
+model DirectUncontrolled "Direct cooling ETS model for district energy systems 
+  without in-building pumping or deltaT control"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=DHC.Types.DistrictSystemType.Cooling,

@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.Loads.Cooling.Examples;
 model BuildingTimeSeriesWithETS
-  "Example model of a building with loads provided as time series, connected to an ETS for cooling"
+  "Example model of a building with loads provided as time series, 
+  connected to an ETS for cooling"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
