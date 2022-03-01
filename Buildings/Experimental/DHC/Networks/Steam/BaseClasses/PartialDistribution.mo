@@ -1,4 +1,4 @@
-within DES.Heating.Networks.BaseClasses;
+within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
 partial model PartialDistribution
   "Partial model for distribution network"
   replaceable package MediumSup =
