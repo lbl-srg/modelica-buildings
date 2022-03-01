@@ -14,21 +14,21 @@ partial model PartialAirTerminal
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter String id
+  parameter String id
    "System tag"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean have_souCoiHea
     "Set to true if heating coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value")
+  replaceable parameter Buildings.Templates.ZoneEquipment.Interfaces.Data dat(
+    final typ=typ,
+    final have_souCoiHea=have_souCoiHea)
+    "Design and operating parameters";
+
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+    dat.mAir_flow_nominal
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 

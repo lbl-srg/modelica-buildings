@@ -40,6 +40,7 @@ model BaseNoEconomizer
 
   inner replaceable UserProject.AHUs.NoEconomizer VAV_1 constrainedby
     Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    id="VAV_1",
     dat=datTop.VAV_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumCoo = MediumCoo)

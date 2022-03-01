@@ -12,6 +12,14 @@ partial model AirHandler "Base interface class for air handler"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
 
+  parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
+    "Type of system"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  parameter String id
+   "System tag"
+    annotation (Dialog(group="Configuration"));
+
   inner parameter Integer nZon(min=1)
     "Number of served zones"
     annotation (
@@ -20,9 +28,9 @@ partial model AirHandler "Base interface class for air handler"
 
   replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data dat(
     final typ=typ,
-    typFanSup=typFanSup,
-    typFanRet=typFanRet,
-    typFanRel=typFanRel,
+    final typFanSup=typFanSup,
+    final typFanRel=typFanRel,
+    final typFanRet=typFanRet,
     final have_souCoiCoo=have_souCoiCoo,
     final have_souCoiHeaPre=have_souCoiHeaPre,
     final have_souCoiHeaReh=have_souCoiHeaReh)
@@ -32,9 +40,6 @@ partial model AirHandler "Base interface class for air handler"
     "Set to true to activate the control specification mode"
     annotation(Evaluate=true);
 
-  parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
-    "Type of system"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_porRel=
     typ==Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
     "Set to true for relief (exhaust) fluid port"

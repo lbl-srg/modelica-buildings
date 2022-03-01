@@ -9,11 +9,6 @@ model BaseVAVBoxCoolingOnly
   replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
-  inner parameter ExternData.JSONFile dat(fileName=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
-    annotation (
-      Evaluate=true,
-      Placement(transformation(extent={{76,76},{96,96}})));
 
   Fluid.Sources.Boundary_pT bou(redeclare final package Medium = MediumAir,
       nPorts=1)

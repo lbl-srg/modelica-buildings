@@ -1,17 +1,21 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
+    redeclare Buildings.Templates.ZoneEquipment.Interfaces.DataVAVBoxReheat dat(
+      typCoiHea=coiHea.typ,
+      typDamVAV=damVAV.typ,
+      have_CO2Sen=ctl.have_CO2Sen),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
     final have_souCoiHea=coiHea.have_sou);
 
-  parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
-    dat.getReal(varName=id + ".mechanical.dpDamVAV_nominal.value")
+  final parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
+    dat.dpDamVAV_nominal
     "Damper pressure drop"
     annotation (Dialog(group="Nominal condition"));
 
-  inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-    final mAir_flow_nominal=mAir_flow_nominal)
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil
+  inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+      final dat=dat.coiHea)
     "Heating coil"
     annotation (
     choices(
@@ -26,8 +30,7 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     constrainedby
     Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
-      final m_flow_nominal=mAir_flow_nominal,
-      final dpDamper_nominal=dpDamVAV_nominal)
+      final dat=dat.damVAV)
     "VAV damper"
     annotation (Dialog(group="VAV damper"),
       choices(
@@ -43,7 +46,8 @@ model VAVBoxReheat "VAV terminal unit with reheat"
 
   inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
     constrainedby
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
+    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController(
+      final dat=dat.ctl)
     "Terminal unit controller"
     annotation (
     choices(

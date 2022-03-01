@@ -93,6 +93,7 @@ record VAVMultiZone
 
   parameter Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.DataVAVMultiZone ctl(
     final typFanSup=typFanSup,
+    final typFanRel=typFanRel,
     final typFanRet=typFanRet,
     final typ=typCtl,
     final typSecRel=typSecRel,

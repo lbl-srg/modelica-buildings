@@ -1,11 +1,14 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxCoolingOnly "VAV terminal unit cooling only"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
+    redeclare Buildings.Templates.ZoneEquipment.Interfaces.DataVAVBoxReheat dat(
+      typCoiHea=Buildings.Templates.Components.Coils.WaterBasedHeating.None,
+      typDamVAV=damVAV.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
     final have_souCoiHea=false);
 
-  parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
-    dat.getReal(varName=id + ".mechanical.dpDamVAV_nominal.value")
+  final parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
+    dat.dpDamVAV_nominal
     "Damper pressure drop"
     annotation (Dialog(group="Nominal condition"));
 
@@ -13,8 +16,7 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
     constrainedby
     Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
-      final m_flow_nominal=mAir_flow_nominal,
-      final dpDamper_nominal=dpDamVAV_nominal)
+      final dat=dat.damVAV)
     "VAV damper"
     annotation (Dialog(group="VAV damper"),
       choices(
@@ -30,7 +32,8 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
 
   inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
     constrainedby
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController
+    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController(
+      final dat=dat.ctl)
     "Terminal unit controller"
     annotation (
     choices(

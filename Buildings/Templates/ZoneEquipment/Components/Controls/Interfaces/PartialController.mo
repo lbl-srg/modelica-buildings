@@ -4,10 +4,9 @@ partial block PartialController
   parameter ZoneEquipment.Types.Controller typ "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  replaceable parameter Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.Data dat(
+    final typ=typ)
+    "Design and operating parameters";
 
   Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
     "Terminal unit control bus" annotation (Placement(transformation(

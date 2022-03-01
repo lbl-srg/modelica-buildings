@@ -10,136 +10,131 @@ block G36VAVBoxReheat
 
   final parameter Boolean have_pressureIndependentDamper=
     damVAV.typ==Buildings.Templates.Components.Types.Damper.PressureIndependent
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation (Dialog(tab="Damper and valve control", group="Damper"));
+    "Set to true is the VAV damper is pressure independent (with built-in flow controller)"
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
-    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean have_winSen=false
     "Set to true if the zone has window status sensor"
-    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(tab="Airflow set point", group="Zone sensors"));
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean permit_occStandby=true
-    "Set to true if occupied-standby mode is permitted";
+    "Set to true if occupied-standby mode is permitted"
+    annotation (Dialog(group="Configuration"));
 
   final parameter Boolean have_hotWatCoi=
     coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
-    "Set to true if the system has hot water coil";
+    "Set to true if the system has hot water coil"
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean have_locAdj=true
     "Set to true if the zone has local set point adjustment knob"
-    annotation (Dialog(group="Set point adjustable setting"));
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean sepAdj=true
     "Set to true if cooling and heating set points can be adjusted separately"
-    annotation (Dialog(group="Set point adjustable setting", enable=have_locAdj));
+    annotation (Dialog(group="Configuration", enable=have_locAdj));
 
   parameter Boolean ignDemLim = true
     "Set to true to exempt the zone from demand limit set point adjustment"
-    annotation(Dialog(group="Set point adjustable setting"));
+    annotation(Dialog(group="Configuration"));
 
-  parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=
-    dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value") / 1.2
+  final parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=
+    max(VAirCooSet_flow_max, VAirHeaSet_flow_max)
     "Zone design volume flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Airflow"));
 
-  final parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max = VAir_flow_nominal
-    "Zone maximum cooling airflow set point"
-    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
-  parameter Modelica.Units.SI.VolumeFlowRate VAirSet_flow_min=
-    dat.getReal(varName=id + ".control.VAirSet_flow_min.value")
-    "Zone minimum airflow set point"
-    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
-  parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_max=
-    dat.getReal(varName=id + ".control.VAirHeaSet_flow_max.value")
-    "Zone maximum heating airflow set point"
-    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
-  parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_min=
-    dat.getReal(varName=id + ".control.VAirHeaSet_flow_min.value")
-    "Zone minimum heating airflow set point"
+  final parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max=
+    dat.VAirCooSet_flow_max
+    "Zone maximum cooling airflow set point";
+
+  final parameter Modelica.Units.SI.VolumeFlowRate VAirSet_flow_min=
+    dat.VAirSet_flow_min
+    "Zone minimum airflow set point";
+
+  final parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_max=
+    dat.VAirHeaSet_flow_max
+    "Zone maximum heating airflow set point";
+
+  final parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_min=
+    dat.VAirHeaSet_flow_min
+    "Zone minimum heating airflow set point";
+
+  final parameter Real CO2Set=
+    dat.CO2Set
+    "CO2 set point"
     annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
 
-  parameter Real CO2Set=
-    dat.getReal(varName=id + ".control.CO2Set.value")
-    "CO2 set point in ppm"
-    annotation (Dialog(tab="Airflow set point", group="Nominal conditions"));
-
-  parameter Modelica.Units.SI.TemperatureDifference dTAirDisHea_max(
+  final parameter Modelica.Units.SI.TemperatureDifference dTAirDisHea_max(
     displayUnit="K")=
-    dat.getReal(varName=id + ".control.dTAirDisHea_max.value")
-    "Zone maximum discharge air temperature above heating set point"
-    annotation (Dialog(tab="Damper and valve", group="Parameters"));
+    dat.dTAirDisHea_max
+    "Zone maximum discharge air temperature above heating set point";
 
-  parameter Modelica.Units.SI.Temperature TAirDis_min(
+  final parameter Modelica.Units.SI.Temperature TAirDis_min(
     displayUnit = "degC")=
-    dat.getReal(varName=id + ".control.TAirDis_min.value")
-    "Minimum discharge air temperature"
-    annotation (Dialog(tab="Damper and valve", group="Parameters"));
+    dat.TAirDis_min
+    "Minimum discharge air temperature";
 
-  parameter Real VAirOutPerAre_flow(
-    final unit = "m3/(s.m2)", final min=0, start=3e-4)=
-    dat.getReal(varName=id + ".control.VAirOutPerAre_flow.value")
-    "Outdoor air flow rate per unit area"
-    annotation(Dialog(group="Nominal condition"));
+  final parameter Real VAirOutPerAre_flow(
+    final unit = "m3/(s.m2)")=
+    dat.VAirOutPerAre_flow
+    "Outdoor air flow rate per unit area";
 
-  parameter Real VAirOutPerPer_flow(
-    final unit = "m3/s", final min=0, start=2.5e-3)=
-    dat.getReal(varName=id + ".control.VAirOutPerPer_flow.value")
-    "Outdoor air flow rate per person"
-    annotation(Dialog(group="Nominal condition"));
+  final parameter Real VAirOutPerPer_flow(
+    final unit = "m3/s")=
+    dat.VAirOutPerPer_flow
+    "Outdoor air flow rate per person";
 
-  parameter Modelica.Units.SI.Area AFlo=
-    dat.getReal(varName=id + ".control.AFlo.value")
-    "Zone floor area"
-    annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.Area AFlo=
+    dat.AFlo
+    "Zone floor area";
 
-  parameter Real effAirDisHea(final unit = "1", final min=0, final max=1, start=0.8)=
-     dat.getReal(varName=id + ".control.effAirDisHea.value")
+  final parameter Real effAirDisHea=
+    dat.effAirDisHea
     "Zone air distribution effectiveness during heating";
 
-  parameter Real effAirDisCoo(final unit = "1", final min=0, final max=1, start=1.0)=
-     dat.getReal(varName=id + ".control.effAirDisCoo.value")
+  final parameter Real effAirDisCoo=
+     dat.effAirDisCoo
     "Zone air distribution effectiveness during cooling";
 
-  parameter Real effAirDis_nominal(final unit = "1", final min=0, final max=1)=
-    effAirDisCoo
-    "Zone air distribution effectiveness at design conditions"
-    annotation(Dialog(group="Nominal condition"));
+  // FIXME: not in §3.1.1.2 Outdoor Air Ventilation Set Points
+  final parameter Real effAirDis_nominal=effAirDisCoo
+    "Zone air distribution effectiveness at design conditions";
 
-  parameter Modelica.Units.SI.VolumeFlowRate VAirPri_flow_min=
-    dat.getReal(varName=id + ".control.VAirPri_flow_min.value")
-    "Zone minimum expected primary air volume flow rate"
-    annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.VolumeFlowRate VAirPri_flow_min=
+    dat.VAirPri_flow_min
+    "Zone minimum expected primary air volume flow rate";
 
   // FIXME: should be inputs such as in Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints
-  parameter Modelica.Units.SI.Temperature TAirZonHeaOccSet(
+  final parameter Modelica.Units.SI.Temperature TAirZonHeaOccSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.TAirZonHeaOccSet.value")
+    dat.TAirZonHeaOccSet
     "Zone occupied heating set point";
 
-  parameter Modelica.Units.SI.Temperature TAirZonHeaUnoSet(
+  final parameter Modelica.Units.SI.Temperature TAirZonHeaUnoSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.TAirZonHeaUnoSet.value")
+    dat.TAirZonHeaUnoSet
     "Zone unoccupied heating set point";
 
-  parameter Modelica.Units.SI.Temperature TAirZonCooOccSet(
+  final parameter Modelica.Units.SI.Temperature TAirZonCooOccSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.TAirZonCooOccSet.value")
+    dat.TAirZonCooOccSet
     "Zone occupied cooling set point";
 
-  parameter Modelica.Units.SI.Temperature TAirZonCooUnoSet(
+  final parameter Modelica.Units.SI.Temperature TAirZonCooUnoSet(
     displayUnit="degC")=
-    dat.getReal(varName=id + ".control.TAirZonCooUnoSet.value")
+    dat.TAirZonCooUnoSet
     "Zone unoccupied cooling set point";
 
-  parameter Real nPeo_nominal(final unit="1", final min=0, start=0.05*AFlo)=
-    dat.getReal(varName=id + ".control.nPeo_nominal.value")
+  final parameter Real nPeo_nominal(final unit="1", final min=0, start=0.05*AFlo)=
+    dat.nPeo_nominal
     "Design zone population";
 
   // FIXME: missing default parameter assignment, see non final binding below.

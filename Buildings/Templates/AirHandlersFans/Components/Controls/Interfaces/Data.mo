@@ -8,8 +8,11 @@ record Data
   parameter Buildings.Templates.Components.Types.Fan typFanSup
     "Type of supply fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.Fan typFanRel
+    "Type of relief fan"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Fan typFanRet
-    "Type of relief/return fan"
+    "Type of return fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
 end Data;
