@@ -79,7 +79,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Tolerance=1e-6, __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file="modelica://DES/Resources/Scripts/Dymola/Heating/Networks/Examples/ConnectionCondensatePipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Steam/Examples/ConnectionCondensatePipe.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
