@@ -240,9 +240,6 @@ protected
   Modelica.Blocks.Interfaces.RealOutput dp_internal
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
 
-  Modelica.Units.SI.Power P_internal
-    "If per.use_hydraulicPerformance, PEle = P_internal / etaMot, otherwise PEle = P_internal";
-
   Buildings.Controls.OBC.CDL.Continuous.Divide divByRho "Divide by density";
 
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
@@ -540,76 +537,93 @@ equation
     // end of if/else choosing between exact/simplified power computation
   end if;
 
-  // Flow work
+  // Flow work definition
   WFlo = dp_internal*V_flow;
-  // Hydraulic work
-  WHyd = PEle * etaMot;
-  // Power consumption - three computation paths
-  if per.use_powerCharacteristic then
-    // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
-    // temperature near zero flow.
+
+  // Total efficiency eta and consumed electric power PEle
+  if per.effMetInt[1]==3 then
+  // If power curve is provided for consumed electric power
+    eta = Buildings.Utilities.Math.Functions.smoothMax(
+            x1=WFlo/PEle, x2=1E-5, deltaX=1E-6);
     if homotopyInitialization then
-      P_internal = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
+      PEle = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
                             cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      P_internal = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
+      PEle = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
-    // To compute the efficiency, we set a lower bound on the electricity consumption.
-    // This is needed because WFlo can be close to zero when P is zero, thereby
-    //   causing a division by zero.
-    // Earlier versions of the model computed WFlo = eta * P, but this caused
-    //   a division by zero.
-    // Earlier versions assumed the given power curve is always the consumed power
-    //   and used etaMot=sqrt(eta), but as eta->0, this function has
-    //   an infinite derivative.
-    if per.use_hydraulicPerformance then
-      etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
-                 x1=WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                             x1=P_internal, x2=1E-5, deltaX=1E-6),
-                 x2=1E-6, deltaX=1E-7);
-      PEle = P_internal/etaMot;
-      etaMot = per.motorEfficiency.eta[1];
-      eta = etaHyd * etaMot;
-    else
-      eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                     x1=P_internal, x2=1E-5, deltaX=1E-6);
-      PEle = P_internal;
-      etaHyd = 1;
-      etaMot = eta;
-    end if;
-  elseif per.use_eulerNumber then
+  elseif per.effMetInt[1]==4 then
+  // If peak total efficiency is provided
     connect(effTab.y,eta);
     connect(powTab.y,PEle);
-    P_internal=PEle;
-    if per.use_hydraulicPerformance then
-      etaMot = per.peak.etaMot;
-      etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
-                 x1=eta / etaMot, x2=1E-6,deltaX=1E-7);
-    else
-      etaHyd = 1;
-      etaMot = eta;
-    end if;
+  elseif per.effMetInt[1]==2 then
+  // (Placeholder) If total efficiency is provided as an array
+    eta = 0.49;
+    PEle = WFlo / eta;
   else
-  // This path corresponds to per.use_motorEfficiency==true
-  // but is also used as the fallback option.
+  // Total efficiency not provided
+    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                    x1=eta, x2=1E-5, deltaX=1E-6);
+    if per.effMetInt[2]<>1 and per.effMetInt[3]==1 then
+    // If only hydraulic efficiency is provided
+      eta = etaHyd;
+    elseif per.effMetInt[2]==1 and per.effMetInt[3]<>1 then
+    // If only motor efficiency is provided
+      eta = etaMot;
+    else
+    // If neither
+      eta = 0.49;
+    end if;
+  end if;
+
+  // Hydraulic efficiency and hydraulic work
+  if per.effMetInt[2]==3 then
+  // If power curve is provided as hydraulic work
+    etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
+               x1=WFlo/WHyd, x2=1E-5, deltaX=1E-6);
+    if homotopyInitialization then
+      WHyd = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
+                      simplified=V_flow/V_flow_nominal*
+                            cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
+    else
+      WHyd = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
+    end if;
+  elseif per.effMetInt[2]==4 then
+  // If peak total efficiency is provided
+    connect(effTab.y,etaHyd);
+    connect(powTab.y,WHyd);
+  elseif per.effMetInt[2]==2 then
+  // If hydraulic effciency is provided as an array
+    WHyd = WFlo / etaHyd;
     if homotopyInitialization then
       etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
+    else
+      etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta);
+    end if;
+  else
+  // Hydraulic efficiency not provided
+    etaHyd = 1;
+    WHyd = WFlo;
+  end if;
+
+  // Motor efficiency
+  if per.effMetInt[3]==2 then
+  // If motor efficiency provided as an array
+    if homotopyInitialization then
       etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
-      etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta);
       etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta);
     end if;
-    // To compute the electrical power, we set a lower bound for eta to avoid
-    // a division by zero.
-    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
-    P_internal=PEle;
-    // Technically P_internal = PEle * etaMot in this path.
-    //   But because this intermediate variable is not needed here,
-    //   it is set as an alias to reduce the size of the equation system.
-    eta = etaHyd * etaMot;
+  else
+  // Motor efficiency not provided
+    if per.effMetInt[1]==1 and per.effMetInt[2]<>1 then
+    // Only hydraulic efficiency is provided
+      etaMot = 1;
+    else
+      etaMot = eta;
+    end if;
   end if;
 
   annotation (

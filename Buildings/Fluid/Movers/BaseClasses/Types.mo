@@ -12,6 +12,15 @@ package Types "Package with type definitions"
       EulerNumber "User provides peak operation point",
       MotorEfficiency "User provides motor efficiency")
     "Enumeration to choose the method for power computation";
+  type EfficiencyMethod = enumeration(
+      NotProvided
+        "1. Not provided, will be computed from other efficiencies",
+      Values
+        "2. An array of values or one constant is provided",
+      PowerCurve
+        "3. A power curve is provided",
+      EulerNumber
+        "4. The peak point is provided");
  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains type definitions for movers.

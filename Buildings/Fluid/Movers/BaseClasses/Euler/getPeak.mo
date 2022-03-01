@@ -10,7 +10,6 @@ function getPeak
 protected
   Integer n = size(per.pressure.V_flow, 1) "Number of data points";
   Real eta[size(per.pressure.V_flow,1)] "Efficiency series";
-  Real eta_internal "Intermediate variable";
   Boolean etaLes "Efficiency series has less than four points";
   Boolean etaMon "Efficiency series is monotonic";
 
@@ -34,9 +33,9 @@ algorithm
           level = AssertionLevel.warning);
 
   if etaLes or etaMon then
-    eta_internal:=max(eta);
+    peak.eta:=max(eta);
     for i in 1:n loop
-      if abs(eta[i]-eta_internal)<1E-6 then
+      if abs(eta[i]-peak.eta)<1E-6 then
         peak.V_flow:=per.pressure.V_flow[i];
         peak.dp:=per.pressure.dp[i];
       end if;
@@ -63,7 +62,7 @@ algorithm
         peak.V_flow:=r[i,1];
       end if;
     end for;
-    eta_internal:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+    peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
       x=peak.V_flow,
       xSup=per.pressure.V_flow,
       ySup=eta,
@@ -73,14 +72,6 @@ algorithm
       xSup=per.pressure.V_flow,
       ySup=per.pressure.dp,
       ensureMonotonicity=false);
-  end if;
-
-  if per.use_hydraulicPerformance then
-    peak.etaHyd := eta_internal;
-    peak.eta := peak.etaHyd * peak.etaMot;
-  else
-    peak.eta := eta_internal;
-    peak.etaHyd := peak.eta / peak.etaHyd;
   end if;
 
   annotation(smoothOrder=1,

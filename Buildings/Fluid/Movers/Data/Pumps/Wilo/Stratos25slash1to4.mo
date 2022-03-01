@@ -2,8 +2,9 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos25slash1to4 "Pump data for a Wilo Stratos 25/1-4 pump"
   extends Generic(
     speed_rpm_nominal=1800,
-    powMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic,
+    effMet={Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided},
     power(V_flow={5.55555555556e-07,0.000402190923318,0.00052269170579,
           0.000643192488263,0.000752738654147,0.000866979655712,
           0.000973395931142,0.00108607198748,0.00115962441315}, P={

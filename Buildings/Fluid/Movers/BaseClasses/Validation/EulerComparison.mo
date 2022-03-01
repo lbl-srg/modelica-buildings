@@ -19,8 +19,15 @@ model EulerComparison
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Movers.Data.Generic per2(
-    final powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
-    final use_hydraulicPerformance=per1.use_hydraulicPerformance,
+    final effMet=
+            if per1.effMetInt[1]==3 then
+           {Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided}
+            else
+           {Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided},
     pressure=per1.pressure,
     power=per1.power,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per1))

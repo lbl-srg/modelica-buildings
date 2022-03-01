@@ -1,8 +1,9 @@
 within Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992;
 record Return "Data for the return fan used in Englander and Norford (1992)"
   extends Generic(
-    powMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic,
+    effMet={Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided},
     speed_rpm_nominal=800,
     power(V_flow={10.2875112309074,24.9775381850853,35.4447439353099,53.414195867026},
           P={29828,44742,51050.622,44742}),
