@@ -544,7 +544,9 @@ equation
   if per.effMetInt[1]==3 then
   // If power curve is provided for consumed electric power
     eta = Buildings.Utilities.Math.Functions.smoothMax(
-            x1=WFlo/PEle, x2=1E-5, deltaX=1E-6);
+            x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                      x1=PEle, x2=1E-5, deltaX=1E-6),
+            x2=1E-5, deltaX=1E-6);
     if homotopyInitialization then
       PEle = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
@@ -570,6 +572,9 @@ equation
     elseif per.effMetInt[2]==1 and per.effMetInt[3]<>1 then
     // If only motor efficiency is provided
       eta = etaMot;
+    elseif per.effMetInt[2]<>1 and per.effMetInt[3]<>1 then
+    // If both
+      eta = etaHyd * etaMot;
     else
     // If neither
       eta = 0.49;
@@ -580,7 +585,9 @@ equation
   if per.effMetInt[2]==3 then
   // If power curve is provided as hydraulic work
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
-               x1=WFlo/WHyd, x2=1E-5, deltaX=1E-6);
+               x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                         x1=WHyd, x2=1E-5, deltaX=1E-6),
+               x2=1E-5, deltaX=1E-6);
     if homotopyInitialization then
       WHyd = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
