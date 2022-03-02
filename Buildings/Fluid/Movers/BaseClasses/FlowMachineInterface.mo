@@ -384,6 +384,19 @@ the simulation stops.");
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
+  assert(not (per.effMetInt[1]==3 and per.effMetInt[2]==3),
+    "Only one of etaMet and etaHydMet can be set to
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve");
+
+  assert(not (per.effMetInt[1]==4 and per.effMetInt[2]==4),
+    "Only one of etaMet and etaHydMet can be set to
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber");
+
+  assert(per.effMetInt[3]==1 or per.effMetInt[3]==2,
+    "Only values allowed for etaMet is
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided or
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values");
+
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
   connect(dp_internal,dp);
