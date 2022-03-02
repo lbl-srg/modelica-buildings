@@ -31,17 +31,14 @@ model ValveSelfActing
       m_flow_nominal=m_flow_nominal)
                         annotation (Placement(transformation(extent={{-30,-10},
             {-10,10}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntOu(redeclare package
-      Medium =
-        MediumSteam,
-      m_flow_nominal=m_flow_nominal)
-                        annotation (Placement(transformation(extent={{30,-10},
-            {50,10}})));
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntOut(redeclare package
+      Medium = MediumSteam, m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Noise.UniformNoise pInSig(
     samplePeriod(displayUnit="s") = 1,
     y_min=900000 + 50000,
     y_max=900000 - 50000)
-                       "Noisy signal for inlet pressure"
+    "Noisy signal for inlet pressure"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Fluid.Sources.MassFlowSource_T sin(
     redeclare package Medium = MediumSteam,
@@ -60,11 +57,11 @@ equation
     annotation (Line(points={{-40,0},{-30,0}}, color={0,127,255}));
   connect(speEntIn.port_b, prv.port_a) annotation (Line(points={{-10,0},{0,
           0}},                                                                  color={0,127,255}));
-  connect(prv.port_b, speEntOu.port_a) annotation (Line(points={{20,0},{30,
-          0}},                                                                  color={0,127,255}));
+  connect(prv.port_b, speEntOut.port_a)
+    annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   connect(pInSig.y, sou.p_in)
     annotation (Line(points={{-79,50},{-70,50},{-70,8},{-62,8}}, color={0,0,127}));
-  connect(sin.ports[1], speEntOu.port_b)
+  connect(sin.ports[1], speEntOut.port_b)
     annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
   connect(m_flow_sig.y, sin.m_flow_in) annotation (Line(points={{-29,50},{
           90,50},{90,8},{82,8}}, color={0,0,127}));
@@ -72,7 +69,7 @@ equation
 __Dymola_Commands(file=
     "modelica://DES/Resources/Scripts/Dymola/Heating/Loads/Valves/Examples/SteamTwoWayValveSelfActing.mos"
     "Simulate and plot"),
-  experiment(StopTime=1000,Tolerance=1e-06),
+  experiment(StopTime=15,Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Example model for the self-acting two way steam pressure regulating valve model.
