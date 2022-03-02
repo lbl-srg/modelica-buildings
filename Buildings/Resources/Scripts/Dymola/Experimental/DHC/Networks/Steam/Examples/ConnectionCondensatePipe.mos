@@ -1,0 +1,32 @@
+﻿// Simulate
+simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.ConnectionCondensatePipe", stopTime=86400, tolerance=1e-6, resultFile="ConnectionCondensatePipe");
+// Plot commands
+createPlot(id=1, position={26, 51, 1285, 632}, 
+  y={"con.port_aDisSup.m_flow", "con.port_bDisRet.m_flow"}, 
+  range={0.0, 90000.0, -0.1, 0.1}, 
+  grid=true, 
+  filename="ConnectionCondensatePipe.mat", 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"kg/s", "kg/s"});
+createPlot(id=1, position={26, 51, 1285, 632}, 
+  y={"bui.Q_flow"}, 
+  range={0.0, 90000.0, 40.0, 220.0}, 
+  grid=true, 
+  subPlot=201, 
+  colors={{28,108,200}}, 
+  displayUnits={"kW"});
+createPlot(id=1, position={26, 51, 1285, 632}, 
+  y={"con.port_aDisSup.p", "con.port_bDisRet.p", "con.port_bCon.p", "con.port_aCon.p"}, 
+  range={0.0, 90000.0, 1.4000000000000001, 3.2}, 
+  grid=true, 
+  subPlot=102, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+  displayUnits={"bar", "bar", "bar", "bar"});
+createPlot(id=1, position={26, 51, 1285, 632}, 
+  y={"bui.port_a.h_outflow", "bui.port_b.h_outflow"}, 
+  range={0.0, 90000.0, 0.0, 3000000.0}, 
+  grid=true, 
+  subPlot=202, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"J/kg", "J/kg"});
+
