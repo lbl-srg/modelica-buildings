@@ -78,16 +78,16 @@ First implementation.
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),        Rectangle(
-      extent={{-60,40},{60,-40}},
+      extent={{-52,40},{68,-40}},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None),
         Ellipse(
-          extent={{-26,80},{26,40}},
+          extent={{-32,80},{30,34}},
           lineColor={0,0,0},
           fillColor={160,160,160},
           fillPattern=FillPattern.Solid),Rectangle(
-      extent={{-32,60},{34,12}},
+      extent={{-32,56},{34,8}},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None),
@@ -101,9 +101,9 @@ First implementation.
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid),
-        Line(points={{-26,60},{26,60}}, color={0,0,0}),
-        Line(points={{0,0},{0,60}}, color={0,0,0}),
+        Line(points={{-32,56},{30,56}}, color={0,0,0}),
+        Line(points={{0,0},{0,56}}, color={0,0,0}),
         Line(points={{0,80},{0,100}}, color={0,0,0}),
-        Line(points={{0,100},{52,100}}, color={0,0,0}),
-        Line(points={{52,100},{0,0}}, color={0,0,0})}));
+        Line(points={{0,100},{56,100}}, color={0,0,0}),
+        Line(points={{56,100},{0,0}}, color={0,0,0})}));
 end ValveSelfActing;
