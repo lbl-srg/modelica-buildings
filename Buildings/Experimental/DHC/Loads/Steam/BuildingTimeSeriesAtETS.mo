@@ -128,15 +128,13 @@ model BuildingTimeSeriesAtETS
     final unit="W",
     displayUnit="kW")
     "Total heat transfer rate"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}),
-      iconTransformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput EHea(
     final quantity="HeatFlow",
     final unit="J",
     displayUnit="kWh")
     "Total heating energy"
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumSte)
     "Inlet port"

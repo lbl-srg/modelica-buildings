@@ -31,7 +31,6 @@ model BuildingTimeSeriesAtETS
     show_T=true)
     "Building model with time series load at the ETS"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-
   Buildings.Fluid.Sources.Boundary_pT souSte(
     redeclare package Medium = MediumSte,
     p(displayUnit="Pa") = pSat,
