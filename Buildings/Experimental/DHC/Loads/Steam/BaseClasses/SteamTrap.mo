@@ -1,6 +1,7 @@
 ﻿within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
 model SteamTrap "Steam trap with isenthalpic expansion from high to atmospheric 
-  pressure, with all flashed steam discharged as condensate"
+  pressure, followed by a isobaric condensation process as flashed steam 
+  is brought back to a liquid state"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   final parameter Modelica.Units.SI.AbsolutePressure pAtm=101325
@@ -17,14 +18,14 @@ equation
   // Pressure setpoints
   port_b.p = pAtm;
 
-  // Isenthalpic process assumed: no change in enthalpy
-  port_a.h_outflow = inStream(port_a.h_outflow);
-
   // Flashed steam condenses
   port_b.h_outflow = Medium.specificEnthalpy(
     state=Medium.setState_pTX(
       p=pAtm,T=TSat,X=inStream(port_a.Xi_outflow)));
   dh = port_b.h_outflow - inStream(port_a.h_outflow);
+
+  // Return reverse flow as the inStream value
+  port_a.h_outflow = inStream(port_a.h_outflow);
 
   // Steady state conservation of mass
   port_a.m_flow + port_b.m_flow = 0;

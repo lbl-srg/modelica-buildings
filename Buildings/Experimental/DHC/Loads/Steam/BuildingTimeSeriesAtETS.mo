@@ -63,7 +63,7 @@ model BuildingTimeSeriesAtETS
   parameter MediumSte.Temperature T_start=MediumSte.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-  parameter Modelica.Units.SI.MassFlowRate m_flow_start=0.8*m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_start=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab = "Initialization"));
 
@@ -179,7 +179,7 @@ model BuildingTimeSeriesAtETS
     redeclare final package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
     final allowFlowReversal=allowFlowReversal,
-    final massDynamics=energyDynamics,
+    final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=pSte_nominal,
     final T_start=TSte_nominal,
