@@ -11,16 +11,15 @@ model FlowMachineInterface "Simple model to validate FlowMachineInterface"
   Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant rho(k=1.2) "Density"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Sources.Ramp m_flow(height=1.2, duration=1) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Modelica.Blocks.Sources.Ramp m_flow(height=1.2, duration=1) "Mass flow rate"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(eff.rho, rho.y)
-    annotation (Line(points={{-12,-6},{-26,-6},{-26,0},{-39,0}},
+    annotation (Line(points={{-12,-6},{-20,-6},{-20,-30},{-39,-30}},
                                                color={0,0,127}));
-  connect(m_flow.y, eff.m_flow) annotation (Line(points={{-39,-30},{-26,-30},{
-          -26,4},{-12,4}},
-                         color={0,0,127}));
+  connect(m_flow.y, eff.m_flow) annotation (Line(points={{-39,0},{-20,0},{-20,4},
+          {-12,4}},      color={0,0,127}));
   connect(y.y, eff.y_in)
     annotation (Line(points={{-39,30},{-4,30},{-4,12}},   color={0,0,127}));
   annotation (
