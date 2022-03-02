@@ -10,7 +10,7 @@ model DistributionCondensatePipe
   parameter Modelica.Units.SI.Temperature TSat=
      MediumSte.saturationTemperature(pSat)
      "Saturation temperature";
-  parameter Modelica.Units.SI.SpecificEnthalpy dhVapStd=
+  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
     MediumSte.specificEnthalpy(MediumSte.setState_pTX(
         p=pSat,
         T=TSat,
@@ -31,10 +31,10 @@ model DistributionCondensatePipe
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
     "Pressure drop at nominal mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=
-    Q1_flow_nominal/dhVapStd
+    Q1_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 1";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=
-    Q2_flow_nominal/dhVapStd
+    Q2_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 2";
   Buildings.Experimental.DHC.Networks.Steam.DistributionCondensatePipe dis(
     redeclare package MediumSup = MediumSte,
@@ -42,50 +42,47 @@ model DistributionCondensatePipe
     nCon=2,
     mDis_flow_nominal=m1_flow_nominal + m2_flow_nominal,
     mCon_flow_nominal={m1_flow_nominal,m2_flow_nominal})
-    annotation (Placement(transformation(extent={{20,-40},{60,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sinWat(redeclare package Medium =
-        MediumWat,
-    p(displayUnit="Pa") = 101325,
-                   nPorts=1) "Water condensate sink"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Fluid.Sources.Boundary_pT sinSte(
+    annotation (Placement(transformation(extent={{-20,0},{20,20}})));
+  Buildings.Fluid.Sources.Boundary_pT souSte(
     redeclare package Medium = MediumSte,
     p=pSat,
     T=TSat,
-    nPorts=2) "Steam sink"
-    annotation (Placement(transformation(extent={{80,20},{60,40}})));
-  Fluid.Sources.MassFlowSource_T souWat(
+    nPorts=1)
+    "Steam source"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
     redeclare package Medium = MediumWat,
-    use_m_flow_in=true,
-    T=TSat - 5,
-    nPorts=2) "Water source"
-    annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Fluid.Sources.MassFlowSource_T souSte(
-    redeclare package Medium = MediumSte,
-    use_m_flow_in=true,
-    T=TSat,
-    nPorts=1) "Steam source"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Sources.Ramp ram(duration=60, startTime=60) "Ramp signal"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    p(displayUnit="Pa") = 101325,
+    nPorts=1)
+    "Water condensate sink"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bui[2](
+    redeclare package MediumSte = MediumSte,
+    redeclare package MediumWat = MediumWat,
+    each pSte_nominal=pSat,
+    each TSte_nominal=TSat,
+    each dh_nominal=dh_nominal,
+    Q_flow_nominal={Q1_flow_nominal,Q2_flow_nominal},
+    each dp_nominal=dp_nominal,
+    QHeaLoa={QHeaLoa1,QHeaLoa2},
+    each timeScale(displayUnit="s") = 3600)
+    "Building vector consisting of 2 buildings"
+    annotation (Placement(transformation(extent={{60,40},{40,60}})));
 equation
-  connect(sinWat.ports[1], dis.port_bDisRet) annotation (Line(points={{-20,-70},
-          {0,-70},{0,-36},{20,-36}},    color={0,127,255}));
-  connect(dis.ports_bCon, sinSte.ports[1:2]) annotation (Line(points={{28,-20},
-          {28,30},{60,30},{60,28}}, color={0,127,255}));
   connect(souSte.ports[1], dis.port_aDisSup)
-    annotation (Line(points={{-20,-30},{20,-30}}, color={0,127,255}));
-  connect(souWat.ports[1:2], dis.ports_aCon)
-    annotation (Line(points={{60,-2},{52,-2},{52,-20}}, color={0,127,255}));
-  connect(ram.y, souSte.m_flow_in) annotation (Line(points={{-59,70},{-50,70},{
-          -50,-22},{-42,-22}}, color={0,0,127}));
-  connect(ram.y, souWat.m_flow_in) annotation (Line(points={{-59,70},{90,70},{
-          90,8},{82,8}}, color={0,0,127}));
+    annotation (Line(points={{-60,10},{-20,10}}, color={0,127,255}));
+  connect(sinWat.ports[1], dis.port_bDisRet) annotation (Line(points={{-60,-30},
+          {-40,-30},{-40,4},{-20,4}},   color={0,127,255}));
+  connect(dis.ports_bCon, bui.port_a)
+    annotation (Line(points={{-12,20},{-12,50},{40,50}}, color={0,127,255}));
+  connect(bui.port_b, dis.ports_aCon)
+    annotation (Line(points={{40,44},{12,44},{12,20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Tolerance=1e-6, __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file="modelica://DES/Resources/Scripts/Dymola/Heating/Networks/Examples/DistributionCondensatePipe.mos"
-        "Simulate and plot"),
+    __Dymola_Commands(file=
+      "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Steam/Examples/DistributionCondensatePipe.mos"
+      "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>

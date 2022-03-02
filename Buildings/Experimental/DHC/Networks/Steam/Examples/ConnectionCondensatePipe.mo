@@ -91,8 +91,9 @@ First implementation.
 </html>", info="<html>
 <p>
 This model demonstrates the performance of the 
-connection block for steam heating systems with a single
-connected building.
+connection block for steam heating systems with a 
+ramp input for the mass flow rate at the building 
+interconnection.
 </p>
 </html>"));
 end ConnectionCondensatePipe;
