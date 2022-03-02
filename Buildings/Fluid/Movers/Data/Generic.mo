@@ -21,15 +21,18 @@ record Generic "Generic data record for movers"
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot";
 
-  final parameter Integer effMetInt[3] = Integer({etaMet,etaHydMet,etaMotMet})
-    "Efficiency computation enumerations expressed as integers";
-
   final parameter Boolean use_powerCharacteristic=
-    effMetInt[1]==3 or effMetInt[2]==3
+    etaMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+    or etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
     "The power curve is used for either total efficiency or hydraulic efficiency";
 
   final parameter Boolean use_eulerNumber=
-    effMetInt[1]==4 or effMetInt[2]==4
+    etaMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
+    or etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
     "The Euler number is used for either total efficiency or hydraulic efficiency";
 
   // Arrays for efficiency values
@@ -39,22 +42,25 @@ record Generic "Generic data record for movers"
       V_flow={0},
       eta={0.49}) "Total efficiency"
     annotation (Dialog(group="Power computation",
-                       enable=effMetInt[1]==2));
+                       enable=etaMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
       V_flow={0},
       eta={0.7}) "Hydraulic efficiency"
     annotation (Dialog(group="Power computation",
-                       enable=effMetInt[2]==2));
+                       enable=etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(
       V_flow={0},
       eta={0.7})
-    "Electric motor efficiency"
+    "Motor efficiency"
     annotation (Dialog(group="Power computation",
-                       enable=effMetInt[3]==2));
+                       enable=etaMotMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
 
   // Power curve
   //   It requires default values to suppress Dymola message
@@ -64,7 +70,7 @@ record Generic "Generic data record for movers"
     P={0})
     "Power (either consumed or hydraulic) vs. volumetric flow rate"
    annotation (Dialog(group="Power computation",
-                      enable=etaMetInt[1]==3 or etaMetInt[2]==3));
+                      enable=use_powerCharacteristic));
 
   // Peak condition
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
@@ -73,7 +79,7 @@ record Generic "Generic data record for movers"
     eta=0.7)
     "Volume flow rate, pressure rise, and efficiency (either total or hydraulic) at peak condition"
     annotation (Dialog(group="Power computation",
-                       enable=etaMetInt[1]==4 or etaMetInt[2]==4));
+                       enable=use_eulerNumber));
 
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"

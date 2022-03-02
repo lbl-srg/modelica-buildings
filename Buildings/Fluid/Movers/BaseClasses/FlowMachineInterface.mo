@@ -138,14 +138,44 @@ protected
     "True if pressure head is a prescribed variable of this block";
 
   // Derivatives for cubic spline
-  final parameter Real etaDer[size(per.totalEfficiency.V_flow,1)](
-    each fixed=false)
+  final parameter Real etaDer[size(per.totalEfficiency.V_flow,1)]=
+    if not per.etaMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+      then zeros(size(per.totalEfficiency.V_flow,1))
+    elseif (size(per.totalEfficiency.V_flow, 1) == 1)
+      then {0}
+    else
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=per.totalEfficiency.V_flow,
+        y=per.totalEfficiency.eta,
+        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+          x=per.totalEfficiency.eta,
+          strict=false))
     "Coefficients for cubic spline of total efficiency vs. volume flow rate";
-  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](
-    each fixed=false)
+  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)]=
+    if not per.etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+      then zeros(size(per.hydraulicEfficiency.V_flow,1))
+    elseif (size(per.hydraulicEfficiency.V_flow, 1) == 1)
+      then {0}
+    else
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=per.hydraulicEfficiency.V_flow,
+        y=per.hydraulicEfficiency.eta)
     "Coefficients for cubic spline of hydraulic efficiency vs. volume flow rate";
-  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](
-    each fixed=false)
+  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)]=
+    if not per.etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+      then zeros(size(per.motorEfficiency.V_flow,1))
+    elseif (size(per.motorEfficiency.V_flow, 1) == 1)
+      then {0}
+    else
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=per.motorEfficiency.V_flow,
+        y=per.motorEfficiency.eta,
+        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+          x=per.motorEfficiency.eta,
+          strict=false))
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
 
   parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
@@ -372,30 +402,6 @@ the simulation stops.");
       y=pCur3.dp);
   end if;
 
-  // Compute derivatives for cubic spline
-  etaDer = if not per.effMetInt[1]==2 then zeros(size(per.totalEfficiency.V_flow,
-    1)) elseif (size(per.totalEfficiency.V_flow, 1) == 1) then {0} else
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-    x=per.totalEfficiency.V_flow,
-    y=per.totalEfficiency.eta,
-    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-      x=per.totalEfficiency.eta,
-      strict=false));
-  hydDer = if not per.effMetInt[2]==2 then zeros(size(per.hydraulicEfficiency.V_flow,
-    1)) elseif (size(per.hydraulicEfficiency.V_flow, 1) == 1) then {0} else
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-    x=per.hydraulicEfficiency.V_flow,
-    y=per.hydraulicEfficiency.eta);
-  motDer = if not per.effMetInt[3]==2 then zeros(size(per.motorEfficiency.V_flow,
-    1)) elseif (size(per.motorEfficiency.V_flow, 1) == 1) then {0} else
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-    x=per.motorEfficiency.V_flow,
-    y=per.motorEfficiency.eta,
-    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-      x=per.motorEfficiency.eta,
-      strict=false));
-
-
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
@@ -582,7 +588,8 @@ equation
   WFlo = dp_internal*V_flow;
 
   // Total efficiency eta and consumed electric power PEle
-  if per.effMetInt[1]==3 then
+  if per.etaMet==
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve then
   // If power curve is provided for consumed electric power
     eta = Buildings.Utilities.Math.Functions.smoothMax(
             x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
@@ -595,11 +602,13 @@ equation
     else
       PEle = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
-  elseif per.effMetInt[1]==4 then
-  // If peak total efficiency is provided
+  elseif per.etaMet==
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber then
+  // If peak total efficiency is provided for Euler number
     connect(effTab.y,eta);
     connect(powTab.y,PEle);
-  elseif per.effMetInt[1]==2 then
+  elseif per.etaMet==
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
   // If total efficiency is provided as an array
     PEle = WFlo / eta;
     if homotopyInitialization then
@@ -612,13 +621,22 @@ equation
   // Total efficiency not provided
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
                     x1=eta, x2=1E-5, deltaX=1E-6);
-    if per.effMetInt[2]<>1 and per.effMetInt[3]==1 then
+    if per.etaHydMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
+       per.etaMotMet==
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
     // If only hydraulic efficiency is provided
       eta = etaHyd;
-    elseif per.effMetInt[2]==1 and per.effMetInt[3]<>1 then
+    elseif per.etaHydMet==
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
+       per.etaMotMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
     // If only motor efficiency is provided
       eta = etaMot;
-    elseif per.effMetInt[2]<>1 and per.effMetInt[3]<>1 then
+    elseif per.etaHydMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
+       per.etaMotMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
     // If both
       eta = etaHyd * etaMot;
     else
@@ -628,7 +646,8 @@ equation
   end if;
 
   // Hydraulic efficiency and hydraulic work
-  if per.effMetInt[2]==3 then
+  if per.etaHydMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve then
   // If power curve is provided as hydraulic work
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
                x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
@@ -641,11 +660,13 @@ equation
     else
       WHyd = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
-  elseif per.effMetInt[2]==4 then
+  elseif per.etaHydMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber then
   // If peak total efficiency is provided
     connect(effTab.y,etaHyd);
     connect(powTab.y,WHyd);
-  elseif per.effMetInt[2]==2 then
+  elseif per.etaHydMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
   // If hydraulic effciency is provided as an array
     WHyd = WFlo / etaHyd;
     if homotopyInitialization then
@@ -661,7 +682,8 @@ equation
   end if;
 
   // Motor efficiency
-  if per.effMetInt[3]==2 then
+  if per.etaMotMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
   // If motor efficiency provided as an array
     if homotopyInitialization then
       etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
@@ -671,7 +693,10 @@ equation
     end if;
   else
   // Motor efficiency not provided
-    if per.effMetInt[1]==1 and per.effMetInt[2]<>1 then
+    if per.etaMet==
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
+       per.etaHydMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
     // Only hydraulic efficiency is provided
       etaMot = 1;
     else
