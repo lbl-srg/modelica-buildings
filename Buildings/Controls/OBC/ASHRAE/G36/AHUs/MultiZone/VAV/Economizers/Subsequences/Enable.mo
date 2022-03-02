@@ -449,8 +449,8 @@ The supply fan is off (<code>uSupFan = false</code>),
 </li>
 <li>
 the freeze protection stage
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages\">
+Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages</a>
 is not <code>stage0</code>.
 </li>
 </ul>
@@ -459,7 +459,7 @@ The following state machine chart illustrates the transitions between enabling a
 </p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconEnableDisableStateMachineChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/EconEnableDisableStateMachineChart.png\"/>
 </p>
 <p>
 After the disable signal is activated, the following procedure is applied, in order to

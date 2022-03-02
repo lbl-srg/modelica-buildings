@@ -24,10 +24,6 @@ block Reliefs
     final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
     annotation (Dialog(tab="Commissioning", group="Controller"));
-  parameter Real samplePeriod(
-     final unit="s",
-     final quantity="Time")= 300
-    "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
@@ -102,14 +98,6 @@ protected
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max "Overwrite due to freeze protection"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolOutDam(
-    final samplePeriod=samplePeriod)
-    "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
-    annotation (Placement(transformation(extent={{92,-70},{112,-50}})));
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolRetDam(
-    final samplePeriod=samplePeriod)
-    "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
-    annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
 equation
   connect(outDamPos.x2, outDamMaxLimSig.y)
@@ -137,19 +125,14 @@ equation
     annotation (Line(points={{58,66},{30,66},{30,70},{22,70}}, color={0,0,127}));
   connect(uRetDamPosMin, max.u2)
     annotation (Line(points={{-140,50},{-12,50},{-12,54},{58,54}}, color={0,0,127}));
-  connect(min.y, firOrdHolOutDam.u)
-    annotation (Line(points={{82,-60},{90,-60}}, color={0,0,127}));
-  connect(firOrdHolOutDam.y, yOutDamPos)
-    annotation (Line(points={{114,-60},{140,-60}}, color={0,0,127}));
   connect(uTSup, retDamPos.u)
     annotation (Line(points={{-140,0},{-22,0},{-22,70},{-2,70}}, color={0,0,127}));
   connect(uTSup, outDamPos.u)
     annotation (Line(points={{-140,0},{-22,0},{-22,-30},{-2,-30}}, color={0,0,127}));
-  connect(max.y, firOrdHolRetDam.u)
-    annotation (Line(points={{82,60},{88,60}}, color={0,0,127}));
-  connect(firOrdHolRetDam.y, yRetDamPos)
-    annotation (Line(points={{112,60},{140,60}}, color={0,0,127}));
-
+  connect(max.y, yRetDamPos)
+    annotation (Line(points={{82,60},{140,60}}, color={0,0,127}));
+  connect(min.y, yOutDamPos)
+    annotation (Line(points={{82,-60},{140,-60}}, color={0,0,127}));
 annotation (
     defaultComponentName="mod",
     Icon(graphics={
@@ -248,16 +231,10 @@ damper position")}),
 <p>
 This is a multi zone VAV AHU economizer modulation block. It calculates
 the outdoor and return air damper positions based on the supply air temperature
-control loop signal. The implementation is in line with ASHRAE
-Guidline 36 (G36), PART 5.N.2.c. Damper positions are linearly mapped to
-the supply air control loop signal. This is a final sequence in the
-composite multi zone VAV AHU economizer control sequence. Damper position
-limits, which are the inputs to the sequence, are the outputs of
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits</a> and
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable</a>
-sequences.
+control loop signal. It is implemented according to Section 5.16.2.3.d,
+Figure 5.16.2.3-1 of ASHRAE Guideline 36, May 2020.
+Damper positions are linearly mapped to
+the supply air control loop signal.
 </p>
 <p>
 When the economizer is enabled, the PI controller modulates the damper
@@ -265,22 +242,12 @@ positions. Return and outdoor damper are not interlocked. When the economizer is
 the damper positions are set to the minimum outdoor air damper position limits.
 </p>
 <p>
-The time rate of change of the damper signals is limited by a first order hold,
-using the sample time <code>samplePeriod</code>.
-This prevents a quick opening of the outdoor air damper, for example when the
-outdoor airflow setpoint has a step change.
-Slowing down the opening of the outdoor air damper allows the freeze protection
-to compensate with its dynamics that is faster than the opening of the outdoor air damper.
-To avoid that all dampers are closed, the return air damper has the same
-time rate of change limitation.
-</p>
-<p>
 The control charts below show the input-output structure and an economizer damper
 modulation sequence assuming a well configured controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconModulationControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Modulations/ReliefControlDiagram.png\"/>
 </p>
 <p>
 Multi zone AHU economizer modulation control chart:
@@ -288,26 +255,12 @@ Multi zone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multi zone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconModulationControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Modulations/ReliefControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 13, 2017, by Michael Wetter:<br/>
-Corrected implementation for when dampers are
-such positioned that they prevent the mixed air temperature from being
-below the freezing set point.
-</li>
-<li>
-October 11, 2017, by Michael Wetter:<br/>
-Corrected implementation to use control loop signal as input.
-</li>
-<li>
-September 29, 2017, by Michael Wetter:<br/>
-Corrected implementation by adding reverse action.
-</li>
-<li>
-June 28, 2017, by Milica Grahovac:<br/>
+August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

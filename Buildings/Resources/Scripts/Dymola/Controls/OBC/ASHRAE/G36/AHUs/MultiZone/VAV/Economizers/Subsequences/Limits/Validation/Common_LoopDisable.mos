@@ -9,7 +9,3 @@ createPlot(id=2, position={630, 10, 600, 950}, subPlot=2, y={"VOutMinSet1_flow.y
 createPlot(id=2, position={630, 10, 600, 950}, subPlot=3, y={"damLim1.yOutDamPosMin","damLim1.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=2, position={630, 10, 600, 950}, subPlot=4, y={"damLim1.yRetDamPosMin","damLim1.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=2, position={630, 10, 600, 950}, subPlot=5, y={"damLim1.damLimCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={1240, 10, 600, 950}, subPlot=1, y={"VOutMinSet2_flow.y","VOut2_flow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=3, position={1240, 10, 600, 950}, subPlot=2, y={"damLim2.yOutDamPosMin","damLim2.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=3, position={1240, 10, 600, 950}, subPlot=3, y={"damLim2.yRetDamPosMin","damLim2.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=3, position={1240, 10, 600, 950}, subPlot=4, y={"damLim2.damLimCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
