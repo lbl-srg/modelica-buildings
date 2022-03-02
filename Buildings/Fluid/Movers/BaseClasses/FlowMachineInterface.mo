@@ -138,10 +138,15 @@ protected
     "True if pressure head is a prescribed variable of this block";
 
   // Derivatives for cubic spline
-  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
-    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
-  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
-    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
+  final parameter Real etaDer[size(per.totalEfficiency.V_flow,1)](
+    each fixed=false)
+    "Coefficients for cubic spline of total efficiency vs. volume flow rate";
+  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](
+    each fixed=false)
+    "Coefficients for cubic spline of hydraulic efficiency vs. volume flow rate";
+  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](
+    each fixed=false)
+    "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
 
   parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
     haveDPMax then per.pressure.dp[1] else per.pressure.dp[1] - ((per.pressure.dp[
@@ -367,18 +372,29 @@ the simulation stops.");
       y=pCur3.dp);
   end if;
 
- // Compute derivatives for cubic spline
- motDer = if per.use_powerCharacteristic then zeros(size(per.motorEfficiency.V_flow,
+  // Compute derivatives for cubic spline
+  etaDer = if not per.effMetInt[1]==2 then zeros(size(per.totalEfficiency.V_flow,
+    1)) elseif (size(per.totalEfficiency.V_flow, 1) == 1) then {0} else
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=per.totalEfficiency.V_flow,
+    y=per.totalEfficiency.eta,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+      x=per.totalEfficiency.eta,
+      strict=false));
+  hydDer = if not per.effMetInt[2]==2 then zeros(size(per.hydraulicEfficiency.V_flow,
+    1)) elseif (size(per.hydraulicEfficiency.V_flow, 1) == 1) then {0} else
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=per.hydraulicEfficiency.V_flow,
+    y=per.hydraulicEfficiency.eta);
+  motDer = if not per.effMetInt[3]==2 then zeros(size(per.motorEfficiency.V_flow,
     1)) elseif (size(per.motorEfficiency.V_flow, 1) == 1) then {0} else
     Buildings.Utilities.Math.Functions.splineDerivatives(
     x=per.motorEfficiency.V_flow,
     y=per.motorEfficiency.eta,
-    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.motorEfficiency.eta,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+      x=per.motorEfficiency.eta,
       strict=false));
-  hydDer = if per.use_powerCharacteristic then zeros(size(per.hydraulicEfficiency.V_flow,
-    1)) elseif (size(per.hydraulicEfficiency.V_flow, 1) == 1) then {0}
-     else Buildings.Utilities.Math.Functions.splineDerivatives(x=per.hydraulicEfficiency.V_flow,
-    y=per.hydraulicEfficiency.eta);
+
 
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -572,9 +588,14 @@ equation
     connect(effTab.y,eta);
     connect(powTab.y,PEle);
   elseif per.effMetInt[1]==2 then
-  // (Placeholder) If total efficiency is provided as an array
-    eta = 0.49;
+  // If total efficiency is provided as an array
     PEle = WFlo / eta;
+    if homotopyInitialization then
+      eta = homotopy(actual=cha.efficiency(per=per.totalEfficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(per=per.totalEfficiency, V_flow=V_flow_max,   d=etaDer, r_N=r_N, delta=delta));
+    else
+      eta = cha.efficiency(per=per.totalEfficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
+    end if;
   else
   // Total efficiency not provided
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
