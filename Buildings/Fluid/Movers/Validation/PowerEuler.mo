@@ -1,13 +1,18 @@
 within Buildings.Fluid.Movers.Validation;
 model PowerEuler
   "Power calculation comparison among three mover types, using Euler number computation for m_flow and dp"
-  extends PowerSimplified(
+  extends Buildings.Fluid.Movers.Validation.PowerSimplified(
     pump_dp(per=perPea),
     pump_m_flow(per=perPea));
 
-  parameter Data.Generic perPea(
-    powMet=Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per))
+  parameter Buildings.Fluid.Movers.Data.Generic perPea(
+    final etaMet=
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+    final etaHydMet=
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+    final etaMotMet=
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+    final peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per))
     "Peak condition";
 
   annotation (

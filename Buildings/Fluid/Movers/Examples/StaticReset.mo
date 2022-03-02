@@ -40,8 +40,12 @@ model StaticReset
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Fluid.Movers.Data.Generic per2(
     pressure=per1.pressure,
-    powMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.EulerNumber,
+    etaMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+    etaHydMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+    etaMotMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per1))
     "Performance record for EulerNumber";
   Buildings.Fluid.Movers.SpeedControlled_y fan2(
@@ -52,8 +56,12 @@ model StaticReset
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Fluid.Movers.Data.Generic per3(
     pressure=per1.pressure,
-    powMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
+    etaMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+    etaHydMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+    etaMotMet=
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
     hydraulicEfficiency(eta = {0.7}),
     motorEfficiency(eta = {0.7}))
     "Performance record for MotorEfficiency";

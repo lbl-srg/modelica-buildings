@@ -15,17 +15,26 @@ model FlowControlled_dp
       u_nominal=dp_nominal),
     eff(
       per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final powMet=
-        if per.powMet == Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic
-          and not per.havePressureCurve
-          then Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency
-        else per.powMet),
+        final pressure=
+          if per.havePressureCurve then
+            per.pressure
+          else
+            Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+              V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
+              dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
+        final etaMet=
+          if per.etaMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+            and not per.havePressureCurve then
+              Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+          else per.etaMet,
+        final etaHydMet=
+          if per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+            and not per.havePressureCurve then
+              Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+          else per.etaHydMet,
+        final etaMotMet=per.etaMotMet),
       r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
 
   parameter Modelica.Units.SI.PressureDifference dp_start(

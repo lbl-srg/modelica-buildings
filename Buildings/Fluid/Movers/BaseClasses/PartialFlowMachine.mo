@@ -365,14 +365,13 @@ initial equation
            (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
          per.use_powerCharacteristic == false,
 "*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve and you set use_powerCharacteristic = true 
-             (via powMet = Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.PowerCharacteristic).
+             default pressure curve with etaMet or etaHydMet set to
+             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve.
              Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead use_powerCharacteristic = false
-             (via powMet = Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency)." +
-             "Since this causes the efficiency curve to be used,
-             make sure that the efficiency curves in the performance record per
-             are correct or add the pressure curve of the mover.
+             this setting and use instead
+             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided." +
+             "See the user guide to see what assumptions are made in this setting
+             or provide other information to the model.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 

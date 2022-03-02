@@ -1,9 +1,7 @@
 within Buildings.Fluid.Movers.Data.Fans.Greenheck;
 record BIDW15 "Fan data for Greenheck 15 BIDW fan"
   extends Generic(
-    effMet={Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided},
+    etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
     speed_rpm_nominal=3900,
     power(V_flow={1.88566375364128,2.82632820086003,3.77132750728255,4.7119919545013,
           5.66132612012761,6.60199056734636,7.02680676931611}, P={12199.652,14630.634,

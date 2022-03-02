@@ -10,14 +10,18 @@ record Generic "Generic data record for movers"
     annotation(Evaluate=true,
                Dialog(group="Pressure curve"));
 
-  // (Being tested) New efficiency computation choices
-  parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod effMet[3]=
-     {Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided}
-    "Efficiency computation choices of eta, etaHyd, and etaMot, respective";
+  // Efficiency computation choices
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMet=
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+    "Efficiency computation method for the total efficiency eta";
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaHydMet=
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+    "Efficiency computation method for the hydraulic efficiency etaHyd";
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMotMet=
+    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+    "Efficiency computation method for the motor efficiency etaMot";
 
-  final parameter Integer effMetInt[3] = Integer(effMet)
+  final parameter Integer effMetInt[3] = Integer({etaMet,etaHydMet,etaMotMet})
     "Efficiency computation enumerations expressed as integers";
 
   final parameter Boolean use_powerCharacteristic=
@@ -118,12 +122,8 @@ record Generic "Generic data record for movers"
   Documentation(revisions="<html>
 <ul>
 <li>
-November 30, 2021, by Hongxiang Fu:<br/>
-The switches <code>use_powerCharacteristic</code> and
-<code>use_motorEfficiency</code> are given the <code>final</code> keyword
-and now must be assigned via the enumeration
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>.<br/>
+March 1, 2022, by Hongxiang Fu:<br/>
+[Documentation pending]<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
 </li>
 <li>

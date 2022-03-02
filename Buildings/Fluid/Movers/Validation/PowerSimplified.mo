@@ -8,7 +8,8 @@ model PowerSimplified
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
 
-  parameter Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
+  parameter Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per
+    "Pump performance data"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
@@ -22,8 +23,9 @@ model PowerSimplified
     redeclare package Medium = Medium,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      powMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
+      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
@@ -33,10 +35,11 @@ model PowerSimplified
   Buildings.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      powMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod.MotorEfficiency,
+      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)

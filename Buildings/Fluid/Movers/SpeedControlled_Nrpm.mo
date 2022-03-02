@@ -14,7 +14,9 @@ model SpeedControlled_Nrpm
       y(final unit="1")),
     eff(
       per(final pressure = per.pressure,
-          final powMet = per.powMet),
+          final etaMet = per.etaMet,
+          final etaHydMet = per.etaHydMet,
+          final etaMotMet = per.etaMotMet),
           r_N(start=y_start)),
     gaiSpe(u(final unit="rev/min"),
            final k=1/per.speed_rpm_nominal));

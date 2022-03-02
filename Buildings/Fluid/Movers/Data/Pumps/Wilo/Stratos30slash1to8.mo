@@ -2,9 +2,7 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos30slash1to8 "Pump data for a Wilo Stratos 30/1-8 pump"
   extends Generic(
     speed_rpm_nominal=3040,
-    effMet={Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided},
+    etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
     power(V_flow={2.66111582909e-06,0.000621486635037,0.000887056469533,
           0.0011525489114,0.00140859349908,0.00168018209891,0.00191740837085,
           0.00219831980599}, P={42.7878285797,72.7712666315,87.0576021552,
