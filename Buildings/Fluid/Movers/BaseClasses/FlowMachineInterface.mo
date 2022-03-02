@@ -400,18 +400,30 @@ the simulation stops.");
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
-  assert(not (per.effMetInt[1]==3 and per.effMetInt[2]==3),
-    "Only one of etaMet and etaHydMet can be set to
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve");
+  assert(not (per.etaMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+         and per.etaHydMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve),
+         "Only one of etaMet and etaHydMet can be set to
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve");
 
-  assert(not (per.effMetInt[1]==4 and per.effMetInt[2]==4),
-    "Only one of etaMet and etaHydMet can be set to
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber");
+  assert(not (per.etaMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
+         and per.etaHydMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber),
+         "Only one of etaMet and etaHydMet can be set to
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber");
 
-  assert(per.effMetInt[3]==1 or per.effMetInt[3]==2,
-    "Only values allowed for etaMet is
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided or
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values");
+  assert(per.etaMotMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+         or per.etaMotMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+         or per.etaMotMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.ValuesPLR,
+         "Only values allowed for etaMet are
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values, or
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.ValuesPLR,");
 
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
