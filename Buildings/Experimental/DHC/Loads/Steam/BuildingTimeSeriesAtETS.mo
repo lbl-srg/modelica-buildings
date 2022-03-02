@@ -1,8 +1,7 @@
 within Buildings.Experimental.DHC.Loads.Steam;
 model BuildingTimeSeriesAtETS
   "Steam heating building interconnection with the district piping only 
-  (building side is not modeled) with the load at the ETS provided as a 
-  time series."
+  and the load at the ETS provided as a time series."
 
   replaceable package MediumSte = Buildings.Media.Steam constrainedby
     Modelica.Media.Interfaces.PartialMedium
@@ -296,7 +295,30 @@ equation
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-A building-side model with district-side piping only and a PRV.
+This model is intended for existing steam district heating systems 
+where the heating load at the energy transfer station (ETS) is  
+availble as a time series data input. Thus, the building-side piping and equipement 
+is not included in this model, as depicted below.
 </p>
+<p>
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/Steam/BuildingTimeSeriesAtETS.png\" alt=\"steamBuilding\"/>. 
+</p>
+<h4> Implementation</h4>
+<p>
+With the time series input, this model is configured such that the control 
+volume (representing the steam side of the heat exchanger) has steady state 
+energy and mass balances. The steam trap also has steady state balances by 
+design. Meanwhile, the condensate return pump allows either dynamic or steady 
+state balances. The mass flow rate at the pump is prescribed ideally such that 
+the heat flow rate input from the time series is rejected at the control volume 
+based on the physical laws. 
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 2, 2022, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BuildingTimeSeriesAtETS;

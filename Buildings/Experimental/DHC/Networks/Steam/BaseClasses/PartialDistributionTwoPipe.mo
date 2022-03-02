@@ -144,7 +144,7 @@ Optionally the heat flow rate transferred to each connected load can be output.
       revisions="<html>
 <ul>
 <li>
-February 21, 2020, by Antoine Gautier:<br/>
+March 2, 2022, by Antoine Gautier and Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
