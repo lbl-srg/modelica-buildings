@@ -3,10 +3,9 @@ model BuildingTimeSeriesAtETS
   "Example model for time series load with external read-in file."
   extends Modelica.Icons.Example;
 
-  package MediumSte = Buildings.Media.Steam
-     "Steam medium";
+  package MediumSte = Buildings.Media.Steam "Steam medium";
   package MediumWat =
-      Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium";
 
   parameter Modelica.Units.SI.AbsolutePressure pSat=200000
@@ -30,7 +29,7 @@ model BuildingTimeSeriesAtETS
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     timeScale(displayUnit="h") = 3600,
     show_T=true)
-    "Building model, heating only"
+    "Building model with time series load at the ETS"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Buildings.Fluid.Sources.Boundary_pT souSte(

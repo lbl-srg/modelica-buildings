@@ -15,12 +15,12 @@ model SteamTrap "Example model to demonstrate the steam trap"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=10
     "Nominal mass flow rate";
 
-  Buildings.Experimental.DHC.Loads.Steam.BaseClasses.SteamTrap steTra(
-    redeclare package Medium = MediumWat,
-    m_flow_nominal=m_flow_nominal,
-    show_T=true)
-    "Steam trap"
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
+  Modelica.Blocks.Sources.Ramp ram(
+    height=m_flow_nominal,
+    duration(displayUnit="min") = 60,
+    startTime(displayUnit="min") = 60)
+    "Ramp"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumWat,
     p=pSat,
@@ -35,12 +35,12 @@ model SteamTrap "Example model to demonstrate the steam trap"
     nPorts=1)
     "Sink"
     annotation (Placement(transformation(extent={{90,0},{70,20}})));
-  Modelica.Blocks.Sources.Ramp ram(
-    height=m_flow_nominal,
-    duration(displayUnit="min") = 60,
-    startTime(displayUnit="min") = 60)
-    "Ramp"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Buildings.Experimental.DHC.Loads.Steam.BaseClasses.SteamTrap steTra(
+    redeclare package Medium = MediumWat,
+    m_flow_nominal=m_flow_nominal,
+    show_T=true)
+    "Steam trap"
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWat,
     m_flow_nominal=m_flow_nominal,

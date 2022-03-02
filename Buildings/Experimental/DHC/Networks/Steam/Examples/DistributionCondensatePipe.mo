@@ -2,8 +2,11 @@ within Buildings.Experimental.DHC.Networks.Steam.Examples;
 model DistributionCondensatePipe
   "Example model for the steam heating distribution network"
   extends Modelica.Icons.Example;
+
   package MediumSte = Buildings.Media.Steam "Steam vapor medium";
-  package MediumWat = Buildings.Media.Water "Liquid water medium";
+  package MediumWat =
+    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    "Liquid water medium";
 
   parameter Modelica.Units.SI.AbsolutePressure pSat=150000
     "Saturation pressure";
@@ -36,13 +39,7 @@ model DistributionCondensatePipe
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=
     Q2_flow_nominal/dh_nominal
     "Nominal mass flow rate, building 2";
-  Buildings.Experimental.DHC.Networks.Steam.DistributionCondensatePipe dis(
-    redeclare package MediumSup = MediumSte,
-    redeclare package MediumRet = MediumWat,
-    nCon=2,
-    mDis_flow_nominal=m1_flow_nominal + m2_flow_nominal,
-    mCon_flow_nominal={m1_flow_nominal,m2_flow_nominal})
-    annotation (Placement(transformation(extent={{-20,0},{20,20}})));
+
   Buildings.Fluid.Sources.Boundary_pT souSte(
     redeclare package Medium = MediumSte,
     p=pSat,
@@ -56,6 +53,13 @@ model DistributionCondensatePipe
     nPorts=1)
     "Water condensate sink"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Experimental.DHC.Networks.Steam.DistributionCondensatePipe dis(
+    redeclare package MediumSup = MediumSte,
+    redeclare package MediumRet = MediumWat,
+    nCon=2,
+    mDis_flow_nominal=m1_flow_nominal + m2_flow_nominal,
+    mCon_flow_nominal={m1_flow_nominal,m2_flow_nominal})
+    annotation (Placement(transformation(extent={{-20,0},{20,20}})));
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bui[2](
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
@@ -68,6 +72,7 @@ model DistributionCondensatePipe
     each timeScale(displayUnit="s") = 3600)
     "Building vector consisting of 2 buildings"
     annotation (Placement(transformation(extent={{60,40},{40,60}})));
+
 equation
   connect(souSte.ports[1], dis.port_aDisSup)
     annotation (Line(points={{-60,10},{-20,10}}, color={0,127,255}));

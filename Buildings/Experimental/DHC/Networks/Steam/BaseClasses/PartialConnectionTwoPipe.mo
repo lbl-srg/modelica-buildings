@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
 partial model PartialConnectionTwoPipe
-  "Partial model for connecting an a LosslessPipegent to a two-pipe distribution network with the split-medium approach"
+  "Partial model for connecting an a LosslessPipegent to a two-pipe 
+  distribution network with the split-medium approach"
   replaceable package MediumSup =
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";

@@ -1,16 +1,18 @@
 within Buildings.Experimental.DHC.Networks.Steam.Examples;
 model ConnectionCondensatePipe "Example model for the steam heating connection block"
   extends Modelica.Icons.Example;
-  package MediumSte = Buildings.Media.Steam "Steam vapor medium";
-  package MediumWat = Buildings.Media.Water "Liquid water medium";
 
+  package MediumSte = Buildings.Media.Steam "Steam vapor medium";
+  package MediumWat =
+    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    "Liquid water medium";
 
   parameter Modelica.Units.SI.AbsolutePressure pSat=150000
     "Saturation pressure";
   parameter Modelica.Units.SI.Temperature TSat=
      MediumSte.saturationTemperature(pSat)
      "Saturation temperature";
-  parameter Modelica.Units.SI.SpecificEnthalpy dhVapStd=
+  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
     MediumSte.specificEnthalpy(MediumSte.setState_pTX(
         p=pSat,
         T=TSat,
@@ -19,7 +21,7 @@ model ConnectionCondensatePipe "Example model for the steam heating connection b
         p=pSat,
         T=TSat,
         X=MediumWat.X_default))
-    "Standard change in enthalpy due to vaporization";
+    "Nominal change in enthalpy due to vaporization";
   parameter Modelica.Units.SI.Power Q_flow_nominal=200E3
     "Nominal heat flow rate";
   parameter Real QHeaLoa[:, :]= [0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 75E3; 24, 75E3]
@@ -27,9 +29,36 @@ model ConnectionCondensatePipe "Example model for the steam heating connection b
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
     "Pressure drop at nominal mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    Q_flow_nominal/dhVapStd
+    Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
 
+  Modelica.Blocks.Sources.Ramp ram(duration=60, startTime=60) "Ramp signal"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Fluid.Sources.MassFlowSource_T souWat(
+    redeclare package Medium = MediumWat,
+    use_m_flow_in=true,
+    nPorts=1)
+    "Water source"
+    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
+  Fluid.Sources.MassFlowSource_T souSte(
+    redeclare package Medium = MediumSte,
+    use_m_flow_in=true,
+    nPorts=1)
+    "Steam source"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
+    redeclare package Medium = MediumWat,
+    p(displayUnit="Pa") = 101325,
+    nPorts=1)
+    "Water condensate sink"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  Fluid.Sources.Boundary_pT sinSte(
+    redeclare package Medium = MediumSte,
+    p=pSat,
+    T=TSat,
+    nPorts=1)
+    "Steam sink"
+    annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.Experimental.DHC.Networks.Steam.ConnectionCondensatePipe con(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
@@ -39,29 +68,7 @@ model ConnectionCondensatePipe "Example model for the steam heating connection b
     TSup_start=TSat)
     "Connection block for steam systems"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sinWat(redeclare package Medium =
-        MediumWat,
-    p(displayUnit="Pa") = 101325,
-                   nPorts=1)                 "Water condensate sink"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Fluid.Sources.Boundary_pT sinSte(
-    redeclare package Medium = MediumSte,
-    p=pSat,
-    T=TSat,
-    nPorts=1) "Steam sink"
-    annotation (Placement(transformation(extent={{80,20},{60,40}})));
-  Fluid.Sources.MassFlowSource_T souSte(
-    redeclare package Medium = MediumSte,
-    use_m_flow_in=true,
-    nPorts=1) "Steam source"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Fluid.Sources.MassFlowSource_T souWat(
-    redeclare package Medium = MediumWat,
-    use_m_flow_in=true,
-    nPorts=1) "Water source"
-    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
-  Modelica.Blocks.Sources.Ramp ram(duration=60, startTime=60) "Ramp signal"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+
 equation
   connect(con.port_bDisRet, sinWat.ports[1]) annotation (Line(points={{20,-36},
           {0,-36},{0,-70},{-20,-70}},

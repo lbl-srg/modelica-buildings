@@ -12,13 +12,13 @@ model BuildingTimeSeriesAtETS
     "Water medium";
 
   // Nominal conditions
-  parameter Modelica.Units.SI.Power Q_flow_nominal(start=1000)
+  parameter Modelica.Units.SI.Power Q_flow_nominal
     "Nominal heat flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.Units.SI.AbsolutePressure pSte_nominal=200000
+  parameter Modelica.Units.SI.AbsolutePressure pSte_nominal=MediumSte.p_default
     "Nominal pressure of steam entering heat exchanger"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Temperature TSte_nominal=
@@ -56,7 +56,7 @@ model BuildingTimeSeriesAtETS
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
-  parameter MediumSte.AbsolutePressure p_start = MediumSte.p_default
+  parameter MediumSte.AbsolutePressure p_start=MediumSte.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
   parameter MediumSte.Temperature T_start=MediumSte.T_default
@@ -191,7 +191,8 @@ model BuildingTimeSeriesAtETS
     redeclare final package Medium = MediumWat,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
-    final show_T=show_T) "Steam trap"
+    final show_T=show_T)
+    "Steam trap"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hIn(
     redeclare final package Medium = MediumSte,
@@ -201,7 +202,7 @@ model BuildingTimeSeriesAtETS
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hOut(
     redeclare final package Medium = MediumWat,
     final m_flow_nominal=m_flow_nominal)
-     "Enthalpy out"
+    "Enthalpy out"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Modelica.Blocks.Math.Add dh(final k2=-1)
     "Change in enthalpy with building-side fluid"

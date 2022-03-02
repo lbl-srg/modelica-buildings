@@ -72,7 +72,6 @@ partial model PartialDistributionTwoPipe
     "Pipe representing the end of the distribution line (after last connection)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 initial equation
-
   assert(
     mDis_flow_nominal >= sum(
       mCon_flow_nominal),
@@ -88,7 +87,6 @@ equation
       connect(con[i-1].port_aDisRet,con[i].port_bDisRet);
     end for;
   end if;
-
 
   connect(con.port_bCon,ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80,40},{-80,100}},color={0,0,222},
