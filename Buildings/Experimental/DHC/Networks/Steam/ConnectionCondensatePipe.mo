@@ -45,9 +45,10 @@ model ConnectionCondensatePipe
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-defaultComponentName="boi",
+          lineColor={0,0,0})}),
+        Diagram(
+          coordinateSystem(preserveAspectRatio=false)),
+          defaultComponentName="con",
     Documentation(info="<html>
 <p>
 This network connection model contains 1 pipe declaration 
