@@ -1,11 +1,11 @@
 within Buildings.Experimental.DHC.Loads;
-package Steam "Package with models for loads supplied with steam"
+package Steam "Package with models for loads involving steam systems"
   extends Modelica.Icons.VariantsPackage;
 
-annotation (Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models of building loads that are used for 
-steam district heating systems.
+This package contains models of building loads that are used to
+build example models of steam district heating systems.
 </p>
 </html>"));
 end Steam;
