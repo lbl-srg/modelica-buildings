@@ -11,7 +11,7 @@ record FourPortFlowResistanceParameters
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.PressureDifference dp1_nominal(min=0, displayUnit
-       ="Pa") "Pressure difference"
+      ="Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -30,7 +30,7 @@ record FourPortFlowResistanceParameters
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(min=0, displayUnit
-       ="Pa") "Pressure difference"
+      ="Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
