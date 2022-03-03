@@ -177,6 +177,20 @@ protected
           x=per.motorEfficiency.eta,
           strict=false))
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
+  final parameter Real motDer_y[size(per.motorEfficiency_y.y, 1)]=
+    if not per.etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y
+      then zeros(size(per.motorEfficiency_y.y,1))
+    elseif (size(per.motorEfficiency_y.y, 1) == 1)
+      then {0}
+    else
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=per.motorEfficiency_y.y,
+        y=per.motorEfficiency_y.eta,
+        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+          x=per.motorEfficiency_y.eta,
+          strict=false))
+    "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
 
   parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
     haveDPMax then per.pressure.dp[1] else per.pressure.dp[1] - ((per.pressure.dp[
@@ -425,11 +439,11 @@ the simulation stops.");
          or per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
          or per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.ValuesPLR,
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y,
          "Only values allowed for etaMet are
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values, or
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.ValuesPLR,");
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y,");
 
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
@@ -684,12 +698,29 @@ equation
   // Motor efficiency
   if per.etaMotMet==
        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
-  // If motor efficiency provided as an array
+  // If motor efficiency provided as an array vs. volumetric flow rate
     if homotopyInitialization then
       etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
       etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta);
+    end if;
+  elseif per.etaMotMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y then
+  // If motor efficiency provided as an array vs. PLR
+    if homotopyInitialization then
+      etaMot =homotopy(actual=cha.efficiency_y(
+        per=per.motorEfficiency_y,
+        y=y_out,
+        d=motDer_y), simplified=cha.efficiency_y(
+        per=per.motorEfficiency_y,
+        y=1,
+        d=motDer_y));
+    else
+      etaMot =cha.efficiency_y(
+        per=per.motorEfficiency_y,
+        y=y_out,
+        d=motDer_y);
     end if;
   else
   // Motor efficiency not provided

@@ -61,6 +61,12 @@ record Generic "Generic data record for movers"
     annotation (Dialog(group="Power computation",
                        enable=etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_y
+    motorEfficiency_y(y={0}, eta={0.7})
+    "Motor efficiency described as a function of part load ratio" annotation (
+      Dialog(group="Power computation", enable=etaMotMet ==
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y));
 
   // Power curve
   //   It requires default values to suppress Dymola message

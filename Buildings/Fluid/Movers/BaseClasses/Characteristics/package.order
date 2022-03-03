@@ -1,7 +1,9 @@
 efficiency
+efficiency_y
 power
 pressure
 efficiencyParameters
+efficiencyParameters_y
 flowParameters
 flowParametersInternal
 powerParameters

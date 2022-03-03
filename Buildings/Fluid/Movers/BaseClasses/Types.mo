@@ -11,11 +11,13 @@ package Types "Package with type definitions"
       NotProvided
         "1. Not provided, will be computed from other efficiencies",
       Values
-        "2. An array of values or one constant is provided",
+        "2. An array of values or one constant vs. volumetric flow rate",
+      Values_y
+        "3. An array of values vs. part load ratio",
       PowerCurve
-        "3. A power curve is provided",
+        "4. A power curve is provided",
       EulerNumber
-        "4. The peak point is provided");
+        "5. The peak point is provided");
  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains type definitions for movers.
