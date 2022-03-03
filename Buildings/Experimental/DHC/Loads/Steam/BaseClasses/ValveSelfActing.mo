@@ -20,7 +20,8 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.RealExpression pbSet(final y=pb_nominal)
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-  Modelica.Blocks.Math.Add dpReq(final k1=-1) "Calculating dp required"
+  Modelica.Blocks.Math.Add dpReq(final k1=-1)
+  "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
     "Pressure sensor"
@@ -31,7 +32,8 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
 
-  assert(dpReq.y < 0, "pb_nominal is set higher than the inlet pressure (results in negative valve pressure drop)", AssertionLevel.warning);
+  assert(dpReq.y < 0, "pb_nominal is set higher than the inlet pressure 
+  (results in negative valve pressure drop)", AssertionLevel.warning);
 
   connect(port_a, ideSou.port_a)
     annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
