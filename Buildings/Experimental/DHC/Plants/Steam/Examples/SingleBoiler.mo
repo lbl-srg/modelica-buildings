@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Steam.Examples;
-model SingleBoiler
+model SingleBoiler "Example model to demonstrate the single-boiler steam plant 
+  in a single closed loop"
   extends Modelica.Icons.Example;
 
   package MediumSte = Buildings.Media.Steam "Steam medium";

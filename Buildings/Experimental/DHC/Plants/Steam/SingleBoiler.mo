@@ -10,7 +10,7 @@ model SingleBoiler
     final have_weaBus=false,
     redeclare replaceable package MediumHea_b=Buildings.Media.Steam);
 
-  parameter Modelica.Units.SI.Volume VBoi=1
+  parameter Modelica.Units.SI.Volume VBoi=3
     "Total volume of boiler";
   parameter Modelica.Units.SI.Volume VBoiWatSet=VBoi/2
     "Setpoint for liquid water volume in the boiler";
