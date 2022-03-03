@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples;
 model ValveSelfActing
-  "Self-acting steam valve with varying inlet pressure signal"
+  "Self-acting steam valve tested with varying inlet pressure signal"
   extends Modelica.Icons.Example;
   package MediumSteam = Buildings.Media.Steam "Medium model";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
@@ -60,8 +60,8 @@ equation
     annotation (Line(points={{81,50},{90,50},{90,8},{82,8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/
-    Experimental/DHC/Loads/Steam/BaseClasses/Examples/ValveSelfActing.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Steam/BaseClasses/Examples/ValveSelfActing.mos"
+    "Simulate and plot"),
     experiment(StopTime=15, Tolerance=1e-06),
     Documentation(info="<html>
 <p>

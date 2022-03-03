@@ -5,7 +5,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     "Nominal outlet pressure" annotation (Dialog(group="Nominal condition"));
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final dp_start=pb_nominal,
     final m_flow_start=m_flow_nominal,
@@ -14,13 +14,13 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     final control_m_flow=false,
     final control_dp=true) "Ideal source controlling dp"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Blocks.Sources.RealExpression pbSet(y=pb_nominal)
+  Modelica.Blocks.Sources.RealExpression pbSet(final y=pb_nominal)
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Fluid.Sensors.Pressure pUp(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
     "Pressure sensor"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 equation
@@ -36,7 +36,8 @@ equation
     annotation (Line(points={{0,0},{-60,0},{-60,20}}, color={0,127,255}));
   connect(pUp.p, add.u2) annotation (Line(points={{-49,30},{-28,30},{-28,44},{-22,
           44}}, color={0,0,127}));
-  annotation (defaultComponentName="prv",
+  annotation (
+    defaultComponentName="prv",
     Documentation(info="<html>
 <p>
 This is the model of self-acting control valve that automatically adjusts  
@@ -47,7 +48,7 @@ constant or reduced outlet pressure.
 <h4>Implementation</h4>
 <p>
 To simplify the complex relationships of the valve opening <code>(y_actual), 
-m_flow</code> and <code>dp</code> for compressible medium (such as Steam), 
+m_flow</code> and <code>dp</code> for compressible medium (such as steam), 
 this self-acting valve model is implemented using the fictitious pipe model 
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.IdealSource\">
 Buildings.Fluid.Movers.BaseClasses.IdealSource</a>, that is used as a base class
