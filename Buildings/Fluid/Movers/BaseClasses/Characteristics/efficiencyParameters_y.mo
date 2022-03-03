@@ -9,7 +9,7 @@ record efficiencyParameters_y
   annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe efficiency versus part load ratio.
-This is used a method to describe the motor efficiency <code>&etaMot;</code>.
+This is used a method to describe the motor efficiency <code>etaMot</code>.
 The PLR <code>y</code> must be increasing, i.e.,
 <code>y[i] &lt; y[i+1]</code>.
 Both vectors, <code>y</code> and <code>eta</code>
