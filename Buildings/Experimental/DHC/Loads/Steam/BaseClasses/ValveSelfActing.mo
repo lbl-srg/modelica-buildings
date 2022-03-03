@@ -31,18 +31,19 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
-  assert(dpReq.y < 0, "pb_nominal is set higher than the upstream pressure 
-  (results in negative pressure drop)", AssertionLevel.warning);
+  assert(dpReq.y < 0, "b_nominal is set higher than the upstream pressure, 
+  which results in a negative pressure drop. This is not typical of real systems
+  and should be verified.", AssertionLevel.warning);
 
   connect(port_a, ideSou.port_a)
     annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
   connect(ideSou.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(pbSet.y,dpReq. u1)
+  connect(pbSet.y,dpReq.u1)
     annotation (Line(points={{-59,56},{-22,56}}, color={0,0,127}));
   connect(ideSou.port_a, pUp.port)
     annotation (Line(points={{40,0},{-60,0},{-60,20}}, color={0,127,255}));
-  connect(pUp.p,dpReq. u2) annotation (Line(points={{-49,30},{-28,30},{-28,44},{
+  connect(pUp.p,dpReq.u2) annotation (Line(points={{-49,30},{-28,30},{-28,44},{
           -22,44}}, color={0,0,127}));
   connect(dpReq.y, dpSet.u2)
     annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
@@ -71,7 +72,7 @@ to be prescribed independently of mass flow rate.
 The model maintains <code>dp</code> based on the user specified downstream pressure 
 value (<code>pb_nominal</code>), except for instances where the upstream pressure 
 falls below <code>pb_nominal</code>. In these instances, the valve exibits no 
-pressure drop (<code>dpSet = 0</code>) and asserts warning. 
+pressure drop (<code>dpSet = 0</code>) and asserts a warning. 
 This model assumes that <code>dp</code> across the valve is independent of 
 <code>m_flow</code>. This generally leads to a simplier set of equations.
 </p>
