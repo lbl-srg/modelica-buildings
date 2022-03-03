@@ -21,7 +21,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Modelica.Blocks.Math.Add dpReq(final k1=-1)
-  "Calculating dp required"
+    "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
     "Pressure sensor"
@@ -31,9 +31,8 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
-
-  assert(dpReq.y < 0, "pb_nominal is set higher than the inlet pressure 
-  (results in negative valve pressure drop)", AssertionLevel.warning);
+  assert(dpReq.y < 0, "pb_nominal is set higher than the upstream pressure 
+  (results in negative pressure drop)", AssertionLevel.warning);
 
   connect(port_a, ideSou.port_a)
     annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
@@ -70,8 +69,9 @@ to be prescribed independently of mass flow rate.
 </p>
 <p>
 The model maintains <code>dp</code> based on the user specified downstream pressure 
-value (<code>pb_nominal</code>), except for instances where the upstream pressure falls 
-below <code>pb_nominal</code>. In these instances, the valve exibits no pressure drop. 
+value (<code>pb_nominal</code>), except for instances where the upstream pressure 
+falls below <code>pb_nominal</code>. In these instances, the valve exibits no 
+pressure drop (<code>dpSet = 0</code>) and asserts warning. 
 This model assumes that <code>dp</code> across the valve is independent of 
 <code>m_flow</code>. This generally leads to a simplier set of equations.
 </p>
