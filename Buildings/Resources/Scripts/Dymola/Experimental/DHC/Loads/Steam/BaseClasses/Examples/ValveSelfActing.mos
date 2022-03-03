@@ -9,7 +9,7 @@ createPlot(id=1, position={11, 59, 631, 388},
   colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
   timeUnit="s", 
   displayUnits={"pa", "pa", "pa"},
-  resultFile="ValveSelfActing");
+  filename = "ValveSelfActing.mat");
 createPlot(id=1, position={11, 59, 631, 388}, 
   y={"speEntIn.h_out", "speEntOut.h_out"}, 
   range={0.0, 15.0, 2600000.0, 2700000.0}, 
