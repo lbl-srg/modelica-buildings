@@ -29,8 +29,9 @@ model ValveSelfActing
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Noise.UniformNoise pInSig(
     samplePeriod(displayUnit="s") = 1,
-    y_min=900000 + 50000,
-    y_max=900000 - 50000) "Noisy signal for inlet pressure"
+    y_min=500000 + 400000,
+    y_max=500000 - 400000)
+                          "Noisy signal for inlet pressure"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Fluid.Sources.MassFlowSource_T sin(
     redeclare package Medium = MediumSteam,
