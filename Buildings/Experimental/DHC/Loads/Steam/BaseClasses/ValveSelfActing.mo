@@ -31,9 +31,8 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
-  assert(dpReq.y < 0, "b_nominal is set higher than the upstream pressure, 
-  which results in a negative pressure drop. This is not typical of real systems
-  and should be verified.", AssertionLevel.warning);
+  assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure, which results in a negative pressure drop. 
+  This is not typical of real systems and should be verified.", AssertionLevel.warning);
 
   connect(port_a, ideSou.port_a)
     annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
