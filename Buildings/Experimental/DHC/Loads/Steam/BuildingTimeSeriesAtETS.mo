@@ -11,6 +11,8 @@ model BuildingTimeSeriesAtETS
    constrainedby Modelica.Media.Interfaces.PartialMedium
     "Water medium";
 
+  parameter Boolean have_prv = false
+    "Set to true if the building has a pressure reducing valve (PRV) station";
   // Nominal conditions
   parameter Modelica.Units.SI.Power Q_flow_nominal
     "Nominal heat flow rate"
@@ -21,9 +23,23 @@ model BuildingTimeSeriesAtETS
   parameter Modelica.Units.SI.AbsolutePressure pSte_nominal=MediumSte.p_default
     "Nominal pressure of steam entering heat exchanger"
     annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.AbsolutePressure pLow_nominal
+    "Nominal low pressure setpoint, downstream of PRV (if present)"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Temperature TSte_nominal=
      MediumSte.saturationTemperature(pSte_nominal)
      "Nominal temperature of steam entering heat exchanger"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TLow_nominal=
+     MediumSte.temperature(
+       MediumSte.setState_phX(
+         p=pLow_nominal,
+         h=MediumSte.specificEnthalpy(MediumSte.setState_pTX(
+            p=pSte_nominal,
+            T=TSte_nominal,
+            X=MediumSte.X_default)),
+         X=MediumSte.X_default))
+     "Nominal temperature of steam entering heat exchanger, if PRV present"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
     MediumSte.specificEnthalpy(MediumSte.setState_pTX(
@@ -178,8 +194,8 @@ model BuildingTimeSeriesAtETS
     final allowFlowReversal=allowFlowReversal,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final p_start=pSte_nominal,
-    final T_start=TSte_nominal,
+    final p_start=if have_prv then pLow_nominal else pSte_nominal,
+    final T_start=if have_prv then TLow_nominal else TSte_nominal,
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final V=V)
@@ -207,7 +223,14 @@ model BuildingTimeSeriesAtETS
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Math.Division m_flow "Mass flow"
     annotation (Placement(transformation(extent={{32,-34},{52,-14}})));
-
+  Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ValveSelfActing prv(
+    redeclare final package Medium = MediumSte,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final show_T=show_T,
+    final pb_nominal=pLow_nominal) if have_prv
+    "Optional pressure reducing valve"
+    annotation (Placement(transformation(extent={{60,10},{40,30}})));
 equation
   connect(Q_flow, Q_flow) annotation (Line(points={{110,80},{107,80},{107,80},{
           110,80}}, color={0,0,127}));
@@ -221,8 +244,6 @@ equation
     annotation (Line(points={{70,-60},{100,-60}}, color={0,127,255}));
   connect(steTra.port_b, pumCNR.port_a)
     annotation (Line(points={{40,-60},{50,-60}}, color={0,127,255}));
-  connect(port_a, hIn.port_a)
-    annotation (Line(points={{100,0},{0,0}}, color={0,127,255}));
   connect(hIn.port_b, vol.port_a) annotation (Line(points={{-20,0},{-80,0},{-80,
           -60},{-60,-60}}, color={0,127,255}));
   connect(vol.port_b, hOut.port_a)
@@ -239,6 +260,16 @@ equation
     annotation (Line(points={{-10,-11},{-10,-24},{-2,-24}}, color={0,0,127}));
   connect(hOut.h_out, dh.u2)
     annotation (Line(points={{-10,-49},{-10,-36},{-2,-36}}, color={0,0,127}));
+  connect(port_a, prv.port_a) annotation (Line(points={{100,0},{70,0},{70,20},{60,
+          20}}, color={0,127,255}));
+  if have_prv then
+    connect(prv.port_b, hIn.port_a)
+     annotation (Line(points={{40,20},{30,20},{30,0},{0,0}}, color={0,127,255}));
+  else
+  connect(port_a, hIn.port_a)
+    annotation (Line(points={{100,0},{0,0}}, color={0,127,255}));
+  end if;
+
   annotation (
     defaultComponentName="bui",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -321,4 +352,3 @@ First implementation.
 </ul>
 </html>"));
 end BuildingTimeSeriesAtETS;
-

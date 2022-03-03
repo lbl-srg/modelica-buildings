@@ -8,7 +8,7 @@ model BuildingTimeSeriesAtETS
     Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium";
 
-  parameter Modelica.Units.SI.AbsolutePressure pSat=200000
+  parameter Modelica.Units.SI.AbsolutePressure pSat=400000
     "Saturation pressure";
   parameter Modelica.Units.SI.Temperature TSat=
      MediumSte.saturationTemperature(pSat)
@@ -19,6 +19,8 @@ model BuildingTimeSeriesAtETS
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
+    have_prv=true,
+    pLow_nominal=200000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=3000,
     tableOnFile=false,
@@ -74,4 +76,3 @@ First implementation.
 </ul>
 </html>"));
 end BuildingTimeSeriesAtETS;
-    
