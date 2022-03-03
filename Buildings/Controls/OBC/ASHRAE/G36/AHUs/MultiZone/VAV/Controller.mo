@@ -219,15 +219,13 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
         and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
         and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uMinRetDam(unit="1")=0.5
@@ -253,10 +251,6 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real disDel(unit="s")=15
     "Short time delay before closing the outdoor air damper at disable to avoid pressure fluctuations"
     annotation (Dialog(tab="Economizer", group="Enable"));
-  // Modulation
-  parameter Real samplePeriod(unit="s")=300
-    "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)"
-    annotation (Dialog(tab="Economizer", group="Modulation"));
   // Commissioning
   parameter Real retDamPhyPosMax(unit="1")=1
     "Physically fixed maximum position of the return air damper"
@@ -573,7 +567,7 @@ block Controller "Multizone VAV air handling unit controller"
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
     "Measured AHU supply airflow rate"
     annotation (Placement(transformation(extent={{-400,-400},{-360,-360}}),
-        iconTransformation(extent={{-240,-390},{-200,-350}})));
+        iconTransformation(extent={{-240,-360},{-200,-320}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VRet_flow(
     final min=0,
     final unit="m3/s",
@@ -581,6 +575,10 @@ block Controller "Multizone VAV air handling unit controller"
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
     "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-400,-460},{-360,-420}}),
+        iconTransformation(extent={{-240,-380},{-200,-340}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMinOutAirDam
+    "Minimum outdoor air damper status, true when it is open. When there is no dedicated damper, it is the economizer damper status"
+    annotation (Placement(transformation(extent={{-400,-490},{-360,-450}}),
         iconTransformation(extent={{-240,-410},{-200,-370}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
@@ -796,7 +794,6 @@ block Controller "Multizone VAV air handling unit controller"
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel,
-    final samplePeriod=samplePeriod,
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -1083,6 +1080,8 @@ equation
           -478},{128,-478},{128,-210},{198,-210}}, color={0,0,127}));
   connect(frePro.yAla, yAla) annotation (Line(points={{222,-219},{292,-219},{292,
           -270},{380,-270}}, color={255,127,0}));
+  connect(retFanDpCon.uMinOutAirDam, uMinOutAirDam)
+    annotation (Line(points={{-162,-470},{-380,-470}}, color={255,0,255}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1272,12 +1271,12 @@ annotation (
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
        Text(
-          extent={{-200,-382},{-140,-398}},
+          extent={{-200,-352},{-140,-368}},
           lineColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir,
           textString="VRet_flow"),
        Text(
-          extent={{-200,-362},{-140,-378}},
+          extent={{-200,-332},{-140,-348}},
           lineColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir,
           textString="VSup_flow"),
@@ -1299,7 +1298,11 @@ annotation (
           textString="dpDisSet"),
        Text(extent={{166,-150},{196,-168}},
           lineColor={255,127,0},
-          textString="yAla")}),
+          textString="yAla"),
+       Text(
+          extent={{-196,-378},{-108,-398}},
+          lineColor={255,0,255},
+          textString="uMinOutAirDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-600},{360,600}})),
   Documentation(info="<html>
 <p>
