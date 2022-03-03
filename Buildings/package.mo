@@ -249,22 +249,42 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">#2126</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Coefficient_V_flow<br/>
+                     Buildings.Airflow.Multizone.Coefficient_m_flow<br/>
+                     Buildings.Airflow.Multizone.Point_m_flow<br/>
+                     Buildings.Airflow.Multizone.Points_m_flow<br/>
+                     Buildings.Airflow.Multizone.Table_V_flow<br/>
+                     Buildings.Airflow.Multizone.Table_m_flow
+    </td>
+    <td valign=\"top\">Added new component models for multizone air exchange.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
     </td>
-    <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
-                       which can be used to vary boundary conditions over the length of a pipe.
+    <td valign=\"top\">Added model for multiple plug flow pipes in series,
+                     which can be used to vary boundary conditions over the length of a pipe.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Outside_CpData
+    </td>
+    <td valign=\"top\">Added new component model that allows specifying a wind pressure profile for an exterior construction.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
-                       Buildings.Controls.OBC.CDL.Integers.Subtact
+                     Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
+                     Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
+                     Buildings.Controls.OBC.CDL.Integers.Subtact
     </td>
     <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
@@ -273,7 +293,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
     </td>
     <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
@@ -282,7 +302,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Ice.ControlledTank<br/>
                      Buildings.Fluid.Storage.Ice.Tank
     </td>
-    <td valign=\"top\">Models for ice storage tank whose performance is characterized by performance curves.<br/>
+    <td valign=\"top\">Added models for ice storage tank whose performance is characterized by performance curves.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
     </td>
 </tr>
@@ -371,6 +391,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed cooling coil model.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">#2549</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System7
+    </td>
+    <td valign=\"top\">Changed block downstream of <code>greThrTRoo</code> from <code>and</code> to <code>or</code> block.
+                       This ensures that the system is off when the outdoor air or room air is sufficiently warm.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SpaceCooling.System2<br/>
@@ -756,7 +782,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
-    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    <td valign=\"top\">R" + "emoved support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>

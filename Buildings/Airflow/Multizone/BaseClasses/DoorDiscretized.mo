@@ -50,7 +50,7 @@ protected
     "Small flow rate for regularization";
 
   Real m(min=0.5, max=1) "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  Real kVal "Flow coefficient for each compartment, k = V_flow/ dp^m";
+  Real CVal "Flow coefficient for each compartment, C = V_flow/ dp^m";
   Modelica.Units.SI.Area dA "Compartment area";
   Real gaiFlo[nCom] "Gain to sum up the positive flows and set the negative to zero in a differentiable way";
 equation
