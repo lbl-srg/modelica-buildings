@@ -66,7 +66,7 @@ equation
           {90,8},{82,8}},        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
 __Dymola_Commands(file=
-    "modelica://DES/Resources/Scripts/Dymola/Heating/Loads/Valves/Examples/SteamTwoWayValveSelfActing.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Steam/BaseClasses/Examples/ValveSelfActing.mos"
     "Simulate and plot"),
   experiment(StopTime=15,Tolerance=1e-06),
     Documentation(info="<html>
