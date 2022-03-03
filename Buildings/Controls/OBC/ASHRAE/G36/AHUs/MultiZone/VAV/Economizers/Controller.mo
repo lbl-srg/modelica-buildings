@@ -15,7 +15,7 @@ block Controller
   parameter Real minSpe(
     final unit="1",
     final min=0,
-    final max=1)
+    final max=1)=0.1
     "Minimum supply fan speed"
     annotation (Dialog(tab="Limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
@@ -52,7 +52,7 @@ block Controller
              or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real dpDesOutDam_min(
     final unit="Pa",
-    final quantity="PressureDifference")
+    final quantity="PressureDifference")=300
     "Design pressure difference across the minimum outdoor air damper"
     annotation (Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
@@ -71,8 +71,7 @@ block Controller
     final quantity="Time")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Limits", group="With DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
         and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
              or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(
@@ -80,8 +79,7 @@ block Controller
     final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Limits", group="With DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
         and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
              or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uMinRetDam(
@@ -118,13 +116,6 @@ block Controller
     final quantity="Time")=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation (Dialog(tab="Enable", group="Delays"));
-
-  // Modulation
-  parameter Real samplePeriod(
-    final unit="s",
-    final quantity="Time")=300
-    "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)"
-    annotation (Dialog(tab="Modulation"));
 
   // Commissioning
   parameter Real retDamPhyPosMax(
@@ -342,8 +333,7 @@ block Controller
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan modRet(
     final have_directControl=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
     final uMin=uHeaMax,
-    final uMax=uCooMin,
-    final samplePeriod=samplePeriod)
+    final uMax=uCooMin)
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
@@ -352,8 +342,7 @@ block Controller
     final uMin=uHeaMax,
     final uMax=uCooMin,
     final uOutDamMax=uOutDamMax,
-    final uRetDamMin=uRetDamMin,
-    final samplePeriod=samplePeriod)
+    final uRetDamMin=uRetDamMin)
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
     "Modulate economizer dampers position for buildings with relief damper or fan controlling pressure"
@@ -524,12 +513,14 @@ annotation (defaultComponentName="ecoCon",
           pattern=LinePattern.Dash,
           textString="uOutDamPos",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-                   or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)),
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)),
         Text(
           extent={{-98,108},{-48,94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uSupFanSpe"),
+          textString="uSupFanSpe",
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)),
         Text(
           extent={{-96,80},{-46,64}},
           lineColor={0,0,127},
