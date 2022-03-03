@@ -178,7 +178,7 @@ protected
           strict=false))
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
   final parameter Real motDer_y[size(per.motorEfficiency_y.y, 1)]=
-    if not per.etaHydMet==
+    if not per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y
       then zeros(size(per.motorEfficiency_y.y,1))
     elseif (size(per.motorEfficiency_y.y, 1) == 1)

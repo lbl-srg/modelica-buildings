@@ -13,13 +13,16 @@ record Generic "Generic data record for movers"
   // Efficiency computation choices
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
-    "Efficiency computation method for the total efficiency eta";
+    "Efficiency computation method for the total efficiency eta"
+    annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaHydMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
-    "Efficiency computation method for the hydraulic efficiency etaHyd";
+    "Efficiency computation method for the hydraulic efficiency etaHyd"
+    annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMotMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
-    "Efficiency computation method for the motor efficiency etaMot";
+    "Efficiency computation method for the motor efficiency etaMot"
+    annotation (Dialog(group="Power computation"));
 
   final parameter Boolean use_powerCharacteristic=
     etaMet==
