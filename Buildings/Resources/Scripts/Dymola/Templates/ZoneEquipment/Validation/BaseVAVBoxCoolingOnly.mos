@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly",
+simulateModel("Buildings.Templates.ZoneEquipment.Validation.BaseVAVBoxCoolingOnly",
     method="cvode",
     tolerance=1e-6,
     stopTime=1.0,
-    resultFile="VAVBoxCoolingOnly");
+    resultFile="BaseVAVBoxCoolingOnly");
 createPlot(
     id=1,
     position={15, 15, 1192, 772},

@@ -15,19 +15,14 @@ model NoEconomizer "No air economizer"
 
   Buildings.Templates.AirHandlersFans.Components.OutdoorSection.NoEconomizer secOut(
     redeclare final package MediumAir = MediumAir,
-    dat(
-      final damOut=dat.damOut,
-      final damOutMin=dat.damOutMin))
+    final dat=dat)
     "Outdoor air section"
     annotation (
     Dialog(group="Outdoor air section"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoEconomizer secRel(
     redeclare final package MediumAir = MediumAir,
-    dat(
-      final damRel=dat.damRel,
-      final fanRel=dat.fanRel,
-      final fanRet=dat.fanRet))
+    final dat=dat)
     "Relief/return air section"
     annotation (
     Dialog(group="Exhaust/relief/return section"),

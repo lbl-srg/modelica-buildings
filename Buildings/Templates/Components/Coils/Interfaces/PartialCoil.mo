@@ -81,8 +81,8 @@ protected
     final m_flow_nominal=dat.mWat_flow_nominal,
     final dpValve_nominal=dat.dpValve_nominal,
     final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
-          dat.dpWat_nominal else 0)
-    "Design and operating parameters of the control valve";
+      dat.dpWat_nominal else 0)
+    "Local record for control valve with lumped flow resistance";
 
   annotation (
   Icon(

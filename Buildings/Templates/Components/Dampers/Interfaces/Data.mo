@@ -22,4 +22,10 @@ record Data
     annotation (
       Dialog(group="Schedule.Mechanical",
         enable=typ<>Buildings.Templates.Components.Types.Damper.None));
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
+    final min=0,
+    displayUnit="Pa")=0
+    "Air pressure drop of fixed elements in series with damper"
+    annotation (
+      Dialog(group="Schedule.Mechanical", enable=false));
 end Data;

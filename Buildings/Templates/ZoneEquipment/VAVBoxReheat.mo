@@ -13,7 +13,7 @@ model VAVBoxReheat "VAV terminal unit with reheat"
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
-      final dat=dat.coiHea)
+      final dat=datCoiHea)
     "Heating coil"
     annotation (
     choices(
@@ -29,7 +29,7 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     constrainedby
     Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
-      final dat=dat.damVAV)
+      final dat=datDamVAV)
     "VAV damper"
     annotation (Dialog(group="VAV damper"),
       choices(
@@ -71,6 +71,28 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross)
     "Airflow sensor"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
+protected
+  parameter Buildings.Templates.Components.Dampers.Interfaces.Data datDamVAV(
+    final typ=damVAV.typ,
+    final m_flow_nominal=dat.damVAV.m_flow_nominal,
+    final dp_nominal=dat.damVAV.dp_nominal,
+    final dpFixed_nominal=if damVAV.typ==Buildings.Templates.Components.Types.Damper.None then
+      0 else dat.coiHea.dpAir_nominal)
+    "Local record for VAV damper with lumped flow resistance";
+  parameter Buildings.Templates.Components.Coils.Interfaces.Data datCoiHea(
+    final typ=coiHea.typ,
+    final typVal=coiHea.typVal,
+    final have_sou=coiHea.have_sou,
+    final mAir_flow_nominal=dat.coiHea.mAir_flow_nominal,
+    final mWat_flow_nominal=dat.coiHea.mWat_flow_nominal,
+    final dpWat_nominal=dat.coiHea.dpWat_nominal,
+    final dpValve_nominal=dat.coiHea.dpValve_nominal,
+    final cap_nominal=dat.coiHea.cap_nominal,
+    final TWatEnt_nominal=dat.coiHea.TWatEnt_nominal,
+    final TAirEnt_nominal=dat.coiHea.TAirEnt_nominal,
+    final dpAir_nominal=if damVAV.typ==Buildings.Templates.Components.Types.Damper.None then
+      dat.coiHea.dpAir_nominal else 0)
+    "Local record for coil with lumped flow resistance";
 equation
   /* Control point connection - start */
   connect(damVAV.bus, bus.damVAV);

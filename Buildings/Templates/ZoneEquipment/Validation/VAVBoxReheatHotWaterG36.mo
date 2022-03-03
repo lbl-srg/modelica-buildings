@@ -2,7 +2,8 @@ within Buildings.Templates.ZoneEquipment.Validation;
 model VAVBoxReheatHotWaterG36
   extends BaseVAVBoxCoolingOnly(
                             redeclare
-      UserProject.TerminalUnits.VAVBoxReheatHotWaterG36 ter);
+      UserProject.TerminalUnits.VAVBoxReheatHotWaterG36 ter(dat(damVAV(
+            dp_nominal=50), coiHea(dpAir_nominal=70))));
   Fluid.Sources.Boundary_pT bou2(redeclare final package Medium = MediumHea,
       nPorts=1)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));

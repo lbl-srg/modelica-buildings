@@ -47,6 +47,7 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross)
     "Airflow sensor"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
+
 equation
   /* Control point connection - start */
   connect(damVAV.bus, bus.damVAV);

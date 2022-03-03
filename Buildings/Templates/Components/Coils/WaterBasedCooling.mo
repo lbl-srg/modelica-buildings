@@ -43,7 +43,8 @@ model WaterBasedCooling "Chilled water coil"
     final T_a1_nominal=dat.TWatEnt_nominal,
     final T_a2_nominal=dat.TAirEnt_nominal,
     final w_a2_nominal=dat.wAirEnt_nominal,
-    final dp1_nominal=dpWat_nominal,
+    final dp1_nominal=if val.typ==Buildings.Templates.Components.Types.Valve.None
+      then dpWat_nominal else 0,
     final dp2_nominal=dpAir_nominal)
   constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = MediumCoo,
