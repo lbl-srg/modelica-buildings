@@ -3,9 +3,14 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
   in a single closed loop"
   extends Modelica.Icons.Example;
 
-  package MediumSte = Buildings.Media.Steam "Steam medium";
+  package MediumSte = Buildings.Media.Steam (
+    p_default=300000,
+    T_default=273.15+200)
+    "Steam medium";
   package MediumWat =
-    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    Buildings.Media.Specialized.Water.TemperatureDependentDensity (
+      p_default=101325,
+      T_default=273.15+100)
     "Water medium";
 
   parameter Modelica.Units.SI.AbsolutePressure pSat=300000
@@ -26,15 +31,9 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     "Performance data for feedwater pump";
     parameter Buildings.Fluid.Movers.Data.Generic perPumCNR(
    pressure(
-     V_flow=m_flow_nominal/rho_default*{0,1,2},
+     V_flow=m_flow_nominal*1000*{0,1,2},
      dp=dpPip*{2,1,0}))
     "Performance data for condensate return pumps";
-  parameter Modelica.Units.SI.Density rho_default=
-    MediumWat.density(MediumWat.setState_pTX(
-      p=pSat,
-      T=TSat,
-      X=MediumWat.X_default))
-    "Default water density";
 
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
     redeclare package Medium = MediumWat,
@@ -66,7 +65,8 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.SteamTrap steTra(
     redeclare package Medium = MediumWat,
-    m_flow_nominal=m_flow_nominal) "Steam trap"
+    m_flow_nominal=m_flow_nominal)
+    "Steam trap"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Modelica.Blocks.Sources.Sine inp(
     amplitude=-0.5,
@@ -77,6 +77,7 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     annotation (Placement(transformation(extent={{90,-20},{70,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium = MediumWat)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,-50},{0,-30}})));
   Buildings.Controls.Continuous.LimPID conPumCNR(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -121,5 +122,18 @@ equation
     experiment(StopTime=864000, __Dymola_Algorithm="Dassl"),
       __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Steam/Examples/SingleBoiler.mos"
-    "Simulate and plot"));
+    "Simulate and plot"),
+    Documentation(info="<html>
+<p>This model validates the steam plant implemented in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Steam.SingleBoiler\">
+Buildings.Experimental.DHC.Plants.Steam.SingleBoiler</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 3, 2022 by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SingleBoiler;

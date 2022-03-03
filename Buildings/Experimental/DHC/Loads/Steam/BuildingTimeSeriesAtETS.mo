@@ -21,14 +21,14 @@ model BuildingTimeSeriesAtETS
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.AbsolutePressure pSte_nominal=MediumSte.p_default
-    "Nominal pressure of steam entering heat exchanger"
+    "Nominal pressure of steam entering the building"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.AbsolutePressure pLow_nominal
     "Nominal low pressure setpoint, downstream of PRV (if present)"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Temperature TSte_nominal=
      MediumSte.saturationTemperature(pSte_nominal)
-     "Nominal temperature of steam entering heat exchanger"
+     "Nominal temperature of steam entering the building"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Temperature TLow_nominal=
      MediumSte.temperature(
@@ -43,12 +43,12 @@ model BuildingTimeSeriesAtETS
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
     MediumSte.specificEnthalpy(MediumSte.setState_pTX(
-        p=pSte_nominal,
-        T=TSte_nominal,
+        p=if have_prv then pLow_nominal else pSte_nominal,
+        T=if have_prv then TLow_nominal else TSte_nominal,
         X=MediumSte.X_default)) -
       MediumWat.specificEnthalpy(MediumWat.setState_pTX(
-        p=pSte_nominal,
-        T=TSte_nominal,
+        p=if have_prv then pLow_nominal else pSte_nominal,
+        T=if have_prv then TLow_nominal else TSte_nominal,
         X=MediumWat.X_default))
     "Nominal change in enthalpy across the heat exchanger"
     annotation(Dialog(group = "Nominal condition"));
@@ -64,7 +64,8 @@ model BuildingTimeSeriesAtETS
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics

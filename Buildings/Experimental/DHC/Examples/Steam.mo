@@ -18,26 +18,13 @@ model Steam "Example model for a complete steam district heating system"
     "Reduced pressure, after PRV";
   parameter Modelica.Units.SI.Temperature TSat=
      MediumSte.saturationTemperature(pSat)
-     "Saturation temperature";
-  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
-    MediumSte.specificEnthalpy(MediumSte.setState_pTX(
-        p=pSat,
-        T=TSat,
-        X=MediumSte.X_default)) -
-      MediumWat.specificEnthalpy(MediumWat.setState_pTX(
-        p=pSat,
-        T=TSat,
-        X=MediumWat.X_default))
-    "Nominal change in enthalpy";
+     "Saturation temperature, at high pressure";
 
   parameter Integer N = 3 "Number of buildings";
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=sum(mBui_flow_nominal)
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=sum(bld.m_flow_nominal)
     "Nominal mass flow rate of entire district";
   parameter Modelica.Units.SI.HeatFlowRate QDis_flow_nominal=QBui_flow_nominal*N
     "Nominal heat flow rate of entire district";
-  parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal[N]=
-    fill(QBui_flow_nominal/dh_nominal, N)
-    "Nominal mass flow through buildings";
   parameter Modelica.Units.SI.HeatFlowRate QBui_flow_nominal=20000
     "Nominal heat flow rate of each building";
   parameter Modelica.Units.SI.PressureDifference dpPip=6000
@@ -45,7 +32,7 @@ model Steam "Example model for a complete steam district heating system"
 
   parameter Buildings.Fluid.Movers.Data.Generic perPumFW(
    pressure(V_flow=mDis_flow_nominal*1000*{0,1,2},
-                   dp=(pSat-101325)*{2,1,0}))
+     dp=(pSat-101325)*{2,1,0}))
     "Performance data for feedwater pump at the plant";
 
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld[N](
@@ -69,7 +56,7 @@ model Steam "Example model for a complete steam district heating system"
     redeclare package MediumRet = MediumWat,
     nCon=N,
     mDis_flow_nominal=mDis_flow_nominal,
-    mCon_flow_nominal=mBui_flow_nominal)
+    mCon_flow_nominal=bld.m_flow_nominal)
     "Distribution network"
     annotation (Placement(transformation(extent={{0,-20},{40,0}})));
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
@@ -84,13 +71,11 @@ model Steam "Example model for a complete steam district heating system"
     controllerTypeBoi=Modelica.Blocks.Types.SimpleController.PI,
     kBoi=600,
     TiBoi(displayUnit="min") = 120,
-    initTypeBoi=Modelica.Blocks.Types.Init.InitialOutput,
-    yBoiCon_start=0.5,
+    yBoi_start=0.5,
     controllerTypePum=Modelica.Blocks.Types.SimpleController.PI,
     kPum=200,
     TiPum=1000,
-    initTypePum=Modelica.Blocks.Types.Init.InitialOutput,
-    yPumCon_start=0.7)
+    yPum_start=0.7)
     "Plant"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 equation
@@ -111,5 +96,18 @@ equation
     experiment(
       StopTime=86400,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 3, 2022 by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This example model demonstrates a complete system simulation for 
+steam district heating systems. 
+</p>
+</html>"));
 end Steam;

@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Steam;
-model SingleBoiler
+model SingleBoiler "A generic steam plant with a single boiler that discharges 
+  saturated steam vapor"
   extends Buildings.Experimental.DHC.Plants.BaseClasses.PartialPlant(
     final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.HeatingGeneration1,
     final have_fan=false,
@@ -39,6 +40,9 @@ model SingleBoiler
   parameter Modelica.Units.SI.Volume VBoi=3
     "Total drum volume of steam boiler";
   parameter Real boiSca = 1.25 "Boiler heat capacity scaling factor";
+  parameter Modelica.Units.SI.Mass mDry = 1.5E-3*Q_flow_nominal
+    "Mass of boiler that will be lumped to water heat capacity"
+    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
       V_flow=m_flow_nominal*1000*{0.4,0.6,0.8,1.0},
@@ -95,11 +99,11 @@ model SingleBoiler
       controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PID,
       tab="Control", group="Boiler"));
   parameter Modelica.Blocks.Types.Init initTypeBoi=
-    Modelica.Blocks.Types.Init.InitialState
+    Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation(Evaluate=true,
       Dialog(tab="Control", group="Boiler"));
-  parameter Real yBoi_start=0 "Initial value of output"
+  parameter Real yBoi_start=0.1 "Initial value of output"
     annotation(Dialog(enable=initTypeBoi ==
       Modelica.Blocks.Types.Init.InitialOutput,
       tab="Control",
@@ -143,7 +147,7 @@ model SingleBoiler
       controllerTypePum==.Modelica.Blocks.Types.SimpleController.PID,
       tab="Control", group="Pump"));
   parameter Modelica.Blocks.Types.Init initTypePum=
-    Modelica.Blocks.Types.Init.InitialState
+    Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation(Evaluate=true, Dialog(tab="Control", group="Pump"));
   parameter Real yPum_start=0.5 "Initial value of output"
@@ -152,77 +156,77 @@ model SingleBoiler
       tab="Control", group="Pump"));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumFW(
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    redeclare package Medium = Medium,
-    per=per,
-    y_start=yPum_start)
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    redeclare final package Medium = Medium,
+    final per=per,
+    final y_start=yPum_start)
     "Feedwater pump"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial boi(
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    redeclare package MediumSte = MediumHea_b,
-    redeclare package MediumWat = Medium,
-    allowFlowReversal=allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    redeclare final package MediumSte = MediumHea_b,
+    redeclare final package MediumWat = Medium,
+    final allowFlowReversal=allowFlowReversal,
     p_start=pSteSet,
     T_start=TSat,
-    fue=fue,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=3000,
-    Q_flow_nominal=Q_flow_nominal*boiSca,
-    V=VBoi,
-    mDry=300000)
+    final fue=fue,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=3000,
+    final Q_flow_nominal=Q_flow_nominal*boiSca,
+    final V=VBoi,
+    final mDry=mDry)
     "Steam boiler"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.Continuous.LimPID conPum(
-    controllerType=controllerTypePum,
-    k=kPum,
-    Ti=TiPum,
-    Td=TdPum,
-    wp=wpPum,
-    wd=wdPum,
-    Ni=NiPum,
-    Nd=NdPum,
-    initType=initTypePum,
-    y_start=yPum_start)
+    final controllerType=controllerTypePum,
+    final k=kPum,
+    final Ti=TiPum,
+    final Td=TdPum,
+    final wp=wpPum,
+    final wd=wdPum,
+    final Ni=NiPum,
+    final Nd=NdPum,
+    final initType=initTypePum,
+    final y_start=yPum_start)
     "Pump control"
     annotation (Placement(transformation(extent={{-80,80},{-60,60}})));
-  Modelica.Blocks.Math.Gain VNor(k=1/VBoiWatSet)
+  Modelica.Blocks.Math.Gain VNor(final k=1/VBoiWatSet)
     "Normalized volume setpoint"
     annotation (Placement(transformation(extent={{160,80},{140,100}})));
   Buildings.Controls.Continuous.LimPID conBoi(
-    controllerType=controllerTypeBoi,
-    k=kBoi,
-    Ti=TiBoi,
-    Td=TdBoi,
-    wp=wpBoi,
-    wd=wdBoi,
-    Ni=NiBoi,
-    Nd=NdBoi,
-    initType=initTypeBoi,
-    y_start=yBoi_start)
+    final controllerType=controllerTypeBoi,
+    final k=kBoi,
+    final Ti=TiBoi,
+    final Td=TdBoi,
+    final wp=wpBoi,
+    final wd=wdBoi,
+    final Ni=NiBoi,
+    final Nd=NdBoi,
+    final initType=initTypeBoi,
+    final y_start=yBoi_start)
     "Boiler control"
     annotation (Placement(transformation(extent={{80,-82},{100,-62}})));
-  Modelica.Blocks.Math.Gain PNor(k=1/pSteSet)
+  Modelica.Blocks.Math.Gain PNor(final k=1/pSteSet)
     "Normalized pressure setpoint"
     annotation (Placement(transformation(extent={{160,-100},{140,-80}})));
   Buildings.Fluid.Sensors.Pressure senPreSte(
-    redeclare package Medium = MediumHea_b)
+    redeclare final package Medium = MediumHea_b)
     "Steam pressure sensor"
     annotation (Placement(transformation(extent={{220,-80},{200,-100}})));
-  Modelica.Blocks.Sources.Constant uni(k=1) "Unitary"
+  Modelica.Blocks.Sources.Constant uni(final k=1) "Unitary"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Fluid.Storage.ExpansionVessel tanFW(
-    redeclare package Medium = Medium,
-    V_start=VTanFW_start,
-    p=pTanFW)
+    redeclare final package Medium = Medium,
+    final V_start=VTanFW_start,
+    final p=pTanFW)
     "Feedwater tank"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
-    redeclare package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal,
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=6000,
     rhoStd=Medium.density_pTX(
         pSteSet,
@@ -269,5 +273,23 @@ equation
     annotation (Line(points={{58,0},{140,0},{140,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     defaultComponentName="pla",
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a generic steam plant model that can be used in 
+district heating system simulations. The model contains a 
+feedwater tank, feedwater pump, check valve, and a boiler. 
+The boiler is designed to discharge saturated steam vapor. 
+For controls, the feedwater pump maintains the water volume 
+setpoint in the drum boiler, while the boiler control 
+maintains the discharge pressure setpoint. 
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 3, 2022 by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SingleBoiler;
