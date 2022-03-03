@@ -56,32 +56,33 @@ model SingleBoiler
   parameter Real kBoi(min=0) = 20 "Gain of controller";
   parameter Modelica.Units.SI.Time TiBoi(min=Modelica.Constants.small)=30
     "Time constant of Integrator block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+          controllerTypeBoi == Modelica.Blocks.Types.SimpleController.PI or
+          controllerTypeBoi == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time TdBoi(min=0)=10
     "Time constant of Derivative block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+          controllerTypeBoi == Modelica.Blocks.Types.SimpleController.PD or
+          controllerTypeBoi == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real wpBoi(min=0) = 1 "Set-point weight for Proportional block (0..1)";
   parameter Real wdBoi(min=0) = 0 "Set-point weight for Derivative block (0..1)"
-       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+       annotation(Dialog(enable=controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real NiBoi(min=100*Modelica.Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
-                              controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+     annotation(Dialog(enable=controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PI or
+                              controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real NdBoi(min=100*Modelica.Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+       annotation(Dialog(enable=controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Blocks.Types.Init initTypeBoi=
     Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
       annotation(Evaluate=true,
       Dialog(group="Initialization"));
   parameter Real yBoiCon_start=0.1 "Initial value of output"
-    annotation(Dialog(enable=initTypeBoi == Modelica.Blocks.Types.InitPID.InitialOutput, group=
-          "Initialization"));
+    annotation(Dialog(enable=initTypeBoi ==
+      Modelica.Blocks.Types.Init.InitialOutput,
+      group="Initialization"));
 
     // Feedwater pump controller
   parameter Modelica.Blocks.Types.SimpleController controllerTypePum=
@@ -89,32 +90,33 @@ model SingleBoiler
   parameter Real kPum(min=0) = 100 "Gain of controller";
   parameter Modelica.Units.SI.Time TiPum(min=Modelica.Constants.small)=120
     "Time constant of Integrator block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+          controllerTypePum == Modelica.Blocks.Types.SimpleController.PI or
+          controllerTypePum == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time TdPum(min=0)=0.1
     "Time constant of Derivative block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+          controllerTypePum == Modelica.Blocks.Types.SimpleController.PD or
+          controllerTypePum == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real wpPum(min=0) = 1 "Set-point weight for Proportional block (0..1)";
   parameter Real wdPum(min=0) = 0 "Set-point weight for Derivative block (0..1)"
-       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+       annotation(Dialog(enable=controllerTypePum==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerTypePum==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real NiPum(min=100*Modelica.Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
-                              controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+     annotation(Dialog(enable=controllerTypePum==.Modelica.Blocks.Types.SimpleController.PI or
+                              controllerTypePum==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real NdPum(min=100*Modelica.Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+       annotation(Dialog(enable=controllerTypePum==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerTypePum==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Blocks.Types.Init initTypePum=
     Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
       annotation(Evaluate=true,
       Dialog(group="Initialization"));
   parameter Real yPumCon_start=0.5 "Initial value of output"
-    annotation(Dialog(enable=initTypePum == Modelica.Blocks.Types.InitPID.InitialOutput, group=
-          "Initialization"));
+    annotation(Dialog(enable=initTypePum ==
+      Modelica.Blocks.Types.Init.InitialOutput,
+      group="Initialization"));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumFW(
     energyDynamics=energyDynamics,
