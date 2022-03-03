@@ -3,8 +3,8 @@ model Steam "Example model for a complete steam district heating system"
   extends Modelica.Icons.Example;
 
   package MediumSte = Buildings.Media.Steam (
-    p_default=300000,
-    T_default=200+273.15)
+    p_default=400000,
+    T_default=144+273.15)
     "Steam medium";
   package MediumWat =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity (
@@ -12,8 +12,10 @@ model Steam "Example model for a complete steam district heating system"
       T_default=100+273.15)
     "Water medium";
 
-  parameter Modelica.Units.SI.AbsolutePressure pSat=300000
-    "Saturation pressure";
+  parameter Modelica.Units.SI.AbsolutePressure pSat=400000
+    "Saturation pressure, high pressure";
+  parameter Modelica.Units.SI.AbsolutePressure pLow=200000
+    "Reduced pressure, after PRV";
   parameter Modelica.Units.SI.Temperature TSat=
      MediumSte.saturationTemperature(pSat)
      "Saturation temperature";
@@ -49,9 +51,11 @@ model Steam "Example model for a complete steam district heating system"
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld[N](
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
+    each have_prv=true,
     each dp_nominal=dpPip/2,
     each pSte_nominal=pSat,
     each Q_flow_nominal=QBui_flow_nominal,
+    each pLow_nominal=pLow,
     each tableOnFile=false,
     each QHeaLoa=
       [0,0.8; 2,1; 10,1; 12,0.5; 20,0.5; 24,0.8]*[1,0;0,QBui_flow_nominal],
