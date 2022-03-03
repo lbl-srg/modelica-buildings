@@ -4,7 +4,7 @@ partial model PartialCoil
     redeclare final package Medium=MediumAir,
     final m_flow_nominal=mAir_flow_nominal);
 
-  outer replaceable package MediumAir=Buildings.Media.Air
+  replaceable package MediumAir=Buildings.Media.Air
     "Source-side medium";
   /*
   The following definition is needed only for Dymola that does not allow

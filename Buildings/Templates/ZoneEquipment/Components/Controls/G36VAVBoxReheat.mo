@@ -21,18 +21,17 @@ block G36VAVBoxReheat
     "Set to true if the zone has window status sensor"
     annotation (Dialog(group="Configuration"));
 
-  parameter Boolean have_CO2Sen=false
-    "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(group="Configuration"));
-
   parameter Boolean permit_occStandby=true
     "Set to true if occupied-standby mode is permitted"
     annotation (Dialog(group="Configuration"));
 
+  /*
+  FIXME: have_hotWatCoi has been deleted see https://github.com/lbl-srg/modelica-buildings/commit/5d1c7d9bbe17c0049a1fc332005705f35e1593dc#r67866444
   final parameter Boolean have_hotWatCoi=
     coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
     "Set to true if the system has hot water coil"
     annotation (Dialog(group="Configuration"));
+  */
 
   parameter Boolean have_locAdj=true
     "Set to true if the zone has local set point adjustment knob"
@@ -108,8 +107,10 @@ block G36VAVBoxReheat
   final parameter Real effAirDis_nominal=effAirDisCoo
     "Zone air distribution effectiveness at design conditions";
 
+  // FIXME: not in §3.1.2.2 VAV Reheat Terminal Unit.
+  // Assuming the following equality for now.
   final parameter Modelica.Units.SI.VolumeFlowRate VAirPri_flow_min=
-    dat.VAirPri_flow_min
+    VAirSet_flow_min
     "Zone minimum expected primary air volume flow rate";
 
   // FIXME: should be inputs such as in Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints
@@ -138,6 +139,7 @@ block G36VAVBoxReheat
     "Design zone population";
 
   // FIXME: missing default parameter assignment, see non final binding below.
+  // FIXME: have_hotWatCoi has been deleted see https://github.com/lbl-srg/modelica-buildings/commit/5d1c7d9bbe17c0049a1fc332005705f35e1593dc#r67866444
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctl(
     controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     staPreMul=1,
@@ -153,7 +155,6 @@ block G36VAVBoxReheat
     final have_occSen=have_occSen,
     final have_winSen=have_winSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_hotWatCoi=have_hotWatCoi,
     final permit_occStandby=permit_occStandby,
     final have_pressureIndependentDamper=have_pressureIndependentDamper,
     final VCooZonMax_flow=VAirCooSet_flow_max,

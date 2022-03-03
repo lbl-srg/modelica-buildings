@@ -86,7 +86,7 @@ block G36VAVMultiZone
 
   final parameter Real nPeaSys_nominal=
     dat.nPeaSys_nominal
-    "Peak system population";
+    "Design system population (including diversity)";
 
   final parameter Modelica.Units.SI.Temperature TAirSupSet_min(
     displayUnit="degC")=dat.TAirSupSet_min
@@ -98,11 +98,11 @@ block G36VAVMultiZone
 
   final parameter Modelica.Units.SI.Temperature TAirOutRes_min(
     displayUnit="degC")=dat.TAirOutRes_min
-    "Lowest outdoor air temperature reset range";
+    "Lowest value of the outdoor air temperature reset range";
 
   final parameter Modelica.Units.SI.Temperature TAirOutRes_max(
     displayUnit="degC")=dat.TAirOutRes_max
-    "Highest outdoor air temperature reset range";
+    "Highest value of the outdoor air temperature reset range";
 
   final parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel=
     dat.pAirBuiSet_rel

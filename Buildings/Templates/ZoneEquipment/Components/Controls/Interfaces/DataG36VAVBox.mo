@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
-record DataG36VAVBoxReheat
+record DataG36VAVBox
   extends Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.Data;
 
   parameter Boolean have_CO2Sen
@@ -52,7 +52,7 @@ record DataG36VAVBoxReheat
     displayUnit = "degC",
     final min=273.15,
     final max=50+273.15,
-    start=10+273.15)=10 + 273.15
+    start=12+273.15)=12 + 273.15
     "Zone minimum discharge air temperature"
     annotation (Dialog(group="Temperature",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
@@ -127,4 +127,4 @@ record DataG36VAVBoxReheat
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat and
     have_CO2Sen));
 
-end DataG36VAVBoxReheat;
+end DataG36VAVBox;

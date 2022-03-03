@@ -1,25 +1,24 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Interfaces.DataVAVBoxReheat dat(
+    redeclare Buildings.Templates.ZoneEquipment.Interfaces.DataVAVBox dat(
       typCoiHea=coiHea.typ,
+      typValCoiHea=coiHea.typVal,
       typDamVAV=damVAV.typ,
-      have_CO2Sen=ctl.have_CO2Sen),
+      have_CO2Sen=ctl.have_CO2Sen,
+      typCtl=ctl.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
     final have_souCoiHea=coiHea.have_sou);
 
-  final parameter Modelica.Units.SI.PressureDifference dpDamVAV_nominal=
-    dat.dpDamVAV_nominal
-    "Damper pressure drop"
-    annotation (Dialog(group="Nominal condition"));
-
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+      redeclare final package MediumAir = MediumAir,
       final dat=dat.coiHea)
     "Heating coil"
     annotation (
     choices(
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
+        redeclare final package MediumHea = MediumHea)
         "Hot water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
         "Electric heating coil")),
@@ -70,6 +69,7 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     final have_sen=ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat,
     final m_flow_nominal=mAir_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross)
+    "Airflow sensor"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
 equation
   /* Control point connection - start */

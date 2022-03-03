@@ -16,43 +16,63 @@ record DataVAVMultiZone
 
   parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max = 500
     "Duct design maximum static pressure"
-    annotation (Dialog(group="Pressure and airflow",
+    annotation (Dialog(group="Airflow and pressure",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min(
     final min=2.4, start=10) = 10
     "Return fan minimum discharge static pressure set point"
-    annotation (Dialog(group="Pressure and airflow",
+    annotation (Dialog(group="Airflow and pressure",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
     final min=10, start=100) = 100
     "Return fan maximum discharge static pressure set point"
-    annotation (Dialog(group="Pressure and airflow",
+    annotation (Dialog(group="Airflow and pressure",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
   parameter Real ySpeFanSup_min(final unit="1", final min=0, final max=1, start=0.1)= 0.1
     "Lowest allowed fan speed if fan is on"
-    annotation (Dialog(group="Pressure and airflow",
+    annotation (Dialog(group="Airflow and pressure",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
     typFanSup<>Buildings.Templates.Components.Types.Fan.None));
 
   parameter Real ySpeFanRel_min(final unit="1", final min=0, final max=1, start=0.1)=0.1
     "Minimum relief fan speed"
-    annotation (Dialog(group="Pressure and airflow",
+    annotation (Dialog(group="Airflow and pressure",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       typFanRel<>Buildings.Templates.Components.Types.Fan.None));
 
   parameter Real ySpeFanRet_min(final unit="1", final min=0, final max=1, start=0.1)=0.1
     "Minimum return fan speed"
-    annotation (Dialog(group="Pressure and airflow",
+    annotation (Dialog(group="Airflow and pressure",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       typFanRet<>Buildings.Templates.Components.Types.Fan.None));
 
+  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=15
+    "Design minimum outdoor air damper differential pressure"
+    annotation (Dialog(group="Airflow and pressure",
+      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+      minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
+
+  parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(start=12)=12
+    "Building static pressure set point"
+    annotation (Dialog(group="Airflow and pressure",
+      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+      (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+       or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+       or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
+
+  parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=0.1
+    "Airflow differential between supply and return fans to maintain building pressure at set point"
+    annotation (Dialog(group="Airflow and pressure",
+      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
+
   parameter Real nPeaSys_nominal(final unit="1", final min=0)=100
-    "Peak system population"
+    "Design system population (including diversity)"
     annotation (Dialog(group="Ventilation",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone));
 
@@ -80,28 +100,5 @@ record DataVAVMultiZone
     annotation (Dialog(group="Supply air temperature",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone));
 
-  parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(start=12)=12
-    "Building static pressure set point"
-    annotation (Dialog(tab="Pressure control",
-      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-       or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-       or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
-
-
-
-
-
-  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=15
-    "Design minimum outdoor air damper differential pressure"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
-
-  parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=0.1
-    "Airflow differential between supply and return fans to maintain building pressure at set point"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
 
 end DataVAVMultiZone;

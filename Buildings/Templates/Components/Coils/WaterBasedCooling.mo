@@ -6,7 +6,7 @@ model WaterBasedCooling "Chilled water coil"
     port_aSou(redeclare final package Medium = MediumCoo),
     port_bSou(redeclare final package Medium = MediumCoo));
 
-  outer replaceable package MediumCoo=Buildings.Media.Water
+  replaceable package MediumCoo=Buildings.Media.Water
     "Source side medium";
 
   final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=

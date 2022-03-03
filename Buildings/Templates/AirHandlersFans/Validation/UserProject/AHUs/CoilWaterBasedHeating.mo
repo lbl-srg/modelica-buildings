@@ -1,8 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
 model CoilWaterBasedHeating
-  extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    redeclare replaceable
-      Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre,
+  extends Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare
+      replaceable Buildings.Templates.Components.Coils.WaterBasedHeating
+      coiHeaPre(redeclare final package MediumHea = MediumHea) "Hot water coil",
     nZon=2);
   annotation (
     defaultComponentName="ahu");

@@ -222,7 +222,8 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final dat=dat.coiHeaPre)
+      final dat=dat.coiHeaPre,
+      redeclare final package MediumAir=MediumAir)
     "Heating coil in preheat position"
     annotation (
     choices(
@@ -230,7 +231,8 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
         redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre
         "No coil"),
       choice(
-        redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre
+        redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
+          redeclare final package MediumHea=MediumHea)
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
@@ -241,25 +243,31 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final dat=dat.coiCoo)
+      final dat=dat.coiCoo,
+      redeclare final package MediumAir=MediumAir)
     "Cooling coil"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiCoo
         "No coil"),
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
-        "Chilled water coil")),
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
+        redeclare final package MediumCoo=MediumCoo)
+        "Chilled water coil"),
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiCoo
+        "Evaporator coil with variable speed compressor")),
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
-      final dat=dat.coiHeaReh)
+      final dat=dat.coiHeaReh,
+      redeclare final package MediumAir=MediumAir)
     "Heating coil in reheat position"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaReh
         "No coil"),
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
+        redeclare final package MediumHea=MediumHea)
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh

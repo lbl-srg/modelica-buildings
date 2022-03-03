@@ -2,10 +2,10 @@ within Buildings.Templates.ZoneEquipment.Interfaces;
 partial model PartialAirTerminal
   "Interface class for terminal unit in air system"
 
-  inner replaceable package MediumAir=Buildings.Media.Air
+  replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
-  inner replaceable package MediumHea=Buildings.Media.Water
+  replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea));

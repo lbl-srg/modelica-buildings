@@ -6,7 +6,7 @@ model WaterBasedHeating "Hot water coil"
     port_aSou(redeclare final package Medium = MediumHea),
     port_bSou(redeclare final package Medium = MediumHea));
 
-  outer replaceable package MediumHea=Buildings.Media.Water
+  replaceable package MediumHea=Buildings.Media.Water
     "Source side medium";
 
   final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=

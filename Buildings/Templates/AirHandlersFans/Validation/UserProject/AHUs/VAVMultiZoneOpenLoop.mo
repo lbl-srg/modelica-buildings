@@ -4,6 +4,7 @@ model VAVMultiZoneOpenLoop
     nZon=2,
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
+        redeclare final package MediumHea = MediumHea,
         redeclare replaceable
         Buildings.Templates.Components.Valves.TwoWayModulating val),
     redeclare replaceable
@@ -15,6 +16,7 @@ model VAVMultiZoneOpenLoop
         secRel "Return fan with modulating relief damper"),
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
+      redeclare final package MediumCoo = MediumCoo,
       redeclare replaceable
         Buildings.Templates.Components.Valves.TwoWayModulating val)
       "Chilled water coil",
