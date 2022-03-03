@@ -1,40 +1,42 @@
 within Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples;
 model ValveSelfActing
-  "Self-acting steam valve tested with varying inlet pressure signal"
+  "Self-acting steam valve with a noisy inlet pressure and ramp mass flow rate"
   extends Modelica.Icons.Example;
-  package MediumSteam = Buildings.Media.Steam "Medium model";
+  package MediumSte = Buildings.Media.Steam "Medium model";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ValveSelfActing prv(
-    redeclare package Medium = MediumSteam,
+    redeclare package Medium = MediumSte,
     m_flow_nominal=m_flow_nominal,
     show_T=true,
     pb_nominal=300000) "Self acting pressure reducing valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = MediumSteam,
+    redeclare package Medium = MediumSte,
     use_p_in=true,
     p(displayUnit="Pa"),
-    T(displayUnit="K") = MediumSteam.saturationTemperature(sou.p),
+    T(displayUnit="K") = MediumSte.saturationTemperature(sou.p),
     nPorts=1) "Source"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntIn(redeclare package
-      Medium = MediumSteam, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntIn(
+    redeclare package Medium = MediumSte,
+    m_flow_nominal=m_flow_nominal)
     "Upstream specific enthalpy"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntOut(redeclare package
-      Medium = MediumSteam, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntOut(
+    redeclare package Medium = MediumSte,
+    m_flow_nominal=m_flow_nominal)
     "Downstream specific enthalpy"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Noise.UniformNoise pInSig(
     samplePeriod(displayUnit="s") = 1,
     y_min=500000 + 400000,
     y_max=500000 - 400000)
-                          "Noisy signal for inlet pressure"
+    "Noisy signal for inlet pressure"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Fluid.Sources.MassFlowSource_T sin(
-    redeclare package Medium = MediumSteam,
+    redeclare package Medium = MediumSte,
     use_m_flow_in=true,
     nPorts=1) "Sink (ideal)"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
@@ -67,7 +69,9 @@ equation
     Documentation(info="<html>
 <p>
 This example model demonstrates the performance of self-acting steam pressure regulator 
-with a noisy/varying inlet pressure signal (commonly found in most real world steam systems).
+with a noisy/varying inlet pressure signal and a ramped mass flow rate signal. The inlet 
+pressure conditions are selected to demonstrate how the downstream pressure is maintained 
+at the setpoint, unless the inlet pressure drops below the setpoint (pressure drop is then zero).
 </p>
 </html>",revisions="<html>
 <ul>

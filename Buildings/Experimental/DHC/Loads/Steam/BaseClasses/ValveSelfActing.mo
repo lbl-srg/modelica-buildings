@@ -20,7 +20,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.RealExpression pbSet(final y=pb_nominal)
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-  Modelica.Blocks.Math.Add add(k1=-1)
+  Modelica.Blocks.Math.Add add(final k1=-1)
     "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
@@ -28,7 +28,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
   Modelica.Blocks.Math.Max dpSet "Pressure drop setpoint"
     annotation (Placement(transformation(extent={{20,46},{40,66}})));
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero"
+  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
   connect(port_a, ideSou.port_a)
@@ -66,9 +66,10 @@ to be prescribed independently of mass flow rate.
 </p>
 <p>
 The model maintains <code>dp</code> based on the user specified downstream pressure 
-value <code>(pb_nominal)</code>. This model assumes that <code>dp</code> 
-across the valve is independent of <code>m_flow</code>. This generally leads to a 
-simplier set of equations.
+value (<code>pb_nominal</code>), except for instances where the upstream pressure falls 
+below <code>pb_nominal</code>. In these instances, the valve exibits no pressure drop. 
+This model assumes that <code>dp</code> across the valve is independent of 
+<code>m_flow</code>. This generally leads to a simplier set of equations.
 </p>
 </html>", revisions="<html>
 <ul>
