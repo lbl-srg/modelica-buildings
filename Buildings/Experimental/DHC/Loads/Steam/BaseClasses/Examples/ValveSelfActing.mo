@@ -1,10 +1,8 @@
 within Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples;
 model ValveSelfActing
-  "Example model to exhibit the performance of self-acting steam valve"
+  "Self-acting steam valve with varying inlet pressure signal"
   extends Modelica.Icons.Example;
-
-  package MediumSteam = Buildings.Media.Steam;
-
+  package MediumSteam = Buildings.Media.Steam "Medium model";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
@@ -12,20 +10,22 @@ model ValveSelfActing
     redeclare package Medium = MediumSteam,
     m_flow_nominal=m_flow_nominal,
     show_T=true,
-    pb_nominal=300000) "Self acting valve"
+    pb_nominal=300000) "Self acting pressure reducing valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumSteam,
     use_p_in=true,
     p(displayUnit="Pa"),
     T(displayUnit="K") = MediumSteam.saturationTemperature(sou.p),
-    nPorts=1)
+    nPorts=1) "Source"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntIn(redeclare package
       Medium = MediumSteam, m_flow_nominal=m_flow_nominal)
+    "Upstream specific enthalpy"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntOut(redeclare package
       Medium = MediumSteam, m_flow_nominal=m_flow_nominal)
+    "Downstream specific enthalpy"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Noise.UniformNoise pInSig(
     samplePeriod(displayUnit="s") = 1,
@@ -35,7 +35,8 @@ model ValveSelfActing
   Fluid.Sources.MassFlowSource_T sin(
     redeclare package Medium = MediumSteam,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+    nPorts=1) "Sink (ideal)"
+    annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Ramp m_flow_sig(
     height=-1,
     duration=5,
@@ -57,15 +58,22 @@ equation
     annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
   connect(m_flow_sig.y, sin.m_flow_in)
     annotation (Line(points={{81,50},{90,50},{90,8},{82,8}}, color={0,0,127}));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Steam/BaseClasses/Examples/ValveSelfActing.mos"
-        "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/
+    Experimental/DHC/Loads/Steam/BaseClasses/Examples/ValveSelfActing.mos" "Simulate and plot"),
     experiment(StopTime=15, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model for the self-acting two way steam pressure regulating valve model.
+This example model demonstrates the performance of self-acting steam pressure regulator 
+with a noisy/varying inlet pressure signal (commonly found in most real world steam systems).
 </p>
+</html>",revisions="<html>
+<ul>
+<li>
+March 2, 2022 by Saranya Anbarasu:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ValveSelfActing;
