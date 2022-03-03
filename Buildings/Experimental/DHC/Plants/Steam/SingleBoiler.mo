@@ -33,7 +33,7 @@ model SingleBoiler
         T=TSat,
         X=Medium.X_default)))
     "Nominal heating power";
-  parameter Real boiSca = 2 "Boiler heat capacity scaling factor";
+  parameter Real boiSca = 1.25 "Boiler heat capacity scaling factor";
   // pump
   parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
