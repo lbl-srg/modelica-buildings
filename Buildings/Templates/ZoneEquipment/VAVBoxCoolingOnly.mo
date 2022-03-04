@@ -1,13 +1,14 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxCoolingOnly "VAV terminal unit cooling only"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Interfaces.DataVAVBox dat(
+    redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat(
       typCoiHea=Buildings.Templates.Components.Types.Coil.None,
       typValCoiHea=Buildings.Templates.Components.Types.Valve.None,
       typDamVAV=damVAV.typ,
       have_CO2Sen=ctl.have_CO2Sen,
       typCtl=ctl.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
+
     final have_souCoiHea=false);
 
   inner replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV

@@ -1,5 +1,5 @@
-within Buildings.Templates.ZoneEquipment.Interfaces;
-record Data
+within Buildings.Templates.ZoneEquipment.Data;
+record PartialAirTerminal
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
@@ -18,4 +18,4 @@ record Data
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-end Data;
+end PartialAirTerminal;

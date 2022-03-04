@@ -6,7 +6,7 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   Instead those parameter declarations are annoted with enable=false
   in the record class.
   */
-  extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
+  extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
     redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat(
       typCoiHeaPre=coiHeaPre.typ,

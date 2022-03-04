@@ -18,8 +18,9 @@ partial model PartialOutdoorSection "Outdoor air section"
   outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
-  parameter Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data dat
-    "Design and operating parameters";
+  parameter
+    Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
+    dat "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
     dat.damOut.m_flow_nominal

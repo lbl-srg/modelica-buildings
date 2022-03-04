@@ -1,5 +1,5 @@
-within Buildings.Templates.Components.Coils.Interfaces;
-record Data
+within Buildings.Templates.Components.Data;
+record Coil
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.Components.Types.Coil typ
@@ -104,9 +104,10 @@ record Data
       enable=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling));
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed.Carrier_Centurion_50PG06 datCoi
-    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
     "Performance record"
     annotation(choicesAllMatching=true, Dialog(
       enable=typ==Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage or
       typ==Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed));
-end Data;
+end Coil;

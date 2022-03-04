@@ -53,14 +53,15 @@ partial model PartialOutdoorReliefReturnSection
         group="Configuration",
         enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
 
-  parameter Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.Data dat(
+  parameter
+    Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
+    dat(
     final typDamOut=typDamOut,
     final typDamOutMin=typDamOutMin,
     final typDamRet=typDamRet,
     final typDamRel=typDamRel,
     final typFanRel=typFanRel,
-    final typFanRet=typFanRet)
-    "Design and operating parameters";
+    final typFanRet=typFanRet) "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
     dat.damOut.m_flow_nominal

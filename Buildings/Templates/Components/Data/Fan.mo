@@ -1,5 +1,5 @@
-within Buildings.Templates.Components.Fans.Interfaces;
-record Data
+within Buildings.Templates.Components.Data;
+record Fan
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.Components.Types.Fan typ
@@ -32,4 +32,4 @@ record Data
       choicesAllMatching=true,
       Dialog(enable=typ <> Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
-end Data;
+end Fan;

@@ -4,9 +4,9 @@ partial block PartialController
   parameter ZoneEquipment.Types.Controller typ "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  replaceable parameter Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.Data dat(
-    final typ=typ)
-    "Design and operating parameters";
+  replaceable parameter
+    Buildings.Templates.ZoneEquipment.Components.Data.PartialController dat(
+      final typ=typ) "Design and operating parameters";
 
   Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
     "Terminal unit control bus" annotation (Placement(transformation(

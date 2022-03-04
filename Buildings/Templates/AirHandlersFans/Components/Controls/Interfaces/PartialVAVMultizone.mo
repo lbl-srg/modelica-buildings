@@ -3,8 +3,9 @@ partial block PartialVAVMultizone
   "Partial control block for multiple zone VAV"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController(
-    redeclare Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.DataVAVMultiZone dat(
-      typSecRel=secOutRel.typSecRel));
+      redeclare
+      Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
+      dat(typSecRel=secOutRel.typSecRel));
 
   outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
     secOutRel "Outdoor/relief/return air section";

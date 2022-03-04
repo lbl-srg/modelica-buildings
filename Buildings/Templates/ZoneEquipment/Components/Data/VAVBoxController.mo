@@ -1,6 +1,6 @@
-within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
-record DataG36VAVBox
-  extends Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.Data;
+within Buildings.Templates.ZoneEquipment.Components.Data;
+record VAVBoxController
+  extends Buildings.Templates.ZoneEquipment.Components.Data.PartialController;
 
   parameter Boolean have_CO2Sen
     "Set to true if the zone has CO2 sensor"
@@ -127,4 +127,4 @@ record DataG36VAVBox
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat and
     have_CO2Sen));
 
-end DataG36VAVBox;
+end VAVBoxController;

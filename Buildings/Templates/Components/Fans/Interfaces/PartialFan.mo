@@ -23,10 +23,8 @@ partial model PartialFan "Interface class for fans"
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  parameter Buildings.Templates.Components.Fans.Interfaces.Data dat(
-    final typ=typ,
-    final nFan=nFan)
-    "Design and operating parameters";
+  parameter Buildings.Templates.Components.Data.Fan dat(final typ=typ, final
+      nFan=nFan) "Design and operating parameters";
 
   final parameter Integer nFan = dat.nFan
     "Number of fans";

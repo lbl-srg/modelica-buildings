@@ -1,6 +1,6 @@
-within Buildings.Templates.ZoneEquipment.Interfaces;
-record DataVAVBox
-  extends Buildings.Templates.ZoneEquipment.Interfaces.Data(
+within Buildings.Templates.ZoneEquipment.Data;
+record VAVBox
+  extends Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal(
     mAir_flow_nominal=ctl.VAir_flow_nominal * 1.2);
 
   parameter Buildings.Templates.Components.Types.Damper typDamVAV
@@ -19,22 +19,16 @@ record DataVAVBox
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Templates.Components.Dampers.Interfaces.Data damVAV(
-    final typ=typDamVAV,
-    m_flow_nominal=mAir_flow_nominal)
-    "VAV damper";
+  parameter Buildings.Templates.Components.Data.Damper damVAV(final typ=
+        typDamVAV, m_flow_nominal=mAir_flow_nominal) "VAV damper";
 
-  parameter Buildings.Templates.Components.Coils.Interfaces.Data coiHea(
+  parameter Buildings.Templates.Components.Data.Coil coiHea(
     final typ=typCoiHea,
     final typVal=typValCoiHea,
     final have_sou=have_souCoiHea,
-    mAir_flow_nominal=ctl.VAirHeaSet_flow_max * 1.2)
-    "Reheat coil";
+    mAir_flow_nominal=ctl.VAirHeaSet_flow_max*1.2) "Reheat coil";
 
-  parameter
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.DataG36VAVBox
-    ctl(
-    final typ=typCtl,
-    final have_CO2Sen=have_CO2Sen);
+  parameter Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController
+    ctl(final typ=typCtl, final have_CO2Sen=have_CO2Sen);
 
-end DataVAVBox;
+end VAVBox;

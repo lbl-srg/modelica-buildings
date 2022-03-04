@@ -1,13 +1,14 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Interfaces.DataVAVBox dat(
+    redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat(
       typCoiHea=coiHea.typ,
       typValCoiHea=coiHea.typVal,
       typDamVAV=damVAV.typ,
       have_CO2Sen=ctl.have_CO2Sen,
       typCtl=ctl.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
+
     final have_souCoiHea=coiHea.have_sou);
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
@@ -72,14 +73,14 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     "Airflow sensor"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
 protected
-  parameter Buildings.Templates.Components.Dampers.Interfaces.Data datDamVAV(
+  parameter Buildings.Templates.Components.Data.Damper datDamVAV(
     final typ=damVAV.typ,
     final m_flow_nominal=dat.damVAV.m_flow_nominal,
     final dp_nominal=dat.damVAV.dp_nominal,
-    final dpFixed_nominal=if damVAV.typ==Buildings.Templates.Components.Types.Damper.None then
-      0 else dat.coiHea.dpAir_nominal)
+    final dpFixed_nominal=if damVAV.typ == Buildings.Templates.Components.Types.Damper.None
+         then 0 else dat.coiHea.dpAir_nominal)
     "Local record for VAV damper with lumped flow resistance";
-  parameter Buildings.Templates.Components.Coils.Interfaces.Data datCoiHea(
+  parameter Buildings.Templates.Components.Data.Coil datCoiHea(
     final typ=coiHea.typ,
     final typVal=coiHea.typVal,
     final have_sou=coiHea.have_sou,
@@ -90,8 +91,8 @@ protected
     final cap_nominal=dat.coiHea.cap_nominal,
     final TWatEnt_nominal=dat.coiHea.TWatEnt_nominal,
     final TAirEnt_nominal=dat.coiHea.TAirEnt_nominal,
-    final dpAir_nominal=if damVAV.typ==Buildings.Templates.Components.Types.Damper.None then
-      dat.coiHea.dpAir_nominal else 0)
+    final dpAir_nominal=if damVAV.typ == Buildings.Templates.Components.Types.Damper.None
+         then dat.coiHea.dpAir_nominal else 0)
     "Local record for coil with lumped flow resistance";
 equation
   /* Control point connection - start */

@@ -14,12 +14,10 @@ partial block PartialController
     "Type of relief/return fan";
 
   replaceable parameter
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.Data
-    dat(
-      final typ=typ,
-      final typFanSup=typFanSup,
-      final typFanRet=typFanRet)
-    "Design and operating parameters";
+    Buildings.Templates.AirHandlersFans.Components.Data.PartialController dat(
+    final typ=typ,
+    final typFanSup=typFanSup,
+    final typFanRet=typFanRet) "Design and operating parameters";
 
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "AHU control bus"

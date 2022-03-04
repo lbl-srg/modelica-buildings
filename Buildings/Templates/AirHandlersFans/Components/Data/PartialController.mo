@@ -1,5 +1,5 @@
-within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
-record Data
+within Buildings.Templates.AirHandlersFans.Components.Data;
+record PartialController
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.AirHandlersFans.Types.Controller typ
@@ -15,4 +15,4 @@ record Data
     "Type of return fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-end Data;
+end PartialController;

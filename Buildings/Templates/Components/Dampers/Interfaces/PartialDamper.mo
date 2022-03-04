@@ -19,8 +19,7 @@ partial model PartialDamper
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  parameter Buildings.Templates.Components.Dampers.Interfaces.Data dat(
-    final typ=typ)
+  parameter Buildings.Templates.Components.Data.Damper dat(final typ=typ)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=

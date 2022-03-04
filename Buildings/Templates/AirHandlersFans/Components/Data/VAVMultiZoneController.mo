@@ -1,6 +1,6 @@
-within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
-record DataVAVMultiZone
-  extends Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.Data;
+within Buildings.Templates.AirHandlersFans.Components.Data;
+record VAVMultiZoneController
+  extends Buildings.Templates.AirHandlersFans.Components.Data.PartialController;
 
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
     "Relief/return air section type"
@@ -100,5 +100,4 @@ record DataVAVMultiZone
     annotation (Dialog(group="Supply air temperature",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone));
 
-
-end DataVAVMultiZone;
+end VAVMultiZoneController;

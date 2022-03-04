@@ -1,5 +1,5 @@
-within Buildings.Templates.AirHandlersFans.Interfaces;
-record Data
+within Buildings.Templates.AirHandlersFans.Data;
+record PartialAirHandler
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
@@ -26,12 +26,12 @@ record Data
 
   parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal
     "Supply air mass flow rate"
-    annotation (Dialog(group="Schedule.Mechanical",
+    annotation (Dialog(group="Mechanical",
       enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly));
 
   parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal
     "Return air mass flow rate"
-    annotation (Dialog(group="Schedule.Mechanical",
+    annotation (Dialog(group="Mechanical",
       enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly));
 
-end Data;
+end PartialAirHandler;

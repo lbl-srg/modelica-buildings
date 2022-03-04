@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Interfaces;
-partial model AirHandler "Base interface class for air handler"
+partial model PartialAirHandler "Base interface class for air handler"
   inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -26,7 +26,8 @@ partial model AirHandler "Base interface class for air handler"
       Evaluate=true,
       Dialog(group="Configuration"));
 
-  replaceable parameter Buildings.Templates.AirHandlersFans.Interfaces.Data dat(
+  replaceable parameter
+    Buildings.Templates.AirHandlersFans.Data.PartialAirHandler dat(
     final typ=typ,
     final typFanSup=typFanSup,
     final typFanRel=typFanRel,
@@ -210,4 +211,4 @@ annotation (
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
           pattern=LinePattern.None)}));
-end AirHandler;
+end PartialAirHandler;
