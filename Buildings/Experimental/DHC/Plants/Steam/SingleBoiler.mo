@@ -232,6 +232,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
         pSteSet,
         MediumHea_b.saturationTemperature(pSteSet),
         Medium.X_default))
+    "Check valve"
     annotation (Placement(transformation(extent={{38,-10},{58,10}})));
 equation
   connect(port_aSerHea, pumFW.port_a)
