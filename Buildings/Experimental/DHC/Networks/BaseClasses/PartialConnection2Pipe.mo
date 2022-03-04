@@ -28,8 +28,8 @@ partial model PartialConnection2Pipe
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
+    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
     annotation (Dialog(
@@ -223,6 +223,13 @@ protected
       T=Medium.T_default,
       X=Medium.X_default))
     "Specific heat capacity of medium at default medium state";
+
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
+         "In " + getInstanceName() +
+         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
+
 equation
   // Connect statements involving conditionally removed components are
   // removed at translation time by Modelica specification.
@@ -300,6 +307,13 @@ accounted for.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab and
+added assertion for correct combination of energy and mass dynamics.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

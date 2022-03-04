@@ -40,9 +40,9 @@ model PrescribedOutlet
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
 
-  parameter Modelica.Fluid.Types.Dynamics massDynamics = energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
+    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics", enable=use_X_wSet));
 
   parameter Boolean use_TSet = true
     "Set to false to disable temperature set point"
@@ -71,6 +71,12 @@ model PrescribedOutlet
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
     "Water vapor mass flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
+
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
+         "In " + getInstanceName() +
+         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
 equation
   connect(outCon.X_wSet, X_wSet) annotation (Line(points={{19,4},{-20,4},{-20,
@@ -237,6 +243,13 @@ Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet_dynamic</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab and
+added assertion for correct combination of energy and mass dynamics.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 Updated protected model for

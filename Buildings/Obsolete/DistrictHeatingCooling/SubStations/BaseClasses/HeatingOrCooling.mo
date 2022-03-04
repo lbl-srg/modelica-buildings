@@ -23,8 +23,8 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation (Dialog(tab="Dynamics"));
+    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
+    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
@@ -62,6 +62,12 @@ protected
 
   Modelica.Blocks.Math.Gain mPum_flow "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
+         "In " + getInstanceName() +
+         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
 equation
   connect(port_a, pum.port_a)
@@ -126,6 +132,13 @@ difference <code>dTHex</code> over the heat exchanger.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab,
+added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 January 11, 2015, by Michael Wetter:<br/>
 First implementation.

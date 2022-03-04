@@ -33,8 +33,8 @@ model PrescribedOutlet
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
 
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
+    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
+    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics", enable=use_X_wSet));
 
   parameter Boolean use_TSet = true
     "Set to false to disable temperature set point"
@@ -162,6 +162,11 @@ initial equation
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
+
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
+         "In " + getInstanceName() +
+         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
  if use_X_wSet then
   assert(Medium.nX > 1, "If use_X_wSet = true, require a medium with water vapor, such as Buildings.Media.Air");
@@ -461,6 +466,13 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab and
+added assertion for correct combination of energy and mass dynamics.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 April 29, 2021, by Michael Wetter:<br/>
 Removed duplicate declaration of <code>m_flow_nominal</code> which is already

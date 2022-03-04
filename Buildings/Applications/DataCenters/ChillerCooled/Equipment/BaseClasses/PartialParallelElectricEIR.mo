@@ -22,8 +22,8 @@ partial model PartialParallelElectricEIR
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
+    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -113,6 +113,12 @@ partial model PartialParallelElectricEIR
     "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
+         "In " + getInstanceName() +
+         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
+
 equation
   for i in 1:num loop
   connect(TSet, chi[i].TSet)
@@ -143,6 +149,13 @@ The model has <code>num</code> identical chillers.
 </html>",
         revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab,
+added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 January 26, 2018, by Michael Wetter:<br/>
 Added <code>constrainedby</code> to instance <code>chi</code>
