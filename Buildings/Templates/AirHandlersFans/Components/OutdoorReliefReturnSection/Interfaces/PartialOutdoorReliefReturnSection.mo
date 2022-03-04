@@ -56,6 +56,7 @@ partial model PartialOutdoorReliefReturnSection
   parameter
     Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
     dat(
+    final typSecRel=typSecRel,
     final typDamOut=typDamOut,
     final typDamOutMin=typDamOutMin,
     final typDamRet=typDamRet,

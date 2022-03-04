@@ -46,7 +46,7 @@ block G36VAVBoxReheat
     annotation(Dialog(group="Configuration"));
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=
-    max(VAirCooSet_flow_max, VAirHeaSet_flow_max)
+    dat.VAir_flow_nominal
     "Zone design volume flow rate"
     annotation (Dialog(group="Airflow"));
 

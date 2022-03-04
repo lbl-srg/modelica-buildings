@@ -58,7 +58,9 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
         final damOut=dat.damOut,
         final damOutMin=dat.damOutMin,
         final damRel=dat.damRel,
-        final damRet=dat.damRet))
+        final damRet=dat.damRet,
+        final fanRel=dat.fanRel,
+        final fanRet=dat.fanRet))
     "Outdoor/relief/return air section"
     annotation (
       Dialog(group="Outdoor/relief/return air section"),

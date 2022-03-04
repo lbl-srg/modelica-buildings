@@ -60,8 +60,7 @@ record VAVBoxController
   parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max(final min=0)=
     1
     "Zone maximum cooling airflow set point"
-    annotation (Dialog(group="Airflow",
-    enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
+    annotation (Dialog(group="Airflow"));
 
   parameter Modelica.Units.SI.VolumeFlowRate VAirSet_flow_min(final min=0)=
     0.1 * VAirCooSet_flow_max
@@ -83,8 +82,7 @@ record VAVBoxController
   final parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=
     max(VAirCooSet_flow_max, VAirHeaSet_flow_max)
     "Zone design volume flow rate"
-    annotation (Dialog(group="Airflow",
-    enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
+    annotation (Dialog(group="Airflow"));
 
   parameter Real VAirOutPerAre_flow(
     final unit = "m3/(s.m2)", final min=0, start=3e-4)=3e-4

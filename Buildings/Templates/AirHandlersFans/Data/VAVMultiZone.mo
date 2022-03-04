@@ -1,6 +1,14 @@
 within Buildings.Templates.AirHandlersFans.Data;
 record VAVMultiZone
-  extends Buildings.Templates.AirHandlersFans.Data.PartialAirHandler;
+  extends Buildings.Templates.AirHandlersFans.Data.PartialAirHandler(
+    final mAirSup_flow_nominal=if typFanSup<>Buildings.Templates.Components.Types.Fan.None
+    then fanSup.m_flow_nominal else 0,
+    final mAirRet_flow_nominal=if typFanRet<>Buildings.Templates.Components.Types.Fan.None
+    then fanRet.m_flow_nominal
+    elseif typFanRel<>Buildings.Templates.Components.Types.Fan.None
+    then fanRel.m_flow_nominal
+    elseif typFanSup<>Buildings.Templates.Components.Types.Fan.None
+    then fanSup.m_flow_nominal else 0);
 
   parameter Buildings.Templates.Components.Types.Coil typCoiHeaPre
     "Type of heating coil in preheat position"
@@ -23,9 +31,6 @@ record VAVMultiZone
   parameter Buildings.Templates.AirHandlersFans.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
-    "Relief/return air section type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
     "Design of minimum outdoor air and economizer function"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -33,13 +38,9 @@ record VAVMultiZone
     "Type of building pressure control system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
-    "Minimum outdoor air mass flow rate"
-    annotation (Dialog(group="Mechanical"));
-
   parameter Buildings.Templates.Components.Data.Fan fanSup(final typ=typFanSup,
       m_flow_nominal=mAirSup_flow_nominal) "Supply fan" annotation (Dialog(
-        group="Mechanical", enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
+        group="Fans", enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
 
   extends Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection(
     fanRel(
@@ -59,28 +60,28 @@ record VAVMultiZone
       m_flow_nominal=mAirRet_flow_nominal,
       dp_nominal=10))
     annotation (
-      Dialog(group="Mechanical"));
+      Dialog(group="Dampers and economizer"));
 
   parameter Buildings.Templates.Components.Data.Coil coiHeaPre(
     final typ=typCoiHeaPre,
     final typVal=typValCoiHeaPre,
     final have_sou=have_souCoiHeaPre,
     mAir_flow_nominal=mAirSup_flow_nominal) "Heating coil in preheat position"
-    annotation (Dialog(group="Mechanical", enable=typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
+    annotation (Dialog(group="Coils", enable=typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter Buildings.Templates.Components.Data.Coil coiCoo(
     final typ=typCoiCoo,
     final typVal=typValCoiCoo,
     final have_sou=have_souCoiCoo,
     mAir_flow_nominal=mAirSup_flow_nominal) "Cooling coil" annotation (Dialog(
-        group="Mechanical", enable=typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
+        group="Coils", enable=typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter Buildings.Templates.Components.Data.Coil coiHeaReh(
     final typ=typCoiHeaReh,
     final typVal=typValCoiHeaReh,
     final have_sou=have_souCoiHeaReh,
     mAir_flow_nominal=mAirSup_flow_nominal) "Heating coil in reheat position"
-    annotation (Dialog(group="Mechanical", enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
+    annotation (Dialog(group="Coils", enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter
     Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
@@ -91,8 +92,9 @@ record VAVMultiZone
     final typ=typCtl,
     final typSecRel=typSecRel,
     final minOADes=minOADes,
-    final buiPreCon=buiPreCon) "Controller"
-    annotation (Evaluate=true, Dialog(group="Controls", enable=false));
+    final buiPreCon=buiPreCon)
+    "Controller"
+    annotation (Evaluate=true, Dialog(group="Controls"));
 
 annotation (
   defaultComponentPrefixes = "parameter",
