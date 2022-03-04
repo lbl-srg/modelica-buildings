@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "bld.Q_flow",
+    "bld.vol.m_flow",
+    "bld.vol.sta_a.T",
+    "bld.vol.sta_b.T",
+    "bld.sta_a.p",
+    "bld.vol.sta_a.p",
+    "bld.vol.sta_b.p",
+    "bld.vol.port_a.h_outflow",
+    "bld.vol.port_b.h_outflow",
+    "bld.steTra.port_a.h_outflow",
+    "bld.steTra.port_b.h_outflow"
+  };

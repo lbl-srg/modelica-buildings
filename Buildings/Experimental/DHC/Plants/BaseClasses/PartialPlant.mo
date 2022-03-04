@@ -23,9 +23,8 @@ partial model PartialPlant
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // Placeholder parameter
-  final parameter Integer nFue=0
-    "Number of fuel types (0 means no combustion system)"
+  parameter Boolean have_fue=false
+    "Set to true if the plant has fuel use"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the plant has electric cooling system"
@@ -36,7 +35,7 @@ partial model PartialPlant
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  final parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
+  parameter Buildings.Fluid.Data.Fuels.Generic fue
     "Fuel type"
      annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
   // IO CONNECTORS
@@ -114,8 +113,8 @@ partial model PartialPlant
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{380,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
-    each final unit="W") if nFue>0
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow(
+    each final unit="W") if have_fue
     "Fuel energy input rate"
     annotation (
       Placement(transformation(extent={{300,100},{340,140}}),

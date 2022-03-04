@@ -8,6 +8,7 @@ package Steam
     reducedX=true,
     fixedX=true,
     FluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
+    ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pTX,
     reference_T=273.15,
     reference_p=101325,
     reference_X={1},
@@ -847,7 +848,6 @@ algorithm
         region=2);
   annotation (Inline=true);
 end pressure_dT;
-
   annotation (Icon(graphics={
       Line(
         points={{50,30},{30,10},{50,-10},{30,-30}},
