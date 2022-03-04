@@ -839,6 +839,7 @@ A cubic hermite spline with linear extrapolation is used to compute
 the performance at other operating points.
 </p>
 <p>
+(THIS PART IS NOT YET UPDATED!)
 The fan or pump's energy balance can be specified in three paths:
 </p>
 <ul>

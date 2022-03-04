@@ -448,141 +448,132 @@ control volume. Hence,
 <p align=\"center\" style=\"font-style:italic;\">
 Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 </p>
-<p>The efficiencies are computed as</p>
+<p>The efficiencies are defined as</p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
+&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub> <br/>
 &eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; W&#775;<sub>hyd</sub> <br/>
 &eta;<sub>mot</sub> = W&#775;<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
 </p>
 <p>where
-<i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency,
-<i>&eta;<sub>mot</sub></i> is the motor efficiency and
-<i>Q</i> is the heat released by the motor.
+<i>&eta;</i> is the total efficiency,
+<i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency, and
+<i>&eta;<sub>mot</sub></i> is the motor efficiency.
 </p>
 <p>
-There are three paths of computation implemented in
+There are different methods for computing the efficiencies and the powers
+implemented in
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 They are selected by the enumeration
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</a>
-which handles three <code>use_</code> switches.
-The user is also able to specify whether the power data provided refer to
-the shaft power (hydraulic power, brake horsepower) or consumed power
-via <code>per.use_hydraulicPerformance</code>.
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>
+which has the following choices:
 </p>
 <ul>
 <li>
-If <code>per.use_powerCharacteristic</code>,
-a set of data points for the power versus different volume flow rates
-at nominal speed needs to be provided by the user.
-<ul>
-<li>
-If <code>per.use_hydraulicPerformance</code>, the given power data refer to
-<i>W&#775;<sub>hyd</sub></i> and are used to compute the hydraulic efficiency
-<p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; W&#775;<sub>hyd</sub>
-</p>
-The hydraulic effciency <i>&eta;<sub>hyd</sub></i> is also bounded from zero
-because it will be used as denominator in
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PowerInterface\">
-Buildings.Fluid.Movers.BaseClasses.PowerInterface</a>.
-Then <i>&eta;<sub>Mot</sub></i> is assumed constant (by default 0.7) and
-<p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>mot</sub><br/>
-&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub>
-</p>
+<code>Values</code> - An array of efficiency vs. <i>V&#775;</i> is provided.
+The efficiency is interpolated or extrapolated by
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
+The power is then computed from the efficiency.
+This method is applicable to all three types efficiency.
 </li>
 <li>
-Otherwise, the given power data directly refer to <i>P<sub>ele</sub></i>.
-The total efficiency is therefore computed as
-<p align=\"center\" style=\"font-style:italic;\">
-&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
-</p>
-and the two efficiency components are computed as
-<p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>hyd</sub> = 1,<br/>
-&eta;<sub>mot</sub> = &eta;.
-</p>
-</li>
-</ul>
+<code>Values_y</code> - An array of efficiency vs. part load ratio <i>y</i>
+is provided. The efficiency is interpolated or extrapolated by
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y</a>.
+This method is only applicable to the motor efficiency <i>&eta;<sub>mot</sub></i>.
 </li>
 <li>
-If <code>per.use_eulerNumber</code>,
-the model finds the hydraulic efficiency <i>&eta;<sub>hyd</sub></i>
-by evaluating the following correlation:
+<code>PowerCurve</code> - An array of power vs. <i>V&#775;</i> is provided.
+The power is interpolated or extrapolated by
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
+The efficiency is then computed from the power.
+This method is applicable to either the total efficiency <i>&eta;</i> or
+the hydraulic efficiency <i>&eta;<sub>hyd</sub></i>, but not both.
+</li>
+<li>
+<code>EulerNumber</code> - The efficiency, together with <i>&Delta;p</i> and
+<i>V&#775;</i>, corresponding to a point where the efficiency is at its
+maxinum is provided.
+The efficiency and power are computed using the package
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+Buildings.Fluid.Movers.BaseClasses.Euler</a>.
+The model finds the efficiency by evaluating the following correlation:
 <br/>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
 <br/>
 </p>
-where <i>y=&eta;<sub>hyd</sub> &frasl; &eta;<sub>hyd,p</sub></i>,
+where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
 <i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>, 
 with the subscript <i>p</i> denoting the condition where
-the mover is operating at peak hydraulic efficiency.
+the mover is operating at peak efficiency.
 The modified dimensionless Euler number is defined as
 <br/>
 <p align=\"center\">
 <i>Eu=(&Delta;p&sdot;D<sup>4</sup>) &frasl; (&rho;&sdot;V&#775;<sup>2</sup>)</i><br/>
+</p>
+Therefore,<br/>
+<p align=\"center\">
+<i>Eu &frasl; Eu<sub>p</sub>=(&Delta;p&sdot;V&#775;<sub>p</sub><sup>2</sup>)
+&frasl; (&Delta;p<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
 </p>
 For more information, see
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
 Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
 and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
-chapter 16.4 equations 16.209 through 16.218.
-<br/>
-Similar to the previous computation path, the user can specify whether the given
-peak values refer to the hydraulic efficiency or the total efficiency
-using the switch <code>use_hydraulicPerformance</code>.
-<ul>
-<li>
-If <code>use_hydraulicPerformance</code>,
-<i>W&#775;<sub>hyd</sub></i> and <i>&eta;<sub>hyd</sub></i> are obtained from data
-and <i>&eta;<sub>mot</sub></i> is assumed constant (by default 0.7). Then
-<p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>mot</sub>,<br/>
-&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub>,<br/>
-&eta;<sub>mot</sub> = 0.7
-</p>
+chapter 16.4 equations 16.209 through 16.218.<br/>
+This method is applicable to either the total efficiency <i>&eta;</i> or
+the hydraulic efficiency <i>&eta;<sub>hyd</sub></i>, but not both.
 </li>
 <li>
-Otherwise, <i>P<sub>ele</sub></i> and <i>&eta;</i> are obtained from data.
-The other two efficiency components are given straightforward assignments
-to simplify the system of equations.
-<p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele</sub> = W&#775;<sub>flo</sub> &frasl; &eta;<br/>
-&eta;<sub>hyd</sub> = 1<br/>
-&eta;<sub>mot</sub> = &eta;
-</p>
-The reason that the value of <i>&eta;</i> is given to <i>&eta;<sub>mot</sub></i>
-instead of <i>&eta;<sub>hyd</sub></i> is that <i>&eta;<sub>hyd</sub></i>
-must be bounded away from zero for being a denominator in
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PowerInterface\">
-Buildings.Fluid.Movers.BaseClasses.PowerInterface</a> anyway.
+<code>NotProvided</code> - The information of this efficiency term is not provided.
+It will be computed through the other efficiency terms.
 </li>
 </ul>
-To prevent the computed power from approaching infinity when the eficiency
-approaches zero, the computed power is replaced by extrapolation
-when flow rate or pressure rise is below 10% of their maximum.<br/>
-This computation path is implemented in
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-Buildings.Fluid.Movers.BaseClasses.Euler</a>.<br/>
-<br/>
-</li>
-<li>
-Finally, if <code>per.use_motorEfficiency</code>, then
-performance data for
-<i>&eta;<sub>hyd</sub></i> and <i>&eta;<sub>mot</sub></i> need to be provided
-by the user as lists versus <i>V&#775;</i> (or simply two constants
-by providing only one value to the arrays). The model computes
-<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
-P<sub>ele</sub> = W&#775;<sub>flo</sub> &frasl; &eta;.
+<p>
+Because by definition
+<i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>,
+one of the three efficiency terms must be left unprovided to avoid overspecifying
+the problem. The implementation also allows more than one of them being left
+unprovided. In this case, the efficiencies are computed as follows:
 </p>
-</li>
-</ul>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th>Provided term</th>
+    <th>Equations</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><i>&eta;</i></td>
+    <td><i>&eta;<sub>hyd</sub>=1</i><br/>
+        <i>&eta;<sub>mot</sub>=&eta;</i></td>
+  </tr>
+  <tr>
+    <td><i>&eta;<sub>hyd</sub></i></td>
+    <td><i>&eta;=&eta;<sub>hyd</sub></i><br/>
+        <i>&eta;<sub>mot</sub>=1</i></td>
+  </tr>
+  <tr>
+    <td><i>&eta;<sub>mot</sub></i></td>
+    <td><i>&eta;=&eta;<sub>mot</sub></i><br/>
+        <i>&eta;<sub>hyd</sub>=1</i></td>
+  </tr>
+  <tr>
+    <td>None</td>
+    <td><i>&eta;=0.49</i><br/>
+        <i>&eta;<sub>hyd</sub>=1</i><br/>
+        <i>&eta;<sub>mot</sub>=0.49</i></td>
+  </tr>
+</tbody>
+</table>
+
 <h5>Fluid volume of the component</h5>
 <p>
 All models can be configured to have a fluid volume at the low-pressure side.
