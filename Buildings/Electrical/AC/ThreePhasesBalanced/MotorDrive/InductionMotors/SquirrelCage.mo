@@ -148,7 +148,7 @@ equation
 <p>The active power consumped by the motor:</p>
 <p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;n&nbsp;*&nbsp;(V<sub>rms</sub>)<sup>2</sup>&nbsp;*&nbsp;R<sub>eq</sub>&nbsp;/&nbsp;[(R<sub>eq</sub>)<sup>2</sup>&nbsp;+&nbsp;(X<sub>eq</sub>)<sup>2</sup>]</p>
 <p>The reactive power consumped by the motor:</p>
-<p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;n&nbsp;*&nbsp;(V<sub>rms</sub>)<sup>2</sup>&nbsp;*&nbsp;X<sub>eq</sub>&nbsp;/&nbsp;[(R<sub>eq</sub>)<sup>2</sup>&nbsp;+&nbsp;(X<sub>eq</sub>)<sup>2</sup>]</p>
+<p align=\"center\" style=\"font-style:italic;\">Q&nbsp;=&nbsp;n&nbsp;*&nbsp;(V<sub>rms</sub>)<sup>2</sup>&nbsp;*&nbsp;X<sub>eq</sub>&nbsp;/&nbsp;[(R<sub>eq</sub>)<sup>2</sup>&nbsp;+&nbsp;(X<sub>eq</sub>)<sup>2</sup>]</p>
 <p><i>R<sub>eq</sub></i> and <i>X<sub>eq</sub></i> are the equivalent resistance and reactance of induction motor per-phase equivalent circuit, can be calculated as follows: </p>
 <p align=\"center\" style=\"font-style:italic;\">R<sub>eq</sub>&nbsp;=&nbsp;R<sub>s</sub>&nbsp;+&nbsp;(X<sub>m</sub>)<sup>2</sup>&nbsp;*&nbsp;R<sub>r</sub>&nbsp;*&nbsp;s&nbsp;/&nbsp;[(R<sub>r</sub>)<sup>2</sup>&nbsp;+&nbsp;(s)<sup>2</sup>&nbsp;*&nbsp;(X<sub>r</sub>&nbsp;+&nbsp;X<sub>m</sub>)<sup>2</sup>]</p>
 <p align=\"center\" style=\"font-style:italic;\">X<sub>eq</sub>&nbsp;=&nbsp;X<sub>s</sub>&nbsp;+&nbsp;X<sub>m</sub>&nbsp;*&nbsp;[(R<sub>r</sub>)<sup>2</sup>&nbsp;+&nbsp;(s&nbsp;*&nbsp;X<sub>r</sub>)<sup>2</sup>&nbsp;+&nbsp;(s)<sup>2</sup>&nbsp;*&nbsp;X<sub>r</sub>&nbsp;*&nbsp;X<sub>m</sub>]&nbsp;/&nbsp;[(R<sub>r</sub>)<sup>2</sup>&nbsp;+&nbsp;(s)<sup>2</sup>&nbsp;*&nbsp;(X<sub>r</sub>&nbsp;+&nbsp;X<sub>m</sub>)<sup>2</sup>]</p>
