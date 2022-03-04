@@ -75,7 +75,8 @@ revisions="<html>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab,
-added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+added assertion for correct combination of energy and mass dynamics and
+changed type from <code>record</code> to <code>block</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
 </li>
