@@ -137,7 +137,8 @@ model Chiller "Motor coupled chiller"
     R_r=R_r,
     X_s=X_s,
     X_r=X_r,
-    X_m=X_m)
+    X_m=X_m,
+    VFD(reverseActing=false))
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 protected
   constant Boolean COP_is_for_cooling = true
