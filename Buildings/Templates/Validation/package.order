@@ -3,7 +3,5 @@ NestedUndeclaredExpandable
 RecordConstructor
 RecordPropagationSimple1
 RecordPropagationSimple2
-RecordPropagationConstant
-RecordPropagationNoRedeclare
 RedeclareFinal
 ExternDataEvaluation
