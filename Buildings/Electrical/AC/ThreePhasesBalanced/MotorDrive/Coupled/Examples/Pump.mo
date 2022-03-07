@@ -21,6 +21,7 @@ model Pump
         origin={-90,20})));
 
   MotorDrive.Coupled.Pump pum(
+  pum(pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
     redeclare package Medium = Medium,
     JMotor=JMotor,
     JLoad=JLoad,

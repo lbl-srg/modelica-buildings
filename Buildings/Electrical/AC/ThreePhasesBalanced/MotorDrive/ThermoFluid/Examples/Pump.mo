@@ -20,7 +20,9 @@ model Pump "Test model for heat pump with mechanical interface"
     m_flow_nominal=1.2,
     dp_nominal=2000)
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
-  ThermoFluid.Pump Pum(redeclare package Medium = Medium, redeclare
+  ThermoFluid.Pump Pum(
+    pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+  redeclare package Medium = Medium, redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
