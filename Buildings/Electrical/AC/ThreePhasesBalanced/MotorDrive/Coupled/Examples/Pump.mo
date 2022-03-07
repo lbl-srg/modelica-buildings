@@ -21,18 +21,23 @@ model Pump
         origin={-90,20})));
 
   MotorDrive.Coupled.Pump pum(
+    R_s=0.641,
+    R_r=0.332,
+    X_s=1.106,
+    X_r=0.464,
+    X_m=26.3,
   pum(pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
     redeclare package Medium = Medium,
     JMotor=JMotor,
     JLoad=JLoad,
-    per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2, dp={2*
-            dp_nominal,dp_nominal,0})),
+    redeclare
+      Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
     simMot(VFD(
         k=0.1,
         Ti=60,
         reverseActing=true)))
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Electrical.AC.OnePhase.Sources.Grid gri(f=60, V=277)
+  Buildings.Electrical.AC.OnePhase.Sources.Grid gri(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
@@ -42,13 +47,11 @@ model Pump
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1/2*dp_nominal)
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Modelica.Blocks.Sources.Pulse setPoi(
-    amplitude=1,
-    width=50,
-    period=3600,
-    offset=0.5,
-    startTime=0)
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Sources.Step step(
+    height=0,
+    offset=10,
+    startTime=1800)
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(dp1.port_b, pum.port_a)
     annotation (Line(points={{-26,20},{0,20}}, color={0,127,255}));
@@ -62,10 +65,10 @@ equation
     annotation (Line(points={{20,20},{40,20}}, color={0,127,255}));
   connect(dp2.port_b, senMasFlo.port_a) annotation (Line(points={{60,20},{80,20},
           {80,-40},{-4,-40}}, color={0,127,255}));
-  connect(setPoi.y, pum.setPoi) annotation (Line(points={{-39,50},{-26,50},{-26,
-          28},{-1,28}}, color={0,0,127}));
   connect(sou.ports[1], dp1.port_a)
     annotation (Line(points={{-80,20},{-46,20}}, color={0,127,255}));
+  connect(step.y, pum.setPoi) annotation (Line(points={{-59,70},{-20,70},{-20,
+          28},{-1,28}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://MotorDrive/Resources/Scripts/Dymola/Coupled/Examples/Pump.mos"
         "Simulate and plot"),

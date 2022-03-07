@@ -1,5 +1,6 @@
-simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples.Pump.mo", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Pump");
-createPlot(id=2, position={75, 70, 1210, 980}, y={"heaPum.sta_a1.T", "heaPum.sta_b1.T", "heaPum.sta_a2.T", "heaPum.sta_b2.T"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="Carnot_y.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.QEva_flow", "heaPum.QCon_flow", "heaPum.P"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={75, 70, 1210, 241}, y={"heaPum.dp1", "heaPum.dp2"}, range={0.0, 3600.0, 0.0, 14000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.COP_nominal", "heaPum.COP"}, range={0.0, 3600.0, 3.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples.Pump", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Pump");
+createPlot(id=1, position={531, 5, 533, 501}, y={"pum.pum.pum.P", "pum.P"}, range={0.0, 4000.0, -5.0, 15.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kW", "kW"});
+createPlot(id=1, position={531, 5, 533, 501}, y={"senMasFlo.m_flow"}, range={0.0, 4000.0, -5.0, 15.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=2, position={0, 5, 522, 500}, y={"pum.simMot.tau_e"}, range={0.0, 4000.0, 0.0, 40.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"N.m"});
+createPlot(id=2, position={0, 5, 522, 500}, y={"pum.pum.spe.w"}, range={0.0, 4000.0, -500.0, 2000.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"rpm"});
+
