@@ -20,6 +20,7 @@ model BaseNoEconomizer
       damRet(dp_nominal=15),
       mOutMin_flow_nominal=0.2,
       fanSup(m_flow_nominal=1, dp_nominal=500),
+      fanRel(m_flow_nominal=1, dp_nominal=200),
       fanRet(m_flow_nominal=1, dp_nominal=200),
       coiHeaPre(
         cap_nominal=1e4,
