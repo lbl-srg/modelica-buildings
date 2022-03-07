@@ -90,7 +90,9 @@ model Chiller
 
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne) "Chiller inertia" annotation (
+  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
+    phi(fixed=true, start=0),
+    w(fixed=true, start=0))                                      "Chiller inertia" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
