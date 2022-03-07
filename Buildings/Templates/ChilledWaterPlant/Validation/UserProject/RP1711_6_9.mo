@@ -9,8 +9,7 @@ model RP1711_6_9
     cooTowGro(final nCooTow=2),
     pumCon(final nPum=2),
     pumPri(final nPum=2),
-    final have_byp=false,
-    final id="CHW_1");
+    final have_byp=false);
 
   annotation (
     defaultComponentName="chw");

@@ -12,23 +12,17 @@ partial model PartialReturnSection
   replaceable package MediumCHW = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
 
+  parameter Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Data
+    dat(have_WSE = dat.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection.WatersideEconomizer)
+    "Return section data";
+
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
-
-  parameter
-    Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection
-    typ "Type of waterside economizer"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter Boolean isAirCoo "Is chiller plant air cooled";
 
   final parameter Boolean is_none=
-    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection.NoEconomizer;
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+    dat.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection.NoEconomizer;
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow) if not is_none

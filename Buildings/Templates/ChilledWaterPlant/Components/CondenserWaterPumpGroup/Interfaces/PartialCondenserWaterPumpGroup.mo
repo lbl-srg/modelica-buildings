@@ -1,36 +1,14 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces;
 partial model PartialCondenserWaterPumpGroup
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ "Type of pump"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  parameter Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.Data dat "Condenser water group data";
 
   replaceable package Medium = Buildings.Media.Water "Medium in the component";
 
-  final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
-
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
-  parameter Integer nPum = nChi "Number of primary pumps";
 
   parameter Boolean have_WSE "= true if pump supply waterside economizer";
-
-  parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
-
-  // FixMe: Flow and dp should be read from pump curve, but are currently
-  // assumed from system flow rate and pressure drop.
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
-    "Nominal mass flow rate per pump";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Nominal pressure drop per pump";
-
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
-    dat.getReal(varName=id + ".CondenserPump.dpValve_nominal.value")
-    "Check valve pressure drop";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
@@ -61,14 +39,10 @@ partial model PartialCondenserWaterPumpGroup
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_WSE
     "Waterside economizer outlet" annotation (Placement(transformation(extent={{
             90,-70},{110,-50}})));
-  replaceable parameter Fluid.Movers.Data.Generic per(pressure(V_flow=
-          m_flow_nominal/1000 .* {0,1,2}, dp=dp_nominal .* {1.5,1,0.5}))
-    constrainedby Fluid.Movers.Data.Generic
-    "Performance data"
     annotation (
       choicesAllMatching=true,
-      Placement(transformation(extent={{-88,-88},{-68,-68}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+      Placement(transformation(extent={{-88,-88},{-68,-68}})),
+              Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},

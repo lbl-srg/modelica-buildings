@@ -13,8 +13,7 @@ model RP1711_6_4
         per),
     pumPri(final nPum=2, final have_floSen=true),
     pumCon(final nPum=2),
-    final have_byp=false,
-    final id="CHW_1");
+    final have_byp=false);
 
   annotation (
     defaultComponentName="chw");

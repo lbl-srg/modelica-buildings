@@ -14,8 +14,7 @@ model RP1711_6_1_G36Control
     redeclare Buildings.Templates.ChilledWaterPlant.Components.Controls.Guideline36WaterCooled con,
     pumPri(final nPum=2, final have_floSen=true),
     pumCon(final nPum=2),
-    final have_byp=true,
-    final id="CHW_1");
+    final have_byp=true);
 
   annotation (
     defaultComponentName="chw");

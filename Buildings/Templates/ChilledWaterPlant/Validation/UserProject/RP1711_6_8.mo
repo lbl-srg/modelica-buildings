@@ -20,9 +20,8 @@ model RP1711_6_8
     redeclare
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.WatersideEconomizer
       retSec,
-    final have_ChiByp=false,
-    final have_byp=false,
-    final id="CHW_1");
+    final have_chiByp=false,
+    final have_byp=false);
 
   annotation (
     defaultComponentName="chw");

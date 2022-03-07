@@ -17,8 +17,7 @@ model RP1711_6_2
     redeclare
       Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Dedicated
       pumCon,
-    final have_byp=true,
-    final id="CHW_1");
+    final have_byp=true);
 
   annotation (
     defaultComponentName="chw");

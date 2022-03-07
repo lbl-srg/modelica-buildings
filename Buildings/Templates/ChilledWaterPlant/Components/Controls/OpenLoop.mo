@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.Controls;
 block OpenLoop "Open loop controller (output signals only)"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Controller.OpenLoop);
+      dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Controller.OpenLoop));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn[nChi](each k=true)
     annotation (Placement(transformation(

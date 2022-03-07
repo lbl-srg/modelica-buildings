@@ -1,4 +1,4 @@
-within Buildings.Templates.ChilledWaterPlant.Components.Controls;
+﻿within Buildings.Templates.ChilledWaterPlant.Components.Controls;
 block Controller_debug "Chiller plant controller"
 
   parameter Boolean closeCoupledPlant=false

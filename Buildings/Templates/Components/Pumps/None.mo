@@ -1,11 +1,11 @@
 within Buildings.Templates.Components.Pumps;
 model None "No pump"
   extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
-    final typ=Buildings.Templates.Components.Types.Pump.None,
-    final nPum=1,
+    dat(final typPum=Buildings.Templates.Components.Types.Pump.None,
+      final nPum=0,
+      final dp_nominal=0),
     final have_singlePort_a = true,
-    final have_singlePort_b = true,
-    dp_nominal=0);
+    final have_singlePort_b = true);
 equation
   connect(port_a, port_b)
     annotation (Line(points={{-100,0},{100,0}}, color={0,127,255}));

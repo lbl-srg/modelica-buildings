@@ -2,16 +2,13 @@ within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Headered
   extends
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
-
-  parameter Modelica.Units.SI.PressureDifference dpChiByp_nominal=
-    if have_ChiByp then dat.getReal(varName=id + ".WatersideEconomizer.dpByp_nominal.value")
-    else 0;
+    dat(typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered),
+    final nPum=dat.nPum);
 
   Fluid.Delays.DelayFirstOrder del(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTot_flow_nominal,
-    final nPorts=nPorVol) "Inlet node mixing volume"
+    nPorts=nPorVol)                                  "Inlet node mixing volume"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Fluid.FixedResistances.Junction splByp(
     redeclare package Medium = Medium,
@@ -25,27 +22,27 @@ model Headered
   Buildings.Templates.Components.Valves.TwoWayModulating valByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTot_flow_nominal,
-    final dpValve_nominal=dpByp_nominal) if have_byp "Bypass valve" annotation (
+    final dpValve_nominal=dat.dpByp_nominal) if have_byp "Bypass valve" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,-50})));
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum(
     final nPum=nPum,
-    final per=per)
+    final per=dat.per)
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
       final have_singlePort_a=true,
       final have_singlePort_b=true,
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dp_nominal,
-      final dpValve_nominal=dpValve_nominal)
+      final dpValve_nominal=dat.dpValve_nominal)
     "Primary pumps"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=dpChiByp_nominal) if have_ChiByp
+    final dpValve_nominal=dat.dpChiByp_nominal) if have_chiByp
     "Chiller chilled water side bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -79,8 +76,17 @@ model Headered
     final m_flow_nominal=m_flow_nominal)
     "Primary chilled water supply temperature"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCHWChi[nPum](
+      each final m_flow_nominal=m_flow_nominal)
+    constrainedby Buildings.Templates.Components.Valves.TwoWayModulating(
+    redeclare each final package Medium = MediumCHW,
+    each final m_flow_nominal=m2_flow_nominal/nChi,
+    each final dpValve_nominal=dat.dpCHWValve_nominal)
+    "Chiller chilled water-side isolation valves"
+    annotation (Placement(transformation(
+      extent={{10,-10},{-10,10}},rotation=0,origin={-80,0})));
 protected
-  parameter Integer nPorWSE = if have_ChiByp then 1 else 0;
+  parameter Integer nPorWSE = if have_chiByp then 1 else 0;
   parameter Integer nPorChi = if have_parChi then nChi else 1;
   parameter Integer nPorVol = nPorWSE + nPorChi + 1;
 equation
@@ -96,14 +102,7 @@ equation
   connect(valByp.port_b, port_byp)
     annotation (Line(points={{0,-60},{0,-100}}, color={0,127,255}));
 
-  connect(del.ports[1],pum.port_a) annotation (Line(points={{-60,40},{-60,0},{-40,
-          0}},             color={0,127,255}));
-  connect(del.ports[2],port_series) annotation (Line(points={{-60,40},{-60,30},{
-          -86,30},{-86,60},{-100,60}},          color={0,127,255}));
-  connect(del.ports[2:(nChi+1)],ports_parallel) annotation (Line(points={{-60,40},
-          {-60,0},{-100,0}},          color={0,127,255}));
-  connect(del.ports[nPorVol], valChiByp.port_b) annotation (Line(points={{-60,40},
-          {-60,-60},{-70,-60}},          color={0,127,255}));
+
   connect(port_ChiByp, valChiByp.port_a)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
   connect(VPCHW_flow.port_b, splByp.port_1)
@@ -137,7 +136,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(valChiByp.bus, busCon.valChiByp) annotation (Line(
-      points={{-80,-50},{-80,80},{0,80},{0,100}},
+      points={{-80,-50},{-80,-30},{-48,-30},{-48,80},{0,80},{0,100}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -160,6 +159,16 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(ports_parallel, valCHWChi.port_b) annotation (Line(points={{-100,0},{-94,
+          0},{-94,2},{-90,2},{-90,0}}, color={0,127,255}));
+  connect(valCHWChi.port_a, del.ports[2:(nChi+1)])
+    annotation (Line(points={{-70,0},{-60,0},{-60,40}}, color={0,127,255}));
+  connect(del.ports[1],pum.port_a) annotation (Line(points={{-60,40},{-60,0},{-40,
+          0}},             color={0,127,255}));
+  connect(del.ports[2],port_series) annotation (Line(points={{-60,40},{-60,40},{
+          -60,28},{-86,28},{-86,60},{-100,60}}, color={0,127,255}));
+  connect(del.ports[nPorVol], valChiByp.port_b) annotation (Line(points={{-60,40},
+          {-60,-60},{-70,-60}},          color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                     Bitmap(
         extent={{-40,0},{40,80}},

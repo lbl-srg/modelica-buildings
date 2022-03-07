@@ -2,11 +2,12 @@ within Buildings.Templates.ChilledWaterPlant.Components.Chiller;
 model ElectricChiller
   extends
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller.ElectricChiller,
-    redeclare replaceable Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per);
+    dat(
+      typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller.ElectricChiller,
+      redeclare replaceable Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per));
 
     Fluid.Chillers.ElectricEIR chi(
-      final per=per,
+      final per=dat.per,
       redeclare final package Medium1 = Medium1,
       redeclare final package Medium2 = Medium2,
       final dp1_nominal=dp1_nominal,

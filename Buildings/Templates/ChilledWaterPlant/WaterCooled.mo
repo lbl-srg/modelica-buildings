@@ -2,27 +2,25 @@ within Buildings.Templates.ChilledWaterPlant;
 model WaterCooled
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.WaterCooled,
+    dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.WaterCooled),
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
       chiGro(final have_CWDedPum=pumCon.is_dedicated) constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
        redeclare final package MediumCW = MediumCW,
-       final m1_flow_nominal=mCon_flow_nominal),
+       final m1_flow_nominal=dat.mCon_flow_nominal),
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
       retSec constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
        redeclare final package MediumCW = MediumCW,
-       final m1_flow_nominal=mCon_flow_nominal),
-    final nPumCon=pumCon.nPum,
+       final m1_flow_nominal=dat.mCon_flow_nominal),
+    final nPumCon = dat.pumCon.nPum,
+    final nCooTow = dat.cooTowGro.nCooTow,
+    final have_CWDedPum = pumCon.is_dedicated,
     busCon(final nCooTow=nCooTow));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
-
-  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
-    dat.getReal(varName=id + ".CondenserWater.m_flow_nominal.value")
-    "Condenser mass flow rate";
 
   // Note: Ideally, the number of cooling tower nCooTow would be assigned in
   // cooTowGro and propagated up to the system-wide nCooTow. But surprisingly,
@@ -34,8 +32,9 @@ model WaterCooled
     cooTowGro constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
       redeclare final package Medium = MediumCW,
+      final dat=dat.cooTowGro,
       final nCooTow=nCooTow,
-      final m_flow_nominal=mCon_flow_nominal)
+      final m_flow_nominal=dat.mCon_flow_nominal)
     "Cooling tower group"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
@@ -43,27 +42,29 @@ model WaterCooled
     pumCon(final have_WSE=not retSec.is_none) constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     redeclare final package Medium = MediumCW,
-    final mTot_flow_nominal=mCon_flow_nominal,
+    final dat=dat.pumCon,
+    final mTot_flow_nominal=dat.mCon_flow_nominal,
     final dp_nominal=dpCon_nominal) "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+
   Buildings.Templates.Components.Sensors.Temperature TCWSup(
     redeclare final package Medium = MediumCW,
     final have_sen=true,
-    final m_flow_nominal=mCon_flow_nominal,
+    final m_flow_nominal=dat.mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Templates.Components.Sensors.Temperature TCWRet(
     redeclare final package Medium = MediumCW,
     final have_sen=true,
-    final m_flow_nominal=mCon_flow_nominal,
+    final m_flow_nominal=dat.mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Fluid.FixedResistances.Junction mixCW(
     redeclare package Medium = MediumCW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=mCon_flow_nominal*{1,-1,1},
+    final m_flow_nominal=dat.mCon_flow_nominal*{1,-1,1},
     final dp_nominal={0,0,0})
     "Condenser water return mixer"
     annotation (Placement(transformation(
@@ -77,7 +78,7 @@ model WaterCooled
         origin={-110,30})));
 protected
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
-    chiGro.dp1_nominal + cooTowGro.cooTow[1].dp_nominal
+    dat.chiGro.chi[1].dp1_nominal + dat.cooTowGro.cooTow[1].dp_nominal
     "Nominal pressure drop for condenser loop";
 equation
   // Sensors

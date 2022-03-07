@@ -4,17 +4,17 @@ partial model PartialChiller
     redeclare replaceable package Medium1=Buildings.Media.Water,
     redeclare replaceable package Medium2=Buildings.Media.Water,
     final haveMedium1=true,
-    final haveMedium2=not isAirCoo);
+    final haveMedium2=not isAirCoo,
+    final m1_flow_nominal=dat.m1_flow_nominal,
+    final m2_flow_nominal=dat.m2_flow_nominal);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true,
-     final computeFlowResistance2=not isAirCoo);
+     final computeFlowResistance2=not isAirCoo,
+     final dp1_nominal=dat.dp1_nominal,
+     final dp2_nominal=dat.dp2_nominal);
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Data dat(
+    final isAirCoo=isAirCoo) "Chiller data";
 
   // fixme: Figure out what this entails with existing chiller class
   parameter Boolean is_heaPreCon = false
@@ -33,9 +33,6 @@ partial model PartialChiller
   outer parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled";
-  replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
-    per "Chiller performance data"
-    annotation (Placement(transformation(extent={{-82,-90},{-62,-70}})));
 
   Buildings.Templates.Components.Interfaces.Bus bus "Control bus" annotation (
       Placement(transformation(

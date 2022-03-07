@@ -2,7 +2,8 @@
 block Guideline36WaterCooled
   "Guideline 36 controller for CHW plant with water-cooled chillers"
   extends Interfaces.PartialController(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Controller.Guideline36);
+    dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Controller.Guideline36,
+      final have_ctrHeaPre=have_ctrHeaPre));
 
   parameter Boolean closeCoupledPlant=false
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
@@ -27,13 +28,6 @@ block Guideline36WaterCooled
     0.3 .* capChi_nominal
     "Chiller minimum cycling load"
     annotation (Dialog(tab="General", group="Chillers configuration"));
-
-  parameter Modelica.Units.SI.TemperatureDifference dTLif_min(displayUnit="K")=
-    if isAirCoo then 0 else
-    dat.getReal(varName=id + ".control.dTLif_min.value")
-    "Minimum allowable lift at minimum load for chiller"
-    annotation(Dialog(tab="General", group="Chillers configuration",
-      enable=not have_ctrHeaPre and not isAirCoo));
 
   parameter Boolean have_ctrHeaPre = false
     "Set to true if head pressure control available from chiller controller"
@@ -113,25 +107,6 @@ block Guideline36WaterCooled
     "Desing heat exchanger chilled water volume flow rate"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
-  // ---- Head pressure ----
-
-  parameter Real yPumCW_min(final unit="1", final min=0, final max=1)=
-    dat.getReal(varName=id + ".control.yPumCW_min.value")
-    "Minimum CW pump speed ratio"
-    annotation(Dialog(enable= not ((not have_WSE) and have_fixSpeConWatPum), tab="Head pressure", group="Limits"));
-
-  parameter Real yValIsoCon_min(final unit="1", final min=0, final max=1)=
-    dat.getReal(varName=id + ".control.yValIsoCon_min.value")
-    "Minimum head pressure control valve opening ratio"
-    annotation(Dialog(enable= (not ((not have_WSE) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
-
-  // ---- Chilled water pumps ----
-
-  parameter Real yPumCHW_min(final unit="1", final min=0, final max=1)=
-    dat.getReal(varName=id + ".control.yPumCHW_min.value")
-    "Minimum CHW pump speed ratio"
-    annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
-
   parameter Integer nPum_nominal(final max=nPumPri, final min=1) = nPumPri
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
@@ -164,28 +139,6 @@ block Guideline36WaterCooled
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(tab="Staging", group="Up and down process", enable=need_reduceChillerDemand));
 
-  // ---- Cooling tower: fan speed ----
-
-  parameter Real yFanTow_min(final unit="1", final min=0, final max=1)=
-    dat.getReal(varName=id + ".control.yFanTow_min.value")
-    "Minimum cooling tower fan speed ratio"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
-
-  // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-
-  // FIXME: Those parameters should be computed in Buildings.Templates.ChilledWaterPlant.BaseClasses.WaterCooled
-  parameter Modelica.Units.SI.Temperature  TCWSup_nominal(displayUnit="degC")=
-    if isAirCoo then 273.15 else
-    dat.getReal(varName=id + ".control.TCWSup_nominal.value")
-    "CW supply temperature of each chiller (identical for all chillers)"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
-
-  parameter Real TCWRet_nominal(displayUnit="degC")=
-    if isAirCoo then 273.15 else
-    dat.getReal(varName=id + ".control.TCWRet_nominal.value")
-    "CW return temperature of each chiller (identical for all chillers)"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
-
   // ---- Cooling tower: Water level control ----
   parameter Real watLevMin(unit="1")=0.7
     "Minimum cooling tower water level recommended by manufacturer"
@@ -206,7 +159,7 @@ block Guideline36WaterCooled
     final chiDesCap=capChi_nominal,
     final chiMinCap=capChi_min,
     final TChiWatSupMin=fill(TCHWSup_nominal, nChi),
-    final minChiLif=dTLif_min,
+    final minChiLif=dat.dTLif_min,
     final have_heaPreConSig=have_ctrHeaPre,
     final anyVsdCen=anyVsdCen,
     final have_WSE=have_WSE,
@@ -229,28 +182,28 @@ block Guideline36WaterCooled
     final nTowCel=nCooTow,
     final cooTowAppDes=dTAppTow_nominal,
     final schTab=schTab,
-    final TChiLocOut=TAirOutLoc,
+    final TChiLocOut=dat.TAirOutLoc,
     final TOutWetDes=cooTowGro.TAirInWB_nominal,
     final VHeaExcDes_flow=VHeaExcDes_flow,
-    final minConWatPumSpe=yPumCW_min,
-    final minHeaPreValPos=yValIsoCon_min,
-    final minFloSet=mCHWChi_flow_min/1000,
+    final minConWatPumSpe=dat.yPumCW_min,
+    final minHeaPreValPos=dat.yValIsoCon_min,
+    final minFloSet=dat.mCHWChi_flow_min/1000,
     final maxFloSet=mCHWChi_flow_nominal/1000,
-    final minChiWatPumSpe=yPumCHW_min,
+    final minChiWatPumSpe=dat.yPumCHW_min,
     final nPum_nominal=nPum_nominal,
     final VChiWat_flow_nominal=mCHWPri_flow_nominal/1000,
-    final maxLocDp=dpCHWLoc_max,
-    final dpChiWatPumMax=dpCHWRem_max,
+    final maxLocDp=dat.dpCHWLoc_max,
+    final dpChiWatPumMax=dat.dpCHWRem_max,
     final posDisMult=posDisMult,
     final conSpeCenMult=conSpeCenMult,
     final anyOutOfScoMult=anyOutOfScoMult,
     final varSpeStaMin=varSpeStaMin,
     final varSpeStaMax=varSpeStaMax,
     final chiDemRedFac=chiDemRedFac,
-    final fanSpeMin=yFanTow_min,
-    final LIFT_min=fill(dTLif_min, nChi),
-    final TConWatSup_nominal=fill(TCWSup_nominal, nChi),
-    final TConWatRet_nominal=fill(TCWRet_nominal, nChi),
+    final fanSpeMin=dat.yFanTow_min,
+    final LIFT_min=fill(dat.dTLif_min, nChi),
+    final TConWatSup_nominal=fill(dat.TCWSup_nominal, nChi),
+    final TConWatRet_nominal=fill(dat.TCWRet_nominal, nChi),
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
   "CHW plant controller"
@@ -318,11 +271,11 @@ block Guideline36WaterCooled
       each k=true) "Should be Boolean and conditional to a configuration parameter"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMin(
-    k=dTLif_min)
+    k=dat.dTLif_min)
     "Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMax(
-    k=TCWRet_nominal - TCHWSup_nominal)
+    k=dat.TCWRet_nominal - TCHWSup_nominal)
     "Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation

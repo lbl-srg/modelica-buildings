@@ -2,17 +2,10 @@ within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup;
 model CoolingTowerParallel
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
-      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup.CoolingTowerParallel);
+      dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup.CoolingTowerParallel));
 
   final parameter Modelica.Units.SI.MassFlowRate mTow_flow_nominal=
     m_flow_nominal/nCooTow "Single tower nominal mass flow rate";
-
-  parameter Modelica.Units.SI.PressureDifference dpValInl_nominal=
-    dat.getReal(varName=id + ".CoolingTower.dpValInl_nominal.value")
-    "Nominal pressure difference of the valve";
-  parameter Modelica.Units.SI.PressureDifference dpValOut_nominal=
-    dat.getReal(varName=id + ".CoolingTower.dpValOut_nominal.value")
-    "Nominal pressure difference of the valve";
 
   replaceable Buildings.Templates.Components.CoolingTower.Merkel cooTow[nCooTow]
     constrainedby
@@ -29,7 +22,7 @@ model CoolingTowerParallel
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
       each final m_flow_nominal=mTow_flow_nominal,
-      each final dpValve_nominal=dpValInl_nominal,
+      each final dpValve_nominal=dat.dpValInl_nominal,
       each final dpFixed_nominal=0) "Cooling tower inlet valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   inner replaceable Buildings.Templates.Components.Valves.None valCooTowOut[nCooTow]
@@ -37,7 +30,7 @@ model CoolingTowerParallel
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
       each final m_flow_nominal=mTow_flow_nominal,
-      each final dpValve_nominal=dpValOut_nominal,
+      each final dpValve_nominal=dat.dpValOut_nominal,
       each final dpFixed_nominal=0) "Cooling tower outlet valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

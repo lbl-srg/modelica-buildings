@@ -17,8 +17,7 @@ model RP1711_6_6
     redeclare
       Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Centralized
       pumSec(final nPum=2),
-    pumCon(final nPum=2),
-    final id="CHW_1");
+    pumCon(final nPum=2));
 
   annotation (
     defaultComponentName="chw");

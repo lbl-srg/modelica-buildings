@@ -2,11 +2,24 @@ within Buildings.Templates.ChilledWaterPlant.Components.ReturnSection;
 model WatersideEconomizer
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
-      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.WatersideEconomizer.WatersideEconomizer)
+      dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.WatersideEconomizer.WatersideEconomizer))
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 
   // fixme WIP
+
+  replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCW(final
+      dpValve_nominal=dat.dpCWValve_nominal) if have_WSE constrainedby
+    Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mTot_flow_nominal,
+    final dpValve_nominal=dpWSEValve_nominal)
+    "Waterside economizer valve on condenser water side" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,60})));
+
 
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = MediumCW,
@@ -108,9 +121,6 @@ equation
   /* Control point connection - stop */
   connect(hex.port_b2, TWSERet.port_a) annotation (Line(points={{-10,24},{-40,24},
           {-40,-60},{-60,-60}}, color={0,127,255}));
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-100,60},{-16,60},{-16,
-          36},{-10,36}},
-                       color={0,127,255}));
   connect(hex.port_b1, TWSEConRet.port_b) annotation (Line(points={{10,36},{24,36},
           {24,60},{30,60}}, color={0,127,255}));
   connect(valCon.port_b, port_b1)
@@ -143,4 +153,8 @@ equation
           -60},{60,-20},{40,-20},{40,-10}}, color={0,127,255}));
   connect(TWSESup.port_b, pasByp.port_a) annotation (Line(points={{70,-60},{20,
           -60},{20,-80},{10,-80}}, color={0,127,255}));
+  connect(port_a1, valCW.port_a)
+    annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
+  connect(valCW.port_b, hex.port_a1) annotation (Line(points={{-60,60},{-16,60},
+          {-16,36},{-10,36}}, color={0,127,255}));
 end WatersideEconomizer;

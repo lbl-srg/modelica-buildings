@@ -6,16 +6,13 @@ partial model PartialPrimaryPumpGroup
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup typ "Type of pump"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  parameter Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Data dat(
+    final have_chiByp=have_chiByp,
+    final have_byp=have_byp)
+    "Primary pump group data";
 
   parameter Boolean have_parChi "= true if chillers in inlet are connected in parallel";
-  parameter Boolean have_ChiByp "= true if chilled water loop has a chiller bypass";
+  parameter Boolean have_chiByp "= true if chilled water loop has a chiller bypass";
   parameter Boolean have_byp "= true if chilled water loop has a minimum flow bypass";
   parameter Boolean have_comLeg "= true if there is a commong leg";
   parameter Boolean have_floSen "= true if primary flow is measured";
@@ -28,12 +25,11 @@ partial model PartialPrimaryPumpGroup
     "= true if primary chilled water supply temperature is measured"
     annotation(Dialog(enable=have_secondary));
 
-  final parameter Boolean is_dedicated = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
+  final parameter Boolean is_dedicated = dat.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
 
   outer parameter Integer nChi "Number of chillers in group";
   outer parameter Integer nCooTow "Number of cooling towers";
-  parameter Integer nPum = nChi "Number of pumps"
-  annotation(Dialog(enable=not is_dedicated));
+  parameter Integer nPum = dat.nPum "Number of pumps";
 
   parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
 
@@ -43,15 +39,6 @@ partial model PartialPrimaryPumpGroup
     "Nominal mass flow rate per pump";
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure drop per pump";
-
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
-    dat.getReal(varName=id + ".PrimaryPump.dpValve_nominal.value")
-    "Check valve pressure drop";
-  parameter Modelica.Units.SI.PressureDifference dpByp_nominal=
-    if have_byp
-    then dat.getReal(varName=id + ".PrimaryPump.dpByp_nominal.value")
-    else 0
-    "Bypass valve pressure drop";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
@@ -74,7 +61,7 @@ partial model PartialPrimaryPumpGroup
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_ChiByp
+    if have_chiByp
     "Pump group inlet for waterside economizer bypass"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_series(
@@ -98,16 +85,10 @@ partial model PartialPrimaryPumpGroup
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 
-  replaceable parameter Fluid.Movers.Data.Generic per(
-    pressure(
-      V_flow=m_flow_nominal / 1000 .* {0,1,2},
-      dp=dp_nominal .* {1.5,1,0.5}))
-    constrainedby Fluid.Movers.Data.Generic
-    "Performance data"
     annotation (
       choicesAllMatching=true,
-      Placement(transformation(extent={{-88,-90},{-68,-70}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+      Placement(transformation(extent={{-88,-90},{-68,-70}})),
+              Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},

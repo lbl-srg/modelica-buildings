@@ -1,13 +1,13 @@
 within Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces;
 block PartialController "Partial controller for CHW plant"
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Controller typ
-    "Type of controller"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data dat(
+      final nSenDpCHWRem=nSenDpCHWRem,
+      final nChi=nChi,
+      final have_WSE=have_WSE,
+      final have_senDpCHWLoc=have_senDpCHWLoc,
+      final have_fixSpeConWatPum=have_fixSpeConWatPum) "Controller data";
+
   outer replaceable Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
     retSec "CHW return section";
   // FIXME: only for water-cooled plants.
@@ -30,7 +30,7 @@ block PartialController "Partial controller for CHW plant"
   parameter Modelica.Units.SI.Temperature TCHWSup_nominal(displayUnit="degC")
     "Design (minimum) CHW supply temperature (identical for all chillers)"
     annotation (Dialog(tab="General", group="Chillers configuration"));
-  parameter Boolean have_CHWDedPum
+  outer parameter Boolean have_CHWDedPum
     "Set to true if parallel chillers are connected to dedicated pumps on chilled water side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // FIXME: only for water-cooled plants.
@@ -48,26 +48,13 @@ block PartialController "Partial controller for CHW plant"
   parameter Integer nSenDpCHWRem = 1
     "Number of remote CHW differential pressure sensors"
     annotation (Dialog(tab="General", group="Chilled water pump"));
-  parameter Modelica.Units.SI.Temperature TAirOutLoc(displayUnit="degC")=
-    dat.getReal(varName=id + ".control.TAirOutLoc.value")
-    "Outdoor air lockout temperature below which the chiller plant should be disabled"
-    annotation(Dialog(tab="Plant enable"));
-  parameter Modelica.Units.SI.PressureDifference dpCHWLoc_max(displayUnit="Pa")=
-    dat.getReal(varName=id + ".control.TAirOutLoc.value")
-    "Maximum CHW differential pressure setpoint - Local sensors"
-    annotation (Dialog(tab="Chilled water pumps", enable=have_senDpCHWLoc));
-  parameter Modelica.Units.SI.PressureDifference dpCHWRem_max[nSenDpCHWRem](each displayUnit="Pa")=
-    dat.getRealArray1D(varName=id + ".control.dpCHWRem_max.value", n=nSenDpCHWRem)
-    "Maximum CHW differential pressure setpoint - Remote sensors"
-    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
-  parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_nominal[nChi]
+
+  parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_nominal[nChi]=
+    fill(mCHWPri_flow_nominal/nChi,nChi)
     "Design (maximum) chiller CHW mass flow rate (for each chiller)";
   parameter Modelica.Units.SI.MassFlowRate mCHWPri_flow_nominal
     "Design (maximum) primary CHW mass flow rate (for the plant)";
-  parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_min[nChi]=
-    dat.getRealArray1D(varName=id + ".control.mCHWChi_flow_min.value", n=nChi)
-    "Minimum chiller CHW mass flow rate (for each chiller)"
-    annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
+
 
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nPumPri "Number of primary pumps";

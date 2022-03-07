@@ -2,27 +2,25 @@ within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup;
 model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated,
+    dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated),
     final have_WSE = false,
     final nPum=nChi);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum(
     final nPum=nPum,
-    final per=per)
+    final per=dat.per)
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
       final have_singlePort_a=true,
       final have_singlePort_b=false,
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dp_nominal,
-      final dpValve_nominal=dpValve_nominal)
+      final dpValve_nominal=dat.dpValve_nominal)
     "Condenser pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pum.ports_b, ports_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(busCon.pumCon, pum.bus) annotation (Line(
       points={{0.1,100.1},{0.1,56},{0,56},{0,10}},
       color={255,204,51},
@@ -31,6 +29,8 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  connect(pum.ports_b, ports_b)
+    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
           points={{-60,0},{-100,0}},
