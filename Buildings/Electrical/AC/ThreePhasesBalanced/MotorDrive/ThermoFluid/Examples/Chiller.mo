@@ -82,9 +82,7 @@ equation
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://MotorDrive/Resources/Scripts/Dymola/ThermoFluid/Examples/Chiller.mos"
         "Simulate and plot"),
-        Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+        Documentation(info="<html>
 <p>Example that simulates a chiler using the torque as input signal.</p>
 </html>",
 revisions="<html>
