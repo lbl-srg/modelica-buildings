@@ -163,11 +163,6 @@ initial equation
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
-
  if use_X_wSet then
   assert(Medium.nX > 1, "If use_X_wSet = true, require a medium with water vapor, such as Buildings.Media.Air");
  end if;

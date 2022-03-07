@@ -26,8 +26,8 @@ model SprayAirWasher_X
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Set maximum to a high value to avoid users mistakenly entering relative humidity.
   Modelica.Blocks.Interfaces.RealInput X_w(
@@ -54,12 +54,6 @@ protected
                            h = hLea,
                            X = port_b.Xi_outflow)) "Leaving air temperature"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
-
 equation
   connect(X_w, outCon.X_wSet)
     annotation (Line(points={{-120,60},{-20,60},{-20,4},{19,4}},
@@ -197,13 +191,6 @@ is adiabatic.
 </html>",
 revisions="<html>
 <ul>
-<li>
-March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab and
-added assertion for correct combination of energy and mass dynamics.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
-</li>
 <li>
 December 14, 2018, by Michael Wetter:<br/>
 Restricted base class for medium to one that implements
