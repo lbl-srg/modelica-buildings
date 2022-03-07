@@ -10,8 +10,9 @@ model BaseVAVBoxCoolingOnly
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  Fluid.Sources.Boundary_pT bou(redeclare final package Medium = MediumAir,
-      nPorts=1)
+  Fluid.Sources.Boundary_pT bou(
+    redeclare final package Medium = MediumAir,
+    nPorts=1)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
@@ -26,27 +27,24 @@ model BaseVAVBoxCoolingOnly
   Fluid.Sources.Boundary_pT bou1(redeclare final package Medium = MediumAir,
       nPorts=1)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  replaceable UserProject.TerminalUnits.VAVBoxCoolingOnly ter constrainedby
-    Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-      dat(
-        id="Box_1",
-        id_souAir="VAV_1",
-        damVAV(
-          dp_nominal=50),
-        coiHea(
-          cap_nominal=1e3,
-          dpAir_nominal=75,
-          dpWat_nominal=0.1e4,
-          dpValve_nominal=0.05e4,
-          mWat_flow_nominal=1e3/4186/10,
-          TAirEnt_nominal=12+273.15,
-          TWatEnt_nominal=50+273.15),
-        ctl(
-          VAirCooSet_flow_max=0.1,
-          VAirHeaSet_flow_max=0.03,
-          VAirSet_flow_min=0.01,
-          AFlo=10,
-          nPeo_nominal=1)),
+  replaceable UserProject.TerminalUnits.VAVBoxCoolingOnly ter(dat(
+      id="Box_1",
+      id_souAir="VAV_1",
+      damVAV(dp_nominal=50),
+      coiHea(
+        cap_nominal=1e3,
+        dpAir_nominal=75,
+        dpWat_nominal=0.1e4,
+        dpValve_nominal=0.05e4,
+        mWat_flow_nominal=1e3/4186/10,
+        TAirEnt_nominal=285.15,
+        TWatEnt_nominal=323.15),
+      ctl(
+        VAirCooSet_flow_max=0.1,
+        VAirHeaSet_flow_max=0.03,
+        VAirSet_flow_min=0.01,
+        AFlo=10,
+        nPeo_nominal=1)),
       redeclare final package MediumAir = MediumAir)
     "Terminal unit"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));

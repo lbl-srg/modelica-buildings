@@ -28,4 +28,9 @@ record PartialAirTerminal
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
+  replaceable parameter Buildings.Templates.ZoneEquipment.Components.Data.PartialController
+    ctl(final typ=typCtl)
+    "Controller"
+    annotation (Dialog(group="Controls"));
+
 end PartialAirTerminal;

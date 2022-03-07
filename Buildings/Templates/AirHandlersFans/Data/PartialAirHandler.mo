@@ -23,6 +23,9 @@ record PartialAirHandler
   parameter Boolean have_souCoiHeaReh
     "Set to true if reheat coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.AirHandlersFans.Types.Controller typCtl
+    "Type of controller"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter String id
    "System tag"
@@ -45,4 +48,12 @@ record PartialAirHandler
     annotation (Dialog(group="Mechanical",
       enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly));
 
+  replaceable parameter Buildings.Templates.AirHandlersFans.Components.Data.PartialController
+    ctl(
+    final typFanSup=typFanSup,
+    final typFanRel=typFanRel,
+    final typFanRet=typFanRet,
+    final typ=typCtl)
+    "Controller"
+    annotation (Dialog(group="Controls"));
 end PartialAirHandler;

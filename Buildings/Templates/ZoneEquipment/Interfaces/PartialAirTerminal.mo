@@ -22,9 +22,10 @@ partial model PartialAirTerminal
     "Set to true if heating coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  replaceable parameter
-    Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal dat(final typ=typ,
-      final have_souCoiHea=have_souCoiHea) "Design and operating parameters";
+  replaceable parameter Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal dat(
+    final typ=typ,
+    final have_souCoiHea=have_souCoiHea)
+    "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     dat.mAir_flow_nominal

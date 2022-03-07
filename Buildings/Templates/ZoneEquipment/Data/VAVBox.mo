@@ -1,6 +1,8 @@
 within Buildings.Templates.ZoneEquipment.Data;
 record VAVBox
   extends Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal(
+    redeclare Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController
+      ctl(final have_CO2Sen=have_CO2Sen),
     final mAir_flow_nominal=ctl.VAir_flow_nominal * 1.2);
 
   parameter Buildings.Templates.Components.Types.Damper typDamVAV
@@ -19,19 +21,15 @@ record VAVBox
   parameter Buildings.Templates.Components.Data.Damper damVAV(
     final typ=typDamVAV,
     m_flow_nominal=mAir_flow_nominal)
-  "VAV damper";
+    "VAV damper"
+    annotation (Dialog(group="Equipment"));
 
   parameter Buildings.Templates.Components.Data.Coil coiHea(
     final typ=typCoiHea,
     final typVal=typValCoiHea,
     final have_sou=have_souCoiHea,
     mAir_flow_nominal=ctl.VAirHeaSet_flow_max*1.2)
-    "Reheat coil";
-
-  parameter Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController
-    ctl(
-    final typ=typCtl,
-    final have_CO2Sen=have_CO2Sen)
-    "Controller";
+    "Reheat coil"
+    annotation (Dialog(group="Equipment"));
 
 end VAVBox;

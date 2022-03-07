@@ -1,6 +1,11 @@
 within Buildings.Templates.AirHandlersFans.Data;
 record VAVMultiZone
   extends Buildings.Templates.AirHandlersFans.Data.PartialAirHandler(
+    redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
+    ctl(
+      final typSecRel=typSecRel,
+      final minOADes=minOADes,
+      final buiPreCon=buiPreCon),
     final mAirSup_flow_nominal=if typFanSup<>Buildings.Templates.Components.Types.Fan.None
     then fanSup.m_flow_nominal else 0,
     final mAirRet_flow_nominal=if typFanRet<>Buildings.Templates.Components.Types.Fan.None
@@ -27,9 +32,6 @@ record VAVMultiZone
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
     "Type of valve for heating coil in reheat position"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.AirHandlersFans.Types.Controller typCtl
-    "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
     "Design of minimum outdoor air and economizer function"
@@ -85,19 +87,6 @@ record VAVMultiZone
     "Heating coil in reheat position"
     annotation (Dialog(group="Coils",
     enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
-
-  parameter
-    Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
-    ctl(
-    final typFanSup=typFanSup,
-    final typFanRel=typFanRel,
-    final typFanRet=typFanRet,
-    final typ=typCtl,
-    final typSecRel=typSecRel,
-    final minOADes=minOADes,
-    final buiPreCon=buiPreCon)
-    "Controller"
-    annotation (Evaluate=true, Dialog(group="Controls"));
 
 annotation (
   defaultComponentPrefixes = "parameter",
