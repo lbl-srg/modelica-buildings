@@ -12,6 +12,7 @@ model Pump
   annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pum(
     redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
     per=per,
