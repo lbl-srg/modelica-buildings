@@ -92,8 +92,7 @@ initial equation
       kMed=kMed,
       muMed=muMed,
       cpMed=cpMed,
-      m_flow_nominal=m1_flow_nominal,
-      printDebug=false);
+      m_flow_nominal=m1_flow_nominal);
 
 equation
     assert(borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
@@ -159,6 +158,14 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2022, by Massimo Cimmino:<br/>
+Removed <code>printDebug</code> parameter from call to
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1582\">IBPSA, #1582</a>.
+</li>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
 Updated documentation following major changes to the Buildings.Fluid.HeatExchangers.Ground package.

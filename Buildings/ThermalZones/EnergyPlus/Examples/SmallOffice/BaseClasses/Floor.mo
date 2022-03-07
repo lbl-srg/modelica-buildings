@@ -155,11 +155,6 @@ initial equation
       wes.AFlo-AFloWes) < 0.01,
     "Areas don't match. Make sure model that overrides these parameter defaults uses the same values as the idf file uses.");
 
-  assert(
-    abs(
-      opeWesCor.wOpe-4) < 0.01,
-    "wOpe in west zone doesn't match");
-
 equation
   connect(sou.heaPorAir,temAirSou.port)
     annotation (Line(points={{164,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},color={191,0,0},smooth=Smooth.None));
@@ -426,6 +421,10 @@ Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 16, 2022, by Michael Wetter:<br/>
+Removed assertion on <code>opeWesCor.wOpe</code> as there is no need to enforce this width.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class

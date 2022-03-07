@@ -7,22 +7,20 @@ model Guideline36
       dpFixed_nominal=10),
     amb(nPorts=3));
 
-  parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow=m_flow_nominal/1.2
-    "Maximum expected system primary airflow rate at design stage";
   parameter Modelica.Units.SI.VolumeFlowRate minZonPriFlo[numZon]=conVAV.VDisSetMin_flow
     "Minimum expected zone primary flow rate";
   parameter Modelica.Units.SI.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")
-     = 40 "Maximum return fan discharge static pressure setpoint";
+  parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")=
+       40 "Maximum return fan discharge static pressure setpoint";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAV[numZon](
-    V_flow_nominal=mVAV_flow_nominal/1.2,
+    V_flow_nominal=mCooVAV_flow_nominal/1.2,
     AFlo=AFlo,
     each final samplePeriod=samplePeriod,
-    VDisSetMin_flow={max(1.5*VZonOA_flow_nominal[i], 0.15*mVAV_flow_nominal[i]/1.2)
-      for i in 1:numZon},
-    VDisHeaSetMax_flow=ratVFloHea*mVAV_flow_nominal/1.2)
+    VDisSetMin_flow={max(1.5*VZonOA_flow_nominal[i], 0.15*mCooVAV_flow_nominal[
+        i]/1.2) for i in 1:numZon},
+    VDisHeaSetMax_flow=mHeaVAV_flow_nominal/1.2)
     "Controller for terminal unit"
     annotation (Placement(transformation(extent={{620,100},{640,120}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum TZonResReq(nin=numZon)
@@ -41,7 +39,7 @@ model Guideline36
     kMinOut=0.03,
     final pMaxSet=410,
     final yFanMin=yFanMin,
-    final VPriSysMax_flow=VPriSysMax_flow,
+    final VPriSysMax_flow=mAir_flow_nominal/1.2,
     final peaSysPop=divP*sum({ratP_A*AFlo[i] for i in 1:numZon}))
     "AHU controller"
     annotation (Placement(transformation(extent={{340,512},{420,640}})));
@@ -122,6 +120,23 @@ model Guideline36
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={370,60})));
+  Buildings.Controls.OBC.Utilities.OptimalStart optSta[numZon](
+    each computeHeating=true,
+    each computeCooling=true) "Optimal startup"
+    annotation (Placement(transformation(extent={{-300,400},{-280,420}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator tZonNexOcc(nout=
+        numZon) "Next occupancy for each zone"
+    annotation (Placement(transformation(extent={{-340,372},{-320,392}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetHea[numZon](
+    each k(
+      unit="K",
+      displayUnit="degC") = 293.15) "Heating setpoint for zone air"
+    annotation (Placement(transformation(extent={{-340,460},{-320,480}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetCoo[numZon](
+    each k(
+      unit="K",
+      displayUnit="degC") = 297.15) "Cooling setpoint for zone air"
+    annotation (Placement(transformation(extent={{-340,420},{-320,440}})));
 equation
   connect(conVAV.TDis, VAVBox.TSup) annotation (Line(points={{618,105},{608,105},
           {608,86},{774,86},{774,48},{762,48}},
@@ -219,10 +234,6 @@ equation
   connect(VAVBox.y_actual, conVAV.yDam_actual) annotation (Line(points={{762,40},
           {780,40},{780,90},{612,90},{612,106.667},{618,106.667}},
                                                     color={0,0,127}));
-  connect(warCooTim.y, zonSta.cooDowTim) annotation (Line(points={{-278,380},{-240,
-          380},{-240,290},{-222,290}}, color={0,0,127}));
-  connect(warCooTim.y, zonSta.warUpTim) annotation (Line(points={{-278,380},{-240,
-          380},{-240,286},{-222,286}}, color={0,0,127}));
   connect(zonSta.yCooTim, zonGroSta.uCooTim) annotation (Line(points={{-198,295},
           {-176,295},{-176,291},{-162,291}}, color={0,0,127}));
   connect(zonSta.yWarTim, zonGroSta.uWarTim) annotation (Line(points={{-198,293},
@@ -377,6 +388,21 @@ equation
   connect(opeMod.y, conVAV.uOpeMod) annotation (Line(points={{382,60},{600,60},
           {600,101.667},{618,101.667}},
                              color={255,127,0}));
+  connect(optSta.TZon, TRoo) annotation (Line(points={{-302,406},{-368,406},{-368,
+          320},{-400,320}}, color={0,0,127}));
+  connect(optSta.tOpt, zonSta.cooDowTim) annotation (Line(points={{-278,414},{-252,
+          414},{-252,290},{-222,290}}, color={0,0,127}));
+  connect(optSta.tOpt, zonSta.warUpTim) annotation (Line(points={{-278,414},{
+          -252,414},{-252,286},{-222,286}},
+                                       color={0,0,127}));
+  connect(occSch.tNexOcc, tZonNexOcc.u) annotation (Line(points={{-299,-204},{-278,
+          -204},{-278,-140},{-356,-140},{-356,382},{-342,382}}, color={0,0,127}));
+  connect(tZonNexOcc.y, optSta.tNexOcc) annotation (Line(points={{-318,382},{-310,
+          382},{-310,402},{-302,402}}, color={0,0,127}));
+  connect(optSta.TSetZonCoo, TZonSetCoo.y) annotation (Line(points={{-302,414},
+          {-314,414},{-314,430},{-318,430}}, color={0,0,127}));
+  connect(optSta.TSetZonHea, TZonSetHea.y) annotation (Line(points={{-302,418},
+          {-310,418},{-310,470},{-318,470}}, color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1420,
@@ -418,6 +444,12 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 20, 2021, by Michael Wetter:<br/>
+Changed parameter declarations and added optimal start up.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
+</li>
 <li>
 November 9, 2021, by Baptiste:<br/>
 Vectorized the terminal boxes to be expanded to any number of zones.<br/>

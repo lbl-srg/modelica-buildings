@@ -211,12 +211,12 @@ partial model RoomHeatMassBalance "Base model for a room"
     final datConPar = datConPar,
     final datConBou = datConBou,
     final surBou = surBou,
-    final isFloorConExt=isFloorConExt,
-    final isFloorConExtWin=isFloorConExtWin,
-    final isFloorConPar_a=isFloorConPar_a,
-    final isFloorConPar_b=isFloorConPar_b,
-    final isFloorConBou=isFloorConBou,
-    final isFloorSurBou=isFloorSurBou,
+    final is_floorConExt=is_floorConExt,
+    final is_floorConExtWin=is_floorConExtWin,
+    final is_floorConPar_a=is_floorConPar_a,
+    final is_floorConPar_b=is_floorConPar_b,
+    final is_floorConBou=is_floorConBou,
+    final is_floorSurBou=is_floorSurBou,
     final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1] for i in 1:NConExtWin})
     if haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -313,19 +313,19 @@ protected
     Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade[:])
     "Set to true if the windows have a shade";
 
-  final parameter Boolean isFloorConExt[NConExt]=
-    datConExt.isFloor "Flag to indicate if floor for exterior constructions";
-  final parameter Boolean isFloorConExtWin[NConExtWin]=
-    datConExtWin.isFloor "Flag to indicate if floor for constructions";
-  final parameter Boolean isFloorConPar_a[NConPar]=
-    datConPar.isFloor "Flag to indicate if floor for constructions";
-  final parameter Boolean isFloorConPar_b[NConPar]=
-    datConPar.isCeiling "Flag to indicate if floor for constructions";
-  final parameter Boolean isFloorConBou[NConBou]=
-    datConBou.isFloor
+  final parameter Boolean is_floorConExt[NConExt]=
+    datConExt.is_floor "Flag to indicate if floor for exterior constructions";
+  final parameter Boolean is_floorConExtWin[NConExtWin]=
+    datConExtWin.is_floor "Flag to indicate if floor for constructions";
+  final parameter Boolean is_floorConPar_a[NConPar]=
+    datConPar.is_floor "Flag to indicate if floor for constructions";
+  final parameter Boolean is_floorConPar_b[NConPar]=
+    datConPar.is_ceiling "Flag to indicate if floor for constructions";
+  final parameter Boolean is_floorConBou[NConBou]=
+    datConBou.is_floor
     "Flag to indicate if floor for constructions with exterior boundary conditions exposed to outside of room model";
-  parameter Boolean isFloorSurBou[NSurBou]=
-    surBou.isFloor
+  parameter Boolean is_floorSurBou[NSurBou]=
+    surBou.is_floor
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
   HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
@@ -869,6 +869,12 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
