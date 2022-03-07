@@ -42,9 +42,11 @@ model HeatPump "Test model for heat pump with mechanical interface"
     QEva_flow_nominal=-3*1000,
     QCon_flow_nominal=1000 - (-3*1000),
     dTEva_nominal=-5,
+    dTCon_nominal=5,
     P_nominal=15000,
     Nrpm_nominal=1800,
     use_eta_Carnot_nominal=true,
+    etaCarnot_nominal=0.5,
     dp1_nominal=1000,
     dp2_nominal=1000)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

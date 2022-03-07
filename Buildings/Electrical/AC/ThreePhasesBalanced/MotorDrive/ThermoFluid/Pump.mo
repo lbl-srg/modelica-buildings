@@ -31,7 +31,9 @@ model Pump
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne) "Pump inertia" annotation (
+  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
+    phi(fixed=true, start=0),
+    w(fixed=true, start=0))                                      "Pump inertia" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,

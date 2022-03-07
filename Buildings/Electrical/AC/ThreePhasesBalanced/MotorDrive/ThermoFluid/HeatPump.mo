@@ -86,7 +86,9 @@ model HeatPump "Heat pump with mechanical interface"
     TAppEva_nominal=TAppEva_nominal,
     P_nominal=P_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne) "Heat pump inertia" annotation (
+  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
+    phi(fixed=true, start=0),
+    w(fixed=true, start=0))                                      "Heat pump inertia" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
