@@ -49,9 +49,8 @@ block Status
     final min=0,
     final max=nSta)
     "Next available lower stage"
-    annotation (Placement(
-        transformation(extent={{440,-60},{480,-20}}), iconTransformation(extent=
-           {{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{440,-60},{480,-20}}),
+        iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta](
     final integerTrue=fill(1, nSta),
@@ -81,7 +80,7 @@ protected
     final nout=nSta) "Replicates signal to a length equal the stage count"
     annotation (Placement(transformation(extent={{-300,190},{-280,210}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Product proInt1[nSta]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1[nSta]
     "Outputs a vector of stage indices for any available stage above the current stage"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
@@ -129,7 +128,7 @@ protected
     "Type converter that outputs zero for any false input"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Product proInt2[nSta]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt2[nSta]
     "Outputs vector of stage indices for any available stage below the current stage"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 

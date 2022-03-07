@@ -94,7 +94,7 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     annotation (Placement(transformation(extent={{220,-10},{240,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[2]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[2]
     annotation (Placement(transformation(extent={{260,10},{280,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpChiWat(
     final height=2*6895,
@@ -104,7 +104,7 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
     annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[2]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[2]
     annotation (Placement(transformation(extent={{-200,-98},{-180,-78}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta
     "Chiller one status"

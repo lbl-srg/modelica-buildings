@@ -110,7 +110,7 @@ protected
     final desChiNum=desChiNum)
     "Design pump speed of condenser water pump at current stage"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback speDif if not fixSpe
+  Buildings.Controls.OBC.CDL.Continuous.Subtract speDif if not fixSpe
     "Calculate difference between speed setpoint and operating speed"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs if not fixSpe
@@ -167,8 +167,6 @@ equation
     annotation (Line(points={{42,130},{140,130}}, color={255,0,255}));
   connect(enaLeaDedPum.yLea, yLeaPum)
     annotation (Line(points={{42,80},{50,80},{50,130},{140,130}}, color={255,0,255}));
-  connect(uConWatPumSpe, speDif.u2)
-    annotation (Line(points={{-140,-80},{-90,-80},{-90,-62}},   color={0,0,127}));
   connect(speDif.y, abs.u)
     annotation (Line(points={{-78,-50},{-62,-50}},   color={0,0,127}));
   connect(hys.y, not1.u)
@@ -205,9 +203,6 @@ equation
     annotation (Line(points={{42,80},{50,80},{50,-50},{78,-50}}, color={255,0,255}));
   connect(pumSpe.yDesConWatPumSpe, swi.u1)
     annotation (Line(points={{42,-4},{60,-4},{60,68},{78,68}},   color={0,0,127}));
-  connect(uConWatPumSpeSet, speDif.u1)
-    annotation (Line(points={{-140,-50},{-102,-50}},
-      color={0,0,127}));
   connect(con.y, enaLeaHeaPum.uWseConIsoVal)
     annotation (Line(points={{-38,110},{-20,110},{-20,126},{18,126}},
       color={255,0,255}));
@@ -229,10 +224,14 @@ equation
           {30,-30},{30,-120},{38,-120}}, color={255,127,0}));
   connect(intEqu.y, and2.u2) annotation (Line(points={{62,-120},{70,-120},{70,-58},
           {78,-58}}, color={255,0,255}));
-
   connect(abs.y, hys.u) annotation (Line(points={{-38,-50},{-20,-50},{-20,-90},{
           -2,-90}}, color={0,0,127}));
-    annotation (Dialog(tab="Advanced"),
+  connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-50},{-110,
+          -50},{-110,-44},{-102,-44}}, color={0,0,127}));
+  connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-80},{-110,-80},
+          {-110,-56},{-102,-56}}, color={0,0,127}));
+
+annotation (Dialog(tab="Advanced"),
   defaultComponentName="conWatPumCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={

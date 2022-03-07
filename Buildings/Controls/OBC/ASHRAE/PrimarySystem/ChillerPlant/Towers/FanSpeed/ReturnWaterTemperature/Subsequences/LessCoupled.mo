@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
 block LessCoupled
   "Sequence of defining cooling tower fan speed when the plant is not close coupled"
 
@@ -164,21 +164,18 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert chiller status to real number, true becomes 1 and false becomes 0"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain enaDesConWatRet[nChi](
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter enaDesConWatRet[nChi](
     final k=TConWatRet_nominal)
     "Design condenser water return temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain enaDesConWatSup[nChi](
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter enaDesConWatSup[nChi](
     final k=TConWatSup_nominal)
     "Design condenser water supply temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nChi](
-    final k1=fill(0.5, nChi),
-    final k2=fill(-0.5, nChi))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nChi]
     "Difference of the design supply and return condenser water temperature"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(
-    final nin=nChi)
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=nChi)
     "Difference of the design supply and return condenser water temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=iniPlaTim)
@@ -186,11 +183,10 @@ protected
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch delTem "Temperature difference value"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add meaTemDif(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract meaTemDif
     "Difference of the condenser return and supply water temperature"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
     "Moving average of the sampled temperature difference"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
@@ -198,10 +194,13 @@ protected
     final samplePeriod=samplePeriod)
     "Sample the temperature difference"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add conWatSupSet(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract conWatSupSet
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai[nChi](
+    final k=fill(0.5, nChi))
+    "Gain factor"
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
 equation
   connect(proOn.y,anyProOn. u)
@@ -261,10 +260,10 @@ equation
           50},{-100,70},{-82,70}}, color={0,0,127}));
   connect(booToRea.y, enaDesConWatSup.u) annotation (Line(points={{-118,50},{-100,
           50},{-100,30},{-82,30}}, color={0,0,127}));
-  connect(enaDesConWatRet.y, add2.u1) annotation (Line(points={{-58,70},{-40,70},
-          {-40,56},{-22,56}}, color={0,0,127}));
-  connect(enaDesConWatSup.y, add2.u2) annotation (Line(points={{-58,30},{-40,30},
-          {-40,44},{-22,44}}, color={0,0,127}));
+  connect(enaDesConWatRet.y, sub2.u1) annotation (Line(points={{-58,70},{-50,70},
+          {-50,56},{-42,56}}, color={0,0,127}));
+  connect(enaDesConWatSup.y, sub2.u2) annotation (Line(points={{-58,30},{-50,30},
+          {-50,44},{-42,44}}, color={0,0,127}));
   connect(uPla, tim.u)
     annotation (Line(points={{-200,100},{-142,100}}, color={255,0,255}));
   connect(multiMax.y, delTem.u3) annotation (Line(points={{42,50},{50,50},{50,92},
@@ -287,10 +286,12 @@ equation
           {90,144},{98,144}}, color={0,0,127}));
   connect(conWatSupSet.y, supCon.u_s) annotation (Line(points={{122,150},{140,150},
           {140,20},{-40,20},{-40,-30},{-22,-30}}, color={0,0,127}));
-  connect(add2.y, multiMax.u) annotation (Line(points={{2,50},{10,50},{10,50},{18,
-          50}},     color={0,0,127}));
   connect(tim.passed, delTem.u2) annotation (Line(points={{-118,92},{-40,92},{-40,
           100},{58,100}}, color={255,0,255}));
+  connect(sub2.y, gai.u)
+    annotation (Line(points={{-18,50},{-12,50}}, color={0,0,127}));
+  connect(gai.y, multiMax.u)
+    annotation (Line(points={{12,50},{18,50}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="lesCouTowSpe",

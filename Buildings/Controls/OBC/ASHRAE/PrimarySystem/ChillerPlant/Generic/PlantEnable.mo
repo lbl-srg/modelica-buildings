@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
@@ -128,9 +128,7 @@ protected
     "Outdoor air lockout temperature"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=1,
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
@@ -173,13 +171,13 @@ equation
   connect(pre1.y, enaTim.u)
     annotation (Line(points={{-158,120},{-150,120},{-150,-10},{-142,-10}},
       color={255,0,255}));
-  connect(TOut, add2.u2)
+  connect(TOut, sub1.u2)
     annotation (Line(points={{-220,-150},{-150,-150},{-150,-136},{-142,-136}},
       color={0,0,127}));
-  connect(chiLocOutTem.y, add2.u1)
+  connect(chiLocOutTem.y, sub1.u1)
     annotation (Line(points={{-158,-110},{-150,-110},{-150,-124},{-142,-124}},
       color={0,0,127}));
-  connect(add2.y, hys.u)
+  connect(sub1.y, hys.u)
     annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(hys.y, disPlaCon.u3) annotation (Line(points={{-78,-130},{20,-130},{20,
           -78},{38,-78}}, color={255,0,255}));

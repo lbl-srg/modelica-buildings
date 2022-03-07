@@ -62,7 +62,7 @@ protected
     "Identifies chillers designated to operate in a given stage"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta,nChi]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nSta,nChi]
     "Outputs a zero matrix populated with ones for any available chiller in the current stage"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

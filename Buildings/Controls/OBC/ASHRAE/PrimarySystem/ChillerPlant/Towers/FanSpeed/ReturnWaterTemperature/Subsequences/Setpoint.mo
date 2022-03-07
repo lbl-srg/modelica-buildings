@@ -75,13 +75,13 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax lifMin(
     final nin=nChi) "Minimum enabled chiller LIFT"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add coeA(
-    final k1=1.1, final k2=-1.1) "Coefficient A"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback coeB "Coefficient B"
-    annotation (Placement(transformation(extent={{50,130},{70,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product of inputs"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract coeA
+    "Coefficient A"
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract coeB "Coefficient B"
+    annotation (Placement(transformation(extent={{80,130},{100,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product of inputs"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
@@ -114,17 +114,20 @@ protected
     final k=TChiWatSupMin)
     "Lowest chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback maxLif[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Subtract maxLif[nChi]
     "Maximum LIFT of each chiller"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-10*5/9, final k=1)
+    final p=-10*5/9)
     "Output sum of input and a parameter"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin lowDesConWatRet(
     final nin=nChi)
     "Lowest design condenser water return temperature"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=1.1) "Gain factor"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
 equation
   connect(uChi, swi.u2)
@@ -136,17 +139,13 @@ equation
     annotation (Line(points={{-98,100},{-90,100},{-90,88},{-82,88}},
       color={0,0,127}));
   connect(lifMax.y, coeA.u1)
-    annotation (Line(points={{-58,140},{10,140},{10,106},{18,106}}, color={0,0,127}));
+    annotation (Line(points={{-58,140},{-10,140},{-10,106},{-2,106}}, color={0,0,127}));
   connect(lifMin.y, coeA.u2)
-    annotation (Line(points={{2,80},{10,80},{10,94},{18,94}}, color={0,0,127}));
-  connect(coeA.y, coeB.u2)
-    annotation (Line(points={{42,100},{60,100},{60,128}}, color={0,0,127}));
+    annotation (Line(points={{-18,80},{-10,80},{-10,94},{-2,94}}, color={0,0,127}));
   connect(lifMax.y, coeB.u1)
-    annotation (Line(points={{-58,140},{48,140}}, color={0,0,127}));
-  connect(coeA.y, pro.u1)
-    annotation (Line(points={{42,100},{60,100},{60,56},{78,56}}, color={0,0,127}));
+    annotation (Line(points={{-58,140},{-10,140},{-10,146},{78,146}}, color={0,0,127}));
   connect(coeB.y, add2.u1)
-    annotation (Line(points={{72,140},{110,140},{110,56},{118,56}},  color={0,0,127}));
+    annotation (Line(points={{102,140},{110,140},{110,56},{118,56}}, color={0,0,127}));
   connect(pro.y, add2.u2)
     annotation (Line(points={{102,50},{110,50},{110,44},{118,44}}, color={0,0,127}));
   connect(lifMax.y, min.u2)
@@ -159,7 +158,7 @@ equation
     annotation (Line(points={{2,-10},{10,-10},{10,-16},{18,-16}},
       color={0,0,127}));
   connect(lifMin.y, tarLif.u1)
-    annotation (Line(points={{2,80},{10,80},{10,-4},{18,-4}}, color={0,0,127}));
+    annotation (Line(points={{-18,80},{10,80},{10,-4},{18,-4}}, color={0,0,127}));
   connect(tarLif.y, conWatRet.u1)
     annotation (Line(points={{42,-10},{60,-10},{60,-24},{78,-24}},
       color={0,0,127}));
@@ -167,7 +166,7 @@ equation
     annotation (Line(points={{-200,-50},{60,-50},{60,-36},{78,-36}},
       color={0,0,127}));
   connect(swi.y, lifMin.u)
-    annotation (Line(points={{-58,80},{-22,80}}, color={0,0,127}));
+    annotation (Line(points={{-58,80},{-42,80}}, color={0,0,127}));
   connect(uPla, delPlaEna.u)
     annotation (Line(points={{-200,-110},{-142,-110}},
       color={255,0,255}));
@@ -189,10 +188,7 @@ equation
   connect(uOpeParLoaRat, pro.u2)
     annotation (Line(points={{-200,20},{-60,20},{-60,44},{78,44}}, color={0,0,127}));
   connect(desConWatRet.y, maxLif.u1)
-    annotation (Line(points={{-138,140},{-122,140}}, color={0,0,127}));
-  connect(minChiWatSup.y, maxLif.u2)
-    annotation (Line(points={{-138,100},{-130,100},{-130,120},{-110,120},{-110,128}},
-      color={0,0,127}));
+    annotation (Line(points={{-138,140},{-130,140},{-130,146},{-122,146}}, color={0,0,127}));
   connect(maxLif.y,lifMax.u)
     annotation (Line(points={{-98,140},{-82,140}}, color={0,0,127}));
   connect(lowDesConWatRet.y, addPar.u)
@@ -200,9 +196,16 @@ equation
   connect(addPar.y, lin.f1)
     annotation (Line(points={{2,-80},{20,-80},{20,-106},{138,-106}}, color={0,0,127}));
   connect(desConWatRet.y, lowDesConWatRet.u)
-    annotation (Line(points={{-138,140},{-126,140},{-126,-80},{-82,-80}},
+    annotation (Line(points={{-138,140},{-130,140},{-130,-80},{-82,-80}},
       color={0,0,127}));
-
+  connect(minChiWatSup.y, maxLif.u2) annotation (Line(points={{-138,100},{-134,100},
+          {-134,134},{-122,134}}, color={0,0,127}));
+  connect(coeA.y, gai.u)
+    annotation (Line(points={{22,100},{38,100}}, color={0,0,127}));
+  connect(gai.y, coeB.u2) annotation (Line(points={{62,100},{70,100},{70,134},{78,
+          134}}, color={0,0,127}));
+  connect(gai.y, pro.u1) annotation (Line(points={{62,100},{70,100},{70,56},{78,
+          56}}, color={0,0,127}));
 annotation (
   defaultComponentName="conWatRetSet",
   Diagram(coordinateSystem(preserveAspectRatio=false,

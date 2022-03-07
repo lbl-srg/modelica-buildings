@@ -105,7 +105,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
     final k=fill(0,nChi)) "Constant zero"
     annotation (Placement(transformation(extent={{-340,110},{-320,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division floRat[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Divide floRat[nChi]
     "Flow rate ratio through each chiller"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiRat(final nin=nChi)
@@ -137,7 +137,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nChi] if have_parChi
     "Maximum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2 if have_parChi
     "Chilled water flow setpoint after disabling next chiller"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1 if not have_parChi
@@ -184,7 +184,7 @@ protected
     final nin=nChi) if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-180,300},{-160,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro3 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,320},{-40,340}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi11[nChi] if have_parChi
@@ -201,10 +201,10 @@ protected
     if have_parChi
     "Maximum flow rate ratio of operating chillers"
     annotation (Placement(transformation(extent={{-180,260},{-160,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro4 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax6(

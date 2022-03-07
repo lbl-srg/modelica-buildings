@@ -63,10 +63,10 @@ block NextChiller "Identify next enable and disable chillers"
   Buildings.Controls.OBC.CDL.Logical.And enaDis
     "Check if enabling and disabling chillers at the same process"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nChi]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nChi]
     "Find out the index of enabling chiller"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt1[nChi]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1[nChi]
     "Find out the index of disabling chiller"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum enaChiInd(final nin = nChi)
@@ -81,22 +81,22 @@ block NextChiller "Identify next enable and disable chillers"
   Buildings.Controls.OBC.CDL.Logical.Latch dowPro
     "True when it is in stage down process"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt2
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt2
     "Find out the index of enabling chiller"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt3
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt3
     "Staging up process and it requires chiller on and off"
     annotation (Placement(transformation(extent={{120,110},{140,130}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt4
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt4
     "Disabling chiller during stage up process"
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt5
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt5
     "Find out the index of disabling chiller"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt6
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt6
     "Staging down process and it requires chiller on and off"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt7
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt7
     "Enabling chiller during stage down process"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 

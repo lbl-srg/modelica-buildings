@@ -73,9 +73,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4[totSta](
     final k=staVec) "Stage indicator array"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4[totSta](
-    final k1=fill(1, totSta),
-    final k2=fill(-1,totSta)) "Sum of real inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4[totSta] "Sum of real inputs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totSta](
     final t=fill(-0.1,totSta)) "Check stage indicator"
@@ -133,15 +131,15 @@ equation
       color={0,0,127}));
   connect(add3.y, reaRep.u)
     annotation (Line(points={{-58,-20},{-42,-20}}, color={0,0,127}));
-  connect(reaRep.y, add4.u1)
+  connect(reaRep.y, sub4.u1)
     annotation (Line(points={{-18,-20},{0,-20},{0,-34},{18,-34}},
       color={0,0,127}));
-  connect(con4.y, add4.u2)
+  connect(con4.y, sub4.u2)
     annotation (Line(points={{-18,-70},{0,-70},{0,-46},{18,-46}},
       color={0,0,127}));
   connect(greEquThr.y, booToInt.u)
     annotation (Line(points={{82,-40},{98,-40}}, color={255,0,255}));
-  connect(add4.y, greEquThr.u)
+  connect(sub4.y, greEquThr.u)
     annotation (Line(points={{42,-40},{58,-40}}, color={0,0,127}));
   connect(con5.y, celOnNum.u)
     annotation (Line(points={{162,0},{178,0}}, color={0,0,127}));

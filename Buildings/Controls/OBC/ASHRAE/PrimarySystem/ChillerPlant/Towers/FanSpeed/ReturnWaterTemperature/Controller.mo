@@ -242,7 +242,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Any chiller is enabled and waterside economizer is not enabled"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain parLoaRat(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter parLoaRat(
     final k=1/desCap) "Plant partial load ratio"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Line plrTowMaxSpe

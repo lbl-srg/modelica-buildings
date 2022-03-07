@@ -61,8 +61,7 @@ protected
     final k={-1*step,step,1}, nin=3) "Multiple input sum"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) "Anti-windup adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "Anti-windup adder"
     annotation (Placement(transformation(extent={{200,20},{220,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=wseOnTimDec) "Timer"
@@ -235,11 +234,11 @@ equation
     annotation (Line(points={{182,70},{300,70},{300,0},{330,0}}, color={0,0,127}));
   connect(mulSum.y, lim.u)
     annotation (Line(points={{142,70},{158,70}}, color={0,0,127}));
-  connect(lim.y, add2.u1) annotation (Line(points={{182,70},{190,70},{190,36},{198,
+  connect(lim.y, sub1.u1) annotation (Line(points={{182,70},{190,70},{190,36},{198,
           36}},  color={0,0,127}));
-  connect(mulSum.y, add2.u2) annotation (Line(points={{142,70},{152,70},{152,24},
+  connect(mulSum.y, sub1.u2) annotation (Line(points={{142,70},{152,70},{152,24},
           {198,24}}, color={0,0,127}));
-  connect(add2.y, intWitRes.u) annotation (Line(points={{222,30},{230,30},{230,10},
+  connect(sub1.y, intWitRes.u) annotation (Line(points={{222,30},{230,30},{230,10},
           {238,10}},  color={0,0,127}));
   connect(maxInt.y, intGreEquThr1.u)
     annotation (Line(points={{-18,80},{-12,80}},color={255,127,0}));

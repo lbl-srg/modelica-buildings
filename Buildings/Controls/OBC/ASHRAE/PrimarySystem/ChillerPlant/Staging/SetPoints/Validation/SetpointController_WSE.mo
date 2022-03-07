@@ -4,7 +4,7 @@ model SetpointController_WSE
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon(
     final have_WSE=true,
-    have_locSen=true,
+    final have_locSen=true,
     final chiDesCap={500000,700000},
     final chiMinCap={100000,200000},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
@@ -14,7 +14,7 @@ model SetpointController_WSE
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon1(
     final have_WSE=true,
-    have_locSen=true,
+    final have_locSen=true,
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{0,1,0},{1,1,0},{1,1,1}},
@@ -85,8 +85,9 @@ protected
     "Real to integer conversion"
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(final
-      trueHoldDuration=100, final falseHoldDuration=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=100,
+    final falseHoldDuration=0)
     "True hold to visualize the stage change initiation"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
@@ -104,8 +105,7 @@ protected
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter wseTPre(
-    final p=-3,
-    final k=1) "Predicted WSE outlet temperature"
+    final p=-3) "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TCWSup(
@@ -177,8 +177,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter wseTPre1(
-    final p=-3,
-    final k=1)
+    final p=-3)
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
@@ -257,14 +256,12 @@ protected
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutWet(
-    final p=-10,
-    final k=1)
+    final p=-10)
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutWet1(
-    final p=-10,
-    final k=1)
+    final p=-10)
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
