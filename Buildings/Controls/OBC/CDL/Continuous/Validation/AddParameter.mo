@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model AddParameter
   "Validation model for the AddParameter block"
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=0.5,
-    k=1.0)
+    p=0.5)
     "Block that outputs the sum of an input plus a parameter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(

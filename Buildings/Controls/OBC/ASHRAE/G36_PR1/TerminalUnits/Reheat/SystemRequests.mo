@@ -233,12 +233,10 @@ protected
     "Calculate difference of discharge temperature (plus errTDis_2) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final k=1,
     final p=errTDis_1) if have_heaWatCoi
     "Discharge temperature plus errTDis_1"
     annotation (Placement(transformation(extent={{-140,-272},{-120,-252}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=errTDis_2) if have_heaWatCoi
     "Discharge temperature plus errTDis_2"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
