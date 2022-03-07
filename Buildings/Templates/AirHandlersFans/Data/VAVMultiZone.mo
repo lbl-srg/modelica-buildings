@@ -38,15 +38,16 @@ record VAVMultiZone
     "Type of building pressure control system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Templates.Components.Data.Fan fanSup(final typ=typFanSup,
-      m_flow_nominal=mAirSup_flow_nominal) "Supply fan" annotation (Dialog(
-        group="Fans", enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
+  parameter Buildings.Templates.Components.Data.Fan fanSup(
+    final typ=typFanSup)
+    "Supply fan"
+    annotation (Dialog(
+    group="Fans", enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
 
-  extends Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection(
-    fanRel(
-      m_flow_nominal=mAirRet_flow_nominal),
-    fanRet(
-      m_flow_nominal=mAirRet_flow_nominal),
+  extends
+    Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection(
+    fanRel,
+    fanRet,
     damOut(
       m_flow_nominal=mAirSup_flow_nominal,
       dp_nominal=10),
@@ -66,22 +67,28 @@ record VAVMultiZone
     final typ=typCoiHeaPre,
     final typVal=typValCoiHeaPre,
     final have_sou=have_souCoiHeaPre,
-    mAir_flow_nominal=mAirSup_flow_nominal) "Heating coil in preheat position"
-    annotation (Dialog(group="Coils", enable=typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
+    mAir_flow_nominal=mAirSup_flow_nominal)
+    "Heating coil in preheat position"
+    annotation (Dialog(group="Coils",
+    enable=typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter Buildings.Templates.Components.Data.Coil coiCoo(
     final typ=typCoiCoo,
     final typVal=typValCoiCoo,
     final have_sou=have_souCoiCoo,
-    mAir_flow_nominal=mAirSup_flow_nominal) "Cooling coil" annotation (Dialog(
-        group="Coils", enable=typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
+    mAir_flow_nominal=mAirSup_flow_nominal)
+    "Cooling coil"
+    annotation (Dialog(
+    group="Coils", enable=typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter Buildings.Templates.Components.Data.Coil coiHeaReh(
     final typ=typCoiHeaReh,
     final typVal=typValCoiHeaReh,
     final have_sou=have_souCoiHeaReh,
-    mAir_flow_nominal=mAirSup_flow_nominal) "Heating coil in reheat position"
-    annotation (Dialog(group="Coils", enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
+    mAir_flow_nominal=mAirSup_flow_nominal)
+    "Heating coil in reheat position"
+    annotation (Dialog(group="Coils",
+    enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter
     Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController

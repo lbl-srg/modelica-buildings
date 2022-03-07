@@ -1,4 +1,4 @@
 within Buildings.Templates;
-package AirHandlersFans "Package with templates for air handlers and fans"
+package AirHandlersFans "Air Handlers and Fans"
   extends Modelica.Icons.Package;
 end AirHandlersFans;

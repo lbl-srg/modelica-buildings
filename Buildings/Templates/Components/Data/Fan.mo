@@ -10,14 +10,17 @@ record Fan
     annotation (Dialog(group="Configuration",
       enable=typ==Buildings.Templates.Components.Types.Fan.ArrayVariable));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
-    final min=0) = 1
+    final min=0,
+    start=if typ==Buildings.Templates.Components.Types.Fan.None then 0
+    else 1)
     "Air mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
         enable=typ <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    if typ==Buildings.Templates.Components.Types.Fan.None then 0
-      else 0.5e3
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    final min=0,
+    start=if typ==Buildings.Templates.Components.Types.Fan.None then 0
+      else 500)
     "Total pressure rise"
     annotation (
     Dialog(group="Nominal condition",

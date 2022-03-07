@@ -1,5 +1,6 @@
 within Buildings.Templates.Validation;
 model RedeclareFinal
+  extends Modelica.Icons.Example;
   record A
     final parameter Integer p = 1;
   end A;

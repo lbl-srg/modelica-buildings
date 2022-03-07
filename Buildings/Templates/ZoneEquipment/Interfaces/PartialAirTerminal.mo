@@ -88,7 +88,8 @@ partial model PartialAirTerminal
         rotation=90,
         origin={-199,160})));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}), graphics={
         Text(
           extent={{-155,-218},{145,-258}},

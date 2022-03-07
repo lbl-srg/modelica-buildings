@@ -8,7 +8,6 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
       have_CO2Sen=ctl.have_CO2Sen,
       typCtl=ctl.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
-
     final have_souCoiHea=false);
 
   inner replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
@@ -69,5 +68,6 @@ equation
         Line(points={{300,-190},{-300,-190}},
                                             color={0,0,0}),
         Line(points={{300,-210},{-300,-210}},
-                                            color={0,0,0})}));
+                                            color={0,0,0})}),
+  defaultComponentName="BoxCoo");
 end VAVBoxCoolingOnly;

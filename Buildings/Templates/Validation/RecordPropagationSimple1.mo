@@ -1,5 +1,6 @@
 within Buildings.Templates.Validation;
 model RecordPropagationSimple1
+  extends Modelica.Icons.Example;
 
   record DataTopLevel
     "Parameters for all systems"

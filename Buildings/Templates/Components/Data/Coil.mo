@@ -14,8 +14,7 @@ record Coil
 
   // For evaporator coils this is provided by the performance data record.
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
-    final min=0,
-    start=0) = if typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+    final min=0)= if typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
      datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     else 1

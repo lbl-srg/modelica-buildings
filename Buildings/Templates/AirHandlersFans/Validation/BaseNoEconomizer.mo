@@ -12,8 +12,8 @@ model BaseNoEconomizer
     "Heating medium (such as HHW)";
 
   UserProject.DataTopLevel datTop(VAV_1(
-    fanSup(m_flow_nominal=1),
-    fanRet(m_flow_nominal=1),
+    fanSup(m_flow_nominal=1, dp_nominal=500),
+    fanRet(m_flow_nominal=1, dp_nominal=200),
     final typ=VAV_1.typ,
     final typFanSup=VAV_1.typFanSup,
     final typFanRet=VAV_1.typFanRet,

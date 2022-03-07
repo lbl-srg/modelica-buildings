@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans;
-model VAVMultiZone "Multiple-zone VAV air-handling unit"
+model VAVMultiZone "Multiple-zone VAV"
   /*
   In Dymola only, bindings for the parameter record cannot be made final if propagation
   from a top-level record (whole building) is needed.
@@ -378,7 +378,7 @@ equation
   connect(fanSupDra.port_b, TAirSup.port_a)
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
   annotation (
-    defaultComponentName="ahu",
+    defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,280}}),
       graphics={

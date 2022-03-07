@@ -8,7 +8,6 @@ model VAVBoxReheat "VAV terminal unit with reheat"
       have_CO2Sen=ctl.have_CO2Sen,
       typCtl=ctl.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.SingleDuct,
-
     final have_souCoiHea=coiHea.have_sou);
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
@@ -125,5 +124,6 @@ equation
         Line(points={{300,-190},{-300,-190}},
                                             color={0,0,0}),
         Line(points={{300,-210},{-300,-210}},
-                                            color={0,0,0})}));
+                                            color={0,0,0})}),
+  defaultComponentName="BoxReh");
 end VAVBoxReheat;
