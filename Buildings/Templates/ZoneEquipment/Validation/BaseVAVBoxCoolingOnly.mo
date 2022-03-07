@@ -45,7 +45,8 @@ model BaseVAVBoxCoolingOnly
         VAirSet_flow_min=0.01,
         AFlo=10,
         nPeo_nominal=1)),
-      redeclare final package MediumAir = MediumAir)
+      redeclare final package MediumAir = MediumAir,
+      redeclare final package MediumHea=MediumHea)
     "Terminal unit"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 

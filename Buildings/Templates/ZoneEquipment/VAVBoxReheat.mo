@@ -77,7 +77,7 @@ protected
     final m_flow_nominal=dat.damVAV.m_flow_nominal,
     final dp_nominal=dat.damVAV.dp_nominal,
     final dpFixed_nominal=if damVAV.typ == Buildings.Templates.Components.Types.Damper.None
-         then 0 else dat.coiHea.dpAir_nominal)
+      then 0 else dat.coiHea.dpAir_nominal)
     "Local record for VAV damper with lumped flow resistance";
   parameter Buildings.Templates.Components.Data.Coil datCoiHea(
     final typ=coiHea.typ,
@@ -91,7 +91,7 @@ protected
     final TWatEnt_nominal=dat.coiHea.TWatEnt_nominal,
     final TAirEnt_nominal=dat.coiHea.TAirEnt_nominal,
     final dpAir_nominal=if damVAV.typ == Buildings.Templates.Components.Types.Damper.None
-         then dat.coiHea.dpAir_nominal else 0)
+      then dat.coiHea.dpAir_nominal else 0)
     "Local record for coil with lumped flow resistance";
 equation
   /* Control point connection - start */
