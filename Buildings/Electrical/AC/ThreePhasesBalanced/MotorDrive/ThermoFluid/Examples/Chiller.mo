@@ -16,7 +16,7 @@ model Chiller "Test model for chiller with mechanical interface"
     nPorts=1)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
-    height=10,
+    height=0,
     duration=60,
     offset=273.15 + 20,
     startTime=60) "Condenser inlet temperature"
@@ -29,7 +29,7 @@ model Chiller "Test model for chiller with mechanical interface"
     nPorts=1)
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
-    height=10,
+    height=0,
     duration=60,
     startTime=900,
     offset=273.15 + 15) "Evaporator inlet temperature"
@@ -47,7 +47,6 @@ model Chiller "Test model for chiller with mechanical interface"
     Nrpm_nominal=1800,
     use_eta_Carnot_nominal=true,
     etaCarnot_nominal=0.5,
-    a={0.5,0.3,0.1,0.1},
     dp1_nominal=3000,
     dp2_nominal=3000,
     chi(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))

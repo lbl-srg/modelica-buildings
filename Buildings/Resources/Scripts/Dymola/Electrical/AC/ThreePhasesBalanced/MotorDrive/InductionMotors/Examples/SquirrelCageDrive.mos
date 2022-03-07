@@ -1,5 +1,5 @@
-simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors.Examples.SquirrelCageDrive.mo", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="SquirrelCageDrive");
-createPlot(id=2, position={75, 70, 1210, 980}, y={"heaPum.sta_a1.T", "heaPum.sta_b1.T", "heaPum.sta_a2.T", "heaPum.sta_b2.T"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="Carnot_y.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.QEva_flow", "heaPum.QCon_flow", "heaPum.P"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={75, 70, 1210, 241}, y={"heaPum.dp1", "heaPum.dp2"}, range={0.0, 3600.0, 0.0, 14000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.COP_nominal", "heaPum.COP"}, range={0.0, 3600.0, 3.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors.Examples.SquirrelCageDrive", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="SquirrelCageDrive");
+createPlot(id=1, position={0, 0, 741, 532}, y={"simMot.tau_e", "simMot.tau_m"}, range={0.0, 3600.0, -50.0, 100.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"N.m", "N.m"});
+createPlot(id=1, position={0, 0, 741, 532}, y={"simMot.omega_r"}, range={0.0, 3600.0, -1000.0, 2000.0}, grid=true, subPlot=102, colors={{238,46,47}}, timeUnit="s", displayUnits={"rpm"});
+createPlot(id=1, position={0, 0, 741, 532}, y={"simMot.P", "simMot.Q"}, range={0.0, 3600.0, 0.0, 200000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "var"});
+
