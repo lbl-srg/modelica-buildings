@@ -5,7 +5,9 @@ record Fan
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
     annotation (Dialog(group="Configuration"));
-  parameter Integer nFan(min=0)=1
+  parameter Integer nFan(
+    final min=0,
+    start=1)
     "Number of fans"
     annotation (Dialog(group="Configuration",
       enable=typ==Buildings.Templates.Components.Types.Fan.ArrayVariable));
@@ -19,6 +21,7 @@ record Fan
         enable=typ <> Buildings.Templates.Components.Types.Fan.None));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=0,
+    displayUnit="Pa",
     start=if typ==Buildings.Templates.Components.Types.Fan.None then 0
       else 500)
     "Total pressure rise"
@@ -28,7 +31,7 @@ record Fan
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
       V_flow={0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan),
-      dp={1.5, 1, 0} * dp_nominal))
+      dp(displayUnit="Pa")={1.5, 1, 0} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation (

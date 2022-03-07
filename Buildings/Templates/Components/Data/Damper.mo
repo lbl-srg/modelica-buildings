@@ -7,17 +7,19 @@ record Damper
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
-    final min=0) = 1
+    final min=0,
+    start=if typ==Buildings.Templates.Components.Types.Damper.None then 0
+    else 1)
     "Air mass flow rate"
     annotation (
       Dialog(group="Mechanical",
         enable=typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=0,
-    displayUnit="Pa")=
-    if typ==Buildings.Templates.Components.Types.Damper.None then 0
+    displayUnit="Pa",
+    start=if typ==Buildings.Templates.Components.Types.Damper.None then 0
     elseif typ==Buildings.Templates.Components.Types.Damper.PressureIndependent then 50
-    else 15
+    else 15)
     "Air pressure drop"
     annotation (
       Dialog(group="Mechanical",

@@ -55,6 +55,7 @@ model VAVMultiZone "Multiple-zone VAV"
       final typCtlFanRet=ctl.typCtlFanRet,
       final typCtlEco=ctl.typCtlEco,
       dat(
+        final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
         final damOut=dat.damOut,
         final damOutMin=dat.damOutMin,
         final damRel=dat.damRel,

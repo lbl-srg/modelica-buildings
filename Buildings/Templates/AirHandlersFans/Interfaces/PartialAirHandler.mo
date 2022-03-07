@@ -16,10 +16,6 @@ partial model PartialAirHandler "Base interface class for air handler"
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter String id
-   "System tag"
-    annotation (Dialog(group="Configuration"));
-
   inner parameter Integer nZon(min=1)
     "Number of served zones"
     annotation (
@@ -36,6 +32,10 @@ partial model PartialAirHandler "Base interface class for air handler"
     final have_souCoiHeaPre=have_souCoiHeaPre,
     final have_souCoiHeaReh=have_souCoiHeaReh)
     "Design and operating parameters";
+
+  final parameter String id=dat.id
+   "System tag"
+    annotation (Dialog(group="Configuration"));
 
   parameter Boolean is_modCtrSpe = true
     "Set to true to activate the control specification mode"

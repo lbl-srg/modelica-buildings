@@ -14,7 +14,7 @@ partial model PartialAirTerminal
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter String id
+  final parameter String id=dat.id
    "System tag"
     annotation (Dialog(group="Configuration"));
 

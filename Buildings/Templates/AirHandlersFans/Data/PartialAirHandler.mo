@@ -24,6 +24,9 @@ record PartialAirHandler
     "Set to true if reheat coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
+  parameter String id
+   "System tag"
+    annotation (Dialog(group="Configuration"));
   parameter String id_souCoiCoo=""
     "Chilled water supply system tag"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souCoiCoo));

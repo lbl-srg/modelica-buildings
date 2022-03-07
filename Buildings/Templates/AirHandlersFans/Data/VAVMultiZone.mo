@@ -49,17 +49,13 @@ record VAVMultiZone
     fanRel,
     fanRet,
     damOut(
-      m_flow_nominal=mAirSup_flow_nominal,
-      dp_nominal=10),
+      m_flow_nominal=mAirSup_flow_nominal),
     damOutMin(
-      m_flow_nominal=mOutMin_flow_nominal,
-      dp_nominal=10),
+      m_flow_nominal=mOutMin_flow_nominal),
     damRel(
-      m_flow_nominal=mAirRet_flow_nominal,
-      dp_nominal=10),
+      m_flow_nominal=mAirRet_flow_nominal),
     damRet(
-      m_flow_nominal=mAirRet_flow_nominal,
-      dp_nominal=10))
+      m_flow_nominal=mAirRet_flow_nominal))
     annotation (
       Dialog(group="Dampers and economizer"));
 

@@ -27,7 +27,7 @@ model DedicatedDampersPressure
   Buildings.Templates.Components.Sensors.Temperature TAirOut(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
-    final m_flow_nominal=mAirOutMin_flow_nominal)
+    final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpAirOutMin(
@@ -40,7 +40,7 @@ model DedicatedDampersPressure
     final have_sen=
       typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
       typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
-    final m_flow_nominal=mAirOutMin_flow_nominal)
+    final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
 equation

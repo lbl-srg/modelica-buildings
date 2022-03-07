@@ -56,13 +56,14 @@ partial model PartialOutdoorReliefReturnSection
   parameter
     Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
     dat(
-    final typSecRel=typSecRel,
-    final typDamOut=typDamOut,
-    final typDamOutMin=typDamOutMin,
-    final typDamRet=typDamRet,
-    final typDamRel=typDamRel,
-    final typFanRel=typFanRel,
-    final typFanRet=typFanRet) "Design and operating parameters";
+      final typSecRel=typSecRel,
+      final typDamOut=typDamOut,
+      final typDamOutMin=typDamOutMin,
+      final typDamRet=typDamRet,
+      final typDamRel=typDamRel,
+      final typFanRel=typFanRel,
+      final typFanRet=typFanRet)
+    "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
     dat.damOut.m_flow_nominal
@@ -70,9 +71,9 @@ partial model PartialOutdoorReliefReturnSection
   final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
     dat.damRet.m_flow_nominal
     "Return air mass flow rate";
-  final parameter Modelica.Units.SI.MassFlowRate mAirOutMin_flow_nominal=
-    dat.damOutMin.m_flow_nominal
-    "Minimum outdoor air mass flow rate";
+  final parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal=
+    dat.mOutMin_flow_nominal
+    "Minimum outdoor air mass flow rate at design conditions";
 
   final parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal=
     dat.damOut.dp_nominal

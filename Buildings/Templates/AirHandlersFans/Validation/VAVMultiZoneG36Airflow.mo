@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMultiZoneG36Airflow
-  extends BaseNoEconomizer(redeclare UserProject.AHUs.VAVMultiZoneG36Airflow
-      VAV_1);
+  extends BaseNoEconomizer(
+    redeclare UserProject.AHUs.VAVMultiZoneG36Airflow VAV_1);
 
   Fluid.Sources.Boundary_pT bou2(
     redeclare final package Medium = MediumHea, nPorts=1)
