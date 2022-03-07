@@ -5,11 +5,12 @@ model MotorMachineInterface "Validate model MotorMachineInterface"
 
   parameter Integer pole = 4 "Number of pole pairs";
   parameter Modelica.Units.SI.Frequency f = 60 "Fequency";
+  parameter Modelica.Units.SI.Voltage v = 120 "Fequency";
 
   MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface torSpe(pole=pole)
     "Torque speed relationship"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Constant Vrms(k=120)
+  Modelica.Blocks.Sources.Constant Vrms(k=v)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Ramp ramp( duration=4*pi*f/
         pole,
