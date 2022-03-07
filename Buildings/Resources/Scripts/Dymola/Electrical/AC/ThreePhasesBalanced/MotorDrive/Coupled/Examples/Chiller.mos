@@ -1,5 +1,6 @@
-simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples.Chiller.mo", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Chiller");
-createPlot(id=2, position={75, 70, 1210, 980}, y={"heaPum.sta_a1.T", "heaPum.sta_b1.T", "heaPum.sta_a2.T", "heaPum.sta_b2.T"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="Carnot_y.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.QEva_flow", "heaPum.QCon_flow", "heaPum.P"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={75, 70, 1210, 241}, y={"heaPum.dp1", "heaPum.dp2"}, range={0.0, 3600.0, 0.0, 14000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.COP_nominal", "heaPum.COP"}, range={0.0, 3600.0, 3.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples.Chiller", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Chiller");
+createPlot(id=1, position={0, 0, 510, 481}, y={"chi.P", "chi.mecChi.chi.P"}, range={0.0, 4000.0, -5.0, 15.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kW", "kW"});
+createPlot(id=1, position={0, 0, 510, 481}, y={"TSet.y", "senTem.T"}, range={0.0, 4000.0, 280.0, 295.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=2, position={520, 2, 526, 479}, y={"chi.simMot.tau_e"}, range={0.0, 4000.0, 10.0, 50.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"N.m"});
+createPlot(id=2, position={520, 2, 526, 479}, y={"chi.mecChi.spe.w"}, range={0.0, 4000.0, -500.0, 2000.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"rpm"});
+
