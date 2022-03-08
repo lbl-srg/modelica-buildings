@@ -10,7 +10,7 @@ model RedeclareFinal
   end B;
 
   model One
-    redeclare parameter A a;
+    replaceable parameter A a;
   end One;
 
   One redeclar(redeclare B a);
