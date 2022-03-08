@@ -18,7 +18,6 @@ model OpenDoorBuoyancyPressureDynamic
     T_start=292.15,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01,
     nPorts=3) "Boundary condition at side a" annotation (Placement(
         transformation(
@@ -32,7 +31,6 @@ model OpenDoorBuoyancyPressureDynamic
     p_start=101320,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01,
     nPorts=2) "Boundary condition at side b"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -48,7 +46,6 @@ model OpenDoorBuoyancyPressureDynamic
     T_start=292.15,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01,
     nPorts=3) "Boundary condition at side a" annotation (Placement(
         transformation(
@@ -61,7 +58,6 @@ model OpenDoorBuoyancyPressureDynamic
     p_start=101320,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01,
     nPorts=2) "Boundary condition at side b" annotation (Placement(
         transformation(

@@ -22,8 +22,7 @@ model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=true,
     nPorts=2,
-    mSenFac=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    mSenFac=2)
     "Mixing volume with steady state mass dynamics"
      annotation (Placement(transformation(extent={{30,20},{50,40}})));
   Modelica.Blocks.Sources.Ramp ramp(

@@ -34,7 +34,6 @@ model MixingVolume "Test model for mixing volumes"
     V=0.1,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res2(
@@ -61,8 +60,7 @@ model MixingVolume "Test model for mixing volumes"
     nPorts=2,
     h_start=45300.945,
     use_portsData=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{22,80}})));
   Buildings.Utilities.Diagnostics.CheckEquality cheEqu1
     "Check for equality of results"
@@ -82,7 +80,6 @@ model MixingVolume "Test model for mixing volumes"
     V=0.1,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,-82},{20,-62}})));
   Buildings.Fluid.FixedResistances.PressureDrop res21(

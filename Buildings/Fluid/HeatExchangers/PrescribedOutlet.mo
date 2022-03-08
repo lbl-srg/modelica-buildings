@@ -11,8 +11,7 @@ model PrescribedOutlet
       final QMin_flow = QMin_flow,
       final mWatMax_flow = mWatMax_flow,
       final mWatMin_flow = mWatMin_flow,
-      final energyDynamics = energyDynamics,
-      final massDynamics = energyDynamics));
+      final energyDynamics = energyDynamics));
 
   parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"

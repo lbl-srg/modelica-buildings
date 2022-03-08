@@ -80,7 +80,7 @@ model IndirectTankHeatExchanger
     each m_flow_nominal=m_flow_nominal,
     each V=volHexFlu/nSeg,
     each energyDynamics=energyDynamics,
-    each massDynamics=massDynamics,
+    each massDynamics=energyDynamics,
     each p_start=p_start,
     each T_start=T_start,
     each X_start=X_start,

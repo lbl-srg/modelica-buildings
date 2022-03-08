@@ -81,7 +81,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each V=VWat/nEle,
     each final m_flow_nominal = m_flow_nominal,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
+    each final massDynamics=energyDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,

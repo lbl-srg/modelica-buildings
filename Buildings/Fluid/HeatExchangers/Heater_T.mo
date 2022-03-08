@@ -9,7 +9,6 @@ model Heater_T "Heater with prescribed outlet temperature"
       final use_TSet = true,
       final use_X_wSet = false,
       final energyDynamics = energyDynamics,
-      final massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
       final T_start=T_start,
       final X_start=Medium.X_default));
 

@@ -52,9 +52,6 @@ model WetCoilEffectivenessNTU
     Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
   Modelica.Units.SI.HeatFlowRate Q1_flow=-dryWetCalcs.QTot_flow
     "Heat input into water stream (positive if air is cooled)";
@@ -120,7 +117,6 @@ protected
     final dp_nominal = dp1_nominal,
     final m_flow_nominal = m1_flow_nominal,
     final energyDynamics = energyDynamics,
-    final massDynamics = massDynamics,
     final Q_flow_nominal=-1,
     u(final unit="W"))
     "Heat exchange with water stream"
@@ -132,7 +128,6 @@ protected
     final dp_nominal = dp2_nominal,
     final m_flow_nominal = m2_flow_nominal,
     final energyDynamics = energyDynamics,
-    final massDynamics = massDynamics,
     u(final unit="kg/s"))
     "Heat and moisture exchange with air stream"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
@@ -311,11 +306,6 @@ initial equation
       configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
-
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
 equation
   // Assign the flow regime for the given heat exchanger configuration and
@@ -623,8 +613,7 @@ Fuzzy identification of systems and its applications to modeling and control.
 <ul>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab and
-added assertion for correct combination of energy and mass dynamics.<br/>
+Removed <code>massDynamics</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
 </li>

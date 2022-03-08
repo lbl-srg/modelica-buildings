@@ -40,8 +40,8 @@ model StratifiedEnhancedInternalHex
     "Nominal mass flow rate through the heat exchanger"
     annotation (Dialog(group="Heat exchanger"));
 
-  parameter Modelica.Units.SI.PressureDifference dpHex_nominal(displayUnit="Pa")
-     = 2500 "Pressure drop across the heat exchanger at nominal conditions"
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal(displayUnit="Pa")=
+       2500 "Pressure drop across the heat exchanger at nominal conditions"
     annotation (Dialog(group="Heat exchanger"));
 
   parameter Boolean computeFlowResistance=true
@@ -64,9 +64,7 @@ model StratifiedEnhancedInternalHex
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance for heat exchanger internal fluid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamicsHex=
-    energyDynamicsHex "Formulation of mass balance for heat exchanger"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsHexSolid=energyDynamicsHex
     "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
@@ -121,7 +119,6 @@ model StratifiedEnhancedInternalHex
     final m_flow_nominal=mHex_flow_nominal,
     final energyDynamics=energyDynamicsHex,
     final energyDynamicsSolid=energyDynamicsHexSolid,
-    final massDynamics=massDynamicsHex,
     final computeFlowResistance=computeFlowResistance,
     from_dp=from_dp,
     final linearizeFlowResistance=linearizeFlowResistance,
@@ -250,7 +247,7 @@ revisions="<html>
 <ul>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
+Removed <code>massDynamics</code> and <code>massDynamicsHex</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
 </li>

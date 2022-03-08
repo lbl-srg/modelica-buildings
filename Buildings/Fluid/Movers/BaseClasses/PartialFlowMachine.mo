@@ -48,8 +48,7 @@ partial model PartialFlowMachine
     annotation (Dialog(
       tab="Dynamics",
       group="Nominal condition",
-      enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-          massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+      enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Classes used to implement the filtered speed
   parameter Boolean use_inputFilter=true
@@ -173,7 +172,7 @@ protected
     redeclare final package Medium = Medium,
     final tau=tau,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    final massDynamics=energyDynamics,
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,

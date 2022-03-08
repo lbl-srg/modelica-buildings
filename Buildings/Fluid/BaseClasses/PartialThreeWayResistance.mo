@@ -88,7 +88,6 @@ partial model PartialThreeWayResistance
     final tau=tau,
     final m_flow_nominal=mDyn_flow_nominal,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -100,8 +99,7 @@ partial model PartialThreeWayResistance
 
 protected
   parameter Boolean have_controlVolume=
-      energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-       massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+      energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
     "Boolean flag used to remove conditional components";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_internal(

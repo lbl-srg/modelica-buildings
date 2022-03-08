@@ -9,7 +9,7 @@ partial model PartialPrescribedOutlet
     annotation(HideResult=true);
 
   parameter Modelica.Units.SI.Time tau(min=0) = 10
-    "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
+    "Time constant at nominal flow rate (used if energyDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics"));
 
 protected
