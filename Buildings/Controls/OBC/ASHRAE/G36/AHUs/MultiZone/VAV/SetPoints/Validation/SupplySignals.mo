@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation;
-model SupplySignals_Valve
+model SupplySignals
   "Validate model for controlling coil valve postion of multi zone VAV AHU"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig
@@ -49,7 +49,7 @@ equation
 
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/Validation/SupplySignals_Valve.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/Validation/SupplySignals.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -78,4 +78,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end SupplySignals_Valve;
+end SupplySignals;
