@@ -3,21 +3,19 @@ model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated),
-    final have_WSE = false,
-    final nPum=nChi);
+      final have_WSE = false,
+      final nPum=nChi);
 
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum(
-    final nPum=nPum,
-    final per=dat.per)
+  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
+      final nPum=nPum,
       final have_singlePort_a=true,
       final have_singlePort_b=false,
-      final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=dp_nominal,
-      final dpValve_nominal=dat.dpValve_nominal)
+      final dat=dat.pum)
     "Condenser pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 equation
   connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));

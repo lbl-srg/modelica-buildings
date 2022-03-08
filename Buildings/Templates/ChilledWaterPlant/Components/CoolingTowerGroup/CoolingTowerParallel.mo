@@ -13,8 +13,7 @@ model CoolingTowerParallel
       redeclare each final package Medium=Medium,
       each final show_T=show_T,
       each final allowFlowReversal=allowFlowReversal,
-      each final m_flow_small=m_flow_small,
-      each final m_flow_nominal=mTow_flow_nominal) "Cooling tower type"
+      final dat = dat.cooTow) "Cooling tower type"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooTowInl[nCooTow]
@@ -22,7 +21,7 @@ model CoolingTowerParallel
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
       each final m_flow_nominal=mTow_flow_nominal,
-      each final dpValve_nominal=dat.dpValInl_nominal,
+      final dpValve_nominal=dat.dpValInl_nominal,
       each final dpFixed_nominal=0) "Cooling tower inlet valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   inner replaceable Buildings.Templates.Components.Valves.None valCooTowOut[nCooTow]
@@ -30,7 +29,7 @@ model CoolingTowerParallel
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
       each final m_flow_nominal=mTow_flow_nominal,
-      each final dpValve_nominal=dat.dpValOut_nominal,
+      final dpValve_nominal=dat.dpValOut_nominal,
       each final dpFixed_nominal=0) "Cooling tower outlet valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

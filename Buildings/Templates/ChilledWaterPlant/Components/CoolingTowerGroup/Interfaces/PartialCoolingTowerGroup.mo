@@ -3,7 +3,8 @@ partial model PartialCoolingTowerGroup
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Water);
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Data dat "Cooling tower group data";
+  parameter Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Data dat(
+    final nCooTow=nCooTow) "Cooling tower group data";
 
   outer parameter Integer nChi "Number of chillers"
   annotation (Evaluate=true, Dialog(group="Configuration"));

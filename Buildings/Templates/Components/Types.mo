@@ -80,12 +80,10 @@ package Types "Generic types for template components"
   type Pump = enumeration(
       None
       "No pump",
-      ParallelVariable
-      "Parallel pumps (identical) - Variable speed",
-      SingleConstant
-      "Single pump - Constant speed",
-      SingleVariable
-      "Single pump - Variable speed")
+      Constant
+      "Constant speed",
+      Variable
+      "Variable speed")
     "Enumeration to configure the pump";
   type Sensor = enumeration(
       DifferentialPressure

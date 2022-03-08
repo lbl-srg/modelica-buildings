@@ -4,12 +4,12 @@ model Centralized "Centralized secondary pumping"
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
      dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.Centralized));
 
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum(
-    final dat=dat)
+  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
       final have_singlePort_a=true,
-      final have_singlePort_b=true)
+      final have_singlePort_b=true,
+      final dat=dat)
       "Secondary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

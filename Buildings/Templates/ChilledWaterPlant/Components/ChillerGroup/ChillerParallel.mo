@@ -2,12 +2,14 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup;
 model ChillerParallel
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
-      dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel));
+      dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel,
+        chi(redeclare each replaceable Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per)));
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.ElectricChiller
-    chi[nChi](final dat=dat.chi) constrainedby
+    chi[nChi] constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
+    dat=dat.chi,
     redeclare each final package Medium1 = MediumCW,
     redeclare each final package Medium2 = MediumCHW)
     "Chillers"

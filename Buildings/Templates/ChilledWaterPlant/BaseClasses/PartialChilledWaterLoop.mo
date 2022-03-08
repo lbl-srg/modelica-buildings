@@ -59,7 +59,6 @@ model PartialChilledWaterLoop
       redeclare final package Medium = MediumCHW,
       final dat=dat.pumPri,
       final mTot_flow_nominal=dat.mCHWPri_flow_nominal,
-      final dp_nominal=dpPri_nominal,
       final have_parChi=have_parChi,
       final have_byp=have_byp,
       final have_chiByp=have_chiByp,
@@ -72,8 +71,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
       redeclare final package Medium = MediumCHW,
       final dat=dat.pumSec,
-      final mTot_flow_nominal=dat.mCHWSec_flow_nominal,
-      final dp_nominal=dpSec_nominal)
+      final mTot_flow_nominal=dat.mCHWSec_flow_nominal)
     "Chilled water secondary pump group"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   inner replaceable Components.Controls.OpenLoop con constrainedby
@@ -172,15 +170,6 @@ model PartialChilledWaterLoop
     y(final unit="K", displayUnit="degC"))
     "FIXME: Outdoor air wet-bulb temperature (should be computed by controller)"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
-protected
-  parameter Modelica.Units.SI.PressureDifference dpPri_nominal=
-    if not have_secondary then chiGro.dpCHW_nominal + dat.dpDem_nominal
-    else chiGro.dpCHW_nominal
-    "Nominal pressure drop for primary loop";
-  parameter Modelica.Units.SI.PressureDifference dpSec_nominal=
-    if not have_secondary then 0 else dat.dpDem_nominal
-    "Nominal pressure drop for secondary loop";
-
 equation
   // Sensors
   connect(TCHWRetPla.y, busCon.TCHWRetPla);

@@ -14,10 +14,12 @@ partial model PartialChillerGroup
     = false, chillers in group are water cooled"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  final parameter Integer nChi=dat.nChi "Number of chillers in group";
+  final parameter Integer nChi "Number of chillers in group";
   outer parameter Integer nCooTow "Number of cooling towers";
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Data dat
+  parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Data dat(
+    final nChi=nChi,
+    final isAirCoo = isAirCoo)
     "Chiller group data";
 
   parameter Boolean allowFlowReversal1 = true
@@ -26,10 +28,6 @@ partial model PartialChillerGroup
   parameter Boolean allowFlowReversal2 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  final parameter Modelica.Units.SI.PressureDifference dpCHW_nominal=
-    dat.chi[1].dp2_nominal + dat.dpCHWValve_nominal
-    "Total nominal pressure drop on chilled water side";
 
   parameter MediumCW.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(dat.m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"

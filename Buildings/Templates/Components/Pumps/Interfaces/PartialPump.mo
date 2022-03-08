@@ -12,11 +12,18 @@ partial model PartialPump "Interface class for pumps"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
-  constant Buildings.Templates.Components.Pumps.Interfaces.Data dat "Pump data";
+  parameter Integer nPum
+    "Number of pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  parameter Buildings.Templates.Components.Pumps.Interfaces.Data dat[nPum] "Pump data";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  final parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = sum(dat.m_flow_nominal)
+    "Pump group total flow";
 
   parameter Boolean have_singlePort_a = true
     "= true if single fluid connector a, = false if vectorized fluid connector a";
@@ -38,7 +45,7 @@ partial model PartialPump "Interface class for pumps"
     "Fluid connector b (positive design flow direction is from port(s)_a to port(s)_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a[dat.nPum](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPum](
     redeclare each final package Medium = Medium,
      each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
      each h_outflow(start = Medium.h_default, nominal = Medium.h_default),
@@ -47,7 +54,7 @@ partial model PartialPump "Interface class for pumps"
      annotation (Placement(
         transformation(extent={{-108,-30},{-92,30}}), iconTransformation(extent=
            {{-108,-30},{-92,30}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[dat.nPum](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPum](
     redeclare each final package Medium = Medium,
      each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
      each h_outflow(start = Medium.h_default, nominal = Medium.h_default),
@@ -56,16 +63,6 @@ partial model PartialPump "Interface class for pumps"
      annotation (Placement(
         transformation(extent={{92,-30},{108,30}}), iconTransformation(extent={{
             92,-30},{108,30}})));
-
-  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
-    dat.m_flow_nominal) "Small mass flow rate for regularization of zero flow"
-    annotation (Dialog(tab="Advanced"));
-  // Diagnostics
-   parameter Boolean show_T = false
-    "= true, if actual temperature at port is computed"
-    annotation (
-      Dialog(tab="Advanced", group="Diagnostics"),
-      HideResult=true);
 
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"

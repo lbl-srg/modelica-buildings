@@ -1,15 +1,22 @@
 within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces;
 partial model PartialPrimaryPumpGroup
 
+  parameter Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Data dat(
+    final nPum=nPum,
+    final have_chiByp=have_chiByp,
+    final have_byp=have_byp)
+    "Primary pump group data";
+
   replaceable package Medium = Buildings.Media.Water;
+
+  parameter Integer nPum=2 "Number of pumps";
+  parameter Integer nChi=2 "Number of chillers in group";
+  outer parameter Integer nCooTow "Number of cooling towers";
+
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Data dat(
-    final have_chiByp=have_chiByp,
-    final have_byp=have_byp)
-    "Primary pump group data";
 
   parameter Boolean have_parChi "= true if chillers in inlet are connected in parallel";
   parameter Boolean have_chiByp "= true if chilled water loop has a chiller bypass";
@@ -24,21 +31,6 @@ partial model PartialPrimaryPumpGroup
   parameter Boolean have_TPCHWSup = not have_secondary
     "= true if primary chilled water supply temperature is measured"
     annotation(Dialog(enable=have_secondary));
-
-  final parameter Boolean is_dedicated = dat.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
-
-  outer parameter Integer nChi "Number of chillers in group";
-  outer parameter Integer nCooTow "Number of cooling towers";
-  parameter Integer nPum = dat.nPum "Number of pumps";
-
-  parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = m_flow_nominal*nPum "Total mass flow rate for pump group";
-
-  // FixMe: Flow and dp should be read from pump curve, but are currently
-  // assumed from system flow rate and pressure drop.
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = mTot_flow_nominal/nPum
-    "Nominal mass flow rate per pump";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Nominal pressure drop per pump";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
@@ -86,10 +78,8 @@ partial model PartialPrimaryPumpGroup
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 
     annotation (
-      choicesAllMatching=true,
-      Placement(transformation(extent={{-88,-90},{-68,-70}})),
-              Icon(coordinateSystem(preserveAspectRatio=false),
-    graphics={Rectangle(
+      Icon(coordinateSystem(preserveAspectRatio=false),
+        graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},

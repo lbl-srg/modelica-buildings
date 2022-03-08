@@ -1,40 +1,40 @@
 within Buildings.Templates.Components.Pumps;
 model MultipleVariable "Multiple pumps (identical) - Variable speed"
   extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
-    dat(final typPum=Buildings.Templates.Components.Types.Pump.ParallelVariable));
+    dat(each typ=Buildings.Templates.Components.Types.Pump.Variable));
 
-  replaceable Fluid.Movers.SpeedControlled_y pum[dat.nPum](
+  replaceable Fluid.Movers.SpeedControlled_y pum[nPum](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     constrainedby Fluid.Movers.SpeedControlled_y(
       redeclare each final package Medium=Medium,
-      each final per=dat.per,
+      final per=dat.per,
       each final inputType=Buildings.Fluid.Types.InputType.Continuous,
       each addPowerToMedium=false)
     "Pumps"
     annotation (
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.FixedResistances.CheckValve cheVal[dat.nPum](
+  Fluid.FixedResistances.CheckValve cheVal[nPum](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final dpValve_nominal=dat.dpValve_nominal,
-    each final m_flow_nominal=dat.m_flow_nominal)
+    final dpValve_nominal=dat.dpValve_nominal,
+    final m_flow_nominal=dat.m_flow_nominal)
     "Check valve"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal sigSta[dat.nPum]
+  Controls.OBC.CDL.Conversions.BooleanToReal sigSta[nPum]
     "Start/stop signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
-  Controls.OBC.CDL.Continuous.Multiply sigCon [dat.nPum]
+  Controls.OBC.CDL.Continuous.Multiply sigCon [nPum]
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[dat.nPum](
+  Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](
     each t=1E-2,
     each h=0.5E-2)
     "Evaluate pump status"
@@ -45,17 +45,17 @@ model MultipleVariable "Multiple pumps (identical) - Variable speed"
   Fluid.Delays.DelayFirstOrder volInl(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=dat.m_flow_nominal,
+    final m_flow_nominal=mTot_flow_nominal,
     tau=1,
-    final nPorts=dat.nPum+1) if have_singlePort_a
+    final nPorts=nPum+1) if have_singlePort_a
     "Fluid volume at inlet"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Fluid.Delays.DelayFirstOrder volOut(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=dat.m_flow_nominal,
+    final m_flow_nominal=mTot_flow_nominal,
     tau=1,
-    final nPorts=dat.nPum+1) if have_singlePort_b
+    final nPorts=nPum+1) if have_singlePort_b
     "Fluid volume at outet"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
 equation
@@ -75,16 +75,16 @@ equation
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(volInl.ports[1:dat.nPum], pum.port_a)
+  connect(volInl.ports[1:nPum], pum.port_a)
     annotation (Line(points={{-80,40},{-80,0},{-10,0}},
                                                color={0,127,255}));
-  connect(cheVal.port_b, volOut.ports[1:dat.nPum])
+  connect(cheVal.port_b, volOut.ports[1:nPum])
     annotation (Line(points={{50,0},{80,0},{80,40}},
                                              color={0,127,255}));
-  connect(volOut.ports[dat.nPum+1], port_b)
+  connect(volOut.ports[nPum+1], port_b)
     annotation (Line(points={{80,40},{80,0},{100,0}},
                                               color={0,127,255}));
-  connect(port_a, volInl.ports[dat.nPum+1])
+  connect(port_a, volInl.ports[nPum+1])
     annotation (Line(points={{-100,0},{-80,0},{-80,40}},
                                                 color={0,127,255}));
 

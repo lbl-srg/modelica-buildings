@@ -1,6 +1,5 @@
 within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces;
 record Data "Data for primary pump groups"
-  extends Buildings.Templates.Components.Pumps.Interfaces.Data;
 
   // Structure parameters
 
@@ -10,21 +9,28 @@ record Data "Data for primary pump groups"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_chiByp "= true if chilled water loop has a chiller bypass"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nPum "Number of pumps"
+  parameter Integer nPum(final min=1) "Number of pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_dedicated=
     typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated;
 
   // Equipment characteristics
 
+  parameter Buildings.Templates.Components.Pumps.Interfaces.Data pum[nPum](
+    each final m_flow_nominal = m_flow_nominal / nPum)
+    "Pump data"
+    annotation(Dialog(group = "Pumps"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Pump group nominal flow rate"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpCHWValve_nominal=0
     "Nominal pressure drop of chiller valves on chilled water side"
-    annotation(Dialog(group = "Nominal condition", enable=not is_dedicated));
+    annotation(Dialog(group = "Valves", enable=not is_dedicated));
   parameter Modelica.Units.SI.PressureDifference dpByp_nominal=0
     "Bypass valve pressure drop"
-    annotation(Dialog(enable=have_byp));
+    annotation(Dialog(group = "Valves", enable=have_byp));
   parameter Modelica.Units.SI.PressureDifference dpChiByp_nominal=0
     "Chiller bypass valve pressure drop"
-    annotation(Dialog(enable=have_chiByp));
+    annotation(Dialog(group = "Valves", enable=have_chiByp));
 
 end Data;

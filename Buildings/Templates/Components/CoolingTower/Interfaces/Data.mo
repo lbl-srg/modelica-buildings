@@ -4,7 +4,7 @@ record Data "Data for cooling towers"
 
   // Structure parameters
 
-  constant Buildings.Templates.Components.Types.CoolingTower typ
+  parameter Buildings.Templates.Components.Types.CoolingTower typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 

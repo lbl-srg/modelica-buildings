@@ -14,6 +14,8 @@ record Data "Data for chiller groups"
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  final parameter Boolean is_series = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
+    "= true if chillers are connected in series";
 
   // Equipment characteristics
 
@@ -28,5 +30,8 @@ record Data "Data for chiller groups"
     each m2_flow_nominal = m2_flow_nominal / nChi)
     "Chiller data"
     annotation(Dialog(group = "Chiller"));
+  parameter Modelica.Units.SI.PressureDifference dpCHWValve_nominal=0
+    "Nominal pressure drop of chiller valves on chilled water side"
+    annotation(Dialog(group = "Nominal condition", enable=is_series));
 
 end Data;

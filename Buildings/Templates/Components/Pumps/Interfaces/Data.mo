@@ -4,28 +4,20 @@ record Data "Data for pumps"
 
   // Structure parameters
 
-  parameter Buildings.Templates.Components.Types.Pump typPum
+  parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nPum
-    "Number of pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean is_none=
-    typPum == Buildings.Templates.Components.Types.Pump.None;
+    typ == Buildings.Templates.Components.Types.Pump.None;
 
   // Equipment characteristics
 
-  parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal
-    "Pump group nominal mass flow rate"
-    annotation (Dialog(group="Pump"));
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    mTot_flow_nominal/nPum
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Individual pump nominal mass flow rate"
     annotation (Dialog(group="Pump"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Total pressure rise"
-    annotation (Dialog(group="Pump",
-      enable=typPum <> Buildings.Templates.Components.Types.Pump.None));
+    annotation (Dialog(group="Pump", enable=not is_none));
   replaceable parameter Fluid.Movers.Data.Generic per(
     pressure(
       V_flow = m_flow_nominal/1000 .* {0,1,2},
@@ -36,7 +28,5 @@ record Data "Data for pumps"
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal
     "Check valve pressure drop"
     annotation (Dialog(group="Valve", enable=not is_none));
-
-
 
 end Data;

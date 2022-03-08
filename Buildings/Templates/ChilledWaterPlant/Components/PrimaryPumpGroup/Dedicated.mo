@@ -4,44 +4,47 @@ model Dedicated
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
     dat(typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated),
     final nPum=nChi);
-  Fluid.FixedResistances.Junction splByp(redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=fill(mTot_flow_nominal, 3),
+
+  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
+    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+      redeclare final package Medium = Medium,
+      final nPum=nPum,
+      final have_singlePort_a=true,
+      final have_singlePort_b=false,
+      final dat=dat.pum)
+    "Primary pumps"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
+  Fluid.FixedResistances.Junction splByp(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=fill(dat.m_flow_nominal, 3),
     final dp_nominal=fill(0, 3))
-    "Bypass splitter"               annotation (Placement(transformation(
+    "Bypass splitter"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
   Buildings.Templates.Components.Valves.TwoWayModulating valByp(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mTot_flow_nominal,
+    final m_flow_nominal=dat.m_flow_nominal,
     final dpValve_nominal=dat.dpByp_nominal) if have_byp
-    "Bypass valve" annotation (
-      Placement(transformation(
+    "Bypass valve"
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,-50})));
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum(
-    final nPum=nPum,
-    final per=dat.per)
-    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
-      redeclare final package Medium = Medium,
-      final have_singlePort_a=false,
-      final have_singlePort_b=true,
-      final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=dp_nominal,
-      final dpValve_nominal=dat.dpValve_nominal)
-                     "Pumps"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VPCHW_flow(
     redeclare final package Medium = Medium,
     final have_sen=have_floSen,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=dat.m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Primary chilled water volume flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
-      package Medium = Medium) if have_comLeg annotation (Placement(
+  Buildings.Templates.BaseClasses.PassThroughFluid pas(
+    redeclare each final package Medium = Medium) if have_comLeg
+    "Common leg passthrough"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -49,7 +52,7 @@ model Dedicated
   Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
     redeclare final package Medium = Medium,
     final have_sen=have_comLegFloSen,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=dat.m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter) if have_comLeg
     "Common leg volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
@@ -57,9 +60,10 @@ model Dedicated
     redeclare final package Medium = Medium,
     final have_sen=have_TPCHWSup,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=dat.m_flow_nominal)
     "Primary chilled water supply temperature"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
 equation
   /* Control point connection - start */
   connect(valByp.bus, busCon.valByp);
