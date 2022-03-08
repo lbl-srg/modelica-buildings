@@ -2,14 +2,16 @@ within Buildings.Fluid.Movers.BaseClasses.Euler;
 function getPeak
   "Find peak condition from power characteristics"
   extends Modelica.Icons.Function;
-  input Buildings.Fluid.Movers.Data.Generic per
-    "Performance data";
+  input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
+    pressure "Pressure vs. flow rate";
+  input BaseClasses.Characteristics.powerParameters
+    power "Power vs. flow rate";
   output Buildings.Fluid.Movers.BaseClasses.Euler.peak
     peak "Operation point at maximum efficiency";
 
 protected
-  Integer n = size(per.pressure.V_flow, 1) "Number of data points";
-  Real eta[size(per.pressure.V_flow,1)] "Efficiency series";
+  Integer n = size(pressure.V_flow, 1) "Number of data points";
+  Real eta[size(pressure.V_flow,1)] "Efficiency series";
   Boolean etaLes "Efficiency series has less than four points";
   Boolean etaMon "Efficiency series is monotonic";
 
@@ -18,8 +20,8 @@ protected
   Real r[3,2] "Roots";
 algorithm
 
-  assert(max(per.power.P)>1E-6,"No valid mover curve provided");
-  eta:=per.pressure.V_flow.*per.pressure.dp./per.power.P;
+  assert(max(power.P)>1E-6,"No valid mover curve provided");
+  eta:=pressure.V_flow.*pressure.dp./power.P;
   etaLes:=n<4;
   etaMon:=Buildings.Utilities.Math.Functions.isMonotonic(
     x=eta,strict=false);
@@ -36,8 +38,8 @@ algorithm
     peak.eta:=max(eta);
     for i in 1:n loop
       if abs(eta[i]-peak.eta)<1E-6 then
-        peak.V_flow:=per.pressure.V_flow[i];
-        peak.dp:=per.pressure.dp[i];
+        peak.V_flow:=pressure.V_flow[i];
+        peak.dp:=pressure.dp[i];
       end if;
     end for;
   else
@@ -48,7 +50,7 @@ algorithm
     //   and y = eta is the response vector with length n.
     A[:,1]:=ones(n); // Avoids 0^0
     for i in 2:5 loop
-      A[:,i]:=per.pressure.V_flow[:].^(i-1);
+      A[:,i]:=pressure.V_flow[:].^(i-1);
     end for;
     b:=Modelica.Math.Matrices.leastSquares(A,eta);
 
@@ -58,19 +60,19 @@ algorithm
     r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
     for i in 1:3 loop
       if abs(r[i,2])<=1E-6 and
-        r[i,1]>per.pressure.V_flow[1] and r[i,1]<per.pressure.V_flow[end] then
+        r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[end] then
         peak.V_flow:=r[i,1];
       end if;
     end for;
     peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
       x=peak.V_flow,
-      xSup=per.pressure.V_flow,
+      xSup=pressure.V_flow,
       ySup=eta,
       ensureMonotonicity=false);
     peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
       x=peak.V_flow,
-      xSup=per.pressure.V_flow,
-      ySup=per.pressure.dp,
+      xSup=pressure.V_flow,
+      ySup=pressure.dp,
       ensureMonotonicity=false);
   end if;
 
@@ -78,8 +80,10 @@ algorithm
               Documentation(info="<html>
 <p>
 On the mover curves provided via
-<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
-Buildings.Fluid.Movers.Data.Generic</a> or equivalent,
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>,
 this function finds the peak point with the highest efficiency <i>&eta;</i>
 and the corresponding flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i>.
 The results are output as an instance of

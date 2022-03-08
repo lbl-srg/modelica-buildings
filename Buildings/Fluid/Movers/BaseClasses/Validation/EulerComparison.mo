@@ -33,7 +33,9 @@ model EulerComparison
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
     pressure=per1.pressure,
     power=per1.power,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per1))
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
+      pressure=per2.pressure,
+      power=per2.power))
     "Peak condition";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per=per2,

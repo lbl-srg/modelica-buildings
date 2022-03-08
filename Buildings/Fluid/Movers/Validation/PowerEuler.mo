@@ -12,7 +12,9 @@ model PowerEuler
             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
     final etaMotMet=
             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-    final peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(per=per))
+    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
+      pressure=per.pressure,
+      power=per.power))
     "Peak condition";
 
   annotation (
