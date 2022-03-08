@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model FanRelief
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     secOutRel(redeclare replaceable

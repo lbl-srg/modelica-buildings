@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMultiZoneOpenLoop
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     nZon=2,

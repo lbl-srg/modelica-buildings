@@ -1,4 +1,4 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject;
-package AHUs
+package AirHandlersFans "Air Handlers and Fans"
   extends Modelica.Icons.Package;
-end AHUs;
+end AirHandlersFans;

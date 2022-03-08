@@ -11,8 +11,7 @@ model BaseNoEconomizer
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  UserProject.DataTopLevel dat(
-    VAV_1(
+  UserProject.Data.TopLevel dat(VAV_1(
       id="VAV_1",
       damOut(dp_nominal=15),
       damOutMin(dp_nominal=15),
@@ -29,7 +28,7 @@ model BaseNoEconomizer
         dpValve_nominal=0.3e4,
         mWat_flow_nominal=1e4/4186/10,
         TAirEnt_nominal=273.15,
-        TWatEnt_nominal=50+273.15),
+        TWatEnt_nominal=50 + 273.15),
       coiHeaReh(
         cap_nominal=1e4,
         dpAir_nominal=100,
@@ -37,15 +36,15 @@ model BaseNoEconomizer
         dpValve_nominal=0.3e4,
         mWat_flow_nominal=1e4/4186/10,
         TAirEnt_nominal=273.15,
-        TWatEnt_nominal=50+273.15),
+        TWatEnt_nominal=50 + 273.15),
       coiCoo(
         cap_nominal=1e4,
         dpAir_nominal=100,
         dpWat_nominal=3e4,
         dpValve_nominal=2e4,
         mWat_flow_nominal=1e4/4186/5,
-        TAirEnt_nominal=30+273.15,
-        TWatEnt_nominal=7+273.15,
+        TAirEnt_nominal=30 + 273.15,
+        TWatEnt_nominal=7 + 273.15,
         wAirEnt_nominal=0.012),
       ctl(
         dVFanRet_flow=0.1,
@@ -74,8 +73,8 @@ model BaseNoEconomizer
       final buiPreCon=VAV_1.ctl.buiPreCon))
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
 
-  inner replaceable UserProject.AHUs.NoEconomizer VAV_1 constrainedby
-    Buildings.Templates.AirHandlersFans.VAVMultiZone(
+  inner replaceable UserProject.AirHandlersFans.NoEconomizer VAV_1
+    constrainedby Buildings.Templates.AirHandlersFans.VAVMultiZone(
     final dat=dat.VAV_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumCoo = MediumCoo)

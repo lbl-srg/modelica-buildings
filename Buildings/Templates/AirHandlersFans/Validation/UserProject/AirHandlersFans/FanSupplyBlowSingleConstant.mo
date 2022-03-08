@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model FanSupplyBlowSingleConstant
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.Components.Fans.None fanSupDra,

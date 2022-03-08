@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model CoilWaterBasedCooling
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare replaceable
                   Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(

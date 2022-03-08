@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model DedicatedDampersAirflow
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     secOutRel(redeclare replaceable

@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMultiZoneOpenLoop
-  extends BaseNoEconomizer(redeclare UserProject.AHUs.VAVMultiZoneOpenLoop
-      VAV_1);
+  extends BaseNoEconomizer(redeclare
+      UserProject.AirHandlersFans.VAVMultiZoneOpenLoop VAV_1);
 
   Fluid.Sources.Boundary_pT bou2(
     redeclare final package Medium = MediumHea, nPorts=1)

@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMultiZoneG36Pressure
   extends VAVMultiZoneOpenLoop(
     redeclare replaceable Components.Controls.G36VAVMultiZone

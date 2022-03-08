@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMultiZoneG36Airflow
-  extends BaseNoEconomizer(
-    redeclare UserProject.AHUs.VAVMultiZoneG36Airflow VAV_1);
+  extends BaseNoEconomizer(redeclare
+      UserProject.AirHandlersFans.VAVMultiZoneG36Airflow VAV_1);
 
   Fluid.Sources.Boundary_pT bou2(
     redeclare final package Medium = MediumHea, nPorts=1)
@@ -16,7 +16,7 @@ model VAVMultiZoneG36Airflow
   Fluid.Sources.Boundary_pT bou5(redeclare final package Medium = MediumCoo,
       nPorts=1)
     annotation (Placement(transformation(extent={{60,-90},{40,-70}})));
-  UserProject.DummyControlPointsVAVBox sigVAVBox[VAV_1.nZon]
+  UserProject.ZoneEquipment.VAVBoxControlPoints sigVAVBox[VAV_1.nZon]
     "Control signals from VAV box"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation

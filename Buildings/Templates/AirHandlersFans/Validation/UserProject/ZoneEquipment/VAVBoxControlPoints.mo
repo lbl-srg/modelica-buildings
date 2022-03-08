@@ -1,10 +1,9 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject;
-block DummyControlPointsVAVBox
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.ZoneEquipment;
+block VAVBoxControlPoints "Emulation of VAV box control points"
   extends Modelica.Blocks.Icons.Block;
 
-  ZoneEquipment.Interfaces.Bus bus "Terminal unit control bus"
-    annotation (
-      Placement(transformation(
+  .Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
+    "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={200,0}), iconTransformation(
@@ -110,4 +109,4 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),       Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-200,-180},{200,180}})));
-end DummyControlPointsVAVBox;
+end VAVBoxControlPoints;

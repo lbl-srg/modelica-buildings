@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Validation.UserProject.AHUs;
+within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMultiZoneG36Airflow
   extends VAVMultiZoneOpenLoop(redeclare replaceable
       Components.Controls.G36VAVMultiZone ctl(idZon={"Box_1","Box_1"},
