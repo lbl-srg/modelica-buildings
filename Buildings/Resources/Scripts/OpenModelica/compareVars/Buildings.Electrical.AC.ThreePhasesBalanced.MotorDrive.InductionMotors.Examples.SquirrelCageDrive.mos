@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "simMot.tau_e",
+    "simMot.tau_m",
+    "simMot.omega_r",
+    "simMot.P",
+    "simMot.Q"
+  };
