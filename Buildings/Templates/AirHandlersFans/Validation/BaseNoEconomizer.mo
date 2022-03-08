@@ -11,7 +11,7 @@ model BaseNoEconomizer
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  UserProject.Data.TopLevel dat(VAV_1(
+  UserProject.Data.AllSystems dat(VAV_1(
       id="VAV_1",
       damOut(dp_nominal=15),
       damOutMin(dp_nominal=15),
