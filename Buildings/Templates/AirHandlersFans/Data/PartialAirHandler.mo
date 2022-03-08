@@ -29,7 +29,7 @@ record PartialAirHandler
 
   parameter String id
    "System tag"
-    annotation (Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter String id_souCoiCoo=""
     "Chilled water supply system tag"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souCoiCoo));

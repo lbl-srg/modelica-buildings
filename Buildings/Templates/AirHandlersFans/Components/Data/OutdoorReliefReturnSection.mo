@@ -51,7 +51,7 @@ record OutdoorReliefReturnSection
     "Return damper"
     annotation (Dialog(group="Dampers and economizers",
     enable=typDamRet <> Buildings.Templates.Components.Types.Damper.None));
-    parameter Buildings.Templates.Components.Data.Fan fanRel(
+  parameter Buildings.Templates.Components.Data.Fan fanRel(
     final typ=typFanRel)
     "Relief fan"
     annotation (Dialog(group="Fans",

@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment;
-model VAVBoxCoolingOnly "VAV terminal unit cooling only"
+model VAVBoxCoolingOnly "VAV Terminal Unit - Cooling Only"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
     redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat(
       typCoiHea=Buildings.Templates.Components.Types.Coil.None,

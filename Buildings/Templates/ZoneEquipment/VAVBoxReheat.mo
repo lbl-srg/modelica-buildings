@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment;
-model VAVBoxReheat "VAV terminal unit with reheat"
+model VAVBoxReheat "VAV Terminal Unit with Reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
     redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat(
       typCoiHea=coiHea.typ,
