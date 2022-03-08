@@ -21,9 +21,6 @@ model FourPortHeatMassExchanger
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -79,7 +76,7 @@ model FourPortHeatMassExchanger
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
         massDynamics=if tau1 > Modelica.Constants.eps
-                         then massDynamics else
+                         then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
         final p_start=p1_start,
         final T_start=T1_start,
@@ -102,7 +99,7 @@ model FourPortHeatMassExchanger
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
         massDynamics=if tau2 > Modelica.Constants.eps
-                         then massDynamics else
+                         then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
         final p_start=p2_start,
         final T_start=T2_start,
@@ -166,11 +163,6 @@ initial equation
 "The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau1 = " + String(tau1) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau1 > Modelica.Constants.eps,
-"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau1 = " + String(tau1) + "\n");
 
  // Check for tau2
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
@@ -178,17 +170,6 @@ initial equation
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau2 > Modelica.Constants.eps,
-"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau2 = " + String(tau2) + "\n");
-
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
-
 
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -241,8 +222,7 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 <ul>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab,
-added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+Removed <code>massDynamics</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
 </li>

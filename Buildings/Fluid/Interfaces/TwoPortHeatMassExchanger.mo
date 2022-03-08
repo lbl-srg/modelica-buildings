@@ -18,9 +18,6 @@ model TwoPortHeatMassExchanger
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -47,7 +44,7 @@ model TwoPortHeatMassExchanger
     final mSenFac=1,
     final m_flow_nominal = m_flow_nominal,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    final massDynamics=energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -82,16 +79,6 @@ initial algorithm
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -150,8 +137,7 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 <ul>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab,
-added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+Removed <code>massDynamics</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
 </li>

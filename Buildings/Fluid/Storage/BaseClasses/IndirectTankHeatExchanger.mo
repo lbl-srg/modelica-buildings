@@ -9,7 +9,8 @@ model IndirectTankHeatExchanger
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-      redeclare final package Medium = MediumHex);
+    final massDynamics=energyDynamics,
+    redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium = MediumHex,
     final show_T=false);
@@ -47,9 +48,6 @@ model IndirectTankHeatExchanger
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsSolid=energyDynamics
     "Formulation of energy balance for heat exchanger solid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance for heat exchanger"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   parameter Boolean hA_flowDependent = true
@@ -299,6 +297,12 @@ equation
           </html>",
           revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 April 9, 2021, by Michael Wetter:<br/>
 Corrected placement of <code>each</code> keyword.<br/>

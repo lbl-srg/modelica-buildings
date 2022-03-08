@@ -2,6 +2,7 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics,
     final mSenFac=1);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(
@@ -153,7 +154,7 @@ equation
     end if;
     if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_3.m_flow< m_flow_small,
-      "In " + getInstanceName() + ": 
+      "In " + getInstanceName() + ":
       Flow is entering port_3 despite portFlowDirection_3=PortFlowDirection.Leaving, since m_flow=" +
       String(port_3.m_flow) + ">"+String(m_flow_small));
     end if;
@@ -247,14 +248,20 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 March 22, 2020, by Filip Jorissen:<br/>
-Corrected error message of asserts that verify whether flow reversal occurs when 
+Corrected error message of asserts that verify whether flow reversal occurs when
 <code>verifyFlowReversal=true</code> and <code>portFlowDirection&lt;&gt;Bidirectional</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1327\">#1327</a>.
 </li>
 <li>
 July 7, 2018, by Filip Jorissen:<br/>
-Added asserts that verify whether flow reversal occurs when 
+Added asserts that verify whether flow reversal occurs when
 <code>verifyFlowReversal=true</code> and <code>portFlowDirection&lt;&gt;Bidirectional</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/963\">#963</a>.
 </li>

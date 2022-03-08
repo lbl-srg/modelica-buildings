@@ -6,6 +6,33 @@ clear
 convertClear();
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1542
+convertClass("Buildings.Airflow.Multizone.MediumColumnDynamic", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Actuators.Valves.ThreeWayLinear", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Actuators.Valves.ThreeWayTable", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Movers.FlowControlled_dp", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Movers.FlowControlled_m_flow", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Movers.SpeedControlled_Nrpm", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Movers.SpeedControlled_y", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Storage.Stratified", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Storage.StratifiedEnhanced", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.HeatExchangers.EvaporatorCondenser", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.HeatExchangers.HeaterCooler_u", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Humidifiers.Humidifier_u", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXOneUTube", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXTwoUTube", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.HeatExchangers.PrescribedOutlet", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Fluid.Interfaces.PrescribedOutlet", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.ThermalZones.ReducedOrder.RC.FourElements", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.ThermalZones.ReducedOrder.RC.OneElement", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.ThermalZones.ReducedOrder.RC.ThreeElements", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.ThermalZones.ReducedOrder.RC.TwoElements", {"massDynamics"}, fill("",0), true);
+
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1542
 convertModifiers("Buildings.ThermalZones.Detailed.MixedAir", {"massDynamics"}, fill("",0), true);
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2876

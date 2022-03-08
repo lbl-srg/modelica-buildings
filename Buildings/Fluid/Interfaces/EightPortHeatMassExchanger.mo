@@ -30,9 +30,6 @@ model EightPortHeatMassExchanger
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -125,7 +122,7 @@ model EightPortHeatMassExchanger
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=if tau1 > Modelica.Constants.eps
-                         then massDynamics else
+                         then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=p1_start,
     final T_start=T1_start,
@@ -142,7 +139,7 @@ model EightPortHeatMassExchanger
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=if tau2 > Modelica.Constants.eps
-                         then massDynamics else
+                         then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=p2_start,
     final T_start=T2_start,
@@ -160,7 +157,7 @@ model EightPortHeatMassExchanger
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=if tau3 > Modelica.Constants.eps
-                         then massDynamics else
+                         then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=p3_start,
     final T_start=T3_start,
@@ -181,7 +178,7 @@ model EightPortHeatMassExchanger
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=if tau4 > Modelica.Constants.eps
-                         then massDynamics else
+                         then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=p4_start,
     final T_start=T4_start,
@@ -285,22 +282,12 @@ initial algorithm
 "The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau1 = " + String(tau1) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau1 > Modelica.Constants.eps,
-"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau1 = " + String(tau1) + "\n");
 
  // Check for tau2
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau2 > Modelica.Constants.eps,
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau2 = " + String(tau2) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau2 > Modelica.Constants.eps,
-"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
 
   // Check for tau1
@@ -309,22 +296,12 @@ initial algorithm
 "The parameter tau3, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau3 = " + String(tau3) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau3 > Modelica.Constants.eps,
-"The parameter tau3, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau3 = " + String(tau3) + "\n");
 
  // Check for tau2
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau4 > Modelica.Constants.eps,
 "The parameter tau4, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau4 = " + String(tau4) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau4 > Modelica.Constants.eps,
-"The parameter tau4, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau4 = " + String(tau4) + "\n");
 
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -333,7 +310,7 @@ initial algorithm
 
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
-      points={{2,80},{100,80}},
+      points={{1,80},{100,80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a1, preDro1.port_a) annotation (Line(
@@ -341,7 +318,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro1.port_b, vol1.ports[1]) annotation (Line(
-      points={{-60,80},{-2,80}},
+      points={{-60,80},{-1,80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a2, preDro2.port_a) annotation (Line(
@@ -353,11 +330,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro4.port_b, vol4.ports[1]) annotation (Line(
-      points={{66,-80},{-58,-80},{-58,-10}},
+      points={{66,-80},{-59,-80},{-59,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b4, vol4.ports[2]) annotation (Line(
-      points={{-100,-80},{-62,-80},{-62,-10}},
+      points={{-100,-80},{-61,-80},{-61,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a3, preDro3.port_a) annotation (Line(
@@ -365,19 +342,19 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro3.port_b, vol3.ports[1]) annotation (Line(
-      points={{-70,-32},{-54,-32},{-54,-76},{-2,-76},{-2,-70}},
+      points={{-70,-32},{-54,-32},{-54,-76},{-1,-76},{-1,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b3, vol3.ports[2]) annotation (Line(
-      points={{100,-30},{90,-30},{90,-66},{62,-66},{62,-76},{2,-76},{2,-70}},
+      points={{100,-30},{90,-30},{90,-66},{62,-66},{62,-76},{1,-76},{1,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b2, vol2.ports[1]) annotation (Line(
-      points={{-100,30},{58,30},{58,10}},
+      points={{-100,30},{59,30},{59,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro2.port_b, vol2.ports[2]) annotation (Line(
-      points={{70,30},{62,30},{62,10}},
+      points={{70,30},{61,30},{61,10}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

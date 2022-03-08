@@ -2,6 +2,7 @@ within Buildings.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics,
     final mSenFac=1);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal(final min=Modelica.Constants.small),

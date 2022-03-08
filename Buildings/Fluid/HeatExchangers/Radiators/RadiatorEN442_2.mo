@@ -8,7 +8,8 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
      final C_start = fill(0, Medium.nC),
      final C_nominal = fill(1E-2, Medium.nC),
      final mSenFac = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
-        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
+        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))),
+     final massDynamics=energyDynamics);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -51,8 +52,8 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
-     = 0 "Pressure drop at nominal mass flow rate"
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
+       0 "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -234,13 +235,13 @@ equation
       points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
       color={191,0,0}));
   connect(vol[nEle].ports[2], port_b) annotation (Line(
-      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,1.11022e-15},
-          {51.5,5.55112e-16},{100,5.55112e-16}},
+      points={{2,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
+          1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255}));
   for i in 1:nEle-1 loop
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
-        points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
-            {1,5.55112e-16},{-1,5.55112e-16}},
+        points={{2,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
+            {1,5.55112e-16},{0,5.55112e-16}},
         color={0,127,255}));
   end for;
   connect(QCon.y, preCon.Q_flow)                  annotation (Line(
@@ -270,7 +271,7 @@ equation
   connect(res.port_a, port_a) annotation (Line(points={{-60,0},{-80,0},{-100,0}},
                     color={0,127,255}));
   connect(res.port_b, vol[1].ports[1])
-    annotation (Line(points={{-40,0},{-1,0}},      color={0,127,255}));
+    annotation (Line(points={{-40,0},{0,0}},       color={0,127,255}));
   annotation ( Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
@@ -371,6 +372,12 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

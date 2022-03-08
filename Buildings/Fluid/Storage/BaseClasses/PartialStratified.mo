@@ -17,9 +17,6 @@ model PartialStratified
   parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -68,7 +65,7 @@ model PartialStratified
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each package Medium = Medium,
     each energyDynamics=energyDynamics,
-    each massDynamics=massDynamics,
+    each massDynamics=energyDynamics,
     each p_start=p_start,
     T_start=TFlu_start,
     each X_start=X_start,
@@ -207,6 +204,12 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 November 13, 2019 by Jianjun Hu:<br/>
 Added parameter <code>TFlu_start</code> and changed the initial tank segments
