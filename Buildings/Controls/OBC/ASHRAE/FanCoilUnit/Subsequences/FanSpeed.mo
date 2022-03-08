@@ -1,50 +1,135 @@
 within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences;
 block FanSpeed
+  "Fan speed setpoint subsequence"
 
-  parameter Real deaSpe = 0.1
-    "Deadband mode fan speed";
+  parameter Boolean have_coolingCoil
+    "Does the fan coil unit have a cooling coil?";
 
-  parameter Real heaSpeMin = 0.1
-    "Deadband mode fan speed";
+  parameter Boolean have_heatingCoil
+    "Does the fan coil unit have a heating coil?";
 
-  parameter Real heaPerMin
-    "Minimum heating loop signal at which fan speed";
+  parameter Real deaSpe(
+    final unit="1",
+    displayUnit="1") = 0.1
+    "Deadband mode fan speed"
+    annotation(Dialog(group="Deadband parameters"));
+
+  parameter Real heaSpeMin(
+    final unit="1",
+    displayUnit="1") = 0.1
+    "Minimum heating mode fan speed"
+    annotation(Dialog(group="Heating loop parameters",
+      enable = have_heatingCoil));
+
+  parameter Real heaPerMin(
+    final unit="1",
+    displayUnit="1") = 0.5
+    "Minimum heating loop signal at which fan speed is modified"
+    annotation(Dialog(group="Heating loop parameters",
+      enable = have_heatingCoil));
+
+  parameter Real heaSpeMax(
+    final unit="1",
+    displayUnit="1") = 0.6
+    "Maximum heating mode fan speed"
+    annotation(Dialog(group="Heating loop parameters",
+      enable = have_heatingCoil));
+
+  parameter Real heaPerMax(
+    final unit="1",
+    displayUnit="1") = 1
+    "Maximum heating loop signal at which fan speed is modified"
+    annotation(Dialog(group="Heating loop parameters",
+      enable = have_heatingCoil));
+
+  parameter Real cooSpeMin(
+    final unit="1",
+    displayUnit="1") = 0.2
+    "Minimum cooling mode fan speed"
+    annotation(Dialog(group="Cooling loop parameters",
+      enable = have_coolingCoil));
+
+  parameter Real cooPerMin(
+    final unit="1",
+    displayUnit="1") = 0.5
+    "Minimum cooling loop signal at which fan speed is modified"
+    annotation(Dialog(group="Cooling loop parameters",
+      enable = have_coolingCoil));
+
+  parameter Real cooSpeMax(
+    final unit="1",
+    displayUnit="1") = 1
+    "Maximum cooling mode fan speed"
+    annotation(Dialog(group="Cooling loop parameters",
+      enable = have_coolingCoil));
+
+  parameter Real cooPerMax(
+    final unit="1",
+    displayUnit="1") = 1
+    "Maximum cooling loop signal at which fan speed is modified"
+    annotation(Dialog(group="Cooling loop parameters",
+      enable = have_coolingCoil));
+
+  parameter Real heaDea(
+    final unit="1",
+    displayUnit="1") = 0.05
+    "Heating loop signal limit at which deadband mode transitions to heating mode"
+    annotation(Dialog(group="Transition parameters",
+      enable = have_heatingCoil));
+
+  parameter Real cooDea(
+    final unit="1",
+    displayUnit="1") = 0.05
+    "Cooling loop signal limit at which deadband mode transitions to cooling mode"
+    annotation(Dialog(group="Transition parameters",
+      enable = have_coolingCoil));
+
+  parameter Real deaHysLim(
+    final unit="1",
+    displayUnit="1") = 0.01
+    "Hysteresis limits for deadband mode transitions"
+    annotation(Dialog(tab="Advanced"));
 
   CDL.Interfaces.BooleanInput uFanPro "Fan proven on signal"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   CDL.Interfaces.IntegerInput opeMod "System operating mode"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   CDL.Interfaces.BooleanOutput yFan "Fan enable signal"
-    annotation (Placement(transformation(extent={{120,20},{160,60}})));
+    annotation (Placement(transformation(extent={{120,20},{160,60}}),
+        iconTransformation(extent={{100,0},{140,40}})));
   CDL.Integers.Equal intEqu "Check if zone is unoccupied"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant unoccupied mode signal"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Logical.Not not1 "Enable only if zone is not in unoccupied mode"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   CDL.Continuous.Switch swi
+    "Switch fan speed to maximum until the fan is proven ON"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   CDL.Conversions.BooleanToReal booToRea "Convert fan enable signal to Real"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
-  CDL.Interfaces.RealInput uHea "Heating loop signal"
+  CDL.Interfaces.RealInput uHea if have_heatingCoil
+                                "Heating loop signal"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
-  CDL.Interfaces.RealInput uCoo "Cooling loop signal"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
+  CDL.Interfaces.RealInput uCoo if have_coolingCoil
+                                "Cooling loop signal"
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   CDL.Continuous.Line lin "Heating fan speed signal"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   CDL.Continuous.Sources.Constant con[2](k={heaPerMin,heaPerMax})
     "Heating loop signal support points"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   CDL.Continuous.Sources.Constant con1[2](k={heaSpeMin,heaSpeMax})
-    "Heating fan speed signals"
+    "Heating fan speed limit signals"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  CDL.Continuous.Sources.Constant con2[2](k={minCooSpe,maxCooSpe})
-    "Cooling fan speed signals"
+  CDL.Continuous.Sources.Constant con2[2](k={cooSpeMin,cooSpeMax})
+    "Cooling fan speed limit signals"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   CDL.Continuous.Line lin1 "Cooling fan speed signal"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
-  CDL.Continuous.Sources.Constant con3[2](k={cooLooPerMin,cooLooPerMax})
+  CDL.Continuous.Sources.Constant con3[2](k={cooPerMin,cooPerMax})
     "Cooling loop signal support points"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Continuous.Sources.Constant con4(k=deaSpe)
@@ -65,19 +150,26 @@ block FanSpeed
   CDL.Continuous.Multiply mul "Multiply fan speed signal by fan enable signal"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   CDL.Interfaces.RealOutput yFanSpe "Fan speed signal"
-    annotation (Placement(transformation(extent={{120,-20},{160,20}})));
+    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+  CDL.Continuous.Sources.Constant con6(k=0) if not have_heatingCoil
+    "Constant zero signal"
+    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
+  CDL.Continuous.Sources.Constant con8(k=0) if not have_coolingCoil
+    "Constant zero signal"
+    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 equation
-  connect(conInt.y, intEqu.u2) annotation (Line(points={{-58,40},{-50,40},{-50,
-          52},{-42,52}}, color={255,127,0}));
+  connect(conInt.y, intEqu.u2) annotation (Line(points={{-58,60},{-50,60},{-50,
+          72},{-42,72}}, color={255,127,0}));
   connect(opeMod, intEqu.u1)
-    annotation (Line(points={{-120,60},{-42,60}}, color={255,127,0}));
+    annotation (Line(points={{-120,80},{-42,80}}, color={255,127,0}));
   connect(intEqu.y, not1.u)
-    annotation (Line(points={{-18,60},{-12,60}}, color={255,0,255}));
-  connect(not1.y, yFan) annotation (Line(points={{12,60},{20,60},{20,40},{140,
+    annotation (Line(points={{-18,80},{-12,80}}, color={255,0,255}));
+  connect(not1.y, yFan) annotation (Line(points={{12,80},{40,80},{40,40},{140,
           40}}, color={255,0,255}));
-  connect(uFanPro, swi.u2) annotation (Line(points={{-120,20},{10,20},{10,0},{
+  connect(uFanPro, swi.u2) annotation (Line(points={{-120,40},{30,40},{30,0},{
           78,0}}, color={255,0,255}));
-  connect(not1.y, booToRea.u) annotation (Line(points={{12,60},{20,60},{20,-20},
+  connect(not1.y, booToRea.u) annotation (Line(points={{12,80},{40,80},{40,-20},
           {48,-20}}, color={255,0,255}));
   connect(booToRea.y, swi.u3) annotation (Line(points={{72,-20},{74,-20},{74,-8},
           {78,-8}}, color={0,0,127}));
@@ -111,8 +203,8 @@ equation
           28,-52}}, color={0,0,127}));
   connect(hys1.y, swi2.u2) annotation (Line(points={{22,-80},{26,-80},{26,-100},
           {58,-100}}, color={255,0,255}));
-  connect(uCoo, hys1.u) annotation (Line(points={{-120,-100},{-44,-100},{-44,
-          -84},{-20,-84},{-20,-80},{-2,-80}}, color={0,0,127}));
+  connect(uCoo, hys1.u) annotation (Line(points={{-120,-100},{-44,-100},{-44,-84},
+          {-20,-84},{-20,-80},{-2,-80}},      color={0,0,127}));
   connect(lin1.y, swi2.u1) annotation (Line(points={{-8,-100},{20,-100},{20,-92},
           {58,-92}}, color={0,0,127}));
   connect(swi1.y, swi2.u3) annotation (Line(points={{52,-60},{54,-60},{54,-108},
@@ -125,7 +217,27 @@ equation
           {74,20},{74,8},{78,8}}, color={0,0,127}));
   connect(swi.y, yFanSpe)
     annotation (Line(points={{102,0},{140,0}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -140},{120,100}})), Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-140},{120,100}})));
+  connect(con6.y, lin.u) annotation (Line(points={{-28,20},{-20,20},{-20,4},{
+          -44,4},{-44,-20},{-32,-20}}, color={0,0,127}));
+  connect(con8.y, lin1.u) annotation (Line(points={{-18,-130},{-10,-130},{-10,
+          -114},{-44,-114},{-44,-100},{-32,-100}}, color={0,0,127}));
+  connect(con6.y, hys.u) annotation (Line(points={{-28,20},{-20,20},{-20,4},{
+          -44,4},{-44,-40},{-2,-40}}, color={0,0,127}));
+  connect(con8.y, hys1.u) annotation (Line(points={{-18,-130},{-10,-130},{-10,
+          -114},{-44,-114},{-44,-84},{-20,-84},{-20,-80},{-2,-80}}, color={0,0,
+          127}));
+  annotation (defaultComponentName="fanSpe",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-100,140},{100,100}},
+          textColor={0,0,255},
+          textString="%name")}),
+     Diagram(coordinateSystem(preserveAspectRatio=false,
+       extent={{-100,-140},{120,100}})));
 end FanSpeed;
