@@ -2,23 +2,24 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>7. Glossary &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,9 +29,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -160,10 +161,10 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="glossary">
-<h1>7. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+  <section id="glossary">
+<h1><span class="section-number">7. </span>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
 <dl class="glossary">
-<dt id="term-2nd-order-low-pass-filter">2nd order low pass filter</dt><dd><p>A second order low pass filter is an input-output block that computes</p>
+<dt id="term-2nd-order-low-pass-filter">2nd order low pass filter<a class="headerlink" href="#term-2nd-order-low-pass-filter" title="Permalink to this term">¶</a></dt><dd><p>A second order low pass filter is an input-output block that computes</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\dot x(t) = \begin{pmatrix} r &amp; 0 \\ -r &amp; r \end{pmatrix} \, x(t) + \begin{pmatrix} -r \\ 0 \end{pmatrix} \, u(t)\end{split}\]</div>
 <p>and</p>
@@ -174,34 +175,34 @@ This causes the input signal <span class="math notranslate nohighlight">\(u(\cdo
 an output signal <span class="math notranslate nohighlight">\(y(\cdot)\)</span> that is differentiable in time.
 See the <a class="reference internal" href="performance.html#figurefilteredresponse"><span class="std std-ref">plot of a filtered step response</span></a>.</p>
 </dd>
-<dt id="term-compressible-flow">compressible flow</dt><dd><p>The opposite of <a class="reference internal" href="#term-incompressible-flow"><span class="xref std std-term">incompressible flow</span></a>.</p>
+<dt id="term-compressible-flow">compressible flow<a class="headerlink" href="#term-compressible-flow" title="Permalink to this term">¶</a></dt><dd><p>The opposite of <a class="reference internal" href="#term-incompressible-flow"><span class="xref std std-term">incompressible flow</span></a>.</p>
 </dd>
-<dt id="term-incompressible-flow">incompressible flow</dt><dd><p>In fluid mechanics, incompressible flow refers to flow where the mass
+<dt id="term-incompressible-flow">incompressible flow<a class="headerlink" href="#term-incompressible-flow" title="Permalink to this term">¶</a></dt><dd><p>In fluid mechanics, incompressible flow refers to flow where the mass
 density is constant within a fluid volume that moves with the fluid.</p>
 </dd>
-<dt id="term-iterative-solver">iterative solver</dt><dd><p>An iterative solver is a numerical solver that iterates until
+<dt id="term-iterative-solver">iterative solver<a class="headerlink" href="#term-iterative-solver" title="Permalink to this term">¶</a></dt><dd><p>An iterative solver is a numerical solver that iterates until
 the approximate solution satisfies a convergence test.
 Examples include Newton solvers for nonlinear systems of equations,
 and ordinary differential equation solvers with adaptive time step
 length.</p>
 </dd>
-<dt id="term-numerical-noise">numerical noise</dt><dd><p>In numerical solutions, numerical noise refers to fast but small
+<dt id="term-numerical-noise">numerical noise<a class="headerlink" href="#term-numerical-noise" title="Permalink to this term">¶</a></dt><dd><p>In numerical solutions, numerical noise refers to fast but small
 changes in variables whose magnitude is typically smaller than
 the solver tolerance.</p>
 </dd>
-<dt id="term-regularization">regularization</dt><dd><p>By regularization, we mean approximating a non-differentiable function by another function that is differentiable and has continuous and bounded derivatives, i.e., a function that is continuously differentiable. Continuous differentiability is a necessary condition for Newton-based solvers to solve nonlinear equations.</p>
+<dt id="term-regularization">regularization<a class="headerlink" href="#term-regularization" title="Permalink to this term">¶</a></dt><dd><p>By regularization, we mean approximating a non-differentiable function by another function that is differentiable and has continuous and bounded derivatives, i.e., a function that is continuously differentiable. Continuous differentiability is a necessary condition for Newton-based solvers to solve nonlinear equations.</p>
 </dd>
-<dt id="term-state-variables">state variables</dt><dd><p>State variables are variables whose time rate of change is defined by a differential equation.</p>
+<dt id="term-state-variables">state variables<a class="headerlink" href="#term-state-variables" title="Permalink to this term">¶</a></dt><dd><p>State variables are variables whose time rate of change is defined by a differential equation.</p>
 </dd>
-<dt id="term-thermo-fluid-system">thermo-fluid system</dt><dd><p>Thermo-fluid systems are systems that compute combined mass and energy flow, such as a heat exchanger in which heat is added to the medium that flows through it.</p>
+<dt id="term-thermo-fluid-system">thermo-fluid system<a class="headerlink" href="#term-thermo-fluid-system" title="Permalink to this term">¶</a></dt><dd><p>Thermo-fluid systems are systems that compute combined mass and energy flow, such as a heat exchanger in which heat is added to the medium that flows through it.</p>
 </dd>
-<dt id="term-valve-authority">valve authority</dt><dd><p>For a control valve, the valve authority <span class="math notranslate nohighlight">\(N\)</span> is defined as</p>
+<dt id="term-valve-authority">valve authority<a class="headerlink" href="#term-valve-authority" title="Permalink to this term">¶</a></dt><dd><p>For a control valve, the valve authority <span class="math notranslate nohighlight">\(N\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
 \[N = \frac{\Delta p_v(1)}{\Delta p_v(1) + \Delta p_0},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\Delta p_v(1)\)</span> is the pressure drop across the fully open valve, and <span class="math notranslate nohighlight">\(\Delta p_v(1) + \Delta p_0\)</span> is the pressure drop across the whole flow leg whose mass flow rate is controlled by the valve. Valves should be designed such that <span class="math notranslate nohighlight">\(N\)</span> is around 0.5, but not higher.</p>
 </dd>
 </dl>
-</div>
+</section>
 
 
     </div>
@@ -220,7 +221,7 @@ the solver tolerance.</p>
     </p>
     <p>
         &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>

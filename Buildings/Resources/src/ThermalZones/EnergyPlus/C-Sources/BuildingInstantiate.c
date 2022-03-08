@@ -339,14 +339,14 @@ char* returnSpawnExecutable(FMUBuilding* bui, const char* path, const char* spaw
   else{
     found = false;
     if (bui->logLevel >= MEDIUM){
-      SpawnFormatMessage("%.3f %s: File '%s' does not exists: '%s.",
+      SpawnFormatMessage("%.3f %s: File '%s' does not exists: '%s'.\n",
         bui->time, bui->modelicaNameBuilding, spawnFullPath, strerror(errno));
     }
   }
   /* Make sure the file is executable */
   /* Windows has no mode X_OK = 1, see https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/access-waccess?view=vs-2019 */
 #ifndef _WIN32
-  if( !(found && access(spawnFullPath, X_OK ) == 0) ) {
+  if( found && (! access(spawnFullPath, X_OK ) == 0) ) {
     found = false;
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.3f %s: File '%s' exists, but fails to have executable flag set: '%s.",
@@ -906,7 +906,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
         spawnFullPath = findSpawnExe(bui, env, bui->spawnExe);
     }
     if (spawnFullPath == NULL){
-      SpawnFormatError("%s", "Failed to find spawn executable '%s' in Buildings Library installation, on SPAWNPATH and on PATH.");
+      SpawnFormatError("%s", "Failed to find spawn executable in Buildings Library installation, on SPAWNPATH and on PATH.");
     }
     terminateIfSpacesInInstallation(bui);
     /* Generate FMU using spawnFullPath */

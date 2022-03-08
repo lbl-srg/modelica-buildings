@@ -8,10 +8,10 @@ model WindPressureLowRise "Test model for wind pressure function"
   Real Cp "Wind pressure coefficient";
 equation
   incAng=time*2*Modelica.Constants.pi;
-  Cp = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
+  Cp =Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
     Cp0=Cp0,
     G=G,
-    incAng=incAng);
+    alpha=incAng);
   annotation (
 experiment(StartTime=-2, Tolerance=1e-6, StopTime=2),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos"
