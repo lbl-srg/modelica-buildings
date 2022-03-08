@@ -108,7 +108,7 @@ equation
   connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{34,6},{
           34,50},{40,50}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://MotorDrive/Resources/Scripts/Dymola/Coupled/Examples/Chiller.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/MotorDrive/Coupled/Examples/Chiller.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>Example that simulates a motor coupled chiller to track the set point signal as the evaporator entering temperate changes.</p>

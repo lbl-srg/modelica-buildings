@@ -35,7 +35,7 @@ equation
   connect(torSou.flange, Pum.shaft)
     annotation (Line(points={{-60,70},{0,70},{0,10}}, color={0,0,0}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://MotorDrive/Resources/Scripts/Dymola/ThermoFluid/Examples/Pump.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/MotorDrive/ThermoFluid/Examples/Pump.mos"
         "Simulate and plot"),
         Documentation(info="<html>
 <p>Example that simulates a pump using the torque as input signal.</p>

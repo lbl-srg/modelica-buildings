@@ -103,7 +103,7 @@ equation
   connect(senTem.port_b, sin1.ports[1]) annotation (Line(points={{46,40},{54,40},
           {54,70},{60,70}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://MotorDrive/Resources/Scripts/Dymola/Coupled/Examples/HeatPump.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/MotorDrive/Coupled/Examples/HeatPump.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>Example that simulates a motor coupled heat pump to track the set point signal as the condenser entering temperate changes. </p>

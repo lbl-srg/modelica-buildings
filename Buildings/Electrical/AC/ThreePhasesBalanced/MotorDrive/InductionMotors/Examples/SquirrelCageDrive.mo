@@ -33,7 +33,7 @@ connect(tau_m.y, simMot.tau_m) annotation (Line(points={{-79,50},{-40,50},{
 connect(mea.y, simMot.mea) annotation (Line(points={{-79,30},{-20,30},{-20,
         4},{-12,4}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://MotorDrive/Resources/Scripts/Dymola/InductionMotors/Examples/SquirrelCageDrive.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/MotorDrive/InductionMotors/Examples/SquirrelCageDrive.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>Example that simulates a induction motor where the set point is ramped up at 500 seconds. </p>
