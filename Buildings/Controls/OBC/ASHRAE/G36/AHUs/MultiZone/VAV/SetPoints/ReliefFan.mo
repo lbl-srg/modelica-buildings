@@ -29,33 +29,37 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan[nSupFan]
     "AHU supply fan proven on status"
     annotation (Placement(transformation(extent={{-520,310},{-480,350}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-520,210},{-480,250}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uRelFanAla[nRelFan]
+    "Relief fan current alarm index"
+    annotation (Placement(transformation(extent={{-520,30},{-480,70}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRelFan[nRelFan]
     "Relief fan proven on status"
-    annotation (Placement(transformation(extent={{-520,-180},{-480,-140}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-520,-210},{-480,-170}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
-    annotation (Placement(transformation(extent={{480,300},{520,340}}),
+    annotation (Placement(transformation(extent={{540,300},{580,340}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe[nRelFan](
     final unit=fill("1", nRelFan),
     final max=fill(1,nRelFan)) "Relief fan speed setpoint"
-    annotation (Placement(transformation(extent={{480,190},{520,230}}),
+    annotation (Placement(transformation(extent={{540,190},{580,230}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam[nRelFan](
     final unit=fill("1",nRelFan),
     final min=fill(0,nRelFan),
     final max=fill(1,nRelFan)) "Damper position setpoint"
-    annotation (Placement(transformation(extent={{480,40},{520,80}}),
+    annotation (Placement(transformation(extent={{540,40},{580,80}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain enaRel(
@@ -72,13 +76,14 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
     "Average building static pressure measurement"
-    annotation (Placement(transformation(extent={{-420,220},{-400,240}})));
+    annotation (Placement(transformation(extent={{-460,220},{-440,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Normalized the control error"
-    annotation (Placement(transformation(extent={{-360,200},{-340,220}})));
+    annotation (Placement(transformation(extent={{-360,180},{-340,200}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final k=k)
+    final k=k,
+    final reverseActing=false)
     "Building static pressure controller"
     annotation (Placement(transformation(extent={{-340,250},{-320,270}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr enaRelGro(
@@ -90,7 +95,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{-420,280},{-400,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Set controller output to zero when the relief system is disabled"
-    annotation (Placement(transformation(extent={{120,274},{140,294}})));
+    annotation (Placement(transformation(extent={{180,274},{200,294}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=0.05,
     final h=hys)
@@ -113,29 +118,27 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nRelFan)
     "Boolean replicator"
-    annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
+    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1[nRelFan](
     final t=fill(0.5, nRelFan))
     "Check if a relief fan should be enabled"
-    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDam[nRelFan]
     "Enable damper"
-    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
     final t=minSpe + 0.15,
     final h=hys)
     "Check if the controller output is greater than minimum speed plus threshold"
-    annotation (Placement(transformation(extent={{-280,-100},{-260,-80}})));
+    annotation (Placement(transformation(extent={{-280,-130},{-260,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Timer upTim(
     final t=420)
     "Check if the controller output has been greater than threshold for sufficient long time"
-    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre(final pre_u_start=true)
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre(
+    final pre_u_start=true)
     "Break algebraic loop"
-    annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Output rising edge when input becomes true"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nRelFan]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-420,-36},{-400,-16}})));
@@ -145,17 +148,16 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nRelFan]
     "List of standby fans, along with their staging order"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
-    final nin=nRelFan)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nRelFan)
     "Identify current order of staging"
-    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nRelFan)
     "Replicate real number"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[nRelFan]
     "Identify next operating fan"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1[nRelFan](
     final t=fill(0.5, nRelFan))
     "Check if the input is less than threshold"
@@ -169,133 +171,132 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1[nRelFan]
     "Find absolute value"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2[nRelFan](
     final t=fill(0.5, nRelFan))
     "Identify next operating fan"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2[nRelFan]
     "Targeted vector of operating relief fan after one new fan being turned on"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Stage up next relief fan"
-    annotation (Placement(transformation(extent={{220,-100},{240,-80}})));
+    annotation (Placement(transformation(extent={{280,-100},{300,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
     final t=minSpe,
     final h=hys)
     "Check if the controller output is less than minimum speed"
-    annotation (Placement(transformation(extent={{-280,-320},{-260,-300}})));
+    annotation (Placement(transformation(extent={{-280,-350},{-260,-330}})));
   Buildings.Controls.OBC.CDL.Logical.Timer dowTim(
     final t=300)
     "Check if the controller output has been less than threshold for sufficient long time"
-    annotation (Placement(transformation(extent={{-180,-320},{-160,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1(final pre_u_start=true)
+    annotation (Placement(transformation(extent={{-180,-350},{-160,-330}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1(
+    final pre_u_start=true)
     "Break algebraic loop"
-    annotation (Placement(transformation(extent={{-20,-330},{0,-310}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
+    annotation (Placement(transformation(extent={{40,-358},{60,-338}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[nRelFan]
     "List of operating fans, along with their staging order"
-    annotation (Placement(transformation(extent={{-280,-210},{-260,-190}})));
+    annotation (Placement(transformation(extent={{-280,-240},{-260,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1[nRelFan](
     final p=fill(nRelFan + 1, nRelFan))
     "Add value to the input"
-    annotation (Placement(transformation(extent={{-220,-210},{-200,-190}})));
+    annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr4[nRelFan](
     final t=fill(0.5, nRelFan))
     "Check if the input is less than threshold"
-    annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
+    annotation (Placement(transformation(extent={{-220,-270},{-200,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nRelFan]
     "Switch input values"
-    annotation (Placement(transformation(extent={{-180,-240},{-160,-220}})));
+    annotation (Placement(transformation(extent={{-180,-270},{-160,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin1(
     final nin=nRelFan)
-    annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
+    annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub3[nRelFan]
     "Identify next operating fan"
-    annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
+    annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs2[nRelFan]
     "Find absolute value"
-    annotation (Placement(transformation(extent={{-20,-210},{0,-190}})));
+    annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr5[nRelFan](
     final t=fill(0.5, nRelFan))
     "Identify next fan to be off"
-    annotation (Placement(transformation(extent={{20,-210},{40,-190}})));
+    annotation (Placement(transformation(extent={{80,-240},{100,-220}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nRelFan)
     "Replicate real number"
-    annotation (Placement(transformation(extent={{-100,-240},{-80,-220}})));
+    annotation (Placement(transformation(extent={{-40,-270},{-20,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Xor xor[nRelFan]
     "Vector of relief fan after one fan being turned off"
-    annotation (Placement(transformation(extent={{60,-210},{80,-190}})));
+    annotation (Placement(transformation(extent={{120,-240},{140,-220}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nRelFan]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nRelFan]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nRelFan]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{100,-248},{120,-228}})));
+    annotation (Placement(transformation(extent={{160,-278},{180,-258}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nRelFan]
     "Check if newly started fan has become proven on"
-    annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
+    annotation (Placement(transformation(extent={{200,-50},{220,-30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     final nin=nRelFan)
     "Check if newly started fan has become proven on"
-    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
+    annotation (Placement(transformation(extent={{240,-50},{260,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nRelFan]
     "Check if newly turned off fan has become off"
-    annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
+    annotation (Placement(transformation(extent={{200,-270},{220,-250}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd2(
     final nin=nRelFan)
     "Check if newly turned off fan has become off"
-    annotation (Placement(transformation(extent={{180,-240},{200,-220}})));
+    annotation (Placement(transformation(extent={{240,-270},{260,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Stage down lag fan"
-    annotation (Placement(transformation(extent={{220,-280},{240,-260}})));
+    annotation (Placement(transformation(extent={{280,-310},{300,-290}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nRelFan]
     "Vector of relief fan status after staging up"
-    annotation (Placement(transformation(extent={{340,-100},{360,-80}})));
+    annotation (Placement(transformation(extent={{400,-100},{420,-80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nRelFan)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{260,-100},{280,-80}})));
+    annotation (Placement(transformation(extent={{320,-100},{340,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nRelFan]
     "Vector of relief fan status after staging down"
-    annotation (Placement(transformation(extent={{300,-280},{320,-260}})));
+    annotation (Placement(transformation(extent={{360,-310},{380,-290}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nRelFan)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{260,-280},{280,-260}})));
+    annotation (Placement(transformation(extent={{320,-310},{340,-290}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3[nRelFan]
     "Convert boolean to real"
-    annotation (Placement(transformation(extent={{380,-100},{400,-80}})));
+    annotation (Placement(transformation(extent={{440,-100},{460,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=1,
     final uMin=minSpe)
     "Limit the controller output"
-    annotation (Placement(transformation(extent={{60,250},{80,270}})));
+    annotation (Placement(transformation(extent={{120,250},{140,270}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
     final nout=nRelFan)
     "Replicate real input"
-    annotation (Placement(transformation(extent={{380,206},{400,226}})));
+    annotation (Placement(transformation(extent={{440,206},{460,226}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro3[nRelFan]
     "Relief fan speed"
-    annotation (Placement(transformation(extent={{440,200},{460,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1
-    annotation (Placement(transformation(extent={{280,50},{300,70}})));
+    annotation (Placement(transformation(extent={{500,200},{520,220}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1 "Check if it is staging process"
+    annotation (Placement(transformation(extent={{340,110},{360,130}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
     final nout=nRelFan)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{320,50},{340,70}})));
+    annotation (Placement(transformation(extent={{380,110},{400,130}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nRelFan]
     "Vector of relief fan status after staging up"
-    annotation (Placement(transformation(extent={{380,50},{400,70}})));
+    annotation (Placement(transformation(extent={{440,110},{460,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
     final k=dpBuiSet)
     "Building pressure setpoint"
-    annotation (Placement(transformation(extent={{-420,170},{-400,190}})));
+    annotation (Placement(transformation(extent={{-420,150},{-400,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
     final k=1)
     "Constant one"
@@ -303,30 +304,73 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0)
     "Zero fan speed when it is in stage 0"
-    annotation (Placement(transformation(extent={{160,180},{180,200}})));
+    annotation (Placement(transformation(extent={{220,180},{240,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Switch input values"
-    annotation (Placement(transformation(extent={{340,206},{360,226}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nRelFan)
-    "Check if there is any relief fan is proven on"
-    annotation (Placement(transformation(extent={{60,206},{80,226}})));
+    annotation (Placement(transformation(extent={{400,206},{420,226}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nRelFan)
+    "Check if there is any relief fan enabled, but may not be running"
+    annotation (Placement(transformation(extent={{120,206},{140,226}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4[nRelFan]
     "Convert boolean to real"
-    annotation (Placement(transformation(extent={{440,50},{460,70}})));
+    annotation (Placement(transformation(extent={{500,110},{520,130}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
-    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Start timer, and reset to zero if the threshold time has passed"
-    annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
+    annotation (Placement(transformation(extent={{-220,-130},{-200,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Start timer, and reset to zero if the threshold time has passed"
-    annotation (Placement(transformation(extent={{-220,-320},{-200,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    "Logical not"
-    annotation (Placement(transformation(extent={{-60,-330},{-40,-310}})));
+    annotation (Placement(transformation(extent={{-220,-350},{-200,-330}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{0,-358},{20,-338}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nRelFan]
+    "Check if the relief fan is in level 2 alarm"
+    annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nRelFan](
+    final k=fill(2, nRelFan))
+    "Constant"
+    annotation (Placement(transformation(extent={{-420,10},{-400,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not3[nRelFan] "Logical not"
+    annotation (Placement(transformation(extent={{-420,-90},{-400,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4[nRelFan]
+    "Check if the relief fan is in level 2 alarm and it is proven off"
+    annotation (Placement(transformation(extent={{-280,40},{-260,60}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea5[nRelFan](
+    final realTrue=fill(0, nRelFan),
+    final realFalse=fill(1, nRelFan))
+    "Convert boolean to real"
+    annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nRelFan]
+    "Product of inputs"
+    annotation (Placement(transformation(extent={{500,50},{520,70}})));
 
+  CDL.Continuous.GreaterThreshold                     greThr3[nRelFan](final t=
+        fill(0.5, nRelFan)) "Check if the relief fan is enabled"
+    annotation (Placement(transformation(extent={{0,206},{20,226}})));
+  CDL.Logical.MultiAnd                        mulAnd1(nin=nRelFan)
+    "Check if all the fans are not proven on"
+    annotation (Placement(transformation(extent={{-280,-90},{-260,-70}})));
+  CDL.Continuous.Switch                        swi3
+                                                  [nRelFan]
+    "Switch input values"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+  CDL.Routing.BooleanScalarReplicator                        booRep4(final nout
+      =nRelFan)
+    "Replicate boolean input"
+    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
+  CDL.Logical.And                        and5
+    "Start timer, and reset to zero if the threshold time has passed"
+    annotation (Placement(transformation(extent={{340,-210},{360,-190}})));
+  CDL.Logical.Not not4 "Not all the fans are proven off"
+    annotation (Placement(transformation(extent={{160,-210},{180,-190}})));
+  CDL.Logical.Switch                        logSwi3[nRelFan]
+    "Vector of relief fan status after staging down"
+    annotation (Placement(transformation(extent={{400,-190},{420,-170}})));
+  CDL.Logical.TrueDelay truDel[nRelFan](delayTime=fill(2, nRelFan))
+    "Delay true input"
+    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
 equation
   connect(uSupFan, booToRea.u)
     annotation (Line(points={{-500,330},{-462,330}}, color={255,0,255}));
@@ -335,18 +379,18 @@ equation
   connect(enaRel.y, gai.u)
     annotation (Line(points={{-398,330},{-382,330}}, color={0,0,127}));
   connect(dpBui, movMea.u)
-    annotation (Line(points={{-500,230},{-422,230}}, color={0,0,127}));
+    annotation (Line(points={{-500,230},{-462,230}}, color={0,0,127}));
   connect(conOne.y, conP.u_s)
     annotation (Line(points={{-358,260},{-342,260}}, color={0,0,127}));
-  connect(movMea.y, div1.u1) annotation (Line(points={{-398,230},{-380,230},{-380,
-          216},{-362,216}}, color={0,0,127}));
-  connect(dpBuiSetPoi.y, div1.u2) annotation (Line(points={{-398,180},{-380,180},
-          {-380,204},{-362,204}}, color={0,0,127}));
-  connect(div1.y, conP.u_m) annotation (Line(points={{-338,210},{-330,210},{-330,
+  connect(movMea.y, div1.u1) annotation (Line(points={{-438,230},{-380,230},{-380,
+          196},{-362,196}}, color={0,0,127}));
+  connect(dpBuiSetPoi.y, div1.u2) annotation (Line(points={{-398,160},{-380,160},
+          {-380,184},{-362,184}}, color={0,0,127}));
+  connect(div1.y, conP.u_m) annotation (Line(points={{-338,190},{-330,190},{-330,
           248}}, color={0,0,127}));
   connect(uSupFan, enaRelGro.u) annotation (Line(points={{-500,330},{-470,330},{
           -470,290},{-462,290}}, color={255,0,255}));
-  connect(booToRea1.y, pro.u1) annotation (Line(points={{-398,290},{118,290}},
+  connect(booToRea1.y, pro.u1) annotation (Line(points={{-398,290},{178,290}},
                            color={0,0,127}));
   connect(enaRelGro.y, booToRea1.u)
     annotation (Line(points={{-438,290},{-422,290}}, color={255,0,255}));
@@ -365,14 +409,16 @@ equation
   connect(tim.passed, lat.clr) annotation (Line(points={{-198,82},{-190,82},{-190,
           124},{-182,124}}, color={255,0,255}));
   connect(lat.y, booRep.u)
-    annotation (Line(points={{-158,130},{-142,130}}, color={255,0,255}));
-  connect(gai.y, greThr1.u) annotation (Line(points={{-358,330},{-150,330},{-150,
-          160},{-142,160}}, color={0,0,127}));
+    annotation (Line(points={{-158,130},{-122,130}}, color={255,0,255}));
+  connect(gai.y, greThr1.u) annotation (Line(points={{-358,330},{-140,330},{
+          -140,160},{-122,160}},
+                            color={0,0,127}));
   connect(greThr1.y, enaDam.u1)
-    annotation (Line(points={{-118,160},{-102,160}}, color={255,0,255}));
-  connect(booRep.y, enaDam.u2) annotation (Line(points={{-118,130},{-110,130},{-110,
-          152},{-102,152}},color={255,0,255}));
-  connect(uRelFan, booToRea2.u) annotation (Line(points={{-500,-160},{-440,-160},
+    annotation (Line(points={{-98,160},{-42,160}},   color={255,0,255}));
+  connect(booRep.y, enaDam.u2) annotation (Line(points={{-98,130},{-70,130},{
+          -70,152},{-42,152}},
+                           color={255,0,255}));
+  connect(uRelFan, booToRea2.u) annotation (Line(points={{-500,-190},{-440,-190},
           {-440,-26},{-422,-26}}, color={255,0,255}));
   connect(enaRel.y, sub2.u1) annotation (Line(points={{-398,330},{-390,330},{-390,
           -14},{-362,-14}}, color={0,0,127}));
@@ -383,172 +429,237 @@ equation
   connect(sub2.y, pro1.u2) annotation (Line(points={{-338,-20},{-320,-20},{-320,
           -6},{-282,-6}}, color={0,0,127}));
   connect(mulMin.y, reaRep.u)
-    annotation (Line(points={{-118,-30},{-102,-30}}, color={0,0,127}));
+    annotation (Line(points={{-58,-80},{-42,-80}},   color={0,0,127}));
   connect(lesThr1.y, swi.u2)
     annotation (Line(points={{-198,-30},{-182,-30}}, color={255,0,255}));
-  connect(pro1.y, lesThr1.u) annotation (Line(points={{-258,0},{-240,0},{-240,-30},
-          {-222,-30}}, color={0,0,127}));
   connect(pro1.y, swi.u3) annotation (Line(points={{-258,0},{-240,0},{-240,-50},
           {-190,-50},{-190,-38},{-182,-38}}, color={0,0,127}));
   connect(pro1.y, addPar.u)
     annotation (Line(points={{-258,0},{-222,0}},  color={0,0,127}));
   connect(addPar.y, swi.u1) annotation (Line(points={{-198,0},{-190,0},{-190,-22},
           {-182,-22}}, color={0,0,127}));
-  connect(swi.y, mulMin.u)
-    annotation (Line(points={{-158,-30},{-142,-30}}, color={0,0,127}));
-  connect(gai.y, sub1.u1) annotation (Line(points={{-358,330},{-150,330},{-150,6},
-          {-62,6}},   color={0,0,127}));
-  connect(reaRep.y, sub1.u2) annotation (Line(points={{-78,-30},{-70,-30},{-70,-6},
-          {-62,-6}},  color={0,0,127}));
+  connect(gai.y, sub1.u1) annotation (Line(points={{-358,330},{-140,330},{-140,
+          6},{-2,6}}, color={0,0,127}));
+  connect(reaRep.y, sub1.u2) annotation (Line(points={{-18,-80},{-10,-80},{-10,
+          -6},{-2,-6}},
+                      color={0,0,127}));
   connect(sub1.y, abs1.u)
-    annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
+    annotation (Line(points={{22,0},{38,0}},   color={0,0,127}));
   connect(abs1.y, lesThr2.u)
-    annotation (Line(points={{2,0},{18,0}},  color={0,0,127}));
+    annotation (Line(points={{62,0},{78,0}}, color={0,0,127}));
   connect(lesThr2.y, or2.u1)
-    annotation (Line(points={{42,0},{58,0}}, color={255,0,255}));
-  connect(dowTim.passed, edg1.u) annotation (Line(points={{-158,-318},{-140,-318},
-          {-140,-270},{-122,-270}}, color={255,0,255}));
-  connect(booToRea2.y, pro2.u2) annotation (Line(points={{-398,-26},{-380,-26},{
-          -380,-206},{-282,-206}}, color={0,0,127}));
-  connect(gai.y, pro2.u1) annotation (Line(points={{-358,330},{-310,330},{-310,-194},
-          {-282,-194}}, color={0,0,127}));
+    annotation (Line(points={{102,0},{118,0}},
+                                             color={255,0,255}));
+  connect(booToRea2.y, pro2.u2) annotation (Line(points={{-398,-26},{-380,-26},
+          {-380,-236},{-282,-236}},color={0,0,127}));
+  connect(gai.y, pro2.u1) annotation (Line(points={{-358,330},{-310,330},{-310,
+          -224},{-282,-224}},
+                        color={0,0,127}));
   connect(pro2.y, addPar1.u)
-    annotation (Line(points={{-258,-200},{-222,-200}}, color={0,0,127}));
-  connect(pro2.y, lesThr4.u) annotation (Line(points={{-258,-200},{-240,-200},{-240,
-          -230},{-222,-230}}, color={0,0,127}));
+    annotation (Line(points={{-258,-230},{-222,-230}}, color={0,0,127}));
+  connect(pro2.y, lesThr4.u) annotation (Line(points={{-258,-230},{-240,-230},{
+          -240,-260},{-222,-260}},
+                              color={0,0,127}));
   connect(lesThr4.y, swi1.u2)
-    annotation (Line(points={{-198,-230},{-182,-230}}, color={255,0,255}));
-  connect(addPar1.y, swi1.u1) annotation (Line(points={{-198,-200},{-190,-200},{
-          -190,-222},{-182,-222}}, color={0,0,127}));
-  connect(pro2.y, swi1.u3) annotation (Line(points={{-258,-200},{-240,-200},{-240,
-          -250},{-190,-250},{-190,-238},{-182,-238}}, color={0,0,127}));
+    annotation (Line(points={{-198,-260},{-182,-260}}, color={255,0,255}));
+  connect(addPar1.y, swi1.u1) annotation (Line(points={{-198,-230},{-190,-230},
+          {-190,-252},{-182,-252}},color={0,0,127}));
+  connect(pro2.y, swi1.u3) annotation (Line(points={{-258,-230},{-240,-230},{
+          -240,-280},{-190,-280},{-190,-268},{-182,-268}},
+                                                      color={0,0,127}));
   connect(swi1.y, mulMin1.u)
-    annotation (Line(points={{-158,-230},{-142,-230}}, color={0,0,127}));
+    annotation (Line(points={{-158,-260},{-102,-260}}, color={0,0,127}));
   connect(mulMin1.y, reaRep1.u)
-    annotation (Line(points={{-118,-230},{-102,-230}}, color={0,0,127}));
-  connect(reaRep1.y, sub3.u2) annotation (Line(points={{-78,-230},{-70,-230},{-70,
-          -206},{-62,-206}}, color={0,0,127}));
-  connect(gai.y, sub3.u1) annotation (Line(points={{-358,330},{-150,330},{-150,-194},
-          {-62,-194}}, color={0,0,127}));
+    annotation (Line(points={{-78,-260},{-42,-260}},   color={0,0,127}));
+  connect(reaRep1.y, sub3.u2) annotation (Line(points={{-18,-260},{-10,-260},{
+          -10,-236},{-2,-236}},
+                             color={0,0,127}));
+  connect(gai.y, sub3.u1) annotation (Line(points={{-358,330},{-140,330},{-140,
+          -224},{-2,-224}},
+                       color={0,0,127}));
   connect(sub3.y, abs2.u)
-    annotation (Line(points={{-38,-200},{-22,-200}}, color={0,0,127}));
+    annotation (Line(points={{22,-230},{38,-230}},   color={0,0,127}));
   connect(abs2.y, lesThr5.u)
-    annotation (Line(points={{2,-200},{18,-200}}, color={0,0,127}));
+    annotation (Line(points={{62,-230},{78,-230}},color={0,0,127}));
   connect(lesThr5.y, xor.u1)
-    annotation (Line(points={{42,-200},{58,-200}}, color={255,0,255}));
-  connect(or2.y, booToInt.u) annotation (Line(points={{82,0},{90,0},{90,-30},{98,
-          -30}}, color={255,0,255}));
-  connect(xor.y, booToInt2.u) annotation (Line(points={{82,-200},{90,-200},{90,-238},
-          {98,-238}}, color={255,0,255}));
+    annotation (Line(points={{102,-230},{118,-230}},
+                                                   color={255,0,255}));
+  connect(xor.y, booToInt2.u) annotation (Line(points={{142,-230},{150,-230},{
+          150,-268},{158,-268}},
+                      color={255,0,255}));
   connect(booToInt.y, intEqu.u1)
-    annotation (Line(points={{122,-30},{138,-30}}, color={255,127,0}));
-  connect(booToInt1.y, intEqu.u2) annotation (Line(points={{122,-70},{130,-70},{
-          130,-38},{138,-38}}, color={255,127,0}));
+    annotation (Line(points={{182,-40},{198,-40}}, color={255,127,0}));
+  connect(booToInt1.y, intEqu.u2) annotation (Line(points={{182,-80},{190,-80},
+          {190,-48},{198,-48}},color={255,127,0}));
   connect(intEqu.y, mulAnd.u)
-    annotation (Line(points={{162,-30},{178,-30}}, color={255,0,255}));
-  connect(booToInt1.y, intEqu1.u1) annotation (Line(points={{122,-70},{130,-70},
-          {130,-230},{138,-230}}, color={255,127,0}));
+    annotation (Line(points={{222,-40},{238,-40}}, color={255,0,255}));
+  connect(booToInt1.y, intEqu1.u1) annotation (Line(points={{182,-80},{190,-80},
+          {190,-260},{198,-260}}, color={255,127,0}));
   connect(booToInt2.y, intEqu1.u2)
-    annotation (Line(points={{122,-238},{138,-238}}, color={255,127,0}));
+    annotation (Line(points={{182,-268},{198,-268}}, color={255,127,0}));
   connect(intEqu1.y, mulAnd2.u)
-    annotation (Line(points={{162,-230},{178,-230}}, color={255,0,255}));
+    annotation (Line(points={{222,-260},{238,-260}}, color={255,0,255}));
   connect(lat2.y, booRep1.u)
-    annotation (Line(points={{242,-90},{258,-90}}, color={255,0,255}));
+    annotation (Line(points={{302,-90},{318,-90}}, color={255,0,255}));
   connect(lat1.y, booRep2.u)
-    annotation (Line(points={{242,-270},{258,-270}}, color={255,0,255}));
+    annotation (Line(points={{302,-300},{318,-300}}, color={255,0,255}));
   connect(booRep2.y, logSwi1.u2)
-    annotation (Line(points={{282,-270},{298,-270}}, color={255,0,255}));
-  connect(edg1.y, lat1.u)
-    annotation (Line(points={{-98,-270},{218,-270}}, color={255,0,255}));
-  connect(mulAnd2.y, lat1.clr) annotation (Line(points={{202,-230},{210,-230},{210,
-          -276},{218,-276}}, color={255,0,255}));
-  connect(conP.y, lesThr3.u) annotation (Line(points={{-318,260},{-300,260},{-300,
-          -310},{-282,-310}}, color={0,0,127}));
-  connect(xor.y, logSwi1.u1) annotation (Line(points={{82,-200},{290,-200},{290,
-          -262},{298,-262}}, color={255,0,255}));
-  connect(conP.y, greThr2.u) annotation (Line(points={{-318,260},{-300,260},{-300,
-          -90},{-282,-90}}, color={0,0,127}));
-  connect(edg.y, lat2.u)
-    annotation (Line(points={{-98,-90},{218,-90}}, color={255,0,255}));
-  connect(mulAnd.y, lat2.clr) annotation (Line(points={{202,-30},{210,-30},{210,
-          -96},{218,-96}}, color={255,0,255}));
+    annotation (Line(points={{342,-300},{358,-300}}, color={255,0,255}));
+  connect(mulAnd2.y, lat1.clr) annotation (Line(points={{262,-260},{270,-260},{
+          270,-306},{278,-306}},
+                             color={255,0,255}));
+  connect(conP.y, lesThr3.u) annotation (Line(points={{-318,260},{-300,260},{
+          -300,-340},{-282,-340}},
+                              color={0,0,127}));
+  connect(xor.y, logSwi1.u1) annotation (Line(points={{142,-230},{350,-230},{
+          350,-292},{358,-292}},
+                             color={255,0,255}));
+  connect(conP.y, greThr2.u) annotation (Line(points={{-318,260},{-300,260},{
+          -300,-120},{-282,-120}},
+                            color={0,0,127}));
   connect(booRep1.y, logSwi.u2)
-    annotation (Line(points={{282,-90},{338,-90}}, color={255,0,255}));
-  connect(or2.y, logSwi.u1) annotation (Line(points={{82,0},{320,0},{320,-82},{338,
-          -82}}, color={255,0,255}));
-  connect(logSwi1.y, logSwi.u3) annotation (Line(points={{322,-270},{330,-270},{
-          330,-98},{338,-98}}, color={255,0,255}));
-  connect(uRelFan, xor.u2) annotation (Line(points={{-500,-160},{50,-160},{50,-208},
-          {58,-208}}, color={255,0,255}));
-  connect(uRelFan, logSwi1.u3) annotation (Line(points={{-500,-160},{-440,-160},
-          {-440,-290},{290,-290},{290,-278},{298,-278}}, color={255,0,255}));
-  connect(uRelFan, booToInt1.u) annotation (Line(points={{-500,-160},{50,-160},{
-          50,-70},{98,-70}}, color={255,0,255}));
-  connect(uRelFan, or2.u2) annotation (Line(points={{-500,-160},{50,-160},{50,-8},
-          {58,-8}}, color={255,0,255}));
+    annotation (Line(points={{342,-90},{398,-90}}, color={255,0,255}));
+  connect(or2.y, logSwi.u1) annotation (Line(points={{142,0},{380,0},{380,-82},
+          {398,-82}},
+                 color={255,0,255}));
+  connect(uRelFan, xor.u2) annotation (Line(points={{-500,-190},{110,-190},{110,
+          -238},{118,-238}},
+                      color={255,0,255}));
+  connect(uRelFan, logSwi1.u3) annotation (Line(points={{-500,-190},{-440,-190},
+          {-440,-320},{350,-320},{350,-308},{358,-308}}, color={255,0,255}));
+  connect(uRelFan, booToInt1.u) annotation (Line(points={{-500,-190},{110,-190},
+          {110,-80},{158,-80}},
+                             color={255,0,255}));
+  connect(uRelFan, or2.u2) annotation (Line(points={{-500,-190},{110,-190},{110,
+          -8},{118,-8}},
+                    color={255,0,255}));
   connect(logSwi.y, booToRea3.u)
-    annotation (Line(points={{362,-90},{378,-90}}, color={255,0,255}));
+    annotation (Line(points={{422,-90},{438,-90}}, color={255,0,255}));
   connect(conP.y, lim.u)
-    annotation (Line(points={{-318,260},{58,260}}, color={0,0,127}));
-  connect(lim.y, pro.u2) annotation (Line(points={{82,260},{100,260},{100,278},{
-          118,278}}, color={0,0,127}));
-  connect(booToRea3.y, pro3.u2) annotation (Line(points={{402,-90},{420,-90},{420,
-          204},{438,204}}, color={0,0,127}));
-  connect(lat2.y, or1.u1) annotation (Line(points={{242,-90},{248,-90},{248,60},
-          {278,60}}, color={255,0,255}));
-  connect(lat1.y, or1.u2) annotation (Line(points={{242,-270},{254,-270},{254,52},
-          {278,52}}, color={255,0,255}));
+    annotation (Line(points={{-318,260},{118,260}},color={0,0,127}));
+  connect(lim.y, pro.u2) annotation (Line(points={{142,260},{160,260},{160,278},
+          {178,278}},color={0,0,127}));
+  connect(booToRea3.y, pro3.u2) annotation (Line(points={{462,-90},{480,-90},{
+          480,204},{498,204}},
+                           color={0,0,127}));
+  connect(lat2.y, or1.u1) annotation (Line(points={{302,-90},{308,-90},{308,120},
+          {338,120}},color={255,0,255}));
   connect(or1.y, booRep3.u)
-    annotation (Line(points={{302,60},{318,60}}, color={255,0,255}));
+    annotation (Line(points={{362,120},{378,120}}, color={255,0,255}));
   connect(booRep3.y, logSwi2.u2)
-    annotation (Line(points={{342,60},{378,60}}, color={255,0,255}));
-  connect(logSwi.y, logSwi2.u3) annotation (Line(points={{362,-90},{370,-90},{370,
-          52},{378,52}}, color={255,0,255}));
-  connect(enaDam.y, logSwi2.u1) annotation (Line(points={{-78,160},{370,160},{370,
-          68},{378,68}}, color={255,0,255}));
+    annotation (Line(points={{402,120},{438,120}}, color={255,0,255}));
   connect(pro3.y, yRelFanSpe)
-    annotation (Line(points={{462,210},{500,210}}, color={0,0,127}));
-  connect(pro.y, swi2.u1) annotation (Line(points={{142,284},{300,284},{300,224},
-          {338,224}}, color={0,0,127}));
+    annotation (Line(points={{522,210},{560,210}}, color={0,0,127}));
   connect(reaRep2.y, pro3.u1)
-    annotation (Line(points={{402,216},{438,216}}, color={0,0,127}));
-  connect(swi2.y, reaRep2.u)
-    annotation (Line(points={{362,216},{378,216}}, color={0,0,127}));
-  connect(con.y, swi2.u3) annotation (Line(points={{182,190},{300,190},{300,208},
-          {338,208}}, color={0,0,127}));
-  connect(uRelFan, mulOr.u) annotation (Line(points={{-500,-160},{50,-160},{50,216},
-          {58,216}}, color={255,0,255}));
+    annotation (Line(points={{462,216},{498,216}}, color={0,0,127}));
+  connect(con.y, swi2.u3) annotation (Line(points={{242,190},{360,190},{360,208},
+          {398,208}}, color={0,0,127}));
   connect(mulOr.y, swi2.u2)
-    annotation (Line(points={{82,216},{338,216}}, color={255,0,255}));
-  connect(movMea.y, yDpBui) annotation (Line(points={{-398,230},{-80,230},{-80,320},
-          {500,320}}, color={0,0,127}));
+    annotation (Line(points={{142,216},{398,216}},color={255,0,255}));
+  connect(movMea.y, yDpBui) annotation (Line(points={{-438,230},{-20,230},{-20,
+          320},{560,320}},
+                      color={0,0,127}));
   connect(logSwi2.y, booToRea4.u)
-    annotation (Line(points={{402,60},{438,60}}, color={255,0,255}));
-  connect(booToRea4.y, yDam)
-    annotation (Line(points={{462,60},{500,60}}, color={0,0,127}));
-  connect(upTim.passed, edg.u) annotation (Line(points={{-158,-98},{-140,-98},{-140,
-          -90},{-122,-90}}, color={255,0,255}));
-  connect(edg.y, not1.u) annotation (Line(points={{-98,-90},{-80,-90},{-80,-120},
-          {-62,-120}}, color={255,0,255}));
+    annotation (Line(points={{462,120},{498,120}}, color={255,0,255}));
   connect(not1.y, pre.u)
-    annotation (Line(points={{-38,-120},{-22,-120}}, color={255,0,255}));
+    annotation (Line(points={{-58,-150},{-42,-150}}, color={255,0,255}));
   connect(and1.y, upTim.u)
-    annotation (Line(points={{-198,-90},{-182,-90}}, color={255,0,255}));
+    annotation (Line(points={{-198,-120},{-182,-120}},
+                                                     color={255,0,255}));
   connect(greThr2.y, and1.u1)
-    annotation (Line(points={{-258,-90},{-222,-90}}, color={255,0,255}));
-  connect(pre.y, and1.u2) annotation (Line(points={{2,-120},{20,-120},{20,-140},
-          {-240,-140},{-240,-98},{-222,-98}}, color={255,0,255}));
-  connect(edg1.y, not2.u) annotation (Line(points={{-98,-270},{-80,-270},{-80,-320},
-          {-62,-320}}, color={255,0,255}));
+    annotation (Line(points={{-258,-120},{-222,-120}},
+                                                     color={255,0,255}));
   connect(not2.y, pre1.u)
-    annotation (Line(points={{-38,-320},{-22,-320}}, color={255,0,255}));
+    annotation (Line(points={{22,-348},{38,-348}},   color={255,0,255}));
   connect(lesThr3.y, and3.u1)
-    annotation (Line(points={{-258,-310},{-222,-310}}, color={255,0,255}));
+    annotation (Line(points={{-258,-340},{-222,-340}}, color={255,0,255}));
   connect(and3.y, dowTim.u)
-    annotation (Line(points={{-198,-310},{-182,-310}}, color={255,0,255}));
-  connect(pre1.y, and3.u2) annotation (Line(points={{2,-320},{20,-320},{20,-340},
-          {-240,-340},{-240,-318},{-222,-318}}, color={255,0,255}));
+    annotation (Line(points={{-198,-340},{-182,-340}}, color={255,0,255}));
+  connect(uRelFanAla, intEqu2.u1)
+    annotation (Line(points={{-500,50},{-362,50}}, color={255,127,0}));
+  connect(conInt.y, intEqu2.u2) annotation (Line(points={{-398,20},{-380,20},{-380,
+          42},{-362,42}}, color={255,127,0}));
+  connect(uRelFan, not3.u) annotation (Line(points={{-500,-190},{-440,-190},{
+          -440,-80},{-422,-80}},
+                            color={255,0,255}));
+  connect(intEqu2.y, and4.u1)
+    annotation (Line(points={{-338,50},{-282,50}}, color={255,0,255}));
+  connect(not3.y, and4.u2) annotation (Line(points={{-398,-80},{-330,-80},{-330,
+          42},{-282,42}}, color={255,0,255}));
+  connect(and4.y, booToRea5.u)
+    annotation (Line(points={{-258,50},{-222,50}}, color={255,0,255}));
+  connect(booToRea4.y, mul.u1) annotation (Line(points={{522,120},{530,120},{
+          530,100},{460,100},{460,66},{498,66}},
+                                             color={0,0,127}));
+  connect(booToRea5.y, mul.u2) annotation (Line(points={{-198,50},{180,50},{180,
+          54},{498,54}}, color={0,0,127}));
+  connect(mul.y, yDam)
+    annotation (Line(points={{522,60},{560,60}}, color={0,0,127}));
 
+  connect(enaDam.y, logSwi2.u3) annotation (Line(points={{-18,160},{420,160},{
+          420,112},{438,112}},
+                           color={255,0,255}));
+  connect(logSwi.y, logSwi2.u1) annotation (Line(points={{422,-90},{430,-90},{
+          430,128},{438,128}},
+                           color={255,0,255}));
+  connect(upTim.passed, not1.u) annotation (Line(points={{-158,-128},{-120,-128},
+          {-120,-150},{-82,-150}},color={255,0,255}));
+  connect(upTim.passed, lat2.u) annotation (Line(points={{-158,-128},{260,-128},
+          {260,-90},{278,-90}},
+                           color={255,0,255}));
+  connect(dowTim.passed, not2.u)
+    annotation (Line(points={{-158,-348},{-2,-348}},  color={255,0,255}));
+  connect(dowTim.passed, lat1.u) annotation (Line(points={{-158,-348},{-20,-348},
+          {-20,-300},{278,-300}}, color={255,0,255}));
+  connect(enaRel.y, greThr3.u) annotation (Line(points={{-398,330},{-390,330},{
+          -390,216},{-2,216}},
+                           color={0,0,127}));
+  connect(greThr3.y, mulOr.u)
+    annotation (Line(points={{22,216},{118,216}}, color={255,0,255}));
+  connect(pro.y, swi2.u1) annotation (Line(points={{202,284},{360,284},{360,224},
+          {398,224}}, color={0,0,127}));
+  connect(swi2.y, reaRep2.u)
+    annotation (Line(points={{422,216},{438,216}}, color={0,0,127}));
+  connect(pro1.y, lesThr1.u) annotation (Line(points={{-258,0},{-240,0},{-240,-30},
+          {-222,-30}}, color={0,0,127}));
+  connect(not3.y, mulAnd1.u)
+    annotation (Line(points={{-398,-80},{-282,-80}}, color={255,0,255}));
+  connect(mulAnd1.y, booRep4.u)
+    annotation (Line(points={{-258,-80},{-242,-80}}, color={255,0,255}));
+  connect(booRep4.y, swi3.u2)
+    annotation (Line(points={{-218,-80},{-122,-80}}, color={255,0,255}));
+  connect(pro1.y, swi3.u1) annotation (Line(points={{-258,0},{-240,0},{-240,-50},
+          {-190,-50},{-190,-72},{-122,-72}}, color={0,0,127}));
+  connect(swi.y, swi3.u3) annotation (Line(points={{-158,-30},{-150,-30},{-150,
+          -88},{-122,-88}}, color={0,0,127}));
+  connect(swi3.y, mulMin.u)
+    annotation (Line(points={{-98,-80},{-82,-80}}, color={0,0,127}));
+  connect(pre1.y, and3.u2) annotation (Line(points={{62,-348},{80,-348},{80,
+          -370},{-240,-370},{-240,-348},{-222,-348}}, color={255,0,255}));
+  connect(lat1.y, and5.u2) annotation (Line(points={{302,-300},{312,-300},{312,
+          -208},{338,-208}}, color={255,0,255}));
+  connect(and5.y, or1.u2) annotation (Line(points={{362,-200},{370,-200},{370,
+          100},{320,100},{320,112},{338,112}}, color={255,0,255}));
+  connect(mulAnd1.y, not4.u) annotation (Line(points={{-258,-80},{-250,-80},{
+          -250,-200},{158,-200}}, color={255,0,255}));
+  connect(not4.y, and5.u1)
+    annotation (Line(points={{182,-200},{338,-200}}, color={255,0,255}));
+  connect(uRelFan, logSwi3.u1) annotation (Line(points={{-500,-190},{110,-190},
+          {110,-172},{398,-172}}, color={255,0,255}));
+  connect(booRep4.y, logSwi3.u2) annotation (Line(points={{-218,-80},{-190,-80},
+          {-190,-180},{398,-180}}, color={255,0,255}));
+  connect(logSwi1.y, logSwi3.u3) annotation (Line(points={{382,-300},{390,-300},
+          {390,-188},{398,-188}}, color={255,0,255}));
+  connect(logSwi3.y, logSwi.u3) annotation (Line(points={{422,-180},{430,-180},
+          {430,-120},{380,-120},{380,-98},{398,-98}}, color={255,0,255}));
+  connect(pre.y, and1.u2) annotation (Line(points={{-18,-150},{0,-150},{0,-170},
+          {-240,-170},{-240,-128},{-222,-128}}, color={255,0,255}));
+  connect(truDel.y, booToInt.u)
+    annotation (Line(points={{142,-40},{158,-40}}, color={255,0,255}));
+  connect(or2.y, truDel.u) annotation (Line(points={{142,0},{150,0},{150,-20},{
+          100,-20},{100,-40},{118,-40}}, color={255,0,255}));
+  connect(mulAnd.y, lat2.clr) annotation (Line(points={{262,-40},{270,-40},{270,
+          -96},{278,-96}}, color={255,0,255}));
 annotation (defaultComponentName="relFanCon",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
@@ -561,15 +672,15 @@ annotation (defaultComponentName="relFanCon",
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,72},{-54,52}},
+          extent={{-96,92},{-54,72}},
           lineColor={255,0,255},
           textString="uSupFan"),
         Text(
-          extent={{-96,-50},{-54,-70}},
+          extent={{-96,-70},{-54,-90}},
           lineColor={255,0,255},
           textString="uRelFan"),
         Text(
-          extent={{-98,12},{-56,-8}},
+          extent={{-98,42},{-56,22}},
           lineColor={0,0,127},
           textString="dpBui"),
         Text(
@@ -583,43 +694,47 @@ annotation (defaultComponentName="relFanCon",
         Text(
           extent={{60,-50},{100,-66}},
           lineColor={0,0,127},
-          textString="yDam")}),
+          textString="yDam"),
+        Text(
+          extent={{-98,-20},{-46,-38}},
+          lineColor={255,127,0},
+          textString="uRelFanAla")}),
  Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-480,-360},{480,360}}), graphics={
         Rectangle(
-          extent={{-318,-182},{338,-358}},
+          extent={{-1072,-236},{-416,-412}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-318,18},{338,-138}},
+          extent={{-1202,56},{-546,-100}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-318,178},{118,82}},
+          extent={{-258,178},{178,82}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{54,-110},{230,-136}},
+          extent={{-92,-22},{84,-48}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage-up: turning on a new relief fan"),
         Text(
-          extent={{52,-324},{250,-352}},
+          extent={{112,-354},{310,-382}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage-down: turning off a lag relief fan"),
         Text(
-          extent={{-144,108},{106,90}},
+          extent={{-84,108},{166,90}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
