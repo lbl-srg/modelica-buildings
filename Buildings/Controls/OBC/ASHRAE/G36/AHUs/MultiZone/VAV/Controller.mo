@@ -13,7 +13,7 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Integer nZonGro=1
     "Total number of zone group that the AHU is serving"
     annotation (Dialog(group="System and building parameters"));
-  parameter Boolean have_heaCoi=true
+  parameter Boolean have_hotWatCoi=false
     "True: the AHU has heating coil"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_perZonRehBox=false
@@ -590,7 +590,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heaCoi
+    final unit="1") if have_hotWatCoi
     "Heating coil valve position"
     annotation (Placement(transformation(extent={{-400,-580},{-360,-540}}),
         iconTransformation(extent={{-240,-450},{-200,-410}})));
@@ -689,7 +689,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heaCoi
+    final unit="1") if have_hotWatCoi
     "Heating coil valve position"
     annotation (Placement(transformation(extent={{360,-260},{400,-220}}),
         iconTransformation(extent={{200,-160},{240,-120}})));
@@ -730,11 +730,11 @@ block Controller "Multizone VAV air handling unit controller"
     "Chiller plant request"
     annotation (Placement(transformation(extent={{360,-510},{400,-470}}),
         iconTransformation(extent={{200,-370},{240,-330}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_heaCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_hotWatCoi
     "Hot water reset request"
     annotation (Placement(transformation(extent={{360,-560},{400,-520}}),
         iconTransformation(extent={{200,-410},{240,-370}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_heaCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{360,-590},{400,-550}}),
         iconTransformation(extent={{200,-450},{240,-410}})));
@@ -742,7 +742,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold freProMod
     "Check if it is in freeze protection mode"
     annotation (Placement(transformation(extent={{180,-570},{200,-550}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_heaCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{300,-580},{320,-560}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
@@ -756,7 +756,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
     final buiPreCon=buiPreCon,
     final minOADes=minOADes,
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final have_freSta=have_freSta,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freProHeaCoiCon,
@@ -769,7 +769,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Freeze protection"
     annotation (Placement(transformation(extent={{200,-220},{220,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq(
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final Thys=Thys,
     final posHys=posHys)
     "Plant requests"
@@ -828,7 +828,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Supply fan speed setpoint"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
-    final have_heaCoi=have_heaCoi,
+    final have_heaCoi=have_hotWatCoi,
     final controllerType=valCon,
     final kTSup=kVal,
     final TiTSup=TiVal,
@@ -1171,11 +1171,11 @@ annotation (
        Text(extent={{-202,-420},{-140,-438}},
           lineColor={0,0,0},
           textString="uHeaCoi",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{140,-130},{202,-148}},
           lineColor={0,0,0},
           textString="yHeaCoi",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{138,-102},{200,-120}},
           lineColor={0,0,0},
           textString="yCooCoi"),
@@ -1234,11 +1234,11 @@ annotation (
        Text(extent={{108,-378},{196,-398}},
           lineColor={255,127,0},
           textString="yHotWatResReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{108,-418},{196,-438}},
           lineColor={255,127,0},
           textString="yHotWatPlaReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{120,210},{208,192}},
           lineColor={255,0,255},
           textString="yReqOutAir"),
