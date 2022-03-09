@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.DistributionCondensatePipe", stopTime=86400, resultFile="DistributionCondensatePipe");
 // Plot commands
 createPlot(id=1, position={26, 51, 1285, 632}, 
@@ -35,4 +35,3 @@ createPlot(id=1, position={26, 51, 1285, 632},
   markers={MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.None, MarkerStyle.Cross}, 
   thicknesses={0.5, 0.25, 0.5, 0.25}, 
   displayUnits={"bar", "bar", "bar", "bar"});
-
