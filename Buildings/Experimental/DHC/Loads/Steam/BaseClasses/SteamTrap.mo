@@ -61,23 +61,10 @@ The steam trap ensures that only liquid condensate leaves
 the component, while any flashed steam is returned to a liquid
 state before discharge. The model assumes a steady state isenthalpic 
 thermodynamic process that transforms water from an upstream 
-high pressure state to atmospheric pressure, consistent with 
+high pressure state to atmospheric pressure, followed by an 
+isobaric condensation process as flashed steam vapor is returned to 
+a liquid state. This implementation is consistent with 
 physical valves that vent to the atmosphere.
-</p>
-<h4>Implementation</h4>
-<p>
-This model uses a split-medium approach for liquid and vapor 
-phases of water to improve the numerical performance of steam 
-heating systems by decoupling pressure and density in the medium 
-formulations.
-</p>
-<h4>Reference</h4>
-<p>
-Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
-Approach for Water and Steam Thermodynamics with Practical 
-Applications in District Heating System Simulation.” Preprint. February 24. 
-<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>.
 </p>
 </html>", revisions="<html>
 <ul>

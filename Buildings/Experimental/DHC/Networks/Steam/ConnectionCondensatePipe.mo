@@ -51,7 +51,7 @@ model ConnectionCondensatePipe
           defaultComponentName="con",
     Documentation(info="<html>
 <p>
-This network connection model contains 1 pipe declaration 
+This network connection model contains one pipe declaration 
 for the condensate pipe, featuring a fixed hydraulic resistance. 
 This model is intended for steam heating systems that utilize 
 a split-medium approach with two separate medium declarations 

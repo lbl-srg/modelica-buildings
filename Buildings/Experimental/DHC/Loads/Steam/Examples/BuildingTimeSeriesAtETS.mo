@@ -16,7 +16,7 @@ model BuildingTimeSeriesAtETS
   parameter Modelica.Units.SI.Power Q_flow_nominal= 2e4
     "Nominal heat flow rate";
 
-  Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld(
+  Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bui(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -45,10 +45,10 @@ model BuildingTimeSeriesAtETS
     "Water sink"
     annotation (Placement(transformation(extent={{42,-6},{22,14}})));
 equation
-  connect(souSte.ports[1], bld.port_a)
+  connect(souSte.ports[1], bui.port_a)
     annotation (Line(points={{22,40},{10,40},{10,10},{-40,10}},
                                               color={0,127,255}));
-  connect(bld.port_b, watSin.ports[1]) annotation (Line(points={{-40,4},{22,4}},
+  connect(bui.port_b, watSin.ports[1]) annotation (Line(points={{-40,4},{22,4}},
                            color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

@@ -174,7 +174,7 @@ model BuildingTimeSeriesAtETS
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation vol(
     redeclare final package MediumSte = MediumSte,
-    redeclare package MediumWat = MediumWat,
+    redeclare final package MediumWat = MediumWat,
     final allowFlowReversal=allowFlowReversal,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

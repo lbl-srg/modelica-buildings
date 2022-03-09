@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
 partial model PartialConnectionTwoPipe
-  "Partial model for connecting an a LosslessPipegent to a two-pipe 
+  "Partial model for connecting a LosslessPipegent to a two-pipe 
   distribution network with the split-medium approach"
   replaceable package MediumSup =
       Modelica.Media.Interfaces.PartialMedium
@@ -13,32 +13,38 @@ partial model PartialConnectionTwoPipe
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
     final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal)
+	"Interface for inlet pipe for the distribution supply";
   replaceable model Model_pip_bDisRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumRet,
     final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal)
+	"Interface for outlet pipe for the distribution return";
   replaceable model Model_pip_bDisSup =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
     final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal)
+	"Interface for outlet pipe for the distribution supply (end of line)";
   replaceable model Model_pip_aDisRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumRet,
     final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal)
+	"Interface for inlet pipe for the distribution return (end of line)";
   replaceable model Model_pipConSup =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
     final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal
+	"Interface for consumer supply pipe";
   replaceable model Model_pipConRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumRet,
     final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal)
+	"Interface for consumer return pipe";
 
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line"
