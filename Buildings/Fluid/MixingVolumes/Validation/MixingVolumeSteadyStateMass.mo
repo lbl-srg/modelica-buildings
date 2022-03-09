@@ -16,6 +16,7 @@ model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
         rotation=180,
         origin={92,-10})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1,
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
@@ -46,10 +47,10 @@ equation
       points={{-39,-10},{-31.5,-10},{-31.5,-2},{-22,-2}},
       color={0,0,127}));
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
-      points={{0,-10},{38,-10},{38,20}},
+      points={{0,-10},{39,-10},{39,20}},
       color={0,127,255}));
   connect(vol.ports[2], res.port_a) annotation (Line(
-      points={{42,20},{42,-10},{50,-10}},
+      points={{41,20},{41,-10},{50,-10}},
       color={0,127,255}));
   connect(res.port_b, bou.ports[1]) annotation (Line(
       points={{70,-10},{82,-10}},

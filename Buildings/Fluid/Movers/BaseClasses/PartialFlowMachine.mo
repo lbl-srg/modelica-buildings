@@ -172,7 +172,6 @@ protected
     redeclare final package Medium = Medium,
     final tau=tau,
     final energyDynamics=energyDynamics,
-    final massDynamics=energyDynamics,
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
