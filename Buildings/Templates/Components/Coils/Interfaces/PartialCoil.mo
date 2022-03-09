@@ -87,7 +87,9 @@ protected
   Icon(
     graphics={
     Bitmap(
-      visible=funStr=="Cooling",
+      visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling or
+       typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+       typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed,
       extent={{-53,-100},{53,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Cooling.svg"),
     Bitmap(
@@ -95,7 +97,8 @@ protected
       extent={{-100,-500},{100,-300}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/ChilledWaterSupplyReturn.svg"),
     Bitmap(
-      visible=funStr=="Heating",
+      visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+        typ==Buildings.Templates.Components.Types.Coil.ElectricHeating,
       extent={{-53,-100},{53,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Heating.svg"),
     Bitmap(

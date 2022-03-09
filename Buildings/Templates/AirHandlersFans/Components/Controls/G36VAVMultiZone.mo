@@ -242,6 +242,9 @@ block G36VAVMultiZone
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSup(final nout=
         nZon) "Pass signal to terminal unit bus"
     annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uMinOutAirDam(k=true)
+    "Not an input point"
+    annotation (Placement(transformation(extent={{-280,-100},{-260,-80}})));
 initial equation
   if minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper then
     assert(secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
@@ -343,6 +346,7 @@ equation
   connect(FIXME_yMinOutDamPos.y, bus.damOutMin.y);
   connect(FIXME_yRelDamPos.y, bus.damRel.y);
   connect(FIXME_yFanRet.y, bus.fanRet.y);
+  connect(FIXME_uMinOutAirDam.y, ctl.uMinOutAirDam);
 
   /* Control point connection - stop */
 
@@ -370,33 +374,41 @@ equation
           -28},{-50,-28},{-50,13.0909},{-44,13.0909}},
                                                  color={0,0,127}));
   connect(staGro.uGroOcc, opeModSel.uOcc) annotation (Line(points={{-118,139},{-104,
-          139},{-104,134},{-102,134}},  color={255,0,255}));
+          139},{-104,134.4},{-102,134.4}},
+                                        color={255,0,255}));
   connect(staGro.nexOcc, opeModSel.tNexOcc) annotation (Line(points={{-118,137},
-          {-106,137},{-106,132},{-102,132}},   color={0,0,127}));
+          {-106,137},{-106,132.8},{-102,132.8}},
+                                               color={0,0,127}));
   connect(staGro.yCooTim, opeModSel.maxCooDowTim) annotation (Line(points={{-118,
-          133},{-108,133},{-108,130},{-102,130}},    color={0,0,127}));
+          133},{-108,133},{-108,131.2},{-102,131.2}},color={0,0,127}));
   connect(staGro.yWarTim, opeModSel.maxWarUpTim) annotation (Line(points={{-118,
-          131},{-110,131},{-110,126},{-102,126}},
+          131},{-110,131},{-110,128},{-102,128}},
                                                color={0,0,127}));
   connect(staGro.yOccHeaHig, opeModSel.uOccHeaHig) annotation (Line(points={{-118,
-          127},{-106,127},{-106,124},{-102,124}},    color={255,0,255}));
+          127},{-106,127},{-106,126.4},{-102,126.4}},color={255,0,255}));
   connect(staGro.yHigOccCoo, opeModSel.uHigOccCoo) annotation (Line(points={{-118,
-          125},{-108,125},{-108,128},{-102,128}},    color={255,0,255}));
+          125},{-108,125},{-108,129.6},{-102,129.6}},color={255,0,255}));
   connect(staGro.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-118,
-          118},{-110,118},{-110,116},{-102,116}},  color={255,0,255}));
+          118},{-110,118},{-110,116.8},{-102,116.8}},
+                                                   color={255,0,255}));
   connect(staGro.TZonMax, opeModSel.TZonMax) annotation (Line(points={{-118,107},
-          {-114,107},{-114,114},{-102,114}}, color={0,0,127}));
+          {-114,107},{-114,115.2},{-102,115.2}},
+                                             color={0,0,127}));
   connect(staGro.TZonMin, opeModSel.TZonMin) annotation (Line(points={{-118,105},
-          {-110,105},{-110,112},{-102,112}}, color={0,0,127}));
+          {-110,105},{-110,113.6},{-102,113.6}},
+                                             color={0,0,127}));
   connect(staGro.yHotZon, opeModSel.totHotZon) annotation (Line(points={{-118,115},
-          {-112,115},{-112,110},{-102,110}}, color={255,127,0}));
+          {-112,115},{-112,110.4},{-102,110.4}},
+                                             color={255,127,0}));
   connect(staGro.ySetUp, opeModSel.uSetUp) annotation (Line(points={{-118,113},{
-          -116,113},{-116,108},{-102,108}}, color={255,0,255}));
+          -116,113},{-116,107.2},{-102,107.2}},
+                                            color={255,0,255}));
   connect(staGro.yEndSetUp, opeModSel.uEndSetUp) annotation (Line(points={{-118,
-          111},{-106,111},{-106,106},{-102,106}},
+          111},{-106,111},{-106,105.6},{-102,105.6}},
                                              color={255,0,255}));
   connect(staGro.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-118,101},
-          {-104,101},{-104,122},{-102,122}},   color={255,127,0}));
+          {-104,101},{-104,123.2},{-102,123.2}},
+                                               color={255,127,0}));
   connect(ctl.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
     annotation (Line(points={{44,47.4545},{70,47.4545},{70,60},{78,60}},
                                                   color={0,0,127}));
@@ -447,9 +459,11 @@ equation
           -60,120},{-60,70.3636},{-44,70.3636}},
                                              color={255,127,0}));
   connect(staGro.yColZon, opeModSel.totColZon) annotation (Line(points={{-118,122},
-          {-106,122},{-106,120},{-102,120}}, color={255,127,0}));
+          {-106,122},{-106,121.6},{-102,121.6}},
+                                             color={255,127,0}));
   connect(staGro.ySetBac, opeModSel.uSetBac) annotation (Line(points={{-118,120},
-          {-108,120},{-108,118},{-102,118}}, color={255,0,255}));
+          {-108,120},{-108,118.4},{-102,118.4}},
+                                             color={255,0,255}));
   connect(FIXME_TAirSupSet.y, TAirSupSet.u)
     annotation (Line(points={{-258,-120},{-12,-120}},color={0,0,127}));
   connect(ctl.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
