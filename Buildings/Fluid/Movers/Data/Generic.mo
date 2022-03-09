@@ -138,8 +138,21 @@ record Generic "Generic data record for movers"
 <ul>
 <li>
 March 1, 2022, by Hongxiang Fu:<br/>
-[Documentation pending]<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+<ul>
+<li>
+Refactored the record to allow separate specifications of different
+efficiency variables;
+</li>
+<li>
+Added parameters for computation using Euler number.
+</li>
+<li>
+Added parameters for providing the motor efficiency as an array
+vs. part load ratio.
+</li>
+</ul>
+These are for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>
 February 19, 2016, by Filip Jorissen:<br/>

@@ -290,6 +290,10 @@ protected
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
 
   Buildings.Controls.OBC.CDL.Continuous.Divide divByRho "Divide by density";
+  // This block replaces an algebraic equation with connections to allow
+  //   the conditional declarations of CombiTable2D blocks used in the Euler number
+  //   computations. This avoids the need to provide them with initial table values
+  //   to meet their format requirements even when they are not used.
 
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
     Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
@@ -434,6 +438,13 @@ the simulation stops.");
          "Only one of etaMet and etaHydMet can be set to
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber");
 
+  assert(not (per.etaMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y
+         or per.etaHydMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y),
+         "etaMet and etaHydMet are not allowed to be set to
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y");
+
   assert(per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
          or per.etaMotMet==
@@ -442,8 +453,7 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y,
          "Only values allowed for etaMet are
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values, or
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y,");
+         .Values, or .Values_y,");
 
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
