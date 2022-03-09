@@ -106,7 +106,7 @@ protected
   final parameter Modelica.Units.SI.VolumeFlowRate _VMachine_flow=0
     "Start value for VMachine_flow, used to avoid a warning if not specified";
 
-  parameter Types.PrescribedVariable preVar "Type of prescribed variable";
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable preVar "Type of prescribed variable";
 
   // The parameter speedIsInput is required to conditionally remove the instance gain.
   // If the conditional removal of this instance where to use the test
@@ -231,13 +231,13 @@ protected
     redeclare final package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-50,10},{-30,-10}})));
 
-  Sensors.RelativePressure senRelPre(
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium = Medium) "Head of mover"
     annotation (Placement(transformation(extent={{58,-27},{43,-14}})));
 
   // Because the speed data are not used by FlowMachineInterface, we set them
   // to zero.
-  FlowMachineInterface eff(
+  Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff(
     per(
       final hydraulicEfficiency = per.hydraulicEfficiency,
       final motorEfficiency =     per.motorEfficiency,
@@ -540,9 +540,6 @@ revisions="<html>
 <ul>
 <li>
 October 28, 2021, by Hongxiang Fu:<br/>
-To support the implementation of
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-Buildings.Fluid.Movers.BaseClasses.Euler</a>:
 <ul>
 <li>
 Moved the specification of <code>haveVMax</code>

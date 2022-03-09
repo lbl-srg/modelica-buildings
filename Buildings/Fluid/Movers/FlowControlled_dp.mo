@@ -178,12 +178,12 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
       revisions="<html>
 <ul>
 <li>
-October 14, 2021, by Hongxiang Fu:<br/>
-Rewrote the statements using <code>use_powerCharacteristic</code>
-to support the implementation of
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-<code>Buildings.Fluid.Movers.BaseClasses.Euler</code></a>.
-This is for
+March 8, 2022, by Hongxiang Fu:<br/>
+Refactored the model by replacing <code>not use_powerCharacteristic</code>
+with the enumeration 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>.
+This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>

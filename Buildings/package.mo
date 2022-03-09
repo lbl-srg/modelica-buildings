@@ -309,13 +309,13 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
     </td>
     <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
 <tr><td valign=\"top\">
@@ -337,9 +337,20 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve
     </td>
     <td valign=\"top\">
-    Package that computes the mover efficiency and power using the Euler number
-    and its correlation, its example and validation models, and relevant data
+    Package that allows certain efficiency and power variables to be computed
+    using the Euler number, its example and validation models, and relevant data
     records.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y<br/>
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_y<br/>
+        Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_y
+    </td>
+    <td valign=\"top\">
+    Function and data record that allow the motor efficiency to be provided
+    as a function of part load ratio, and its validation model.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
@@ -574,10 +585,11 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer
     </td>
-    <td valign=\"top\">Rewrote all statements that use <code>use_powerCharacteristic</code> 
-                     to select power computation path with the enumeration 
-                     <code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code><br/>.
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    <td valign=\"top\">Refactored the model by replacing all
+                       <code>use_powerCharacteristic</code>
+                       with the enumeration
+                       <code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code><br/>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Applications</b>
@@ -812,66 +824,61 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Types
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
+                       Buildings.Fluid.Movers.BaseClasses.PowerInterface<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Types
     </td>
-    <td valign=\"top\">Created a new enumeration for 
-                     <code>Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</code>
-                     to choose its path of power computation.<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
-    </td>
-    <td valign=\"top\">Added a new path for power computation with 
-                     <code>Buildings.Fluid.Movers.BaseClasses.Euler</code><br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    <td valign=\"top\">Added computation paths for power and efficiency variables
+                       for the Euler number or as a function of part load ratio.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
-                     Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
-                     Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface
+                       Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
+                       Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface
     </td>
-    <td valign=\"top\">Moved the assignment of <code>V_flow_max</code> and <code>haveVMax</code> 
-                     from <code>Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</code>
-                     to <code>Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</code>.
-                     The latter is instantiated in the former. 
-                     This change is to support the implementation of 
-                     <code>Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</code>.
-                     It simplifies the code overall when the said variables are declared 
-                     in the lower model.<br/>
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    <td valign=\"top\">Moved the assignment of <code>V_flow_max</code> and <code>haveVMax</code>
+                       from <code>Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</code>
+                       to <code>Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</code>.
+                       The latter is instantiated in the former.
+                       This change is to support the implementation of
+                       <code>Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</code>.
+                       It simplifies the code overall when the said variables are declared
+                       in the lower model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
-                     Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                     Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
-                     Buildings.Fluid.Movers.SpeedControlled_y<br/>
-                     Buildings.Fluid.Movers.Data.Generic<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to8<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to4<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to12<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to8<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS25slash10<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash10<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash5<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash10<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash7<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2<br/>
-                     Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2<br/>
-                     Buildings.Fluid.Movers.Validation.PowerSimplified<br/>
-                     Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
+                       Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.Data.Generic<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS25slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash5<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash7<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2<br/>
+                       Buildings.Fluid.Movers.Validation.PowerSimplified<br/>
+                       Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
     </td>
-    <td valign=\"top\">Rewrote all statements that use <code>use_powerCharacteristic</code> 
-                     to select power computation path with the enumeration 
-                     <code>Buildings.Fluid.Movers.BaseClasses.Types.PowerMethod</code><br/>.
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    <td valign=\"top\">Refactored the models and data recoreds by replacing all
+                       <code>use_powerCharacteristic</code>
+                       with the enumeration
+                       <code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code><br/>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>

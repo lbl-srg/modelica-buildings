@@ -92,19 +92,19 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+March 8, 2022, by Hongxiang Fu:<br/>
+Refactored the model by replacing <code>not use_powerCharacteristic</code>
+with the enumeration 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
 January 5, 2022, by Jianjun Hu:<br/>
 Changed the rotational speed unit to be consistent with the one in the Modelica Standard Library.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1570\">#1570</a>.
-</li>
-<li>
-October 14, 2021, by Hongxiang Fu:<br/>
-Rewrote the statements using <code>use_powerCharacteristic</code>
-to support the implementation of
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
-<code>Buildings.Fluid.Movers.BaseClasses.Euler</code></a>.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>
 June 17, 2021, by Michael Wetter:<br/>

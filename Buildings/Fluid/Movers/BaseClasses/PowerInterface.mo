@@ -122,6 +122,15 @@ Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
       revisions="<html>
 <ul>
 <li>
+March 8, 2022, by Hongxiang Fu:<br/>
+This model no longer computes <code>WHyd</code>.
+It now takes <code>WHyd</code> instead of <code>etaHyd</code> as an input from
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for

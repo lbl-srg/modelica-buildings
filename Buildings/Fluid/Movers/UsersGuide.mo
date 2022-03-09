@@ -540,39 +540,11 @@ Because by definition
 <i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>,
 one of the three efficiency terms must be left unprovided to avoid overspecifying
 the problem. The implementation also allows more than one of them being left
-unprovided. In this case, the efficiencies are computed as follows:
+unprovided. See
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+for assumptions made in this case.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<thead>
-  <tr>
-    <th>Provided term</th>
-    <th>Equations</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td><i>&eta;</i></td>
-    <td><i>&eta;<sub>hyd</sub>=1</i><br/>
-        <i>&eta;<sub>mot</sub>=&eta;</i></td>
-  </tr>
-  <tr>
-    <td><i>&eta;<sub>hyd</sub></i></td>
-    <td><i>&eta;=&eta;<sub>hyd</sub></i><br/>
-        <i>&eta;<sub>mot</sub>=1</i></td>
-  </tr>
-  <tr>
-    <td><i>&eta;<sub>mot</sub></i></td>
-    <td><i>&eta;=&eta;<sub>mot</sub></i><br/>
-        <i>&eta;<sub>hyd</sub>=1</i></td>
-  </tr>
-  <tr>
-    <td>None</td>
-    <td><i>&eta;=0.49</i><br/>
-        <i>&eta;<sub>hyd</sub>=1</i><br/>
-        <i>&eta;<sub>mot</sub>=0.49</i></td>
-  </tr>
-</tbody>
-</table>
 
 <h5>Fluid volume of the component</h5>
 <p>
