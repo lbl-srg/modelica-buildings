@@ -9,7 +9,7 @@ model EulerComparison
   parameter Modelica.Units.SI.Density rhoCon=1.2
     "Constant density";
 
-  Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13 per1
+  parameter Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13 per1
     "Mover performance curves with flow rate, pressure rise, and power";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per=per1,
@@ -18,7 +18,7 @@ model EulerComparison
     computePowerUsingSimilarityLaws=false)
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Movers.Data.Generic per2(
+  parameter Buildings.Fluid.Movers.Data.Generic per2(
     final etaMet=
       if per1.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve

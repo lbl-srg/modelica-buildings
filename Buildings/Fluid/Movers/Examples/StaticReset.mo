@@ -30,7 +30,7 @@ model StaticReset
     annotation (Placement(transformation(extent={{160,-90},{140,-70}})));
 
   // Fans and their performance records
-  Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
+  parameter Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
     "Performance record for PowerCharacteristic";
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
@@ -38,14 +38,14 @@ model StaticReset
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Fan using PowerCharacteristic"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Buildings.Fluid.Movers.Data.Generic per2(
+  parameter Buildings.Fluid.Movers.Data.Generic per2(
     pressure=per1.pressure,
     etaMet=
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
     etaHydMet=
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
     etaMotMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,    
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
       pressure=per1.pressure,
       power=per1.power))
@@ -56,7 +56,7 @@ model StaticReset
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Fan using EulerNumber"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Fluid.Movers.Data.Generic per3(
+  parameter Buildings.Fluid.Movers.Data.Generic per3(
     pressure=per1.pressure,
     etaMet=
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
