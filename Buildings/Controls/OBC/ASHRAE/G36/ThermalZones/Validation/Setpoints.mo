@@ -4,7 +4,7 @@ model Setpoints "Validate block for zone set point"
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints TZonSet(
     final have_occSen=true,
     final have_winSen=true)
-                       "Block that determines the thermal zone setpoints"
+    "Block that determines the thermal zone setpoints"
     annotation (Placement(transformation(extent={{100,40},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
@@ -114,9 +114,9 @@ equation
           45},{98,45}}, color={255,0,255}));
   connect(winSta.y, TZonSet.uWin) annotation (Line(points={{82,-20},{92,-20},{
           92,42},{98,42}}, color={255,0,255}));
-
   connect(swi2.y, TZonSet.cooSetAdj) annotation (Line(points={{2,20},{10,20},{
           10,58},{98,58}}, color={0,0,127}));
+
 annotation (
   experiment(StopTime=28800, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/ThermalZones/Validation/Setpoints.mos"

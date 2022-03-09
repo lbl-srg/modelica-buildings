@@ -125,16 +125,18 @@ block SeparateWithDP
     "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-310},{260,-270}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply minDp
+    "Minimum pressure difference setpoint"
+    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDesDp(
     final k=dpDesOutDam_min)
     "Design minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Square of the normalized minimum airflow"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+    "Square of the normalized minimum airflow"
     annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply minDp "Minimum pressure difference setpoint"
-    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final h=1)
     "Check if the minimum pressure difference setpoint is greater than zero"

@@ -78,6 +78,7 @@ protected
     final Td=TdTSup,
     final yMax=1,
     final yMin=-1,
+    final reverseActing=false,
     final y_reset=0)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));

@@ -7,8 +7,7 @@ model Alarms "Validate block for generating alarms"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    final duration=7200)
-    "Generate ramp output"
+    final duration=7200) "Generate ramp output"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.75)
     "Check if input is greater than 0.75"

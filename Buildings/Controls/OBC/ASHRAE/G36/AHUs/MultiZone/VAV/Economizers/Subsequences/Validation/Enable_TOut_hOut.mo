@@ -21,13 +21,16 @@ model Enable_TOut_hOut
     final falling=800) "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  Enable enaDis "Multi zone VAV AHU economizer enable disable sequence"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Enable enaDis1 "Multi zone VAV AHU economizer enable disable sequence"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  Enable enaDis2(final use_enthalpy=false)
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable enaDis
     "Multi zone VAV AHU economizer enable disable sequence"
-    annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
+    annotation (Placement(transformation(extent={{-80,-44},{-60,-16}})));
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable enaDis1
+    "Multi zone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{80,-44},{100,-16}})));
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable enaDis2(
+    final use_enthalpy=false)
+    "Multi zone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{220,-44},{240,-16}})));
 
 protected
   final parameter Real TOutCutoff(
@@ -76,102 +79,94 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
     final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final startTime=10,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(final shift=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final startTime=10,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(final shift=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
 equation
   connect(TOutCut.y, enaDis.TOutCut)
-    annotation (Line(points={{-138,90},{-112,90},{-112,-22},{-82,-22}}, color={0,0,127}));
+    annotation (Line(points={{-138,90},{-112,90},{-112,-19},{-82,-19}}, color={0,0,127}));
   connect(hOutCut.y, enaDis.hOutCut)
-    annotation (Line(points={{-218,90},{-186,90},{-186,58},{-138,58},{-138,-26},
-          {-82,-26}},
-      color={0,0,127}));
+    annotation (Line(points={{-218,90},{-186,90},{-186,58},{-138,58},{-138,-24},
+          {-82,-24}},      color={0,0,127}));
   connect(freProSta.y, enaDis.uFreProSta)
-    annotation (Line(points={{-178,30},{-120,30},{-120,-30},{-82,-30}}, color={255,127,0}));
+    annotation (Line(points={{-178,30},{-120,30},{-120,-29},{-82,-29}},  color={255,127,0}));
   connect(outDamPosMax.y, enaDis.uOutDamPosMax)
     annotation (Line(points={{-218,-70},{-150,-70},{-150,-32},{-82,-32}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis.uOutDamPosMin)
     annotation (Line(points={{-218,-110},{-210,-110},{-210,-60},{-140,-60},{-140,
-          -34},{-82,-34}},                                                                        color={0,0,127}));
+          -34},{-82,-34}},
+      color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis.uRetDamPhyPosMax)
-    annotation (Line(points={{-138,-110},{-110,-110},{-110,-36},{-82,-36}}, color={0,0,127}));
+    annotation (Line(points={{-138,-110},{-110,-110},{-110,-39},{-82,-39}},  color={0,0,127}));
   connect(retDamPosMax.y, enaDis.uRetDamPosMax)
-    annotation (Line(points={{-138,-150},{-106,-150},{-106,-38},{-82,-38}}, color={0,0,127}));
+    annotation (Line(points={{-138,-150},{-106,-150},{-106,-41},{-82,-41}}, color={0,0,127}));
   connect(retDamPosMin.y, enaDis.uRetDamPosMin)
-    annotation (Line(points={{-138,-190},{-100,-190},{-100,-40},{-82,-40}}, color={0,0,127}));
+    annotation (Line(points={{-138,-190},{-100,-190},{-100,-43},{-82,-43}},  color={0,0,127}));
   connect(TOutCut1.y, enaDis1.TOutCut)
-    annotation (Line(points={{22,90},{30,90},{30,-22},{78,-22}}, color={0,0,127}));
+    annotation (Line(points={{22,90},{30,90},{30,-19},{78,-19}}, color={0,0,127}));
   connect(hOutCut1.y, enaDis1.hOutCut)
-    annotation (Line(points={{-18,50},{10,50},{10,-26},{78,-26}}, color={0,0,127}));
+    annotation (Line(points={{-18,50},{10,50},{10,-24},{78,-24}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
-    annotation (Line(points={{-218,128},{-180,128},{-180,66},{-130,66},{-130,-24},
-          {-82,-24}},
-    color={0,0,127}));
+    annotation (Line(points={{-218,128},{-180,128},{-180,66},{-130,66},{-130,-22},
+          {-82,-22}},      color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
-    annotation (Line(points={{62,90},{70,90},{70,-20},{78,-20},{78,-20}}, color={0,0,127}));
+    annotation (Line(points={{62,90},{70,90},{70,-20},{78,-20},{78,-17}}, color={0,0,127}));
   connect(booPul.y, TOut.u)
     annotation (Line(points={{-178,160},{-162,160}}, color={255,0,255}));
   connect(TOut.y, enaDis.TOut)
-    annotation (Line(points={{-138,160},{-110,160},{-110,-20},{-82,-20}}, color={0,0,127}));
+    annotation (Line(points={{-138,160},{-110,160},{-110,-17},{-82,-17}}, color={0,0,127}));
   connect(booPul1.y, hOut.u)
     annotation (Line(points={{-58,90},{-58,90},{-42,90}}, color={255,0,255}));
   connect(hOut.y, enaDis1.hOut)
-    annotation (Line(points={{-18,90},{-10,90},{-10,60},{20,60},{20,-24},{78,-24}}, color={0,0,127}));
+    annotation (Line(points={{-18,90},{-10,90},{-10,60},{20,60},{20,-22},{78,-22}}, color={0,0,127}));
   connect(freProSta.y, enaDis1.uFreProSta)
-    annotation (Line(points={{-178,30},{-46,30},{-46,-30},{78,-30}}, color={255,127,0}));
+    annotation (Line(points={{-178,30},{-46,30},{-46,-29},{78,-29}}, color={255,127,0}));
   connect(outDamPosMax.y, enaDis1.uOutDamPosMax)
     annotation (Line(points={{-218,-70},{8,-70},{8,-32},{78,-32}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis1.uOutDamPosMin)
     annotation (Line(points={{-218,-110},{-190,-110},{-190,-64},{12,-64},{12,-34},
-          {78,-34}},
-      color={0,0,127}));
+          {78,-34}},  color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis1.uRetDamPhyPosMax)
-    annotation (Line(points={{-138,-110},{16,-110},{16,-36},{78,-36}},color={0,0,127}));
+    annotation (Line(points={{-138,-110},{16,-110},{16,-39},{78,-39}}, color={0,0,127}));
   connect(retDamPosMax.y, enaDis1.uRetDamPosMax)
-    annotation (Line(points={{-138,-150},{20,-150},{20,-38},{78,-38}},color={0,0,127}));
+    annotation (Line(points={{-138,-150},{20,-150},{20,-41},{78,-41}}, color={0,0,127}));
   connect(retDamPosMin.y, enaDis1.uRetDamPosMin)
-    annotation (Line(points={{-138,-190},{30,-190},{30,-40},{78,-40}},color={0,0,127}));
+    annotation (Line(points={{-138,-190},{30,-190},{30,-43},{78,-43}}, color={0,0,127}));
   connect(TOut.y, enaDis2.TOut)
-    annotation (Line(points={{-138,160},{200,160},{200,-20},{218,-20}},color={0,0,127}));
+    annotation (Line(points={{-138,160},{200,160},{200,-17},{218,-17}}, color={0,0,127}));
   connect(TOutCut.y, enaDis2.TOutCut)
-    annotation (Line(points={{-138,90},{-120,90},{-120,120},{188,120},{188,-22},
-          {218,-22}},
-      color={0,0,127}));
+    annotation (Line(points={{-138,90},{-120,90},{-120,120},{188,120},{188,-19},
+          {218,-19}},  color={0,0,127}));
   connect(freProSta.y, enaDis2.uFreProSta)
-    annotation (Line(points={{-178,30},{170,30},{170,-30},{218,-30}}, color={255,127,0}));
+    annotation (Line(points={{-178,30},{170,30},{170,-29},{218,-29}}, color={255,127,0}));
   connect(outDamPosMax.y, enaDis2.uOutDamPosMax)
     annotation (Line(points={{-218,-70},{178,-70},{178,-32},{218,-32}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis2.uOutDamPosMin)
     annotation (Line(points={{-218,-110},{-180,-110},{-180,-70},{188,-70},{188,-34},
-          {218,-34}},       color={0,0,127}));
+          {218,-34}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis2.uRetDamPhyPosMax)
-    annotation (Line(points={{-138,-110},{192,-110},{192,-36},{218,-36}}, color={0,0,127}));
+    annotation (Line(points={{-138,-110},{192,-110},{192,-39},{218,-39}}, color={0,0,127}));
   connect(retDamPosMax.y, enaDis2.uRetDamPosMax)
-    annotation (Line(points={{-138,-150},{196,-150},{196,-38},{218,-38}}, color={0,0,127}));
+    annotation (Line(points={{-138,-150},{196,-150},{196,-41},{218,-41}}, color={0,0,127}));
   connect(retDamPosMin.y, enaDis2.uRetDamPosMin)
-    annotation (Line(points={{-138,-190},{198,-190},{198,-40},{218,-40}}, color={0,0,127}));
+    annotation (Line(points={{-138,-190},{198,-190},{198,-43},{218,-43}}, color={0,0,127}));
   connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-178,-32},{-160,-32},{-160,-28},{-80,-28},{-80,-28},
-          {-82,-28}},
-    color={255,0,255}));
+    annotation (Line(points={{-178,-32},{-160,-32},{-160,-28},{-80,-28},{-80,-27},
+          {-82,-27}},  color={255,0,255}));
   connect(supFanSta.y, enaDis1.uSupFan)
-    annotation (Line(points={{-178,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-28},
-          {78,-28}},
-    color={255,0,255}));
+    annotation (Line(points={{-178,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-27},
+          {78,-27}},  color={255,0,255}));
   connect(supFanSta.y, enaDis2.uSupFan)
-    annotation (Line(points={{-178,-32},{-160,-32},{-160,-12},{140,-12},{140,-28},
-          {218,-28}},
-    color={255,0,255}));
+    annotation (Line(points={{-178,-32},{-160,-32},{-160,-12},{140,-12},{140,-27},
+          {218,-27}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/Enable_TOut_hOut.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/Enable_TOut_hOut.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(
@@ -195,7 +190,7 @@ annotation (
                       TOut > 75 degF [24 degC]
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
-          extent={{-82,-40},{14,-66}},
+          extent={{-92,-42},{4,-68}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests temperature hysteresis"),

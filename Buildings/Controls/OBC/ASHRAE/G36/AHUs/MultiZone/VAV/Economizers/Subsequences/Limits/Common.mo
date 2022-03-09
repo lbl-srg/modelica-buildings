@@ -361,17 +361,15 @@ common damper for minimum outdoor air and economizer functions based on outdoor 
 measurement, designed in line with the Section 5.16.6 of the ASHRAE Guideline 36, May 2020.
 </p>
 <p>
-The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes</a> equals <code>occupied</code>,
-and the freeze protection stage <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> is <code>stage1</code> or lower.
+The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>) and
+the AHU operation mode <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes\">
+Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes</a> equals <code>occupied</code>.
 Otherwise the damper position limits are set to their corresponding maximum and minimum physical or at
 commissioning fixed limits. The state machine chart below illustrates listed conditions:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconDamperLimitsStateMachineChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Limits/StateMachineChart.png\"/>
 </p>
 <p>
 The controller sets the outdoor and return damper position limits so
@@ -389,14 +387,14 @@ limits for a well configured controller.
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconDamperLimitsControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Limits/ControlDiagram.png\"/>
 </p>
 <p>
 The expected damper position limits vs. the control loop signal are as follows:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconDamperLimitsControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Limits/ControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
