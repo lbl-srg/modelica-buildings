@@ -1,6 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
-partial block PartialVAVMultizone
-  "Partial control block for multiple zone VAV"
+partial block PartialVAVMultizone "Interface class for Multiple-zone VAV controller"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController(
       redeclare

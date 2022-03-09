@@ -18,7 +18,7 @@ model ArrayVariable "Fan array - Variable speed"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,50})));
+        origin={0,40})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
     "Start/stop signal"
     annotation (Placement(transformation(
@@ -62,20 +62,21 @@ model ArrayVariable "Fan array - Variable speed"
         origin={0,-70})));
 equation
   connect(repSig.y, fan.y)
-    annotation (Line(points={{-2.22045e-15,38},{-2.22045e-15,25},{0,25},{0,12}},
+    annotation (Line(points={{-2.22045e-15,28},{-2.22045e-15,25},{0,25},{0,12}},
                                              color={0,0,127}));
   connect(sigSta.y, sigCon.u2)
     annotation (Line(points={{-46,68},{-46,62}}, color={0,0,127}));
-  connect(sigCon.y, repSig.u) annotation (Line(points={{-40,38},{-40,30},{-16,30},
-          {-16,64},{0,64},{0,62}}, color={0,0,127}));
-  connect(bus.ySpe, sigCon.u1) annotation (Line(
+  connect(sigCon.y, repSig.u) annotation (Line(points={{-40,38},{-40,30},{-20,30},
+          {-20,60},{2.22045e-15,60},{2.22045e-15,52}},
+                                   color={0,0,127}));
+  connect(bus.y, sigCon.u1) annotation (Line(
       points={{0,100},{0,68},{-34,68},{-34,62}},
       color={255,204,51},
       thickness=0.5));
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,-20},
           {2.22045e-15,-20},{2.22045e-15,-28}},
                             color={0,0,127}));
-  connect(bus.y, sigSta.u) annotation (Line(
+  connect(bus.y1, sigSta.u) annotation (Line(
       points={{0,100},{0,96},{-46,96},{-46,92}},
       color={255,204,51},
       thickness=0.5));
@@ -89,7 +90,7 @@ equation
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(evaSta.y, evaStaArr.u) annotation (Line(points={{-2.22045e-15,-52},{-2.22045e-15,
           -55},{2.22045e-15,-55},{2.22045e-15,-58}}, color={255,0,255}));
-  connect(evaStaArr.y, bus.y_actual) annotation (Line(points={{0,-82},{0,-90},{40,
+  connect(evaStaArr.y, bus.y1_actual) annotation (Line(points={{0,-82},{0,-90},{40,
           -90},{40,96},{0,96},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,

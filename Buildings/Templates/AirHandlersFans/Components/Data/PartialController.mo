@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Data;
-record PartialController
+record PartialController "Record for AHU controller interface class"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.AirHandlersFans.Types.Controller typ

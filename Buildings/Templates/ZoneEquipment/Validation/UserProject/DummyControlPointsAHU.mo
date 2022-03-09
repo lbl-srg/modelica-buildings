@@ -26,8 +26,8 @@ block DummyControlPointsAHU "Control points from AHU"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yReqOutAir[nZon](each k=true)
     "yReqOutAir from AHU controller"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Controls.OBC.CDL.Logical.Sources.Constant yFanSup_actual[nZon](each k=true)
-    "yFanSup_actual from AHU controller"
+  Controls.OBC.CDL.Logical.Sources.Constant y1FanSup_actual[nZon](each k=true)
+    "y1FanSup_actual from AHU controller"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirSup[nZon](each k=15 + 273.15)
     "AHU supply air temperature"
@@ -40,7 +40,7 @@ equation
 
   connect(yReqOutAir.y, busTer.yReqOutAir);
   connect(VDesUncOutAir_flow.y, busTer.VDesUncOutAir_flow);
-  connect(yFanSup_actual.y, busTer.yFanSup_actual);
+  connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
 
 
   annotation (

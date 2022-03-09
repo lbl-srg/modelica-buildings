@@ -1,3 +1,3 @@
 within Buildings.Templates.AirHandlersFans.Components;
-package Controls
+package Controls "Controllers"
 end Controls;

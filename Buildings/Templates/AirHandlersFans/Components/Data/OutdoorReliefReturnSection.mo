@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Data;
-record OutdoorReliefReturnSection
+record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel

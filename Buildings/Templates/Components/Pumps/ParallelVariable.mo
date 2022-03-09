@@ -68,11 +68,11 @@ model ParallelVariable "Parallel pumps (identical) - Variable speed"
 equation
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{10,0},{30,0}},  color={0,127,255}));
-  connect(bus.ySpe, repSig.u) annotation (Line(
+  connect(bus.y, repSig.u) annotation (Line(
       points={{0,100},{0,96},{20,96},{20,82}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.y, sigSta.u) annotation (Line(
+  connect(bus.y1, sigSta.u) annotation (Line(
       points={{0,100},{0,96},{-20,96},{-20,82}},
       color={255,204,51},
       thickness=0.5));
@@ -82,7 +82,7 @@ equation
           6,42}},    color={0,0,127}));
   connect(pum.y_actual, evaSta.u)
     annotation (Line(points={{11,7},{20,7},{20,-38}}, color={0,0,127}));
-  connect(evaSta.y, bus.y_actual) annotation (Line(points={{20,-62},{20,-80},{60,
+  connect(evaSta.y, bus.y1_actual) annotation (Line(points={{20,-62},{20,-80},{60,
           -80},{60,100},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,

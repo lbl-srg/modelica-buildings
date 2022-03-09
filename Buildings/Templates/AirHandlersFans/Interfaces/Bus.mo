@@ -5,6 +5,9 @@ expandable connector Bus "Main control bus"
     Templates.Components.Interfaces.Bus fanSup
        "Supply fan points"
        annotation (HideResult=false);
+    Templates.Components.Interfaces.Bus fanRel
+      "Relief fan points"
+      annotation (HideResult=false);
     Templates.Components.Interfaces.Bus fanRet
       "Return fan points"
       annotation (HideResult=false);

@@ -1,5 +1,5 @@
 within Buildings.Templates.Components;
-package Coils
+package Coils "Coil models"
   extends Modelica.Icons.Package;
 
 

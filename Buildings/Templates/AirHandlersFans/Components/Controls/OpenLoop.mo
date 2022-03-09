@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
-block OpenLoop "Open loop controller (output signals only)"
+block OpenLoop "Open Loop Controller"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.OpenLoop);
@@ -39,7 +39,7 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,170})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel2(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true)
  if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -58,33 +58,43 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySpeFanSup(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanSup(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={32,70})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanSup(k=true)
+        origin={0,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1FanSup(k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={72,70})));
+        origin={40,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1)
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySpeFanRet(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanRet(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={112,70})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanRet(k=true)
+        origin={160,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1FanRet(k=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={152,70})));
+        origin={200,70})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanRel(k=1)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={80,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1FanRel(k=true)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={120,70})));
 equation
   /* Control point connection - start */
 
@@ -92,17 +102,19 @@ equation
   connect(yCoiHea.y, bus.coiHea.y);
   connect(yCoiCooSta.y, bus.coiCoo.y);
 
+  connect(y1FanSup.y, bus.fanSup.y1);
   connect(yFanSup.y, bus.fanSup.y);
-  connect(ySpeFanSup.y, bus.fanSup.ySpe);
+  connect(y1FanRel.y, bus.fanRel.y1);
+  connect(yFanRel.y, bus.fanRel.y);
+  connect(y1FanRet.y, bus.fanRet.y1);
   connect(yFanRet.y, bus.fanRet.y);
-  connect(ySpeFanRet.y, bus.fanRet.ySpe);
 
   connect(yDamOut.y, bus.damOut.y);
-  connect(yDamOut1.y, bus.damOut.y);
+  connect(yDamOut1.y, bus.damOut.y1);
   connect(yDamOutMin.y, bus.damOutMin.y);
-  connect(yDamOutMin1.y, bus.damOutMin.y);
+  connect(yDamOutMin1.y, bus.damOutMin.y1);
   connect(yDamRel.y, bus.damRel.y);
-  connect(yDamRel2.y, bus.damRel.y);
+  connect(yDamRel1.y, bus.damRel.y1);
   connect(yDamRet.y, bus.damRet.y);
   /* Control point connection - stop */
 

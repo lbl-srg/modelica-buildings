@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
 block G36VAVMultiZone
-  "Guideline 36 controller for multiple-zone VAV air-handling unit"
+  "Guideline 36 Controller for Multiple-zone VAV"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone);
@@ -75,8 +75,8 @@ block G36VAVMultiZone
     dat.pAirRetSet_rel_max
     "Return fan maximum discharge static pressure set point";
 
-  final parameter Real ySpeFanSup_min=
-    dat.ySpeFanSup_min
+  final parameter Real yFanSup_min=
+    dat.yFanSup_min
     "Lowest allowed fan speed if fan is on";
 
   // FIXME: the definition of that parameter is unclear.
@@ -108,12 +108,12 @@ block G36VAVMultiZone
     dat.pAirBuiSet_rel
     "Building static pressure set point";
 
-  final parameter Real ySpeFanRel_min=
-    dat.ySpeFanRel_min
+  final parameter Real yFanRel_min=
+    dat.yFanRel_min
     "Minimum relief fan speed";
 
-  final parameter Real ySpeFanRet_min=
-    dat.ySpeFanRet_min
+  final parameter Real yFanRet_min=
+    dat.yFanRet_min
     "Minimum return fan speed";
 
   final parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
@@ -126,7 +126,7 @@ block G36VAVMultiZone
 
   // FIXME #1913: incorrect parameter propagation in controller.
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctl(
-    retFanDpCon(final disMinSpe=ySpeFanRet_min, disMaxSpe=1),
+    retFanDpCon(final disMinSpe=yFanRet_min, disMaxSpe=1),
     final minOADes=minOADes,
     final buiPreCon=buiPreCon,
     final nZonGro=nGro,
@@ -137,9 +137,9 @@ block G36VAVMultiZone
     final have_freSta=have_freSta,
     final use_enthalpy=use_enthalpy,
     final pMaxSet=pAirSupSet_rel_max,
-    final yFanMin=ySpeFanSup_min,
-    final minSpe=ySpeFanSup_min,
-    final minSpeRelFan=ySpeFanRel_min,
+    final yFanMin=yFanSup_min,
+    final minSpe=yFanSup_min,
+    final minSpeRelFan=yFanRel_min,
     final VPriSysMax_flow=VPriSysMax_flow,
     final peaSysPop=nPeaSys_nominal,
     final TSupCooMin=TAirSupSet_min,
@@ -225,18 +225,20 @@ block G36VAVMultiZone
     "Output should be reintroduced as it is needed by the terminal unit control sequence"
     annotation (Placement(transformation(extent={{-280,-130},{-260,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yMinOutDamPos(k=false)
-    if secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure
+    if secOutRel.typSecOut == Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure
     "If `minOADes==...SeparateDamper_DP` a Boolean output is required"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yRelDamPos(k=false)
     if secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
     "If `buiPreCon==...ReliefFan` a Boolean output is required"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRet(t=1e-2,
-      h=0.5e-2) "On/off command for return fan is required"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRel(
+     t=1e-2, h=0.5e-2)
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "On/off command for relief fan is required"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator yFanSup_actual(final
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator y1FanSup_actual(final
       nout=nZon) "Pass signal to terminal unit bus"
     annotation (Placement(transformation(extent={{-10,-190},{10,-170}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSup(final nout=
@@ -245,6 +247,12 @@ block G36VAVMultiZone
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uMinOutAirDam(k=true)
     "Not an input point"
     annotation (Placement(transformation(extent={{-280,-100},{-260,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRet(
+    t=1e-2, h=0.5e-2)
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    "On/off command for return fan is required"
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 initial equation
   if minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper then
     assert(secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
@@ -263,7 +271,7 @@ equation
   // Inputs from AHU bus
   connect(bus.pAirSup_rel, ctl.ducStaPre);
   connect(bus.TAirOut, ctl.TOut);
-  connect(bus.fanSup.y_actual, ctl.uSupFan);
+  connect(bus.fanSup.y1_actual, ctl.uSupFan);
   connect(bus.TAirSup, ctl.TSup);
   connect(bus.VAirOut_flow, ctl.VOut_flow);
   connect(bus.VAirOutMin_flow, ctl.VOut_flow);
@@ -276,7 +284,7 @@ equation
   connect(bus.coiCoo.y_actual, ctl.uCooCoi);
   connect(bus.coiHea.y_actual, ctl.uHeaCoi);
 
-  connect(bus.fanSup.y_actual, yFanSup_actual.u);
+  connect(bus.fanSup.y1_actual, y1FanSup_actual.u);
   connect(bus.TAirSup, TAirSup.u);
 
   // Inputs from terminal bus
@@ -308,15 +316,15 @@ equation
   connect(busTer.uWin, repSigZon.uWin);
 
   // Outputs to AHU bus
-  connect(ctl.ySupFan, bus.fanSup.y);
+  connect(ctl.ySupFan, bus.fanSup.y1);
   connect(ctl.yMinOutDamPos, bus.damOutMin.y);
   connect(ctl.yRetDamPos, bus.damRet.y);
   connect(ctl.yRelDamPos, bus.damRel.y);
   connect(ctl.yOutDamPos, bus.damOut.y);
-  connect(ctl.yEneCHWPum, bus.yPumCHW);
-  connect(ctl.ySupFanSpe, bus.fanSup.ySpe);
-  connect(ctl.yRetFanSpe, bus.fanRet.ySpe);
-  connect(ctl.yRelFanSpe, bus.fanRet.ySpe);
+  connect(ctl.yEneCHWPum, bus.y1PumCHW);
+  connect(ctl.ySupFanSpe, bus.fanSup.y);
+  connect(ctl.yRetFanSpe, bus.fanRet.y);
+  connect(ctl.yRelFanSpe, bus.fanRel.y);
   connect(ctl.yCooCoi, bus.coiCoo.y);
   connect(ctl.yHeaCoi, bus.coiHea.y);
   connect(ctl.yAla, bus.ala);
@@ -332,7 +340,7 @@ equation
   connect(yReqOutAir.y, busTer.yReqOutAir);
   connect(TAirSupSet.y, busTer.TAirSupSet);
   connect(TAirSup.y, busTer.TAirSup);
-  connect(yFanSup_actual.y, busTer.yFanSup_actual);
+  connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
 
   // FIXME
   connect(FIXME_TOutCut.y, ctl.TOutCut);
@@ -343,9 +351,10 @@ equation
   connect(FIXME_uFreStaRes.y, ctl.uFreStaRes);
   connect(FIXME_uSofSwiRes.y, ctl.uSofSwiRes);
   connect(FIXME_uRelFanSpe.y, ctl.uRelFanSpe);
-  connect(FIXME_yMinOutDamPos.y, bus.damOutMin.y);
-  connect(FIXME_yRelDamPos.y, bus.damRel.y);
-  connect(FIXME_yFanRet.y, bus.fanRet.y);
+  connect(FIXME_yMinOutDamPos.y, bus.damOutMin.y1);
+  connect(FIXME_yRelDamPos.y, bus.damRel.y1);
+  connect(FIXME_yFanRel.y, bus.fanRel.y1);
+  connect(FIXME_yFanRet.y, bus.fanRet.y1);
   connect(FIXME_uMinOutAirDam.y, ctl.uMinOutAirDam);
 
   /* Control point connection - stop */
@@ -466,10 +475,10 @@ equation
                                              color={255,0,255}));
   connect(FIXME_TAirSupSet.y, TAirSupSet.u)
     annotation (Line(points={{-258,-120},{-12,-120}},color={0,0,127}));
-  connect(ctl.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
-          {70,-8.18182},{70,-30},{78,-30}}, color={0,0,127}));
-  connect(ctl.yRelFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-13.0909},
+  connect(ctl.yRelFanSpe,FIXME_yFanRel. u) annotation (Line(points={{44,-13.0909},
           {52,-13.0909},{52,-30},{78,-30}}, color={0,0,127}));
+  connect(ctl.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
+          {68,-8.18182},{68,-60},{78,-60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

@@ -32,7 +32,7 @@ equation
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,-20},
           {2.22045e-15,-20},{2.22045e-15,-38}},
                                  color={0,0,127}));
-  connect(bus.y, sigSta.u) annotation (Line(
+  connect(bus.y1, sigSta.u) annotation (Line(
       points={{0,100},{2.22045e-15,62}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -40,7 +40,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},{60,
+  connect(evaSta.y, bus.y1_actual) annotation (Line(points={{0,-62},{0,-80},{60,
           -80},{60,96},{0,96},{0,100}},     color={255,0,255}), Text(
       string="%second",
       index=1,

@@ -32,7 +32,7 @@ model ReliefFan "Relief fan with two-position relief damper"
         transformation(extent={{-100,-10},{-120,10}})));
 equation
   /* Control point connection - start */
-  connect(fanRel.bus, bus.fanRet);
+  connect(fanRel.bus, bus.fanRel);
   connect(damRel.bus, bus.damRel);
   /* Control point connection - end */
   connect(port_b, damRel.port_b)

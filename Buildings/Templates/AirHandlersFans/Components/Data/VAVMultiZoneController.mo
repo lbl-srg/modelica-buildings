@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Data;
-record VAVMultiZoneController
+record VAVMultiZoneController "Record for Multiple-zone VAV controller"
   extends Buildings.Templates.AirHandlersFans.Components.Data.PartialController;
 
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
@@ -38,7 +38,7 @@ record VAVMultiZoneController
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
-  parameter Real ySpeFanSup_min(
+  parameter Real yFanSup_min(
     final unit="1",
     final min=0,
     final max=1)= 0.1
@@ -47,7 +47,7 @@ record VAVMultiZoneController
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
     typFanSup<>Buildings.Templates.Components.Types.Fan.None));
 
-  parameter Real ySpeFanRel_min(
+  parameter Real yFanRel_min(
     final unit="1",
     final min=0,
     final max=1)=0.1
@@ -56,7 +56,7 @@ record VAVMultiZoneController
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       typFanRel<>Buildings.Templates.Components.Types.Fan.None));
 
-  parameter Real ySpeFanRet_min(
+  parameter Real yFanRet_min(
     final unit="1",
     final min=0,
     final max=1)=0.1

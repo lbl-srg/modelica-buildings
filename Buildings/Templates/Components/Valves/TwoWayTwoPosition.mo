@@ -46,7 +46,7 @@ equation
     annotation (Line(points={{5,7},{20,7},{20,-38}}, color={0,0,127}));
   connect(val.y_actual, evaClo.u) annotation (Line(points={{5,7},{20,7},{20,-20},
           {-20,-20},{-20,-38}}, color={0,0,127}));
-  connect(evaOpe.y, bus.y_actual) annotation (Line(points={{20,-62},{20,-80},{60,
+  connect(evaOpe.y, bus.y1_actual) annotation (Line(points={{20,-62},{20,-80},{60,
           -80},{60,96},{0,96},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -58,7 +58,7 @@ equation
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(booToRea.u, bus.y) annotation (Line(points={{2.22045e-15,62},{2.22045e-15,
+  connect(booToRea.u, bus.y1) annotation (Line(points={{2.22045e-15,62},{2.22045e-15,
           81},{0,81},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,

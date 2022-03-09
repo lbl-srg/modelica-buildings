@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection;
-model EconomizerNoRelief "Air economizer - No relief branch"
+model EconomizerNoRelief "Air Economizer - No Relief Branch"
   extends
     .Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,

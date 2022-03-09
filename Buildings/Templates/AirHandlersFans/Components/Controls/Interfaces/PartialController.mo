@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
-partial block PartialController
+partial block PartialController "Interface class for AHU controller"
 
   parameter Buildings.Templates.AirHandlersFans.Types.Controller typ
     "Type of controller"

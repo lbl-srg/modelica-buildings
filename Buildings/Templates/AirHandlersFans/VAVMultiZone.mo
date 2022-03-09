@@ -1,8 +1,9 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-zone VAV"
   /*
-  In Dymola only, bindings for the parameter record cannot be made final if propagation
-  from a top-level record (whole building) is needed.
+  In Dymola only (ticket SR00860858-01), bindings for the parameter record 
+  cannot be made final if propagation from a top-level record (whole building) 
+  is needed.
   Instead those parameter declarations are annoted with enable=false
   in the record class.
   */

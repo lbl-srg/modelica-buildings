@@ -1,4 +1,4 @@
 within Buildings.Templates;
-package Components
+package Components "Generic equipment models"
 
 end Components;

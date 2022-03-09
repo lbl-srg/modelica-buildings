@@ -39,13 +39,13 @@ equation
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(dam.y_actual,evaOpe. u) annotation (Line(points={{5,7},{20,7},{20,-38}},
                                                         color={0,0,127}));
-  connect(bus.y, booToRea.u) annotation (Line(
+  connect(bus.y1, booToRea.u) annotation (Line(
       points={{0,100},{2.22045e-15,62}},
       color={255,204,51},
       thickness=0.5));
   connect(booToRea.y, dam.y)
     annotation (Line(points={{-2.22045e-15,38},{0,12}}, color={0,0,127}));
-  connect(evaOpe.y, bus.y_actual) annotation (Line(points={{20,-62},{20,-80},{60,
+  connect(evaOpe.y, bus.y1_actual) annotation (Line(points={{20,-62},{20,-80},{60,
           -80},{60,96},{0,96},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,

@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components;
-package OutdoorReliefReturnSection
+package OutdoorReliefReturnSection "Models for outdoor/relief/return air section"
   extends Modelica.Icons.Package;
 
 

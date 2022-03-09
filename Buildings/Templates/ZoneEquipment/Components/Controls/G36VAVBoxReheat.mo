@@ -244,7 +244,7 @@ equation
 
   connect(bus.coiHea.y_actual, FIXME_uVal.u);
 
-  connect(bus.yFanSup_actual, ctl.uFan);
+  connect(bus.y1FanSup_actual, ctl.uFan);
 
   connect(bus.ppmCO2, ctl.ppmCO2);
   connect(bus.uWin, ctl.uWin);
