@@ -77,12 +77,8 @@ model WaterBasedCooling "Chilled water coil"
         rotation=90,
         origin={60,-60})));
 equation
-  /* Control point connection - start */
-  connect(bus, val.bus);
-  /* Control point connection - end */
   connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-
   connect(hex.port_b2, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(val.port_a, hex.port_b1) annotation (Line(points={{-40,-50},{-40,-12},
@@ -99,6 +95,14 @@ equation
           -80},{60,-70}}, color={0,127,255}));
   connect(pas.port_b, hex.port_a1)
     annotation (Line(points={{60,-50},{60,-12},{10,-12}}, color={0,127,255}));
+  connect(val.bus, bus) annotation (Line(
+      points={{-50,-60},{-60,-60},{-60,20},{0,20},{0,100}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=false)), Diagram(

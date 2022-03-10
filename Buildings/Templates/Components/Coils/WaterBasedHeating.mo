@@ -71,9 +71,6 @@ model WaterBasedHeating "Hot water coil"
         rotation=90,
         origin={40,-60})));
 equation
-  /* Control point connection - start */
-  connect(bus, val.bus);
-  /* Control point connection - end */
   connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(hex.port_b2, port_b)
@@ -93,6 +90,14 @@ equation
     annotation (Line(points={{40,-100},{40,-70}}, color={0,127,255}));
   connect(val.portByp_a, jun.port_3)
     annotation (Line(points={{-30,-60},{30,-60}}, color={0,127,255}));
+  connect(bus, val.bus) annotation (Line(
+      points={{0,100},{0,20},{-60,20},{-60,-60},{-50,-60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

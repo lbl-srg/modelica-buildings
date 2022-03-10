@@ -33,10 +33,10 @@ package Types "AHU types"
       AirflowCalculated
       "Calculated based on return fan speed (requires constant flow characteristic) and
     VAV box air flow rates",
-      AirflowMeasured
+      AirflowTracking
       "Airflow tracking",
-      Pressure
-      "Direct building pressure (via discharge static pressure)")
+      BuildingPressure
+      "Building pressure (via discharge static pressure)")
     "Enumeration to configure the return fan control";
   type HeatRecovery = enumeration(
       None

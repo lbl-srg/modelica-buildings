@@ -25,7 +25,7 @@ partial block PartialVAVMultizone "Interface class for Multiple-zone VAV control
 
   // FIXME: implement computation based on speed if Calculated #1913.
   parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
-    Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
+    Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking
     "Return fan control type"
     annotation (Evaluate=true,
       Dialog(
@@ -63,9 +63,9 @@ partial block PartialVAVMultizone "Interface class for Multiple-zone VAV control
     elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
       then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan
-      then (if typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
+      then (if typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking
         then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-        elseif typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+        elseif typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure
           then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
         else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper)
     else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper

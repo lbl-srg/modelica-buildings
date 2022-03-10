@@ -4,4 +4,9 @@ package Fans
 
 
 
+annotation (Documentation(info="<html>
+<p>
+This package contains models for fans.
+</p>
+</html>"));
 end Fans;

@@ -39,7 +39,7 @@ partial model PartialOutdoorReliefReturnSection
       Dialog(group="Configuration",
         enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief));
   inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
-    Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
+    Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking
     "Return fan control type"
     annotation (Evaluate=true,
       Dialog(
@@ -292,12 +292,12 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
         extent={{580,360},{660,440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
           points={{490,600},{620,600},{620,440}},
           color={0,0,0},
           thickness=1),
@@ -352,18 +352,18 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure,
         extent={{260,760},{340,840}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-            typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+            typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure,
           points={{260,800},{220,800},{220,658}},
           color={0,0,0},
           thickness=1),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-            typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure,
+            typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure,
           points={{380,800},{340,800}},
           color={0,0,0},
           thickness=1)}),

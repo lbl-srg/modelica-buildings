@@ -58,7 +58,7 @@ block G36VAVMultiZone
   // FIXME #1913: not used, not clear.
   /*
   final parameter Boolean have_airFloMeaSta=
-    typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
+    typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking
     "Check if the AHU has supply airflow measuring station"
     annotation (Dialog(group="System and building parameters"));
   */

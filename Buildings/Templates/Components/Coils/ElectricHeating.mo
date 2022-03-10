@@ -24,7 +24,11 @@ equation
   connect(bus.y, hex.u) annotation (Line(
       points={{0,100},{0,20},{-20,20},{-20,6},{-12,6}},
       color={255,204,51},
-      thickness=0.5));
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

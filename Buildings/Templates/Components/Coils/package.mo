@@ -5,4 +5,9 @@ package Coils "Coil models"
 
 
 
+annotation (Documentation(info="<html>
+<p>
+This package contains models for heating and cooling coils.
+</p>
+</html>"));
 end Coils;

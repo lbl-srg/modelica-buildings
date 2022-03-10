@@ -20,7 +20,7 @@ model NoEconomizer "No Air Economizer"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanRet,
       final have_senFlo=
-        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
+        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
       final text_flip=true)
     "Return fan"
     annotation (choices(choice(redeclare replaceable

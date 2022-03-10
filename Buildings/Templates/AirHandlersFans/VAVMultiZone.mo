@@ -1,8 +1,8 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-zone VAV"
-  /*
-  In Dymola only (ticket SR00860858-01), bindings for the parameter record 
-  cannot be made final if propagation from a top-level record (whole building) 
+/*
+  In Dymola only (ticket SR00860858-01), bindings for the parameter record
+  cannot be made final if propagation from a top-level record (whole building)
   is needed.
   Instead those parameter declarations are annoted with enable=false
   in the record class.
@@ -40,7 +40,7 @@ model VAVMultiZone "Multiple-zone VAV"
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan and
-    secOutRel.typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+    secOutRel.typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure
     "Set to true if building static pressure sensor is used"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -81,7 +81,7 @@ model VAVMultiZone "Multiple-zone VAV"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
     "Supply fan - Blow through"
     annotation (
       choices(
@@ -120,7 +120,7 @@ model VAVMultiZone "Multiple-zone VAV"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
     "Supply fan - Draw through"
     annotation (
       choices(
@@ -465,5 +465,13 @@ Modulating relief damper
 
 
 
+</html>",
+        revisions="<html>
+<ul>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end VAVMultiZone;
