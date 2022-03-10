@@ -20,7 +20,7 @@ model FourPortHeatMassExchanger
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"on equations"));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
