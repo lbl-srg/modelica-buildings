@@ -51,9 +51,10 @@ equation
     annotation (Line(points={{-58,-10},{-26,-10},{-26,24},{38,24}},  color={0,0,127}));
   connect(mod.uSupFan, fanStatus.y)
     annotation (Line(points={{38,21},{32,21},{32,0},{22,0}}, color={255,0,255}));
+
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Modulation_TSup.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Modulation_TSup.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -68,8 +69,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation</a>
 for supply air temeperature <code>TSup</code> and supply air temperature heating setpoint <code>TSupSet</code>
 control signals.
 </p>
