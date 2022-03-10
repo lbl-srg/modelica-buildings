@@ -54,9 +54,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -114,7 +111,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final riseTime=riseTimePump,
     each final init=init,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
@@ -152,11 +148,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
-
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);

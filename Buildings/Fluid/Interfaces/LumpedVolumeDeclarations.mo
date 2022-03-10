@@ -47,11 +47,22 @@ block LumpedVolumeDeclarations "Declarations for lumped volumes"
   parameter Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume"
     annotation(Dialog(tab="Dynamics"));
+
+protected
+  // The parameter below is evaluated by OCT during compilation, and
+  // if false, the assert statement won't be optimized away during
+  // code generation.
+  final parameter Boolean wrongEnergyMassBalanceConfiguration=
+    not (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "True if configuration of energy and mass balance is wrong."
+    annotation(Evaluate=true);
 initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
+  if wrongEnergyMassBalanceConfiguration then
+  assert(not wrongEnergyMassBalanceConfiguration,
          "In " + getInstanceName() +
          ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
+  end if;
 
 annotation (preferredView="info",
 Documentation(info="<html>

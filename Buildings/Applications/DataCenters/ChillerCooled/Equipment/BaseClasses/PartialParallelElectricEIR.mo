@@ -21,9 +21,6 @@ partial model PartialParallelElectricEIR
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -99,7 +96,6 @@ partial model PartialParallelElectricEIR
       each final tau1=tau1,
       each final tau2=tau2,
       each final energyDynamics=energyDynamics,
-      each final massDynamics=massDynamics,
       each final p1_start=p1_start,
       each final T1_start=T1_start,
       each final X1_start=X1_start,
@@ -112,12 +108,6 @@ partial model PartialParallelElectricEIR
       each final C2_nominal=C2_nominal)
     "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
 equation
   for i in 1:num loop

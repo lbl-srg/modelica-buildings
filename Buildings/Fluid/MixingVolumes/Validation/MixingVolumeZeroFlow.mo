@@ -46,7 +46,7 @@ model MixingVolumeZeroFlow
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     V=1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false)
     "Steady state mixing volume with prescribed temperature input"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));

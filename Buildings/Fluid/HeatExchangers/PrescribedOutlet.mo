@@ -10,8 +10,7 @@ model PrescribedOutlet
       final QMax_flow = QMax_flow,
       final QMin_flow = QMin_flow,
       final mWatMax_flow = mWatMax_flow,
-      final mWatMin_flow = mWatMin_flow,
-      final energyDynamics = energyDynamics));
+      final mWatMin_flow = mWatMin_flow));
 
   parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
@@ -33,11 +32,6 @@ model PrescribedOutlet
   parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m" annotation (Dialog(tab=
           "Initialization", enable=use_X_wSet and Medium.nXi > 0));
-
-  // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState
-    "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
 
   parameter Boolean use_TSet = true
     "Set to false to disable temperature set point"
