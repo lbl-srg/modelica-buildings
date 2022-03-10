@@ -51,7 +51,7 @@ model WetCoilEffectivenessNTU
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   Modelica.Units.SI.HeatFlowRate Q1_flow=-dryWetCalcs.QTot_flow
     "Heat input into water stream (positive if air is cooled)";

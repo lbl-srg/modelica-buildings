@@ -35,9 +35,7 @@ partial model PartialThreeWayResistance
       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.Units.SI.MassFlowRate mDyn_flow_nominal
     "Nominal mass flow rate for dynamic momentum and energy balance"
-    annotation (Dialog(
-      tab="Dynamics",
-      group="Equations",
+    annotation (Dialog(tab="Dynamics", group="Conservation equations",
       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Boolean from_dp = true

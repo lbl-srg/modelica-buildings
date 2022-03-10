@@ -45,10 +45,10 @@ model IndirectTankHeatExchanger
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance for heat exchanger internal fluid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsSolid=energyDynamics
     "Formulation of energy balance for heat exchanger solid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Boolean hA_flowDependent = true
     "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of mass flow rate"
