@@ -56,6 +56,8 @@ convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExc
 convertClass("Buildings.Obsolete.DistrictHeatingCooling.SubStations.Cooling", {"massDynamics"}, fill("",0), true);
 convertClass("Buildings.Obsolete.DistrictHeatingCooling.SubStations.Heating", {"massDynamics"}, fill("",0), true);
 convertClass("Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Experimental.DHC.Networks.Connection2Pipe", {"massDynamics"}, fill("",0), true);
+convertClass("Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor", {"massDynamics"}, fill("",0), true);
 convertClass("Buildings.Fluid.HeatPumps.EquationFitReversible", {"massDynamics"}, fill("",0), true);
 convertClass("Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater", {"massDynamics"}, fill("",0), true);
 convertClass("Buildings.Fluid.HeatPumps.ScrollWaterToWater", {"massDynamics"}, fill("",0), true);
@@ -67,6 +69,7 @@ convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed", {"m
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed", {"massDynamics"}, fill("",0), true);
 convertClass("Buildings.Fluid.Boilers.BoilerPolynomial", {"massDynamics"}, fill("",0), true);
 convertClass("Buildings.Fluid.Boilers.BoilerTable", {"massDynamics"}, fill("",0), true);
+
 
 
 
