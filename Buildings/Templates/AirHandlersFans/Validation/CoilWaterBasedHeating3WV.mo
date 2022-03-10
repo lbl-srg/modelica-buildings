@@ -12,7 +12,7 @@ model CoilWaterBasedHeating3WV
 equation
   connect(bou3.ports[1], VAV_1.port_coiHeaRehSup) annotation (Line(points={{-40,
           -80},{16,-80},{16,-20},{15,-20}}, color={0,127,255}));
-  connect(bou2.ports[1], VAV_1.port_coiHeaRehRet)
+  connect(bouHeaWat.ports[1], VAV_1.port_coiHeaRehRet)
     annotation (Line(points={{-40,-50},{9,-50},{9,-20}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));

@@ -12,7 +12,7 @@ model CoilWaterBasedCooling
       nPorts=1)
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 equation
-  connect(bou2.ports[1], VAV_1.port_coiCooSup)
+  connect(bouHeaWat.ports[1], VAV_1.port_coiCooSup)
     annotation (Line(points={{-40,-50},{3,-50},{3,-19.8}}, color={0,127,255}));
   connect(bou3.ports[1], VAV_1.port_coiCooRet)
     annotation (Line(points={{-40,-80},{-3,-80},{-3,-20}}, color={0,127,255}));

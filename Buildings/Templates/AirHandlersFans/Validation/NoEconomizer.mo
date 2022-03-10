@@ -79,12 +79,11 @@ model NoEconomizer
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  Buildings.Fluid.Sources.Boundary_pT bou(
-    redeclare final package Medium=MediumAir, nPorts=2)
+  Buildings.Fluid.Sources.Boundary_pT bouOut(redeclare final package Medium =
+        MediumAir, nPorts=2) "Boundary conditions for outdoor environment"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Fluid.Sources.Boundary_pT bou1(
-    redeclare final package Medium=MediumAir,
-    nPorts=3)
+  Buildings.Fluid.Sources.Boundary_pT bouBui(redeclare final package Medium =
+        MediumAir, nPorts=3) "Boundary conditions for indoor environment"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumAir,
@@ -112,6 +111,17 @@ model NoEconomizer
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
+  Fluid.Sources.Boundary_pT bouHeaWat(
+    redeclare final package Medium = MediumHea,
+    final nPorts=if VAV_1.have_souCoiHeaPre or VAV_1.have_souCoiHeaReh then 2 else 0)
+    "Boundary conditions for HHW distribution system"
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+
+  Fluid.Sources.Boundary_pT bouChiWat(
+    redeclare final package Medium = MediumCoo,
+    final nPorts=if VAV_1.have_souCoiCoo then 2 else 0)
+    "Boundary conditions for CHW distribution system"
+    annotation (Placement(transformation(extent={{60,-60},{40,-40}})));
 
 protected
   Interfaces.Bus busAHU
@@ -120,17 +130,23 @@ protected
     Placement(
       transformation(extent={{-40,20},{0,60}}), iconTransformation(
         extent={{-258,-26},{-238,-6}})));
+
 equation
-  connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,-1},{-60,-1},
-          {-60,-10},{-50,-10}},color={0,127,255}));
+  connect(bouHeaWat.ports[1], VAV_1.port_coiHeaPreSup)
+    annotation (Line(points={{-40,-50},{-9,-50},{-9,-20}}, color={0,127,255}));
+  connect(bouChiWat.ports[2], VAV_1.port_coiCooRet)
+    annotation (Line(points={{40,-50},{-3,-50},{-3,-20}}, color={0,127,255}));
+
+
+  connect(bouOut.ports[1], res.port_a) annotation (Line(points={{-70,-1},{-60,-1},
+          {-60,-10},{-50,-10}}, color={0,127,255}));
   connect(res.port_b, VAV_1.port_Out)
     annotation (Line(points={{-30,-10},{-20,-10}}, color={0,127,255}));
   connect(VAV_1.port_Sup, res1.port_a)
     annotation (Line(points={{20,-10},{30,-10}}, color={0,127,255}));
-  connect(res1.port_b, bou1.ports[1]) annotation (Line(points={{50,-10},{60,-10},
-          {60,-1.33333},{70,-1.33333}},
-                            color={0,127,255}));
-  connect(bou1.ports[2], pAirBui.port)
+  connect(res1.port_b, bouBui.ports[1]) annotation (Line(points={{50,-10},{60,-10},
+          {60,-1.33333},{70,-1.33333}}, color={0,127,255}));
+  connect(bouBui.ports[2], pAirBui.port)
     annotation (Line(points={{70,-2.22045e-16},{70,30}}, color={0,127,255}));
   connect(weaDat.weaBus, VAV_1.busWea) annotation (Line(
       points={{-70,30},{0,30},{0,20}},
@@ -142,18 +158,24 @@ equation
       thickness=0.5));
   connect(VAV_1.port_Rel, res2.port_a)
     annotation (Line(points={{-20,10},{-30,10}}, color={0,127,255}));
-  connect(res2.port_b, bou.ports[2]) annotation (Line(points={{-50,10},{-60,10},
-          {-60,1},{-70,1}},   color={0,127,255}));
+  connect(res2.port_b, bouOut.ports[2]) annotation (Line(points={{-50,10},{-60,10},
+          {-60,1},{-70,1}}, color={0,127,255}));
   connect(VAV_1.port_Ret, res3.port_b)
     annotation (Line(points={{20,10},{30,10}}, color={0,127,255}));
-  connect(res3.port_a, bou1.ports[3]) annotation (Line(points={{50,10},{60,10},
-          {60,1.33333},{70,1.33333}},   color={0,127,255}));
+  connect(res3.port_a, bouBui.ports[3]) annotation (Line(points={{50,10},{60,10},
+          {60,1.33333},{70,1.33333}}, color={0,127,255}));
   connect(pAirBui.p, busAHU.pAirBui) annotation (Line(points={{59,40},{-20,40}},
         color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(VAV_1.port_coiHeaPreRet,bouHeaWat.ports[2]) annotation (Line(points={{-15,-20},
+          {-15,-48},{-40,-48},{-40,-50}},
+                                      color={0,127,255}));
+  connect(VAV_1.port_coiCooSup,bouChiWat.ports[1])
+    annotation (Line(points={{3,-19.8},{3,-48},{40,-48},{40,-50}},
+                                                          color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
