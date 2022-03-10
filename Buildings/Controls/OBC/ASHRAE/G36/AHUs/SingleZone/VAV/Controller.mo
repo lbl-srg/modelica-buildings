@@ -6,8 +6,10 @@ block Controller
     "Check if the zone has window status sensor";
   parameter Boolean have_occSen
     "Check if the zone has occupancy sensor";
-  parameter Boolean have_heaCoi=true
-    "True if the air handling unit has heating coil";
+  parameter Boolean have_hotWatCoi=true
+    "True: the AHU has hot water heating coil";
+  parameter Boolean have_eleHeaCoi=false
+    "True: the AHU has electric heating coil";
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
@@ -703,7 +705,7 @@ block Controller
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-130,410},{-110,430}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller conEco(
-    final have_heaCoi=have_heaCoi,
+    final have_heaCoi=have_hotWatCoi or have_eleHeaCoi,
     final use_enthalpy=use_enthalpy,
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final uMin=uMin,
@@ -801,7 +803,7 @@ block Controller
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection frePro(
     final buiPreCon=buiPreCon,
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final have_freSta=have_freSta,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freHeaCoiCon,
@@ -814,7 +816,7 @@ block Controller
     "Freeze protection"
     annotation (Placement(transformation(extent={{140,-150},{160,-110}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests plaReq(
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final Thys=Thys,
     final posHys=posHys)
     "Plant request"
