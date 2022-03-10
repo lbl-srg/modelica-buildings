@@ -27,9 +27,7 @@ partial model PartialConnection2Pipe
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
+
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
     annotation (Dialog(
@@ -169,7 +167,6 @@ partial model PartialConnection2Pipe
         Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final dp_nominal={0,0,0},
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
@@ -193,7 +190,6 @@ partial model PartialConnection2Pipe
         Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dp_nominal={0,0,0},
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
@@ -223,12 +219,6 @@ protected
       T=Medium.T_default,
       X=Medium.X_default))
     "Specific heat capacity of medium at default medium state";
-
-initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
 equation
   // Connect statements involving conditionally removed components are
@@ -309,8 +299,7 @@ accounted for.
 <ul>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab and
-added assertion for correct combination of energy and mass dynamics.<br/>
+Removed <code>massDynamics</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
 </li>
