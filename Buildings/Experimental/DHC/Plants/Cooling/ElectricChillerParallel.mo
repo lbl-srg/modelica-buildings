@@ -77,7 +77,7 @@ model ElectricChillerParallel
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
     annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));

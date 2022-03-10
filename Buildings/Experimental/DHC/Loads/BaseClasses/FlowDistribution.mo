@@ -72,10 +72,10 @@ model FlowDistribution
       Dialog(group="Nominal condition", enable=typCtr == Type_ctr.ConstantDp));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance (except for the pump always modeled in steady state)"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance (except for the pump always modeled in steady state)"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Modelica.Units.SI.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(

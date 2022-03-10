@@ -26,7 +26,7 @@ partial model PartialConnection2Pipe
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
