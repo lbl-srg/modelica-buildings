@@ -30,7 +30,7 @@ model PrescribedOutlet
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"on equations", enable=use_TSet));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations", enable=use_TSet));
 
   parameter Boolean use_TSet = true
     "Set to false to disable temperature set point"

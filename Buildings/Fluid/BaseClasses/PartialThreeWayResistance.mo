@@ -37,7 +37,7 @@ partial model PartialThreeWayResistance
     "Nominal mass flow rate for dynamic momentum and energy balance"
     annotation (Dialog(tab="Dynamics", group="Conservation equations",
       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-"Conservation equations"
+
   parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
