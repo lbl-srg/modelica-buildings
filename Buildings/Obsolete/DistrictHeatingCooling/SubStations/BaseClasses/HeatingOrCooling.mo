@@ -22,9 +22,6 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
 
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
@@ -46,8 +43,7 @@ protected
     final dp_nominal=dp_nominal,
     final deltaM=deltaM,
     final tau=tau,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics)
+    final energyDynamics=energyDynamics)
     "Component to remove heat from or add heat to fluid"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -63,12 +59,6 @@ protected
   Modelica.Blocks.Math.Gain mPum_flow "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
-initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
-
 equation
   connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
@@ -76,9 +66,9 @@ equation
     annotation (Line(points={{-20,0},{0,0},{20,0}}, color={0,127,255}));
   connect(hex.port_b, port_b)
     annotation (Line(points={{40,0},{40,0},{100,0}}, color={0,127,255}));
-  connect(mPum_flow.y, pum.m_flow_in) annotation (Line(points={{-39,40},{-30.2,40},
-          {-30.2,12}}, color={0,0,127}));
-  connect(pum.P, PPum) annotation (Line(points={{-19,8},{-10,8},{-10,40},{60,40},
+  connect(mPum_flow.y, pum.m_flow_in) annotation (Line(points={{-39,40},{-30,40},
+          {-30,12}},   color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-19,9},{-10,9},{-10,40},{60,40},
           {60,60},{110,60}}, color={0,0,127}));
 
   annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
@@ -133,13 +123,11 @@ difference <code>dTHex</code> over the heat exchanger.
 </html>", revisions="<html>
 <ul>
 <li>
-March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab,
-added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
-</li>
-<li>
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li><li>
 January 11, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>

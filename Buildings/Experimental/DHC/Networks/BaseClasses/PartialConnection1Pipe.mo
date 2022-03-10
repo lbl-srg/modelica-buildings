@@ -134,7 +134,6 @@ partial model PartialConnection1Pipe
         Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final dp_nominal={0,0,0},
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
@@ -158,7 +157,6 @@ partial model PartialConnection1Pipe
         Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dp_nominal={0,0,0},
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
@@ -206,11 +204,6 @@ protected
       T=Medium.T_default,
       X=Medium.X_default))
     "Specific heat capacity of medium at default medium state";
-initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
 equation
   // Connect statements involving conditionally removed components are
@@ -287,8 +280,7 @@ accounted for.
 <ul>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab,
-added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+Removed <code>massDynamics</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
 </li>

@@ -1,9 +1,8 @@
-within Buildings.Fluid.Storage.Ice;
+﻿within Buildings.Fluid.Storage.Ice;
 model Tank "Ice tank with performance based on performance curves"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     final allowFlowReversal = false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final massDynamics=energyDynamics,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
   parameter Real SOC_start(min=0, max=1, final unit="1")

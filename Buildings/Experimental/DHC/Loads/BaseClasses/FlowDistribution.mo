@@ -231,7 +231,6 @@ model FlowDistribution
     final Q_flow_nominal=-1,
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final tau=tau)
     "Heat transfer from the terminal units to the distribution system"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));

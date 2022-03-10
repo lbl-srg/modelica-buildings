@@ -48,7 +48,6 @@ model BoilerPolynomial
     m_flow_nominal = m_flow_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=dp_nominal,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
@@ -69,19 +68,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], boi1.port_a) annotation (Line(
-      points={{-60,-56},{-36,-56},{-36,8},{-10,8}},
+      points={{-60,-59},{-36,-59},{-36,8},{-10,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], boi2.port_a) annotation (Line(
-      points={{-60,-60},{-12,-60}},
+      points={{-60,-57},{-36,-57},{-36,-60},{-12,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi2.port_b, sin.ports[2]) annotation (Line(
-      points={{8,-60},{70,-60}},
+      points={{8,-60},{40,-60},{40,-57},{70,-57}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi1.port_b, sin.ports[1]) annotation (Line(
-      points={{10,8},{40,8},{40,-56},{70,-56}},
+      points={{10,8},{40,8},{40,-59},{70,-59}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, boi1.y) annotation (Line(
