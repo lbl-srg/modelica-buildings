@@ -1,8 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Validation;
 model VAVBoxReheatHotWaterG36
-  extends BaseVAVBoxCoolingOnly(
-                            redeclare
-      UserProject.TerminalUnits.VAVBoxReheatHotWaterG36 ter(dat(damVAV(
+  extends VAVBoxCoolingOnly(redeclare
+      UserProject.ZoneEquipment.VAVBoxReheatHotWaterG36 ter(dat(damVAV(
             dp_nominal=50), coiHea(dpAir_nominal=70))));
   Fluid.Sources.Boundary_pT bou2(redeclare final package Medium = MediumHea,
       nPorts=1)
@@ -10,9 +9,10 @@ model VAVBoxReheatHotWaterG36
   Fluid.Sources.Boundary_pT bou3(redeclare final package Medium = MediumHea,
       nPorts=1)
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  UserProject.DummyControlPointsAHU sigAHU "Control signals from AHU"
+  UserProject.AirHandlersFans.VAVMultiZoneControlPoints sigAHU
+    "Control signals from AHU"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  UserProject.DummyControlPointsZone sigZon
+  UserProject.ZoneControlPoints sigZon
     "Control signals from zone-level equipment"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation

@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model CoilElectricHeating
-  extends BaseNoEconomizer(redeclare
+  extends NoEconomizer(    redeclare
       UserProject.AirHandlersFans.CoilElectricHeating VAV_1);
 
   annotation (

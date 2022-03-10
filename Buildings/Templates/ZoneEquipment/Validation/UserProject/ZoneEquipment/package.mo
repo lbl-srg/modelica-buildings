@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject;
-package TerminalUnits
+package ZoneEquipment
   extends Modelica.Icons.Package;
 
-end TerminalUnits;
+end ZoneEquipment;

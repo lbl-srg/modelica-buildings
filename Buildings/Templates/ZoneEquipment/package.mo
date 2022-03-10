@@ -1,5 +1,5 @@
 within Buildings.Templates;
-package ZoneEquipment "Zone Equipment"
+package ZoneEquipment "Zone equipment"
   extends Modelica.Icons.Package;
 
 annotation (Documentation(info="<html>

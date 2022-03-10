@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDampersAirflow
-  "Separate Dedicated OA Dampers and OA Measurement by AFMS"
+  "Separate dedicated OA dampers with AFMS"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow,

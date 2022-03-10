@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model FanSupplyDrawSingleVariable
-  extends BaseNoEconomizer(redeclare
+  extends NoEconomizer(    redeclare
       UserProject.AirHandlersFans.FanSupplyDrawSingleVariable VAV_1);
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));

@@ -26,7 +26,7 @@ block G36VAVBoxReheat
     annotation (Dialog(group="Configuration"));
 
   /*
-  FIXME: have_hotWatCoi has been deleted see https://github.com/lbl-srg/modelica-buildings/commit/5d1c7d9bbe17c0049a1fc332005705f35e1593dc#r67866444
+  FIXME: have_hotWatCoi has been deleted at https://github.com/lbl-srg/modelica-buildings/commit/5d1c7d9bbe17c0049a1fc332005705f35e1593dc#r67866444
   final parameter Boolean have_hotWatCoi=
     coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
     "Set to true if the system has hot water coil"

@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDampersPressure
-  "Separate Dedicated OA Dampers and OA Measurement by Differential Pressure Sensor"
+  "Separate dedicated OA dampers with differential pressure sensor"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,

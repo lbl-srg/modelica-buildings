@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model BaseNoEconomizer
+model NoEconomizer
   extends Modelica.Icons.Example;
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -113,7 +113,6 @@ model BaseNoEconomizer
     dp_nominal=100)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
 
-
 protected
   Interfaces.Bus busAHU
   "Gateway bus"
@@ -159,4 +158,4 @@ equation
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end BaseNoEconomizer;
+end NoEconomizer;

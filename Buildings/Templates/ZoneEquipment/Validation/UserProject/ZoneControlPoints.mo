@@ -1,6 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject;
-block DummyControlPointsZone
-  "Control points from zone-level equipment"
+block ZoneControlPoints "Emulation of control points from zone sensors and thermostats"
   extends Modelica.Blocks.Icons.Block;
 
   Interfaces.Bus                 bus "AHU control bus" annotation (Placement(
@@ -19,16 +18,16 @@ block DummyControlPointsZone
     "Window swirtch status"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirZonHeaOccSet(k=293.15)
-                "Occupied heating set point"
+    "Occupied heating set point"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirZonCooOccSet(k=297.15)
-                "Occupied cooling set point"
+     "Occupied cooling set point"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirZonHeaUnoSet(k=285.15)
-                "Unoccupied heating set point"
+     "Unoccupied heating set point"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirZonCooUnoSet(k=303.15)
-                "Unoccupied cooling set point"
+    "Unoccupied cooling set point"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirZon(k=303.15)
     "Zone temperature"
@@ -46,4 +45,4 @@ equation
     defaultComponentName="conPoiDum",
     Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-200,-180},{200,180}})));
-end DummyControlPointsZone;
+end ZoneControlPoints;

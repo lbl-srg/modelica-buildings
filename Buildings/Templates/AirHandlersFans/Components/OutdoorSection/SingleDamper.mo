@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
-model SingleDamper "Single Common OA Damper and OA Measurement by AFMS"
+model SingleDamper "Single common OA damper with AFMS"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,

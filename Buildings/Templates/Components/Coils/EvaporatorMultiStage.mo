@@ -16,7 +16,7 @@ model EvaporatorMultiStage
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Routing.RealPassThrough TWet if not have_dryCon
+  Modelica.Blocks.Routing.RealPassThrough TWetBul if not have_dryCon
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Modelica.Blocks.Routing.RealPassThrough TDry if have_dryCon
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
@@ -25,7 +25,7 @@ equation
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(hex.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(busWea.TWetBul, TWet.u) annotation (Line(
+  connect(busWea.TWetBul, TWetBul.u) annotation (Line(
       points={{-60,100},{-60,60},{-52,60}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -41,7 +41,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TWet.y, hex.TConIn) annotation (Line(points={{-29,60},{-20,60},{-20,3},
+  connect(TWetBul.y, hex.TConIn) annotation (Line(points={{-29,60},{-20,60},{-20,3},
           {-11,3}}, color={0,0,127}));
   connect(TDry.y, hex.TConIn) annotation (Line(points={{-29,20},{-20,20},{-20,3},
           {-11,3}}, color={0,0,127}));

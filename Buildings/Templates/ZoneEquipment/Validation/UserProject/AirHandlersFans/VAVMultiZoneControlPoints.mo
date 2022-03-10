@@ -1,5 +1,5 @@
-within Buildings.Templates.ZoneEquipment.Validation.UserProject;
-block DummyControlPointsAHU "Control points from AHU"
+within Buildings.Templates.ZoneEquipment.Validation.UserProject.AirHandlersFans;
+block VAVMultiZoneControlPoints "Emulation of multiple-zone VAV control points"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nZon = 2
@@ -42,9 +42,8 @@ equation
   connect(VDesUncOutAir_flow.y, busTer.VDesUncOutAir_flow);
   connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
 
-
   annotation (
     defaultComponentName="conPoiDum",
     Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-200,-180},{200,180}})));
-end DummyControlPointsAHU;
+end VAVMultiZoneControlPoints;

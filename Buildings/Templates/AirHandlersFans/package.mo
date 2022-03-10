@@ -1,5 +1,5 @@
 within Buildings.Templates;
-package AirHandlersFans "Air Handlers and Fans"
+package AirHandlersFans "Air handlers and fans"
   extends Modelica.Icons.Package;
 
   annotation (Documentation(info="<html>

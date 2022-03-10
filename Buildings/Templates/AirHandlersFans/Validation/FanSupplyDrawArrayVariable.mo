@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model FanSupplyDrawArrayVariable
-  extends BaseNoEconomizer(redeclare
+  extends NoEconomizer(    redeclare
       UserProject.AirHandlersFans.FanSupplyDrawArrayVariable VAV_1, dat(VAV_1(
           fanSup(nFan=2))));
   annotation (

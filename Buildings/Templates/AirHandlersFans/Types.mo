@@ -13,9 +13,9 @@ package Types "AHU types"
     "Enumeration to configure the AHU";
   type Controller = enumeration(
       G36VAVMultiZone
-      "Guideline 36 controller for multiple-zone VAV air-handling unit",
+      "Guideline 36 controller for multiple-zone VAV",
       OpenLoop
-      "Open loop control")
+      "Open loop controller")
     "Enumeration to configure the AHU controller";
   type ControlEconomizer = enumeration(
       FixedDryBulb
@@ -58,13 +58,13 @@ package Types "AHU types"
   "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
       DedicatedDampersAirflow
-      "Separate dedicated OA dampers and OA measurement by AFMS",
+      "Separate dedicated OA dampers with AFMS",
       DedicatedDampersPressure
-      "Separate dedicated OA dampers and OA measurement by differential pressure sensor",
+      "Separate dedicated OA dampers with differential pressure sensor",
       NoEconomizer
       "No economizer",
       SingleDamper
-      "Single common OA damper and OA measurement by AFMS")
+      "Single common OA damper with AFMS")
     "Enumeration to configure the outdoor air section";
   type OutdoorReliefReturnSection = enumeration(
       Economizer

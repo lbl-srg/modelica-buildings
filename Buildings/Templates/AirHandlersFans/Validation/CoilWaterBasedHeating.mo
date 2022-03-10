@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model CoilWaterBasedHeating
-  extends BaseNoEconomizer(redeclare
+  extends NoEconomizer(    redeclare
       UserProject.AirHandlersFans.CoilWaterBasedHeating VAV_1);
 
   Fluid.Sources.Boundary_pT bou2(

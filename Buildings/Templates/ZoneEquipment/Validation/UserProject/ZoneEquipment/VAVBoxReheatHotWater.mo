@@ -1,4 +1,4 @@
-within Buildings.Templates.ZoneEquipment.Validation.UserProject.TerminalUnits;
+within Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment;
 model VAVBoxReheatHotWater
   extends Buildings.Templates.ZoneEquipment.VAVBoxReheat(
                                                    redeclare replaceable

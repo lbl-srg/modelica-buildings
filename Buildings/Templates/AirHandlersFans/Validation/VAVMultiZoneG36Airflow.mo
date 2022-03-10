@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMultiZoneG36Airflow
-  extends BaseNoEconomizer(redeclare
+  extends NoEconomizer(    redeclare
       UserProject.AirHandlersFans.VAVMultiZoneG36Airflow VAV_1);
 
   Fluid.Sources.Boundary_pT bou2(

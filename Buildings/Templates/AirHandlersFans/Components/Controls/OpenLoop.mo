@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
-block OpenLoop "Open Loop Controller"
+block OpenLoop "Open loop controller"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.OpenLoop);

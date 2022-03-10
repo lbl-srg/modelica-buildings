@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Validation;
-model BaseVAVBoxCoolingOnly
+model VAVBoxCoolingOnly
   extends Modelica.Icons.Example;
 
   replaceable package MediumAir=Buildings.Media.Air
@@ -27,7 +27,7 @@ model BaseVAVBoxCoolingOnly
   Fluid.Sources.Boundary_pT bou1(redeclare final package Medium = MediumAir,
       nPorts=1)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  replaceable UserProject.TerminalUnits.VAVBoxCoolingOnly ter(dat(
+  replaceable UserProject.ZoneEquipment.VAVBoxCoolingOnly ter(dat(
       id="Box_1",
       id_souAir="VAV_1",
       damVAV(dp_nominal=50),
@@ -61,4 +61,4 @@ equation
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
     annotation (
   experiment(Tolerance=1e-6, StopTime=1));
-end BaseVAVBoxCoolingOnly;
+end VAVBoxCoolingOnly;

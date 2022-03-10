@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
 block G36VAVMultiZone
-  "Guideline 36 Controller for Multiple-zone VAV"
+  "Guideline 36 controller for multiple-zone VAV"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone);
