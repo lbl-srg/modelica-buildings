@@ -7,12 +7,12 @@ block Controller "Controller for room VAV box with reheat"
     "True: the zone has occupancy sensor";
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor";
+  parameter Boolean have_hotWatCoi=true
+    "True: the unit has the hot water coil";
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted";
   // ---------------- Design parameters ----------------
-  parameter Real AFlo(
-    final quantity="Area",
-    final unit="m2")
+  parameter Real AFlo(unit="m2")
     "Zone floor area"
     annotation (Dialog(group="Design conditions"));
   parameter Real desZonPop "Design zone population"
@@ -26,41 +26,29 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real CO2Set=894
     "CO2 concentration setpoint, ppm"
     annotation (Dialog(group="Design conditions", enable=have_CO2Sen));
-  parameter Real VZonMin_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VZonMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VCooZonMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VHeaZonMin_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VHeaZonMin_flow(unit="m3/s")
     "Design zone heating minimum airflow rate"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VHeaZonMax_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VHeaZonMax_flow(unit="m3/s")
     "Design zone heating maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=1
     "Gain of controller for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
-  parameter Real TiCooCon(
-    final unit="s",
-    final quantity="Time")=0.5
+  parameter Real TiCooCon(unit="s")=0.5
     "Time constant of integrator block for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=1
     "Gain of controller for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
-  parameter Real TiHeaCon(
-    final unit="s",
-    final quantity="Time")=0.5
+  parameter Real TiHeaCon(unit="s")=0.5
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
@@ -75,16 +63,12 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real kVal=0.5
     "Gain of controller for valve control"
     annotation (Dialog(tab="Damper and valve control", group="Valve"));
-  parameter Real TiVal(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
     annotation (Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real TdVal(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
     annotation (Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -101,147 +85,101 @@ block Controller "Controller for room VAV box with reheat"
     "Gain of controller for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
       enable=not have_pressureIndependentDamper));
-  parameter Real TiDam(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
       enable=not have_pressureIndependentDamper
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdDam(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
       enable=not have_pressureIndependentDamper
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1E-10)
+  parameter Real V_flow_nominal(unit="m3/s")
     "Nominal volume flow rate, used to normalize control error"
     annotation (Dialog(tab="Damper and valve control", group="Damper"));
   // ---------------- System request parameters ----------------
-  parameter Real thrTemDif(
-    final unit="K",
-    final quantity="TemperatureDifference")=3
+  parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
     annotation (Dialog(tab="System requests"));
-  parameter Real twoTemDif(
-    final unit="K",
-    final quantity="TemperatureDifference")=2
+  parameter Real twoTemDif(unit="K")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
     annotation (Dialog(tab="System requests"));
-  parameter Real thrTDis_1(
-    final unit="K",
-    final quantity="TemperatureDifference")=17
+  parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation (Dialog(tab="System requests"));
-  parameter Real thrTDis_2(
-    final unit="K",
-    final quantity="TemperatureDifference")=8
+    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+  parameter Real thrTDis_2(unit="K")=8
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation (Dialog(tab="System requests"));
-  parameter Real durTimTem(
-    final unit="s",
-    final quantity="Time")=120
+    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+  parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
-  parameter Real durTimFlo(
-    final unit="s",
-    final quantity="Time")=60
+  parameter Real durTimFlo(unit="s")=60
     "Duration time of airflow rate less than setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
-  parameter Real durTimDisAir(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop"
     annotation (Dialog(tab="Alarms"));
   parameter Real hotWatRes
     "Importance multiplier for the hot water reset control loop"
-    annotation (Dialog(tab="Alarms"));
-  parameter Real lowFloTim(
-    final unit="s",
-    final quantity="Time")=300
+    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
+  parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
     annotation (Dialog(tab="Alarms"));
-  parameter Real lowTemTim(
-    final unit="s",
-    final quantity="Time")=600
+  parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
-    annotation (Dialog(tab="Alarms"));
-  parameter Real fanOffTim(
-    final unit="s",
-    final quantity="Time")=600
+    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
+  parameter Real fanOffTim(unit="s")=600
     "Threshold time to check fan off"
     annotation (Dialog(tab="Alarms"));
-  parameter Real leaFloTim(
-    final unit="s",
-    final quantity="Time")=600
+  parameter Real leaFloTim(unit="s")=600
     "Threshold time to check damper leaking airflow"
     annotation (Dialog(tab="Alarms"));
-  parameter Real valCloTim(
-    final unit="s",
-    final quantity="Time")=900
+  parameter Real valCloTim(unit="s")=900
     "Threshold time to check valve leaking water flow"
     annotation (Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
-  parameter Real samplePeriod(
-    final unit="s",
-    final quantity="Time")=120
+  parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
     annotation (Dialog(tab="Time-based suppresion"));
   parameter Real chaRat=540
     "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
     annotation (Dialog(tab="Time-based suppresion"));
-  parameter Real maxSupTim(
-    final unit="s",
-    final quantity="Time")=1800 "Maximum suppression time"
+  parameter Real maxSupTim(unit="s")=1800
+                                "Maximum suppression time"
     annotation (Dialog(tab="Time-based suppresion"));
   // ---------------- Advanced parameters ----------------
-  parameter Real dTHys(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.25
+  parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real looHys(
-    final unit="1")=0.05
+  parameter Real looHys(unit="1")=0.05
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real floHys(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
+  parameter Real floHys(unit="m3/s")
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real damPosHys(
-    final unit="1")
+  parameter Real damPosHys(unit="1")
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real valPosHys(
-    final unit="1")
+  parameter Real valPosHys(unit="1")
     "Near zero valve position, below which the valve will be seen as closed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real timChe(
-    final unit="s",
-    final quantity="Time")=30
+  parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced", group="Control loops"));
-  parameter Real conThr(
-    final unit="1")=0.1
+  parameter Real conThr(unit="1")=0.1
     "Threshold value to check if the controller output is near zero"
     annotation (Dialog(tab="Advanced", group="Control loops"));
-  parameter Real zonDisEff_cool(
-    final unit="1")=1.0
+  parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
     annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
-  parameter Real zonDisEff_heat(
-    final unit="1")=0.8
+  parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
     annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
 
@@ -339,7 +277,7 @@ block Controller "Controller for room VAV box with reheat"
     "Supply fan status"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
         iconTransformation(extent={{-140,-188},{-100,-148}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-220,-290},{-180,-250}}),
         iconTransformation(extent={{-140,-208},{-100,-168}})));
@@ -371,10 +309,12 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{200,50},{240,90}}),
         iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq
+    if have_hotWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{200,10},{240,50}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
+    if have_hotWatCoi
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{200,-30},{240,10}}),
         iconTransformation(extent={{100,-30},{140,10}})));
@@ -395,6 +335,7 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{200,-200},{240,-160}}),
         iconTransformation(extent={{100,-170},{140,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
+    if have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{200,-240},{240,-200}}),
         iconTransformation(extent={{100,-200},{140,-160}})));
@@ -405,7 +346,7 @@ block Controller "Controller for room VAV box with reheat"
     final VHeaZonMax_flow=VHeaZonMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
-    final have_hotWatCoi=true,
+    final have_hotWatCoi=have_hotWatCoi,
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
     final thrTDis_1=thrTDis_1,
@@ -430,6 +371,7 @@ block Controller "Controller for room VAV box with reheat"
     "Heating and cooling control loop"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Alarms ala(
+    final have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
     final hotWatRes=hotWatRes,
     final VCooZonMax_flow=VCooZonMax_flow,
@@ -701,7 +643,8 @@ annotation (defaultComponentName="rehBoxCon",
           extent={{-96,-180},{-60,-196}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHotPla"),
+          textString="uHotPla",
+          visible=have_hotWatCoi),
         Text(
           extent={{-98,-162},{-72,-174}},
           lineColor={255,0,255},
@@ -756,12 +699,14 @@ annotation (defaultComponentName="rehBoxCon",
           extent={{18,32},{96,14}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yHeaValResReq"),
+          textString="yHeaValResReq",
+          visible=have_hotWatCoi),
         Text(
           extent={{18,2},{96,-16}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yHotWatPlaReq"),
+          textString="yHotWatPlaReq",
+          visible=have_hotWatCoi),
         Text(
           extent={{42,-50},{98,-68}},
           lineColor={255,127,0},
@@ -786,7 +731,8 @@ annotation (defaultComponentName="rehBoxCon",
           extent={{36,-168},{98,-186}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yLowTemAla")}),
+          textString="yLowTemAla",
+          visible=have_hotWatCoi)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{200,280}})),
   Documentation(info="<html>
 <p>
