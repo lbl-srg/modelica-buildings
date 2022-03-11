@@ -996,8 +996,9 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Solid Wall
     --------------------------------------------------------------------------*/
-    if(var[FLAGP][IX(i,j,k)]==SOLID) {
-      switch(BINDEX[3][it]) {
+    if(var[FLAGP][IX(i,j,k)]==SOLID && bcid >= para->bc->nb_block) {
+      bcid = bcid - para->bc->nb_block;
+	  switch(BINDEX[3][it]) {
         /* FFD uses heat flux as BC to compute temperature*/
         /* Then send Modelica the temperature*/
         case 0:

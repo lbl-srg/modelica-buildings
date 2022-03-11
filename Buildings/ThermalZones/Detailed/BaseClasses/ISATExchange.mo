@@ -9,6 +9,7 @@ block ISATExchange "Block that exchanges data with the ISAT code"
   // Function that sends the parameters of the model from Modelica to CFD
 protected
   function sendParameters
+    "Send model parameters from Modelica to CFD"
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
     input Modelica.Units.SI.Area[nSur] A "Surface areas";
@@ -241,7 +242,7 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-Block derived from <code>CFDExchange</code> to exchange data between Modelica and ISAT.
+Block to exchange data between Modelica and ISAT.
 </html>",   revisions="<html>
 <ul>
 <li>

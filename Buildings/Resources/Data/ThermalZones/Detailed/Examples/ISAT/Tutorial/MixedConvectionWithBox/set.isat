@@ -101,6 +101,9 @@ inpu.wall_wh 5
 /*outp.outp_name: names of outputs including temp_occ, vel_occ, temp_sen, vel_sen, temp_rack, heat_wall1, heat_wall2, heat_wall3, heat_wall4, heat_wall5, heat_wall6*/
 outp.outp_name temp_roo
 outp.outp_name vel_sen
-/*outp.outp_weight: weights for error control, when outputs have different order of magnitudes*/
-outp.outp_weight 1.0
-outp.outp_weight 10.0
+/*outp.outp_Boundary_upper: output upper boundary for error control, when outputs have different order of magnitudes*/
+outp.outp_Boundary_upper 293.15
+outp.outp_Boundary_upper 1.0
+/*outp.outp_Boundary_lower: output lower boundary for error control, when outputs have different order of magnitudes*/
+outp.outp_Boundary_lower 273.15
+outp.outp_Boundary_lower 0.0

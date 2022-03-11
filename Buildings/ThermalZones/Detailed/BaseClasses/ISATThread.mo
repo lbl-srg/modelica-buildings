@@ -9,7 +9,8 @@ class ISATThread "Class used to handle ISAT thread"
       LibraryDirectory="modelica://Buildings/Resources/Library", Library="isat");
      annotation (Documentation(info="<html>
 <p>
-Constructor allocates memory for co-simulation variables when co-simulation starts
+Constructor allocates memory for co-simulation variables when co-simulation starts.
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>

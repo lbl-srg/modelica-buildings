@@ -19,7 +19,6 @@ partial model PartialRoom "Partial model for a room"
     nSurBou=nSurBou,
     nConExt=nConExt,
     nSou=nSou,
-    haveSource=false,
     sensorName={"Occupied zone air temperature","Velocity"},
     useCFD=true,
     nConPar=nConPar,

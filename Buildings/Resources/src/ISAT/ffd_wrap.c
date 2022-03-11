@@ -29,7 +29,9 @@ extern int writeexisting;
 
 extern int num_input;
 extern int num_output;
-extern double outp_weight[];
+extern int divide_grid;
+extern double outp_Boundary_upper[];
+extern double outp_Boundary_lower[];
 extern OUTPUT_TYPE outp_name[];
 extern INPUT_TYPE inpu_name[];
 
@@ -61,7 +63,7 @@ void ffd_ISAT (int need[], double x[], double f[], double g[][nf_SIZE], void *p)
   /****************************************************************************
   | Copy input to global variables
   ****************************************************************************/
-  for (i = 0; i < nx_SIZE; i++){
+  for (i = 0; i < num_input; i++){
     ffdInput[i] = x[i];
   }
 
@@ -91,7 +93,7 @@ void ffd_ISAT (int need[], double x[], double f[], double g[][nf_SIZE], void *p)
 				if (writeexisting == 1) {
 					write_existing();
 				}
-				for (i = 0; i < nf_SIZE; i++) {
+				for (i = 0; i < num_output; i++) {
 					f[i] = ffdOutput[i];
 				}
 			}
@@ -106,21 +108,20 @@ void ffd_ISAT (int need[], double x[], double f[], double g[][nf_SIZE], void *p)
 			if (writeexisting == 1) {
 				write_existing();
 			}
-			for (i = 0; i < nf_SIZE; i++) {
+			for (i = 0; i < num_output; i++) {
 				f[i] = ffdOutput[i];
 			}
 		}
 	}
   }
 
-
   /****************************************************************************
-  | Weights for error control 
+  | Normarize outputs for error control 
   | This is needed since each compoinet of output vector has different order of magnitudes
   ****************************************************************************/
   if (useErrorControlCorrection){
-	for (i = 0; i < nf_SIZE; i++) {
-		f[i] = outp_weight[i] * f[i];
+	for (i = 0; i < num_output; i++) {
+		f[i] = (f[i] - outp_Boundary_lower[i]) / (outp_Boundary_upper[i] - outp_Boundary_lower[i]);
 	}
   }
 
@@ -183,20 +184,16 @@ int read_existing() {
 				next = 1;
 			}
 		}
-		/*else {
-		//sprintf(logMsg, "read_existing(): the numbers of inputs and outputs in existing.isat are not consistent with isat settings");
-		//cosim_log(logMsg, FFD_WARNING);
-		}*/
 	}
   }
 
   fclose(file_params_isat);
 
   if (flag_match == 0) {
-	return 1;
+	  return 1;
   }
   else {
-	return 0;
+	  return 0;
   }
 }
 

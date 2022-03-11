@@ -40,6 +40,6 @@ void ffd_ISAT (int need[], double x[], double f[], double g[][nf_SIZE], void *p)
 int read_existing();
 int write_existing();
 void numericalDifferentiation (double g[][nf_SIZE]);
-void read_isat_parameters();
+int read_isat_parameters();
 
 #endif

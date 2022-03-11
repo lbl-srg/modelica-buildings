@@ -48,18 +48,23 @@ partial model PartialCFD
     "Number of sources that are connected to CFD input";
   parameter String sourceName[nSou]=fill("",nSou)
     "Names of sources as declared in the CFD input file";
-  parameter Boolean haveSource
-    "Flag, true if the model has at least one source";
 
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen]
     if haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
 
+public
+  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou](each unit="W") if haveSource
+    "Internal source heat gain into room" annotation (Placement(transformation(
+          extent={{-300,-130},{-260,-90}}), iconTransformation(extent={{-232,164},
+            {-200,196}})));
+
 protected
   final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
     "Absolute path to the CFD file";
-
+  final parameter Boolean haveSource = nSou > 0
+    "Flag, true if the model has at least one source";
   final parameter Boolean haveSensor = Modelica.Utilities.Strings.length(sensorName[1]) > 0
     "Flag, true if the model has at least one sensor";
   final parameter Integer nSen(min=0) = size(sensorName, 1)
@@ -69,11 +74,7 @@ protected
     if haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
-public
-  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou](each unit="W") if haveSource
-    "Internal source heat gain into room" annotation (Placement(transformation(
-          extent={{-300,-130},{-260,-90}}), iconTransformation(extent={{-232,164},
-            {-200,196}})));
+
 equation
   connect(air.yCFD, yCFD) annotation (Line(
       points={{61,-142.5},{61,-206},{440,-206},{440,120},{470,120}},
@@ -146,22 +147,11 @@ equation
           textColor={0,0,127},
           textString="s")}),
     Documentation(info="<html>
-    <p>
-    Partial room model for detailed room model that computes the room air flow using external solvers. The simulation by external solvers is coupled to the thermal simulation of the room
-and, through the fluid port, to the air conditioning system.
-</p>
-<p>
-Currently, the supported external solvers are computational fluid dynamics (CFD) and In Situ Adaptive Tabulation (ISAT). See
-<a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide\">Buildings.ThermalZones.Detailed.UsersGuide</a>
-for detailed explanations.
-</p>
+<p>Partial room model for detailed room model that computes the room air flow using external solvers. </p>
+<p>The simulation by external solvers is coupled to the thermal simulation of the room and, through the fluid port, to the air conditioning system. </p>
+<p>Currently, the supported external solvers are computational fluid dynamics (CFD) and In Situ Adaptive Tabulation (ISAT). See <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide\">Buildings.ThermalZones.Detailed.UsersGuide</a> for detailed explanations. </p>
 <h4>References</h4>
-<p>
-<a name=\"ZUO2010\"/>
-Wangda Zuo. <a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">
-Advanced simulations of air distributions in buildings</a>.
-Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
-</p>
+<p><a name=\"ZUO2010\">W</a>angda Zuo. <a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">Advanced simulations of air distributions in buildings</a>. Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010. </p>
 <p>Wei Tian, Thomas Alonso Sevilla, Dan Li, Wangda Zuo, Michael Wetter. </p>
 <p><a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">Fast and Self-Learning Indoor Airflow Simulation Based on In Situ Adaptive Tabulation. </a></p>
 <p>Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.</p>
