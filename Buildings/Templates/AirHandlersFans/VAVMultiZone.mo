@@ -26,15 +26,20 @@ model VAVMultiZone "Multiple-zone VAV"
       buiPreCon=ctl.buiPreCon),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
-    final have_souCoiCoo=coiCoo.have_sou,
-    final have_souCoiHeaPre=coiHeaPre.have_sou,
-    final have_souCoiHeaReh=coiHeaReh.have_sou,
+    final have_souChiWat=coiCoo.have_sou,
+    final have_souHeaWat=coiHeaPre.have_sou or coiHeaReh.have_sou,
     final typFanSup=if
       fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
       fanSupDra.typ elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
       then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
     final typFanRel=secOutRel.typFanRel,
-    final typFanRet=secOutRel.typFanRet);
+    final typFanRet=secOutRel.typFanRet,
+    final mChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.mWat_flow_nominal else 0,
+    final mHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.mWat_flow_nominal else 0) +
+      (if coiHeaReh.have_sou then dat.coiHeaReh.mWat_flow_nominal else 0),
+    final QChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.Q_flow_nominal else 0,
+    final QHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.Q_flow_nominal else 0) +
+      (if coiHeaReh.have_sou then dat.coiHeaReh.Q_flow_nominal else 0));
 
   final parameter Boolean have_senPreBui=
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
@@ -236,7 +241,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "No coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
-          redeclare final package MediumHea=MediumHea)
+          redeclare final package MediumHeaWat=MediumHeaWat)
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
@@ -255,7 +260,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiCoo
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
-        redeclare final package MediumCoo=MediumCoo)
+        redeclare final package MediumChiWat=MediumChiWat)
         "Chilled water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiCoo
         "Evaporator coil with variable speed compressor")),
@@ -271,7 +276,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaReh
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
-        redeclare final package MediumHea=MediumHea)
+        redeclare final package MediumHeaWat=MediumHeaWat)
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh
@@ -279,6 +284,24 @@ model VAVMultiZone "Multiple-zone VAV"
     Dialog(group="Heating coil",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{130,-210},{150,-190}})));
+  Fluid.FixedResistances.Junction junHeaWatSup(
+    redeclare final package Medium = MediumHeaWat,
+    final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=fill(0, 3)) if have_souHeaWat
+    "Junction" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={20,-260})));
+  Fluid.FixedResistances.Junction junHeaWatSup1(
+    redeclare final package Medium = MediumHeaWat,
+    final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=fill(0, 3)) if have_souHeaWat
+    "Junction" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-20,-246})));
 equation
   /* Control point connection - start */
   connect(TAirMix.y, bus.TAirMix);
@@ -297,24 +320,18 @@ equation
   connect(pAirBui_rel.y, bus.pAirBui_rel);
   /* Control point connection - stop */
 
-  connect(coiHeaPre.port_bSou, port_coiHeaPreRet) annotation (Line(points={{15,
-          -210},{15,-260},{-20,-260},{-20,-280}}, color={0,127,255}));
-  connect(port_coiHeaPreSup, coiHeaPre.port_aSou) annotation (Line(points={{20,
-          -280},{20,-260},{25,-260},{25,-210}}, color={0,127,255}));
-  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{100,-280},
-          {100,-260},{85,-260},{85,-210}}, color={0,127,255}));
-  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{75,-210},{
-          75,-260},{60,-260},{60,-280}}, color={0,127,255}));
+  connect(port_aChiWat, coiCoo.port_aSou) annotation (Line(points={{100,-280},{
+          100,-268},{85,-268},{85,-210}},
+                                      color={0,127,255}));
+  connect(coiCoo.port_bSou, port_bChiWat) annotation (Line(points={{75,-210},{
+          75,-268},{60,-268},{60,-280}},
+                                      color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
       points={{0,280},{0,100},{74,100},{74,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TAirMix.port_b, fanSupBlo.port_a)
     annotation (Line(points={{-90,-200},{-50,-200}}, color={0,127,255}));
-  connect(port_coiHeaRehSup, coiHeaReh.port_aSou) annotation (Line(points={{180,-280},
-          {180,-260},{145,-260},{145,-210}}, color={0,127,255}));
-  connect(coiHeaReh.port_bSou, port_coiHeaRehRet) annotation (Line(points={{135,-210},
-          {135,-260},{140,-260},{140,-280}}, color={0,127,255}));
   connect(coiHeaReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{150,-200},{172,-200}}, color={0,127,255}));
   connect(busWea, out.weaBus) annotation (Line(
@@ -379,6 +396,18 @@ equation
     annotation (Line(points={{0,-200},{10,-200}}, color={0,127,255}));
   connect(fanSupDra.port_b, TAirSup.port_a)
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
+  connect(port_aHeaWat, junHeaWatSup.port_1)
+    annotation (Line(points={{20,-280},{20,-270}}, color={0,127,255}));
+  connect(port_bHeaWat, junHeaWatSup1.port_2)
+    annotation (Line(points={{-20,-280},{-20,-256}}, color={0,127,255}));
+  connect(junHeaWatSup.port_3, coiHeaReh.port_aSou) annotation (Line(points={{
+          30,-260},{145,-260},{145,-210}}, color={0,127,255}));
+  connect(coiHeaReh.port_bSou, junHeaWatSup1.port_3) annotation (Line(points={{
+          135,-210},{135,-246},{-10,-246}}, color={0,127,255}));
+  connect(coiHeaPre.port_bSou, junHeaWatSup1.port_1) annotation (Line(points={{
+          15,-210},{15,-230},{-20,-230},{-20,-236}}, color={0,127,255}));
+  connect(junHeaWatSup.port_2, coiHeaPre.port_aSou) annotation (Line(points={{
+          20,-250},{20,-230},{25,-230},{25,-210}}, color={0,127,255}));
   annotation (
     defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

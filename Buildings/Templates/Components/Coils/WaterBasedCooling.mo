@@ -3,10 +3,10 @@ model WaterBasedCooling "Chilled water coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
     final typVal=val.typ,
-    port_aSou(redeclare final package Medium = MediumCoo),
-    port_bSou(redeclare final package Medium = MediumCoo));
+    port_aSou(redeclare final package Medium = MediumChiWat),
+    port_bSou(redeclare final package Medium = MediumChiWat));
 
-  replaceable package MediumCoo=Buildings.Media.Water
+  replaceable package MediumChiWat=Buildings.Media.Water
     "Source side medium";
 
   final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
@@ -26,7 +26,7 @@ model WaterBasedCooling "Chilled water coil"
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
-      final package Medium = MediumCoo,
+      final package Medium = MediumChiWat,
       final dat=datVal)
     "Valve"
     annotation (
@@ -47,7 +47,7 @@ model WaterBasedCooling "Chilled water coil"
       then dpWat_nominal else 0,
     final dp2_nominal=dpAir_nominal)
   constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    redeclare final package Medium1 = MediumCoo,
+    redeclare final package Medium1 = MediumChiWat,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal)
@@ -56,7 +56,7 @@ model WaterBasedCooling "Chilled water coil"
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(
-    redeclare final package Medium = MediumCoo,
+    redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mWat_flow_nominal*{1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=fill(0, 3))
@@ -68,7 +68,7 @@ model WaterBasedCooling "Chilled water coil"
         rotation=90,
         origin={40,-60})));
   Buildings.Templates.BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium=MediumCoo)
+    redeclare final package Medium=MediumChiWat)
     if typVal<>Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through"
     annotation (Placement(

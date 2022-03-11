@@ -14,14 +14,11 @@ record PartialAirHandler
   parameter Buildings.Templates.Components.Types.Fan typFanRel
     "Type of relief fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_souCoiCoo
+  parameter Boolean have_souChiWat
     "Set to true if cooling coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_souCoiHeaPre
+  parameter Boolean have_souHeaWat
     "Set to true if heating coil requires fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_souCoiHeaReh
-    "Set to true if reheat coil requires fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.AirHandlersFans.Types.Controller typCtl
     "Type of controller"
@@ -30,13 +27,13 @@ record PartialAirHandler
   parameter String id
    "System tag"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter String id_souCoiCoo=""
-    "Chilled water supply system tag"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souCoiCoo));
-  parameter String id_souCoiHea=""
-    "Hot water supply system tag"
+  parameter String id_souChiWat=""
+    "CHW supply system tag"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souChiWat));
+  parameter String id_souHeaWat=""
+    "HHW supply system tag"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=have_souCoiHeaPre or have_souCoiHeaReh));
+    enable=have_souHeaWat));
 
   parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal
     "Supply air mass flow rate"

@@ -3,10 +3,10 @@ model WaterBasedHeating "Hot water coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
     final typVal=val.typ,
-    port_aSou(redeclare final package Medium = MediumHea),
-    port_bSou(redeclare final package Medium = MediumHea));
+    port_aSou(redeclare final package Medium = MediumHeaWat),
+    port_bSou(redeclare final package Medium = MediumHeaWat));
 
-  replaceable package MediumHea=Buildings.Media.Water
+  replaceable package MediumHeaWat=Buildings.Media.Water
     "Source side medium";
 
   final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
@@ -21,7 +21,7 @@ model WaterBasedHeating "Hot water coil"
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
-      redeclare final package Medium = MediumHea,
+      redeclare final package Medium = MediumHeaWat,
       final dat=datVal)
     "Valve"
     annotation (
@@ -41,7 +41,7 @@ model WaterBasedHeating "Hot water coil"
       then dpWat_nominal else 0,
     final dp2_nominal=dpAir_nominal)
   constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    redeclare final package Medium1 = MediumHea,
+    redeclare final package Medium1 = MediumHeaWat,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal)
@@ -49,7 +49,7 @@ model WaterBasedHeating "Hot water coil"
     annotation (Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Templates.BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium=MediumHea)
+    redeclare final package Medium=MediumHeaWat)
     if typVal<>Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through"
     annotation (Placement(
@@ -59,7 +59,7 @@ model WaterBasedHeating "Hot water coil"
         origin={60,-60})));
 
   Buildings.Fluid.FixedResistances.Junction jun(
-    redeclare final package Medium=MediumHea,
+    redeclare final package Medium=MediumHeaWat,
     final m_flow_nominal=mWat_flow_nominal * {1, -1, -1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=fill(0, 3))

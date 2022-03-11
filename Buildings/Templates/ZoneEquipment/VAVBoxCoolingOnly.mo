@@ -8,7 +8,13 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
       have_CO2Sen=ctl.have_CO2Sen,
       typCtl=ctl.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBox,
-    final have_souCoiHea=false);
+    final have_souChiWat=false,
+    final have_souHeaWat=false,
+    final mAirPri_flow_nominal=mAir_flow_nominal,
+    final mChiWat_flow_nominal=0,
+    final mHeaWat_flow_nominal=0,
+    final QChiWat_flow_nominal=0,
+    final QHeaWat_flow_nominal=0);
 
   inner replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
     constrainedby

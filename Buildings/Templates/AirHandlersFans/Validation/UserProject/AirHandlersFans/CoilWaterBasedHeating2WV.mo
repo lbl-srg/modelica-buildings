@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFan
 model CoilWaterBasedHeating2WV
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare replaceable
                   Buildings.Templates.Components.Coils.WaterBasedHeating
-      coiHeaPre(redeclare final package MediumHea = MediumHea, redeclare
+      coiHeaPre(redeclare final package MediumHeaWat = MediumHeaWat, redeclare
         Buildings.Templates.Components.Valves.TwoWayModulating val)
       "Hot water coil",
     nZon=2);

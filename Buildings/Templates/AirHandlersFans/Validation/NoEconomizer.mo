@@ -4,10 +4,10 @@ model NoEconomizer
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
-  replaceable package MediumCoo=Buildings.Media.Water
+  replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Cooling medium (such as CHW)";
-  replaceable package MediumHea=Buildings.Media.Water
+  replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
@@ -54,9 +54,8 @@ model NoEconomizer
       final typFanSup=VAV_1.typFanSup,
       final typFanRet=VAV_1.typFanRet,
       final typFanRel=VAV_1.typFanRel,
-      final have_souCoiCoo=VAV_1.have_souCoiCoo,
-      final have_souCoiHeaPre=VAV_1.have_souCoiHeaPre,
-      final have_souCoiHeaReh=VAV_1.have_souCoiHeaReh,
+      final have_souChiWat=VAV_1.have_souChiWat,
+      final have_souHeaWat=VAV_1.have_souHeaWat,
       final typCoiHeaPre=VAV_1.coiHeaPre.typ,
       final typCoiCoo=VAV_1.coiCoo.typ,
       final typCoiHeaReh=VAV_1.coiHeaReh.typ,
@@ -77,7 +76,7 @@ model NoEconomizer
     constrainedby Buildings.Templates.AirHandlersFans.VAVMultiZone(
     final dat=dat.VAV_1,
     redeclare final package MediumAir = MediumAir,
-    redeclare final package MediumCoo = MediumCoo)
+    redeclare final package MediumChiWat = MediumChiWat)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Buildings.Fluid.Sources.Boundary_pT bouOut(redeclare final package Medium =
         MediumAir, nPorts=2) "Boundary conditions for outdoor environment"
@@ -112,17 +111,21 @@ model NoEconomizer
     dp_nominal=100)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   Fluid.Sources.Boundary_pT bouHeaWat(
-    redeclare final package Medium = MediumHea,
-    final nPorts=if VAV_1.have_souCoiHeaPre or VAV_1.have_souCoiHeaReh then 2 else 0)
+    redeclare final package Medium = MediumHeaWat,
+    nPorts=2) if VAV_1.have_souHeaWat
     "Boundary conditions for HHW distribution system"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Fluid.Sources.Boundary_pT bouChiWat(
-    redeclare final package Medium = MediumCoo,
-    final nPorts=if VAV_1.have_souCoiCoo then 2 else 0)
+    redeclare final package Medium = MediumChiWat,
+    nPorts=2) if VAV_1.have_souChiWat
     "Boundary conditions for CHW distribution system"
     annotation (Placement(transformation(extent={{60,-60},{40,-40}})));
 
+  UserProject.ZoneEquipment.VAVBoxControlPoints sigVAVBox[VAV_1.nZon]
+    if VAV_1.ctl.typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
+    "Control signals from VAV box"
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 protected
   Interfaces.Bus busAHU
   "Gateway bus"
@@ -132,12 +135,14 @@ protected
         extent={{-258,-26},{-238,-6}})));
 
 equation
-  connect(bouHeaWat.ports[1], VAV_1.port_coiHeaPreSup)
-    annotation (Line(points={{-40,-50},{-9,-50},{-9,-20}}, color={0,127,255}));
-  connect(bouChiWat.ports[2], VAV_1.port_coiCooRet)
-    annotation (Line(points={{40,-50},{-3,-50},{-3,-20}}, color={0,127,255}));
-
-
+  connect(bouHeaWat.ports[1], VAV_1.port_aHeaWat)
+    annotation (Line(points={{-40,-51},{-5,-51},{-5,-20}}, color={0,127,255}));
+  connect(bouChiWat.ports[2], VAV_1.port_bChiWat)
+    annotation (Line(points={{40,-49},{5,-49},{5,-20}},   color={0,127,255}));
+  connect(VAV_1.port_bHeaWat, bouHeaWat.ports[2]) annotation (Line(points={{-13,-20},
+          {-13,-48},{-40,-48},{-40,-49}},      color={0,127,255}));
+  connect(VAV_1.port_aChiWat, bouChiWat.ports[1]) annotation (Line(points={{13,-20},
+          {13,-48},{40,-48},{40,-51}},color={0,127,255}));
   connect(bouOut.ports[1], res.port_a) annotation (Line(points={{-70,-1},{-60,-1},
           {-60,-10},{-50,-10}}, color={0,127,255}));
   connect(res.port_b, VAV_1.port_Out)
@@ -170,12 +175,10 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(VAV_1.port_coiHeaPreRet,bouHeaWat.ports[2]) annotation (Line(points={{-15,-20},
-          {-15,-48},{-40,-48},{-40,-50}},
-                                      color={0,127,255}));
-  connect(VAV_1.port_coiCooSup,bouChiWat.ports[1])
-    annotation (Line(points={{3,-19.8},{3,-48},{40,-48},{40,-50}},
-                                                          color={0,127,255}));
+  connect(sigVAVBox.bus, VAV_1.busTer) annotation (Line(
+      points={{-70,60},{19.8,60},{19.8,16}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

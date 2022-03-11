@@ -5,9 +5,12 @@ record PartialAirTerminal
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_souCoiHea
-    "Set to true if heating coil requires fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean have_souChiWat
+    "Set to true if system uses CHW"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_souHeaWat
+    "Set to true if system uses HHW"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.ZoneEquipment.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -18,9 +21,12 @@ record PartialAirTerminal
   parameter String id_souAir=""
     "Air supply system tag"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter String id_souCoiHea=""
-    "Hot water supply system tag"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souCoiHea));
+  parameter String id_souChiWat=""
+    "CHW supply system tag"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souChiWat));
+  parameter String id_souHeaWat=""
+    "HHW supply system tag"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souHeaWat));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0,

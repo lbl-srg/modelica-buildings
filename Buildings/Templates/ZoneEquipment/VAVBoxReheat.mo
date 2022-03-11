@@ -8,7 +8,13 @@ model VAVBoxReheat "VAV terminal unit with reheat"
       have_CO2Sen=ctl.have_CO2Sen,
       typCtl=ctl.typ),
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBox,
-    final have_souCoiHea=coiHea.have_sou);
+    final have_souChiWat=false,
+    final have_souHeaWat=true,
+    final mAirPri_flow_nominal=mAir_flow_nominal,
+    final mChiWat_flow_nominal=0,
+    final mHeaWat_flow_nominal=if coiHea.have_sou then dat.coiHea.mWat_flow_nominal else 0,
+    final QChiWat_flow_nominal=0,
+    final QHeaWat_flow_nominal=if coiHea.have_sou then dat.coiHea.Q_flow_nominal else 0);
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
@@ -18,7 +24,7 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-        redeclare final package MediumHea = MediumHea)
+        redeclare final package MediumHeaWat = MediumHeaWat)
         "Hot water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
         "Electric heating coil")),
@@ -100,11 +106,10 @@ equation
   connect(TAirDis.y, bus.TAirDis);
   connect(VAirDis_flow.y, bus.VAirDis_flow);
   /* Control point connection - end */
-  connect(port_coiHeaSup,coiHea. port_aSou) annotation (Line(points={{20,-280},{
-          20,-260},{5,-260},{5,-210}},     color={0,127,255}));
-  connect(coiHea.port_bSou,port_coiHeaRet)  annotation (Line(points={{-5,-210},{
-          -5,-260},{-20,-260},{-20,-280}},
-                                        color={0,127,255}));
+  connect(port_aHeaWat, coiHea.port_aSou) annotation (Line(points={{20,-280},{
+          20,-260},{5,-260},{5,-210}}, color={0,127,255}));
+  connect(coiHea.port_bSou, port_bHeaWat) annotation (Line(points={{-5,-210},{-5,
+          -260},{-20,-260},{-20,-280}}, color={0,127,255}));
   connect(damVAV.port_b,coiHea. port_a)
     annotation (Line(points={{-110,-200},{-10,-200}}, color={0,127,255}));
   connect(bus,ctl. bus) annotation (Line(

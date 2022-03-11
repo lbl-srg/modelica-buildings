@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFan
 model CoilWaterBasedCooling
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(redeclare replaceable
                   Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
-        redeclare final package MediumCoo = MediumCoo) "Chilled water coil",
+        redeclare final package MediumChiWat = MediumChiWat) "Chilled water coil",
     nZon=2);
 
   annotation (

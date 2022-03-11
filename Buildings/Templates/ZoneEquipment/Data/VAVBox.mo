@@ -27,7 +27,7 @@ record VAVBox
   parameter Buildings.Templates.Components.Data.Coil coiHea(
     final typ=typCoiHea,
     final typVal=typValCoiHea,
-    final have_sou=have_souCoiHea,
+    final have_sou=have_souHeaWat,
     mAir_flow_nominal=ctl.VAirHeaSet_flow_max*1.2)
     "Reheat coil"
     annotation (Dialog(group="Equipment"));
