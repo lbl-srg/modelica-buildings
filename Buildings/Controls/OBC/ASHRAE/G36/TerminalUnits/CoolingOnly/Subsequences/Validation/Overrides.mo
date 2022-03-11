@@ -28,10 +28,10 @@ model Overrides "Validation of model that overrides control"
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveDam(
     final height=2,
     final duration=2000,
-    startTime=1000) "Override flow setpoint"
+    startTime=1000) "Override damper position"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
@@ -41,7 +41,7 @@ model Overrides "Validation of model that overrides control"
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 equation
-  connect(oveFlo1.y, round1.u)
+  connect(oveDam.y, round1.u)
     annotation (Line(points={{-58,-20},{-42,-20}}, color={0,0,127}));
   connect(round1.y, reaToInt1.u)
     annotation (Line(points={{-18,-20},{-2,-20}}, color={0,0,127}));

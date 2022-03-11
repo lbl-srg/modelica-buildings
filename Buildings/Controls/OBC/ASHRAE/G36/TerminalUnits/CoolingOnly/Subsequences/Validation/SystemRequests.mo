@@ -9,8 +9,7 @@ model SystemRequests
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     final freqHz=1/7200,
-    final offset=296.15)
-    "Generate data for setpoint"
+    final offset=296.15) "Generate data for setpoint"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(
     final samplePeriod=1800)
