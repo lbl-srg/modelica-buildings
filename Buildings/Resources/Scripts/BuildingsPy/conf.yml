@@ -32,8 +32,8 @@
     simulate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
-    comment: 'Simulation terminated due to too many, i.e. 20, event iterations'
-    simulate: false
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    translate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples.ParallelLoads
   openmodelica:
     comment: 'Simulation terminated by an assert at time: 0.901'
@@ -121,6 +121,10 @@
   openmodelica:
     comment: returned non-zero exit status 1.
     simulate: false
+- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
+  optimica:
+    comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
   openmodelica:
     comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: 0.0'
@@ -150,6 +154,18 @@
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
   openmodelica:
     comment: timed out after 300 seconds
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
+  openmodelica:
+    comment: 'simulation terminated by an assertion at initialization. (But works outside of docker, likely related with access to .mat file.)'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''. (But works locally)'
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_SmallScaleValidation
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''. (But works locally)'
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.Analytic_20Years
   openmodelica:
