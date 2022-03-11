@@ -8,15 +8,15 @@
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: 'division by zero at time 6393600, (a=3.874900467232077e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: 'division by zero at time 15984000, (a=2.95791846399214e-05) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: 'division by zero at time 0, (a=2.918588003374964e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
   openmodelica:
@@ -121,10 +121,6 @@
   openmodelica:
     comment: returned non-zero exit status 1.
     simulate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
-  optimica:
-    comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280)
-    simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
   openmodelica:
     comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: 0.0'
@@ -154,18 +150,6 @@
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
   openmodelica:
     comment: timed out after 300 seconds
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_SmallScaleValidation
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.Analytic_20Years
   openmodelica:
@@ -374,7 +358,7 @@
     simulate: false
 - model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
-    comment: returned non-zero exit status 139
+    comment: "Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)"
     simulate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
   optimica:
