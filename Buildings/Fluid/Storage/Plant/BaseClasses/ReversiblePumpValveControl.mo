@@ -9,7 +9,6 @@ block ReversiblePumpValveControl
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.Continuous.LimPID conPI_pum2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Td=1,
     k=5,
     Ti=50)   "PI controller for pum2" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -22,7 +21,6 @@ block ReversiblePumpValveControl
         origin={-70,30})));
   Buildings.Controls.Continuous.LimPID conPI_val2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Td=1,
     k=5,
     Ti=50,
     reverseActing=false)

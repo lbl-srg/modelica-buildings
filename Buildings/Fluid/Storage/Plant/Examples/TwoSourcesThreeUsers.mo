@@ -119,7 +119,6 @@ model TwoSourcesThreeUsers
         origin={-170,30})));
   Buildings.Controls.Continuous.LimPID conPI_PumChi1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Td=1,
     k=1,
     Ti=100,
     reverseActing=true) "PI controller" annotation (Placement(transformation(

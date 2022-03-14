@@ -59,7 +59,6 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.Continuous.LimPID conPI_pumSec(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Td=1,
     k=1,
     Ti=100,
     reverseActing=true) "PI controller" annotation (Placement(transformation(

@@ -52,7 +52,6 @@ model DummyUser "Dummy user model"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Td=1,
     k=10,
     Ti=1000,
     reverseActing=false) "PI controller" annotation (Placement(transformation(

@@ -61,7 +61,6 @@ model ChillerAndTankNoRemoteCharging
     "Primary pump mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.Continuous.LimPID conPID_PumSec(
-    Td=1,
     k=1,
     Ti=15) "PI controller" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
