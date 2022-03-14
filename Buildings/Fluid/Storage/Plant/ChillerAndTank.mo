@@ -147,9 +147,9 @@ model ChillerAndTank
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,90})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.FluidThrough pasVal1(redeclare
-      package Medium = Medium2)
-    if not allowRemoteCharging "Replaces val1 when remote charging not allowed"
+  Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasVal1(redeclare
+      package Medium = Medium2) if not allowRemoteCharging
+    "Replaces val1 when remote charging not allowed"
     annotation (Placement(transformation(extent={{30,-42},{10,-22}})));
   Modelica.Blocks.Routing.RealPassThrough pasSwiFloDirPum1
     if not allowRemoteCharging

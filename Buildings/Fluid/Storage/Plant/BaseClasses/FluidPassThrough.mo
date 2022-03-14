@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.BaseClasses;
-model FluidThrough "Fluid passes through"
+model FluidPassThrough "Pass a fluid through without modification"
   extends Interfaces.PartialTwoPort;
 equation
   connect(port_a, port_b) annotation (Line(points={{-100,0},{0,0},{0,0},{100,0}},
@@ -23,4 +23,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end FluidThrough;
+end FluidPassThrough;
