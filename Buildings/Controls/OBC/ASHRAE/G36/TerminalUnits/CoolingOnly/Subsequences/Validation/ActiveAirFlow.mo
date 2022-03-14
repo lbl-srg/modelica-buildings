@@ -37,7 +37,7 @@ equation
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Subsequences/Validation/ActiveAirFlow.mos"
-        "Simulate and plot", file="t.mos" "t"),
+        "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates

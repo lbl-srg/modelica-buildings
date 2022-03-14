@@ -567,5 +567,6 @@ August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file="t.mos" "t"));
 end Alarms;
