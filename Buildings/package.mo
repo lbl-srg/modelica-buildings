@@ -215,7 +215,7 @@ This release updates the Modelica version from 3.2.3 to 4.0.0.
 </p>
 <p>
 This release also updates almost all fluid component models to remove the parameter <code>massDynamics</code>,
-which is set to the same value as the parameter <code>energyDynamics</code>. This simplifies use of the models.
+which is now set to the same value as the parameter <code>energyDynamics</code>. This simplifies use of the models.
 A conversion script will update this setting when updating from Buildings 8 to 9.
 </p>
 </div>
