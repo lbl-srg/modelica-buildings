@@ -213,12 +213,12 @@ model ChillerAndTank
         rotation=180,
         origin={50,-20})));
 equation
-  connect(conPumSecGro.yVal1, valDis.y) annotation (Line(points={{66,78.9},{66,
-          56},{20,56},{20,2}}, color={0,0,127}));
+  connect(conPumSecGro.yValDis, valDis.y) annotation (Line(points={{66,78.9},{
+          66,56},{20,56},{20,2}}, color={0,0,127}));
   connect(conPumSecGro.us_mTan_flow, set_mTan_flow) annotation (Line(points={{
           81,95.4},{90,95.4},{90,118},{80,118},{80,130}}, color={0,0,127}));
-  connect(pumSec.y, conPumSecGro.yPum2) annotation (Line(points={{80,-8},{80,20},
-          {70,20},{70,78.9}}, color={0,0,127}));
+  connect(pumSec.y, conPumSecGro.yPumSec) annotation (Line(points={{80,-8},{80,
+          20},{70,20},{70,78.9}}, color={0,0,127}));
   connect(swiFloDirPum1.u2, booFloDir) annotation (Line(points={{-10,102},{-10,112},
           {96,112},{96,100},{110,100}},   color={255,0,255}));
   connect(swiFloDirPum1.u1, set_mPumPri_flow) annotation (Line(points={{-2,102},
@@ -254,12 +254,12 @@ equation
           60},{-100,60}}, color={0,127,255}));
   connect(chi.port_b1, port_b1) annotation (Line(points={{-40,16},{-32,16},{-32,
           60},{100,60}}, color={0,127,255}));
-  connect(valDis.y_actual, conPumSecGro.yVal1_actual) annotation (Line(points={
-          {15,-3},{14,-3},{14,68},{46,68},{46,99.8},{59,99.8}}, color={0,0,127}));
+  connect(valDis.y_actual, conPumSecGro.yValDis_actual) annotation (Line(points
+        ={{15,-3},{14,-3},{14,68},{46,68},{46,99.8},{59,99.8}}, color={0,0,127}));
   connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{-20,-59},{-20,
           -56},{0,-56},{0,-110}},     color={0,0,127}));
-  connect(sen_m_flow.m_flow, conPumSecGro.um_mTan_flow) annotation (Line(points
-        ={{-20,-59},{-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},
+  connect(sen_m_flow.m_flow, conPumSecGro.um_mTan_flow) annotation (Line(points=
+         {{-20,-59},{-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},
           {81,99.8}}, color={0,0,127}));
   connect(preDroTan.port_a, tan.port_b) annotation (Line(points={{-80,-90},{-80,
           -92},{-66,-92},{-66,-70},{-60,-70}}, color={0,127,255}));
@@ -286,10 +286,10 @@ equation
           {34,-32},{34,-20},{40,-20}}, color={0,127,255}));
   connect(valDis.port_a, cheValPumSec.port_b) annotation (Line(points={{30,-10},
           {34,-10},{34,-20},{40,-20}}, color={0,127,255}));
-  connect(conPumSecGro.yVal2, valCha.y) annotation (Line(points={{62,78.9},{62,
-          4},{94,4},{94,-44},{20,-44},{20,-58}}, color={0,0,127}));
-  connect(conPumSecGro.yVal2_actual, valCha.y_actual) annotation (Line(points={
-          {59,95.4},{54,95.4},{54,96},{48,96},{48,6},{96,6},{96,-46},{60,-46},{
+  connect(conPumSecGro.yValCha, valCha.y) annotation (Line(points={{62,78.9},{
+          62,4},{94,4},{94,-44},{20,-44},{20,-58}}, color={0,0,127}));
+  connect(conPumSecGro.yValCha_actual, valCha.y_actual) annotation (Line(points
+        ={{59,95.4},{54,95.4},{54,96},{48,96},{48,6},{96,6},{96,-46},{60,-46},{
           60,-63},{25,-63}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
