@@ -51,11 +51,11 @@ model ChillerAndTank
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-80,-80})));
-  Modelica.Blocks.Interfaces.RealInput set_mPum1_flow
+  Modelica.Blocks.Interfaces.RealInput set_mPumPri_flow
     "Primary pump mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,130}),  iconTransformation(
+        origin={40,130}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,100})));
@@ -94,7 +94,7 @@ model ChillerAndTank
         rotation=0,
         origin={80,-20})));
 
-  Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl conPum2Gro
+  Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl conPumSecGro
     if allowRemoteCharging "Control block for secondary pump-valve group"
     annotation (Placement(transformation(extent={{80,80},{60,102}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booOnOff
@@ -153,10 +153,10 @@ model ChillerAndTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={28,90})));
-  Modelica.Blocks.Interfaces.RealInput yPum2 if not allowRemoteCharging
-                                             "Secondary pump speed input"
-    annotation (Placement(transformation(extent={{120,10},{100,30}}),
-        iconTransformation(extent={{-10,-10},{10,10}},
+  Modelica.Blocks.Interfaces.RealInput yPumSec if not allowRemoteCharging
+    "Secondary pump speed input" annotation (Placement(transformation(extent={{
+            120,10},{100,30}}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-80,110})));
   Buildings.Fluid.Chillers.ElectricEIR chi(
@@ -213,35 +213,35 @@ model ChillerAndTank
         rotation=180,
         origin={50,-20})));
 equation
-  connect(conPum2Gro.yVal1, valDis.y) annotation (Line(points={{66,78.9},{66,56},
-          {20,56},{20,2}}, color={0,0,127}));
-  connect(conPum2Gro.us_mTan_flow, set_mTan_flow) annotation (Line(points={{81,
-          95.4},{90,95.4},{90,118},{80,118},{80,130}}, color={0,0,127}));
-  connect(pumSec.y, conPum2Gro.yPum2) annotation (Line(points={{80,-8},{80,20},{
-          70,20},{70,78.9}}, color={0,0,127}));
+  connect(conPumSecGro.yVal1, valDis.y) annotation (Line(points={{66,78.9},{66,
+          56},{20,56},{20,2}}, color={0,0,127}));
+  connect(conPumSecGro.us_mTan_flow, set_mTan_flow) annotation (Line(points={{
+          81,95.4},{90,95.4},{90,118},{80,118},{80,130}}, color={0,0,127}));
+  connect(pumSec.y, conPumSecGro.yPum2) annotation (Line(points={{80,-8},{80,20},
+          {70,20},{70,78.9}}, color={0,0,127}));
   connect(swiFloDirPum1.u2, booFloDir) annotation (Line(points={{-10,102},{-10,112},
           {96,112},{96,100},{110,100}},   color={255,0,255}));
-  connect(swiFloDirPum1.u1, set_mPum1_flow) annotation (Line(points={{-2,102},{-2,
-          108},{40,108},{40,130}}, color={0,0,127}));
+  connect(swiFloDirPum1.u1, set_mPumPri_flow) annotation (Line(points={{-2,102},
+          {-2,108},{40,108},{40,130}}, color={0,0,127}));
   connect(pumPri.m_flow_in, swiFloDirPum1.y) annotation (Line(points={{-20,-20},
           {-20,72},{-10,72},{-10,78}}, color={0,0,127}));
   connect(conZero.y,swiFloDirPum1. u3) annotation (Line(points={{-50,101},{-50,108},
           {-18,108},{-18,102}},
                               color={0,0,127}));
-  connect(pasSwiFloDirPum1.u, set_mPum1_flow) annotation (Line(points={{28,102},
-          {28,108},{40,108},{40,130}},    color={0,0,127}));
+  connect(pasSwiFloDirPum1.u, set_mPumPri_flow) annotation (Line(points={{28,
+          102},{28,108},{40,108},{40,130}}, color={0,0,127}));
   connect(pasSwiFloDirPum1.y, pumPri.m_flow_in) annotation (Line(points={{28,79},
           {28,72},{-20,72},{-20,-20}}, color={0,0,127}));
-  connect(pumSec.y, yPum2)
+  connect(pumSec.y, yPumSec)
     annotation (Line(points={{80,-8},{80,20},{110,20}}, color={0,0,127}));
   connect(pumSec.port_a, port_a2)
     annotation (Line(points={{90,-20},{90,-60},{100,-60}}, color={0,127,255}));
   connect(valCha.port_b, port_a2) annotation (Line(points={{30,-70},{90,-70},{90,
           -60},{100,-60}}, color={0,127,255}));
-  connect(conPum2Gro.booOnOff, booOnOff) annotation (Line(points={{82,82.2},{82,
-          82},{96,82},{96,80},{110,80}}, color={255,0,255}));
-  connect(conPum2Gro.booFloDir, booFloDir) annotation (Line(points={{82,86.6},{
-          82,86},{96,86},{96,100},{110,100}}, color={255,0,255}));
+  connect(conPumSecGro.booOnOff, booOnOff) annotation (Line(points={{82,82.2},{
+          82,82},{96,82},{96,80},{110,80}}, color={255,0,255}));
+  connect(conPumSecGro.booFloDir, booFloDir) annotation (Line(points={{82,86.6},
+          {82,86},{96,86},{96,100},{110,100}}, color={255,0,255}));
   connect(pumPri.port_b, chi.port_a2)
     annotation (Line(points={{-30,-32},{-40,-32},{-40,4}}, color={0,127,255}));
   connect(chi.on, booFloDir) annotation (Line(points={{-62,13},{-62,12},{-72,12},
@@ -254,13 +254,13 @@ equation
           60},{-100,60}}, color={0,127,255}));
   connect(chi.port_b1, port_b1) annotation (Line(points={{-40,16},{-32,16},{-32,
           60},{100,60}}, color={0,127,255}));
-  connect(valDis.y_actual, conPum2Gro.yVal1_actual) annotation (Line(points={{15,
-          -3},{14,-3},{14,68},{46,68},{46,99.8},{59,99.8}}, color={0,0,127}));
+  connect(valDis.y_actual, conPumSecGro.yVal1_actual) annotation (Line(points={
+          {15,-3},{14,-3},{14,68},{46,68},{46,99.8},{59,99.8}}, color={0,0,127}));
   connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{-20,-59},{-20,
           -56},{0,-56},{0,-110}},     color={0,0,127}));
-  connect(sen_m_flow.m_flow, conPum2Gro.um_mTan_flow) annotation (Line(points={{-20,-59},
-          {-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},{81,99.8}},
-                            color={0,0,127}));
+  connect(sen_m_flow.m_flow, conPumSecGro.um_mTan_flow) annotation (Line(points
+        ={{-20,-59},{-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},
+          {81,99.8}}, color={0,0,127}));
   connect(preDroTan.port_a, tan.port_b) annotation (Line(points={{-80,-90},{-80,
           -92},{-66,-92},{-66,-70},{-60,-70}}, color={0,127,255}));
   connect(sen_m_flow.port_b, tan.port_a)
@@ -286,11 +286,11 @@ equation
           {34,-32},{34,-20},{40,-20}}, color={0,127,255}));
   connect(valDis.port_a, cheValPumSec.port_b) annotation (Line(points={{30,-10},
           {34,-10},{34,-20},{40,-20}}, color={0,127,255}));
-  connect(conPum2Gro.yVal2, valCha.y) annotation (Line(points={{62,78.9},{62,4},
-          {94,4},{94,-44},{20,-44},{20,-58}}, color={0,0,127}));
-  connect(conPum2Gro.yVal2_actual, valCha.y_actual) annotation (Line(points={{59,
-          95.4},{54,95.4},{54,96},{48,96},{48,6},{96,6},{96,-46},{60,-46},{60,-63},
-          {25,-63}}, color={0,0,127}));
+  connect(conPumSecGro.yVal2, valCha.y) annotation (Line(points={{62,78.9},{62,
+          4},{94,4},{94,-44},{20,-44},{20,-58}}, color={0,0,127}));
+  connect(conPumSecGro.yVal2_actual, valCha.y_actual) annotation (Line(points={
+          {59,95.4},{54,95.4},{54,96},{48,96},{48,6},{96,6},{96,-46},{60,-46},{
+          60,-63},{25,-63}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
           points={{-30,-110},{30,-110}},

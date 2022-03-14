@@ -57,13 +57,12 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
         1200,QCooLoa_flow_nominal; 2400,QCooLoa_flow_nominal; 2400,0; 1*3600,0])
     "Placeholder, prescribed cooling load"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.Continuous.LimPID conPI_pum2(
+  Buildings.Controls.Continuous.LimPID conPI_pumSec(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=1,
     Ti=100,
-    reverseActing=true)
-             "PI controller for pum2" annotation (Placement(transformation(
+    reverseActing=true) "PI controller" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-50,40})));
@@ -92,7 +91,7 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,-20})));
-  Modelica.Blocks.Math.Gain gaiPum2(k=1/usr.dp_nominal) "Gain" annotation (
+  Modelica.Blocks.Math.Gain gaiPumSec(k=1/usr.dp_nominal) "Gain" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -128,14 +127,13 @@ equation
   connect(usr.port_b, preDro2.port_a)
     annotation (Line(points={{60,-20},{60,-40},{10,-40}},
                                                         color={0,127,255}));
-  connect(set_dpUsr.y, conPI_pum2.u_s)
-    annotation (Line(points={{-50,59},{-50,52}},             color={0,0,127}));
-  connect(usr.dpUsr, gaiPum2.u) annotation (Line(points={{48,-9},{48,-9},{48,88},
-          {-20,88},{-20,82}}, color={0,0,127}));
-  connect(conPI_pum2.y, cat.yPum2)
-    annotation (Line(points={{-50,29},{-50,20},{-42,20},{-42,11}},
-                                                         color={0,0,127}));
-  connect(gaiPum2.y, conPI_pum2.u_m)
+  connect(set_dpUsr.y, conPI_pumSec.u_s)
+    annotation (Line(points={{-50,59},{-50,52}}, color={0,0,127}));
+  connect(usr.dpUsr, gaiPumSec.u) annotation (Line(points={{48,-9},{48,-9},{48,
+          88},{-20,88},{-20,82}}, color={0,0,127}));
+  connect(conPI_pumSec.y, cat.yPumSec) annotation (Line(points={{-50,29},{-50,
+          20},{-42,20},{-42,11}}, color={0,0,127}));
+  connect(gaiPumSec.y, conPI_pumSec.u_m)
     annotation (Line(points={{-20,59},{-20,40},{-38,40}}, color={0,0,127}));
   connect(cat.port_b2, preDro1.port_a) annotation (Line(points={{-40,-6},{-16,
           -6},{-16,-20},{-10,-20}}, color={0,127,255}));
@@ -147,8 +145,8 @@ equation
           {-74,20},{-80,20}}, color={0,127,255}));
   connect(cat.port_a1, souCDW.ports[1]) annotation (Line(points={{-40,6},{-34,6},
           {-34,20},{-30,20}}, color={0,127,255}));
-  connect(set_mChi_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-39,-70},
-          {-26,-70},{-26,10},{-39,10}}, color={0,0,127}));
+  connect(set_mChi_flow.y, cat.set_mPumPri_flow) annotation (Line(points={{-39,
+          -70},{-26,-70},{-26,10},{-39,10}}, color={0,0,127}));
   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OneSourceOneUser.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>

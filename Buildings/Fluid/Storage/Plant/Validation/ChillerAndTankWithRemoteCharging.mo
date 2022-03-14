@@ -94,7 +94,7 @@ equation
   connect(set_mTan_flow.y, cat.set_mTan_flow)
     annotation (Line(points={{-59,60},{-14,60},{-14,2},{-9,2}},
                                                         color={0,0,127}));
-  connect(set_mChi_flow.y, cat.set_mPum1_flow)
+  connect(set_mChi_flow.y, cat.set_mPumPri_flow)
     annotation (Line(points={{-59,90},{-9,90},{-9,10}}, color={0,0,127}));
   connect(cat.port_b2, sin.ports[1]) annotation (Line(points={{-8,-6},{-54,-6},
           {-54,-30},{-60,-30}}, color={0,127,255}));

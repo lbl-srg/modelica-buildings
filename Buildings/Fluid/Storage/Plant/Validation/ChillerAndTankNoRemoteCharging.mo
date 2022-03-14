@@ -53,18 +53,17 @@ model ChillerAndTankNoRemoteCharging
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,-30})));
-  Modelica.Blocks.Sources.TimeTable set_mPum2_flow(table=[0,1; 900,1; 900,-1;
+  Modelica.Blocks.Sources.TimeTable set_mPumSec_flow(table=[0,1; 900,1; 900,-1;
         1800,-1; 1800,0; 2700,0; 2700,1; 3600,1])
-            "Secondary mass flow rate setpoint"
+    "Secondary mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Modelica.Blocks.Sources.Constant set_mPum1_flow(k=cat.m1_flow_nominal)
+  Modelica.Blocks.Sources.Constant set_mPumPri_flow(k=cat.m1_flow_nominal)
     "Primary pump mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.Continuous.LimPID conPID_Pum2(
+  Buildings.Controls.Continuous.LimPID conPID_PumSec(
     Td=1,
     k=1,
-    Ti=15) "PI controller for the secondary pump" annotation (Placement(
-        transformation(
+    Ti=15) "PI controller" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,50})));
@@ -91,16 +90,15 @@ model ChillerAndTankNoRemoteCharging
         origin={70,30})));
 equation
 
-  connect(gain2.y, conPID_Pum2.u_m)
-    annotation (Line(points={{-21,70},{-50,70},{-50,62}},
-                                                   color={0,0,127}));
+  connect(gain2.y, conPID_PumSec.u_m)
+    annotation (Line(points={{-21,70},{-50,70},{-50,62}}, color={0,0,127}));
   connect(cat.mTan_flow, gain2.u) annotation (Line(points={{11,-2},{16,-2},{16,70},
           {2,70}},  color={0,0,127}));
-  connect(set_mPum2_flow.y, conPID_Pum2.u_s)
-    annotation (Line(points={{-79,50},{-62,50}},             color={0,0,127}));
-  connect(set_mPum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-59,0},
-          {-16,0},{-16,10},{-11,10}},    color={0,0,127}));
-  connect(conPID_Pum2.y, cat.yPum2)
+  connect(set_mPumSec_flow.y, conPID_PumSec.u_s)
+    annotation (Line(points={{-79,50},{-62,50}}, color={0,0,127}));
+  connect(set_mPumPri_flow.y, cat.set_mPumPri_flow) annotation (Line(points={{-59,
+          0},{-16,0},{-16,10},{-11,10}}, color={0,0,127}));
+  connect(conPID_PumSec.y, cat.yPumSec)
     annotation (Line(points={{-39,50},{-8,50},{-8,11}}, color={0,0,127}));
   connect(sin.ports[1], cat.port_b2) annotation (Line(points={{-60,-30},{-16,
           -30},{-16,-6},{-10,-6}}, color={0,127,255}));

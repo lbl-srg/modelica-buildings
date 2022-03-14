@@ -106,7 +106,7 @@ model TwoSourcesThreeUsers
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal(nin=3)
     "Max of valve positions"
     annotation (Placement(transformation(extent={{60,-120},{40,-100}})));
-  Modelica.Blocks.Sources.Constant set_mChi2Pum1_flow(k=0.75*m_flow_nominal)
+  Modelica.Blocks.Sources.Constant set_mChi2PumPri_flow(k=0.75*m_flow_nominal)
     "Placeholder, primary flow rate setpoint"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Fluid.Sources.Boundary_pT sou_p(
@@ -312,8 +312,8 @@ equation
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
   connect(hysCat.y, cat.booOnOff) annotation (Line(points={{-2,-110},{-44,-110},
           {-44,-48},{-50,-48}}, color={255,0,255}));
-  connect(set_mChi2Pum1_flow.y, cat.set_mPum1_flow) annotation (Line(points={{-119,
-          -70},{-80,-70},{-80,-49},{-70,-49}}, color={0,0,127}));
+  connect(set_mChi2PumPri_flow.y, cat.set_mPumPri_flow) annotation (Line(points
+        ={{-119,-70},{-80,-70},{-80,-49},{-70,-49}}, color={0,0,127}));
   connect(set_dpUsr.y, conPI_PumChi1.u_s)
     annotation (Line(points={{-60,139},{-60,122}}, color={0,0,127}));
   connect(conPI_PumChi1.y, pumChi1.y)
