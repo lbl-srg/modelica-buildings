@@ -14,11 +14,6 @@ block ReversiblePumpValveControl
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-70,70})));
-  Modelica.Blocks.Math.Gain gaiPumSec(k=1) "Gain" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-70,30})));
   Buildings.Controls.Continuous.LimPID conPI_valCha(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
@@ -27,11 +22,6 @@ block ReversiblePumpValveControl
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-10,68})));
-  Modelica.Blocks.Math.Gain gaiValCha(k=1) "Gain" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-10,30})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
     "Flow direction: true = normal; false = reverse" annotation (Placement(
         transformation(extent={{-120,-10},{-100,10}}), iconTransformation(
@@ -144,10 +134,6 @@ block ReversiblePumpValveControl
         origin={60,-50})));
 equation
 
-  connect(conPI_pumSec.y, gaiPumSec.u)
-    annotation (Line(points={{-70,59},{-70,42}}, color={0,0,127}));
-  connect(conPI_valCha.y, gaiValCha.u)
-    annotation (Line(points={{-10,57},{-10,42}}, color={0,0,127}));
   connect(conPI_pumSec.u_s, us_mTan_flow)
     annotation (Line(points={{-70,82},{-70,110}}, color={0,0,127}));
   connect(conPI_valCha.u_s, us_mTan_flow) annotation (Line(points={{-10,80},{-10,
@@ -172,10 +158,6 @@ equation
           62,-118}}, color={0,0,127}));
   connect(one.y, swiValDis.u1)
     annotation (Line(points={{-79,-80},{18,-80},{18,-118}}, color={0,0,127}));
-  connect(gaiPumSec.y, swiPumPri.u1) annotation (Line(points={{-70,19},{-70,10},
-          {-42,10},{-42,-118}}, color={0,0,127}));
-  connect(gaiValCha.y, swiValCha.u1) annotation (Line(points={{-10,19},{-10,10},
-          {78,10},{78,-118}}, color={0,0,127}));
   connect(booOnOff, and3ValDis.u3) annotation (Line(points={{-110,-20},{-8,-20},
           {-8,-38}}, color={255,0,255}));
   connect(booFloDir, and3ValDis.u2) annotation (Line(points={{-110,0},{0,0},{0,
@@ -204,6 +186,10 @@ equation
           {46,-32},{52,-32},{52,-38}}, color={255,0,255}));
   connect(andValCha.y, swiValCha.u2) annotation (Line(points={{60,-62},{60,-70},
           {70,-70},{70,-118}}, color={255,0,255}));
+  connect(conPI_pumSec.y, swiPumPri.u1) annotation (Line(points={{-70,59},{-70,
+          10},{-42,10},{-42,-118}}, color={0,0,127}));
+  connect(conPI_valCha.y, swiValCha.u1) annotation (Line(points={{-10,57},{-10,
+          10},{78,10},{78,-118}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-160},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
