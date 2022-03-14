@@ -14,13 +14,8 @@ model ChillerAndTank
     "Nominal mass flow rate for CDW loop";
   parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal(min=0)
     "Nominal mass flow rate for CHW tank branch";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    p_CHWS_nominal-p_CHWR_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure difference";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWS_nominal=800000
-    "Nominal pressure of the CHW supply line";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=300000
-    "Nominal pressure of the CHW return line";
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
     "Nominal temperature of CHW supply";
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
@@ -172,10 +167,10 @@ model ChillerAndTank
     final dp1_nominal=0,
     final dp2_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    p2_start=p_CHWS_nominal,
+    p2_start=500000,
     T2_start=T_CHWS_nominal,
     final per=perChi)
-    "Water cooled chiller (ports indexed 1 are on condenser side)"
+    "Water cooled chiller (ports indexed 1 are on condenser side) (placeholder, to be removed from template)"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant onChi(k=true)
     if not allowRemoteCharging "Placeholder, chiller always on"
@@ -195,7 +190,6 @@ model ChillerAndTank
     nSeg=7,
     show_T=true,
     m_flow_nominal=mTan_flow_nominal,
-    p_start=p_CHWS_nominal,
     T_start=T_CHWS_nominal,
     TFlu_start=linspace(
         T_CHWR_nominal,

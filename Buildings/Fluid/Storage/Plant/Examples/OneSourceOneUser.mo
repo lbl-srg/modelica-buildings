@@ -30,8 +30,7 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
     final mEva_flow_nominal=m_flow_nominal/2,
     final mCon_flow_nominal=m_flow_nominal/2,
     final mTan_flow_nominal=m_flow_nominal/2,
-    final p_CHWS_nominal=p_CHWS_nominal,
-    final p_CHWR_nominal=p_CHWR_nominal,
+    final dp_nominal=p_CHWS_nominal-p_CHWR_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal)
     "Chiller and tank"

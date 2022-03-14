@@ -23,8 +23,7 @@ model ChillerAndTankWithRemoteCharging
     final mEva_flow_nominal=1,
     final mCon_flow_nominal=1,
     final mTan_flow_nominal=1,
-    final p_CHWS_nominal=p_CHWS_nominal,
-    final p_CHWR_nominal=p_CHWR_nominal,
+    final dp_nominal=p_CHWS_nominal-p_CHWR_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal) "Plant with chiller and tank"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));

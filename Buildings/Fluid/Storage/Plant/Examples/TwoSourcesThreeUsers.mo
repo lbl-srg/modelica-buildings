@@ -28,8 +28,7 @@ model TwoSourcesThreeUsers
     final mEva_flow_nominal=0.3*m_flow_nominal,
     final mCon_flow_nominal=0.3*m_flow_nominal,
     final mTan_flow_nominal=0.3*m_flow_nominal,
-    final p_CHWS_nominal=p_CHWS_nominal,
-    final p_CHWR_nominal=p_CHWR_nominal,
+    final dp_nominal=dp_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal)
     "Chiller and tank, tank can be charged remotely" annotation (Placement(
