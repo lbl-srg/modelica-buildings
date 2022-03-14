@@ -8,11 +8,11 @@ model ChillerAndTank
   parameter Boolean allowRemoteCharging = true
     "= true if the tank is allowed to be charged by a remote source";
 
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal(min=0)
     "Nominal mass flow rate for CHW chiller branch";
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal(min=0)
     "Nominal mass flow rate for CDW loop";
-  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal(min=0)
     "Nominal mass flow rate for CHW tank branch";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=
     p_CHWS_nominal-p_CHWR_nominal
