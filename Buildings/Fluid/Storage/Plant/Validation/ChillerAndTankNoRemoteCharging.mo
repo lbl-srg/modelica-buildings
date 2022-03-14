@@ -24,7 +24,14 @@ model ChillerAndTankNoRemoteCharging
     final mTan_flow_nominal=1,
     final dp_nominal=p_CHWS_nominal-p_CHWR_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
-    final T_CHWR_nominal=T_CHWR_nominal)
+    final T_CHWR_nominal=T_CHWR_nominal,
+    final preDroTan(final dp_nominal=cat.dp_nominal*0.1),
+    final valCha(final dpValve_nominal=cat.dp_nominal*0.1),
+    final valDis(final dpValve_nominal=cat.dp_nominal*0.1),
+    final cheValPumPri(final dpValve_nominal=cat.dp_nominal*0.1,
+                       final dpFixed_nominal=cat.dp_nominal*0.1),
+    final cheValPumSec(final dpValve_nominal=cat.dp_nominal*0.1,
+                       final dpFixed_nominal=cat.dp_nominal*0.1))
     "Plant with chiller and tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(

@@ -43,12 +43,12 @@ model ChillerAndTank
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-100,82},{-80,102}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDro2(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroTan(
     redeclare package Medium = Medium2,
     final allowFlowReversal=true,
-    final dp_nominal=dp_nominal/10,
     final m_flow_nominal=mTan_flow_nominal) "Flow resistance on tank branch"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-80,-80})));
   Modelica.Blocks.Interfaces.RealInput set_mPum1_flow
@@ -121,7 +121,6 @@ model ChillerAndTank
     use_inputFilter=true,
     y_start=0,
     l=1E-5,
-    dpValve_nominal=0.1*dp_nominal,
     m_flow_nominal=m2_flow_nominal) if allowRemoteCharging
     "Discharge valve, in series to the pump (normal direction)"
     annotation (Placement(transformation(extent={{30,-20},{10,0}})));
@@ -130,7 +129,6 @@ model ChillerAndTank
     use_inputFilter=true,
     y_start=0,
     l=1E-5,
-    dpValve_nominal=0.1*dp_nominal,
     m_flow_nominal=mTan_flow_nominal) if allowRemoteCharging
     "Charging valve, in parallel to the secondary pump (reverse direction)"
     annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
@@ -202,18 +200,14 @@ model ChillerAndTank
     annotation (Placement(transformation(extent={{-10,-80},{-30,-60}})));
   Buildings.Fluid.FixedResistances.CheckValve cheValPumPri(
     redeclare package Medium = Medium2,
-    m_flow_nominal=mEva_flow_nominal,
-    dpValve_nominal=0.1*dp_nominal,
-    dpFixed_nominal=0.1*dp_nominal) "Check valve with series resistance"
+    m_flow_nominal=mEva_flow_nominal) "Check valve with series resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,-30})));
   Buildings.Fluid.FixedResistances.CheckValve cheValPumSec(
     redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal,
-    dpValve_nominal=0.1*dp_nominal,
-    dpFixed_nominal=0.1*dp_nominal) "Check valve" annotation (Placement(
+    m_flow_nominal=m2_flow_nominal) "Check valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -267,13 +261,12 @@ equation
   connect(sen_m_flow.m_flow, conPum2Gro.um_mTan_flow) annotation (Line(points={{-20,-59},
           {-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},{81,99.8}},
                             color={0,0,127}));
-  connect(preDro2.port_a, tan.port_b)
-    annotation (Line(points={{-80,-90},{-80,-92},{-66,-92},{-66,-70},{-60,-70}},
-                                                   color={0,127,255}));
+  connect(preDroTan.port_a, tan.port_b) annotation (Line(points={{-80,-90},{-80,
+          -92},{-66,-92},{-66,-70},{-60,-70}}, color={0,127,255}));
   connect(sen_m_flow.port_b, tan.port_a)
     annotation (Line(points={{-30,-70},{-40,-70}},
                                                  color={0,127,255}));
-  connect(port_b2, preDro2.port_b) annotation (Line(points={{-100,-60},{-80,-60},
+  connect(port_b2, preDroTan.port_b) annotation (Line(points={{-100,-60},{-80,-60},
           {-80,-70}}, color={0,127,255}));
   connect(chi.port_b2, cheValPumPri.port_a)
     annotation (Line(points={{-60,4},{-70,4},{-70,-20}}, color={0,127,255}));

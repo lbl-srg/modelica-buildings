@@ -30,7 +30,14 @@ model TwoSourcesThreeUsers
     final mTan_flow_nominal=0.3*m_flow_nominal,
     final dp_nominal=dp_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
-    final T_CHWR_nominal=T_CHWR_nominal)
+    final T_CHWR_nominal=T_CHWR_nominal,
+    final preDroTan(final dp_nominal=cat.dp_nominal*0.1),
+    final valCha(final dpValve_nominal=cat.dp_nominal*0.1),
+    final valDis(final dpValve_nominal=cat.dp_nominal*0.1),
+    final cheValPumPri(final dpValve_nominal=cat.dp_nominal*0.1,
+                       final dpFixed_nominal=cat.dp_nominal*0.1),
+    final cheValPumSec(final dpValve_nominal=cat.dp_nominal*0.1,
+                       final dpFixed_nominal=cat.dp_nominal*0.1))
     "Chiller and tank, tank can be charged remotely" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
