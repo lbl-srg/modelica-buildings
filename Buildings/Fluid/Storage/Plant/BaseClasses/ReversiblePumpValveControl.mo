@@ -107,12 +107,12 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,-130})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and3ValDis
+  Buildings.Controls.OBC.CDL.Logical.And3 and3
     "Plant on AND normal direction AND valCha closed" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,-50})));
+        origin={10,-50})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrValCha(t=0.05)
     "Actual valve position less than a threshold"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
@@ -121,12 +121,6 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-16})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and3PumSec
-    "Plant on AND normal direction AND valCha closed" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-60,-50})));
   Buildings.Controls.OBC.CDL.Logical.And andValCha
     "Reverse direction AND valDis closed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -158,28 +152,20 @@ equation
           62,-118}}, color={0,0,127}));
   connect(one.y, swiValDis.u1)
     annotation (Line(points={{-79,-80},{18,-80},{18,-118}}, color={0,0,127}));
-  connect(booOnOff, and3ValDis.u3) annotation (Line(points={{-110,-20},{-8,-20},
-          {-8,-38}}, color={255,0,255}));
-  connect(booFloDir, and3ValDis.u2) annotation (Line(points={{-110,0},{0,0},{0,
-          -20},{2.22045e-15,-20},{2.22045e-15,-38}}, color={255,0,255}));
+  connect(booOnOff, and3.u3)
+    annotation (Line(points={{-110,-20},{2,-20},{2,-38}}, color={255,0,255}));
+  connect(booFloDir, and3.u2)
+    annotation (Line(points={{-110,0},{10,0},{10,-38}}, color={255,0,255}));
   connect(lesThrValCha.u, yValCha_actual)
     annotation (Line(points={{82,70},{110,70}}, color={0,0,127}));
-  connect(lesThrValCha.y, and3ValDis.u1) annotation (Line(points={{58,70},{34,
-          70},{34,40},{8,40},{8,-38}}, color={255,0,255}));
+  connect(lesThrValCha.y, and3.u1)
+    annotation (Line(points={{58,70},{18,70},{18,-38}}, color={255,0,255}));
   connect(lesThrValDis.u, yValDis_actual)
     annotation (Line(points={{82,30},{110,30}}, color={0,0,127}));
-  connect(and3ValDis.y, swiValDis.u2) annotation (Line(points={{-2.22045e-15,-62},
-          {-2.22045e-15,-70},{10,-70},{10,-118}}, color={255,0,255}));
+  connect(and3.y, swiValDis.u2) annotation (Line(points={{10,-62},{10,-90},{10,
+          -90},{10,-118}}, color={255,0,255}));
   connect(notFloDirValCha.u, booFloDir)
     annotation (Line(points={{60,-4},{60,0},{-110,0}}, color={255,0,255}));
-  connect(and3PumSec.u3, booOnOff) annotation (Line(points={{-68,-38},{-68,-20},
-          {-110,-20}}, color={255,0,255}));
-  connect(and3PumSec.u2, booFloDir)
-    annotation (Line(points={{-60,-38},{-60,0},{-110,0}}, color={255,0,255}));
-  connect(and3PumSec.u1, lesThrValCha.y) annotation (Line(points={{-52,-38},{-52,
-          -30},{8,-30},{8,40},{34,40},{34,70},{58,70}}, color={255,0,255}));
-  connect(and3PumSec.y, swiPumPri.u2) annotation (Line(points={{-60,-62},{-60,-70},
-          {-50,-70},{-50,-118}}, color={255,0,255}));
   connect(notFloDirValCha.y, andValCha.u1)
     annotation (Line(points={{60,-28},{60,-38}}, color={255,0,255}));
   connect(lesThrValDis.y, andValCha.u2) annotation (Line(points={{58,30},{46,30},
@@ -190,6 +176,8 @@ equation
           10},{-42,10},{-42,-118}}, color={0,0,127}));
   connect(conPI_valCha.y, swiValCha.u1) annotation (Line(points={{-10,57},{-10,
           10},{78,10},{78,-118}}, color={0,0,127}));
+  connect(and3.y, swiPumPri.u2) annotation (Line(points={{10,-62},{10,-100},{
+          -50,-100},{-50,-118}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-160},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
