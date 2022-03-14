@@ -6,7 +6,7 @@ model ChillerAndTank
     final m2_flow_nominal = mEva_flow_nominal + mTan_flow_nominal);
 
   parameter Boolean allowRemoteCharging = true
-    "Turns the plant to a prosumer";
+    "= true if the tank is allowed to be charged by a remote source";
 
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal=1
     "Nominal mass flow rate for CHW chiller branch";
