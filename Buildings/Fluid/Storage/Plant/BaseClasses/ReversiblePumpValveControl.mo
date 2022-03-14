@@ -3,8 +3,6 @@ block ReversiblePumpValveControl
   "Control block for the secondary pump-valve group"
   extends Modelica.Blocks.Icons.Block;
 
-  Modelica.Blocks.Sources.Constant one(k=1) "Constant y = 1"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Modelica.Blocks.Sources.Constant zero(k=0) "Constant y = 0"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.Continuous.LimPID conPI_pumSec(
@@ -95,9 +93,9 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,-130})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiValDis
-    "Switch: true = on (y=1); false = off (y=0)." annotation (Placement(
-        transformation(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaValDis
+    "True to 1, false to 0"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={10,-130})));
@@ -140,18 +138,12 @@ equation
     annotation (Line(points={{10,-170},{10,-170}}, color={0,0,127}));
   connect(swiPumPri.y, yPumSec)
     annotation (Line(points={{-50,-142},{-50,-170}}, color={0,0,127}));
-  connect(zero.y, swiPumPri.u3) annotation (Line(points={{-79,-110},{-58,-110},
-          {-58,-118}}, color={0,0,127}));
-  connect(zero.y, swiValDis.u3)
-    annotation (Line(points={{-79,-110},{2,-110},{2,-118}}, color={0,0,127}));
-  connect(swiValDis.y, yValDis)
-    annotation (Line(points={{10,-142},{10,-170}}, color={0,0,127}));
+  connect(zero.y, swiPumPri.u3) annotation (Line(points={{-79,-110},{-58,-110},{
+          -58,-118}}, color={0,0,127}));
   connect(swiValCha.y, yValCha)
     annotation (Line(points={{70,-142},{70,-170}}, color={0,0,127}));
-  connect(zero.y, swiValCha.u3) annotation (Line(points={{-79,-110},{62,-110},{
-          62,-118}}, color={0,0,127}));
-  connect(one.y, swiValDis.u1)
-    annotation (Line(points={{-79,-80},{18,-80},{18,-118}}, color={0,0,127}));
+  connect(zero.y, swiValCha.u3) annotation (Line(points={{-79,-110},{62,-110},{62,
+          -118}}, color={0,0,127}));
   connect(booOnOff, and3.u3)
     annotation (Line(points={{-110,-20},{2,-20},{2,-38}}, color={255,0,255}));
   connect(booFloDir, and3.u2)
@@ -162,8 +154,6 @@ equation
     annotation (Line(points={{58,70},{18,70},{18,-38}}, color={255,0,255}));
   connect(lesThrValDis.u, yValDis_actual)
     annotation (Line(points={{82,30},{110,30}}, color={0,0,127}));
-  connect(and3.y, swiValDis.u2) annotation (Line(points={{10,-62},{10,-90},{10,
-          -90},{10,-118}}, color={255,0,255}));
   connect(notFloDirValCha.u, booFloDir)
     annotation (Line(points={{60,-4},{60,0},{-110,0}}, color={255,0,255}));
   connect(notFloDirValCha.y, andValCha.u1)
@@ -172,12 +162,16 @@ equation
           {46,-32},{52,-32},{52,-38}}, color={255,0,255}));
   connect(andValCha.y, swiValCha.u2) annotation (Line(points={{60,-62},{60,-70},
           {70,-70},{70,-118}}, color={255,0,255}));
-  connect(conPI_pumSec.y, swiPumPri.u1) annotation (Line(points={{-70,59},{-70,
-          10},{-42,10},{-42,-118}}, color={0,0,127}));
-  connect(conPI_valCha.y, swiValCha.u1) annotation (Line(points={{-10,57},{-10,
-          10},{78,10},{78,-118}}, color={0,0,127}));
-  connect(and3.y, swiPumPri.u2) annotation (Line(points={{10,-62},{10,-100},{
-          -50,-100},{-50,-118}}, color={255,0,255}));
+  connect(conPI_pumSec.y, swiPumPri.u1) annotation (Line(points={{-70,59},{-70,10},
+          {-42,10},{-42,-118}}, color={0,0,127}));
+  connect(conPI_valCha.y, swiValCha.u1) annotation (Line(points={{-10,57},{-10,10},
+          {78,10},{78,-118}}, color={0,0,127}));
+  connect(and3.y, swiPumPri.u2) annotation (Line(points={{10,-62},{10,-100},{-50,
+          -100},{-50,-118}}, color={255,0,255}));
+  connect(booToReaValDis.y, yValDis)
+    annotation (Line(points={{10,-142},{10,-170}}, color={0,0,127}));
+  connect(and3.y, booToReaValDis.u) annotation (Line(points={{10,-62},{10,-90},{
+          10,-90},{10,-118}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-160},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
