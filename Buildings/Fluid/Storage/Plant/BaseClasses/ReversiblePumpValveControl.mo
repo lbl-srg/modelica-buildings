@@ -24,7 +24,7 @@ block ReversiblePumpValveControl
     "Flow direction: true = normal; false = reverse" annotation (Placement(
         transformation(extent={{-120,-10},{-100,10}}), iconTransformation(
           extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput us_mTan_flow
+  Modelica.Blocks.Interfaces.RealInput mTanSet_flow
     "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
@@ -40,10 +40,10 @@ block ReversiblePumpValveControl
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={-110,80})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booOnOff
-    "Plant output: true = on; false = off"       annotation (Placement(
-        transformation(extent={{-120,-30},{-100,-10}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
+    "= true if plant is online (either outputting CHW to the network or being charged remotely)"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput yPumSec "Normalised speed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -84,8 +84,8 @@ block ReversiblePumpValveControl
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,80})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrValDis(t=0.05)
-    "Actual valve position less than a threshold"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValDisClo(t=0.05)
+    "= true if valve closed"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiPumPri
     "Switch: true = on (y>0); false = off (y=0)." annotation (Placement(
@@ -111,8 +111,8 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={10,-50})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrValCha(t=0.05)
-    "Actual valve position less than a threshold"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValChaClo(t=0.05)
+    "= true if valve closed"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Logical.Not notFloDirValCha
     "Reverses flow direction signal" annotation (Placement(transformation(
@@ -126,9 +126,9 @@ block ReversiblePumpValveControl
         origin={60,-50})));
 equation
 
-  connect(conPI_pumSec.u_s, us_mTan_flow)
+  connect(conPI_pumSec.u_s,mTanSet_flow)
     annotation (Line(points={{-70,82},{-70,110}}, color={0,0,127}));
-  connect(conPI_valCha.u_s, us_mTan_flow) annotation (Line(points={{-10,80},{-10,
+  connect(conPI_valCha.u_s,mTanSet_flow)  annotation (Line(points={{-10,80},{-10,
           88},{-70,88},{-70,110}}, color={0,0,127}));
   connect(conPI_valCha.u_m, um_mTan_flow)
     annotation (Line(points={{2,68},{10,68},{10,110}}, color={0,0,127}));
@@ -144,21 +144,21 @@ equation
     annotation (Line(points={{70,-142},{70,-170}}, color={0,0,127}));
   connect(zero.y, swiValCha.u3) annotation (Line(points={{-79,-110},{62,-110},{62,
           -118}}, color={0,0,127}));
-  connect(booOnOff, and3.u3)
+  connect(uOnl, and3.u3)
     annotation (Line(points={{-110,-20},{2,-20},{2,-38}}, color={255,0,255}));
   connect(booFloDir, and3.u2)
     annotation (Line(points={{-110,0},{10,0},{10,-38}}, color={255,0,255}));
-  connect(lesThrValCha.u, yValCha_actual)
+  connect(isValChaClo.u, yValCha_actual)
     annotation (Line(points={{82,70},{110,70}}, color={0,0,127}));
-  connect(lesThrValCha.y, and3.u1)
+  connect(isValChaClo.y, and3.u1)
     annotation (Line(points={{58,70},{18,70},{18,-38}}, color={255,0,255}));
-  connect(lesThrValDis.u, yValDis_actual)
+  connect(isValDisClo.u, yValDis_actual)
     annotation (Line(points={{82,30},{110,30}}, color={0,0,127}));
   connect(notFloDirValCha.u, booFloDir)
     annotation (Line(points={{60,-4},{60,0},{-110,0}}, color={255,0,255}));
   connect(notFloDirValCha.y, andValCha.u1)
     annotation (Line(points={{60,-28},{60,-38}}, color={255,0,255}));
-  connect(lesThrValDis.y, andValCha.u2) annotation (Line(points={{58,30},{46,30},
+  connect(isValDisClo.y, andValCha.u2) annotation (Line(points={{58,30},{46,30},
           {46,-32},{52,-32},{52,-38}}, color={255,0,255}));
   connect(andValCha.y, swiValCha.u2) annotation (Line(points={{60,-62},{60,-70},
           {70,-70},{70,-118}}, color={255,0,255}));

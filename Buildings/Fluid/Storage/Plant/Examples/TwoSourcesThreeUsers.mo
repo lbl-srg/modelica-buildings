@@ -309,10 +309,10 @@ equation
           6},{86,-110},{62,-110}}, color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
-  connect(hysCat.y, cat.booOnOff) annotation (Line(points={{-2,-110},{-44,-110},
-          {-44,-48},{-50,-48}}, color={255,0,255}));
-  connect(set_mChi2PumPri_flow.y, cat.set_mPumPri_flow) annotation (Line(points
-        ={{-119,-70},{-80,-70},{-80,-49},{-70,-49}}, color={0,0,127}));
+  connect(hysCat.y, cat.uOnl) annotation (Line(points={{-2,-110},{-44,-110},{-44,
+          -48},{-50,-48}}, color={255,0,255}));
+  connect(set_mChi2PumPri_flow.y, cat.mPumPriSet_flow) annotation (Line(points=
+          {{-119,-70},{-80,-70},{-80,-49},{-70,-49}}, color={0,0,127}));
   connect(set_dpUsr.y, conPI_PumChi1.u_s)
     annotation (Line(points={{-60,139},{-60,122}}, color={0,0,127}));
   connect(conPI_PumChi1.y, pumChi1.y)
@@ -365,8 +365,8 @@ equation
           {-126,-30},{-126,-18},{-122,-18}}, color={0,0,127}));
   connect(booTanCha.y, swiTanCha.u2)
     annotation (Line(points={{-159,-10},{-122,-10}}, color={255,0,255}));
-  connect(swiTanCha.y, cat.set_mTan_flow) annotation (Line(points={{-98,-10},{-62,
-          -10},{-62,-49}},             color={0,0,127}));
+  connect(swiTanCha.y, cat.mTanSet_flow)
+    annotation (Line(points={{-98,-10},{-62,-10},{-62,-49}}, color={0,0,127}));
   connect(sinCDW2.ports[1], cat.port_b1) annotation (Line(points={{-90,-100},{-66,
           -100},{-66,-70}}, color={0,127,255}));
   connect(cat.port_a2, preDroU3S2.port_b) annotation (Line(points={{-54,-70},{-54,

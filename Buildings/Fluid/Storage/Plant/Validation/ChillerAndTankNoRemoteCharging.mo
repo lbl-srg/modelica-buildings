@@ -95,7 +95,7 @@ equation
           {2,70}},  color={0,0,127}));
   connect(set_mPumSec_flow.y, conPID_PumSec.u_s)
     annotation (Line(points={{-79,50},{-62,50}}, color={0,0,127}));
-  connect(set_mPumPri_flow.y, cat.set_mPumPri_flow) annotation (Line(points={{-59,
+  connect(set_mPumPri_flow.y, cat.mPumPriSet_flow) annotation (Line(points={{-59,
           0},{-16,0},{-16,10},{-11,10}}, color={0,0,127}));
   connect(conPID_PumSec.y, cat.yPumSec)
     annotation (Line(points={{-39,50},{-8,50},{-8,11}}, color={0,0,127}));
