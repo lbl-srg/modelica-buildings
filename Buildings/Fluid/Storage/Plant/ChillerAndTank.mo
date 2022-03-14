@@ -2,16 +2,18 @@ within Buildings.Fluid.Storage.Plant;
 model ChillerAndTank
   "(Draft) Model of a plant with a chiller and a tank where the tank can potentially be charged remotely"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final m1_flow_nominal = m2_flow_nominal,
-    final m2_flow_nominal = mChi_flow_nominal + mTan_flow_nominal);
+    final m1_flow_nominal = mCon_flow_nominal,
+    final m2_flow_nominal = mEva_flow_nominal + mTan_flow_nominal);
 
   parameter Boolean allowRemoteCharging = true
     "Turns the plant to a prosumer";
 
-  parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal=1
-    "Nominal mass flow rate for the chiller branch";
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal=1
+    "Nominal mass flow rate for CHW chiller branch";
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=1
+    "Nominal mass flow rate for CDW loop";
   parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal=1
-    "Nominal mass flow rate for the tank branch";
+    "Nominal mass flow rate for CHW tank branch";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=
     p_CHWS_nominal-p_CHWR_nominal
     "Nominal pressure difference";
@@ -31,8 +33,8 @@ model ChillerAndTank
     PLRMinUnl=0.3,
     PLRMin=0.3,
     etaMotor=1,
-    mEva_flow_nominal=mChi_flow_nominal,
-    mCon_flow_nominal=mChi_flow_nominal*1.2,
+    mEva_flow_nominal=mEva_flow_nominal,
+    mCon_flow_nominal=mEva_flow_nominal*1.2,
     TEvaLvg_nominal=280.15,
     capFunT={1,0,0,0,0,0},
     EIRFunT={1,0,0,0,0,0},
@@ -65,11 +67,11 @@ model ChillerAndTank
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumPri(
     redeclare package Medium = Medium2,
-    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=mChi_flow_nominal/1.2*{0,1.2,2})),
+    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=mEva_flow_nominal/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
-    m_flow_nominal=mChi_flow_nominal,
+    m_flow_nominal=mEva_flow_nominal,
     m_flow_start=0,
     T_start=T_CHWR_nominal) "Primary CHW pump"
     annotation (Placement(transformation(extent={{-10,-42},{-30,-22}})));
@@ -85,7 +87,7 @@ model ChillerAndTank
         origin={110,-20})));
   Buildings.Fluid.Movers.SpeedControlled_y pumSec(
     redeclare package Medium = Medium2,
-    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=(mChi_flow_nominal +
+    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=(mEva_flow_nominal +
             mTan_flow_nominal)/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
@@ -206,7 +208,7 @@ model ChillerAndTank
     annotation (Placement(transformation(extent={{-10,-80},{-30,-60}})));
   Buildings.Fluid.FixedResistances.CheckValve cheValPumPri(
     redeclare package Medium = Medium2,
-    m_flow_nominal=mChi_flow_nominal,
+    m_flow_nominal=mEva_flow_nominal,
     dpValve_nominal=0.1*dp_nominal,
     dpFixed_nominal=0.1*dp_nominal) "Check valve with series resistance"
     annotation (Placement(transformation(

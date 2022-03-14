@@ -25,7 +25,8 @@ model TwoSourcesThreeUsers
   Buildings.Fluid.Storage.Plant.ChillerAndTank cat(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
-    final mChi_flow_nominal=0.3*m_flow_nominal,
+    final mEva_flow_nominal=0.3*m_flow_nominal,
+    final mCon_flow_nominal=0.3*m_flow_nominal,
     final mTan_flow_nominal=0.3*m_flow_nominal,
     final p_CHWS_nominal=p_CHWS_nominal,
     final p_CHWR_nominal=p_CHWR_nominal,
