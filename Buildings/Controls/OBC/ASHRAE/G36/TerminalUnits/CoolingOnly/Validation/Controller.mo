@@ -11,8 +11,7 @@ model Controller
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01)
-    "Block outputs system requests"
+    final damPosHys=0.01) "Cooling only unit controller"
     annotation (Placement(transformation(extent={{100,-10},{120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,

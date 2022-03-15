@@ -1,8 +1,8 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Validation;
 model Controller
-  "Validation of model that controls dual-duct unit with minimum cold duct control"
+  "Validation of model that controls dual-duct unit using mixing control with inlet flow sensor"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Controller duaDucCon(
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Controller duaDucCon(
     final AFlo=20,
     final desZonPop=2,
     final VZonMin_flow=0.5,
@@ -157,18 +157,20 @@ equation
   connect(heaSet.y,duaDucCon. TZonHeaSet) annotation (Line(points={{-98,160},{52,
           160},{52,75},{98,75}}, color={0,0,127}));
   connect(winSta.y,duaDucCon. uWin) annotation (Line(points={{-58,140},{48,140},
-          {48,73},{98,73}}, color={255,0,255}));
-  connect(occ.y,duaDucCon. uOcc) annotation (Line(points={{-98,120},{44,120},{44,
-          71},{98,71}}, color={255,0,255}));
+          {48,72},{98,72}}, color={255,0,255}));
+  connect(occ.y,duaDucCon. uOcc) annotation (Line(points={{-98,120},{44,120},{
+          44,70},{98,70}},
+                        color={255,0,255}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-98,90},{-82,90}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
     annotation (Line(points={{-58,90},{-42,90}},
       color={0,0,127}));
   connect(reaToInt2.y,duaDucCon. uOpeMod) annotation (Line(points={{-18,90},{40,
-          90},{40,69},{98,69}}, color={255,127,0}));
-  connect(CO2.y,duaDucCon. ppmCO2) annotation (Line(points={{-58,60},{32,60},{32,
-          67},{98,67}}, color={0,0,127}));
+          90},{40,68},{98,68}}, color={255,127,0}));
+  connect(CO2.y,duaDucCon. ppmCO2) annotation (Line(points={{-58,60},{32,60},{
+          32,66},{98,66}},
+                        color={0,0,127}));
   connect(oveFlo.y,round1. u)
     annotation (Line(points={{-98,-110},{-82,-110}}, color={0,0,127}));
   connect(round1.y,reaToInt1. u)
@@ -192,7 +194,7 @@ equation
   connect(hotDamPos.y, duaDucCon.uHeaDam) annotation (Line(points={{-98,-220},{80,
           -220},{80,41},{98,41}}, color={0,0,127}));
   connect(disAirTem.y, duaDucCon.TDis) annotation (Line(points={{-98,40},{36,40},
-          {36,65},{98,65}}, color={0,0,127}));
+          {36,63},{98,63}}, color={0,0,127}));
   connect(colSupAirTem.y, duaDucCon.TColSup) annotation (Line(points={{-58,20},{
           40,20},{40,63},{98,63}}, color={0,0,127}));
   connect(VColDis_flow.y, duaDucCon.VColDucDis_flow) annotation (Line(points={{-98,
@@ -201,19 +203,19 @@ equation
           {48,-20},{48,59},{98,59}}, color={255,0,255}));
   connect(hotSupAirTem.y, duaDucCon.THotSup) annotation (Line(points={{-98,-40},
           {52,-40},{52,57},{98,57}}, color={0,0,127}));
-  connect(VHotDis_flow.y, duaDucCon.VHotDucDis_flow) annotation (Line(points={{-58,
-          -60},{56,-60},{56,55},{98,55}}, color={0,0,127}));
+  connect(VHotDis_flow.y, duaDucCon.VHotDucDis_flow) annotation (Line(points={{-58,-60},
+          {56,-60},{56,57},{98,57}},      color={0,0,127}));
   connect(heaSupFanSta.y, duaDucCon.uHeaAHU) annotation (Line(points={{-98,-80},
-          {60,-80},{60,53},{98,53}}, color={255,0,255}));
+          {60,-80},{60,55},{98,55}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctColdDuctMin/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctMixConInletSensor/Validation/Controller.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Controller</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Controller</a>
 for generating system requests.
 </p>
 </html>", revisions="<html>
