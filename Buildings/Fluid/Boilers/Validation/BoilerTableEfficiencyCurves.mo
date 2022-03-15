@@ -22,7 +22,6 @@ model BoilerTableEfficiencyCurves
   Buildings.Fluid.Boilers.BoilerTable boi1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     from_dp=true,
     T_start=293.15,
     per=per) "Boiler 1 set at 5% firing rate"
@@ -33,7 +32,6 @@ model BoilerTableEfficiencyCurves
   Buildings.Fluid.Boilers.BoilerTable boi2(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     from_dp=true,
     T_start=293.15,
     per=per) "Boiler 2 set at 50% firing rate"
@@ -44,7 +42,6 @@ model BoilerTableEfficiencyCurves
   Buildings.Fluid.Boilers.BoilerTable boi3(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     from_dp=true,
     T_start=293.15,
     per=per) "Boiler 3 set at 100% firing rate"

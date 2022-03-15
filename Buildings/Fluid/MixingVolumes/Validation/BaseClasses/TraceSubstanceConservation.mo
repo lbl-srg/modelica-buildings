@@ -14,7 +14,6 @@ model TraceSubstanceConservation
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare package Medium = Medium,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=1,
     V=1,
     nPorts=2,
