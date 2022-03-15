@@ -88,25 +88,26 @@ block ReversiblePumpValveControl
     "= true if valve closed"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiPumPri
-    "Switch: true = on (y>0); false = off (y=0)." annotation (Placement(
+    "True = on (y>0); false = off (y=0)."         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,-130})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaValDis
-    "True to 1, false to 0"
+    "True = 1, false = 0"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={10,-130})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiValCha
-    "Switch: true = on (y>0); false = off (y=0)." annotation (Placement(
+    "True = on (y>0); false = off (y=0)."         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,-130})));
   Buildings.Controls.OBC.CDL.Logical.And3 and3
-    "Plant on AND normal direction AND valCha closed" annotation (Placement(
+    "Plant online AND not charging remotely AND valCha closed"
+                                                      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -120,7 +121,7 @@ block ReversiblePumpValveControl
         rotation=-90,
         origin={10,-30})));
   Buildings.Controls.OBC.CDL.Logical.And andValCha
-    "Reverse direction AND valDis closed" annotation (Placement(transformation(
+    "Charging remotely AND valDis closed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-70})));
