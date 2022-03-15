@@ -32,14 +32,14 @@ block ReversiblePumpValveControl
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={-110,40})));
-  Modelica.Blocks.Interfaces.RealInput um_mTan_flow
-      "Measured tank mass flow rate" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={10,110}),  iconTransformation(
-          extent={{-10,-10},{10,10}},
-          rotation=0,
-          origin={-110,80})));
+  Modelica.Blocks.Interfaces.RealInput mTan_flow "Measured tank mass flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={10,110}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,80})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
     "= true if plant is online (either outputting CHW to the network or being charged remotely)"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
@@ -130,9 +130,9 @@ equation
     annotation (Line(points={{-70,82},{-70,110}}, color={0,0,127}));
   connect(conPI_valCha.u_s,mTanSet_flow)  annotation (Line(points={{-10,80},{-10,
           88},{-70,88},{-70,110}}, color={0,0,127}));
-  connect(conPI_valCha.u_m, um_mTan_flow)
+  connect(conPI_valCha.u_m, mTan_flow)
     annotation (Line(points={{2,68},{10,68},{10,110}}, color={0,0,127}));
-  connect(conPI_pumSec.u_m, um_mTan_flow) annotation (Line(points={{-58,70},{-52,
+  connect(conPI_pumSec.u_m, mTan_flow) annotation (Line(points={{-58,70},{-52,
           70},{-52,94},{10,94},{10,110}}, color={0,0,127}));
   connect(yValDis, yValDis)
     annotation (Line(points={{10,-170},{10,-170}}, color={0,0,127}));

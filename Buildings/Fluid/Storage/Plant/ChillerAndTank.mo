@@ -257,8 +257,8 @@ equation
          {{15,-3},{14,-3},{14,68},{46,68},{46,99.8},{59,99.8}}, color={0,0,127}));
   connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{-20,-59},{-20,
           -56},{0,-56},{0,-110}},     color={0,0,127}));
-  connect(sen_m_flow.m_flow, conPumSecGro.um_mTan_flow) annotation (Line(points=
-         {{-20,-59},{-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},
+  connect(sen_m_flow.m_flow, conPumSecGro.mTan_flow) annotation (Line(points={{
+          -20,-59},{-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},
           {81,99.8}}, color={0,0,127}));
   connect(preDroTan.port_a, tan.port_b) annotation (Line(points={{-80,-90},{-80,
           -92},{-66,-92},{-66,-70},{-60,-70}}, color={0,127,255}));
