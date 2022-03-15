@@ -160,25 +160,25 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
-        iconTransformation(extent={{-140,100},{-100,140}})));
+        iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
     "Occupancy status, true if it is occupied, false if it is not occupied"
     annotation (Placement(transformation(extent={{-280,140},{-240,180}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+        iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-280,110},{-240,150}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-280,80},{-240,120}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TColSup(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -210,11 +210,11 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final quantity="VolumeFlowRate")
     "Measured hot-duct discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-280,-100},{-240,-60}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaAHU
     "Heating air handler proven on status"
     annotation (Placement(transformation(extent={{-280,-130},{-240,-90}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"
     annotation (Placement(transformation(extent={{-280,-200},{-240,-160}}),
@@ -572,13 +572,13 @@ annotation (defaultComponentName="duaDucCon",
           pattern=LinePattern.Dash,
           textString="VColDucDis_flow"),
         Text(
-          extent={{-100,38},{-74,24}},
+          extent={{-100,58},{-74,44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           visible=have_CO2Sen,
-          extent={{-100,68},{-54,54}},
+          extent={{-100,78},{-54,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="ppmCO2"),
@@ -599,13 +599,13 @@ annotation (defaultComponentName="duaDucCon",
           textString="TZonHeaSet"),
         Text(
           visible=have_winSen,
-          extent={{-98,128},{-72,114}},
+          extent={{-98,138},{-72,124}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uWin"),
         Text(
           visible=have_occSen,
-          extent={{-98,108},{-72,94}},
+          extent={{-98,118},{-72,104}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOcc"),
@@ -615,7 +615,7 @@ annotation (defaultComponentName="duaDucCon",
           pattern=LinePattern.Dash,
           textString="uCooAHU"),
         Text(
-          extent={{-96,88},{-50,72}},
+          extent={{-96,98},{-50,82}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
@@ -660,12 +660,12 @@ annotation (defaultComponentName="duaDucCon",
           pattern=LinePattern.Dash,
           textString="yColLeaDamAla"),
         Text(
-          extent={{-96,-22},{-26,-40}},
+          extent={{-96,-42},{-26,-60}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VHotDucDis_flow"),
         Text(
-          extent={{-96,-44},{-56,-60}},
+          extent={{-96,-64},{-56,-80}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHeaAHU"),
@@ -718,7 +718,17 @@ annotation (defaultComponentName="duaDucCon",
           extent={{20,-180},{96,-196}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yHotLeaDamAla")}),
+          textString="yHotLeaDamAla"),
+        Text(
+          extent={{-98,38},{-56,24}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TColSup"),
+        Text(
+          extent={{-100,-22},{-58,-36}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="THotSup")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-320},{240,320}})),
   Documentation(info="<html>
 <p>

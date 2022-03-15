@@ -579,7 +579,8 @@ annotation (
           extent={{-96,110},{-38,92}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VColDucDis_flow"),
+          textString="VColDucDis_flow",
+          visible=not have_pressureIndependentDamper),
         Text(
           extent={{-98,-64},{-68,-76}},
           lineColor={0,0,127},
@@ -589,7 +590,8 @@ annotation (
           extent={{-98,-150},{-40,-168}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VHotDucDis_flow"),
+          textString="VHotDucDis_flow",
+          visible=not have_pressureIndependentDamper),
         Text(
           extent={{-98,-184},{-66,-194}},
           lineColor={255,0,255},
