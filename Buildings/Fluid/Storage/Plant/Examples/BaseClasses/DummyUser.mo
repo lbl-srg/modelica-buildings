@@ -22,7 +22,7 @@ model DummyUser "Dummy user model"
     dpValve_nominal=0.1*dp_nominal,
     m_flow_nominal=m_flow_nominal,
     y_start=0) "User control valve"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCon
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{22,70},{42,90}})));
@@ -57,12 +57,7 @@ model DummyUser "Dummy user model"
     reverseActing=false) "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,60})));
-  Modelica.Blocks.Math.Gain gain(k=1)    "Gain" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-10,60})));
+        origin={-70,40})));
   Modelica.Blocks.Interfaces.RealInput QCooLoa_flow
     "Cooling load of the consumer" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -75,7 +70,7 @@ model DummyUser "Dummy user model"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,60}), iconTransformation(
+        origin={-110,40}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,40})));
@@ -101,7 +96,7 @@ model DummyUser "Dummy user model"
         origin={-20,110})));
 equation
   connect(val.port_b, vol.ports[1])
-    annotation (Line(points={{-60,0},{1,0}}, color={0,127,255}));
+    annotation (Line(points={{-30,0},{0,0}}, color={0,127,255}));
   connect(heaCon.port, vol.heatPort)
     annotation (Line(points={{42,80},{54,80},{54,-10},{10,-10}},
                                                        color={191,0,0}));
@@ -110,22 +105,18 @@ equation
                                                        color={191,0,0}));
   connect(preDro.port_a, vol.ports[2]) annotation (Line(points={{60,0},{-1,0}},
                             color={0,127,255}));
-  connect(conPI.y, gain.u)
-    annotation (Line(points={{-39,60},{-22,60}}, color={0,0,127}));
-  connect(gain.y, val.y) annotation (Line(points={{1,60},{6,60},{6,18},{-70,18},
-          {-70,12}}, color={0,0,127}));
   connect(TUsr.T, conPI.u_m)
-    annotation (Line(points={{19,-30},{-50,-30},{-50,48}}, color={0,0,127}));
+    annotation (Line(points={{19,-30},{-70,-30},{-70,28}}, color={0,0,127}));
   connect(heaCon.Q_flow, QCooLoa_flow)
     annotation (Line(points={{22,80},{-110,80}}, color={0,0,127}));
   connect(conPI.u_s, TSet)
-    annotation (Line(points={{-62,60},{-110,60}}, color={0,0,127}));
+    annotation (Line(points={{-82,40},{-110,40}}, color={0,0,127}));
   connect(dpSen.p_rel, dpUsr)
     annotation (Line(points={{0,-59},{0,-80},{110,-80}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual)
-    annotation (Line(points={{-65,7},{-65,40},{110,40}}, color={0,0,127}));
+    annotation (Line(points={{-35,7},{-35,40},{110,40}}, color={0,0,127}));
   connect(val.port_a, port_a)
-    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-100,0}}, color={0,127,255}));
   connect(dpSen.port_a, port_a) annotation (Line(
       points={{-10,-50},{-100,-50},{-100,0}},
       color={0,127,255},
@@ -136,6 +127,8 @@ equation
       points={{10,-50},{100,-50},{100,0}},
       color={0,127,255},
       pattern=LinePattern.Dash));
+  connect(conPI.y, val.y)
+    annotation (Line(points={{-59,40},{-40,40},{-40,12}}, color={0,0,127}));
   annotation (Icon(graphics={Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
