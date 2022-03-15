@@ -25,24 +25,27 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
     "Pressure sensor"
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
+    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Blocks.Math.Max dpSet "Pressure drop setpoint"
     annotation (Placement(transformation(extent={{20,46},{40,66}})));
   Modelica.Blocks.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Fluid.FixedResistances.PressureDrop res(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=100)
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure, which results in a negative pressure drop. 
   This is not typical of real systems and should be verified.", AssertionLevel.warning);
 
-  connect(port_a, ideSou.port_a)
-    annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
   connect(ideSou.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(pbSet.y,dpReq.u1)
     annotation (Line(points={{-59,56},{-22,56}}, color={0,0,127}));
   connect(ideSou.port_a, pUp.port)
-    annotation (Line(points={{40,0},{-60,0},{-60,20}}, color={0,127,255}));
-  connect(pUp.p,dpReq.u2) annotation (Line(points={{-49,30},{-28,30},{-28,44},{
+    annotation (Line(points={{40,0},{-40,0},{-40,20}}, color={0,127,255}));
+  connect(pUp.p,dpReq.u2) annotation (Line(points={{-29,30},{-26,30},{-26,44},{
           -22,44}}, color={0,0,127}));
   connect(dpReq.y, dpSet.u2)
     annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
@@ -50,6 +53,10 @@ equation
         color={0,0,127}));
   connect(dpSet.y, ideSou.dp_in)
     annotation (Line(points={{41,56},{56,56},{56,8}}, color={0,0,127}));
+  connect(port_a, res.port_a)
+    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
+  connect(res.port_b, ideSou.port_a)
+    annotation (Line(points={{-60,0},{40,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="prv",
     Documentation(info="<html>
