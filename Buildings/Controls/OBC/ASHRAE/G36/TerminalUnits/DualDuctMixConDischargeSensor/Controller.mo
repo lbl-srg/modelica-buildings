@@ -434,8 +434,6 @@ equation
           {-16,1},{-2,1}}, color={255,0,255}));
   connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-260,-180},{20,
           -180},{20,-82},{58,-82}}, color={255,127,0}));
-  connect(damDuaSen.VColDucDis_flow_Set, setOve.VActSet_flow) annotation (Line(
-        points={{22,34},{40,34},{40,-85},{58,-85}}, color={0,0,127}));
   connect(oveCooDamPos, setOve.oveCooDamPos) annotation (Line(points={{-260,-210},
           {24,-210},{24,-90},{58,-90}}, color={255,127,0}));
   connect(damDuaSen.yCooDamSet, setOve.uCooDamSet) annotation (Line(points={{22,
@@ -459,7 +457,7 @@ equation
   connect(conLoo.yHea, sysReq.uHea) annotation (Line(points={{-178,204},{-24,204},
           {-24,-141},{98,-141}}, color={0,0,127}));
   connect(damDuaSen.VDis_flow_Set, sysReq.VDis_flow_Set) annotation (Line(
-        points={{22,38},{44,38},{44,-146},{98,-146}}, color={0,0,127}));
+        points={{22,38},{40,38},{40,-146},{98,-146}}, color={0,0,127}));
   connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-260,10},{-48,10},
           {-48,-149},{98,-149}}, color={0,0,127}));
   connect(uCooDam, sysReq.uCooDam) annotation (Line(points={{-260,-270},{40,-270},
@@ -500,6 +498,8 @@ equation
           {200,-280},{260,-280}}, color={255,127,0}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{162,-222},{200,-222},
           {200,-180},{260,-180}}, color={255,127,0}));
+  connect(damDuaSen.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points=
+         {{22,38},{40,38},{40,-85},{58,-85}}, color={0,0,127}));
 
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={

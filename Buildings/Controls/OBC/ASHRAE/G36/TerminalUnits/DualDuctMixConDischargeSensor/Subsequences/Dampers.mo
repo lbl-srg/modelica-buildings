@@ -71,7 +71,7 @@ block Dampers
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,120},{-320,160}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
@@ -182,8 +182,7 @@ block Dampers
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
     final t=looHys,
-    final h=0.5*looHys)
-    "Check if it is cooling state"
+    final h=0.5*looHys) "Check if it is heating state"
     annotation (Placement(transformation(extent={{-280,-240},{-260,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "In deadband state"
@@ -607,7 +606,8 @@ annotation (
           extent={{-96,110},{-60,92}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis_flow"),
+          textString="VDis_flow",
+          visible=not have_pressureIndependentDamper),
         Text(
           extent={{-98,-64},{-68,-76}},
           lineColor={0,0,127},
