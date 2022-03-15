@@ -378,6 +378,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\"># 2651</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU
+    </td>
+    <td valign=\"top\">Exposed ratio of convection coefficients, set its default values based on fluid properties and flow rates,
+                     and exposed exponents for convective heat transfer coefficients. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2918\"># 2918</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
