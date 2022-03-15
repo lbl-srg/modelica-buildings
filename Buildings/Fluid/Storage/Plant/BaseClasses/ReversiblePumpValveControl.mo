@@ -41,7 +41,7 @@ block ReversiblePumpValveControl
         rotation=0,
         origin={-110,80})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
-    "= true if plant is online (either outputting CHW to the network or being charged remotely)"
+    "= true if plant is online (not cut off from the network by valve)"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput yPumSec "Normalised speed" annotation (

@@ -99,7 +99,7 @@ model ChillerAndTank
     annotation (Placement(transformation(extent={{80,80},{60,102}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
     if allowRemoteCharging
-    "= true if plant is online (either outputting CHW to the network or being charged remotely)"
+    "= true if plant is online (not cut off from the network by valve)"
     annotation (Placement(transformation(extent={{120,70},{100,90}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRemCha
