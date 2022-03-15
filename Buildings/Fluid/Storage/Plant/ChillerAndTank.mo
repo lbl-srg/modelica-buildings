@@ -97,8 +97,8 @@ model ChillerAndTank
   Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl conPumSecGro
     if allowRemoteCharging "Control block for secondary pump-valve group"
     annotation (Placement(transformation(extent={{80,80},{60,102}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl if
-    allowRemoteCharging
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
+    if allowRemoteCharging
     "= true if plant is online (either outputting CHW to the network or being charged remotely)"
     annotation (Placement(transformation(extent={{120,70},{100,90}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -138,7 +138,7 @@ model ChillerAndTank
         rotation=-90,
         origin={-10,90})));
   Modelica.Blocks.Sources.Constant zero(k=0) if allowRemoteCharging
-    "Constant y = 0" annotation (Placement(transformation(
+    "Constant 0"     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,90})));

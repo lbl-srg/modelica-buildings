@@ -3,7 +3,7 @@ block ReversiblePumpValveControl
   "Control block for the secondary pump-valve group"
   extends Modelica.Blocks.Icons.Block;
 
-  Modelica.Blocks.Sources.Constant zero(k=0) "Constant y = 0"
+  Modelica.Blocks.Sources.Constant zero(k=0) "Constant 0"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.Continuous.LimPID conPI_pumSec(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
