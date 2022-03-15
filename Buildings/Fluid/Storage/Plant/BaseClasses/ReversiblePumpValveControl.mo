@@ -11,7 +11,7 @@ block ReversiblePumpValveControl
     Ti=50) "PI controller" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-70,70})));
+        origin={-70,50})));
   Buildings.Controls.Continuous.LimPID conPI_valCha(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
@@ -19,11 +19,11 @@ block ReversiblePumpValveControl
     reverseActing=false) "PI controller" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-10,68})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
-    "Flow direction: true = normal; false = reverse" annotation (Placement(
-        transformation(extent={{-120,-10},{-100,10}}), iconTransformation(
-          extent={{-140,-60},{-100,-20}})));
+        origin={-10,50})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRemCha
+    "Tank is being charged remotely" annotation (Placement(transformation(
+          extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-140,-60},
+            {-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput mTanSet_flow
     "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -110,30 +110,31 @@ block ReversiblePumpValveControl
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={10,-50})));
+        origin={10,-70})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValChaClo(t=0.05)
     "= true if valve closed"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notFloDirValCha
-    "Reverses flow direction signal" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Logical.Not notRemCha
+    "Tank is not being charged remotely" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={60,-16})));
+        origin={10,-30})));
   Buildings.Controls.OBC.CDL.Logical.And andValCha
     "Reverse direction AND valDis closed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={60,-50})));
+        origin={60,-70})));
 equation
 
   connect(conPI_pumSec.u_s,mTanSet_flow)
-    annotation (Line(points={{-70,82},{-70,110}}, color={0,0,127}));
-  connect(conPI_valCha.u_s,mTanSet_flow)  annotation (Line(points={{-10,80},{-10,
-          88},{-70,88},{-70,110}}, color={0,0,127}));
+    annotation (Line(points={{-70,62},{-70,110}}, color={0,0,127}));
+  connect(conPI_valCha.u_s,mTanSet_flow)  annotation (Line(points={{-10,62},{
+          -10,90},{-70,90},{-70,110}},
+                                   color={0,0,127}));
   connect(conPI_valCha.u_m, mTan_flow)
-    annotation (Line(points={{2,68},{10,68},{10,110}}, color={0,0,127}));
-  connect(conPI_pumSec.u_m, mTan_flow) annotation (Line(points={{-58,70},{-52,
-          70},{-52,94},{10,94},{10,110}}, color={0,0,127}));
+    annotation (Line(points={{2,50},{10,50},{10,110}}, color={0,0,127}));
+  connect(conPI_pumSec.u_m, mTan_flow) annotation (Line(points={{-58,50},{-42,
+          50},{-42,80},{10,80},{10,110}}, color={0,0,127}));
   connect(yValDis, yValDis)
     annotation (Line(points={{10,-170},{10,-170}}, color={0,0,127}));
   connect(swiPumPri.y, yPumSec)
@@ -145,33 +146,39 @@ equation
   connect(zero.y, swiValCha.u3) annotation (Line(points={{-79,-110},{62,-110},{62,
           -118}}, color={0,0,127}));
   connect(uOnl, and3.u3)
-    annotation (Line(points={{-110,-20},{2,-20},{2,-38}}, color={255,0,255}));
-  connect(booFloDir, and3.u2)
-    annotation (Line(points={{-110,0},{10,0},{10,-38}}, color={255,0,255}));
+    annotation (Line(points={{-110,-20},{-20,-20},{-20,-50},{2,-50},{2,-58}},
+                                                          color={255,0,255}));
   connect(isValChaClo.u, yValCha_actual)
     annotation (Line(points={{82,70},{110,70}}, color={0,0,127}));
   connect(isValChaClo.y, and3.u1)
-    annotation (Line(points={{58,70},{18,70},{18,-38}}, color={255,0,255}));
+    annotation (Line(points={{58,70},{40,70},{40,-50},{18,-50},{18,-58}},
+                                                        color={255,0,255}));
   connect(isValDisClo.u, yValDis_actual)
     annotation (Line(points={{82,30},{110,30}}, color={0,0,127}));
-  connect(notFloDirValCha.u, booFloDir)
-    annotation (Line(points={{60,-4},{60,0},{-110,0}}, color={255,0,255}));
-  connect(notFloDirValCha.y, andValCha.u1)
-    annotation (Line(points={{60,-28},{60,-38}}, color={255,0,255}));
-  connect(isValDisClo.y, andValCha.u2) annotation (Line(points={{58,30},{46,30},
-          {46,-32},{52,-32},{52,-38}}, color={255,0,255}));
-  connect(andValCha.y, swiValCha.u2) annotation (Line(points={{60,-62},{60,-70},
-          {70,-70},{70,-118}}, color={255,0,255}));
-  connect(conPI_pumSec.y, swiPumPri.u1) annotation (Line(points={{-70,59},{-70,10},
-          {-42,10},{-42,-118}}, color={0,0,127}));
-  connect(conPI_valCha.y, swiValCha.u1) annotation (Line(points={{-10,57},{-10,10},
-          {78,10},{78,-118}}, color={0,0,127}));
-  connect(and3.y, swiPumPri.u2) annotation (Line(points={{10,-62},{10,-100},{-50,
-          -100},{-50,-118}}, color={255,0,255}));
+  connect(isValDisClo.y, andValCha.u2) annotation (Line(points={{58,30},{52,30},
+          {52,-58}},                   color={255,0,255}));
+  connect(andValCha.y, swiValCha.u2) annotation (Line(points={{60,-82},{60,-100},
+          {70,-100},{70,-118}},color={255,0,255}));
+  connect(conPI_pumSec.y, swiPumPri.u1) annotation (Line(points={{-70,39},{-70,
+          10},{-42,10},{-42,-118}},
+                                color={0,0,127}));
+  connect(conPI_valCha.y, swiValCha.u1) annotation (Line(points={{-10,39},{-10,
+          10},{78,10},{78,-118}},
+                              color={0,0,127}));
+  connect(and3.y, swiPumPri.u2) annotation (Line(points={{10,-82},{10,-100},{
+          -50,-100},{-50,-118}},
+                             color={255,0,255}));
   connect(booToReaValDis.y, yValDis)
     annotation (Line(points={{10,-142},{10,-170}}, color={0,0,127}));
-  connect(and3.y, booToReaValDis.u) annotation (Line(points={{10,-62},{10,-90},{
-          10,-90},{10,-118}}, color={255,0,255}));
+  connect(and3.y, booToReaValDis.u) annotation (Line(points={{10,-82},{10,-100},
+          {10,-100},{10,-118}},
+                              color={255,0,255}));
+  connect(uRemCha, notRemCha.u)
+    annotation (Line(points={{-110,0},{10,0},{10,-18}}, color={255,0,255}));
+  connect(notRemCha.y, and3.u2)
+    annotation (Line(points={{10,-42},{10,-58}}, color={255,0,255}));
+  connect(andValCha.u1, uRemCha)
+    annotation (Line(points={{60,-58},{60,0},{-110,0}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-160},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>

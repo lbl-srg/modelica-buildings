@@ -55,7 +55,7 @@ model ChillerAndTank
     "Primary pump mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,130}), iconTransformation(
+        origin={40,150}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,100})));
@@ -102,16 +102,21 @@ model ChillerAndTank
     "= true if plant is online (either outputting CHW to the network or being charged remotely)"
     annotation (Placement(transformation(extent={{120,70},{100,90}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput booFloDir
-    if allowRemoteCharging
-    "Flow direction: true = normal; false = reverse" annotation (Placement(
-        transformation(extent={{120,90},{100,110}}),   iconTransformation(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRemCha
+    if allowRemoteCharging "Tank is being charged remotely" annotation (
+      Placement(transformation(extent={{120,90},{100,110}}), iconTransformation(
           extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notRemCha if allowRemoteCharging
+    "Tank is not being charged remotely"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={10,130})));
   Modelica.Blocks.Interfaces.RealInput mTanSet_flow if allowRemoteCharging
     "Tank mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={80,130}), iconTransformation(
+        origin={80,150}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,20})));
@@ -136,7 +141,7 @@ model ChillerAndTank
     if allowRemoteCharging "Switches off pum1 when tank charged remotely"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-10,90})));
+        origin={-20,90})));
   Modelica.Blocks.Sources.Constant zero(k=0) if allowRemoteCharging
     "Constant 0"     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -152,7 +157,7 @@ model ChillerAndTank
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={28,90})));
+        origin={10,90})));
   Modelica.Blocks.Interfaces.RealInput yPumSec if not allowRemoteCharging
     "Secondary pump speed input" annotation (Placement(transformation(extent={{
             120,10},{100,30}}), iconTransformation(
@@ -215,22 +220,20 @@ model ChillerAndTank
 equation
   connect(conPumSecGro.yValDis, valDis.y) annotation (Line(points={{66,78.9},{
           66,56},{20,56},{20,2}}, color={0,0,127}));
-  connect(conPumSecGro.mTanSet_flow, mTanSet_flow) annotation (Line(points={{81,
-          95.4},{90,95.4},{90,118},{80,118},{80,130}}, color={0,0,127}));
+  connect(conPumSecGro.mTanSet_flow, mTanSet_flow) annotation (Line(points={{81,95.4},
+          {90,95.4},{90,138},{80,138},{80,150}},       color={0,0,127}));
   connect(pumSec.y, conPumSecGro.yPumSec) annotation (Line(points={{80,-8},{80,
           20},{70,20},{70,78.9}}, color={0,0,127}));
-  connect(swiFloDirPum1.u2, booFloDir) annotation (Line(points={{-10,102},{-10,112},
-          {96,112},{96,100},{110,100}},   color={255,0,255}));
-  connect(swiFloDirPum1.u1, mPumPriSet_flow) annotation (Line(points={{-2,102},
-          {-2,108},{40,108},{40,130}}, color={0,0,127}));
+  connect(swiFloDirPum1.u1, mPumPriSet_flow) annotation (Line(points={{-12,102},
+          {-12,108},{40,108},{40,150}},color={0,0,127}));
   connect(pumPri.m_flow_in, swiFloDirPum1.y) annotation (Line(points={{-20,-20},
-          {-20,72},{-10,72},{-10,78}}, color={0,0,127}));
-  connect(zero.y, swiFloDirPum1.u3) annotation (Line(points={{-50,101},{-50,108},
-          {-18,108},{-18,102}}, color={0,0,127}));
-  connect(pasSwiFloDirPum1.u, mPumPriSet_flow) annotation (Line(points={{28,102},
-          {28,108},{40,108},{40,130}}, color={0,0,127}));
-  connect(pasSwiFloDirPum1.y, pumPri.m_flow_in) annotation (Line(points={{28,79},
-          {28,72},{-20,72},{-20,-20}}, color={0,0,127}));
+          {-20,78}},                   color={0,0,127}));
+  connect(zero.y, swiFloDirPum1.u3) annotation (Line(points={{-50,101},{-50,106},
+          {-28,106},{-28,102}}, color={0,0,127}));
+  connect(pasSwiFloDirPum1.u, mPumPriSet_flow) annotation (Line(points={{10,102},
+          {10,108},{40,108},{40,150}}, color={0,0,127}));
+  connect(pasSwiFloDirPum1.y, pumPri.m_flow_in) annotation (Line(points={{10,79},
+          {10,72},{-20,72},{-20,-20}}, color={0,0,127}));
   connect(pumSec.y, yPumSec)
     annotation (Line(points={{80,-8},{80,20},{110,20}}, color={0,0,127}));
   connect(pumSec.port_a, port_a2)
@@ -239,12 +242,10 @@ equation
           -60},{100,-60}}, color={0,127,255}));
   connect(conPumSecGro.uOnl, uOnl) annotation (Line(points={{82,82.2},{82,82},{
           96,82},{96,80},{110,80}}, color={255,0,255}));
-  connect(conPumSecGro.booFloDir, booFloDir) annotation (Line(points={{82,86.6},
-          {82,86},{96,86},{96,100},{110,100}}, color={255,0,255}));
+  connect(conPumSecGro.uRemCha, uRemCha) annotation (Line(points={{82,86.6},{82,
+          86},{96,86},{96,100},{110,100}}, color={255,0,255}));
   connect(pumPri.port_b, chi.port_a2)
     annotation (Line(points={{-30,-32},{-40,-32},{-40,4}}, color={0,127,255}));
-  connect(chi.on, booFloDir) annotation (Line(points={{-62,13},{-62,12},{-72,12},
-          {-72,112},{96,112},{96,100},{110,100}}, color={255,0,255}));
   connect(onChi.y, chi.on) annotation (Line(points={{-78,40},{-72,40},{-72,13},
           {-62,13}},color={255,0,255}));
   connect(set_TEvaLvg.y, chi.TSet) annotation (Line(points={{-79,10},{-79,7},{
@@ -257,9 +258,9 @@ equation
          {{15,-3},{14,-3},{14,68},{46,68},{46,99.8},{59,99.8}}, color={0,0,127}));
   connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{-20,-59},{-20,
           -56},{0,-56},{0,-110}},     color={0,0,127}));
-  connect(sen_m_flow.m_flow, conPumSecGro.mTan_flow) annotation (Line(points={{
-          -20,-59},{-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},
-          {81,99.8}}, color={0,0,127}));
+  connect(sen_m_flow.m_flow, conPumSecGro.mTan_flow) annotation (Line(points={{-20,
+          -59},{-20,-56},{0,-56},{0,70},{44,70},{44,108},{88,108},{88,99.8},{81,
+          99.8}}, color={0,0,127}));
   connect(preDroTan.port_a, tan.port_b) annotation (Line(points={{-80,-90},{-80,
           -92},{-66,-92},{-66,-70},{-60,-70}}, color={0,127,255}));
   connect(sen_m_flow.port_b, tan.port_a)
@@ -290,6 +291,12 @@ equation
   connect(conPumSecGro.yValCha_actual, valCha.y_actual) annotation (Line(points=
          {{59,95.4},{54,95.4},{54,96},{48,96},{48,6},{96,6},{96,-46},{60,-46},{
           60,-63},{25,-63}}, color={0,0,127}));
+  connect(notRemCha.u, uRemCha) annotation (Line(points={{22,130},{96,130},{96,100},
+          {110,100}}, color={255,0,255}));
+  connect(notRemCha.y, swiFloDirPum1.u2) annotation (Line(points={{-2,130},{-20,
+          130},{-20,102}}, color={255,0,255}));
+  connect(chi.on, notRemCha.y) annotation (Line(points={{-62,13},{-62,12},{-72,12},
+          {-72,130},{-2,130}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
           points={{-30,-110},{30,-110}},
@@ -324,7 +331,7 @@ equation
           pattern=LinePattern.None),
         Line(points={{16,74},{-20,66}},color={0,0,0}),
         Line(points={{-20,54},{14,44}},color={0,0,0})}),         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,120}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),
     Documentation(info="<html>
 <p>
 This plant model has a chiller and a stratified tank.

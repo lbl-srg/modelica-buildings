@@ -60,8 +60,8 @@ model ChillerAndTankWithRemoteCharging
         *6,-1])
             "Tank flow rate setpoint"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Blocks.Sources.BooleanTable booFloDir(table={0,3600/7*6})
-    "Flow direction: True = normal; False = reverse"
+  Modelica.Blocks.Sources.BooleanTable uRemCha(table={0,3600/7*6}, startValue=
+        true) "Tank is being charged remotely"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.BooleanTable uOnl(table={3600/7*2})
     "True = plant online (outputting CHW to the network); False = offline"
@@ -88,9 +88,8 @@ equation
 
   connect(uOnl.y, cat.uOnl) annotation (Line(points={{-59,-70},{-10,-70},{-10,-10}},
         color={255,0,255}));
-  connect(booFloDir.y,cat.booFloDir)  annotation (Line(points={{-59,0},{-56,0},
-          {-56,-2},{-10,-2}},
-                      color={255,0,255}));
+  connect(uRemCha.y, cat.uRemCha) annotation (Line(points={{-59,0},{-56,0},{-56,
+          -2},{-10,-2}}, color={255,0,255}));
   connect(set_mTan_flow.y, cat.mTanSet_flow) annotation (Line(points={{-59,60},
           {-14,60},{-14,2},{-9,2}}, color={0,0,127}));
   connect(set_mChi_flow.y, cat.mPumPriSet_flow)

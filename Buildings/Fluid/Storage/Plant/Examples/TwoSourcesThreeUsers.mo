@@ -202,9 +202,9 @@ model TwoSourcesThreeUsers
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,-60})));
-  Modelica.Blocks.Sources.BooleanTable booFloDir(table={3600/9*6,3600/9*8},
-      startValue=true) "Flow direction: True = normal; False = reverse"
-    annotation (Placement(transformation(
+  Modelica.Blocks.Sources.BooleanTable uRemCha(table={3600/9*6,3600/9*8},
+      startValue=false) "Tank is being charged remotely" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,10})));
@@ -357,8 +357,8 @@ equation
           -60},{126,142},{-10.6667,142}}, color={0,0,127}));
   connect(mulMin_dpUsr.y, conPI_PumChi1.u_m)
     annotation (Line(points={{-10,118},{-10,110},{-48,110}}, color={0,0,127}));
-  connect(booFloDir.y, cat.booFloDir) annotation (Line(points={{-69,10},{-58,10},
-          {-58,-48}},                                  color={255,0,255}));
+  connect(uRemCha.y, cat.uRemCha)
+    annotation (Line(points={{-69,10},{-58,10},{-58,-48}}, color={255,0,255}));
   connect(set_mTan_flow_discharge.y, swiTanCha.u1) annotation (Line(points={{-129,10},
           {-126,10},{-126,-2},{-122,-2}},          color={0,0,127}));
   connect(set_mTan_flow_charge.y, swiTanCha.u3) annotation (Line(points={{-129,-30},
