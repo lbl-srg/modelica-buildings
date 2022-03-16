@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Validation.Controller", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="DualDuctMixConInletSensor");
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Validation.Controller", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="DualDuctSnapActing");
 createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.TZon", "duaDucCon.TZonCooSet", "duaDucCon.TZonHeaSet", "duaDucCon.TDis", "duaDucCon.TColSup", "duaDucCon.THotSup"}, range={0.0, 90000.0, 10.0, 40.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {0,0,255}}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC", "degC", "degC"});
 createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.uWin", "duaDucCon.uOcc"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
 createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.uOpeMod"}, range={0.0, 90000.0, -2.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
