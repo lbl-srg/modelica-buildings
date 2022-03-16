@@ -22,8 +22,10 @@ block ReversiblePumpValveControl
         origin={-10,50})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRemCha
     "Tank is being charged remotely" annotation (Placement(transformation(
-          extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-140,-60},
-            {-100,-20}})));
+          extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-20,-20},
+            {20,20}},
+        rotation=90,
+        origin={-80,-120})));
   Modelica.Blocks.Interfaces.RealInput mTanSet_flow
     "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -31,7 +33,7 @@ block ReversiblePumpValveControl
           origin={-70,110}), iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-110,40})));
+          origin={-110,-40})));
   Modelica.Blocks.Interfaces.RealInput mTan_flow "Measured tank mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -39,51 +41,53 @@ block ReversiblePumpValveControl
         origin={10,110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,80})));
+        origin={-110,0})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
     "= true if plant is online (not cut off from the network by valve)"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-40,-120})));
   Modelica.Blocks.Interfaces.RealOutput yPumSec "Normalised speed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,-170}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,-110})));
+        rotation=0,
+        origin={110,0})));
   Modelica.Blocks.Interfaces.RealOutput yValCha "Valve position" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,-170}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={80,-110})));
+        rotation=0,
+        origin={110,40})));
   Modelica.Blocks.Interfaces.RealOutput yValDis "Valve position" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={10,-170}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,-110})));
+        rotation=0,
+        origin={110,80})));
   Modelica.Blocks.Interfaces.RealInput yValCha_actual "Actual valve position"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={110,70}), iconTransformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,40})));
+        origin={-110,40})));
   Modelica.Blocks.Interfaces.RealInput yValDis_actual "Actual valve position"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={110,30}), iconTransformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,80})));
+        origin={-110,80})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValDisClo(t=0.05)
     "= true if valve closed"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
