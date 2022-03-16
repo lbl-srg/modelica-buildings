@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "sinChi.ports[1].m_flow",
+    "tanBra.mTan_flow",
+    "tanBra.pum.m_flow"
+  };

@@ -1,13 +1,13 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Validation.ChillerAndTankNoRemoteCharging", 
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.NoRemoteCharging", 
  stopTime=3600, 
  tolerance=1e-06, 
  method="dassl",
- resultFile="ChillerAndTankNoRemoteCharging");
+ resultFile="NoRemoteCharging");
 // Plot commands
 createPlot(id=1,
  position={15, 15, 961, 426},
- y={"cat.pumPri.m_flow", "cat.mTan_flow", "cat.pumSec.m_flow"},
- range={0.0, 3600.0, -4.0, 6.0},
+ y={"sinChi.ports[1].m_flow", "tanBra.mTan_flow", "tanBra.pum.m_flow"},
+ range={0.0, 3600.0, -1.5, 2.5},
  grid=true,
  colors={{28,108,200}, {238,46,47}, {0,140,72}},
  timeUnit="s",

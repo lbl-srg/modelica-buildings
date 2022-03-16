@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "cat.pumPri.m_flow",
-    "cat.mTan_flow",
-    "cat.pumSec.m_flow"
-  };

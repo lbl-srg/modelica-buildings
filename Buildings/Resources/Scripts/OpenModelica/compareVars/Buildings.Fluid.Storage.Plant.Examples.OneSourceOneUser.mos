@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "cat.pumPri.m_flow",
-    "cat.mTan_flow",
-    "cat.pumSec.m_flow",
+    "chiBra.m_flow",
+    "tanBra.mTan_flow",
+    "tanBra.pum.m_flow",
     "usr.yVal_actual"
   };
