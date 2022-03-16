@@ -8903,8 +8903,8 @@ Version 1.0 is not backward compatible to version 0.12, i.e., models developed w
 versions 0.12 will require some changes in their parameters to
 work with version 1.0.
 The conversion script
-<a href=\"modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos\">
-Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos</a> can help
+<a href=\"modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_0.12_to_1.0.mos\">
+Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_0.12_to_1.0.mos</a> can help
 in converting old models to this version of the library.
 </p>
 <p>
@@ -10632,7 +10632,7 @@ dateModified="2021-06-08",
 uses(Modelica(version="4.0.0")),
 conversion(
   from(version={"8.0.0", "8.1.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_8_to_9.0.0.mos")),
+      script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
