@@ -186,30 +186,30 @@ model VAVMultiZone "Multiple-zone VAV"
     annotation (Dialog(group="Supply air section"),
       Placement(transformation(extent={{250,-230},{270,-210}})));
 
-  Buildings.Templates.Components.Sensors.DifferentialPressure pAirBui_rel(
+  Buildings.Templates.Components.Sensors.DifferentialPressure pBui_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=have_senPreBui,
     final text_flip=true) "Building static pressure"
-    annotation (Placement(transformation(extent={{10,28},{-10,48}})));
+    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
 
   Buildings.Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
-    final nPorts=2)
+    final nPorts=3)
     "Outdoor conditions"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,80})));
+        origin={-40,90})));
   Buildings.Fluid.Sources.Boundary_pT bui(
     redeclare final package Medium = MediumAir,
-    final use_p_in=true,
-    final nPorts=2)
+    final use_p_in=have_senPreBui,
+    final nPorts=1)
     "Building absolute pressure in representative space"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,82})));
+        origin={40,60})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
@@ -302,6 +302,14 @@ model VAVMultiZone "Multiple-zone VAV"
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-246})));
+initial equation
+  assert(typFanSup<>Buildings.Templates.Components.Types.Fan.None,
+    "In "+ getInstanceName() + ": "+
+    "The template is configured with no supply fan, which is not supported.");
+  assert(not (fanSupBlo.typ<>Buildings.Templates.Components.Types.Fan.None and
+    fanSupDra.typ<>Buildings.Templates.Components.Types.Fan.None),
+    "In "+ getInstanceName() + ": "+
+    "The template is configured with both a blow-through and a draw-through supply fan, which is not supported.");
 equation
   /* Control point connection - start */
   connect(TAirMix.y, bus.TAirMix);
@@ -316,8 +324,8 @@ equation
   connect(coiCoo.bus, bus.coiCoo);
   connect(coiHeaReh.bus, bus.coiHea);
   connect(secOutRel.bus, bus);
-  connect(bui.p_in, bus.pAirBui);
-  connect(pAirBui_rel.y, bus.pAirBui_rel);
+  connect(bui.p_in, bus.pBui);
+  connect(pBui_rel.y, bus.pBui_rel);
   /* Control point connection - stop */
 
   connect(port_aChiWat, coiCoo.port_aSou) annotation (Line(points={{100,-280},{
@@ -335,13 +343,14 @@ equation
   connect(coiHeaReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{150,-200},{172,-200}}, color={0,127,255}));
   connect(busWea, out.weaBus) annotation (Line(
-      points={{0,280},{0,100},{-40,100},{-40,90},{-39.8,90}},
+      points={{0,280},{0,100},{-39.8,100}},
       color={255,204,51},
       thickness=0.5));
-  connect(pAirBui_rel.port_b, out.ports[1]) annotation (Line(points={{-10,38},{-10,
-          60},{-41,60},{-41,70}}, color={0,127,255}));
-  connect(bui.ports[1], pAirBui_rel.port_a) annotation (Line(points={{39,72},{39,
-          60},{10,60},{10,38}}, color={0,127,255}));
+  connect(pBui_rel.port_b, out.ports[1]) annotation (Line(points={{-10,40},{-20,
+          40},{-20,80},{-41.3333,80}},
+                                  color={0,127,255}));
+  connect(bui.ports[1], pBui_rel.port_a) annotation (Line(points={{40,50},{40,40},
+          {10,40}},             color={0,127,255}));
 
   connect(ctl.busTer, busTer) annotation (Line(
       points={{-200,0},{300,0}},
@@ -379,13 +388,11 @@ equation
     annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
                                                     color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
-          {-162,60},{-39,60},{-39,70}},              color={0,127,255}));
+          {-162,80},{-40,80}},                       color={0,127,255}));
   connect(port_Rel, secOutRel.port_Rel)
     annotation (Line(points={{-300,-80},{-280,-80}}, color={0,127,255}));
   connect(port_Out, secOutRel.port_Out)
     annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
-  connect(bui.ports[2], pAirSup_rel.port_b) annotation (Line(points={{41,72},{41,
-          60},{280,60},{280,-220},{270,-220}}, color={0,127,255}));
   connect(TAirSup.port_b, port_Sup)
     annotation (Line(points={{230,-200},{300,-200}}, color={0,127,255}));
   connect(TAirSup.port_b, pAirSup_rel.port_a) annotation (Line(points={{230,-200},
@@ -408,6 +415,9 @@ equation
           15,-210},{15,-230},{-20,-230},{-20,-236}}, color={0,127,255}));
   connect(junHeaWatSup.port_2, coiHeaPre.port_aSou) annotation (Line(points={{
           20,-250},{20,-230},{25,-230},{25,-210}}, color={0,127,255}));
+  connect(out.ports[3], pAirSup_rel.port_b) annotation (Line(points={{-38.6667,
+          80},{280,80},{280,-220},{270,-220}},
+                                           color={0,127,255}));
   annotation (
     defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -463,8 +473,52 @@ INSIDE BUILDING",
           textString="REFERENCE OUTSIDE
 BUILDING",fontSize=4)}),
     Documentation(info="<html>
-Requires building indoor _absolute_ pressure as input
+<h4>Description</h4>
+<p>
+This template represents a multiple-zone VAV air handler for 
+a single duct system serving <b>at least two</b> terminal units.
+</p>
+<h5>Economizer</h5>
+<p>
 
+</p>
+<h5>Fans</h5>
+<p>
+At least one supply fan must be specified, either in blow-through
+or draw-through position. Those two configurations are exclusive from
+one another.
+</p>
+<p>
+The relief fan and the return fan are optional and exclusive from
+one another.
+</p>
+<p>
+All exhaust fans that normally operate with the air handler must
+be configured separately, by means of a dedicated template.
+<! -- et être fermés par la balise -->
+</p>
+<h5>Heat recovery</h5>
+<p>
+Currently no heat recovery equipment is supported.
+</p>
+<h4>Simulation model assumptions and requirements</h4>
+<h5>Pressure reference</h5>
+<p>
+The duct static pressure sensors use the outdoor absolute pressure
+as an approximation of the reference pressure in the mechanical room
+where the air handler is located. 
+</p>
+<p>
+When a building static pressure measurement is required by the control
+sequence 
+(<code>ctl.typCtlFanRet=AirHandlersFans.Types.ControlFanReturn.BuildingPressure</code>), 
+the corresponding sensor <code>pBui_rel</code> is instantiated 
+within the current class.
+In this case, an additional variable <code>pBui</code> needs to be 
+connected to the control bus to pass in the value of the absolute pressure 
+in a representative space of the building.
+</p>
+<p>
 Economizer and fan options options
 
 Common economizer/minimum OA damper
@@ -493,7 +547,7 @@ Modulating relief damper
 - Control building static pressure
 
 
-
+</p>
 </html>",
         revisions="<html>
 <ul>

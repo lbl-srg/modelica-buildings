@@ -104,8 +104,8 @@ block G36VAVMultiZone
     displayUnit="degC")=dat.TAirOutRes_max
     "Highest value of the outdoor air temperature reset range";
 
-  final parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel=
-    dat.pAirBuiSet_rel
+  final parameter Modelica.Units.SI.PressureDifference pBuiSet_rel=
+    dat.pBuiSet_rel
     "Building static pressure set point";
 
   final parameter Real yFanRel_min=
@@ -147,7 +147,7 @@ block G36VAVMultiZone
     final TOutMin=TAirOutRes_min,
     final TOutMax=TAirOutRes_max,
     final dpDesOutDam_min=dpDamOutMin_nominal,
-    final dpBuiSet=pAirBuiSet_rel,
+    final dpBuiSet=pBuiSet_rel,
     final difFloSet=dVFanRet_flow,
     final dpDisMin=pAirRetSet_rel_min,
     final dpDisMax=pAirRetSet_rel_max)
@@ -278,7 +278,7 @@ equation
   connect(bus.dpAirOutMin, ctl.dpMinOutDam);
   connect(bus.hAirOut, ctl.hOut);
   connect(bus.TAirMix, ctl.TMix);
-  connect(bus.pAirBui_rel, ctl.dpBui);
+  connect(bus.pBui_rel, ctl.dpBui);
   connect(bus.fanSup.V_flow, ctl.VSup_flow);
   connect(bus.fanRet.V_flow, ctl.VRet_flow);
   connect(bus.coiCoo.y_actual, ctl.uCooCoi);

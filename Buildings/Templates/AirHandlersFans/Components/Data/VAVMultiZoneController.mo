@@ -74,7 +74,7 @@ record VAVMultiZoneController "Record for Multiple-zone VAV controller"
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
 
-  parameter Modelica.Units.SI.PressureDifference pAirBuiSet_rel(
+  parameter Modelica.Units.SI.PressureDifference pBuiSet_rel(
     final min=0,
     displayUnit="Pa")=12
     "Building static pressure set point"

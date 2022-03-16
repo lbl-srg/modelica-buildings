@@ -31,8 +31,7 @@ package Types "AHU types"
     "Enumeration to configure the economizer control";
   type ControlFanReturn = enumeration(
       AirflowCalculated
-      "Calculated based on return fan speed (requires constant flow characteristic) and
-    VAV box air flow rates",
+      "Calculated based on return fan speed or VAV box flow rates",
       AirflowTracking
       "Airflow tracking",
       BuildingPressure
