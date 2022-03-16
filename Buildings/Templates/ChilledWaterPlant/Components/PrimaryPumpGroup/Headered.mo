@@ -8,7 +8,7 @@ model Headered
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
       final nPum=nPum,
-      final have_singlePort_a=false,
+      final have_singlePort_a=true,
       final have_singlePort_b=true,
       final dat=dat.pum) "Pumps"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -73,6 +73,7 @@ model Headered
     "Primary chilled water supply temperature"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCHWChi[nChi]
+    if have_parChi
     constrainedby Buildings.Templates.Components.Valves.TwoWayModulating(
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=dat.pum.m_flow_nominal,
@@ -153,13 +154,13 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(ports_parallel, valCHWChi.port_b)
-    annotation (Line(points={{-100,0},{-94,0},{-94,2},{-90,2},{-90,0}}, color={0,127,255}));
-  connect(valCHWChi.port_a, del.ports[2:nChi+1])
-    annotation (Line(points={{-70,0},{-60,0},{-60,40}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-90,0}},                         color={0,127,255}));
   connect(del.ports[1],pum.port_a)
     annotation (Line(points={{-60,40},{-60,0},{-40,0}}, color={0,127,255}));
   connect(del.ports[2],port_series)
     annotation (Line(points={{-60,40},{-60,40},{-60,28},{-86,28},{-86,60},{-100,60}}, color={0,127,255}));
+  connect(del.ports[2:nChi+1], valCHWChi.port_a)
+    annotation (Line(points={{-60,40},{-60,0},{-70,0}}, color={0,127,255}));
   connect(del.ports[nPorVol], valChiByp.port_b)
     annotation (Line(points={{-60,40},{-60,-60},{-70,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

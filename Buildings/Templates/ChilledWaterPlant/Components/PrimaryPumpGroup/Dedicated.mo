@@ -3,14 +3,15 @@ model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
     dat(typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated),
+    final have_parChi = true,
     final nPum=nChi);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
       final nPum=nPum,
-      final have_singlePort_a=true,
-      final have_singlePort_b=false,
+      final have_singlePort_a=false,
+      final have_singlePort_b=true,
       final dat=dat.pum)
     "Primary pumps"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

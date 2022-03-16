@@ -19,7 +19,7 @@ record Data "Data for condenser water pump groups"
     "Pump group nominal flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Buildings.Templates.Components.Pumps.Interfaces.Data pum[nPum](
-    each final m_flow_nominal = m_flow_nominal / nPum)
+    each m_flow_nominal = m_flow_nominal / nPum)
     "Pump data"
     annotation(Dialog(group = "Pumps"));
   parameter Modelica.Units.SI.PressureDifference dpCWValve_nominal=0

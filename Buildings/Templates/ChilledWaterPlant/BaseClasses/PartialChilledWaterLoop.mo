@@ -58,7 +58,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
       redeclare final package Medium = MediumCHW,
       final dat=dat.pumPri,
-      final mTot_flow_nominal=dat.mCHWPri_flow_nominal,
+      final m_flow_nominal=dat.mCHWPri_flow_nominal,
       final have_parChi=have_parChi,
       final have_byp=have_byp,
       final have_chiByp=have_chiByp,
@@ -71,7 +71,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
       redeclare final package Medium = MediumCHW,
       final dat=dat.pumSec,
-      final mTot_flow_nominal=dat.mCHWSec_flow_nominal)
+      final m_flow_nominal=dat.mCHWSec_flow_nominal)
     "Chilled water secondary pump group"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   inner replaceable Components.Controls.OpenLoop con constrainedby

@@ -13,7 +13,7 @@ partial model PartialReturnSection
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Data
-    dat(have_WSE = dat.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection.WatersideEconomizer)
+    dat
     "Return section data";
 
   outer parameter Integer nChi "Number of chillers";

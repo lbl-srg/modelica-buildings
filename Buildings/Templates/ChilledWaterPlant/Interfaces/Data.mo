@@ -14,41 +14,43 @@ record Data "Data for chilled water plants"
 
   // Component parameters
 
-  // Evaporator side equipment
-
-  parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Data chiGro(
-    m2_flow_nominal = mCHWPri_flow_nominal,
-    m1_flow_nominal = mCon_flow_nominal)
-    "Chiller group data"
-    annotation (Dialog(group="Equipment"));
-  parameter Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Data pumPri(
-    mTot_flow_nominal = mCHWPri_flow_nominal)
-    "Primary pump group data"
-    annotation (Dialog(group="Equipment"));
-  parameter Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Data retSec(
-    m1_flow_nominal = mCHWPri_flow_nominal,
-    m2_flow_nominal = mCon_flow_nominal)
-    "Return section data"
-    annotation (Dialog(group="Equipment"));
-  parameter Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.Data pumSec(
-    mTot_flow_nominal = mCHWSec_flow_nominal)
-    "Secondary pump data"
-    annotation (Dialog(group="Equipment"));
-
-  //Condenser side equipment
-
-  parameter Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.Data pumCon(
-    mTot_flow_nominal = mCon_flow_nominal)
-    annotation (Dialog(group="Equipment", enable=not isAirCoo));
-  parameter Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Data cooTowGro(
-    mTot_flow_nominal = mCon_flow_nominal)
-    annotation (Dialog(group="Equipment", enable=not isAirCoo));
-
   // Controller
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data con
     "Controller data"
     annotation (Dialog(group="Controller"));
+
+  // Evaporator side equipment
+
+  parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Data chiGro(
+    m2_flow_nominal = mCHWPri_flow_nominal,
+    m1_flow_nominal = mCon_flow_nominal)
+    "Chiller group"
+    annotation (Dialog(group="Equipment"));
+  parameter Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Data pumPri(
+    m_flow_nominal = mCHWPri_flow_nominal)
+    "Primary pump group"
+    annotation (Dialog(group="Equipment"));
+  parameter Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Data retSec(
+    m1_flow_nominal = mCHWPri_flow_nominal,
+    m2_flow_nominal = mCon_flow_nominal)
+    "Waterside Economizer"
+    annotation (Dialog(group="Equipment"));
+  parameter Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.Data pumSec(
+    m_flow_nominal = mCHWSec_flow_nominal)
+    "Secondary pump group"
+    annotation (Dialog(group="Equipment"));
+
+  //Condenser side equipment
+
+  parameter Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.Data pumCon(
+    m_flow_nominal = mCon_flow_nominal)
+    "Condenser pump group"
+    annotation (Dialog(group="Equipment", enable=not isAirCoo));
+  parameter Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Data cooTowGro(
+    m_flow_nominal = mCon_flow_nominal)
+    "Cooling tower group"
+    annotation (Dialog(group="Equipment", enable=not isAirCoo));
 
   // Nominal conditions
 

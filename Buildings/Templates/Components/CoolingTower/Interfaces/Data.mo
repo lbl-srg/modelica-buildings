@@ -10,7 +10,7 @@ record Data "Data for cooling towers"
 
   // Equipment characteristics
 
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Cooling tower mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal

@@ -43,7 +43,7 @@ model WaterCooled
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     redeclare final package Medium = MediumCW,
     final dat=dat.pumCon,
-    final mTot_flow_nominal=dat.mCon_flow_nominal,
+    final m_flow_nominal=dat.mCon_flow_nominal,
     final dp_nominal=dpCon_nominal) "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 

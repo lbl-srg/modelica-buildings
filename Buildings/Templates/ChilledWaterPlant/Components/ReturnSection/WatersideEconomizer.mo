@@ -12,7 +12,7 @@ model WatersideEconomizer
       dpValve_nominal=dat.dpCWValve_nominal) if have_WSE constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mTot_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpWSEValve_nominal)
     "Waterside economizer valve on condenser water side" annotation (Placement(
         transformation(

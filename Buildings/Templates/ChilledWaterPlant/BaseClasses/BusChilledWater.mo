@@ -3,8 +3,10 @@ expandable connector BusChilledWater
   "Generic control bus for chilled water classes"
   extends Modelica.Icons.SignalBus;
 
-  parameter Integer nChi "Number of chillers";
-  parameter Integer nCooTow "Number of cooling tower";
+  parameter Integer nChi "Number of chillers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nCooTow "Number of cooling tower"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Buildings.Templates.Components.Interfaces.Bus chi[nChi]
     annotation (HideResult=false);

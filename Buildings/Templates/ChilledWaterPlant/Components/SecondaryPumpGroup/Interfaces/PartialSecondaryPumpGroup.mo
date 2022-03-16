@@ -3,9 +3,11 @@ partial model PartialSecondaryPumpGroup
   extends Fluid.Interfaces.PartialTwoPort(
     redeclare replaceable package Medium=Buildings.Media.Water);
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.Data dat
+  parameter Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.Data dat(
+    final nPum=nPum)
     "Secondary pump group data";
 
+  parameter Integer nPum "Number of pumps";
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
 

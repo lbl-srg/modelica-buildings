@@ -7,9 +7,10 @@ model Centralized "Centralized secondary pumping"
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
       redeclare final package Medium = Medium,
+      final nPum=nPum,
       final have_singlePort_a=true,
       final have_singlePort_b=true,
-      final dat=dat)
+      final dat=dat.pum)
       "Secondary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -26,9 +27,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-    annotation (
-      choicesAllMatching=true,
-      Placement(transformation(extent={{-90,-88},{-70,-68}})),
+  annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
           points={{-60,0},{-100,0}},
@@ -51,6 +50,6 @@ equation
         Line(
           points={{60,0},{100,0}},
           color={28,108,200},
-          thickness=1)}),                                        Diagram(
+          thickness=1)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Centralized;

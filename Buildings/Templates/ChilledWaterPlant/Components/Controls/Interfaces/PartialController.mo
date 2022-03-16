@@ -56,11 +56,16 @@ block PartialController "Partial controller for CHW plant"
     "Design (maximum) primary CHW mass flow rate (for the plant)";
 
 
-  outer parameter Integer nChi "Number of chillers";
-  outer parameter Integer nPumPri "Number of primary pumps";
-  outer parameter Integer nPumSec "Number of secondary pumps";
-  outer parameter Integer nPumCon "Number of condenser pumps";
-  outer parameter Integer nCooTow "Number of cooling towers";
+  parameter Integer nChi "Number of chillers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nPumPri "Number of primary pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nPumSec "Number of secondary pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nPumCon "Number of condenser pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nCooTow "Number of cooling towers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter Boolean isAirCoo
     "= true, chillers in group are air cooled, 

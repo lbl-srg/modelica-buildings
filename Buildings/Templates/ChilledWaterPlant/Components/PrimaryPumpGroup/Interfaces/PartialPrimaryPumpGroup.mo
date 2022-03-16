@@ -9,8 +9,8 @@ partial model PartialPrimaryPumpGroup
 
   replaceable package Medium = Buildings.Media.Water;
 
-  parameter Integer nPum=2 "Number of pumps";
-  parameter Integer nChi=2 "Number of chillers in group";
+  parameter Integer nPum "Number of pumps";
+  outer parameter Integer nChi "Number of chillers in group";
   outer parameter Integer nCooTow "Number of cooling towers";
 
   parameter Boolean allowFlowReversal = true

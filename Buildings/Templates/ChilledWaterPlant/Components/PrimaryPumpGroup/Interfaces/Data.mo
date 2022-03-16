@@ -1,5 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces;
 record Data "Data for primary pump groups"
+  extends Modelica.Icons.Record;
 
   // Structure parameters
 
@@ -17,7 +18,7 @@ record Data "Data for primary pump groups"
   // Equipment characteristics
 
   parameter Buildings.Templates.Components.Pumps.Interfaces.Data pum[nPum](
-    each final m_flow_nominal = m_flow_nominal / nPum)
+    each m_flow_nominal = m_flow_nominal / nPum)
     "Pump data"
     annotation(Dialog(group = "Pumps"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal

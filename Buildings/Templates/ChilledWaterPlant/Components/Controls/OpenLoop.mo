@@ -89,23 +89,54 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={68,70})));
+
+  // Vectorized sub-bus need to be declared, otherwise Modelica doesn't know
+  // how to expand undeclared parameter in connect statement such as
+  // connect(busCon.valCHWChi.y, valCHWChi.y)
+
+  Buildings.Templates.Components.Interfaces.Bus chi[nChi]
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCHWChi[nChi]
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus cooTow[nCooTow] if not isAirCoo
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCooTowInl[nCooTow] if not isAirCoo
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCooTowOut[nCooTow] if not isAirCoo
+    annotation (HideResult=false);
+  Buildings.Templates.Components.Interfaces.Bus valCWChi[nChi] if not isAirCoo
+    annotation (HideResult=false);
+
 equation
+
   connect(busCon.valByp.y, yValByp.y);
   connect(busCon.valChiByp.y, yValChiByp.y);
-  connect(busCon.chi.TSet, chiTSet.y);
-  connect(busCon.chi.on, chiOn.y);
-  connect(busCon.valCHWChi.y, yValCHWChi.y);
+
+  for i in 1:nChi loop
+    connect(chi[i].TSet, chiTSet[i].y);
+    connect(chi[i].on, chiOn[i].y);
+    connect(valCHWChi[i].y, yValCHWChi[i].y);
+    connect(valCWChi[i].y, yValCWChi[i].y);
+  end for;
+  connect(busCon.chi, chi);
+  connect(busCon.valCHWChi, valCHWChi);
+  connect(busCon.valCWChi, valCWChi);
+
   connect(busCon.pumPri.y, yPumPri.y);
   connect(busCon.pumPri.ySpe, ySpePumPri.y);
 
   connect(busCon.pumSec.y, yPumSec.y);
   connect(busCon.pumSec.ySpe, ySpePumSec.y);
 
-  connect(busCon.cooTow.y, yCooTowFan.y);
-  connect(busCon.valCooTowInl.y, yValCooTowInl.y);
-  connect(busCon.valCooTowOut.y, yValCooTowOut.y);
+  for i in 1:nCooTow loop
+    connect(cooTow[i].y, yCooTowFan[i].y);
+    connect(valCooTowInl[i].y, yValCooTowInl[i].y);
+    connect(valCooTowOut[i].y, yValCooTowOut[i].y);
+  end for;
+  connect(busCon.cooTow, cooTow);
+  connect(busCon.valCooTowInl, valCooTowInl);
+  connect(busCon.valCooTowOut, valCooTowOut);
 
-  connect(busCon.valCWChi.y, yValCWChi.y);
   connect(busCon.pumCon.y, yPumCon.y);
   connect(busCon.pumCon.ySpe, ySpePumCon.y);
   connect(busCon.valCWWSE.y, yValCWWSE.y);
