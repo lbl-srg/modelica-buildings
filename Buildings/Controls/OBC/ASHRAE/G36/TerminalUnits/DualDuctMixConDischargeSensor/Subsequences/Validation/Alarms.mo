@@ -5,7 +5,7 @@ model Alarms "Validation of model that generates alarms"
     final staPreMul=1,
     final VCooZonMax_flow=1,
     final floHys=0.01,
-    final damPosHys=0.01) "Block outputs system requests"
+    final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
     final height=0.9,
