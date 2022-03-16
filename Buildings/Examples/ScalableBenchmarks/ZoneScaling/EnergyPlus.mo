@@ -31,8 +31,7 @@ protected
     annotation (
 experiment(
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/ZoneScaling/EnergyPlus.mos"
         "Simulate and Plot"),
 Documentation(revisions="<html>
