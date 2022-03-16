@@ -41,7 +41,7 @@ record VAVBoxController
     annotation (Dialog(group="Temperature",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
 
-  // FIXME: not in §3.1.2.2 VAV Reheat Terminal Unit
+  // FIXME #1913: not in §3.1.2.2 VAV Reheat Terminal Unit
   parameter Modelica.Units.SI.Temperature TAirDis_min(
     final min=273.15,
     displayUnit="degC")=12 + 273.15

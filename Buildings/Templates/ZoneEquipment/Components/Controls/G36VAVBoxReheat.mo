@@ -26,7 +26,7 @@ block G36VAVBoxReheat
     annotation (Dialog(group="Configuration"));
 
   /*
-  FIXME: have_hotWatCoi has been deleted at https://github.com/lbl-srg/modelica-buildings/commit/5d1c7d9bbe17c0049a1fc332005705f35e1593dc#r67866444
+  FIXME: have_hotWatCoi should not have been deleted, see https://github.com/lbl-srg/modelica-buildings/commit/5d1c7d9bbe17c0049a1fc332005705f35e1593dc#r67866444
   final parameter Boolean have_hotWatCoi=
     coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
     "Set to true if the system has hot water coil"
@@ -103,17 +103,17 @@ block G36VAVBoxReheat
      dat.effAirDisCoo
     "Zone air distribution effectiveness during cooling";
 
-  // FIXME: not in §3.1.1.2 Outdoor Air Ventilation Set Points
+  // FIXME #1913: not in §3.1.1.2 Outdoor Air Ventilation Set Points
   final parameter Real effAirDis_nominal=effAirDisCoo
     "Zone air distribution effectiveness at design conditions";
 
-  // FIXME: not in §3.1.2.2 VAV Reheat Terminal Unit.
+  // FIXME #1913: not in §3.1.2.2 VAV Reheat Terminal Unit.
   // Assuming the following equality for now.
   final parameter Modelica.Units.SI.VolumeFlowRate VAirPri_flow_min=
     VAirSet_flow_min
     "Zone minimum expected primary air volume flow rate";
 
-  // FIXME: should be inputs such as in Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints
+  // FIXME #1913: should be inputs such as in Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints
   final parameter Modelica.Units.SI.Temperature TAirZonHeaOccSet(
     displayUnit="degC")=
     dat.TAirZonHeaOccSet
@@ -138,8 +138,7 @@ block G36VAVBoxReheat
     dat.nPeo_nominal
     "Design zone population";
 
-  // FIXME: missing default parameter assignment, see non final binding below.
-  // FIXME: have_hotWatCoi has been deleted see https://github.com/lbl-srg/modelica-buildings/commit/5d1c7d9bbe17c0049a1fc332005705f35e1593dc#r67866444
+  // BUG #1913: missing default parameter assignment, see non final bindings below.
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctl(
     controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     staPreMul=1,
@@ -176,7 +175,7 @@ block G36VAVBoxReheat
     "Compute zone temperature set points"
     annotation (Placement(transformation(extent={{-60,-20},{-40,20}})));
 
-  // FIXME: occDen should not be exposed.
+  // FIXME #1913: occDen should not be exposed.
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone zonOutAirSet(
     final VOutPerAre_flow=VAirOutPerAre_flow,
     final VOutPerPer_flow=VAirOutPerPer_flow,
@@ -202,35 +201,34 @@ block G36VAVBoxReheat
     annotation (Placement(transformation(extent={{120,-68},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME3(k=1800)
-    "Optimal start using global outdoor air temperature not associated with any AHU"
+    "FIXME #1913: Optimal start using global outdoor air temperature not associated with any AHU"
     annotation (Placement(transformation(extent={{-240,-130},{-220,-110}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uHotPla(k=true)
-    "Should be conditional, depending on have_hotWatCoi"
+    "FIXME #1913: Should be conditional, depending on have_hotWatCoi"
     annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_uOve(k=0)
-    "Validate override logic: should not be used in simulation"
+    "FIXME #1913: Validate override logic: should not be used in simulation"
     annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uHeaOff(k=false)
-    "Validate override logic: should not be used in simulation"
+    "FIXME #1913: Validate override logic: should not be used in simulation"
     annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_uVal
-    "Should be conditional, depending on have_hotWatCoi"
+    "FIXME #1913: Should be conditional, depending on have_hotWatCoi"
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setAdj(k=0)
-    "Set point adjustment by the occupant is not implemented"
+    "RFE: Set point adjustment by the occupant is not implemented"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetAdj(k=0)
-    "Set point adjustment by the occupant is not implemented"
+    "RFE: Set point adjustment by the occupant is not implemented"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetAdj(k=0)
-    "Set point adjustment by the occupant is not implemented"
+    "RFE: Set point adjustment by the occupant is not implemented"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uCooDemLimLev(k=0)
-    "Set point adjustment by demand limit is not implemented"
+    "RFE: Set point adjustment by demand limit is not implemented"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uHeaDemLimLev(k=0)
-    "Set point adjustment by demand limit is not implemented"
+    "RFE: Set point adjustment by demand limit is not implemented"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 equation
   /* Control point connection - start */

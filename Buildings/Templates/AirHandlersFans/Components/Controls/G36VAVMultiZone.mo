@@ -79,7 +79,7 @@ block G36VAVMultiZone
     dat.yFanSup_min
     "Lowest allowed fan speed if fan is on";
 
-  // FIXME: the definition of that parameter is unclear.
+  // FIXME #1913: the definition of that parameter is unclear.
   final parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow=
     secOutRel.mAirSup_flow_nominal / 1.2
     "Maximum expected system primary airflow at design stage";
@@ -200,42 +200,41 @@ block G36VAVMultiZone
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TOutCut(k=24 + 273.15)
-    "To be determined by the control sequence based on energy standard, climate zone, and economizer high-limit-control device type"
+    "FIXME #1913: To be determined by the control sequence based on energy standard, climate zone, and economizer high-limit-control type"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uOutDamPos(k=1)
-    "The commanded position or open/close command should be used"
+    "FIXME #1913: The commanded position or open/close command should be used"
     annotation (Placement(transformation(extent={{-280,130},{-260,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uSupFanSpe(k=1)
-    "The commanded speed should be used"
+    "FIXME #1913: The commanded speed should be used"
     annotation (Placement(transformation(extent={{-280,90},{-260,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uFreSta(k=false)
-    "Should we model that?"
+    "FIXME #1913: Should we model that?"
     annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uFreStaRes(k=false)
-    "There should be no input point for freeze stat reset"
+    "FIXME #1913: There should be no input point for freeze stat reset"
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uSofSwiRes(k=false)
-    "How to deal with that?"
+    "FIXME #1913: How to deal with that?"
     annotation (Placement(transformation(extent={{-280,-30},{-260,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uRelFanSpe(k=1)
-    "The commanded speed should be used"
+    "FIXME #1913: The commanded speed should be used"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TAirSupSet(k=288.15)
-    "Output should be reintroduced as it is needed by the terminal unit control sequence"
+    "FIXME #1913: Output should be reintroduced as it is needed by the terminal unit control sequence"
     annotation (Placement(transformation(extent={{-280,-130},{-260,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yMinOutDamPos(k=false)
     if secOutRel.typSecOut == Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure
-    "If `minOADes==...SeparateDamper_DP` a Boolean output is required"
+    "FIXME #1913: If `minOADes==...SeparateDamper_DP` a Boolean output is required"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yRelDamPos(k=false)
     if secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
-    "If `buiPreCon==...ReliefFan` a Boolean output is required"
+    "FIXME #1913: If `buiPreCon==...ReliefFan` a Boolean output is required"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRel(
      t=1e-2, h=0.5e-2)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "On/off command for relief fan is required"
+    "FIXME #1913: On/off command for relief fan is required"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator y1FanSup_actual(final
@@ -245,13 +244,13 @@ block G36VAVMultiZone
         nZon) "Pass signal to terminal unit bus"
     annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uMinOutAirDam(k=true)
-    "Not an input point"
+    "FIXME #1913: Not an input point"
     annotation (Placement(transformation(extent={{-280,-100},{-260,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRet(
     t=1e-2, h=0.5e-2)
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-    "On/off command for return fan is required"
+    "FIXME #1913: On/off command for return fan is required"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 initial equation
   if minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper then
@@ -342,7 +341,7 @@ equation
   connect(TAirSup.y, busTer.TAirSup);
   connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
 
-  // FIXME
+  // FIXME #1913: connect statements to be updated when FIXME tags above are addressed.
   connect(FIXME_TOutCut.y, ctl.TOutCut);
   connect(FIXME_TOutCut.y, ctl.hOutCut);
   connect(FIXME_uOutDamPos.y, ctl.uOutDamPos);

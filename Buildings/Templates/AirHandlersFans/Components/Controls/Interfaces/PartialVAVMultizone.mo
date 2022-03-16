@@ -23,7 +23,6 @@ partial block PartialVAVMultizone "Interface class for Multiple-zone VAV control
         tab="Economizer",
         enable=secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
 
-  // FIXME: implement computation based on speed if Calculated #1913.
   parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking
     "Return fan control type"

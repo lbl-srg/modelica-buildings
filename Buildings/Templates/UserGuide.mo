@@ -22,7 +22,7 @@ the equation section of each class, namely
 <h4>Definitions</h4>
 <h5>System</h5>
 <p>
-We adopt the definition hereafter from ASHRAE (2018).
+We adopt the definition hereafter from <a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
 \"A set of components is a system if they share a load in
 common (i.e., collectively act as a source to downstream
 equipment, such as a set of chillers in a lead/lag relation-
@@ -58,9 +58,9 @@ The following abbreviations are used in that package.<br/>
 <tr><td>OA</td><td>Outdoor air</td></tr>
 </table>
 
-<h4>Definitions</h4>
+<h4>References</h4>
 <ul>
-<li>
+<li id=\"ASHRAE2018\">
 ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
 for HVAC Systems. Atlanta, GA.
 </li>

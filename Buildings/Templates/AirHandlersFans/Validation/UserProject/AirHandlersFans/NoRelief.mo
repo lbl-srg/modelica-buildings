@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model NoRelief
+model NoRelief "Air economizer - No relief branch"
   extends VAVMultiZone(
     redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.EconomizerNoRelief

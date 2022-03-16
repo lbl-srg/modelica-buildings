@@ -1,12 +1,12 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-zone VAV"
 /*
-  In Dymola only (ticket SR00860858-01), bindings for the parameter record
+  HACK: In Dymola only (ticket SR00860858-01), bindings for the parameter record
   cannot be made final if propagation from a top-level record (whole building)
   is needed.
   Instead those parameter declarations are annoted with enable=false
   in the record class.
-  */
+*/
   extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
     redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat(
@@ -50,8 +50,8 @@ model VAVMultiZone "Multiple-zone VAV"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   /*
-  Currently only the configuration with economizer is supported:
-  hence, no choices annotation, but still replaceable to access parameter
+  RFE: Currently only the configuration with economizer is supported.
+  Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
   inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
@@ -77,7 +77,8 @@ model VAVMultiZone "Multiple-zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=ctl.use_TMix,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal) "Mixed air temperature sensor"
+    final m_flow_nominal=mAirSup_flow_nominal)
+    "Mixed air temperature sensor"
     annotation (Dialog(group="Supply air section", enable=false), Placement(
         transformation(extent={{-110,-210},{-90,-190}})));
 
@@ -153,22 +154,6 @@ model VAVMultiZone "Multiple-zone VAV"
           "Open loop controller")),
     Dialog(group="Controls"),
     Placement(transformation(extent={{-220,-10},{-200,10}})));
-
-  /*
-  FIXME: Dummy default values fo testing purposes only.
-  Compute based on design pressure drop of each piece of equipment
-  in case of a lumped pressure drop.
-  */
-  Fluid.FixedResistances.PressureDrop resRet(
-    redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAirRet_flow_nominal,
-    dp_nominal=100)
-    annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
-  Fluid.FixedResistances.PressureDrop resSup(
-    redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAirSup_flow_nominal,
-    dp_nominal=100)
-    annotation (Placement(transformation(extent={{-20,-210},{0,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirSup(
     redeclare final package Medium = MediumAir,
@@ -289,7 +274,8 @@ model VAVMultiZone "Multiple-zone VAV"
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=fill(0, 3)) if have_souHeaWat
-    "Junction" annotation (Placement(transformation(
+    "HHW supply junction"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-260})));
@@ -298,10 +284,10 @@ model VAVMultiZone "Multiple-zone VAV"
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=fill(0, 3)) if have_souHeaWat
-    "Junction" annotation (Placement(transformation(
+    "HHW return junction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-20,-246})));
+        origin={-20,-240})));
 initial equation
   assert(typFanSup<>Buildings.Templates.Components.Types.Fan.None,
     "In "+ getInstanceName() + ": "+
@@ -309,7 +295,7 @@ initial equation
   assert(not (fanSupBlo.typ<>Buildings.Templates.Components.Types.Fan.None and
     fanSupDra.typ<>Buildings.Templates.Components.Types.Fan.None),
     "In "+ getInstanceName() + ": "+
-    "The template is configured with both a blow-through and a draw-through supply fan, which is not supported.");
+    "The template is configured with both a blow-through fan and a draw-through fan, which is not supported.");
 equation
   /* Control point connection - start */
   connect(TAirMix.y, bus.TAirMix);
@@ -346,8 +332,8 @@ equation
       points={{0,280},{0,100},{-39.8,100}},
       color={255,204,51},
       thickness=0.5));
-  connect(pBui_rel.port_b, out.ports[1]) annotation (Line(points={{-10,40},{-20,
-          40},{-20,80},{-41.3333,80}},
+  connect(pBui_rel.port_b, out.ports[1]) annotation (Line(points={{-10,40},{-40,
+          40},{-40,80},{-41.3333,80}},
                                   color={0,127,255}));
   connect(bui.ports[1], pBui_rel.port_a) annotation (Line(points={{40,50},{40,40},
           {10,40}},             color={0,127,255}));
@@ -368,8 +354,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(resRet.port_a, TAirRet.port_b)
-    annotation (Line(points={{190,-80},{200,-80}}, color={0,127,255}));
   connect(port_Ret, hAirRet.port_a)
     annotation (Line(points={{300,-80},{250,-80}}, color={0,127,255}));
   connect(hAirRet.port_b, TAirRet.port_a)
@@ -384,9 +368,6 @@ equation
     annotation (Line(points={{120,-200},{130,-200}}, color={0,127,255}));
   connect(secOutRel.port_Sup, TAirMix.port_a)
     annotation (Line(points={{-120,-200},{-110,-200}}, color={0,127,255}));
-  connect(secOutRel.port_Ret, resRet.port_b)
-    annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
-                                                    color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
           {-162,80},{-40,80}},                       color={0,127,255}));
   connect(port_Rel, secOutRel.port_Rel)
@@ -397,27 +378,27 @@ equation
     annotation (Line(points={{230,-200},{300,-200}}, color={0,127,255}));
   connect(TAirSup.port_b, pAirSup_rel.port_a) annotation (Line(points={{230,-200},
           {240,-200},{240,-220},{250,-220}}, color={0,127,255}));
-  connect(fanSupBlo.port_b, resSup.port_a)
-    annotation (Line(points={{-30,-200},{-20,-200}}, color={0,127,255}));
-  connect(resSup.port_b, coiHeaPre.port_a)
-    annotation (Line(points={{0,-200},{10,-200}}, color={0,127,255}));
   connect(fanSupDra.port_b, TAirSup.port_a)
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
   connect(port_aHeaWat, junHeaWatSup.port_1)
     annotation (Line(points={{20,-280},{20,-270}}, color={0,127,255}));
   connect(port_bHeaWat, junHeaWatSup1.port_2)
-    annotation (Line(points={{-20,-280},{-20,-256}}, color={0,127,255}));
+    annotation (Line(points={{-20,-280},{-20,-250}}, color={0,127,255}));
   connect(junHeaWatSup.port_3, coiHeaReh.port_aSou) annotation (Line(points={{
           30,-260},{145,-260},{145,-210}}, color={0,127,255}));
-  connect(coiHeaReh.port_bSou, junHeaWatSup1.port_3) annotation (Line(points={{
-          135,-210},{135,-246},{-10,-246}}, color={0,127,255}));
-  connect(coiHeaPre.port_bSou, junHeaWatSup1.port_1) annotation (Line(points={{
-          15,-210},{15,-230},{-20,-230},{-20,-236}}, color={0,127,255}));
-  connect(junHeaWatSup.port_2, coiHeaPre.port_aSou) annotation (Line(points={{
-          20,-250},{20,-230},{25,-230},{25,-210}}, color={0,127,255}));
+  connect(coiHeaReh.port_bSou, junHeaWatSup1.port_3) annotation (Line(points={{135,
+          -210},{135,-240},{-10,-240}},     color={0,127,255}));
+  connect(coiHeaPre.port_bSou, junHeaWatSup1.port_1) annotation (Line(points={{15,-210},
+          {15,-220},{-20,-220},{-20,-230}},          color={0,127,255}));
+  connect(junHeaWatSup.port_2, coiHeaPre.port_aSou) annotation (Line(points={{20,-250},
+          {20,-220},{25,-220},{25,-210}},          color={0,127,255}));
   connect(out.ports[3], pAirSup_rel.port_b) annotation (Line(points={{-38.6667,
           80},{280,80},{280,-220},{270,-220}},
                                            color={0,127,255}));
+  connect(secOutRel.port_Ret, TAirRet.port_b) annotation (Line(points={{-120,-80.2},
+          {40,-80.2},{40,-80},{200,-80}}, color={0,127,255}));
+  connect(fanSupBlo.port_b, coiHeaPre.port_a)
+    annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
     defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -480,7 +461,8 @@ a single duct system serving <b>at least two</b> terminal units.
 </p>
 <h5>Economizer</h5>
 <p>
-
+The supported economizer configurations are described in 
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
 </p>
 <h5>Fans</h5>
 <p>
@@ -495,7 +477,10 @@ one another.
 <p>
 All exhaust fans that normally operate with the air handler must
 be configured separately, by means of a dedicated template.
-<! -- et être fermés par la balise -->
+<!-- RFE: This should be integrated in the AHU template ultimately. -->
+</p>
+<p>
+Fan arrays are supported for each type of fan.
 </p>
 <h5>Heat recovery</h5>
 <p>
@@ -545,9 +530,14 @@ Modulating relief damper
 
 - No relief fan
 - Control building static pressure
-
-
 </p>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2018\">
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>",
         revisions="<html>
 <ul>

@@ -29,9 +29,12 @@ package Types "AHU types"
       DifferentialEnthalpyWithFixedDryBulb
       "Differential enthalpy with fixed dry bulb")
     "Enumeration to configure the economizer control";
-  type ControlFanReturn = enumeration(
+  /*
+  RFE #1913: Add option for calculated airflow.
       AirflowCalculated
-      "Calculated based on return fan speed or VAV box flow rates",
+      "Calculated based on return fan speed and VAV box flow rates",
+  */
+  type ControlFanReturn = enumeration(
       AirflowTracking
       "Airflow tracking",
       BuildingPressure
@@ -47,14 +50,6 @@ package Types "AHU types"
       RunAroundCoil
       "Run-around coil")
     "Enumeration to configure the heat recovery";
-  type Location = enumeration(
-      OutdoorAir,
-      MinimumOutdoorAir,
-      Relief,
-      Return,
-      Supply,
-      Terminal)
-  "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
       DedicatedDampersAirflow
       "Separate dedicated OA dampers with AFMS",
