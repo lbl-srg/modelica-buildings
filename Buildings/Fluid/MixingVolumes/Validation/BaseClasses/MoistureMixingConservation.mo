@@ -17,7 +17,6 @@ partial model MoistureMixingConservation
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare package Medium = Medium,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=1,
     V=1,
     nPorts=2,
@@ -27,7 +26,6 @@ partial model MoistureMixingConservation
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(
     redeclare package Medium = Medium,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=1,
     V=1,
     nPorts=2,
@@ -40,7 +38,6 @@ partial model MoistureMixingConservation
     annotation (Placement(transformation(extent={{160,10},{140,30}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
     redeclare package Medium = Medium,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=1,
     V=1,
     nPorts=2,

@@ -99,6 +99,10 @@ with the enumeration
 Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>.
 This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
 </li>
 <li>
 January 5, 2022, by Jianjun Hu:<br/>

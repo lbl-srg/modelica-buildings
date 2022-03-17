@@ -30,9 +30,6 @@ partial function partialInternalResistances
     "Specific heat capacity of the fluid";
   input Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
-  input Boolean printDebug=false
-    "Print resistances values in log for debug purposes.";
-
   // Outputs
   output Real x "Capacity location";
 
@@ -65,13 +62,20 @@ protected
 
   Integer i=1 "Loop counter";
 
-  annotation (Diagram(graphics), Documentation(info="<html>
+annotation (
+  Documentation(info="<html>
 <p>
 This partial function defines the common inputs to functions that calculate
 the borehole internal resistances.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2022, by Massimo Cimmino:<br/>
+Changed function to be <code>pure</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1582\">IBPSA, #1582</a>.
+</li>
 <li>
 July 18, 2018 by Massimo Cimmino:<br/>
 Implemented multipole method.
