@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Sensors.Interfaces;
-partial model PartialSensor
+partial model PartialSensor "Interface class for sensor"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Boolean have_sen=true

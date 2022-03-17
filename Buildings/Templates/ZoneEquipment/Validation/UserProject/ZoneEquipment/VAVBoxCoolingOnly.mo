@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment;
-model VAVBoxCoolingOnly
+model VAVBoxCoolingOnly "Configuration of VAV terminal unit cooling only"
   extends Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly;
   annotation (
     defaultComponentName="ter",

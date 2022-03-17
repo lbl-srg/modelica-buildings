@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Components.Data;
-record PartialController
+record PartialController "Record for controller interface class"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.ZoneEquipment.Types.Controller typ

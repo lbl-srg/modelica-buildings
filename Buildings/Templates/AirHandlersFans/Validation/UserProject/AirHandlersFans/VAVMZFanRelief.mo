@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZFanRelief
+model VAVMZFanRelief "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     secOutRel(redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan

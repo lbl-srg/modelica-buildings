@@ -1,5 +1,5 @@
 within Buildings.Templates;
-package UserGuide "Templates Package User Guide"
+package UsersGuide "Templates user guide"
   extends Modelica.Icons.Information;
   class Conventions
     "Conventions"
@@ -16,17 +16,19 @@ any graphical annotation and are therefore not rendered as
 connection lines in the diagram view.
 Those connect clauses are grouped together in a dedicated section of
 the equation section of each class, namely
-<code>Control point connection - (start | stop)</code>.
+<code>/* Control point connection - (start | stop) */</code>.
 </p>
 
 <h4>Definitions</h4>
 <h5>System</h5>
 <p>
 We adopt the definition hereafter from <a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
-\"A set of components is a system if they share a load in
+</p>
+<p>
+A set of components is a system if they share a load in
 common (i.e., collectively act as a source to downstream
 equipment, such as a set of chillers in a lead/lag relation-
-ship serving air handlers).\"
+ship serving air handlers).
 </p>
 <ul>
 <li>
@@ -56,6 +58,7 @@ The following abbreviations are used in that package.<br/>
 <tr><td>DO</td><td>Digital output (Boolean)</td></tr>
 <tr><td>HHW</td><td>Heating hot water</td></tr>
 <tr><td>OA</td><td>Outdoor air</td></tr>
+<tr><td>VAV</td><td>Variable air volume</td></tr>
 </table>
 
 <h4>References</h4>
@@ -84,14 +87,22 @@ This user guide describes how to use the templates.
 <h4>Physical Boundaries</h4>
 <p>
 The templates are defined at the system level (refer to
-<a href=\"modelica://Buildings.Templates.UserGuide.Conventions\">
-Buildings.Templates.UserGuide.Conventions</a>
+<a href=\"modelica://Buildings.Templates.UsersGuide.Conventions\">
+Buildings.Templates.UsersGuide.Conventions</a>
 for the definition of a system).
 A template is a self-contained model that can be reconfigured 
 by redeclaring some of its components or modifying some of its 
 structural parameters.
 Such configuration does not require any other modification
 of the template.
+Particularly, all connect clauses between
+replaceable components are resolved internally,
+without any need for user intervention.
+The same holds true for sensors required by a specific control 
+option which are conditionally instantiated if that option is 
+selected.
+</p>
+<p>
 The templates have been validated for all system configurations
 that they cover.
 However, since there is currently no template for the whole HVAC 
@@ -102,6 +113,10 @@ For instance the AHU controller may require reset requests
 yielded by the zone equipment controller.
 If the controller selected for the zone equipment does not
 generate such requests, the simulation model will be singular.
+Selecting controllers from the same reference (such as
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>)
+is the safest way to ensure consistency across the whole HVAC 
+system model. 
 </p>
 <h4>Simulation Model Assembly</h4>
 <p>
@@ -116,7 +131,8 @@ air handlers and the terminal units),
 </li>
 <li>
 if needed, configure those instances to represent project-specific 
-system configurations, 
+system configurations if those configurations differ from the default
+configuration proposed for each template, 
 </li>
 <li>
 connect the fluid connectors of the different instances together, 
@@ -129,16 +145,19 @@ fill in the parameter records of the different instances with
 proper design and operating parameter values.
 </li>
 </ol>
-<p>
-An online configuration tool is being developed to assist the user
-with the steps 2 and 5.
-</p>
 <h4>Parameterization</h4>
 <p>
 Explain how to use and propagate the records.
 Using Linkage
 Using any Modelica tool
 </p>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2018\">
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 
-end UserGuide;
+end UsersGuide;

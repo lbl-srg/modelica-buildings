@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model VAVMZControlG36Airflow "Return fan control based on airflow tracking"
+model VAVMZControlG36Airflow "Validation model for multiple-zone VAV"
   extends VAVMZNoEconomizer(
                        redeclare
       UserProject.AirHandlersFans.VAVMZControlG36Airflow VAV_1);

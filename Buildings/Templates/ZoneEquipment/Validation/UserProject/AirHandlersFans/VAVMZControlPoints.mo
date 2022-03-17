@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.AirHandlersFans;
-block VAVMultiZoneControlPoints "Emulation of multiple-zone VAV control points"
+block VAVMZControlPoints "Emulation of multiple-zone VAV control points"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nZon = 2
@@ -46,4 +46,4 @@ equation
     defaultComponentName="conPoiDum",
     Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-200,-180},{200,180}})));
-end VAVMultiZoneControlPoints;
+end VAVMZControlPoints;

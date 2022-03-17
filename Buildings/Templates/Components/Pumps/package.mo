@@ -1,5 +1,7 @@
 within Buildings.Templates.Components;
-package Pumps
+package Pumps "Pump models"
+  extends Modelica.Icons.VariantsPackage;
+  // FIXME: Package and models are still under development.
 
 
 

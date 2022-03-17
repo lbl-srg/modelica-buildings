@@ -18,7 +18,7 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
     "Scheduled occupancy"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirZon(final k=303.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(final k=303.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -64,7 +64,7 @@ equation
   connect(uOveZon.y, bus.uOveZon);
   connect(uOcc.y, bus.uOcc);
   connect(uWin.y, bus.uWin);
-  connect(TAirZon.y, bus.TAirZon);
+  connect(TZon.y, bus.TZon);
   connect(TAirDis.y, bus.TAirDis);
   connect(VAirDis_flow.y, bus.VAirDis_flow);
   connect(yReqZonTemRes.y, bus.yReqZonTemRes);
@@ -73,7 +73,7 @@ equation
   connect(FIXME_nOcc.y, setMinOA.nOcc);
   connect(bus.uWin, setMinOA.uWin);
   connect(bus.yReqOutAir, setMinOA.uReqOutAir);
-  connect(bus.TAirZon, setMinOA.TZon);
+  connect(bus.TZon, setMinOA.TZon);
   connect(bus.TAirDis, setMinOA.TDis);
   connect(bus.VAirDis_flow, setMinOA.VDis_flow);
   connect(bus.VDesUncOutAir_flow, setMinOA.VUncOut_flow_nominal);
@@ -89,7 +89,7 @@ equation
   connect(cooDowTim.y, sta.cooDowTim);
   connect(warUpTim.y, sta.warUpTim);
   connect(bus.uWin, sta.uWin);
-  connect(bus.TAirZon, sta.TZon);
+  connect(bus.TZon, sta.TZon);
 
   connect(sta.yCooTim, bus.yCooTim);
   connect(sta.yWarTim, bus.yWarTim);

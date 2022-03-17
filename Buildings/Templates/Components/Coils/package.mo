@@ -1,6 +1,6 @@
 within Buildings.Templates.Components;
 package Coils "Coil models"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
 
 

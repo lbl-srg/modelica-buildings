@@ -1,6 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
-partial block PartialVAVBox
-  "Partial control block for VAV terminal unit"
+partial block PartialVAVBoxController "Interface class for VAV terminal unit"
   extends
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController(
       redeclare
@@ -14,4 +13,4 @@ partial block PartialVAVBox
   outer replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
     "VAV damper";
 
-end PartialVAVBox;
+end PartialVAVBoxController;

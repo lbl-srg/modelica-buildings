@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZCoilElectricHeating
+model VAVMZCoilElectricHeating  "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating
       coiHeaPre "Electric heating coil",

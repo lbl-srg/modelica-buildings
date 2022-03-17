@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Fans.Interfaces;
-partial model PartialFan "Interface class for fans"
+partial model PartialFan "Interface class for fan"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.m_flow_nominal);
 

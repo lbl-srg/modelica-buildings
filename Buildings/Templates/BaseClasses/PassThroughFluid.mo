@@ -1,6 +1,6 @@
 within Buildings.Templates.BaseClasses;
 model PassThroughFluid
-  "Direct pass through between inlet and outlet ports"
+  "Direct fluid pass-through"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
 equation
@@ -12,5 +12,11 @@ equation
     graphics={Line(
           points={{-100,0},{100,0}},
           color={28,108,200},
-          thickness=1)}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          thickness=1)}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model of a direct fluid pass-through used for
+templating purposes.
+</p>
+</html>"));
 end PassThroughFluid;

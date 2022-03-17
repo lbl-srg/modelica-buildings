@@ -19,4 +19,11 @@ algorithm
       end if;
     end for;
   end if;
+  annotation (Documentation(info="<html>
+<p>
+This function takes a one-dimension string array as an 
+input and returns the number of unique elements in 
+that array.
+</p>
+</html>"));
 end countUniqueStrings;

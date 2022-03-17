@@ -19,4 +19,12 @@ algorithm
       end if;
     end for;
   end if;
+  annotation (Documentation(info="<html>
+<p>
+This function takes a one-dimension string array as an 
+input, 
+and returns an array of unique elements 
+(ordered as in the input array).
+</p>
+</html>"));
 end getUniqueStrings;

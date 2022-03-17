@@ -36,7 +36,7 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
 
   inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
     constrainedby
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBox(
+    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController(
       final dat=dat.ctl)
     "Terminal unit controller"
     annotation (
@@ -75,5 +75,21 @@ equation
                                             color={0,0,0}),
         Line(points={{300,-210},{-300,-210}},
                                             color={0,0,0})}),
-  defaultComponentName="BoxCoo");
+  defaultComponentName="BoxCoo",
+    Documentation(info="<html>
+<h4>Description</h4>
+<p>
+This template represents a cooling-only VAV terminal unit
+(or shut off box).
+</p>
+<h5>Default configuration</h5>
+<p>
+By default the system is configured with the following options.<br/>
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Component</th><th>Configuration</th></tr>
+<tr><td>VAV damper</td><td>Pressure independent damper</td></tr>
+<tr><td>Controller</td><td>Open loop controller</td></tr>
+</table>
+</html>"));
 end VAVBoxCoolingOnly;

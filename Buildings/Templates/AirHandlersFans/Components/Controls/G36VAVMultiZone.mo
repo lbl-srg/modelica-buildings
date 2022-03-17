@@ -96,12 +96,12 @@ block G36VAVMultiZone
     displayUnit="degC")=dat.TAirSupSet_max
     "Highest supply air temperature set point";
 
-  final parameter Modelica.Units.SI.Temperature TAirOutRes_min(
-    displayUnit="degC")=dat.TAirOutRes_min
+  final parameter Modelica.Units.SI.Temperature TOutRes_min(
+    displayUnit="degC")=dat.TOutRes_min
     "Lowest value of the outdoor air temperature reset range";
 
-  final parameter Modelica.Units.SI.Temperature TAirOutRes_max(
-    displayUnit="degC")=dat.TAirOutRes_max
+  final parameter Modelica.Units.SI.Temperature TOutRes_max(
+    displayUnit="degC")=dat.TOutRes_max
     "Highest value of the outdoor air temperature reset range";
 
   final parameter Modelica.Units.SI.PressureDifference pBuiSet_rel=
@@ -144,8 +144,8 @@ block G36VAVMultiZone
     final peaSysPop=nPeaSys_nominal,
     final TSupCooMin=TAirSupSet_min,
     final TSupCooMax=TAirSupSet_max,
-    final TOutMin=TAirOutRes_min,
-    final TOutMax=TAirOutRes_max,
+    final TOutMin=TOutRes_min,
+    final TOutMax=TOutRes_max,
     final dpDesOutDam_min=dpDamOutMin_nominal,
     final dpBuiSet=pBuiSet_rel,
     final difFloSet=dVFanRet_flow,
@@ -269,11 +269,11 @@ equation
 
   // Inputs from AHU bus
   connect(bus.pAirSup_rel, ctl.ducStaPre);
-  connect(bus.TAirOut, ctl.TOut);
+  connect(bus.TOut, ctl.TOut);
   connect(bus.fanSup.y1_actual, ctl.uSupFan);
   connect(bus.TAirSup, ctl.TSup);
-  connect(bus.VAirOut_flow, ctl.VOut_flow);
-  connect(bus.VAirOutMin_flow, ctl.VOut_flow);
+  connect(bus.VOut_flow, ctl.VOut_flow);
+  connect(bus.VOutMin_flow, ctl.VOut_flow);
   connect(bus.dpAirOutMin, ctl.dpMinOutDam);
   connect(bus.hAirOut, ctl.hOut);
   connect(bus.TAirMix, ctl.TMix);
@@ -311,7 +311,7 @@ equation
   connect(busTer.yHigUnoCoo, repSigZon.uHigUnoCoo);
   connect(busTer.TCooSetOff, repSigZon.TCooSetOff);
   connect(busTer.yEndSetUp, repSigZon.uEndSetUp);
-  connect(busTer.TAirZon, repSigZon.TZon);
+  connect(busTer.TZon, repSigZon.TZon);
   connect(busTer.uWin, repSigZon.uWin);
 
   // Outputs to AHU bus
@@ -481,11 +481,43 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<h4>Description</h4>
 <p>
-The measured outdoor air flow rate (VOut_flow) used for minimum outdoor air flow control
-is connected to either bus.VAirOutMin_flow (dedicated damper) or bus.VAirOut_flow (single damper).
-In case of a dedicated damper, the total OA flow rate is not measured, hence no bus.VAirOut_flow
-signal is available.
+This is an implementation of the control sequence specified in 
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+for multiple-zone VAV air handlers.
+It is contains the following components.
 </p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a>:
+Main controller for the air handler
+<li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>
+and
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode\">
+Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode</a>:
+Computation of the zone group operating mode out of zone-level signals 
+<li>
+</ul>
+<h4>Details</h4>
+<p>
+The AI point for the measured outdoor air flow rate <code>ctl.VOut_flow</code> 
+used for minimum outdoor airflow control is connected to both <code>bus.VOutMin_flow</code> 
+(dedicated OA dampers) or <code>bus.VOut_flow</code> (single common OA damper).
+Those two variables are exclusive from one another.
+In case of dedicated OA dampers, the total outdoor airflow is not measured, 
+hence no <code>bus.VOut_flow</code> signal is available for that configuration.
+</p>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2018\">
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 end G36VAVMultiZone;

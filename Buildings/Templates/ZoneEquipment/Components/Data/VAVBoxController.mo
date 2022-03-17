@@ -1,33 +1,33 @@
 within Buildings.Templates.ZoneEquipment.Components.Data;
-record VAVBoxController
+record VAVBoxController "Record for VAV terminal unit controller"
   extends Buildings.Templates.ZoneEquipment.Components.Data.PartialController;
 
   parameter Boolean have_CO2Sen
     "Set to true if the zone has CO2 sensor"
     annotation (Dialog(group="Configuration", enable=false));
 
-  parameter Modelica.Units.SI.Temperature TAirZonHeaOccSet(
+  parameter Modelica.Units.SI.Temperature TZonHeaOccSet(
     final min=273.15,
     displayUnit="degC")=21+273.15
     "Zone occupied heating temperature set point"
     annotation(Dialog(group="Temperature",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
 
-  parameter Modelica.Units.SI.Temperature TAirZonHeaUnoSet(
+  parameter Modelica.Units.SI.Temperature TZonHeaUnoSet(
     final min=273.15,
     displayUnit="degC")=16+273.15
     "Zone unoccupied heating temperature set point"
     annotation(Dialog(group="Temperature",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
 
-  parameter Modelica.Units.SI.Temperature TAirZonCooOccSet(
+  parameter Modelica.Units.SI.Temperature TZonCooOccSet(
     final min=273.15,
     displayUnit="degC")=24+273.15
     "Zone occupied cooling temperature set point"
     annotation(Dialog(group="Temperature",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
 
-  parameter Modelica.Units.SI.Temperature TAirZonCooUnoSet(
+  parameter Modelica.Units.SI.Temperature TZonCooUnoSet(
     final min=273.15,
     displayUnit="degC")=32+273.15
     "Zone unoccupied cooling temperature set point"
@@ -79,14 +79,14 @@ record VAVBoxController
     "Zone design volume flow rate"
     annotation (Dialog(group="Airflow"));
 
-  parameter Real VAirOutPerAre_flow(
+  parameter Real VOutPerAre_flow(
     final unit = "m3/(s.m2)",
     final min=0)=3e-4
     "Zone outdoor air flow rate per unit area"
     annotation(Dialog(group="Ventilation",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
 
-  parameter Real VAirOutPerPer_flow(
+  parameter Real VOutPerPer_flow(
     final unit = "m3/s",
     final min=0)=2.5e-3
     "Zone outdoor air flow rate per person"

@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZControlG36Airflow
+model VAVMZControlG36Airflow "Configuration of multiple-zone VAV"
   extends VAVMZCoilWaterHeatingCooling(
                                redeclare replaceable
       Components.Controls.G36VAVMultiZone ctl(idZon={"Box_1","Box_1"},

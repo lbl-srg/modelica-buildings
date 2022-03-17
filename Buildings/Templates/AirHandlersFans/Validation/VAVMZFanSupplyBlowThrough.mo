@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model VAVMZFanSupplyBlowThrough
+model VAVMZFanSupplyBlowThrough "Validation model for multiple-zone VAV"
   extends VAVMZNoEconomizer(redeclare
       UserProject.AirHandlersFans.VAVMZFanSupplyBlowThrough VAV_1);
   annotation (

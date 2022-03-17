@@ -107,5 +107,10 @@ equation
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
+</html>", info="<html>
+<p>
+This is a model for a hot water coil with an optional
+control valve.
+</p>
 </html>"));
 end WaterBasedHeating;

@@ -459,49 +459,119 @@ BUILDING",fontSize=4)}),
 This template represents a multiple-zone VAV air handler for 
 a single duct system serving <b>at least two</b> terminal units.
 </p>
-<h5>Default configuration</h5>
+<h5>Equipment configurations</h5>
 <p>
-By default the system is configured with the following options.<br/>
+The possible equipment configurations are enumerated in the table below.
+They are further described in 
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
+The first one enumerated and displayed in bold characters corresponds to the default configuration.
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th>Component</th><th>Configuration</th></tr>
-<tr><td>Outdoor air section</td><td>Single common OA damper with AFMS</td></tr>
-<tr><td>Relief/return air section</td><td>Return fan with modulating relief damper</td></tr>
-<tr><td>Supply fan</td><td>Single fan - Variable speed - Draw-through position</td></tr>
-<tr><td>Heating coil</td><td>No coil</td></tr>
-<tr><td>Cooling coil</td><td>No coil</td></tr>
-<tr><td>Return fan</td><td>Single fan - Variable speed</td></tr>
-<tr><td>Relief fan</td><td>No fan</td></tr>
-<tr><td>Controller</td><td>Open loop controller</td></tr>
-</table>
-<h5>Economizer</h5>
-<p>
-The supported economizer configurations are described in 
-<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
-They can be selected within the <code>Outdoor/relief/return air section</code>.
-</p>
-<h5>Fans</h5>
-<p>
-At least one supply fan must be specified, either in blow-through
+<tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
+<tr><td>Outdoor air section</td>
+<td>
+<b>Single common OA damper with AFMS</b><br/>
+Separate dedicated OA dampers with AFMS<br/>
+Separate dedicated OA dampers with differential pressure sensor
+</td>
+<td></td>
+</tr>
+<tr><td>Relief/return air section</td>
+<td>
+<b>Return fan with modulating relief damper</b><br/>
+Modulating relief damper without fan<br/>
+No relief branch<br/>
+Relief fan with two-position relief damper
+</td>
+<td></td>
+</tr>
+<tr><td>Supply fan - Blow-through position</td>
+<td>
+<b>No fan</b><br/>
+Single fan - Variable speed<br/>
+Fan array - Variable speed
+</td>
+<td>At least one supply fan must be specified, either in blow-through
 or draw-through position. Those two configurations are exclusive from
-one another.
-</p>
-<p>
-The relief fan and the return fan are optional and exclusive from
-one another.
-</p>
-<p>
-All exhaust fans that normally operate with the air handler must
+one another.</td>
+</tr>
+<tr><td>Heating coil - Preheat position</td>
+<td>
+<b>No coil</b><br/>
+Electric heating coil<br/>
+Hot water coil
+</td>
+<td></td>
+</tr>
+<tr><td>Cooling coil</td>
+<td>
+<b>No coil</b><br/>
+Chilled water coil<br/>
+Evaporator coil with variable speed compressor
+</td>
+<td></td>
+</tr>
+<tr><td>Heating coil - Reheat position</td>
+<td>
+<b>No coil</b><br/>
+Electric heating coil<br/>
+Hot water coil
+</td>
+<td></td>
+</tr>
+<tr><td>Supply fan - Draw-through position</td>
+<td>
+<b>Single fan - Variable speed</b><br/>
+Fan array - Variable speed<br/>
+No fan
+</td>
+<td>At least one supply fan must be specified, either in blow-through
+or draw-through position. Those two configurations are exclusive from
+one another.</td>
+</tr>
+<tr><td>Return fan</td>
+<td>
+<b>Single fan - Variable speed</b><br/>
+Fan array - Variable speed<br/>
+No fan
+</td>
+<td>The relief fan and the return fan are optional and exclusive from
+one another.</td>
+</tr>
+<tr><td>Relief fan</td>
+<td>
+<b>No fan</b><br/>
+Single fan - Variable speed<br/>
+Fan array - Variable speed
+</td>
+<td>The relief fan and the return fan are optional and exclusive from
+one another.</td>
+</tr>
+<tr><td>Controller</td>
+<td>
+<b>Open loop controller</b><br/>
+ASHRAE Guideline 36 controller
+</td>
+<td></td>
+</tr>
+<tr><td>Exhaust fan</td>
+<td>
+<i>Not available: see note</i>
+</td>
+<td>All exhaust fans that normally operate with the air handler must
 be configured separately, by means of a dedicated template.
 <!-- RFE: This should be integrated in the AHU template ultimately. -->
-</p>
-<p>
-Fan arrays are supported for each type of fan.
-</p>
-<h5>Heat recovery</h5>
-<p>
-Currently no heat recovery equipment is supported.
-</p>
+</td>
+</tr>
+<tr><td>Heat recovery</td>
+<td>
+<i>Not available: see note</i>
+</td>
+<td>Currently no heat recovery equipment is supported.
+<!-- RFE: This should be integrated in the AHU template ultimately. -->
+</td>
+</tr>
+</table>
 <h4>Simulation model assumptions and requirements</h4>
 <h5>Pressure reference</h5>
 <p>
@@ -518,34 +588,6 @@ within the current class.
 In this case, an additional variable <code>pBui</code> needs to be 
 connected to the control bus to pass in the value of the absolute pressure 
 in a representative space of the building.
-</p>
-<p>
-Economizer and fan options options
-
-Common economizer/minimum OA damper
-
-- AFMS required
-
-Dedicated OA damper
-
-- AFMS => modulating OAMin damper
-- dp sensor => two-position OAMin damper
-
-
-Relief fan => Two position relief damper
-
-Return fan
-
-- Modulating relief (exhaust) damper
-- For AHUs with return fans, the outdoor air damper remains
-fully open whenever the AHU is on. But AO point specified nevertheless.
-- Control either return fan discharge pressure (fan) and building pressure (damper),
-or airflow (fan) and exhaust damper modulating in tandem with return damper
-
-Modulating relief damper
-
-- No relief fan
-- Control building static pressure
 </p>
 <h4>References</h4>
 <ul>

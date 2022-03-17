@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Data;
-record VAVBox
+record VAVBox "Record for VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal(
     redeclare Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController
       ctl(final have_CO2Sen=have_CO2Sen),

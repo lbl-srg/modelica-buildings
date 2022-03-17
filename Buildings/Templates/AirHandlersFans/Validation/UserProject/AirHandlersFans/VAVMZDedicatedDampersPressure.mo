@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZDedicatedDampersPressure
+model VAVMZDedicatedDampersPressure "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     secOutRel(redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure

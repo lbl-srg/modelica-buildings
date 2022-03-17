@@ -1,8 +1,8 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls;
 block G36VAVBoxReheat
-  "Guideline 36 controller for VAV terminal unit with reheat"
+  "Guideline 36 controller"
   extends
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBox(
+    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController(
       final typ=Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat);
 
   outer replaceable Buildings.Templates.Components.Coils.None coiHea
@@ -81,14 +81,14 @@ block G36VAVBoxReheat
     dat.TAirDis_min
     "Minimum discharge air temperature";
 
-  final parameter Real VAirOutPerAre_flow(
+  final parameter Real VOutPerAre_flow(
     final unit = "m3/(s.m2)")=
-    dat.VAirOutPerAre_flow
+    dat.VOutPerAre_flow
     "Outdoor air flow rate per unit area";
 
-  final parameter Real VAirOutPerPer_flow(
+  final parameter Real VOutPerPer_flow(
     final unit = "m3/s")=
-    dat.VAirOutPerPer_flow
+    dat.VOutPerPer_flow
     "Outdoor air flow rate per person";
 
   final parameter Modelica.Units.SI.Area AFlo=
@@ -114,24 +114,24 @@ block G36VAVBoxReheat
     "Zone minimum expected primary air volume flow rate";
 
   // FIXME #1913: should be inputs such as in Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints
-  final parameter Modelica.Units.SI.Temperature TAirZonHeaOccSet(
+  final parameter Modelica.Units.SI.Temperature TZonHeaOccSet(
     displayUnit="degC")=
-    dat.TAirZonHeaOccSet
+    dat.TZonHeaOccSet
     "Zone occupied heating set point";
 
-  final parameter Modelica.Units.SI.Temperature TAirZonHeaUnoSet(
+  final parameter Modelica.Units.SI.Temperature TZonHeaUnoSet(
     displayUnit="degC")=
-    dat.TAirZonHeaUnoSet
+    dat.TZonHeaUnoSet
     "Zone unoccupied heating set point";
 
-  final parameter Modelica.Units.SI.Temperature TAirZonCooOccSet(
+  final parameter Modelica.Units.SI.Temperature TZonCooOccSet(
     displayUnit="degC")=
-    dat.TAirZonCooOccSet
+    dat.TZonCooOccSet
     "Zone occupied cooling set point";
 
-  final parameter Modelica.Units.SI.Temperature TAirZonCooUnoSet(
+  final parameter Modelica.Units.SI.Temperature TZonCooUnoSet(
     displayUnit="degC")=
-    dat.TAirZonCooUnoSet
+    dat.TZonCooUnoSet
     "Zone unoccupied cooling set point";
 
   final parameter Real nPeo_nominal(final unit="1", final min=0, start=0.05*AFlo)=
@@ -148,8 +148,8 @@ block G36VAVBoxReheat
     valPosHys=1e-2,
     final desZonPop=nPeo_nominal,
     final AFlo=AFlo,
-    final outAirRat_area=VAirOutPerAre_flow,
-    final outAirRat_occupant=VAirOutPerPer_flow,
+    final outAirRat_area=VOutPerAre_flow,
+    final outAirRat_occupant=VOutPerPer_flow,
     final V_flow_nominal=VAir_flow_nominal,
     final have_occSen=have_occSen,
     final have_winSen=have_winSen,
@@ -177,8 +177,8 @@ block G36VAVBoxReheat
 
   // FIXME #1913: occDen should not be exposed.
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone zonOutAirSet(
-    final VOutPerAre_flow=VAirOutPerAre_flow,
-    final VOutPerPer_flow=VAirOutPerPer_flow,
+    final VOutPerAre_flow=VOutPerAre_flow,
+    final VOutPerPer_flow=VOutPerPer_flow,
     final AFlo=AFlo,
     final have_occSen=have_occSen,
     final have_winSen=have_winSen,
@@ -192,10 +192,10 @@ block G36VAVBoxReheat
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus zonSta(
-    final THeaSetOcc=TAirZonHeaOccSet,
-    final THeaSetUno=TAirZonHeaUnoSet,
-    final TCooSetOcc=TAirZonCooOccSet,
-    final TCooSetUno=TAirZonCooUnoSet,
+    final THeaSetOcc=TZonHeaOccSet,
+    final THeaSetUno=TZonHeaUnoSet,
+    final TCooSetOcc=TZonCooOccSet,
+    final TCooSetUno=TZonCooUnoSet,
     final have_winSen=have_winSen)
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{120,-68},{140,-40}})));
@@ -246,16 +246,16 @@ equation
 
   connect(bus.ppmCO2, ctl.ppmCO2);
   connect(bus.uWin, ctl.uWin);
-  connect(bus.TAirZon, ctl.TZon);
+  connect(bus.TZon, ctl.TZon);
 
   connect(bus.uOcc, TZonSet.uOcc);
   connect(bus.uWin, TZonSet.uWin);
 
   connect(bus.uWin, zonOutAirSet.uWin);
-  connect(bus.TAirZon, zonOutAirSet.TZon);
+  connect(bus.TZon, zonOutAirSet.TZon);
   connect(bus.TAirDis, zonOutAirSet.TDis);
   connect(bus.uWin, zonSta.uWin);
-  connect(bus.TAirZon, zonSta.TZon);
+  connect(bus.TZon, zonSta.TZon);
 
   connect(FIXME3.y, zonSta.cooDowTim);
   connect(FIXME3.y, zonSta.warUpTim);
@@ -264,10 +264,10 @@ equation
   connect(bus.TAirSupSet, ctl.TSupSet);
   connect(bus.yOpeMod, ctl.uOpeMod);
   connect(bus.yOpeMod, TZonSet.uOpeMod);
-  connect(bus.TAirZonCooOccSet, TZonSet.TZonCooSetOcc);
-  connect(bus.TAirZonCooUnoSet, TZonSet.TZonCooSetUno);
-  connect(bus.TAirZonHeaOccSet, TZonSet.TZonHeaSetOcc);
-  connect(bus.TAirZonHeaUnoSet, TZonSet.TZonHeaSetUno);
+  connect(bus.TZonCooOccSet, TZonSet.TZonCooSetOcc);
+  connect(bus.TZonCooUnoSet, TZonSet.TZonCooSetUno);
+  connect(bus.TZonHeaOccSet, TZonSet.TZonHeaSetOcc);
+  connect(bus.TZonHeaUnoSet, TZonSet.TZonHeaSetUno);
   connect(bus.dTSetAdj, TZonSet.setAdj);
   connect(bus.dTHeaSetAdj, TZonSet.heaSetAdj);
   connect(bus.uCooDemLimLev, TZonSet.uCooDemLimLev);

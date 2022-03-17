@@ -16,7 +16,9 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     final QChiWat_flow_nominal=0,
     final QHeaWat_flow_nominal=if coiHea.have_sou then dat.coiHea.Q_flow_nominal else 0);
 
-  inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea
+  inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
+      redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
+      "Two-way modulating valve")
     constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
       final dat=datCoiHea)
@@ -24,7 +26,9 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-        redeclare final package MediumHeaWat = MediumHeaWat)
+        redeclare final package MediumHeaWat = MediumHeaWat,
+        redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
+        "Two-way modulating valve")
         "Hot water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
         "Electric heating coil")),
@@ -130,5 +134,21 @@ equation
                                             color={0,0,0}),
         Line(points={{300,-210},{-300,-210}},
                                             color={0,0,0})}),
-  defaultComponentName="BoxReh");
+  defaultComponentName="BoxReh",
+    Documentation(info="<html>
+<h4>Description</h4>
+<p>
+This template represents a VAV terminal unit with reheat.
+</p>
+<h5>Default configuration</h5>
+<p>
+By default the system is configured with the following options.<br/>
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Component</th><th>Configuration</th></tr>
+<tr><td>VAV damper</td><td>Pressure independent damper</td></tr>
+<tr><td>Heating coil</td><td>Hot water coil - Two-way modulating valve</td></tr>
+<tr><td>Controller</td><td>Open loop controller</td></tr>
+</table>
+</html>"));
 end VAVBoxReheat;

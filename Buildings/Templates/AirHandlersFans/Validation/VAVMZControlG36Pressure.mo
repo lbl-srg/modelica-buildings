@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMZControlG36Pressure
-  "Return fan control based on direct building pressure"
+  "Validation model for multiple-zone VAV"
   extends VAVMZControlG36Airflow(redeclare
       UserProject.AirHandlersFans.VAVMZControlG36Pressure VAV_1);
 

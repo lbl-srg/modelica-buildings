@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZNoRelief "Air economizer - No relief branch"
+model VAVMZNoRelief "Configuration of multiple-zone VAV"
   extends VAVMultiZone(
     redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.EconomizerNoRelief

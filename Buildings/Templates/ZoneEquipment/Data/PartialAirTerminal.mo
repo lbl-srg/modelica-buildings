@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Data;
-record PartialAirTerminal
+record PartialAirTerminal "Record for air terminal unit interface class"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ

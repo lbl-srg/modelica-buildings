@@ -1,5 +1,6 @@
 within Buildings.Templates.AirHandlersFans;
 package Components "Package with component models"
+  extends Modelica.Icons.VariantsPackage;
 
   annotation (Documentation(info="<html>
 <p>

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components;
-package Sensors
-  extends Modelica.Icons.Package;
+package Sensors "Sensor models"
+  extends Modelica.Icons.VariantsPackage;
 
 
 

@@ -24,7 +24,7 @@ model DedicatedDampersPressure
         rotation=0,
         origin={0,60})));
 
-  Buildings.Templates.Components.Sensors.Temperature TAirOut(
+  Buildings.Templates.Components.Sensors.Temperature TOut(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final m_flow_nominal=mOutMin_flow_nominal)
@@ -47,11 +47,11 @@ equation
   /* Control point connection - start */
   connect(damOut.bus, bus.damOut);
   connect(damOutMin.bus, bus.damOutMin);
-  connect(TAirOut.y, bus.TAirOut);
+  connect(TOut.y, bus.TOut);
   connect(hAirOut.y, bus.hAirOut);
   connect(dpAirOutMin.y, bus.dpAirOutMin);
   /* Control point connection - end */
-  connect(TAirOut.port_b, port_b) annotation (Line(points={{90,60},{160,60},{160,0},
+  connect(TOut.port_b, port_b) annotation (Line(points={{90,60},{160,60},{160,0},
           {180,0}}, color={0,127,255}));
   connect(damOut.port_b, port_b)
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
@@ -64,7 +64,7 @@ equation
                                    color={0,127,255}));
   connect(damOutMin.port_b, hAirOut.port_a)
     annotation (Line(points={{10,60},{30,60}}, color={0,127,255}));
-  connect(hAirOut.port_b, TAirOut.port_a)
+  connect(hAirOut.port_b, TOut.port_a)
     annotation (Line(points={{50,60},{70,60}},   color={0,127,255}));
   connect(port_a, damOut.port_a)
     annotation (Line(points={{-180,0},{-10,0}}, color={0,127,255}));

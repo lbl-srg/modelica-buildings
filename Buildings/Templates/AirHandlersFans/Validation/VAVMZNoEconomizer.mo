@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model VAVMZNoEconomizer
+model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
   extends Modelica.Icons.Example;
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

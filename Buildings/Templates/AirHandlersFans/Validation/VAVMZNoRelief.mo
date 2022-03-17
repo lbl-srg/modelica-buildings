@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model VAVMZNoRelief
+model VAVMZNoRelief "Validation model for multiple-zone VAV"
   extends VAVMZNoEconomizer(redeclare UserProject.AirHandlersFans.VAVMZNoRelief
       VAV_1);
   annotation (

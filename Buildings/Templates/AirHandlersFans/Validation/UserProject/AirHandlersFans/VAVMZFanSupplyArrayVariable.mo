@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZFanSupplyArrayVariable
+model VAVMZFanSupplyArrayVariable "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     nZon=2,
     redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable

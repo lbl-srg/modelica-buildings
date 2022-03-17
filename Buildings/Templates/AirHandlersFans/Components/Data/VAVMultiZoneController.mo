@@ -114,14 +114,14 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     annotation (Dialog(group="Supply air temperature",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone));
 
-  parameter Modelica.Units.SI.Temperature TAirOutRes_min(
+  parameter Modelica.Units.SI.Temperature TOutRes_min(
     final min=273.15,
     displayUnit="degC")=16+273.15
     "Lowest value of the outdoor air temperature reset range"
     annotation (Dialog(group="Supply air temperature",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone));
 
-  parameter Modelica.Units.SI.Temperature TAirOutRes_max(
+  parameter Modelica.Units.SI.Temperature TOutRes_max(
     final min=273.15,
     displayUnit="degC")=21+273.15
     "Highest value of the outdoor air temperature reset range"

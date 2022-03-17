@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Validation;
-model VAVBoxCoolingOnly
+model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
   extends Modelica.Icons.Example;
 
   replaceable package MediumAir=Buildings.Media.Air
@@ -54,9 +54,9 @@ model VAVBoxCoolingOnly
     nPorts=2) if ter.have_souHeaWat
     "Boundary conditions for HHW distribution system"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  UserProject.AirHandlersFans.VAVMultiZoneControlPoints sigAHU
-    if ter.ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
-    or ter.ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
+  UserProject.AirHandlersFans.VAVMZControlPoints sigAHU if ter.ctl.typ ==
+    Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly or
+    ter.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Control signals from AHU"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   UserProject.ZoneControlPoints sigZon

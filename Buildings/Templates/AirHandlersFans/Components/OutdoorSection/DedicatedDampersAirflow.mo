@@ -24,13 +24,13 @@ model DedicatedDampersAirflow
         rotation=0,
         origin={0,60})));
 
-  Buildings.Templates.Components.Sensors.Temperature TAirOut(
+  Buildings.Templates.Components.Sensors.Temperature TOut(
     redeclare final package Medium =  MediumAir,
     final have_sen=true,
     final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VAirOutMin_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VOutMin_flow(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final m_flow_nominal=mOutMin_flow_nominal,
@@ -49,20 +49,20 @@ equation
   /* Control point connection - start */
   connect(damOut.bus, bus.damOut);
   connect(damOutMin.bus, bus.damOutMin);
-  connect(TAirOut.y, bus.TAirOut);
+  connect(TOut.y, bus.TOut);
   connect(hAirOut.y, bus.hAirOut);
-  connect(VAirOutMin_flow.y, bus.VAirOutMin_flow);
+  connect(VOutMin_flow.y, bus.VOutMin_flow);
   /* Control point connection - end */
   connect(damOut.port_b, port_b)
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
-  connect(TAirOut.port_b, VAirOutMin_flow.port_a)
+  connect(TOut.port_b, VOutMin_flow.port_a)
     annotation (Line(points={{90,60},{110,60}},color={0,127,255}));
-  connect(VAirOutMin_flow.port_b, port_b) annotation (Line(points={{130,60},{160,
+  connect(VOutMin_flow.port_b, port_b) annotation (Line(points={{130,60},{160,
           60},{160,0},{180,0}},
                             color={0,127,255}));
   connect(damOutMin.port_b, hAirOut.port_a)
     annotation (Line(points={{10,60},{30,60}}, color={0,127,255}));
-  connect(hAirOut.port_b, TAirOut.port_a)
+  connect(hAirOut.port_b, TOut.port_a)
     annotation (Line(points={{50,60},{70,60}}, color={0,127,255}));
   connect(port_a, damOut.port_a)
     annotation (Line(points={{-180,0},{-10,0}}, color={0,127,255}));

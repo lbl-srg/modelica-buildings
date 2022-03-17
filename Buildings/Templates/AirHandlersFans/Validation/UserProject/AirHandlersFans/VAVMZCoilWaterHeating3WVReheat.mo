@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZCoilWaterHeating3WVReheat
+model VAVMZCoilWaterHeating3WVReheat "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(

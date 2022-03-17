@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model VAVMZCoilEvaporatorVariable
+model VAVMZCoilEvaporatorVariable "Validation model for multiple-zone VAV"
   extends VAVMZNoEconomizer(
                            redeclare
       UserProject.AirHandlersFans.VAVMZCoilEvaporatorVariable VAV_1);

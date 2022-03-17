@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZCoilEvaporatorVariable
+model VAVMZCoilEvaporatorVariable "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     nZon=2,
     redeclare replaceable

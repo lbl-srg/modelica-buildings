@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZFanSupplyBlowThrough
+model VAVMZFanSupplyBlowThrough "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.Components.Fans.None fanSupDra,
     nZon=2,
