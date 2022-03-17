@@ -57,7 +57,6 @@ model ResistanceVolumeFlowReversal
     each m_flow_nominal=m_flow_nominal/nRes.k,
     each nPorts=2,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each allowFlowReversal=true) "Mixing volumes for enthalpy circuit"
     annotation (Placement(transformation(extent={{60,-66},{40,-46}})));
 equation
