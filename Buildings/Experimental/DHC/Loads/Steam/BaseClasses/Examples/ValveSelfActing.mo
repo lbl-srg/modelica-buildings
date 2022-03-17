@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples;
 model ValveSelfActing
-  "Self-acting steam valve with a noisy inlet pressure and ramp mass flow rate"
+  "Example model for self-acting steam valve with a noisy inlet pressure input"
   extends Modelica.Icons.Example;
   package MediumSte = Buildings.Media.Steam "Medium model";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
@@ -36,9 +36,9 @@ model ValveSelfActing
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   Fluid.Sources.Boundary_pT      sin(
     redeclare package Medium = MediumSte,
-    p=290000,
+    p=250000,
     T=MediumSte.saturationTemperature(sin.p),
-    nPorts=1) "Sink (ideal)"
+    nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   inner Modelica.Blocks.Noise.GlobalSeed globalSeed
     "Setting for sublibrary noise"

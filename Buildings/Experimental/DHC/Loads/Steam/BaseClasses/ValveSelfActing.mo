@@ -31,11 +31,12 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Utilities.Math.SmoothMax dpSet(deltaX=0.5) "Pressure drop setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 equation
-  assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in " + getInstanceName() + ", which results in a negative pressure drop. 
+  assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in "
+  + getInstanceName() + ", which results in a negative pressure drop. 
   This is not typical of real systems and should be verified.", AssertionLevel.warning);
 
-  assert(m_flow > 0, "Occurence of backflow, resulting in negative massflow rate through " + getInstanceName() +"
-  This is not typical of real systems and should be verified.", AssertionLevel.warning);
+  assert(m_flow > 0, "Occurence of backflow, resulting in negative massflow rate through "
+  + getInstanceName(),  AssertionLevel.warning);
 
 
   connect(ideSou.port_b, port_b)
