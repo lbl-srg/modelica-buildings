@@ -137,6 +137,12 @@ is adiabatic. To change the enthalpy of the air, add heat flow to the connector
 revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed parameters <code>use_T_in</code> and <code>T</code>.
 This removes the optional specification of temperature through the parameter <code>T</code>
