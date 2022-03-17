@@ -8,6 +8,8 @@ block Controller
     "True: the zone has occupancy sensor";
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor";
+  parameter Boolean have_hotWatCoi=true
+    "True: the unit has the hot water coil";
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted";
   // ---------------- Design parameters ----------------
@@ -106,10 +108,10 @@ block Controller
     annotation (Dialog(tab="System requests"));
   parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real thrTDis_2(unit="K")=8.3
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
@@ -118,20 +120,20 @@ block Controller
     annotation (Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop"
     annotation (Dialog(tab="Alarms"));
   parameter Real hotWatRes
     "Importance multiplier for the hot water reset control loop"
-    annotation (Dialog(tab="Alarms"));
+    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
     annotation (Dialog(tab="Alarms"));
   parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
-    annotation (Dialog(tab="Alarms"));
+    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real comChaTim(unit="s")=15
     "Threshold time after fan command change"
     annotation (Dialog(tab="Alarms"));
@@ -372,7 +374,7 @@ block Controller
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.SystemRequests
     sysReq(
-    final have_hotWatCoi=true,
+    final have_hotWatCoi=have_hotWatCoi,
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
     final thrTDis_1=thrTDis_1,
@@ -398,6 +400,7 @@ block Controller
     annotation (Placement(transformation(extent={{-200,250},{-180,270}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Alarms
     ala(
+    final have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
     final hotWatRes=hotWatRes,
     final VCooZonMax_flow=VCooZonMax_flow,

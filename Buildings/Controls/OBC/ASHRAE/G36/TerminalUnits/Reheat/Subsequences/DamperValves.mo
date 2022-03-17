@@ -579,7 +579,7 @@ in cooling state"),
           textString="Airflow setpoint
 in deadband state"),
         Text(
-          extent={{-154,88},{130,24}},
+          extent={{-60,80},{114,40}},
           lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -587,7 +587,7 @@ in deadband state"),
           textString="Check if discharge temperature
 is lower than minimum"),
         Text(
-          extent={{-2,-120},{172,-170}},
+          extent={{16,-122},{132,-158}},
           lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
