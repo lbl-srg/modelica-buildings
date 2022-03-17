@@ -229,8 +229,7 @@ annotation (
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Controller</a>
-for generating system requests.
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>

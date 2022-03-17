@@ -1,11 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences;
-block Alarms
-  "Generate alarms of series fan-powered terminal unit with variable-volume fan"
+block Alarms "Generate alarms of series fan-powered terminal unit with variable-volume fan"
 
+  parameter Boolean have_hotWatCoi
+    "True: the unit has the hot water coil";
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";
   parameter Real hotWatRes
-    "Importance multiplier for the hot water reset control loop";
+    "Importance multiplier for the hot water reset control loop"
+    annotation (Dialog(enable=have_hotWatCoi));
   parameter Real VCooZonMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -17,7 +19,8 @@ block Alarms
   parameter Real lowTemTim(
     final unit="s",
     final quantity="Time")=600
-    "Threshold time to check low discharge temperature";
+    "Threshold time to check low discharge temperature"
+    annotation (Dialog(enable=have_hotWatCoi));
   parameter Real comChaTim(
     final unit="s",
     final quantity="Time")=15
@@ -96,7 +99,7 @@ block Alarms
     "Air handler supply air temperature"
     annotation (Placement(transformation(extent={{-280,-250},{-240,-210}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-290},{-240,-250}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -110,7 +113,7 @@ block Alarms
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_hotWatCoi
     "Discharge air temperature setpoint"
     annotation (Placement(transformation(extent={{-280,-370},{-240,-330}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -135,6 +138,7 @@ block Alarms
     annotation (Placement(transformation(extent={{240,-200},{280,-160}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
+    if have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-390},{280,-350}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
@@ -271,76 +275,81 @@ block Alarms
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les1(
-    final h=dTHys)
+    final h=dTHys) if have_hotWatCoi
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-320},{-100,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-17)
+    final p=-17) if have_hotWatCoi
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-360},{-160,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les2(
-    final h=dTHys)
+    final h=dTHys) if have_hotWatCoi
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-390},{-100,-370}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(final p=-8.3)
+    if have_hotWatCoi
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-430},{-160,-410}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
-    final delayTime=lowTemTim)
+    final delayTime=lowTemTim) if have_hotWatCoi
     "Check if the discharge temperature has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-80,-320},{-60,-300}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5(
-    final delayTime=lowTemTim)
+    final delayTime=lowTemTim) if have_hotWatCoi
     "Check if the discharge temperature has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-80,-390},{-60,-370}})));
-  Buildings.Controls.OBC.CDL.Logical.And and6
+  Buildings.Controls.OBC.CDL.Logical.And and6 if have_hotWatCoi
     "Discharge temperature has been less than threshold value for sufficient time"
     annotation (Placement(transformation(extent={{-40,-320},{-20,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.And and7
+  Buildings.Controls.OBC.CDL.Logical.And and7 if have_hotWatCoi
     "Logical and"
     annotation (Placement(transformation(extent={{0,-360},{20,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not6
+  Buildings.Controls.OBC.CDL.Logical.Not not6 if have_hotWatCoi
     "Logical not"
     annotation (Placement(transformation(extent={{40,-360},{60,-340}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
     final message="Warning: discharge air temperature is 17 degC less than the setpoint.")
+    if have_hotWatCoi
     "Level 2 low discharge air temperature alarm"
     annotation (Placement(transformation(extent={{80,-360},{100,-340}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla
+  Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla if have_hotWatCoi
     "Low discharge temperature alarm"
     annotation (Placement(transformation(extent={{140,-320},{160,-300}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=2)
+    final k=2) if have_hotWatCoi
     "Level 2 alarm"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.And and8
+  Buildings.Controls.OBC.CDL.Logical.And and8 if have_hotWatCoi
     "Discharge temperature has been less than threshold value for sufficient time"
     annotation (Placement(transformation(extent={{-40,-390},{-20,-370}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4(
-    final integerTrue=3)
+    final integerTrue=3) if have_hotWatCoi
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{80,-390},{100,-370}})));
-  Buildings.Controls.OBC.CDL.Logical.And and9
+  Buildings.Controls.OBC.CDL.Logical.And and9 if have_hotWatCoi
     "Logical and"
     annotation (Placement(transformation(extent={{20,-430},{40,-410}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not7
+  Buildings.Controls.OBC.CDL.Logical.Not not7 if have_hotWatCoi
     "Logical not"
     annotation (Placement(transformation(extent={{60,-430},{80,-410}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes5(
     final message="Warning: discharge air temperature is 8 degC less than the setpoint.")
+    if have_hotWatCoi
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,-430},{120,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conInt3(
-    final k=hotWatRes)
+    final k=hotWatRes) if have_hotWatCoi
     "Importance multiplier for hot water reset control"
     annotation (Placement(transformation(extent={{-120,-460},{-100,-440}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2
+    if have_hotWatCoi
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,-460},{-60,-440}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5
+    if have_hotWatCoi
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-460},{160,-440}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1 if have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{200,-380},{220,-360}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
@@ -701,7 +710,8 @@ annotation (defaultComponentName="ala",
           extent={{-98,-54},{-66,-66}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHotPla"),
+          textString="uHotPla",
+          visible=have_hotWatCoi),
         Text(
           extent={{-100,-74},{-76,-84}},
           lineColor={0,0,127},
@@ -711,7 +721,8 @@ annotation (defaultComponentName="ala",
           extent={{-102,-90},{-64,-100}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TDisSet"),
+          textString="TDisSet",
+          visible=have_hotWatCoi),
         Text(
           extent={{48,-42},{98,-56}},
           lineColor={255,127,0},
@@ -721,7 +732,8 @@ annotation (defaultComponentName="ala",
           extent={{42,-82},{98,-96}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yLowTemAla"),
+          textString="yLowTemAla",
+          visible=have_hotWatCoi),
         Text(
           extent={{-96,46},{-66,34}},
           lineColor={255,0,255},

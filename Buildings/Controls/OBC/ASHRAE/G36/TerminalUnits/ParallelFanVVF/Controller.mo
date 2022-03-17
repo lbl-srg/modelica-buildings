@@ -295,7 +295,7 @@ block Controller
     "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,-320},{-240,-280}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-350},{-240,-310}}),
         iconTransformation(extent={{-140,-220},{-100,-180}})));
@@ -364,6 +364,7 @@ block Controller
     annotation (Placement(transformation(extent={{240,-310},{280,-270}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
+    if have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-340},{280,-300}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
@@ -708,7 +709,8 @@ annotation (defaultComponentName="parFanCon",
           extent={{-96,-186},{-60,-202}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHotPla"),
+          textString="uHotPla",
+          visible=have_hotWatCoi),
         Text(
           extent={{-100,-152},{-74,-166}},
           lineColor={255,0,255},
@@ -793,7 +795,8 @@ annotation (defaultComponentName="parFanCon",
           extent={{38,-178},{96,-196}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yLowTemAla"),
+          textString="yLowTemAla",
+          visible=have_hotWatCoi),
         Text(
           extent={{-96,-70},{-64,-88}},
           lineColor={255,127,0},

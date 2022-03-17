@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF;
 block Controller
-  "Controller for variable-volume parallel fan-powered terminal unit"
+  "Controller for variable-volume series fan-powered terminal unit"
 
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -8,6 +8,8 @@ block Controller
     "True: the zone has occupancy sensor";
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor";
+  parameter Boolean have_hotWatCoi=true
+    "True: the unit has the hot water coil";
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted";
   // ---------------- Design parameters ----------------
@@ -103,10 +105,10 @@ block Controller
     annotation (Dialog(tab="System requests"));
   parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real thrTDis_2(unit="K")=8.3
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
@@ -115,20 +117,20 @@ block Controller
     annotation (Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop"
     annotation (Dialog(tab="Alarms"));
   parameter Real hotWatRes
     "Importance multiplier for the hot water reset control loop"
-    annotation (Dialog(tab="Alarms"));
+    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
     annotation (Dialog(tab="Alarms"));
   parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
-    annotation (Dialog(tab="Alarms"));
+    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real comChaTim(unit="s")=15
     "Threshold time after fan command change"
     annotation (Dialog(tab="Alarms"));
@@ -283,7 +285,7 @@ block Controller
     "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,-320},{-240,-280}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-350},{-240,-310}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -351,6 +353,7 @@ block Controller
     annotation (Placement(transformation(extent={{240,-310},{280,-270}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
+    if have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-340},{280,-300}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
@@ -360,7 +363,7 @@ block Controller
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.SystemRequests
     sysReq(
-    final have_hotWatCoi=true,
+    final have_hotWatCoi=have_hotWatCoi,
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
     final thrTDis_1=thrTDis_1,
@@ -386,6 +389,7 @@ block Controller
     annotation (Placement(transformation(extent={{-200,250},{-180,270}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Alarms
     ala(
+    final have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
     final hotWatRes=hotWatRes,
     final VCooZonMax_flow=VCooZonMax_flow,
@@ -605,7 +609,7 @@ equation
   connect(uTerFan, ala.uTerFan) annotation (Line(points={{-260,-300},{32,-300},{
           32,-248},{138,-248}}, color={255,0,255}));
 
-annotation (defaultComponentName="parFanCon",
+annotation (defaultComponentName="serFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
         Rectangle(
@@ -684,7 +688,8 @@ annotation (defaultComponentName="parFanCon",
           extent={{-96,-182},{-60,-198}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHotPla"),
+          textString="uHotPla",
+          visible=have_hotWatCoi),
         Text(
           extent={{-100,-142},{-74,-156}},
           lineColor={255,0,255},
@@ -769,7 +774,8 @@ annotation (defaultComponentName="parFanCon",
           extent={{38,-178},{96,-196}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yLowTemAla"),
+          textString="yLowTemAla",
+          visible=have_hotWatCoi),
         Text(
           extent={{-96,-60},{-64,-78}},
           lineColor={255,127,0},
@@ -798,7 +804,7 @@ annotation (defaultComponentName="parFanCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-340},{240,340}})),
   Documentation(info="<html>
 <p>
-Controller for variable-volume parallel fan-powered terminal unit according to Section 5.8 of ASHRAE
+Controller for variable-volume series fan-powered terminal unit according to Section 5.8 of ASHRAE
 Guideline 36, May 2020. It outputs discharge airflow setpoint <code>VSet_flow_Set</code>,
 damper position setpoint <code>yDamSet</code>, hot water valve position setpoint
 <code>yValSet</code>, terminal fan command on status <code>yFanComOn</code> and
@@ -826,8 +832,8 @@ heating and cooling control loop signal.
 This sequence sets the active cooling maximum and minimum airflow according to
 Section 5.8.4. Depending on operation modes <code>uOpeMod</code>, it sets the
 airflow rate limits. 
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.ActiveAirFlow\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.ActiveAirFlow</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.ActiveAirFlow\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.ActiveAirFlow</a>.
 </p>
 <h4>c. Damper and valve control</h4>
 <p>
@@ -838,8 +844,8 @@ control loop signal, it calculates the discharge air temperature setpoint
 <code>TDisSet</code>. Along with the active cooling maximum and minimum airflow setpoint, measured
 zone temperature, the sequence outputs <code>yDamSet</code>, <code>yValSet</code>,
 <code>TDisSet</code> and discharge airflow rate setpoint <code>VDis_flow_Set</code>.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.DamperValves\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.DamperValves</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.DamperValves\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.DamperValves</a>.
 </p>
 <h4>d. System reset requests generation</h4>
 <p>
@@ -848,23 +854,23 @@ cooling supply air temperature reset requests <code>yZonTemResReq</code>,
 static pressure reset requests <code>yZonPreResReq</code>, hot water reset
 requests <code>yHeaValResReq</code>, and the hot water plant reset requests
 <code>yHotWatPlaReq</code>. 
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.SystemRequests\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.SystemRequests</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.SystemRequests\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.SystemRequests</a>.
 </p>
 <h4>e. Alarms</h4>
 <p>
 According to Section 5.8.6, this sequence outputs the alarms of low discharge flow,
 low discharge temperature, fan status alarm, leaking damper, leaking valve, and airflow sensor calibration
 alarm.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Alarms\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Alarms</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Alarms\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Alarms</a>.
 </p>
 <h4>f. Testing and commissioning overrides</h4>
 <p>
 According to Section 5.8.7, this sequence allows the override the aiflow setpoints,
 damper and valve position setpoints, terminal fan command.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Overrides\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Overrides</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Overrides\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Overrides</a>.
 </p>
 </html>", revisions="<html>
 <ul>

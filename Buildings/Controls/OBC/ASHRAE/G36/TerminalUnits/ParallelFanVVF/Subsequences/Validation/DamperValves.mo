@@ -7,7 +7,7 @@ model DamperValves
     final maxRat=0.1,
     final kDam=1,
     final V_flow_nominal=0.08) "Output signal for controlling damper position"
-    annotation (Placement(transformation(extent={{80,-10},{100,30}})));
+    annotation (Placement(transformation(extent={{80,-12},{100,28}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.DamperValves damValFan1(
     final minRat=0.01,
     final maxRat=0.1,
@@ -32,11 +32,6 @@ model DamperValves
     final k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse cooAhu(
-    final width=0.75,
-    final period=7200)
-    "Cold air handling unit status"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(
     final k=273.15 + 13)
     "AHU supply air temperature setpoint"
@@ -45,8 +40,7 @@ model DamperValves
     final height=1,
     final duration=3600,
     final offset=0,
-    final startTime=5500)
-    "Heating control signal"
+    final startTime=5500) "Heating control signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAir(
     final duration=7200,
@@ -70,8 +64,7 @@ model DamperValves
     final freqHz=1/3600) "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOAMin_flow(
-    final k=0.005)
-    "Minimum outdoor airflow setpoint"
+    final k=0.005) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
     final offset=1,
@@ -86,14 +79,15 @@ model DamperValves
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 equation
-  connect(uCoo.y, damValFan.uCoo) annotation (Line(points={{-78,110},{60,110},{60,
-          26},{78,26}}, color={0,0,127}));
+  connect(uCoo.y, damValFan.uCoo) annotation (Line(points={{-78,110},{60,110},{
+          60,24},{78,24}},
+                        color={0,0,127}));
   connect(TZon.y, damValFan.TZon) annotation (Line(points={{-38,10},{48,10},{48,
-          17},{78,17}}, color={0,0,127}));
-  connect(VActCooMax_flow.y, damValFan.VActCooMax_flow) annotation (Line(points=
-         {{-38,90},{56,90},{56,23},{78,23}}, color={0,0,127}));
-  connect(VActMin_flow.y, damValFan.VActMin_flow) annotation (Line(points={{-78,
-          30},{44,30},{44,14},{78,14}}, color={0,0,127}));
+          15},{78,15}}, color={0,0,127}));
+  connect(VActCooMax_flow.y, damValFan.VActCooMax_flow) annotation (Line(points={{-38,90},
+          {56,90},{56,21},{78,21}},          color={0,0,127}));
+  connect(VActMin_flow.y, damValFan.VActMin_flow) annotation (Line(points={{-78,30},
+          {44,30},{44,12},{78,12}},     color={0,0,127}));
   connect(VActMin_flow.y, damValFan1.VActMin_flow) annotation (Line(points={{-78,
           30},{44,30},{44,-66},{78,-66}}, color={0,0,127}));
   connect(TZon.y, damValFan1.TZon) annotation (Line(points={{-38,10},{48,10},{48,
@@ -102,28 +96,31 @@ equation
         points={{-38,90},{56,90},{56,-57},{78,-57}}, color={0,0,127}));
   connect(uCoo.y, damValFan1.uCoo) annotation (Line(points={{-78,110},{60,110},{
           60,-54},{78,-54}}, color={0,0,127}));
-  connect(uHea.y, damValFan.uHea) annotation (Line(points={{-78,-50},{32,-50},{32,
-          2},{78,2}}, color={0,0,127}));
+  connect(uHea.y, damValFan.uHea) annotation (Line(points={{-78,-50},{32,-50},{
+          32,0},{78,0}},
+                      color={0,0,127}));
   connect(uHea.y, damValFan1.uHea) annotation (Line(points={{-78,-50},{32,-50},{
           32,-78},{78,-78}}, color={0,0,127}));
   connect(disAir.y, damValFan.VDis_flow) annotation (Line(points={{-38,130},{64,
-          130},{64,29},{78,29}}, color={0,0,127}));
+          130},{64,27},{78,27}}, color={0,0,127}));
   connect(disAir.y, damValFan1.VDis_flow) annotation (Line(points={{-38,130},{64,
           130},{64,-51},{78,-51}}, color={0,0,127}));
-  connect(TSupSet.y, damValFan.TSupSet) annotation (Line(points={{-78,-10},{40,-10},
-          {40,8},{78,8}}, color={0,0,127}));
+  connect(TSupSet.y, damValFan.TSupSet) annotation (Line(points={{-78,-10},{40,
+          -10},{40,6},{78,6}},
+                          color={0,0,127}));
   connect(TSupSet.y, damValFan1.TSupSet) annotation (Line(points={{-78,-10},{40,
           -10},{40,-72},{78,-72}}, color={0,0,127}));
   connect(TSup.y, damValFan.TSup) annotation (Line(points={{-78,70},{52,70},{52,
-          20},{78,20}}, color={0,0,127}));
+          18},{78,18}}, color={0,0,127}));
   connect(TSup.y, damValFan1.TSup) annotation (Line(points={{-78,70},{52,70},{52,
           -60},{78,-60}}, color={0,0,127}));
   connect(TZonHeaSet.y, damValFan.TZonHeaSet) annotation (Line(points={{-38,-30},
-          {36,-30},{36,5},{78,5}}, color={0,0,127}));
+          {36,-30},{36,3},{78,3}}, color={0,0,127}));
   connect(TZonHeaSet.y, damValFan1.TZonHeaSet) annotation (Line(points={{-38,-30},
           {36,-30},{36,-75},{78,-75}}, color={0,0,127}));
-  connect(TDis.y, damValFan.TDis) annotation (Line(points={{-38,-70},{28,-70},{28,
-          -1},{78,-1}}, color={0,0,127}));
+  connect(TDis.y, damValFan.TDis) annotation (Line(points={{-38,-70},{28,-70},{
+          28,-3},{78,-3}},
+                        color={0,0,127}));
   connect(TDis.y, damValFan1.TDis) annotation (Line(points={{-38,-70},{28,-70},{
           28,-81},{78,-81}}, color={0,0,127}));
   connect(opeMod.y,round2. u)
@@ -132,11 +129,12 @@ equation
     annotation (Line(points={{-38,-100},{-22,-100}},
       color={0,0,127}));
   connect(reaToInt2.y, damValFan.uOpeMod) annotation (Line(points={{2,-100},{24,
-          -100},{24,-4},{78,-4}}, color={255,127,0}));
+          -100},{24,-6},{78,-6}}, color={255,127,0}));
   connect(reaToInt2.y, damValFan1.uOpeMod) annotation (Line(points={{2,-100},{24,
           -100},{24,-84},{78,-84}}, color={255,127,0}));
-  connect(VOAMin_flow.y, damValFan.VOAMin_flow) annotation (Line(points={{-38,-130},
-          {20,-130},{20,-7},{78,-7}}, color={0,0,127}));
+  connect(VOAMin_flow.y, damValFan.VOAMin_flow) annotation (Line(points={{-38,
+          -130},{20,-130},{20,-9},{78,-9}},
+                                      color={0,0,127}));
   connect(VOAMin_flow.y, damValFan1.VOAMin_flow) annotation (Line(points={{-38,-130},
           {20,-130},{20,-87},{78,-87}}, color={0,0,127}));
 annotation (
