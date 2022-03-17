@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces;
-partial model PartialReliefReturnSection "Relief/return air section"
+partial model PartialReliefReturnSection "Interface class for relief/return air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

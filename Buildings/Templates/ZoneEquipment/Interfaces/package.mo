@@ -1,4 +1,4 @@
 within Buildings.Templates.ZoneEquipment;
-package Interfaces "Classes defining the component interfaces"
+package Interfaces "Interface classes"
   extends Modelica.Icons.InterfacesPackage;
 end Interfaces;

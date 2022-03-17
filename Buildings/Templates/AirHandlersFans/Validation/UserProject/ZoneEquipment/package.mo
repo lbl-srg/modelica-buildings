@@ -1,3 +1,3 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject;
-package ZoneEquipment "Zone Equipment"
+package ZoneEquipment "Zone equipment"
 end ZoneEquipment;

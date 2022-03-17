@@ -2,27 +2,25 @@ within Buildings.Templates.AirHandlersFans;
 package Validation
   extends Modelica.Icons.ExamplesPackage;
 
-annotation (Documentation(info="<html>
+  annotation (
+  preferredView="info",
+  Documentation(info="<html>
 <p>
-This package contains models validating the AHU templates for different
-system configurations.
-Two types of configuring workflow are illustrated:
+This package contains models validating the templates from
+<a href=\"modelica://Buildings.Templates.AirHandlersFans\">
+Buildings.Templates.AirHandlersFans</a>
+for different system configurations.
 </p>
-<ul>
-<li>
-one where the configuration happens when extending from the template to
-create a specialized class (under UserProject), that the validation model
-then instantiates (this is most likely the preferred workflow),
-</li>
-<li>
-another one where the configuration happens when instantiating the template
-directly in the validation model.
-</li>
-</ul>
 <p>
-The preferred workflow also illustrates parameter propagation from a top
-level AHU record, relying on specialized record classes that could be
-generated along the specialized system models.
+Each system configuration is specified by extending the original template class
+to create a so-called configuration class (under 
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject\">
+Buildings.Templates.AirHandlersFans.Validation.UserProject</a>),
+that is instantiated in the validation model.
+</p>
+<p>
+The models also illustrate parameter propagation from a top-level 
+HVAC system record.
 </p>
 </html>"));
 end Validation;

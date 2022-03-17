@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Data;
-record Valve
+record Valve "Record for valve model"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.Components.Types.Valve typ

@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces;
-partial model PartialOutdoorSection "Outdoor air section"
+partial model PartialOutdoorSection "Interface class for outdoor air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

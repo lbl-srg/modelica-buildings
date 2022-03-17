@@ -1,5 +1,5 @@
 within Buildings.Templates.Components;
-package Dampers
+package Dampers "Damper models"
   extends Modelica.Icons.Package;
 
 annotation (Documentation(info="<html>

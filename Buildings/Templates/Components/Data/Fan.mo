@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Data;
-record Fan
+record Fan "Record for fan model"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.Components.Types.Fan typ

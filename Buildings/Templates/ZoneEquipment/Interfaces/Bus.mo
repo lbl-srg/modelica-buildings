@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
-expandable connector Bus "Main control bus"
+expandable connector Bus "Control bus for zone equipment"
   extends Modelica.Icons.SignalBus;
 
   Templates.Components.Interfaces.Bus damVAV

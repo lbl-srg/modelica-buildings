@@ -459,10 +459,26 @@ BUILDING",fontSize=4)}),
 This template represents a multiple-zone VAV air handler for 
 a single duct system serving <b>at least two</b> terminal units.
 </p>
+<h5>Default configuration</h5>
+<p>
+By default the system is configured with the following options.<br/>
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Component</th><th>Configuration</th></tr>
+<tr><td>Outdoor air section</td><td>Single common OA damper with AFMS</td></tr>
+<tr><td>Relief/return air section</td><td>Return fan with modulating relief damper</td></tr>
+<tr><td>Supply fan</td><td>Single fan - Variable speed - Draw-through position</td></tr>
+<tr><td>Heating coil</td><td>No coil</td></tr>
+<tr><td>Cooling coil</td><td>No coil</td></tr>
+<tr><td>Return fan</td><td>Single fan - Variable speed</td></tr>
+<tr><td>Relief fan</td><td>No fan</td></tr>
+<tr><td>Controller</td><td>Open loop controller</td></tr>
+</table>
 <h5>Economizer</h5>
 <p>
 The supported economizer configurations are described in 
 <a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
+They can be selected within the <code>Outdoor/relief/return air section</code>.
 </p>
 <h5>Fans</h5>
 <p>

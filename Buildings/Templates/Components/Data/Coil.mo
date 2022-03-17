@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Data;
-record Coil
+record Coil "Record for coil model"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.Components.Types.Coil typ

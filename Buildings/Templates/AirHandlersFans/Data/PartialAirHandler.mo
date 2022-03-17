@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Data;
-record PartialAirHandler
+record PartialAirHandler "Record for air handler interface class"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ

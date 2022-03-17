@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Dampers.Interfaces;
-partial model PartialDamper
+partial model PartialDamper "Interface class for damper"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.m_flow_nominal);
 

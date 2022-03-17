@@ -1,8 +1,8 @@
 within Buildings.Templates.Components.Valves;
-package Interfaces "Classes defining the component interfaces"
+package Interfaces "Interface classes"
   extends Modelica.Icons.InterfacesPackage;
 
-  partial model PartialValve
+  partial model PartialValve "Interface class for valve"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
       final m_flow_nominal=dat.m_flow_nominal);
 

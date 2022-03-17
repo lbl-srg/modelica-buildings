@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-package UserProject "Package of user classes generated from templates"
+package UserProject "Package with configuration classes"
   extends Modelica.Icons.VariantsPackage;
 
 

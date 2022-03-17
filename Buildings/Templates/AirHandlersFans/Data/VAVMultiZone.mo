@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Data;
-record VAVMultiZone
+record VAVMultiZone "Record for multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.Data.PartialAirHandler(
     redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
     ctl(

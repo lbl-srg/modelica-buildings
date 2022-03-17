@@ -1,5 +1,5 @@
 within Buildings.Templates.ZoneEquipment;
-package Types "Terminal unit types"
+package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type Configuration = enumeration(
       DualDuct

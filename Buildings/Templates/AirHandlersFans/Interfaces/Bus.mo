@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Interfaces;
-expandable connector Bus "Main control bus"
+expandable connector Bus "Control bus for air handler"
   extends Modelica.Icons.SignalBus;
 
     Templates.Components.Interfaces.Bus fanSup

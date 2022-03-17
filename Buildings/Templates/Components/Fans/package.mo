@@ -1,5 +1,5 @@
 within Buildings.Templates.Components;
-package Fans
+package Fans "Fan models"
   extends Modelica.Icons.Package;
 
 

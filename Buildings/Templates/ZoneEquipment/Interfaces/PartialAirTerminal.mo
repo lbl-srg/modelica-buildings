@@ -1,6 +1,6 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
 partial model PartialAirTerminal
-  "Interface class for terminal unit in air system"
+  "Interface class for air system terminal unit"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

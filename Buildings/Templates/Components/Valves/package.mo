@@ -1,5 +1,5 @@
 within Buildings.Templates.Components;
-package Valves
+package Valves "Valve models"
 annotation (Documentation(info="<html>
 <p>
 This package contains models for valves.

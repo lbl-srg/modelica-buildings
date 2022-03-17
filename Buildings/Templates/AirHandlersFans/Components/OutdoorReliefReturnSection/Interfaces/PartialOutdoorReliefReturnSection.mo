@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces;
 partial model PartialOutdoorReliefReturnSection
-  "Outdoor/relief/return air section"
+  "Interface class for outdoor/relief/return air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

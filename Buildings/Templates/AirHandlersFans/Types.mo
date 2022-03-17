@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans;
-package Types "AHU types"
+package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type Configuration = enumeration(
       SupplyOnly
@@ -40,6 +40,7 @@ package Types "AHU types"
       BuildingPressure
       "Building pressure (via discharge static pressure)")
     "Enumeration to configure the return fan control";
+  // RFE: Add support for heat recovery.
   type HeatRecovery = enumeration(
       None
       "No heat recovery",
@@ -68,13 +69,15 @@ package Types "AHU types"
       NoEconomizer
       "No air economizer")
     "Enumeration to configure the outdoor/relief/return air section";
+  /* RFE: Add support for the following configurations.
+      Barometric
+        "Barometric relief damper without fan",
+  */
   type ReliefReturnSection = enumeration(
       NoEconomizer
       "No economizer",
       NoRelief
       "No relief branch",
-      Barometric
-      "Barometric relief damper without fan",
       ReliefDamper
       "Modulating relief damper without fan",
       ReliefFan
@@ -82,4 +85,9 @@ package Types "AHU types"
       ReturnFan
       "Return fan with modulating relief damper")
     "Enumeration to configure the relief/return air section";
+  annotation (Documentation(info="<html>
+<p>
+This package contains types definitions.
+</p>
+</html>"));
 end Types;

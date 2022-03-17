@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Interfaces;
-partial model PartialAirHandler "Base interface class for air handler"
+partial model PartialAirHandler "Interface class for air handler"
   inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";

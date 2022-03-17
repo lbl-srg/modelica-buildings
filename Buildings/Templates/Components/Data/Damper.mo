@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Data;
-record Damper
+record Damper "Record for damper model"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.Components.Types.Damper typ

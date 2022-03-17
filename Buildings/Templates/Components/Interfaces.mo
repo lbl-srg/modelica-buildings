@@ -1,8 +1,8 @@
 within Buildings.Templates.Components;
-package Interfaces "Classes defining the component interfaces"
+package Interfaces "Interface classes"
   extends Modelica.Icons.InterfacesPackage;
 
-  expandable connector Bus "Main control bus"
+  expandable connector Bus "Control bus"
     extends Modelica.Icons.SignalBus;
 
     annotation (

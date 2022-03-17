@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.Data;
-record VAVMultiZoneController "Record for Multiple-zone VAV controller"
+record VAVMultiZoneController "Record for multiple-zone VAV controller"
   extends Buildings.Templates.AirHandlersFans.Components.Data.PartialController;
 
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel

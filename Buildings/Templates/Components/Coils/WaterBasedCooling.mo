@@ -30,7 +30,13 @@ model WaterBasedCooling "Chilled water coil"
       final dat=datVal)
     "Valve"
     annotation (
-      choicesAllMatching=true,
+      choices(
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.None val
+          "No valve"),
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.ThreeWayModulating val
+          "Three-way modulating valve"),
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
+          "Two-way modulating valve")),
       Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,-60})));

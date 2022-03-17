@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.HeatRecovery.Interfaces;
-partial model PartialHeatRecovery
+partial model PartialHeatRecovery "Interface class for heat recovery"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
