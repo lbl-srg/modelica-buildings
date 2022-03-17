@@ -6,16 +6,14 @@ model DamperValves
     final minRat=0.01,
     final maxRat=0.1,
     final kDam=1,
-    final V_flow_nominal=0.08)
-    "Output signal for controlling damper position"
+    final V_flow_nominal=0.08) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-10},{100,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.DamperValves damValFan1(
     final minRat=0.01,
     final maxRat=0.1,
     final have_pressureIndependentDamper=false,
     final V_flow_nominal=0.08,
-    final kDam=1)
-    "Output signal for controlling damper position"
+    final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-90},{100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
     final height=-1,
