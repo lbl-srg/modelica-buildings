@@ -13,8 +13,11 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Integer nZonGro=1
     "Total number of zone group that the AHU is serving"
     annotation (Dialog(group="System and building parameters"));
-  parameter Boolean have_heaCoi=true
-    "True: the AHU has heating coil"
+  parameter Boolean have_hotWatCoi=true
+    "True: the AHU has hot water heating coil"
+    annotation (Dialog(group="System and building parameters"));
+  parameter Boolean have_eleHeaCoi=false
+    "True: the AHU has electric heating coil"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_perZonRehBox=false
     "Check if there is any VAV-reheat boxes on perimeter zones"
@@ -45,7 +48,7 @@ block Controller "Multizone VAV air handling unit controller"
     displayUnit="Pa")=25
     "Minimum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Real pMaxSet(unit="Pa", displayUnit="Pa")
+  parameter Real pMaxSet(unit="Pa", displayUnit="Pa")=250
     "Maximum pressure setpoint for supply fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pDelTim(unit="s")=600
@@ -173,13 +176,13 @@ block Controller "Multizone VAV air handling unit controller"
 
   // ----------- parameters for economizer control  -----------
   // Limits
-  parameter Real minSpe(unit="1")
+  parameter Real minSpe(unit="1")=0.1
     "Minimum supply fan speed"
     annotation (Dialog(tab="Economizer",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController minOAConTyp=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of minimum outdoor air controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
@@ -203,7 +206,7 @@ block Controller "Multizone VAV air handling unit controller"
               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
         and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
              or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real dpDesOutDam_min(unit="Pa")
+  parameter Real dpDesOutDam_min(unit="Pa")=150
     "Design pressure difference across the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
@@ -334,11 +337,11 @@ block Controller "Multizone VAV air handling unit controller"
     "Gain, normalized using dpBuiSet"
     annotation (Dialog(tab="Pressure control", group="Relief fans",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
-  parameter Real minSpeRelFan(unit="1")
+  parameter Real minSpeRelFan(unit="1")=0.1
     "Minimum relief fan speed"
     annotation (Dialog(tab="Pressure control", group="Relief fans",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
-  parameter Real difFloSet(unit="m3/s")
+  parameter Real difFloSet(unit="m3/s")=0.1
     "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
@@ -576,7 +579,8 @@ block Controller "Multizone VAV air handling unit controller"
     "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-400,-460},{-360,-420}}),
         iconTransformation(extent={{-240,-380},{-200,-340}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMinOutAirDam
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMinOutAirDam if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
     "Minimum outdoor air damper status, true when it is open. When there is no dedicated damper, it is the economizer damper status"
     annotation (Placement(transformation(extent={{-400,-490},{-360,-450}}),
         iconTransformation(extent={{-240,-410},{-200,-370}})));
@@ -590,7 +594,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heaCoi
+    final unit="1") if have_hotWatCoi
     "Heating coil valve position"
     annotation (Placement(transformation(extent={{-400,-580},{-360,-540}}),
         iconTransformation(extent={{-240,-450},{-200,-410}})));
@@ -598,6 +602,13 @@ block Controller "Multizone VAV air handling unit controller"
     "Supply fan enabling status"
     annotation (Placement(transformation(extent={{360,520},{400,560}}),
         iconTransformation(extent={{200,360},{240,400}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Setpoint for supply air temperature"
+    annotation (Placement(transformation(extent={{360,480},{400,520}}),
+        iconTransformation(extent={{200,320},{240,360}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDesUncOutAir_flow(
     final min=0,
     final unit="m3/s",
@@ -689,7 +700,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heaCoi
+    final unit="1") if have_hotWatCoi
     "Heating coil valve position"
     annotation (Placement(transformation(extent={{360,-260},{400,-220}}),
         iconTransformation(extent={{200,-160},{240,-120}})));
@@ -730,11 +741,11 @@ block Controller "Multizone VAV air handling unit controller"
     "Chiller plant request"
     annotation (Placement(transformation(extent={{360,-510},{400,-470}}),
         iconTransformation(extent={{200,-370},{240,-330}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_heaCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_hotWatCoi
     "Hot water reset request"
     annotation (Placement(transformation(extent={{360,-560},{400,-520}}),
         iconTransformation(extent={{200,-410},{240,-370}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_heaCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{360,-590},{400,-550}}),
         iconTransformation(extent={{200,-450},{240,-410}})));
@@ -742,7 +753,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold freProMod
     "Check if it is in freeze protection mode"
     annotation (Placement(transformation(extent={{180,-570},{200,-550}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_heaCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{300,-580},{320,-560}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
@@ -756,7 +767,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
     final buiPreCon=buiPreCon,
     final minOADes=minOADes,
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final have_freSta=have_freSta,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freProHeaCoiCon,
@@ -769,7 +780,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Freeze protection"
     annotation (Placement(transformation(extent={{200,-220},{220,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq(
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final Thys=Thys,
     final posHys=posHys)
     "Plant requests"
@@ -828,7 +839,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Supply fan speed setpoint"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
-    final have_heaCoi=have_heaCoi,
+    final have_heaCoi=have_hotWatCoi or have_eleHeaCoi,
     final controllerType=valCon,
     final kTSup=kVal,
     final TiTSup=TiVal,
@@ -1082,6 +1093,8 @@ equation
           -270},{380,-270}}, color={255,127,0}));
   connect(retFanDpCon.uMinOutAirDam, uMinOutAirDam)
     annotation (Line(points={{-162,-470},{-380,-470}}, color={255,0,255}));
+  connect(conTSupSet.TSupSet, TSupSet) annotation (Line(points={{-138,450},{120,
+          450},{120,500},{380,500}}, color={0,0,127}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1171,11 +1184,11 @@ annotation (
        Text(extent={{-202,-420},{-140,-438}},
           lineColor={0,0,0},
           textString="uHeaCoi",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{140,-130},{202,-148}},
           lineColor={0,0,0},
           textString="yHeaCoi",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{138,-102},{200,-120}},
           lineColor={0,0,0},
           textString="yCooCoi"),
@@ -1234,11 +1247,11 @@ annotation (
        Text(extent={{108,-378},{196,-398}},
           lineColor={255,127,0},
           textString="yHotWatResReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{108,-418},{196,-438}},
           lineColor={255,127,0},
           textString="yHotWatPlaReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
        Text(extent={{120,210},{208,192}},
           lineColor={255,0,255},
           textString="yReqOutAir"),
@@ -1302,7 +1315,11 @@ annotation (
        Text(
           extent={{-196,-378},{-108,-398}},
           lineColor={255,0,255},
-          textString="uMinOutAirDam")}),
+          textString="uMinOutAirDam",
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+       Text(extent={{142,352},{198,334}},
+          lineColor={0,0,0},
+          textString="TSupSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-600},{360,600}})),
   Documentation(info="<html>
 <p>

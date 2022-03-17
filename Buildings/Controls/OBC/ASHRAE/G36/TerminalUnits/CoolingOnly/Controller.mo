@@ -217,8 +217,7 @@ block Controller "Controller for cooling only VAV box"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final displayUnit="degC")
-    "Measured supply air temperature after heating coil"
+    final displayUnit="degC") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(

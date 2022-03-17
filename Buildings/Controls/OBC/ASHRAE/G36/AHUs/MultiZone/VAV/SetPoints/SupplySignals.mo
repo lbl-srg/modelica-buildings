@@ -3,7 +3,7 @@ block SupplySignals
   "Multizone VAV AHU supply air temperature control loop and coil valves position"
 
   parameter Boolean have_heaCoi=true
-    "True: the AHU has heating coil";
+    "True: the AHU has heating coil. It could be the hot water coil, or the electric heating coil";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for supply air temperature signal";

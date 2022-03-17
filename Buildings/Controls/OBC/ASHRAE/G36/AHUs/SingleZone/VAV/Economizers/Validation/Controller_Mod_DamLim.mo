@@ -7,19 +7,17 @@ model Controller_Mod_DamLim
     final yFanMin=yFanMin,
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
-    final VOutDes_flow=VOutDes_flow,
-    use_G36FrePro=true,
-    use_TMix=false) "Single zone VAV AHU economizer"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    final VOutDes_flow=VOutDes_flow)
+    "Single zone VAV AHU economizer"
+    annotation (Placement(transformation(extent={{20,0},{40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer1(
     final use_enthalpy=false,
     final yFanMin=yFanMin,
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
-    final VOutDes_flow=VOutDes_flow,
-    use_G36FrePro=true,
-    use_TMix=false) "Single zone VAV AHU economizer"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+    final VOutDes_flow=VOutDes_flow)
+    "Single zone VAV AHU economizer"
+    annotation (Placement(transformation(extent={{100,-40},{120,0}})));
 
 protected
   parameter Real TOutCutoff(
@@ -74,14 +72,14 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cutoff"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
-    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
     final k=TOutCutoff) "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
@@ -109,79 +107,53 @@ protected
 
 equation
   connect(fanSta.y, economizer.uSupFan)
-    annotation (Line(points={{-58,-80},{-14,-80},{-14,4.4},{19,4.4}},
-                                                                  color={255,0,255}));
-  connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-58,-120},{0,-120},{0,0.4},{19,0.4}},
-                                                                  color={255,127,0}));
+    annotation (Line(points={{-58,-80},{-20,-80},{-20,9},{18,9}}, color={255,0,255}));
   connect(opeMod.y, economizer.uOpeMod)
-    annotation (Line(points={{-98,-100},{-50,-100},{-50,-30},{-4,-30},{-4,3},{19,
-          3}},
+    annotation (Line(points={{-98,-100},{-10,-100},{-10,5},{18,5}},
     color={255,127,0}));
-  connect(zonSta.y, economizer.uZonSta)
-    annotation (Line(points={{-98,-60},{-48,-60},{-48,-32},{-2,-32},{-2,1.8},{19,
-          1.8}},
-    color={255,127,0}));
-  connect(TOutBelowCutoff.y, economizer.TOut)
-    annotation (Line(points={{-98,110},{-6,110},{-6,19.4},{19,19.4}},
-                                                                 color={0,0,127}));
   connect(TOutCut1.y,economizer.TCut)
-    annotation (Line(points={{-98,70},{-10,70},{-10,17.8},{19,17.8}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{-98,70},{10,70},{10,36},{18,36}},   color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-98,20},{-60,20},{-60,18},{19,18},{19,14.6}},
-                                                                         color={0,0,127}));
+    annotation (Line(points={{-98,30},{18,30}}, color={0,0,127}));
   connect(hOutCut.y,economizer.hCut)
-    annotation (Line(points={{-98,-20},{-60,-20},{-60,2},{-60,13},{19,13}},color={0,0,127}));
+    annotation (Line(points={{-98,-10},{-16,-10},{-16,27},{18,27}}, color={0,0,127}));
   connect(TSupSetSig.y,economizer.TSupHeaEco)
-    annotation (Line(points={{-58,50},{-52,50},{-52,9.8},{19,9.8}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-58,50},{-50,50},{-50,21},{18,21}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
-    annotation (Line(points={{-58,90},{-50,90},{-50,11.4},{19,11.4}},
-                                                                  color={0,0,127}));
-  connect(TOutBelowCutoff.y, economizer1.TOut)
-    annotation (Line(points={{-98,110},{90,110},{90,-20.6},{99,-20.6}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-58,90},{-46,90},{-46,24},{18,24}}, color={0,0,127}));
   connect(TOutCut1.y,economizer1.TCut)
-    annotation (Line(points={{-98,70},{88,70},{88,-22.2},{99,-22.2}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{-98,70},{10,70},{10,-4},{98,-4}},   color={0,0,127}));
   connect(TSupSig1.y, economizer1.TSup)
-    annotation (Line(points={{62,90},{80,90},{80,-28.6},{99,-28.6}},
-                                                                 color={0,0,127}));
-  connect(TSupSetSig.y,economizer1.TSupHeaEco)
-    annotation (Line(points={{-58,50},{-54,50},{-54,-16},{20,-16},{20,-30.2},{99,
-          -30.2}},
-    color={0,0,127}));
+    annotation (Line(points={{62,90},{80,90},{80,-16},{98,-16}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
-    annotation (Line(points={{-58,-80},{20,-80},{20,-35.6},{99,-35.6}},
-                                                                    color={255,0,255}));
+    annotation (Line(points={{-58,-80},{-20,-80},{-20,-30},{98,-30},{98,-31}}, color={255,0,255}));
   connect(freProSta.y, economizer1.uFreProSta)
-    annotation (Line(points={{-58,-120},{26,-120},{26,-39.6},{99,-39.6}},
-                                                                      color={255,127,0}));
-  connect(hOutBelowCutoff.y, economizer1.hOut)
-    annotation (Line(points={{-98,20},{-64,20},{-64,-12},{24,-12},{24,-25.4},{99,
-          -25.4}},
-    color={0,0,127}));
-  connect(hOutCut.y,economizer1.hCut)
-    annotation (Line(points={{-98,-20},{-20,-20},{-20,-27},{99,-27}}, color={0,0,127}));
+    annotation (Line(points={{-58,-120},{-2,-120},{-2,-39},{98,-39}}, color={255,127,0}));
   connect(opeMod.y, economizer1.uOpeMod)
-    annotation (Line(points={{-98,-100},{22,-100},{22,-37},{99,-37}}, color={255,127,0}));
+    annotation (Line(points={{-98,-100},{-10,-100},{-10,-35},{98,-35}}, color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
-    annotation (Line(points={{-98,-60},{24,-60},{24,-38.2},{99,-38.2}},
-                                                                    color={255,127,0}));
+    annotation (Line(points={{-98,-60},{-6,-60},{-6,-37},{98,-37}}, color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
-    annotation (Line(points={{-18,90},{0,90},{0,8.4},{19,8.4}},
-                                                              color={0,0,127}));
+    annotation (Line(points={{-18,90},{6,90},{6,18},{18,18}}, color={0,0,127}));
   connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
-    annotation (Line(points={{-18,90},{14,90},{14,-30},{99,-30},{99,-31.6}},
-                                                                           color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer.uSupFanSpe)
-    annotation (Line(points={{-18,50},{-2,50},{-2,7},{19,7}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
-    annotation (Line(points={{-18,50},{78,50},{78,-33},{99,-33}}, color={0,0,127}));
+    annotation (Line(points={{-18,90},{6,90},{6,-22},{98,-22}}, color={0,0,127}));
+  connect(TOutBelowCutoff.y, economizer1.TOut) annotation (Line(points={{-98,120},
+          {90,120},{90,-1},{98,-1}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer.uSupFanSpe) annotation (Line(points={{-18,50},
+          {2,50},{2,15},{18,15}}, color={0,0,127}));
+  connect(TOutBelowCutoff.y, economizer.TOut) annotation (Line(points={{-98,120},
+          {14,120},{14,39},{18,39}}, color={0,0,127}));
+  connect(zonSta.y, economizer.uZonSta) annotation (Line(points={{-98,-60},{-6,-60},
+          {-6,3},{18,3}}, color={255,127,0}));
+  connect(freProSta.y, economizer.uFreProSta) annotation (Line(points={{-58,-120},
+          {-2,-120},{-2,1},{18,1}}, color={255,127,0}));
+  connect(TSupSetSig.y, economizer1.TSupHeaEco) annotation (Line(points={{-58,50},
+          {-50,50},{-50,-19},{98,-19}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer1.uSupFanSpe) annotation (Line(points={{-18,
+          50},{2,50},{2,-25},{98,-25}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Mod_DamLim.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Mod_DamLim.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(lineColor = {75,138,73},
@@ -207,14 +179,14 @@ equation
           textString="Enable both damper limit
 and modulation control loops"),
         Text(
-          extent={{100,6},{154,-16}},
+          extent={{100,32},{154,10}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Validate damper modulation
 (example without
 enthalpy measurement)"),
         Text(
-          extent={{20,42},{84,22}},
+          extent={{20,70},{84,50}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Economizer fully enabled -
@@ -222,8 +194,8 @@ validate damper position limits")}),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller</a> control loops:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller</a> control loops:
 minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation
 control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals.
 Both control loops are enabled during the validation test.
