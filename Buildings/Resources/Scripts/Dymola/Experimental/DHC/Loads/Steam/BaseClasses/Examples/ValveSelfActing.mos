@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples.ValveSelfActing", stopTime=15, method="Cvode", tolerance=1e-06, resultFile="ValveSelfActing");
+simulateModel("Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples.ValveSelfActing", stopTime=15, method="dassl", tolerance=1e-06, resultFile="ValveSelfActing");
 // Plot commands
 removePlots(false);
 createPlot(id=1, position={11, 59, 631, 388}, 
