@@ -1,5 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE;
-package FanCoilUnit "Control sequences for fan coil unit"
+
+package FanCoilUnit
+    "Control sequences for fan coil unit"
+
 
 annotation(Icon(graphics={
         Rectangle(
