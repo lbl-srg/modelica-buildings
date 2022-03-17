@@ -130,7 +130,7 @@ block G36VAVMultiZone
     final minOADes=minOADes,
     final buiPreCon=buiPreCon,
     final nZonGro=nGro,
-    final have_heaCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+    final have_hotWatCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
       coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
