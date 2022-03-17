@@ -289,12 +289,12 @@ block Controller
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-350},{-240,-310}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow_Set(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Discharge airflow setpoint after considering override"
-    annotation (Placement(transformation(extent={{240,200},{280,240}}),
+    "Discharge airflow setpoint after considering override" annotation (
+      Placement(transformation(extent={{240,200},{280,240}}),
         iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
     final min=0,
@@ -552,7 +552,7 @@ equation
           40,-256},{138,-256}}, color={255,0,255}));
   connect(TDis, ala.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,-258},
           {138,-258}}, color={0,0,127}));
-  connect(setOve.VSet_flow, VSet_flow_Set) annotation (Line(points={{102,-63},{120,
+  connect(setOve.VSet_flow, VSet_flow) annotation (Line(points={{102,-63},{120,
           -63},{120,220},{260,220}}, color={0,0,127}));
   connect(setOve.yDamSet, yDamSet) annotation (Line(points={{102,-67},{126,-67},
           {126,180},{260,180}}, color={0,0,127}));

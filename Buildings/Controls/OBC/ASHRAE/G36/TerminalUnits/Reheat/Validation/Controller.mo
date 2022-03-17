@@ -1,13 +1,14 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Validation;
 model Controller
-  "Validation of model that controls series-fan powered unit with variable volume fan"
+  "Validation of model that controls terminal unit with reheat"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Controller serFanCon(
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller rehBoxCon(
     final AFlo=20,
     final desZonPop=2,
     final VZonMin_flow=0.5,
     final VCooZonMax_flow=1.5,
-    final maxRat=2,
+    final VHeaZonMin_flow=0.5,
+    final VHeaZonMax_flow=1.2,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_pressureIndependentDamper=false,
     final V_flow_nominal=1.5,
@@ -16,7 +17,7 @@ model Controller
     final floHys=0.01,
     final looHys=0.01,
     final damPosHys=0.01,
-    final valPosHys=0.01) "Series-fan powered unit controller"
+    final valPosHys=0.01) "Reheat unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
@@ -97,26 +98,14 @@ model Controller
     final height=2,
     final duration=5000,
     startTime=60000) "Override damper position"
-    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round3(
     final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveTerFan(
-    final height=2,
-    final duration=5000,
-    final startTime=60000) "Override terminal fan control"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt4
-    "Convert real to integer"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round4(
-    final n=0)
-    "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp valPos(
     final duration=43200,
     final height=0.7,
@@ -136,10 +125,6 @@ model Controller
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant terFan(
-    final k=true)
-    "Terminal fan status"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse hotPla(
     final width=0.9,
     final period=7500)
@@ -161,74 +146,66 @@ model Controller
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
 equation
-  connect(TZon.y,serFanCon. TZon) annotation (Line(points={{-98,230},{52,230},{52,
+  connect(TZon.y,rehBoxCon. TZon) annotation (Line(points={{-98,230},{52,230},{52,
           109},{98,109}}, color={0,0,127}));
-  connect(cooSet.y,serFanCon. TZonCooSet) annotation (Line(points={{-58,210},{48,
+  connect(cooSet.y,rehBoxCon. TZonCooSet) annotation (Line(points={{-58,210},{48,
           210},{48,107},{98,107}}, color={0,0,127}));
-  connect(heaSet.y,serFanCon. TZonHeaSet) annotation (Line(points={{-98,190},{44,
+  connect(heaSet.y,rehBoxCon. TZonHeaSet) annotation (Line(points={{-98,190},{44,
           190},{44,105},{98,105}}, color={0,0,127}));
-  connect(winSta.y,serFanCon. uWin) annotation (Line(points={{-58,170},{40,170},
-          {40,103},{98,103}}, color={255,0,255}));
-  connect(occ.y,serFanCon. uOcc) annotation (Line(points={{-98,150},{36,150},{36,
-          101},{98,101}},  color={255,0,255}));
+  connect(winSta.y,rehBoxCon. uWin) annotation (Line(points={{-58,170},{40,170},
+          {40,102},{98,102}}, color={255,0,255}));
+  connect(occ.y,rehBoxCon. uOcc) annotation (Line(points={{-98,150},{36,150},{36,
+          100},{98,100}},  color={255,0,255}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-98,120},{-82,120}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
     annotation (Line(points={{-58,120},{-42,120}},
       color={0,0,127}));
-  connect(reaToInt2.y,serFanCon. uOpeMod) annotation (Line(points={{-18,120},{32,
-          120},{32,99},{98,99}},   color={255,127,0}));
-  connect(CO2.y,serFanCon. ppmCO2) annotation (Line(points={{-58,90},{32,90},{32,
-          97},{98,97}},    color={0,0,127}));
+  connect(reaToInt2.y,rehBoxCon. uOpeMod) annotation (Line(points={{-18,120},{32,
+          120},{32,98},{98,98}},   color={255,127,0}));
+  connect(CO2.y,rehBoxCon. ppmCO2) annotation (Line(points={{-58,90},{36,90},{36,
+          96},{98,96}}, color={0,0,127}));
   connect(oveFlo.y,round1. u)
-    annotation (Line(points={{-98,-40},{-82,-40}},   color={0,0,127}));
+    annotation (Line(points={{-98,-40},{-82,-40}}, color={0,0,127}));
   connect(round1.y,reaToInt1. u)
-    annotation (Line(points={{-58,-40},{-42,-40}},   color={0,0,127}));
+    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
   connect(oveDam.y, round3.u)
-    annotation (Line(points={{-98,-70},{-82,-70}}, color={0,0,127}));
+    annotation (Line(points={{-98,-80},{-82,-80}}, color={0,0,127}));
   connect(round3.y,reaToInt3. u)
-    annotation (Line(points={{-58,-70},{-42,-70}},   color={0,0,127}));
-  connect(reaToInt1.y,serFanCon. oveFloSet) annotation (Line(points={{-18,-40},{
-          56,-40},{56,87},{98,87}},   color={255,127,0}));
-  connect(oveTerFan.y, round4.u)
-    annotation (Line(points={{-98,-100},{-82,-100}}, color={0,0,127}));
-  connect(round4.y,reaToInt4. u)
-    annotation (Line(points={{-58,-100},{-42,-100}}, color={0,0,127}));
-  connect(disAirTem.y,serFanCon. TDis) annotation (Line(points={{-58,50},{40,50},
-          {40,95},{98,95}}, color={0,0,127}));
-  connect(reaToInt3.y,serFanCon. oveDamPos) annotation (Line(points={{-18,-70},{
-          60,-70},{60,85},{98,85}}, color={255,127,0}));
-  connect(reaToInt4.y,serFanCon. oveFan) annotation (Line(points={{-18,-100},{64,
-          -100},{64,83},{98,83}}, color={255,127,0}));
-  connect(damPos.y,serFanCon. uDam) annotation (Line(points={{-58,-160},{72,-160},
-          {72,79},{98,79}}, color={0,0,127}));
-  connect(valPos.y,serFanCon. uVal) annotation (Line(points={{-98,-180},{76,-180},
-          {76,77},{98,77}}, color={0,0,127}));
+    annotation (Line(points={{-58,-80},{-42,-80}},  color={0,0,127}));
+  connect(reaToInt1.y,rehBoxCon. oveFloSet) annotation (Line(points={{-18,-40},{
+          56,-40},{56,84},{98,84}},   color={255,127,0}));
+  connect(disAirTem.y,rehBoxCon. TDis) annotation (Line(points={{-58,50},{40,50},
+          {40,93},{98,93}}, color={0,0,127}));
+  connect(reaToInt3.y,rehBoxCon. oveDamPos) annotation (Line(points={{-18,-80},{
+          60,-80},{60,82},{98,82}}, color={255,127,0}));
+  connect(damPos.y,rehBoxCon. uDam) annotation (Line(points={{-58,-160},{68,-160},
+          {68,78},{98,78}}, color={0,0,127}));
+  connect(valPos.y,rehBoxCon. uVal) annotation (Line(points={{-98,-180},{72,-180},
+          {72,76},{98,76}}, color={0,0,127}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-98,-130},{-42,-130}}, color={255,0,255}));
-  connect(not1.y,serFanCon. uHeaOff) annotation (Line(points={{-18,-130},{68,-130},
-          {68,81},{98,81}}, color={255,0,255}));
-  connect(supFan.y,serFanCon. uFan) annotation (Line(points={{-58,-200},{80,-200},
-          {80,75},{98,75}}, color={255,0,255}));
-  connect(terFan.y,serFanCon. uTerFan) annotation (Line(points={{-98,-220},{84,-220},
-          {84,73},{98,73}}, color={255,0,255}));
-  connect(hotPla.y,serFanCon. uHotPla) annotation (Line(points={{-58,-240},{88,-240},
-          {88,71},{98,71}}, color={255,0,255}));
-  connect(TSupSet.y,serFanCon. TSupSet) annotation (Line(points={{-98,-10},{52,-10},
-          {52,89},{98,89}}, color={0,0,127}));
-  connect(TSup.y,serFanCon. TSup) annotation (Line(points={{-58,10},{48,10},{48,
-          91},{98,91}}, color={0,0,127}));
-  connect(disFlo.y,serFanCon. VDis_flow) annotation (Line(points={{-98,30},{44,30},
-          {44,93},{98,93}}, color={0,0,127}));
+  connect(not1.y,rehBoxCon. uHeaOff) annotation (Line(points={{-18,-130},{64,-130},
+          {64,80},{98,80}}, color={255,0,255}));
+  connect(supFan.y,rehBoxCon. uFan) annotation (Line(points={{-58,-200},{76,-200},
+          {76,73.2},{98,73.2}}, color={255,0,255}));
+  connect(hotPla.y,rehBoxCon. uHotPla) annotation (Line(points={{-58,-240},{80,-240},
+          {80,71.2},{98,71.2}}, color={255,0,255}));
+  connect(TSupSet.y,rehBoxCon. TSupSet) annotation (Line(points={{-98,-10},{52,-10},
+          {52,87},{98,87}}, color={0,0,127}));
+  connect(TSup.y,rehBoxCon. TSup) annotation (Line(points={{-58,10},{48,10},{48,
+          89},{98,89}}, color={0,0,127}));
+  connect(disFlo.y,rehBoxCon. VDis_flow) annotation (Line(points={{-98,30},{44,30},
+          {44,91},{98,91}}, color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/SeriesFanVVF/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Validation/Controller.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Controller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>

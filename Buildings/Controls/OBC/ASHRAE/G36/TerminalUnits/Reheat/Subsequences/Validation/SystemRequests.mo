@@ -2,78 +2,98 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Valid
 model SystemRequests
   "Validation of model that generates system requests"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests
-    sysReq_RehBox "Block outputs system requests"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(freqHz=1/7200, offset=296.15)
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
+    final have_hotWatCoi=true,
+    final floHys=0.01,
+    final looHys=0.01,
+    final damPosHys=0.01,
+    final valPosHys=0.01) "Block outputs system requests"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+    final freqHz=1/7200,
+    final offset=296.15)
     "Generate data for setpoint"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(samplePeriod=1800)
-    "Cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(
+    final samplePeriod=1800) "Cooling setpoint temperature"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
-    freqHz=1/7200,
-    amplitude=2,
-    offset=299.15) "Zone temperature"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    final freqHz=1/7200,
+    final amplitude=2,
+    final offset=299.15)
+    "Zone temperature"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
-    height=0.9,
-    duration=7200,
-    offset=0.1) "Cooling loop signal"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    final height=-1,
+    final duration=2000,
+    final offset=1,
+    final startTime=1000)
+    "Cooling loop signal"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
-    height=0.9,
-    duration=7200,
-    offset=0.1) "Discharge airflow rate setpoint"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirRate(
-    duration=7200,
-    offset=0.1,
-    height=0.3) "Discharge airflow rate"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    final height=0.9,
+    final duration=7200,
+    final offset=0.1) "Discharge airflow rate setpoint"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAir(
+    final duration=7200,
+    final offset=0.1,
+    final height=0.3) "Discharge airflow rate"
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
-    duration=7200,
-    height=0.7,
-    offset=0.3) "Damper position"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
-    freqHz=1/7200,
-    offset=305.15)
-    "Generate data for setpoint"
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TDisHeaSet(
-    samplePeriod=1800)
-    "Discharge air setpoint temperature"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TDis(
-    freqHz=1/7200,
-    amplitude=2,
-    offset=293.15)
+    final duration=3000,
+    final height=-0.7,
+    final offset=0.7) "Damper position"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.1,
+    final period=7200)
+    "After suppression"
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis(
+    final duration=3600,
+    final offset=273.15 + 20,
+    final height=-5)
     "Discharge air temperature"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisSet(
+    final k=273.15 + 30)
+    "Discharge airflow temperature setpoint"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp valPos(
-    duration=7200,
-    height=1,
-    offset=0)
-    "Hot water valve position"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-
+    final duration=2000,
+    final height=-0.7,
+    final offset=0.7,
+    final startTime=3600) "Valve position"
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 equation
   connect(sine.y, TZonCooSet.u)
-    annotation (Line(points={{-38,90},{-22,90}}, color={0,0,127}));
-  connect(TZonCooSet.y, sysReq_RehBox.TZonCooSet) annotation (Line(points={{2,90},{
-          46,90},{46,76},{58,76}},  color={0,0,127}));
-  connect(TZon.y, sysReq_RehBox.TZon)
-    annotation (Line(points={{-38,60},{16,60},{16,74},{58,74}},
-      color={0,0,127}));
-  connect(uCoo.y, sysReq_RehBox.uCoo)
-    annotation (Line(points={{2,40},{18,40},{18,72},{58,72}},
-      color={0,0,127}));
-  connect(disAirRate.y, sysReq_RehBox.VDis_flow)
-    annotation (Line(points={{2,0},{22,0},{22,64},{58,64}}, color={0,0,127}));
-  connect(sine1.y, TDisHeaSet.u)
-    annotation (Line(points={{-68,-40},{-22,-40}}, color={0,0,127}));
-
+    annotation (Line(points={{-38,80},{-22,80}},   color={0,0,127}));
+  connect(TZonCooSet.y, sysReq.TZonCooSet) annotation (Line(points={{2,80},{40,80},
+          {40,-33},{58,-33}},    color={0,0,127}));
+  connect(TZon.y, sysReq.TZon) annotation (Line(points={{-58,50},{36,50},{36,-35},
+          {58,-35}},color={0,0,127}));
+  connect(uCoo.y, sysReq.uCoo) annotation (Line(points={{2,30},{32,30},{32,-37},
+          {58,-37}}, color={0,0,127}));
+  connect(disAirSet.y, sysReq.VSet_flow) annotation (Line(points={{-38,10},{28,10},
+          {28,-39},{58,-39}}, color={0,0,127}));
+  connect(disAir.y, sysReq.VDis_flow) annotation (Line(points={{2,-10},{24,-10},
+          {24,-41},{58,-41}}, color={0,0,127}));
+  connect(damPos.y, sysReq.uDam) annotation (Line(points={{-58,-30},{20,-30},{20,
+          -43},{58,-43}}, color={0,0,127}));
+  connect(TDisSet.y, sysReq.TDisSet) annotation (Line(points={{-58,-70},{20,-70},
+          {20,-45},{58,-45}}, color={0,0,127}));
+  connect(TDis.y, sysReq.TDis) annotation (Line(points={{-18,-90},{24,-90},{24,-47},
+          {58,-47}}, color={0,0,127}));
+  connect(valPos.y, sysReq.uVal) annotation (Line(points={{-58,-120},{28,-120},{
+          28,-49},{58,-49}}, color={0,0,127}));
+  connect(booPul.y, not1.u)
+    annotation (Line(points={{-38,120},{-22,120}}, color={255,0,255}));
+  connect(not1.y, sysReq.uAftSup) annotation (Line(points={{2,120},{44,120},{44,
+          -31},{58,-31}}, color={255,0,255}));
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Subsequences/Validation/SystemRequests.mos"
@@ -82,20 +102,19 @@ annotation (
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.Subsequences.SystemRequests</a>
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests</a>
 for generating system requests.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 13, 2017, by Jianjun Hu:<br/>
+February 10, 2022, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            120}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,120}}), graphics={
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
