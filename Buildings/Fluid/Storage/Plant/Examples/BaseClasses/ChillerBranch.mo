@@ -38,8 +38,8 @@ model ChillerBranch
     final per=perChi)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant onChi(k=true)
-                               "Placeholder, chiller always on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
+    "Placeholder, chiller always on"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Sources.Constant set_TEvaLvg(k=T_b_nominal)
     "Evaporator leaving temperature setpoint" annotation (Placement(
@@ -102,9 +102,8 @@ equation
     annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
   connect(port_b, port_b)
     annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));
-  connect(onChi.y, chi.on) annotation (Line(points={{42,-70},{56,-70},{56,13},{
-          42,13}},
-                color={255,0,255}));
+  connect(on.y, chi.on) annotation (Line(points={{42,-70},{56,-70},{56,13},{42,
+          13}}, color={255,0,255}));
   connect(set_TEvaLvg.y, chi.TSet) annotation (Line(points={{41,-30},{50,-30},{
           50,7},{42,7}},
                       color={0,0,127}));
