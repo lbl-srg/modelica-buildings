@@ -160,14 +160,14 @@ model TwoSourcesThreeUsers
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,-70})));
+        origin={-170,-110})));
   Modelica.Blocks.Sources.BooleanTable uTanDis(table={3600/9*1,3600/9*6,3600/9*
         8}, startValue=false)
     "True = discharging; false = charging (either local or remote)" annotation (
      Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-170,-110})));
+        rotation=-90,
+        origin={-170,-20})));
   Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl conPumSecGro
                            "Control block for secondary pump-valve group"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -179,8 +179,8 @@ model TwoSourcesThreeUsers
     "Set a positive flow rate when tank discharging and negative when charging"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-130,-90})));
+        rotation=-90,
+        origin={-170,-50})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mChiBra2Set_flow(
     realTrue=0, realFalse=chiBra2.m_flow_nominal)
     "Set the flow rate to a constant value whenever the tank is not being charged remotely"
@@ -397,8 +397,8 @@ equation
     annotation (Line(points={{-99,-54},{-81,-54}}, color={0,0,127}));
   connect(conPumSecGro.yPumSec, tanBra.yPum)
     annotation (Line(points={{-99,-58},{-81,-58}}, color={0,0,127}));
-  connect(uRemCha.y, conPumSecGro.uRemCha) annotation (Line(points={{-159,-70},{
-          -118,-70}},                                   color={255,0,255}));
+  connect(uRemCha.y, conPumSecGro.uRemCha) annotation (Line(points={{-159,-110},
+          {-118,-110},{-118,-70}},                      color={255,0,255}));
   connect(tanBra.yValDis_actual, conPumSecGro.yValDis_actual) annotation (Line(
         points={{-59,-50},{-56,-50},{-56,-40},{-126,-40},{-126,-50},{-121,-50}},
         color={0,0,127}));
@@ -408,12 +408,13 @@ equation
   connect(tanBra.mTan_flow, conPumSecGro.mTan_flow) annotation (Line(points={{-59,
           -58},{-48,-58},{-48,-32},{-134,-32},{-134,-58},{-121,-58}}, color={0,
           0,127}));
-  connect(uTanDis.y, mTanSet_flow.u) annotation (Line(points={{-159,-110},{-130,
-          -110},{-130,-102}}, color={255,0,255}));
-  connect(mTanSet_flow.y, conPumSecGro.mTanSet_flow) annotation (Line(points={{-130,
-          -78},{-130,-62},{-121,-62}}, color={0,0,127}));
-  connect(mChiBra2Set_flow.u, uRemCha.y) annotation (Line(points={{-122,-10},{-148,
-          -10},{-148,-70},{-159,-70}},
+  connect(uTanDis.y, mTanSet_flow.u) annotation (Line(points={{-170,-31},{-170,
+          -38}},              color={255,0,255}));
+  connect(mTanSet_flow.y, conPumSecGro.mTanSet_flow) annotation (Line(points={{-170,
+          -62},{-170,-68},{-126,-68},{-126,-62},{-121,-62}},
+                                       color={0,0,127}));
+  connect(mChiBra2Set_flow.u, uRemCha.y) annotation (Line(points={{-122,-10},{
+          -140,-10},{-140,-110},{-159,-110}},
                             color={255,0,255}));
   connect(tanBra.port_3, chiBra2.port_a) annotation (Line(points={{-74,-50},{-74,
           -26},{-86,-26},{-86,-10},{-80,-10}}, color={0,127,255}));
@@ -448,8 +449,8 @@ equation
           82}},     color={255,0,255}));
   connect(preDroS1U2.port_a, chi1.port_b2) annotation (Line(points={{-30,20},{-36,
           20},{-36,80},{-124,80}}, color={0,127,255}));
-  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-70},{-118,-70},{-118,
-          -110},{-100,-110},{-100,-102}}, color={255,0,255}));
+  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-110},{-100,-110},{
+          -100,-102}},                    color={255,0,255}));
   connect(conPumSecGro.uOnl, or2.y) annotation (Line(points={{-114,-70},{-114,-74},
           {-100,-74},{-100,-78}}, color={255,0,255}));
   connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-110},{-92,-110},{-92,-102}},
