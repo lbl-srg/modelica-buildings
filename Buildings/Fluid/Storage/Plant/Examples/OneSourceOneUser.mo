@@ -8,11 +8,8 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=500000
     "Nominal pressure difference";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWS_nominal=
-    p_CHWR_nominal+dp_nominal
-    "Nominal pressure at CHW supply line";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=300000
-    "Nominal pressure at CHW return line";
+  parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation=300000
+    "Pressurisation point";
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
     "Nominal temperature of CHW return";
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
@@ -50,8 +47,7 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
-    p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
+    dp_nominal=0.3*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "User"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
@@ -88,7 +84,7 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
         origin={-90,90})));
   Buildings.Fluid.Sources.Boundary_pT sou_p(
     redeclare final package Medium = Medium,
-    final p=p_CHWR_nominal,
+    final p=p_Pressurisation,
     final T=T_CHWR_nominal,
     nPorts=1) "Pressurisation point" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

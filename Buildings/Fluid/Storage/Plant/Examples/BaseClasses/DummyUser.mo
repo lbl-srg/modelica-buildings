@@ -3,16 +3,11 @@ model DummyUser "Dummy user model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=1);
 
-  parameter Modelica.Units.SI.AbsolutePressure p_a_nominal=800000
-    "Nominal pressure of the CHW supply line";
-  parameter Modelica.Units.SI.AbsolutePressure p_b_nominal=300000
-    "Nominal pressure of the CHW return line";
   parameter Modelica.Units.SI.Temperature T_a_nominal=7+273.15
     "Nominal temperature of CHW supply";
   parameter Modelica.Units.SI.Temperature T_b_nominal=12+273.15
     "Nominal temperature of CHW return";
-  final parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    p_a_nominal-p_b_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=500000
     "Nominal pressure difference";
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
@@ -34,7 +29,7 @@ model DummyUser "Dummy user model"
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=true,
     V=0.5,
-    p_start=p_a_nominal,
+    p_start=500000,
     T_start=T_b_nominal) "Volume representing the consumer"
     annotation (
       Placement(transformation(
@@ -96,7 +91,7 @@ model DummyUser "Dummy user model"
         origin={-20,110})));
 equation
   connect(val.port_b, vol.ports[1])
-    annotation (Line(points={{-30,0},{0,0}}, color={0,127,255}));
+    annotation (Line(points={{-30,0},{1,0}}, color={0,127,255}));
   connect(heaCon.port, vol.heatPort)
     annotation (Line(points={{42,80},{54,80},{54,-10},{10,-10}},
                                                        color={191,0,0}));

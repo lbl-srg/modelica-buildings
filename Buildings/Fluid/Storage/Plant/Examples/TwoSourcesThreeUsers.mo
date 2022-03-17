@@ -10,11 +10,8 @@ model TwoSourcesThreeUsers
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=500000
     "Nominal pressure difference";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWS_nominal=
-    p_CHWR_nominal+dp_nominal
-    "Nominal pressure at CHW supply line";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=300000
-    "Nominal pressure at CHW return line";
+  parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation=300000
+    "Pressurisation point";
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
     "Nominal temperature of CHW return";
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
@@ -95,7 +92,7 @@ model TwoSourcesThreeUsers
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
   Buildings.Fluid.Sources.Boundary_pT sou_p(
     redeclare final package Medium = MediumCHW,
-    final p=p_CHWR_nominal,
+    final p=p_Pressurisation,
     final T=T_CHWR_nominal,
     nPorts=1) "Pressurisation point" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -201,8 +198,7 @@ model TwoSourcesThreeUsers
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
-    p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
+    dp_nominal=0.7*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Dummy user 1" annotation (Placement(
         transformation(
@@ -212,8 +208,7 @@ model TwoSourcesThreeUsers
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr2(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
-    p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
+    dp_nominal=0.7*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Dummy usr 2" annotation (Placement(
         transformation(
@@ -223,8 +218,7 @@ model TwoSourcesThreeUsers
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    p_a_nominal=p_CHWS_nominal - dp_nominal*0.35,
-    p_b_nominal=p_CHWR_nominal + dp_nominal*0.35,
+    dp_nominal=0.7*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Dummy user 3" annotation (Placement(
         transformation(

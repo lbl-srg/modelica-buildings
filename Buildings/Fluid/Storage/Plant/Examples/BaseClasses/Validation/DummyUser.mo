@@ -6,20 +6,15 @@ model DummyUser "Test model for the dummy user"
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    p_CHWS_nominal-p_CHWR_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=500000
     "Nominal pressure difference";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWS_nominal=800000
-    "Nominal pressure at CHW supply line";
-  parameter Modelica.Units.SI.AbsolutePressure p_CHWR_nominal=300000
-    "Nominal pressure at CHW return line";
+  parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation=300000
+    "Pressurisation point";
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal(
-    final displayUnit="degC")=
-     12+273.15
+    final displayUnit="degC")=12+273.15
     "Nominal temperature of CHW return";
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal(
-    final displayUnit="degC")=
-     7+273.15
+    final displayUnit="degC")=7+273.15
     "Nominal temperature of CHW supply";
   parameter Boolean allowFlowReversal=false
     "Flow reversal setting";
@@ -28,20 +23,19 @@ model DummyUser "Test model for the dummy user"
 
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser ideUsr(
     redeclare package Medium = Medium,
-    vol(T_start=15 + 273.15),
-    m_flow_nominal=m_flow_nominal,
-    p_a_nominal=p_CHWS_nominal,
-    p_b_nominal=p_CHWR_nominal,
-    T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
+    final vol(final T_start=15 + 273.15),
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
+    final T_a_nominal=T_CHWS_nominal,
+    final T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=0)));
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,
-    p=p_CHWR_nominal,
-    T=T_CHWR_nominal,
+    final p=p_Pressurisation,
+    final T=T_CHWR_nominal,
     nPorts=1) "Sink representing CHW return line"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -49,8 +43,8 @@ model DummyUser "Test model for the dummy user"
         origin={70,0})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
-    p=p_CHWS_nominal,
-    T=T_CHWS_nominal,
+    final p=p_Pressurisation+dp_nominal,
+    final T=T_CHWS_nominal,
     nPorts=1) "Source representing CHW supply line" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
