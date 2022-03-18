@@ -70,10 +70,8 @@ equation
           -20,60},{-20,0},{-10,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-Two classes are used depending on the type of sensor used to control the
-OA flow rate because the type of sensor conditions the type of
-damper: two-position in case of differential pressure, modulating in case
-of AFMS.
+This model represents a configuration with an air economizer and
+minimum OA control with a separate minimum OA damper and airflow measurement.
 </p>
 </html>"), Icon(graphics={
               Line(

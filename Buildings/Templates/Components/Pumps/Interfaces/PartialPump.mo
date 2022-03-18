@@ -66,6 +66,11 @@ partial model PartialPump "Interface class for pump"
       points={{0,-180},{0,-100}},
       color={0,0,0},
       thickness=1)}),
-   Diagram(coordinateSystem(preserveAspectRatio=false)));
+   Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for pump models.
+</p>
+</html>"));
 
 end PartialPump;

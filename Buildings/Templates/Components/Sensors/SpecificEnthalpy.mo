@@ -35,5 +35,13 @@ equation
         extent={{-20,-160},{20,40}},
         visible=have_sen,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model for a specific enthalpy sensor that can be 
+enabled or disabled with the Boolean parameter <code>have_sen</code>.
+If disabled, the control input variable <code>y</code> is removed
+and the model is a direct fluid pass-through. 
+</p>
+</html>"));
 end SpecificEnthalpy;

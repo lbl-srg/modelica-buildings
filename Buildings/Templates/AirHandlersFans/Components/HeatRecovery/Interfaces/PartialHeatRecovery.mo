@@ -9,6 +9,10 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
     "Control bus" annotation (Placement(transformation(
@@ -55,5 +59,10 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
         Text(
           extent={{-149,-110},{151,-150}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>
+This class provides a standard interface for the 
+heat recovery unit of an air handler.
+</p>
+</html>"));
 end PartialHeatRecovery;

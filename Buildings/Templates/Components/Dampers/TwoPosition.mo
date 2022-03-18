@@ -63,4 +63,22 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a two-position damper.
+</p>
+<ul>
+<li>
+The damper is commanded open with a Boolean signal <code>y1</code>.
+<code>y1 = 0</code> corresponds to fully closed.
+<code>y1 = 1</code> corresponds to fully open.
+</li>
+<li>
+The open and closed end swith status <code>y1_actual</code> and <code>y0_actual</code> are returned.
+<code>y1_actual = 0</code> corresponds to fully closed.
+<code>y1_actual = 1</code> corresponds to fully open.
+And the opposite for <code>y0_actual</code>.
+</li>
+</ul>
+</html>"));
 end TwoPosition;

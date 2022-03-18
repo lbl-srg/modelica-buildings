@@ -4,5 +4,12 @@ model VAVBoxCoolingOnly "Configuration of VAV terminal unit cooling only"
   annotation (
     defaultComponentName="ter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a configuration model with the same default options as
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly\">
+Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a>.
+</p>
+</html>"));
 end VAVBoxCoolingOnly;

@@ -86,5 +86,11 @@ equation
       color={255,204,51},
       thickness=0.5));
     annotation (
-  experiment(Tolerance=1e-6, StopTime=1));
+  experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
+<p>
+This is a validation model for the configuration represented by
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly\">
+Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly</a>
+</p>
+</html>"));
 end VAVBoxCoolingOnly;

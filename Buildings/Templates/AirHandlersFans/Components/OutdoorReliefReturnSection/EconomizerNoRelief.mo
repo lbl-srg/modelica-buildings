@@ -76,4 +76,10 @@ equation
       thickness=0.5));
   connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,60},{
           80,60},{80,140}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a configuration with an air economizer
+and no relief air branch.
+</p>
+</html>"));
 end EconomizerNoRelief;

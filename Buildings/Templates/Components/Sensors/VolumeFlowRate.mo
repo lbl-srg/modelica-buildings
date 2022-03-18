@@ -54,5 +54,13 @@ equation
         visible=have_sen and (typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross or
           typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS),
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model for a volume flow rate sensor that can be 
+enabled or disabled with the Boolean parameter <code>have_sen</code>.
+If disabled, the control input variable <code>y</code> is removed
+and the model is a direct fluid pass-through. 
+</p>
+</html>"));
 end VolumeFlowRate;

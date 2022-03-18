@@ -110,7 +110,7 @@ equation
 </html>", info="<html>
 <p>
 This is a model for a hot water coil with an optional
-control valve.
+modulating valve.
 </p>
 </html>"));
 end WaterBasedHeating;

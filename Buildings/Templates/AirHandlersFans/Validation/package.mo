@@ -6,16 +6,16 @@ package Validation
   preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models validating the templates from
+This package contains models validating the templates within
 <a href=\"modelica://Buildings.Templates.AirHandlersFans\">
 Buildings.Templates.AirHandlersFans</a>
-for different system configurations.
+for various system configurations.
 </p>
 <p>
 Each system configuration is specified by extending the original template class
 to create a so-called configuration class (under 
-<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject\">
-Buildings.Templates.AirHandlersFans.Validation.UserProject</a>),
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans\">
+Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans</a>),
 that is instantiated in the validation model.
 </p>
 <p>

@@ -42,5 +42,11 @@ equation
               Line(
           points={{0,0},{0,-140}},
           color={28,108,200},
-          thickness=1)}));
+          thickness=1)}), Documentation(info="<html>
+<p>
+This model represents a configuration with an air economizer
+and no relief branch.
+The return fan is optional.
+</p>
+</html>"));
 end NoRelief;

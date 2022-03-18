@@ -179,8 +179,13 @@ equation
       points={{-70,60},{19.8,60},{19.8,16}},
       color={255,204,51},
       thickness=0.5));
+
   annotation (
-  experiment(Tolerance=1e-6, StopTime=1),
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
+<p>
+This is a validation model for the configuration represented by
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZNoEconomizer\">
+Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZNoEconomizer</a>
+</p>
+</html>"));
 end VAVMZNoEconomizer;

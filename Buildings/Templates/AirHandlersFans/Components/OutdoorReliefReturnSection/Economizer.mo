@@ -102,4 +102,9 @@ equation
           {-100,-6},{-100,-60},{-48,-60},{-48,-66}}, color={0,127,255}));
   connect(recHea.port_bOut, secOut.port_aHeaRec) annotation (Line(points={{-70,-6},
           {-60,-6},{-60,-56},{-44,-56},{-44,-66}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a configuration with an air economizer.
+</p>
+</html>"));
 end Economizer;

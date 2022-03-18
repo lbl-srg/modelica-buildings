@@ -11,5 +11,10 @@ expandable connector Bus "Control bus for zone equipment"
     annotation (HideResult=false);
 
   annotation (
-    defaultComponentName="bus");
+    defaultComponentName="bus", Documentation(info="<html>
+<p>
+This expandable connector provides a standard interface for all 
+all control signals required by a terminal unit controller. 
+</p>
+</html>"));
 end Bus;

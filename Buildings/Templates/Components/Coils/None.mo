@@ -16,8 +16,8 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This is a simple fluid pass-through model 
-control valve.
+This is a direct fluid pass-through model to represent
+a configuration with no coil.
 </p>
 </html>"));
 end None;

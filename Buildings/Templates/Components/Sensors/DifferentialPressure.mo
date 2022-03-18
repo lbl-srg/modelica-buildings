@@ -32,5 +32,24 @@ equation
         visible=have_sen,
         rotation=text_rotation,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressureLow.svg")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model for a differential pressure sensor that can be 
+enabled or disabled with the Boolean parameter <code>have_sen</code>.
+If disabled, the control input variable <code>y</code> is removed
+and the model consists in two fluid ports that are not connected 
+to each other and for which the following equations are used.
+So the model must still be provided with pressure conditions 
+at each port.
+</p>
+<code>
+// Zero flow equations<br/>
+port_(a|b).m_flow = 0;<br/>
+// No contribution of specific quantities<br/>
+port_(a|b).h_outflow = 0;<br/>
+port_(a|b).Xi_outflow = zeros(Medium.nXi);<br/>
+port_(a|b).C_outflow  = zeros(Medium.nC);
+</code>
+</html>"));
 end DifferentialPressure;

@@ -72,5 +72,8 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     annotation (Dialog(group="Economizer design"));
 
   annotation (Documentation(info="<html>
+<p>
+This partial class provides a standard interface for multiple-zone VAV controllers.
+</p>
 </html>"));
 end PartialVAVMultizone;

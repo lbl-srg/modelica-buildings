@@ -486,14 +486,14 @@ equation
 This is an implementation of the control sequence specified in 
 <a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
 for multiple-zone VAV air handlers.
-It is contains the following components.
+It contains the following components.
 </p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a>:
 Main controller for the air handler
-<li>
+</li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>
@@ -501,13 +501,13 @@ and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode\">
 Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode</a>:
 Computation of the zone group operating mode out of zone-level signals 
-<li>
+</li>
 </ul>
 <h4>Details</h4>
 <p>
 The AI point for the measured outdoor air flow rate <code>ctl.VOut_flow</code> 
 used for minimum outdoor airflow control is connected to both <code>bus.VOutMin_flow</code> 
-(dedicated OA dampers) or <code>bus.VOut_flow</code> (single common OA damper).
+(dedicated minimum OA damper) or <code>bus.VOut_flow</code> (single common OA damper).
 Those two variables are exclusive from one another.
 In case of dedicated OA dampers, the total outdoor airflow is not measured, 
 hence no <code>bus.VOut_flow</code> signal is available for that configuration.

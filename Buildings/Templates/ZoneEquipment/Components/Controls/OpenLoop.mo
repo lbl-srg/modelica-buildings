@@ -21,5 +21,13 @@ equation
   connect(yCoiHea.y, bus.coiHea.y);
   /* Control point connection - end */
   annotation (
-  defaultComponentName="conTer");
+  defaultComponentName="conTer", Documentation(info="<html>
+<p>
+This is an open loop controller providing control inputs
+for the templates within 
+<a href=\"modelica://Buildings.Templates.ZoneEquipment\">
+Buildings.Templates.ZoneEquipment</a>.
+It is mainly used for testing purposes.
+</p>
+</html>"));
 end OpenLoop;

@@ -28,5 +28,10 @@ partial block PartialController "Interface class for terminal unit controller"
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
-            200}})));
+            200}})),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for terminal unit controllers.
+</p>
+</html>"));
 end PartialController;

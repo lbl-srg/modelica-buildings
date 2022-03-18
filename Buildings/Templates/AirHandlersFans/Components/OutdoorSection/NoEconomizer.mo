@@ -35,5 +35,10 @@ equation
               Line(
           points={{-180,0},{180,0}},
           color={28,108,200},
-          thickness=1)}));
+          thickness=1)}), Documentation(info="<html>
+<p>
+This model represents a configuration with no air economizer
+for 100% outdoor air applications (such as DOAS).
+</p>
+</html>"));
 end NoEconomizer;

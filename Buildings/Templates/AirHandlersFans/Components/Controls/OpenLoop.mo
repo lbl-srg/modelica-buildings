@@ -121,5 +121,14 @@ equation
   annotation (
   defaultComponentName="conAHU",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is an open loop controller providing control inputs
+for the templates within 
+<a href=\"modelica://Buildings.Templates.AirHandlersFans\">
+Buildings.Templates.AirHandlersFans</a>.
+It is mainly used for testing purposes.
+</p>
+</html>"));
 end OpenLoop;

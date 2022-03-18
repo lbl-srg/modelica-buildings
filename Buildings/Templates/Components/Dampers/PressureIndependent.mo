@@ -27,4 +27,21 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a pressure independent damper.
+</p>
+<ul>
+<li>
+The discharge flow rate is moduled with a fractional airflow signal <code>y</code>.
+<code>y = 0</code> corresponds to zero airflow.
+<code>y = 1</code> corresponds to the maximum airflow.
+</li>
+<li>
+The actual damper position <code>y_actual</code> is returned.
+<code>y_actual = 0</code> corresponds to fully closed.
+<code>y_actual = 1</code> corresponds to fully open.
+</li>
+</ul>
+</html>"));
 end PressureIndependent;

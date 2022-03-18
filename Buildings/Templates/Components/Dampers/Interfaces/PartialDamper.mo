@@ -73,6 +73,11 @@ partial model PartialDamper "Interface class for damper"
       coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})),
      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for damper models.
+</p>
+</html>"));
 
 end PartialDamper;

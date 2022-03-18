@@ -61,5 +61,11 @@ equation
               Line(
           points={{-180,0},{180,0}},
           color={28,108,200},
-          thickness=1)}));
+          thickness=1)}), Documentation(info="<html>
+<p>
+This model represents a configuration with an air economizer 
+and minimum OA control with a single common damper 
+and airflow measurement
+</p>
+</html>"));
 end SingleDamper;

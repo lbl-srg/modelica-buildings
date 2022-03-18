@@ -7,5 +7,11 @@ model VAVMZCoilEvaporatorMultiStage "Validation model for multiple-zone VAV"
             datCoi))));
 
   annotation (
-  experiment(Tolerance=1e-6, StopTime=1));
+  experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
+<p>
+This is a validation model for the configuration represented by
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZCoilEvaporatorMultiStage\">
+Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZCoilEvaporatorMultiStage</a>
+</p>
+</html>"));
 end VAVMZCoilEvaporatorMultiStage;

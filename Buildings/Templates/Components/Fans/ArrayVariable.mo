@@ -108,19 +108,22 @@ equation
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<p>
+This is a model for a parallel arrangement of identical variable speed fans
+(or fan array). 
+</p>
 <ul>
 <li>
-All fans are identical.
+All fans are commanded on with the same Boolean signal <code>y1</code> (VFD Run).
 </li>
 <li>
-All fans are commanded with the same on/off signal (VFD run).
+The speed of all fans is modulated with the same fractional speed signal <code>y</code>.
+<code>y = 0</code> corresponds to 0 Hz.
+<code>y = 1</code> corresponds to the maximum speed set in the VFD.
 </li>
 <li>
-All fans are controlled to the same speed.
-</li>
-<li>
-A single common status signal is returned
-(true when all fans are on).
+A unique status signal <code>y1_actual</code> is returned.
+<code>y1_actual = true</code> means that all fans are on.
 </li>
 </ul>
 </html>"));

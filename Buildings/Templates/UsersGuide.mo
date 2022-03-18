@@ -56,9 +56,11 @@ The following abbreviations are used in that package.<br/>
 <tr><td>DHW</td><td>Domestic hot water</td></tr>
 <tr><td>DI</td><td>Digital input (Boolean)</td></tr>
 <tr><td>DO</td><td>Digital output (Boolean)</td></tr>
+<tr><td>DOAS</td><td>Dedicated outdoor air system</td></tr>
 <tr><td>HHW</td><td>Heating hot water</td></tr>
 <tr><td>OA</td><td>Outdoor air</td></tr>
 <tr><td>VAV</td><td>Variable air volume</td></tr>
+<tr><td>VFD</td><td>Variable frequency drive</td></tr>
 </table>
 
 <h4>References</h4>
@@ -84,9 +86,10 @@ Created user guide.
 <p>
 This user guide describes how to use the templates.
 </p>
-<h4>Physical Boundaries</h4>
+<h4>Physical boundaries</h4>
 <p>
-The templates are defined at the system level (refer to
+The templates are defined at the system level, such as an air handler
+or a terminal unit (refer to
 <a href=\"modelica://Buildings.Templates.UsersGuide.Conventions\">
 Buildings.Templates.UsersGuide.Conventions</a>
 for the definition of a system).
@@ -102,32 +105,18 @@ The same holds true for sensors required by a specific control
 option which are conditionally instantiated if that option is 
 selected.
 </p>
+<h4>Simulation model assembly</h4>
 <p>
-The templates have been validated for all system configurations
-that they cover.
-However, since there is currently no template for the whole HVAC 
-system, it is the user's responsibility to ensure that the control
-sequence selected for one system is compatible 
-with the one selected for another system.
-For instance the AHU controller may require reset requests 
-yielded by the zone equipment controller.
-If the controller selected for the zone equipment does not
-generate such requests, the simulation model will be singular.
-Selecting controllers from the same reference (such as
-<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>)
-is the safest way to ensure consistency across the whole HVAC 
-system model. 
-</p>
-<h4>Simulation Model Assembly</h4>
-<p>
+There is currently no template representing a complete HVAC system,
+from the plant to the terminal unit.
 To build a simulation model representing a complete HVAC system, 
 one needs to 
 </p>
 <ol>
 <li>
 instantiate the templates (or any derived class representing a specific 
-configuration) of the different systems (such as the CHW and HHW plants, the
-air handlers and the terminal units),
+configuration) of the different subsystems (such as the CHW and HHW plants, 
+the air handlers and the terminal units),
 </li>
 <li>
 if needed, configure those instances to represent project-specific 
@@ -145,11 +134,18 @@ fill in the parameter records of the different instances with
 proper design and operating parameter values.
 </li>
 </ol>
-<h4>Parameterization</h4>
 <p>
-Explain how to use and propagate the records.
-Using Linkage
-Using any Modelica tool
+When assembling a model for a complete HVAC system,
+it is the user's responsibility to ensure that the control
+sequence selected for one subsystem is compatible 
+with the one selected for another subsystem.
+For instance the AHU controller may require reset requests 
+yielded by the zone equipment controller.
+If the controller selected for the zone equipment does not
+generate such requests, the simulation model will be singular.
+Selecting controllers from the same reference&mdash;such as
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>&mdash;is the safest way 
+to ensure consistency across the whole HVAC system model. 
 </p>
 <h4>References</h4>
 <ul>

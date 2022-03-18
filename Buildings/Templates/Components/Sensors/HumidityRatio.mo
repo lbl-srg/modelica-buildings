@@ -44,5 +44,13 @@ equation
         visible=have_sen,
         rotation=text_rotation,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/HumidityRatio.svg")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model for a humidity ratio (in kg/kg dry air) sensor that can be 
+enabled or disabled with the Boolean parameter <code>have_sen</code>.
+If disabled, the control input variable <code>y</code> is removed
+and the model is a direct fluid pass-through. 
+</p>
+</html>"));
 end HumidityRatio;

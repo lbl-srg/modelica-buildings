@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection;
-model NoEconomizer "No Air Economizer"
+model NoEconomizer "No air economizer"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
@@ -69,4 +69,10 @@ equation
           {-100,-6},{-100,-60},{-48,-60},{-48,-66}}, color={0,127,255}));
   connect(recHea.port_bOut, secOut.port_aHeaRec) annotation (Line(points={{-70,-6},
           {-60,-6},{-60,-56},{-44,-56},{-44,-66}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a configuration with no air economizer
+for 100% outdoor air applications (such as DOAS).
+</p>
+</html>"));
 end NoEconomizer;

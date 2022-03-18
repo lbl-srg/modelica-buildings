@@ -87,7 +87,7 @@ package Types "Package with type definitions"
     "Enumeration to configure the relief/return air section";
   annotation (Documentation(info="<html>
 <p>
-This package contains types definitions.
+This package contains type definitions.
 </p>
 </html>"));
 end Types;

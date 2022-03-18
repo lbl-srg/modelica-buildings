@@ -109,19 +109,22 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   annotation (Documentation(info="<html>
+<p>
+This is a model for a parallel arrangement of identical variable
+speed pumps (with dedicated VFDs). 
+</p>
 <ul>
 <li>
-All pumps are identical.
+Each pump is commanded on with a dedicated Boolean signal <code>y1</code> (VFD Run).
 </li>
 <li>
-Each pump is commanded with a dedicated on/off signal (VFD run).
+The speed of all pumps is modulated with the same fractional speed signal <code>y</code>.
+<code>y = 0</code> corresponds to 0 Hz.
+<code>y = 1</code> corresponds to the maximum speed set in the VFD.
 </li>
 <li>
-All pumps are controlled to the same speed.
-</li>
-<li>
-Each pump returns a dedicated status signal
-(true when the pump is on).
+Each pump returns a dedicated status signal <code>y1_actual</code> (Boolean).
+<code>y1_actual = true</code> means that the pump is on.
 </li>
 </ul>
 </html>"));

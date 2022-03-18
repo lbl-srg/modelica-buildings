@@ -8,5 +8,12 @@ model VAVBoxReheat "Configuration of VAV terminal unit with reheat"
   annotation (
     defaultComponentName="ter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a configuration model with the same default options as
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxReheat\">
+Buildings.Templates.ZoneEquipment.VAVBoxReheat</a>.
+</p>
+</html>"));
 end VAVBoxReheat;

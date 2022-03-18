@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Coils;
-model ElectricHeating "Electric heating coil"
+model ElectricHeating "Modulating electric heating coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.ElectricHeating,
     final typVal=Buildings.Templates.Components.Types.Valve.None);
@@ -39,6 +39,10 @@ Not supported by OCT though:
 Compliance error at line 8, column 4,
   Constructors for external objects is not supported in functions
 
+</p>
+</html>", info="<html>
+<p>
+This is a model for a modulating electric heating coil.
 </p>
 </html>"));
 end ElectricHeating;

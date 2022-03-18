@@ -39,8 +39,9 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
-By default, the nominal pressure drop dpFixed_nominal 
-in the bypass line is considered
+<p>
+By default, the nominal pressure drop in the bypass line is considered 
 equal to the one in the direct line.
+</p>
 </html>"));
 end ThreeWayModulating;

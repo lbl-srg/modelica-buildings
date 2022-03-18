@@ -49,5 +49,8 @@ equation
           thickness=1)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<p>
+This partial class provides a standard interface for sensor models.
+</p>
 </html>"));
 end PartialSensor;

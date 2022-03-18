@@ -31,7 +31,7 @@ model VAVBoxReheat "VAV terminal unit with reheat"
         "Two-way modulating valve")
         "Hot water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
-        "Electric heating coil")),
+        "Modulating electric heating coil")),
     Dialog(group="Heating coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
@@ -140,15 +140,45 @@ equation
 <p>
 This template represents a VAV terminal unit with reheat.
 </p>
-<h5>Default configuration</h5>
 <p>
-By default the system is configured with the following options.<br/>
+The possible equipment configurations are enumerated in the table below.
+The user may refer to
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+for further details.
+The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th>Component</th><th>Configuration</th></tr>
-<tr><td>VAV damper</td><td>Pressure independent damper</td></tr>
-<tr><td>Heating coil</td><td>Hot water coil - Two-way modulating valve</td></tr>
-<tr><td>Controller</td><td>Open loop controller</td></tr>
+<tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
+<tr><td>VAV damper</td>
+<td>
+<b>Pressure independent damper</b><br/>
+Modulating damper
+</td>
+<td></td>
+</tr>
+<tr><td>Reheat coil</td>
+<td>
+<b>Hot water coil</b><br/>
+Modulating electric heating coil<br/>
+No coil
+</td>
+<td>By default a two-way modulating valve is considered for
+a hot water coil.
+Alternative options for the control valve are available.</td>
+</tr>
+<tr><td>Controller</td>
+<td>
+<b>Open loop controller</b><br/>
+ASHRAE Guideline 36 controller
+</td>
+<td></td>
 </table>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2018\">
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 end VAVBoxReheat;

@@ -230,7 +230,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
-        "Electric heating coil")),
+        "Modulating electric heating coil")),
     Dialog(group="Heating coil",
       enable=coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{10,-210},{30,-190}})));
@@ -265,7 +265,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh
-        "Electric heating coil")),
+        "Modulating electric heating coil")),
     Dialog(group="Heating coil",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{130,-210},{150,-190}})));
@@ -456,15 +456,15 @@ BUILDING",fontSize=4)}),
     Documentation(info="<html>
 <h4>Description</h4>
 <p>
-This template represents a multiple-zone VAV air handler for 
+This template represents a multiple-zone VAV air handler for
 a single duct system serving <b>at least two</b> terminal units.
 </p>
-<h5>Equipment configurations</h5>
 <p>
 The possible equipment configurations are enumerated in the table below.
-They are further described in 
-<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
-The first one enumerated and displayed in bold characters corresponds to the default configuration.
+The user may refer to
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+for further details.
+The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
@@ -483,7 +483,7 @@ Modulating relief damper without fan<br/>
 No relief branch<br/>
 Relief fan with two-position relief damper
 </td>
-<td></td>
+<td>Nonactuated barometric relief is currently not supported.</td>
 </tr>
 <tr><td>Supply fan - Blow-through position</td>
 <td>
@@ -498,10 +498,12 @@ one another.</td>
 <tr><td>Heating coil - Preheat position</td>
 <td>
 <b>No coil</b><br/>
-Electric heating coil<br/>
+Modulating electric heating coil<br/>
 Hot water coil
 </td>
-<td></td>
+<td>By default a two-way modulating valve is considered for
+a hot water coil.
+Alternative options for the control valve are available.</td>
 </tr>
 <tr><td>Cooling coil</td>
 <td>
@@ -509,15 +511,19 @@ Hot water coil
 Chilled water coil<br/>
 Evaporator coil with variable speed compressor
 </td>
-<td></td>
+<td>By default a two-way modulating valve is considered for
+a chilled water coil.
+Alternative options for the control valve are available.</td>
 </tr>
 <tr><td>Heating coil - Reheat position</td>
 <td>
 <b>No coil</b><br/>
-Electric heating coil<br/>
+Modulating electric heating coil<br/>
 Hot water coil
 </td>
-<td></td>
+<td>By default a two-way modulating valve is considered for
+a hot water coil.
+Alternative options for the control valve are available.</td>
 </tr>
 <tr><td>Supply fan - Draw-through position</td>
 <td>
@@ -535,8 +541,8 @@ one another.</td>
 Fan array - Variable speed<br/>
 No fan
 </td>
-<td>The relief fan and the return fan are optional and exclusive from
-one another.</td>
+<td>The relief fan and the return fan are both optional and
+they are exclusive from one another.</td>
 </tr>
 <tr><td>Relief fan</td>
 <td>
@@ -544,8 +550,8 @@ one another.</td>
 Single fan - Variable speed<br/>
 Fan array - Variable speed
 </td>
-<td>The relief fan and the return fan are optional and exclusive from
-one another.</td>
+<td>The relief fan and the return fan are both optional and
+they are exclusive from one another.</td>
 </tr>
 <tr><td>Controller</td>
 <td>
@@ -577,22 +583,24 @@ be configured separately, by means of a dedicated template.
 <p>
 The duct static pressure sensors use the outdoor absolute pressure
 as an approximation of the reference pressure in the mechanical room
-where the air handler is located. 
+where the air handler is located.
 </p>
 <p>
 When a building static pressure measurement is required by the control
-sequence 
-(<code>ctl.typCtlFanRet=AirHandlersFans.Types.ControlFanReturn.BuildingPressure</code>), 
-the corresponding sensor <code>pBui_rel</code> is instantiated 
+sequence
+(<code>ctl.typCtlFanRet=AirHandlersFans.Types.ControlFanReturn.BuildingPressure</code>),
+the corresponding sensor <code>pBui_rel</code> is instantiated
 within the current class.
-In this case, an additional variable <code>pBui</code> needs to be 
-connected to the control bus to pass in the value of the absolute pressure 
+In this case, an additional variable <code>pBui</code> needs to be
+connected to the control bus to pass in the value of the absolute pressure
 in a representative space of the building.
+This is only for templating purposes, the actual control point remains the
+relative building static pressure.
 </p>
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2018\">
-ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

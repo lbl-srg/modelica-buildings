@@ -202,5 +202,10 @@ annotation (
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
-          pattern=LinePattern.None)}));
+          pattern=LinePattern.None)}),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for air handler templates.
+</p>
+</html>"));
 end PartialAirHandler;

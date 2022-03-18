@@ -107,5 +107,10 @@ equation
           color={0,0,0},
           thickness=1)}),
     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for fan models.
+</p>
+</html>"));
 end PartialFan;

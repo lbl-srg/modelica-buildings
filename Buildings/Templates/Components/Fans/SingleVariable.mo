@@ -71,5 +71,24 @@ equation
     Icon(
       coordinateSystem(preserveAspectRatio=false)),
     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model for a variable speed fan (with VFD).
+</p>
+<ul>
+<li>
+The fan is commanded on with a Boolean signal <code>y1</code> (VFD Run).
+</li>
+<li>
+The fan speed is modulated with a fractional speed signal <code>y</code>.
+<code>y = 0</code> corresponds to 0 Hz.
+<code>y = 1</code> corresponds to the maximum speed set in the VFD.
+</li>
+<li>
+A status signal <code>y1_actual</code> (Boolean) is returned.
+<code>y1_actual = true</code> means that the fan is on.
+</li>
+</ul>
+</html>"));
 end SingleVariable;

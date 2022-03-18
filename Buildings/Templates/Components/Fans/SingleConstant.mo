@@ -51,5 +51,19 @@ equation
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
      Icon(
      coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model for a constant speed fan.
+</p>
+<ul>
+<li>
+The fan is commanded on with a Boolean signal <code>y1</code> (starter contact).
+</li>
+<li>
+A status signal <code>y1_actual</code> (Boolean) is returned.
+<code>y1_actual = true</code> means that the fan is on.
+</li>
+</ul>
+</html>"));
 end SingleConstant;

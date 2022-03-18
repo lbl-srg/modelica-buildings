@@ -55,5 +55,10 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (
     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)), Documentation(info="<html>
+<p>
+This is a model for a direct expansion cooling coil with a
+multi-stage compressor.
+</p>
+</html>"));
 end EvaporatorMultiStage;

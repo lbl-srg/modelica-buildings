@@ -28,12 +28,8 @@ equation
     annotation (Line(points={{-140,0},{-10,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-5.16.8 Control of Actuated Relief Dampers without Fans
-5.16.8.1 Relief dampers shall be enabled when the associated
-supply fan is proven ON, and disabled otherwise.
-5.16.8.2 When enabled, use a P-only control loop to
-modulate relief dampers to maintain 12 Pa (0.05 in. of water)
-building static pressure. Close damper when disabled.
+This model represents a configuration with an air economizer
+and an actuated relief damper (modulating) without fan.
 </p>
 </html>"), Icon(graphics={
               Line(

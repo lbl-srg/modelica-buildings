@@ -26,4 +26,21 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a modulating damper.
+</p>
+<ul>
+<li>
+The damper opening is modulated with a fractional opening signal <code>y</code>.
+<code>y = 0</code> corresponds to fully closed.
+<code>y = 1</code> corresponds to fully open.
+</li>
+<li>
+The actual damper position <code>y_actual</code> is returned.
+<code>y_actual = 0</code> corresponds to fully closed.
+<code>y_actual = 1</code> corresponds to fully open.
+</li>
+</ul>
+</html>"));
 end Modulating;

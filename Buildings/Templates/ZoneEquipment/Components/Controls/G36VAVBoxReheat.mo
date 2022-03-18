@@ -329,5 +329,43 @@ equation
   annotation (
     defaultComponentName="conTer",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<h4>Description</h4>
+<p>
+This is an implementation of the control sequence specified in 
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+for VAV terminal units with reheat.
+It contains the following components.
+</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a>:
+Main controller for the terminal unit
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints\">
+Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints</a>:
+Computation of the zone temperature set points 
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a>:
+Computation of the zone minimum outdoor air and minimum airflow set points
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus\">
+Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus</a>:
+Computation of the zone warm-up and cooldown time
+</li>
+</ul>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2018\">
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>"));
 end G36VAVBoxReheat;

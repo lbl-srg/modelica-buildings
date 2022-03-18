@@ -13,4 +13,9 @@ partial block PartialVAVBoxController "Interface class for VAV terminal unit"
   outer replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
     "VAV damper";
 
+  annotation (Documentation(info="<html>
+<p>
+This partial class provides a standard interface for VAV terminal unit controllers.
+</p>
+</html>"));
 end PartialVAVBoxController;

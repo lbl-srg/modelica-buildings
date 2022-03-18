@@ -125,7 +125,7 @@ Compliance error at line 8, column 4,
 </html>", info="<html>
 <p>
 This is a model for a chilled water coil with an optional
-control valve.
+modulating valve.
 </p>
 </html>"));
 end WaterBasedCooling;

@@ -3,7 +3,7 @@ package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type Coil = enumeration(
       ElectricHeating
-      "Electric heating coil",
+      "Modulating electric heating coil",
       EvaporatorMultiStage
       "Evaporator coil with multi-stage compressor",
       EvaporatorVariableSpeed
@@ -116,4 +116,9 @@ package Types "Package with type definitions"
       TwoWayTwoPosition
       "Two-way two-position valve")
     "Enumeration to configure the valve";
+  annotation (Documentation(info="<html>
+<p>
+This package contains type definitions.
+</p>
+</html>"));
 end Types;

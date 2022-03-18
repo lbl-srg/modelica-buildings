@@ -82,14 +82,35 @@ equation
 This template represents a cooling-only VAV terminal unit
 (or shut off box).
 </p>
-<h5>Default configuration</h5>
 <p>
-By default the system is configured with the following options.<br/>
+The possible equipment configurations are enumerated in the table below.
+The user may refer to 
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+for further details.
+The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th>Component</th><th>Configuration</th></tr>
-<tr><td>VAV damper</td><td>Pressure independent damper</td></tr>
-<tr><td>Controller</td><td>Open loop controller</td></tr>
+<tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
+<tr><td>VAV damper</td>
+<td>
+<b>Pressure independent damper</b><br/>
+Modulating damper
+</td>
+<td></td>
+</tr>
+<tr><td>Controller</td>
+<td>
+<b>Open loop controller</b><br/>
+ASHRAE Guideline 36 controller
+</td>
+<td></td>
 </table>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2018\">
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 end VAVBoxCoolingOnly;

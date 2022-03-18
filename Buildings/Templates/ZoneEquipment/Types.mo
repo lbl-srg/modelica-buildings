@@ -19,4 +19,9 @@ package Types "Package with type definitions"
       OpenLoop
       "Open loop controller")
       "Enumeration to configure the terminal unit controller";
+  annotation (Documentation(info="<html>
+<p>
+This package contains type definitions.
+</p>
+</html>"));
 end Types;

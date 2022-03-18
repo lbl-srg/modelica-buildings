@@ -132,6 +132,11 @@ protected
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg")},
     coordinateSystem(preserveAspectRatio=false)),
     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for coil models.
+</p>
+</html>"));
 
 end PartialCoil;

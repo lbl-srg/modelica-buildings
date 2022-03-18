@@ -46,39 +46,8 @@ equation
     annotation (Line(points={{10,0},{50,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-5.16.10 Return-Fan Control—Direct Building Pressure
-5.16.10.1 Return fan operates whenever the associated
-supply fan is proven ON and shall be off otherwise.
-5.16.10.2 Return fans shall be controlled to maintain returnfan
-discharge static pressure at set point (Section 5.16.10.5).
-5.16.10.3 Exhaust dampers shall only be enabled when
-the associated supply and return fans are proven ON and the
-minimum outdoor air damper is open. The exhaust dampers
-shall be closed when disabled.
-5.16.10.5 When exhaust dampers are enabled, a control
-loop shall modulate exhaust dampers in sequence with the
-return-fan static pressure set point, as shown in Figure
-5.16.10.5, to maintain the building pressure at a set point of
-12 Pa (0.05 in. of water).
-a. From 0% to 50%, the building pressure control loop shall
-modulate the exhaust dampers from 0% to 100% open.
-b. From 51% to 100%, the building pressure control loop
-shall reset the return-fan discharge static pressure set point
-from RFDSPmin at 50% loop output to RFDSPmax at
-100% of loop output. See Section 3.2.1.4 for RFDSPmin
-and RFDSPmax.
-</p>
-<p>
-5.16.11 Return-Fan Control— Airflow Tracking
-5.16.11.1 Return fan operates whenever associated supply
-fan is proven ON.
-5.16.11.2 Return-fan speed shall be controlled to maintain
-return airflow equal to supply airflow less differential SR-
-DIFF, as determined per Section 3.2.1.5.
-5.16.11.3 Relief/exhaust dampers shall be enabled when
-the associated supply and return fans are proven ON and
-closed otherwise. Exhaust dampers shall modulate as the
-inverse of the return air damper per Section 5.16.2.3.4.
+This model represents a configuration with no air economizer
+for 100% outdoor air applications (such as DOAS).
 </p>
 </html>"), Icon(graphics={
               Line(

@@ -74,5 +74,23 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
           extent={{-149,-150},{151,-190}},
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
+    Documentation(info="<html>
+<p>
+This class provides a standard interface for the outdoor
+air section of an air handler.
+Typical components in that section include
+</p>
+<ul>
+<li>
+shut off OA dampers, 
+</li>
+<li>
+the OA side of the heat recovery unit,
+</li>
+<li>
+the OA dampers of the air economizer.
+</li>
+</ul>
+</html>"));
 end PartialOutdoorSection;

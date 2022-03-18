@@ -368,5 +368,26 @@ partial model PartialOutdoorReliefReturnSection
           color={0,0,0},
           thickness=1)}),
    Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
+    Documentation(info="<html>
+<p>
+This class provides a standard interface for the outdoor/relief/return
+air section of an air handler.
+Typical components in that section include
+</p>
+<ul>
+<li>
+shut off dampers, 
+</li>
+<li>
+the heat recovery unit,
+</li>
+<li>
+the air economizer,
+</li>
+<li>
+the relief or return fan.
+</li>
+</ul>
+</html>"));
 end PartialOutdoorReliefReturnSection;

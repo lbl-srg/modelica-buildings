@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFan
 model VAVMZCoilElectricHeating  "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating
-      coiHeaPre "Electric heating coil",
+      coiHeaPre "Modulating electric heating coil",
     nZon=2);
   annotation (
     defaultComponentName="ahu", Documentation(info="<html>
@@ -14,7 +14,7 @@ except for the following options.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Component</th><th>Configuration</th></tr>
-<tr><td>Heating coil</td><td>Electric heating coil - Preheat position</td></tr>
+<tr><td>Heating coil</td><td>Modulating electric heating coil - Preheat position</td></tr>
 </table>
 </html>"));
 end VAVMZCoilElectricHeating;
