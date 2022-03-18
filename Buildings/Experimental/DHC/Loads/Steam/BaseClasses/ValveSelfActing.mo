@@ -35,9 +35,8 @@ equation
   + getInstanceName() + ", which results in a negative pressure drop. 
   This is not typical of real systems and should be verified.", AssertionLevel.warning);
 
-  assert(m_flow > 0, "Occurence of backflow, resulting in negative massflow rate through "
-  + getInstanceName(),  AssertionLevel.warning);
-
+  assert(m_flow > 0, "Flow reversal occured through "
+  + getInstanceName() + ", resulting in a negative massflow rate.",  AssertionLevel.warning);
 
   connect(ideSou.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
