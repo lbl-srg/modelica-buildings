@@ -342,7 +342,8 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables<br/>
         Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
         Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison<br/>
-        Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve
+        Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve<br/>
+        Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed
     </td>
     <td valign=\"top\">
     Package that allows certain efficiency and power variables to be computed
