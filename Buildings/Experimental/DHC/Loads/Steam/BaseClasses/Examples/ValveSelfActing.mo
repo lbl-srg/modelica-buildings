@@ -31,23 +31,23 @@ model ValveSelfActing
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Modelica.Blocks.Noise.UniformNoise pInSig(
     samplePeriod(displayUnit="s") = 1,
-    y_min=500000 + 400000,
-    y_max=500000 - 400000) "Noisy signal for inlet pressure"
+    y_min=500000 + 100000,
+    y_max=500000 - 100000) "Noisy signal for inlet pressure"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
-  Fluid.Sources.Boundary_pT      sin(
+  Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumSte,
     p=250000,
     T=MediumSte.saturationTemperature(sin.p),
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
-  inner Modelica.Blocks.Noise.GlobalSeed globalSeed
-    "Setting for sublibrary noise"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumSte,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) "Pressure drop"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  inner Modelica.Blocks.Noise.GlobalSeed globalSeed
+    "Setting for sublibrary noise"
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 equation
   connect(sou.ports[1], speEntIn.port_a)
     annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
