@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
 model EulerComparison
-  "Simple model to validate the power computation method using the Euler number"
+  "Validates the Euler number method at nominal mover speed"
   extends Modelica.Icons.Example;
 
   parameter Integer nOri(min=1)=size(per1.power.V_flow,1)
