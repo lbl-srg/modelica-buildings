@@ -22,7 +22,7 @@ the equation section of each class, namely
 <h4>Definitions</h4>
 <h5>System</h5>
 <p>
-We adopt the definition hereafter from <a href=\"#ASHRAE2018\">ASHRAE (2018)</a>.
+We adopt the definition hereafter from ASHRAE (2018).
 </p>
 <p>
 A set of components is a system if they share a load in
@@ -66,7 +66,7 @@ The following abbreviations are used in that package.<br/>
 
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2018\">
+<li>
 ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
 for HVAC Systems. Atlanta, GA.
 </li>
@@ -145,12 +145,12 @@ yielded by the zone equipment controller.
 If the controller selected for the zone equipment does not
 generate such requests, the simulation model will be singular.
 Selecting controllers from the same reference&mdash;such as
-<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>&mdash;is the safest way 
+ASHRAE (2018)&mdash;is the safest way 
 to ensure consistency across the whole HVAC system model. 
 </p>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2018\">
+<li>
 ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
 for HVAC Systems. Atlanta, GA.
 </li>
