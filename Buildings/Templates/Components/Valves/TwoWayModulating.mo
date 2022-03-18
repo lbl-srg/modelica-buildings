@@ -35,4 +35,22 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a two-way modulating valve.
+</p>
+<ul>
+<li>
+The valve position is modulated with a fractional position 
+signal <code>y</code> (real).<br/>
+<code>y = 0</code> corresponds to fully closed.
+<code>y = 1</code> corresponds to fully open.
+</li>
+<li>
+The actual valve position <code>y_actual</code> (real) is returned.<br/>
+<code>y_actual = 0</code> corresponds to fully closed.
+<code>y_actual = 1</code> corresponds to fully open.
+</li>
+</ul>
+</html>"));
 end TwoWayModulating;

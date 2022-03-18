@@ -82,6 +82,22 @@ protected
     final dpFixed_nominal=if typVal <> Buildings.Templates.Components.Types.Valve.None
       then dat.dpWat_nominal else 0)
     "Local record for control valve with lumped flow resistance";
+initial equation
+  if typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+    typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
+    assert(mAir_flow_nominal<=dat.datCoi.sta[dat.datCoi.nSta].nomVal.m_flow_nominal,
+      "In "+ getInstanceName() + ": "+
+      "The coil design airflow ("+String(mAir_flow_nominal)+
+      ") exceeds the maximum airflow provided in the performance data record ("+
+      String(dat.datCoi.sta[dat.datCoi.nSta].nomVal.m_flow_nominal)+").",
+      level=AssertionLevel.warning);
+    assert(abs(Q_flow_nominal)<=abs(dat.datCoi.sta[dat.datCoi.nSta].nomVal.Q_flow_nominal),
+      "In "+ getInstanceName() + ": "+
+      "The coil design capacity ("+String(Q_flow_nominal)+
+      ") exceeds the maximum capacity provided in the performance data record ("+
+      String(dat.datCoi.sta[dat.datCoi.nSta].nomVal.Q_flow_nominal)+").",
+      level=AssertionLevel.warning);
+  end if;
 
   annotation (
   Icon(
@@ -138,5 +154,4 @@ protected
 This partial class provides a standard interface for coil models.
 </p>
 </html>"));
-
 end PartialCoil;

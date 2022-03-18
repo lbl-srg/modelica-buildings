@@ -40,8 +40,20 @@ equation
       horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
 <p>
-By default, the nominal pressure drop in the bypass line is considered 
-equal to the one in the direct line.
+This is a model for a three-way modulating valve.
 </p>
+<ul>
+<li>
+The valve position is modulated with a fractional position 
+signal <code>y</code> (real).<br/>
+<code>y = 0</code> corresponds to full bypass.
+<code>y = 1</code> corresponds to zero bypass.
+</li>
+<li>
+The actual valve position <code>y_actual</code> (real) is returned.<br/>
+<code>y_actual = 0</code> corresponds to full bypass.
+<code>y_actual = 1</code> corresponds to zero bypass.
+</li>
+</ul>
 </html>"));
 end ThreeWayModulating;

@@ -126,6 +126,9 @@ Compliance error at line 8, column 4,
 <p>
 This is a model for a chilled water coil with an optional
 modulating valve.
+The valve position is modulated with the fractional opening
+signal <code>y</code> (real between <code>0</code> and <code>1</code>).
+If no valve is used, no signal is required.
 </p>
 </html>"));
 end WaterBasedCooling;

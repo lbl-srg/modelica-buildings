@@ -18,7 +18,7 @@ partial model PartialSensor "Interface class for sensor"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
     "Connector for measured value"
-    annotation (Placement(
+    annotation (Placement(iconVisible=false,
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,

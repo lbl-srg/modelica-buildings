@@ -33,11 +33,12 @@ ship serving air handlers).
 <ul>
 <li>
 Each air handler constitutes its own separate system
-because it does not share a load in common with the other AHUs. 
+because it does not share a load (terminal unit) in common with 
+the other air handlers. 
 </li>
 <li>
 Each VAV box constitutes its own system because it does
-not share a load in common the other VAV boxes. 
+not share a load (conditioned space) in common with the other VAV boxes. 
 </li>
 </ul>
 

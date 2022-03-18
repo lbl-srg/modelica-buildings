@@ -60,6 +60,8 @@ equation
 <p>
 This is a model for a direct expansion cooling coil with a
 variable speed compressor.
+The compressor speed is modulated with the fractional speed
+signal <code>y</code> (real between <code>0</code> and <code>1</code>).
 </p>
 </html>"));
 end EvaporatorVariableSpeed;

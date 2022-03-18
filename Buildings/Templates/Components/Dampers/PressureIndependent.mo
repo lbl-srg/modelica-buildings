@@ -33,12 +33,13 @@ This is a model for a pressure independent damper.
 </p>
 <ul>
 <li>
-The discharge flow rate is moduled with a fractional airflow signal <code>y</code>.
+The airflow set point is modulated with a fractional 
+airflow signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to zero airflow.
 <code>y = 1</code> corresponds to the maximum airflow.
 </li>
 <li>
-The actual damper position <code>y_actual</code> is returned.
+The actual damper position <code>y_actual</code> (real) is returned.<br/>
 <code>y_actual = 0</code> corresponds to fully closed.
 <code>y_actual = 1</code> corresponds to fully open.
 </li>

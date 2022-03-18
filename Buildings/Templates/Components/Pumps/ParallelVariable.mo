@@ -115,15 +115,16 @@ speed pumps (with dedicated VFDs).
 </p>
 <ul>
 <li>
-Each pump is commanded on with a dedicated Boolean signal <code>y1</code> (VFD Run).
+Each pump is commanded On with a dedicated Boolean signal <code>y1</code> (VFD Run).
 </li>
 <li>
-The speed of all pumps is modulated with the same fractional speed signal <code>y</code>.
+The speed of all pumps is modulated with the same 
+fractional speed signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to 0 Hz.
 <code>y = 1</code> corresponds to the maximum speed set in the VFD.
 </li>
 <li>
-Each pump returns a dedicated status signal <code>y1_actual</code> (Boolean).
+Each pump returns a dedicated status signal <code>y1_actual</code> (Boolean).<br/>
 <code>y1_actual = true</code> means that the pump is on.
 </li>
 </ul>

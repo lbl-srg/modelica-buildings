@@ -66,4 +66,24 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(booToRea.y, val.y) annotation (Line(points={{-2.22045e-15,38},{-2.22045e-15,
           25},{0,25},{0,12}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a two-way two-position (isolation) valve.
+</p>
+<ul>
+<li>
+The valve position is commanded with a Boolean signal <code>y1</code>.<br/>
+<code>y1 = false</code> corresponds to fully closed.
+<code>y1 = true</code> corresponds to fully open.
+</li>
+<li>
+The open end switch status <code>y1_actual</code> and
+closed end switch status <code>y0_actual</code> (Booleans)
+are returned.<br/>
+<code>y1_actual = false</code> corresponds to fully closed.
+<code>y1_actual = true</code> corresponds to fully open.
+And the opposite for <code>y0_actual</code>.
+</li>
+</ul>
+</html>"));
 end TwoWayTwoPosition;

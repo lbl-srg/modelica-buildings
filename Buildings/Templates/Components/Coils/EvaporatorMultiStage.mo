@@ -59,6 +59,9 @@ equation
 <p>
 This is a model for a direct expansion cooling coil with a
 multi-stage compressor.
+The compressor stage is selected with the control
+signal <code>y</code> (integer between <code>0</code> and the number
+of stages).
 </p>
 </html>"));
 end EvaporatorMultiStage;

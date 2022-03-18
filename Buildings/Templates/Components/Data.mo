@@ -15,7 +15,11 @@ package Data "Records for design and operating parameters"
       "Set to true for fluid ports on the source side"
       annotation (Dialog(group="Configuration"));
 
-    // For evaporator coils this is provided by the performance data record.
+    /* 
+  For evaporator coils this is also provided by the performance data record.
+  The coil model shall generate a warning in case the design value exceeds
+  the maximum value from the performance data record.
+  */
     parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
       final min=0,
       start=if typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
@@ -66,7 +70,6 @@ package Data "Records for design and operating parameters"
       "Liquid pressure drop across fully open valve"
       annotation(Dialog(group="Nominal condition",
         enable=have_sou and typVal<>Buildings.Templates.Components.Types.Valve.None));
-    // For evaporator coils this is provided by the performance data record.
     parameter Modelica.Units.SI.HeatFlowRate cap_nominal(
       final min=0,
       start=if typ==Buildings.Templates.Components.Types.Coil.None then 0
@@ -79,6 +82,11 @@ package Data "Records for design and operating parameters"
         enable=typ<>Buildings.Templates.Components.Types.Coil.None and
         typ<>Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage and
         typ<>Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed));
+    /* 
+  For evaporator coils this is also provided by the performance data record.
+  The coil model shall generate a warning in case the design value exceeds
+  the maximum value from the performance data record.
+  */
     final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
       if typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
          typ==Buildings.Templates.Components.Types.Coil.ElectricHeating then cap_nominal
@@ -115,7 +123,7 @@ package Data "Records for design and operating parameters"
       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed.Carrier_Centurion_50PG06 datCoi
       constrainedby
       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
-      "Performance record"
+      "Performance data record of evaporator coil"
       annotation(choicesAllMatching=true, Dialog(
         enable=typ==Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage or
         typ==Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed));

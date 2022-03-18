@@ -78,15 +78,15 @@ This is a model for a variable speed fan (with VFD).
 </p>
 <ul>
 <li>
-The fan is commanded on with a Boolean signal <code>y1</code> (VFD Run).
+The fan is commanded On with a Boolean signal <code>y1</code> (VFD Run).
 </li>
 <li>
-The fan speed is modulated with a fractional speed signal <code>y</code>.
+The fan speed is modulated with a fractional speed signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to 0 Hz.
 <code>y = 1</code> corresponds to the maximum speed set in the VFD.
 </li>
 <li>
-A status signal <code>y1_actual</code> (Boolean) is returned.
+A status signal <code>y1_actual</code> (Boolean) is returned.<br/>
 <code>y1_actual = true</code> means that the fan is on.
 </li>
 </ul>

@@ -58,11 +58,11 @@ This is a model for a constant speed fan.
 </p>
 <ul>
 <li>
-The fan is commanded on with a Boolean signal <code>y1</code> (starter contact).
+The fan is commanded On with a Boolean signal <code>y1</code> (starter contact).
 </li>
 <li>
 A status signal <code>y1_actual</code> (Boolean) is returned.
-<code>y1_actual = true</code> means that the fan is on.
+<code>y1_actual = true</code> means that the fan is On.
 </li>
 </ul>
 </html>"));

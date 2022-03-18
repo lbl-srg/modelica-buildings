@@ -114,16 +114,17 @@ This is a model for a parallel arrangement of identical variable speed fans
 </p>
 <ul>
 <li>
-All fans are commanded on with the same Boolean signal <code>y1</code> (VFD Run).
+All fans are commanded On with the same Boolean signal <code>y1</code> (VFD Run).
 </li>
 <li>
-The speed of all fans is modulated with the same fractional speed signal <code>y</code>.
+The speed of all fans is modulated with the same 
+fractional speed signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to 0 Hz.
 <code>y = 1</code> corresponds to the maximum speed set in the VFD.
 </li>
 <li>
-A unique status signal <code>y1_actual</code> is returned.
-<code>y1_actual = true</code> means that all fans are on.
+A unique status signal <code>y1_actual</code> (Boolean) is returned.<br/>
+<code>y1_actual = true</code> means that all fans are On.
 </li>
 </ul>
 </html>"));

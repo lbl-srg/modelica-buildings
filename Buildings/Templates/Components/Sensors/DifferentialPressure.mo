@@ -35,12 +35,12 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This is a model for a differential pressure sensor that can be 
+This is a model for a differential pressure sensor that can be
 enabled or disabled with the Boolean parameter <code>have_sen</code>.
 If disabled, the control input variable <code>y</code> is removed
-and the model consists in two fluid ports that are not connected 
+and the model simply consists of two fluid ports that are not connected
 to each other and for which the following equations are used.
-So the model must still be provided with pressure conditions 
+So the model must still be provided with pressure conditions
 at each port.
 </p>
 <code>
