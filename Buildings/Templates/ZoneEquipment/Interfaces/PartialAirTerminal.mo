@@ -36,19 +36,19 @@ partial model PartialAirTerminal
     dat.mAir_flow_nominal
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mAirPri_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mAirPri_flow_nominal
     "Primary air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
     "Total CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal
     "Total HHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
+  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
     "Total CHW heat flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
+  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
     "Total HHW heat flow rate"
     annotation (Dialog(group="Nominal condition"));
 
