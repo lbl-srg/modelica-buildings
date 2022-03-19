@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences;
-
 block FanSpeed
- 
-    "Fan speed setpoint subsequence"
+  "Fan speed setpoint subsequence"
 
   parameter Boolean have_coolingCoil
     "Does the fan coil unit have a cooling coil?";
@@ -100,12 +98,16 @@ block FanSpeed
     "System operating mode"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea if have_heatingCoil
-                                "Heating loop signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
+    final unit="1",
+    displayUnit="1") if have_heatingCoil
+    "Heating loop signal"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo if have_coolingCoil
-                                "Cooling loop signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
+    final unit="1",
+    displayUnit="1") if have_coolingCoil
+    "Cooling loop signal"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
@@ -114,16 +116,20 @@ block FanSpeed
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
         iconTransformation(extent={{100,0},{140,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+    final unit="1",
+    displayUnit="1")
     "Fan speed signal"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-40},{140,0}})));
 
+protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if zone is unoccupied"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant unoccupied mode signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
@@ -143,15 +149,18 @@ block FanSpeed
     "Heating fan speed signal"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[2](k={heaPerMin,heaPerMax})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[2](
+    final k={heaPerMin,heaPerMax})
     "Heating loop signal support points"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[2](k={heaSpeMin,heaSpeMax})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[2](
+    final k={heaSpeMin,heaSpeMax})
     "Heating fan speed limit signals"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[2](k={cooSpeMin,cooSpeMax})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[2](
+    final k={cooSpeMin,cooSpeMax})
     "Cooling fan speed limit signals"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
@@ -159,15 +168,19 @@ block FanSpeed
     "Cooling fan speed signal"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[2](k={cooPerMin,cooPerMax})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[2](
+    final k={cooPerMin,cooPerMax})
     "Cooling loop signal support points"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(k=deaSpe)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+    final k=deaSpe)
     "Deadband mode fan speed signal"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=heaDea - deaHysLim, uHigh=heaDea)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=heaDea - deaHysLim,
+    final uHigh=heaDea)
     "Hysteresis for switching between deadband mode and heating mode"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
@@ -175,7 +188,9 @@ block FanSpeed
     "Switch for turning on heating mode from deadband mode"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=cooDea - deaHysLim, uHigh=cooDea)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=cooDea - deaHysLim,
+    final uHigh=cooDea)
     "Hysteresis for switching on cooling mode from deadband mode"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
@@ -187,11 +202,13 @@ block FanSpeed
     "Multiply fan speed signal by fan enable signal"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(k=0) if not have_heatingCoil
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(
+    final k=0) if not have_heatingCoil
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(k=0) if not have_coolingCoil
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+    final k=0) if not have_coolingCoil
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 
@@ -308,7 +325,35 @@ equation
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),
-     Diagram(coordinateSystem(preserveAspectRatio=false,
-       extent={{-100,-140},{120,100}})));
-
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+        extent={{-100,-140},{120,100}})),
+    Documentation(info="<html>
+      <p>
+      Block that outputs the fan enable signal and the fan speed signal based on
+      the heating and cooling loop signals.
+      </p>
+      <p>
+      The fan enable signal <code>yFan</code> is switched to <code>false</code>
+      when the operating mode signal <code>opeMod</code> is <code>unoccupied</code>,
+      and is set to <code>true</code> otherwise.
+      <br>
+      The fan speed signal <code>yFanSpe</code> is varied from 
+      the minimum cooling mode fan speed <code>cooSpeMin</code> to the maximum
+      cooling mode fan speed <code>cooSpeMax</code>,
+      when the cooling loop signal <code>uCoo</code> varies from the minimum limit
+      <code>cooPerMin</code> to the maximum limit <code>cooPerMax</code>.
+      Similarly, <code>yFanSpe</code> is varied from the minimum heating mode fan speed
+      <code>heaSpeMin</code> to the maximum heating mode fan speed <code>heaSpeMax</code>,
+      when the heating loop signal <code>uHea</code> varies from the minimum limit
+      <code>heaPerMin</code> to the maximum limit <code>heaPerMax</code>.
+      The setpoint in deadband mode is equal to the deadband fan speed <code>deaSpe</code>. 
+      </p>
+      </html>", revisions="<html>
+      <ul>
+      <li>
+      March 17, 2021, by Karthik Devaprasad:<br/>
+      First implementation.
+      </li>
+      </ul>
+      </html>"));
 end FanSpeed;

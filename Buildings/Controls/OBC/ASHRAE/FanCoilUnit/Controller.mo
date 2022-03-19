@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.FanCoilUnit;
-
 block Controller
- 
-    "Fan coil unit controller that comprises subsequences for controlling fan speed and supply air temperature"
+  "Fan coil unit controller that comprises subsequences for controlling fan speed and supply air temperature"
 
   parameter Boolean have_coolingCoil
     "Does the fan coil unit have a cooling coil?";
@@ -13,7 +11,7 @@ block Controller
   parameter Boolean have_winSen
     "Check if the zone has window status sensor";
 
-  parameter Boolean have_occSen 
+  parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor";
 
   parameter Real TZonHeaOn(
@@ -131,7 +129,8 @@ block Controller
     "Type of controller"
     annotation(Dialog(tab="PID parameters", group="Heating coil control"));
 
-  parameter Real kHeaCoi(final unit="1/K")=0.1
+  parameter Real kHeaCoi(
+    final unit="1/K")=0.1
     "Gain for heating coil control signal"
     annotation(Dialog(tab="PID parameters", group="Heating coil control"));
 
@@ -151,12 +150,18 @@ block Controller
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real cooPerMin(min=0, max=1, unit="1")=0.5
+  parameter Real cooPerMin(
+    final min=0,
+    final max=1,
+    final unit="1")=0.5
     "Cooling loop signal limit at which supply air temperature is at minimum and
     fan speed starts to be modified"
     annotation (Dialog(tab="Supply air setpoints"));
 
-  parameter Real heaPerMin(min=0, max=1, unit="1")=0.5
+  parameter Real heaPerMin(
+    final min=0,
+    final max=1,
+    final unit="1")=0.5
     "Heating loop signal limit at which supply air temperature is at maximum and
     fan speed starts to be modified"
     annotation (Dialog(tab="Supply air setpoints"));
@@ -176,31 +181,51 @@ block Controller
     annotation (Dialog(tab="Supply air setpoints",group="Temperature limits"));
 
 
-  parameter Real deaSpe=deaSpe
+  parameter Real deaSpe(
+    final unit="1",
+    displayUnit="1")=0.1
     "Deadband mode fan speed"
     annotation (Dialog(tab="Supply air setpoints",group="Fan speed"));
 
-  parameter Real heaPerMaxFanSpe(min=0, max=1, unit="1")=1
+  parameter Real heaPerMaxFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1")=1
     "Maximum heating loop signal at which fan speed is modified"
     annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Heating"));
 
-  parameter Real heaSpeMax(min=0, max=1, unit="1")
+  parameter Real heaSpeMax(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Maximum fan speed for heating"
     annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Heating"));
 
-  parameter Real heaSpeMin(min=0, max=1, unit="1")
+  parameter Real heaSpeMin(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Minimum fan speed for heating"
     annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Heating"));
 
-
-  parameter Real cooPerMaxFanSpe(min=0, max=1, unit="1")=1
+  parameter Real cooPerMaxFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1")=1
     "Maximum cooling loop signal at which fan speed is modified"
     annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Cooling"));
 
-  parameter Real cooSpeMax(min=0, max=1, unit="1") = 1
+  parameter Real cooSpeMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
     "Maximum fan speed for cooling"
     annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Cooling"));
-  parameter Real cooSpeMin(min=0, max=1, unit="1")
+
+  parameter Real cooSpeMin(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Minimum fan speed for cooling"
     annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Cooling"));
 
@@ -262,40 +287,64 @@ block Controller
     "Heating setpoint when window is open"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
 
-  parameter Real incTSetDem_1=0.56
+  parameter Real incTSetDem_1(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
-  parameter Real incTSetDem_2=1.1
+  parameter Real incTSetDem_2(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=1.1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
-  parameter Real incTSetDem_3=2.2
+  parameter Real incTSetDem_3(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=2.2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
-  parameter Real decTSetDem_1=0.56
+  parameter Real decTSetDem_1(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=0.56
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
-  parameter Real decTSetDem_2=1.1
+  parameter Real decTSetDem_2(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=1.1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
-  parameter Real decTSetDem_3=2.2
+  parameter Real decTSetDem_3(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=2.2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
-  parameter Real uLow=-0.1
+  parameter Real uLow(
+    final unit="1",
+    displayUnit="1")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Real uHigh=0.1
+  parameter Real uHigh(
+    final unit="1",
+    displayUnit="1")=0.1
     "High limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 
 
-  parameter Real deaHysLim=0.01
+  parameter Real deaHysLim(
+    final unit="1",
+    displayUnit="1")=0.01
     "Hysteresis limits for cooling and heating loop signals for deadband mode transitions"
     annotation (Dialog(tab="Advanced"));
 
@@ -325,8 +374,14 @@ block Controller
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nOcc if have_occSen
+    "Number of occupants"
+    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
+        iconTransformation(extent={{-240,-180},{-200,-140}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
+    displayUnit="min",
     final quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-240,170},{-200,210}}),
@@ -334,12 +389,16 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
+    displayUnit="min",
     final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
     annotation (Placement(transformation(extent={{-240,200},{-200,240}}),
         iconTransformation(extent={{-240,140},{-200,180}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
+    final unit="s",
+    displayUnit="min",
+    final quantity="Time")
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-240,100},{-200,140}})));
@@ -347,27 +406,18 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="degC",
-    final quantity =
-    "ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Measured zone temperatures"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
         iconTransformation(extent={{-240,60},{-200,100}})));
 
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="degC",
-    final quantity =
-    "ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
         iconTransformation(extent={{-240,-100},{-200,-60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
-       have_occSen
-    "Number of occupants"
-    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
-        iconTransformation(extent={{-240,-180},{-200,-140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
     "Fan enable signal"
@@ -377,8 +427,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup(
     final unit="K",
     displayUnit="degC",
-    final quantity =
-    "ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
         iconTransformation(extent={{200,-140},{240,-100}})));
@@ -394,8 +443,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
     displayUnit="degC",
-    final quantity =
-    "ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
       iconTransformation(extent={{200,20},{240,60}})));
@@ -403,8 +451,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
     displayUnit="degC",
-    final quantity =
-    "ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
       iconTransformation(extent={{200,-20},{240,20}})));
@@ -424,7 +471,6 @@ block Controller
     "Heating coil control signal"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{200,-60},{240,-20}})));
-
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
     modSetPoi(
@@ -490,49 +536,49 @@ block Controller
     "Window status"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold havOcc(
-    final t=0.5) if have_occSen
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold havOcc(
+    final t=1) if have_occSen
     "Check if there is occupant"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
-  Subsequences.SupplyAirTemperature TSupAir(have_coolingCoil=have_coolingCoil,
-      have_heatingCoil=have_heatingCoil,
-    THeaSupAirHi=TSupSetMax,
-    heaPerMax=heaPerMin,
-    TCooSupAirHi=TSupSetMin,
-    cooPerMax=cooPerMin,
-    heaDea=heaDea,
-    cooDea=cooDea,
-    controllerTypeCooCoi=controllerTypeCooCoi,
-    kCooCoi=kCooCoi,
-    TiCooCoi=TiCooCoi,
-    TdCooCoi=TdCooCoi,
-    controllerTypeHeaCoi=controllerTypeHeaCoi,
-    kHeaCoi=kHeaCoi,
-    TiHeaCoi=TiHeaCoi,
-    TdHeaCoi=TdHeaCoi,
-    deaHysLim=deaHysLim)
+  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir(
+    final have_coolingCoil=have_coolingCoil,
+    final have_heatingCoil=have_heatingCoil,
+    final THeaSupAirHi=TSupSetMax,
+    final heaPerMax=heaPerMin,
+    final TCooSupAirHi=TSupSetMin,
+    final cooPerMax=cooPerMin,
+    final heaDea=heaDea,
+    final cooDea=cooDea,
+    final controllerTypeCooCoi=controllerTypeCooCoi,
+    final kCooCoi=kCooCoi,
+    final TiCooCoi=TiCooCoi,
+    final TdCooCoi=TdCooCoi,
+    final controllerTypeHeaCoi=controllerTypeHeaCoi,
+    final kHeaCoi=kHeaCoi,
+    final TiHeaCoi=TiHeaCoi,
+    final TdHeaCoi=TdHeaCoi,
+    final deaHysLim=deaHysLim)
+    "Supply air temperature setpoint controller"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
 
-  Subsequences.FanSpeed fanSpe(have_coolingCoil=have_coolingCoil,
-      have_heatingCoil=have_heatingCoil,
-    deaSpe=deaSpe,
-    heaSpeMin=heaSpeMin,
-    heaPerMin=heaPerMin,
-    heaSpeMax=heaSpeMax,
-    heaPerMax=heaPerMaxFanSpe,
-    cooSpeMin=cooSpeMin,
-    cooPerMin=cooPerMin,
-    cooSpeMax=cooSpeMax,
-    cooPerMax=cooPerMaxFanSpe,
-    heaDea=heaDea,
-    cooDea=cooDea,
-    deaHysLim=deaHysLim)
+  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe(
+    final have_coolingCoil=have_coolingCoil,
+    final have_heatingCoil=have_heatingCoil,
+    final deaSpe=deaSpe,
+    final heaSpeMin=heaSpeMin,
+    final heaPerMin=heaPerMin,
+    final heaSpeMax=heaSpeMax,
+    final heaPerMax=heaPerMaxFanSpe,
+    final cooSpeMin=cooSpeMin,
+    final cooPerMin=cooPerMin,
+    final cooSpeMax=cooSpeMax,
+    final cooPerMax=cooPerMaxFanSpe,
+    final heaDea=heaDea,
+    final cooDea=cooDea,
+    final deaHysLim=deaHysLim)
+    "Fan speed controller"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
-
-
-
-
 
 equation
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-138,-170},{-120,-170},
@@ -556,7 +602,7 @@ equation
           -100,152},{-100,220},{-82,220}}, color={0,0,127}));
 
   connect(modSetPoi.TZonHeaSet, TZonHeaSet) annotation (Line(points={{-118,152},
-          {-100,152},{-100,120},{220,120}}, color={0,0,127}));
+          {-54,152},{-54,120},{220,120}},   color={0,0,127}));
 
   connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-118,160},
           {-42,160}},color={0,0,127}));
@@ -582,9 +628,6 @@ equation
   connect(uWin, modSetPoi.uWin) annotation (Line(points={{-220,-140},{-150,-140},
           {-150,166},{-142,166}},color={255,0,255}));
 
-  connect(nOcc, havOcc.u) annotation (Line(points={{-220,-60},{-120,-60},{-120,60},
-          {-102,60}}, color={0,0,127}));
-
   connect(havOcc.y, modSetPoi.uOccSen) annotation (Line(points={{-78,60},{-60,60},
           {-60,112},{-180,112},{-180,154},{-142,154}}, color={255,0,255}));
 
@@ -600,10 +643,10 @@ equation
   connect(modSetPoi.uHeaDemLimLev, uHeaDemLimLev) annotation (Line(points={{-142,
           150},{-156,150},{-156,40},{-220,40}}, color={255,127,0}));
 
-  connect(TSupAir.yCooCoi, yCooCoi) annotation (Line(points={{122,4},{160,4},{160,
+  connect(TSupAir.yCooCoi, yCooCoi) annotation (Line(points={{122,5},{160,5},{160,
           -60},{220,-60}},        color={0,0,127}));
 
-  connect(TSupAir.yHeaCoi, yHeaCoi) annotation (Line(points={{122,16},{160,16},{
+  connect(TSupAir.yHeaCoi, yHeaCoi) annotation (Line(points={{122,15},{160,15},{
           160,20},{220,20}},    color={0,0,127}));
 
   connect(TSupAir.TAirSupSet, TAirSup) annotation (Line(points={{122,10},{180,10},
@@ -618,7 +661,8 @@ equation
   connect(modSetPoi.yOpeMod, fanSpe.opeMod) annotation (Line(points={{-118,168},
           {-60,168},{-60,180},{20,180},{20,188},{118,188}}, color={255,127,0}));
 
-  connect(TSup, TSupAir.TAirSup) annotation (Line(points={{-220,10},{98,10}},
+  connect(TSup, TSupAir.TAirSup) annotation (Line(points={{-220,10},{-62,10},{-62,
+          8.33333},{98,8.33333}},
                            color={0,0,127}));
 
   connect(uFan, fanSpe.uFanPro) annotation (Line(points={{-220,-100},{28,-100},{
@@ -631,20 +675,27 @@ equation
           174},{118,174}}, color={0,0,127}));
 
   connect(modSetPoi.TZonCooSet, TSupAir.TZonSetCoo) annotation (Line(points={{-118,
-          160},{-50,160},{-50,2},{98,2}},      color={0,0,127}));
+          160},{-50,160},{-50,1.66667},{98,1.66667}},
+                                               color={0,0,127}));
 
   connect(modSetPoi.TZonHeaSet, TSupAir.TZonSetHea) annotation (Line(points={{-118,
-          152},{-54,152},{-54,18},{98,18}},    color={0,0,127}));
+          152},{-54,152},{-54,15},{98,15}},    color={0,0,127}));
 
   connect(cooPI.y, TSupAir.uCoo) annotation (Line(points={{-18,160},{20,160},{20,
-          6},{98,6}},      color={0,0,127}));
+          5},{98,5}},      color={0,0,127}));
 
-  connect(heaPI.y, TSupAir.uHea) annotation (Line(points={{-58,220},{0,220},{0,14},
-          {98,14}},   color={0,0,127}));
+  connect(heaPI.y, TSupAir.uHea) annotation (Line(points={{-58,220},{0,220},{0,
+          11.6667},{98,11.6667}},
+                      color={0,0,127}));
 
   connect(TZonHeaSet, TZonHeaSet)
     annotation (Line(points={{220,120},{220,120}}, color={0,0,127}));
 
+  connect(uFan, TSupAir.uFan) annotation (Line(points={{-220,-100},{28,-100},{
+          28,18.3333},{98,18.3333}},
+                                  color={255,0,255}));
+  connect(nOcc, havOcc.u) annotation (Line(points={{-220,-60},{-120,-60},{-120,60},
+          {-102,60}}, color={255,127,0}));
 annotation (defaultComponentName="conFCU",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,220}}),
         graphics={Rectangle(
@@ -847,5 +898,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end Controller;

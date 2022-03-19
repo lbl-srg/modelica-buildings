@@ -1,42 +1,63 @@
 within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.Validation;
-
 block FanSpeed
- 
-    "Validation model for fan speed subsequence"
+  "Validation model for fan speed subsequence"
 
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe(
-      have_coolingCoil=true, have_heatingCoil=true)
+    final have_coolingCoil=true,
+    final have_heatingCoil=true)
     "Instance demonstrating variation of heating loop signal"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe2(
-      have_coolingCoil=true, have_heatingCoil=true)
+    final have_coolingCoil=true,
+    final have_heatingCoil=true)
     "Instance demonstrating variation of operating mode"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe1(
-      have_coolingCoil=true, have_heatingCoil=true)
+    final have_coolingCoil=true,
+    final have_heatingCoil=true)
     "Instance demonstrating variation of cooling loop signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
+  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe3(
+    final have_coolingCoil=true,
+    final have_heatingCoil=false)
+    "Instance demonstrating variation of cooling loop signal with no heating coil"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+
+  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe4(
+    final have_coolingCoil=false,
+    final have_heatingCoil=true)
+    "Instance demonstrating variation of heating loop signal with no cooling coil"
+    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+
+  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe5(
+    final have_coolingCoil=false,
+    final have_heatingCoil=false)
+    "Instance demonstrating variation of operating mode with no heating and cooling coils"
+    annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
     final height=6,
     final duration=70,
     final offset=1)
     "Operating mode signal"
-              annotation (Placement(transformation(extent={{20,160},{40,180}})));
+    annotation (Placement(transformation(extent={{20,160},{40,180}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{-70,160},{-50,180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(final period=100)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(final freqHz=1/50)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+    final freqHz=1/50)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 
@@ -44,11 +65,13 @@ block FanSpeed
     "Convert negative loop signal to positive"
     annotation (Placement(transformation(extent={{-70,100},{-50,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=0)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+    final k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
 
@@ -56,11 +79,13 @@ block FanSpeed
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{50,160},{70,180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(final period=100)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
+    final period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{20,130},{40,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+    final k=0)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
@@ -68,11 +93,13 @@ block FanSpeed
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(final period=100)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
+    final period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(final freqHz=1/50)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+    final freqHz=1/50)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
@@ -80,32 +107,32 @@ block FanSpeed
     "Convert negative loop signal to positive"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+    final k=0)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+    final k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(final k=0.75)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(
+    final k=0.75)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
-
-  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe3(
-      have_coolingCoil=true, have_heatingCoil=false)
-    "Instance demonstrating variation of cooling loop signal with no heating coil"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(final period=100)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
+    final period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(final freqHz=1/50)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+    final freqHz=1/50)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
@@ -113,52 +140,47 @@ block FanSpeed
     "Convert negative loop signal to positive"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(
+    final k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe4(
-      have_coolingCoil=false, have_heatingCoil=true)
-    "Instance demonstrating variation of heating loop signal with no cooling coil"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt4
-                                         "Real to Integer conversion"
+    "Real to Integer conversion"
     annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(final period=100)
-                                                     "Fan proven on signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
+    final period=100)
+    "Fan proven on signal"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin3(final freqHz=1/50)
-                                                     "Heating loop signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin3(
+    final freqHz=1/50)
+    "Heating loop signal"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Abs abs3
-                         "Convert negative loop signal to positive"
+    "Convert negative loop signal to positive"
     annotation (Placement(transformation(extent={{-70,-160},{-50,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+    final k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe5(
-      have_coolingCoil=false, have_heatingCoil=false)
-    "Instance demonstrating variation of operating mode with no heating and cooling coils"
-    annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp                        ram1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
     final height=6,
     final duration=70,
     final offset=1)
     "Operating mode signal"
-              annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt5
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{50,-100},{70,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(final period=100)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
+    final period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
@@ -268,6 +290,24 @@ equation
       Interval=1,
       __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/Validation/FanSpeed.mos"
-    "Simulate and plot"));
-
+    "Simulate and plot"),
+    Documentation(info="<html>
+      <p>
+      This example validates
+      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed\">
+      Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed</a>. 
+      Each of the six instances of the controller represents operation with different
+      inputs for heating and cooling loop signals, as well as the operating mode
+      and fan proven on signal, and different configuration
+      parameters of fan coil unit with presence or absence of heating and cooling
+      coils, as described by the comment for each instance.
+      </p>
+      </html>", revisions="<html>
+      <ul>
+      <li>
+      March 18, 2022, by Karthik Devaprasad:<br/>
+      First implementation.
+      </li>
+      </ul>
+      </html>"));
 end FanSpeed;

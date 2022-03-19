@@ -1,25 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Validation;
-
 model Controller
     "Validation of the top-level controller"
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller conFCU(
     final have_winSen=false,
     final kHea=1,
-    final yHeaMax=1,
-    final yMin=0.1,
-    final AFlo=50,
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final have_occSen=true,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    final use_TMix=false,
-    final controllerTypeMod=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final kMod=1,
-    final VOutMin_flow=6e-3,
-    final VOutDes_flow=0.25,
     have_coolingCoil=true,
-    have_heatingCoil=true)  
+    have_heatingCoil=true)
     "Validate the heating case"
     annotation (Placement(transformation(extent={{20,80},{60,124}})));
 
@@ -27,21 +18,13 @@ model Controller
     final have_winSen=true,
     final kCoo=1,
     final kHea=1,
-    final yHeaMax=1,
-    final yMin=0.1,
-    final AFlo=50,
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final have_occSen=false,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    final use_TMix=false,
-    final controllerTypeMod=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final kMod=1,
-    final VOutMin_flow=6e-3,
-    final VOutDes_flow=0.25,
     have_coolingCoil=true,
-    have_heatingCoil=true)  
+    have_heatingCoil=true)
     "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,12},{60,56}})));
 
@@ -49,21 +32,13 @@ model Controller
     final have_winSen=false,
     final kCoo=1,
     final kHea=1,
-    final yHeaMax=1,
-    final yMin=0.1,
-    final AFlo=50,
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final have_occSen=true,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    final use_TMix=false,
-    final controllerTypeMod=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final kMod=1,
-    final VOutMin_flow=6e-3,
-    final VOutDes_flow=0.25,
     have_coolingCoil=true,
-    have_heatingCoil=true)  
+    have_heatingCoil=true)
     "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,-50},{60,-6}})));
 
@@ -71,21 +46,13 @@ model Controller
     final have_winSen=true,
     final kCoo=1,
     final kHea=1,
-    final yHeaMax=1,
-    final yMin=0.1,
-    final AFlo=50,
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final have_occSen=false,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    final use_TMix=false,
-    final controllerTypeMod=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final kMod=1,
-    final VOutMin_flow=6e-3,
-    final VOutDes_flow=0.25,
     have_coolingCoil=true,
-    have_heatingCoil=true)  
+    have_heatingCoil=true)
     "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,-112},{60,-68}})));
 
@@ -93,7 +60,7 @@ model Controller
     final duration=86400,
     final height=6,
     final offset=273.15 + 16,
-    y(unit="K")) 
+    y(unit="K"))
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
 
@@ -114,7 +81,7 @@ model Controller
     final duration=86400,
     final height=-3,
     final offset=273.15 + 26,
-    y(unit="K")) 
+    y(unit="K"))
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
 
@@ -336,5 +303,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end Controller;
