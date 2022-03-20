@@ -88,9 +88,6 @@ model EulerReducedSpeed
     "Reduced speed y = 2500/4100 = 0.610"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Modelica.Units.SI.VolumeFlowRate V_flow=m1_flow.y/rhoCon
-    "Volumetric flow rate";
-
   Modelica.Blocks.Sources.Ramp m1_flow(
     height=0.98*max(per1.pressure.V_flow)*rhoCon,
     duration=1,
