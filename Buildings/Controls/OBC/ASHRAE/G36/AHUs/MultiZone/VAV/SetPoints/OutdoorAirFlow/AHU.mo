@@ -196,7 +196,7 @@ protected
     final uLow=1E-4,
     final uHigh=1E-3)
     "Check if system ventilation efficiency is greater than 0 (using 1E-4 tolerance)"
-    annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 equation
   connect(peaSysPopulation.y, occDivFra.u1)
@@ -265,9 +265,9 @@ equation
     annotation (Line(points={{-240,-140},{118,-140}},
       color={255,0,255}));
   connect(sysVenEff.y, hys1.u)
-    annotation (Line(points={{-18,-30},{20,-30}}, color={0,0,127}));
+    annotation (Line(points={{-18,-30},{18,-30}}, color={0,0,127}));
   connect(hys1.y, swi4.u2)
-    annotation (Line(points={{44,-30},{50,-30},{50,-60},{58,-60}},
+    annotation (Line(points={{42,-30},{50,-30},{50,-60},{58,-60}},
       color={255,0,255}));
   connect(addPar1.y, yAveOutAirFraPlu)
     annotation (Line(points={{142,130},{260,130}},color={0,0,127}));

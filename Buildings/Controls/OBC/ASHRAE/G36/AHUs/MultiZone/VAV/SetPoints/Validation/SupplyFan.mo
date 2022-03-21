@@ -20,7 +20,6 @@ model SupplyFan "Validate SupplyFan"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan conSupFan2(
-    final have_airFloMeaSta=true,
     final Td=1,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final maxSet=400,

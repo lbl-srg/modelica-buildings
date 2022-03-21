@@ -89,12 +89,11 @@ block Zone
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
-    final unit = "m3/s",
-    final quantity = "VolumeFlowRate")
-    "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VZonPri_flow(final unit=
+        "m3/s", final quantity="VolumeFlowRate")
+    "Zone primary airflow rate from the air handler. For single path unit, it is the same as the zone discharge airflow rate"
     annotation (Placement(transformation(extent={{-200,-230},{-160,-190}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VUncOut_flow_nominal(
     final min=0,
@@ -368,8 +367,8 @@ equation
           {58,-50}},color={255,0,255}));
   connect(uReqOutAir, swi5.u2)
     annotation (Line(points={{-180,-90},{118,-90}}, color={255,0,255}));
-  connect(VDis_flow, max.u1) annotation (Line(points={{-180,-210},{-40,-210},{-40,
-          -214},{-22,-214}}, color={0,0,127}));
+  connect(VZonPri_flow, max.u1) annotation (Line(points={{-180,-210},{-40,-210},
+          {-40,-214},{-22,-214}}, color={0,0,127}));
   connect(max.y, priOutAirFra.u2) annotation (Line(points={{2,-220},{100,-220},{
           100,-166},{118,-166}}, color={0,0,127}));
   connect(max.y, VPriAir_flow)

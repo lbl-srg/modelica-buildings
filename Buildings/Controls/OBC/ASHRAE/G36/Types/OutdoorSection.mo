@@ -1,9 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
-type MultizoneAHUMinOADesigns = enumeration(
-    SeparateDamper_AFMS "Separate, with airflow measurement",
-    SeparateDamper_DP "Separate, with differential pressure measurement",
-    CommonDamper "Single common")
-  "Enumeration defining how minimum outdoor air and economizer function being designed in multizone AHU"
+type OutdoorSection = enumeration(
+    DedicatedDampersAirflow   "Separate dedicated OA dampers with AFMS",
+    DedicatedDampersPressure   "Separate dedicated OA dampers with differential pressure sensor",
+    NoEconomizer   "No economizer",
+    SingleDamper   "Single common OA damper with AFMS")
+    "Enumeration to configure the outdoor air section"
 annotation (
  Evaluate=true, Documentation(info="<html>
 <p>
@@ -14,15 +15,19 @@ designed in multizone AHU. Possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
-<tr><td><code>SeparateDamper_AFMS</code></td>
+<tr><td><code>DedicatedDampersAirflow</code></td>
 <td>
 Minimum outdoor air and economizer function use separate dampers, with airflow measurement.
 </td></tr>
-<tr><td><code>SeparateDamper_DP</code></td>
+<tr><td><code>DedicatedDampersPressure</code></td>
 <td>
 Minimum outdoor air and economizer function use separate dampers, with differential pressure measurement.
 </td></tr>
-<tr><td><code>CommonDamper</code></td>
+<tr><td><code>NoEconomizer</code></td>
+<td>
+No economizer.
+</td></tr>
+<tr><td><code>SingleDamper</code></td>
 <td>
 Minimum outdoor air and economizer function use single common damper.
 </td></tr>

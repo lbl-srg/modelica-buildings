@@ -102,7 +102,7 @@ block DamperValves
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Supply air temperature from central air handler"
+    "Temperature of the air supplied from central air handler"
     annotation (Placement(transformation(extent={{-360,150},{-320,190}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(

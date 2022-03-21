@@ -4,7 +4,7 @@ block FreezeProtection
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
     "Design of minimum outdoor air and economizer function";
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has heating coil";
@@ -426,7 +426,7 @@ block FreezeProtection
 
 protected
   parameter Boolean have_common=
-    minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
+    minOADes ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper
     "True: have common damper";
   parameter Boolean have_returns=
     buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir or

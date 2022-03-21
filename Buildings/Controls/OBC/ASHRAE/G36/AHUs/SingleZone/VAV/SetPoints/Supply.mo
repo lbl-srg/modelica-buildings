@@ -304,7 +304,7 @@ protected
     "Temperature control point four in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-370},{-100,-350}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les(final h=looHys)
-    "Check if the cooling loop signal is greater than threshold"
+    "Check if the cooling loop signal is less than threshold"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch cooFan
     "Fan speed when it is in cooling state"

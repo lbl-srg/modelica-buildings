@@ -224,7 +224,7 @@ block Controller "Controller for cooling only VAV box"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Supply air temperature from central air handler"
+    "Temperature of the air supplied from central air handler"
     annotation (Placement(transformation(extent={{-220,-64},{-180,-24}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(

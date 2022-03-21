@@ -237,7 +237,7 @@ block Controller
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Supply air temperature from central air handler"
+    "Temperature of the air supplied from central air handler"
     annotation (Placement(transformation(extent={{-280,-30},{-240,10}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(

@@ -237,7 +237,7 @@ block Controller "Controller for room VAV box with reheat"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Supply air temperature from central air handler"
+    "Temperature of the air supplied from central air handler"
     annotation (Placement(transformation(extent={{-220,-42},{-180,-2}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(

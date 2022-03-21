@@ -230,13 +230,11 @@ equation
       color={255,127,0}));
   connect(damLimCon.trigger, uSupFan)
     annotation (Line(points={{-136,178},{-136,166},{-100,166},{-100,-100},{-200,
-          -100}},               color={255,0,255}));
+          -100}}, color={255,0,255}));
   connect(and3.y, not1.u)
     annotation (Line(points={{-38,-100},{-22,-100}}, color={255,0,255}));
   connect(intEqu.y, and3.u2) annotation (Line(points={{-98,-180},{-80,-180},{
-          -80,-108},{-62,-108}},
-                             color={255,0,255}));
-
+          -80,-108},{-62,-108}}, color={255,0,255}));
   connect(uSupFan, and3.u1)
     annotation (Line(points={{-200,-100},{-62,-100}}, color={255,0,255}));
 annotation (

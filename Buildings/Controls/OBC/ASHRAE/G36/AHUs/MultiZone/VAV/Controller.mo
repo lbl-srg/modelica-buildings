@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV;
 block Controller "Multizone VAV air handling unit controller"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
     "Design of minimum outdoor air and economizer function"
     annotation (Dialog(group="Economizer design"));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
@@ -21,12 +21,6 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_perZonRehBox=false
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));
-  parameter Boolean have_duaDucBox=false
-    "Check if the AHU serves dual duct boxes"
-    annotation (Dialog(group="System and building parameters"));
-  parameter Boolean have_airFloMeaSta=false
-    "Check if the AHU has AFMS (Airflow measurement station)"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_freSta=false
     "True: the system has a physical freeze stat"
@@ -49,7 +43,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Minimum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMaxSet(unit="Pa", displayUnit="Pa")=250
-    "Maximum pressure setpoint for supply fan speed control"
+    "Duct design maximum static pressure. It is the Max_DSP shown in Section 3.2.1.1 of Guideline 36"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pDelTim(unit="s")=600
     "Delay time after which trim and respond is activated"
@@ -179,62 +173,62 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real minSpe(unit="1")=0.1
     "Minimum supply fan speed"
     annotation (Dialog(tab="Economizer",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-             or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController minOAConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of minimum outdoor air controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-             or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper));
   parameter Real kMinOA(unit="1")=1
     "Gain of controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-             or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper));
   parameter Real TiMinOA(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
-        and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-             or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper)
+           and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdMinOA(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-              or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
-        and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-             or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper)
+           and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real dpDesOutDam_min(unit="Pa")=150
     "Design pressure difference across the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of differential pressure setpoint controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP));
   parameter Real kDp(unit="1")=1
     "Gain of controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP));
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
-        and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP)
+           and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
-        and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP)
+           and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uMinRetDam(unit="1")=0.5
     "Loop signal value to start decreasing the maximum return air damper position"
     annotation (Dialog(tab="Economizer", group="Limits, Common",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper));
   // Enable
   parameter Boolean use_enthalpy=true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
@@ -270,11 +264,11 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real minOutDamPhyPosMax(unit="1")=1
     "Physically fixed maximum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS));
   parameter Real minOutDamPhyPosMin(unit="1")=0
     "Physically fixed minimum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS));
   parameter Real uHeaMax(unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
     annotation (Dialog(tab="Economizer", group="Commissioning, modulation"));
@@ -351,7 +345,7 @@ block Controller "Multizone VAV air handling unit controller"
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRetFan(unit="1")=1
-                      "Gain, normalized using dpBuiSet"
+    "Gain, normalized using dpBuiSet"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
@@ -475,35 +469,31 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-        or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
+    final quantity="VolumeFlowRate") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper)
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-400,60},{-360,100}}),
         iconTransformation(extent={{-240,30},{-200,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
     final min=0,
     final max=1,
-    final unit="1")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-        or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
+    final unit="1") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP)
     "Economizer outdoor air damper position"
     annotation (Placement(transformation(extent={{-400,20},{-360,60}}),
         iconTransformation(extent={{-240,0},{-200,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=0,
     final max=1,
-    final unit="1")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-        or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)
+    final unit="1") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP)
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-400,-10},{-360,30}}),
         iconTransformation(extent={{-240,-30},{-200,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference")
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP
+    final quantity="PressureDifference") if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP
     "Measured pressure difference across the minimum outdoor air damper"
     annotation (Placement(transformation(extent={{-400,-40},{-360,0}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
@@ -634,8 +624,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDamPos(
     final min=0,
     final max=1,
-    final unit="1")
-    if not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper
+    final unit="1") if not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper
     "Outdoor air damper position to ensure minimum outdoor air flow"
     annotation (Placement(transformation(extent={{360,100},{400,140}}),
         iconTransformation(extent={{200,140},{240,180}})));
@@ -759,9 +748,8 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
     u1(final unit="m3/s"),
     u2(final unit="m3/s"),
-    y(final unit="1"))
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-        or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper)
+    y(final unit="1")) if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_AFMS
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper)
     "Normalization of outdoor air flow intake by design minimum outdoor air intake"
     annotation (Placement(transformation(extent={{0,64},{20,84}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
@@ -819,8 +807,6 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{80,-60},{100,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan conSupFan(
     final have_perZonRehBox=have_perZonRehBox,
-    final have_duaDucBox=have_duaDucBox,
-    final have_airFloMeaSta=have_airFloMeaSta,
     final iniSet=pIniSet,
     final minSet=pMinSet,
     final maxSet=pMaxSet,

@@ -186,12 +186,12 @@ equation
           -3},{-122,-3}}, color={0,0,127}));
   connect(TDis.y, zon3.TDis) annotation (Line(points={{-198,120},{-170,120},{-170,
           -113},{-122,-113}}, color={0,0,127}));
-  connect(zonPriFloRat2.y, zon3.VDis_flow) annotation (Line(points={{-238,-160},
+  connect(zonPriFloRat2.y, zon3.VZonPri_flow) annotation (Line(points={{-238,-160},
           {-166,-160},{-166,-116},{-122,-116}}, color={0,0,127}));
-  connect(zonPriFloRat1.y, zon2.VDis_flow) annotation (Line(points={{-238,-30},{
-          -166,-30},{-166,-6},{-122,-6}}, color={0,0,127}));
-  connect(zonPriFloRat.y, zon1.VDis_flow) annotation (Line(points={{-238,90},{-166,
-          90},{-166,104},{-122,104}}, color={0,0,127}));
+  connect(zonPriFloRat1.y, zon2.VZonPri_flow) annotation (Line(points={{-238,-30},
+          {-166,-30},{-166,-6},{-122,-6}}, color={0,0,127}));
+  connect(zonPriFloRat.y, zon1.VZonPri_flow) annotation (Line(points={{-238,90},
+          {-166,90},{-166,104},{-122,104}}, color={0,0,127}));
   connect(ahu1.VDesUncOutAir_flow, zon1.VUncOut_flow_nominal) annotation (Line(
         points={{242,58},{246,58},{246,168},{-154,168},{-154,101},{-122,101}},
         color={0,0,127}));
@@ -204,7 +204,7 @@ equation
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/SetPoints/OutdoorAirFlow/Validation/OutdoorAirFlow.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/OutdoorAirFlow/Validation/OutdoorAirFlow.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -215,20 +215,20 @@ airflow setpoint of an AHU unit that serves three zones.
 <li>
 The blocks <code>zon1</code>, <code>zon2</code> and <code>zon3</code> which
 instantiate
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a>,
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a>,
 calculate the zone level minimum outdoor airflow setpoints.
 </li>
 <li>
 The block <code>zonToAhu</code> which instantiates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone</a>,
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone</a>,
 finds the sum, minimum and maximum of the zone level setpoints.
 </li>
 <li>
 The AHU level minimum outdoor airflow setpoint is then specified by block <code>ahu1</code>.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU</a>.
 </li>
 </ul>
 </html>", revisions="<html>

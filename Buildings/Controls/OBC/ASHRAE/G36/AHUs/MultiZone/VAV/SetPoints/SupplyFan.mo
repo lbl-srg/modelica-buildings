@@ -4,12 +4,6 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Boolean have_perZonRehBox = false
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation(Dialog(group="System configuration"));
-  parameter Boolean have_duaDucBox = false
-    "Check if the AHU serves dual duct boxes"
-    annotation(Dialog(group="System configuration"));
-  parameter Boolean have_airFloMeaSta = false
-    "Check if the AHU has AFMS (Airflow measurement station)"
-    annotation(Dialog(group="System configuration"));
   parameter Real iniSet(
     final unit="Pa",
     final quantity="PressureDifference") = 120
@@ -23,7 +17,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Real maxSet(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Maximum setpoint"
+    "Duct design maximum static pressure. It is the Max_DSP shown in Section 3.2.1.1 of Guideline 36"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real delTim(
     final unit="s",
@@ -376,11 +370,7 @@ ASHRAE Guideline G36, May 2020.
 <ul>
 <li>Supply fan shall run when system is in the Cool-down, Setup, or Occupied mode</li>
 <li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also
-run when system is in Setback or Warmup mode;</li>
-<li>If the AHU does not serve dual duct boxes
-that do not have hot-duct inlet airflow sensors (<code>have_duaDucBox=true</code>)
-or the AHU does not have airflow measurement station (<code>have_airFloMeaSta=false</code>),
-sum the current airflow rate from the VAV boxes and output to a software point.</li>
+run when system is in Setback or Warmup mode</li>
 </ul>
 <h4>Static pressure setpoint reset</h4>
 <p>

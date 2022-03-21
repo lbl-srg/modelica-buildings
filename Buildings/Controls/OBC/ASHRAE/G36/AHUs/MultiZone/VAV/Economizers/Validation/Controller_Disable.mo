@@ -2,25 +2,27 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Validati
 model Controller_Disable
   "Validation model for disabling the multi zone VAV AHU economizer modulation and damper position limit control loops"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller eco(
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper,
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
+    eco(
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
     final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final use_enthalpy=false,
     final retDamPhyPosMax=1,
     final retDamPhyPosMin=0,
     final outDamPhyPosMax=1,
-    final outDamPhyPosMin=0)  "Multi zone VAV AHU economizer "
+    final outDamPhyPosMin=0) "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller eco1(
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper,
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
+    eco1(
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
     final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final use_enthalpy=true,
     final retDamPhyPosMax=1,
     final retDamPhyPosMin=0,
     final outDamPhyPosMax=1,
-    final outDamPhyPosMin=0)  "Multi zone VAV AHU economizer"
+    final outDamPhyPosMin=0) "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,0}})));
 
 protected
