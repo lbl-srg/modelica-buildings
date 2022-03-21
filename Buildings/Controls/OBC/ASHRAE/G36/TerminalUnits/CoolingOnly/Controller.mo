@@ -210,15 +210,19 @@ block Controller "Controller for cooling only VAV box"
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2Set if have_CO2Sen
+    "CO2 concentration setpoint"
+    annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 concentration"
-    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC") "Measured discharge air temperature"
-    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -346,7 +350,6 @@ block Controller "Controller for cooling only VAV box"
     final outAirRat_occupant=outAirRat_occupant,
     final VZonMin_flow=VZonMin_flow,
     final VCooZonMax_flow=VCooZonMax_flow,
-    final CO2Set=CO2Set,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
     final dTHys=dTHys)
@@ -382,13 +385,13 @@ equation
   connect(uOcc, setPoi.uOcc) annotation (Line(points={{-200,120},{-144,120},{-144,
           117},{-122,117}}, color={255,0,255}));
   connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,90},{-148,90},
-          {-148,114},{-122,114}}, color={255,127,0}));
-  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-200,60},{-144,60},{-144,
+          {-148,115},{-122,115}}, color={255,127,0}));
+  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-200,40},{-140,40},{-140,
           111},{-122,111}}, color={0,0,127}));
   connect(TZon, setPoi.TZon) annotation (Line(points={{-200,250},{-152,250},{-152,
           103},{-122,103}}, color={0,0,127}));
-  connect(TDis, setPoi.TDis) annotation (Line(points={{-200,20},{-140,20},{-140,
-          101},{-122,101}}, color={0,0,127}));
+  connect(TDis, setPoi.TDis) annotation (Line(points={{-200,0},{-136,0},{-136,101},
+          {-122,101}},      color={0,0,127}));
   connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,90},{-148,90},
           {-148,30},{-62,30}},      color={255,127,0}));
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
@@ -456,6 +459,8 @@ equation
   connect(dam.VActSet_flow, setOve.VActSet_flow) annotation (Line(points={{22,-44},
           {48,-44},{48,-86},{58,-86}}, color={0,0,127}));
 
+  connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,70},{-144,
+          70},{-144,113},{-122,113}}, color={0,0,127}));
 annotation (defaultComponentName="cooBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
@@ -480,10 +485,10 @@ annotation (defaultComponentName="cooBoxCon",
           textString="TDis"),
         Text(
           visible=have_CO2Sen,
-          extent={{-100,56},{-58,44}},
+          extent={{-94,56},{-52,44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="ppmCO2"),
+          textString="ppmCO2Set"),
         Text(
           extent={{-98,-2},{-72,-14}},
           lineColor={0,0,127},
@@ -575,7 +580,13 @@ annotation (defaultComponentName="cooBoxCon",
           extent={{40,-138},{98,-156}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yLeaDamAla")}),
+          textString="yLeaDamAla"),
+        Text(
+          visible=have_CO2Sen,
+          extent={{-100,40},{-58,28}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="ppmCO2")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{200,280}})),
   Documentation(info="<html>
 <p>

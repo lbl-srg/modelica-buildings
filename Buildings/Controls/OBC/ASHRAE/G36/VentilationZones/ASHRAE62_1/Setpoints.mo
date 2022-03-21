@@ -43,9 +43,6 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
     final unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
     annotation(Dialog(enable=have_CO2Sen and not have_SZVAVWitCO2, group="Design conditions"));
-  parameter Real CO2Set=894
-    "CO2 concentration setpoint, ppm"
-    annotation(Dialog(enable=have_CO2Sen, group="Design conditions"));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
     annotation(Dialog(tab="Advanced", group="Distribution effectiveness"));
@@ -69,7 +66,11 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-340,10},{-300,50}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2Set if have_CO2Sen
+    "CO2 concentration setpoint, in PPM"
+    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),
@@ -128,10 +129,6 @@ protected
     final k=1) if have_CO2Sen
     "Constant one"
     annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant co2Set(
-    final k=CO2Set) if have_CO2Sen
-    "CO2 setpoint"
-    annotation (Placement(transformation(extent={{-280,-50},{-260,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=-200) if have_CO2Sen
     "Lower threshold of CO2 setpoint"
@@ -282,16 +279,12 @@ protected
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 
 equation
-  connect(co2Set.y, addPar.u)
-    annotation (Line(points={{-258,-40},{-222,-40}}, color={0,0,127}));
   connect(addPar.y, lin.x1) annotation (Line(points={{-198,-40},{-180,-40},{-180,
           -52},{-162,-52}}, color={0,0,127}));
   connect(zer.y, lin.f1) annotation (Line(points={{-258,-90},{-230,-90},{-230,-56},
           {-162,-56}},      color={0,0,127}));
   connect(ppmCO2, lin.u)
     annotation (Line(points={{-320,-60},{-162,-60}},color={0,0,127}));
-  connect(co2Set.y, lin.x2) annotation (Line(points={{-258,-40},{-240,-40},{-240,
-          -64},{-162,-64}}, color={0,0,127}));
   connect(one.y, lin.f2) annotation (Line(points={{-198,-90},{-180,-90},{-180,-68},
           {-162,-68}},     color={0,0,127}));
   connect(uOpeMod, inOccMod.u1)
@@ -442,7 +435,10 @@ equation
     annotation (Line(points={{-258,-150},{-162,-150}}, color={0,0,127}));
   connect(gai2.y, occMinAirSet.f2) annotation (Line(points={{-138,-150},{-60,-150},
           {-60,-128},{-22,-128}}, color={0,0,127}));
-
+  connect(ppmCO2Set, addPar.u) annotation (Line(points={{-320,-20},{-240,-20},{-240,
+          -40},{-222,-40}}, color={0,0,127}));
+  connect(ppmCO2Set, lin.x2) annotation (Line(points={{-320,-20},{-240,-20},{-240,
+          -64},{-162,-64}}, color={0,0,127}));
 annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -484,7 +480,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
-          extent={{-98,46},{-62,34}},
+          extent={{-98,56},{-62,44}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
@@ -526,7 +522,19 @@ annotation (
           extent={{54,-32},{98,-46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VMinOA_flow")}),
+          textString="VMinOA_flow"),
+        Text(
+          extent={{-98,16},{-70,6}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="ppmCO2",
+          visible=have_CO2Sen),
+        Text(
+          extent={{-98,38},{-62,24}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="ppmCO2Set",
+          visible=have_CO2Sen)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-360},{300,360}})),
   Documentation(info="<html>
 <p>
