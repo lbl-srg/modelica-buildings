@@ -65,16 +65,16 @@ model Floor "Model of a floor of the building"
     d=784,
     nStaRef=2) "Gypsum board"
     annotation (Placement(transformation(extent={{178,372},{198,392}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(nLay=3,
       material={matWoo,matIns,matGyp}) "Exterior construction"
     annotation (Placement(transformation(extent={{280,460},{300,480}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(nLay=1,
       material={matGyp2}) "Interior wall construction"
     annotation (Placement(transformation(extent={{320,460},{340,480}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1, material={
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(nLay=1, material={
         matCon}) "Floor construction (opa_a is carpet)"
     annotation (Placement(transformation(extent={{280,420},{300,440}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFur(final nLay=1, material={
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFur(nLay=1, material={
         matFur}) "Construction for internal mass of furniture"
     annotation (Placement(transformation(extent={{320,420},{340,440}})));
   parameter HeatTransfer.Data.Solids.Plywood matCarTra(

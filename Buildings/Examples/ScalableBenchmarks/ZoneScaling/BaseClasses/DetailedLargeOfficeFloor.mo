@@ -13,7 +13,7 @@ model DetailedLargeOfficeFloor
     final wExtEas = 48.7,
     final wExtWes = 48.7,
     final matIns(x=0.0496),
-    final conExtWal(material={matStu,matHWCon,matIns,matGyp}),
+    final conExtWal(nLay=4, material={matStu,matHWCon,matIns,matGyp}),
     gai(K=28.25*[0.6; 0.3; 0.1]));
 
   final parameter Buildings.HeatTransfer.Data.Solids.Generic matStu(
