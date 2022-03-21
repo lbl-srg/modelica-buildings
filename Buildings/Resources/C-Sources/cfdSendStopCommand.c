@@ -11,6 +11,8 @@
  * \date   8/3/2013
  *
  */
+#include "ModelicaUtilities.h"
+
 #include "cfdCosimulation.h"
 
 /*
