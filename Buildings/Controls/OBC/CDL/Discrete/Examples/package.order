@@ -5,3 +5,4 @@ TriggeredMovingMean
 TriggeredSampler
 UnitDelay
 ZeroOrderHold
+Relay
