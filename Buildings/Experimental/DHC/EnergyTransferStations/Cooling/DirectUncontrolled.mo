@@ -15,8 +15,6 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
     final have_fan=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1);
-  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
     final start=0.5)
@@ -32,50 +30,53 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
     displayUnit="Pa")=5000
     "Pressure drop in the ETS return side";
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpSup)
     "Supply pipe"
     annotation (Placement(transformation(extent={{20,-290},{40,-270}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipRet(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpRet)
     "Return pipe"
     annotation (Placement(transformation(extent={{20,190},{40,210}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final m_flow_nominal=m_flow_nominal)
     "District supply temperature sensor"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiRet(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final m_flow_nominal=m_flow_nominal)
     "Building return temperature sensor"
     annotation (Placement(transformation(extent={{-178,210},{-158,190}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumSer,
     final m_flow_nominal=m_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{240,190},{260,210}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumSer,
     final m_flow_nominal=m_flow_nominal)
     "District return temperature sensor"
     annotation (Placement(transformation(extent={{240,-270},{260,-290}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium=Medium)
+    redeclare final package Medium=MediumSer)
     "District supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{-78,-290},{-58,-270}})));
-  Modelica.Blocks.Math.Add dTdis(k1=-1, k2=1)
+  Modelica.Blocks.Math.Add dTdis(
+  final k1=-1,
+  final k2=1)
     "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Modelica.Blocks.Math.Product pro
     "Product"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  Modelica.Blocks.Math.Gain cp(k=cp_default)
+  Modelica.Blocks.Math.Gain cp(
+  final k=cp_default)
     "Specific heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
@@ -99,12 +100,12 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
     "Integration"
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
 protected
-  final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-    T=Medium.T_default,
-    p=Medium.p_default,
-    X=Medium.X_default)
+  final parameter MediumSer.ThermodynamicState sta_default=MediumSer.setState_pTX(
+    T=MediumSer.T_default,
+    p=MediumSer.p_default,
+    X=MediumSer.X_default)
     "Medium state at default properties";
-  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=MediumSer.specificHeatCapacityCp(
     sta_default)
     "Specific heat capacity of the fluid";
 equation
@@ -142,7 +143,9 @@ equation
     annotation (Line(points={{40,200},{180,200},{180,-280},{240,-280}}, color={0,127,255}));
   connect(senTDisRet.port_b, port_bSerCoo)
     annotation (Line(points={{260,-280},{300,-280}}, color={0,127,255}));
-  annotation (Documentation(info="<html>
+  annotation (
+    defaultComponentName="etsCoo",
+    Documentation(info="<html>
 <p>
 Direct cooling energy transfer station (ETS) model without in-building pumping or 
 deltaT control. The design is based on a typical district cooling ETS described in 
@@ -166,7 +169,7 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
-<li>December 10, 2021, by Chengnan Shi:<br/>Update with base class partial model.</li>
+<li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model.</li>
 </ul>
 </html>"));
 end DirectUncontrolled;

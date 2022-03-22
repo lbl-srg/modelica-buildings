@@ -93,7 +93,7 @@ model DistrictCooling "Example model for district cooling system"
     max=-Modelica.Constants.eps)={Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam[i])) for i in 1:nLoa}
-    "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
+    "Space cooling design load (<=0)";
   final parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal[nLoa](
     each final min=0,
     each final start=0.5)={-QCoo_flow_nominal[i]/(cp*buiETS[i].dT_nominal) for i in 1:nLoa}
@@ -144,7 +144,6 @@ model DistrictCooling "Example model for district cooling system"
     "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
-    redeclare each package Medium = Medium,
     filNam=filNam,
     mBui_flow_nominal=mBui_flow_nominal)
     "Vectorized time series building load model connected with ETS for cooling."

@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
 model DirectUncontrolled "Example model for the direct cooling energy transfer 
-  station with uncontrolled district-building fluid transfer within the ETS"
+  station with uncontrolled fluid transfer between district and building within the ETS"
 extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
@@ -18,7 +18,6 @@ extends Modelica.Icons.Example;
     "Default specific heat capacity of medium";
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectUncontrolled
     cooETS(
-    redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     QChiWat_flow_nominal=Q_flow_nominal,
     dpSup=6000,
@@ -33,14 +32,14 @@ extends Modelica.Icons.Example;
     use_T_in=true,
     T=280.15,
     nPorts=1)
-    "District (primary) source"
+    "District-side source"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Fluid.Sources.Boundary_pT sinDis(
     redeclare package Medium=Medium,
     p(displayUnit="Pa")=300000,
     T=289.15,
     nPorts=1)
-    "District-side (primary) sink"
+    "District-side sink"
     annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u loa(
     redeclare package Medium=Medium,
@@ -83,11 +82,11 @@ extends Modelica.Icons.Example;
     "Ramp load from zero"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Math.Product pro
-    "Multiplyer to ramp load from zero"
+    "Multiplier to ramp load from zero"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_max(
     y=Q_flow_nominal)
-    "Maximum Q_flow"
+    "Maximum cooling load"
     annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
   Modelica.Blocks.Math.Division div
     "Division"
@@ -103,7 +102,7 @@ extends Modelica.Icons.Example;
     period(
       displayUnit="h")=43200,
     offset=273.15+6)
-    "District supply temperature trapezoid signal"
+    "Trapezoid signal for district supply temperature"
     annotation (Placement(transformation(extent={{-100,-76},{-80,-56}})));
 equation
   connect(tra.y, souDis.T_in)
@@ -148,8 +147,8 @@ equation
       info="<html>
 <p>This model provides an example for the direct cooling energy transfer 
 station model, which does not contain in-building pumping or deltaT 
-control. THe ultimate control lies with the thermostatic control valve 
-at the lumped, terminal building load. The control valve is modulated 
+control. The ultimate control lies with the thermostatic control valve 
+at the lumped terminal building load. The control valve is modulated 
 proportionally to the instantaneous cooling load with respect to the 
 maximum load.</p>
 </html>",

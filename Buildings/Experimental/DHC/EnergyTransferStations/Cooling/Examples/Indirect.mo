@@ -1,7 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
-model Indirect
-  "Example model for indirect cooling energy transfer station that has 
-  a closed chilled water loop on the building side"
+model Indirect "Example model for indirect cooling energy transfer station 
+  with a closed chilled water loop on the building side"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
@@ -18,7 +17,6 @@ model Indirect
       Medium.X_default))
     "Default specific heat capacity of medium";
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect cooETS(
-    redeclare package Medium=Medium,
     QChiWat_flow_nominal=-18514,
     mDis_flow_nominal=mDis_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
@@ -92,7 +90,7 @@ model Indirect
     "Cooling demand"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Modelica.Blocks.Math.Product pro
-    "Multiplyer to ramp load from zero"
+    "Multiplier to ramp load from zero"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Sources.Ramp ram(
     height=1,
@@ -153,10 +151,9 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model provides an example for the indirect cooling transfer station model. 
+This model provides an example for the indirect cooling energy transfer station model. 
 The cooling load ramps up from zero and is modulated according to the QCoo table specification. 
-The secondary (building) chilled water is variable flow, with the mass flow rate being adjusted 
-depending on the total building load.
+The mass flow rate of chilled water in the building side is varied based on the building load/demand.
 </p>
 </html>",
       revisions="<html>

@@ -1,15 +1,14 @@
 within Buildings.Experimental.DHC.Loads.Cooling.Examples;
 model BuildingTimeSeriesWithETS
-  "Example model of a building with loads provided as time series, 
+  "Example model of a building with loads provided as time series and 
   connected to an ETS for cooling"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiWitETS(
-    redeclare package Medium = Medium,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")
-  "Building TIme Series load coupled with ETS"
+  "Building Time Series load coupled with ETS"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium = Medium,

@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
 model DirectControlled "Example model for direct cooling energy transfer station 
-  with in-building pumping and contrlled district return temperature"
+  with in-building pumping and controlled district return temperature"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
@@ -24,7 +24,6 @@ model DirectControlled "Example model for direct cooling energy transfer station
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectControlled
     cooETS(
-    redeclare package Medium = Medium,
     mDis_flow_nominal=mDis_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
     mByp_flow_nominal=0.01,
@@ -37,7 +36,6 @@ model DirectControlled "Example model for direct cooling energy transfer station
     nPorts_aChiWat=1)
     "Energy transfer station"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-
   Modelica.Blocks.Sources.Constant TSetDisRet_min(k=273.15 + 16)
     "Minimum setpoint temperature for district return"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
@@ -45,7 +43,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
     redeclare package Medium = Medium,
     p=300000,
     nPorts=1)
-    "District sink"
+    "District-side sink"
     annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,
@@ -53,7 +51,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
     use_T_in=true,
     T=280.15,
     nPorts=1)
-    "District source"
+    "District-side source"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.RealExpression TDisSupNoi(
     y=(273.15 + 7) + 2*sin(time*4*3.14/86400))
@@ -99,7 +97,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
     "Cooling demand"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Modelica.Blocks.Math.Product pro
-    "Multiplyer to ramp load from zero"
+    "Multiplier to ramp load from zero"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Math.Gain gai(k=-1/(cp*(16 - 7)))
     "Multiplier gain for calculating m_flow"
@@ -110,29 +108,30 @@ equation
   connect(TDisSupNoi.y, souDis.T_in)
     annotation (Line(points={{-99,-66},{-62,-66}}, color={0,0,127}));
   connect(souDis.ports[1], cooETS.port_aSerCoo)
-   annotation (Line(points={{-40,-70},{-20,-70},{-20,-19.3333},{0,-19.3333}},
+    annotation (Line(points={{-40,-70},{-20,-70},{-20,-19.3333},{0,-19.3333}},
                                                   color={0,127,255}));
   connect(cooETS.port_bSerCoo, sinDis.ports[1])
-   annotation (Line(points={{20,-19.3333},{40,-19.3333},{40,-70},{60,-70}},
+    annotation (Line(points={{20,-19.3333},{40,-19.3333},{40,-70},{60,-70}},
                                             color={0,127,255}));
   connect(cooETS.ports_bChiWat[1], pum.port_a)
-   annotation (Line(points={{20,-4.66667},
+    annotation (Line(points={{20,-4.66667},
           {30,-4.66667},{30,30},{40,30}}, color={0,127,255}));
   connect(pum.port_b, loa.port_a)
-   annotation (Line(points={{60,30},{80,30},{80,50},
+    annotation (Line(points={{60,30},{80,30},{80,50},
           {20,50}}, color={0,127,255}));
   connect(loa.port_b, cooETS.ports_aChiWat[1])
-   annotation (Line(points={{0,50},{
+    annotation (Line(points={{0,50},{
           -40,50},{-40,-4.66667},{0,-4.66667}}, color={0,127,255}));
   connect(ram.y, pro.u1)
-  annotation (Line(points={{-99,90},{-92,90},{-92,76},{-82,76}}, color={0,0,127}));
-
+    annotation (Line(points={{-99,90},{-92,90},{-92,76},{-82,76}}, color={0,0,127}));
   connect(QCoo.y[1], pro.u2)
-   annotation (Line(points={{-99,50},{-92,50},{-92,64},
+    annotation (Line(points={{-99,50},{-92,50},{-92,64},
           {-82,64}}, color={0,0,127}));
-  connect(pro.y, loa.u) annotation (Line(points={{-59,70},{32,70},{32,56},{22,56}},
+  connect(pro.y, loa.u)
+    annotation (Line(points={{-59,70},{32,70},{32,56},{22,56}},
         color={0,0,127}));
-  connect(pro.y, gai.u) annotation (Line(points={{-59,70},{-40,70},{-40,90},{-2,
+  connect(pro.y, gai.u)
+    annotation (Line(points={{-59,70},{-40,70},{-40,90},{-2,
           90}}, color={0,0,127}));
   connect(gai.y, pum.m_flow_in)
     annotation (Line(points={{21,90},{50,90},{50,42}}, color={0,0,127}));
@@ -153,15 +152,14 @@ equation
     Documentation(info="<html>
 <p>This model provides an example for the direct cooling energy transfer station 
 model, which contains in-building pumping and controls the district return 
-temperature. The building's primary variable speed pump is modelated depending 
+temperature. The building's primary variable speed pump is modulated depending 
 on the total cooling load and prescribed deltaT. Variation in the district 
-supply temperature is modeled as sinusoidal to test the system's response.
+supply temperature is modeled as a sinusoidal signal to test the response of system.
 </p>
 </html>",
       revisions="<html>
 <ul>
-<li>December 5, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
-<li>December 10, 2021, by Chengnan Shi:<br/>Update with base class partial model and standard PID control.</li>
+<li>March 20, 2022, by Chengnan Shi:<br/>First implementation.</li>
 </ul>
 </html>"));
 end DirectControlled;

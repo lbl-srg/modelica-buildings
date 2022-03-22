@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
 model DirectControlled "Direct cooling ETS model for district energy systems with in-building 
-  pumping and controlled district return temperature"
+  pumping and deltaT control"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=DHC.Types.DistrictSystemType.Cooling,
@@ -15,8 +15,6 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final have_fan=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1);
-  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component";
   // Mass flow rates
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal(
     final min=0,
@@ -68,47 +66,47 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
     "Nominal pressure drop in pipe junctions";
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal)
     "District supply temperature sensor"
     annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium=Medium)
+    redeclare final package Medium=MediumSer)
     "District supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
   Buildings.Fluid.FixedResistances.Junction jun(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
     final m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
     final dp_nominal=dp_nominal)
     "Bypass junction"
     annotation (Placement(transformation(extent={{-60,-270},{-40,-290}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal)
     "District return temperature sensor"
     annotation (Placement(transformation(extent={{30,210},{50,190}})));
   Buildings.Fluid.FixedResistances.Junction spl(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
     final m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
     final dp_nominal=dp_nominal)
     "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage conVal(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal,
     final dpValve_nominal=dpConVal_nominal,
     use_inputFilter=true,
-    riseTime(displayUnit="s") = 10)
+    riseTime(displayUnit="s") = 60)
     "Control valve"
     annotation (Placement(transformation(extent={{-10,210},{10,190}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiRet(redeclare final package
-      Medium = Medium, final m_flow_nominal=mBui_flow_nominal)
-    "Building returen temperature sensor"
+      Medium = MediumSer, final m_flow_nominal=mBui_flow_nominal)
+    "Building return temperature sensor"
     annotation (Placement(transformation(extent={{-220,210},{-200,190}})));
   Modelica.Fluid.Valves.ValveIncompressible cheVal(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
     final dp_nominal=dpCheVal_nominal,
     final m_flow_nominal=mByp_flow_nominal,
@@ -116,15 +114,17 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     riseTime(
       displayUnit="s")=60,
     final checkValve=true)
-  "Check valve (backflow preventer)"
+    "Check valve (backflow preventer)"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-10})));
-  Modelica.Blocks.Math.Add dTdis(final k1=-1, final k2=+1)
-  "Temperature difference on the district side"
+  Modelica.Blocks.Math.Add dTdis(
+    final k1=-1,
+    final k2=+1)
+    "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{60,-114},{80,-94}})));
   Modelica.Blocks.Math.Product pro
-  "Product"
+    "Product"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Modelica.Blocks.Math.Gain cp(
     final k=cp_default)
@@ -169,29 +169,29 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     "District return temperature controller"
     annotation (Placement(transformation(extent={{-220,10},{-200,-10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{230,190},{250,210}})));
   Modelica.Blocks.Logical.OnOffController onOffCon(bandwidth=0.2)
     "On off control for the control valve"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Modelica.Blocks.Logical.Switch swi1
+  Modelica.Blocks.Logical.Switch swi
     "Switch between full opening and PI control signal."
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Constant const(k=1)
     "Full opening of the control valve."
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
-  Modelica.Blocks.Logical.Not not1
-  "Revise the on/off signal"
+  Modelica.Blocks.Logical.Not notCon
+    "Reverse the on/off signal"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 protected
-  final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-    T=Medium.T_default,
-    p=Medium.p_default,
-    X=Medium.X_default)
+  final parameter MediumSer.ThermodynamicState sta_default=MediumSer.setState_pTX(
+    T=MediumSer.T_default,
+    p=MediumSer.p_default,
+    X=MediumSer.X_default)
     "Medium state at default properties";
-  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=MediumSer.specificHeatCapacityCp(
     sta_default)
     "Specific heat capacity of the fluid";
 equation
@@ -207,13 +207,15 @@ equation
     annotation (Line(points={{-200,200},{-60,200}}, color={0,127,255}));
   connect(spl.port_2, conVal.port_a)
     annotation (Line(points={{-40,200},{-10,200}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, pro.u2) annotation (Line(points={{-110,-269},{-110,-192},
+  connect(senMasFlo.m_flow, pro.u2)
+    annotation (Line(points={{-110,-269},{-110,-192},
           {90,-192},{90,-116},{118,-116}}, color={0,0,127}));
   connect(pro.y, cp.u)
     annotation (Line(points={{141,-110},{180,-110}}, color={0,0,127}));
   connect(cp.y, Q_flow)
     annotation (Line(points={{203,-110},{320,-110}}, color={0,0,127}));
-  connect(cp.y, int.u) annotation (Line(points={{203,-110},{204,-110},{204,-150},
+  connect(cp.y, int.u)
+    annotation (Line(points={{203,-110},{204,-110},{204,-150},
           {258,-150}}, color={0,0,127}));
   connect(int.y, Q)
     annotation (Line(points={{281,-150},{320,-150}}, color={0,0,127}));
@@ -241,21 +243,27 @@ equation
     annotation (Line(points={{-50,190},{-50,0},{-50,0}}, color={0,127,255}));
   connect(cheVal.port_b, jun.port_3)
     annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
-  connect(const.y, swi1.u1) annotation (Line(points={{-139,130},{-110,130},{
+  connect(const.y, swi.u1)
+    annotation (Line(points={{-139,130},{-110,130},{
           -110,80},{-82,80},{-82,78}}, color={0,0,127}));
-  connect(not1.y, swi1.u2)
+  connect(notCon.y, swi.u2)
     annotation (Line(points={{-119,70},{-82,70}}, color={255,0,255}));
-  connect(con.y, swi1.u3) annotation (Line(points={{-199,0},{-110,0},{-110,62},
+  connect(con.y, swi.u3)
+    annotation (Line(points={{-199,0},{-110,0},{-110,62},
           {-82,62}}, color={0,0,127}));
-  connect(swi1.y, conVal.y)
+  connect(swi.y, conVal.y)
     annotation (Line(points={{-59,70},{0,70},{0,188}}, color={0,0,127}));
-  connect(senTBuiRet.T, onOffCon.u) annotation (Line(points={{-210,189},{-210,
+  connect(senTBuiRet.T, onOffCon.u)
+    annotation (Line(points={{-210,189},{-210,
           64},{-182,64}}, color={0,0,127}));
-  connect(TSetDisRet, onOffCon.reference) annotation (Line(points={{-318,0},{
+  connect(TSetDisRet, onOffCon.reference)
+    annotation (Line(points={{-318,0},{
           -260,0},{-260,76},{-182,76}}, color={0,0,127}));
-  connect(onOffCon.y, not1.u)
+  connect(onOffCon.y, notCon.u)
     annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
-  annotation (Documentation(info="<html>
+  annotation (
+    defaultComponentName="etsCoo",
+    Documentation(info="<html>
 <p>
 Direct cooling energy transfer station (ETS) model with in-building pumping and 
 deltaT control. The design is based on a typical district cooling ETS described 
@@ -279,7 +287,7 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
-<li>December 10, 2021, by Chengnan Shi:<br/>Update with base class partial model and standard PID control.</li>
+<li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model and standard PI control.</li>
 </ul>
 </html>"));
 end DirectControlled;

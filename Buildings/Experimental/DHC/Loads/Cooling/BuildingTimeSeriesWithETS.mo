@@ -8,16 +8,13 @@ model BuildingTimeSeriesWithETS
       T_aChiWat_nominal=TChiWatSup_nominal,
       T_bChiWat_nominal=TChiWatRet_nominal),
     ets(
-      redeclare package Medium = Medium,
       QChiWat_flow_nominal=QCoo_flow_nominal),
       m_flow_nominal=mBui_flow_nominal);
-  replaceable package Medium=Buildings.Media.Water
-    "Medium model";
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
-    "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
+    "Space cooling design load (<=0)";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0)=9
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="Nominal condition"));
@@ -36,13 +33,15 @@ model BuildingTimeSeriesWithETS
   parameter String filNam
     "Library path of the file with thermal loads as time series";
 protected
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
-    Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default))
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp=MediumSer.specificHeatCapacityCp(
+    MediumSer.setState_pTX(
+      MediumSer.p_default,
+      MediumSer.T_default,
+      MediumSer.X_default))
     "Default specific heat capacity of medium";
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="loa",
+  Documentation(info="<html>
 <p>
 This model is composed of a direct uncontrolled energy transfer station model for cooling
 <a href=\"modelica://Buildings/Experimental/DHC/EnergyTransferStations/Cooling/DirectUncontrolled.mo\">
