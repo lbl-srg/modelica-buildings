@@ -30,7 +30,7 @@ size_t AllocateBuildingDataStructure(
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* buildingsRootFileLocation,
   const int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
@@ -38,6 +38,8 @@ size_t AllocateBuildingDataStructure(
   void (*SpawnFormatError)(const char *string, ...)){
 
   const size_t nFMU = getBuildings_nFMU();
+  /* -11 is the length of /legal.html */
+  const size_t bldLibRooLen = (strlen(buildingsRootFileLocation)-11);
 
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Allocating data structure for building, nFMU=%lu\n", startTime, modelicaNameBuilding, nFMU);
@@ -86,11 +88,13 @@ size_t AllocateBuildingDataStructure(
 
   /* Assign the Buildings library root */
   mallocString(
-    (strlen(buildingsLibraryRoot)+1),
+    bldLibRooLen+1,
     "Not enough memory in SpawnFMU.c. to allocate buildingsLibraryRoot.",
     &(Buildings_FMUS[nFMU]->buildingsLibraryRoot),
     SpawnFormatError);
-  strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
+  memcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsRootFileLocation, bldLibRooLen);
+  /* Add terminating null */
+  Buildings_FMUS[nFMU]->buildingsLibraryRoot[bldLibRooLen] = '\0';
 
   /* Assign the spawn exe name */
   mallocString(
