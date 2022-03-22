@@ -40,8 +40,8 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
   Modelica.Units.SI.Reactance Xeq "Equivelant reactance";
 
   Modelica.Blocks.Sources.RealExpression w_r(y=omega_r)
+    "Rotor speed"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-
   Modelica.Blocks.Interfaces.RealInput tau_m(unit="N.m")
     "Load torque"
     annotation (Placement(transformation(
