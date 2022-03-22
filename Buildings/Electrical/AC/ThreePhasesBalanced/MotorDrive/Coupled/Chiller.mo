@@ -80,7 +80,6 @@ model Chiller "Motor coupled chiller"
   //Motor parameters
   parameter Integer pole = 2 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
-  parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
   parameter Modelica.Units.SI.Resistance R_s = 24.5
     "Electric resistance of stator";
   parameter Modelica.Units.SI.Resistance R_r = 23 "Electric resistance of rotor";
@@ -91,6 +90,7 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Reactance X_m = 25
     "Complex component of the magnetizing reactance";
   parameter Modelica.Units.SI.Inertia JLoad = 2 "Load inertia";
+  parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
 
   ThermoFluid.Chiller mecChi(
     redeclare package Medium1 = Medium1,
@@ -118,11 +118,11 @@ model Chiller "Motor coupled chiller"
   Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau) "Chiller torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power",final unit="W")
     "Real power"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),  iconTransformation(extent={{100,20},
             {120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput Q(quantity="Power", unit="var")
+  Modelica.Blocks.Interfaces.RealOutput Q(final quantity="Power",final unit="var")
   "Reactive power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
                                                                       iconTransformation(extent={{100,-40},
@@ -137,19 +137,20 @@ model Chiller "Motor coupled chiller"
   Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target" annotation (Placement(transformation(extent={{-120,20},{-100,40}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
   InductionMotors.SquirrelCageDrive simMot(
-    pole=pole,
-    n=n,
-    J=JMotor,
-    R_s=R_s,
-    R_r=R_r,
-    X_s=X_s,
-    X_r=X_r,
-    X_m=X_m,
-    VFD(reverseActing=false))
+    final pole=pole,
+    final n=n,
+    final J=JMotor,
+    final R_s=R_s,
+    final R_r=R_r,
+    final X_s=X_s,
+    final X_r=X_r,
+    final X_m=X_m,
+    final VFD(reverseActing=false))
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 protected
   constant Boolean COP_is_for_cooling = true
     "Set to true if the specified COP is for cooling";
+
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal=
     if COP_is_for_cooling
       then TEva_nominal - TAppEva_nominal
