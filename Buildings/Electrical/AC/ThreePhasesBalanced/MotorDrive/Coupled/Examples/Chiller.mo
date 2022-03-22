@@ -30,12 +30,14 @@ model Chiller "Test model for motor coupled chiller model"
     T=298.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
     duration=60,
     offset=273.15 + 20,
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
@@ -43,6 +45,7 @@ model Chiller "Test model for motor coupled chiller model"
     T=291.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+
   MotorDrive.Coupled.Chiller chi(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -63,17 +66,21 @@ model Chiller "Test model for motor coupled chiller model"
     X_s=1.106,
     X_r=0.464,
     X_m=26.3) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Buildings.Electrical.AC.OnePhase.Sources.Grid Sou(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium2,
       m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{-44,-40},{-24,-20}})));
+
   Modelica.Blocks.Sources.Step TSet(
     height=0,
     offset=273.15 + 11,
     startTime=500)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+
   Modelica.Blocks.Sources.Trapezoid TEva_in(
     amplitude=5,
     rising=600,
@@ -83,11 +90,13 @@ model Chiller "Test model for motor coupled chiller model"
     offset=273.15 + 15,
     startTime=900)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2,
-      nPorts=1)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+      nPorts=1) annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(extent={{60,40},{40,60}})));
+
 equation
   connect(TCon_in.y,sou1. T_in) annotation (Line(
       points={{-69,30},{-58,30},{-58,34},{-52,34}},
