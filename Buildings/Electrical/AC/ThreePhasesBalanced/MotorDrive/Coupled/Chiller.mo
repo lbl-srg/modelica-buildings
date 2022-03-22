@@ -122,11 +122,13 @@ model Chiller "Motor coupled chiller"
     "Real power"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),  iconTransformation(extent={{100,20},
             {120,40}})));
+
   Modelica.Blocks.Interfaces.RealOutput Q(final quantity="Power",final unit="var")
   "Reactive power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
                                                                       iconTransformation(extent={{100,-40},
             {120,-20}})));
+
   Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
