@@ -437,7 +437,8 @@ equation
   Documentation(info="<html>
     <p>
     Block that outputs the supply air temperature setpoint, as well as the control
-    signals for the cooling and heating coils in a fan coil unit system.
+    signals for the cooling and heating coils in a fan coil unit system. The implemented 
+    sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4.
     </p>
     <p>
     The supply air temperature <code>TAirSupSet</code> is varied from the zone cooling setpoint temperature
@@ -455,7 +456,7 @@ equation
     </html>", revisions="<html>
     <ul>
     <li>
-    March 17, 2021, by Karthik Devaprasad:<br/>
+    March 17, 2022, by Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>

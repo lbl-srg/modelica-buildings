@@ -330,7 +330,8 @@ equation
     Documentation(info="<html>
       <p>
       Block that outputs the fan enable signal and the fan speed signal based on
-      the heating and cooling loop signals.
+      the heating and cooling loop signals. The implemented sequence is based on
+      ASHRAE Guideline 36, 2021, Part 5.22.4.
       </p>
       <p>
       The fan enable signal <code>yFan</code> is switched to <code>false</code>
@@ -351,7 +352,7 @@ equation
       </html>", revisions="<html>
       <ul>
       <li>
-      March 17, 2021, by Karthik Devaprasad:<br/>
+      March 17, 2022, by Karthik Devaprasad:<br/>
       First implementation.
       </li>
       </ul>

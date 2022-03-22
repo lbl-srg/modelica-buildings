@@ -424,13 +424,13 @@ block Controller
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
       iconTransformation(extent={{200,100},{240,140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSupSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
-        iconTransformation(extent={{200,-140},{240,-100}})));
+      iconTransformation(extent={{200,-140},{240,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
@@ -462,7 +462,7 @@ block Controller
     final unit="1") if have_coolingCoil
     "Cooling coil control signal"
     annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
-        iconTransformation(extent={{200,-100},{240,-60}})));
+      iconTransformation(extent={{200,-100},{240,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
@@ -470,7 +470,7 @@ block Controller
     final unit="1") if have_heatingCoil
     "Heating coil control signal"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
-        iconTransformation(extent={{200,-60},{240,-20}})));
+      iconTransformation(extent={{200,-60},{240,-20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
     modSetPoi(
@@ -518,6 +518,7 @@ block Controller
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
 
+protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Unoccupied mode"
@@ -649,8 +650,8 @@ equation
   connect(TSupAir.yHeaCoi, yHeaCoi) annotation (Line(points={{122,15},{160,15},{
           160,20},{220,20}},    color={0,0,127}));
 
-  connect(TSupAir.TAirSupSet, TAirSup) annotation (Line(points={{122,10},{180,10},
-          {180,-20},{220,-20}}, color={0,0,127}));
+  connect(TSupAir.TAirSupSet, TAirSupSet) annotation (Line(points={{122,10},{180,
+          10},{180,-20},{220,-20}}, color={0,0,127}));
 
   connect(fanSpe.yFanSpe, yFanSpe) annotation (Line(points={{142,178},{160,178},
           {160,160},{220,160}}, color={0,0,127}));
@@ -821,58 +822,40 @@ annotation (defaultComponentName="conFCU",
           preserveAspectRatio=false, extent={{-200,-200},{200,240}})),
 Documentation(info="<html>
 <p>
-Block for single zone VAV control. It outputs supply fan speed, supply air temperature
-setpoints for heating, economizer and cooling, zone air heating and cooling setpoints,
-outdoor and return air damper positions, and valve positions of heating and cooling coils.
+Block for fan coil unit control. It outputs supply fan enable signal and speed signal,
+the supply air temperature setpoint, the zone air heating and cooling setpoints,
+and valve positions of heating and cooling coils.
 </p>
 <p>
-It is implemented according to the ASHRAE Guideline 36, Part 5.18.
+It is implemented according to the ASHRAE Guideline 36, Part 5.22.
 </p>
 <p>
 The sequences consist of the following subsequences.
 </p>
-<h4>Supply fan speed control</h4>
+<h4>Supply fan control</h4>
 <p>
-The fan speed control is implemented according to PART 5.18.4. It outputs
-the control signal <code>yFan</code> to adjust the speed of the supply fan.
+The supply fan control is implemented according to Part 5.22.4. It outputs
+the control signals for supply fan enable <code>yFan</code> and the fan speed 
+<code>yFanSpe</code>.
 See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply</a>
-for more detailed description.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed\">
+Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed</a> for more detailed 
+description.
 </p>
-<h4>Supply air temperature setpoints</h4>
+<h4>Supply air temperature setpoint</h4>
 <p>
-The supply air temperature setpoints control sequences are implemented based on PART 5.18.4.
-They are implemented in the same control block as the supply fan speed control. The supply air temperature setpoint
-for heating and economizer is the same;
-
- while the supply air temperature setpoint for cooling has
-a separate control loop. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply</a>
+The supply air temperature setpoint control sequences are implemented based on Part 5.22.4.
+The block outputs a supply air temperature setpoint signal <code>TAirSupSet</code>,
+and control signals for the heating coil <code>yHeaCoi</code> and the cooling coil 
+<code>yCooCoi</code>. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature\">
+Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature</a>
 for more detailed description.
-</p>
-<h4>Economizer control</h4>
-<p>
-The Economizer control block outputs outdoor and return air damper position, i.e. <code>yOutDamPos</code> and
-<code>yRetDamPos</code>, as well as control signal for heating coil <code>yHeaCoi</code>.
-Optionally, there is also an override for freeze protection, which is not part of Guideline 36.
-See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller</a>
-for more detailed description.
-</p>
-<h4>Minimum outdoor airflow</h4>
-<p>
-Control sequences are implemented to compute the minimum outdoor airflow
-setpoint, which is used as an input for the economizer control. More detailed
-information can be found at
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow</a>.
 </p>
 <h4>Zone air heating and cooling setpoints</h4>
 <p>
-Zone air heating and cooling setpoints as well as system operation modes are detailed at
+The zone air heating setpoint <code>TZonHeaSet</code>and cooling setpoint <code>TZonHeaSet</code>
+as well as system operation mode signal <code>modSetPoi.yOpeMod</code> are detailed at
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints</a>.
 </p>
@@ -880,20 +863,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPo
 revisions="<html>
 <ul>
 <li>
-June 20, 2020, by Jianjun Hu:<br/>
-Updated the block of specifying operating mode and setpoints.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">#1893</a>.
-</li>
-<li>
-March 10, 2020, by Jianjun Hu:<br/>
-Replaced the block for calculating the operation mode and setpoint temperature with the one
-from the terminal unit package. The new block does not have vector-valued calculations.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
-</li>
-<li>
-August 3, 2019, by David Blum &amp;
-
- Kun Zhang:<br/>
+March 22, 2022, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

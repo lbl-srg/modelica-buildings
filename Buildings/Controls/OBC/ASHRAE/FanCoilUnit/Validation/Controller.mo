@@ -9,8 +9,11 @@ model Controller
     final have_occSen=true,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    have_coolingCoil=true,
-    have_heatingCoil=true)
+    final have_coolingCoil=true,
+    final have_heatingCoil=true,
+    final heaSpeMax=0.6,
+    final heaSpeMin=0.2,
+    final cooSpeMin=0.2)
     "Validate the heating case"
     annotation (Placement(transformation(extent={{20,80},{60,124}})));
 
@@ -23,8 +26,11 @@ model Controller
     final have_occSen=false,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    have_coolingCoil=true,
-    have_heatingCoil=true)
+    final have_coolingCoil=true,
+    final have_heatingCoil=true,
+    final heaSpeMax=0.6,
+    final heaSpeMin=0.2,
+    final cooSpeMin=0.2)
     "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,12},{60,56}})));
 
@@ -37,8 +43,11 @@ model Controller
     final have_occSen=true,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    have_coolingCoil=true,
-    have_heatingCoil=true)
+    final have_coolingCoil=true,
+    final have_heatingCoil=true,
+    final heaSpeMax=0.6,
+    final heaSpeMin=0.2,
+    final cooSpeMin=0.2)
     "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,-50},{60,-6}})));
 
@@ -51,11 +60,15 @@ model Controller
     final have_occSen=false,
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
-    have_coolingCoil=true,
-    have_heatingCoil=true)
+    final have_coolingCoil=true,
+    final have_heatingCoil=true,
+    final heaSpeMax=0.6,
+    final heaSpeMin=0.2,
+    final cooSpeMin=0.2)
     "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,-112},{60,-68}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final duration=86400,
     final height=6,
@@ -69,7 +82,8 @@ model Controller
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-120,44},{-100,64}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nOcc(final k=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant nOcc(
+    final k=2)
     "Number of occupants"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
 
@@ -116,15 +130,15 @@ model Controller
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
-                      "Logical pre block"
+    "Logical pre block"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre2
-                      "Logical pre block"
+    "Logical pre block"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre3
-                      "Logical pre block"
+    "Logical pre block"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
 
 equation
@@ -136,9 +150,6 @@ equation
 
   connect(occSch.tNexOcc,conFCU. tNexOcc) annotation (Line(points={{-99,60},{
           -80,60},{-80,114},{18,114}},     color={0,0,127}));
-
-  connect(nOcc.y,conFCU. nOcc) annotation (Line(points={{-128,0},{-8,0},{-8,86},
-          {18,86}},      color={0,0,127}));
 
   connect(TSup.y,conFCU. TSup) annotation (Line(points={{-158,40},{-140,40},{
           -140,94},{18,94}},      color={0,0,127}));
@@ -185,9 +196,6 @@ equation
 
   connect(occSch.tNexOcc,conFCU3. tNexOcc) annotation (Line(points={{-99,60},{-80,
           60},{-80,-78},{18,-78}},           color={0,0,127}));
-
-  connect(nOcc.y,conFCU2. nOcc) annotation (Line(points={{-128,0},{-8,0},{-8,-44},
-          {18,-44}},                color={0,0,127}));
 
   connect(cooWarTim.y,conFCU. warUpTim) annotation (Line(points={{-98,20},{-14,
           20},{-14,122},{18,122}},     color={0,0,127}));
@@ -262,6 +270,10 @@ equation
   connect(pre3.y, conFCU3.uFan) annotation (Line(points={{102,-70},{110,-70},{110,
           -54},{12,-54},{12,-102},{18,-102}},         color={255,0,255}));
 
+  connect(nOcc.y, conFCU.nOcc) annotation (Line(points={{-128,0},{-10,0},{-10,86},
+          {18,86}}, color={255,127,0}));
+  connect(nOcc.y, conFCU2.nOcc) annotation (Line(points={{-128,0},{-10,0},{-10,-44},
+          {18,-44}}, color={255,127,0}));
 annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/FanCoilUnit/Validation/Controller.mos"
     "Simulate and plot"),
@@ -288,17 +300,13 @@ annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller\">
+Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 7, 2019, by Kun Zhang:<br/>
-Included more validation cases.
-</li>
-<li>
-October 24, 2018, by David Blum:<br/>
+March 22, 2022, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
