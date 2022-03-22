@@ -37,6 +37,7 @@ model HeatPump "Motor coupled heat pump"
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
+
   parameter Real etaCarnot_nominal(unit="1") = COP_nominal/
     (TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))
     "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
@@ -50,6 +51,7 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.Temperature TCon_nominal = 303.15
     "Condenser temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
+
   parameter Modelica.Units.SI.Temperature TEva_nominal = 278.15
     "Evaporator temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
@@ -61,6 +63,7 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
@@ -72,6 +75,7 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
+
   //Motor parameters
   parameter Integer pole = 2 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
@@ -95,29 +99,32 @@ model HeatPump "Motor coupled heat pump"
     "Real power"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),
         iconTransformation(extent={{100,20},{120,40}})));
+
   Modelica.Blocks.Interfaces.RealOutput Q(quantity="Power", unit="var")
    "Reactive power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
+
   ThermoFluid.HeatPump mecHea(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
-    QEva_flow_nominal=QEva_flow_nominal,
-    QCon_flow_nominal=QCon_flow_nominal,
-    dTEva_nominal=dTEva_nominal,
-    dTCon_nominal=dTCon_nominal,
-    P_nominal=P_nominal,
-    Nrpm_nominal=Nrpm_nominal,
-    use_eta_Carnot_nominal=use_eta_Carnot_nominal,
-    etaCarnot_nominal=etaCarnot_nominal,
-    a=a,
-    dp1_nominal=dp1_nominal,
-    dp2_nominal=dp2_nominal,
-    TAppCon_nominal=TAppCon_nominal,
-    TAppEva_nominal=TAppEva_nominal)
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final QEva_flow_nominal=QEva_flow_nominal,
+    final QCon_flow_nominal=QCon_flow_nominal,
+    final dTEva_nominal=dTEva_nominal,
+    final dTCon_nominal=dTCon_nominal,
+    final P_nominal=P_nominal,
+    final Nrpm_nominal=Nrpm_nominal,
+    final use_eta_Carnot_nominal=use_eta_Carnot_nominal,
+    final etaCarnot_nominal=etaCarnot_nominal,
+    final a=a,
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal,
+    final TAppCon_nominal=TAppCon_nominal,
+    final TAppEva_nominal=TAppEva_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Modelica.Blocks.Interfaces.RealInput setPoi annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -129,14 +136,14 @@ model HeatPump "Motor coupled heat pump"
             {-100,40}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
   InductionMotors.SquirrelCageDrive simMot(
-    pole=pole,
-    n=n,
-    J=JMotor,
-    R_s=R_s,
-    R_r=R_r,
-    X_s=X_s,
-    X_r=X_r,
-    X_m=X_m)
+    final pole=pole,
+    final n=n,
+    final J=JMotor,
+    final R_s=R_s,
+    final R_r=R_r,
+    final X_s=X_s,
+    final X_r=X_r,
+    final X_m=X_m)
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 protected
   constant Boolean COP_is_for_cooling = true
@@ -147,7 +154,7 @@ protected
       else TCon_nominal + TAppCon_nominal
     "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
 
-    final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
       p = Medium1.p_default,
       T = Medium1.T_default,
