@@ -95,12 +95,12 @@ model HeatPump "Motor coupled heat pump"
   Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
     "Real power"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),
         iconTransformation(extent={{100,20},{120,40}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Q(quantity="Power", unit="var")
+  Modelica.Blocks.Interfaces.RealOutput Q(final quantity="Power", final unit="var")
    "Reactive power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
