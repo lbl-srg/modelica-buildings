@@ -12,16 +12,17 @@ model MotorMachineInterface "Validate model MotorMachineInterface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant Vrms(k=v)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Ramp ramp( duration=4*pi*f/
-        pole,
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=4*pi*f/
+    pole,
     startTime=120,
     height=-4*pi*f/pole,
     offset=4*pi*f/pole)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-
   Modelica.Blocks.Sources.Constant fSou(k=f)
-                   "Frequency"
+    "Frequency"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
 equation
   connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-59,30},{-24,30},{-24,
           4},{-12,4}}, color={0,0,127}));

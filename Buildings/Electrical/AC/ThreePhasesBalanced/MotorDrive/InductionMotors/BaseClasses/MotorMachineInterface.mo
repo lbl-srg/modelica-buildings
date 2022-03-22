@@ -22,7 +22,8 @@ model MotorMachineInterface
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40})));
-  Modelica.Blocks.Interfaces.RealInput f(final quantity="Frequency", final unit="Hz") "Controllale freuqency to the motor"
+  Modelica.Blocks.Interfaces.RealInput f(final quantity="Frequency", final unit="Hz")
+    "Controllale freuqency to the motor"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
