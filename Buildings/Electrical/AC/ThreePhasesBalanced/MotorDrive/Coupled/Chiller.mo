@@ -1,26 +1,28 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled;
 model Chiller "Motor coupled chiller"
 
-    extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
- extends Buildings.Electrical.Interfaces.PartialOnePort(
+  extends Buildings.Electrical.Interfaces.PartialOnePort(
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
- parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
+  //Chiller parameters
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
 
- parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
     final max=0) = -10 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
     final min=0) = 10 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
@@ -28,13 +30,15 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal = 1500
     "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
- // Efficiency
+
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
+
   parameter Real etaCarnot_nominal(unit="1") = COP_nominal/
     (TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))
     "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
@@ -48,6 +52,7 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Temperature TCon_nominal = 303.15
     "Condenser temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
+
   parameter Modelica.Units.SI.Temperature TEva_nominal = 278.15
     "Evaporator temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
@@ -59,6 +64,7 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
@@ -71,6 +77,7 @@ model Chiller "Motor coupled chiller"
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
+  //Motor parameters
   parameter Integer pole = 2 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
   parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
