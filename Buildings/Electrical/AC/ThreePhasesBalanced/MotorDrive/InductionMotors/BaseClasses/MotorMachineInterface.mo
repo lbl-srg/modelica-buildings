@@ -4,12 +4,14 @@ model MotorMachineInterface
 
   parameter Integer pole = 2 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
-
   parameter Modelica.Units.SI.Resistance R_s = 0.013 "Electric resistance of stator";
   parameter Modelica.Units.SI.Resistance R_r = 0.009 "Electric resistance of rotor";
   parameter Modelica.Units.SI.Reactance X_s = 0.14 "Complex component of the impedance of stator";
   parameter Modelica.Units.SI.Reactance X_r = 0.12 "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m = 2.4 "Complex component of the magnetizing reactance";
+
+  Real s(min=0,max=1) "Motor slip";
+  Modelica.Units.SI.AngularVelocity omega_s "Synchronous angular velocity";
 
   Modelica.Blocks.Interfaces.RealInput V_rms(unit="V") "Prescribed RMS voltage"
     annotation (Placement(transformation(
@@ -20,19 +22,15 @@ model MotorMachineInterface
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40})));
-  Modelica.Blocks.Interfaces.RealInput f(
-    final quantity="Frequency",
-    final unit="Hz") "Controllale freuqency to the motor"
-                                         annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput f(final quantity="Frequency", final unit="Hz") "Controllale freuqency to the motor"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,0}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,0})));
-  Modelica.Blocks.Interfaces.RealInput omega_r(
-    final quantity="AngularVelocity",
-    final unit="rad/s")
+  Modelica.Blocks.Interfaces.RealInput omega_r(final quantity="AngularVelocity", final unit="rad/s")
     "Prescribed rotational speed of rotor"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -41,27 +39,19 @@ model MotorMachineInterface
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-40})));
-  Modelica.Blocks.Interfaces.RealOutput tau_e(
-    final quantity="Torque",
-    final unit="N.m")
+  Modelica.Blocks.Interfaces.RealOutput tau_e(final quantity="Torque", final unit="N.m")
     "Electromagenetic torque of rotor"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Real s(min=0,max=1) "Motor slip";
-
-  Modelica.Units.SI.AngularVelocity omega_s "Synchronous angular velocity";
-
 protected
   Real ratio "Intermediate value used in calculation";
+
 equation
 
   omega_s = 4*Modelica.Constants.pi*f/pole;
-
-  //s = Buildings.Utilities.Math.Functions.smoothLimit(1-omega_r/Buildings.Utilities.Math.Functions.smoothMax(1e-05,omega_s,1e-06),0,1,1e-06);
   s = if noEvent(omega_s>0) then 1-omega_r/omega_s else 0;
   ratio = X_m/(X_m+X_s);
-
   tau_e = if noEvent(omega_s>0) then n*R_r*s*(V_rms*ratio)^2/(omega_s*(((s*R_s*ratio^2+R_r)^2)+s^2*(X_s+X_r)^2)) else 0;
 
   annotation (defaultComponentName="torSpe",
