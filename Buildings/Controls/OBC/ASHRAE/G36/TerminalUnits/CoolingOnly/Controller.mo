@@ -23,9 +23,6 @@ block Controller "Controller for cooling only VAV box"
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real CO2Set=894
-    "CO2 concentration setpoint, ppm"
-    annotation (Dialog(group="Design conditions", enable=have_CO2Sen));
   parameter Real VZonMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")

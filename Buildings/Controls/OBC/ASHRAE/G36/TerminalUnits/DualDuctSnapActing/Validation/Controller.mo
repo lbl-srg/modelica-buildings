@@ -21,7 +21,7 @@ model Controller
     final amplitude=4,
     final offset=299.15)
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
+    annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirTem(
     final height=2,
     final duration=43200,
@@ -40,34 +40,34 @@ model Controller
     final period=43200,
     final shift=43200)
     "Window opening status"
-    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSet(
     final k=273.15 + 24)
     "Zone cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
+    annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSet(
     final k=273.15 + 20)
     "Zone heating setpoint temperature"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
+    annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occ(
     final width=0.75,
     final period=43200,
     final shift=28800) "Occupancy status"
-    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
     final offset=1,
     final height=2,
     final duration=28800,
     final startTime=28800)
     "Operation mode"
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round2(
     final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
     final amplitude=400,
     final freqHz=1/28800,
@@ -114,7 +114,6 @@ model Controller
     final period=73200,
     final shift=18800) "Cooling supply fan status"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveHotDam(
     final height=2,
     final duration=5000,
@@ -149,27 +148,29 @@ model Controller
     final offset=273.15 + 24)
     "Hot-duct supply air temperature from air handling unit"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(
+    final k=894)
+    "CO2 concentration setpoint"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
-  connect(TZon.y,duaDucCon. TZon) annotation (Line(points={{-98,200},{60,200},{60,
-          79},{98,79}}, color={0,0,127}));
-  connect(cooSet.y,duaDucCon. TZonCooSet) annotation (Line(points={{-58,180},{56,
-          180},{56,77},{98,77}}, color={0,0,127}));
-  connect(heaSet.y,duaDucCon. TZonHeaSet) annotation (Line(points={{-98,160},{52,
-          160},{52,75},{98,75}}, color={0,0,127}));
-  connect(winSta.y,duaDucCon. uWin) annotation (Line(points={{-58,140},{48,140},
-          {48,73},{98,73}}, color={255,0,255}));
-  connect(occ.y,duaDucCon. uOcc) annotation (Line(points={{-98,120},{44,120},{
-          44,71},{98,71}}, color={255,0,255}));
+  connect(TZon.y,duaDucCon. TZon) annotation (Line(points={{-98,220},{60,220},{60,
+          80},{98,80}}, color={0,0,127}));
+  connect(cooSet.y,duaDucCon. TZonCooSet) annotation (Line(points={{-58,200},{56,
+          200},{56,78},{98,78}}, color={0,0,127}));
+  connect(heaSet.y,duaDucCon. TZonHeaSet) annotation (Line(points={{-98,180},{52,
+          180},{52,76},{98,76}}, color={0,0,127}));
+  connect(winSta.y,duaDucCon. uWin) annotation (Line(points={{-58,160},{48,160},
+          {48,74},{98,74}}, color={255,0,255}));
+  connect(occ.y,duaDucCon. uOcc) annotation (Line(points={{-98,140},{44,140},{44,
+          72},{98,72}},    color={255,0,255}));
   connect(opeMod.y,round2. u)
-    annotation (Line(points={{-98,90},{-82,90}}, color={0,0,127}));
+    annotation (Line(points={{-98,110},{-82,110}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
-    annotation (Line(points={{-58,90},{-42,90}},
-      color={0,0,127}));
-  connect(reaToInt2.y,duaDucCon. uOpeMod) annotation (Line(points={{-18,90},{40,
-          90},{40,69},{98,69}}, color={255,127,0}));
-  connect(CO2.y,duaDucCon. ppmCO2) annotation (Line(points={{-58,60},{32,60},{
-          32,67},{98,67}}, color={0,0,127}));
+    annotation (Line(points={{-58,110},{-42,110}}, color={0,0,127}));
+  connect(reaToInt2.y,duaDucCon. uOpeMod) annotation (Line(points={{-18,110},{40,
+          110},{40,70},{98,70}},color={255,127,0}));
+  connect(CO2.y,duaDucCon. ppmCO2) annotation (Line(points={{-58,60},{32,60},{32,
+          66},{98,66}},    color={0,0,127}));
   connect(oveFlo.y,round1. u)
     annotation (Line(points={{-98,-110},{-82,-110}}, color={0,0,127}));
   connect(round1.y,reaToInt1. u)
@@ -179,33 +180,35 @@ equation
   connect(round3.y,reaToInt3. u)
     annotation (Line(points={{-58,-140},{-42,-140}}, color={0,0,127}));
   connect(reaToInt1.y,duaDucCon. oveFloSet) annotation (Line(points={{-18,-110},
-          {64,-110},{64,49},{98,49}}, color={255,127,0}));
-  connect(reaToInt3.y, duaDucCon.oveCooDamPos) annotation (Line(points={{-18,
-          -140},{68,-140},{68,47},{98,47}}, color={255,127,0}));
+          {64,-110},{64,48},{98,48}}, color={255,127,0}));
+  connect(reaToInt3.y, duaDucCon.oveCooDamPos) annotation (Line(points={{-18,-140},
+          {68,-140},{68,46},{98,46}},       color={255,127,0}));
   connect(oveHotDam.y, round4.u)
     annotation (Line(points={{-98,-170},{-82,-170}}, color={0,0,127}));
   connect(round4.y,reaToInt4. u)
     annotation (Line(points={{-58,-170},{-42,-170}}, color={0,0,127}));
-  connect(reaToInt4.y, duaDucCon.oveHeaDamPos) annotation (Line(points={{-18,
-          -170},{72,-170},{72,45},{98,45}}, color={255,127,0}));
+  connect(reaToInt4.y, duaDucCon.oveHeaDamPos) annotation (Line(points={{-18,-170},
+          {72,-170},{72,44},{98,44}},       color={255,127,0}));
   connect(colDamPos.y, duaDucCon.uCooDam) annotation (Line(points={{-58,-200},{76,
-          -200},{76,43},{98,43}}, color={0,0,127}));
+          -200},{76,42},{98,42}}, color={0,0,127}));
   connect(hotDamPos.y, duaDucCon.uHeaDam) annotation (Line(points={{-98,-220},{80,
-          -220},{80,41},{98,41}}, color={0,0,127}));
+          -220},{80,40},{98,40}}, color={0,0,127}));
   connect(disAirTem.y, duaDucCon.TDis) annotation (Line(points={{-98,40},{36,40},
-          {36,65},{98,65}}, color={0,0,127}));
+          {36,64},{98,64}}, color={0,0,127}));
   connect(colSupAirTem.y, duaDucCon.TColSup) annotation (Line(points={{-58,20},{
-          40,20},{40,63},{98,63}}, color={0,0,127}));
-  connect(VColDis_flow.y, duaDucCon.VColDucDis_flow) annotation (Line(points={{-98,
-          0},{44,0},{44,61},{98,61}}, color={0,0,127}));
+          40,20},{40,62},{98,62}}, color={0,0,127}));
+  connect(VColDis_flow.y, duaDucCon.VColDucDis_flow) annotation (Line(points={{-98,0},
+          {44,0},{44,60},{98,60}},    color={0,0,127}));
   connect(cooSupFanSta.y, duaDucCon.uCooAHU) annotation (Line(points={{-58,-20},
-          {48,-20},{48,59},{98,59}}, color={255,0,255}));
+          {48,-20},{48,58},{98,58}}, color={255,0,255}));
   connect(hotSupAirTem.y, duaDucCon.THotSup) annotation (Line(points={{-98,-40},
-          {52,-40},{52,57},{98,57}}, color={0,0,127}));
+          {52,-40},{52,56},{98,56}}, color={0,0,127}));
   connect(VHotDis_flow.y, duaDucCon.VHotDucDis_flow) annotation (Line(points={{-58,-60},
-          {56,-60},{56,55},{98,55}},      color={0,0,127}));
+          {56,-60},{56,54},{98,54}},      color={0,0,127}));
   connect(heaSupFanSta.y, duaDucCon.uHeaAHU) annotation (Line(points={{-98,-80},
-          {60,-80},{60,53},{98,53}}, color={255,0,255}));
+          {60,-80},{60,52},{98,52}}, color={255,0,255}));
+  connect(CO2Set.y, duaDucCon.ppmCO2Set) annotation (Line(points={{-98,80},{36,80},
+          {36,68},{98,68}}, color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctSnapActing/Validation/Controller.mos"

@@ -21,9 +21,6 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real CO2Set=894
-    "CO2 concentration setpoint, ppm"
-    annotation (Dialog(group="Design conditions"));
   parameter Real VZonMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));

@@ -23,9 +23,6 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real CO2Set=894
-    "CO2 concentration setpoint, ppm"
-    annotation (Dialog(group="Design conditions", enable=have_CO2Sen));
   parameter Real VZonMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
@@ -202,51 +199,55 @@ block Controller "Controller for room VAV box with reheat"
     final unit="K",
     final displayUnit="degC")
     "Setpoint temperature for room for heating"
-    annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
+    annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
-    annotation (Placement(transformation(extent={{-220,140},{-180,180}}),
+    annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
     "Occupancy status, true if it is occupied, false if it is not occupied"
-    annotation (Placement(transformation(extent={{-220,110},{-180,150}}),
+    annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
-    annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
+    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2Set if have_CO2Sen
+    "CO2 concentration setpoint"
+    annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 concentration"
-    annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC")
     "Measured supply air temperature after heating coil"
-    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Measured primary discharge airflow rate"
-    annotation (Placement(transformation(extent={{-220,-10},{-180,30}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Temperature of the air supplied from central air handler"
-    annotation (Placement(transformation(extent={{-220,-42},{-180,-2}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+    annotation (Placement(transformation(extent={{-220,-50},{-180,-10}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint from central air handler"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
@@ -369,7 +370,7 @@ block Controller "Controller for room VAV box with reheat"
     final dTHys=dTHys,
     final conThr=conThr)
     "Heating and cooling control loop"
-    annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
+    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Alarms ala(
     final have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
@@ -396,7 +397,7 @@ block Controller "Controller for room VAV box with reheat"
     final maxTim=maxSupTim,
     final dTHys=dTHys)
     "Specify suppresion time due to the setpoint change and check if it has passed the suppresion period"
-    annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
+    annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints setPoi(
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
@@ -411,7 +412,6 @@ block Controller "Controller for room VAV box with reheat"
     final outAirRat_occupant=outAirRat_occupant,
     final VZonMin_flow=VZonMin_flow,
     final VCooZonMax_flow=VCooZonMax_flow,
-    final CO2Set=CO2Set,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
     final dTHys=dTHys)
@@ -432,97 +432,97 @@ block Controller "Controller for room VAV box with reheat"
     final V_flow_nominal=V_flow_nominal,
     final dTHys=dTHys,
     final looHys=looHys) "Damper and valve control"
-    annotation (Placement(transformation(extent={{0,-40},{20,0}})));
+    annotation (Placement(transformation(extent={{0,-52},{20,-12}})));
 
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
-          236},{-142,236}}, color={0,0,127}));
+          246},{-142,246}}, color={0,0,127}));
   connect(TZonCooSet, timSup.TSet) annotation (Line(points={{-200,230},{-168,230},
-          {-168,244},{-142,244}}, color={0,0,127}));
+          {-168,254},{-142,254}}, color={0,0,127}));
   connect(TZonCooSet, conLoo.TZonCooSet) annotation (Line(points={{-200,230},{-168,
-          230},{-168,206},{-142,206}}, color={0,0,127}));
+          230},{-168,216},{-142,216}}, color={0,0,127}));
   connect(TZon, conLoo.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
-          200},{-142,200}}, color={0,0,127}));
-  connect(TZonHeaSet, conLoo.TZonHeaSet) annotation (Line(points={{-200,190},{-160,
-          190},{-160,194},{-142,194}}, color={0,0,127}));
-  connect(uWin, setPoi.uWin) annotation (Line(points={{-200,160},{-120,160},{-120,
+          210},{-142,210}}, color={0,0,127}));
+  connect(TZonHeaSet, conLoo.TZonHeaSet) annotation (Line(points={{-200,200},{-160,
+          200},{-160,204},{-142,204}}, color={0,0,127}));
+  connect(uWin, setPoi.uWin) annotation (Line(points={{-200,170},{-120,170},{-120,
           139},{-102,139}}, color={255,0,255}));
-  connect(uOcc, setPoi.uOcc) annotation (Line(points={{-200,130},{-132,130},{-132,
+  connect(uOcc, setPoi.uOcc) annotation (Line(points={{-200,150},{-124,150},{-124,
           137},{-102,137}}, color={255,0,255}));
-  connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,100},{-128,100},
-          {-128,134},{-102,134}}, color={255,127,0}));
-  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-200,70},{-124,70},{-124,
+  connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,120},{-132,120},
+          {-132,135},{-102,135}}, color={255,127,0}));
+  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-200,60},{-124,60},{-124,
           131},{-102,131}}, color={0,0,127}));
   connect(TZon, setPoi.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           123},{-102,123}}, color={0,0,127}));
-  connect(TDis, setPoi.TDis) annotation (Line(points={{-200,40},{-120,40},{-120,
+  connect(TDis, setPoi.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,
           121},{-102,121}}, color={0,0,127}));
-  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,100},{-128,
-          100},{-128,76},{-62,76}}, color={255,127,0}));
+  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,120},{-132,
+          120},{-132,76},{-62,76}}, color={255,127,0}));
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
         points={{-78,134},{-72,134},{-72,64},{-62,64}}, color={0,0,127}));
-  connect(VDis_flow, damVal.VDis_flow) annotation (Line(points={{-200,10},{-40,10},
-          {-40,-1},{-2,-1}}, color={0,0,127}));
+  connect(VDis_flow, damVal.VDis_flow) annotation (Line(points={{-200,0},{-40,0},
+          {-40,-13},{-2,-13}}, color={0,0,127}));
   connect(actAirSet.VActCooMin_flow, damVal.VActCooMin_flow) annotation (Line(
-        points={{-38,74},{-10,74},{-10,-4},{-2,-4}}, color={0,0,127}));
-  connect(conLoo.yCoo, damVal.uCoo) annotation (Line(points={{-118,206},{-14,206},
-          {-14,-7},{-2,-7}}, color={0,0,127}));
+        points={{-38,74},{-10,74},{-10,-16},{-2,-16}}, color={0,0,127}));
+  connect(conLoo.yCoo, damVal.uCoo) annotation (Line(points={{-118,216},{-14,216},
+          {-14,-19},{-2,-19}}, color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, damVal.VActCooMax_flow) annotation (Line(
-        points={{-38,78},{-18,78},{-18,-10},{-2,-10}}, color={0,0,127}));
-  connect(TSup, damVal.TSup) annotation (Line(points={{-200,-22},{-48,-22},{-48,
-          -13},{-2,-13}}, color={0,0,127}));
-  connect(actAirSet.VActMin_flow, damVal.VActMin_flow) annotation (Line(points={
-          {-38,70},{-22,70},{-22,-16},{-2,-16}}, color={0,0,127}));
-  connect(TDis, damVal.TDis) annotation (Line(points={{-200,40},{-120,40},{-120,
-          -19},{-2,-19}}, color={0,0,127}));
-  connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-200,-60},{-44,-60},
-          {-44,-22},{-2,-22}}, color={0,0,127}));
-  connect(TZonHeaSet, damVal.TZonHeaSet) annotation (Line(points={{-200,190},{-160,
-          190},{-160,-25},{-2,-25}}, color={0,0,127}));
-  connect(conLoo.yHea, damVal.uHea) annotation (Line(points={{-118,194},{-110,194},
-          {-110,-28},{-2,-28}}, color={0,0,127}));
-  connect(TZon, damVal.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
+        points={{-38,78},{-18,78},{-18,-22},{-2,-22}}, color={0,0,127}));
+  connect(TSup, damVal.TSup) annotation (Line(points={{-200,-30},{-48,-30},{-48,
+          -25},{-2,-25}}, color={0,0,127}));
+  connect(actAirSet.VActMin_flow, damVal.VActMin_flow) annotation (Line(points={{-38,70},
+          {-22,70},{-22,-28},{-2,-28}},          color={0,0,127}));
+  connect(TDis, damVal.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,
           -31},{-2,-31}}, color={0,0,127}));
+  connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-200,-60},{-44,-60},
+          {-44,-34},{-2,-34}}, color={0,0,127}));
+  connect(TZonHeaSet, damVal.TZonHeaSet) annotation (Line(points={{-200,200},{-160,
+          200},{-160,-37},{-2,-37}}, color={0,0,127}));
+  connect(conLoo.yHea, damVal.uHea) annotation (Line(points={{-118,204},{-110,204},
+          {-110,-40},{-2,-40}}, color={0,0,127}));
+  connect(TZon, damVal.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
+          -43},{-2,-43}}, color={0,0,127}));
   connect(actAirSet.VActHeaMin_flow, damVal.VActHeaMin_flow) annotation (Line(
-        points={{-38,66},{-26,66},{-26,-34},{-2,-34}}, color={0,0,127}));
+        points={{-38,66},{-26,66},{-26,-46},{-2,-46}}, color={0,0,127}));
   connect(actAirSet.VActHeaMax_flow, damVal.VActHeaMax_flow) annotation (Line(
-        points={{-38,62},{-30,62},{-30,-36},{-2,-36}}, color={0,0,127}));
-  connect(uOpeMod, damVal.uOpeMod) annotation (Line(points={{-200,100},{-128,100},
-          {-128,-39},{-2,-39}}, color={255,127,0}));
-  connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-200,-90},{18,-90},
-          {18,-82},{58,-82}}, color={255,127,0}));
-  connect(damVal.VDisSet_flow, setOve.VActSet_flow) annotation (Line(points={{22,
-          -6},{50,-6},{50,-85},{58,-85}}, color={0,0,127}));
-  connect(oveDamPos, setOve.oveDamPos) annotation (Line(points={{-200,-120},{22,
-          -120},{22,-88},{58,-88}}, color={255,127,0}));
-  connect(damVal.yDamSet, setOve.uDamSet) annotation (Line(points={{22,-11},{46,
-          -11},{46,-92},{58,-92}}, color={0,0,127}));
-  connect(uHeaOff, setOve.uHeaOff) annotation (Line(points={{-200,-150},{26,-150},
-          {26,-96},{58,-96}}, color={255,0,255}));
-  connect(damVal.yValSet, setOve.uValSet) annotation (Line(points={{22,-29},{42,
-          -29},{42,-99},{58,-99}}, color={0,0,127}));
-  connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-118,240},{-68,
-          240},{-68,-121},{118,-121}}, color={255,0,255}));
+        points={{-38,62},{-30,62},{-30,-48},{-2,-48}}, color={0,0,127}));
+  connect(uOpeMod, damVal.uOpeMod) annotation (Line(points={{-200,120},{-132,120},
+          {-132,-51},{-2,-51}}, color={255,127,0}));
+  connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-200,-90},{16,-90},
+          {16,-82},{58,-82}}, color={255,127,0}));
+  connect(damVal.VDisSet_flow, setOve.VActSet_flow) annotation (Line(points={{22,-18},
+          {50,-18},{50,-85},{58,-85}},    color={0,0,127}));
+  connect(oveDamPos, setOve.oveDamPos) annotation (Line(points={{-200,-120},{20,
+          -120},{20,-88},{58,-88}}, color={255,127,0}));
+  connect(damVal.yDamSet, setOve.uDamSet) annotation (Line(points={{22,-23},{46,
+          -23},{46,-92},{58,-92}}, color={0,0,127}));
+  connect(uHeaOff, setOve.uHeaOff) annotation (Line(points={{-200,-150},{24,-150},
+          {24,-96},{58,-96}}, color={255,0,255}));
+  connect(damVal.yValSet, setOve.uValSet) annotation (Line(points={{22,-41},{42,
+          -41},{42,-99},{58,-99}}, color={0,0,127}));
+  connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-118,250},{-68,
+          250},{-68,-121},{118,-121}}, color={255,0,255}));
   connect(TZonCooSet, sysReq.TZonCooSet) annotation (Line(points={{-200,230},{-168,
           230},{-168,-123},{118,-123}}, color={0,0,127}));
   connect(TZon, sysReq.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           -125},{118,-125}}, color={0,0,127}));
-  connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-118,206},{-14,206},
+  connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-118,216},{-14,216},
           {-14,-127},{118,-127}}, color={0,0,127}));
   connect(setOve.VSet_flow, sysReq.VSet_flow) annotation (Line(points={{82,-84},
           {90,-84},{90,-129},{118,-129}}, color={0,0,127}));
-  connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-200,10},{-40,10},
+  connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-200,0},{-40,0},
           {-40,-131},{118,-131}}, color={0,0,127}));
   connect(uDam, sysReq.uDam) annotation (Line(points={{-200,-180},{30,-180},{30,
           -133},{118,-133}}, color={0,0,127}));
-  connect(damVal.TDisSet, sysReq.TDisSet) annotation (Line(points={{22,-34},{38,
-          -34},{38,-135},{118,-135}}, color={0,0,127}));
-  connect(TDis, sysReq.TDis) annotation (Line(points={{-200,40},{-120,40},{-120,
+  connect(damVal.TDisSet, sysReq.TDisSet) annotation (Line(points={{22,-46},{38,
+          -46},{38,-135},{118,-135}}, color={0,0,127}));
+  connect(TDis, sysReq.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,
           -137},{118,-137}}, color={0,0,127}));
   connect(uVal, sysReq.uVal) annotation (Line(points={{-200,-210},{34,-210},{34,
           -139},{118,-139}}, color={0,0,127}));
-  connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,10},{-40,10},
-          {-40,-182},{118,-182}}, color={0,0,127}));
+  connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,0},{-40,0},{-40,
+          -182},{118,-182}},      color={0,0,127}));
   connect(setOve.VSet_flow, ala.VActSet_flow) annotation (Line(points={{82,-84},
           {90,-84},{90,-184},{118,-184}}, color={0,0,127}));
   connect(uFan, ala.uFan) annotation (Line(points={{-200,-240},{90,-240},{90,-186},
@@ -531,13 +531,13 @@ equation
           {118,-188}}, color={0,0,127}));
   connect(uVal, ala.uVal) annotation (Line(points={{-200,-210},{34,-210},{34,-190},
           {118,-190}}, color={0,0,127}));
-  connect(TSup, ala.TSup) annotation (Line(points={{-200,-22},{-48,-22},{-48,-192},
+  connect(TSup, ala.TSup) annotation (Line(points={{-200,-30},{-48,-30},{-48,-192},
           {118,-192}}, color={0,0,127}));
   connect(uHotPla, ala.uHotPla) annotation (Line(points={{-200,-270},{94,-270},{
           94,-194},{118,-194}}, color={255,0,255}));
-  connect(TDis, ala.TDis) annotation (Line(points={{-200,40},{-120,40},{-120,-196},
+  connect(TDis, ala.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,-196},
           {118,-196}}, color={0,0,127}));
-  connect(damVal.TDisSet, ala.TDisSet) annotation (Line(points={{22,-34},{38,-34},
+  connect(damVal.TDisSet, ala.TDisSet) annotation (Line(points={{22,-46},{38,-46},
           {38,-198},{118,-198}}, color={0,0,127}));
   connect(setOve.VSet_flow, VSet_flow) annotation (Line(points={{82,-84},{90,-84},
           {90,230},{220,230}}, color={0,0,127}));
@@ -563,7 +563,8 @@ equation
           {180,-180},{220,-180}}, color={255,127,0}));
   connect(ala.yLowTemAla, yLowTemAla) annotation (Line(points={{142,-198},{180,-198},
           {180,-220},{220,-220}}, color={255,127,0}));
-
+  connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,90},{-128,
+          90},{-128,133},{-102,133}}, color={0,0,127}));
 annotation (defaultComponentName="rehBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
@@ -577,28 +578,28 @@ annotation (defaultComponentName="rehBoxCon",
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-96,16},{-54,4}},
+          extent={{-96,6},{-54,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
-          extent={{-98,36},{-72,24}},
+          extent={{-98,26},{-72,14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           visible=have_CO2Sen,
-          extent={{-96,66},{-54,54}},
+          extent={{-94,66},{-52,54}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="ppmCO2"),
+          textString="ppmCO2Set"),
         Text(
-          extent={{-98,-2},{-72,-14}},
+          extent={{-98,-12},{-72,-24}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
-          extent={{-98,-24},{-56,-36}},
+          extent={{-98,-34},{-56,-46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
@@ -732,7 +733,13 @@ annotation (defaultComponentName="rehBoxCon",
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yLowTemAla",
-          visible=have_hotWatCoi)}),
+          visible=have_hotWatCoi),
+        Text(
+          visible=have_CO2Sen,
+          extent={{-100,46},{-58,34}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="ppmCO2")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{200,280}})),
   Documentation(info="<html>
 <p>
