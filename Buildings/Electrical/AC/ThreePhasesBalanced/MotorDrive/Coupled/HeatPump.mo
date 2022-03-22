@@ -1,25 +1,27 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled;
 model HeatPump "Motor coupled heat pump"
-    extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
- extends Buildings.Electrical.Interfaces.PartialOnePort(
+  extends Buildings.Electrical.Interfaces.PartialOnePort(
     redeclare package PhaseSystem =
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
- parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
+  //Heat pump parameters
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
 
- parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
     final max=0) = -10 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
     final min=0) = 10 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
@@ -27,10 +29,11 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal = 1500
     "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
- // Efficiency
+
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
@@ -69,21 +72,21 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
-
+  //Motor parameters
   parameter Integer pole = 2 "Number of pole pairs";
   parameter Integer n = 3 "Number of phases";
-  parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
   parameter Modelica.Units.SI.Resistance R_s = 24.5
     "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r = 23 "Electric resistance of rotor";
+  parameter Modelica.Units.SI.Resistance R_r = 23
+    "Electric resistance of rotor";
   parameter Modelica.Units.SI.Reactance X_s = 10
     "Complex component of the impedance of stator";
   parameter Modelica.Units.SI.Reactance X_r = 40
     "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m = 25
     "Complex component of the magnetizing reactance";
-
-   parameter Modelica.Units.SI.Inertia JLoad = 2 "Load inertia";
+  parameter Modelica.Units.SI.Inertia JLoad = 2 "Load inertia";
+  parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
