@@ -82,7 +82,8 @@ model Chiller "Motor coupled chiller"
   parameter Integer n = 3 "Number of phases";
   parameter Modelica.Units.SI.Resistance R_s = 24.5
     "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r = 23 "Electric resistance of rotor";
+  parameter Modelica.Units.SI.Resistance R_r = 23
+    "Electric resistance of rotor";
   parameter Modelica.Units.SI.Reactance X_s = 10
     "Complex component of the impedance of stator";
   parameter Modelica.Units.SI.Reactance X_r = 40
@@ -90,7 +91,7 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Reactance X_m = 25
     "Complex component of the magnetizing reactance";
   parameter Modelica.Units.SI.Inertia JLoad = 2 "Load inertia";
-  parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
+  parameter Modelica.Units.SI.Inertia JMotor(min=0) = 10 "Motor inertia";
 
   ThermoFluid.Chiller mecChi(
     redeclare package Medium1 = Medium1,

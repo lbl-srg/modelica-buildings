@@ -90,7 +90,7 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.Reactance X_m = 25
     "Complex component of the magnetizing reactance";
   parameter Modelica.Units.SI.Inertia JLoad = 2 "Load inertia";
-  parameter Modelica.Units.SI.Inertia JMotor = 10 "Motor inertia";
+  parameter Modelica.Units.SI.Inertia JMotor(min=0) = 10 "Motor inertia";
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
