@@ -104,7 +104,6 @@ size_t AllocateBuildingDataStructure(
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->spawnExe, spawnExe);
 
-
   /* Assign the idfName name */
   if (usePrecompiledFMU){
     mallocString(
@@ -160,6 +159,24 @@ size_t AllocateBuildingDataStructure(
   /* Initialize exchange object data */
   Buildings_FMUS[nFMU]->nExcObj = 0;
   Buildings_FMUS[nFMU]->exchange = NULL;
+
+#ifdef _WIN32  /* Win32 or Win64 */
+  /* On Windows, with OpenModelica 1.19.0-dev, the buildingsRootFileLocation
+     is something like C:\inst\Buildings\legal.html, whereas with
+     Dymola 2022x on Windows, it is C:/inst/Buildings/legal.html.
+     Therefore, we switch the separators.
+     This is for https://github.com/lbl-srg/modelica-buildings/issues/2924 */
+  replaceChar(Buildings_FMUS[nFMU]->buildingsLibraryRoot, '\\', '/');
+  /* Clean up other path, as they can lead to errors such as in
+  [json.exception.parse_error.101] parse error at line 4, column 16: ..
+  See https://github.com/lbl-srg/modelica-buildings/issues/2924 */
+  replaceChar(Buildings_FMUS[nFMU]->idfName,   '\\', '/');
+  replaceChar(Buildings_FMUS[nFMU]->weather,   '\\', '/');
+  replaceChar(Buildings_FMUS[nFMU]->tmpDir,    '\\', '/');
+  replaceChar(Buildings_FMUS[nFMU]->fmuAbsPat, '\\', '/');
+  if (usePrecompiledFMU)
+    replaceChar(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\\', '/');
+#endif
 
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir, SpawnFormatError);

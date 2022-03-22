@@ -502,7 +502,7 @@ void terminateIfSpacesInInstallation(FMUBuilding* bui){
 
 
   if ( strchr(libBaseName, ' ') != NULL){
-    SpawnFormatError("To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces. Installing in '%s' is not supported.",
+    SpawnFormatError("To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces. (The Buildings directory can however have spaces such as in 'Buildings 9.0.0'.) Installing in '%s' is not supported.",
       libBaseName);
   }
 }
