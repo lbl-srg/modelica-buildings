@@ -1,20 +1,24 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples;
 model Chiller "Test model for motor coupled chiller model"
- extends Modelica.Icons.Example;
- package Medium1 = Buildings.Media.Water "Medium model";
- package Medium2 = Buildings.Media.Water "Medium model";
+  extends Modelica.Icons.Example;
+  package Medium1 = Buildings.Media.Water "Medium model";
+  package Medium2 = Buildings.Media.Water "Medium model";
 
   parameter Modelica.Units.SI.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
+
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
+
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
+
   parameter Real COP_nominal = 3 "Chiller COP";
 
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=
      -P_nominal*COP_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
+
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COP_nominal+1)/COP_nominal
     "Nominal mass flow rate at condenser water wide";
