@@ -9,15 +9,15 @@ package Types "Package with type definitions"
     "Enumeration to choose what variable is prescribed";
   type EfficiencyMethod = enumeration(
       NotProvided
-        "1. Not provided, will be computed from other efficiencies",
+        "Not provided, computed from other efficiency terms",
       Values
-        "2. An array of values or one constant vs. volumetric flow rate",
+        "An array of value(s) vs. volumetric flow rate",
       Values_y
-        "3. An array of values vs. part load ratio",
+        "An array of value(s) vs. part load ratio",
       PowerCurve
-        "4. A power curve is provided",
+        "An array of power vs. volumetric flow rate",
       EulerNumber
-        "5. The peak point is provided");
+        "One peak point to be use for the Euler number");
  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains type definitions for movers.
