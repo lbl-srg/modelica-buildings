@@ -6,19 +6,14 @@ model HeatPump "Test model for motor coupled heat pump model"
 
   parameter Modelica.Units.SI.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
-
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
-
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
-
-  parameter Real COP_nominal = 3 "Chiller COP";
-
+  parameter Real COP_nominal=3 "Chiller COP";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=
      -P_nominal*COP_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
-
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COP_nominal+1)/COP_nominal
     "Nominal mass flow rate at condenser water wide";
@@ -30,14 +25,12 @@ model HeatPump "Test model for motor coupled heat pump model"
     T=298.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=0,
     duration=60,
     offset=273.15 + 15,
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
-
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
@@ -45,21 +38,17 @@ model HeatPump "Test model for motor coupled heat pump model"
     T=291.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-
   Buildings.Electrical.AC.OnePhase.Sources.Grid Sou(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium2,
       m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{26,30},{46,50}})));
-
   Modelica.Blocks.Sources.Step TSet(
     height=5,
     offset=273.15 + 20,
     startTime=500)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-
   MotorDrive.Coupled.HeatPump hea(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -78,17 +67,14 @@ model HeatPump "Test model for motor coupled heat pump model"
     X_r=0.464,
     X_m=26.3,
     JLoad=5) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=0,
     duration=60,
     offset=273.15 + 10,
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{96,-50},{76,-30}})));
-
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2,
       nPorts=1) annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(extent={{80,60},{60,80}})));
 
