@@ -861,7 +861,7 @@ Flow work:<br/>
 </li>
 <li>
 Total efficiency and consumed electric:<br/>
-<i>&eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub></i><br/>
+<i>&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub></i><br/>
 There are the following options:
 <ul>
 <li>
@@ -879,7 +879,7 @@ Buildings.Fluid.Movers.UsersGuide</a>
 for more details. The power consumption is then computed from the efficiency.
 Note that, strictly, the Euler number is based on the hydraulic power and
 hydraulic efficiency. But applying this method to the total consumed power and
-total efficiency is a reasonable proximation when the motor efficiency can be
+total efficiency is a reasonable approximation when the motor efficiency can be
 assumed constant (which usually is from full motor load down to 25%-50% part load).
 </li>
 <li>
@@ -943,7 +943,7 @@ being left unspecified. In this case, the efficiencies are computed as follows:
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <thead>
   <tr>
-    <th>Provided term</th>
+  <th>Sole provided term</th>
     <th>Equations</th>
   </tr>
 </thead>
