@@ -3,9 +3,9 @@ model Pump "Test model for heat pump with mechanical interface"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.Units.SI.Torque tau = 0.05
+  parameter Modelica.Units.SI.Torque tau=0.05
     "Provided torque";
-  parameter Modelica.Units.SI.Inertia JLoad = 0.01 "Load inertia";
+  parameter Modelica.Units.SI.Inertia JLoad=0.01 "Load inertia";
 
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(tau_constant=tau)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));

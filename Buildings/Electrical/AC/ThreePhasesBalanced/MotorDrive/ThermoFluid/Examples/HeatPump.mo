@@ -3,9 +3,9 @@ model HeatPump "Test model for heat pump with mechanical interface"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Water;
-  parameter Modelica.Units.SI.Torque tau = 20
+  parameter Modelica.Units.SI.Torque tau=20
   "Provided torque";
-  parameter Modelica.Units.SI.Inertia JLoad = 30
+  parameter Modelica.Units.SI.Inertia JLoad=30
   "Load inertia";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
@@ -58,6 +58,7 @@ model HeatPump "Test model for heat pump with mechanical interface"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(extent={{60,20},{40,40}})));
+
 equation
   connect(TCon_in.y,sou1. T_in) annotation (Line(
       points={{-79,10},{-70,10},{-70,14},{-62,14}},

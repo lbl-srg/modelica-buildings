@@ -3,9 +3,9 @@ model Chiller "Test model for chiller with mechanical interface"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Water;
-  parameter Modelica.Units.SI.Torque tau = 20
+  parameter Modelica.Units.SI.Torque tau=20
   "Provided torque";
-  parameter Modelica.Units.SI.Inertia JLoad = 30
+  parameter Modelica.Units.SI.Inertia JLoad=30
   "Load inertia";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(

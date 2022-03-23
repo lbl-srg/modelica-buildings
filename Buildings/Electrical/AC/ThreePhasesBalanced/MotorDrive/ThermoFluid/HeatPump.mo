@@ -27,10 +27,10 @@ model HeatPump "Heat pump with mechanical interface"
   parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal = 1500
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
     "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Inertia loaIne = 1 "Heat pump inertia"
+  parameter Modelica.Units.SI.Inertia loaIne=1 "Heat pump inertia"
     annotation (Dialog(group="Nominal condition"));
 
   //Efficiency
@@ -45,10 +45,10 @@ model HeatPump "Heat pump with mechanical interface"
     (TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal))
     "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
-  parameter Modelica.Units.SI.Temperature TCon_nominal = 303.15
+  parameter Modelica.Units.SI.Temperature TCon_nominal=303.15
     "Condenser temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
-  parameter Modelica.Units.SI.Temperature TEva_nominal = 278.15
+  parameter Modelica.Units.SI.Temperature TEva_nominal=278.15
     "Evaporator temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
   parameter Real a[:] = {1}
