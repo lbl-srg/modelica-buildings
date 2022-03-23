@@ -6,6 +6,8 @@
 #define GETTIMESPAN_C_
 
 #include <stdio.h>
+#include "ModelicaUtilities.h"
+
 #include "getTimeSpan.h"
 
 /*
@@ -19,7 +21,7 @@
  *
  *  returns: concatenate strings (s1 + s2)
  */
-char *concatCharArrays(const char *s1, const char *s2) {
+char *concat(const char *s1, const char *s2) {
   const size_t len1 = strlen(s1);
   const size_t len2 = strlen(s2);
   char *result = malloc(len1 + len2 + 1);
@@ -74,8 +76,8 @@ void getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) 
   unsigned int iCol = 1;
 
   /* create format string: "%*s tab1(rowCount, columnCount)" */
-  char *tempString = concatCharArrays("%*s ", tabName);
-  char *formatString = concatCharArrays(tempString, "(%d,%d)");
+  char *tempString = concat("%*s ", tabName);
+  char *formatString = concat(tempString, "(%d,%d)");
   free(tempString);
 
   fp = fopen(fileName, "r");
