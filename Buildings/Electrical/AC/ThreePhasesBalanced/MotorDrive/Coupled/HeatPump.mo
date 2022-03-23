@@ -33,7 +33,7 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal = 1500
     "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
-
+  //Efficiency
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
@@ -146,7 +146,7 @@ model HeatPump "Motor coupled heat pump"
     final X_m=X_m)
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 protected
-  constant Boolean COP_is_for_cooling = true
+  constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal=
     if COP_is_for_cooling

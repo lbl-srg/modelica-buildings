@@ -28,7 +28,7 @@ model HeatPump "Heat pump with mechanical interface"
   parameter Modelica.Units.SI.Inertia loaIne = 1 "Heat pump inertia";
   Modelica.Units.SI.Torque tauHea "Heat pump torque";
 
- // Efficiency
+  //Efficiency
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
