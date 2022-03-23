@@ -3,12 +3,12 @@ model Pump "Test model for heat pump with mechanical interface"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(tau_constant=
-        tau)
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   parameter Modelica.Units.SI.Torque tau = 0.05
     "Provided torque";
   parameter Modelica.Units.SI.Inertia JLoad = 0.01 "Load inertia";
+
+  Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(tau_constant=tau)
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou1(nPorts=1, redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -25,6 +25,7 @@ model Pump "Test model for heat pump with mechanical interface"
   redeclare package Medium = Medium, redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 equation
   connect(sou1.ports[1], res1.port_a)
     annotation (Line(points={{-60,0},{-48,0}},     color={0,127,255}));
