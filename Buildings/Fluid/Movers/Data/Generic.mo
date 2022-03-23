@@ -68,7 +68,7 @@ record Generic "Generic data record for movers"
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     totalEfficiency(
       V_flow={0},
-      eta={0.49}) "Total efficiency"
+      eta={0.49}) "Total efficiency vs. volumetric flow rate"
     annotation (Dialog(group="Power computation",
                        enable=etaMet==
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
@@ -76,7 +76,7 @@ record Generic "Generic data record for movers"
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
       V_flow={0},
-      eta={0.7}) "Hydraulic efficiency"
+      eta={0.7}) "Hydraulic efficiency vs. volumetric flow rate"
     annotation (Dialog(group="Power computation",
                        enable=etaHydMet==
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
@@ -85,14 +85,14 @@ record Generic "Generic data record for movers"
     motorEfficiency(
       V_flow={0},
       eta={0.7})
-    "Motor efficiency"
+    "Motor efficiency vs. volumetric flow rate"
     annotation (Dialog(group="Power computation",
                        enable=etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_y
     motorEfficiency_y(y={0}, eta={0.7})
-    "Motor efficiency described as a function of part load ratio" annotation (
+    "Motor efficiency  vs. part load ratio" annotation (
       Dialog(group="Power computation", enable=etaMotMet ==
         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y));
 
