@@ -1,13 +1,17 @@
 within Buildings.Fluid.Storage.Ice;
 model ControlledTank
   "Ice tank with performance based on performance curves and built-in control for outlet temperature"
-  extends Buildings.Fluid.Storage.Ice.Tank(limQ_flow(y=if tanHeaTra.canMelt.y
-           then m_flow*cp*(max(per.TFre, TSet) - TIn.y) elseif tanHeaTra.canFreeze.y
-           then m_flow*cp*(max(TIn.y, min(per.TFre, TSet)) - TIn.y) else m_flow
-          *cp*(per.TFre - TIn.y)));
+  extends Buildings.Fluid.Storage.Ice.Tank(
+    limQ_flow(y=if tanHeaTra.canMelt.y
+                then m_flow*cp*(max(per.TFre, TSet) - TIn.y)
+                elseif tanHeaTra.canFreeze.y
+                then m_flow*cp*(max(TIn.y, min(per.TFre, TSet)) - TIn.y)
+                else m_flow*cp*(per.TFre - TIn.y)));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", final displayUnit=
-        "degC") "Outlet temperature setpoint during discharging"
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    final unit="K",
+    final displayUnit="degC")
+    "Outlet temperature setpoint during discharging"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
 annotation (
@@ -30,6 +34,12 @@ sufficient heat flow rate between the tank and the working fluid.
 The built-in control is an idealization of a tank that has a controller that
 bypasses some of the working fluid in order to meet the set point for the temperature
 of the leaving working fluid.
+The fluid from <code>port_a</code> to <code>port_b</code> has by default
+a first order response. If the tank has sufficient capacity for the given
+inlet temperature and flow rate, then the idealized control has no
+steady-state error. During transients, the set point may not be met
+exactly due to the first order response that approximates the dynamics
+of the heat exchanger.
 </p>
 <p>
 Note that the setpoint is also tracked during charging mode.
