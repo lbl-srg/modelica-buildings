@@ -2,7 +2,8 @@
 model Tank "Ice tank with performance based on performance curves"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     final allowFlowReversal = false,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final tau=tauHex,
+    final energyDynamics=energyDynamicsHex,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
   parameter Real SOC_start(min=0, max=1, final unit="1")
@@ -15,9 +16,14 @@ model Tank "Ice tank with performance based on performance curves"
       choicesAllMatching = true,
       Placement(transformation(extent = {{40, 60}, {60, 80}}, rotation = 0)));
 
-  parameter Modelica.Units.SI.Time tau = 30
-    "Time constant at nominal flow"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHex=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of energy balance for heat exchanger internal fluid mass"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Conservation equations"));
+
+  parameter Modelica.Units.SI.Time tauHex(min=1) = 30
+    "Time constant of working fluid through the heat exchanger at nominal flow"
+     annotation (Dialog(tab = "Dynamics heat exchanger", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -261,7 +267,8 @@ Strand, R.K. 1992. “Indirect Ice Storage System Simulation,” M.S. Thesis,
 Department of Mechanical and Industrial Engineering, University of Illinois at Urbana-Champaign.
 </p>
 <p>
-Li, Guowen, et al. <i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
+Guowen Li, Yangyang Fu, Amanda Pertzborn, Jin Wen and Zheng O'Neill.
+<i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
 <a href=\"https://doi.org/10.3384/ecp21181177\">doi:10.3384/ecp21181177</a>.
 </p>
 </html>", revisions="<html>

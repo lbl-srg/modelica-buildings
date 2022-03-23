@@ -16,8 +16,7 @@ model Tank "Example that test the tank model"
     mIce_max=1/4*2846.35,
     coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha=10,
-    coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,
-        3.00544E-04},
+    coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
     dtDisCha=10)
     "Tank performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -27,7 +26,9 @@ model Tank "Example that test the tank model"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     SOC_start=SOC_start,
-    per=per) annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    per=per,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
+             annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     m_flow=2*m_flow_nominal,
@@ -45,11 +46,16 @@ model Tank "Example that test the tank model"
     annotation (Placement(transformation(extent={{36,-10},{56,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSou(
-    table=[0,273.15 - 5; 3600*10,273.15 - 5;
-         3600*10,273.15 + 10; 3600*11,273.15 + 10;
-        3600*18,273.15 + 10; 3600*18,
-        273.15 - 5], y(each unit="K", each displayUnit="degC"))
-                     "Source temperature"
+    table=[
+      0,       273.15 - 5;
+      3600*10, 273.15 - 5;
+      3600*10, 273.15 + 10;
+      3600*11, 273.15 + 10;
+      3600*18, 273.15 + 10;
+      3600*18, 273.15 - 5],
+      y(each unit="K",
+        each displayUnit="degC"))
+      "Source temperature"
     annotation (Placement(transformation(extent={{-92,-6},{-72,14}})));
 
   Modelica.Blocks.Sources.TimeTable TSet(table=[
@@ -71,7 +77,9 @@ model Tank "Example that test the tank model"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     SOC_start=SOC_start,
-    per=per) "Uncontrolled ice tank"
+    per=per,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
+             "Uncontrolled ice tank"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   FixedResistances.PressureDrop resUnc(
     redeclare package Medium = Medium,
