@@ -79,7 +79,10 @@ record Generic "Generic data record for movers"
     P={0})
     "Power (either consumed or hydraulic) vs. volumetric flow rate"
    annotation (Dialog(group="Power computation",
-                      enable=use_powerCharacteristic));
+                      enable = etaMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+                            or etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve));
 
   // Peak condition
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
@@ -88,7 +91,10 @@ record Generic "Generic data record for movers"
     eta=0.7)
     "Volume flow rate, pressure rise, and efficiency (either total or hydraulic) at peak condition"
     annotation (Dialog(group="Power computation",
-                       enable=use_eulerNumber));
+                       enable= etaMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
+                            or etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber));
 
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
