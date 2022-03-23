@@ -7,6 +7,7 @@ model SquirrelCage "Test model for squirrel cage induction motor"
   parameter Modelica.Units.SI.Reactance X_s=1.106 "Complex component of the impedance of stator";
   parameter Modelica.Units.SI.Reactance X_r=0.464 "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m=26.3 "Complex component of the magnetizing reactance";
+
   Buildings.Electrical.AC.OnePhase.Sources.Grid sou(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -19,6 +20,7 @@ model SquirrelCage "Test model for squirrel cage induction motor"
     X_s=X_s,
     X_r=X_r,
     X_m=X_m) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 equation
   connect(sou.terminal, simMot.terminal) annotation (Line(points={{-50,60},
         {-50,40},{0,40},{0,10}},                   color={0,120,120}));

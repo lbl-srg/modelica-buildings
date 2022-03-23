@@ -5,19 +5,19 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
-  parameter Integer pole = 4 "Number of pole pairs";
-  parameter Integer n = 3 "Number of phases";
-  parameter Modelica.Units.SI.Inertia J(min=0) = 2
+  parameter Integer pole=4 "Number of pole pairs";
+  parameter Integer n=3 "Number of phases";
+  parameter Modelica.Units.SI.Inertia J(min=0)=2
     "Moment of inertia";
-  parameter Modelica.Units.SI.Resistance R_s = 0.013
+  parameter Modelica.Units.SI.Resistance R_s=0.013
     "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r = 0.009
+  parameter Modelica.Units.SI.Resistance R_r=0.009
     "Electric resistance of rotor";
-  parameter Modelica.Units.SI.Reactance X_s = 0.14
+  parameter Modelica.Units.SI.Reactance X_s=0.14
     "Complex component of the impedance of stator";
-  parameter Modelica.Units.SI.Reactance X_r = 0.12
+  parameter Modelica.Units.SI.Reactance X_r=0.12
     "Complex component of the impedance of rotor";
-  parameter Modelica.Units.SI.Reactance X_m = 2.4
+  parameter Modelica.Units.SI.Reactance X_m=2.4
     "Complex component of the magnetizing reactance";
 
   Real s(min=0,max=1) "Motor slip";
@@ -42,6 +42,32 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
   Modelica.Blocks.Sources.RealExpression w_r(y=omega_r)
     "Rotor speed"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true) "Speed connector"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  BaseClasses.MotorMachineInterface torSpe(
+  final n=n,
+  final pole=pole,
+  final R_s=R_s,
+  final R_r=R_r,
+  final X_s=X_s,
+  final X_r=X_r,
+  final X_m=X_m)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity = "Power", final unit = "W")
+    "Real power"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+        iconTransformation(extent={{100,60},{140,100}})));
+  Modelica.Blocks.Interfaces.RealOutput Q(final quantity = "Power", final unit = "var")
+    "Reactive power"
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+        iconTransformation(extent={{100,20},{140,60}})));
   Modelica.Blocks.Interfaces.RealInput tau_m(unit="N.m")
     "Load torque"
     annotation (Placement(transformation(
@@ -52,30 +78,6 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-80})));
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity = "Power", final unit = "W")
-    "Real power" annotation (Placement(transformation(extent={{100,60},{140,100}}),
-        iconTransformation(extent={{100,60},{140,100}})));
-  Modelica.Blocks.Interfaces.RealOutput Q(final quantity = "Power", final unit = "var")
-    "Reactive power" annotation (Placement(transformation(extent={{100,20},{140,60}}),
-        iconTransformation(extent={{100,20},{140,60}})));
-  Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true) "Speed connector"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
-  BaseClasses.MotorMachineInterface torSpe(
-  final n=n,
-  final pole=pole,
-  final R_s=R_s,
-  final R_r=R_r,
-  final X_s=X_s,
-  final X_r=X_r,
-  final X_m=X_m)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 initial equation
   omega_r=0;
