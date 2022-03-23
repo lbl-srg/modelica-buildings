@@ -107,21 +107,19 @@ model Chiller "Chiller with mechanical interface"
     annotation (Placement(transformation(extent={{-68,34},{-80,46}})));
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
-      final unit="W")
-                    "Actual heating heat flow rate added to fluid 1"
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate", final unit="W")
+    "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit=
-        "W")        "Electric power consumed by compressor"
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
+    "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
-      final unit="W")
-                    "Actual cooling heat flow rate removed from fluid 2"
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate", final unit="W")
+    "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
+
 protected
   constant Boolean COP_is_for_cooling = true
     "Set to true if the specified COP is for cooling";

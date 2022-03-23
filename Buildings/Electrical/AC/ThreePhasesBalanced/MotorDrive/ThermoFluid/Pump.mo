@@ -50,6 +50,14 @@ model Pump
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
+  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", final unit="W")
+    "Electrical power consumed"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput y_actual(final unit="1")
+    "Actual normalised pump speed that is used for computations"
+    annotation (Placement(transformation(extent={{100,60},{120,80}}),
+        iconTransformation(extent={{100,60},{120,80}})));
 
 equation
   pum.P = tauPum*Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8);
@@ -70,6 +78,10 @@ equation
           30}}, color={0,0,127}));
   connect(to_rpm.y, pum.Nrpm)
     annotation (Line(points={{9,30},{0,30},{0,12}}, color={0,0,127}));
+  connect(pum.P, P) annotation (Line(points={{11,9},{90,9},{90,90},{110,90}},
+        color={0,0,127}));
+  connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{92,7},{92,70},
+          {110,70}}, color={0,0,127}));
   annotation (defaultComponentName="pum",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
@@ -100,7 +112,25 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
-          fillColor={0,100,199})}),
+          fillColor={0,100,199}),
+        Line(
+          points={{0,90},{100,90}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,70},{100,70}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,90},{0,70}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Text(extent={{50,104},{100,90}},
+          textColor={0,0,127},
+          textString="P"),
+        Text(extent={{50,84},{100,70}},
+          textColor={0,0,127},
+          textString="y_actual")}),
     Documentation(info="<html>
     <p>This model describes a fan or pump with mechanical imterface, it is use the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> as a base model. 
     </p>
