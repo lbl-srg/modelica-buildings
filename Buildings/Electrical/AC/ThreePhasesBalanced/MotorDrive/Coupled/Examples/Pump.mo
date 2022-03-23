@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples;
-model Pump
-  "Test model for motor coupled pump model"
+model Pump "This example shows how to use the motor coupled pump model"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1 "Nominal mass flow rate";

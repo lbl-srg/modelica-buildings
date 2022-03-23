@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples;
-model HeatPump "Test model for motor coupled heat pump model"
+model HeatPump "This example shows how to use the motor coupled heat pump model"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.ThermoFluid.Examples;
-model Chiller "Test model for chiller with mechanical interface"
+model Chiller "This example shows how to use the chiller with mechanical interface"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Water;

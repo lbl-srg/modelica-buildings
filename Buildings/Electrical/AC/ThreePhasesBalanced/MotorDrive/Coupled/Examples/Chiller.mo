@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.Coupled.Examples;
-model Chiller "Test model for motor coupled chiller model"
+model Chiller "This example shows how to use the motor coupled chiller model"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";

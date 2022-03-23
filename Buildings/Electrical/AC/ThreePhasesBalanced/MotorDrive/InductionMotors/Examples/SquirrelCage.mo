@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors.Examples;
-model SquirrelCage "Test model for squirrel cage induction motor"
+model SquirrelCage "This example shows how to use the squirrel cage induction motor"
 
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.Resistance R_s=0.641 "Electric resistance of stator";

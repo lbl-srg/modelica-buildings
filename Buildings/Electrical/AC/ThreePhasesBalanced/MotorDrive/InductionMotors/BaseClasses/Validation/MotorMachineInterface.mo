@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.InductionMotors.BaseClasses.Validation;
-model MotorMachineInterface "Validate model MotorMachineInterface"
+model MotorMachineInterface "This example validates model MotorMachineInterface"
   import Modelica.Constants.pi;
   extends Modelica.Icons.Example;
 
