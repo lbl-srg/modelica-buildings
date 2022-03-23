@@ -5,35 +5,31 @@ model Pump
   port_a(p(start=Medium.p_default)),
   port_b(p(start=Medium.p_default)));
 
-  Modelica.Units.SI.Torque tauPum "Pump torque";
   parameter Modelica.Units.SI.Inertia loaIne = 1 "Pump inertia";
+  parameter Boolean addPowerToMedium=true
+    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,60},{80,80}})));
+
+  Modelica.Units.SI.Torque tauPum "Pump torque";
 
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
   annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pum(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
     per=per,
     final use_inputFilter=false)
     "Pump model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  parameter Boolean addPowerToMedium=true
-    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
-
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat dissipation to environment"
-    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
-        iconTransformation(extent={{-10,-78},{10,-58}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
-    phi(fixed=true, start=0),
-    w(fixed=true, start=0))                                      "Pump inertia" annotation (
+    phi(fixed=true, start=0), w(fixed=true, start=0))
+    "Pump inertia"
+    annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -45,11 +41,16 @@ model Pump
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s" annotation (Placement(transformation(extent={{10,50},
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
+    annotation (Placement(transformation(extent={{10,50},
             {30,70}})));
-public
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm
     annotation (Placement(transformation(extent={{30,20},{10,40}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat dissipation to environment"
+    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
+        iconTransformation(extent={{-10,-78},{10,-58}})));
+
 equation
   pum.P = tauPum*Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8);
 

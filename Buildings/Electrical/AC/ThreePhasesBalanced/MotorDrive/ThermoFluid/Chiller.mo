@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.MotorDrive.ThermoFluid;
-model Chiller
-  "Chiller with mechanical interface"
+model Chiller "Chiller with mechanical interface"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
@@ -62,6 +61,8 @@ model Chiller
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
+  Modelica.Units.SI.Torque tauChi "Chiller torque";
+
   Buildings.Fluid.Chillers.Carnot_y chi(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
@@ -81,9 +82,6 @@ model Chiller
     final TAppEva_nominal=TAppEva_nominal,
     final P_nominal=P_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  Modelica.Units.SI.Torque tauChi "Chiller torque";
-
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
@@ -105,9 +103,9 @@ model Chiller
             {30,70}})));
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
-  Modelica.Blocks.Math.MultiProduct multiProduct(nu=3)
+  Modelica.Blocks.Math.MultiProduct multiProduct(final nu=3)
     annotation (Placement(transformation(extent={{-68,34},{-80,46}})));
-  Modelica.Blocks.Math.Gain gaiSpe(k=1/Nrpm_nominal)
+  Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
 
 protected
@@ -119,7 +117,7 @@ protected
       else TCon_nominal + TAppCon_nominal
     "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
 
-    final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
       p = Medium1.p_default,
       T = Medium1.T_default,

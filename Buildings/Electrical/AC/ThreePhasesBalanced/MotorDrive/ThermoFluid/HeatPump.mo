@@ -4,29 +4,34 @@ model HeatPump "Heat pump with mechanical interface"
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
- parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal = -P_nominal*(
+  //Heat pump parameters
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal = -P_nominal*(
       COP_nominal - 1)
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate"
     annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
     final max=0) = -10 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
     final min=0) = 10 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
+    "Pressure difference over condenser"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
+    "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal = 1500
     "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Inertia loaIne = 1 "Heat pump inertia";
-  Modelica.Units.SI.Torque tauHea "Heat pump torque";
+  parameter Modelica.Units.SI.Inertia loaIne = 1 "Heat pump inertia"
+    annotation (Dialog(group="Nominal condition"));
 
   //Efficiency
   parameter Boolean use_eta_Carnot_nominal = true
@@ -36,59 +41,49 @@ model HeatPump "Heat pump with mechanical interface"
     (TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))
     "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
-
   parameter Real COP_nominal(unit="1") = etaCarnot_nominal*TUseAct_nominal/
     (TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal))
     "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
-
   parameter Modelica.Units.SI.Temperature TCon_nominal = 303.15
     "Condenser temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
   parameter Modelica.Units.SI.Temperature TEva_nominal = 278.15
     "Evaporator temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
-
   parameter Real a[:] = {1}
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
     annotation (Dialog(group="Efficiency"));
-
-  parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
-    "Pressure difference over condenser"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
-    "Pressure difference over evaporator"
-    annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0) = if cp1_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
-
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
+  Modelica.Units.SI.Torque tauHea "Heat pump torque";
+
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Fluid.HeatPumps.Carnot_y heaPum(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
-    dTEva_nominal=dTEva_nominal,
-    dTCon_nominal=dTCon_nominal,
-    use_eta_Carnot_nominal=use_eta_Carnot_nominal,
-    etaCarnot_nominal=etaCarnot_nominal,
-    a=a,
-    dp1_nominal=dp1_nominal,
-    dp2_nominal=dp2_nominal,
-    TAppCon_nominal=TAppCon_nominal,
-    TAppEva_nominal=TAppEva_nominal,
-    P_nominal=P_nominal)
+    redeclare final package Medium1 = Medium1,
+    redeclare final package Medium2 = Medium2,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final dTEva_nominal=dTEva_nominal,
+    final dTCon_nominal=dTCon_nominal,
+    final use_eta_Carnot_nominal=use_eta_Carnot_nominal,
+    final etaCarnot_nominal=etaCarnot_nominal,
+    final a=a,
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal,
+    final TAppCon_nominal=TAppCon_nominal,
+    final TAppEva_nominal=TAppEva_nominal,
+    final P_nominal=P_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
-    phi(fixed=true, start=0),
-    w(fixed=true, start=0))                                      "Heat pump inertia" annotation (
+    phi(fixed=true, start=0), w(fixed=true, start=0)) "Heat pump inertia"
+    annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -100,15 +95,16 @@ model HeatPump "Heat pump with mechanical interface"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s" annotation (Placement(transformation(extent={{10,50},
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
+    annotation (Placement(transformation(extent={{10,50},
             {30,70}})));
-public
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
-  Modelica.Blocks.Math.MultiProduct multiProduct(nu=3)
+  Modelica.Blocks.Math.MultiProduct multiProduct(final nu=3)
     annotation (Placement(transformation(extent={{-68,34},{-80,46}})));
-  Modelica.Blocks.Math.Gain gaiSpe(k=1/Nrpm_nominal)
+  Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
+
 protected
   constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";
@@ -118,7 +114,7 @@ protected
       else TCon_nominal + TAppCon_nominal
     "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
 
-    final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
       p = Medium1.p_default,
       T = Medium1.T_default,
