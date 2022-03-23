@@ -105,6 +105,20 @@ model HeatPump "Heat pump with mechanical interface"
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
 
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
+      final unit="W")
+                    "Actual heating heat flow rate added to fluid 1"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit=
+        "W")        "Electric power consumed by compressor"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
+      final unit="W")
+                    "Actual cooling heat flow rate removed from fluid 2"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 protected
   constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";
@@ -159,6 +173,12 @@ equation
           40},{-50,40},{-68,40}}, color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[3]) annotation (Line(points={{-41,40},{-50,40},
           {-50,41.4},{-68,41.4}},     color={0,0,127}));
+  connect(heaPum.P, P)
+    annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
+  connect(heaPum.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{50,9},{
+          50,90},{110,90}}, color={0,0,127}));
+  connect(heaPum.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{50,-9},
+          {50,-90},{110,-90}}, color={0,0,127}));
   annotation (defaultComponentName = "hea",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
