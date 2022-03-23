@@ -14,15 +14,40 @@ record Generic "Generic data record for movers"
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the total efficiency eta"
-    annotation (Dialog(group="Power computation"));
+    annotation (Dialog(group="Power computation"),
+                choices(
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+             "Not provided, computed from other efficiency terms",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+             "An array of value(s) vs. volumetric flow rate",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+             "An array of power vs. volumetric flow rate",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
+             "One peak point to be use for the Euler number"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaHydMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the hydraulic efficiency etaHyd"
-    annotation (Dialog(group="Power computation"));
+    annotation (Dialog(group="Power computation",
+                choices(
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+             "Not provided, computed from other efficiency terms",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+             "An array of value(s) vs. volumetric flow rate",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+             "An array of power vs. volumetric flow rate",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
+             "One peak point to be use for the Euler number")));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMotMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
-    annotation (Dialog(group="Power computation"));
+    annotation (Dialog(group="Power computation"),
+                choices(
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+             "Not provided, computed from other efficiency terms",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+             "An array of value(s) vs. volumetric flow rate",
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y
+             "An array of value(s) vs. part load ratio"));
 
   final parameter Boolean use_powerCharacteristic=
     etaMet==
