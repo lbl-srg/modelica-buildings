@@ -168,7 +168,8 @@ size_t AllocateBuildingDataStructure(
      This is for https://github.com/lbl-srg/modelica-buildings/issues/2924 */
   replaceChar(Buildings_FMUS[nFMU]->buildingsLibraryRoot, '\\', '/');
   /* Clean up other path, as they can lead to errors such as in
-  [json.exception.parse_error.101] parse error at line 4, column 16: ..
+  [json.exception.parse_error.101] parse error at line 4, column 16: ... invalid string:
+    forbidden character after backslash; last read: '"F:\m'"
   See https://github.com/lbl-srg/modelica-buildings/issues/2924 */
   replaceChar(Buildings_FMUS[nFMU]->idfName,   '\\', '/');
   replaceChar(Buildings_FMUS[nFMU]->weather,   '\\', '/');
@@ -176,6 +177,7 @@ size_t AllocateBuildingDataStructure(
   replaceChar(Buildings_FMUS[nFMU]->fmuAbsPat, '\\', '/');
   if (usePrecompiledFMU)
     replaceChar(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\\', '/');
+
 #endif
 
   /* Create the temporary directory */

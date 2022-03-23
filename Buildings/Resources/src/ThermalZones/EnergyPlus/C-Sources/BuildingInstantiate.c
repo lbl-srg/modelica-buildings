@@ -489,7 +489,7 @@ void terminateIfSpacesInInstallation(FMUBuilding* bui){
   const char* ptr = strrchr(bui->buildingsLibraryRoot, sep);
 
   if (ptr == NULL){
-      SpawnFormatError("Error. Excepted separator '%c' in '%s'.", sep, bui->buildingsLibraryRoot);
+      SpawnFormatError("Error. Expected separator '%c' in '%s'.", sep, bui->buildingsLibraryRoot);
   }
 
   /* Index of last position of the separator */
