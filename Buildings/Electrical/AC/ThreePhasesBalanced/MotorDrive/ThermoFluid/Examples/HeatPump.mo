@@ -11,7 +11,7 @@ model HeatPump "Test model for heat pump with mechanical interface"
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    m_flow=20,
+    m_flow=2,
     T=298.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -24,7 +24,7 @@ model HeatPump "Test model for heat pump with mechanical interface"
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
-    m_flow=20,
+    m_flow=1.5,
     T=291.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
@@ -43,7 +43,7 @@ model HeatPump "Test model for heat pump with mechanical interface"
     QCon_flow_nominal=1000 - (-3*1000),
     dTEva_nominal=-5,
     dTCon_nominal=5,
-    P_nominal=15000,
+    P_nominal=1000,
     Nrpm_nominal=1800,
     use_eta_Carnot_nominal=true,
     etaCarnot_nominal=0.5,
