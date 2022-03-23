@@ -60,15 +60,15 @@ equation
   connect(gai.y,pidNoSca.u_s)
     annotation (Line(points={{-18,-50},{-2,-50}},color={0,0,127}));
   connect(gai.u,pulse.y)
-    annotation (Line(points={{-42,-50},{-50,-50},{-50,50},{-60,50}},color={0,0,127}));
+    annotation (Line(points={{-42,-50},{-50,-50},{-50,50},{-58,50}},color={0,0,127}));
   connect(pidNoSca.y,pla2.u)
     annotation (Line(points={{22,-50},{38,-50}},color={0,0,127}));
   connect(pla2.y,gai1.u)
     annotation (Line(points={{62,-50},{70,-50},{70,-80},{54,-80}},color={0,0,127}));
   connect(gai1.y,pidNoSca.u_m)
-    annotation (Line(points={{30,-80},{10,-80},{10,-60}},color={0,0,127}));
+    annotation (Line(points={{30,-80},{10,-80},{10,-62}},color={0,0,127}));
   connect(pla2.y_reset_in,resVal.y)
-    annotation (Line(points={{38,-58},{30,-58},{30,10},{-60,10}},color={0,0,127}));
+    annotation (Line(points={{38,-58},{30,-58},{30,10},{-58,10}},color={0,0,127}));
   connect(resSig.y,pla2.trigger)
     annotation (Line(points={{-58,-30},{26,-30},{26,-64},{50,-64},{50,-62}},color={255,0,255}));
   annotation (

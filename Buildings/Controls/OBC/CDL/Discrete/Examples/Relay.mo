@@ -8,6 +8,7 @@ model Relay "Example model for block that outputs a relay signal"
   Modelica.Blocks.Sources.Sine sine(
     amplitude=1.2,
     f=1/60,
+    offset=0,
     startTime=0.025)                                      "Sine source"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
   Modelica.Blocks.Sources.Constant const(k=0) annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));

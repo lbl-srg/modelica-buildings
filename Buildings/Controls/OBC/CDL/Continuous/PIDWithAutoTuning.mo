@@ -1,24 +1,41 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block PID
-  "P, PI, PD, and PID controller"
+block PIDWithAutoTuning "P, PI, PD, and PID controller with an auto tuning component"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-  parameter Real k(
+  parameter Buildings.Controls.OBC.CDL.Types.PIDAutoTuner tuningMethodType=Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau "Type of controller";
+  parameter Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel tuningModeType=Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel.FOTD "Type of tune model"
+      annotation (Dialog(enable=tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau));
+  parameter Real k_start(
     min=100*Constants.eps)=1
-    "Gain of controller"
+    "Start value of the Gain of controller"
     annotation (Dialog(group="Control gains"));
-  parameter Real Ti(
+  parameter Real Ti_start(
     final quantity="Time",
     final unit="s",
     min=100*Constants.eps)=0.5
-    "Time constant of integrator block"
+    "Start value of the Time constant of integrator block"
     annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
-  parameter Real Td(
+  parameter Real Td_start(
     final quantity="Time",
     final unit="s",
     min=100*Constants.eps)=0.1
-    "Time constant of derivative block"
+    "Start value of the Time constant of derivative block"
     annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+  parameter Real yUpperLimit = 1 "Upper limit for y";
+  parameter Real yLowerLimit = 0 "Lower limit for y";
+  parameter Real deadBand = 0.5 "Deadband for holding the relay output value";
+  Real k(
+    min=100*Constants.eps,
+    start=k_start)
+    "Gain of controller";
+  Real Ti(
+    min=100*Constants.eps,
+    start=Ti_start)
+    "Time constant of integrator block";
+  Real Td(
+    min=100*Constants.eps,
+    start=Td_start)
+    "Time constant of derivative block";
   parameter Real r(
     min=100*Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
@@ -55,17 +72,13 @@ block PID
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract controlError "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter P(final k=k)
-    "Gain for proportional control action"
-    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
-    final k=k/Ti,
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(final k=1,
     final y_start=xi_start) if with_I
     "Integral term"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Derivative D(
-    final k=k*Td,
-    final T=Td/Nd,
+    final k=1,
+    final T=Td_start/Nd,
     final y_start=yd_start) if with_D
     "Derivative term"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
@@ -86,6 +99,23 @@ block PID
     final uMin=yMin)
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
+
+  Modelica.Blocks.Sources.RealExpression P(y=errP.y*k) annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
+  Modelica.Blocks.Sources.RealExpression gainD(y=Td*k*errD.y) if
+                                                               with_D annotation (Placement(transformation(extent={{-106,60},{-86,80}})));
+  Modelica.Blocks.Sources.RealExpression gainI(y=errI2.y*k/Ti) if
+                                                               with_I
+                                                          annotation (Placement(transformation(extent={{-106,22},{-86,42}})));
+  Modelica.Blocks.Sources.RealExpression antWinGai(y=antWinErr.y/(k*Ni)) if
+                                                               with_I annotation (Placement(transformation(extent={{178,-34},{158,-14}})));
+  Buildings.Controls.OBC.CDL.Discrete.Relay
+        relay(
+    yUpperLimit=yUpperLimit,
+    yLowerLimit=yLowerLimit,
+    deadBand=deadBand)
+              annotation (Placement(transformation(extent={{92,154},{112,174}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch annotation (Placement(transformation(extent={{138,142},{158,122}})));
+  Modelica.Blocks.Sources.BooleanExpression tunePeriodEnd(y=relay.dtON > 0 and relay.dtOFF > 0) annotation (Placement(transformation(extent={{98,122},{118,142}})));
 
 protected
   final parameter Real revAct=
@@ -119,9 +149,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Subtract antWinErr if with_I
     "Error for anti-windup compensation"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter antWinGai(k=1/(k*Ni)) if
-       with_I "Gain for anti-windup compensation"
-    annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(
     final k=yMin < yMax)
     "Check for values of yMin and yMax"
@@ -291,21 +318,21 @@ Modelica Standard Library.
   end Derivative;
 
 equation
+  when tunePeriodEnd.y then
+    if tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau then
+    k=1;
+    Td=1;
+    Ti=1;
+   end if;
+  end when;
   connect(u_s,uS_revAct.u)
     annotation (Line(points={{-240,0},{-212,0},{-212,40},{-202,40}},color={0,0,127}));
   connect(u_m,uMea_revAct.u)
     annotation (Line(points={{0,-220},{0,-160},{-190,-160},{-190,-40},{-182,-40}},color={0,0,127}));
-  connect(D.u,errD.y)
-    annotation (Line(points={{-52,70},{-118,70}},
-                                                color={0,0,127}));
   connect(errI1.u1,uS_revAct.y)
     annotation (Line(points={{-142,6},{-170,6},{-170,40},{-178,40}},color={0,0,127}));
   connect(addPID.u1,addPD.y)
     annotation (Line(points={{78,96},{70,96},{70,126},{42,126}},color={0,0,127}));
-  connect(lim.y,y)
-    annotation (Line(points={{142,90},{200,90},{200,0},{240,0}},color={0,0,127}));
-  connect(antWinErr.y,antWinGai.u)
-    annotation (Line(points={{182,60},{190,60},{190,-20},{182,-20}},color={0,0,127}));
   connect(addPD.u2,Dzero.y)
     annotation (Line(points={{18,120},{2,120}},                      color={0,0,127}));
   connect(D.y,addPD.u2)
@@ -314,8 +341,6 @@ equation
     annotation (Line(points={{78,84},{72,84},{72,0},{-28,0}},color={0,0,127}));
   connect(antWinErr.u2,lim.y)
     annotation (Line(points={{158,54},{150,54},{150,90},{142,90}},         color={0,0,127}));
-  connect(I.u,errI2.y)
-    annotation (Line(points={{-52,0},{-68,0}},color={0,0,127}));
   connect(errI1.y,errI2.u1)
     annotation (Line(points={{-118,0},{-100,0},{-100,6},{-92,6}},
                                               color={0,0,127}));
@@ -331,11 +356,6 @@ equation
     annotation (Line(points={{-178,40},{-170,40},{-170,146},{-142,146}},color={0,0,127}));
   connect(errD.u1,uS_revAct.y)
     annotation (Line(points={{-142,76},{-170,76},{-170,40},{-178,40}},color={0,0,127}));
-  connect(addPD.u1, P.y)
-    annotation (Line(points={{18,132},{10,132},{10,140},{-28,140}},
-                                                  color={0,0,127}));
-  connect(P.u, errP.y)
-    annotation (Line(points={{-52,140},{-118,140}},color={0,0,127}));
   connect(addPID.y, lim.u)
     annotation (Line(points={{102,90},{118,90}},color={0,0,127}));
   connect(addPID.y, antWinErr.u1) annotation (Line(points={{102,90},{110,90},{
@@ -351,9 +371,17 @@ equation
           {-150,64},{-142,64}}, color={0,0,127}));
   connect(uMea_revAct.y, errI1.u2) annotation (Line(points={{-158,-40},{-150,
           -40},{-150,-6},{-142,-6}}, color={0,0,127}));
-  connect(antWinGai.y, errI2.u2) annotation (Line(points={{158,-20},{-100,-20},
-          {-100,-6},{-92,-6}},
-                             color={0,0,127}));
+  connect(P.y, addPD.u1) annotation (Line(points={{-29,140},{10,140},{10,132},{18,132}}, color={0,0,127}));
+  connect(gainD.y, D.u) annotation (Line(points={{-85,70},{-52,70}}, color={0,0,127}));
+  connect(gainI.y, I.u) annotation (Line(points={{-85,32},{-60,32},{-60,0},{-52,0}}, color={0,0,127}));
+  connect(antWinGai.y, errI2.u2) annotation (Line(points={{157,-24},{-102,-24},{-102,-6},{-92,-6}}, color={0,0,127}));
+  connect(tunePeriodEnd.y,switch. u2) annotation (Line(points={{119,132},{136,132}},
+                                                                                 color={255,0,255}));
+  connect(relay.u1, errP.u1) annotation (Line(points={{91,168},{0,168},{0,192},{-170,192},{-170,146},{-142,146}}, color={0,0,127}));
+  connect(relay.u2, errP.u2) annotation (Line(points={{91,159.6},{-12,159.6},{-12,186},{-150,186},{-150,134},{-142,134}}, color={0,0,127}));
+  connect(switch.y, y) annotation (Line(points={{160,132},{200,132},{200,0},{240,0}}, color={0,0,127}));
+  connect(relay.y, switch.u3) annotation (Line(points={{113,162},{130,162},{130,140},{136,140}}, color={0,0,127}));
+  connect(switch.u1, antWinErr.y) annotation (Line(points={{136,124},{134,124},{134,126},{130,126},{130,110},{190,110},{190,60},{182,60}}, color={0,0,127}));
   annotation (
     defaultComponentName="conPID",
     Icon(
@@ -724,4 +752,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PID;
+end PIDWithAutoTuning;
