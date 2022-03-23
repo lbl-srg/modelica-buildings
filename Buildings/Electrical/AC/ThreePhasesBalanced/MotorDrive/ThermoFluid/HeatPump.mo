@@ -260,7 +260,13 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{0,90},{0,36},{0,2},{18,2}},color={0,0,255})}),
+        Line(points={{0,90},{0,36},{0,2},{18,2}},color={0,0,255}),
+        Line(points={{20,68},{20,74},{20,90},{90,90},{102,90}},
+                                                 color={0,0,255}),
+        Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255}),
+        Line(points={{62,0},{100,0}},                 color={0,0,255}),
+        Text(extent={{70,24},{120,10}},   textString="P",
+          textColor={0,0,127})}),
         Documentation(info="<html>
 <p>This model describes a heat pump with mechanical imterface, it uses <a href=\"Buildings.Fluid.HeatPumps.Carnot_y\">Buildings.Fluid.HeatPumps.Carnot_y</a> as a base model.</p>
 <p>The governing equation of this implementation is based on the relationship between the power and torque of the rotating object, which is represented as follow: </p>

@@ -108,6 +108,20 @@ model Chiller "Chiller with mechanical interface"
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
 
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
+      final unit="W")
+                    "Actual heating heat flow rate added to fluid 1"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit=
+        "W")        "Electric power consumed by compressor"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
+      final unit="W")
+                    "Actual cooling heat flow rate removed from fluid 2"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 protected
   constant Boolean COP_is_for_cooling = true
     "Set to true if the specified COP is for cooling";
@@ -166,6 +180,11 @@ equation
           {-50,41.4},{-68,41.4}},     color={0,0,127}));
   connect(multiProduct.y, chi.y) annotation (Line(points={{-81.02,40},{-90,40},
           {-90,9},{-12,9}},color={0,0,127}));
+  connect(chi.P, P) annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
+  connect(chi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{50,9},{50,
+          90},{110,90}}, color={0,0,127}));
+  connect(chi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{50,-9},{
+          50,-90},{110,-90}}, color={0,0,127}));
   annotation (defaultComponentName = "Chi",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
@@ -247,7 +266,13 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{0,90},{0,36},{0,2},{18,2}},color={0,0,255})}),
+        Line(points={{0,90},{0,36},{0,2},{18,2}},color={0,0,255}),
+        Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},
+                                                 color={0,0,255}),
+        Line(points={{62,0},{100,0}},                 color={0,0,255}),
+        Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255}),
+        Text(extent={{70,24},{120,10}},   textString="P",
+          textColor={0,0,127})}),
         Documentation(info="<html>
 <p>This model describes a chiller with mechanical imterface, it uses <a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">Buildings.Fluid.Chillers.Carnot_y</a> as a base model. </p>
 <p>The governing equation of this implementation is based on the relationship between the power and torque of the rotating object, which is represented as follow: </p>
