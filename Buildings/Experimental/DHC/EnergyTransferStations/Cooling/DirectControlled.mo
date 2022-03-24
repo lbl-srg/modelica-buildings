@@ -286,8 +286,8 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
-<li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
 <li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model and standard PI control.</li>
+<li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end DirectControlled;

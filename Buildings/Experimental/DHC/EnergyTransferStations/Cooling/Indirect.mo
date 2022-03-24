@@ -36,13 +36,13 @@ model Indirect
   // Heat exchanger
   parameter Modelica.Units.SI.PressureDifference dp1_nominal(
     final min=0,
-    start=500,
+    final start=500,
     displayUnit="Pa")
     "Nominal pressure difference on primary side"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(
     final min=0,
-    start=500,
+    final start=500,
     displayUnit="Pa")
     "Nominal pressure difference on secondary side"
     annotation (Dialog(group="Heat exchanger"));
@@ -51,20 +51,20 @@ model Indirect
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(
     final max=0,
-    start=-100000)
+    final start=-100000)
     "Nominal heat transfer"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Temperature T_a1_nominal(
     final min=0+273.15,
     final max=100+273.15,
-    start=5+273.15,
+    final start=5+273.15,
     displayUnit="K")
     "Nominal temperature at port a1"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Temperature T_a2_nominal(
     final min=0+273.15,
     final max=100+273.15,
-    start=7+273.15,
+    final start=7+273.15,
     displayUnit="K")
     "Nominal temperature at port a2"
     annotation (Dialog(group="Heat exchanger"));
@@ -294,8 +294,8 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
-<li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
 <li>March 21, 2022, by Chengnan Shi:<br/>Update with base class partial model.</li>
+<li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end Indirect;

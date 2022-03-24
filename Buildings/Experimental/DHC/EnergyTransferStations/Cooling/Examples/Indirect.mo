@@ -158,8 +158,7 @@ The mass flow rate of chilled water in the building side is varied based on the 
 </html>",
       revisions="<html>
 <ul>
-<li>December 5, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
-<li>December 21, 2021, by Chengnan Shi:<br/>Update with base class partial model.</li>
+<li>December 21, 2021, by Chengnan Shi:<br/>First implementation. </li>
 </ul>
 </html>"));
 end Indirect;
