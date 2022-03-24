@@ -1,7 +1,6 @@
 #ifndef Spawn_declared
 #define Spawn_declared
 
-
 #include "EnergyPlusWrapper.h"
 
 /* *********************************************************
@@ -44,17 +43,17 @@ void* ModelicaSpawnAllocate(
   const int printUnit,
   const char* jsonName,
   const char* jsonKeysValues,
-  char** parOutNames,
+  const char** parOutNames,
   const size_t nParOut,
-  char** parOutUnits,
+  const char** parOutUnits,
   const size_t nParOutUni,
-  char** inpNames,
+  const char** inpNames,
   const size_t nInp,
-  char** inpUnits,
+  const char** inpUnits,
   const size_t nInpUni,
-  char** outNames,
+  const char** outNames,
   const size_t nOut,
-  char** outUnits,
+  const char** outUnits,
   const size_t nOutUni,
   const int* derivatives_structure,
   size_t k,
@@ -78,17 +77,17 @@ void* ModelicaSpawnAllocate(
       printUnit,
       jsonName,
       jsonKeysValues,
-      (const char**)parOutNames,
+      parOutNames,
       nParOut,
-      (const char**)parOutUnits,
+      parOutUnits,
       nParOutUni,
-      (const char**)inpNames,
+      inpNames,
       nInp,
-      (const char**)inpUnits,
+      inpUnits,
       nInpUni,
-      (const char**)outNames,
+      outNames,
       nOut,
-      (const char**)outUnits,
+      outUnits,
       nOutUni,
       derivatives_structure,
       k, /* k = 2 in Modelica */
