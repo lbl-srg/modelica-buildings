@@ -28,7 +28,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Utilities.Math.SmoothMax dpSet(deltaX=0.5) "Pressure drop setpoint"
+  Buildings.Utilities.Math.SmoothMax dpSet(deltaX=0.5) "Pressure drop setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 equation
   assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in "
