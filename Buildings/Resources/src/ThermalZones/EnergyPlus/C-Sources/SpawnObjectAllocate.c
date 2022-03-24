@@ -98,7 +98,7 @@ void* EnergyPlusSpawnAllocate(
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* buildingsRootFileLocation,
   const int logLevel,
   const int printUnit,
   const char* jsonName,
@@ -133,7 +133,7 @@ void* EnergyPlusSpawnAllocate(
 
   if (logLevel >= MEDIUM){
     SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnAllocate.\n", startTime, modelicaName);
-    SpawnFormatMessage("%.3f %s: Buildings library root is at %s\n", startTime, modelicaName, buildingsLibraryRoot);
+    SpawnFormatMessage("%.3f %s: Buildings library legal.html file is at %s\n", startTime, modelicaName, buildingsRootFileLocation);
   }
 
   /* Check arguments */
@@ -326,7 +326,7 @@ void* EnergyPlusSpawnAllocate(
       relativeSurfaceTolerance,
       usePrecompiledFMU,
       fmuName,
-      buildingsLibraryRoot,
+      buildingsRootFileLocation,
       logLevel,
       SpawnMessage,
       SpawnError,

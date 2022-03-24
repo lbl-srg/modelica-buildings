@@ -29,7 +29,7 @@ size_t AllocateBuildingDataStructure(
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* buildingsRootFileLocation,
   const int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),

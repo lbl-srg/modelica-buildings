@@ -31,7 +31,6 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
     inputType=Buildings.Fluid.Types.InputType.Constant)
