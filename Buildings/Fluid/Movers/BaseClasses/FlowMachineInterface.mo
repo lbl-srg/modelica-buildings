@@ -840,7 +840,7 @@ This is an interface that implements the functions to compute the head, power dr
 and efficiency of fans and pumps.
 </p>
 <p>
-The nominal hydraulic characteristic (total pressure versus volume flow rate)
+The nominal hydraulic characteristic (total pressure rise versus volume flow rate)
 is given by a set of data points
 using the data record <code>per</code>, which is an instance of
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
@@ -860,119 +860,22 @@ Flow work:<br/>
 <i>W&#775;<sub>flo</sub> = V&#775; &sdot; &Delta;p</i>
 </li>
 <li>
-Total efficiency and consumed electric:<br/>
-<i>&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub></i><br/>
-There are the following options:
-<ul>
-<li>
-<code>PowerCurve</code> - The user can provide electric power consumption data
-vs. volumetric flow rate. The model will then use the interpolated
-power consumption to compute the efficiency.
-</li>
-<li>
-<code>EulerNumber</code> - The user can provide the efficiency, the pressure rise,
-and the volumetric flow rate of the operating point where the efficiency is
-its maximum. The model will then use the Euler number to compute the efficiency
-at any operating point. See
-<a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
-Buildings.Fluid.Movers.UsersGuide</a>
-for more details. The power consumption is then computed from the efficiency.
-Note that, strictly, the Euler number is based on the hydraulic power and
-hydraulic efficiency. But applying this method to the total consumed power and
-total efficiency is a reasonable approximation when the motor efficiency can be
-assumed constant (which usually is from full motor load down to 25%-50% part load).
-</li>
-<li>
-<code>Values</code> - The user can provide an array of total efficiency
-vs. volumetric flow rate. The model will then use the interpolated
-efficiency to compute the power consumption.
-</li>
-</ul>
+Total efficiency and consumed electric power:<br/>
+<i>&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub></i>
 </li>
 <li>
 Hydraulic effiency and hydraulic work (shaft work, brake horsepower):<br/>
-<i>&eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; W&#775;<sub>hyd</sub></i><br/>
-The options available to this pair of variables are the same as
-those to the previous pair:
-<ul>
-<li>
-<code>PowerCurve</code>
-</li>
-<li>
-<code>EulerNumber</code></li>
-<li>
-<code>Values</code>
-</li>
-</ul>
+<i>&eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; W&#775;<sub>hyd</sub></i>
 </li>
 <li>
 Motor efficiency:<br/>
-<i>&eta;<sub>mot</sub> = W&#775;<sub>hyd</sub> &frasl; P<sub>ele</sub></i><br/>
-The following options are available:
-<ul>
-<li>
-<code>Values</code>
-</li>
-<li>
-<code>Values_y</code> - Instead of the volumetric flow rate, the user can provide
-values of the motor efficiency as a function of part load ratio <i>y</i>.
+<i>&eta;<sub>mot</sub> = W&#775;<sub>hyd</sub> &frasl; P<sub>ele</sub></i>
 </li>
 </ul>
-</li>
-</ul>
-Notes:
-<ul>
-<li>
-The options <code>PowerCurve</code> and <code>EulerNumber</code> can only be
-applied to at most one efficiency variable.
-</li>
-<li>
-Applicable to all the three efficiency variables and their paired power variable
-(except for motor efficiency), the user can also leave it unspecified
-by selecting <code>NotProvided</code> in the enumeration.
-</li>
-<li>
-Because<br/>
-<i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>,<br/>
-at least one of the three must be left unspecified.
-Otherwise the problem is overspecified.
-</li>
-<li>
-The model also allows more than of the three efficiency variables
-being left unspecified. In this case, the efficiencies are computed as follows:
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<thead>
-  <tr>
-  <th>Sole provided term</th>
-    <th>Equations</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td><i>&eta;</i></td>
-    <td><i>&eta;<sub>hyd</sub>=1</i><br/>
-        <i>&eta;<sub>mot</sub>=&eta;</i></td>
-  </tr>
-  <tr>
-    <td><i>&eta;<sub>hyd</sub></i></td>
-    <td><i>&eta;=&eta;<sub>hyd</sub></i><br/>
-        <i>&eta;<sub>mot</sub>=1</i></td>
-  </tr>
-  <tr>
-    <td><i>&eta;<sub>mot</sub></i></td>
-    <td><i>&eta;=&eta;<sub>mot</sub></i><br/>
-        <i>&eta;<sub>hyd</sub>=1</i></td>
-  </tr>
-  <tr>
-    <td>None</td>
-    <td><i>&eta;=0.49</i><br/>
-        <i>&eta;<sub>hyd</sub>=1</i><br/>
-        <i>&eta;<sub>mot</sub>=0.49</i></td>
-  </tr>
-</tbody>
-</table>
-</li>
-</ul>
+See
+<a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
+Buildings.Fluid.Movers.UsersGuide</a>
+for how the user can provide these items to the programme.
 
 <h4>Implementation</h4>
 <p>

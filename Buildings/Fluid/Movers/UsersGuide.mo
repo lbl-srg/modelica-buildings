@@ -458,7 +458,48 @@ Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 <i>&eta;</i> is the total efficiency,
 <i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency, and
 <i>&eta;<sub>mot</sub></i> is the motor efficiency.
+From the definition one has
 </p>
+<p align=\"center\" style=\"font-style:italic;\">
+<i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>
+</p>
+<p>
+This means that the user needs provide two of the three items and leave one
+unspecified, otherwise the problem is over-specified.
+In fact, the programme also allows the user to provide only one efficiency item
+or even leave all unspecified. In such cases, the following equations are used:
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+  <th>Sole provided term</th>
+    <th>Equations</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><i>&eta;</i></td>
+    <td><i>&eta;<sub>hyd</sub>=1</i><br/>
+        <i>&eta;<sub>mot</sub>=&eta;</i></td>
+  </tr>
+  <tr>
+    <td><i>&eta;<sub>hyd</sub></i></td>
+    <td><i>&eta;=&eta;<sub>hyd</sub></i><br/>
+        <i>&eta;<sub>mot</sub>=1</i></td>
+  </tr>
+  <tr>
+    <td><i>&eta;<sub>mot</sub></i></td>
+    <td><i>&eta;=&eta;<sub>mot</sub></i><br/>
+        <i>&eta;<sub>hyd</sub>=1</i></td>
+  </tr>
+  <tr>
+    <td>None</td>
+    <td><i>&eta;=0.49</i><br/>
+        <i>&eta;<sub>hyd</sub>=1</i><br/>
+        <i>&eta;<sub>mot</sub>=0.49</i></td>
+  </tr>
+</tbody>
+</table>
 <p>
 There are different methods for computing the efficiencies and the powers
 implemented in
@@ -476,14 +517,12 @@ The efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
 The power is then computed from the efficiency.
-This method is applicable to all three types efficiency.
 </li>
 <li>
 <code>Values_y</code> - An array of efficiency vs. part load ratio <i>y</i>
 is provided. The efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y</a>.
-This method is only applicable to the motor efficiency <i>&eta;<sub>mot</sub></i>.
 </li>
 <li>
 <code>PowerCurve</code> - An array of power vs. <i>V&#775;</i> is provided.
@@ -491,8 +530,6 @@ The power is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
 The efficiency is then computed from the power.
-This method is applicable to either the total efficiency <i>&eta;</i> or
-the hydraulic efficiency <i>&eta;<sub>hyd</sub></i>, but not both.
 </li>
 <li>
 <code>EulerNumber</code> - The efficiency, together with <i>&Delta;p</i> and
@@ -527,8 +564,6 @@ Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
 and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.<br/>
-This method is applicable to either the total efficiency <i>&eta;</i> or
-the hydraulic efficiency <i>&eta;<sub>hyd</sub></i>, but not both.
 </li>
 <li>
 <code>NotProvided</code> - The information of this efficiency term is not provided.
@@ -536,14 +571,53 @@ It will be computed through the other efficiency terms.
 </li>
 </ul>
 <p>
-Because by definition
-<i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>,
-one of the three efficiency terms must be left unprovided to avoid overspecifying
-the problem. The implementation also allows more than one of them being left
-unprovided. See
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
-for assumptions made in this case.
+The options that can be selected by each efficiency item are listed below.
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th></th>
+    <th><code>PowerCurve</code>*</th>
+    <th><code>EulerNumber</code>*</th>
+    <th><code>Values</code></th>
+    <th><code>Values_y</code></th>
+    <th><code>NotProvided</code></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><i>&eta;</i></td>
+    <td>&#10003;</td>
+    <td>&#10003;**</td>
+    <td>&#10003;</td>
+    <td></td>
+    <td>&#10003;</td>
+  </tr>
+  <tr>
+    <td><i>&eta;<sub>hyd</sub></i></td>
+    <td>&#10003;</td>
+    <td>&#10003;</td>
+    <td>&#10003;</td>
+    <td></td>
+    <td>&#10003;</td>
+  </tr>
+  <tr>
+    <td><i>&eta;<sub>mot</sub></i></td>
+    <td></td>
+    <td></td>
+    <td>&#10003;</td>
+    <td>&#10003;</td>
+    <td>&#10003;</td>
+  </tr>
+</tbody>
+</table>
+<p>
+* This option can only be selected once.<br/>
+** Although the Euler number method is defined to use <i>&eta;<sub>hyd</sub></i>,
+because the motor efficiency tends to be largely constant from full load down to
+25% - 50% of part motor load, the relationship between <i>&eta;</i> and
+<i>&eta;<sub>hyd</sub></i> is roughly linear for the range that matters most.
+This is therefore a reasonable approximation.
 </p>
 
 <h5>Fluid volume of the component</h5>
