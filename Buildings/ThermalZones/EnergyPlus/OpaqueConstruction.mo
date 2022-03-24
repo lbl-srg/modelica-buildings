@@ -45,7 +45,7 @@ protected
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
     jsonName="buildingSurfaceDetailed",

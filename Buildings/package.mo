@@ -1072,7 +1072,26 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
+                         Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented_N<br/>
+                         Buildings.Electrical.DC.Sources.PVSimple<br/>
+                         Buildings.Electrical.DC.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.Interfaces.PartialPvBase
+    </td>
+    <td valign=\"top\">Corrected wrong documentation string for surface area which
+                       should be gross rather than net area.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage
