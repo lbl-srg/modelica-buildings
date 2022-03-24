@@ -22,27 +22,9 @@ model DistrictCooling "Example model for district cooling system"
   parameter Modelica.Units.SI.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
     "Nominal cooling capaciaty (Negative means cooling)"
     annotation (Dialog(group="Chiller and cooling tower"));
-  parameter Modelica.Units.SI.MassFlowRate mMin_flow=0.03
-    "Minimum mass flow rate of single chiller"
-    annotation (Dialog(group="Chiller and cooling tower"));
-  parameter Modelica.Units.SI.TemperatureDifference dTApp=3
-    "Approach temperature"
-    annotation (Dialog(group="Chiller and cooling tower"));
-  parameter Modelica.Units.SI.Power PFan_nominal=5000
-    "Fan power"
-    annotation (Dialog(group="Chiller and cooling tower"));
-  parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal=6000
-   "Nominal pressure difference of the cooling tower valve"
-   annotation (Dialog(group="Chiller and cooling tower"));
   // Control settings
   parameter Modelica.Units.SI.Pressure dpSetPoi=24500
     "Differential pressure setpoint"
-    annotation (Dialog(group="Control settings"));
-  parameter Modelica.Units.SI.Temperature TCHWSet=273.15+7
-    "Chilled water temperature setpoint"
-    annotation (Dialog(group="Control settings"));
-  parameter Modelica.Units.SI.Time tWai=30
-    "Waiting time"
     annotation (Dialog(group="Control settings"));
   // Pumps
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
@@ -57,31 +39,12 @@ model DistrictCooling "Example model for district cooling system"
       dp=(dpCW_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps"
     annotation (Dialog(group="Pumps"));
-  parameter Modelica.Units.SI.Pressure dpCHWPumVal_nominal=6000
-    "Nominal pressure drop of chilled water pump valve"
-    annotation (Dialog(group="Pumps"));
-  parameter Modelica.Units.SI.Pressure dpCWPumVal_nominal=6000
-    "Nominal pressure drop of chilled water pump valve"
-    annotation (Dialog(group="Pumps"));
   // Network
   parameter Integer nLoa=3
     "Number of served loads"
     annotation (Dialog(group="Network"));
-  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=10
-    "Nominal mass flow rate in each load"
-    annotation (Dialog(group="Network"));
-  parameter Modelica.Units.SI.PressureDifference dpDis_sr_nominal=1500
-    "Nominal pressure drop for supply/return resistance"
-    annotation (Dialog(group="Network"));
-  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa]=fill(mLoa_flow_nominal,nLoa)
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa]=fill(10,nLoa)
     "Nominal mass flow rate in each connection line";
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(
-    mCon_flow_nominal)
-    "Nominal mass flow rate in the distribution line";
-  final parameter Modelica.Units.SI.PressureDifference dp_nominal=sum(
-    dis.con.pipDisSup.dp_nominal)+sum(
-    dis.con.pipDisRet.dp_nominal)
-    "Nominal pressure drop in the distribution line";
   // Buildings
   parameter String filNam[nLoa]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
@@ -100,24 +63,24 @@ model DistrictCooling "Example model for district cooling system"
     "Nominal mass flow rate of building cooling side";
   Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel pla(
     perChi=perChi,
-    dTApp=dTApp,
+    dTApp=3,
     perCHWPum=perCHWPum,
     perCWPum=perCWPum,
     mCHW_flow_nominal=mCHW_flow_nominal,
     dpCHW_nominal=dpCHW_nominal,
     QChi_nominal=QChi_nominal,
-    mMin_flow=mMin_flow,
+    mMin_flow=0.03,
     mCW_flow_nominal=mCW_flow_nominal,
     dpCW_nominal=dpCW_nominal,
     TAirInWB_nominal=298.7,
     TCW_nominal=308.15,
     dT_nominal=5.56,
     TMin=288.15,
-    PFan_nominal=PFan_nominal,
-    dpCooTowVal_nominal=dpCooTowVal_nominal,
-    dpCHWPumVal_nominal=dpCHWPumVal_nominal,
-    dpCWPumVal_nominal=dpCWPumVal_nominal,
-    tWai=tWai,
+    PFan_nominal=5000,
+    dpCooTowVal_nominal=6000,
+    dpCHWPumVal_nominal=6000,
+    dpCWPumVal_nominal=6000,
+    tWai=30,
     dpSetPoi=dpSetPoi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "District cooling plant"
@@ -130,7 +93,7 @@ model DistrictCooling "Example model for district cooling system"
   Modelica.Blocks.Sources.BooleanConstant on
     "On signal of the plant"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Constant TCHWSupSet(k=TCHWSet)
+  Modelica.Blocks.Sources.Constant TCHWSupSet(k=273.15+7)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Experimental.DHC.Networks.Distribution2Pipe dis(
@@ -140,7 +103,7 @@ model DistrictCooling "Example model for district cooling system"
     mDis_flow_nominal=sum(dis.mCon_flow_nominal),
     mCon_flow_nominal=mBui_flow_nominal,
     mEnd_flow_nominal=mBui_flow_nominal[nLoa],
-    dpDis_nominal=fill(dpDis_sr_nominal,nLoa))
+    dpDis_nominal=fill(1500,nLoa))
     "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](

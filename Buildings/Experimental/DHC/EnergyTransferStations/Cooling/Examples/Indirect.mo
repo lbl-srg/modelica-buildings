@@ -4,9 +4,6 @@ model Indirect "Example model for indirect cooling energy transfer station
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=0.5
-    "Nominal mass flow rate of district cooling supply"
-    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal=0.5
     "Nominal mass flow rate of building cooling supply"
     annotation(Dialog(group="Nominal condition"));
@@ -18,7 +15,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     "Default specific heat capacity of medium";
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect cooETS(
     QChiWat_flow_nominal=-18514,
-    mDis_flow_nominal=mDis_flow_nominal,
+    mDis_flow_nominal=0.5,
     mBui_flow_nominal=mBui_flow_nominal,
     dpConVal_nominal=9000,
     dp1_nominal=500,

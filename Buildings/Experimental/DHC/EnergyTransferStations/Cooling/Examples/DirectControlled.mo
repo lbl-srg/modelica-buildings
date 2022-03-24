@@ -4,9 +4,6 @@ model DirectControlled "Example model for direct cooling energy transfer station
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=0.5
-    "Nominal mass flow rate of district cooling supply"
-    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=-18000
     "Nominal cooling load (Negative for cooling)"
     annotation(Dialog(group="Nominal condition"));
@@ -24,7 +21,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectControlled
     cooETS(
-    mDis_flow_nominal=mDis_flow_nominal,
+    mDis_flow_nominal=0.5,
     mBui_flow_nominal=mBui_flow_nominal,
     mByp_flow_nominal=0.01,
     QChiWat_flow_nominal=Q_flow_nominal,
