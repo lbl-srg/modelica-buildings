@@ -20,9 +20,6 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.RealExpression pbSet(final y=pb_nominal)
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dpReq(final k1=-1)
-    "Calculating dp required"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
     "Pressure sensor"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -30,6 +27,8 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Utilities.Math.SmoothMax dpSet(deltaX=0.5) "Pressure drop setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Controls.OBC.CDL.Continuous.Subtract dpReq "Calculating dp required"
+    annotation (Placement(transformation(extent={{-20,60},{0,40}})));
 equation
   assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in "
   + getInstanceName() + ", which results in a negative pressure drop. 
@@ -40,20 +39,20 @@ equation
 
   connect(ideSou.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(pbSet.y,dpReq.u1)
-    annotation (Line(points={{-59,56},{-22,56}}, color={0,0,127}));
-  connect(pUp.p,dpReq.u2) annotation (Line(points={{-29,30},{-26,30},{-26,44},{
-          -22,44}}, color={0,0,127}));
   connect(pUp.port, ideSou.port_a)
     annotation (Line(points={{-40,20},{-40,0},{40,0}}, color={0,127,255}));
-  connect(dpReq.y, dpSet.u2) annotation (Line(points={{1,50},{10,50},{10,44},{18,
-          44}}, color={0,0,127}));
-  connect(zer.y, dpSet.u1) annotation (Line(points={{-19,80},{12,80},{12,56},{18,
+  connect(zer.y, dpSet.u1) annotation (Line(points={{-18,80},{12,80},{12,56},{18,
           56}}, color={0,0,127}));
   connect(dpSet.y, ideSou.dp_in)
     annotation (Line(points={{41,50},{56,50},{56,8}}, color={0,0,127}));
   connect(port_a, ideSou.port_a)
     annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
+  connect(pUp.p, dpReq.u1) annotation (Line(points={{-29,30},{-26,30},{-26,44},
+          {-22,44}}, color={0,0,127}));
+  connect(pbSet.y, dpReq.u2)
+    annotation (Line(points={{-59,56},{-22,56}}, color={0,0,127}));
+  connect(dpReq.y, dpSet.u2) annotation (Line(points={{2,50},{10,50},{10,44},{
+          18,44}}, color={0,0,127}));
   annotation (
     defaultComponentName="prv",
     Documentation(info="<html>
