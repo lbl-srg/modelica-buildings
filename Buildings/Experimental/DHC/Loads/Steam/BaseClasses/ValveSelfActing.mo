@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
 model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=false);
   parameter Modelica.Units.SI.Pressure pb_nominal(
     displayUnit="Pa",
     min=101325)
@@ -13,9 +13,9 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=true,
     final dp_start=dp_start,
-    final m_flow_start=m_flow_nominal,
+    m_flow_start=m_flow_nominal,
     final m_flow_small=m_flow_small,
     final show_T=show_T,
     final control_m_flow=false,
