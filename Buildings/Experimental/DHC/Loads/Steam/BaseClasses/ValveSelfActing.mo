@@ -7,10 +7,14 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     "Nominal outlet pressure"
     annotation (Dialog(group="Nominal condition"));
 
+  parameter Modelica.Units.SI.PressureDifference dp_start(displayUnit="Pa")=pb_nominal
+    "Guess value of dp = port_a.p - port_b.p"
+    annotation (Dialog(tab="Advanced"));
+
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final dp_start=pb_nominal,
+    final dp_start=dp_start,
     final m_flow_start=m_flow_nominal,
     final m_flow_small=m_flow_small,
     final show_T=show_T,
@@ -29,6 +33,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Controls.OBC.CDL.Continuous.Subtract dpReq "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,60},{0,40}})));
+
 equation
   assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in "
   + getInstanceName() + ", which results in a negative pressure drop. 
@@ -47,12 +52,12 @@ equation
     annotation (Line(points={{41,50},{56,50},{56,8}}, color={0,0,127}));
   connect(port_a, ideSou.port_a)
     annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
-  connect(pUp.p, dpReq.u1) annotation (Line(points={{-29,30},{-26,30},{-26,44},
-          {-22,44}}, color={0,0,127}));
+  connect(pUp.p, dpReq.u1) annotation (Line(points={{-29,30},{-26,30},{-26,44},{
+          -22,44}}, color={0,0,127}));
   connect(pbSet.y, dpReq.u2)
     annotation (Line(points={{-59,56},{-22,56}}, color={0,0,127}));
-  connect(dpReq.y, dpSet.u2) annotation (Line(points={{2,50},{10,50},{10,44},{
-          18,44}}, color={0,0,127}));
+  connect(dpReq.y, dpSet.u2) annotation (Line(points={{2,50},{10,50},{10,44},{18,
+          44}}, color={0,0,127}));
   annotation (
     defaultComponentName="prv",
     Documentation(info="<html>
