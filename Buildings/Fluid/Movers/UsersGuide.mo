@@ -465,38 +465,58 @@ From the definition one has
 </p>
 <p>
 This means that the user needs provide two of the three items and leave one
-unspecified, otherwise the problem is over-specified.
+unspecified. (Providing all three would over-specify the problem.)
 In fact, the programme also allows the user to provide only one efficiency item
-or even leave all unspecified. In such cases, the following equations are used:
+or even leave all unspecified.
+In such cases, the following default values are used:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <thead>
   <tr>
-  <th>Sole provided term</th>
-    <th>Equations</th>
+    <th colspan=\"3\">Is this item provided?</th>
+    <th colspan=\"3\">How will this item be computed?</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td><i>&eta;</i></td>
-    <td><i>&eta;<sub>hyd</sub>=1</i><br/>
-        <i>&eta;<sub>mot</sub>=&eta;</i></td>
-  </tr>
-  <tr>
     <td><i>&eta;<sub>hyd</sub></i></td>
-    <td><i>&eta;=&eta;<sub>hyd</sub></i><br/>
-        <i>&eta;<sub>mot</sub>=1</i></td>
-  </tr>
-  <tr>
     <td><i>&eta;<sub>mot</sub></i></td>
-    <td><i>&eta;=&eta;<sub>mot</sub></i><br/>
-        <i>&eta;<sub>hyd</sub>=1</i></td>
+    <td><i>&eta;</i></td>
+    <td><i>&eta;<sub>hyd</sub></i></td>
+    <td><i>&eta;<sub>mot</sub></i></td>
   </tr>
   <tr>
-    <td>None</td>
-    <td><i>&eta;=0.49</i><br/>
-        <i>&eta;<sub>hyd</sub>=1</i><br/>
-        <i>&eta;<sub>mot</sub>=0.49</i></td>
+    <td>&#10003;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10003;</td>
+    <td><i>=&eta; &frasl; &eta;<sub>mot</sub></i></td>
+    <td>= 0.7</td>
+  </tr>
+  <tr>
+    <td>&#10060;</td>
+    <td>&#10003;</td>
+    <td>&#10060;</td>
+    <td><i>=&eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
+    <td>&#10003;</td>
+    <td>= 0.7</td>
+  </tr>
+  <tr>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10003;</td>
+    <td><i>=&eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
+    <td>= 0.7</td>
+    <td>&#10003;</td>
+  </tr>
+  <tr>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>= 0.49</td>
+    <td>= 0.7</td>
+    <td>= 0.7</td>
   </tr>
 </tbody>
 </table>

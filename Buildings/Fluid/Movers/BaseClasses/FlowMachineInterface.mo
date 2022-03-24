@@ -614,7 +614,6 @@ equation
   // Total efficiency eta and consumed electric power PEle
   if per.etaMet==
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve then
-  // If power curve is provided for consumed electric power
     eta = Buildings.Utilities.Math.Functions.smoothMax(
             x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
                       x1=PEle, x2=1E-5, deltaX=1E-6),
@@ -628,12 +627,10 @@ equation
     end if;
   elseif per.etaMet==
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber then
-  // If peak total efficiency is provided for Euler number
     connect(effTab.y,eta);
     connect(powTab.y,PEle);
   elseif per.etaMet==
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
-  // If total efficiency is provided as an array
     PEle = WFlo / eta;
     if homotopyInitialization then
       eta = homotopy(actual=cha.efficiency(per=per.totalEfficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
@@ -646,25 +643,13 @@ equation
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
                     x1=eta, x2=1E-5, deltaX=1E-6);
     if per.etaHydMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
-       per.etaMotMet==
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
-    // If only hydraulic efficiency is provided
-      eta = etaHyd;
-    elseif per.etaHydMet==
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided or
        per.etaMotMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
-    // If only motor efficiency is provided
-      eta = etaMot;
-    elseif per.etaHydMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
-       per.etaMotMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
-    // If both
+    // Either or both of the other two are provided
       eta = etaHyd * etaMot;
     else
-    // If neither
+    // Neither
       eta = 0.49;
     end if;
   end if;
@@ -672,7 +657,6 @@ equation
   // Hydraulic efficiency and hydraulic work
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve then
-  // If power curve is provided as hydraulic work
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
                x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
                          x1=WHyd, x2=1E-5, deltaX=1E-6),
@@ -686,12 +670,10 @@ equation
     end if;
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber then
-  // If peak total efficiency is provided
     connect(effTab.y,etaHyd);
     connect(powTab.y,WHyd);
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
-  // If hydraulic effciency is provided as an array
     WHyd = WFlo / etaHyd;
     if homotopyInitialization then
       etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta),
@@ -701,14 +683,22 @@ equation
     end if;
   else
   // Hydraulic efficiency not provided
-    etaHyd = 1;
-    WHyd = WFlo;
+    WHyd = WFlo / etaHyd;
+    if per.etaMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
+       per.etaMotMet==
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
+    // Only eta provided
+      etaHyd = eta / 0.7; // In this case etaMot = 0.7.
+    else
+    // Only etaMot provided or neither
+      etaHyd = 0.7;
+    end if;
   end if;
 
   // Motor efficiency
   if per.etaMotMet==
        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
-  // If motor efficiency provided as an array vs. volumetric flow rate
     if homotopyInitialization then
       etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
@@ -717,7 +707,6 @@ equation
     end if;
   elseif per.etaMotMet==
        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y then
-  // If motor efficiency provided as an array vs. PLR
     if homotopyInitialization then
       etaMot =homotopy(actual=cha.efficiency_y(
         per=per.motorEfficiency_y,
@@ -734,15 +723,7 @@ equation
     end if;
   else
   // Motor efficiency not provided
-    if per.etaMet==
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
-       per.etaHydMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
-    // Only hydraulic efficiency is provided
-      etaMot = 1;
-    else
-      etaMot = eta;
-    end if;
+    etaMot = 0.7;
   end if;
 
   annotation (
