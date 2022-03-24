@@ -224,7 +224,7 @@
       "simulate": false,
       "comment": "Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446"
     },
-    "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+    "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
   },
   {
        "jmodelica": {
@@ -239,7 +239,7 @@
     "optimica": {
       "simulate": false
     },
-    "model_name": "Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl",
+    "model_name": "Buildings.Experimental.DHC.Loads.Validation.FlowDistributionPumpControl",
     "comment": "The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)"
   },
   {
