@@ -20,8 +20,7 @@ model TimeSuppression
     final height=5,
     final duration=600,
     final offset=295.15,
-    final startTime=900)
-    "Cooling setpoint"
+    final startTime=900) "Cooling setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
