@@ -26,7 +26,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
     "Pressure sensor"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Utilities.Math.SmoothMax dpSet(deltaX=0.5) "Pressure drop setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
