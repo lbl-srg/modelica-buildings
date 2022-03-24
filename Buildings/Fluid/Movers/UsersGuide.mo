@@ -533,16 +533,25 @@ which has the following choices:
 <ul>
 <li>
 <code>Values</code> - An array of efficiency vs. <i>V&#775;</i> is provided.
-The efficiency is interpolated or extrapolated by
+If the array has only one element, the efficiency is constant. If the array has
+more than one element, the efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
 The power is then computed from the efficiency.
+See
+<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
+Buildings.Fluid.Movers.Validation.PowerSimplified</a>
+as an example.
 </li>
 <li>
 <code>Values_y</code> - An array of efficiency vs. part load ratio <i>y</i>
 is provided. The efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y</a>.
+See
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_y\">
+Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_y</a>
+as an example.
 </li>
 <li>
 <code>PowerCurve</code> - An array of power vs. <i>V&#775;</i> is provided.
@@ -550,6 +559,10 @@ The power is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
 The efficiency is then computed from the power.
+See
+<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
+Buildings.Fluid.Movers.Validation.PowerExact</a>
+as an example.
 </li>
 <li>
 <code>EulerNumber</code> - The efficiency, together with <i>&Delta;p</i> and
@@ -584,6 +597,10 @@ Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
 and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.<br/>
+See
+<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
+Buildings.Fluid.Movers.Validation.PowerEuler</a>
+as an example.
 </li>
 <li>
 <code>NotProvided</code> - The information of this efficiency term is not provided.
