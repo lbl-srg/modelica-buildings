@@ -31,12 +31,12 @@ model StaticReset
 
   // Fans and their performance records
   parameter Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
-    "Performance record for PowerCharacteristic";
+    "Performance record with power curves";
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
     per = per1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Fan using PowerCharacteristic"
+    "Fan using power curves"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   parameter Buildings.Fluid.Movers.Data.Generic per2(
     pressure=per1.pressure,
@@ -49,12 +49,12 @@ model StaticReset
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
       pressure=per1.pressure,
       power=per1.power))
-    "Performance record for EulerNumber";
+    "Performance record with peak condition for the Euler number";
   Buildings.Fluid.Movers.SpeedControlled_y fan2(
     redeclare package Medium = Medium,
     per = per2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Fan using EulerNumber"
+    "Fan using the Euler number"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   parameter Buildings.Fluid.Movers.Data.Generic per3(
     pressure=per1.pressure,
@@ -66,12 +66,12 @@ model StaticReset
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
     hydraulicEfficiency(eta = {0.7}),
     motorEfficiency(eta = {0.7}))
-    "Performance record for MotorEfficiency";
+    "Performance record for constant efficiency";
   Buildings.Fluid.Movers.SpeedControlled_y fan3(
     redeclare package Medium = Medium,
     per = per3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Fan using MotorEfficiency"
+    "Fan using constant efficiency"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   // Duct pressure drops
@@ -293,7 +293,7 @@ equation
             240}})),
     Documentation(info="<html>
 <p>
-This example model compares the three power computation paths in a scenario
+This example model compares the three power computation methods in a scenario
 where the fan performance (<i>P</i> vs. <i>V&#775;</i>) is examined
 to verify savings of a static pressure reset. The fan speed is controlled
 to track the duct static pressure at a point downstream while the damper
@@ -301,24 +301,25 @@ to track the duct static pressure at a point downstream while the damper
 </p>
 <ul>
 <li>
-The <code>PowerCharacteristic</code> path uses the full fan curve.
+The first fan uses the full fan curve.
 </li>
 <li>
-The <code>EulerNumber</code> path uses the Euler number and its correlation
+The second fan uses the Euler number and its correlation
 to estimate fan efficiency based on the peak operation condition where its
 efficiency is at its maximum.
 </li>
 <li>
-The <code>MotorEfficiency</code> path assumes a constant fan efficiency.
+The third fan assumes a constant efficiency.
 </li>
 </ul>
 <p>
-Granted the <code>PowerCharacteristic</code> path is the most accurate
-representation of the \"real\" performance, the results indicate that
-the <code>EulerNumber</code> path is much better than the
-<code>MotorEfficiency</code> at capturing the trend.
-The <code>EulerNumber</code> path also prevents the computed power from
-going to zero when <i>V&#775;</i> approaches zero.
+If the first fan that uses the power curve is considered the most accurate,
+the second fan that uses the Euler number is better at capturing the trend
+and preventing the power from incorrectly going to zero, but it overestimated
+the power consumption. The overestimation is likely caused by the fact that
+the peak efficiency found from the power curve is lower than the true global
+maximum, leading to understimation of efficiency and then the overstimation
+of power.
 </p>
 <p>
 Also note that the model
