@@ -7,9 +7,9 @@ model PowerEuler
 
   parameter Buildings.Fluid.Movers.Data.Generic perPea(
     final etaMet=
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-    final etaHydMet=
             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+    final etaHydMet=
+            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
     final etaMotMet=
             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(

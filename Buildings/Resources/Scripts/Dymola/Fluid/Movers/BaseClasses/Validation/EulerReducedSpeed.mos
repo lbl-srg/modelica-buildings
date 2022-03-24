@@ -6,7 +6,7 @@ simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed",
 createPlot(
  id=1,
  position={53, 37, 881, 372},
- y={"pow1", "eff1.PEle", "pow2", "eff2.PEle", "pow3", "eff3.PEle"},
+ y={"pow1", "eff1.WHyd", "pow2", "eff2.WHyd", "pow3", "eff3.WHyd"},
  range={0.0, 1.0, 0.0, 14000.0},
  grid=true,
  legends={"Measured y=1", "Euler", "Measured y=0.83", "Euler", "Measured y=0.61", "Euler"},
