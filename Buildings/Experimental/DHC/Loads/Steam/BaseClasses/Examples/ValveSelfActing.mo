@@ -10,7 +10,9 @@ model ValveSelfActing
     redeclare package Medium = MediumSte,
     m_flow_nominal=m_flow_nominal,
     show_T=true,
-    pb_nominal=300000) "Self acting pressure reducing valve"
+    pb_nominal=300000,
+    dp_start(displayUnit="Pa"))
+     "Self acting pressure reducing valve"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumSte,
@@ -31,8 +33,8 @@ model ValveSelfActing
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Modelica.Blocks.Noise.UniformNoise pInSig(
     samplePeriod(displayUnit="s") = 1,
-    y_min=500000 + 100000,
-    y_max=500000 - 100000) "Noisy signal for inlet pressure"
+    y_min=500000 + 300000,
+    y_max=500000 - 300000) "Noisy signal for inlet pressure"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumSte,
