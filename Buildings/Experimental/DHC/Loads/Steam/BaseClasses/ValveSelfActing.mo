@@ -20,7 +20,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.RealExpression pbSet(final y=pb_nominal)
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-  Modelica.Blocks.Math.Add dpReq(final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add dpReq(final k1=-1)
     "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
