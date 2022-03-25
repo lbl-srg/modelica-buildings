@@ -20,7 +20,11 @@ Documentation(info="<html>
 <p>
 This model implements an ice tank model with built-in idealized control
 that tracks the set point <code>TSet</code> for the temperature of the working fluid
-that leaves the tank.
+that leaves the tank, as shown in the figure below.
+</p>
+<p align=\"center\">
+<img alt=\"Schematics of the controlled tank\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Ice/ControlledTank.png\"/>
 </p>
 <p>
 The model is identical to
@@ -46,6 +50,11 @@ Note that the setpoint is also tracked during charging mode.
 If the full flow rate should go through the tank during charging,
 which is generally desired, then set <code>TSet</code> to a
 high temperature, such as <i>20</i>&deg;C.
+</p>
+<h4>Usage</h4>
+<p>
+This model requires the fluid to flow from <code>port_a</code> to <code>port_b</code>.
+Otherwise, the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
