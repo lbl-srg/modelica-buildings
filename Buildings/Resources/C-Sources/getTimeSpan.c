@@ -3,6 +3,7 @@
  */
 
 #include <stdio.h>
+#include "ModelicaUtilities.h"
 
 #include "getTimeSpan.h"
 
