@@ -114,11 +114,19 @@
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC"
   },
   {
+    "optimica": {
+      "simulate": false,
+      "comment": "Time out. Since oct-r26446"
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned"
+  },
+  {
     "jmodelica": {
       "simulate": false
     },
     "optimica": {
-      "rtol": 1E-8
+      "simulate": false,
+      "comment": "Time out. Since oct-r26446"
     },
     "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSpring"
   },
@@ -212,6 +220,13 @@
     "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
+    "optimica": {
+      "simulate": false,
+      "comment": "Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446"
+    },
+    "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
+  },
+  {
        "jmodelica": {
          "rtol": 1E-8
     },
@@ -219,6 +234,13 @@
          "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
+    "optimica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Experimental.DHC.Loads.Validation.FlowDistributionPumpControl",
+    "comment": "The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)"
   },
   {
     "jmodelica": {
