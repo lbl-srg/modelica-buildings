@@ -255,12 +255,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed handling of forward and backward slashes on Windows.
+                       Now models in this package also work with OpenModelica on Windows.
     </td>
 </tr>
 </table>
