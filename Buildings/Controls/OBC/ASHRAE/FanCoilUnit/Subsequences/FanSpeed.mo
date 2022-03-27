@@ -349,6 +349,10 @@ equation
       <code>heaPerMin</code> to the maximum limit <code>heaPerMax</code>.
       The setpoint in deadband mode is equal to the deadband fan speed <code>deaSpe</code>. 
       </p>
+      <p align=\"center\">
+      <img alt=\"Fan speed setpoint control logic diagram\"
+      src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/FanSpeed.png\"/>
+      </p>
       </html>", revisions="<html>
       <ul>
       <li>

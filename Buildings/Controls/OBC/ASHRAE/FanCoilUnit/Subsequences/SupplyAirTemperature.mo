@@ -453,6 +453,10 @@ equation
     temperature <code>TAirSup</code>. <code>uCoo</code> and <code>uHea</code> are
     set to zero when the fan proven on signal <code>uFan</code> is <code>false</code>.
     </p>
+    <p align=\"center\">
+    <img alt=\"Supply air temperature setpoint control logic diagram\"
+    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/SupplyAirTemperature.png\"/>
+    </p>
     </html>", revisions="<html>
     <ul>
     <li>
