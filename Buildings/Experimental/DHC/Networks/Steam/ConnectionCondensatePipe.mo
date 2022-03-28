@@ -1,7 +1,7 @@
 ﻿within Buildings.Experimental.DHC.Networks.Steam;
 model ConnectionCondensatePipe
   "Connection for a steam district heating network featuring the condensate return pipe"
-  extends Buildings.Experimental.DHC.Networks.Steam.BaseClasses.PartialConnectionTwoPipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
     final T_start=TSup_start,
     final p_start=pSup_start,
     redeclare model Model_pip_aDisSup =

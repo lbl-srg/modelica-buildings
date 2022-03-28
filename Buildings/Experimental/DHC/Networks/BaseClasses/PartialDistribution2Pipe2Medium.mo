@@ -1,7 +1,8 @@
-within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
-partial model PartialDistributionTwoPipe
-  "Partial model for two-pipe distribution network"
-  extends Buildings.Experimental.DHC.Networks.Steam.BaseClasses.PartialDistribution;
+within Buildings.Experimental.DHC.Networks.BaseClasses;
+partial model PartialDistribution2Pipe2Medium
+  "Partial model for a two-pipe distribution network with two medium declarations"
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Medium;
   replaceable model Model_pipDis =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=MediumSup,
@@ -60,7 +61,9 @@ partial model PartialDistributionTwoPipe
     "Distribution return inlet port"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}),iconTransformation(extent={{180,-80},{220,-40}})));
   // COMPONENTS
-  replaceable Buildings.Experimental.DHC.Networks.Steam.BaseClasses.PartialConnectionTwoPipe con[nCon](
+  replaceable
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium
+    con[nCon](
     final mDis_flow_nominal=mDisCon_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
@@ -194,4 +197,4 @@ First implementation.
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false)));
-end PartialDistributionTwoPipe;
+end PartialDistribution2Pipe2Medium;

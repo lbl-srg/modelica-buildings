@@ -1,6 +1,6 @@
-within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
-partial model PartialDistribution
-  "Partial model for distribution network"
+within Buildings.Experimental.DHC.Networks.BaseClasses;
+partial model PartialDistribution2Medium
+  "Partial model for distribution network with two medium declarations"
   replaceable package MediumSup =
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";
@@ -103,4 +103,4 @@ First implementation.
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}})));
-end PartialDistribution;
+end PartialDistribution2Medium;

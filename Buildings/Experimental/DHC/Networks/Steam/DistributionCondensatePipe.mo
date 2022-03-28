@@ -1,7 +1,7 @@
 ﻿within Buildings.Experimental.DHC.Networks.Steam;
 model DistributionCondensatePipe
   "Model of a steam distribution network using fixed resistance pipe model for condensate returns"
-  extends Buildings.Experimental.DHC.Networks.Steam.BaseClasses.PartialDistributionTwoPipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe2Medium(
     redeclare ConnectionCondensatePipe con[nCon](
       redeclare package MediumSup = MediumSup,
       redeclare package MediumRet = MediumRet),

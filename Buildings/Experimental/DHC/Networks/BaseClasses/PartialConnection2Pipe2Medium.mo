@@ -1,7 +1,6 @@
-within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
-partial model PartialConnectionTwoPipe
-  "Partial model for connecting a LosslessPipegent to a two-pipe 
-  distribution network with the split-medium approach"
+within Buildings.Experimental.DHC.Networks.BaseClasses;
+partial model PartialConnection2Pipe2Medium "Partial model for connecting a LosslessPipegent to a two-pipe 
+  distribution network with two medium declarations"
   replaceable package MediumSup =
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";
@@ -280,4 +279,4 @@ First implementation.
           pattern=LinePattern.None,
           lineColor={0,0,0})}), Diagram(coordinateSystem(extent={{-100,-120},{100,
             120}})));
-end PartialConnectionTwoPipe;
+end PartialConnection2Pipe2Medium;
