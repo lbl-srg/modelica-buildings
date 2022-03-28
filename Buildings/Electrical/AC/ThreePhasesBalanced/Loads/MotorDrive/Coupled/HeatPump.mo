@@ -78,7 +78,7 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Load inertia";
   parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
 
-  Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
   ThermoFluid.HeatPump mecHea(
     redeclare final package Medium1 = Medium1,
@@ -97,7 +97,7 @@ model HeatPump "Motor coupled heat pump"
     final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal,
     final TAppCon_nominal=TAppCon_nominal,
-    final TAppEva_nominal=TAppEva_nominal)
+    final TAppEva_nominal=TAppEva_nominal) "Heat pump model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
@@ -107,9 +107,9 @@ model HeatPump "Motor coupled heat pump"
     final R_r=R_r,
     final X_s=X_s,
     final X_r=X_r,
-    final X_m=X_m)
+    final X_m=X_m) "Motor model"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Interfaces.RealInput setPoi  "Set point of control target"
+  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -137,7 +137,8 @@ protected
     if COP_is_for_cooling
       then TEva_nominal - TAppEva_nominal
       else TCon_nominal + TAppCon_nominal
-    "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
+    "Nominal evaporator temperature for chiller or condenser temperature for heat pump, 
+    taking into account pinch temperature between fluid and refrigerant";
 
   final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -264,7 +265,7 @@ equation
         Line(points={{80,-30},{80,0}},                color={0,0,255})}),
         defaultComponentName="hea",
     Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled heat pump with ideal speed control. </p>
+<p>This is a model of a squirrel cage induction motor coupled heat pump with ideal speed control. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions.</p>
 </html>",
       revisions="<html>
 <ul>

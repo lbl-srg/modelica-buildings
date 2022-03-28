@@ -32,12 +32,12 @@ model Pump "Motor coupled chiller"
   parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Pump inertia";
   parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
 
-  Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau) "Pump torque block"
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau) "Pump torque block"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   ThermoFluid.Pump pum(
     redeclare final package Medium = Medium,
     final addPowerToMedium=addPowerToMedium,
-    final per=per) "Mechanical pump with a shaft port"
+    final per=per) "Mechanical pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
@@ -47,11 +47,10 @@ model Pump "Motor coupled chiller"
     final R_r=R_r,
     final X_s=X_s,
     final X_r=X_r,
-    final X_m=X_m)
+    final X_m=X_m) "Motor model"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
-  Modelica.Blocks.Interfaces.RealInput setPoi
-    "Set point of control target"
+  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -59,8 +58,7 @@ model Pump "Motor coupled chiller"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80})));
-  Modelica.Blocks.Interfaces.RealInput meaPoi
-    "Measured value of control target"
+  Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target"
     annotation (Placement(transformation(extent={{-120,40},
             {-100,60}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
@@ -151,7 +149,7 @@ equation
           textColor={0,0,127},
           textString="measure_value")}),
     Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled chiller with ideal speed control.</p>
+<p>This is a model of a squirrel cage induction motor coupled chiller with ideal speed control. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions.</p>
 </html>",
       revisions="<html>
 <ul>

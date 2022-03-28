@@ -99,9 +99,9 @@ model Chiller "Motor coupled chiller"
     final P_nominal=P_nominal,
     final QEva_flow_nominal=QEva_flow_nominal,
     final QCon_flow_nominal=QCon_flow_nominal,
-    final Nrpm_nominal=Nrpm_nominal)
+    final Nrpm_nominal=Nrpm_nominal) "Chiller model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau) "Chiller torque block"
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau) "Chiller torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
   InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
@@ -112,7 +112,7 @@ model Chiller "Motor coupled chiller"
     final X_s=X_s,
     final X_r=X_r,
     final X_m=X_m,
-    final VFD(reverseActing=false))
+    final VFD(reverseActing=false)) "Motor model"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
@@ -144,7 +144,8 @@ protected
     if COP_is_for_cooling
       then TEva_nominal - TAppEva_nominal
       else TCon_nominal + TAppCon_nominal
-    "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
+    "Nominal evaporator temperature for chiller or condenser temperature for heat pump, 
+    taking into account pinch temperature between fluid and refrigerant";
 
     final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -270,7 +271,7 @@ equation
         Line(points={{80,-30},{80,0}},                color={0,0,255})}),
         defaultComponentName="chi",
     Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled chiller with ideal speed control.</p>
+<p>This is a model of a squirrel cage induction motor coupled chiller with ideal speed control. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions.</p>
 </html>",
       revisions="<html>
 <ul>
