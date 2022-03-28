@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subse
 block ActiveAirFlow
   "Output the active airflow setpoint for dual-duct terminal unit with cold-duct minimum control"
 
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VHeaZonMax_flow(
+  parameter Real VZonHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -63,7 +63,7 @@ protected
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VZonCooMax_flow)
     "Active cooling maximum flow"
     annotation (Placement(transformation(extent={{100,130},{120,150}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal occModInd(
@@ -74,7 +74,7 @@ protected
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo(
-    final realTrue=VHeaZonMax_flow)
+    final realTrue=VZonHeaMax_flow)
     "Heating maximum flow when input is true"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant setBacMod(
@@ -115,11 +115,11 @@ protected
     "Check if cooling maximum is greater than the sum of minimum and heating maximum flow"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax(
-    final k=VHeaZonMax_flow)
+    final k=VZonHeaMax_flow)
     "Heating maximum flow"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(
-    final k=VCooZonMax_flow)
+    final k=VZonCooMax_flow)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
@@ -231,20 +231,20 @@ The implementation is according to the Section 5.14.4 of ASHRAE Guideline 36, Ma
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooZonMax_flow</code></td>
-<td><code>VCooZonMax_flow</code></td><td><code>VCooZonMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VZonCooMax_flow</code></td>
+<td><code>VZonCooMax_flow</code></td><td><code>VZonCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
 <tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VHeaZonMax_flow</code></td>
-<td>0</td><td>0</td><td><code>VHeaZonMax_flow</code></td><td><code>VHeaZonMax_flow</code></td>
+<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VZonHeaMax_flow</code></td>
+<td>0</td><td>0</td><td><code>VZonHeaMax_flow</code></td><td><code>VZonHeaMax_flow</code></td>
 <td>0</td></tr>
 </table>
 <br/>
 <p>
 Note that the designer must ensure that the minimum (<code>VOccZonMin_flow</code>) and heating
-maximum (<code>VHeaZonMax_flow</code>) sum to less
-than the cooling maximum (<code>VCooZonMax_flow</code>) to avoid oversupplying the diffusers.
+maximum (<code>VZonHeaMax_flow</code>) sum to less
+than the cooling maximum (<code>VZonCooMax_flow</code>) to avoid oversupplying the diffusers.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -5,7 +5,7 @@ block Overrides "Software switches to override setpoints"
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint";
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -96,7 +96,7 @@ block Overrides "Software switches to override setpoints"
     "Force zone airflow setpoint to zero"
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VZonCooMax_flow)
     "Force zone airflow setpoint to cooling maximum"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal minFlo(
@@ -369,7 +369,7 @@ when <code>oveFloSet</code> equals to 1, force the zone airflow setpoint
 <li>
 when <code>oveFloSet</code> equals to 2, force the zone airflow setpoint
 <code>VSet_flow</code> to zone cooling maximum airflow rate
-<code>VCooZonMax_flow</code>,
+<code>VZonCooMax_flow</code>,
 </li>
 <li>
 when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint

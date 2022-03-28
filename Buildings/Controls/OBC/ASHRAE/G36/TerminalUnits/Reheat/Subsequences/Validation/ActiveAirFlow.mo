@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Valid
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for unit with reheat"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow actAirSet(
-    final VCooZonMax_flow=0.5,
+    final VZonCooMax_flow=0.5,
     final VHeaZonMin_flow=0.1,
-    final VHeaZonMax_flow=0.4)
+    final VZonHeaMax_flow=0.4)
     "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(

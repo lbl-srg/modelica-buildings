@@ -26,7 +26,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   parameter Real VZonMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(unit="m3/s")
+  parameter Real VZonCooMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
@@ -359,7 +359,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.ActiveAirFlow
     actAirSet(
-    final VCooZonMax_flow=VCooZonMax_flow) "Active airflow setpoint"
+    final VZonCooMax_flow=VZonCooMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.SystemRequests
     sysReq(
@@ -392,7 +392,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
     final hotWatRes=hotWatRes,
-    final VCooZonMax_flow=VCooZonMax_flow,
+    final VZonCooMax_flow=VZonCooMax_flow,
     final lowFloTim=lowFloTim,
     final lowTemTim=lowTemTim,
     final comChaTim=comChaTim,
@@ -407,7 +407,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides
     setOve(
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow) "Override setpoints"
+    final VZonCooMax_flow=VZonCooMax_flow) "Override setpoints"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
     final samplePeriod=samplePeriod,
@@ -420,15 +420,15 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_typTerUniWitCO2=false,
-    final have_parFanPowUniWitCO2=true,
+    final have_typTerUni=false,
+    final have_parFanPowUni=true,
     final permit_occStandby=permit_occStandby,
     final AFlo=AFlo,
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow,
+    final VZonCooMax_flow=VZonCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
     final dTHys=dTHys)

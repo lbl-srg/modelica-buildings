@@ -24,10 +24,10 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   parameter Real VZonMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(unit="m3/s")
+  parameter Real VZonCooMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VHeaZonMax_flow(unit="m3/s")
+  parameter Real VZonHeaMax_flow(unit="m3/s")
     "Design zone heating maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
@@ -305,8 +305,8 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow
     actAirSet(
-    final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow,
+    final VZonCooMax_flow=VZonCooMax_flow,
+    final VZonHeaMax_flow=VZonHeaMax_flow,
     final floHys=floHys) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.SystemRequests
@@ -333,8 +333,8 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Alarms
     ala(
     final staPreMul=staPreMul,
-    final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow,
+    final VZonCooMax_flow=VZonCooMax_flow,
+    final VZonHeaMax_flow=VZonHeaMax_flow,
     final lowFloTim=lowFloTim,
     final fanOffTim=fanOffTim,
     final leaFloTim=leaFloTim,
@@ -344,8 +344,8 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Overrides
     setOve(
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow) "Override setpoints"
+    final VZonCooMax_flow=VZonCooMax_flow,
+    final VZonHeaMax_flow=VZonHeaMax_flow) "Override setpoints"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupCoo(
     final samplePeriod=samplePeriod,
@@ -358,16 +358,14 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_typTerUniWitCO2=true,
-    final have_parFanPowUniWitCO2=false,
-    final have_SZVAVWitCO2=false,
+    final have_typTerUni=true,
     final permit_occStandby=permit_occStandby,
     final AFlo=AFlo,
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow,
+    final VZonCooMax_flow=VZonCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
     final dTHys=dTHys)
@@ -393,11 +391,11 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     "Specify suppresion time due to the zone heating setpoint change and check if it has passed the suppresion period"
     annotation (Placement(transformation(extent={{-200,240},{-180,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(
-    final k=VCooZonMax_flow)
+    final k=VZonCooMax_flow)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax(
-    final k=VHeaZonMax_flow)
+    final k=VZonHeaMax_flow)
     "Heating maximum flow"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2

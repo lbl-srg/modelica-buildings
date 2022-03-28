@@ -5,7 +5,7 @@ model Alarms "Validation of model that generates alarms"
     final have_hotWatCoi=true,
     final staPreMul=1,
     final hotWatRes=1,
-    final VCooZonMax_flow=1,
+    final VZonCooMax_flow=1,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));

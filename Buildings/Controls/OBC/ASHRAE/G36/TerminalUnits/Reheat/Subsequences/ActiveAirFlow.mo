@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences;
 block ActiveAirFlow
   "Output the active airflow setpoint for VAV reheat terminal unit"
 
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -10,7 +10,7 @@ block ActiveAirFlow
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating minimum airflow rate";
-  parameter Real VHeaZonMax_flow(
+  parameter Real VZonHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -78,7 +78,7 @@ protected
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VZonCooMax_flow)
     "Active cooling maximum flow"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal occModInd(
@@ -96,11 +96,11 @@ protected
     "Heating minimum flow when input is true"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo(
-    final realTrue=VHeaZonMax_flow)
+    final realTrue=VZonHeaMax_flow)
     "Heating maximum flow when input is true"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cooMaxFlo(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VZonCooMax_flow)
     "Cooling maximum flow when input is true"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max2
@@ -122,7 +122,7 @@ protected
     "Product of inputs"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo1(
-    final realTrue=VHeaZonMax_flow)
+    final realTrue=VZonHeaMax_flow)
     "Heating maximum flow when input is true"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3
@@ -155,7 +155,7 @@ protected
     "Check if current operation mode is setback mode"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(
-    final k=VHeaZonMax_flow)
+    final k=VZonHeaMax_flow)
     "Heating maximum airflow"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMinAir(
@@ -311,18 +311,18 @@ of ASHRAE Guideline 36, May 2020.
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooZonMax_flow</code></td>
-<td><code>VCooZonMax_flow</code></td><td><code>VCooZonMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VZonCooMax_flow</code></td>
+<td><code>VZonCooMax_flow</code></td><td><code>VZonCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
 <tr><td>Cooling minimum (<code>VActCooMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td>
 <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>Heating minimum (<code>VActHeaMin_flow</code>)</td><td>max(<code>VHeaZonMin_flow,VOccZonMin_flow</code>)</td>
-<td><code>VHeaZonMin_flow</code></td><td>0</td><td><code>VHeaZonMax_flow</code></td><td><code>VHeaZonMax_flow</code></td>
+<td><code>VHeaZonMin_flow</code></td><td>0</td><td><code>VZonHeaMax_flow</code></td><td><code>VZonHeaMax_flow</code></td>
 <td>0</td></tr>
-<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td>max(<code>VHeaZonMax_flow,VOccZonMin_flow</code>)</td>
-<td><code>VHeaZonMax_flow</code></td><td>0</td><td><code>VCooZonMax_flow</code></td><td><code>VCooZonMax_flow</code></td>
+<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td>max(<code>VZonHeaMax_flow,VOccZonMin_flow</code>)</td>
+<td><code>VZonHeaMax_flow</code></td><td>0</td><td><code>VZonCooMax_flow</code></td><td><code>VZonCooMax_flow</code></td>
 <td>0</td></tr>
 </table>
 <br/>

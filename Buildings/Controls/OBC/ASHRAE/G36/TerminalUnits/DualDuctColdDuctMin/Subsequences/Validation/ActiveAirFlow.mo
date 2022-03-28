@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subse
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for dual-duct terminal unit with cold-duct minimum control"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow actAirSet(
-    final VCooZonMax_flow=0.5,
-    final VHeaZonMax_flow=0.4,
+    final VZonCooMax_flow=0.5,
+    final VZonHeaMax_flow=0.4,
     final floHys=0.01)
     "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

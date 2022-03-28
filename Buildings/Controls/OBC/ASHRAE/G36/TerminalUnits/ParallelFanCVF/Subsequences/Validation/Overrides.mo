@@ -3,7 +3,7 @@ model Overrides "Validation of model that overrides control"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides ove(
     final VZonMin_flow=0.1,
-    final VCooZonMax_flow=0.9)
+    final VZonCooMax_flow=0.9)
     "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(

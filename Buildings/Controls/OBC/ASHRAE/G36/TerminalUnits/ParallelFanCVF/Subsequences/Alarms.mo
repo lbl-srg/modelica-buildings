@@ -8,7 +8,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
   parameter Real hotWatRes
     "Importance multiplier for the hot water reset control loop"
     annotation (Dialog(enable=have_hotWatCoi));
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -221,7 +221,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,280},{120,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
-    final k=VCooZonMax_flow)
+    final k=VZonCooMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,170},{-180,190}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
@@ -812,14 +812,14 @@ generate Level 4 alarm.
 <p>
 If the fan serving the zone has been OFF (<code>uFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and airflow sensor reading <code>VDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VCooZonMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
 generate a Level 3 alarm.
 </p>
 <h4>Leaking damper</h4>
 <p>
 If the damper position (<code>uDam</code>) is 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VCooZonMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uFan=true</code>), generate a Level
 4 alarm.
 </p>

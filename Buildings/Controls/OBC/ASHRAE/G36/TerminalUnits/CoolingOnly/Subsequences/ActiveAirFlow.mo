@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
 block ActiveAirFlow
   "Active maximum and minimum setpoints for cooling only terminal unit"
 
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -37,7 +37,7 @@ block ActiveAirFlow
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VZonCooMax_flow)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
@@ -155,8 +155,8 @@ Guideline 36, May 2020.
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooZonMax_flow</code></td>
-<td><code>VCooZonMax_flow</code></td><td><code>VCooZonMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VZonCooMax_flow</code></td>
+<td><code>VZonCooMax_flow</code></td><td><code>VZonCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
 <tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td>
 <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>

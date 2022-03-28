@@ -4,7 +4,7 @@ block Alarms
 
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -163,7 +163,7 @@ block Alarms
     "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo1(
-    final k=VCooZonMax_flow)
+    final k=VZonCooMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
@@ -418,7 +418,7 @@ suppressed for that zone.
 If the cooling and heating fans serving the zone have been OFF (<code>uCooFan=false</code>
 and <code>uHeaFan=false</code>) for 10 minutes (<code>fanOffTim</code>), and the
 discharge airflow sensor reading <code>VDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VCooZonMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 </ul>
@@ -428,7 +428,7 @@ generate a Level 3 alarm.
 If the cooling and heating damper position (<code>uCooDam</code> and <code>uHeaDam</code>)
 are 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VCooZonMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uCooFan=true</code> or <code>uHeaFan=true</code>),
 generate a Level 4 alarm.
 </li>

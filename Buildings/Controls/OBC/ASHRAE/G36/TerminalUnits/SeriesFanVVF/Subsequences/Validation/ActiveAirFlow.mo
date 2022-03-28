@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for unit with variable volume series fans"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.ActiveAirFlow actAirSet(
-    final VCooZonMax_flow=0.5)
+    final VZonCooMax_flow=0.5)
     "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(

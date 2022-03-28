@@ -5,11 +5,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "True: the unit have dual inlet flow sensor";
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VHeaZonMax_flow(
+  parameter Real VZonHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -192,7 +192,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,290},{120,310}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
-    final k=VCooZonMax_flow) if have_duaSen "Cooling maximum airflow setpoint"
+    final k=VZonCooMax_flow) if have_duaSen "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.1) if have_duaSen
@@ -248,7 +248,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxFlo(
-    final k=VHeaZonMax_flow)
+    final k=VZonHeaMax_flow)
     if have_duaSen "Heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=0.1)
@@ -307,7 +307,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-430},{160,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo1(
-    final k=VCooZonMax_flow) if not have_duaSen
+    final k=VZonCooMax_flow) if not have_duaSen
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
@@ -696,13 +696,13 @@ If the unit has dual inlet sensor (<code>have_duaSen=true</code>):
 <li>
 If the cooling fan serving the zone has been OFF (<code>uCooFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and the cold-duct airflow sensor reading <code>VColDucDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VCooZonMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 <li>
 If the heating fan serving the zone has been OFF (<code>uHeaFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and the hot-duct airflow sensor reading <code>VHotDucDis_flow</code>
-is above 10% of the heating maximum airflow setpoint <code>VHeaZonMax_flow</code>,
+is above 10% of the heating maximum airflow setpoint <code>VZonHeaMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 </ul>
@@ -714,7 +714,7 @@ If the unit has single discharge flow sensor (<code>have_duaSen=false</code>):
 If the cooling and heating fans serving the zone have been OFF (<code>uCooFan=false</code>
 and <code>uHeaFan=false</code>) for 10 minutes (<code>fanOffTim</code>), and the
 discharge airflow sensor reading <code>VDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VCooZonMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 </ul>
@@ -728,14 +728,14 @@ If the unit has dual inlet sensor (<code>have_duaSen=true</code>):
 <li>
 If the cooling damper position (<code>uCooDam</code>) is 0% and airflow sensor reading
 <code>VColDucDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VCooZonMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uCooFan=true</code>), generate a Level
 4 alarm.
 </li>
 <li>
 If the heating damper position (<code>uHeaDam</code>) is 0% and airflow sensor reading
 <code>VHotDucDis_flow</code> is above 10% of the heating maximum airflow setpoint
-<code>VHeaZonMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VZonHeaMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uHeaFan=true</code>), generate a Level
 4 alarm.
 </li>
@@ -748,7 +748,7 @@ If the unit has single discharge flow sensor (<code>have_duaSen=false</code>):
 If the cooling and heating damper position (<code>uCooDam</code> and <code>uHeaDam</code>)
 are 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VCooZonMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uCooFan=true</code> or <code>uHeaFan=true</code>),
 generate a Level 4 alarm.
 </li>

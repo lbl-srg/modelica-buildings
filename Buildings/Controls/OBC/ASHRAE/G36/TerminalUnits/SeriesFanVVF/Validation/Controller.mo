@@ -6,7 +6,7 @@ model Controller
     final AFlo=20,
     final desZonPop=2,
     final VZonMin_flow=0.5,
-    final VCooZonMax_flow=1.5,
+    final VZonCooMax_flow=1.5,
     final maxRat=2,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_pressureIndependentDamper=false,

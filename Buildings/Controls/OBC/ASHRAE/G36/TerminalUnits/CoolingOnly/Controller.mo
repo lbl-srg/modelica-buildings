@@ -28,7 +28,7 @@ block Controller "Controller for cooling only VAV box"
     final unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate"
@@ -288,7 +288,7 @@ block Controller "Controller for cooling only VAV box"
         iconTransformation(extent={{100,-170},{140,-130}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.ActiveAirFlow actAirSet(
-    final VCooZonMax_flow=VCooZonMax_flow)
+    final VZonCooMax_flow=VZonCooMax_flow)
     "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.SystemRequests sysReq(
@@ -314,7 +314,7 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Alarms ala(
     final staPreMul=staPreMul,
-    final VCooZonMax_flow=VCooZonMax_flow,
+    final VZonCooMax_flow=VZonCooMax_flow,
     final lowFloTim=lowFloTim,
     final fanOffTim=fanOffTim,
     final leaFloTim=leaFloTim,
@@ -324,7 +324,7 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{120,-220},{140,-200}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Overrides setOve(
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow)
+    final VZonCooMax_flow=VZonCooMax_flow)
     "Override setpoints"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
@@ -338,15 +338,14 @@ block Controller "Controller for cooling only VAV box"
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_typTerUniWitCO2=true,
-    final have_parFanPowUniWitCO2=false,
+    have_typTerUni=true,
     final permit_occStandby=permit_occStandby,
     final AFlo=AFlo,
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,
     final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow,
+    final VZonCooMax_flow=VZonCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
     final dTHys=dTHys)

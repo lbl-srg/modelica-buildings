@@ -3,7 +3,7 @@ model Alarms "Validation of model that generates alarms"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.Alarms ala(
     final staPreMul=1,
-    final VCooZonMax_flow=1,
+    final VZonCooMax_flow=1,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));

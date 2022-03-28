@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type Title24ClimateZone = enumeration(
+    Not_Specified "Not specified",
     Zone_1  "Zone 1, Reference city: Eureka",
     Zone_2  "Zone 2, Reference city: Napa",
     Zone_3  "Zone 3, Reference city: San Francisco",
@@ -26,6 +27,10 @@ Enumeration to ASHRAE climate zones. Possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
+<tr><td><code>Not_Specified</code></td>
+<td>
+Not specified.
+</td></tr>
 <tr><td><code>Zone_1</code></td>
 <td>
 Zone 1, Reference city: Eureka.

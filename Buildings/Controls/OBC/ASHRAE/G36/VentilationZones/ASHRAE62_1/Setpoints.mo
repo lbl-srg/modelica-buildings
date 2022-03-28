@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1;
-block Setpoints "Specify zone minimum outdoor air and minimum airflow set points"
+block Setpoints
+    "Specify zone minimum outdoor air and minimum airflow set points for compliance with ASHRAE standard 62.1"
 
   parameter Boolean have_winSen=false
     "True: the zone has window sensor";
@@ -7,15 +8,15 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
     "True: the zone has occupancy sensor";
   parameter Boolean have_CO2Sen=false
     "True: the zone has CO2 sensor";
-  parameter Boolean have_typTerUniWitCO2=false
+  parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAVWitCO2 and not have_parFanPowUniWitCO2)));
-  parameter Boolean have_parFanPowUniWitCO2=false
+    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_parFanPowUni)));
+  parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAVWitCO2 and not have_typTerUniWitCO2)));
-  parameter Boolean have_SZVAVWitCO2=false
+    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_typTerUni)));
+  parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUniWitCO2 and not have_typTerUniWitCO2)));
+    annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUni and not have_typTerUni)));
 
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted";
@@ -37,12 +38,12 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint"
-    annotation(Dialog(enable=not have_SZVAVWitCO2, group="Design conditions"));
-  parameter Real VCooZonMax_flow(
+    annotation(Dialog(enable=not have_SZVAV, group="Design conditions"));
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and not have_SZVAVWitCO2, group="Design conditions"));
+    annotation(Dialog(enable=have_CO2Sen and not have_SZVAV, group="Design conditions"));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
     annotation(Dialog(tab="Advanced", group="Distribution effectiveness"));
@@ -76,14 +77,14 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
-    if have_CO2Sen and have_parFanPowUniWitCO2
+    if have_CO2Sen and have_parFanPowUni
     "Zone state"
     annotation (Placement(transformation(extent={{-340,-240},{-300,-200}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VParFan_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
-    if have_CO2Sen and have_parFanPowUniWitCO2
+    if have_CO2Sen and have_parFanPowUni
     "Parallel fan airflow rate"
     annotation (Placement(transformation(extent={{-340,-300},{-300,-260}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -102,7 +103,7 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOccZonMin_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if not have_SZVAVWitCO2
+    final unit="m3/s") if not have_SZVAV
     "Occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{300,210},{340,250}}),
         iconTransformation(extent={{100,20},{140,60}})));
@@ -122,8 +123,7 @@ protected
     "CO2 control loop"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) if have_CO2Sen
-    "Constant zero"
+    final k=0) if have_CO2Sen "Constant zero"
     annotation (Placement(transformation(extent={{-280,-100},{-260,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     final k=1) if have_CO2Sen
@@ -142,27 +142,27 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Multiply co2Con if have_CO2Sen
     "Corrected CO2 control loop output"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line occMinAirSet if have_CO2Sen and not have_SZVAVWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Line occMinAirSet if have_CO2Sen and not have_SZVAV
     "Modified occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonMinFlo(
-    final k=VZonMin_flow) if not have_SZVAVWitCO2
+    final k=VZonMin_flow) if not have_SZVAV
     "Zone minimum airflow setpoint Vmin"
     annotation (Placement(transformation(extent={{-280,60},{-260,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonCooMaxFlo(
-    final k=VCooZonMax_flow) if have_CO2Sen and not have_SZVAVWitCO2
+    final k=VZonCooMax_flow) if have_CO2Sen and not have_SZVAV
     "Maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-280,-160},{-260,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Line popBreOutAir if have_CO2Sen
     "Modified population componenet of the required breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal inCooSta if have_CO2Sen and have_parFanPowUniWitCO2
+  Buildings.Controls.OBC.CDL.Integers.Equal inCooSta if have_CO2Sen and have_parFanPowUni
     "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-220,-230},{-200,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch maxFloCO2 if have_CO2Sen and have_parFanPowUniWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Switch maxFloCO2 if have_CO2Sen and have_parFanPowUni
     "Maximum airflow set point for CO2"
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difCooMax if have_CO2Sen and have_parFanPowUniWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Subtract difCooMax if have_CO2Sen and have_parFanPowUni
     "Maximum cooling airflw set point minus parallel fan airflow"
     annotation (Placement(transformation(extent={{-220,-270},{-200,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonAre(
@@ -208,7 +208,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch modAreBreAir
     "Modified area component of the breathing zone airflow"
     annotation (Placement(transformation(extent={{140,250},{160,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch occMinAir if not have_SZVAVWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Switch occMinAir if not
+    have_SZVAV
     "Occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{80,220},{100,240}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOcc if have_occSen
@@ -225,13 +226,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Multiply unPopAreBreAir if have_occSen
     "Area component of the required breathing zone outdoor airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply unpMinZonFlo if have_occSen and not have_SZVAVWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply unpMinZonFlo if have_occSen and not have_SZVAV
     "Minimum zone airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch unpAreBreAir
     "Area component of the required breathing zone outdoor airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch unpMinZonAir if not have_SZVAVWitCO2
+  Buildings.Controls.OBC.CDL.Continuous.Switch unpMinZonAir if not have_SZVAV
     "Minimum zone airflow when it is unpopulated"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
@@ -239,7 +240,7 @@ protected
     "Constant false"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=1) if not have_CO2Sen and not have_SZVAVWitCO2
+    final k=1) if not have_CO2Sen and not have_SZVAV
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
@@ -257,7 +258,7 @@ protected
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooSta(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
-    if have_CO2Sen and have_parFanPowUniWitCO2
+    if have_CO2Sen and have_parFanPowUni
     "Cooling state"
     annotation (Placement(transformation(extent={{-280,-250},{-260,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(
@@ -265,7 +266,7 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3(
-    final k=0) if not have_occSen or have_SZVAVWitCO2
+    final k=0) if not have_occSen or have_SZVAV
     "Constant zero"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater cooSup(
@@ -274,7 +275,7 @@ protected
     annotation (Placement(transformation(extent={{-220,-320},{-200,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter  gai2(
     final k=1)
-    if have_CO2Sen and not have_SZVAVWitCO2 and not have_parFanPowUniWitCO2
+    if have_CO2Sen and not have_SZVAV and not have_parFanPowUni
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 
@@ -439,7 +440,7 @@ equation
           -40},{-222,-40}}, color={0,0,127}));
   connect(ppmCO2Set, lin.x2) annotation (Line(points={{-320,-20},{-240,-20},{-240,
           -64},{-162,-64}}, color={0,0,127}));
-annotation (
+annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
@@ -491,13 +492,13 @@ annotation (
           pattern=LinePattern.Dash,
           textString="ppmCO2"),
         Text(
-          visible=have_CO2Sen and have_parFanPowUniWitCO2,
+          visible=have_CO2Sen and have_parFanPowUni,
           extent={{-98,-4},{-64,-16}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uZonSta"),
         Text(
-          visible=have_CO2Sen and have_parFanPowUniWitCO2,
+          visible=have_CO2Sen and have_parFanPowUni,
           extent={{-98,-32},{-48,-48}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -513,7 +514,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
-          visible=not have_SZVAVWitCO2,
+          visible=not have_SZVAV,
           extent={{48,48},{98,32}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,

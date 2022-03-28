@@ -4,16 +4,16 @@ model Alarms "Validation of model that generates alarms"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Alarms ala(
     final have_duaSen=true,
     final staPreMul=1,
-    final VCooZonMax_flow=1,
-    final VHeaZonMax_flow=0.9,
+    final VZonCooMax_flow=1,
+    final VZonHeaMax_flow=0.9,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,40},{100,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Alarms ala1(
     final have_duaSen=false,
     final staPreMul=1,
-    final VCooZonMax_flow=1,
-    final VHeaZonMax_flow=0.9,
+    final VZonCooMax_flow=1,
+    final VZonHeaMax_flow=0.9,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,-60},{100,-20}})));

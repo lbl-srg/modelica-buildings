@@ -5,11 +5,11 @@ block Overrides "Software switches to override setpoints"
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint";
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VHeaZonMax_flow(
+  parameter Real VZonHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -89,7 +89,7 @@ block Overrides "Software switches to override setpoints"
     "Force zone airflow setpoint to zero"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VZonCooMax_flow)
     "Force zone airflow setpoint to cooling maximum"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal minFlo(
@@ -142,7 +142,7 @@ block Overrides "Software switches to override setpoints"
     "Check if forcing zone airflow setpoint to minimum flow"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMax(
-    final realTrue=VHeaZonMax_flow)
+    final realTrue=VZonHeaMax_flow)
     "Force zone airflow setpoint to zone heating maximum flow"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4
@@ -329,7 +329,7 @@ when <code>oveFloSet</code> equals to 1, force the zone airflow setpoint
 <li>
 when <code>oveFloSet</code> equals to 2, force the zone airflow setpoint
 <code>VSet_flow</code> to zone cooling maximum airflow rate
-<code>VCooZonMax_flow</code>,
+<code>VZonCooMax_flow</code>,
 </li>
 <li>
 when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
@@ -339,7 +339,7 @@ when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 <li>
 when <code>oveFloSet</code> equals to 4, force the zone airflow setpoint
 <code>VSet_flow</code> to zone heating maximum airflow setpoint
-<code>VHeaZonMax_flow</code>.
+<code>VZonHeaMax_flow</code>.
 </li>
 <li>
 when <code>oveDamPos</code> equals to 1, force the damper to full closed by setting

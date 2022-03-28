@@ -3,11 +3,11 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
 
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VHeaZonMax_flow(
+  parameter Real VZonHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -173,7 +173,7 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
-    final k=VCooZonMax_flow)  "Cooling maximum airflow setpoint"
+    final k=VZonCooMax_flow)  "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.1)
@@ -227,7 +227,7 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxFlo(
-    final k=VHeaZonMax_flow)
+    final k=VZonHeaMax_flow)
      "Heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,-210},{-160,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=0.1)
@@ -533,13 +533,13 @@ suppressed for that zone.
 <li>
 If the cooling fan serving the zone has been OFF (<code>uCooFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and the cold-duct airflow sensor reading <code>VColDucDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VCooZonMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 <li>
 If the heating fan serving the zone has been OFF (<code>uHeaFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and the hot-duct airflow sensor reading <code>VHotDucDis_flow</code>
-is above 10% of the heating maximum airflow setpoint <code>VHeaZonMax_flow</code>,
+is above 10% of the heating maximum airflow setpoint <code>VZonHeaMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 </ul>
@@ -548,14 +548,14 @@ generate a Level 3 alarm.
 <li>
 If the cooling damper position (<code>uCooDam</code>) is 0% and airflow sensor reading
 <code>VColDucDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VCooZonMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uCooFan=true</code>), generate a Level
 4 alarm.
 </li>
 <li>
 If the heating damper position (<code>uHeaDam</code>) is 0% and airflow sensor reading
 <code>VHotDucDis_flow</code> is above 10% of the heating maximum airflow setpoint
-<code>VHeaZonMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VZonHeaMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uHeaFan=true</code>), generate a Level
 4 alarm.
 </li>

@@ -6,7 +6,7 @@ model Controller
     final AFlo=20,
     final desZonPop=2,
     final VZonMin_flow=0.5,
-    final VCooZonMax_flow=1.5,
+    final VZonCooMax_flow=1.5,
     final V_flow_nominal=1.5,
     final staPreMul=1,
     final floHys=0.01,

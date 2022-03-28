@@ -121,12 +121,14 @@ model Controller "Validation of the top-level controller"
 equation
   connect(TZon.y, conVAV.TZon) annotation (Line(points={{-158,110},{-36,110},{-36,
           65},{18,65}},   color={0,0,127}));
-  connect(TCut.y, conVAV.TCut) annotation (Line(points={{-98,-72},{-24,-72},{-24,
-          41},{18,41}}, color={0,0,127}));
+  connect(TCut.y, conVAV.TCut) annotation (Line(points={{-98,-72},{-24,-72},{
+          -24,39},{18,39}},
+                        color={0,0,127}));
   connect(TOut.y, conVAV.TOut)
     annotation (Line(points={{-158,190},{-16,190},{-16,78},{18,78}}, color={0,0,127}));
-  connect(TSup.y, conVAV.TSup) annotation (Line(points={{-158,-56},{-28,-56},{-28,
-          43},{18,43}},   color={0,0,127}));
+  connect(TSup.y, conVAV.TSup) annotation (Line(points={{-158,-56},{-28,-56},{
+          -28,41},{18,41}},
+                          color={0,0,127}));
   connect(cooDowTim.y, conVAV.cooDowTim) annotation (Line(points={{-118,170},{-20,
           170},{-20,75},{18,75}}, color={0,0,127}));
   connect(warUpTim.y, conVAV.warUpTim) annotation (Line(points={{-158,150},{-24,
@@ -159,8 +161,9 @@ equation
           {-32,-40},{-32,51},{18,51}}, color={255,127,0}));
   connect(demLimLev.y, conVAV.uHeaDemLimLev) annotation (Line(points={{-118,-40},
           {-32,-40},{-32,49},{18,49}}, color={255,127,0}));
-  connect(winSta.y, conVAV.uWin) annotation (Line(points={{-118,40},{-100,40},{-100,
-          38},{18,38}}, color={255,0,255}));
+  connect(winSta.y, conVAV.uWin) annotation (Line(points={{-118,40},{-100,40},{
+          -100,36},{18,36}},
+                        color={255,0,255}));
   connect(freRes.y, not1.u)
     annotation (Line(points={{-158,-100},{-122,-100}}, color={255,0,255}));
   connect(not1.y, conVAV.uSofSwiRes) annotation (Line(points={{-98,-100},{-20,-100},

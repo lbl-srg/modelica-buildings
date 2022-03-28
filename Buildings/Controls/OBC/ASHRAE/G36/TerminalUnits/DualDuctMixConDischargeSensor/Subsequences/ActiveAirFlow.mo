@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSe
 block ActiveAirFlow
   "Output the active airflow setpoint for dual-duct terminal unit using mixing control with discharge flow sensor"
 
-  parameter Real VCooZonMax_flow(
+  parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VHeaZonMax_flow(
+  parameter Real VZonHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -60,7 +60,7 @@ protected
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VZonCooMax_flow)
     "Active cooling maximum flow"
     annotation (Placement(transformation(extent={{100,120},{120,140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal occModInd(
@@ -71,7 +71,7 @@ protected
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo(
-    final realTrue=VHeaZonMax_flow)
+    final realTrue=VZonHeaMax_flow)
     "Heating maximum flow when input is true"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant setBacMod(
@@ -199,13 +199,13 @@ The implementation is according to the Section 5.13.4 of ASHRAE Guideline 36, Ma
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooZonMax_flow</code></td>
-<td><code>VCooZonMax_flow</code></td><td><code>VCooZonMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VZonCooMax_flow</code></td>
+<td><code>VZonCooMax_flow</code></td><td><code>VZonCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
 <tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VHeaZonMax_flow</code></td>
-<td>0</td><td>0</td><td><code>VHeaZonMax_flow</code></td><td><code>VHeaZonMax_flow</code></td>
+<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VZonHeaMax_flow</code></td>
+<td>0</td><td>0</td><td><code>VZonHeaMax_flow</code></td><td><code>VZonHeaMax_flow</code></td>
 <td>0</td></tr>
 </table>
 <br/>
