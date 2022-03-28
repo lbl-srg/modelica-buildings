@@ -1,12 +1,14 @@
-﻿within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
 model SteamTrap "Steam trap with isenthalpic expansion from high to atmospheric 
   pressure, followed by a isobaric condensation process as flashed steam 
   is brought back to a liquid state"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare replaceable package Medium=Buildings.Media.Water);
 
-  final parameter Modelica.Units.SI.AbsolutePressure pAtm=101325
+  constant Modelica.Units.SI.AbsolutePressure pAtm=101325
      "Atmospheric pressure discharge state";
-  final parameter Modelica.Units.SI.Temperature TSat=100+273.15
+  constant Modelica.Units.SI.Temperature TSat=
+    Buildings.Media.Steam.saturationTemperature(pAtm)
     "Saturation temperature at atmospheric pressure";
 
   Medium.SpecificEnthalpy dh
@@ -75,4 +77,3 @@ First implementation.
 </ul>
 </html>"));
 end SteamTrap;
-
