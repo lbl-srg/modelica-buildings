@@ -129,6 +129,12 @@ March 28, 2022, by Kathryn Hinkelman:<br/>
 Refactored to extend shared two medium base class.
 </li>
 <li>
+March 3, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
+<li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>

@@ -1,0 +1,25 @@
+{
+    "EnergyPlus": {
+        "idf": "SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf",
+        "relativeSurfaceTolerance": 1e-06,
+        "weather": "USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"
+    },
+    "fmu": {
+        "kind": "ME",
+        "name": "C:/Users/Katy/github/modelica-buildings/Buildings/EnergyPlus-simulation-RadiantHeatingWithGroundHeatTransfer.building/RadiantHeatingWithGroundHeatTransfer.building.fmu",
+        "version": "2.0"
+    },
+    "model": {
+        "zoneSurfaces": [
+            {
+                "name": "Living:Floor"
+            }
+        ],
+        "zones": [
+            {
+                "name": "LIVING ZONE"
+            }
+        ]
+    },
+    "version": "0.1"
+}

@@ -15,7 +15,6 @@ model EquationFitReversible
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T1_start=281.4,
     per=per)
    "Water to Water heat pump"

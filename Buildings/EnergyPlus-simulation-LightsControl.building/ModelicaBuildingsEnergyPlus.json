@@ -1,0 +1,36 @@
+{
+  "version": "0.1",
+  "EnergyPlus": {
+    "idf": "C:/Users/Katy/github/modelica-buildings/Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf",
+    "weather": "C:/Users/Katy/github/modelica-buildings/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw",
+    "relativeSurfaceTolerance": 1.00e-06
+  },
+  "model": {
+    "zones": [
+      {
+        "name": "LIVING ZONE"
+      }
+    ],
+    "emsActuators": [
+      {
+        "variableName": "LIVING ZONE Lights",
+        "componentType": "Lights",
+        "controlType": "Electricity Rate",
+        "unit": "W",
+        "fmiName": "LIVING ZONE Lights_Lights"
+      }
+    ],
+    "outputVariables": [
+      {
+        "name": "Lights Electricity Rate",
+        "key": "LIVING ZONE Lights",
+        "fmiName": "Lights Electricity Rate_LIVING ZONE Lights"
+      }
+    ]
+  },
+  "fmu": {
+      "name": "C:/Users/Katy/github/modelica-buildings/Buildings/EnergyPlus-simulation-LightsControl.building/LightsControl.building.fmu",
+      "version": "2.0",
+      "kind": "ME"
+  }
+}

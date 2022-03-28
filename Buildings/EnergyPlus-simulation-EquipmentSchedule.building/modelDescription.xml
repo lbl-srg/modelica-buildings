@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<fmiModelDescription fmiVersion="2.0" modelName="epfmi" guid="7904aee5cf80e4c390084a983b3f5e1d">
+	<ModelExchange modelIdentifier="epfmi" needsExecutionTool="false" completedIntegratorStepNotNeeded="false" canBeInstantiatedOnlyOncePerProcess="true" canNotUseMemoryManagementFunctions="false" canGetAndSetFMUstate="false" canSerializeFMUstate="false" providesDirectionalDerivative="false" />
+	<UnitDefinitions>
+		<Unit name="1" />
+		<Unit name="rad">
+			<BaseUnit />
+			<DisplayUnit name="rad" />
+			<DisplayUnit name="deg" factor="57.29577951308232" />
+		</Unit>
+		<Unit name="J">
+			<BaseUnit kg="1" m="2" s="-2" />
+		</Unit>
+		<Unit name="lm/m2">
+			<BaseUnit cd="1" m="-2" />
+			<DisplayUnit name="lm/m2" />
+			<DisplayUnit name="lux" />
+		</Unit>
+		<Unit name="cd.sr">
+			<BaseUnit cd="1" />
+			<DisplayUnit name="cd.sr" />
+			<DisplayUnit name="lum" />
+		</Unit>
+		<Unit name="kg/s">
+			<BaseUnit kg="1" s="-1" />
+		</Unit>
+		<Unit name="W">
+			<BaseUnit kg="1" m="2" s="-3" />
+		</Unit>
+		<Unit name="Pa">
+			<BaseUnit kg="1" m="-1" s="-2" />
+		</Unit>
+		<Unit name="K">
+			<BaseUnit K="1" />
+			<DisplayUnit name="K" />
+			<DisplayUnit name="degC" offset="-273.15" />
+		</Unit>
+		<Unit name="s">
+			<BaseUnit s="1" />
+		</Unit>
+		<Unit name="m3/s">
+			<BaseUnit m="3" s="-1" />
+		</Unit>
+		<Unit name="m2">
+			<BaseUnit m="2" />
+		</Unit>
+		<Unit name="m3">
+			<BaseUnit m="3" />
+		</Unit>
+	</UnitDefinitions>
+	<LogCategories>
+		<Category name="logLevel1" description="logLevel1 - EnergyPlus Info" />
+		<Category name="logLevel2" description="logLevel2 - EnergyPlus Warning" />
+		<Category name="logLevel3" description="logLevel3 - EnergyPlus Error" />
+		<Category name="logLevel4" description="logLevel4 - EnergyPlus Fatal" />
+	</LogCategories>
+	<ModelVariables>
+		<ScalarVariable name="INTERMITTENT_EquipmentSchedule.schInt" valueReference="0" description="Schedule" causality="input" variability="continuous">
+			<Real unit="1" start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_T" valueReference="1" description="Temperature of the zone air" causality="input" variability="continuous">
+			<Real quantity="ThermodynamicTemperature" relativeQuantity="false" start="0.0" unit="K" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_QConSen_flow" valueReference="2" description="Convective sensible heat added to the zone" causality="output" variability="continuous" initial="calculated">
+			<Real quantity="Power" relativeQuantity="false" unit="W" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_AFlo" valueReference="3" description="Floor area" causality="calculatedParameter" variability="fixed" initial="calculated">
+			<Real quantity="Area" relativeQuantity="false" unit="m2" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_V" valueReference="4" description="Volume" causality="calculatedParameter" variability="fixed" initial="calculated">
+			<Real quantity="Volume" relativeQuantity="false" unit="m3" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_mSenFac" valueReference="5" description="Factor for scaling sensible thermal mass of volume" causality="calculatedParameter" variability="fixed" initial="calculated">
+			<Real relativeQuantity="false" unit="1" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_QGaiRad_flow" valueReference="6" description="Radiative sensible heat gain added to the zone" causality="input" variability="continuous">
+			<Real quantity="Power" relativeQuantity="false" start="0.0" unit="W" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_QLat_flow" valueReference="7" description="Latent heat gain added to the zone" causality="output" variability="continuous" initial="calculated">
+			<Real quantity="Power" relativeQuantity="false" unit="W" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_QPeo_flow" valueReference="8" description="Heat gain due to people" causality="output" variability="continuous" initial="calculated">
+			<Real quantity="Power" relativeQuantity="false" unit="W" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_TAveInlet" valueReference="9" description="Average of inlets medium temperatures carried by the mass flow rates" causality="input" variability="continuous">
+			<Real quantity="ThermodynamicTemperature" relativeQuantity="false" start="21.0" unit="K" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_TRad" valueReference="10" description="Average radiative temperature in the room" causality="output" variability="continuous" initial="calculated">
+			<Real quantity="ThermodynamicTemperature" relativeQuantity="false" unit="K" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_X" valueReference="11" description="Water vapor mass fraction in kg water/kg dry air" causality="input" variability="continuous">
+			<Real relativeQuantity="false" min="0" start="0.0" unit="1" />
+		</ScalarVariable>
+		<ScalarVariable name="LIVING ZONE_mInlets_flow" valueReference="12" description="Sum of positive mass flow rates into the zone for all air inlets (including infiltration)" causality="input" variability="continuous">
+			<Real quantity="MassFlowRate" relativeQuantity="false" start="0.0" unit="kg/s" />
+		</ScalarVariable>
+	</ModelVariables>
+	<ModelStructure />
+</fmiModelDescription>
