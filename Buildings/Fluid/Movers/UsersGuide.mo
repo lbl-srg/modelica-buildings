@@ -607,6 +607,8 @@ During simulation, it will be computed using the other efficiency terms.
 </ul>
 <p>
 The table below shows the options available for computing each of the efficiencies.
+For example usage, see <a href=\"Modelica://Buildings.Fluid.Movers.Examples.StaticReset\">
+Buildings.Fluid.Movers.Examples.StaticReset</a>.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <thead>
