@@ -80,7 +80,7 @@ equation
   connect(torSou.flange, Chi.shaft)
     annotation (Line(points={{-60,70},{0,70},{0,10}}, color={0,0,0}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/MotorDrive/ThermoFluid/Examples/Chiller.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/Chiller.mos"
         "Simulate and plot"),
         Documentation(info="<html>
 <p>Example that simulates a chiler using the torque as input signal.</p>

@@ -80,7 +80,7 @@ equation
   connect(torSou.flange, Hea.shaft)
     annotation (Line(points={{-60,70},{0,70},{0,10}}, color={0,0,0}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/MotorDrive/ThermoFluid/Examples/HeatPump.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/HeatPump.mos"
         "Simulate and plot"),
         Documentation(info="<html>
 <p>Example that simulates a heat pump using the torque as input signal.</p>

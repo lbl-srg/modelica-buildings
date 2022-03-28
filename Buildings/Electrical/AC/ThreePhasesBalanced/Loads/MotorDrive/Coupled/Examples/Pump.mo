@@ -67,7 +67,7 @@ equation
   connect(step.y, pum.setPoi) annotation (Line(points={{-59,70},{-20,70},{-20,
           28},{-1,28}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/MotorDrive/Coupled/Examples/Pump.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>Example that simulates a motor coupled pump to track the set point signal as the load changes.</p>
