@@ -8,10 +8,11 @@ model Pump "This example shows how to use the motor coupled pump model"
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=1/2*dp_nominal)
-    annotation (Placement(transformation(extent={{-46,10},{-26,30}})));
+    dp_nominal=1/2*dp_nominal) "Pressure loss"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Fluid.Sources.Boundary_pT sou(redeclare package Medium = Medium,
-      nPorts=1) annotation (Placement(transformation(
+      nPorts=1) "Boundary"
+                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,20})));
@@ -30,40 +31,42 @@ model Pump "This example shows how to use the motor coupled pump model"
     simMot(VFD(
         k=0.1,
         Ti=60,
-        reverseActing=true)))
+        reverseActing=true))) "Pump"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Electrical.AC.OnePhase.Sources.Grid gri(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-4,-50},{-24,-30}})));
+    "Flow rate sensor"
+    annotation (Placement(transformation(extent={{0,-50},{-20,-30}})));
   Fluid.FixedResistances.PressureDrop dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=1/2*dp_nominal)
+    dp_nominal=1/2*dp_nominal) "Pressure loss"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Modelica.Blocks.Sources.Step step(
     height=0,
     offset=10,
-    startTime=1800)
+    startTime=1800) "Flow rate set point"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
 equation
   connect(dp1.port_b, pum.port_a)
-    annotation (Line(points={{-26,20},{0,20}}, color={0,127,255}));
+    annotation (Line(points={{-20,20},{0,20}}, color={0,127,255}));
   connect(gri.terminal, pum.terminal)
     annotation (Line(points={{10,60},{10,30}}, color={0,120,120}));
   connect(senMasFlo.m_flow, pum.meaPoi)
-    annotation (Line(points={{-14,-29},{-14,24},{-1,24}}, color={0,0,127}));
-  connect(dp1.port_a, senMasFlo.port_b) annotation (Line(points={{-46,20},{-60,20},
-          {-60,-40},{-24,-40}}, color={0,127,255}));
+    annotation (Line(points={{-10,-29},{-10,24},{-1,24}}, color={0,0,127}));
+  connect(dp1.port_a, senMasFlo.port_b) annotation (Line(points={{-40,20},{-60,
+          20},{-60,-40},{-20,-40}},
+                                color={0,127,255}));
   connect(pum.port_b, dp2.port_a)
     annotation (Line(points={{20,20},{40,20}}, color={0,127,255}));
   connect(dp2.port_b, senMasFlo.port_a) annotation (Line(points={{60,20},{80,20},
-          {80,-40},{-4,-40}}, color={0,127,255}));
+          {80,-40},{0,-40}},  color={0,127,255}));
   connect(sou.ports[1], dp1.port_a)
-    annotation (Line(points={{-80,20},{-46,20}}, color={0,127,255}));
+    annotation (Line(points={{-80,20},{-40,20}}, color={0,127,255}));
   connect(step.y, pum.setPoi) annotation (Line(points={{-59,70},{-20,70},{-20,
           28},{-1,28}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),

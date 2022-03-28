@@ -23,31 +23,31 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     use_T_in=true,
     m_flow=m1_flow_nominal,
     T=298.15,
-    nPorts=1)
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+    nPorts=1) "Water source 1"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=0,
     duration=60,
     offset=273.15 + 15,
     startTime=60) "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=m2_flow_nominal,
     T=291.15,
-    nPorts=1)
+    nPorts=1) "Water source 2"
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Buildings.Electrical.AC.OnePhase.Sources.Grid Sou(f=60, V=120)
     "Voltage source"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium2,
-      m_flow_nominal=m2_flow_nominal)
-    annotation (Placement(transformation(extent={{26,30},{46,50}})));
+      m_flow_nominal=m2_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Modelica.Blocks.Sources.Step TSet(
     height=5,
     offset=273.15 + 20,
-    startTime=500)
+    startTime=500) "Condenser side leaving water temperature set point"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   MotorDrive.Coupled.HeatPump hea(
     redeclare package Medium1 = Medium1,
@@ -66,41 +66,44 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     X_s=1.106,
     X_r=0.464,
     X_m=26.3,
-    JLoad=5) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    JLoad=5) "Heat pump"
+             annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=0,
     duration=60,
     offset=273.15 + 10,
     startTime=60) "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{96,-50},{76,-30}})));
+    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2,
-      nPorts=1) annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+      nPorts=1) "Water sink 2"
+                annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
-      nPorts=1) annotation (Placement(transformation(extent={{80,60},{60,80}})));
+      nPorts=1) "Water sink 1"
+                annotation (Placement(transformation(extent={{100,60},{80,80}})));
 
 equation
   connect(TCon_in.y,sou1. T_in) annotation (Line(
-      points={{-69,30},{-58,30},{-58,34},{-52,34}},
+      points={{-79,30},{-70,30},{-70,34},{-62,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hea.port_a2, sou2.ports[1]) annotation (Line(points={{10,-6},{26,-6},
           {26,-10},{40,-10}}, color={0,127,255}));
-  connect(sou1.ports[1], hea.port_a1) annotation (Line(points={{-30,30},{-20,30},
-          {-20,6},{-10,6}}, color={0,127,255}));
-  connect(senTem.port_a, hea.port_b1) annotation (Line(points={{26,40},{18,40},
-          {18,6},{10,6}}, color={0,127,255}));
-  connect(Sou.terminal, hea.terminal) annotation (Line(points={{10,70},{10,32},
+  connect(sou1.ports[1], hea.port_a1) annotation (Line(points={{-40,30},{-26,30},
+          {-26,6},{-10,6}}, color={0,127,255}));
+  connect(senTem.port_a, hea.port_b1) annotation (Line(points={{40,40},{20,40},
+          {20,6},{10,6}}, color={0,127,255}));
+  connect(Sou.terminal, hea.terminal) annotation (Line(points={{10,60},{10,32},
           {0,32},{0,10}}, color={0,120,120}));
   connect(TSet.y, hea.setPoi) annotation (Line(points={{-39,70},{-24,70},{-24,9},
           {-11,9}}, color={0,0,127}));
-  connect(senTem.T, hea.meaPoi) annotation (Line(points={{36,51},{36,60},{-16,
-          60},{-16,3},{-11,3}}, color={0,0,127}));
-  connect(sou2.T_in, TEva_in.y) annotation (Line(points={{62,-6},{70,-6},{
-        70,-40},{75,-40}},color={0,0,127}));
+  connect(senTem.T, hea.meaPoi) annotation (Line(points={{50,51},{50,96},{-18,
+          96},{-18,3},{-11,3}}, color={0,0,127}));
+  connect(sou2.T_in, TEva_in.y) annotation (Line(points={{62,-6},{74,-6},{74,
+          -30},{79,-30}}, color={0,0,127}));
   connect(hea.port_b2, sin2.ports[1]) annotation (Line(points={{-10,-6},{-26,-6},
           {-26,-30},{-40,-30}}, color={0,127,255}));
-  connect(senTem.port_b, sin1.ports[1]) annotation (Line(points={{46,40},{54,40},
-          {54,70},{60,70}}, color={0,127,255}));
+  connect(senTem.port_b, sin1.ports[1]) annotation (Line(points={{60,40},{74,40},
+          {74,70},{80,70}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/HeatPump.mos"
         "Simulate and plot"),
