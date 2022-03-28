@@ -14,7 +14,6 @@ model ClosedDoors "Model with three closed doors"
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
@@ -22,7 +21,6 @@ model ClosedDoors "Model with three closed doors"
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
@@ -38,7 +36,6 @@ model ClosedDoors "Model with three closed doors"
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAC(

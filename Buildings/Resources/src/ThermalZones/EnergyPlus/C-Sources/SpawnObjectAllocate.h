@@ -23,7 +23,7 @@ LBNL_Spawn_EXPORT void* EnergyPlusSpawnAllocate(
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* buildingsRootFileLocation,
   const int logLevel,
   const int printUnit,
   const char* jsonName,
