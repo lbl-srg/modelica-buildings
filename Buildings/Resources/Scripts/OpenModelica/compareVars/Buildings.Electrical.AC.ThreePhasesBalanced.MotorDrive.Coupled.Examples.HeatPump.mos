@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "hea.P",
-    "hea.mecHea.heaPum.P",
-    "TSet.y",
-    "senTem.T",
-    "hea.simMot.tau_e",
-    "hea.mecHea.spe.w"
-  };

@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "torSpe.tau_e",
-    "torSpe.omega_r",
-    "torSpe.omega_s",
-    "torSpe.s"
-  };

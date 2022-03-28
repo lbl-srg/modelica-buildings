@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "pum.pum.pum.P",
-    "pum.P",
-    "senMasFlo.m_flow",
-    "pum.simMot.tau_e",
-    "pum.pum.spe.w"
-  };

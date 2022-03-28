@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "Hea.shaft.tau",
-    "Hea.to_rpm.y",
-    "Hea.heaPum.P"
-  };

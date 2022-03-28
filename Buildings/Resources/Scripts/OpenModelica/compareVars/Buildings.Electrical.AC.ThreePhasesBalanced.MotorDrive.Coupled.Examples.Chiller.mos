@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "chi.P",
-    "chi.mecChi.chi.P",
-    "TSet.y",
-    "senTem.T",
-    "chi.simMot.tau_e",
-    "chi.mecChi.spe.w"
-  };

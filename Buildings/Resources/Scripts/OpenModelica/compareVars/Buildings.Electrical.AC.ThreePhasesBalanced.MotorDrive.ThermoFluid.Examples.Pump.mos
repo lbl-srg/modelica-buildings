@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "torSou.tau",
-    "Pum.to_rpm.y",
-    "Pum.pum.P"
-  };
