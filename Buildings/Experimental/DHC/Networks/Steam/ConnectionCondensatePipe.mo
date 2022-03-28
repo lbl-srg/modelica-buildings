@@ -2,37 +2,19 @@
 model ConnectionCondensatePipe
   "Connection for a steam district heating network featuring the condensate return pipe"
   extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
-    final T_start=TSup_start,
-    final p_start=pSup_start,
-    redeclare model Model_pip_aDisSup =
-        Buildings.Fluid.FixedResistances.LosslessPipe,
     redeclare model Model_pipConRet =
         Buildings.Fluid.FixedResistances.PressureDrop (
-        dp_nominal=1500),
-    redeclare final model Model_pip_bDisSup =
-        Buildings.Fluid.FixedResistances.LosslessPipe,
-    redeclare final model Model_pip_aDisRet =
+          final dp_nominal=dp_nominal),
+    redeclare final model Model_pipDisRet =
+        Buildings.Fluid.FixedResistances.PressureDrop (
+          final dp_nominal=dp_nominal),
+    redeclare model Model_pipDisSup =
         Buildings.Fluid.FixedResistances.LosslessPipe,
     redeclare final model Model_pipConSup =
-        Buildings.Fluid.FixedResistances.LosslessPipe,
-    redeclare final model Model_pip_bDisRet =
-        Buildings.Fluid.FixedResistances.PressureDrop (
-        dp_nominal=1500));
-
-  // Initialization
-  parameter Modelica.Units.SI.AbsolutePressure pSup_start=MediumSup.p_default
-    "Start value of pressure in supply pipes"
-    annotation(Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.Temperature TSup_start=MediumSup.T_default
-    "Start value of temperature in supply pipes"
-    annotation(Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.AbsolutePressure pRet_start=MediumRet.p_default
-    "Start value of pressure in return pipes"
-    annotation(Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.Temperature TRet_start=MediumRet.T_default
-    "Start value of temperature in return pipes"
-    annotation(Dialog(tab="Initialization"));
-
+        Buildings.Fluid.FixedResistances.LosslessPipe);
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+    "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{48,76},{72,24}},

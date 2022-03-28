@@ -58,7 +58,9 @@ model DistributionCondensatePipe
     redeclare package MediumRet = MediumWat,
     nCon=2,
     mDis_flow_nominal=m1_flow_nominal + m2_flow_nominal,
-    mCon_flow_nominal={m1_flow_nominal,m2_flow_nominal})
+    mCon_flow_nominal={m1_flow_nominal,m2_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{-20,0},{20,20}})));
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bui[2](
     redeclare package MediumSte = MediumSte,

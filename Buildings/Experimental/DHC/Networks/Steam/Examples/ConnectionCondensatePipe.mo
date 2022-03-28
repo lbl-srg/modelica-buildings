@@ -64,8 +64,8 @@ model ConnectionCondensatePipe "Example model for the steam heating connection b
     redeclare package MediumRet = MediumWat,
     mDis_flow_nominal=m_flow_nominal,
     mCon_flow_nominal=m_flow_nominal,
-    pSup_start=pSat,
-    TSup_start=TSat)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal=1500)
     "Connection block for steam systems"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 

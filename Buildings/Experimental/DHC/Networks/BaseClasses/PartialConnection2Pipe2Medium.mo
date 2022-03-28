@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks.BaseClasses;
-partial model PartialConnection2Pipe2Medium "Partial model for connecting a LosslessPipegent to a two-pipe 
-  distribution network with two medium declarations"
+partial model PartialConnection2Pipe2Medium "Partial model for connecting an 
+  agent to a two-pipe distribution network with two medium declarations"
   replaceable package MediumSup =
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";
@@ -8,30 +8,18 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting a Loss
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for return fluid";
 
-  replaceable model Model_pip_aDisSup =
+  replaceable model Model_pipDisSup =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
     final m_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal)
     "Interface for inlet pipe for the distribution supply";
-  replaceable model Model_pip_bDisRet =
+  replaceable model Model_pipDisRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumRet,
     final m_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal)
     "Interface for outlet pipe for the distribution return";
-  replaceable model Model_pip_bDisSup =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface (
-    redeclare final package Medium = MediumSup,
-    final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
-    "Interface for outlet pipe for the distribution supply (end of line)";
-  replaceable model Model_pip_aDisRet =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface (
-    redeclare final package Medium = MediumRet,
-    final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
-    "Interface for inlet pipe for the distribution return (end of line)";
   replaceable model Model_pipConSup =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
@@ -66,13 +54,7 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting a Loss
     annotation (
       Dialog(tab="Dynamics", group="Nominal condition",
       enable=not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState));
-  // Initialization
-  parameter Modelica.Units.SI.AbsolutePressure p_start
-    "Start value of pressure in pipes"
-    annotation(Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.Temperature T_start
-    "Start value of temperature in pipes"
-    annotation(Dialog(tab="Initialization"));
+
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
     redeclare final package Medium = MediumSup,
@@ -117,18 +99,10 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting a Loss
     annotation (Placement(transformation(extent={{10,110},{30,130}}),
       iconTransformation(extent={{50,90},{70,110}})));
   // COMPONENTS
-  Model_pip_aDisSup pip_aDisSup
-    "Distribution supply pipe"
+  Model_pipDisSup pipDisSup "Distribution supply pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Model_pip_bDisRet pip_bDisRet
-    "Distribution return pipe"
+  Model_pipDisRet pipDisRet "Distribution return pipe"
     annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
-  Model_pip_bDisSup pip_bDisSup
-    "Distribution supply pipe"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Model_pip_aDisRet pip_aDisRet
-    "Distribution return pipe"
-    annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
   Model_pipConSup pipConSup "Connection supply pipe"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -151,7 +125,8 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting a Loss
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final dp_nominal = {0, 0, 0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
@@ -168,7 +143,8 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting a Loss
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dp_nominal = {0, 0, 0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
@@ -183,28 +159,24 @@ protected
 equation
   connect(junConSup.port_3, pipConSup.port_a)
     annotation (Line(points={{-20,-30},{-20,-20}}, color={0,127,255}));
-  connect(pip_aDisSup.port_b, junConSup.port_1)
+  connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
-  connect(port_aDisSup, pip_aDisSup.port_a)
+  connect(port_aDisSup, pipDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
-  connect(junConRet.port_2, pip_bDisRet.port_a)
+  connect(junConRet.port_2, pipDisRet.port_a)
     annotation (Line(points={{10,-80},{-60,-80}}, color={0,127,255}));
-  connect(pip_bDisRet.port_b, port_bDisRet)
+  connect(pipDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
   connect(pipConRet.port_a, port_aCon)
     annotation (Line(points={{20,0},{20,0},{20,120}}, color={0,127,255}));
   connect(pipConRet.port_b, junConRet.port_3)
     annotation (Line(points={{20,-20},{20,-20},{20,-70}}, color={0,127,255}));
-  connect(junConSup.port_2, pip_bDisSup.port_a)
-    annotation (Line(points={{-10,-40},{60,-40}}, color={0,127,255}));
-  connect(pip_bDisSup.port_b, port_bDisSup)
-    annotation (Line(points={{80,-40},{90,-40},{90,-40},{100,-40}}, color={0,127,255}));
-  connect(port_aDisRet, pip_aDisRet.port_a)
-    annotation (Line(points={{100,-80},{80,-80}}, color={0,127,255}));
-  connect(pip_aDisRet.port_b, junConRet.port_1)
-    annotation (Line(points={{60,-80},{30,-80}}, color={0,127,255}));
   connect(pipConSup.port_b, port_bCon)
     annotation (Line(points={{-20,0},{-20,120}}, color={0,127,255}));
+  connect(junConSup.port_2, port_bDisSup)
+    annotation (Line(points={{-10,-40},{100,-40}}, color={0,127,255}));
+  connect(junConRet.port_1, port_aDisRet)
+    annotation (Line(points={{30,-80},{100,-80},{100,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Documentation(info="

@@ -90,32 +90,20 @@ equation
       connect(con[i-1].port_aDisRet,con[i].port_bDisRet);
     end for;
   end if;
-
   connect(con.port_bCon,ports_bCon)
-    annotation (Line(points={{0,10},{0,40},{-80,40},{-80,100}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{0,10},{0,40},{-80,40},{-80,100}},color={0,127,255}));
   connect(ports_aCon,con.port_aCon)
-    annotation (Line(points={{80,100},{80,40},{6,40},{6,10}},color={0,0,222},
-      thickness=0.5));
+    annotation (Line(points={{80,100},{80,40},{6,40},{6,10}},color={0,127,255}));
   connect(port_aDisSup,con[1].port_aDisSup)
-    annotation (Line(points={{-100,0},{-10,0}},color={0,0,222},
-      thickness=0.5));
+    annotation (Line(points={{-100,0},{-10,0}},color={0,127,255}));
   connect(port_bDisRet,con[1].port_bDisRet)
-    annotation (Line(points={{-100,-60},{-40,-60},{-40,-6},{-10,-6}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{-100,-60},{-40,-60},{-40,-6},{-10,-6}},color={0,127,255}));
   connect(con[nCon].port_aDisRet,port_aDisRet)
-    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},color={0,127,255}));
   connect(con[nCon].port_bDisSup,pipEnd.port_a)
-    annotation (Line(points={{10,0},{60,0}},color={0,0,222},
-      thickness=0.5));
+    annotation (Line(points={{10,0},{60,0}},color={0,127,255}));
   connect(pipEnd.port_b,port_bDisSup)
-    annotation (Line(points={{80,0},{100,0}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
   annotation (
     Documentation(
       info="
