@@ -5,7 +5,7 @@ model Pump
   port_a(p(start=Medium.p_default)),
   port_b(p(start=Medium.p_default)));
 
-  parameter Modelica.Units.SI.Inertia loaIne=1 "Pump inertia";
+  parameter Modelica.Units.SI.Inertia loaIne(min=0)=1 "Pump inertia";
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per

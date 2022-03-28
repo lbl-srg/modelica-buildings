@@ -30,7 +30,7 @@ model HeatPump "Heat pump with mechanical interface"
   parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
     "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Inertia loaIne=1 "Heat pump inertia"
+  parameter Modelica.Units.SI.Inertia loaIne(min=0)=1 "Heat pump inertia"
     annotation (Dialog(group="Nominal condition"));
 
   //Efficiency

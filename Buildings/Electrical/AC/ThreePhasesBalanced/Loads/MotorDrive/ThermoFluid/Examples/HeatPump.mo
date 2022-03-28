@@ -5,7 +5,7 @@ model HeatPump "This example shows how to use the heat pump with mechanical inte
   package Medium2 = Buildings.Media.Water;
   parameter Modelica.Units.SI.Torque tau=20
   "Provided torque";
-  parameter Modelica.Units.SI.Inertia JLoad=30
+  parameter Modelica.Units.SI.Inertia JLoad=10
   "Load inertia";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
@@ -45,6 +45,7 @@ model HeatPump "This example shows how to use the heat pump with mechanical inte
     dTCon_nominal=5,
     P_nominal=1000,
     Nrpm_nominal=1800,
+    loaIne=JLoad,
     use_eta_Carnot_nominal=true,
     etaCarnot_nominal=0.5,
     dp1_nominal=1000,
