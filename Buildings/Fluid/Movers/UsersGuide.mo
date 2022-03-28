@@ -461,14 +461,14 @@ Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 From the definition one has
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-<i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>
+<i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>.
 </p>
 <p>
-This means that the user needs provide two of the three items and leave one
-unspecified. (Providing all three would over-specify the problem.)
-In fact, the programme also allows the user to provide only one efficiency item
-or even leave all unspecified.
-In such cases, the following default values are used:
+Two of the three efficiencies need to be defined, while defining all three would over-specify the problem.
+A user may have varying amounts of information about mover and/or motor performance.  Therefore, 
+the implementation allows a user to specify two, one, or none of the efficiencies.  In the case of specifying 
+one or none of the efficiencies, the implementation defines default values as needed based on
+reasonable assumptions.  In such cases, the following default values are used:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <thead>
@@ -521,8 +521,8 @@ In such cases, the following default values are used:
 </tbody>
 </table>
 <p>
-There are different methods for computing the efficiencies and the powers
-implemented in
+For the efficiency values that a user does define, there are different methods
+for doing so, depending on the efficiency being defined, as implemented in
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 They are selected by the enumeration
@@ -533,11 +533,10 @@ which has the following choices:
 <ul>
 <li>
 <code>Values</code> - An array of efficiency vs. <i>V&#775;</i> is provided.
-If the array has only one element, the efficiency is constant. If the array has
+During simulation, if the array has only one element, the efficiency is constant. If the array has
 more than one element, the efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
-The power is then computed from the efficiency.
 See
 <a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
 Buildings.Fluid.Movers.Validation.PowerSimplified</a>
@@ -545,7 +544,7 @@ as an example.
 </li>
 <li>
 <code>Values_y</code> - An array of efficiency vs. part load ratio <i>y</i>
-is provided. The efficiency is interpolated or extrapolated by
+is provided. During simulation, the efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y</a>.
 See
@@ -555,7 +554,7 @@ as an example.
 </li>
 <li>
 <code>PowerCurve</code> - An array of power vs. <i>V&#775;</i> is provided.
-The power is interpolated or extrapolated by
+During simulation, the power is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
 The efficiency is then computed from the power.
@@ -565,10 +564,9 @@ Buildings.Fluid.Movers.Validation.PowerExact</a>
 as an example.
 </li>
 <li>
-<code>EulerNumber</code> - The efficiency, together with <i>&Delta;p</i> and
-<i>V&#775;</i>, corresponding to a point where the efficiency is at its
-maxinum is provided.
-The efficiency and power are computed using the package
+<code>EulerNumber</code> - An efficiency, <i>&Delta;p</i>, and
+<i>V&#775;</i> are provided that correspond to an operating point where the efficiency is at its peak.
+During simulation, the efficiency and power are computed using the package
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.
 The model finds the efficiency by evaluating the following correlation:
@@ -604,11 +602,11 @@ as an example.
 </li>
 <li>
 <code>NotProvided</code> - The information of this efficiency term is not provided.
-It will be computed through the other efficiency terms.
+During simulation, it will be computed using the other efficiency terms.
 </li>
 </ul>
 <p>
-The options that can be selected by each efficiency item are listed below.
+The table below shows the options available for computing each of the efficiencies.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <thead>
@@ -649,12 +647,14 @@ The options that can be selected by each efficiency item are listed below.
 </tbody>
 </table>
 <p>
-* This option can only be selected once.<br/>
-** Although the Euler number method is defined to use <i>&eta;<sub>hyd</sub></i>,
+* The <code>PowerCurve</code> and <code>EulerNumber</code> options cannot both be used at the same time.  
+For example, if <i>&eta;<sub>hyd</sub></i> uses <code>EulerNumber</code>, then <i>&eta;</i> must use
+<code>Values</code> or <code>NotProvided</code>.<br/>
+** Although the Euler number method is defined using <i>&eta;<sub>hyd</sub></i>,
 because the motor efficiency tends to be largely constant from full load down to
 25% - 50% of part motor load, the relationship between <i>&eta;</i> and
 <i>&eta;<sub>hyd</sub></i> is roughly linear for the range that matters most.
-This is therefore a reasonable approximation.
+It is therefore reasonable to approximate that the <code>EulerNumber</code> method can also be used to define total efficiency.
 </p>
 
 <h5>Fluid volume of the component</h5>
