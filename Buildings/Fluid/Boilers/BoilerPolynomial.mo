@@ -104,12 +104,6 @@ an arbitrary number of polynomial coefficients can be specified.
 ", revisions="<html>
 <ul>
 <li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
 October 13, 2021, by Hongxiang Fu:<br/>
 For the implementation of
 <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">

@@ -1,7 +1,6 @@
 within Buildings.ThermalZones.ReducedOrder.RC;
 model OneElement "Thermal Zone with one element for exterior walls"
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-    final massDynamics=energyDynamics);
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   parameter Modelica.Units.SI.Volume VAir "Air volume of the zone"
     annotation (Dialog(group="Thermal zone"));
@@ -132,7 +131,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
     m_flow_nominal=VAir*6/3600*1.2,
     final V=VAir,
     final energyDynamics=energyDynamics,
-    final massDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -148,7 +147,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
     m_flow_nominal=VAir*6/3600*1.2,
     final V=VAir,
     final energyDynamics=energyDynamics,
-    final massDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -540,12 +539,6 @@ The image below shows the RC-network of this model.
   </html>",
 revisions="<html>
 <ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
 <li>
 October 9, 2019, by Michael Wetter:<br/>
 Refactored addition of moisture to also account for the energy content of the

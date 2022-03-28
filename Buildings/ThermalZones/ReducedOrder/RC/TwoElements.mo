@@ -124,27 +124,21 @@ equation
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid,
     textString="Interior Walls")}), Documentation(revisions="<html>
-<ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
-July 11, 2019, by Katharina Brinkmann:<br/>
-Renamed <code>alphaInt</code> to <code>hConInt</code>,
-<code>alphaIntWall</code> to <code>hConIntWall</code>
-</li>
-<li>
-January 25, 2019, by Michael Wetter:<br/>
-Added start value to avoid warning in JModelica.
-</li>
-<li>
-April 18, 2015, by Moritz Lauster:<br/>
-First implementation.
-</li>
-</ul>
+  <ul>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaInt</code> to <code>hConInt</code>,
+  <code>alphaIntWall</code> to <code>hConIntWall</code>
+  </li>
+  <li>
+  January 25, 2019, by Michael Wetter:<br/>
+  Added start value to avoid warning in JModelica.
+  </li>
+  <li>
+  April 18, 2015, by Moritz Lauster:<br/>
+  First implementation.
+  </li>
+  </ul>
 </html>",   info="<html>
   <p>This model distinguishes between internal
   thermal masses and exterior walls. While exterior walls contribute to heat

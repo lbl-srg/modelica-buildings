@@ -9,6 +9,7 @@ model MixingVolumeZeroFlow
     m_flow_nominal=1,
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false)
     "Steady state mixing volume requiring solution of non-linear system"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
@@ -47,6 +48,7 @@ model MixingVolumeZeroFlow
     m_flow_nominal=1,
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false)
     "Steady state mixing volume with prescribed temperature input"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
@@ -62,6 +64,7 @@ model MixingVolumeZeroFlow
     m_flow_nominal=1,
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
     prescribedHeatFlowRate=false)
     "Steady state mixing volume requiring solution of linear system"
@@ -92,6 +95,7 @@ model MixingVolumeZeroFlow
     m_flow_nominal=1,
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
     prescribedHeatFlowRate=true)
     "Steady state mixing volume with fixed heat flow rate input"

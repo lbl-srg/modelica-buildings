@@ -30,7 +30,8 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     nPorts=2,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
               annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
 equation

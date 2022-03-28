@@ -48,7 +48,8 @@ model OneRoom
     V=1E12,
     p_start=Medium.p_default,
     nPorts=2,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Control volume for outside"                             annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

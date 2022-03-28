@@ -4,12 +4,10 @@
  * Michael Wetter, LBNL                  3/23/2018
  */
 
-#include <string.h>
-#include <stdlib.h>
+ #include "plotObjectStructure.h"
 
-#include "ModelicaUtilities.h"
-
-#include "plotObjectStructure.h"
+ #include <string.h>
+ #include <stdlib.h>
 
 void plotSendTerminalString(void* object, const char* str){
   PlotObjectStructure* plt = (PlotObjectStructure*) object;

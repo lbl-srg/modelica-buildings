@@ -117,12 +117,6 @@ Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
 revisions="<html>
 <ul>
 <li>
-March 7, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
 November 3, 2016, by Michael Wetter:<br/>
 Set <code>preHea(final alpha=0)</code> as this allows to simplify the
 system of equations.<br/>

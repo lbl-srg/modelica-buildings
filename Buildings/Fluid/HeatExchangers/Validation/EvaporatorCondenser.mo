@@ -33,6 +33,7 @@ model EvaporatorCondenser "Test model for the evaporator or condenser model"
     m_flow(start=0.1),
     dp(start=10),
     UA=100,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=0,
     tau=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

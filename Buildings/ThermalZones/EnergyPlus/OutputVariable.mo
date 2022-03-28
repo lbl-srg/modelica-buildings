@@ -48,7 +48,7 @@ protected
     epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsRootFileLocation,
+    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
     printUnit=printUnit,
     jsonName="outputVariables",

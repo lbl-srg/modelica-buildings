@@ -40,8 +40,8 @@ model StratifiedEnhancedInternalHex
     "Nominal mass flow rate through the heat exchanger"
     annotation (Dialog(group="Heat exchanger"));
 
-  parameter Modelica.Units.SI.PressureDifference dpHex_nominal(displayUnit="Pa")=
-       2500 "Pressure drop across the heat exchanger at nominal conditions"
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal(displayUnit="Pa")
+     = 2500 "Pressure drop across the heat exchanger at nominal conditions"
     annotation (Dialog(group="Heat exchanger"));
 
   parameter Boolean computeFlowResistance=true
@@ -63,31 +63,33 @@ model StratifiedEnhancedInternalHex
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsHex=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance for heat exchanger internal fluid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Conservation equations"));
-
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamicsHex=
+    energyDynamicsHex "Formulation of mass balance for heat exchanger"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsHexSolid=energyDynamicsHex
     "Formulation of energy balance for heat exchanger solid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
 
   parameter Modelica.Units.SI.Length lHex=rTan*abs(segHex_a - segHex_b)*
       Modelica.Constants.pi "Approximate length of the heat exchanger"
-    annotation (Dialog(tab="Dynamics heat exchanger", group="Conservation equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
   parameter Modelica.Units.SI.Area ACroHex=(dExtHex^2 - (0.8*dExtHex)^2)*
       Modelica.Constants.pi/4 "Cross sectional area of the heat exchanger"
-    annotation (Dialog(tab="Dynamics heat exchanger", group="Conservation equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
   parameter Modelica.Units.SI.SpecificHeatCapacity cHex=490
     "Specific heat capacity of the heat exchanger material"
-    annotation (Dialog(tab="Dynamics heat exchanger", group="Conservation equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
   parameter Modelica.Units.SI.Density dHex=8000
     "Density of the heat exchanger material"
-    annotation (Dialog(tab="Dynamics heat exchanger", group="Conservation equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
 
   parameter Modelica.Units.SI.HeatCapacity CHex=ACroHex*lHex*dHex*cHex
     "Capacitance of the heat exchanger without the fluid"
-    annotation (Dialog(tab="Dynamics heat exchanger", group="Conservation equations"));
+    annotation (Dialog(tab="Dynamics heat exchanger", group="Equations"));
   parameter Boolean allowFlowReversalHex = true
     "= true to allow flow reversal in heat exchanger, false restricts to design direction (portHex_a -> portHex_b)"
     annotation(Dialog(tab="Assumptions", group="Heat exchanger"), Evaluate=true);
@@ -119,6 +121,7 @@ model StratifiedEnhancedInternalHex
     final m_flow_nominal=mHex_flow_nominal,
     final energyDynamics=energyDynamicsHex,
     final energyDynamicsSolid=energyDynamicsHexSolid,
+    final massDynamics=massDynamicsHex,
     final computeFlowResistance=computeFlowResistance,
     from_dp=from_dp,
     final linearizeFlowResistance=linearizeFlowResistance,
@@ -245,12 +248,6 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>",
 revisions="<html>
 <ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code> and <code>massDynamicsHex</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
 <li>
 June 7, 2018 by Filip Jorissen:<br/>
 Copied model from Buildings and update the model accordingly.

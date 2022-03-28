@@ -461,11 +461,7 @@ void setSimulationFMUName(FMUBuilding* bui, const char* modelicaNameBuilding){
 
   saveAppend(&(bui->fmuAbsPat), tmpDir, &iniLen, SpawnFormatError);
   saveAppend(&(bui->fmuAbsPat), SEPARATOR, &iniLen, SpawnFormatError);
-  /* modelicaNameBuilding can be very long. Hence we use EnergyPlus.fmu as the FMU name
-     that contains the EnergyPlus model. This FMU will be in its own directory and hence
-     there is no name clash
-  saveAppend(&(bui->fmuAbsPat), modelicaNameBuilding, &iniLen, SpawnFormatError); */
-  saveAppend(&(bui->fmuAbsPat), "EnergyPlus", &iniLen, SpawnFormatError);
+  saveAppend(&(bui->fmuAbsPat), modelicaNameBuilding, &iniLen, SpawnFormatError);
   saveAppend(&(bui->fmuAbsPat), ".fmu", &iniLen, SpawnFormatError);
   /* Replace special characters that are introduced if arrays of models are used.
      Such array notation cause currently runtime errors when loading an FMU. */
@@ -514,37 +510,6 @@ char * getFileNameWithoutExtension(
   return namOnl;
 }
 
-void getShortModelicaNameBuilding(
-  const char* modelicaNameBuilding,
-  char** shortName,
-  void (*SpawnFormatError)(const char *string, ...)){
-    const char buiSuf[] = ".building";
-    size_t len;
-    size_t i;
-    const size_t lenBui = strlen(buiSuf);
-    const char* rInd = strrchr(modelicaNameBuilding, '.');
-    /* Make sure .building is found, and it is at the end of the string */
-    if (rInd == NULL){
-      SpawnFormatError("Did not find '.building', but expected modelicaNameBuilding to end with '.building', obtained '%s'. Did you rename the building instance?", modelicaNameBuilding);
-    }
-    if (*(rInd+lenBui) != '\0'){
-      SpawnFormatError("String '.building' does not seem to be at the end of modelicaNameBuilding, obtained '%s'. Did you rename the building instance?", modelicaNameBuilding);
-    }
-
-    /* Allocate memory for new string */
-    len = strlen(modelicaNameBuilding)-lenBui;
-    mallocString(
-      len+1,
-      "Failed to allocate memory for temporary directory name in SpawnUtil.c.",
-      shortName,
-      SpawnFormatError);
-    memset(*shortName, '\0', len+1);
-    /* Copy string up to rInd, i.e., without .building */
-    for (i = 0; &(modelicaNameBuilding[i]) != rInd; i++){
-      (*shortName)[i] = modelicaNameBuilding[i];
-    }
-  }
-
 void getSimulationTemporaryDirectory(
   const char* modelicaNameBuilding,
   char** dirNam,
@@ -562,9 +527,7 @@ void getSimulationTemporaryDirectory(
   const size_t maxLenCurDir = 100000;
 
   /* Prefix for temporary directory */
-  const char* pre = "spawn-\0";
-  /* Shortened name */
-  char* shortBuildingName;
+  const char* pre = "EnergyPlus-simulation-\0";
 
   /* Current directory */
   mallocString(
@@ -603,13 +566,8 @@ void getSimulationTemporaryDirectory(
   replaceChar(curDir, '\\', '/');
 #endif
 
-  /* Reduced the name of modelicaNameBuilding because Windows has limits on the length
-     of the file name.
-  */
-  /* Cut the trailing '.building' */
-  getShortModelicaNameBuilding(modelicaNameBuilding, &shortBuildingName, SpawnFormatError);
 
-  lenNam = strlen(shortBuildingName);
+  lenNam = strlen(modelicaNameBuilding);
   lenCur = strlen(curDir);
   lenSep = 1;
   lenPre = strlen(pre);
@@ -623,7 +581,7 @@ void getSimulationTemporaryDirectory(
   strncpy(*dirNam, curDir, lenCur);
   strcat(*dirNam, "/");
   strcat(*dirNam, pre);
-  strcat(*dirNam, shortBuildingName);
+  strcat(*dirNam, modelicaNameBuilding);
   /* Replace special characters that are introduced if arrays of models are used.
      Such array notation cause currently runtime errors when loading an FMU. */
   replaceChar(*dirNam, '[', '_');

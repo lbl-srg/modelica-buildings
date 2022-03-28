@@ -1,8 +1,6 @@
 #ifndef IBPSA_FILEWRITERStructure_c
 #define IBPSA_FILEWRITERStructure_c
 
-#include "ModelicaUtilities.h"
-
 #include "fileWriterStructure.h"
 
 signed int fileWriterIsUnique(const char* fileName){

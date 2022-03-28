@@ -9,6 +9,7 @@ model NaturalVentilation
     redeclare package Medium = Medium,
     V=2.5*10*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 18,
     nPorts=2,
     m_flow_nominal=0.001) "Control volume"
@@ -41,6 +42,7 @@ model NaturalVentilation
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1E10,
     T_start=273.15 + 20,
     nPorts=2,

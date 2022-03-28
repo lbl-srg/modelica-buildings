@@ -10,7 +10,8 @@ model HeaterCooler_u
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-14,90},{6,110}})));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
@@ -62,7 +63,8 @@ model HeaterCooler_u
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                   annotation (Placement(
         transformation(extent={{-14,-30},{6,-10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_2(
@@ -105,7 +107,8 @@ model HeaterCooler_u
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-10,-190},{10,-170}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_1(
@@ -131,7 +134,8 @@ model HeaterCooler_u
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-10,-330},{10,-310}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_6(
@@ -297,34 +301,34 @@ equation
   connect(gain.y, hea7.u) annotation (Line(points={{-29,184},{-20,184},{-20,
           -314},{-14,-314},{-12,-314}},            color={0,0,127}));
   connect(sin_1.ports[1], res_12.port_a) annotation (Line(
-      points={{-148,140.5},{-124,140.5},{-124,144},{-100,144}},
+      points={{-148,145},{-124,145},{-124,144},{-100,144}},
       color={0,127,255}));
   connect(sin_1.ports[2], res_3.port_a) annotation (Line(
-      points={{-148,141.5},{-124,141.5},{-124,32},{-100,32}},
+      points={{-148,143},{-124,143},{-124,32},{-100,32}},
       color={0,127,255}));
   connect(sou_1.ports[1], res_11.port_a) annotation (Line(
-      points={{-150,98.5},{-125,98.5},{-125,100},{-100,100}},
+      points={{-150,103},{-125,103},{-125,100},{-100,100}},
       color={0,127,255}));
   connect(sou_1.ports[2], res_2.port_a) annotation (Line(
-      points={{-150,99.5},{-128,99.5},{-128,-20},{-100,-20}},
+      points={{-150,101},{-128,101},{-128,-20},{-100,-20}},
       color={0,127,255}));
   connect(sin_1.ports[3], res_1.port_a) annotation (Line(
-      points={{-148,142.5},{-128,142.5},{-128,-180},{-100,-180}},
+      points={{-148,141},{-128,141},{-128,-180},{-100,-180}},
       color={0,127,255}));
   connect(sin_1.ports[4], res_6.port_a) annotation (Line(
-      points={{-148,143.5},{-128,143.5},{-128,-320},{-100,-320}},
+      points={{-148,139},{-128,139},{-128,-320},{-100,-320}},
       color={0,127,255}));
   connect(sou_1.ports[3], res_5.port_a) annotation (Line(
-      points={{-150,100.5},{-124,100.5},{-124,-120},{-100,-120}},
+      points={{-150,99},{-124,99},{-124,-120},{-100,-120}},
       color={0,127,255}));
   connect(sou_1.ports[4], res_7.port_a) annotation (Line(
-      points={{-150,101.5},{-124,101.5},{-124,-260},{-100,-260}},
+      points={{-150,97},{-124,97},{-124,-260},{-100,-260}},
       color={0,127,255}));
   connect(mix1.ports[1], res_4.port_a) annotation (Line(
-      points={{71,-20},{110,-20},{110,32},{100,32}},
+      points={{70,-20},{110,-20},{110,32},{100,32}},
       color={0,127,255}));
   connect(mix2.ports[1], res_8.port_a) annotation (Line(
-      points={{69,-320},{106,-320},{106,-260},{100,-260}},
+      points={{68,-320},{106,-320},{106,-260},{100,-260}},
       color={0,127,255}));
   connect(senTem1a.T,che1. u1) annotation (Line(
       points={{-40,108.8},{-40,122},{140,122},{140,176},{158,176}},
@@ -417,7 +421,7 @@ equation
       points={{6,-20},{20,-20}},
       color={0,127,255}));
   connect(senTem3b.port_b, mix1.ports[2]) annotation (Line(
-      points={{40,-20},{73,-20}},
+      points={{40,-20},{74,-20}},
       color={0,127,255}));
   connect(hea4.port_b, senTem4b.port_a) annotation (Line(
       points={{40,32},{50,32}},
@@ -465,7 +469,7 @@ equation
       points={{60,-260},{80,-260}},
       color={0,127,255}));
   connect(mix2.ports[2], senTem7b.port_b) annotation (Line(
-      points={{71,-320},{40,-320}},
+      points={{72,-320},{40,-320}},
       color={0,127,255}));
   connect(senTem7b.port_a, hea7.port_b) annotation (Line(
       points={{20,-320},{10,-320}},

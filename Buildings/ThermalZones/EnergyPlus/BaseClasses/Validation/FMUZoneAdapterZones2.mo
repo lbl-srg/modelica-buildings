@@ -2,6 +2,8 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation;
 model FMUZoneAdapterZones2
   "Validation model for the class and functions that instantiate and communicate with an FMU for Model Exchange"
   extends Modelica.Icons.Example;
+  constant String modelicaNameBuilding=getInstanceName()
+    "Name of the building";
 
   parameter Modelica.Units.SI.HeatCapacity CZon=6*6*2.7*1.2*1006
     "Heat capacity of zone air";
@@ -17,7 +19,7 @@ model FMUZoneAdapterZones2
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
-    final modelicaNameBuilding=building.modelicaNameBuilding,
+    modelicaNameBuilding=modelicaNameBuilding,
     final spawnExe=building.spawnExe,
     final idfName=building.idfName,
     final epwName=building.epwName,
@@ -59,7 +61,7 @@ model FMUZoneAdapterZones2
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonSou(
-    final modelicaNameBuilding=building.modelicaNameBuilding,
+    modelicaNameBuilding=modelicaNameBuilding,
     final spawnExe=building.spawnExe,
     final idfName=building.idfName,
     final epwName=building.epwName,
@@ -85,13 +87,11 @@ equation
   connect(X_w.y,fmuZonCor.X_w)
     annotation (Line(points={{-67,54},{-16,54},{-16,34},{18,34}},color={0,0,127}));
   connect(fmuZonCor.m_flow[1],mIn_flow.y)
-    annotation (Line(points={{18,29.5},{-6,29.5},{-6,10},{-67,10}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{18,29},{-6,29},{-6,10},{-67,10}},color={0,0,127}));
   connect(mOut_flow.u,mIn_flow.y)
     annotation (Line(points={{-52,30},{-60,30},{-60,10},{-67,10}},color={0,0,127}));
   connect(mOut_flow.y,fmuZonCor.m_flow[2])
-    annotation (Line(points={{-29,30},{-10,30},{-10,30.5},{18,30.5}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-29,30},{-10,30},{-10,31},{18,31}},color={0,0,127}));
   connect(TIn.y,fmuZonCor.TInlet)
     annotation (Line(points={{-67,-14},{-4,-14},{-4,26},{18,26}},color={0,0,127}));
   connect(fmuZonCor.QGaiRad_flow,QGaiRad_flow.y)
@@ -99,11 +99,9 @@ equation
   connect(X_w.y,fmuZonSou.X_w)
     annotation (Line(points={{-67,54},{-16,54},{-16,-6},{18,-6}},color={0,0,127}));
   connect(fmuZonSou.m_flow[1],mIn_flow.y)
-    annotation (Line(points={{18,-10.5},{-20,-10.5},{-20,10},{-67,10}},
-                                                                   color={0,0,127}));
+    annotation (Line(points={{18,-11},{-20,-11},{-20,10},{-67,10}},color={0,0,127}));
   connect(mOut_flow.y,fmuZonSou.m_flow[2])
-    annotation (Line(points={{-29,30},{-10,30},{-10,-9.5},{18,-9.5}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-29,30},{-10,30},{-10,-9},{18,-9}},color={0,0,127}));
   connect(TIn.y,fmuZonSou.TInlet)
     annotation (Line(points={{-67,-14},{18,-14}},color={0,0,127}));
   connect(fmuZonSou.QGaiRad_flow,QGaiRad_flow.y)
@@ -129,12 +127,7 @@ for Linux 64 bit by JModelica.
 </p>
 </html>",
       revisions="<html>
-<ul>
-<li>
-March 23, 2022, by Michael Wetter:<br/>
-Changed model to use the instance name of the <code>building</code> instance as is done for the other Spawn models.
-</li>
-<li>
+<ul><li>
 March 19, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>

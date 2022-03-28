@@ -23,7 +23,7 @@ model IntegratedPrimarySecondary
   //Pump
   parameter Integer numPum=numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.Units.SI.MassFlowRate m_flow_pum_nominal(min=0)=
+  parameter Modelica.Units.SI.MassFlowRate m_flow_pum_nominal(min=0) =
     m2_flow_chi_nominal "Nominal flow rate of the pump"
     annotation (Dialog(group="Pump"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[numPum]
@@ -121,6 +121,7 @@ model IntegratedPrimarySecondary
     final per=perPum,
     final addPowerToMedium=addPowerToMedium,
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final use_inputFilter=use_inputFilter,
     final init=initPum,
     final tau=tauPump,

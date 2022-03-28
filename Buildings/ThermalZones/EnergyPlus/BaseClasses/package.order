@@ -6,5 +6,5 @@ getParameters
 getUnitAsString
 initialize
 Synchronize
-buildingsRootFileLocation
+buildingsLibraryRoot
 Validation

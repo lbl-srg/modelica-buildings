@@ -4,12 +4,12 @@ model MoistureMixingConservationDynamicBalance
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.MoistureMixingConservation(
     mWatFloSol(k={vol.X_start[1],vol1.X_start[1],vol2.X_start[1]}*m_start),
-    vol(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    vol1(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    vol2(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    vol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics=
+         Modelica.Fluid.Types.Dynamics.FixedInitial),
+    vol1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    vol2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     mFloSol(k=sum(m_start)),
     hSol(k=sum(U_start)),
     mWatFlo3(k=0));

@@ -22,6 +22,7 @@ model ConstantHeatInjection_100Boreholes
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
     inputType=Buildings.Fluid.Types.InputType.Constant)

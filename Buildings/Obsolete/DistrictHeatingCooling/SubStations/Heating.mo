@@ -37,12 +37,6 @@ much water as needed to maintain the temperature difference
 </html>", revisions="<html>
 <ul>
 <li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
 January 11, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>

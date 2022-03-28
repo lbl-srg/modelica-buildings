@@ -178,34 +178,28 @@ equation
     textColor={0,0,0},
     textString="3")}),
     Documentation(revisions="<html>
-<ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
-December 9, 2019, by Moritz Lauster:<br/>
-Changes <code>nExt</code> to <code>nFloor</code> for
-<code>RFloor</code> and <code>CFloor</code>
-</li>
-<li>
-July 11, 2019, by Katharina Brinkmann:<br/>
-Renamed <code>alphaFloor</code> to <code>hConFloor</code>,
-<code>alphaFloorConst</code> to <code>hConFloor_const</code>
-</li>
-<li>
-August 31, 2018 by Moritz Lauster:<br/>
-Updated schema in documentation to fix
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">
-issue 997</a>.
-</li>
-<li>
-July 15, 2015 by Moritz Lauster:<br/>
-First Implementation.
-</li>
-</ul>
+  <ul>
+  <li>
+  December 9, 2019, by Moritz Lauster:<br/>
+  Changes <code>nExt</code> to <code>nFloor</code> for
+  <code>RFloor</code> and <code>CFloor</code>
+  </li>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaFloor</code> to <code>hConFloor</code>,
+  <code>alphaFloorConst</code> to <code>hConFloor_const</code>
+  </li>
+  <li>
+  August 31, 2018 by Moritz Lauster:<br/>
+  Updated schema in documentation to fix
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">
+  issue 997</a>.
+  </li>
+  <li>
+  July 15, 2015 by Moritz Lauster:<br/>
+  First Implementation.
+  </li>
+  </ul>
 </html>",   info="<html>
   <p>This model adds one further element for
   the floor plate. Long-term effects dominate the excitation of the floor plate

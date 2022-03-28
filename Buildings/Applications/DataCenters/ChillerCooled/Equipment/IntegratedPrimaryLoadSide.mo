@@ -71,6 +71,7 @@ model IntegratedPrimaryLoadSide
     final per=perPum,
     addPowerToMedium=addPowerToMedium,
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final use_inputFilter=use_inputFilter,
     final init=initPum,
     final tau=tauPump,

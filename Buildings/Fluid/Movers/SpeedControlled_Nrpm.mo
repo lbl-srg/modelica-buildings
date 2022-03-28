@@ -90,12 +90,6 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
 January 5, 2022, by Jianjun Hu:<br/>
 Changed the rotational speed unit to be consistent with the one in the Modelica Standard Library.<br/>
 This is for

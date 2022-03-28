@@ -2,7 +2,6 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-    final massDynamics=energyDynamics,
     final mSenFac=1);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(
@@ -35,7 +34,9 @@ partial model PartialThreeWayResistance
       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.Units.SI.MassFlowRate mDyn_flow_nominal
     "Nominal mass flow rate for dynamic momentum and energy balance"
-    annotation (Dialog(tab="Dynamics", group="Conservation equations",
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Equations",
       enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Boolean from_dp = true
@@ -86,6 +87,7 @@ partial model PartialThreeWayResistance
     final tau=tau,
     final m_flow_nominal=mDyn_flow_nominal,
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -97,7 +99,8 @@ partial model PartialThreeWayResistance
 
 protected
   parameter Boolean have_controlVolume=
-      energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+      energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+       massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
     "Boolean flag used to remove conditional components";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_internal(
@@ -150,7 +153,7 @@ equation
     end if;
     if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_3.m_flow< m_flow_small,
-      "In " + getInstanceName() + ":
+      "In " + getInstanceName() + ": 
       Flow is entering port_3 despite portFlowDirection_3=PortFlowDirection.Leaving, since m_flow=" +
       String(port_3.m_flow) + ">"+String(m_flow_small));
     end if;
@@ -244,20 +247,14 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </html>", revisions="<html>
 <ul>
 <li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
 March 22, 2020, by Filip Jorissen:<br/>
-Corrected error message of asserts that verify whether flow reversal occurs when
+Corrected error message of asserts that verify whether flow reversal occurs when 
 <code>verifyFlowReversal=true</code> and <code>portFlowDirection&lt;&gt;Bidirectional</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1327\">#1327</a>.
 </li>
 <li>
 July 7, 2018, by Filip Jorissen:<br/>
-Added asserts that verify whether flow reversal occurs when
+Added asserts that verify whether flow reversal occurs when 
 <code>verifyFlowReversal=true</code> and <code>portFlowDirection&lt;&gt;Bidirectional</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/963\">#963</a>.
 </li>

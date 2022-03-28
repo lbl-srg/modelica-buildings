@@ -82,7 +82,7 @@ model CoolingCoilHumidifyingHeating
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
     final show_T=show_T,
-    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final tau=tauHum,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=0,

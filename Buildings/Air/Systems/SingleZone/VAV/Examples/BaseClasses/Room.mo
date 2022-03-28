@@ -170,6 +170,7 @@ model Room
       fFra={0.001},
       til={Z_},
       azi={S_}),
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     steadyStateWindow=false)
@@ -369,7 +370,7 @@ This is for
 </li>
 <li>
 July 21, 2020, by Kun Zhang:<br/>
-Replaced the internal gain block from BaseClasses by directly using the block
+Replaced the internal gain block from BaseClasses by directly using the block 
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
 Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a>.
 </li>

@@ -2,6 +2,8 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation;
 model FMUZoneAdapterZones1
   "Validation model for the class and functions that instantiate and communicate with an FMU for Model Exchange"
   extends Modelica.Icons.Example;
+  constant String modelicaNameBuilding=getInstanceName()
+    "Name of the building";
   parameter Modelica.Units.SI.HeatCapacity CZon=6*6*2.7*1.2*1006
     "Heat capacity of zone air";
   inner Building building(
@@ -16,7 +18,7 @@ model FMUZoneAdapterZones1
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
-    modelicaNameBuilding=building.modelicaNameBuilding,
+    modelicaNameBuilding=modelicaNameBuilding,
     final spawnExe=building.spawnExe,
     final idfName=building.idfName,
     final epwName=building.epwName,
@@ -62,13 +64,11 @@ equation
   connect(X_w.y,fmuZonCor.X_w)
     annotation (Line(points={{-69,50},{0,50},{0,34},{18,34}},color={0,0,127}));
   connect(fmuZonCor.m_flow[1],mIn_flow.y)
-    annotation (Line(points={{18,29.5},{-4,29.5},{-4,10},{-69,10}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{18,29},{-4,29},{-4,10},{-69,10}},color={0,0,127}));
   connect(mOut_flow.u,mIn_flow.y)
     annotation (Line(points={{-42,30},{-60,30},{-60,10},{-69,10}},color={0,0,127}));
   connect(mOut_flow.y,fmuZonCor.m_flow[2])
-    annotation (Line(points={{-19,30},{-10,30},{-10,30.5},{18,30.5}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-19,30},{-10,30},{-10,31},{18,31}},color={0,0,127}));
   connect(TIn.y,fmuZonCor.TInlet)
     annotation (Line(points={{-69,-18},{6,-18},{6,26},{18,26}},color={0,0,127}));
   connect(fmuZonCor.QGaiRad_flow,QGaiRad_flow.y)
@@ -90,12 +90,7 @@ for Linux 64 bit by JModelica.
 </p>
 </html>",
       revisions="<html>
-<ul>
-<li>
-March 23, 2022, by Michael Wetter:<br/>
-Changed model to use the instance name of the <code>building</code> instance as is done for the other Spawn models.
-</li>
-<li>
+<ul><li>
 March 19, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>

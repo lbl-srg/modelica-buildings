@@ -1,10 +1,8 @@
 within Buildings.Fluid.Delays;
 model DelayFirstOrder
   "Delay element, approximated by a first order differential equation"
-  extends Buildings.Fluid.MixingVolumes.MixingVolume(
-    final V=V_nominal,
-    final massDynamics=energyDynamics,
-    final mSenFac=1);
+  extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V_nominal,
+                                                 final mSenFac=1);
 
   parameter Modelica.Units.SI.Time tau=60 "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
@@ -34,12 +32,6 @@ The heat flux connector is optional, it need not be connnected.
 </html>",
 revisions="<html>
 <ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
 <li>
 September 14, 2013, by Michael Wetter:<br/>
 Renamed <code>V0</code> to <code>V_nominal</code> to use consistent notation.

@@ -27,9 +27,7 @@ partial model PartialChargingDischarging "Base example"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     SOC_start=SOC_start,
-    per=per,
-    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
-             "Ice tank"
+    per=per) "Ice tank"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,

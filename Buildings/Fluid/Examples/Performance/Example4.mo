@@ -12,6 +12,7 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
     nPorts=2,
     ports(m_flow(min={0,-Modelica.Constants.inf})),
     redeclare package Medium = Medium,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=1,
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

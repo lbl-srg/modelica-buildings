@@ -20,7 +20,7 @@ model DryCoilCounterFlow
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   parameter Modelica.Units.SI.Time tau1=10
     "Time constant at nominal flow for medium 1" annotation (Dialog(group=

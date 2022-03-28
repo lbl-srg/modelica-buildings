@@ -14,6 +14,7 @@ partial model PartialCarnot_y
       final tau=tau1,
       final T_start=T1_start,
       final energyDynamics=energyDynamics,
+      final massDynamics=energyDynamics,
       final homotopyInitialization=homotopyInitialization,
       final Q_flow_nominal=QCon_flow_nominal),
       redeclare HeatExchangers.HeaterCooler_u eva(
@@ -24,6 +25,7 @@ partial model PartialCarnot_y
       final tau=tau2,
       final T_start=T2_start,
       final energyDynamics=energyDynamics,
+      final massDynamics=energyDynamics,
       final homotopyInitialization=homotopyInitialization,
       final Q_flow_nominal=QEva_flow_nominal));
 

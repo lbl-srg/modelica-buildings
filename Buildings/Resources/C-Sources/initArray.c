@@ -10,10 +10,9 @@
  * Pierre Vigouroux, LBNL                  7/18/2011
  */
 
-#include <stdlib.h>
-#include "ModelicaUtilities.h"
-
 #include "externalObjectStructure.h"
+
+#include <stdlib.h>
 
 /* Create the structure "table" and return pointer to "table". */
 void* initArray()

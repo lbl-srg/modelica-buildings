@@ -40,12 +40,6 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
 June 7, 2018 by Filip Jorissen:<br/>
 Copied model from Buildings and update the model accordingly.
 This is for

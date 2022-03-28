@@ -1,11 +1,13 @@
 within Buildings.ThermalZones.EnergyPlus;
 package BaseClasses "Package with base classes for Buildings.ThermalZones.EnergyPlus"
   extends Modelica.Icons.BasesPackage;
-    constant String buildingsRootFileLocation=
-      Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")
-      "Path to top-level legal.html of the Buildings library (used to find the spawn executable)";
+  constant String buildingsLibraryRoot=Modelica.Utilities.Strings.replace(
+    string=Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html"),
+    searchString="/legal.html",
+    replaceString="")
+    "Root directory of the Buildings library (used to find the spawn executable)";
 
-    annotation (
+  annotation (
     preferredView="info",
     Documentation(
       info="<html>
@@ -16,12 +18,6 @@ This package contains base classes that are used to construct the models in
 </html>",
       revisions="<html>
 <ul>
-<li>
-March 21, 2022, by Michael Wetter:<br/>
-Addressed platform incompatibility in assignment of <code>buildingsLibraryRootFileLocation</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2927\">issue 2927</a>.
-</li>
 <li>
 December 11, 2021, by Michael Wetter:<br/>
 Removed call to impure function <code>Modelica.Utilities.Files.FullPathName</code>.

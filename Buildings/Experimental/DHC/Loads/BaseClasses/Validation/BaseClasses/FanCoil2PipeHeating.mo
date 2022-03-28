@@ -221,5 +221,13 @@ February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    revisions="<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>");
 end FanCoil2PipeHeating;

@@ -98,7 +98,8 @@ model Case600FF
       hWin={2},
       fFra={0.001},
       til={Z_},
-      azi={S_})) "Room model"
+      azi={S_}),
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Room model"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-56,64},{-48,72}})));

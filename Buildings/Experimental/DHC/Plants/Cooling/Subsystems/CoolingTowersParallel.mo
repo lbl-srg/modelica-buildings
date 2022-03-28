@@ -8,7 +8,7 @@ model CoolingTowersParallel
     "Number of cooling towers";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
@@ -261,11 +261,11 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model implements a parallel cooling tower system with <code>num</code>
+<p>This model implements a parallel cooling tower system with <code>num</code> 
 identical cooling towers. </p>
-<p>The cooling tower type is replaceable.
+<p>The cooling tower type is replaceable. 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in 
 this model. </p>
 </html>"),
     __Dymola_Commands);

@@ -118,12 +118,6 @@ throughout the heat exchanger.
 revisions="<html>
 <ul>
 <li>
-March 7, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
 May 27, 2017, by Filip Jorissen:<br/>
 Regularised heat transfer around zero flow.<br/>
 This is for

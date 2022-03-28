@@ -43,7 +43,7 @@ extern void* EnergyPlusSpawnAllocate(
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsRootFileLocation,
+  const char* buildingsLibraryRoot,
   const int logLevel,
   const int printUnit,
   const char* jsonName,

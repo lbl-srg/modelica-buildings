@@ -9,8 +9,7 @@ model IndirectTankHeatExchanger
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-    final massDynamics=energyDynamics,
-    redeclare final package Medium = MediumHex);
+      redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium = MediumHex,
     final show_T=false);
@@ -45,10 +44,13 @@ model IndirectTankHeatExchanger
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance for heat exchanger internal fluid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsSolid=energyDynamics
     "Formulation of energy balance for heat exchanger solid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Formulation of mass balance for heat exchanger"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   parameter Boolean hA_flowDependent = true
     "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of mass flow rate"
@@ -80,7 +82,7 @@ model IndirectTankHeatExchanger
     each m_flow_nominal=m_flow_nominal,
     each V=volHexFlu/nSeg,
     each energyDynamics=energyDynamics,
-    each massDynamics=energyDynamics,
+    each massDynamics=massDynamics,
     each p_start=p_start,
     each T_start=T_start,
     each X_start=X_start,
@@ -297,12 +299,6 @@ equation
           </html>",
           revisions="<html>
 <ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
 <li>
 April 9, 2021, by Michael Wetter:<br/>
 Corrected placement of <code>each</code> keyword.<br/>

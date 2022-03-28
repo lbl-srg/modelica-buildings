@@ -28,6 +28,7 @@ model TrickleVent
     V=2.5*5*5,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Room model"
     annotation (Placement(transformation(extent={{10,-20},{30,0}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea

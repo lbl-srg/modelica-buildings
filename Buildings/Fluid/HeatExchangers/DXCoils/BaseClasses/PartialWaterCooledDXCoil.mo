@@ -99,7 +99,10 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Diagnostics
   parameter Boolean show_T = false
@@ -159,6 +162,7 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     final tau=tauEva,
     final homotopyInitialization=homotopyInitialization,
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_start=pEva_start,
     final T_start=TEva_start,
     final X_start=XEva_start,
@@ -198,6 +202,7 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     final tau=tauCon,
     final homotopyInitialization=homotopyInitialization,
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_start=pCon_start,
     final T_start=TCon_start,
     final X_start=XCon_start,
@@ -352,13 +357,6 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab and
-added assertion for correct combination of energy and mass dynamics.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
-</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

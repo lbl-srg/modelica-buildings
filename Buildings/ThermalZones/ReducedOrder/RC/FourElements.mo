@@ -193,35 +193,29 @@ equation
   textColor={0,0,0},
   textString="4")}),
   Documentation(revisions="<html>
-<ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
-<li>
-December 9, 2019, by Moritz Lauster:<br/>
-Changes <code>nExt</code> to <code>nRoof</code> for
-<code>RRoof</code> and <code>CRoof</code>
-</li>
-<li>
-July 11, 2019, by Katharina Brinkmann:<br/>
-Renamed <code>alphaRoof</code> to <code>hConRoof</code>,
-<code>alphaRoofConst</code> to <code>hConRoof_const</code>
-</li>
-<li>
-August 31, 2018 by Moritz Lauster:<br/>
-Updated schema in documentation and fixes
-orientation and connections of roofRC for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">
-issue 997</a>.
-</li>
-<li>
-September 11, 2015 by Moritz Lauster:<br/>
-First Implementation.
-</li>
-</ul>
+  <ul>
+  <li>
+  December 9, 2019, by Moritz Lauster:<br/>
+  Changes <code>nExt</code> to <code>nRoof</code> for
+  <code>RRoof</code> and <code>CRoof</code>
+  </li>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaRoof</code> to <code>hConRoof</code>,
+  <code>alphaRoofConst</code> to <code>hConRoof_const</code>
+  </li>
+  <li>
+  August 31, 2018 by Moritz Lauster:<br/>
+  Updated schema in documentation and fixes
+  orientation and connections of roofRC for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">
+  issue 997</a>.
+  </li>
+  <li>
+  September 11, 2015 by Moritz Lauster:<br/>
+  First Implementation.
+  </li>
+  </ul>
 </html>",   info="<html>
   <p>
   This model adds another element for the roof. Roofs commonly

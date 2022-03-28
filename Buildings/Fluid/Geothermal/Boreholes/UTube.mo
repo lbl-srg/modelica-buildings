@@ -4,8 +4,7 @@ model UTube "Single U-tube borehole heat exchanger"
     show_T=true);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
       computeFlowResistance=false, final linearizeFlowResistance=false);
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-    final massDynamics=energyDynamics);
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -295,12 +294,6 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-March 7, 2022, by Michael Wetter:<br/>
-Set <code>final massDynamics=energyDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
-</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

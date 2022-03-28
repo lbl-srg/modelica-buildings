@@ -6,7 +6,6 @@ model WatersideEconomizer "Waterside economizer"
     val1(each final dpFixed_nominal=dp1_nominal),
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-    final massDynamics=energyDynamics,
     final mSenFac=1,
     redeclare final package Medium=Medium2);
   extends
@@ -81,6 +80,7 @@ model WatersideEconomizer "Waterside economizer"
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,

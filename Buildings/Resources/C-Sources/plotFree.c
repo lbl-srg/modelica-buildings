@@ -4,12 +4,11 @@
  * Michael Wetter, LBNL                  3/23/2018
  */
 
+#include "plotObjectStructure.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "ModelicaUtilities.h"
-
-#include "plotObjectStructure.h"
 
 void plotFree(void* object)
 {

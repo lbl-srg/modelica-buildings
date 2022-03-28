@@ -18,7 +18,7 @@ model SwitchBox
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance (except for the pump always modeled in steady state)"
-    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   // IO CONECTORS
   Modelica.Fluid.Interfaces.FluidPort_b port_bSup(
     redeclare package Medium = Medium)
@@ -137,7 +137,7 @@ This model represents a hydronic arrangement avoid flow reversal in the service 
 for instance when connecting an energy transfer station such as the one modeled in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>.
-For that intent, two three-port two-position directional valves are used. The valves are
+For that intent, two three-port two-position directional valves are used. The valves are 
 actuated based on the logic described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.SwitchBox\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.SwitchBox</a>.
@@ -147,7 +147,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.SwitchBox</a
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with three-way valves instead of pumps.<br/>
-This is for
+This is for 
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
 issue 1769</a>.
 </li>

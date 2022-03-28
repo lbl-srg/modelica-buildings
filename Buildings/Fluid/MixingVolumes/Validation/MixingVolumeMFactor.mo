@@ -12,7 +12,8 @@ model MixingVolumeMFactor
     V=1,
     nPorts=2,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Mixing volume using mSenFac = 10"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol1(
@@ -20,7 +21,8 @@ model MixingVolumeMFactor
     V=10,
     nPorts=2,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "MixingVolume with V = 10 instead of mSenFac = 10"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Buildings.Fluid.Sources.MassFlowSource_T boundaryMFactor(

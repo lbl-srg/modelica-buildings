@@ -42,6 +42,7 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     dp_nominal=6000,
     mWat_flow_nominal=m_flow_nominal*0.005,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=303.15) "Dynamic model of the humidifier"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =

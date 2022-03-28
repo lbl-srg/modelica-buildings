@@ -26,8 +26,8 @@ class SpawnExternalObject
       "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
-    input String buildingsRootFileLocation
-      "Name of top-level legal.html file of the Buildings library (used to find the spawn executable)";
+    input String buildingsLibraryRoot
+      "Root directory of the Buildings library (used to find the spawn executable)";
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
     input Boolean printUnit
@@ -73,7 +73,7 @@ class SpawnExternalObject
     epName,
     usePrecompiledFMU,
     fmuName,
-    buildingsRootFileLocation,
+    buildingsLibraryRoot,
     logLevel,
     printUnit,
     jsonName,

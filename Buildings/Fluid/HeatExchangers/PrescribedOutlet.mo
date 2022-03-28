@@ -10,7 +10,9 @@ model PrescribedOutlet
       final QMax_flow = QMax_flow,
       final QMin_flow = QMin_flow,
       final mWatMax_flow = mWatMax_flow,
-      final mWatMin_flow = mWatMin_flow));
+      final mWatMin_flow = mWatMin_flow,
+      final energyDynamics = energyDynamics,
+      final massDynamics = massDynamics));
 
   parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
@@ -32,6 +34,15 @@ model PrescribedOutlet
   parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m" annotation (Dialog(tab=
           "Initialization", enable=use_X_wSet and Medium.nXi > 0));
+
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
+
+  parameter Modelica.Fluid.Types.Dynamics massDynamics = energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
 
   parameter Boolean use_TSet = true
     "Set to false to disable temperature set point"
@@ -226,12 +237,6 @@ Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet_dynamic</a>.
 </html>",
 revisions="<html>
 <ul>
-<li>
-March 3, 2022, by Michael Wetter:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
-</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 Updated protected model for

@@ -77,10 +77,10 @@ model ElectricChillerParallel
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
-    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
     annotation (Placement(transformation(extent={{-340,220},{-300,260}}),
@@ -248,13 +248,6 @@ protected
   final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
-
-initial equation
-  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
-         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-         "In " + getInstanceName() +
-         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
-
 equation
   connect(senMasFloByp.port_b,valByp.port_a)
     annotation (Line(points={{50,-70},{-20,-70}},color={0,127,255}));
@@ -386,13 +379,6 @@ the detailed control logic. </p>
 </html>",
       revisions="<html>
 <ul>
-<li>
-March 3, 2022, by Michael Wetter:<br/>
-Moved <code>massDynamics</code> to <code>Advanced</code> tab and
-added assertion for correct combination of energy and mass dynamics.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
-</li>
 <li>
 August 6, 2020 by Jing Wang:<br/>
 First implementation.

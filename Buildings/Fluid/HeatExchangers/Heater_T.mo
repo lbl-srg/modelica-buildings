@@ -8,6 +8,8 @@ model Heater_T "Heater with prescribed outlet temperature"
       final mWatMin_flow = 0,
       final use_TSet = true,
       final use_X_wSet = false,
+      final energyDynamics = energyDynamics,
+      final massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
       final T_start=T_start,
       final X_start=Medium.X_default));
 
@@ -16,6 +18,11 @@ model Heater_T "Heater with prescribed outlet temperature"
 
   parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Start value of temperature" annotation (Dialog(tab="Initialization"));
+
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   Modelica.Blocks.Interfaces.RealInput TSet(
     unit="K",

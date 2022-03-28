@@ -46,6 +46,9 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting an
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
     annotation (
@@ -123,6 +126,7 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting an
       else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final dp_nominal = {0, 0, 0},
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
@@ -140,6 +144,7 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting an
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dp_nominal = {0, 0, 0},
     final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
@@ -201,12 +206,6 @@ upstream and downstream of the connection, respectively.
 </html>",
 revisions="<html>
 <ul>
-<li>
-March 28, 2022, by Kathryn Hinkelman:<br/>
-Removed <code>massDynamics</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
-</li>
 <li>
 March 2, 2022, by Antoine Gautier and Kathryn Hinkelman:<br/>
 First implementation.

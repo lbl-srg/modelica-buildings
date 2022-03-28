@@ -15,9 +15,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-#include "ModelicaUtilities.h"
-
 /*
  * Exchange the data between Modelica and CFD
  *
