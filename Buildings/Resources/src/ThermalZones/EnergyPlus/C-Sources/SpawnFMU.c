@@ -30,7 +30,7 @@ size_t AllocateBuildingDataStructure(
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* buildingsRootFileLocation,
   const int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
@@ -38,6 +38,8 @@ size_t AllocateBuildingDataStructure(
   void (*SpawnFormatError)(const char *string, ...)){
 
   const size_t nFMU = getBuildings_nFMU();
+  /* -11 is the length of /legal.html */
+  const size_t bldLibRooLen = (strlen(buildingsRootFileLocation)-11);
 
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Allocating data structure for building, nFMU=%lu\n", startTime, modelicaNameBuilding, nFMU);
@@ -86,11 +88,13 @@ size_t AllocateBuildingDataStructure(
 
   /* Assign the Buildings library root */
   mallocString(
-    (strlen(buildingsLibraryRoot)+1),
+    bldLibRooLen+1,
     "Not enough memory in SpawnFMU.c. to allocate buildingsLibraryRoot.",
     &(Buildings_FMUS[nFMU]->buildingsLibraryRoot),
     SpawnFormatError);
-  strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
+  memcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsRootFileLocation, bldLibRooLen);
+  /* Add terminating null */
+  Buildings_FMUS[nFMU]->buildingsLibraryRoot[bldLibRooLen] = '\0';
 
   /* Assign the spawn exe name */
   mallocString(
@@ -99,7 +103,6 @@ size_t AllocateBuildingDataStructure(
     &(Buildings_FMUS[nFMU]->spawnExe),
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->spawnExe, spawnExe);
-
 
   /* Assign the idfName name */
   if (usePrecompiledFMU){
@@ -156,6 +159,26 @@ size_t AllocateBuildingDataStructure(
   /* Initialize exchange object data */
   Buildings_FMUS[nFMU]->nExcObj = 0;
   Buildings_FMUS[nFMU]->exchange = NULL;
+
+#ifdef _WIN32  /* Win32 or Win64 */
+  /* On Windows, with OpenModelica 1.19.0-dev, the buildingsRootFileLocation
+     is something like C:\inst\Buildings\legal.html, whereas with
+     Dymola 2022x on Windows, it is C:/inst/Buildings/legal.html.
+     Therefore, we switch the separators.
+     This is for https://github.com/lbl-srg/modelica-buildings/issues/2924 */
+  replaceChar(Buildings_FMUS[nFMU]->buildingsLibraryRoot, '\\', '/');
+  /* Clean up other path, as they can lead to errors such as in
+  [json.exception.parse_error.101] parse error at line 4, column 16: ... invalid string:
+    forbidden character after backslash; last read: '"F:\m'"
+  See https://github.com/lbl-srg/modelica-buildings/issues/2924 */
+  replaceChar(Buildings_FMUS[nFMU]->idfName,   '\\', '/');
+  replaceChar(Buildings_FMUS[nFMU]->weather,   '\\', '/');
+  replaceChar(Buildings_FMUS[nFMU]->tmpDir,    '\\', '/');
+  replaceChar(Buildings_FMUS[nFMU]->fmuAbsPat, '\\', '/');
+  if (usePrecompiledFMU)
+    replaceChar(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\\', '/');
+
+#endif
 
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir, SpawnFormatError);

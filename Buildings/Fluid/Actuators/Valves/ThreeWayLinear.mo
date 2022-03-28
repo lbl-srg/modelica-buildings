@@ -38,6 +38,12 @@ for the implementation of the regularization near the origin.
 revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter and changed the parameter <code>order</code> to a constant
 as most users need not change this value.<br/>
