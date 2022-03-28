@@ -51,9 +51,6 @@ model BuildingTimeSeriesAtETS
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
   parameter MediumSte.AbsolutePressure p_start=MediumSte.p_default
@@ -160,7 +157,6 @@ model BuildingTimeSeriesAtETS
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCNR(
     redeclare final package Medium = MediumWat,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     p_start=steTra.pAtm,
     T_start=steTra.TSat,
     final allowFlowReversal=allowFlowReversal,
@@ -176,7 +172,6 @@ model BuildingTimeSeriesAtETS
     redeclare final package MediumSte = MediumSte,
     redeclare final package MediumWat = MediumWat,
     final allowFlowReversal=allowFlowReversal,
-    final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=pSte_nominal,
     final T_start=TSte_nominal,
@@ -315,10 +310,15 @@ based on the physical laws.
 </html>", revisions="<html>
 <ul>
 <li>
+March 28, 2022, by Kathryn Hinkelman:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
+<li>
 March 2, 2022, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
 end BuildingTimeSeriesAtETS;
-
