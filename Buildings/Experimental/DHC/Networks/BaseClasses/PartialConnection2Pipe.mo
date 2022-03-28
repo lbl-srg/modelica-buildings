@@ -68,7 +68,7 @@ equation
       annotation (Line(points={{20,120},{20,0}}, color={0,127,255}));
   end if;
   connect(senMasFloCon.m_flow,mCon_flow)
-    annotation (Line(points={{-9,40},{120,40}},                color={0,0,127}));
+    annotation (Line(points={{-9,40},{120,40}},color={0,0,127}));
   connect(pipConSup.port_b,senMasFloCon.port_a)
     annotation (Line(points={{-20,0},{-20,30}},color={0,127,255}));
   connect(senRelPre.port_a,junConSup.port_1)
@@ -85,8 +85,7 @@ equation
           {20,100},{20,120}}, color={0,127,255}));
   connect(senDifEntFlo.dH_flow, dH_flow)
     annotation (Line(points={{-3,92},{-3,
-          106},{40,106},{40,90},{120,90}},
-                                      color={0,0,127}));
+          106},{40,106},{40,90},{120,90}},color={0,0,127}));
   connect(senMasFloCon.port_b, senDifEntFlo.port_a1)
     annotation (Line(points={{-20,
           50},{-20,60},{-6,60},{-6,70}}, color={0,127,255}));
@@ -127,6 +126,12 @@ accounted for.
 <li>
 March 28, 2022, by Kathryn Hinkelman:<br/>
 Refactored to extend shared two medium base class.
+</li>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
 </li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>

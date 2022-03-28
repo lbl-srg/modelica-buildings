@@ -8,7 +8,7 @@ model CoolingTowersWithBypass
     "Number of cooling towers";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab="Dynamics",group="Filtered opening"));
@@ -390,13 +390,13 @@ equation
 </ul>
 </html>",
       info="<html>
-<p>This model simulates parallel connected cooling tower subsystem with a bypass 
+<p>This model simulates parallel connected cooling tower subsystem with a bypass
 valve. </p>
-<p>The bypass valve is controlled to enforce that the leaving condenser water 
+<p>The bypass valve is controlled to enforce that the leaving condenser water
 temperature does not drop below the minimum temperature <code>TMin</code>.</p>
-<p>By default, the condenser water setpoint is the ambient wet bulb temperature 
+<p>By default, the condenser water setpoint is the ambient wet bulb temperature
 <code>TWetBul</code> plus the approach temperature <code>dTApp</code>. </p>
-<p>Inside the model, a cooling tower fan speed controller is also implemented to 
+<p>Inside the model, a cooling tower fan speed controller is also implemented to
 maintain the condenser water at its setpoint.</p>
 </html>"));
 end CoolingTowersWithBypass;

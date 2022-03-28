@@ -489,7 +489,7 @@ void terminateIfSpacesInInstallation(FMUBuilding* bui){
   const char* ptr = strrchr(bui->buildingsLibraryRoot, sep);
 
   if (ptr == NULL){
-        SpawnFormatError("Error. Excepted separator '%s' in '%s'.", sep, bui->buildingsLibraryRoot);
+      SpawnFormatError("Error. Expected separator '%c' in '%s'.", sep, bui->buildingsLibraryRoot);
   }
 
   /* Index of last position of the separator */
@@ -502,7 +502,7 @@ void terminateIfSpacesInInstallation(FMUBuilding* bui){
 
 
   if ( strchr(libBaseName, ' ') != NULL){
-    SpawnFormatError("To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces. Installing in '%s' is not supported.",
+    SpawnFormatError("To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces. (The Buildings directory can however have spaces such as in 'Buildings 9.0.0'.) Installing in '%s' is not supported.",
       libBaseName);
   }
 }
