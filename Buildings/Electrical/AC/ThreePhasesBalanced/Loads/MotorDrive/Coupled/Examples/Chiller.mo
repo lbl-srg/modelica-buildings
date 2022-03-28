@@ -52,6 +52,7 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     dp1_nominal=6000,
     dp2_nominal=6000,
     pole=4,
+    JLoad=5,
     JMotor=5,
     R_s=0.641,
     R_r=0.332,

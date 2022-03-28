@@ -38,12 +38,12 @@ model HeatPump "Motor coupled heat pump"
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCarnot_nominal(unit="1") = COP_nominal/
-    (TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))
+  parameter Real etaCarnot_nominal(unit="1")=COP_nominal/(TUseAct_nominal/(
+    TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal)))
     "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
-  parameter Real COP_nominal(unit="1") = etaCarnot_nominal*TUseAct_nominal/
-    (TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal))
+  parameter Real COP_nominal(unit="1")=etaCarnot_nominal*TUseAct_nominal/(
+    TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
     "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
   parameter Modelica.Units.SI.Temperature TCon_nominal=303.15
@@ -63,20 +63,20 @@ model HeatPump "Motor coupled heat pump"
     annotation (Dialog(group="Efficiency"));
 
   //Motor parameters
-  parameter Integer pole=2 "Number of pole pairs";
+  parameter Integer pole=4 "Number of pole pairs";
   parameter Integer n=3 "Number of phases";
-  parameter Modelica.Units.SI.Resistance R_s=24.5
+  parameter Modelica.Units.SI.Resistance R_s=0.641
     "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r=23
+  parameter Modelica.Units.SI.Resistance R_r=0.332
     "Electric resistance of rotor";
-  parameter Modelica.Units.SI.Reactance X_s=10
+  parameter Modelica.Units.SI.Reactance X_s=1.106
     "Complex component of the impedance of stator";
-  parameter Modelica.Units.SI.Reactance X_r=40
+  parameter Modelica.Units.SI.Reactance X_r=0.464
     "Complex component of the impedance of rotor";
-  parameter Modelica.Units.SI.Reactance X_m=25
+  parameter Modelica.Units.SI.Reactance X_m=26.3
     "Complex component of the magnetizing reactance";
   parameter Modelica.Units.SI.Inertia JLoad=2 "Load inertia";
-  parameter Modelica.Units.SI.Inertia JMotor(min=0)=10 "Motor inertia";
+  parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));

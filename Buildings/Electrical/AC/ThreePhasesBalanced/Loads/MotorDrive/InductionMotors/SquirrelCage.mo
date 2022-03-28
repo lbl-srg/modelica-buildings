@@ -7,17 +7,17 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
 
   parameter Integer pole=4 "Number of pole pairs";
   parameter Integer n=3 "Number of phases";
-  parameter Modelica.Units.SI.Inertia J(min=0)=2
+  parameter Modelica.Units.SI.Inertia J=2
     "Moment of inertia";
-  parameter Modelica.Units.SI.Resistance R_s=0.013
+  parameter Modelica.Units.SI.Resistance R_s=0.643
     "Electric resistance of stator";
-  parameter Modelica.Units.SI.Resistance R_r=0.009
+  parameter Modelica.Units.SI.Resistance R_r=0.332
     "Electric resistance of rotor";
-  parameter Modelica.Units.SI.Reactance X_s=0.14
+  parameter Modelica.Units.SI.Reactance X_s=1.106
     "Complex component of the impedance of stator";
-  parameter Modelica.Units.SI.Reactance X_r=0.12
+  parameter Modelica.Units.SI.Reactance X_r=0.464
     "Complex component of the impedance of rotor";
-  parameter Modelica.Units.SI.Reactance X_m=2.4
+  parameter Modelica.Units.SI.Reactance X_m=26.3
     "Complex component of the magnetizing reactance";
 
   Real s(min=0,max=1) "Motor slip";

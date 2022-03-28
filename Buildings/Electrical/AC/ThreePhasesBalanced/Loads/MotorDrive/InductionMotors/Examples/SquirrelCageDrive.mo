@@ -21,7 +21,12 @@ model SquirrelCageDrive "This example shows how to use the squirrel cage inducti
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.RealExpression mea(y=simMot.omega_r)
   annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  MotorDrive.InductionMotors.SquirrelCageDrive simMot
+  MotorDrive.InductionMotors.SquirrelCageDrive simMot(
+    R_s=R_s,
+    R_r=R_r,
+    X_s=X_s,
+    X_r=X_r,
+    X_m=X_m)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

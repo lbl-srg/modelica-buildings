@@ -3,10 +3,7 @@ model Pump "This example shows how to use the motor coupled pump model"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1 "Nominal mass flow rate";
-  parameter Modelica.Units.SI.Pressure dp_nominal = 500 "nominal pressure drop";
-  parameter Modelica.Units.SI.Inertia JLoad=5 "Moment of inertia";
-  parameter Modelica.Units.SI.Inertia JMotor=10 "Moment of inertia";
-  parameter Integer pole=4 "Number of pole pairs";
+  parameter Modelica.Units.SI.Pressure dp_nominal=500   "nominal pressure drop";
 
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
@@ -26,8 +23,8 @@ model Pump "This example shows how to use the motor coupled pump model"
     X_m=26.3,
     pum(pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
     redeclare package Medium = Medium,
-    JMotor=JMotor,
-    JLoad=JLoad,
+    JMotor=5,
+    JLoad=5,
     redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
     simMot(VFD(
