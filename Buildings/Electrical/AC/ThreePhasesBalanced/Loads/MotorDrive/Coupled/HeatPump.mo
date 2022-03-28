@@ -75,7 +75,7 @@ model HeatPump "Motor coupled heat pump"
     "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m=26.3
     "Complex component of the magnetizing reactance";
-  parameter Modelica.Units.SI.Inertia JLoad=2 "Load inertia";
+  parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Load inertia";
   parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"

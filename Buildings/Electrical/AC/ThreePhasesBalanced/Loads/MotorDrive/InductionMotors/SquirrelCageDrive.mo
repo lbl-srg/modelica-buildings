@@ -7,7 +7,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
 
   parameter Integer pole=4 "Number of pole pairs";
   parameter Integer n=3 "Number of phases";
-  parameter Modelica.Units.SI.Inertia J=2
+  parameter Modelica.Units.SI.Inertia J(min=0)=2
     "Moment of inertia";
   parameter Modelica.Units.SI.Resistance R_s=0.641
     "Electric resistance of stator";

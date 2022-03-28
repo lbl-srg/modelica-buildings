@@ -29,7 +29,7 @@ model Pump "Motor coupled chiller"
     "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m=2.4
     "Complex component of the magnetizing reactance";
-  parameter Modelica.Units.SI.Inertia JLoad=2 "Pump inertia";
+  parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Pump inertia";
   parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau) "Pump torque block"
