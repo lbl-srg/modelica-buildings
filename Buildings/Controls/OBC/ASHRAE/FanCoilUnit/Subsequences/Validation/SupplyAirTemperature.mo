@@ -218,5 +218,10 @@ equation
       First implementation.
       </li>
       </ul>
-      </html>"));
+      </html>"),
+    experiment(
+      StopTime=3600,
+      Interval=1,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"));
 end SupplyAirTemperature;

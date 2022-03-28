@@ -286,8 +286,9 @@ equation
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-200},{120,200}})),
     experiment(
-      StopTime=100,
+      StopTime=3600,
       Interval=1,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/Validation/FanSpeed.mos"
     "Simulate and plot"),
