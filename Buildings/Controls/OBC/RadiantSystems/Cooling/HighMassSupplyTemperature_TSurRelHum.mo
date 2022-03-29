@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.RadiantSystems.Cooling;
 block HighMassSupplyTemperature_TSurRelHum
-  "Room temperature controller for radiant cooling that controls for the surface temperature using constant mass flow and variable supply temperature"
+  "Controller for radiant cooling that controls the surface temperature using constant mass flow and variable supply temperature"
 
   parameter Real TSupSet_max(
     final unit="K",
@@ -298,7 +298,7 @@ equation
 Controller for a radiant cooling system.
 </p>
 <p>
-The controller tracks the surface temperature set point <code>TRooSet</code> by
+The controller tracks the surface temperature set point <code>TSurSet</code> by
 adjusting the supply water temperature set point <code>TSupSet</code>
 based on the output signal <code>y</code> of the proportional controller.
 Both, the surface temperature set point <code>TSurSet</code> and the resulting
@@ -327,7 +327,9 @@ PI-controller likely saturate due to the slow system response.
 <ul>
 <li>
 March 29, 2022, by Michael Wetter:<br/>
-First implementation.
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2823\">issue 2823</a>.
 </li>
 </ul>
 </html>"));

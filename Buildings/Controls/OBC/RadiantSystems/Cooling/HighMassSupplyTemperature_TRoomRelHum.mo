@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.RadiantSystems.Cooling;
 block HighMassSupplyTemperature_TRoomRelHum
-  "Room temperature controller for radiant cooling with constant mass flow and variable supply temperature"
+  "Controller for radiant cooling that controls the room temperature using constant mass flow and variable supply temperature"
 
   parameter Real TSupSet_max(
     final unit="K",
