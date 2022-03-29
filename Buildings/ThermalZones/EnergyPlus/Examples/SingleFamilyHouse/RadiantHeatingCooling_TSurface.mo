@@ -231,7 +231,7 @@ equation
           {-186,-144},{-188,-144}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling_TSurface.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling_TRoom_TSurface.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=9504000,

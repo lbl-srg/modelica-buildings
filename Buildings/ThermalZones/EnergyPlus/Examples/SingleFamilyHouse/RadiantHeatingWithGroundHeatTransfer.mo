@@ -157,8 +157,8 @@ that has a radiant floor, used for heating.
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
 This model has no cooling and hence will overheat in summer. See
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
-Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
 for a similar model that also has cooling.
 </p>
 <p>
