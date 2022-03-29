@@ -3,7 +3,11 @@ model Controller_Disable
   "Validation model for disabling the single zone VAV AHU economizer modulation and damper position limit control loops"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer(
-    final use_enthalpy=true,
+    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+
+    ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
+
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final yFanMin=yFanMin,
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
@@ -11,7 +15,11 @@ model Controller_Disable
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer1(
-    final use_enthalpy=true,
+    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+
+    ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
+
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final yFanMin=yFanMin,
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
@@ -77,16 +85,10 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
-    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 30)
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
-    final k=TOutCutoff) "Outdoor temperature high limit cutoff"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final height=4,
     final offset=TSupSet - 2,
@@ -107,20 +109,14 @@ protected
 equation
   connect(fanSta.y, economizer.uSupFan)
     annotation (Line(points={{-18,-140},{-10,-140},{-10,9},{18,9}}, color={255,0,255}));
-  connect(TOutCut1.y,economizer.TCut)
-    annotation (Line(points={{-98,80},{-2,80},{-2,36},{18,36}},  color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-98,20},{-86,20},{-86,30},{18,30}}, color={0,0,127}));
-  connect(hOutCut.y,economizer.hCut)
-    annotation (Line(points={{-98,-20},{-80,-20},{-80,27},{18,27}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-86,20},{-86,34},{18,34}}, color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-58,100},{-48,100},{-48,24},{18,24}}, color={0,0,127}));
-  connect(TOutCut1.y,economizer1.TCut)
-    annotation (Line(points={{-98,80},{70,80},{70,-4},{98,-4}},  color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut)
     annotation (Line(points={{-98,120},{76,120},{76,-1},{98,-1}},  color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
-    annotation (Line(points={{-98,20},{-86,20},{-86,-10},{98,-10}},
+    annotation (Line(points={{-98,20},{-86,20},{-86,-6},{98,-6}},
     color={0,0,127}));
   connect(TSup.y, economizer1.TSup)
     annotation (Line(points={{-58,100},{-48,100},{-48,-16},{98,-16}},
@@ -149,8 +145,6 @@ equation
           {6,-120},{6,1},{18,1}}, color={255,127,0}));
   connect(TSupSetSig.y, economizer1.TSupHeaEco) annotation (Line(points={{-58,60},
           {-54,60},{-54,-19},{98,-19}}, color={0,0,127}));
-  connect(hOutCut.y, economizer1.hCut) annotation (Line(points={{-98,-20},{-80,-20},
-          {-80,-13},{98,-13}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer.TOut) annotation (Line(points={{-98,120},
           {14,120},{14,39},{18,39}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer.TSupHeaEco) annotation (Line(points={{-58,60},

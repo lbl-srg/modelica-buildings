@@ -14,4 +14,4 @@ createPlot(id=5, position={1850, 1, 450, 900}, y={"co2SenZonParFan.VParFan_flow"
 createPlot(id=5, position={1850, 1, 450, 900}, y={"co2SenZonParFan.uZonSta"}, range={0.0, 8000.0, 0.5, 2.5}, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=6, position={2310, 1, 450, 900}, y={"co2SenSZVAV.uOpeMod"}, range={0.0, 8000.0, 0.5, 2.5}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=6, position={2310, 1, 450, 900}, y={"co2SenSZVAV.ppmCO2", "co2SenSZVAV.ppmCO2Set"}, range={0.0, 8000.0, -1000.0, 2000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
-createPlot(id=6, position={2310, 1, 450, 900}, y={"co2SenSZVAV.VOccZonMin_flow", "co2SenSZVAV.VZonAbsMin_flow", "co2SenSZVAV.VZonDesMin_flow"}, range={0.0, 8000.0, -0.02, 0.04}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s"});
+createPlot(id=6, position={2310, 1, 450, 900}, y={"co2SenSZVAV.VZonAbsMin_flow", "co2SenSZVAV.VZonDesMin_flow"}, range={0.0, 8000.0, -0.02, 0.04}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});

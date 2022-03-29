@@ -66,18 +66,24 @@ block Setpoints
     final unit="m3/s")
     "Zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{300,230},{340,270}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VZonDesMin_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s")
-    "Zone design minimum outdoor airflow setpoint"
+    final unit="m3/s") "Zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{300,110},{340,150}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOccZonMin_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") "Occupied zone minimum airflow setpoint"
+    final unit="m3/s") if not have_SZVAV
+                       "Occupied zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{300,40},{340,80}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VMinOA_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s") if have_SZVAV
+    "Zone minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{300,-320},{340,-280}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
@@ -120,10 +126,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch zonDesMin1
     "Zone design outdoor air minimum flow"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin
+  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin if not have_SZVAV
     "Zone occupied minimum flow"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin1
+  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin1 if not have_SZVAV
     "Zone occupied minimum flow"
     annotation (Placement(transformation(extent={{180,30},{200,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
@@ -142,10 +148,9 @@ protected
     "CO2 control loop"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
-    if have_CO2Sen "Constant zero"
+                   "Constant zero"
     annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
-    if have_CO2Sen
     "Constant one"
     annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply co2Con if have_CO2Sen
@@ -192,9 +197,8 @@ protected
     if have_CO2Sen and have_parFanPowUni
     "Zone occupied minimum flow when the system has parallel fan-powered terminal unit"
     annotation (Placement(transformation(extent={{120,-200},{140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin4
-    if have_CO2Sen and have_SZVAV
-    "Zone occupied minimum flow when it is the single zone VAV system"
+  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin4 if have_SZVAV
+    "Zone minimum outdoor flow when it is the single zone VAV system"
     annotation (Placement(transformation(extent={{120,-310},{140,-290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false)
@@ -210,6 +214,10 @@ protected
     if not have_CO2Sen
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+    if not have_CO2Sen
+    "Constant zero"
+    annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
 equation
   connect(uWin, zonAbsMin.u2)
     annotation (Line(points={{-320,250},{38,250}}, color={255,0,255}));
@@ -333,8 +341,6 @@ equation
           -140},{160,32},{178,32}}, color={0,0,127}));
   connect(zonOccMin3.y, zonOccMin1.u3) annotation (Line(points={{142,-190},{160,
           -190},{160,32},{178,32}}, color={0,0,127}));
-  connect(zonOccMin4.y, zonOccMin1.u3) annotation (Line(points={{142,-300},{160,
-          -300},{160,32},{178,32}}, color={0,0,127}));
   connect(zonOccMin.y, VOccZonMin_flow)
     annotation (Line(points={{262,60},{320,60}}, color={0,0,127}));
   connect(con.y, zonAbsMin.u2) annotation (Line(points={{-158,280},{-140,280},{-140,
@@ -349,6 +355,10 @@ equation
     annotation (Line(points={{-58,0},{38,0}}, color={0,0,127}));
   connect(gai1.y, zonOccMin1.u3) annotation (Line(points={{62,0},{160,0},{160,32},
           {178,32}}, color={0,0,127}));
+  connect(zer2.y, zonOccMin4.u) annotation (Line(points={{-58,-260},{-20,-260},{
+          -20,-300},{118,-300}}, color={0,0,127}));
+  connect(zonOccMin4.y, VMinOA_flow)
+    annotation (Line(points={{142,-300},{320,-300}}, color={0,0,127}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -405,7 +415,7 @@ annotation (defaultComponentName="minFlo",
           textString="VParFan_flow"),
         Text(
           visible=not have_SZVAV,
-          extent={{48,88},{98,72}},
+          extent={{48,98},{98,82}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VZonAbsMin_flow"),
@@ -423,20 +433,26 @@ annotation (defaultComponentName="minFlo",
           visible=have_CO2Sen),
         Text(
           visible=not have_SZVAV,
-          extent={{48,-72},{98,-88}},
+          extent={{48,-52},{98,-68}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOccZonMin_flow"),
         Text(
           visible=not have_SZVAV,
-          extent={{48,8},{98,-8}},
+          extent={{48,68},{98,52}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VZonDesMin_flow"),
         Line(
           points={{4,-12},{-60,-12}},
           color={28,108,200},
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(
+          visible=have_SZVAV,
+          extent={{60,-82},{98,-98}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VMinOA_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-360},{300,360}})),
   Documentation(info="<html>
 <p>
@@ -581,18 +597,22 @@ to 100% will be used at the system level to reset outdoor air minimum.
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_parallelFan.png\"/>
 </p>
 </li>
-<li>
-For single zone VAV air handler unit: The minimum outdoor air setpoint shall be reset
+</ol>
+</li>
+</ol>
+<h4>Minimum outdoor airflow for single zone VAV air handler unit</h4>
+<p>
+The minimum outdoor air setpoint shall be reset
 based on the zone CO2 control-llop signal from <code>VZonAbsMin_flow</code> at 0% signal
 to <code>VZonDesMin_flow</code> at 100% signal.
+</p>
 <p align=\"center\">
 <img alt=\"Image of airflow setpoint for single zone VAV AHU\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_SZVAV.png\"/>
 </p>
-</li>
-</ol>
-</li>
-</ol>
+<p>
+If there is no CO2 sensor, the minimum outdoor air setpoint should be <code>VZonAbsMin_flow</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

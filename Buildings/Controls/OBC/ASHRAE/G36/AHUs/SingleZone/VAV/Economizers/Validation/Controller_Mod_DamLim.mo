@@ -3,7 +3,11 @@ model Controller_Mod_DamLim
   "Validation model for single zone VAV AHU economizer operation: damper modulation and minimum ooutdoor air requirement damper position limits"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer(
-    final use_enthalpy=true,
+    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+
+    ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
+
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final yFanMin=yFanMin,
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
@@ -11,7 +15,11 @@ model Controller_Mod_DamLim
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer1(
-    final use_enthalpy=false,
+    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+
+    ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final yFanMin=yFanMin,
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
@@ -73,16 +81,10 @@ protected
     final k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
-    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
-    final k=TOutCutoff) "Outdoor temperature high limit cutoff"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
     final k=TSupSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -111,18 +113,13 @@ equation
   connect(opeMod.y, economizer.uOpeMod)
     annotation (Line(points={{-98,-100},{-10,-100},{-10,5},{18,5}},
     color={255,127,0}));
-  connect(TOutCut1.y,economizer.TCut)
-    annotation (Line(points={{-98,70},{10,70},{10,36},{18,36}},   color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-98,30},{18,30}}, color={0,0,127}));
-  connect(hOutCut.y,economizer.hCut)
-    annotation (Line(points={{-98,-10},{-16,-10},{-16,27},{18,27}}, color={0,0,127}));
+    annotation (Line(points={{-98,30},{-40,30},{-40,34},{18,34}},
+                                                color={0,0,127}));
   connect(TSupSetSig.y,economizer.TSupHeaEco)
     annotation (Line(points={{-58,50},{-50,50},{-50,21},{18,21}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-58,90},{-46,90},{-46,24},{18,24}}, color={0,0,127}));
-  connect(TOutCut1.y,economizer1.TCut)
-    annotation (Line(points={{-98,70},{10,70},{10,-4},{98,-4}},   color={0,0,127}));
   connect(TSupSig1.y, economizer1.TSup)
     annotation (Line(points={{62,90},{80,90},{80,-16},{98,-16}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)

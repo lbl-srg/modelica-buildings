@@ -1,22 +1,22 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
-type EnergyStandard = enumeration(
-    ASHRAE90_1_2016
-      "ASHRAE 90.1-2016 energy code",
+type VentilationStandard = enumeration(
+    ASHRAE62_1_2016
+      "ASHRAE 62.1-2016 ventilation code",
     California_Title_24_2016
       "California Title 24-2016")
-  "Enumeration to configure the energy standard"
+  "Enumeration to configure the ventilation standard"
 annotation (
  Evaluate=true, Documentation(info="<html>
 <p>
-Enumeration to define the energy standard. Possible values are:
+Enumeration to define the ventilation standard. Possible values are:
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
-<tr><td><code>ASHRAE90_1_2016</code></td>
+<tr><td><code>ASHRAE62_1_2016</code></td>
 <td>
-ASHRAE 90.1-2016 energy code.
+ASHRAE 62.1-2016 ventilation code.
 </td></tr>
 <tr><td><code>California_Title_24_2016</code></td>
 <td>

@@ -1,14 +1,18 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers;
 block Controller "Single zone VAV AHU economizer control sequence"
+
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneSta
+    "Energy standard, ASHRAE 90.1 or Title 24";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
+    "Economizer high limit control device";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
+    "ASHRAE climate zone"
+    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
+    "California Title 24 climate zone"
+    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
   parameter Boolean have_heaCoi=true
     "True if the air handling unit has heating coil";
-  parameter Boolean use_enthalpy = false
-    "Set to true if enthalpy measurement is used in addition to temperature measurement"
-    annotation(Dialog(enable=not use_fixed_plus_differential_drybulb));
-  parameter Boolean use_fixed_plus_differential_drybulb = false
-    "Set to true to only evaluate fixed plus differential dry bulb temperature high limit cutoff;
-    shall not be used with enthalpy"
-    annotation(Dialog(enable=not use_enthalpy));
   parameter Real uMin(
     final min=0.1,
     final max=0.9,
@@ -23,7 +27,6 @@ block Controller "Single zone VAV AHU economizer control sequence"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Modulation"));
-
   parameter Real kMod(final unit="1/K")=1 "Gain of modulation controller"
     annotation(Dialog(group="Modulation"));
   parameter Real TiMod(
@@ -52,7 +55,9 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation(Dialog(tab="Advanced", group="Hysteresis",
+                      enable = ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
+                               or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb));
   parameter Real floHys=0.01
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
@@ -126,6 +131,44 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the return air damper"
     annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
+    final unit="K",
+    displayUnit="degC",
+    final quantity = "ThermodynamicTemperature")
+    "Outdoor air temperature"
+    annotation (Placement(transformation(extent={{-180,200},{-140,240}}),
+      iconTransformation(extent={{-140,170},{-100,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    if ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+    "Used only for fixed plus differential dry bulb temperature high limit cutoff"
+    annotation (Placement(transformation(extent={{-180,160},{-140,200}}),
+        iconTransformation(extent={{-140,150},{-100,190}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")
+    if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
+        or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)
+    "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-180,120},{-140,160}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hRet(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")
+    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+        and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
+    "Return air enthalpy"
+    annotation (Placement(transformation(extent={{-180,90},{-140,130}}),
+        iconTransformation(extent={{-140,100},{-100,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
+    final unit="K",
+    displayUnit="degC",
+    final quantity = "ThermodynamicTemperature")
+    "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaEco(
     final unit="K",
     final displayUnit="degC",
@@ -133,44 +176,6 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
-    "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
-    "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-180,200},{-140,240}}),
-      iconTransformation(extent={{-140,170},{-100,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Outdoor air temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
-    annotation (Placement(transformation(extent={{-180,170},{-140,210}}),
-        iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if use_fixed_plus_differential_drybulb
-    "Used only for fixed plus differential dry bulb temperature high limit cutoff"
-    annotation (Placement(transformation(extent={{-182,138},{-140,180}}),
-        iconTransformation(extent={{-140,110},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
-    final unit="J/kg",
-    final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-180,110},{-140,150}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
-      final quantity="SpecificEnergy") if use_enthalpy
-    "Outdoor air enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
     final min=VOutMin_flow,
     final max=VOutDes_flow,
@@ -229,14 +234,15 @@ block Controller "Single zone VAV AHU economizer control sequence"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable
     enaDis(
+    final use_enthalpy=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
+                       or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
+    final use_differential_enthalpy_with_fixed_drybulb=ecoHigLimCon==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final retDamPhyPosMax=retDamPhyPosMax,
-    final use_enthalpy=use_enthalpy,
-    final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final delTOutHys=delTOutHys,
     final delEntHys=delEntHys,
     final retDamPhyPosMin=retDamPhyPosMin)
     "Single zone VAV AHU economizer enable/disable sequence"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim(
     final yFanMin=yFanMin,
@@ -262,23 +268,23 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final uMin=uMin,
     final uMax=uMax)
     "Single zone VAV AHU economizer damper modulation sequence"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim(
+    final eneSta=eneSta,
+    final ecoHigLimCon=ecoHigLimCon,
+    final ashCliZon=ashCliZon,
+    final tit24CliZon=tit24CliZon) "High limits"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 equation
   connect(uSupFan, enaDis.uSupFan)
-    annotation (Line(points={{-160,-90},{-120,-90},{-120,-45},{-42,-45}}, color={255,0,255}));
+    annotation (Line(points={{-160,-90},{-120,-90},{-120,-70},{18,-70}},  color={255,0,255}));
   connect(uFreProSta, enaDis.uFreProSta)
-    annotation (Line(points={{-160,-180},{-66,-180},{-66,-41},{-42,-41}},color={255,127,0}));
-  connect(TRet, enaDis.TRet) annotation (Line(points={{-161,159},{-54,159},{-54,
-          -35},{-42,-35}}, color={0,0,127}));
-  connect(hCut, enaDis.hCut) annotation (Line(points={{-160,100},{-70,100},{-70,
-          -39},{-42,-39}}, color={0,0,127}));
+    annotation (Line(points={{-160,-180},{-96,-180},{-96,-73},{18,-73}}, color={255,127,0}));
   connect(hOut, enaDis.hOut)
-    annotation (Line(points={{-160,130},{-66,130},{-66,-37},{-42,-37}},color={0,0,127}));
-  connect(TCut, enaDis.TCut) annotation (Line(points={{-160,190},{-50,190},{-50,
-          -33},{-42,-33}},     color={0,0,127}));
+    annotation (Line(points={{-160,140},{-4,140},{-4,-65},{18,-65}},   color={0,0,127}));
   connect(TOut, enaDis.TOut)
-    annotation (Line(points={{-160,220},{-46,220},{-46,-31},{-42,-31}}, color={0,0,127}));
+    annotation (Line(points={{-160,220},{4,220},{4,-61},{18,-61}},      color={0,0,127}));
   connect(uSupFan, damLim.uSupFan)
     annotation (Line(points={{-160,-90},{-120,-90},{-120,10},{-102,10}}, color={255,0,255}));
   connect(uOpeMod, damLim.uOpeMod)
@@ -288,38 +294,45 @@ equation
     annotation (Line(points={{-160,-180},{-110,-180},{-110,6},{-102,6}},
       color={255,127,0}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-78,16},{-58,16},{-58,-47},{-42,-47}}, color={0,0,127}));
+    annotation (Line(points={{-78,16},{-60,16},{-60,-77},{18,-77}},  color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
-    annotation (Line(points={{-18,-34},{-4,-34},{-4,-4},{18,-4}}, color={0,0,127}));
+    annotation (Line(points={{42,-64},{52,-64},{52,-4},{78,-4}},  color={0,0,127}));
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
-    annotation (Line(points={{-18,-40},{0,-40},{0,2},{18,2}}, color={0,0,127}));
+    annotation (Line(points={{42,-70},{56,-70},{56,2},{78,2}},color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin)
-    annotation (Line(points={{-78,4},{-62,4},{-62,-6},{18,-6}}, color={0,0,127}));
+    annotation (Line(points={{-78,4},{-64,4},{-64,-6},{78,-6}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin)
-    annotation (Line(points={{-18,-46},{4,-46},{4,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{42,-76},{60,-76},{60,0},{78,0}},color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta)
-    annotation (Line(points={{-160,-150},{-70,-150},{-70,-43},{-42,-43}},color={255,127,0}));
+    annotation (Line(points={{-160,-150},{-100,-150},{-100,-75},{18,-75}}, color={255,127,0}));
   connect(uSupFanSpe, damLim.uSupFanSpe)
     annotation (Line(points={{-160,-20},{-126,-20},{-126,14},{-102,14}},color={0,0,127}));
   connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
     annotation (Line(points={{-160,10},{-130,10},{-130,18},{-102,18}},color={0,0,127}));
-  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{42,6},{50,6},{50,120},
+  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{102,6},{110,6},{110,120},
           {160,120}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-78,4},
-          {-62,4},{-62,-49},{-42,-49}}, color={0,0,127}));
-  connect(TSup, mod.TSup) annotation (Line(points={{-160,70},{0,70},{0,8},{18,8}},
-                color={0,0,127}));
-  connect(TSupHeaEco,mod.TSupHeaEco)  annotation (Line(points={{-160,40},{-4,40},
-          {-4,6},{18,6}}, color={0,0,127}));
+          {-64,4},{-64,-79},{18,-79}},  color={0,0,127}));
+  connect(TSup, mod.TSup) annotation (Line(points={{-160,70},{60,70},{60,8},{78,
+          8}},  color={0,0,127}));
+  connect(TSupHeaEco,mod.TSupHeaEco)  annotation (Line(points={{-160,40},{56,40},
+          {56,6},{78,6}}, color={0,0,127}));
   connect(uSupFan, mod.uSupFan) annotation (Line(points={{-160,-90},{-120,-90},{
-          -120,-9},{18,-9}}, color={255,0,255}));
-  connect(mod.yRetDamPos, yRetDamPos) annotation (Line(points={{42,0},{60,0},{60,
-          50},{160,50}}, color={0,0,127}));
-  connect(mod.yOutDamPos, yOutDamPos) annotation (Line(points={{42,-6},{60,-6},{
-          60,-40},{160,-40}}, color={0,0,127}));
+          -120,-9},{78,-9}}, color={255,0,255}));
+  connect(mod.yRetDamPos, yRetDamPos) annotation (Line(points={{102,0},{120,0},{
+          120,50},{160,50}}, color={0,0,127}));
+  connect(mod.yOutDamPos, yOutDamPos) annotation (Line(points={{102,-6},{120,-6},
+          {120,-40},{160,-40}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-78,4},
-          {-40,4},{-40,180},{160,180}}, color={0,0,127}));
-
+          {20,4},{20,180},{160,180}},   color={0,0,127}));
+  connect(ecoHigLim.TCut, enaDis.TCut) annotation (Line(points={{-18,-24},{0,-24},
+          {0,-63},{18,-63}}, color={0,0,127}));
+  connect(ecoHigLim.hCut, enaDis.hCut) annotation (Line(points={{-18,-36},{-8,-36},
+          {-8,-67},{18,-67}}, color={0,0,127}));
+  connect(TRet, ecoHigLim.TRet) annotation (Line(points={{-160,180},{-52,180},{-52,
+          -24},{-42,-24}}, color={0,0,127}));
+  connect(hRet, ecoHigLim.hRet) annotation (Line(points={{-160,110},{-56,110},{-56,
+          -36},{-42,-36}}, color={0,0,127}));
 annotation (defaultComponentName = "conEco",
         Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
              graphics={Rectangle(
@@ -367,6 +380,11 @@ freeze protection stage and zone state.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable</a>
+for a description.
+The block <code>ecoHigLim</code> specifies the economizer high limit cutoff values
+based on the energy standard, device type and climate zones. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits\">
+Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits</a>
 for a description.
 </li>
 <li>

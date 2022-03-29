@@ -1,6 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Validation;
 model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller conVAV(
+    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+
+    venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+
+    ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final have_winSen=true,
     final have_CO2Sen=false,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
@@ -27,156 +34,184 @@ model Controller "Validation of the top-level controller"
     final height=6,
     final offset=273.15 + 16)
     "Measured zone temperature"
-    annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
+    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     final occupancy=3600*{4,20})
     "Occupancy schedule"
-    annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCut(
-    final k=273.15 + 16)
-    "Fixed dry bulb temperature high limit cutoff for economizer"
-    annotation (Placement(transformation(extent={{-120,-82},{-100,-62}})));
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
     final k=273.15 +17)
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
+    annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(
     final k=1800)
     "Cooling down time"
-    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
+    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(
     final k=1800)
     "Warm-up time"
-    annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
+    annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
     final freqHz=1/28800)
     "Cooling setpoint adjustment"
-    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final period=14400,
     final shift=1200)
     "Generate signal indicating window status"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+    annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(
     final k=0)
     "Zero adjustment"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch to zero adjustment when window is open"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,-56},{-60,-36}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Switch to zero adjustment when window is open"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-80,-26},{-60,-6}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
     final period=28800,
     final width=0.95)
     "Generate signal indicating occupancy status"
-    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLimLev(
     final k=0)
     "Demand limit level"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse freRes(
     final width=0.95,
     final period=86400)
     "Freeze protection reset"
-    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp mixTem(
     final height=-5,
     final offset=273.15 + 8,
     final duration=3600)
     "Mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDam(
     final height=0.6,
     final offset=0.2,
     final duration=86400)
     "Outdoor damper position"
-    annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
+    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp cooCoi(
     final height=-0.3,
     final offset=0.96,
     final duration=86400,
     startTime=1000) "Cooling coil position"
-    annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoi(
     final k=0)
     "Heating coil position"
-    annotation (Placement(transformation(extent={{-180,-200},{-160,-180}})));
+    annotation (Placement(transformation(extent={{-180,-210},{-160,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final height=2,
     final duration=86400,
     final offset=273.15 + 22.5)
     "Terminal unit discharge air temperature"
-    annotation (Placement(transformation(extent={{-180,-66},{-160,-46}})));
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
 
+  CDL.Continuous.Sources.Constant                        THeaSetOcc(final k=
+        293.15)
+    "Occupied heating setpoint"
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+  CDL.Continuous.Sources.Constant                        TCooSetOcc(final k=
+        297.15)
+    "Occupied cooling setpoint"
+    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
+  CDL.Continuous.Sources.Constant                        THeaSetUno(final k=
+        285.15)
+    "Unoccupied heating setpoint"
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+  CDL.Continuous.Sources.Constant                        TCooSetUno(final k=
+        303.15)
+    "Unoccupied cooling setpoint"
+    annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
 equation
-  connect(TZon.y, conVAV.TZon) annotation (Line(points={{-158,110},{-36,110},{-36,
-          65},{18,65}},   color={0,0,127}));
-  connect(TCut.y, conVAV.TCut) annotation (Line(points={{-98,-72},{-24,-72},{
-          -24,39},{18,39}},
-                        color={0,0,127}));
-  connect(TOut.y, conVAV.TOut)
-    annotation (Line(points={{-158,190},{-16,190},{-16,78},{18,78}}, color={0,0,127}));
-  connect(TSup.y, conVAV.TSup) annotation (Line(points={{-158,-56},{-28,-56},{
-          -28,41},{18,41}},
+  connect(TZon.y, conVAV.TZon) annotation (Line(points={{-158,120},{-36,120},{
+          -36,66},{18,66}},
                           color={0,0,127}));
-  connect(cooDowTim.y, conVAV.cooDowTim) annotation (Line(points={{-118,170},{-20,
-          170},{-20,75},{18,75}}, color={0,0,127}));
-  connect(warUpTim.y, conVAV.warUpTim) annotation (Line(points={{-158,150},{-24,
-          150},{-24,73},{18,73}}, color={0,0,127}));
-  connect(occSch.tNexOcc, conVAV.tNexOcc) annotation (Line(points={{-119,136},{-28,
-          136},{-28,68},{18,68}}, color={0,0,127}));
-  connect(occSch.occupied, conVAV.uOcc) annotation (Line(points={{-119,124},{-32,
-          124},{-32,70},{18,70}}, color={255,0,255}));
+  connect(TOut.y, conVAV.TOut)
+    annotation (Line(points={{-158,200},{-16,200},{-16,79},{18,79}}, color={0,0,127}));
+  connect(TSup.y, conVAV.TSup) annotation (Line(points={{-118,-100},{-24,-100},
+          {-24,36},{18,36}},
+                          color={0,0,127}));
+  connect(cooDowTim.y, conVAV.cooDowTim) annotation (Line(points={{-118,180},{
+          -20,180},{-20,76},{18,76}},
+                                  color={0,0,127}));
+  connect(warUpTim.y, conVAV.warUpTim) annotation (Line(points={{-158,160},{-24,
+          160},{-24,74},{18,74}}, color={0,0,127}));
+  connect(occSch.tNexOcc, conVAV.tNexOcc) annotation (Line(points={{-119,146},{
+          -28,146},{-28,69},{18,69}},
+                                  color={0,0,127}));
+  connect(occSch.occupied, conVAV.uOcc) annotation (Line(points={{-119,134},{
+          -32,134},{-32,71},{18,71}},
+                                  color={255,0,255}));
   connect(winSta.y,swi2. u2)
-    annotation (Line(points={{-118,40},{-100,40},{-100,60},{-82,60}},
+    annotation (Line(points={{-158,0},{-100,0},{-100,-16},{-82,-16}},
           color={255,0,255}));
   connect(winSta.y,swi1. u2)
-    annotation (Line(points={{-118,40},{-100,40},{-100,10},{-82,10}},
+    annotation (Line(points={{-158,0},{-100,0},{-100,-46},{-82,-46}},
           color={255,0,255}));
   connect(zerAdj.y,swi2. u1)
-    annotation (Line(points={{-118,80},{-90,80},{-90,68},{-82,68}},  color={0,0,127}));
+    annotation (Line(points={{-118,20},{-90,20},{-90,-8},{-82,-8}},  color={0,0,127}));
   connect(zerAdj.y,swi1. u1)
-    annotation (Line(points={{-118,80},{-90,80},{-90,18},{-82,18}},color={0,0,127}));
+    annotation (Line(points={{-118,20},{-90,20},{-90,-38},{-82,-38}},
+                                                                   color={0,0,127}));
   connect(cooSetAdj.y,swi2. u3)
-    annotation (Line(points={{-158,60},{-110,60},{-110,52},{-82,52}}, color={0,0,127}));
+    annotation (Line(points={{-118,-20},{-110,-20},{-110,-24},{-82,-24}},
+                                                                      color={0,0,127}));
   connect(heaSetAdj.y,swi1. u3)
-    annotation (Line(points={{-118,0},{-110,0},{-110,2},{-82,2}}, color={0,0,127}));
-  connect(swi2.y, conVAV.cooSetAdj) annotation (Line(points={{-58,60},{-40,60},{
-          -40,59},{18,59}}, color={0,0,127}));
-  connect(swi1.y, conVAV.heaSetAdj) annotation (Line(points={{-58,10},{-40,10},{
-          -40,57},{18,57}}, color={0,0,127}));
-  connect(occSta.y, conVAV.uOccSen) annotation (Line(points={{-158,-20},{-36,-20},
-          {-36,54},{18,54}}, color={255,0,255}));
-  connect(demLimLev.y, conVAV.uCooDemLimLev) annotation (Line(points={{-118,-40},
-          {-32,-40},{-32,51},{18,51}}, color={255,127,0}));
-  connect(demLimLev.y, conVAV.uHeaDemLimLev) annotation (Line(points={{-118,-40},
-          {-32,-40},{-32,49},{18,49}}, color={255,127,0}));
-  connect(winSta.y, conVAV.uWin) annotation (Line(points={{-118,40},{-100,40},{
-          -100,36},{18,36}},
+    annotation (Line(points={{-158,-40},{-110,-40},{-110,-54},{-82,-54}},
+                                                                  color={0,0,127}));
+  connect(swi2.y, conVAV.cooSetAdj) annotation (Line(points={{-58,-16},{-40,-16},
+          {-40,54},{18,54}},color={0,0,127}));
+  connect(swi1.y, conVAV.heaSetAdj) annotation (Line(points={{-58,-46},{-36,-46},
+          {-36,52},{18,52}},color={0,0,127}));
+  connect(occSta.y, conVAV.uOccSen) annotation (Line(points={{-118,-60},{-32,
+          -60},{-32,49},{18,49}},
+                             color={255,0,255}));
+  connect(demLimLev.y, conVAV.uCooDemLimLev) annotation (Line(points={{-158,-80},
+          {-28,-80},{-28,46},{18,46}}, color={255,127,0}));
+  connect(demLimLev.y, conVAV.uHeaDemLimLev) annotation (Line(points={{-158,-80},
+          {-28,-80},{-28,44},{18,44}}, color={255,127,0}));
+  connect(winSta.y, conVAV.uWin) annotation (Line(points={{-158,0},{-100,0},{
+          -100,33},{18,33}},
                         color={255,0,255}));
   connect(freRes.y, not1.u)
-    annotation (Line(points={{-158,-100},{-122,-100}}, color={255,0,255}));
-  connect(not1.y, conVAV.uSofSwiRes) annotation (Line(points={{-98,-100},{-20,-100},
-          {-20,22},{18,22}}, color={255,0,255}));
-  connect(mixTem.y, conVAV.TMix) annotation (Line(points={{-118,-130},{-16,-130},
-          {-16,16},{18,16}}, color={0,0,127}));
-  connect(outDam.y, conVAV.uOutDamPos) annotation (Line(points={{-158,-150},{-12,
-          -150},{-12,12},{18,12}}, color={0,0,127}));
-  connect(cooCoi.y, conVAV.uCooCoi) annotation (Line(points={{-118,-170},{-8,-170},
-          {-8,6.2},{18,6.2}},   color={0,0,127}));
-  connect(heaCoi.y, conVAV.uHeaCoi) annotation (Line(points={{-158,-190},{-4,-190},
-          {-4,4},{18,4}},   color={0,0,127}));
+    annotation (Line(points={{-158,-120},{-82,-120}},  color={255,0,255}));
+  connect(not1.y, conVAV.uSofSwiRes) annotation (Line(points={{-58,-120},{-20,
+          -120},{-20,19},{18,19}},
+                             color={255,0,255}));
+  connect(mixTem.y, conVAV.TMix) annotation (Line(points={{-118,-140},{-16,-140},
+          {-16,13},{18,13}}, color={0,0,127}));
+  connect(outDam.y, conVAV.uOutDamPos) annotation (Line(points={{-158,-160},{
+          -12,-160},{-12,9},{18,9}},
+                                   color={0,0,127}));
+  connect(cooCoi.y, conVAV.uCooCoi) annotation (Line(points={{-118,-180},{-8,
+          -180},{-8,3},{18,3}}, color={0,0,127}));
+  connect(heaCoi.y, conVAV.uHeaCoi) annotation (Line(points={{-158,-200},{-4,
+          -200},{-4,1},{18,1}},
+                            color={0,0,127}));
 
+  connect(THeaSetOcc.y, conVAV.THeaSetOcc) annotation (Line(points={{-118,100},
+          {-40,100},{-40,64},{18,64}}, color={0,0,127}));
+  connect(TCooSetOcc.y, conVAV.TCooSetOcc) annotation (Line(points={{-158,80},{
+          -44,80},{-44,62},{18,62}}, color={0,0,127}));
+  connect(THeaSetUno.y, conVAV.THeaSetUno) annotation (Line(points={{-118,60},{
+          -50,60},{-50,60},{18,60}}, color={0,0,127}));
+  connect(TCooSetUno.y, conVAV.TCooSetUno) annotation (Line(points={{-158,40},{
+          -44,40},{-44,58},{18,58}}, color={0,0,127}));
   annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),
