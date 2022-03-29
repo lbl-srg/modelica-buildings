@@ -491,14 +491,14 @@ reasonable assumptions.  In such cases, the following default values are used:
     <td>&#10060;</td>
     <td>&#10060;</td>
     <td>&#10003;</td>
-    <td><i>=&eta; &frasl; &eta;<sub>mot</sub></i></td>
+    <td><i>= &eta; &frasl; &eta;<sub>mot</sub></i></td>
     <td>= 0.7</td>
   </tr>
   <tr>
     <td>&#10060;</td>
     <td>&#10003;</td>
     <td>&#10060;</td>
-    <td><i>=&eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
+    <td><i>= &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
     <td>&#10003;</td>
     <td>= 0.7</td>
   </tr>
@@ -506,7 +506,7 @@ reasonable assumptions.  In such cases, the following default values are used:
     <td>&#10060;</td>
     <td>&#10060;</td>
     <td>&#10003;</td>
-    <td><i>=&eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
+    <td><i>= &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
     <td>= 0.7</td>
     <td>&#10003;</td>
   </tr>
