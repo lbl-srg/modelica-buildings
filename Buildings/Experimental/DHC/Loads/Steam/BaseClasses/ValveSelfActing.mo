@@ -13,7 +13,7 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=true,
+    final allowFlowReversal=allowFlowReversal,
     final dp_start=dp_start,
     m_flow_start=m_flow_nominal,
     final m_flow_small=m_flow_small,
@@ -39,7 +39,7 @@ equation
   + getInstanceName() + ", which results in a negative pressure drop. 
   This is not typical of real systems and should be verified.", AssertionLevel.warning);
 
-  assert(m_flow > 0, "Flow reversal occured through "
+  assert(m_flow> 0, "Flow reversal occured through "
   + getInstanceName() + ", resulting in a negative massflow rate.",  AssertionLevel.warning);
 
   connect(ideSou.port_b, port_b)
