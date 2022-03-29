@@ -7,7 +7,7 @@ model ValveSelfActing
     "Nominal mass flow rate";
 
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ValveSelfActing prv(
-    redeclare package Medium = MediumSte,
+    redeclare final package Medium = MediumSte,
     m_flow_nominal=m_flow_nominal,
     show_T=true,
     pb_nominal=300000,
@@ -15,19 +15,19 @@ model ValveSelfActing
      "Self acting pressure reducing valve"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = MediumSte,
+    redeclare final package Medium = MediumSte,
     use_p_in=true,
     p(displayUnit="Pa"),
     T(displayUnit="K") = MediumSte.saturationTemperature(sou.p),
     nPorts=1) "Source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntIn(
-    redeclare package Medium = MediumSte,
+    redeclare final package Medium = MediumSte,
     m_flow_nominal=m_flow_nominal)
     "Upstream specific enthalpy"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntOut(
-    redeclare package Medium = MediumSte,
+    redeclare final package Medium = MediumSte,
     m_flow_nominal=m_flow_nominal)
     "Downstream specific enthalpy"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
@@ -37,13 +37,13 @@ model ValveSelfActing
     y_max=500000 - 300000) "Noisy signal for inlet pressure"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = MediumSte,
-    p=250000,
+    redeclare final package Medium = MediumSte,
+    p=200000,
     T=MediumSte.saturationTemperature(sin.p),
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Fluid.FixedResistances.PressureDrop res(
-    redeclare package Medium = MediumSte,
+    redeclare final package Medium = MediumSte,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) "Pressure drop"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
