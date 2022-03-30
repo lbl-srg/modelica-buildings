@@ -11,7 +11,7 @@ block UnitDelay
   Interfaces.RealInput u
     "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  discrete Interfaces.RealOutput y
     "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -59,6 +59,12 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2022, by Michael Wetter:<br/>
+Added <code>discrete</code> keyword to output signal.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>

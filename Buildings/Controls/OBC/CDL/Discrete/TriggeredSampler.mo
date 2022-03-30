@@ -6,7 +6,7 @@ block TriggeredSampler
   Interfaces.RealInput u
     "Connector with a Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  discrete Interfaces.RealOutput y
     "Connector with a Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Interfaces.BooleanInput trigger
@@ -78,6 +78,12 @@ the initial value defined via parameter <code>y_start</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2022, by Michael Wetter:<br/>
+Added <code>discrete</code> keyword to output signal.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

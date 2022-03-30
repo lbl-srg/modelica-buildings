@@ -4,7 +4,7 @@ block TriggeredMax
   Interfaces.RealInput u
     "Connector with a Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  discrete Interfaces.RealOutput y
     "Connector with a Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Interfaces.BooleanInput trigger
@@ -68,28 +68,6 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Ellipse(
-          extent={{-25,-10},{-45,10}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{45,-10},{25,10}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-100,0},{-45,0}},
-          color={0,0,255}),
-        Line(
-          points={{45,0},{100,0}},
-          color={0,0,255}),
-        Line(
-          points={{-35,0},{28,-48}},
-          color={0,0,255}),
-        Line(
-          points={{0,-100},{0,-26}},
-          color={255,0,255}),
         Text(
           extent={{226,60},{106,10}},
           textColor={0,0,0},
@@ -107,6 +85,12 @@ at the sampling point is provided as the output signal.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2022, by Michael Wetter:<br/>
+Added <code>discrete</code> keyword to output signal, and removed graphic from diagram view.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
