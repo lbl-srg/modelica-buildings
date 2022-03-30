@@ -429,21 +429,21 @@ the simulation stops.");
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve),
          "Only one of etaMet and etaHydMet can be set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve");
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve.");
 
   assert(not (per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber),
          "Only one of etaMet and etaHydMet can be set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber");
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber.");
 
   assert(not (per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y
          or per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y),
          "etaMet and etaHydMet are not allowed to be set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y");
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y.");
 
   assert(per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
@@ -453,7 +453,17 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y,
          "Only values allowed for etaMet are
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-         .Values, or .Values_y,");
+         .Values, or .Values_y.");
+
+  assert(per.etaMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+         or per.etaHydMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+         or per.etaMotMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+         "The problem is over-specified. At least one of the three efficiency
+         methods must be set to
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided.");
 
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
