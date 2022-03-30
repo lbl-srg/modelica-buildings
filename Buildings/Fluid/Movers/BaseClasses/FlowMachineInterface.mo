@@ -640,8 +640,8 @@ equation
     end if;
   else
   // Total efficiency not provided
-    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=eta, x2=1E-5, deltaX=1E-6);
+    PEle = WHyd / Buildings.Utilities.Math.Functions.smoothMax(
+                    x1=etaMot, x2=1E-5, deltaX=1E-6);
     if per.etaHydMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided or
        per.etaMotMet<>
