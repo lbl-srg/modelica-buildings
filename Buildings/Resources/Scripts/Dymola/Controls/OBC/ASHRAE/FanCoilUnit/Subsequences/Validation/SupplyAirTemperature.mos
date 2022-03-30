@@ -23,4 +23,3 @@ createPlot(id=4, position={0, 0, 1669, 159}, y={"TSupAir3.uCoo"}, range={0.0, 10
 createPlot(id=4, position={0, 0, 1669, 158}, y={"TSupAir3.TZonSetCoo", "TSupAir3.swi2.y"}, range={0.0, 100.0, 294.0, 300.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=4, position={0, 0, 1669, 159}, y={"TSupAir3.swi2.y", "TSupAir3.TAirSup"}, range={0.0, 100.0, 0.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
 createPlot(id=4, position={0, 0, 1669, 159}, y={"TSupAir3.yCooCoi"}, range={0.0, 100.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
-
