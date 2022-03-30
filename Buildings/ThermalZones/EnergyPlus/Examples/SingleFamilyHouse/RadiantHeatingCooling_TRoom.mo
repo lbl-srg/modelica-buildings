@@ -175,11 +175,11 @@ equation
   connect(slaFlo.surf_b, livFlo.heaPorBac) annotation (Line(points={{14,-190},{
           14,-200},{100,-200},{100,-189.8}},
                                           color={191,0,0}));
+  connect(zon.TAir, conHea.TRoo) annotation (Line(points={{41,18},{48,18},{48,-100},
+          {-148,-100},{-148,-150},{-142,-150}},   color={0,0,127}));
   connect(slaFlo.port_b,pum.port_a)
     annotation (Line(points={{20,-180},{40,-180},{40,-220},{-100,-220},{-100,
           -180},{-80,-180}},                                                                   color={0,127,255}));
-  connect(zon.TAir, conHea.TRoo) annotation (Line(points={{41,18},{48,18},{48,
-          40},{-150,40},{-150,-150},{-142,-150}}, color={0,0,127}));
   connect(slaFlo.port_b,pre.ports[1])
     annotation (Line(points={{20,-180},{50,-180}},color={0,127,255}));
   connect(conHea.TSupSet, hea.TSet) annotation (Line(points={{-118,-144},{-50,
@@ -240,9 +240,16 @@ back-facing surface, e.g., the ceiling of the living room.
 </p>
 <p>
 The mass flow rate of the slab is constant if the cooling is operating.
-A P controller computes the control signal, and using a hysteresis, the mass flow rate is switched on or off.
+A P controller computes the control signal to track a set point for the room temperature.
+The controller uses a hysteresis to switch the mass flow rate on or off.
 The control signal is also used to set the set point for the water supply temperature to the slab.
 This temperature is limited by the dew point of the zone air to avoid condensation.
+</p>
+<p>
+See also the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface</a>
+which is controlled to track a set point for the surface temperature.
 </p>
 <h4>Coupling of radiant floor to EnergyPlus model</h4>
 <p>

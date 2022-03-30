@@ -117,11 +117,11 @@ model RadiantHeatingCooling_TSurface
     nPorts=1)
     "Mass flow source for cooling water at prescribed temperature"
     annotation (Placement(transformation(extent={{-38,80},{-18,100}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetSurCooOn(k(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSurCooOn(k(
       final unit="K",
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
     "Surface temperture set point for cooling"
-    annotation (Placement(transformation(extent={{-210,114},{-190,134}})));
+    annotation (Placement(visible = true, transformation(extent = {{-214, 140}, {-194, 160}}, rotation = 0)));
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=mCoo_flow_nominal)
     "Cooling water mass flow rate"
@@ -146,17 +146,17 @@ model RadiantHeatingCooling_TSurface
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSur
     "Surface temperature"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetSurOff(k(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSurOff(k(
       final unit="K",
       displayUnit="degC") = 323.15, y(final unit="K", displayUnit="degC"))
     "Surface temperture set point to switch system off"
-    annotation (Placement(transformation(extent={{-210,82},{-190,102}})));
+    annotation (Placement(visible = true, transformation(extent = {{-214, 100}, {-194, 120}}, rotation = 0)));
   Controls.OBC.CDL.Continuous.Greater enaCoo(h=1)
     "Switch to enable and disable cooling"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Controls.OBC.CDL.Continuous.Switch TSetSurCoo
+  Buildings.Controls.OBC.CDL.Continuous.Switch TSetSurCoo
     "Set point for surface temperature for cooling system"
-    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
+    annotation (Placement(visible = true, transformation(extent = {{-180, 108}, {-160, 128}}, rotation = 0)));
   Controls.OBC.CDL.Continuous.AddParameter TOffSet(p=3)
     "Off set before switching on the cooling system"
     annotation (Placement(transformation(extent={{-180,-18},{-160,2}})));
@@ -213,18 +213,18 @@ equation
           {-50,116},{-50,94},{-40,94}}, color={0,0,127}));
   connect(attFlo.heaPorBac, TSur.port)
     annotation (Line(points={{102,80.2},{102,70},{120,70}}, color={191,0,0}));
-  connect(TSur.T, conCoo.TSur) annotation (Line(points={{141,70},{150,70},{150,132},
-          {-150,132},{-150,114},{-142,114}}, color={0,0,127}));
+  connect(TSur.T, conCoo.TSur) annotation (Line(points={{141,70},{150,70},{150, 52},
+          {-154, 52},{-154, 114},{-142,114}}, color={0,0,127}));
   connect(zon.TAir, enaCoo.u1) annotation (Line(points={{41,18},{48,18},{48,40},
           {-150,40},{-150,0},{-142,0}}, color={0,0,127}));
-  connect(TSetSurCooOn.y, TSetSurCoo.u1) annotation (Line(points={{-188,124},{-186,
-          124},{-186,108},{-182,108}}, color={0,0,127}));
-  connect(TSetSurOff.y, TSetSurCoo.u3)
-    annotation (Line(points={{-188,92},{-182,92}}, color={0,0,127}));
-  connect(enaCoo.y, TSetSurCoo.u2) annotation (Line(points={{-118,0},{-100,0},{-100,
-          20},{-186,20},{-186,100},{-182,100}}, color={255,0,255}));
-  connect(TSetSurCoo.y, conCoo.TSurSet) annotation (Line(points={{-158,100},{-154,
-          100},{-154,118},{-142,118}}, color={0,0,127}));
+  connect(TSetSurCooOn.y, TSetSurCoo.u1) annotation(
+    Line(points = {{-192, 150}, {-185, 150}, {-185, 126}, {-182, 126}}, color = {0, 0, 127}));
+  connect(TSetSurOff.y, TSetSurCoo.u3) annotation(
+    Line(points = {{-192, 110}, {-182, 110}}, color = {0, 0, 127}));
+  connect(enaCoo.y, TSetSurCoo.u2) annotation(
+    Line(points = {{-118, 0}, {-100, 0}, {-100, 20}, {-186, 20}, {-186, 118}, {-182, 118}}, color = {255, 0, 255}));
+  connect(TSetSurCoo.y, conCoo.TSurSet) annotation(
+    Line(points = {{-158, 118}, {-142, 118}}, color = {0, 0, 127}));
   connect(enaCoo.u2, TOffSet.y)
     annotation (Line(points={{-142,-8},{-158,-8}}, color={0,0,127}));
   connect(TOffSet.u, TSetRooHea.y) annotation (Line(points={{-182,-8},{-186,-8},
@@ -281,6 +281,12 @@ A P controller computes the control signal to maintain a set point for the surfa
 The controller uses a hysteresis to switch the mass flow rate on or off.
 The control signal is also used to set the set point for the water supply temperature to the slab.
 This temperature is limited by the dew point of the zone air to avoid condensation.
+</p>
+<p>
+See also the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
+which is controlled to track a set point for the room temperature.
 </p>
 <h4>Coupling of radiant floor to EnergyPlus model</h4>
 <p>
