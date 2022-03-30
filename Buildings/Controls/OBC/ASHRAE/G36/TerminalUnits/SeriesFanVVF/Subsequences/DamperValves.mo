@@ -81,7 +81,7 @@ block DamperValves
     "Hysteresis for checking damper position"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
@@ -170,7 +170,7 @@ block DamperValves
     "Current damper position"
     annotation (Placement(transformation(extent={{-380,-400},{-340,-360}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDis_flow_Set(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VPri_flow_Set(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
@@ -246,7 +246,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{200,330},{220,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
+  Buildings.Controls.OBC.CDL.Continuous.Divide VPri_flowNor
     if not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{200,270},{220,290}})));
@@ -427,7 +427,7 @@ equation
           360},{98,360}},  color={255,0,255}));
   connect(VActMin_flow, swi5.u1) annotation (Line(points={{-360,220},{-20,220},{
           -20,398},{38,398}}, color={0,0,127}));
-  connect(swi.y, VDis_flow_Set) annotation (Line(points={{122,360},{140,360},{140,
+  connect(swi.y, VPri_flow_Set) annotation (Line(points={{122,360},{140,360},{140,
           410},{380,410}}, color={0,0,127}));
   connect(VActMin_flow, lin.f1) annotation (Line(points={{-360,220},{-260,220},{
           -260,374},{-182,374}}, color={0,0,127}));
@@ -443,11 +443,11 @@ equation
           310},{180,334},{198,334}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{222,340},{238,340}}, color={0,0,127}));
-  connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-360,430},{-320,
+  connect(VPri_flow, VPri_flowNor.u1) annotation (Line(points={{-360,430},{-320,
           430},{-320,286},{198,286}}, color={0,0,127}));
-  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{122,310},{180,310},
+  connect(nomFlow.y, VPri_flowNor.u2) annotation (Line(points={{122,310},{180,310},
           {180,274},{198,274}}, color={0,0,127}));
-  connect(VDis_flowNor.y, conDam.u_m)
+  connect(VPri_flowNor.y, conDam.u_m)
     annotation (Line(points={{222,280},{250,280},{250,328}}, color={0,0,127}));
   connect(TZonHeaSet, addPar.u)
     annotation (Line(points={{-360,100},{-282,100}}, color={0,0,127}));
@@ -741,7 +741,7 @@ and the damper position setpoint"),
           pattern=LinePattern.Dash,
           origin={39.5,-85.5},
           rotation=90,
-          textString="VDis_flow"),
+          textString="VPri_flow"),
         Text(
           extent={{68,96},{98,86}},
           lineColor={0,0,127},
@@ -776,7 +776,7 @@ and the damper position setpoint"),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDis_flow_Set"),
+          textString="VPri_flow_Set"),
         Text(
           extent={{54,-84},{98,-96}},
           lineColor={0,0,127},
@@ -792,7 +792,7 @@ and the damper position setpoint"),
           extent={{-98,196},{-68,186}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis_flow"),
+          textString="VPri_flow"),
         Text(
           extent={{-100,16},{-68,6}},
           lineColor={0,0,127},
@@ -904,7 +904,7 @@ override is released.
 </li>
 <li>
 When the zone stats is cooling (<code>uCoo &gt; 0</code>), the series fan airflow setpoint
-shall be the larger of <code>VOAMin_flow</code> and the <code>VDis_flow_Set</code>.
+shall be the larger of <code>VOAMin_flow</code> and the <code>VPri_flow_Set</code>.
 If supply air temperature <code>TSup</code> from the AHU is greater than
 room temperature <code>TZon</code>, the series fan airflow setpoint shall be no higher
 than <code>VOAMin_flow</code>.

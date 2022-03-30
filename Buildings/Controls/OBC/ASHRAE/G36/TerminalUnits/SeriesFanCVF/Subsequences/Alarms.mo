@@ -56,11 +56,11 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     "Near zero valve position, below which the valve will be seen as closed"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Measured discharge airflow rate airflow rate"
+    "Measured primary airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-280,390},{-240,430}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActSet_flow(
@@ -430,7 +430,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,330},{-200,330},{-200,
           380},{-182,380}},  color={0,0,127}));
-  connect(VDis_flow, les.u1)
+  connect(VPri_flow, les.u1)
     annotation (Line(points={{-260,410},{-122,410}}, color={0,0,127}));
   connect(gai.y, les.u2) annotation (Line(points={{-158,380},{-140,380},{-140,402},
           {-122,402}}, color={0,0,127}));
@@ -440,7 +440,7 @@ equation
     annotation (Line(points={{-260,330},{-182,330}}, color={0,0,127}));
   connect(VActSet_flow, gai1.u) annotation (Line(points={{-260,330},{-200,330},{
           -200,300},{-182,300}},  color={0,0,127}));
-  connect(VDis_flow, gre.u2) annotation (Line(points={{-260,410},{-220,410},{-220,
+  connect(VPri_flow, gre.u2) annotation (Line(points={{-260,410},{-220,410},{-220,
           272},{-122,272}},      color={0,0,127}));
   connect(gai1.y, gre.u1) annotation (Line(points={{-158,300},{-140,300},{-140,280},
           {-122,280}},      color={0,0,127}));
@@ -526,7 +526,7 @@ equation
     annotation (Line(points={{62,-70},{138,-70}}, color={255,0,255}));
   connect(booToInt3.y, yLeaDamAla)
     annotation (Line(points={{162,-70},{260,-70}}, color={255,127,0}));
-  connect(VDis_flow, gre1.u1) annotation (Line(points={{-260,410},{-220,410},{-220,
+  connect(VPri_flow, gre1.u1) annotation (Line(points={{-260,410},{-220,410},{-220,
           200},{-102,200}}, color={0,0,127}));
   connect(TDis, les1.u1)
     annotation (Line(points={{-260,-310},{-122,-310}}, color={0,0,127}));
@@ -670,7 +670,7 @@ annotation (defaultComponentName="ala",
           extent={{-100,102},{-60,92}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis_flow"),
+          textString="VPri_flow"),
         Text(
           extent={{-100,6},{-72,-4}},
           lineColor={0,0,127},
@@ -758,12 +758,12 @@ The implementation is according to the Section 5.9.6 of ASHRAE Guideline 36, May
 <h4>Low airflow</h4>
 <ol>
 <li>
-If the measured airflow <code>VDis_flow</code> is less then 70% of setpoint
+If the measured airflow <code>VPri_flow</code> is less then 70% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 3 alarm.
 </li>
 <li>
-If the measured airflow <code>VDis_flow</code> is less then 50% of setpoint
+If the measured airflow <code>VPri_flow</code> is less then 50% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 2 alarm.
 </li>
@@ -811,14 +811,14 @@ generate Level 4 alarm.
 <h4>Airflow sensor calibration</h4>
 <p>
 If the fan serving the zone has been OFF (<code>uFan=false</code>) for 10 minutes
-(<code>fanOffTim</code>), and airflow sensor reading <code>VDis_flow</code>
+(<code>fanOffTim</code>), and airflow sensor reading <code>VPri_flow</code>
 is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
 generate a Level 3 alarm.
 </p>
 <h4>Leaking damper</h4>
 <p>
 If the damper position (<code>uDam</code>) is 0% and airflow sensor reading
-<code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
+<code>VPri_flow</code> is above 10% of the cooling maximum airflow setpoint
 <code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uFan=true</code>), generate a Level
 4 alarm.

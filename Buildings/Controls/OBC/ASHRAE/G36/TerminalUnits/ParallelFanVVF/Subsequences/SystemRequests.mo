@@ -91,11 +91,10 @@ block SystemRequests
     "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured discharge airflow rate"
+    final quantity="VolumeFlowRate") "Measured primary airflow rate"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
@@ -363,9 +362,9 @@ equation
           50},{-142,50}},   color={0,0,127}));
   connect(VSet_flow, gai2.u) annotation (Line(points={{-200,80},{-160,80},{-160,
           10},{-142,10}},     color={0,0,127}));
-  connect(VDis_flow, greEqu.u2) annotation (Line(points={{-200,-10},{-100,-10},
+  connect(VPri_flow, greEqu.u2) annotation (Line(points={{-200,-10},{-100,-10},
           {-100,42},{-62,42}},   color={0,0,127}));
-  connect(VDis_flow, greEqu1.u2) annotation (Line(points={{-200,-10},{-100,-10},
+  connect(VPri_flow, greEqu1.u2) annotation (Line(points={{-200,-10},{-100,-10},
           {-100,2},{-62,2}},       color={0,0,127}));
   connect(greThr3.y, tim3.u) annotation (Line(points={{-138,-50},{-80,-50},{-80,
           -30},{-62,-30}},   color={255,0,255}));
@@ -499,22 +498,22 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-98,36},{-74,26}},
+          extent={{-98,38},{-76,26}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
-          extent={{-98,18},{-60,4}},
+          extent={{-96,18},{-58,4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{-98,-4},{-60,-14}},
+          extent={{-100,-2},{-60,-14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis_flow"),
+          textString="VPri_flow"),
         Text(
-          extent={{-98,-24},{-72,-34}},
+          extent={{-100,-22},{-72,-34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam"),
@@ -543,12 +542,12 @@ annotation (
           textString="TDisSet"),
         Text(
           visible=have_hotWatCoi,
-          extent={{-102,-64},{-76,-74}},
+          extent={{-100,-62},{-76,-76}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
-          extent={{-98,-84},{-80,-94}},
+          extent={{-98,-82},{-78,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uVal"),
@@ -597,12 +596,12 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=
 <h4>Static pressure reset requests <code>yZonPreResReq</code></h4>
 <ol>
 <li>
-If the measured airflow <code>VDis_flow</code> is less than 50% of setpoint
+If the measured airflow <code>VPri_flow</code> is less than 50% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
 <code>uDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yZonPreResReq=3</code>).
 </li>
 <li>
-Else if the measured airflow <code>VDis_flow</code> is less than 70% of setpoint
+Else if the measured airflow <code>VPri_flow</code> is less than 70% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
 <code>uDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yZonPreResReq=2</code>).
 </li>

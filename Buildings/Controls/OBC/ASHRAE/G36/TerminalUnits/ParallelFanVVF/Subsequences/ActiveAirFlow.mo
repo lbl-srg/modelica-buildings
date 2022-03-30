@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences;
 block ActiveAirFlow
-  "Output the active airflow setpoint for variable-volume parallel fan-powered terminal unit"
+  "Output the active primary airflow setpoint for variable-volume parallel fan-powered terminal unit"
 
   parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
@@ -136,7 +136,7 @@ annotation (
           textString="VOccZonMin_flow")}),
 Documentation(info="<html>
 <p>
-This sequence sets the active cooling maximum and minimum setpoints
+This sequence sets the active primary cooling maximum and minimum setpoints
 for parallel fan-powered terminal unit with variable volume fan. The implementation
 is according to the Section 5.8.4 of ASHRAE Guideline 36, May 2020.
 </p>

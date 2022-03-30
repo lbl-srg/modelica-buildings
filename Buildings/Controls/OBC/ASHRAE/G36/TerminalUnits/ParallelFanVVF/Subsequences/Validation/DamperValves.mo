@@ -101,9 +101,9 @@ equation
                       color={0,0,127}));
   connect(uHea.y, damValFan1.uHea) annotation (Line(points={{-78,-50},{32,-50},{
           32,-78},{78,-78}}, color={0,0,127}));
-  connect(disAir.y, damValFan.VDis_flow) annotation (Line(points={{-38,130},{64,
+  connect(disAir.y,damValFan.VPri_flow)  annotation (Line(points={{-38,130},{64,
           130},{64,27},{78,27}}, color={0,0,127}));
-  connect(disAir.y, damValFan1.VDis_flow) annotation (Line(points={{-38,130},{64,
+  connect(disAir.y,damValFan1.VPri_flow)  annotation (Line(points={{-38,130},{64,
           130},{64,-51},{78,-51}}, color={0,0,127}));
   connect(TSupSet.y, damValFan.TSupSet) annotation (Line(points={{-78,-10},{40,
           -10},{40,6},{78,6}},
@@ -129,14 +129,17 @@ equation
     annotation (Line(points={{-38,-100},{-22,-100}},
       color={0,0,127}));
   connect(reaToInt2.y, damValFan.uOpeMod) annotation (Line(points={{2,-100},{24,
-          -100},{24,-6},{78,-6}}, color={255,127,0}));
-  connect(reaToInt2.y, damValFan1.uOpeMod) annotation (Line(points={{2,-100},{24,
-          -100},{24,-84},{78,-84}}, color={255,127,0}));
+          -100},{24,-11},{78,-11}},
+                                  color={255,127,0}));
+  connect(reaToInt2.y, damValFan1.uOpeMod) annotation (Line(points={{2,-100},{
+          24,-100},{24,-89},{78,-89}},
+                                    color={255,127,0}));
   connect(VOAMin_flow.y, damValFan.VOAMin_flow) annotation (Line(points={{-38,
-          -130},{20,-130},{20,-9},{78,-9}},
+          -130},{20,-130},{20,-6},{78,-6}},
                                       color={0,0,127}));
-  connect(VOAMin_flow.y, damValFan1.VOAMin_flow) annotation (Line(points={{-38,-130},
-          {20,-130},{20,-87},{78,-87}}, color={0,0,127}));
+  connect(VOAMin_flow.y, damValFan1.VOAMin_flow) annotation (Line(points={{-38,
+          -130},{20,-130},{20,-84},{78,-84}},
+                                        color={0,0,127}));
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/ParallelFanVVF/Subsequences/Validation/DamperValves.mos"

@@ -81,7 +81,7 @@ equation
           {-22,-6}}, color={0,0,127}));
   connect(damSta.y, booToRea.u)
     annotation (Line(points={{-78,10},{-62,10}}, color={255,0,255}));
-  connect(disAir.y, ala.VDis_flow) annotation (Line(points={{-78,120},{48,120},{
+  connect(disAir.y,ala.VPri_flow)  annotation (Line(points={{-78,120},{48,120},{
           48,60},{78,60}}, color={0,0,127}));
   connect(supFan.y, ala.uFan) annotation (Line(points={{-78,80},{40,80},{40,56},
           {78,56}}, color={255,0,255}));

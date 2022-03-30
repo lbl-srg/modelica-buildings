@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor;
 block Controller "Controller for dual-duct terminal unit using mixing control with discharge flow sensor"
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venSta
+    "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
   parameter Boolean have_occSen=true
@@ -8,7 +10,14 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor";
   parameter Boolean permit_occStandby=true
-    "True: occupied-standby mode is permitted";
+    "True: occupied-standby mode is permitted"
+    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+  parameter Real VOccMin_flow=0
+    "Zone minimum outdoor airflow for occupants"
+    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+  parameter Real VAreMin_flow=0
+    "Zone minimum outdoor airflow for building area"
+    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ---------------- Design parameters ----------------
   parameter Real AFlo(unit="m2")
     "Zone floor area"
@@ -71,7 +80,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
       enable=not have_pressureIndependentDamper
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real kHeaMaxDam(final unit="1")=0.5
+  parameter Real kHeaMaxDam(unit="1")=0.5
     "Gain of controller for heating maximum damper control"
     annotation(Dialog(tab="Damper", enable=not have_pressureIndependentDamper));
   // ---------------- System request parameters ----------------
@@ -296,7 +305,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final VZonCooMax_flow=VZonCooMax_flow,
     final VZonHeaMax_flow=VZonHeaMax_flow)
     "Active airflow setpoint"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.SystemRequests
     sysReq(
     final thrTemDif=thrTemDif,
@@ -356,8 +365,8 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final VZonCooMax_flow=VZonCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
-    final dTHys=dTHys)
-    "Minimum outdoor air and minimum airflow setpoint"
+    final dTHys=dTHys) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.Dampers damDuaSen(
     final have_pressureIndependentDamper=have_pressureIndependentDamper,
@@ -378,7 +387,18 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final dTHys=dTHys)
     "Specify suppresion time due to the zone heating setpoint change and check if it has passed the suppresion period"
     annotation (Placement(transformation(extent={{-200,240},{-180,260}})));
-
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Setpoints minFlo(
+    final have_winSen=have_winSen,
+    final have_occSen=have_occSen,
+    final have_CO2Sen=have_CO2Sen,
+    final have_typTerUni=true,
+    final VOccMin_flow=VOccMin_flow,
+    final VAreMin_flow=VAreMin_flow,
+    final VZonMin_flow=VZonMin_flow,
+    final VZonCooMax_flow=VZonCooMax_flow)
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    "Output the minimum outdoor airflow rate setpoint, when using Title 24"
+    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 equation
   connect(TZon, timSupCoo.TZon) annotation (Line(points={{-260,300},{-220,300},{
           -220,286},{-202,286}}, color={0,0,127}));
@@ -398,22 +418,22 @@ equation
           159},{-162,159}}, color={255,0,255}));
   connect(uOcc, setPoi.uOcc) annotation (Line(points={{-260,160},{-184,160},{-184,
           157},{-162,157}}, color={255,0,255}));
-  connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-260,130},{-192,130},
-          {-192,155},{-162,155}}, color={255,127,0}));
-  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-260,70},{-184,70},{-184,
+  connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
+          {-200,155},{-162,155}}, color={255,127,0}));
+  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-260,70},{-192,70},{-192,
           151},{-162,151}},       color={0,0,127}));
   connect(TZon, setPoi.TZon) annotation (Line(points={{-260,300},{-220,300},{-220,
           143},{-162,143}}, color={0,0,127}));
-  connect(TDis, setPoi.TDis) annotation (Line(points={{-260,40},{-180,40},{-180,
+  connect(TDis, setPoi.TDis) annotation (Line(points={{-260,40},{-188,40},{-188,
           141},{-162,141}}, color={0,0,127}));
-  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-260,130},{-192,
-          130},{-192,82},{-82,82}}, color={255,127,0}));
+  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-260,130},{-200,
+          130},{-200,72},{-82,72}}, color={255,127,0}));
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
-        points={{-138,154},{-120,154},{-120,98},{-82,98}}, color={0,0,127}));
+        points={{-138,154},{-120,154},{-120,88},{-82,88}}, color={0,0,127}));
   connect(conLoo.yCoo, damDuaSen.uCoo) annotation (Line(points={{-178,216},{-20,
           216},{-20,39},{-2,39}}, color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, damDuaSen.VActCooMax_flow) annotation (
-      Line(points={{-58,98},{-28,98},{-28,36},{-2,36}}, color={0,0,127}));
+      Line(points={{-58,88},{-28,88},{-28,36},{-2,36}}, color={0,0,127}));
   connect(TColSup, damDuaSen.TColSup) annotation (Line(points={{-260,10},{-52,10},
           {-52,33},{-2,33}}, color={0,0,127}));
   connect(VDis_flow, damDuaSen.VDis_flow) annotation (Line(points={{-260,-20},{-48,
@@ -421,13 +441,13 @@ equation
   connect(uCooAHU, damDuaSen.uCooAHU) annotation (Line(points={{-260,-50},{-44,-50},
           {-44,27},{-2,27}}, color={255,0,255}));
   connect(actAirSet.VActMin_flow, damDuaSen.VActMin_flow) annotation (Line(
-        points={{-58,90},{-32,90},{-32,22},{-2,22}}, color={0,0,127}));
+        points={{-58,80},{-32,80},{-32,22},{-2,22}}, color={0,0,127}));
   connect(TZon, damDuaSen.TZon) annotation (Line(points={{-260,300},{-220,300},{
           -220,18},{-2,18}}, color={0,0,127}));
   connect(THotSup, damDuaSen.THotSup) annotation (Line(points={{-260,-80},{-40,-80},
           {-40,13},{-2,13}}, color={0,0,127}));
   connect(actAirSet.VActHeaMax_flow, damDuaSen.VActHeaMax_flow) annotation (
-      Line(points={{-58,82},{-36,82},{-36,7},{-2,7}}, color={0,0,127}));
+      Line(points={{-58,72},{-36,72},{-36,7},{-2,7}}, color={0,0,127}));
   connect(conLoo.yHea, damDuaSen.uHea) annotation (Line(points={{-178,204},{-24,
           204},{-24,10},{-2,10}}, color={0,0,127}));
   connect(uHeaAHU, damDuaSen.uHeaAHU) annotation (Line(points={{-260,-110},{-16,
@@ -500,8 +520,20 @@ equation
           {200,-180},{260,-180}}, color={255,127,0}));
   connect(damDuaSen.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points=
          {{22,38},{40,38},{40,-85},{58,-85}}, color={0,0,127}));
-  connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-260,100},{-188,
-          100},{-188,153},{-162,153}}, color={0,0,127}));
+  connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-260,100},{-196,
+          100},{-196,153},{-162,153}}, color={0,0,127}));
+  connect(uWin, minFlo.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
+          119},{-162,119}}, color={255,0,255}));
+  connect(uOcc, minFlo.uOcc) annotation (Line(points={{-260,160},{-184,160},{-184,
+          116},{-162,116}}, color={255,0,255}));
+  connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
+          {-200,113},{-162,113}}, color={255,127,0}));
+  connect(ppmCO2Set, minFlo.ppmCO2Set) annotation (Line(points={{-260,100},{-196,
+          100},{-196,110},{-162,110}}, color={0,0,127}));
+  connect(ppmCO2, minFlo.ppmCO2) annotation (Line(points={{-260,70},{-192,70},{-192,
+          107},{-162,107}}, color={0,0,127}));
+  connect(minFlo.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
+        points={{-138,104},{-120,104},{-120,88},{-82,88}}, color={0,0,127}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(

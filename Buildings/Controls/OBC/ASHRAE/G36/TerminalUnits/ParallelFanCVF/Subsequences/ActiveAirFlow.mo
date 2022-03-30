@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences;
 block ActiveAirFlow
-  "Output the active airflow setpoint for constant-volume parallel fan-powered terminal unit"
+  "Output the active primary airflow setpoint for constant-volume parallel fan-powered terminal unit"
 
   parameter Real VZonCooMax_flow(
     final quantity="VolumeFlowRate",
@@ -21,14 +21,13 @@ block ActiveAirFlow
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Active cooling maximum airflow setpoint"
+    "Active primary cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{140,30},{180,70}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActMin_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Active minimum airflow setpoint"
+    final quantity="VolumeFlowRate") "Active primary minimum airflow setpoint"
     annotation (Placement(transformation(extent={{140,-70},{180,-30}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
@@ -136,7 +135,7 @@ annotation (
           textString="VOccZonMin_flow")}),
 Documentation(info="<html>
 <p>
-This sequence sets the active cooling maximum and minimum setpoints
+This sequence sets the active primary cooling maximum and minimum setpoints
 for parallel fan-powered terminal unit with constant volume fan. The implementation
 is according to the Section 5.7.4 of ASHRAE Guideline 36, May 2020.
 </p>

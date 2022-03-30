@@ -3,6 +3,7 @@ model Controller
   "Validation of model that controls series-fan powered unit with constant volume fan"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Controller serFanCon(
+    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final AFlo=20,
     final desZonPop=2,
     final VZonMin_flow=0.5,
@@ -219,7 +220,7 @@ equation
           {52,88},{98,88}}, color={0,0,127}));
   connect(TSup.y,serFanCon. TSup) annotation (Line(points={{-58,0},{48,0},{48,90},
           {98,90}},     color={0,0,127}));
-  connect(disFlo.y,serFanCon. VDis_flow) annotation (Line(points={{-98,20},{44,20},
+  connect(disFlo.y,serFanCon.VPri_flow)  annotation (Line(points={{-98,20},{44,20},
           {44,92},{98,92}}, color={0,0,127}));
   connect(CO2Set.y, serFanCon.ppmCO2Set) annotation (Line(points={{-98,100},{28,
           100},{28,98},{98,98}}, color={0,0,127}));

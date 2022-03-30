@@ -3,6 +3,7 @@ model Controller
   "Validation of model that controls terminal unit with reheat"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller rehBoxCon(
+    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final AFlo=20,
     final desZonPop=2,
     final VZonMin_flow=0.5,

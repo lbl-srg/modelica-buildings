@@ -104,9 +104,9 @@ equation
           2},{78,2}}, color={0,0,127}));
   connect(uHea.y, damValFan1.uHea) annotation (Line(points={{-78,-50},{32,-50},{
           32,-78},{78,-78}}, color={0,0,127}));
-  connect(disAir.y, damValFan.VDis_flow) annotation (Line(points={{-38,130},{64,
+  connect(disAir.y,damValFan.VPri_flow)  annotation (Line(points={{-38,130},{64,
           130},{64,29},{78,29}}, color={0,0,127}));
-  connect(disAir.y, damValFan1.VDis_flow) annotation (Line(points={{-38,130},{64,
+  connect(disAir.y,damValFan1.VPri_flow)  annotation (Line(points={{-38,130},{64,
           130},{64,-51},{78,-51}}, color={0,0,127}));
   connect(TSupSet.y, damValFan.TSupSet) annotation (Line(points={{-78,-10},{40,-10},
           {40,8},{78,8}}, color={0,0,127}));

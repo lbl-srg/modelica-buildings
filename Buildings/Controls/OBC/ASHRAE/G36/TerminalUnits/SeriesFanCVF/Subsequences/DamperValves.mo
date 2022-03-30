@@ -77,11 +77,10 @@ block DamperValves
     "Hysteresis for checking damper position"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured primary discharge airflow rate"
+    final quantity="VolumeFlowRate") "Measured primary airflow rate"
     annotation (Placement(transformation(extent={{-360,300},{-320,340}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
@@ -160,10 +159,10 @@ block DamperValves
     "Current damper position"
     annotation (Placement(transformation(extent={{-360,-300},{-320,-260}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDis_flow_Set(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VPri_flow_Set(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Discharge primary airflow setpoint"
+    final quantity="VolumeFlowRate") "Primary airflow setpoint"
     annotation (Placement(transformation(extent={{320,280},{360,320}}),
         iconTransformation(extent={{100,120},{140,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
@@ -372,7 +371,7 @@ equation
           250},{158,250}}, color={255,0,255}));
   connect(VActMin_flow, swi5.u1) annotation (Line(points={{-340,110},{0,110},{0,
           288},{58,288}}, color={0,0,127}));
-  connect(swi.y, VDis_flow_Set) annotation (Line(points={{182,250},{200,250},{
+  connect(swi.y,VPri_flow_Set)  annotation (Line(points={{182,250},{200,250},{
           200,300},{340,300}}, color={0,0,127}));
   connect(VActMin_flow, lin.f1) annotation (Line(points={{-340,110},{-240,110},{
           -240,264},{-162,264}}, color={0,0,127}));
@@ -426,7 +425,7 @@ equation
           200},{200,224},{218,224}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{242,230},{258,230}}, color={0,0,127}));
-  connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-340,320},{-300,
+  connect(VPri_flow, VDis_flowNor.u1) annotation (Line(points={{-340,320},{-300,
           320},{-300,176},{218,176}}, color={0,0,127}));
   connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{182,200},{200,200},
           {200,164},{218,164}}, color={0,0,127}));
@@ -629,7 +628,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDis_flow_Set"),
+          textString="VPri_flow_Set"),
         Text(
           extent={{60,-84},{98,-96}},
           lineColor={0,0,127},
@@ -645,7 +644,7 @@ annotation (
           extent={{-98,196},{-68,186}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis_flow"),
+          textString="VPri_flow"),
         Text(
           extent={{-100,4},{-68,-4}},
           lineColor={0,0,127},

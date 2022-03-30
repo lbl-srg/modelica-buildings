@@ -2,27 +2,21 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequenc
 block DamperValves
   "Output signals for controlling constant-volume parallel fan-powered terminal unit"
 
-  parameter Real dTDisZonSetMax(
-    final unit="K",
-    final quantity="TemperatureDifference")=11
+  parameter Real dTDisZonSetMax(unit="K")=11
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Valve"));
-  parameter Real kVal(final unit="1/K")=0.5
+  parameter Real kVal(unit="1/K")=0.5
     "Gain of controller for valve control"
     annotation(Dialog(group="Valve"));
-  parameter Real TiVal(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
     annotation(Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real TdVal(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
     annotation (Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -30,54 +24,42 @@ block DamperValves
   parameter Boolean have_pressureIndependentDamper = true
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation(Dialog(group="Damper"));
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1E-10)
+  parameter Real V_flow_nominal(unit="m3/s")
     "Nominal volume flow rate, used to normalize control error"
     annotation(Dialog(group="Damper"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Damper", enable=not have_pressureIndependentDamper));
-  parameter Real kDam(final unit="1")=0.5
+  parameter Real kDam(unit="1")=0.5
     "Gain of controller for damper control"
     annotation(Dialog(group="Damper", enable=not have_pressureIndependentDamper));
-  parameter Real TiDam(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation(Dialog(group="Damper",
     enable=not have_pressureIndependentDamper
            and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                 or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdDam(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(group="Damper",
       enable=not have_pressureIndependentDamper
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real dTHys(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.25
+  parameter Real dTHys(unit="K")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real looHys(
-    final unit="1") = 0.05
+  parameter Real looHys(unit="1")=0.05
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real floHys(
-    final unit="m3/s") = 0.01
+  parameter Real floHys(unit="m3/s")=0.01
     "Hysteresis for checking airflow rate"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured primary discharge airflow rate"
+    final quantity="VolumeFlowRate") "Measured primary airflow rate"
     annotation (Placement(transformation(extent={{-360,300},{-320,340}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
@@ -91,7 +73,7 @@ block DamperValves
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Active cooling maximum airflow rate"
+    "Active primary cooling maximum airflow rate"
     annotation (Placement(transformation(extent={{-360,190},{-320,230}}),
         iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
@@ -111,7 +93,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Active minimum airflow rate"
+    final quantity="VolumeFlowRate") "Active primary minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,90},{-320,130}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
@@ -149,13 +131,14 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOAMin_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Minimum outdoor airflow setpoint"
+    final quantity="VolumeFlowRate")
+    "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-360,-248},{-320,-208}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDis_flow_Set(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VPri_flow_Set(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Discharge primary airflow setpoint"
+    final quantity="VolumeFlowRate") "Primary airflow setpoint"
     annotation (Placement(transformation(extent={{320,280},{360,320}}),
         iconTransformation(extent={{100,120},{140,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
@@ -352,7 +335,7 @@ equation
           250},{158,250}}, color={255,0,255}));
   connect(VActMin_flow, swi5.u1) annotation (Line(points={{-340,110},{0,110},{0,
           288},{58,288}}, color={0,0,127}));
-  connect(swi.y, VDis_flow_Set) annotation (Line(points={{182,250},{200,250},{
+  connect(swi.y,VPri_flow_Set)  annotation (Line(points={{182,250},{200,250},{
           200,300},{340,300}}, color={0,0,127}));
   connect(VActMin_flow, lin.f1) annotation (Line(points={{-340,110},{-240,110},{
           -240,264},{-162,264}}, color={0,0,127}));
@@ -406,7 +389,7 @@ equation
           200},{200,224},{218,224}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{242,230},{258,230}}, color={0,0,127}));
-  connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-340,320},{-300,
+  connect(VPri_flow, VDis_flowNor.u1) annotation (Line(points={{-340,320},{-300,
           320},{-300,176},{218,176}}, color={0,0,127}));
   connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{182,200},{200,200},
           {200,164},{218,164}}, color={0,0,127}));
@@ -436,7 +419,7 @@ equation
     annotation (Line(points={{-178,-220},{-102,-220}}, color={255,0,255}));
   connect(VOAMin_flow, gai1.u) annotation (Line(points={{-340,-228},{-280,-228},
           {-280,-290},{-262,-290}}, color={0,0,127}));
-  connect(VDis_flow, gre.u1) annotation (Line(points={{-340,320},{-300,320},{-300,
+  connect(VPri_flow, gre.u1) annotation (Line(points={{-340,320},{-300,320},{-300,
           -260},{-202,-260}}, color={0,0,127}));
   connect(gai1.y, gre.u2) annotation (Line(points={{-238,-290},{-220,-290},{-220,
           -268},{-202,-268}}, color={0,0,127}));
@@ -458,7 +441,7 @@ equation
           -152},{278,-152}}, color={255,0,255}));
   connect(logSwi1.y, yFan)
     annotation (Line(points={{302,-160},{340,-160}}, color={255,0,255}));
-  connect(VDis_flow, les.u1) annotation (Line(points={{-340,320},{-300,320},{-300,
+  connect(VPri_flow, les.u1) annotation (Line(points={{-340,320},{-300,320},{-300,
           -220},{-262,-220}}, color={0,0,127}));
 
 annotation (
@@ -477,7 +460,7 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
-          textString="Discharge airflow setpoint"),
+          textString="Primary airflow setpoint"),
         Rectangle(
           extent={{-318,38},{138,-98}},
           lineColor={0,0,0},
@@ -521,7 +504,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
-          extent={{-96,-162},{-46,-178}},
+          extent={{-98,-162},{-48,-178}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOAMin_flow"),
@@ -608,7 +591,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDis_flow_Set"),
+          textString="VPri_flow_Set"),
         Text(
           extent={{60,-84},{98,-96}},
           lineColor={0,0,127},
@@ -624,7 +607,7 @@ annotation (
           extent={{-98,196},{-68,186}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis_flow"),
+          textString="VPri_flow"),
         Text(
           extent={{-100,-16},{-68,-24}},
           lineColor={0,0,127},
@@ -702,10 +685,11 @@ Fan control
 Fan shall run whenever zone state is heating.
 </li>
 <li>
-The fan shall run in deadband and cooling zone state when the discharge airflow rate
-<code>VDis_flow</code> is less than the minimum outdoor airflow setpoint <code>VOAMin_flow</code>
-for 1 minute, and shall shut off when the <code>VDis_flow</code> is above <code>VOAMin_flow</code>
-by 10% for 3 minutes.
+The fan shall run in deadband and cooling zone state when the primary airflow rate
+<code>VPri_flow</code> is less than the minimum outdoor airflow setpoint <code>VOAMin_flow</code>
+(if using California Title 24, it should be the zone absolute minimum outdoor airflow
+rate) for 1 minute, and shall shut off when the <code>VPri_flow</code> is above <code>VOAMin_flow</code>
+(or the zone absolute minimum outdoor airflow rate) by 10% for 3 minutes.
 </li>
 </ul>
 </li>

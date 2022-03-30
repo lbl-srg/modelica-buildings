@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat;
 block Controller "Controller for room VAV box with reheat"
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venSta
+    "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
   parameter Boolean have_occSen=true
@@ -10,7 +12,14 @@ block Controller "Controller for room VAV box with reheat"
   parameter Boolean have_hotWatCoi=true
     "True: the unit has the hot water coil";
   parameter Boolean permit_occStandby=true
-    "True: occupied-standby mode is permitted";
+    "True: occupied-standby mode is permitted"
+    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+  parameter Real VOccMin_flow=0
+    "Zone minimum outdoor airflow for occupants"
+    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+  parameter Real VAreMin_flow=0
+    "Zone minimum outdoor airflow for building area"
+    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ---------------- Design parameters ----------------
   parameter Real AFlo(unit="m2")
     "Zone floor area"
@@ -414,8 +423,8 @@ block Controller "Controller for room VAV box with reheat"
     final VZonCooMax_flow=VZonCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
-    final dTHys=dTHys)
-    "Minimum outdoor air and minimum airflow setpoint"
+    final dTHys=dTHys) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.DamperValves damVal(
     final dTDisZonSetMax=dTDisZonSetMax,
@@ -433,7 +442,18 @@ block Controller "Controller for room VAV box with reheat"
     final dTHys=dTHys,
     final looHys=looHys) "Damper and valve control"
     annotation (Placement(transformation(extent={{0,-52},{20,-12}})));
-
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Setpoints minFlo(
+    final have_winSen=have_winSen,
+    final have_occSen=have_occSen,
+    final have_CO2Sen=have_CO2Sen,
+    final have_typTerUni=true,
+    final VOccMin_flow=VOccMin_flow,
+    final VAreMin_flow=VAreMin_flow,
+    final VZonMin_flow=VZonMin_flow,
+    final VZonCooMax_flow=VZonCooMax_flow)
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    "Output the minimum outdoor airflow rate setpoint, when using Title 24"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           246},{-142,246}}, color={0,0,127}));
@@ -449,16 +469,16 @@ equation
           139},{-102,139}}, color={255,0,255}));
   connect(uOcc, setPoi.uOcc) annotation (Line(points={{-200,150},{-124,150},{-124,
           137},{-102,137}}, color={255,0,255}));
-  connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,120},{-132,120},
-          {-132,135},{-102,135}}, color={255,127,0}));
-  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-200,60},{-124,60},{-124,
+  connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,120},{-140,120},
+          {-140,135},{-102,135}}, color={255,127,0}));
+  connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-200,60},{-132,60},{-132,
           131},{-102,131}}, color={0,0,127}));
   connect(TZon, setPoi.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           123},{-102,123}}, color={0,0,127}));
-  connect(TDis, setPoi.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,
+  connect(TDis, setPoi.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,
           121},{-102,121}}, color={0,0,127}));
-  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,120},{-132,
-          120},{-132,76},{-62,76}}, color={255,127,0}));
+  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,120},{-140,
+          120},{-140,76},{-62,76}}, color={255,127,0}));
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
         points={{-78,134},{-72,134},{-72,64},{-62,64}}, color={0,0,127}));
   connect(VDis_flow, damVal.VDis_flow) annotation (Line(points={{-200,0},{-40,0},
@@ -473,7 +493,7 @@ equation
           -25},{-2,-25}}, color={0,0,127}));
   connect(actAirSet.VActMin_flow, damVal.VActMin_flow) annotation (Line(points={{-38,70},
           {-22,70},{-22,-28},{-2,-28}},          color={0,0,127}));
-  connect(TDis, damVal.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,
+  connect(TDis, damVal.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,
           -31},{-2,-31}}, color={0,0,127}));
   connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-200,-60},{-44,-60},
           {-44,-34},{-2,-34}}, color={0,0,127}));
@@ -487,8 +507,8 @@ equation
         points={{-38,66},{-26,66},{-26,-46},{-2,-46}}, color={0,0,127}));
   connect(actAirSet.VActHeaMax_flow, damVal.VActHeaMax_flow) annotation (Line(
         points={{-38,62},{-30,62},{-30,-48},{-2,-48}}, color={0,0,127}));
-  connect(uOpeMod, damVal.uOpeMod) annotation (Line(points={{-200,120},{-132,120},
-          {-132,-51},{-2,-51}}, color={255,127,0}));
+  connect(uOpeMod, damVal.uOpeMod) annotation (Line(points={{-200,120},{-140,120},
+          {-140,-51},{-2,-51}}, color={255,127,0}));
   connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-200,-90},{16,-90},
           {16,-82},{58,-82}}, color={255,127,0}));
   connect(damVal.VDisSet_flow, setOve.VActSet_flow) annotation (Line(points={{22,-18},
@@ -517,7 +537,7 @@ equation
           -133},{118,-133}}, color={0,0,127}));
   connect(damVal.TDisSet, sysReq.TDisSet) annotation (Line(points={{22,-46},{38,
           -46},{38,-135},{118,-135}}, color={0,0,127}));
-  connect(TDis, sysReq.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,
+  connect(TDis, sysReq.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,
           -137},{118,-137}}, color={0,0,127}));
   connect(uVal, sysReq.uVal) annotation (Line(points={{-200,-210},{34,-210},{34,
           -139},{118,-139}}, color={0,0,127}));
@@ -535,7 +555,7 @@ equation
           {118,-192}}, color={0,0,127}));
   connect(uHotPla, ala.uHotPla) annotation (Line(points={{-200,-270},{94,-270},{
           94,-194},{118,-194}}, color={255,0,255}));
-  connect(TDis, ala.TDis) annotation (Line(points={{-200,30},{-120,30},{-120,-196},
+  connect(TDis, ala.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,-196},
           {118,-196}}, color={0,0,127}));
   connect(damVal.TDisSet, ala.TDisSet) annotation (Line(points={{22,-46},{38,-46},
           {38,-198},{118,-198}}, color={0,0,127}));
@@ -563,8 +583,20 @@ equation
           {180,-180},{220,-180}}, color={255,127,0}));
   connect(ala.yLowTemAla, yLowTemAla) annotation (Line(points={{142,-198},{180,-198},
           {180,-220},{220,-220}}, color={255,127,0}));
-  connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,90},{-128,
-          90},{-128,133},{-102,133}}, color={0,0,127}));
+  connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,90},{-136,
+          90},{-136,133},{-102,133}}, color={0,0,127}));
+  connect(minFlo.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
+        points={{-78,84},{-72,84},{-72,64},{-62,64}}, color={0,0,127}));
+  connect(uWin, minFlo.uWin) annotation (Line(points={{-200,170},{-120,170},{-120,
+          99},{-102,99}}, color={255,0,255}));
+  connect(uOcc, minFlo.uOcc) annotation (Line(points={{-200,150},{-124,150},{-124,
+          96},{-102,96}}, color={255,0,255}));
+  connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-200,120},{-140,120},
+          {-140,93},{-102,93}}, color={255,127,0}));
+  connect(ppmCO2Set, minFlo.ppmCO2Set)
+    annotation (Line(points={{-200,90},{-102,90}}, color={0,0,127}));
+  connect(ppmCO2, minFlo.ppmCO2) annotation (Line(points={{-200,60},{-132,60},{-132,
+          87},{-102,87}}, color={0,0,127}));
 annotation (defaultComponentName="rehBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

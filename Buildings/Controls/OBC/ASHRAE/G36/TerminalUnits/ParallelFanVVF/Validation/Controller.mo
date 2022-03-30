@@ -3,6 +3,7 @@ model Controller
   "Validation of model that controls parallel-fan powered unit with variable volume fan"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Controller parFanCon(
+    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final AFlo=20,
     final desZonPop=2,
     final VZonMin_flow=0.5,
@@ -223,7 +224,7 @@ equation
           {52,87},{98,87}}, color={0,0,127}));
   connect(TSup.y, parFanCon.TSup) annotation (Line(points={{-58,0},{48,0},{48,89},
           {98,89}},     color={0,0,127}));
-  connect(disFlo.y, parFanCon.VDis_flow) annotation (Line(points={{-98,20},{44,20},
+  connect(disFlo.y,parFanCon.VPri_flow)  annotation (Line(points={{-98,20},{44,20},
           {44,91},{98,91}}, color={0,0,127}));
   connect(CO2Set.y, parFanCon.ppmCO2Set) annotation (Line(points={{-98,100},{28,
           100},{28,99},{98,99}}, color={0,0,127}));
