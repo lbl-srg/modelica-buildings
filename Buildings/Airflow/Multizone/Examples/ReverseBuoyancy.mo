@@ -6,7 +6,6 @@ model ReverseBuoyancy
   Buildings.Fluid.MixingVolumes.MixingVolume volBotEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=2.5*5*5,
     T_start=273.15 + 25,
     nPorts=5,
@@ -86,7 +85,6 @@ model ReverseBuoyancy
     redeclare package Medium = Medium,
     m_flow_nominal=1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=2.5*5*5,
     T_start=273.15 + 22,
     nPorts=3,
@@ -119,7 +117,6 @@ model ReverseBuoyancy
   Buildings.Fluid.MixingVolumes.MixingVolume volTopEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=2.5*5*10,
     T_start=273.15 + 21,
     nPorts=3,
@@ -128,7 +125,6 @@ model ReverseBuoyancy
   Buildings.Fluid.MixingVolumes.MixingVolume volTopWes(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     V=2.5*5*10,
     nPorts=3,
@@ -281,7 +277,7 @@ Updated comments for
 </li>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
