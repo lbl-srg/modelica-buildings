@@ -275,6 +275,11 @@ where <i>T<sub>in</sub></i> is the inlet temperature, <i>T<sub>out</sub></i> is 
 <i>T<sub>fre</sub></i> is the freezing temperature
 and <i>T<sub>nom</sub></i> is a nominal temperature difference of 10 Kelvin.
 </p>
+<h4>Usage</h4>
+<p>
+This model requires the fluid to flow from <code>port_a</code> to <code>port_b</code>.
+Otherwise, the simulation stops with an error.
+</p>
 <h4>
 Reference
 </h4>
