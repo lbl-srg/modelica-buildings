@@ -30,47 +30,38 @@ model StaticReset
     annotation (Placement(transformation(extent={{160,-90},{140,-70}})));
 
   // Fans and their performance records
-  parameter Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per1
-    "Performance record with power curves";
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
-    per = per1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per(
+      final etaHydMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve))
     "Fan using power curves"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  parameter Buildings.Fluid.Movers.Data.Generic per2(
-    pressure=per1.pressure,
-    etaMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-    etaHydMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
-    etaMotMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
-      pressure=per1.pressure,
-      power=per1.power))
-    "Performance record with peak condition for the Euler number";
   Buildings.Fluid.Movers.SpeedControlled_y fan2(
     redeclare package Medium = Medium,
-    per = per2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    per(
+      pressure=fan1.per.pressure,
+      final etaHydMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+      peak(
+        V_flow=23.022856,
+        dp=1211.1604,
+        eta=0.74030644)))
     "Fan using the Euler number"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  parameter Buildings.Fluid.Movers.Data.Generic per3(
-    pressure=per1.pressure,
-    etaMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-    etaHydMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-    etaMotMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-    hydraulicEfficiency(eta = {0.7}),
-    motorEfficiency(eta = {0.7}))
-    "Performance record for constant efficiency";
   Buildings.Fluid.Movers.SpeedControlled_y fan3(
     redeclare package Medium = Medium,
-    per = per3,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    per(
+      pressure=fan1.per.pressure,
+      final etaHydMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+      final etaMotMet=
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+      hydraulicEfficiency(eta={0.7}),
+      motorEfficiency(eta={0.7})))
     "Fan using constant efficiency"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
@@ -304,9 +295,8 @@ to track the duct static pressure at a point downstream while the damper
 The first fan uses the full fan curve.
 </li>
 <li>
-The second fan uses the Euler number and its correlation
-to estimate fan efficiency based on the peak operation condition where its
-efficiency is at its maximum.
+The second fan uses the Euler number and its correlation to estimate fan efficiency
+based on the peak operation condition where its efficiency is at its maximum.
 </li>
 <li>
 The third fan assumes a constant efficiency.

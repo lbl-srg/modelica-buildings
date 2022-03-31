@@ -11,9 +11,9 @@ package Types "Package with type definitions"
       NotProvided
         "Not provided, computed from other efficiency terms",
       Values
-        "An array of value(s) vs. volumetric flow rate",
+        "An array of efficiency vs. volumetric flow rate",
       Values_y
-        "An array of value(s) vs. part load ratio",
+        "An array of efficiency vs. part load ratio",
       PowerCurve
         "An array of power vs. volumetric flow rate",
       EulerNumber
