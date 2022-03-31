@@ -210,6 +210,14 @@ Each class (i.e., model, block and function) must be used in an example or valid
 <p>
 Version 9.0.0 is ... xxx
 </p>
+<p>
+This release updates the Modelica version from 3.2.3 to 4.0.0.
+</p>
+<p>
+This release also updates almost all fluid component models to remove the parameter <code>massDynamics</code>,
+which is now set to the same value as the parameter <code>energyDynamics</code>. This simplifies use of the models.
+A conversion script will update this setting when updating from Buildings 8 to 9.
+</p>
 </div>
 <!-- New libraries -->
 <p>
@@ -249,22 +257,42 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">#2126</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Coefficient_V_flow<br/>
+                     Buildings.Airflow.Multizone.Coefficient_m_flow<br/>
+                     Buildings.Airflow.Multizone.Point_m_flow<br/>
+                     Buildings.Airflow.Multizone.Points_m_flow<br/>
+                     Buildings.Airflow.Multizone.Table_V_flow<br/>
+                     Buildings.Airflow.Multizone.Table_m_flow
+    </td>
+    <td valign=\"top\">Added new component models for multizone air exchange.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
     </td>
-    <td valign=\"top\">Class for modeling multiple plug flow pipes in series,
-                       which can be used to vary boundary conditions over the length of a pipe.
+    <td valign=\"top\">Added model for multiple plug flow pipes in series,
+                     which can be used to vary boundary conditions over the length of a pipe.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Outside_CpData
+    </td>
+    <td valign=\"top\">Added new component model that allows specifying a wind pressure profile for an exterior construction.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
-                       Buildings.Controls.OBC.CDL.Integers.Subtact
+                     Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
+                     Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
+                     Buildings.Controls.OBC.CDL.Integers.Subtact
     </td>
     <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
@@ -273,7 +301,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
     </td>
     <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
@@ -282,7 +310,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Ice.ControlledTank<br/>
                      Buildings.Fluid.Storage.Ice.Tank
     </td>
-    <td valign=\"top\">Models for ice storage tank whose performance is characterized by performance curves.<br/>
+    <td valign=\"top\">Added models for ice storage tank whose performance is characterized by performance curves.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
     </td>
 </tr>
@@ -350,6 +378,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\"># 2651</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU
+    </td>
+    <td valign=\"top\">Exposed ratio of convection coefficients, set its default values based on fluid properties and flow rates,
+                     and exposed exponents for convective heat transfer coefficients. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2918\"># 2918</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -371,6 +409,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed cooling coil model.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">#2549</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System7
+    </td>
+    <td valign=\"top\">Changed block downstream of <code>greThrTRoo</code> from <code>and</code> to <code>or</code> block.
+                       This ensures that the system is off when the outdoor air or room air is sufficiently warm.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SpaceCooling.System2<br/>
@@ -773,6 +817,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
+    </td>
+    <td valign=\"top\">Set <code>final massDynamics=energyDynamic</code>.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">IBPSA, #1542</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus</b>
     </td>
 </tr>
@@ -893,7 +944,26 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
+                         Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented_N<br/>
+                         Buildings.Electrical.DC.Sources.PVSimple<br/>
+                         Buildings.Electrical.DC.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.Interfaces.PartialPvBase
+    </td>
+    <td valign=\"top\">Corrected wrong documentation string for surface area which
+                       should be gross rather than net area.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage
@@ -8852,8 +8922,8 @@ Version 1.0 is not backward compatible to version 0.12, i.e., models developed w
 versions 0.12 will require some changes in their parameters to
 work with version 1.0.
 The conversion script
-<a href=\"modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos\">
-Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos</a> can help
+<a href=\"modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_0.12_to_1.0.mos\">
+Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_0.12_to_1.0.mos</a> can help
 in converting old models to this version of the library.
 </p>
 <p>
@@ -10581,7 +10651,7 @@ dateModified="2021-06-08",
 uses(Modelica(version="4.0.0")),
 conversion(
   from(version={"8.0.0", "8.1.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_8_to_9.0.0.mos")),
+      script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

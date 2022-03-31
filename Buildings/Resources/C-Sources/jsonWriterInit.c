@@ -5,8 +5,10 @@
  * Filip Jorissen, KU Leuven
  */
 
-#include "jsonWriterInit.h"
 #include "fileWriterStructure.c"
+#include "ModelicaUtilities.h"
+
+#include "jsonWriterInit.h"
 
 void* jsonWriterInit(
   const char* instanceName,
