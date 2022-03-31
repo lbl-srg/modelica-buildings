@@ -42,7 +42,6 @@ block Controller
     "Cooling setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
 
-
   parameter Real heaDea=0.05
     "Heating loop signal limit at which deadband mode transitions to heating mode";
 
@@ -179,7 +178,6 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Minimum supply air temperature for cooling"
     annotation (Dialog(tab="Supply air setpoints",group="Temperature limits"));
-
 
   parameter Real deaSpe(
     final unit="1",
@@ -341,13 +339,11 @@ block Controller
     "High limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 
-
   parameter Real deaHysLim(
     final unit="1",
     displayUnit="1")=0.01
     "Hysteresis limits for cooling and heating loop signals for deadband mode transitions"
     annotation (Dialog(tab="Advanced"));
-
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
@@ -436,9 +432,9 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    "Fan speed signal" annotation (Placement(transformation(
-          extent={{200,140},{240,180}}), iconTransformation(extent={{200,60},{240,
-            100}})));
+    "Fan speed signal"
+    annotation (Placement(transformation(extent={{200,140},{240,180}}),
+      iconTransformation(extent={{200,60},{240,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
