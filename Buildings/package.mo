@@ -372,11 +372,10 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Sampler<br/>
-	                   Buildings.Controls.OBC.CDL.Discrete.TriggeredMax<br/>
-	                   Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean<br/>
-	                   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler<br/>
-	                   Buildings.Controls.OBC.CDL.Discrete.UnitDelay<br/>
-	                   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold
+                    Buildings.Controls.OBC.CDL.Discrete.TriggeredMax<br/>
+                    Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean<br/>
+                    Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler<br/>
+                    Buildings.Controls.OBC.CDL.Discrete.UnitDelay
     </td>
     <td valign=\"top\">Added missing <code>discrete</code> keyword to output signal.<br/>
                        This is for
