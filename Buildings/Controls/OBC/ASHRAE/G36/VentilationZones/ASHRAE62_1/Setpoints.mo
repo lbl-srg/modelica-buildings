@@ -101,12 +101,20 @@ block Setpoints
     final displayUnit="degC") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-340,-360},{-300,-320}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjPopBreZon_flow
+    "Adjusted population component breathing zone flow rate"
+    annotation (Placement(transformation(extent={{300,270},{340,310}}),
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOccZonMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") if not have_SZVAV
     "Occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{300,210},{340,250}}),
         iconTransformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjAreBreZon_flow
+    "Adjusted area component breathing zone flow rate"
+    annotation (Placement(transformation(extent={{300,120},{340,160}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VMinOA_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Minimum outdoor airflow setpoint"
@@ -440,6 +448,10 @@ equation
           -40},{-222,-40}}, color={0,0,127}));
   connect(ppmCO2Set, lin.x2) annotation (Line(points={{-320,-20},{-240,-20},{-240,
           -64},{-162,-64}}, color={0,0,127}));
+  connect(modAreBreAir.y, VAdjAreBreZon_flow) annotation (Line(points={{162,260},
+          {212,260},{212,140},{320,140}}, color={0,0,127}));
+  connect(modPopBreAir.y, VAdjPopBreZon_flow)
+    annotation (Line(points={{202,290},{320,290}}, color={0,0,127}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -535,7 +547,17 @@ annotation (defaultComponentName="minFlo",
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="ppmCO2Set",
-          visible=have_CO2Sen)}),
+          visible=have_CO2Sen),
+        Text(
+          extent={{52,90},{96,76}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VAdjPopBreZon_flow"),
+        Text(
+          extent={{54,8},{98,-6}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VAdjAreBreZon_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-360},{300,360}})),
   Documentation(info="<html>
 <p>
