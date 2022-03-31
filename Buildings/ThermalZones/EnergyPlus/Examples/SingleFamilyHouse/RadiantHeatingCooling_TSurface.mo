@@ -148,7 +148,7 @@ model RadiantHeatingCooling_TSurface
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSurOff(k(
       final unit="K",
-      displayUnit="degC") = 323.15, y(final unit="K", displayUnit="degC"))
+      displayUnit="degC") = 303.15, y(final unit="K", displayUnit="degC"))
     "Surface temperture set point to switch system off"
     annotation (Placement(visible = true, transformation(extent = {{-214, 100}, {-194, 120}}, rotation = 0)));
   Controls.OBC.CDL.Continuous.Greater enaCoo(h=1)
@@ -217,13 +217,13 @@ equation
           {-154, 52},{-154, 114},{-142,114}}, color={0,0,127}));
   connect(zon.TAir, enaCoo.u1) annotation (Line(points={{41,18},{48,18},{48,40},
           {-150,40},{-150,0},{-142,0}}, color={0,0,127}));
-  connect(TSetSurCooOn.y, TSetSurCoo.u1) annotation(
+  connect(TSetSurCooOn.y, TSetSurCoo.u1) annotation (
     Line(points = {{-192, 150}, {-185, 150}, {-185, 126}, {-182, 126}}, color = {0, 0, 127}));
-  connect(TSetSurOff.y, TSetSurCoo.u3) annotation(
+  connect(TSetSurOff.y, TSetSurCoo.u3) annotation (
     Line(points = {{-192, 110}, {-182, 110}}, color = {0, 0, 127}));
-  connect(enaCoo.y, TSetSurCoo.u2) annotation(
+  connect(enaCoo.y, TSetSurCoo.u2) annotation (
     Line(points = {{-118, 0}, {-100, 0}, {-100, 20}, {-186, 20}, {-186, 118}, {-182, 118}}, color = {255, 0, 255}));
-  connect(TSetSurCoo.y, conCoo.TSurSet) annotation(
+  connect(TSetSurCoo.y, conCoo.TSurSet) annotation (
     Line(points = {{-158, 118}, {-142, 118}}, color = {0, 0, 127}));
   connect(enaCoo.u2, TOffSet.y)
     annotation (Line(points={{-142,-8},{-158,-8}}, color={0,0,127}));
@@ -231,7 +231,7 @@ equation
           {-186,-144},{-188,-144}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling_TRoom_TSurface.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling_TSurface.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=9504000,
