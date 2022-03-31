@@ -2,8 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.Validation;
 block SupplyAirTemperature
   "Validation model for supply air temperature setpoint subsequence"
 
-  extends Modelica.Icons.Example;
-
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir(
     final have_coolingCoil=true,
     final have_heatingCoil=true)
@@ -197,7 +195,16 @@ equation
           54,-61.6667},{58,-61.6667}},
                                     color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),                                        Diagram(
+            {100,100}}), graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent={{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/Validation/SupplyAirTemperature.mos"
     "Simulate and plot"),
