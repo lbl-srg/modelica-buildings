@@ -3,8 +3,9 @@ model Relay "Example model for block that outputs a relay signal"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.CDL.Discrete.Relay relay(
     yUpperLimit=1,
-    yLowerLimit=-0.5,
-    deadBand=1) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    yLowerLimit=-0.1,
+    deadBand=0.5)
+                annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=1.2,
     f=1/60,

@@ -21,9 +21,10 @@ block PIDWithAutoTuning "P, PI, PD, and PID controller with an auto tuning compo
     min=100*Constants.eps)=0.1
     "Start value of the Time constant of derivative block"
     annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
-  parameter Real yUpperLimit = 1 "Upper limit for y";
-  parameter Real yLowerLimit = 0 "Lower limit for y";
-  parameter Real deadBand = 0.5 "Deadband for holding the relay output value";
+  parameter Real yUpperLimit = 1 "Upper limit of the output";
+  parameter Real yLowerLimit = -0.5 "Lower limit of the output";
+  parameter Real deadBand = 0.5 "Deadband for holding the relay output value in the relay tuner";
+
   Real k(
     min=100*Constants.eps,
     start=k_start)
@@ -117,6 +118,14 @@ block PIDWithAutoTuning "P, PI, PD, and PID controller with an auto tuning compo
   Buildings.Controls.OBC.CDL.Continuous.Switch switch annotation (Placement(transformation(extent={{138,142},{158,122}})));
   Modelica.Blocks.Sources.BooleanExpression tunePeriodEnd(y=relay.dtON > 0 and relay.dtOFF > 0) annotation (Placement(transformation(extent={{98,122},{118,142}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.AMIGOWithFOTD FOTDTuneModel(
+    yUpperLimit=yUpperLimit,
+    yLowerLimit=yLowerLimit,
+    deadBand=deadBand,
+    controllerType=controllerType) if tuningModeType==Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel.FOTD
+    annotation (Placement(transformation(extent={{120,-100},{100,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.NormalizedDelay tauTuner(gamma=max(yUpperLimit, abs(yLowerLimit))/min(yUpperLimit, abs(yLowerLimit))) if tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau
+    annotation (Placement(transformation(extent={{170,-100},{150,-80}})));
 protected
   final parameter Real revAct=
     if reverseActing then
@@ -319,10 +328,10 @@ Modelica Standard Library.
 
 equation
   when tunePeriodEnd.y then
-    if tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau then
-    k=1;
-    Td=1;
-    Ti=1;
+    if tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau and tuningModeType==Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel.FOTD then
+    k=FOTDTuneModel.k;
+    Td=FOTDTuneModel.Td;
+    Ti=FOTDTuneModel.Ti;
    end if;
   end when;
   connect(u_s,uS_revAct.u)
@@ -381,7 +390,23 @@ equation
   connect(relay.u2, errP.u2) annotation (Line(points={{91,159.6},{-12,159.6},{-12,186},{-150,186},{-150,134},{-142,134}}, color={0,0,127}));
   connect(switch.y, y) annotation (Line(points={{160,132},{200,132},{200,0},{240,0}}, color={0,0,127}));
   connect(relay.y, switch.u3) annotation (Line(points={{113,162},{130,162},{130,140},{136,140}}, color={0,0,127}));
-  connect(switch.u1, antWinErr.y) annotation (Line(points={{136,124},{134,124},{134,126},{130,126},{130,110},{190,110},{190,60},{182,60}}, color={0,0,127}));
+  if tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau then
+  connect(tauTuner.dtON, relay.dtON) annotation (Line(points={{172,-84},{212,-84},{212,166},{113,166}}, color={0,0,127}));
+  connect(tauTuner.dtOFF, relay.dtOFF) annotation (Line(points={{172,-96},{208,-96},{208,158},{113,158}}, color={0,0,127}));
+  end if;
+  if tuningModeType==Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel.FOTD then
+  connect(FOTDTuneModel.RelayOutput, switch.u3)
+    annotation (Line(points={{122,-90},{134,-90},{134,56},{60,56},{60,148},{130,148},{130,140},{136,140}}, color={0,0,127}));
+  connect(FOTDTuneModel.dtON, relay.dtON)
+    annotation (Line(points={{122,-95.8},{134,-95.8},{134,-96},{144,-96},{144,-106},{188,-106},{188,-84},{212,-84},{212,166},{113,166}}, color={0,0,127}));
+  connect(FOTDTuneModel.dtOFF, relay.dtOFF)
+    annotation (Line(points={{122,-100},{134,-100},{134,-114},{200,-114},{200,-96},{208,-96},{208,158},{113,158}}, color={0,0,127}));
+  connect(relay.experimentStart, FOTDTuneModel.experimentStart) annotation (Line(points={{113,170},{194,170},{194,-46},{115.6,-46},{115.6,-78}}, color={255,0,255}));
+  connect(relay.experimentEnd, FOTDTuneModel.experimentEnd) annotation (Line(points={{113,174},{204,174},{204,-54},{104.6,-54},{104.6,-78}}, color={255,0,255}));
+  connect(relay.uDiff, FOTDTuneModel.ProcessOutput) annotation (Line(points={{113,154},{186,154},{186,-64},{128,-64},{128,-85.2},{122,-85.2}}, color={0,0,127}));
+  connect(tauTuner.y, FOTDTuneModel.tau) annotation (Line(points={{148,-90},{138,-90},{138,-80},{122,-80}}, color={0,0,127}));
+  end if;
+  connect(lim.y, switch.u1) annotation (Line(points={{142,90},{172,90},{172,110},{130,110},{130,124},{136,124}}, color={0,0,127}));
   annotation (
     defaultComponentName="conPID",
     Icon(
@@ -476,280 +501,15 @@ equation
           textString="PID")}),
     Documentation(
       info="<html>
-<p>
-PID controller in the standard form
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-y<sub>u</sub> = k/r &nbsp; (e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(&tau;) d&tau; + T<sub>d</sub> d&frasl;dt e(t)),
-</p>
-<p>
-where
-<i>y<sub>u</sub></i> is the control signal before output limitation,
-<i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error,
-with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
-the measured quantity,
-<i>k</i> is the gain,
-<i>T<sub>i</sub></i> is the time constant of the integral term,
-<i>T<sub>d</sub></i> is the time constant of the derivative term,
-and
-<i>r</i> is a scaling factor, with default <i>r=1</i>.
-The scaling factor should be set to the typical order of magnitude of the range of the error <i>e</i>.
-For example, you may set <i>r=100</i> to <i>r=1000</i>
-if the control input is a pressure of a heating water circulation pump in units of Pascal, or
-leave <i>r=1</i> if the control input is a room temperature.
-</p>
-<p>
-Note that the units of <i>k</i> are the inverse of the units of the control error,
-while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
-</p>
-<p>
-The actual control output is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-y = min( y<sub>max</sub>, max( y<sub>min</sub>, y)),
-</p>
-<p>
-where <i>y<sub>min</sub></i> and <i>y<sub>max</sub></i> are limits for the control signal.
-</p>
-<h4>P, PI, PD, or PID action</h4>
-<p>
-Through the parameter <code>controllerType</code>, the controller can be configured
-as P, PI, PD or PID controller. The default configuration is PI.
-</p>
-<h4>Reverse or direct action</h4>
-<p>
-Through the parameter <code>reverseActing</code>, the controller can be configured to
-be reverse or direct acting.
-The above standard form is reverse acting, which is the default configuration.
-For a reverse acting controller, for a constant set point,
-an increase in measurement signal <code>u_m</code> decreases the control output signal <code>y</code>
-(Montgomery and McDowall, 2008).
-Thus,
-</p>
-<ul>
-  <li>
-  for a heating coil with a two-way valve, leave <code>reverseActing = true</code>, but
-  </li>
-  <li>
-  for a cooling coil with a two-way valve, set <code>reverseActing = false</code>.
-  </li>
-</ul>
-<p>
-If <code>reverseAction=false</code>, then the error <i>e</i> above is multiplied by <i>-1</i>.
-</p>
-<h4>Anti-windup compensation</h4>
-<p>
-The controller anti-windup compensation is as follows:
-Instead of the above basic control law, the implementation is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-y<sub>u</sub> = k &nbsp; (e(t) &frasl; r + 1 &frasl; T<sub>i</sub> &nbsp; &int; (-&Delta;y + e(&tau;) &frasl; r) d&tau; + T<sub>d</sub> &frasl; r d&frasl;dt e(t)),
-</p>
-<p>
-where the anti-windup compensation <i>&Delta;y</i> is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-&Delta;y = (y<sub>u</sub> - y) &frasl; (k N<sub>i</sub>),
-</p>
-<p>
-where
-<i>N<sub>i</sub> &gt; 0</i> is the time constant for the anti-windup compensation.
-To accelerate the anti-windup, decrease <i>N<sub>i</sub></i>.
-</p>
-<p>
-Note that the anti-windup term <i>(-&Delta;y + e(&tau;) &frasl; r)</i> shows that the range of
-the typical control error <i>r</i> should be set to a reasonable value so that
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-e(&tau;) &frasl; r = (u<sub>s</sub>(&tau;) - u<sub>m</sub>(&tau;)) &frasl; r
-</p>
-<p>
-has order of magnitude one, and hence the anti-windup compensation should work well.
-</p>
-<h4>Reset of the controller output</h4>
-<p>
-Note that this controller implements an integrator anti-windup. Therefore,
-for most applications, the controller output does not need to be reset.
-However, if the controller is used in conjuction with equipment that is being
-switched on, better control performance may be achieved by resetting the controller
-output when the equipment is switched on. This is in particular the case in situations
-where the equipment control input should continuously increase as the equipment is
-switched on, such as a light dimmer that may slowly increase the luminance, or
-a variable speed drive of a motor that should continuously increase the speed. In
-this case, the controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
-that can reset the output should be used.
-</p>
-<h4>Approximation of the derivative term</h4>
-<p>
-The derivative of the control error <i>d &frasl; dt e(t)</i> is approximated using
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-d&frasl;dt x(t) = (e(t)-x(t)) T<sub>d</sub> &frasl; N<sub>d</sub>,
-</p>
-<p>
-and
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-d&frasl;dt e(t) &asymp; N<sub>d</sub> (e(t)-x(t)),
-</p>
-<p>
-where <i>x(t)</i> is an internal state.
-</p>
-<h4>Guidance for tuning the control gains</h4>
-<p>
-The parameters of the controller can be manually adjusted by performing
-closed loop tests (= controller + plant connected
-together) and using the following strategy:
-</p>
-<ol>
-<li> Set very large limits, e.g., set <i>y<sub>max</sub> = 1000</i>.
-</li>
-<li>
-Select a <strong>P</strong>-controller and manually enlarge the parameter <code>k</code>
-(the total gain of the controller) until the closed-loop response
-cannot be improved any more.
-</li>
-<li>
-Select a <strong>PI</strong>-controller and manually adjust the parameters
-<code>k</code> and <code>Ti</code> (the time constant of the integrator).
-The first value of <code>Ti</code> can be selected such that it is in the
-order of the time constant of the oscillations occurring with
-the P-controller. If, e.g., oscillations in the order of <i>100</i> seconds
-occur in the previous step, start with <code>Ti=1/100</code> seconds.
-</li>
-<li>
-If you want to make the reaction of the control loop faster
-(but probably less robust against disturbances and measurement noise)
-select a <strong>PID</strong>-controller and manually adjust parameters
-<code>k</code>, <code>Ti</code>, <code>Td</code> (time constant of derivative block).
-</li>
-<li>
-Set the limits <code>yMax</code> and <code>yMin</code> according to your specification.
-</li>
-<li>
-Perform simulations such that the output of the PID controller
-goes in its limits. Tune <code>Ni</code> (<i>N<sub>i</sub> T<sub>i</sub></i> is the time constant of
-the anti-windup compensation) such that the input to the limiter
-block (= <code>lim.u</code>) goes quickly enough back to its limits.
-If <code>Ni</code> is decreased, this happens faster. If <code>Ni</code> is very large, the
-anti-windup compensation is not effective and the controller works bad.
-</li>
-</ol>
-<h4>References</h4>
-<p>
-R. Montgomery and R. McDowall (2008).
-\"Fundamentals of HVAC Control Systems.\"
-American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. Atlanta, GA.
-</p>
+<p>PID controller with an autotuning feature.</p>
+<p><br>This module is modified based on <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">Buildings.Controls.OBC.CDL.Continuous.PID</a>. We added the automatic controller tuning using relay-based model identification.</p>
+<p>It allows users to select the tuning methods and the corrsponding model for PID tuning.</p>
+<p><br><h4>References</h4></p>
+<p>R. Montgomery and R. McDowall (2008). &quot;Fundamentals of HVAC Control Systems.&quot; American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. Atlanta, GA. </p>
 </html>",
       revisions="<html>
 <ul>
-<li>
-November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
-</li>
-<li>
-October 15, 2020, by Michael Wetter:<br/>
-Added scaling factor <code>r</code>, removed set point weights <code>wp</code> and <code>wd</code>.
-Revised documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.
-</li>
-<li>
-August 4, 2020, by Jianjun Hu:<br/>
-Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>.
-Refactored to internally implement the derivative block.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
-</li>
-<li>
-June 1, 2020, by Michael Wetter:<br/>
-Corrected wrong convention of reverse and direct action.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
-</li>
-<li>
-April 23, 2020, by Michael Wetter:<br/>
-Changed default parameters for limits <code>yMax</code> from unspecified to <code>1</code>
-and <code>yMin</code> from <code>-yMax</code> to <code>0</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">issue 1888</a>.
-</li>
-<li>
-April 7, 2020, by Michael Wetter:<br/>
-Reimplemented block using only CDL constructs.
-This refactoring removes the no longer use parameters <code>xd_start</code> that was
-used to initialize the state of the derivative term. This state is now initialized
-based on the requested initial output <code>yd_start</code> which is a new parameter
-with a default of <code>0</code>.
-Also, removed the parameters <code>y_start</code> and <code>initType</code> because
-the initial output of the controller can be set by using <code>xi_start</code>
-and <code>yd_start</code>.
-This is a non-backward compatible change, made to simplify the controller through
-the removal of options that can be realized differently and are hardly ever used.
-This refactoring also removes the parameter <code>strict</code> that
-was used in the output limiter. The new implementation enforces a strict check by default.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">issue 1878</a>.
-</li>
-<li>
-March 9, 2020, by Michael Wetter:<br/>
-Corrected unit declaration for gain <code>k</code>.<br/>
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1821\">issue 1821</a>.
-</li>
-<li>
-March 2, 2020, by Michael Wetter:<br/>
-Changed icon to display dynamically the output value.
-</li>
-<li>
-February 25, 2020, by Michael Wetter:<br/>
-Changed icon to display the output value.
-</li>
-<li>
-October 19, 2019, by Michael Wetter:<br/>
-Disabled homotopy to ensure bounded outputs
-by copying the implementation from MSL 3.2.3 and by
-hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
-</li>
-<li>
-November 13, 2017, by Michael Wetter:<br/>
-Changed default controller type from PID to PI.
-</li>
-<li>
-November 6, 2017, by Michael Wetter:<br/>
-Explicitly declared types and used integrator with reset from CDL.
-</li>
-<li>
-October 22, 2017, by Michael Wetter:<br/>
-Added to CDL to have a PI controller with integrator reset.
-</li>
-<li>
-September 29, 2016, by Michael Wetter:<br/>
-Refactored model.
-</li>
-<li>
-August 25, 2016, by Michael Wetter:<br/>
-Removed parameter <code>limitsAtInit</code> because it was only propagated to
-the instance <code>limiter</code>, but this block no longer makes use of this parameter.
-This is a non-backward compatible change.<br/>
-Revised implemenentation, added comments, made some parameter in the instances final.
-</li>
-<li>July 18, 2016, by Philipp Mehrfeld:<br/>
-Added integrator reset.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">issue 494</a>.
-</li>
-<li>
-March 15, 2016, by Michael Wetter:<br/>
-Changed the default value to <code>strict=true</code> in order to avoid events
-when the controller saturates.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">issue 433</a>.
-</li>
-<li>
-February 24, 2010, by Michael Wetter:<br/>
-First implementation.
-</li>
+<li>March 30, 2022, by Sen Huang:<br>First implementation. </li>
 </ul>
 </html>"));
 end PIDWithAutoTuning;

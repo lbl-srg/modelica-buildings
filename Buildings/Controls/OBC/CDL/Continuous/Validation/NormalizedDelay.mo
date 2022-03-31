@@ -37,10 +37,7 @@ Buildings.Controls.OBC.CDL.Continuous.NormalizedDelay</a>.
 </html>",
       revisions="<html>
 <ul>
-<li>
-March 3, 2022, by Sen Huang:<br/>
-First implementation.
-</li>
+<li>March 30, 2022, by Sen Huang:<br>First implementation. </li>
 </ul>
 </html>"),
     Icon(

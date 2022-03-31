@@ -4,7 +4,7 @@ block Relay "Outputs a relay signal for PID tuning experiment"
   parameter Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel tuningModeType=Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel.FOTD "Type of the tune model"
       annotation (Dialog(enable=tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau));
   parameter Real yUpperLimit = 1 "Upper limit of the output";
-  parameter Real yLowerLimit = 0 "Lower limit of output";
+  parameter Real yLowerLimit = -0.5 "Lower limit of the output";
   parameter Real deadBand = 0.5 "Deadband for holding the output value";
   Interfaces.RealInput u1 "Input 1" annotation (Placement(transformation(extent={{-120,30},{-100,50}}), iconTransformation(extent={{-120,30},
             {-100,50}})));
@@ -14,14 +14,14 @@ block Relay "Outputs a relay signal for PID tuning experiment"
   Interfaces.RealOutput dtON "Half-period length for the upper limit" annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Interfaces.RealOutput dtOFF "Half-period length for the lower limit" annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Interfaces.RealOutput uDiff "Difference between u1 and u2" annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
-  Interfaces.BooleanOutput experimentStart(start=false) "If the relay experiment starts" annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Interfaces.BooleanOutput experimentEnd(start=false) "If the relay experiment ends" annotation (Placement(transformation(extent={{100,90},{120,110}})));
+  Interfaces.BooleanOutput experimentStart(start=false) "Set to true when the relay experiment starts" annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Interfaces.BooleanOutput experimentEnd(start=false) "Set to true when the relay experiment ends" annotation (Placement(transformation(extent={{100,90},{120,110}})));
   Modelica.Units.SI.Time tON_start(start=0) "Time when the output is the upper limit";
   Modelica.Units.SI.Time tOFF_start(start=0) "Time when the output is the lower limit";
 
 equation
   uDiff=u1-u2;
-  when uDiff>deadBand then
+  when uDiff>+deadBand then
     tON_start = time;
     if tOFF_start>0 then
       dtOFF = time - tOFF_start;
@@ -54,6 +54,7 @@ equation
   else
     y = yLowerLimit;
   end if;
+
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})),
                 Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})),
               Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -83,14 +84,11 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-March 3, 2022, by Sen Huang:<br/>
+March 30, 2022, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>
-Block that outputs the relay signal switches between two discrete values every time the process output
-leaves the hysteresis band.
-</p>
+<p>Block that outputs a relay signal which switches between two discrete values every time the process output leaves the hysteresis band. </p>
 </html>"));
 end Relay;

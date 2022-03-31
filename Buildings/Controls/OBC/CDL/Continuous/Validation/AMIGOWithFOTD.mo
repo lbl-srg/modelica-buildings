@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model FOTD "Validation model for the AMIGOWithFOTD block"
+model AMIGOWithFOTD "Validation model for the AMIGOWithFOTD block"
 
-  Buildings.Controls.OBC.CDL.Continuous.AMIGOWithFOTD FOTD(controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+  Buildings.Controls.OBC.CDL.Continuous.AMIGOWithFOTD FOTD(controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=1.2,
@@ -36,24 +36,18 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/FOTD.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/AMIGOWithFOTD.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Tan\">
-Buildings.Controls.OBC.CDL.Continuous.Tan</a>.
-</p>
-<p>
-The input <code>u</code> varies from <i>-1.5</i> to <i>+1.5</i>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.AMIGOWithFOTD\">
+Buildings.Controls.OBC.CDL.Continuous.AMIGOWithFOTD</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
-<li>
-March 22, 2017, by Jianjun Hu:<br/>
-First implementation.
-</li>
+<li>March 30, 2022, by Sen Huang:<br>First implementation. </li>
 </ul>
 </html>"),
     Icon(
@@ -69,4 +63,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end FOTD;
+end AMIGOWithFOTD;

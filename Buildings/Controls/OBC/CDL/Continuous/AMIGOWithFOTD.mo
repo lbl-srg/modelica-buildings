@@ -1,10 +1,11 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block AMIGOWithFOTD "AMIGO tuning method with a first order model with time delay"
+block AMIGOWithFOTD "AMIGO tuning method for a first order model with time delay"
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller";
   parameter Real yUpperLimit = 1 "Upper limit for y";
   parameter Real yLowerLimit = 0 "Lower limit for y";
   parameter Real deadBand = 0.5 "Deadband for holding the output value";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+
   Real y0 "Initial value of the process output";
   Real u0 "Initial value of the process input";
   Interfaces.RealInput tau "Normalized time delay"
@@ -55,15 +56,16 @@ protected
   Sources.Constant con(final k=0)  "Constant zero" annotation (Placement(transformation(extent={{-80,-26},{-60,-6}})));
 
 equation
+  assert(controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID, "Either PI or PID should be selected");
   when experimentStart then
     y0 = RelayOutput;
     u0 = ProcessOutput;
   end when;
   when experimentEnd then
      Kp = kpCalculator.y;
-     T = dtON/Modelica.Math.log10((deadBand/abs(Kp)+yLowerLimit+Modelica.Math.exp(tau/(1-tau))*(yUpperLimit -
+     T = dtON/Modelica.Math.log10((deadBand/abs(Kp)+yLowerLimit+Modelica.Math.exp(tau/(1-tau+Constants.eps))*(yUpperLimit -
         yLowerLimit))/(yUpperLimit - deadBand/abs(Kp)));
-     L = T*(tau/(1-tau));
+     L = T*(tau/(1-tau+Constants.eps));
      if controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI then
         k = 1/Kp*(0.15+0.35*T/L-T^2/(T+L)^2);
         Ti = (0.35+13*T^2/(T^2+12*T*L+7*L^2))*L;
@@ -116,13 +118,12 @@ equation
     Documentation(
       info="<html>
 <p>Block that generates the PID parameters with the AMIGO method and a first-order model with time delay.</p>
+<h4>References</h4>
+<p>&Aring;str&ouml;m, K. J. and T. H&auml;gglund (2006). Advanced PID Control. eng. ISA - The Instrumentation, Systems, and Automation Society; Research Triangle Park, NC 27709. isbn: 978-1-55617-942</p>
 </html>",
       revisions="<html>
 <ul>
-<li>
-March 3, 2022, by Sen Huang:<br/>
-First implementation.
-</li>
+<li>March 30, 2022, by Sen Huang:<br>First implementation. </li>
 </ul>
 </html>"));
 end AMIGOWithFOTD;

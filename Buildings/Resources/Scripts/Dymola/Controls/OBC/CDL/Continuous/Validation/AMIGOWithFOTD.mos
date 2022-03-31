@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.FOTD", stopTime=120, tolerance=1e-06, resultFile="FOTD");
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.AMIGOWithFOTD", stopTime=120, tolerance=1e-06, resultFile="AMIGOWithFOTD");
 removePlots(false);
 createPlot(id=1, position={0, 0, 2841, 1894}, y={"FOTD.experimentStart", "FOTD.experimentEnd"}, range={0.0, 120.0, -1.0, 2.0}, grid=true, colors={{28,108,200}, {28,108,200}});
 createPlot(id=1, position={0, 0, 2841, 1894}, y={"relay.y", "relay.uDiff"}, range={0.0, 120.0, -5.0, 10.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});
