@@ -2,10 +2,10 @@ within Buildings.Experimental.DHC.Networks.Steam.Examples;
 model ConnectionCondensatePipe "Example model for the steam heating connection block"
   extends Modelica.Icons.Example;
 
-  package MediumSte = Buildings.Media.Steam "Steam vapor medium";
+  package MediumSte = Buildings.Media.Steam "Steam medium";
   package MediumWat =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity
-    "Liquid water medium";
+    "Water medium";
 
   parameter Modelica.Units.SI.AbsolutePressure pSat=150000
     "Saturation pressure";
@@ -64,8 +64,8 @@ model ConnectionCondensatePipe "Example model for the steam heating connection b
     redeclare package MediumRet = MediumWat,
     mDis_flow_nominal=m_flow_nominal,
     mCon_flow_nominal=m_flow_nominal,
-    pSup_start=pSat,
-    TSup_start=TSat)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal=1500)
     "Connection block for steam systems"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 

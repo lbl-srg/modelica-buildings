@@ -7,7 +7,7 @@ model SteamTrap "Example model to demonstrate the steam trap"
   parameter Modelica.Units.SI.Temperature TSatHig=273.15+110
      "High pressure saturation temperature";
   parameter Modelica.Units.SI.Temperature TSatLow=273.15+100
-     "High pressure saturation temperature";
+     "Low pressure saturation temperature";
   parameter Modelica.Units.SI.AbsolutePressure pSat=143380
      "Saturation pressure";
   parameter Modelica.Units.SI.PressureDifference dp=pSat-101325
@@ -88,4 +88,3 @@ First implementation.
 </ul>
 </html>"));
 end SteamTrap;
-  

@@ -16,7 +16,7 @@ model BuildingTimeSeriesAtETS
   parameter Modelica.Units.SI.Power Q_flow_nominal= 2e4
     "Nominal heat flow rate";
 
-  Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld(
+  Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bui(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
     have_prv=true,
@@ -24,8 +24,8 @@ model BuildingTimeSeriesAtETS
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=3000,
     tableOnFile=false,
-    Q_flow_nominal=Q_flow_nominal,
-    pSte_nominal=pSat,
+    final Q_flow_nominal=Q_flow_nominal,
+    final pSte_nominal=pSat,
     QHeaLoa=[0,Q_flow_nominal*0.2; 6,Q_flow_nominal; 16,Q_flow_nominal*0.1; 24,Q_flow_nominal*0.2],
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
@@ -34,23 +34,23 @@ model BuildingTimeSeriesAtETS
     "Building model with time series load at the ETS"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Fluid.Sources.Boundary_pT souSte(
-    redeclare package Medium = MediumSte,
+    redeclare final package Medium = MediumSte,
     p(displayUnit="Pa") = pSat,
     T=TSat,
     nPorts=1)
     "Steam source"
     annotation (Placement(transformation(extent={{42,30},{22,50}})));
   Buildings.Fluid.Sources.Boundary_pT watSin(
-    redeclare package Medium = MediumWat,
+    redeclare final package Medium = MediumWat,
     p=101325,
     nPorts=1)
     "Water sink"
     annotation (Placement(transformation(extent={{42,-6},{22,14}})));
 equation
-  connect(souSte.ports[1], bld.port_a)
+  connect(souSte.ports[1], bui.port_a)
     annotation (Line(points={{22,40},{10,40},{10,10},{-40,10}},
                                               color={0,127,255}));
-  connect(bld.port_b, watSin.ports[1]) annotation (Line(points={{-40,4},{22,4}},
+  connect(bui.port_b, watSin.ports[1]) annotation (Line(points={{-40,4},{22,4}},
                            color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

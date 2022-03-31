@@ -3,10 +3,10 @@ model DistributionCondensatePipe
   "Example model for the steam heating distribution network"
   extends Modelica.Icons.Example;
 
-  package MediumSte = Buildings.Media.Steam "Steam vapor medium";
+  package MediumSte = Buildings.Media.Steam "Steam medium";
   package MediumWat =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity
-    "Liquid water medium";
+    "Water medium";
 
   parameter Modelica.Units.SI.AbsolutePressure pSat=150000
     "Saturation pressure";
@@ -22,7 +22,7 @@ model DistributionCondensatePipe
         p=pSat,
         T=TSat,
         X=MediumWat.X_default))
-    "Standard change in enthalpy due to vaporization";
+    "Nominal change in enthalpy due to vaporization";
   parameter Modelica.Units.SI.Power Q1_flow_nominal=200E3
     "Nominal heat flow rate, building 1";
   parameter Modelica.Units.SI.Power Q2_flow_nominal=300E3
@@ -58,7 +58,9 @@ model DistributionCondensatePipe
     redeclare package MediumRet = MediumWat,
     nCon=2,
     mDis_flow_nominal=m1_flow_nominal + m2_flow_nominal,
-    mCon_flow_nominal={m1_flow_nominal,m2_flow_nominal})
+    mCon_flow_nominal={m1_flow_nominal,m2_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{-20,0},{20,20}})));
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bui[2](
     redeclare package MediumSte = MediumSte,

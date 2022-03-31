@@ -1,11 +1,15 @@
 ﻿within Buildings.Experimental.DHC.Networks.Steam;
 model DistributionCondensatePipe
   "Model of a steam distribution network using fixed resistance pipe model for condensate returns"
-  extends Buildings.Experimental.DHC.Networks.Steam.BaseClasses.PartialDistributionTwoPipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe2Medium(
     redeclare ConnectionCondensatePipe con[nCon](
       redeclare package MediumSup = MediumSup,
-      redeclare package MediumRet = MediumRet),
+      redeclare package MediumRet = MediumRet,
+      each final dp_nominal=dp_nominal),
     redeclare model Model_pipDis=Buildings.Fluid.FixedResistances.LosslessPipe);
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+    "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   annotation (
   defaultComponentName="dis",
     Documentation(

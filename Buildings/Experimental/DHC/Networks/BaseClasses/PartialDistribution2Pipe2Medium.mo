@@ -1,7 +1,8 @@
-within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
-partial model PartialDistributionTwoPipe
-  "Partial model for two-pipe distribution network"
-  extends Buildings.Experimental.DHC.Networks.Steam.BaseClasses.PartialDistribution;
+within Buildings.Experimental.DHC.Networks.BaseClasses;
+partial model PartialDistribution2Pipe2Medium
+  "Partial model for a two-pipe distribution network with two medium declarations"
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Medium;
   replaceable model Model_pipDis =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=MediumSup,
@@ -60,7 +61,9 @@ partial model PartialDistributionTwoPipe
     "Distribution return inlet port"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}),iconTransformation(extent={{180,-80},{220,-40}})));
   // COMPONENTS
-  replaceable Buildings.Experimental.DHC.Networks.Steam.BaseClasses.PartialConnectionTwoPipe con[nCon](
+  replaceable
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium
+    con[nCon](
     final mDis_flow_nominal=mDisCon_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
@@ -87,32 +90,20 @@ equation
       connect(con[i-1].port_aDisRet,con[i].port_bDisRet);
     end for;
   end if;
-
   connect(con.port_bCon,ports_bCon)
-    annotation (Line(points={{0,10},{0,40},{-80,40},{-80,100}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{0,10},{0,40},{-80,40},{-80,100}},color={0,127,255}));
   connect(ports_aCon,con.port_aCon)
-    annotation (Line(points={{80,100},{80,40},{6,40},{6,10}},color={0,0,222},
-      thickness=0.5));
+    annotation (Line(points={{80,100},{80,40},{6,40},{6,10}},color={0,127,255}));
   connect(port_aDisSup,con[1].port_aDisSup)
-    annotation (Line(points={{-100,0},{-10,0}},color={0,0,222},
-      thickness=0.5));
+    annotation (Line(points={{-100,0},{-10,0}},color={0,127,255}));
   connect(port_bDisRet,con[1].port_bDisRet)
-    annotation (Line(points={{-100,-60},{-40,-60},{-40,-6},{-10,-6}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{-100,-60},{-40,-60},{-40,-6},{-10,-6}},color={0,127,255}));
   connect(con[nCon].port_aDisRet,port_aDisRet)
-    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},color={0,127,255}));
   connect(con[nCon].port_bDisSup,pipEnd.port_a)
-    annotation (Line(points={{10,0},{60,0}},color={0,0,222},
-      thickness=0.5));
+    annotation (Line(points={{10,0},{60,0}},color={0,127,255}));
   connect(pipEnd.port_b,port_bDisSup)
-    annotation (Line(points={{80,0},{100,0}},color={0,0,222},
-      thickness=0.5));
-
+    annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
   annotation (
     Documentation(
       info="
@@ -194,4 +185,4 @@ First implementation.
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false)));
-end PartialDistributionTwoPipe;
+end PartialDistribution2Pipe2Medium;

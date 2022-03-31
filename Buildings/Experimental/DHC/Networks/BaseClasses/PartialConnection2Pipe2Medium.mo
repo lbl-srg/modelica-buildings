@@ -1,7 +1,6 @@
-within Buildings.Experimental.DHC.Networks.Steam.BaseClasses;
-partial model PartialConnectionTwoPipe
-  "Partial model for connecting an a LosslessPipegent to a two-pipe 
-  distribution network with the split-medium approach"
+within Buildings.Experimental.DHC.Networks.BaseClasses;
+partial model PartialConnection2Pipe2Medium "Partial model for connecting an 
+  agent to a two-pipe distribution network with two medium declarations"
   replaceable package MediumSup =
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";
@@ -9,36 +8,30 @@ partial model PartialConnectionTwoPipe
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for return fluid";
 
-  replaceable model Model_pip_aDisSup =
+  replaceable model Model_pipDisSup =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
     final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
-  replaceable model Model_pip_bDisRet =
+    final allowFlowReversal=allowFlowReversal)
+    "Interface for inlet pipe for the distribution supply";
+  replaceable model Model_pipDisRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumRet,
     final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
-  replaceable model Model_pip_bDisSup =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface (
-    redeclare final package Medium = MediumSup,
-    final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
-  replaceable model Model_pip_aDisRet =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface (
-    redeclare final package Medium = MediumRet,
-    final m_flow_nominal=mDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal)
+    "Interface for outlet pipe for the distribution return";
   replaceable model Model_pipConSup =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumSup,
     final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal
+        "Interface for consumer supply pipe");
   replaceable model Model_pipConRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium = MediumRet,
     final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal);
+    final allowFlowReversal=allowFlowReversal)
+    "Interface for consumer return pipe";
 
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line"
@@ -53,21 +46,12 @@ partial model PartialConnectionTwoPipe
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
     annotation (
       Dialog(tab="Dynamics", group="Nominal condition",
       enable=not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState));
-  // Initialization
-  parameter Modelica.Units.SI.AbsolutePressure p_start
-    "Start value of pressure in pipes"
-    annotation(Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.Temperature T_start
-    "Start value of temperature in pipes"
-    annotation(Dialog(tab="Initialization"));
+
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
     redeclare final package Medium = MediumSup,
@@ -112,18 +96,10 @@ partial model PartialConnectionTwoPipe
     annotation (Placement(transformation(extent={{10,110},{30,130}}),
       iconTransformation(extent={{50,90},{70,110}})));
   // COMPONENTS
-  Model_pip_aDisSup pip_aDisSup
-    "Distribution supply pipe"
+  Model_pipDisSup pipDisSup "Distribution supply pipe"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Model_pip_bDisRet pip_bDisRet
-    "Distribution return pipe"
+  Model_pipDisRet pipDisRet "Distribution return pipe"
     annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
-  Model_pip_bDisSup pip_bDisSup
-    "Distribution supply pipe"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Model_pip_aDisRet pip_aDisRet
-    "Distribution return pipe"
-    annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
   Model_pipConSup pipConSup "Connection supply pipe"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -146,7 +122,7 @@ partial model PartialConnectionTwoPipe
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final dp_nominal = {0, 0, 0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,-mCon_flow_nominal})
     "Junction with connection supply"
@@ -163,7 +139,7 @@ partial model PartialConnectionTwoPipe
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dp_nominal = {0, 0, 0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final tau=tau,
     final m_flow_nominal={mDis_flow_nominal,-mDis_flow_nominal,mCon_flow_nominal})
     "Junction with connection return"
@@ -178,28 +154,24 @@ protected
 equation
   connect(junConSup.port_3, pipConSup.port_a)
     annotation (Line(points={{-20,-30},{-20,-20}}, color={0,127,255}));
-  connect(pip_aDisSup.port_b, junConSup.port_1)
+  connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
-  connect(port_aDisSup, pip_aDisSup.port_a)
+  connect(port_aDisSup, pipDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
-  connect(junConRet.port_2, pip_bDisRet.port_a)
+  connect(junConRet.port_2, pipDisRet.port_a)
     annotation (Line(points={{10,-80},{-60,-80}}, color={0,127,255}));
-  connect(pip_bDisRet.port_b, port_bDisRet)
+  connect(pipDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
   connect(pipConRet.port_a, port_aCon)
     annotation (Line(points={{20,0},{20,0},{20,120}}, color={0,127,255}));
   connect(pipConRet.port_b, junConRet.port_3)
     annotation (Line(points={{20,-20},{20,-20},{20,-70}}, color={0,127,255}));
-  connect(junConSup.port_2, pip_bDisSup.port_a)
-    annotation (Line(points={{-10,-40},{60,-40}}, color={0,127,255}));
-  connect(pip_bDisSup.port_b, port_bDisSup)
-    annotation (Line(points={{80,-40},{90,-40},{90,-40},{100,-40}}, color={0,127,255}));
-  connect(port_aDisRet, pip_aDisRet.port_a)
-    annotation (Line(points={{100,-80},{80,-80}}, color={0,127,255}));
-  connect(pip_aDisRet.port_b, junConRet.port_1)
-    annotation (Line(points={{60,-80},{30,-80}}, color={0,127,255}));
   connect(pipConSup.port_b, port_bCon)
     annotation (Line(points={{-20,0},{-20,120}}, color={0,127,255}));
+  connect(junConSup.port_2, port_bDisSup)
+    annotation (Line(points={{-10,-40},{100,-40}}, color={0,127,255}));
+  connect(junConRet.port_1, port_aDisRet)
+    annotation (Line(points={{30,-80},{100,-80},{100,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Documentation(info="
@@ -229,6 +201,12 @@ upstream and downstream of the connection, respectively.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 28, 2022, by Kathryn Hinkelman:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 March 2, 2022, by Antoine Gautier and Kathryn Hinkelman:<br/>
 First implementation.
@@ -274,4 +252,4 @@ First implementation.
           pattern=LinePattern.None,
           lineColor={0,0,0})}), Diagram(coordinateSystem(extent={{-100,-120},{100,
             120}})));
-end PartialConnectionTwoPipe;
+end PartialConnection2Pipe2Medium;
