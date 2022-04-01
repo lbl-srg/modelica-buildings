@@ -411,13 +411,23 @@ equation
   connect(preSou2.ports[1], pum6.port_a) annotation (Line(points={{-24,0},{-20,
           0},{-20,-52},{-60,-52},{-60,-46}}, color={0,127,255}));
   connect(weaDat.weaBus, sou2.weaBus) annotation (Line(
-      points={{-80,70},{-30,70},{-30,20.12}},
+      points={{-100,90},{-30,90},{-30,20.12}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, sou1.weaBus) annotation (Line(
-      points={{-80,70},{90,70},{90,20.12}},
+      points={{-100,90},{90,90},{90,20.12}},
       color={255,204,51},
       thickness=0.5));
+  connect(chiGly.TSet, chiGlyTSet.y) annotation (Line(points={{-57,3},{-57,30},{
+          -48,30},{-48,62},{-50.8,62}}, color={0,0,127}));
+  connect(chiWat.TSet, chiWatTSet.y) annotation (Line(points={{63,3},{63,14},{96,
+          14},{96,-86},{81.2,-86}}, color={0,0,127}));
+  connect(chiGly.on, chiGlyOn.y) annotation (Line(points={{-51,3},{-51,26},{-42,
+          26},{-42,80},{-50.8,80}}, color={255,0,255}));
+  connect(chiWat.on, ChiWatOn.y) annotation (Line(points={{69,3},{69,10},{92,10},
+          {92,-66},{81.2,-66}}, color={255,0,255}));
+  connect(disCooCoi.u, disCooLoad.y)
+    annotation (Line(points={{146,12},{146,70},{142.6,70}}, color={0,0,127}));
   annotation (
     experiment(
       StartTime=0,
