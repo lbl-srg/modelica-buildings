@@ -3,300 +3,338 @@ model DistrictCoolingIceTank
   "Example that tests the ice tank model for a simplified district cooling application"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
-    property_T=293.15,
-    X_a=0.30) "Fluid medium";
+  package MediumGlycol = Buildings.Media.Antifreeze.PropyleneGlycolWater (
+    property_T=293.15, X_a=0.30) "Fluid medium";
+  package MediumWater = Buildings.Media.Water "Fluid medium";
+  package MediumAir = Buildings.Media.Air "Fluid medium";
 
-  parameter Modelica.Units.SI.Mass SOC_start=3/4
-    "Start value of ice mass in the tank";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
-    "Nominal mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=100000
-    "Pressure difference";
-  parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic per(
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=1
+    "Nominal mass flow rate of air through the chiller condenser coil";
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=1
+    "Nominal mass flow rate of water through the water circuit";
+  parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal=1
+    "Nominal mass flow rate of glycol through the glycol circuit";
+
+  parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic perIceTan(
     mIce_max=1/4*2846.35,
     coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha=10,
-    coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,
-        3.00544E-04},
-    dtDisCha=10)
-    "Tank performance data"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
+    dtDisCha=10) "Tank performance data" annotation (Placement(transformation(extent={{-114,-94},{-94,-74}})));
+
+  parameter
+    Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled
+    perChi annotation (Placement(transformation(extent={{-80,-94},{-60,-74}})));
+
+  Buildings.Fluid.Storage.Ice.Tank iceTanUnc1(
+    redeclare package Medium = MediumGlycol,
+    m_flow_nominal=mGly_flow_nominal,
+    dp_nominal=10000,
+    SOC_start=3/4,
+    per=perIceTan) "Uncontrolled ice tank" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={-100,0})));
+
+  Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=273.15 - 6.7)
+    "Set point"
+    annotation (Placement(transformation(extent={{-64,56},{-52,68}})));
+
+  Controls.OBC.CDL.Logical.Sources.Constant chiGlyOn(k=true) "On signal"
+    annotation (Placement(transformation(extent={{-64,74},{-52,86}})));
 
   Chillers.ElectricEIR chiGly(
-    redeclare package Medium1 = Media.Air,
-    redeclare package Medium2 = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
-    m1_flow_nominal=mAir_flow_nominal,
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumGlycol,
+    m1_flow_nominal=mCon_flow_nominal,
     m2_flow_nominal=mGly_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
-
+    per=perChi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-54,-9})));
-  HeatExchangers.ConstantEffectiveness                 hex(
-    redeclare package Medium1 = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
-    redeclare package Medium2 = Media.Water,
+
+  HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = MediumGlycol,
+    redeclare package Medium2 = MediumWater,
     m1_flow_nominal=mGly_flow_nominal,
     m2_flow_nominal=mWat_flow_nominal,
     eps=0.8,
     dp2_nominal=0,
-    dp1_nominal=0) "Heat exchanger"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={10,1})));
-  Buildings.Fluid.Storage.Ice.Tank iceTanUnc1(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
-    m_flow_nominal=mGly_flow_nominal,
-    dp_nominal=dp_nominal,
-    SOC_start=SOC_start,
-    per=per) "Uncontrolled ice tank"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-100,0})));
+    dp1_nominal=0) "Heat exchanger" annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={10,1})));
+
+
+  Controls.OBC.CDL.Continuous.Sources.Constant chiWatTSet(k=273.15 + 15.2)
+    "Set point"
+    annotation (Placement(transformation(extent={{68,-92},{80,-80}})));
+
+  Controls.OBC.CDL.Logical.Sources.Constant ChiWatOn(k=true) "On signal"
+    annotation (Placement(transformation(extent={{68,-72},{80,-60}})));
+
   Chillers.ElectricEIR chiWat(
-    redeclare package Medium1 = Media.Air,
-    redeclare package Medium2 = Media.Water,
-    m1_flow_nominal=mAir_flow_nominal,
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumWater,
+    m1_flow_nominal=mCon_flow_nominal,
     m2_flow_nominal=mWat_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
-
+    per=perChi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={66,-9})));
-  HeatExchangers.HeaterCooler_u disCooCoi(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+
+  Modelica.Blocks.Sources.Sine disCooLoad(
+    amplitude=1,
+    f=0.00001157,
+    offset=1,
+    startTime=1)
+    annotation (Placement(transformation(extent={{130,64},{142,76}})));
+
+  HeatExchangers.HeaterCooler_u disCooCoi(redeclare package Medium =
+        MediumWater,
+    m_flow_nominal=mWat_flow_nominal,
+    dp_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    Q_flow_nominal=20000)
     "District cooling coil" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={140,0})));
-  Actuators.Valves.TwoWayLinear                 val4(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
-    m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
-    y_start=0,
-    use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
-      Placement(transformation(
-        extent={{-4,-4},{4,4}},
-        rotation=90,
-        origin={-100,40})));
-  Actuators.Valves.TwoWayLinear                 val1(
-    redeclare package Medium = Media.Water,
+
+  Actuators.Valves.TwoWayLinear val1(
+    redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
+    "Control valve for water loop" annotation (
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
         origin={20,40})));
-  Actuators.Valves.TwoWayLinear                 val2(
-    redeclare package Medium = Media.Water,
+
+  Actuators.Valves.TwoWayLinear val2(
+    redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
+    "Control valve for water loop" annotation (
       Placement(transformation(
         extent={{4,4},{-4,-4}},
         rotation=90,
         origin={40,0})));
-  Actuators.Valves.TwoWayLinear                 val3(
-    redeclare package Medium = Media.Water,
+
+  Actuators.Valves.TwoWayLinear val3(
+    redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
+    "Control valve for water loop" annotation (
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
         origin={60,40})));
-  Actuators.Valves.TwoWayLinear                 val5(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
+
+  Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
+    "Control valve for glycol loop" annotation (
+      Placement(transformation(
+        extent={{-4,-4},{4,4}},
+        rotation=90,
+        origin={-100,40})));
+
+  Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumGlycol,
+    m_flow_nominal=mGly_flow_nominal,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for glycol loop" annotation (
       Placement(transformation(
         extent={{4,-4},{-4,4}},
         rotation=90,
         origin={-80,0})));
-  Actuators.Valves.TwoWayLinear                 val6(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
+
+  Actuators.Valves.TwoWayLinear val6(
+    redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
+    "Control valve for glycol loop" annotation (
       Placement(transformation(
         extent={{-4,-4},{4,4}},
         rotation=90,
         origin={-60,40})));
-  Actuators.Valves.TwoWayLinear                 val7(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
+
+  Actuators.Valves.TwoWayLinear val7(
+    redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
+    "Control valve for glycol loop" annotation (
       Placement(transformation(
         extent={{4,-4},{-4,4}},
         rotation=90,
         origin={0,40})));
+
   Movers.FlowControlled_m_flow pum1(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
+    redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal) "Pump" annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=270,
         origin={0,-40})));
+
   Movers.FlowControlled_m_flow pum2(
-    redeclare package Medium = Media.Water,
+    redeclare package Medium = MediumWater,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mWat_flow_nominal) "Pump" annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={20,-30})));
+
   Movers.FlowControlled_m_flow pum3(
-    redeclare package Medium = Media.Water,
+    redeclare package Medium = MediumWater,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mWat_flow_nominal) "Pump" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={60,-40})));
+
   Movers.FlowControlled_m_flow pum4(
-    redeclare package Medium = Media.Water,
+    redeclare package Medium = MediumWater,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mWat_flow_nominal) "Pump" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=0,
         origin={120,50})));
+
   Movers.FlowControlled_m_flow pum5(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
+    redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal) "Pump" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-100,-30})));
+
   Movers.FlowControlled_m_flow pum6(
-    redeclare package Medium = Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15, X_a=0.40),
+    redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal) "Pump" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-60,-40})));
-  Sensors.TemperatureTwoPort temSen1(redeclare package Medium = Media.Water,
+
+  Sensors.TemperatureTwoPort temSen1(redeclare package Medium = MediumWater,
       m_flow_nominal=mWat_flow_nominal) "Water temperature" annotation (
       Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={20,20})));
-  Sensors.TemperatureTwoPort temSen2(redeclare package Medium = Media.Water,
+
+  Sensors.TemperatureTwoPort temSen2(redeclare package Medium = MediumWater,
       m_flow_nominal=mWat_flow_nominal) "Water temperature" annotation (
       Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={60,20})));
-  Sensors.TemperatureTwoPort temSen3(redeclare package Medium = Media.Water,
+
+  Sensors.TemperatureTwoPort temSen3(redeclare package Medium = MediumWater,
       m_flow_nominal=mWat_flow_nominal) "Water temperature" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={140,-20})));
-  Sensors.TemperatureTwoPort temSen4(redeclare package Medium =
-        Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=0.40),
+
+  Sensors.TemperatureTwoPort temSen4(redeclare package Medium = MediumGlycol,
       m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-100,20})));
-  Sensors.TemperatureTwoPort temSen5(redeclare package Medium =
-        Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=0.40),
+
+  Sensors.TemperatureTwoPort temSen5(redeclare package Medium = MediumGlycol,
       m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
       Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-60,20})));
-  Sensors.TemperatureTwoPort temSen6(redeclare package Medium =
-        Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=0.40),
+
+  Sensors.TemperatureTwoPort temSen6(redeclare package Medium = MediumGlycol,
       m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
       Placement(transformation(
         extent={{6,-6},{-6,6}},
         rotation=90,
         origin={0,-20})));
-  Sources.MassFlowSource_WeatherData sou2(
-    nPorts=1,
-    redeclare package Medium = Media.Air,
-    m_flow=mCon_flow_nominal)
-    "Weather data"
-    annotation (Placement(transformation(extent={{6,-6},{-6,6}},
-        rotation=0,
-        origin={-36,20})));
-  Sources.Boundary_pT                 sin2(redeclare package Medium = Media.Air,
-      nPorts=1)
-              "Pressure source"
-    annotation (Placement(
-        transformation(
-        extent={{5,-5},{-5,5}},
-        origin={-35,-31})));
+
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource("Buildings/modelica-buildings/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+
   Sources.MassFlowSource_WeatherData sou1(
     nPorts=1,
-    redeclare package Medium = Media.Air,
-    m_flow=mCon_flow_nominal)
-    "Weather data"
+    redeclare package Medium = MediumAir,
+    m_flow=mCon_flow_nominal) "Weather data"
     annotation (Placement(transformation(extent={{6,-6},{-6,6}},
         rotation=0,
         origin={84,20})));
-  Sources.Boundary_pT                 sin1(redeclare package Medium = Media.Air,
-      nPorts=1)
-              "Pressure source"
+
+  Sources.Boundary_pT sin1(redeclare package Medium = MediumAir,
+      nPorts=1) "Pressure source"
     annotation (Placement(
         transformation(
         extent={{5,-5},{-5,5}},
         origin={85,-31})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Sources.Boundary_pT preSou1(redeclare package Medium = Media.Water, nPorts=1)
+
+  Sources.Boundary_pT preSou1(redeclare package Medium = MediumWater, nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{116,-6},{104,6}})));
-  Sources.Boundary_pT preSou2(redeclare package Medium = Media.Water, nPorts=1)
-    "Source for pressure and to account for thermal expansion of water"
+
+  Sources.MassFlowSource_WeatherData sou2(
+    nPorts=1,
+    redeclare package Medium = MediumAir,
+    m_flow=mCon_flow_nominal) "Weather data"
+    annotation (Placement(transformation(extent={{6,-6},{-6,6}},
+        rotation=0,
+        origin={-36,20})));
+
+  Sources.Boundary_pT sin2(redeclare package Medium = MediumAir,
+      nPorts=1) "Pressure source"
+    annotation (Placement(
+        transformation(
+        extent={{5,-5},{-5,5}},
+        origin={-35,-31})));
+
+  Sources.Boundary_pT preSou2(redeclare package Medium = MediumGlycol,nPorts=1)
+    "Source for pressure and to account for thermal expansion of glycol"
     annotation (Placement(transformation(extent={{-36,-6},{-24,6}})));
+
 equation
   connect(pum5.port_b, iceTanUnc1.port_a)
     annotation (Line(points={{-100,-24},{-100,-10}}, color={0,127,255}));
