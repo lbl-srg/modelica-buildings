@@ -46,6 +46,11 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     final quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{220,10},{260,50}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput effOutAir_normalized(
+    final unit="1")
+    "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor air rate "
+    annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uncDesOutAir(
     final k=VUncDesOutAir_flow)
@@ -81,6 +86,9 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     final k=1E-3)
     "Gain, used to avoid division by zero if the flow rate is smaller than 0.1%"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
+    "Normalization for minimum outdoor air flow rate"
+    annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
 equation
   connect(VSumAdjPopBreZon_flow, add2.u1) annotation (Line(points={{-240,90},{-200,
           90},{-200,86},{-182,86}}, color={0,0,127}));
@@ -112,12 +120,18 @@ equation
           -6},{118,-6}}, color={0,0,127}));
   connect(min1.y, div2.u1) annotation (Line(points={{-78,60},{-40,60},{-40,6},{118,
           6}}, color={0,0,127}));
-  connect(desOutAir.y, min2.u1) annotation (Line(points={{142,60},{160,60},{160,
+  connect(desOutAir.y, min2.u1) annotation (Line(points={{142,60},{150,60},{150,
           36},{178,36}}, color={0,0,127}));
   connect(div2.y, min2.u2) annotation (Line(points={{142,0},{160,0},{160,24},{178,
           24}}, color={0,0,127}));
   connect(min2.y, VEffOutAir_flow)
     annotation (Line(points={{202,30},{240,30}}, color={0,0,127}));
+  connect(min2.y, norVOutMin.u1) annotation (Line(points={{202,30},{210,30},{210,
+          -40},{120,-40},{120,-74},{158,-74}}, color={0,0,127}));
+  connect(desOutAir.y, norVOutMin.u2) annotation (Line(points={{142,60},{150,60},
+          {150,-86},{158,-86}}, color={0,0,127}));
+  connect(norVOutMin.y, effOutAir_normalized)
+    annotation (Line(points={{182,-80},{240,-80}}, color={0,0,127}));
 annotation (
   defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -153,18 +167,26 @@ annotation (
         Text(
           extent={{40,-30},{98,-46}},
           lineColor={0,0,0},
-          textString="VEffOutAir_flow")}),
+          textString="VEffOutAir_flow"),
+        Text(
+          extent={{20,-70},{98,-88}},
+          lineColor={0,0,0},
+          textString="effOutAir_normalized")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{220,120}})),
 Documentation(info="<html>
 <p>
 This sequence outputs AHU level uncorrected minimum outdoor airflow rate
 <code>VUncOutAir_flow</code> and effective minimum outdoor airflow rate
-<code>VEffOutAir_flow</code>. It is implemented according to Section 5.16.3.1 of ASHRAE
+<code>VEffOutAir_flow</code> when complying with ASHRAE Standard 62.1 ventilation requirements.
+It is implemented according to Section 5.16.3.1 of ASHRAE
 Guideline G36, May 2020.
 </p>
 <p>
 It requires following inputs which are sum or maximum of the outputs from
-the zone level calculation:
+the zone level calculation. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone</a>
+for these inputs.
 </p>
 <ol>
 <li>

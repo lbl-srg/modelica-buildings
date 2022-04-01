@@ -75,8 +75,13 @@ block Setpoints
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOccZonMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") if not have_SZVAV
-                       "Occupied zone minimum airflow setpoint"
+    "Occupied zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{300,40},{340,80}}),
+        iconTransformation(extent={{100,-50},{140,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCO2(
+     final unit="1")
+    "CO2 control loop signal"
+    annotation (Placement(transformation(extent={{300,-70},{340,-30}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VMinOA_flow(
     final quantity="VolumeFlowRate",
@@ -148,7 +153,7 @@ protected
     "CO2 control loop"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
-                   "Constant zero"
+    "Constant zero"
     annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Constant one"
@@ -214,10 +219,13 @@ protected
     if not have_CO2Sen
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(final k=1)
+    if not have_CO2Sen "Constant one"
+    annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3(final k=0)
     if not have_CO2Sen
     "Constant zero"
-    annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
+    annotation (Placement(transformation(extent={{200,-90},{220,-70}})));
 equation
   connect(uWin, zonAbsMin.u2)
     annotation (Line(points={{-320,250},{38,250}}, color={255,0,255}));
@@ -355,10 +363,14 @@ equation
     annotation (Line(points={{-58,0},{38,0}}, color={0,0,127}));
   connect(gai1.y, zonOccMin1.u3) annotation (Line(points={{62,0},{160,0},{160,32},
           {178,32}}, color={0,0,127}));
-  connect(zer2.y, zonOccMin4.u) annotation (Line(points={{-58,-260},{-20,-260},{
+  connect(one2.y, zonOccMin4.u) annotation (Line(points={{-58,-260},{-20,-260},{
           -20,-300},{118,-300}}, color={0,0,127}));
   connect(zonOccMin4.y, VMinOA_flow)
     annotation (Line(points={{142,-300},{320,-300}}, color={0,0,127}));
+  connect(co2Con.y, yCO2)
+    annotation (Line(points={{-58,-50},{320,-50}}, color={0,0,127}));
+  connect(zer3.y, yCO2) annotation (Line(points={{222,-80},{240,-80},{240,-50},{
+          320,-50}}, color={0,0,127}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -433,7 +445,7 @@ annotation (defaultComponentName="minFlo",
           visible=have_CO2Sen),
         Text(
           visible=not have_SZVAV,
-          extent={{48,-52},{98,-68}},
+          extent={{48,-22},{98,-38}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOccZonMin_flow"),
@@ -452,7 +464,12 @@ annotation (defaultComponentName="minFlo",
           extent={{60,-82},{98,-98}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VMinOA_flow")}),
+          textString="VMinOA_flow"),
+        Text(
+          extent={{80,-54},{98,-66}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yCO2")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-360},{300,360}})),
   Documentation(info="<html>
 <p>
@@ -611,7 +628,7 @@ to <code>VZonDesMin_flow</code> at 100% signal.
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_SZVAV.png\"/>
 </p>
 <p>
-If there is no CO2 sensor, the minimum outdoor air setpoint should be <code>VZonAbsMin_flow</code>.
+If there is no CO2 sensor, the minimum outdoor air setpoint should be <code>VZonDesMin_flow</code>.
 </p>
 </html>", revisions="<html>
 <ul>

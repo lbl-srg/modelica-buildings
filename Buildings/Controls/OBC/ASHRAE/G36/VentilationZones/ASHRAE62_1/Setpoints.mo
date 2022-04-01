@@ -698,9 +698,14 @@ the designed population component airflow setpoint at 100% loop output.
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_parallelFan.png\"/>
 </p>
 </li>
+</ol>
+</li>
 <li>
-For single zoneVAV air handler unit: The minimum outdoor air setpoint is equal to
-the breathing zone outdoor airflow setpoint. The CO2 control loop output shall reset
+For single zoneVAV air handler unit: the minimum outdoor air setpoint is equal to
+the breathing zone outdoor airflow setpoint.
+<ul>
+<li>
+If the zone has CO2 sensor, the CO2 control loop output shall reset
 the population component of the required breathing zone outdoor airflow from 0 L/s
 at 0% loop output up to the designed population component airflow setpoint at
 100% loop output.
@@ -709,7 +714,12 @@ at 0% loop output up to the designed population component airflow setpoint at
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_SZVAV.png\"/>
 </p>
 </li>
-</ol>
+<li>
+If the zone dose not have CO2 sensor, the minimum outdoor air setpoint is equal to
+the design breathing zone outdoor airflow setpoint.
+</li>
+</ul>
+
 </li>
 </ol>
 </html>", revisions="<html>
