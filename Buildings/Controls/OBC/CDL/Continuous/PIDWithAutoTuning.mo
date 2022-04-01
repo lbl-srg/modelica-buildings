@@ -21,8 +21,8 @@ block PIDWithAutoTuning "P, PI, PD, and PID controller with an auto tuning compo
     min=100*Constants.eps)=0.1
     "Start value of the Time constant of derivative block"
     annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
-  parameter Real yUpperLimit = 1 "Upper limit of the output";
-  parameter Real yLowerLimit = -0.5 "Lower limit of the output";
+  parameter Real yHigher = 1 "Higher value of the output";
+  parameter Real yLower = -0.5 "Lower value of the output";
   parameter Real deadBand = 0.5 "Deadband for holding the relay output value in the relay tuner";
 
   Real k(
@@ -111,20 +111,20 @@ block PIDWithAutoTuning "P, PI, PD, and PID controller with an auto tuning compo
                                                                with_I annotation (Placement(transformation(extent={{178,-34},{158,-14}})));
   Buildings.Controls.OBC.CDL.Discrete.Relay
         relay(
-    yUpperLimit=yUpperLimit,
-    yLowerLimit=yLowerLimit,
+    yHigher=yHigher,
+    yLower=yLower,
     deadBand=deadBand)
               annotation (Placement(transformation(extent={{92,154},{112,174}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch switch annotation (Placement(transformation(extent={{138,142},{158,122}})));
   Modelica.Blocks.Sources.BooleanExpression tunePeriodEnd(y=relay.dtON > 0 and relay.dtOFF > 0) annotation (Placement(transformation(extent={{98,122},{118,142}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AMIGOWithFOTD FOTDTuneModel(
-    yUpperLimit=yUpperLimit,
-    yLowerLimit=yLowerLimit,
+    yHigher=yHigher,
+    yLower=yLower,
     deadBand=deadBand,
     controllerType=controllerType) if tuningModeType==Buildings.Controls.OBC.CDL.Types.PIDAutoTuneModel.FOTD
     annotation (Placement(transformation(extent={{120,-100},{100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.NormalizedDelay tauTuner(gamma=max(yUpperLimit, abs(yLowerLimit))/min(yUpperLimit, abs(yLowerLimit))) if tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau
+  Buildings.Controls.OBC.CDL.Continuous.NormalizedDelay tauTuner(gamma=max(yHigher, abs(yLower))/min(yHigher, abs(yLower))) if tuningMethodType == Buildings.Controls.OBC.CDL.Types.PIDAutoTuner.tau
     annotation (Placement(transformation(extent={{170,-100},{150,-80}})));
 protected
   final parameter Real revAct=

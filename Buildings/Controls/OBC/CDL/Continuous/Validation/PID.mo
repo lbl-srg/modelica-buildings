@@ -69,8 +69,9 @@ equation
     annotation (Line(points={{-68,-12},{-62,-12},{-62,-96},{-20,-96},{-20,-92}},color={0,0,127}));
   annotation (
     experiment(
-      StopTime=1.0,
-      Tolerance=1e-06),
+      StopTime=240,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/PID.mos" "Simulate and plot"),
     Documentation(

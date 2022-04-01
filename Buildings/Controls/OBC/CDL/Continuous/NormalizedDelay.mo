@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block NormalizedDelay "Calculate a time delay based on a relay experiment"
   parameter Real gamma=3 "Asymmetry level of a relay tuner";
-  Interfaces.RealInput dtON "Half-period length for the upper limit"
+  Interfaces.RealInput dtON "Half-period length for the higher value"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput dtOFF "Half-period length of the lower limit"
+  Interfaces.RealInput dtOFF "Half-period length of the lower value"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.RealOutput y "Normalized time delay"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));

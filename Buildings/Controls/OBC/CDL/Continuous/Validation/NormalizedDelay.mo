@@ -10,8 +10,8 @@ model NormalizedDelay "Validation model for the NormalizedDelay block"
   Modelica.Blocks.Sources.Constant const(k=0) annotation (Placement(transformation(extent={{-82,-42},{-62,-22}})));
   Buildings.Controls.OBC.CDL.Continuous.NormalizedDelay NormalizedDelay(gamma=3) annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Discrete.Relay                            relay(
-    yUpperLimit=4,
-    yLowerLimit=-0.5,
+    yHigher=4,
+    yLower=-0.5,
     deadBand=0.5)
                 annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
 equation

@@ -8,8 +8,8 @@ model PIDWithAutoTuning "Test model for PID controller"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti_start=1,
     Td_start=1,
-    yUpperLimit=4,
-    yLowerLimit=-0.5,
+    yHigher=4,
+    yLower=-0.5,
     deadBand=0.3,
     yMin=-1) "PID controller" annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0)

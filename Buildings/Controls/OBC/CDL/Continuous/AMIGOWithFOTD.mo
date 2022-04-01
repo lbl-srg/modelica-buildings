@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block AMIGOWithFOTD "AMIGO tuning method for a first order model with time delay"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-  parameter Real yUpperLimit = 1 "Upper limit for y";
-  parameter Real yLowerLimit = 0 "Lower limit for y";
+  parameter Real yHigher = 1 "Higher value for y";
+  parameter Real yLower = 0 "Lower value for y";
   parameter Real deadBand = 0.5 "Deadband for holding the output value";
 
   Real y0 "Initial value of the process output";
@@ -63,8 +63,8 @@ equation
   end when;
   when experimentEnd then
      Kp = kpCalculator.y;
-     T = dtON/Modelica.Math.log10((deadBand/abs(Kp)+yLowerLimit+Modelica.Math.exp(tau/(1-tau+Constants.eps))*(yUpperLimit -
-        yLowerLimit))/(yUpperLimit - deadBand/abs(Kp)));
+     T = dtON/Modelica.Math.log10((deadBand/abs(Kp)+yLower+Modelica.Math.exp(tau/(1-tau+Constants.eps))*(yHigher -
+        yLower))/(yHigher - deadBand/abs(Kp)));
      L = T*(tau/(1-tau+Constants.eps));
      if controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI then
         k = 1/Kp*(0.15+0.35*T/L-T^2/(T+L)^2);
