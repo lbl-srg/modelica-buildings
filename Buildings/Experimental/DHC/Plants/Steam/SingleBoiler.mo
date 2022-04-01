@@ -157,7 +157,6 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
 
   Buildings.Fluid.Movers.SpeedControlled_y pumFW(
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     redeclare final package Medium = Medium,
     final per=per,
     final y_start=yPum_start)

@@ -221,7 +221,6 @@ model BuildingTimeSeriesAtETS
     annotation (Placement(transformation(extent={{32,-34},{52,-14}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ValveSelfActing prv(
     redeclare final package Medium = MediumSte,
-    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final pb_nominal=pLow_nominal) if have_prv
