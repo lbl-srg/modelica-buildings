@@ -2,11 +2,14 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 block SeparateWithDP
   "Outdoor air and return air damper position limits for units with separated minimum outdoor air damper and differential pressure control"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venSta
     "Ventilation standard, ASHRAE 62.1 or Title 24";
-  parameter Boolean have_CO2Sen
-    "True: there are zones have CO2 sensor";
-  parameter Real dpAbsOutDam_min(unit="Pa", displayUnit="Pa")=0
+  parameter Boolean have_CO2Sen=false
+    "True: there are zones have CO2 sensor"
+    annotation (Dialog(enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+  parameter Real dpAbsOutDam_min(
+    unit="Pa",
+    displayUnit="Pa")=0
     "Absolute pressure difference across the minimum outdoor air damper"
     annotation (Dialog(enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   parameter Real dpDesOutDam_min(unit="Pa", displayUnit="Pa")
