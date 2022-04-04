@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.DistributionCondensatePipe", stopTime=86400, resultFile="DistributionCondensatePipe");
+simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.DistributionCondensatePipe", stopTime=86400, tolerance=1e-6,  resultFile="DistributionCondensatePipe");
 // Plot commands
 createPlot(id=1, position={26, 51, 1285, 632}, 
   y={"dis.ports_aCon[1].m_flow", "dis.ports_aCon[2].m_flow"}, 

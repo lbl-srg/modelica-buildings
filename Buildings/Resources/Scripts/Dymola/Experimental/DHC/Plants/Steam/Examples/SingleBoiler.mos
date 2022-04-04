@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Experimental.DHC.Plants.Steam.Examples.SingleBoiler", stopTime=86400, resultFile="SingleBoiler");
+simulateModel("Buildings.Experimental.DHC.Plants.Steam.Examples.SingleBoiler", stopTime=86400, tolerance=1e-6, resultFile="SingleBoiler");
 // Plot commands
 createPlot(id=1, position={55, 34, 558, 505}, 
   y={"vol.m_flow"}, 
