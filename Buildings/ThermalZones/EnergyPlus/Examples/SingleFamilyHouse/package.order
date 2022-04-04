@@ -1,7 +1,8 @@
 AirHeating
 EquipmentSchedule
 LightsControl
-RadiantHeatingCooling
+RadiantHeatingCooling_TRoom
+RadiantHeatingCooling_TSurface
 RadiantHeatingWithGroundHeatTransfer
 ShadeControl
 Unconditioned
