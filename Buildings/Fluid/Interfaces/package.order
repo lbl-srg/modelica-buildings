@@ -12,7 +12,6 @@ PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
 PartialTwoPortVector
-PartialWaterPhaseChange
 PrescribedOutlet
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
