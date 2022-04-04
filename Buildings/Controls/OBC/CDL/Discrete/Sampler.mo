@@ -9,7 +9,7 @@ block Sampler
   Interfaces.RealInput u
     "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  discrete Interfaces.RealOutput y
+  Interfaces.RealOutput y
     "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -102,9 +102,7 @@ via parameter <code>samplePeriod</code>.
 <ul>
 <li>
 March 30, 2022, by Michael Wetter:<br/>
-Added <code>discrete</code> keyword to output signal, and removed graphic from diagram view.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
+Removed graphic from diagram view.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>

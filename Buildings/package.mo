@@ -371,13 +371,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Sampler<br/>
-                    Buildings.Controls.OBC.CDL.Discrete.TriggeredMax<br/>
-                    Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean<br/>
-                    Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler<br/>
-                    Buildings.Controls.OBC.CDL.Discrete.UnitDelay
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler<br/>
     </td>
-    <td valign=\"top\">Added missing <code>discrete</code> keyword to output signal.<br/>
+    <td valign=\"top\">Added missing <code>discrete</code> keyword to sampled variable.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
     </td>
