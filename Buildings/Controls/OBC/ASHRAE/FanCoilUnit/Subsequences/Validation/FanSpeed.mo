@@ -293,7 +293,7 @@ equation
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-200},{120,200}})),
     experiment(
-      StopTime=3600,
+      StopTime=100,
       Interval=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),

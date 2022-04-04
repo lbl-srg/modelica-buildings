@@ -227,7 +227,7 @@ equation
       </ul>
       </html>"),
     experiment(
-      StopTime=3600,
+      StopTime=100,
       Interval=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
