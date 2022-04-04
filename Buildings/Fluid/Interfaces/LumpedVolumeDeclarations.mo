@@ -48,10 +48,10 @@ block LumpedVolumeDeclarations "Declarations for lumped volumes"
     "Factor for scaling the sensible thermal mass of the volume"
     annotation(Dialog(tab="Dynamics"));
 
-protected
   // The parameter below is evaluated by OCT during compilation, and
   // if false, the assert statement won't be optimized away during
   // code generation.
+protected
   final parameter Boolean wrongEnergyMassBalanceConfiguration=
     not (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
          massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)

@@ -1,6 +1,5 @@
 UsersGuide
 ConservationEquation
-ConservationEquationEvaporation
 EightPort
 EightPortHeatMassExchanger
 FourPortHeatMassExchanger
@@ -12,7 +11,6 @@ PartialFourPortParallel
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
-PartialTwoPortTwoMedium
 PartialTwoPortVector
 PartialWaterPhaseChange
 PrescribedOutlet

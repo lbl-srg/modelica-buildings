@@ -57,8 +57,7 @@ equation
   experiment(
       StartTime=1728000,
       StopTime=1814400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
 __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Steam/Examples/BuildingTimeSeriesAtETS.mos"
   "Simulate and plot"),
