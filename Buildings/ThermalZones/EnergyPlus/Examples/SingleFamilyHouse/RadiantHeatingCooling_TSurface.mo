@@ -1,7 +1,9 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
-model RadiantHeatingCooling
-  "Example model with one thermal zone with a radiant floor"
-  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned(building(
+model RadiantHeatingCooling_TSurface
+  "Example model with one thermal zone with a radiant floor where the cooling is controlled based on the surface temperature set point"
+  extends
+    Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned(
+      building(
         idfName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")));
   package MediumW=Buildings.Media.Water
@@ -63,7 +65,7 @@ model RadiantHeatingCooling
     y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
-    annotation (Placement(transformation(extent={{-180,-154},{-160,-134}})));
+    annotation (Placement(transformation(extent={{-210,-154},{-190,-134}})));
   Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -115,13 +117,11 @@ model RadiantHeatingCooling
     nPorts=1)
     "Mass flow source for cooling water at prescribed temperature"
     annotation (Placement(transformation(extent={{-38,80},{-18,100}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(
-    k(final unit="K",
-      displayUnit="degC")=299.15,
-    y(final unit="K",
-      displayUnit="degC"))
-    "Room temperture set point for heating"
-    annotation (Placement(transformation(extent={{-180,106},{-160,126}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSurCooOn(k(
+      final unit="K",
+      displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
+    "Surface temperture set point for cooling"
+    annotation (Placement(visible = true, transformation(extent = {{-214, 140}, {-194, 160}}, rotation = 0)));
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=mCoo_flow_nominal)
     "Cooling water mass flow rate"
@@ -140,9 +140,26 @@ model RadiantHeatingCooling
       TSupSet_max=318.15)
     "Controller for radiant heating system" annotation (Placement(
         transformation(rotation=0, extent={{-140,-160},{-120,-140}})));
-  Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum
+  Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TSurRelHum
     conCoo(TSupSet_min=289.15) "Controller for radiant cooling"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSur
+    "Surface temperature"
+    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSurOff(k(
+      final unit="K",
+      displayUnit="degC") = 303.15, y(final unit="K", displayUnit="degC"))
+    "Surface temperture set point to switch system off"
+    annotation (Placement(visible = true, transformation(extent = {{-214, 100}, {-194, 120}}, rotation = 0)));
+  Controls.OBC.CDL.Continuous.Greater enaCoo(h=1)
+    "Switch to enable and disable cooling"
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch TSetSurCoo
+    "Set point for surface temperature for cooling system"
+    annotation (Placement(visible = true, transformation(extent = {{-180, 108}, {-160, 128}}, rotation = 0)));
+  Controls.OBC.CDL.Continuous.AddParameter TOffSet(p=3)
+    "Off set before switching on the cooling system"
+    annotation (Placement(transformation(extent={{-180,-18},{-160,2}})));
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
   // size the system and therefore we hard-code it here.
@@ -162,8 +179,8 @@ equation
     annotation (Line(points={{102,100},{102,110},{16,110},{16,100}},color={191,0,0}));
   connect(slaCei.surf_b,attFlo.heaPorBac)
     annotation (Line(points={{16,80},{16,70},{102,70},{102,80.2}},    color={191,0,0}));
-  connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-158,-144},{
-          -142,-144}},                         color={0,0,127}));
+  connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-188,-144},{-142,
+          -144}},                              color={0,0,127}));
   connect(pum.y, conHea.yPum) annotation (Line(points={{-70,-168},{-70,-156},{
           -118,-156}},
                   color={0,0,127}));
@@ -179,8 +196,8 @@ equation
   connect(slaFlo.port_b,pum.port_a)
     annotation (Line(points={{20,-180},{40,-180},{40,-220},{-100,-220},{-100,
           -180},{-80,-180}},                                                                   color={0,127,255}));
-  connect(zon.TAir, conHea.TRoo) annotation (Line(points={{41,18},{48,18},{48,
-          40},{-150,40},{-150,-150},{-142,-150}}, color={0,0,127}));
+  connect(zon.TAir, conHea.TRoo) annotation (Line(points={{41,18},{48,18},{48,-100},
+          {-148,-100},{-148,-150},{-142,-150}},   color={0,0,127}));
   connect(slaFlo.port_b,pre.ports[1])
     annotation (Line(points={{20,-180},{50,-180}},color={0,127,255}));
   connect(conHea.TSupSet, hea.TSet) annotation (Line(points={{-118,-144},{-50,
@@ -188,17 +205,33 @@ equation
                                   color={0,0,127}));
   connect(conCoo.on, booToRea.u) annotation (Line(points={{-118,108},{-90,108},
           {-90,98},{-82,98}}, color={255,0,255}));
-  connect(conCoo.TRooSet, TSetRooCoo.y)
-    annotation (Line(points={{-142,116},{-158,116}}, color={0,0,127}));
-  connect(zon.TAir, conCoo.TRoo) annotation (Line(points={{41,18},{48,18},{48,
-          40},{-150,40},{-150,110},{-142,110}}, color={0,0,127}));
-  connect(conCoo.phiRoo, zon.phi) annotation (Line(points={{-142,104},{-146,104},
+  connect(zon.TAir, conCoo.TRoo) annotation (Line(points={{41,18},{48,18},{48,40},
+          {-150,40},{-150,106},{-142,106}},     color={0,0,127}));
+  connect(conCoo.phiRoo, zon.phi) annotation (Line(points={{-142,102},{-146,102},
           {-146,44},{52,44},{52,10},{41,10}}, color={0,0,127}));
   connect(conCoo.TSupSet, masFloSouCoo.T_in) annotation (Line(points={{-118,116},
           {-50,116},{-50,94},{-40,94}}, color={0,0,127}));
+  connect(attFlo.heaPorBac, TSur.port)
+    annotation (Line(points={{102,80.2},{102,70},{120,70}}, color={191,0,0}));
+  connect(TSur.T, conCoo.TSur) annotation (Line(points={{141,70},{150,70},{150, 52},
+          {-154, 52},{-154, 114},{-142,114}}, color={0,0,127}));
+  connect(zon.TAir, enaCoo.u1) annotation (Line(points={{41,18},{48,18},{48,40},
+          {-150,40},{-150,0},{-142,0}}, color={0,0,127}));
+  connect(TSetSurCooOn.y, TSetSurCoo.u1) annotation (
+    Line(points = {{-192, 150}, {-185, 150}, {-185, 126}, {-182, 126}}, color = {0, 0, 127}));
+  connect(TSetSurOff.y, TSetSurCoo.u3) annotation (
+    Line(points = {{-192, 110}, {-182, 110}}, color = {0, 0, 127}));
+  connect(enaCoo.y, TSetSurCoo.u2) annotation (
+    Line(points = {{-118, 0}, {-100, 0}, {-100, 20}, {-186, 20}, {-186, 118}, {-182, 118}}, color = {255, 0, 255}));
+  connect(TSetSurCoo.y, conCoo.TSurSet) annotation (
+    Line(points = {{-158, 118}, {-142, 118}}, color = {0, 0, 127}));
+  connect(enaCoo.u2, TOffSet.y)
+    annotation (Line(points={{-142,-8},{-158,-8}}, color={0,0,127}));
+  connect(TOffSet.u, TSetRooHea.y) annotation (Line(points={{-182,-8},{-186,-8},
+          {-186,-144},{-188,-144}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling_TSurface.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=9504000,
@@ -240,10 +273,20 @@ Similarly,  <code>slaCei.surf_b</code> is connected to <code>attFlo.heaPorBac</c
 back-facing surface, e.g., the ceiling of the living room.
 </p>
 <p>
+Cooling is enabled if the room temperature is a certain value above the heating set point temperature.
+(Note that for simplicity this model has no night set back. If night set back where enabled, one needs to
+guard against switchin on the cooling if the heating set point is reset.)
 The mass flow rate of the slab is constant if the cooling is operating.
-A P controller computes the control signal, and using a hysteresis, the mass flow rate is switched on or off.
+A P controller computes the control signal to maintain a set point for the surface temperature.
+The controller uses a hysteresis to switch the mass flow rate on or off.
 The control signal is also used to set the set point for the water supply temperature to the slab.
 This temperature is limited by the dew point of the zone air to avoid condensation.
+</p>
+<p>
+See also the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
+which is controlled to track a set point for the room temperature.
 </p>
 <h4>Coupling of radiant floor to EnergyPlus model</h4>
 <p>
@@ -282,4 +325,4 @@ First implementation.
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
-end RadiantHeatingCooling;
+end RadiantHeatingCooling_TSurface;
