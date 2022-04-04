@@ -72,14 +72,10 @@ model Steam "Example model for a complete steam district heating system"
     Q_flow_nominal=QDis_flow_nominal,
     per=perPumFW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    controllerTypeBoi=Modelica.Blocks.Types.SimpleController.PI,
     kBoi=600,
     TiBoi(displayUnit="min") = 120,
-    yBoi_start=0.5,
-    controllerTypePum=Modelica.Blocks.Types.SimpleController.PI,
     kPum=200,
-    TiPum=1000,
-    yPum_start=0.7)
+    TiPum=1000)
     "Plant"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 equation

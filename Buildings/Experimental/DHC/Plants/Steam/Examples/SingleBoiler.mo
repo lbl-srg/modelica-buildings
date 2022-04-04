@@ -39,8 +39,6 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     redeclare package Medium = MediumWat,
     redeclare package MediumHea_b = MediumSte,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
-    VBoi=500,
-    VTanFW_start=10,
     m_flow_nominal=m_flow_nominal,
     pSteSet=pSat,
     per=perPumFW,
@@ -119,7 +117,7 @@ equation
     annotation (Line(points={{69,-10},{62,-10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=864000, Tolerance=1e-6, __Dymola_Algorithm="Dassl"),
+    experiment(StopTime=86400, Tolerance=1e-6, __Dymola_Algorithm="Dassl"),
       __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Steam/Examples/SingleBoiler.mos"
     "Simulate and plot"),
