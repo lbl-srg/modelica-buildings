@@ -68,9 +68,6 @@ model BuildingTimeSeriesAtETS
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
   parameter MediumSte.AbsolutePressure p_start=MediumSte.p_default
@@ -177,7 +174,6 @@ model BuildingTimeSeriesAtETS
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCNR(
     redeclare final package Medium = MediumWat,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     p_start=steTra.pAtm,
     T_start=steTra.TSat,
     final allowFlowReversal=allowFlowReversal,
@@ -191,9 +187,8 @@ model BuildingTimeSeriesAtETS
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation vol(
     redeclare final package MediumSte = MediumSte,
-    redeclare package MediumWat = MediumWat,
+    redeclare final package MediumWat = MediumWat,
     final allowFlowReversal=allowFlowReversal,
-    final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=if have_prv then pLow_nominal else pSte_nominal,
     final T_start=if have_prv then TLow_nominal else TSte_nominal,
@@ -226,7 +221,6 @@ model BuildingTimeSeriesAtETS
     annotation (Placement(transformation(extent={{32,-34},{52,-14}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ValveSelfActing prv(
     redeclare final package Medium = MediumSte,
-    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final pb_nominal=pLow_nominal) if have_prv
@@ -346,6 +340,12 @@ based on the physical laws.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2022, by Kathryn Hinkelman:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 March 2, 2022, by Kathryn Hinkelman:<br/>
 First implementation.

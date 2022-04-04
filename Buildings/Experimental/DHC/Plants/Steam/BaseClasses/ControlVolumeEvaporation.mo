@@ -11,13 +11,6 @@ equation
   port_b.m_flow = mSte_flow;
   port_b.h_outflow = hSte;
 
-    connect(portT.y,preTem. T)
-      annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
-    connect(heaFloSen.port_b,preTem. port)
-      annotation (Line(points={{-30,-50},{-40,-50}},color={191,0,0}));
-    connect(heaFloSen.port_a, heatPort)
-      annotation (Line(points={{-10,-50},{0,-50},{0,-100}}, color={191,0,0}));
-
 annotation (defaultComponentName="vol",
     Icon(coordinateSystem(
         preserveAspectRatio=false,

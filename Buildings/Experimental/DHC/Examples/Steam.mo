@@ -35,6 +35,9 @@ model Steam "Example model for a complete steam district heating system"
      dp=(pSat-101325)*{2,1,0}))
     "Performance data for feedwater pump at the plant";
 
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
+    "Pressure drop of distribution at nominal mass flow rate";
+
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld[N](
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
@@ -54,6 +57,7 @@ model Steam "Example model for a complete steam district heating system"
   Buildings.Experimental.DHC.Networks.Steam.DistributionCondensatePipe dis(
     redeclare package MediumSup = MediumSte,
     redeclare package MediumRet = MediumWat,
+    final dp_nominal=dp_nominal,
     nCon=N,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=bld.m_flow_nominal)

@@ -1,17 +1,21 @@
 within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
 model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=false);
   parameter Modelica.Units.SI.Pressure pb_nominal(
     displayUnit="Pa",
     min=101325)
     "Nominal outlet pressure"
     annotation (Dialog(group="Nominal condition"));
 
+  parameter Modelica.Units.SI.PressureDifference dp_start(displayUnit="Pa")=pb_nominal
+    "Guess value of dp = port_a.p - port_b.p"
+    annotation (Dialog(tab="Advanced"));
+
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final dp_start=pb_nominal,
-    final m_flow_start=m_flow_nominal,
+    final dp_start=dp_start,
+    m_flow_start=m_flow_nominal,
     final m_flow_small=m_flow_small,
     final show_T=show_T,
     final control_m_flow=false,
@@ -19,38 +23,40 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.RealExpression pbSet(final y=pb_nominal)
     "Downstream pressure setpoint"
-    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-  Modelica.Blocks.Math.Add dpReq(final k1=-1)
-    "Calculating dp required"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
     "Pressure sensor"
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  Modelica.Blocks.Math.Max dpSet "Pressure drop setpoint"
-    annotation (Placement(transformation(extent={{20,46},{40,66}})));
-  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dpReq "Calculating dp required"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Utilities.Math.SmoothMax dpSet(final deltaX=0.5) "Pressure drop setpoint"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+
 equation
-  assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure, which results in a negative pressure drop. 
+  assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in "
+  + getInstanceName() + ", which results in a negative pressure drop. 
   This is not typical of real systems and should be verified.", AssertionLevel.warning);
 
-  connect(port_a, ideSou.port_a)
-    annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
   connect(ideSou.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(pbSet.y,dpReq.u1)
-    annotation (Line(points={{-59,56},{-22,56}}, color={0,0,127}));
-  connect(ideSou.port_a, pUp.port)
-    annotation (Line(points={{40,0},{-60,0},{-60,20}}, color={0,127,255}));
-  connect(pUp.p,dpReq.u2) annotation (Line(points={{-49,30},{-28,30},{-28,44},{
-          -22,44}}, color={0,0,127}));
-  connect(dpReq.y, dpSet.u2)
-    annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
-  connect(zer.y, dpSet.u1) annotation (Line(points={{-19,80},{8,80},{8,62},{18,62}},
-        color={0,0,127}));
+  connect(pUp.port, ideSou.port_a)
+    annotation (Line(points={{-80,50},{-80,0},{40,0}}, color={0,127,255}));
+  connect(zer.y, dpSet.u1) annotation (Line(points={{-38,80},{12,80},{12,56},{
+          18,56}},
+                color={0,0,127}));
   connect(dpSet.y, ideSou.dp_in)
-    annotation (Line(points={{41,56},{56,56},{56,8}}, color={0,0,127}));
-  annotation (
+    annotation (Line(points={{41,50},{56,50},{56,8}}, color={0,0,127}));
+  connect(port_a, ideSou.port_a)
+    annotation (Line(points={{-100,0},{40,0}}, color={0,127,255}));
+  connect(pUp.p, dpReq.u1) annotation (Line(points={{-69,60},{-28,60},{-28,56},{
+          -22,56}}, color={0,0,127}));
+  connect(pbSet.y, dpReq.u2) annotation (Line(points={{-39,40},{-28,40},{-28,44},
+          {-22,44}}, color={0,0,127}));
+  connect(dpReq.y, dpSet.u2) annotation (Line(points={{2,50},{10,50},{10,44},{
+          18,44}}, color={0,0,127}));
+    annotation (
     defaultComponentName="prv",
     Documentation(info="<html>
 <p>
