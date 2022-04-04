@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Plants.BaseClasses;
 partial model PartialPlant
-  "Partial class for modeling a central plant"
+  "Partial class for modeling a plant"
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
@@ -37,7 +37,7 @@ partial model PartialPlant
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Buildings.Fluid.Data.Fuels.Generic fue
     "Fuel type"
-     annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
+     annotation (choicesAllMatching = true, Dialog(enable=have_fue));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = Medium,
@@ -63,16 +63,16 @@ partial model PartialPlant
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_hea
     "Fluid connector for heating service supply line"
     annotation (Placement(
-      transformation(extent={{-310,-10},{-290,10}}),    iconTransformation(
-        extent={{-310,-10},{-290,10}})));
+      transformation(extent={{-310,-10},{-290,10}}),
+      iconTransformation(extent={{-310,-10},{-290,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumHea_b,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if have_hea
     "Fluid connector for heating service return line"
     annotation (Placement(
-        transformation(extent={{290,-10},{310,10}}),    iconTransformation(
-          extent={{290,-10},{310,10}})));
+        transformation(extent={{290,-10},{310,10}}),
+        iconTransformation(extent={{290,-10},{310,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -87,8 +87,8 @@ partial model PartialPlant
  if have_coo
     "Fluid connector for cooling service return line"
     annotation (Placement(
-      transformation(extent={{290,-50},{310,-30}}),   iconTransformation(
-        extent={{290,-50},{310,-30}})));
+      transformation(extent={{290,-50},{310,-30}}),
+      iconTransformation(extent={{290,-50},{310,-30}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-16,250},{18,282}}),
@@ -130,11 +130,11 @@ protected
   final parameter Boolean have_serAmb=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
   "Boolean flag to enable fluid connector for ambient water service line";
   annotation (
-    defaultComponentName="plan",
+    defaultComponentName="pla",
     Documentation(
       info="<html>
 <p>
-Partial class to be used for modeling a central plant.
+Partial class to be used for modeling a plant.
 </p>
 <p>
 The connectors to the service lines are configured based on an enumeration
@@ -150,8 +150,14 @@ return.
 revisions="<html>
 <ul>
 <li>
+April 4, 2022, by Kathryn Hinkelman:<br/>
+Changed <code>fue</code> declaration from vector to single instance 
+because index for array expression must be 0 with the record binding.
+</li>
+<li>
 September 20, 2021, by Mingzhe Liu:<br/>
-Refactored <code>if</code> statement to correctly enable and disable the fluid connector under different system types.
+Refactored <code>if</code> statement to correctly enable and 
+disable the fluid connector under different system types.
 </li>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>
