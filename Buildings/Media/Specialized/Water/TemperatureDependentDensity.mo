@@ -863,7 +863,7 @@ Phase changes are not modeled.
 April 5, 2022, by Michael Wetter:<br/>
 Corrected assignment of <code>R_s</code> in <code>BaseProperties</code> to avoid a unit error.<br/>
 This is for
-<a href=\"\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">#1603</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">#1603</a>.
 </li>
 <li>
 July 7, 2016, by Carles Ribas Tugores:<br/>
