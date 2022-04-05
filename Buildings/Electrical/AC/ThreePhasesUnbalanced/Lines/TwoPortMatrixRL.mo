@@ -1,7 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRL
   "Model of an RL line parameterized with impedance matrices"
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
   parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
     annotation (Evaluate=true, Dialog(group="Nominal conditions"));
@@ -24,11 +26,11 @@ model TwoPortMatrixRL
   final parameter Modelica.Units.SI.Impedance[2] Z32=Z23
     "Element [3,1] of impedance matrix";
 
-  Modelica.Units.SI.Current i1[2](each stateSelect=StateSelect.prefer) =
+  Modelica.Units.SI.Current i1[2](each stateSelect=StateSelect.prefer)=
     terminal_n.phase[1].i "Current in line 1";
-  Modelica.Units.SI.Current i2[2](each stateSelect=StateSelect.prefer) =
+  Modelica.Units.SI.Current i2[2](each stateSelect=StateSelect.prefer)=
     terminal_n.phase[2].i "Current in line 2";
-  Modelica.Units.SI.Current i3[2](each stateSelect=StateSelect.prefer) =
+  Modelica.Units.SI.Current i3[2](each stateSelect=StateSelect.prefer)=
     terminal_n.phase[3].i "Current in line 3";
   Modelica.Units.SI.Voltage v1_n[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
@@ -107,6 +109,15 @@ equation
           textString="R+jX 3x3")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 5, 2022, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminals.
+This is required for
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD</a>
+to converge with Dymola 2023 beta3.
+Inspecting the homotopy trajectory showed that this variable diverged to an unreasonable value.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Removed zero start value for currents <code>i1</code>, <code>i2</code> and
