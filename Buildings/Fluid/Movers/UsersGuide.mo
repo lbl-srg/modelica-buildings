@@ -464,11 +464,12 @@ From the definition one has
 <i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>.
 </p>
 <p>
-Two of the three efficiencies need to be defined, while defining all three would over-specify the problem.
-A user may have varying amounts of information about mover and/or motor performance.  Therefore, 
-the implementation allows a user to specify two, one, or none of the efficiencies.  In the case of specifying 
-one or none of the efficiencies, the implementation defines default values as needed based on
-reasonable assumptions.  In such cases, the following default values are used:
+Two of the three efficiencies need to be defined, while defining all three would
+over-specify the problem. A user may have varying amounts of information about
+mover and/or motor performance. Therefore, the implementation allows a user to
+specify two, one, or none of the efficiencies. In the case of specifying one or
+none of the efficiencies, the implementation defines default values as needed based
+on reasonable assumptions. In such cases, the following default values are used:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <thead>
@@ -543,13 +544,14 @@ Buildings.Fluid.Movers.Validation.PowerSimplified</a>
 as an example.
 </li>
 <li>
-<code>Values_y</code> - An array of efficiency vs. part load ratio <i>y</i>
+<code>Values_yMot</code> - An array of efficiency vs. motor part load ratio
+<i>y=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
 is provided. During simulation, the efficiency is interpolated or extrapolated by
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y</a>.
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot</a>.
 See
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_y\">
-Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_y</a>
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot\">
+Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot</a>
 as an example.
 </li>
 <li>

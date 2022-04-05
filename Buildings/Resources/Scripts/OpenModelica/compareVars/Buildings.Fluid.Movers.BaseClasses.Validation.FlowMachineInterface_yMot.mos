@@ -5,5 +5,8 @@ compareVars :=
     "eff1.etaMot",
     "eff2.eta",
     "eff2.etaHyd",
-    "eff2.etaMot"
+    "eff2.etaMot",
+    "eff1.PEle",
+    "eff2.PEle",
+    "y.y"
   };

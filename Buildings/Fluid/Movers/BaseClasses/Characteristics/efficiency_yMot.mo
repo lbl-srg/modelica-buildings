@@ -1,10 +1,11 @@
 within Buildings.Fluid.Movers.BaseClasses.Characteristics;
-function efficiency_y "Efficiency vs. PLR characteristics for fan or pump"
+function efficiency_yMot
+  "Efficiency vs. motor PLR characteristics for fan or pump"
   extends Modelica.Icons.Function;
   input
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_y
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     per "Efficiency performance data";
-  input Real y "Part load ratio";
+  input Real y "Motor part load ratio";
   input Real d[:] "Derivatives at support points for spline interpolation";
   output Real eta(unit="1", final quantity="Efficiency") "Efficiency";
 
@@ -40,9 +41,10 @@ algorithm
 This function is similar to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>,
-but takes the part load ratio <i>y</i> instead of volumetric flow rate
-<i>V&#775;</i> as input.
-It also does not consider the speed of the mover.
+but takes the motor part load ratio
+<i>y=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
+instead of volumetric flow rate <i>V&#775;</i> as input
+and does not consider the speed of the mover.
 </p>
 </html>",
 revisions="<html>
@@ -55,4 +57,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end efficiency_y;
+end efficiency_yMot;

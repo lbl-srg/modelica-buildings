@@ -90,11 +90,9 @@ record Generic "Generic data record for movers"
                        enable=etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_y
-    motorEfficiency_y(y={0}, eta={0.7})
-    "Motor efficiency  vs. part load ratio" annotation (
-      Dialog(group="Power computation", enable=etaMotMet ==
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y));
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+    motorEfficiency_yMot(y={0}, eta={0.7}) "Motor efficiency  vs. part load ratio"
+    annotation (Dialog(group="Power computation", enable=etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y));
 
   // Power curve
   //   It requires default values to suppress Dymola message
@@ -121,10 +119,23 @@ record Generic "Generic data record for movers"
                             or etaHydMet==
       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber));
 
+  // Motor
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
+  parameter Modelica.Units.SI.Power PEle_nominal(final displayUnit="W")=
+      if max(power.P)<1E-6
+        then 1
+      elseif etaHydMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+        then max(power.P)/0.7/0.8
+      else max(power.P)/0.8
+    "Rated input power of the motor"
+      annotation(Dialog(group="Power computation",
+                        enable= etaMotMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot));
 
+  // Speed
   parameter Real speed_nominal(
     final min=0,
     final unit="1") = 1 "Nominal rotational speed for flow characteristic"

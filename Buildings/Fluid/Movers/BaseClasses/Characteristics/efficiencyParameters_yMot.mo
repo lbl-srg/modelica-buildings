@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.BaseClasses.Characteristics;
-record efficiencyParameters_y
-  "Record for efficiency parameters vs. part load ratio"
+record efficiencyParameters_yMot
+  "Record for efficiency parameters vs. motor part load ratio"
   extends Modelica.Icons.Record;
   parameter Real y[:](each min=0, each max=1)
     "Part load ratio";
@@ -24,4 +24,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end efficiencyParameters_y;
+end efficiencyParameters_yMot;

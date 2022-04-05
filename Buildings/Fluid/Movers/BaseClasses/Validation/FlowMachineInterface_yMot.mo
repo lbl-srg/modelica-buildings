@@ -1,13 +1,14 @@
 within Buildings.Fluid.Movers.BaseClasses.Validation;
-model FlowMachineInterface_y
-  "FlowMachineInterface with motor efficiency vs. PLR as input"
+model FlowMachineInterface_yMot
+  "FlowMachineInterface with motor efficiency vs. motor PLR as input"
   extends Modelica.Icons.Example;
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per(
       pressure(V_flow={0,1}, dp={1000,0}),
       etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y,
-      motorEfficiency_y(y={0,0.25,0.5,1}, eta={0,0.56,0.7,0.7})),
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot,
+      motorEfficiency_yMot(y={0,0.25,0.5,1}, eta={0,0.56,0.7,0.7}),
+      PEle_nominal=600),
     rho_default=1.2,
     nOri=2,
     preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
@@ -21,8 +22,9 @@ model FlowMachineInterface_y
         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
       peak(V_flow=0.5, dp=500, eta=0.7),
       etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y,
-      motorEfficiency_y(y={0,0.25,0.5,1}, eta={0,0.56,0.7,0.7})),
+        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot,
+      motorEfficiency_yMot(y={0,0.25,0.5,1}, eta={0,0.56,0.7,0.7}),
+      PEle_nominal=600),
     rho_default=1.2,
     nOri=2,
     preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
@@ -69,6 +71,6 @@ This is for
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/FlowMachineInterface_y.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/FlowMachineInterface_yMot.mos"
         "Simulate and plot"));
-end FlowMachineInterface_y;
+end FlowMachineInterface_yMot;
