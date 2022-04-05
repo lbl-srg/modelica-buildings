@@ -1,6 +1,5 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces;
 partial model PartialChillerGroup
-
   replaceable package MediumCW = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium 1 in the component"
@@ -9,17 +8,21 @@ partial model PartialChillerGroup
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium 2 in the component";
 
-  outer parameter Boolean isAirCoo
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ
+    "Type of chiller group"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  final parameter Integer nChi "Number of chillers in group";
+  parameter Integer nChi "Number of chillers in group";
   outer parameter Integer nCooTow "Number of cooling towers";
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Data dat(
-    final nChi=nChi,
-    final isAirCoo = isAirCoo)
+    final typ=typ,
+    final isAirCoo=isAirCoo,
+    final nChi=nChi)
     "Chiller group data";
 
   parameter Boolean allowFlowReversal1 = true
@@ -61,7 +64,7 @@ partial model PartialChillerGroup
     redeclare final package Medium = MediumCHW,
     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
     h_outflow(start = MediumCHW.h_default, nominal = MediumCHW.h_default))
-    if dat.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
+    if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
@@ -69,7 +72,7 @@ partial model PartialChillerGroup
     redeclare each final package Medium = MediumCHW,
     each m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumCHW.h_default, nominal=MediumCHW.h_default))
-    if dat.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
+    if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
     "Fluid connector b2 for multiple outlets (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-92,-32},{-108,32}}),
         iconTransformation(extent={{8,-32},{-8,32}},

@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup;
 model CoolingTowerParallel
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
-      dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup.CoolingTowerParallel));
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup.CoolingTowerParallel);
 
   final parameter Modelica.Units.SI.MassFlowRate mTow_flow_nominal=
     m_flow_nominal/nCooTow "Single tower nominal mass flow rate";

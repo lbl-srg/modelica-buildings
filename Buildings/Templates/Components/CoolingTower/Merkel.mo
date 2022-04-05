@@ -2,7 +2,7 @@ within Buildings.Templates.Components.CoolingTower;
 model Merkel
   extends
     Buildings.Templates.Components.CoolingTower.Interfaces.PartialCoolingTower(
-      dat(typ=Buildings.Templates.Components.Types.CoolingTower.Merkel));
+      final typ=Buildings.Templates.Components.Types.CoolingTower.Merkel);
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"

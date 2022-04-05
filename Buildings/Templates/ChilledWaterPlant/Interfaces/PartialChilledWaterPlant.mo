@@ -3,11 +3,15 @@ partial model PartialChilledWaterPlant
 
   replaceable package Medium = Buildings.Media.Water;
 
-  final inner parameter Integer nChi = dat.chiGro.nChi "Number of chillers"
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration
+    typ "Type of system"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
+  inner parameter Integer nChi "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final inner parameter Integer nPumPri = dat.pumPri.nPum "Number of primary pumps"
+  inner parameter Integer nPumPri "Number of primary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final inner parameter Integer nPumSec = dat.pumSec.nPum "Number of secondary pumps"
+  inner parameter Integer nPumSec "Number of secondary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   inner parameter Integer nPumCon "Number of condenser pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -27,7 +31,8 @@ partial model PartialChilledWaterPlant
     "=true if plant has waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  replaceable Buildings.Templates.ChilledWaterPlant.Interfaces.Data dat "Chilled water plant data";
+  parameter Buildings.Templates.ChilledWaterPlant.Interfaces.Data dat(
+    final typ=typ) "Chilled water plant data";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Chilled water supply"
@@ -50,7 +55,8 @@ partial model PartialChilledWaterPlant
       origin={200,60})));
 
 protected
-  final inner parameter Boolean isAirCoo=dat.isAirCoo
+  final inner parameter Boolean isAirCoo=
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.AirCooled
     "= true, chillers in group are air cooled, 
     = false, chillers in group are water cooled";
 

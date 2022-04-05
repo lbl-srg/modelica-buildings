@@ -12,8 +12,12 @@ partial model PartialReturnSection
   replaceable package MediumCHW = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
 
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ReturnSection typ
+    "Type of waterside economizer"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Data
-    dat
+    dat(final typ=typ)
     "Return section data";
 
   outer parameter Integer nChi "Number of chillers";

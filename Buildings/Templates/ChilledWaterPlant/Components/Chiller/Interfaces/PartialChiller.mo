@@ -8,12 +8,20 @@ partial model PartialChiller
     final m1_flow_nominal=dat.m1_flow_nominal,
     final m2_flow_nominal=dat.m2_flow_nominal);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
-     final computeFlowResistance1=true,
-     final computeFlowResistance2=not isAirCoo,
-     final dp1_nominal=dat.dp1_nominal,
-     final dp2_nominal=dat.dp2_nominal);
+    final computeFlowResistance1=true,
+    final computeFlowResistance2=not isAirCoo,
+    final dp1_nominal=dat.dp1_nominal,
+    final dp2_nominal=dat.dp2_nominal);
+
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean isAirCoo
+    "= true, chillers in group are air cooled,
+    = false, chillers in group are water cooled"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Data dat(
+    final typ=typ,
     final isAirCoo=isAirCoo) "Chiller data";
 
   // fixme: Figure out what this entails with existing chiller class
@@ -29,10 +37,6 @@ partial model PartialChiller
   parameter Boolean have_TCWRet = true
     "= true if chiller condenser water return temperature is measured"
     annotation (Dialog(enable=not is_heaPreCon or have_heaPreSig));
-
-  outer parameter Boolean isAirCoo
-    "= true, chillers in group are air cooled,
-    = false, chillers in group are water cooled";
 
   Buildings.Templates.Components.Interfaces.Bus bus "Control bus" annotation (
       Placement(transformation(

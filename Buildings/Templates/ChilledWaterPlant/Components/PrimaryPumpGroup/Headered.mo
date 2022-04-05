@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Headered
   extends
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
-    dat(typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered));
+     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(

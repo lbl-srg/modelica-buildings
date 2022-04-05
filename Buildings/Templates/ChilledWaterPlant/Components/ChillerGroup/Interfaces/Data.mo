@@ -26,6 +26,7 @@ record Data "Data for chiller groups"
     "Chilled water side nominal mass flow rate"
     annotation(Dialog(group="Nominal condition"));
   parameter Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Data chi[nChi](
+    each final isAirCoo=isAirCoo,
     each m1_flow_nominal = m1_flow_nominal / nChi,
     each m2_flow_nominal = m2_flow_nominal / nChi)
     "Chiller data"

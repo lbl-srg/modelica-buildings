@@ -2,8 +2,8 @@ within Buildings.Templates.Components.Pumps;
 model None "No pump"
   extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
     final nPum=0,
-    dat(each typ=Buildings.Templates.Components.Types.Pump.None,
-      final dp_nominal=0),
+    final typ=Buildings.Templates.Components.Types.Pump.None,
+    dat(final dp_nominal=0),
     final have_singlePort_a = true,
     final have_singlePort_b = true);
 equation

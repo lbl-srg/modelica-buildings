@@ -3,7 +3,12 @@ partial model PartialSecondaryPumpGroup
   extends Fluid.Interfaces.PartialTwoPort(
     redeclare replaceable package Medium=Buildings.Media.Water);
 
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup typ
+    "Type of chilled water secondary pump group"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.Data dat(
+    final typ=typ,
     final nPum=nPum)
     "Secondary pump group data";
 

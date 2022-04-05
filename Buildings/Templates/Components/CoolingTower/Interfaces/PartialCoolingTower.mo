@@ -4,7 +4,12 @@ partial model PartialCoolingTower
     redeclare package Medium=Buildings.Media.Water,
     final m_flow_nominal = dat.m_flow_nominal);
 
-  parameter Buildings.Templates.Components.CoolingTower.Interfaces.Data dat "Cooling tower data";
+  parameter Buildings.Templates.Components.Types.CoolingTower typ
+    "Equipment type"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
+  parameter Buildings.Templates.Components.CoolingTower.Interfaces.Data dat(
+    final typ=typ) "Cooling tower data";
 
   Buildings.Templates.Components.Interfaces.Bus bus "Control bus"
     annotation (Placement(transformation(

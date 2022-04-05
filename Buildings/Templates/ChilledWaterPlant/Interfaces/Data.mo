@@ -16,13 +16,15 @@ record Data "Data for chilled water plants"
 
   // Controller
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data con
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data con(
+    final isAirCoo=isAirCoo)
     "Controller data"
     annotation (Dialog(group="Controller"));
 
   // Evaporator side equipment
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.Data chiGro(
+    final isAirCoo=isAirCoo,
     m2_flow_nominal = mCHWPri_flow_nominal,
     m1_flow_nominal = mCon_flow_nominal)
     "Chiller group"
@@ -32,6 +34,7 @@ record Data "Data for chilled water plants"
     "Primary pump group"
     annotation (Dialog(group="Equipment"));
   parameter Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.Data retSec(
+    final isAirCoo=isAirCoo,
     m1_flow_nominal = mCHWPri_flow_nominal,
     m2_flow_nominal = mCon_flow_nominal)
     "Waterside Economizer"

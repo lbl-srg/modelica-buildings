@@ -1,12 +1,18 @@
 within Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces;
 block PartialController "Partial controller for CHW plant"
 
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Controller typ
+    "Type of controller"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data dat(
+      final typ=typ,
       final nSenDpCHWRem=nSenDpCHWRem,
       final nChi=nChi,
       final have_WSE=have_WSE,
       final have_senDpCHWLoc=have_senDpCHWLoc,
-      final have_fixSpeConWatPum=have_fixSpeConWatPum) "Controller data";
+      final have_fixSpeConWatPum=have_fixSpeConWatPum,
+      final have_ctrHeaPre=have_ctrHeaPre) "Controller data";
 
   outer replaceable Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
     retSec "CHW return section";
@@ -49,6 +55,10 @@ block PartialController "Partial controller for CHW plant"
     "Number of remote CHW differential pressure sensors"
     annotation (Dialog(tab="General", group="Chilled water pump"));
 
+  parameter Boolean have_ctrHeaPre = false
+    "Set to true if head pressure control available from chiller controller"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
   parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_nominal[nChi]=
     fill(mCHWPri_flow_nominal/nChi,nChi)
     "Design (maximum) chiller CHW mass flow rate (for each chiller)";
@@ -56,15 +66,15 @@ block PartialController "Partial controller for CHW plant"
     "Design (maximum) primary CHW mass flow rate (for the plant)";
 
 
-  parameter Integer nChi "Number of chillers"
+  outer parameter Integer nChi "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPumPri "Number of primary pumps"
+  outer parameter Integer nPumPri "Number of primary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPumSec "Number of secondary pumps"
+  outer parameter Integer nPumSec "Number of secondary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPumCon "Number of condenser pumps"
+  outer parameter Integer nPumCon "Number of condenser pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nCooTow "Number of cooling towers"
+  outer parameter Integer nCooTow "Number of cooling towers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter Boolean isAirCoo

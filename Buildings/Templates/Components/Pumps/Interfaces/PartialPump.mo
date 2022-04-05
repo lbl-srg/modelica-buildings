@@ -16,7 +16,12 @@ partial model PartialPump "Interface class for pumps"
     "Number of pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Buildings.Templates.Components.Pumps.Interfaces.Data dat[nPum] "Pump data";
+  parameter Buildings.Templates.Components.Types.Pump typ
+    "Equipment type"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
+  parameter Buildings.Templates.Components.Pumps.Interfaces.Data dat[nPum](
+    each final typ=typ) "Pump data";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"

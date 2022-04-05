@@ -1,7 +1,11 @@
 within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces;
 partial model PartialPrimaryPumpGroup
 
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup typ "Type of pump"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.Data dat(
+    final typ=typ,
     final nPum=nPum,
     final have_chiByp=have_chiByp,
     final have_byp=have_byp)

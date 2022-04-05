@@ -3,9 +3,8 @@ model None "No secondary pumping"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
       final nPum=0,
-      dat(
-        final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None,
-        pum(final typ=Buildings.Templates.Components.Types.Pump.None)));
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.None,
+      dat(pum(typ=Buildings.Templates.Components.Types.Pump.None)));
 
 equation
   connect(port_a, port_b)

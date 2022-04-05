@@ -5,33 +5,62 @@ model BaseChilledWaterPlant
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Chilled water medium";
 
-  inner parameter ExternData.JSONFile dat(
-    fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
-    annotation (
-      Evaluate=true,
-      Placement(transformation(extent={{76,76},{96,96}})));
-
-  replaceable Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop chw
+  replaceable Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop chw(dat=dat)
     annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
   Fluid.Sources.Boundary_pT bou1(
     redeclare final package Medium=MediumCHW,
     nPorts=3)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 
-  Fluid.FixedResistances.PressureDrop res1(
+  Buildings.Templates.ChilledWaterPlant.Interfaces.Data dat(
+    final typ=chw.typ,
+    con(
+      final typ = chw.con.typ,
+      final nSenDpCHWRem = chw.con.nSenDpCHWRem,
+      final nChi = chw.con.nChi,
+      final have_WSE = chw.con.have_WSE,
+      final have_senDpCHWLoc = chw.con.have_senDpCHWLoc,
+      final have_fixSpeConWatPum = chw.con.have_fixSpeConWatPum,
+      final have_ctrHeaPre = chw.con.have_ctrHeaPre),
+    chiGro(
+      final typ = chw.chiGro.typ,
+      final nChi = chw.chiGro.nChi,
+      chi(final typ = chw.chiGro.chi.typ)),
+    cooTowGro(
+      final typ = chw.cooTowGro.typ,
+      final nCooTow = chw.cooTowGro.nCooTow,
+      cooTow(final typ = chw.cooTowGro.cooTow.typ)),
+    pumPri(
+      final typ = chw.pumPri.typ,
+      final nPum = chw.pumPri.nPum,
+      final have_byp = chw.pumPri.have_byp,
+      final have_chiByp = chw.pumPri.have_chiByp,
+      pum(final typ = chw.pumPri.pum.typ)),
+    pumSec(
+      final typ = chw.pumSec.typ,
+      final nPum = chw.pumSec.nPum,
+      pum(final typ = chw.pumSec.pum.typ)),
+    pumCon(
+      final typ = chw.pumCon.typ,
+      final nPum = chw.pumCon.nPum,
+      pum(final typ = chw.pumCon.pum.typ)),
+    retSec(
+      final typ = chw.retSec.typ))
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
-  Fluid.Sensors.Pressure pDem(
+  Buildings.Fluid.Sensors.Pressure pDem(
     redeclare final package Medium=MediumCHW) "Demand side pressure"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
-  Fluid.FixedResistances.PressureDrop res2(
+  Buildings.Fluid.FixedResistances.PressureDrop res2(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=1,
     dp_nominal=100)

@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Pumps;
 model MultipleVariable "Multiple pumps (identical) - Variable speed"
   extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
-    dat(each typ=Buildings.Templates.Components.Types.Pump.Variable));
+    final typ=Buildings.Templates.Components.Types.Pump.Variable);
 
   replaceable Fluid.Movers.SpeedControlled_y pum[nPum](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

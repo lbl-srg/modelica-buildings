@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces;
 record Data "Data for chillers"
   extends Modelica.Icons.Record;
 
-  // Structure parameters
+  // Structure
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -31,7 +31,7 @@ record Data "Data for chillers"
   parameter Modelica.Units.SI.Temperature TCHWSup_nominal
     "Design (minimum) CHW supply temperature"
     annotation(Dialog(group = "Nominal condition"));
-  replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic
     per constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
       QEva_flow_nominal=Q_flow_nominal,
       TEvaLvg_nominal=TCHWSup_nominal,

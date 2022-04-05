@@ -2,9 +2,9 @@ within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
-    dat(typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated),
-    final have_parChi = true,
-    final nPum=nChi);
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Dedicated,
+      final have_parChi = true,
+      final nPum=nChi);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(

@@ -1,7 +1,12 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces;
 partial model PartialCondenserWaterPumpGroup
 
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ
+    "Type of pump group"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.Data dat(
+    final typ=typ,
     final nPum=nPum) "Condenser water group data";
 
   replaceable package Medium = Buildings.Media.Water "Medium in the component";

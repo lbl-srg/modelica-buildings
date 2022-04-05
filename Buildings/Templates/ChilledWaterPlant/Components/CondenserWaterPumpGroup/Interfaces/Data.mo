@@ -1,5 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces;
 record Data "Data for condenser water pump groups"
+  extends Modelica.Icons.Record;
 
   // Structure parameters
 

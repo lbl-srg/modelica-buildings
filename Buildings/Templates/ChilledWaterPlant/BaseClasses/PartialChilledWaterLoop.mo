@@ -3,9 +3,12 @@ model PartialChilledWaterLoop
   extends
     Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumCHW,
-    final have_secondary = not pumSec.is_none,
+    final have_secondary = not pumSec.dat.is_none,
     final have_WSE = not retSec.is_none,
-    final have_CHWDedPum = pumPri.is_dedicated,
+    final have_CHWDedPum = pumPri.dat.is_dedicated,
+    final nChi = chiGro.nChi,
+    final nPumPri = pumPri.nPum,
+    final nPumSec = pumSec.nPum,
     busCon(final nChi=nChi));
 
   replaceable package MediumCHW=Buildings.Media.Water
@@ -36,8 +39,7 @@ model PartialChilledWaterLoop
     chiGro constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
      redeclare final package MediumCHW = MediumCHW,
-     final dat=dat.chiGro,
-     final m2_flow_nominal=dat.mCHWPri_flow_nominal)
+     final dat=dat.chiGro)
     "Chiller group"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=90,origin={-40,10})));
@@ -58,7 +60,6 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
       redeclare final package Medium = MediumCHW,
       final dat=dat.pumPri,
-      final m_flow_nominal=dat.mCHWPri_flow_nominal,
       final have_parChi=have_parChi,
       final have_byp=have_byp,
       final have_chiByp=have_chiByp,
@@ -70,8 +71,7 @@ model PartialChilledWaterLoop
     pumSec constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
       redeclare final package Medium = MediumCHW,
-      final dat=dat.pumSec,
-      final m_flow_nominal=dat.mCHWSec_flow_nominal)
+      final dat=dat.pumSec)
     "Chilled water secondary pump group"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   inner replaceable Components.Controls.OpenLoop con constrainedby
@@ -80,7 +80,7 @@ model PartialChilledWaterLoop
       final have_WSE=have_WSE,
       final have_parChi=have_parChi,
       final capChi_nominal=abs(dat.chiGro.chi.Q_flow_nominal),
-      final mCHWChi_flow_nominal=dat.mCHWChi_flow_nominal,
+      final mCHWChi_flow_nominal=dat.chiGro.m2_flow_nominal,
       final mCHWPri_flow_nominal=dat.mCHWPri_flow_nominal,
       final TCHWSup_nominal=dat.chiGro.chi[1].TCHWSup_nominal)
     "Plant controller"

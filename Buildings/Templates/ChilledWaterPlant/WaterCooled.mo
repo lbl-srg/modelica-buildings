@@ -2,39 +2,30 @@ within Buildings.Templates.ChilledWaterPlant;
 model WaterCooled
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
-    dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.WaterCooled),
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.WaterCooled,
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-      chiGro(final have_CWDedPum=pumCon.is_dedicated) constrainedby
+      chiGro constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
-       redeclare final package MediumCW = MediumCW,
-       final m1_flow_nominal=dat.mCon_flow_nominal),
+       redeclare final package MediumCW = MediumCW),
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
       retSec constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
-       redeclare final package MediumCW = MediumCW,
-       final m1_flow_nominal=dat.mCon_flow_nominal),
-    final nPumCon = dat.pumCon.nPum,
-    final nCooTow = dat.cooTowGro.nCooTow,
-    final have_CWDedPum = pumCon.is_dedicated,
+       redeclare final package MediumCW = MediumCW),
+    final have_CWDedPum = pumCon.dat.is_dedicated,
+    final nCooTow = cooTowGro.nCooTow,
+    final nPumCon = pumCon.nPum,
     busCon(final nCooTow=nCooTow));
 
   replaceable package MediumCW=Buildings.Media.Water "Condenser water medium";
-
-  // Note: Ideally, the number of cooling tower nCooTow would be assigned in
-  // cooTowGro and propagated up to the system-wide nCooTow. But surprisingly,
-  // this propagation is not working in Dymola, even if a similar propagation
-  // is working for nChi.
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
     cooTowGro constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup(
       redeclare final package Medium = MediumCW,
-      final dat=dat.cooTowGro,
-      final nCooTow=nCooTow,
-      final m_flow_nominal=dat.mCon_flow_nominal)
+      final dat=dat.cooTowGro)
     "Cooling tower group"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
@@ -42,9 +33,7 @@ model WaterCooled
     pumCon(final have_WSE=not retSec.is_none) constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     redeclare final package Medium = MediumCW,
-    final dat=dat.pumCon,
-    final m_flow_nominal=dat.mCon_flow_nominal,
-    final dp_nominal=dpCon_nominal) "Condenser water pump group"
+    final dat=dat.pumCon) "Condenser water pump group"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Templates.Components.Sensors.Temperature TCWSup(

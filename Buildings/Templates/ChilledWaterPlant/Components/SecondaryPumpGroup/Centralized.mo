@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup;
 model Centralized "Centralized secondary pumping"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
-     dat(final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.Centralized));
+     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPumpGroup.Centralized);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
