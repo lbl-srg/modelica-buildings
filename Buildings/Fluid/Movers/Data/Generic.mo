@@ -27,7 +27,7 @@ record Generic "Generic data record for movers"
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaHydMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the hydraulic efficiency etaHyd"
-    annotation (Dialog(group="Power computation",
+    annotation (Dialog(group="Power computation"),
                 choices(
       choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
              "Not provided, computed from other efficiency terms",
@@ -36,7 +36,7 @@ record Generic "Generic data record for movers"
       choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
              "An array of power vs. volumetric flow rate",
       choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
-             "One peak point to be use for the Euler number")));
+             "One peak point to be use for the Euler number"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMotMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
@@ -171,7 +171,7 @@ record Generic "Generic data record for movers"
 March 1, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
-Refactored the record to allow separate specifications of different
+Modified the record to allow separate specifications of different
 efficiency variables;
 </li>
 <li>
