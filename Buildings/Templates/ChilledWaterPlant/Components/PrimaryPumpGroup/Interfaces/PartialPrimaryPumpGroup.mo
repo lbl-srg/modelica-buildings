@@ -21,16 +21,36 @@ partial model PartialPrimaryPumpGroup
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
+  parameter Boolean have_conSpePum
+    "= true if pumps are constant speed";
+  final parameter Boolean have_byp = not have_secondary and not have_conSpePum
+    "= true if chilled water loop has a minimum flow bypass";
+  final parameter Boolean have_decoupler = have_secondary
+    "= true if there is a commong leg";
 
-  parameter Boolean have_parChi "= true if chillers in inlet are connected in parallel";
-  parameter Boolean have_chiByp "= true if chilled water loop has a chiller bypass";
-  parameter Boolean have_byp "= true if chilled water loop has a minimum flow bypass";
-  parameter Boolean have_comLeg "= true if there is a commong leg";
-  parameter Boolean have_floSen "= true if primary flow is measured";
-  parameter Boolean have_comLegFloSen = have_comLeg and not have_floSen "= true if common leg flow is measured"
-    annotation(Dialog(enable=have_comLeg));
+  parameter Boolean have_decouplerFloSen = have_decoupler
+    "= true if decoupler flow is measured"
+    annotation(Dialog(enable=have_decoupler));
 
-  outer parameter Boolean have_secondary;
+  parameter Boolean have_parChi
+    "= true if chillers in inlet are connected in parallel";
+  parameter Boolean have_chiByp = have_WSE
+    "= true if chilled water loop has a chiller bypass"
+    annotation(Dialog(enable=is_series or not have_secondary));
+  parameter Boolean have_floSen = true
+    "= true if primary flow is measured"
+    annotation(Dialog(enable=not have_secondary));
+  parameter Boolean have_supFloSen = have_floSen
+    "= true if primary flow is measured on supply side"
+    annotation(Dialog(enable=have_floSen));
+
+
+  outer parameter Boolean have_secondary
+    "= true if plant has secondary pumping";
+  outer parameter Boolean have_WSE
+    "= true if plant has waterside economizer";
+  outer parameter Boolean is_series
+    "= true if chillers are in series";
 
   parameter Boolean have_TPCHWSup = not have_secondary
     "= true if primary chilled water supply temperature is measured"
@@ -77,7 +97,7 @@ partial model PartialPrimaryPumpGroup
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_byp or have_comLeg
+    if have_byp or have_decoupler
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 

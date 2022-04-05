@@ -11,6 +11,8 @@ partial model PartialChillerGroup
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup typ
     "Type of chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  final parameter Boolean is_series = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
+    "= true if chillers are connected in series";
   parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled"

@@ -11,6 +11,10 @@ package Types
       "Chillers in parallel",
       ChillerSeries
       "Chillers in series");
+  type Compressor = enumeration(
+      ConstantSpeed "Constant speed centrifugal",
+      VariableSpeed "Variable speed centrifugal",
+      PositiveDisplacement "Positive displacement (screw or scroll)");
   type CondenserWaterPumpGroup = enumeration(
       Headered "Headered condensing water pumps",
       Dedicated "Dedicated condensing water pumps");

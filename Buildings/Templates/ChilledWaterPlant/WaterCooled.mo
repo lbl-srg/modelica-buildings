@@ -13,7 +13,7 @@ model WaterCooled
       retSec constrainedby
       Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
        redeclare final package MediumCW = MediumCW),
-    final have_CWDedPum = pumCon.dat.is_dedicated,
+    final have_CWDedPum = pumCon.is_dedicated,
     final nCooTow = cooTowGro.nCooTow,
     final nPumCon = pumCon.nPum,
     busCon(final nCooTow=nCooTow));

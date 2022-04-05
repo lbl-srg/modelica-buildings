@@ -82,9 +82,9 @@ equation
       thickness=0.5));
   connect(res2.port_a, bou1.ports[3]) annotation (Line(points={{48,-20},{60,-20},
           {60,1.33333},{70,1.33333}},   color={0,127,255}));
-  connect(res1.port_a, chw.port_a)
+  connect(res1.port_a,chw.port_b)
     annotation (Line(points={{28,0},{28,2},{0,2}},   color={0,127,255}));
-  connect(res2.port_b, chw.port_b) annotation (Line(points={{28,-20},{6,-20},{6,
+  connect(res2.port_b,chw.port_a)  annotation (Line(points={{28,-20},{6,-20},{6,
           -14},{0,-14}}, color={0,127,255}));
   connect(busConExt, chw.busCon) annotation (Line(
       points={{30,60},{30,12},{0,12}},

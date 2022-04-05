@@ -7,8 +7,7 @@ model RP1711_6_1
     redeclare Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
       chiGro(final nChi=2),
     pumPri(final nPum=2),
-    pumCon(final nPum=2),
-    final have_byp=true);
+    pumCon(final nPum=2));
 
   annotation (
     defaultComponentName="chw");

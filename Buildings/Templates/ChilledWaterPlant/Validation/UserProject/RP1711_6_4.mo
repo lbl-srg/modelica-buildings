@@ -12,8 +12,7 @@ model RP1711_6_4
         Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
         per),
     pumPri(final nPum=2, final have_floSen=true),
-    pumCon(final nPum=2),
-    final have_byp=false);
+    pumCon(final nPum=2));
 
   annotation (
     defaultComponentName="chw");

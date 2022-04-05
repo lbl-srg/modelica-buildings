@@ -4,6 +4,9 @@ partial model PartialCondenserWaterPumpGroup
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ
     "Type of pump group"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  final parameter Boolean is_dedicated=
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated
+    "Pump group is dedicated";
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.Data dat(
     final typ=typ,

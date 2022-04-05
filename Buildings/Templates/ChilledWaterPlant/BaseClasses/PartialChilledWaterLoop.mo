@@ -9,13 +9,12 @@ model PartialChilledWaterLoop
     final nChi = chiGro.nChi,
     final nPumPri = pumPri.nPum,
     final nPumSec = pumSec.nPum,
+    final is_series = chiGro.is_series,
     busCon(final nChi=nChi));
 
   replaceable package MediumCHW=Buildings.Media.Water
     "Chilled water medium";
 
-  parameter Boolean have_byp = false "= true if chilled water loop has a minimum flow bypass"
-    annotation(Dialog(enable=have_secondary));
   parameter Boolean have_chiByp = false "= true if chilled water loop has a chiller bypass"
     annotation(Dialog(enable=have_WSE));
 
@@ -28,6 +27,8 @@ model PartialChilledWaterLoop
   parameter Boolean have_VSecRet_flow = false
     "= true if secondary return chilled water flow is measured"
     annotation(Dialog(enable=have_secondary));
+  parameter Boolean have_VCHWRet_flow = priPum.have_floSen and not priPum.have_supFloSen
+    "= true if primary flow is measured on return side";
 
   final inner parameter Boolean have_parChi=
     dat.chiGro.typ==Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
@@ -61,9 +62,7 @@ model PartialChilledWaterLoop
       redeclare final package Medium = MediumCHW,
       final dat=dat.pumPri,
       final have_parChi=have_parChi,
-      final have_byp=have_byp,
-      final have_chiByp=have_chiByp,
-      final have_comLeg=have_secondary)
+      final have_chiByp=have_chiByp)
     "Chilled water primary pump group"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   inner replaceable
@@ -121,7 +120,7 @@ model PartialChilledWaterLoop
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Plant CHW return temperature (plant side of CHW minimum flow bypass)"
     annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},rotation=0,origin={30,-50})));
+      extent={{-10,-10},{10,10}},rotation=0,origin={38,-50})));
   Fluid.FixedResistances.Junction mixByp(
     redeclare package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -156,7 +155,7 @@ model PartialChilledWaterLoop
     final m_flow_nominal=dat.mCHWSec_flow_nominal,
     final typ = Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
     have_sen=have_VSecRet_flow) "Secondary chilled water return flow"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   // FIXME: add icons for OA sensors.
   Modelica.Blocks.Routing.RealPassThrough RHAirOut(
     y(final unit="1", final min=0, final max=1))
@@ -170,6 +169,12 @@ model PartialChilledWaterLoop
     y(final unit="K", displayUnit="degC"))
     "FIXME: Outdoor air wet-bulb temperature (should be computed by controller)"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VSecRet_flow1(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=dat.mCHWPri_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
+    have_sen=have_VCHWRet_flow) "Secondary chilled water return flow"
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 equation
   // Sensors
   connect(TCHWRetPla.y, busCon.TCHWRetPla);
@@ -212,22 +217,19 @@ equation
     annotation (Line(points={{-20,-10},{-20,4},{0,4}}, color={0,127,255}));
   connect(pumPri.port_b, pumSec.port_a)
     annotation (Line(points={{20,10},{60,10}}, color={0,127,255}));
-  connect(TCHWRetPla.port_b, splChiByp.port_1)
-    annotation (Line(points={{40,-50},{60,-50},{60,-20},{-10,-20}},
-    color={0,127,255}));
   connect(mixByp.port_3, pumPri.port_byp)
     annotation (Line(points={{-10,-40},{-10,-34},{10,-34},{10,0}},
     color={0,127,255}));
-  connect(TSCHWSup.port_b, port_a)
+  connect(TSCHWSup.port_b,port_b)
     annotation (Line(points={{160,10},{200,10}}, color={0,127,255}));
-  connect(dpCHWLoc.port_a, port_a)
+  connect(dpCHWLoc.port_a,port_b)
     annotation (Line(points={{180,-20},{180,10},{200,10}}, color={0,127,255}));
-  connect(dpCHWLoc.port_b, port_b) annotation (Line(points={{180,-40},{180,-70},
+  connect(dpCHWLoc.port_b,port_a)  annotation (Line(points={{180,-40},{180,-70},
           {200,-70}}, color={0,127,255}));
   connect(retSec.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
           -50},{-20,-50}}, color={0,127,255}));
   connect(mixByp.port_2,TCHWRetPla. port_a)
-    annotation (Line(points={{0,-50},{20,-50}}, color={0,127,255}));
+    annotation (Line(points={{0,-50},{28,-50}}, color={0,127,255}));
   connect(bouCHW.ports[1], pumPri.port_b)
     annotation (Line(points={{40,20},{40,10},{20,10}}, color={0,127,255}));
   connect(pumSec.port_b, VSecSup_flow.port_a)
@@ -235,8 +237,8 @@ equation
   connect(VSecSup_flow.port_b, TSCHWSup.port_a)
     annotation (Line(points={{120,10},{140,10}}, color={0,127,255}));
   connect(TCHWRet.port_b, VSecRet_flow.port_b)
-    annotation (Line(points={{120,-70},{80,-70}}, color={0,127,255}));
-  connect(VSecRet_flow.port_a, retSec.port_a2) annotation (Line(points={{60,-70},
+    annotation (Line(points={{120,-70},{100,-70}},color={0,127,255}));
+  connect(VSecRet_flow.port_a, retSec.port_a2) annotation (Line(points={{80,-70},
           {-24,-70},{-24,-88},{-34,-88},{-34,-82}}, color={0,127,255}));
   connect(weaBus.TDryBul, TAirOut.u) annotation (Line(
       points={{0,100},{0,80},{18,80}},
@@ -250,6 +252,10 @@ equation
       points={{0,100},{0,120},{18,120}},
       color={255,204,51},
       thickness=0.5));
-  connect(TCHWRet.port_a, port_b)
+  connect(TCHWRet.port_a,port_a)
     annotation (Line(points={{140,-70},{200,-70}}, color={0,127,255}));
+  connect(TCHWRetPla.port_b, VSecRet_flow1.port_b) annotation (Line(points={{48,
+          -50},{60,-50},{60,-20},{40,-20}}, color={0,127,255}));
+  connect(VSecRet_flow1.port_a, splChiByp.port_1)
+    annotation (Line(points={{20,-20},{-10,-20}}, color={0,127,255}));
 end PartialChilledWaterLoop;

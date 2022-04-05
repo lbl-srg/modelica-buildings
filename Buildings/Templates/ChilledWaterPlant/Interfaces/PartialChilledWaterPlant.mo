@@ -30,14 +30,17 @@ partial model PartialChilledWaterPlant
   inner parameter Boolean have_WSE
     "=true if plant has waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  inner parameter Boolean is_series
+    "= true if chillers are in series"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.ChilledWaterPlant.Interfaces.Data dat(
     final typ=typ) "Chilled water plant data";
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium=Medium) "Chilled water supply"
     annotation (Placement(transformation(extent={{190,0},{210,20}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Chilled water return"
     annotation (Placement(transformation(extent={{190,-80},{210,-60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus

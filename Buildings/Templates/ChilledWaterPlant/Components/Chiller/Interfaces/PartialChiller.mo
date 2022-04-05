@@ -15,6 +15,10 @@ partial model PartialChiller
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Compressor
+    typCom = Buildings.Templates.ChilledWaterPlant.Components.Types.Compressor.ConstantSpeed
+    "Type of compressor"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled"

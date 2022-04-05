@@ -2,7 +2,8 @@ within Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup;
 model Headered
   extends
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
-     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered);
+     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPumpGroup.Headered,
+     final have_conSpePum=pum.typ == Buildings.Templates.Components.Types.Pump.Constant);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
@@ -23,7 +24,7 @@ model Headered
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=fill(dat.m_flow_nominal, 3),
     final dp_nominal=fill(0, 3))
-    "Common leg or bypass splitter" annotation (Placement(transformation(
+    "Decoupler or bypass splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,0})));
@@ -43,27 +44,27 @@ model Headered
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-60})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VPCHW_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VCHWSup_flow(
     redeclare final package Medium = Medium,
-    final have_sen=have_floSen,
+    final have_sen=have_supFloSen,
     final m_flow_nominal=dat.m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
-    "Primary chilled water volume flow rate"
+    "Primary chilled water supply volume flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare each final
-      package Medium = Medium) if have_comLeg annotation (Placement(
+      package Medium = Medium) if have_decoupler annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-60})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VComLeg_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VDec_flow(
     redeclare final package Medium = Medium,
-    final have_sen=have_comLegFloSen,
+    final have_sen=have_decouplerFloSen,
     final m_flow_nominal=dat.m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
-    if have_comLeg
-    "Common leg volume flow rate"
+    if have_decoupler
+    "Decoupler volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Templates.Components.Sensors.Temperature TPCHWSup(
     redeclare final package Medium = Medium,
@@ -99,21 +100,21 @@ equation
     annotation (Line(points={{0,-60},{0,-100}}, color={0,127,255}));
   connect(port_ChiByp, valChiByp.port_a)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
-  connect(VPCHW_flow.port_b, splByp.port_1)
+  connect(VCHWSup_flow.port_b, splByp.port_1)
     annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
-  connect(VPCHW_flow.y, busCon.VPCHW_flow) annotation (Line(points={{50,12},{50,80},
-          {0,80},{0,100}}, color={0,0,127}), Text(
+  connect(VCHWSup_flow.y, busCon.VPCHW_flow) annotation (Line(points={{50,12},{
+          50,80},{0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(splByp.port_3, pas.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
-  connect(port_byp, VComLeg_flow.port_a)
+  connect(port_byp, VDec_flow.port_a)
     annotation (Line(points={{0,-100},{0,-80},{20,-80}}, color={0,127,255}));
-  connect(VComLeg_flow.port_b, pas.port_b)
+  connect(VDec_flow.port_b, pas.port_b)
     annotation (Line(points={{40,-80},{80,-80},{80,-70}}, color={0,127,255}));
-  connect(VComLeg_flow.y, busCon.VComLeg_flow) annotation (Line(points={{30,-68},
+  connect(VDec_flow.y, busCon.VDec_flow) annotation (Line(points={{30,-68},
           {30,80},{0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -121,7 +122,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(pum.port_b, TPCHWSup.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
-  connect(TPCHWSup.port_b, VPCHW_flow.port_a)
+  connect(TPCHWSup.port_b, VCHWSup_flow.port_a)
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
   connect(TPCHWSup.y, busCon.TPCHWSup) annotation (Line(points={{10,12},{10,80},
           {0,80},{0,100}}, color={0,0,127}), Text(
@@ -163,6 +164,14 @@ equation
     annotation (Line(points={{-60,40},{-60,0},{-70,0}}, color={0,127,255}));
   connect(del.ports[nPorVol], valChiByp.port_b)
     annotation (Line(points={{-60,40},{-60,-60},{-70,-60}}, color={0,127,255}));
+  connect(valCHWChi.bus, busCon.valCHWChi) annotation (Line(
+      points={{-80,10},{-80,80},{0.1,80},{0.1,100.1}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                     Bitmap(
         extent={{-40,0},{40,80}},
