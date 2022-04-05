@@ -59,7 +59,7 @@ model StaticReset
       final etaHydMet=
         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
       final etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values,
       hydraulicEfficiency(eta={0.7}),
       motorEfficiency(eta={0.7})))
     "Fan using constant efficiency"

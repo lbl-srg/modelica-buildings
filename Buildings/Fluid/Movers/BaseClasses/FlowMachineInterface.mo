@@ -165,7 +165,7 @@ protected
     "Coefficients for cubic spline of hydraulic efficiency vs. volume flow rate";
   final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)]=
     if not per.etaMotMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values
       then zeros(size(per.motorEfficiency.V_flow,1))
     elseif (size(per.motorEfficiency.V_flow, 1) == 1)
       then {0}
@@ -179,7 +179,7 @@ protected
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
   final parameter Real motDer_yMot[size(per.motorEfficiency_yMot.y, 1)]=
     if not per.etaMotMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
       then zeros(size(per.motorEfficiency_yMot.y,1))
     elseif (size(per.motorEfficiency_yMot.y, 1) == 1)
       then {0}
@@ -314,7 +314,14 @@ protected
     if per.use_eulerNumber
     "Look-up table for mover power";
 
-  Real yMot(final min=0, final start=0.833)=PEle/per.PEle_nominal
+  Real yMot(final min=0, final start=0.833)=
+    if (per.etaMotMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
+      or per.etaMotMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves)
+      and per.PEle_nominal>1E-6
+      then PEle/per.PEle_nominal
+    else 1
     "Motor part load ratio";
 
 function getPerformanceDataAsString
@@ -431,50 +438,30 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve),
-         "Only one of etaMet and etaHydMet can be set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve.");
+         "Only one of etaMet and etaHydMet can be set to .PowerCurve.");
 
   assert(not (per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber),
-         "Only one of etaMet and etaHydMet can be set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber.");
-
-  assert(not (per.etaMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot
-         or per.etaHydMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot),
-         "Only values allowed for etaMet and etaHydMet are
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-         .Values, .PowerCurve, or .EulerNumber.");
-
-  assert(per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
-         or per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
-         or per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot,
-         "Only values allowed for etaMet are
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-         .Values, or .Values_y.Mot");
+         "Only one of etaMet and etaHydMet can be set to .EulerNumber.");
 
   assert(per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
          or per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
          or per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
          "The problem is over-specified. At least one of the three efficiency
-         methods must be set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided.");
+         methods must be set to .NotProvided.");
 
-  assert(not (per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot
-         and per.PEle_nominal<1+1E-6),
-         "etaMotMet is set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot,
-         but per.PEle_nominal is not assigned and using its default value (=1).");
+  assert(not ((per.etaMotMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
+           or  per.etaMotMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves)
+         and per.PEle_nominal<1E-6),
+         "etaMotMet is set to .Values_yMot or .GenericCurves which requires
+         the motor's rated input power, but per.PEle_nominal is not assigned.");
 
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
@@ -666,7 +653,7 @@ equation
     if per.etaHydMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided or
        per.etaMotMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
+         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided then
     // Either or both of the other two are provided
       eta = etaHyd * etaMot;
     else
@@ -708,7 +695,7 @@ equation
     if per.etaMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
        per.etaMotMet==
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
+         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided then
     // Only eta provided
       etaHyd = eta / 0.7; // In this case etaMot = 0.7.
     else
@@ -719,7 +706,7 @@ equation
 
   // Motor efficiency
   if per.etaMotMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values then
+       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values then
     if homotopyInitialization then
       etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
@@ -727,7 +714,7 @@ equation
       etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta);
     end if;
   elseif per.etaMotMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot then
+       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot then
     if homotopyInitialization then
       etaMot =homotopy(actual=cha.efficiency_yMot(
         per=per.motorEfficiency_yMot,

@@ -25,7 +25,7 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
@@ -39,7 +39,7 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)

@@ -15,7 +15,7 @@ model EulerReducedSpeed
     final etaHydMet=
             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
     final etaMotMet=
-           Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
            pressure=per1.pressure,
            power=per1.power))

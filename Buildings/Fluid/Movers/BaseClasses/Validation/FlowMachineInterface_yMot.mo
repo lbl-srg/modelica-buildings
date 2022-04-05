@@ -6,7 +6,7 @@ model FlowMachineInterface_yMot
     per(
       pressure(V_flow={0,1}, dp={1000,0}),
       etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot,
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot,
       motorEfficiency_yMot(y={0,0.25,0.5,1}, eta={0,0.56,0.7,0.7}),
       PEle_nominal=600),
     rho_default=1.2,
@@ -22,7 +22,7 @@ model FlowMachineInterface_yMot
         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
       peak(V_flow=0.5, dp=500, eta=0.7),
       etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot,
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot,
       motorEfficiency_yMot(y={0,0.25,0.5,1}, eta={0,0.56,0.7,0.7}),
       PEle_nominal=600),
     rho_default=1.2,

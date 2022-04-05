@@ -14,40 +14,15 @@ record Generic "Generic data record for movers"
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the total efficiency eta"
-    annotation (Dialog(group="Power computation"),
-                choices(
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
-             "Not provided, computed from other efficiency terms",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
-             "An array of value(s) vs. volumetric flow rate",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
-             "An array of power vs. volumetric flow rate",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
-             "One peak point to be use for the Euler number"));
+    annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaHydMet=
     Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
     "Efficiency computation method for the hydraulic efficiency etaHyd"
-    annotation (Dialog(group="Power computation"),
-                choices(
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
-             "Not provided, computed from other efficiency terms",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
-             "An array of value(s) vs. volumetric flow rate",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
-             "An array of power vs. volumetric flow rate",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber
-             "One peak point to be use for the Euler number"));
-  parameter Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod etaMotMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+    annotation (Dialog(group="Power computation"));
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
+    Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
-    annotation (Dialog(group="Power computation"),
-                choices(
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
-             "Not provided, computed from other efficiency terms",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
-             "An array of value(s) vs. volumetric flow rate",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot
-             "An array of value(s) vs. part load ratio"));
+    annotation (Dialog(group="Power computation"));
 
   final parameter Boolean use_powerCharacteristic=
     etaMet==
@@ -88,12 +63,12 @@ record Generic "Generic data record for movers"
     "Motor efficiency vs. volumetric flow rate"
     annotation (Dialog(group="Power computation",
                        enable=etaMotMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values));
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_yMot(y={0}, eta={0.7}) "Motor efficiency  vs. part load ratio"
     annotation (Dialog(group="Power computation", enable=etaMotMet ==
-      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot));
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot));
 
   // Power curve
   //   It requires default values to suppress Dymola message
@@ -125,16 +100,20 @@ record Generic "Generic data record for movers"
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
   parameter Modelica.Units.SI.Power PEle_nominal(final displayUnit="W")=
-      if max(power.P)<1E-6
-        then 1
-      elseif etaHydMet==
+      if etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
         then max(power.P)/0.7/0.8
       else max(power.P)/0.8
     "Rated input power of the motor"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot));
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
+                        or      etaMotMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves));
+  parameter Modelica.Units.SI.Efficiency yMot_max(max=1)= 0.7
+    "Maximum motor efficiency"
+    annotation (Dialog(group="Power computation", enable=etaMotMet ==
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves));
 
   // Speed
   parameter Real speed_nominal(
