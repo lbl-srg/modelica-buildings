@@ -37,7 +37,7 @@ package TemperatureDependentDensity
     d = density(state);
     state.T = T;
     state.p = p;
-    R=Modelica.Constants.R;
+    R=0;
     MM=MM_const;
     annotation(Documentation(info="<html>
     <p>
@@ -863,6 +863,12 @@ Phase changes are not modeled.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2022, by Michael Wetter:<br/>
+Corrected assignment of <code>R</code> in <code>BaseProperties</code> to avoid a unit error.<br/>
+This is for
+<a href=\"\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">#1603</a>.
+</li>
 <li>
 July 7, 2016, by Carles Ribas Tugores:<br/>
 Correct Documentation. This is for
