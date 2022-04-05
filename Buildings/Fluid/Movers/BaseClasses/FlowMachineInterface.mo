@@ -442,8 +442,9 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y
          or per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y),
-         "etaMet and etaHydMet are not allowed to be set to
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y.");
+         "Only values allowed for etaMet and etaHydMet are
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+         .Values, .PowerCurve, or .EulerNumber.");
 
   assert(per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
