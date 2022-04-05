@@ -46,7 +46,7 @@ record Generic "Generic data record for movers"
              "Not provided, computed from other efficiency terms",
       choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values
              "An array of value(s) vs. volumetric flow rate",
-      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y
+      choice=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot
              "An array of value(s) vs. part load ratio"));
 
   final parameter Boolean use_powerCharacteristic=
@@ -92,7 +92,8 @@ record Generic "Generic data record for movers"
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_yMot(y={0}, eta={0.7}) "Motor efficiency  vs. part load ratio"
-    annotation (Dialog(group="Power computation", enable=etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_y));
+    annotation (Dialog(group="Power computation", enable=etaMotMet ==
+      Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values_yMot));
 
   // Power curve
   //   It requires default values to suppress Dymola message
