@@ -177,20 +177,34 @@ protected
           x=per.motorEfficiency.eta,
           strict=false))
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
-  final parameter Real motDer_yMot[size(per.motorEfficiency_yMot.y, 1)]=
-    if not per.etaMotMet==
+  final parameter Real motDer_yMot[nMotDer_yMot]=
+    if per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
-      then zeros(size(per.motorEfficiency_yMot.y,1))
-    elseif (size(per.motorEfficiency_yMot.y, 1) == 1)
+      then Buildings.Utilities.Math.Functions.splineDerivatives(
+             x=per.motorEfficiency_yMot.y,
+             y=per.motorEfficiency_yMot.eta,
+             ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+               x=per.motorEfficiency_yMot.eta,
+               strict=false))
+    elseif per.etaMotMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+      then Buildings.Utilities.Math.Functions.splineDerivatives(
+             x=per.motorEfficiency_yMot_internal.y,
+             y=per.motorEfficiency_yMot_internal.eta,
+             ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+               x=per.motorEfficiency_yMot_internal.eta,
+               strict=false))
+    elseif nMotDer_yMot== 1
       then {0}
-    else
-      Buildings.Utilities.Math.Functions.splineDerivatives(
-        x=per.motorEfficiency_yMot.y,
-        y=per.motorEfficiency_yMot.eta,
-        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-          x=per.motorEfficiency_yMot.eta,
-          strict=false))
+    else zeros(nMotDer_yMot)
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
+  final parameter Integer nMotDer_yMot=
+    if per.etaMotMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+      then 9
+    else size(per.motorEfficiency_yMot.y,1)
+      "Size of array";
+
 
   parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
     haveDPMax then per.pressure.dp[1] else per.pressure.dp[1] - ((per.pressure.dp[
@@ -318,7 +332,7 @@ protected
     if (per.etaMotMet==
         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
       or per.etaMotMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves)
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
       and per.PEle_nominal>1E-6
       then PEle/per.PEle_nominal
     else 1
@@ -458,9 +472,9 @@ the simulation stops.");
   assert(not ((per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
            or  per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves)
+           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
          and per.PEle_nominal<1E-6),
-         "etaMotMet is set to .Values_yMot or .GenericCurves which requires
+         "etaMotMet is set to .Values_yMot or .GenericCurve which requires
          the motor's rated input power, but per.PEle_nominal is not assigned.");
 
 equation
@@ -726,6 +740,22 @@ equation
     else
       etaMot =cha.efficiency_yMot(
         per=per.motorEfficiency_yMot,
+        y=yMot,
+        d=motDer_yMot);
+    end if;
+  elseif per.etaMotMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve then
+    if homotopyInitialization then
+      etaMot =homotopy(actual=cha.efficiency_yMot(
+        per=per.motorEfficiency_yMot_internal,
+        y=yMot,
+        d=motDer_yMot), simplified=cha.efficiency_yMot(
+        per=per.motorEfficiency_yMot_internal,
+        y=1,
+        d=motDer_yMot));
+    else
+      etaMot =cha.efficiency_yMot(
+        per=per.motorEfficiency_yMot_internal,
         y=yMot,
         d=motDer_yMot);
     end if;

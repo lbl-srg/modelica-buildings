@@ -109,11 +109,19 @@ record Generic "Generic data record for movers"
                         enable= etaMotMet==
         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
                         or      etaMotMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves));
-  parameter Modelica.Units.SI.Efficiency yMot_max(max=1)= 0.7
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve));
+  parameter Modelica.Units.SI.Efficiency etaMot_max(max=1)= 0.7
     "Maximum motor efficiency"
     annotation (Dialog(group="Power computation", enable=etaMotMet ==
-      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurves));
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve));
+  final parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+      motorEfficiency_yMot_internal=
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
+          P_nominal=PEle_nominal,
+          eta_max=etaMot_max)
+    "Motor efficiency  vs. part load ratio"
+    annotation (Dialog(enable=false));
 
   // Speed
   parameter Real speed_nominal(
