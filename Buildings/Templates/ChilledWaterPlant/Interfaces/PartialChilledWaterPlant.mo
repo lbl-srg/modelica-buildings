@@ -3,6 +3,8 @@ partial model PartialChilledWaterPlant
 
   replaceable package Medium = Buildings.Media.Water;
 
+  // Structure parameters
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration
     typ "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -34,6 +36,13 @@ partial model PartialChilledWaterPlant
     "= true if chillers are in series"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  final inner parameter Boolean isAirCoo=
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.AirCooled
+    "= true, chillers in group are air cooled, 
+    = false, chillers in group are water cooled";
+
+  // Record
+
   parameter Buildings.Templates.ChilledWaterPlant.Interfaces.Data dat(
     final typ=typ) "Chilled water plant data";
 
@@ -57,11 +66,6 @@ partial model PartialChilledWaterPlant
       rotation=90,
       origin={200,60})));
 
-protected
-  final inner parameter Boolean isAirCoo=
-    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.AirCooled
-    "= true, chillers in group are air cooled, 
-    = false, chillers in group are water cooled";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-100},{200,100}}),
