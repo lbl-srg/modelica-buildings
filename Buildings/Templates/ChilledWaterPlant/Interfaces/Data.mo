@@ -17,7 +17,11 @@ record Data "Data for chilled water plants"
   // Controller
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data con(
-    final isAirCoo=isAirCoo)
+    final isAirCoo=isAirCoo,
+    final capChi_nominal=abs(chiGro.chi.Q_flow_nominal),
+    final mChiWatChi_flow_nominal=chiGro.m2_flow_nominal,
+    final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
+    final TChiWatSup_nominal=chiGro.chi[1].TChiWatSup_nominal)
     "Controller data"
     annotation (Dialog(group="Controller"));
 

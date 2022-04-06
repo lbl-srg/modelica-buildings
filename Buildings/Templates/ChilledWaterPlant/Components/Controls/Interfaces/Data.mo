@@ -54,6 +54,20 @@ record Data
     "Minimum allowable lift at minimum load for chiller"
     annotation(Dialog(tab="General", group="Chillers configuration",
       enable=not have_ctrHeaPre and not isAirCoo));
+  final parameter Modelica.Units.SI.HeatFlowRate cap_nominal(final min=0)=
+    sum(capChi_nominal)
+    "Plant design capacity (>0 by convention)"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
+  parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](each final min=0)
+    "Design chiller capacities vector"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
+  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(displayUnit="degC")
+    "Design (minimum) chilled water supply temperature (identical for all chillers)"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
+  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=
+    fill(mChiWatPri_flow_nominal/nChi,nChi)
+    "Design (maximum) chiller chilled water mass flow rate (for each chiller)"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
 
   // ---- Head pressure ----
 
@@ -69,6 +83,9 @@ record Data
 
   parameter Real yPumChiWat_min(final unit="1", final min=0, final max=1)
     "Minimum chilled water pump speed ratio"
+    annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
+   parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal
+    "Design (maximum) primary chilled water mass flow rate (for the plant)"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
   // ---- Cooling tower: fan speed ----
@@ -87,5 +104,7 @@ record Data
   parameter Real TConWatRet_nominal(displayUnit="degC")=273.15
     "Condenser Water return temperature of each chiller (identical for all chillers)"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
+
+
 
 end Data;

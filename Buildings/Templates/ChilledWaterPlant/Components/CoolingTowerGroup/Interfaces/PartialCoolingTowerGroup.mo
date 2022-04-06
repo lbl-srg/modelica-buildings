@@ -4,19 +4,22 @@ partial model PartialCoolingTowerGroup
     redeclare package Medium=Buildings.Media.Water,
     final m_flow_nominal = dat.m_flow_nominal);
 
+  // Structure parameters
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerGroup typ
     "Type of cooling tower group"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Data dat(
-    final typ=typ,
-    final nCooTow=nCooTow) "Cooling tower group data";
-
-  outer parameter Integer nChi "Number of chillers"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+  outer parameter Integer nChi "Number of chillers";
   parameter Integer nCooTow(final min=1)
     "Number of cooling towers (count one tower for each cell)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  // Record
+
+  parameter Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.Data dat(
+    final typ=typ,
+    final nCooTow=nCooTow) "Cooling tower group data";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)

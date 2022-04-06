@@ -2,17 +2,9 @@ within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup;
 model Headered
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
-      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Headered);
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Headered,
+      pum(final have_singlePort_b=true));
 
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
-    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
-      redeclare final package Medium = Medium,
-      final nPum=nPum,
-      final have_singlePort_a=true,
-      final have_singlePort_b=true,
-      final dat=dat.pum)
-    "Condenser pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatChi[nChi]
     constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare each final package Medium = Medium,
@@ -34,21 +26,13 @@ model Headered
     nPorts=nPorVol)
     "Outlet node mixing volume"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
+
 protected
   parameter Integer nPorEco = if have_eco then 1 else 0;
   parameter Integer nPorVol = nPorEco + nChi + 1;
-equation
-  connect(port_a, pum.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
 
-  connect(busCon.pumCon, pum.bus) annotation (Line(
-      points={{0.1,100.1},{0.1,56},{0,56},{0,10}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
+equation
+
   connect(del.ports[2:nChi+1], valConWatChi.port_a)
     annotation (Line(points={{40,40},{40,0},{60,0}}, color={0,127,255}));
   connect(del.ports[1], pum.port_b)
@@ -58,6 +42,7 @@ equation
     annotation (Line(points={{40,40},{40,-60},{100,-60}}, color={0,127,255}));
   connect(valConWatChi.port_b, ports_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+
   connect(busCon.valConWatChi, valConWatChi.bus) annotation (Line(
       points={{0.1,100.1},{0.1,80},{70,80},{70,10}},
       color={255,204,51},
@@ -66,6 +51,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
           points={{-60,0},{-100,0}},

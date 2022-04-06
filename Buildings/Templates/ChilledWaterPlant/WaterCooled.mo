@@ -30,7 +30,7 @@ model WaterCooled
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Headered
-    pumCon(final have_eco=not retSec.is_none) constrainedby
+    pumCon                                    constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
     redeclare final package Medium = MediumConWat,
     final dat=dat.pumCon) "Condenser water pump group"
@@ -60,7 +60,8 @@ model WaterCooled
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-90,-70})));
-  Fluid.Sources.Boundary_pT bouConWat(redeclare final package Medium = MediumConWat,
+  Fluid.Sources.Boundary_pT bouConWat(redeclare final package Medium =
+        MediumConWat,
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

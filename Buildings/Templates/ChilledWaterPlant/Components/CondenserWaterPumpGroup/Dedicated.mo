@@ -3,32 +3,20 @@ model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated,
-      final have_eco = false,
-      final nPum=nChi);
+      final nPum=nPorEco + nChi,
+      pum(final have_singlePort_b=false));
 
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
-    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
-      redeclare final package Medium = Medium,
-      final nPum=nPum,
-      final have_singlePort_a=true,
-      final have_singlePort_b=false,
-      final dat=dat.pum)
-    "Condenser pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  // FIXME : Could we have a dedicated condenser pump with WSE?
+  // If so, would there be a dedicated pump for the WSE?
+protected
+  parameter Integer nPorEco = if have_eco then 1 else 0;
 
 equation
-  connect(port_a, pum.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(busCon.pumCon, pum.bus) annotation (Line(
-      points={{0.1,100.1},{0.1,56},{0,56},{0,10}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
+
   connect(pum.ports_b, ports_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
           points={{-60,0},{-100,0}},

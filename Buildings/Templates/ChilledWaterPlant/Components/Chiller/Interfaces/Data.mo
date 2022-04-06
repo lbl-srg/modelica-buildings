@@ -2,14 +2,30 @@ within Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces;
 record Data "Data for chillers"
   extends Modelica.Icons.Record;
 
-  // Structure
+  // Structure parameters
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller typ "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Compressor
+    typCom = Buildings.Templates.ChilledWaterPlant.Components.Types.Compressor.ConstantSpeed
+    "Type of compressor"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean isAirCoo
     "= true, chillers in group are air cooled,
     = false, chillers in group are water cooled"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  // fixme: Figure out what this entails with existing chiller class
+  parameter Boolean is_heaPreCon = false
+    "= true if chiller is controlled with head pressure";
+  parameter Boolean have_heaPreSig = false
+    "= true if chiller has a head pressure signal"
+    annotation(Dialog(enable=is_heaPreCon));
+  parameter Boolean have_TChiWatChiSup = true
+    "= true if chiller chilled water supply temperature is measured"
+    annotation (Dialog(enable=not is_heaPreCon or have_heaPreSig));
+  parameter Boolean have_TConWatRet = true
+    "= true if chiller condenser water return temperature is measured"
+    annotation (Dialog(enable=not is_heaPreCon or have_heaPreSig));
 
   // Equipment characteristics
 

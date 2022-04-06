@@ -24,7 +24,7 @@ block Guideline36WaterCooled
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Real capChi_min[nChi](each final unit="W", each final min=0)=
-    0.3 .* capChi_nominal
+    0.3 .* dat.capChi_nominal
     "Chiller minimum cycling load"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -153,11 +153,11 @@ block Guideline36WaterCooled
     final have_parChi=have_parChi,
     final have_ponyChiller=have_ponyChiller,
     final need_reduceChillerDemand=need_reduceChillerDemand,
-    final desCap=cap_nominal,
+    final desCap=dat.cap_nominal,
     final chiTyp=chiTyp,
-    final chiDesCap=capChi_nominal,
+    final chiDesCap=dat.capChi_nominal,
     final chiMinCap=capChi_min,
-    final TChiWatSupMin=fill(TChiWatSup_nominal, nChi),
+    final TChiWatSupMin=fill(dat.TChiWatSup_nominal, nChi),
     final minChiLif=dat.dTLif_min,
     final have_heaPreConSig=have_ctrHeaPre,
     final anyVsdCen=anyVsdCen,
@@ -187,10 +187,10 @@ block Guideline36WaterCooled
     final minConWatPumSpe=dat.yPumConWat_min,
     final minHeaPreValPos=dat.yValIsoCon_min,
     final minFloSet=dat.mChiWatChi_flow_min/1000,
-    final maxFloSet=mChiWatChi_flow_nominal/1000,
+    final maxFloSet=dat.mChiWatChi_flow_nominal/1000,
     final minChiWatPumSpe=dat.yPumChiWat_min,
     final nPum_nominal=nPum_nominal,
-    final VChiWat_flow_nominal=mChiWatPri_flow_nominal/1000,
+    final VChiWat_flow_nominal=dat.mChiWatPri_flow_nominal/1000,
     final maxLocDp=dat.dpChiWatLoc_max,
     final dpChiWatPumMax=dat.dpChiWatRem_max,
     final posDisMult=posDisMult,
@@ -274,7 +274,7 @@ block Guideline36WaterCooled
     "Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMax(
-    k=dat.TConWatRet_nominal - TChiWatSup_nominal)
+    k=dat.TConWatRet_nominal - dat.TChiWatSup_nominal)
     "Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation

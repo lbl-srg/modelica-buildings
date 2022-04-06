@@ -4,7 +4,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumChiWat,
     final have_secondary = not pumSec.dat.is_none,
-    final have_eco = not retSec.is_none,
+    final have_eco = retSec.have_eco,
     final have_dedChiWatPum = pumPri.dat.is_dedicated,
     final nChi = chiGro.nChi,
     final nPumPri = pumPri.nPum,
@@ -75,13 +75,7 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
-      final dat=dat.con,
-      final have_eco=have_eco,
-      final have_parChi=have_parChi,
-      final capChi_nominal=abs(dat.chiGro.chi.Q_flow_nominal),
-      final mChiWatChi_flow_nominal=dat.chiGro.m2_flow_nominal,
-      final mChiWatPri_flow_nominal=dat.mChiWatPri_flow_nominal,
-      final TChiWatSup_nominal=dat.chiGro.chi[1].TChiWatSup_nominal)
+      final dat=dat.con)
     "Plant controller"
     annotation (Placement(
       transformation(
@@ -138,7 +132,8 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},rotation=0,origin={-20,-20})));
 
-  Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium = MediumChiWat,
+  Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium =
+        MediumChiWat,
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

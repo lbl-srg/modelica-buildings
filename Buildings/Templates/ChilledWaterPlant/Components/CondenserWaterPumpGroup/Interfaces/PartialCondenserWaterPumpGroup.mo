@@ -1,6 +1,10 @@
 within Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces;
 partial model PartialCondenserWaterPumpGroup
 
+  replaceable package Medium = Buildings.Media.Water "Medium in the component";
+
+  // Structure parameters
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup typ
     "Type of pump group"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -8,17 +12,28 @@ partial model PartialCondenserWaterPumpGroup
     typ == Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated
     "Pump group is dedicated";
 
+  outer parameter Boolean have_eco
+    "= true if pump supply waterside economizer";
+
+  parameter Integer nPum "Number of condenser pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  outer parameter Integer nChi "Number of chillers";
+  outer parameter Integer nCooTow "Number of cooling towers";
+
+  // Record
+
   parameter Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.Data dat(
     final typ=typ,
     final nPum=nPum) "Condenser water group data";
 
-  replaceable package Medium = Buildings.Media.Water "Medium in the component";
-
-  parameter Integer nPum "Number of condenser pumps";
-  outer parameter Integer nChi "Number of chillers";
-  outer parameter Integer nCooTow "Number of cooling towers";
-
-  parameter Boolean have_eco "= true if pump supply waterside economizer";
+  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
+    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+      redeclare final package Medium = Medium,
+      final nPum=nPum,
+      final have_singlePort_a=true,
+      final dat=dat.pum)
+    "Condenser pumps"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
@@ -52,6 +67,19 @@ partial model PartialCondenserWaterPumpGroup
     "Waterside economizer outlet"
     annotation (Placement(transformation(extent={{
             90,-70},{110,-50}})));
+
+equation
+  connect(port_a, pum.port_a)
+    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  connect(busCon.pumCon, pum.bus) annotation (Line(
+      points={{0.1,100.1},{0.1,56},{0,56},{0,10}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+
     annotation (
       Icon(coordinateSystem(preserveAspectRatio=false),
         graphics={Rectangle(
