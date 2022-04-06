@@ -315,12 +315,24 @@ to <b style=\"color:blue\">existing</b> libraries:
                      Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
                      Buildings.Controls.OBC.CDL.Integers.Subtact
     </td>
-    <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+    <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
     </td>
-    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.RadiantSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TSurRelHum
+    </td>
+    <td valign=\"top\">Added controller for radiant cooling that controls the surface temperature
+                       using constant mass flow and variable supply temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2823\">#2823</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
@@ -1073,10 +1085,10 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+  <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
-  </tr>
-  <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
                          Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
                          Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple<br/>
                          Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
@@ -1105,7 +1117,17 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    </td>
+    <td valign=\"top\">Corrected assignment of gas constant which lead to a unit error.
+                       This change does not affect the results as the value is not used for this liquid medium.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">IBPSA, #1603</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature

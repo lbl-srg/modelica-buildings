@@ -141,11 +141,16 @@ illustrates how to couple a radiant slab for heating in a configuration in which
 bottom of the slab is connected to a ground heat transfer model in Modelica.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
-Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>
-is similar to the previous model, but it adds a radiant slab for cooling which interfaces
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface</a>
+and
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
+are similar to the previous model, but they add a radiant slab for cooling which interfaces
 two surfaces in EnergyPlus: The floor that connects the slab to the zone above, and the ceiling
 that connects the slab to the zone below.
+In the first model, cooling is controlled based on the surface temperature, and in the second model, it is controlled
+based on the room temperature.
 </li>
 </ol>
 </html>"));
