@@ -41,11 +41,15 @@ algorithm
 annotation (Documentation(info="<html>
 <p>
 This function generates a generic motor efficiency curve based on the
-rated motor power input and maximum motor efficiency according to U.S. DOE (2014).
-It uses the base functions of the
+rated motor power input and maximum motor efficiency according to U.S. DOE (2014)
+(shown below). It uses the base functions of the
 <a href=\"Modelica://Modelica.Blocks.Tables.Internal.CombiTable2DBase\">
 Modelica.Blocks.Tables.Internal.CombiTable2DBase</a>
 <code>block</code> to perform bivariate Akima interpolations.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Characteristics/MotorEfficiencyCurves.png\"
+width=\"500\"/>
 </p>
 <h4>References</h4>
 <p>

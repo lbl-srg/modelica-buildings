@@ -141,7 +141,7 @@ Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13</a>
 (shown below) was used.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/BIDW13.png\"
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Validation/BIDW13.png\"
 width=\"1000\"/>
 </p>
 </html>", revisions="<html>
