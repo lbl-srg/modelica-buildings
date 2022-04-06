@@ -1,9 +1,11 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Average
   "Output the average of its two inputs"
-  Interfaces.RealInput u1 "Connector of Real input signal 1"
+  Interfaces.RealInput u1
+    "Connector of Real input signal 1"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput u2 "Connector of Real input signal 2"
+  Interfaces.RealInput u2
+    "Connector of Real input signal 2"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.RealOutput y
     "Connector of Real output signal"

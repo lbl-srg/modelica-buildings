@@ -13,7 +13,7 @@ model Sin
 
 equation
   connect(ramp1.y,sin1.u)
-    annotation (Line(points={{-38,0},{-12,0}},color={0,0,127}));
+    annotation (Line(points={{-39,0},{-12,0}},color={0,0,127}));
   annotation (
     experiment(
       StopTime=1.0,
