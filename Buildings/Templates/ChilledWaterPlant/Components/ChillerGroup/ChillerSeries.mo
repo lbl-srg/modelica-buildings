@@ -9,11 +9,11 @@ model ChillerSeries
     chi[nChi](final dat=dat.chi)
       constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.PartialChiller(
-      redeclare each final package Medium1 = MediumCW,
-      redeclare each final package Medium2 = MediumCHW) annotation (Placement(transformation(extent={{
+      redeclare each final package Medium1 = MediumConWat,
+      redeclare each final package Medium2 = MediumChiWat) annotation (Placement(transformation(extent={{
             -20,-20},{20,20}}, rotation=0)));
 
-  Fluid.FixedResistances.Junction splChi[nChi](redeclare package Medium = MediumCHW,
+  Fluid.FixedResistances.Junction splChi[nChi](redeclare package Medium = MediumChiWat,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each final m_flow_nominal=fill(dat.m2_flow_nominal, 3),
     each final dp_nominal=fill(0, 3))
@@ -21,7 +21,7 @@ model ChillerSeries
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={60,-60})));
-  Fluid.FixedResistances.Junction mixChi[nChi](redeclare package Medium = MediumCHW,
+  Fluid.FixedResistances.Junction mixChi[nChi](redeclare package Medium = MediumChiWat,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each final m_flow_nominal=fill(dat.m2_flow_nominal, 3),
     each final dp_nominal=fill(0, 3)) "Chiller mixer"
@@ -29,11 +29,11 @@ model ChillerSeries
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-60,-60})));
-  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCHWChi[nChi]
+  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChi[nChi]
     constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
-    redeclare each final package Medium = MediumCHW,
+    redeclare each final package Medium = MediumChiWat,
     each final m_flow_nominal=dat.m2_flow_nominal/nChi,
-    each final dpValve_nominal=dat.dpCHWValve_nominal)
+    each final dpValve_nominal=dat.dpChiWatChiValve_nominal)
     "Chiller chilled water-side isolation valves"
     annotation (Placement(
         transformation(
@@ -41,7 +41,7 @@ model ChillerSeries
         rotation=0,
         origin={0,-60})));
   Fluid.Delays.DelayFirstOrder del(
-    redeclare each final package Medium = MediumCW,
+    redeclare each final package Medium = MediumConWat,
     final m_flow_nominal=dat.m1_flow_nominal,
     final nPorts=nChi + 1) if not isAirCoo
     "Condenser water side mixing volume" annotation (Placement(transformation(
@@ -63,9 +63,9 @@ equation
   connect(chi.port_b2, mixChi.port_3) annotation (Line(points={{-20,-12},{-60,
           -12},{-60,-50}},
                       color={0,127,255}));
-  connect(valCHWChi.port_b, mixChi.port_2)
+  connect(valChiWatChi.port_b, mixChi.port_2)
     annotation (Line(points={{-10,-60},{-50,-60}}, color={0,127,255}));
-  connect(valCHWChi.port_a, splChi.port_2)
+  connect(valChiWatChi.port_a, splChi.port_2)
     annotation (Line(points={{10,-60},{50,-60}}, color={0,127,255}));
   connect(port_a2,splChi[1].port_1)
     annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
@@ -81,7 +81,7 @@ equation
         color={0,127,255}));
   connect(chi.port_b1, del.ports[1:nChi]) annotation (Line(points={{20,12},{60,
           12},{60,70}},               color={0,127,255}));
-  connect(valCHWChi.bus, busCon.valCHWChi) annotation (Line(
+  connect(valChiWatChi.bus, busCon.valChiWatChi) annotation (Line(
       points={{0,-50},{0,-40},{40,-40},{40,60},{0.1,60},{0.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(

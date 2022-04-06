@@ -18,16 +18,16 @@ partial model PartialChilledWaterPlant
   inner parameter Integer nCooTow "Number of cooling towers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter Boolean have_CHWDedPum
+  inner parameter Boolean have_dedChiWatPum
     "Set to true if parallel chillers are connected to dedicated pumps on chilled water side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  inner parameter Boolean have_CWDedPum
+  inner parameter Boolean have_dedConWatPum
     "Set to true if parallel chillers are connected to dedicated pumps on condenser water side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   inner parameter Boolean have_secondary
     "= true if plant has secondary pumping"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  inner parameter Boolean have_WSE
+  inner parameter Boolean have_eco
     "=true if plant has waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   inner parameter Boolean is_series

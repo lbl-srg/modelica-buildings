@@ -1,10 +1,10 @@
 within Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces;
 partial model PartialChillerGroup
-  replaceable package MediumCW = Buildings.Media.Water
+  replaceable package MediumConWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium 1 in the component"
       annotation (Dialog(enable=not isAirCoo));
-  replaceable package MediumCHW = Buildings.Media.Water
+  replaceable package MediumChiWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium 2 in the component";
 
@@ -34,46 +34,46 @@ partial model PartialChillerGroup
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter MediumCW.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(dat.m1_flow_nominal)
+  parameter MediumConWat.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(dat.m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced", enable=not isAirCoo));
-  parameter MediumCHW.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(dat.m2_flow_nominal)
+  parameter MediumChiWat.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(dat.m2_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nChi](
-    redeclare each final package Medium = MediumCW,
+    redeclare each final package Medium = MediumConWat,
     each m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-    each h_outflow(start=MediumCW.h_default, nominal=MediumCW.h_default))
+    each h_outflow(start=MediumConWat.h_default, nominal=MediumConWat.h_default))
     if not isAirCoo
     "Fluid connectors a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-108,28},{-92,92}}),
         iconTransformation(extent={{-108,28},{-92,92}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-    redeclare final package Medium = MediumCW,
+    redeclare final package Medium = MediumConWat,
     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-    h_outflow(start = MediumCW.h_default, nominal = MediumCW.h_default)) if not isAirCoo
+    h_outflow(start = MediumConWat.h_default, nominal = MediumConWat.h_default)) if not isAirCoo
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-    h_outflow(start = MediumCHW.h_default, nominal = MediumCHW.h_default))
+    h_outflow(start = MediumChiWat.h_default, nominal = MediumChiWat.h_default))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumChiWat,
     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    h_outflow(start = MediumCHW.h_default, nominal = MediumCHW.h_default))
+    h_outflow(start = MediumChiWat.h_default, nominal = MediumChiWat.h_default))
     if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerSeries
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b2[nChi](
-    redeclare each final package Medium = MediumCHW,
+    redeclare each final package Medium = MediumChiWat,
     each m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    each h_outflow(start=MediumCHW.h_default, nominal=MediumCHW.h_default))
+    each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     if typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
     "Fluid connector b2 for multiple outlets (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-92,-32},{-108,32}}),

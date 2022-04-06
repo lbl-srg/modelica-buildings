@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_8
-  "Parallel Chillers with WSE, Primary-Secondary CHW, Variable CW, Headered Pumps"
+  "Parallel Chillers with Waterside Economizer, Primary-Secondary Chilled Water, Variable Condenser Water, Headered Pumps"
   //ToDo
   extends Buildings.Templates.ChilledWaterPlant.WaterCooled(
     final nCooTow=2,

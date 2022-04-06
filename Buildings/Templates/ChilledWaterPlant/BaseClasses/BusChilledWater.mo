@@ -10,7 +10,7 @@ expandable connector BusChilledWater
 
   Buildings.Templates.Components.Interfaces.Bus chi[nChi]
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valCHWChi[nChi]
+  Buildings.Templates.Components.Interfaces.Bus valChiWatChi[nChi]
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus wse
     annotation (HideResult=false);
@@ -27,7 +27,7 @@ expandable connector BusChilledWater
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus pumCon
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valCWChi[nChi]
+  Buildings.Templates.Components.Interfaces.Bus valConWatChi[nChi]
     annotation (HideResult=false);
 
   annotation (

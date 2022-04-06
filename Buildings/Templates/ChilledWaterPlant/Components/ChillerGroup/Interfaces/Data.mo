@@ -31,7 +31,7 @@ record Data "Data for chiller groups"
     each m2_flow_nominal = m2_flow_nominal / nChi)
     "Chiller data"
     annotation(Dialog(group = "Chiller"));
-  parameter Modelica.Units.SI.PressureDifference dpCHWValve_nominal=0
+  parameter Modelica.Units.SI.PressureDifference dpChiWatChiValve_nominal=0
     "Nominal pressure drop of chiller valves on chilled water side"
     annotation(Dialog(group = "Nominal condition", enable=is_series));
 

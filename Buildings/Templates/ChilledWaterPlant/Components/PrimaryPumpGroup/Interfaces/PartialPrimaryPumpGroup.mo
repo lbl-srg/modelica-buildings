@@ -34,7 +34,7 @@ partial model PartialPrimaryPumpGroup
 
   parameter Boolean have_parChi
     "= true if chillers in inlet are connected in parallel";
-  parameter Boolean have_chiByp = have_WSE
+  parameter Boolean have_chiByp = have_eco
     "= true if chilled water loop has a chiller bypass"
     annotation(Dialog(enable=is_series or not have_secondary));
   parameter Boolean have_floSen = true
@@ -47,12 +47,12 @@ partial model PartialPrimaryPumpGroup
 
   outer parameter Boolean have_secondary
     "= true if plant has secondary pumping";
-  outer parameter Boolean have_WSE
+  outer parameter Boolean have_eco
     "= true if plant has waterside economizer";
   outer parameter Boolean is_series
     "= true if chillers are in series";
 
-  parameter Boolean have_TPCHWSup = not have_secondary
+  parameter Boolean have_TChiWatPriSup = not have_secondary
     "= true if primary chilled water supply temperature is measured"
     annotation(Dialog(enable=have_secondary));
 

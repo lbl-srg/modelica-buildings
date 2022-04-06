@@ -3,7 +3,7 @@ model Dedicated
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup(
       final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserWaterPumpGroup.Dedicated,
-      final have_WSE = false,
+      final have_eco = false,
       final nPum=nChi);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum

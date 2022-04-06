@@ -1,14 +1,14 @@
 within Buildings.Templates.ChilledWaterPlant.Validation;
 model BaseChilledWaterPlant
   extends Modelica.Icons.Example;
-  replaceable package MediumCHW=Buildings.Media.Water
+  replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Chilled water medium";
 
   replaceable Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop chw(dat=dat)
     annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
   Fluid.Sources.Boundary_pT bou1(
-    redeclare final package Medium=MediumCHW,
+    redeclare final package Medium=MediumChiWat,
     nPorts=3)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 
@@ -16,10 +16,10 @@ model BaseChilledWaterPlant
     final typ=chw.typ,
     con(
       final typ = chw.con.typ,
-      final nSenDpCHWRem = chw.con.nSenDpCHWRem,
+      final nSenDpChiWatRem = chw.con.nSenDpChiWatRem,
       final nChi = chw.con.nChi,
-      final have_WSE = chw.con.have_WSE,
-      final have_senDpCHWLoc = chw.con.have_senDpCHWLoc,
+      final have_eco = chw.con.have_eco,
+      final have_sendpChiWatLoc = chw.con.have_sendpChiWatLoc,
       final have_fixSpeConWatPum = chw.con.have_fixSpeConWatPum,
       final have_ctrHeaPre = chw.con.have_ctrHeaPre),
     chiGro(
@@ -49,19 +49,19 @@ model BaseChilledWaterPlant
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res1(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumChiWat,
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   Buildings.Fluid.Sensors.Pressure pDem(
-    redeclare final package Medium=MediumCHW) "Demand side pressure"
+    redeclare final package Medium=MediumChiWat) "Demand side pressure"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   Buildings.Fluid.FixedResistances.PressureDrop res2(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumChiWat,
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{48,-30},{28,-10}})));

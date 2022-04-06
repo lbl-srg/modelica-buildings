@@ -18,7 +18,7 @@ partial model PartialCondenserWaterPumpGroup
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
 
-  parameter Boolean have_WSE "= true if pump supply waterside economizer";
+  parameter Boolean have_eco "= true if pump supply waterside economizer";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
@@ -48,7 +48,7 @@ partial model PartialCondenserWaterPumpGroup
   Modelica.Fluid.Interfaces.FluidPort_b port_wse(
     redeclare final package Medium = Medium,
     m_flow(min=0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_WSE
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_eco
     "Waterside economizer outlet"
     annotation (Placement(transformation(extent={{
             90,-70},{110,-50}})));

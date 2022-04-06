@@ -44,12 +44,12 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={68,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCHWChi[nChi](each
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatChi[nChi](each
       k=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCWWSE(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValConWatEco(k=1)
     if not isAirCoo
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -65,7 +65,7 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={148,110})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValCWChi[nChi](each k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValConWatChi[nChi](each k=true)
     if not isAirCoo
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -92,11 +92,11 @@ block OpenLoop "Open loop controller (output signals only)"
 
   // Vectorized sub-bus need to be declared, otherwise Modelica doesn't know
   // how to expand undeclared parameter in connect statement such as
-  // connect(busCon.valCHWChi.y, valCHWChi.y)
+  // connect(busCon.valChiWatChi.y, valChiWatChi.y)
 
   Buildings.Templates.Components.Interfaces.Bus chi[nChi]
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valCHWChi[nChi]
+  Buildings.Templates.Components.Interfaces.Bus valChiWatChi[nChi]
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus cooTow[nCooTow] if not isAirCoo
     annotation (HideResult=false);
@@ -104,7 +104,7 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus valCooTowOut[nCooTow] if not isAirCoo
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valCWChi[nChi] if not isAirCoo
+  Buildings.Templates.Components.Interfaces.Bus valConWatChi[nChi] if not isAirCoo
     annotation (HideResult=false);
 
 equation
@@ -115,12 +115,12 @@ equation
   for i in 1:nChi loop
     connect(chi[i].TSet, chiTSet[i].y);
     connect(chi[i].on, chiOn[i].y);
-    connect(valCHWChi[i].y, yValCHWChi[i].y);
-    connect(valCWChi[i].y, yValCWChi[i].y);
+    connect(valChiWatChi[i].y, yValChiWatChi[i].y);
+    connect(valConWatChi[i].y, yValConWatChi[i].y);
   end for;
   connect(busCon.chi, chi);
-  connect(busCon.valCHWChi, valCHWChi);
-  connect(busCon.valCWChi, valCWChi);
+  connect(busCon.valChiWatChi, valChiWatChi);
+  connect(busCon.valConWatChi, valConWatChi);
 
   connect(busCon.pumPri.y, yPumPri.y);
   connect(busCon.pumPri.ySpe, ySpePumPri.y);
@@ -139,10 +139,10 @@ equation
 
   connect(busCon.pumCon.y, yPumCon.y);
   connect(busCon.pumCon.ySpe, ySpePumCon.y);
-  connect(busCon.valCWWSE.y, yValCWWSE.y);
+  connect(busCon.valConWatEco.y, yValConWatEco.y);
 
   annotation (
-  defaultComponentName="conCHW",
+  defaultComponentName="conChiWat",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end OpenLoop;

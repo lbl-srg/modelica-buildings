@@ -1,6 +1,6 @@
 ﻿within Buildings.Templates.ChilledWaterPlant.Components.Controls;
 block Guideline36WaterCooled
-  "Guideline 36 controller for CHW plant with water-cooled chillers"
+  "Guideline 36 controller for Chilled Water plant with water-cooled chillers"
   extends Interfaces.PartialController(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Controller.Guideline36);
 
@@ -46,7 +46,7 @@ block Guideline36WaterCooled
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Integer totSta=6
-    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable"
+    "Total number of plant stages, including stage zero and the stages with a Waterside Economizer, if applicable"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{1,1}}
@@ -58,23 +58,23 @@ block Guideline36WaterCooled
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
-    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus Waterside Economizer"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desConWatPumSpe[totSta](
     final min=fill(0, totSta),
     final max=fill(1, totSta)) = {0,0.5,0.75,0.6,0.75,0.9}
-    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
+    "Design condenser water pump speed setpoints, according to current chiller stage and Waterside Economizer status"
     annotation (Dialog(tab="General", group="Staging configuration",
       enable=not isAirCoo));
 
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
-    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+    "Design number of condenser water pumps that should be ON, according to current chiller stage and Waterside Economizer status"
     annotation (Dialog(tab="General", group="Staging configuration",
       enable=not isAirCoo));
 
   parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
-    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
+    "Design number of tower fan cells that should be ON, according to current chiller stage and Waterside Economizer status"
     annotation(Dialog(tab="General", group="Staging configuration",
       enable=not isAirCoo));
 
@@ -98,13 +98,13 @@ block Guideline36WaterCooled
   Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
   and accessed with inner/outer reference.
   */
-  parameter Modelica.Units.SI.Temperature dTAppWSE_nominal(displayUnit="K", final min=0)=2
+  parameter Modelica.Units.SI.Temperature dTAppEco_nominal(displayUnit="K", final min=0)=2
     "Design heat exchanger approach"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_eco));
 
   parameter Real VHeaExcDes_flow(unit="m3/s")=0.015
     "Desing heat exchanger chilled water volume flow rate"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_eco));
 
   parameter Integer nPum_nominal(final max=nPumPri, final min=1) = nPumPri
     "Total number of pumps that operate at design conditions"
@@ -157,19 +157,19 @@ block Guideline36WaterCooled
     final chiTyp=chiTyp,
     final chiDesCap=capChi_nominal,
     final chiMinCap=capChi_min,
-    final TChiWatSupMin=fill(TCHWSup_nominal, nChi),
+    final TChiWatSupMin=fill(TChiWatSup_nominal, nChi),
     final minChiLif=dat.dTLif_min,
     final have_heaPreConSig=have_ctrHeaPre,
     final anyVsdCen=anyVsdCen,
-    final have_WSE=have_WSE,
-    final heaExcAppDes=dTAppWSE_nominal,
+    final have_eco=have_eco,
+    final heaExcAppDes=dTAppEco_nominal,
     final nChiWatPum=nPumPri,
-    final have_heaChiWatPum=not have_CHWDedPum,
-    final have_locSenChiWatPum=have_senDpCHWLoc,
-    final nSenChiWatPum=nSenDpCHWRem,
+    final have_heaChiWatPum=not have_dedChiWatPum,
+    final have_locSenChiWatPum=have_sendpChiWatLoc,
+    final nSenChiWatPum=nSenDpChiWatRem,
     final nConWatPum=nPumCon,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
-    final have_heaConWatPum=not have_CWDedPum,
+    final have_heaConWatPum=not have_dedConWatPum,
     final nSta=nSta,
     final totSta=totSta,
     final staMat=staMat,
@@ -184,15 +184,15 @@ block Guideline36WaterCooled
     final TChiLocOut=dat.TAirOutLoc,
     final TOutWetDes=cooTowGro.TAirInWB_nominal,
     final VHeaExcDes_flow=VHeaExcDes_flow,
-    final minConWatPumSpe=dat.yPumCW_min,
+    final minConWatPumSpe=dat.yPumConWat_min,
     final minHeaPreValPos=dat.yValIsoCon_min,
-    final minFloSet=dat.mCHWChi_flow_min/1000,
-    final maxFloSet=mCHWChi_flow_nominal/1000,
-    final minChiWatPumSpe=dat.yPumCHW_min,
+    final minFloSet=dat.mChiWatChi_flow_min/1000,
+    final maxFloSet=mChiWatChi_flow_nominal/1000,
+    final minChiWatPumSpe=dat.yPumChiWat_min,
     final nPum_nominal=nPum_nominal,
-    final VChiWat_flow_nominal=mCHWPri_flow_nominal/1000,
-    final maxLocDp=dat.dpCHWLoc_max,
-    final dpChiWatPumMax=dat.dpCHWRem_max,
+    final VChiWat_flow_nominal=mChiWatPri_flow_nominal/1000,
+    final maxLocDp=dat.dpChiWatLoc_max,
+    final dpChiWatPumMax=dat.dpChiWatRem_max,
     final posDisMult=posDisMult,
     final conSpeCenMult=conSpeCenMult,
     final anyOutOfScoMult=anyOutOfScoMult,
@@ -201,16 +201,16 @@ block Guideline36WaterCooled
     final chiDemRedFac=chiDemRedFac,
     final fanSpeMin=dat.yFanTow_min,
     final LIFT_min=fill(dat.dTLif_min, nChi),
-    final TConWatSup_nominal=fill(dat.TCWSup_nominal, nChi),
-    final TConWatRet_nominal=fill(dat.TCWRet_nominal, nChi),
+    final TConWatSup_nominal=fill(dat.TConWatSup_nominal, nChi),
+    final TConWatRet_nominal=fill(dat.TConWatRet_nominal, nChi),
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
-  "CHW plant controller"
+  "Chilled water plant controller"
   annotation (Placement(transformation(extent={{0,-40},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiConIsoVal[nChi](
       each k=true)
-    "CH CW and CHW isolation valve open end switch status only used for FD + Should be DI or AI"
+    "Chiller condenser and chilled water isolation valve open end switch status only used for FD + Should be DI or AI"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiWatReq[nChi](
       each k=true)
@@ -274,34 +274,34 @@ block Guideline36WaterCooled
     "Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMax(
-    k=dat.TCWRet_nominal - TCHWSup_nominal)
+    k=dat.TConWatRet_nominal - TChiWatSup_nominal)
     "Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   /* Control point connection - start */
 
   connect(busCon.pumPri.uStaPumPri, ctrPla.uChiWatPum);
-  connect(busCon.dpCHWLoc, ctrPla.dpChiWat_local);
-  connect(busCon.dpCHWRem, ctrPla.dpChiWat_remote);
+  connect(busCon.dpChiWatLoc, ctrPla.dpChiWat_local);
+  connect(busCon.dpChiWatRem, ctrPla.dpChiWat_remote);
   connect(busCon.pumPri.V_flow, ctrPla.VChiWat_flow);
   connect(busCon.chi.sta, ctrPla.uChi);
   // FIXME: should be computed by controller.
   connect(busCon.TWetAirOut, ctrPla.TOutWet);
-  connect(busCon.wse.TCHWRetLvgWSE, ctrPla.TChiWatRetDow);
-  // FIXME: ctrPla.TChiWatRet should be conditional to have_WSE.
-  // Another input is required for Plant CHW return temperature.
-  if have_WSE then
-    connect(busCon.wse.TCHWRetEntWSE, ctrPla.TChiWatRet);
+  connect(busCon.wse.TChiWatEcoLvg, ctrPla.TChiWatRetDow);
+  // FIXME: ctrPla.TChiWatRet should be conditional to have_eco.
+  // Another input is required for Plant Chilled Water return temperature.
+  if have_eco then
+    connect(busCon.wse.TChiWatEcoEnt, ctrPla.TChiWatRet);
   else
-    connect(busCon.TCHWRetPla, ctrPla.TChiWatRet);
+    connect(busCon.TChiWatRetPla, ctrPla.TChiWatRet);
   end if;
-  connect(busCon.TCWRet, ctrPla.TConWatRet);
-  // FIXME: busCon.pumPri.TPCHWSup should be renamed.
-  connect(busCon.pumPri.TPCHWSup, ctrPla.TChiWatSup);
-  // FIXME: Rename uStaPumPri as "Pri" does not apply to CW pumps.
+  connect(busCon.TConWatRet, ctrPla.TConWatRet);
+  // FIXME: busCon.pumPri.TChiWatPriSup should be renamed.
+  connect(busCon.pumPri.TChiWatPriSup, ctrPla.TChiWatSup);
+  // FIXME: Rename uStaPumPri as "Pri" does not apply to condenser water pumps.
   connect(busCon.uStaPumPri, ctrPla.uConWatPum);
   connect(busCon.TAirOut, ctrPla.TOut);
-  connect(busCon.TCWSup, ctrPla.TConWatSup);
+  connect(busCon.TConWatSup, ctrPla.TConWatSup);
 
   connect(FIXME_uChiWatReq.y, ctrPla.uChiWatReq);
   connect(FIXME_uHeaPreCon.y, ctrPla.uHeaPreCon);
@@ -325,7 +325,7 @@ equation
   // Same holds for the control block.
   connect(ctrPla.yChiPumSpe, busCon.pumPri.ySpe);
 
-  // FIXME: System model does not have a variable for the CHW pump on/off command.
+  // FIXME: System model does not have a variable for the chilled water pump on/off command.
   // connect(ctrPla.yChiWatPum, busCon.pumPri.y);
 
   // FIXME: Incorrect quantity, should have unit="1".
@@ -337,7 +337,7 @@ equation
   // connect(ctrPla.yHeaPreConValSta, busCon.yHeaPreConValSta);
 
   // FIXME: Missing configurations in controller and system model.
-  connect(FIXME_yHeaPreConVal.y, busCon.valCWChi.y);
+  connect(FIXME_yHeaPreConVal.y, busCon.valConWatChi.y);
 
   // FIXME: Missing configurations in controller and system model.
   // For instance "a single common speed point is appropriate".
@@ -346,11 +346,11 @@ equation
   // FIXME: This is not an output per §4. LIST OF POINTS. Should be deleted.
   // connect(ctrPla.yChiWatMinFloSet, busCon.yChiWatMinFloSet);
 
-  // FIXME: No on/off command for CW pumps in systme model.
+  // FIXME: No on/off command for condenser water pumps in systme model.
   // connect(ctrPla.yConWatPum, busCon.y);
 
   // FIXME: Only modulating valve supported by controller.
-  connect(ctrPla.yChiWatIsoVal, busCon.valCHWChi.y);
+  connect(ctrPla.yChiWatIsoVal, busCon.valChiWatChi.y);
 
   // FIXME: Controller output does not exist in real life.
   // connect(ctrPla.yReaChiDemLim, busCon.yReaChiDemLim);

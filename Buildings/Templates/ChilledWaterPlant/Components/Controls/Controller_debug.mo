@@ -63,7 +63,7 @@ block Controller_debug "Chiller plant controller"
 
   // ---- General: Waterside economizer ----
 
-  parameter Boolean have_WSE=true
+  parameter Boolean have_eco=true
     "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
     annotation (Dialog(tab="General", group="Waterside economizer"));
 
@@ -71,7 +71,7 @@ block Controller_debug "Chiller plant controller"
     unit="K",
     displayUnit="K")=2
     "Design heat exchanger approach"
-    annotation(Evaluate=true, Dialog(tab="General", group="Waterside economizer", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="General", group="Waterside economizer", enable=have_eco));
 
   // ----- General: Chilled water pump ---
 
@@ -99,11 +99,11 @@ block Controller_debug "Chiller plant controller"
 
   parameter Boolean have_fixSpeConWatPum = false
     "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
-    annotation(Dialog(tab="General", group="Condenser water pump", enable=not have_WSE));
+    annotation(Dialog(tab="General", group="Condenser water pump", enable=not have_eco));
 
   parameter Real fixConWatPumSpe = 0.9
     "Fixed speed of the constant speed condenser water pump"
-    annotation(Dialog(tab="General", group="Condenser water pump", enable=not have_WSE and have_fixSpeConWatPum));
+    annotation(Dialog(tab="General", group="Condenser water pump", enable=not have_eco and have_fixSpeConWatPum));
 
   parameter Boolean have_heaConWatPum=true
     "True: headered condenser water pumps"
@@ -116,7 +116,7 @@ block Controller_debug "Chiller plant controller"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Integer totSta=6
-    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable"
+    "Total number of plant stages, including stage zero and the stages with a Waterside Economizer, if applicable"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{1,1}}
@@ -128,21 +128,21 @@ block Controller_debug "Chiller plant controller"
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
-    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus Waterside Economizer"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desConWatPumSpe[totSta](
     final min=fill(0, totSta),
     final max=fill(1, totSta))={0,0.5,0.75,0.6,0.75,0.9}
-    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
+    "Design condenser water pump speed setpoints, according to current chiller stage and Waterside Economizer status"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
-    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+    "Design number of condenser water pumps that should be ON, according to current chiller stage and Waterside Economizer status"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
-    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
+    "Design number of tower fan cells that should be ON, according to current chiller stage and Waterside Economizer status"
     annotation(Dialog(tab="General", group="Staging configuration"));
 
   // ---- General: Cooling tower ----
@@ -184,51 +184,51 @@ block Controller_debug "Chiller plant controller"
   // ---- Waterside economizer ----
 
   parameter Real holdPeriod(unit="s")=1200
-    "WSE minimum on or off time"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    "Waterside Economizer minimum on or off time"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_eco));
 
   parameter Real delDis(unit="s")=120
     "Delay disable time period"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_eco));
 
   parameter Real TOffsetEna(unit="K")=2
-    "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    "Temperature offset between the chilled water return upstream of Waterside Economizer and the predicted Waterside Economizer output"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_eco));
 
   parameter Real TOffsetDis(unit="K")=1
-    "Temperature offset between the chilled water return upstream and downstream WSE"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    "Temperature offset between the chilled water return upstream and downstream Waterside Economizer"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_eco));
 
   parameter Real TOutWetDes(
     unit="K",
     displayUnit="degC")=288.15
     "Design outdoor air wet bulb temperature"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_eco));
 
   parameter Real VHeaExcDes_flow(unit="m3/s")=0.015
     "Desing heat exchanger chilled water volume flow rate"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_eco));
 
   parameter Real step=0.02 "Tuning step"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_eco));
 
   parameter Real wseOnTimDec(unit="s")=3600
     "Economizer enable time needed to allow decrease of the tuning parameter"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_eco));
 
   parameter Real wseOnTimInc(unit="s")=1800
     "Economizer enable time needed to allow increase of the tuning parameter"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_eco));
 
   // ---- Head pressure ----
 
   parameter Real minConWatPumSpe(unit="1")=0.1
     "Minimum condenser water pump speed"
-    annotation(Dialog(enable= not ((not have_WSE) and have_fixSpeConWatPum), tab="Head pressure", group="Limits"));
+    annotation(Dialog(enable= not ((not have_eco) and have_fixSpeConWatPum), tab="Head pressure", group="Limits"));
 
   parameter Real minHeaPreValPos(unit="1")=0.1
     "Minimum head pressure control valve position"
-    annotation(Dialog(enable= (not ((not have_WSE) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
+    annotation(Dialog(enable= (not ((not have_eco) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaPre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -412,11 +412,11 @@ block Controller_debug "Chiller plant controller"
 
   parameter Real shortTDelay(unit="s")=600
     "Short enable delay for staging from zero to first available stage up"
-    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Staging", group="Hold and delay"));
+    annotation(Evaluate=true, Dialog(enable=have_eco, tab="Staging", group="Hold and delay"));
 
   parameter Real longTDelay(unit="s")=1200
     "Long enable delay for staging from zero to first available stage up"
-    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Staging", group="Hold and delay"));
+    annotation(Evaluate=true, Dialog(enable=have_eco, tab="Staging", group="Hold and delay"));
 
   parameter Real posDisMult(unit="1")=0.8
     "Positive displacement chiller type staging multiplier"
@@ -440,11 +440,11 @@ block Controller_debug "Chiller plant controller"
 
   parameter Real smallTDif(unit="K")=1
     "Offset between the chilled water supply temperature and its setpoint for the long condition"
-    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Staging", group="Value comparison"));
+    annotation(Evaluate=true, Dialog(enable=have_eco, tab="Staging", group="Value comparison"));
 
   parameter Real largeTDif(unit="K")=2
     "Offset between the chilled water supply temperature and its setpoint for the short condition"
-    annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Staging", group="Value comparison"));
+    annotation(Evaluate=true, Dialog(enable=have_eco, tab="Staging", group="Value comparison"));
 
   parameter Real faiSafTDif(unit="K")=1
     "Offset between the chilled water supply temperature and its setpoint for the failsafe condition"
@@ -457,7 +457,7 @@ block Controller_debug "Chiller plant controller"
     annotation (Dialog(tab="Staging", group="Value comparison"));
 
   parameter Real TDif(unit="K")=1
-    "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
+    "Offset between the chilled water supply temperature and its setpoint for staging down to Waterside Economizer only"
     annotation (Dialog(tab="Staging", group="Value comparison"));
 
   parameter Real faiSafDpDif(
@@ -514,47 +514,47 @@ block Controller_debug "Chiller plant controller"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Controller in the mode when WSE and chillers are enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE));
+    "Controller in the mode when Waterside Economizer and chillers are enabled"
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled",
+                       enable=have_eco));
 
   parameter Real kIntOpeTowFan=1 "Gain of controller"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE));
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled",
+                       enable=have_eco));
 
   parameter Real TiIntOpeTowFan(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled",
+                       enable=have_eco and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                             intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   parameter Real TdIntOpeTowFan(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled",
+                       enable=have_eco and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                            intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatConTowFan=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Controller in the mode when only WSE is enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled", enable=have_WSE));
+    "Controller in the mode when only Waterside Economizer is enabled"
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled", enable=have_eco));
 
-  parameter Real kWSETowFan=1 "Gain of controller"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled", enable=have_WSE));
+  parameter Real kEcoTowFan=1 "Gain of controller"
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled", enable=have_eco));
 
-  parameter Real TiWSETowFan(unit="s")=0.5
+  parameter Real TiEcoTowFan(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                        enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled",
+                        enable=have_eco and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                              chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  parameter Real TdWSETowFan(unit="s")=0.1
+  parameter Real TdEcoTowFan(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with Waterside Economizer enabled",
+                       enable=have_eco and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  // Fan speed control: controlling condenser return water temperature when WSE is not enabled
+  // Fan speed control: controlling condenser return water temperature when Waterside Economizer is not enabled
   parameter Real LIFT_min[nChi](unit="K")={12,12}
     "Minimum LIFT of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
@@ -751,7 +751,7 @@ block Controller_debug "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_WSE
+    final quantity="ThermodynamicTemperature") if have_eco
     "Outdoor air wet bulb temperature"
     annotation(Placement(transformation(extent={{-840,340},{-800,380}}),
       iconTransformation(extent={{-140,90},{-100,130}})));
@@ -759,8 +759,8 @@ block Controller_debug "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_WSE
-    "Chiller water return temperature downstream of the WSE"
+    final quantity="ThermodynamicTemperature") if have_eco
+    "Chiller water return temperature downstream of the Waterside Economizer"
     annotation(Placement(transformation(extent={{-840,300},{-800,340}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
 
@@ -768,7 +768,7 @@ block Controller_debug "Chiller plant controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature upstream of the WSE"
+    "Chiller water return temperature upstream of the Waterside Economizer"
     annotation(Placement(transformation(extent={{-840,260},{-800,300}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
 
@@ -850,7 +850,7 @@ block Controller_debug "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCooLoa[nChi](
     final quantity=fill("HeatFlowRate",nChi),
-    final unit=fill("W", nChi)) if have_WSE
+    final unit=fill("W", nChi)) if have_eco
     "Current chiller cooling load"
     annotation (Placement(transformation(extent={{-840,-560},{-800,-520}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -1019,12 +1019,12 @@ block Controller_debug "Chiller plant controller"
     final hysDt=hysDt,
     final step=step,
     final wseOnTimDec=wseOnTimDec,
-    final wseOnTimInc=wseOnTimInc) if have_WSE
-    "Waterside economizer (WSE) enable/disable status"
+    final wseOnTimInc=wseOnTimInc) if have_eco
+    "Waterside economizer (Waterside Economizer) enable/disable status"
     annotation(Placement(transformation(extent={{-600,300},{-560,340}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable plaEna(
-    final have_WSE=have_WSE,
+    final have_eco=have_eco,
     final schTab=schTab,
     final TChiLocOut=TChiLocOut,
     final plaThrTim=plaThrTim,
@@ -1038,7 +1038,7 @@ block Controller_debug "Chiller plant controller"
     heaPreCon[nChi](
     final have_fixSpeConWatPum=fill(have_fixSpeConWatPum, nChi),
     final have_heaPreConSig=fill(have_heaPreConSig, nChi),
-    final have_WSE=fill(have_WSE, nChi),
+    final have_eco=fill(have_eco, nChi),
     final minTowSpe=fill(fanSpeMin, nChi),
     final minConWatPumSpe=fill(minConWatPumSpe, nChi),
     final minHeaPreValPos=fill(minHeaPreValPos, nChi),
@@ -1106,7 +1106,7 @@ block Controller_debug "Chiller plant controller"
     annotation(Placement(transformation(extent={{-420,420},{-380,460}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon(
-    final have_WSE=have_WSE,
+    final have_eco=have_eco,
     final have_serChi=have_serChi,
     final have_locSen=have_locSenChiWatPum,
     final nRemSen=nSenChiWatPum,
@@ -1147,7 +1147,7 @@ block Controller_debug "Chiller plant controller"
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
     final closeCoupledPlant=closeCoupledPlant,
-    final have_WSE=have_WSE,
+    final have_eco=have_eco,
     final desCap=desCap,
     final fanSpeMin=fanSpeMin,
     final fanSpeMax=fanSpeMax,
@@ -1157,9 +1157,9 @@ block Controller_debug "Chiller plant controller"
     final TiIntOpe=TiIntOpeTowFan,
     final TdIntOpe=TdIntOpeTowFan,
     final chiWatCon=chiWatConTowFan,
-    final kWSE=kWSETowFan,
-    final TiWSE=TiWSETowFan,
-    final TdWSE=TdWSETowFan,
+    final kEco=kEcoTowFan,
+    final TiEco=TiEcoTowFan,
+    final TdEco=TdEcoTowFan,
     final LIFT_min=LIFT_min,
     final TConWatSup_nominal=TConWatSup_nominal,
     final TConWatRet_nominal=TConWatRet_nominal,
@@ -1196,7 +1196,7 @@ block Controller_debug "Chiller plant controller"
     final nConWatPum=nConWatPum,
     final totSta=totSta,
     final nChiSta=nSta + 1,
-    final have_WSE=have_WSE,
+    final have_eco=have_eco,
     final have_ponyChiller=have_ponyChiller,
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
@@ -1225,7 +1225,7 @@ block Controller_debug "Chiller plant controller"
     final nConWatPum=nConWatPum,
     final totSta=totSta,
     final nChiSta=nSta + 1,
-    final have_WSE=have_WSE,
+    final have_eco=have_eco,
     final have_ponyChiller=have_ponyChiller,
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
@@ -1251,7 +1251,7 @@ block Controller_debug "Chiller plant controller"
     annotation(Placement(transformation(extent={{280,280},{360,440}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
-    final nin=nTowCel) if have_WSE
+    final nin=nTowCel) if have_eco
     "All input values are the same"
     annotation(Placement(transformation(extent={{40,-562},{60,-542}})));
 
@@ -1286,7 +1286,7 @@ block Controller_debug "Chiller plant controller"
     annotation (Placement(transformation(extent={{580,-130},{600,-110}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=nChi) if have_WSE
+    final nout=nChi) if have_eco
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-480,290},{-460,310}})));
 
@@ -1464,7 +1464,7 @@ block Controller_debug "Chiller plant controller"
     annotation (Placement(transformation(extent={{760,230},{780,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpeVal[nChi](
     final k=fill(1, nChi))
-    if not have_WSE and not have_fixSpeConWatPum
+    if not have_eco and not have_fixSpeConWatPum
     "Full open head pressure control valve"
     annotation (Placement(transformation(extent={{340,180},{360,200}})));
 
@@ -1578,9 +1578,9 @@ equation
           {0,0,127}));
   connect(uChi, upProCon.uChi) annotation(Line(points={{-820,400},{272,400}},
                           color={255,0,255}));
-  connect(wseSta.y, upProCon.uWSE) annotation(Line(points={{-556,336},{-530,336},
+  connect(wseSta.y, upProCon.uEco) annotation(Line(points={{-556,336},{-530,336},
           {-530,340},{272,340}}, color={255,0,255}));
-  connect(wseSta.y, dowProCon.uWSE) annotation(Line(points={{-556,336},{-530,336},
+  connect(wseSta.y, dowProCon.uEco) annotation(Line(points={{-556,336},{-530,336},
           {-530,-272},{272,-272}},     color={255,0,255}));
   connect(dowProCon.VChiWat_flow, VChiWat_flow) annotation(Line(points={{272,-192},
           {-780,-192},{-780,440},{-820,440}},color={0,0,127}));
@@ -1666,7 +1666,7 @@ equation
                                                 color={0,0,127}));
   connect(wseSta.y, booRep.u) annotation (Line(points={{-556,336},{-530,336},{-530,
           300},{-482,300}},      color={255,0,255}));
-  connect(booRep.y, heaPreCon.uWSE) annotation (Line(points={{-458,300},{-450,
+  connect(booRep.y, heaPreCon.uEco) annotation (Line(points={{-458,300},{-450,
           300},{-450,188},{-424,188}}, color={255,0,255}));
   connect(TConWatRet, conWatRetTem.u) annotation (Line(points={{-820,240},{-642,
           240}},                       color={0,0,127}));
@@ -1971,12 +1971,12 @@ annotation (
           extent={{-100,116},{-68,106}},
           lineColor={0,0,127},
           textString="TOutWet",
-          visible=have_WSE),
+          visible=have_eco),
         Text(
           extent={{-98,98},{-50,84}},
           lineColor={0,0,125},
           textString="TChiWatRetDow",
-          visible=have_WSE),
+          visible=have_eco),
         Text(
           extent={{-100,76},{-60,66}},
           lineColor={0,0,127},
@@ -2027,7 +2027,7 @@ annotation (
           extent={{-98,-182},{-50,-196}},
           lineColor={0,0,127},
           textString="uChiCooLoa",
-          visible=have_WSE),
+          visible=have_eco),
         Text(
           extent={{-96,-204},{-64,-216}},
           lineColor={0,0,127},

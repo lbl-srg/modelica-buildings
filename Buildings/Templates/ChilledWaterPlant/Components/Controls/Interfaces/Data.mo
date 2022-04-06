@@ -7,20 +7,20 @@ record Data
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nSenDpCHWRem = 1
-    "Number of remote CHW differential pressure sensors"
+  parameter Integer nSenDpChiWatRem = 1
+    "Number of remote chilled water differential pressure sensors"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nChi
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_WSE=false
-    "Set to true if the plant has a WSE"
+  parameter Boolean have_eco=false
+    "Set to true if the plant has a Waterside Economizer"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_senDpCHWLoc = false
+  parameter Boolean have_sendpChiWatLoc = false
     "Set to true if there is a local DP sensor hardwired to the plant controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_fixSpeConWatPum = false
-    "Set to true if the plant has fixed speed CW pumps. (Must be false if the plant has WSE.)"
+    "Set to true if the plant has fixed speed condenser water pumps. (Must be false if the plant has Waterside Economizer.)"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean isAirCoo=false
     "= true, chillers in group are air cooled, 
@@ -35,15 +35,15 @@ record Data
   parameter Modelica.Units.SI.Temperature TAirOutLoc(displayUnit="degC")
     "Outdoor air lockout temperature below which the chiller plant should be disabled"
     annotation(Dialog(tab="Plant enable"));
-  parameter Modelica.Units.SI.PressureDifference dpCHWLoc_max(displayUnit="Pa")
-    "Maximum CHW differential pressure setpoint - Local sensors"
-    annotation (Dialog(tab="Chilled water pumps", enable=have_senDpCHWLoc));
-  parameter Modelica.Units.SI.PressureDifference dpCHWRem_max[nSenDpCHWRem](each displayUnit="Pa")
-    "Maximum CHW differential pressure setpoint - Remote sensors"
+  parameter Modelica.Units.SI.PressureDifference dpChiWatLoc_max(displayUnit="Pa")
+    "Maximum chilled water differential pressure setpoint - Local sensors"
+    annotation (Dialog(tab="Chilled water pumps", enable=have_sendpChiWatLoc));
+  parameter Modelica.Units.SI.PressureDifference dpChiWatRem_max[nSenDpChiWatRem](each displayUnit="Pa")
+    "Maximum chilled water differential pressure setpoint - Remote sensors"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Modelica.Units.SI.MassFlowRate mCHWChi_flow_min[nChi]
-    "Minimum chiller CHW mass flow rate (for each chiller)"
+  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min[nChi]
+    "Minimum chiller chilled water mass flow rate (for each chiller)"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
   // Guideline36
@@ -57,18 +57,18 @@ record Data
 
   // ---- Head pressure ----
 
-  parameter Real yPumCW_min(final unit="1", final min=0, final max=1)
-    "Minimum CW pump speed ratio"
-    annotation(Dialog(enable= not ((not have_WSE) and have_fixSpeConWatPum), tab="Head pressure", group="Limits"));
+  parameter Real yPumConWat_min(final unit="1", final min=0, final max=1)
+    "Minimum condenser water pump speed ratio"
+    annotation(Dialog(enable= not ((not have_eco) and have_fixSpeConWatPum), tab="Head pressure", group="Limits"));
 
   parameter Real yValIsoCon_min(final unit="1", final min=0, final max=1)
     "Minimum head pressure control valve opening ratio"
-    annotation(Dialog(enable= (not ((not have_WSE) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
+    annotation(Dialog(enable= (not ((not have_eco) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
 
   // ---- Chilled water pumps ----
 
-  parameter Real yPumCHW_min(final unit="1", final min=0, final max=1)
-    "Minimum CHW pump speed ratio"
+  parameter Real yPumChiWat_min(final unit="1", final min=0, final max=1)
+    "Minimum chilled water pump speed ratio"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
   // ---- Cooling tower: fan speed ----
@@ -77,15 +77,15 @@ record Data
     "Minimum cooling tower fan speed ratio"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
 
-  // Fan speed control: controlling condenser return water temperature when WSE is not enabled
+  // Fan speed control: controlling condenser return water temperature when Waterside Economizer is not enabled
 
   // FIXME: Those parameters should be computed in Buildings.Templates.ChilledWaterPlant.BaseClasses.WaterCooled
-  parameter Modelica.Units.SI.Temperature  TCWSup_nominal(displayUnit="degC")=273.15
-    "CW supply temperature of each chiller (identical for all chillers)"
+  parameter Modelica.Units.SI.Temperature  TConWatSup_nominal(displayUnit="degC")=273.15
+    "Condenser Water supply temperature of each chiller (identical for all chillers)"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
-  parameter Real TCWRet_nominal(displayUnit="degC")=273.15
-    "CW return temperature of each chiller (identical for all chillers)"
+  parameter Real TConWatRet_nominal(displayUnit="degC")=273.15
+    "Condenser Water return temperature of each chiller (identical for all chillers)"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
 end Data;

@@ -3,14 +3,14 @@ record UserData
   extends Buildings.Templates.ChilledWaterPlant.Interfaces.Data(
     mCon_flow_nominal=34,
     dpDem_nominal(displayUnit="Pa") = 68900,
-    mCHWPri_flow_nominal=18,
+    mChiWatPri_flow_nominal=18,
     con(
       TAirOutLoc(displayUnit="K") = 289.15,
-      dpCHWRem_max={10000},
-      mCHWChi_flow_min={0.3,0.3},
+      dpChiWatRem_max={10000},
+      mChiWatChi_flow_min={0.3,0.3},
       dTLif_min=10,
-      yPumCW_min=0.1,
-      yPumCHW_min=0.1,
+      yPumConWat_min=0.1,
+      yPumChiWat_min=0.1,
       yFanTow_min=0),
     cooTowGro(
       cooTow={
@@ -28,9 +28,9 @@ record UserData
           PFan_nominal=5000)},
       dpValInl_nominal(displayUnit="Pa") = {6000,6000},
       dpValOut_nominal(displayUnit="Pa") = {0, 0}),
-    pumCon(dpCWValve_nominal(displayUnit="Pa") = 6000),
+    pumCon(dpConWatChiValve_nominal(displayUnit="Pa") = 6000),
     pumPri(
-      dpCHWValve_nominal(displayUnit="Pa") = 6000,
+      dpChiWatChiValve_nominal(displayUnit="Pa") = 6000,
       dpByp_nominal(displayUnit="Pa") = 6000,
       dpChiByp_nominal(displayUnit="Pa") = 6000),
     chiGro(
@@ -42,7 +42,7 @@ record UserData
           dp1_nominal=44800,
           dp2_nominal=46200,
           Q_flow_nominal=-50000,
-          TCHWSup_nominal=280.15,
+          TChiWatSup_nominal=280.15,
           per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes),
         Buildings.Templates.ChilledWaterPlant.Components.Chiller.Interfaces.Data(
           isAirCoo=false,
@@ -51,9 +51,9 @@ record UserData
           dp1_nominal=44800,
           dp2_nominal=46200,
           Q_flow_nominal=-50000,
-          TCHWSup_nominal=280.15,
+          TChiWatSup_nominal=280.15,
           per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes)},
-      dpCHWValve_nominal(displayUnit="Pa") = 6000));
+      dpChiWatChiValve_nominal(displayUnit="Pa") = 6000));
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

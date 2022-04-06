@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_7
-  "Parallel Chillers, Primary-secondary CHW, Constant CW, Headered Pumps"
+  "Parallel Chillers, Primary-secondary Chilled Water, Constant Condenser Water, Headered Pumps"
   extends Buildings.Templates.ChilledWaterPlant.WaterCooled(
     final nCooTow=2,
     redeclare

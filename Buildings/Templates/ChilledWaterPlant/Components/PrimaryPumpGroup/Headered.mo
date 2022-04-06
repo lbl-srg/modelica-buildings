@@ -44,7 +44,7 @@ model Headered
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-60})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VCHWSup_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatPriSup_flow(
     redeclare final package Medium = Medium,
     final have_sen=have_supFloSen,
     final m_flow_nominal=dat.m_flow_nominal,
@@ -66,26 +66,26 @@ model Headered
     if have_decoupler
     "Decoupler volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Templates.Components.Sensors.Temperature TPCHWSup(
+  Buildings.Templates.Components.Sensors.Temperature TChiWatPriSup(
     redeclare final package Medium = Medium,
-    final have_sen=have_TPCHWSup,
+    final have_sen=have_TChiWatPriSup,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final m_flow_nominal=dat.m_flow_nominal)
     "Primary chilled water supply temperature"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valCHWChi[nChi]
+  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChi[nChi]
     if have_parChi
     constrainedby Buildings.Templates.Components.Valves.TwoWayModulating(
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=dat.pum.m_flow_nominal,
-    each final dpValve_nominal=dat.dpCHWValve_nominal)
+    each final dpValve_nominal=dat.dpChiWatChiValve_nominal)
     "Chiller chilled water-side isolation valves"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=0,origin={-80,0})));
 protected
-  parameter Integer nPorWSE = if have_chiByp then 1 else 0;
+  parameter Integer nPorEco = if have_chiByp then 1 else 0;
   parameter Integer nPorChi = if have_parChi then nChi else 1;
-  parameter Integer nPorVol = nPorWSE + nPorChi + 1;
+  parameter Integer nPorVol = nPorEco + nPorChi + 1;
 equation
   /* Control point connection - start */
   connect(valChiByp.bus, busCon.valChiByp);
@@ -100,9 +100,9 @@ equation
     annotation (Line(points={{0,-60},{0,-100}}, color={0,127,255}));
   connect(port_ChiByp, valChiByp.port_a)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
-  connect(VCHWSup_flow.port_b, splByp.port_1)
+  connect(VChiWatPriSup_flow.port_b, splByp.port_1)
     annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
-  connect(VCHWSup_flow.y, busCon.VPCHW_flow) annotation (Line(points={{50,12},{
+  connect(VChiWatPriSup_flow.y, busCon.VChiWatPriSup_flow) annotation (Line(points={{50,12},{
           50,80},{0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -120,11 +120,11 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pum.port_b, TPCHWSup.port_a)
+  connect(pum.port_b, TChiWatPriSup.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
-  connect(TPCHWSup.port_b, VCHWSup_flow.port_a)
+  connect(TChiWatPriSup.port_b, VChiWatPriSup_flow.port_a)
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
-  connect(TPCHWSup.y, busCon.TPCHWSup) annotation (Line(points={{10,12},{10,80},
+  connect(TChiWatPriSup.y, busCon.TChiWatPriSup) annotation (Line(points={{10,12},{10,80},
           {0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -154,17 +154,17 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(ports_parallel, valCHWChi.port_b)
+  connect(ports_parallel, valChiWatChi.port_b)
     annotation (Line(points={{-100,0},{-90,0}},                         color={0,127,255}));
   connect(del.ports[1],pum.port_a)
     annotation (Line(points={{-60,40},{-60,0},{-40,0}}, color={0,127,255}));
   connect(del.ports[2],port_series)
     annotation (Line(points={{-60,40},{-60,40},{-60,28},{-86,28},{-86,60},{-100,60}}, color={0,127,255}));
-  connect(del.ports[2:nChi+1], valCHWChi.port_a)
+  connect(del.ports[2:nChi+1], valChiWatChi.port_a)
     annotation (Line(points={{-60,40},{-60,0},{-70,0}}, color={0,127,255}));
   connect(del.ports[nPorVol], valChiByp.port_b)
     annotation (Line(points={{-60,40},{-60,-60},{-70,-60}}, color={0,127,255}));
-  connect(valCHWChi.bus, busCon.valCHWChi) annotation (Line(
+  connect(valChiWatChi.bus, busCon.valChiWatChi) annotation (Line(
       points={{-80,10},{-80,80},{0.1,80},{0.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(

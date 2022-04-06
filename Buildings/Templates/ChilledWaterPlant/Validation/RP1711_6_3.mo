@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Validation;
 model RP1711_6_3
-  "Parallel Chillers with WSE, Variable Primary CHW, Variable CW, Headered Pumps"
+  "Parallel Chillers with Waterside Economizer, Variable Primary Chilled Water, Variable Condenser Water, Headered Pumps"
   extends
     Buildings.Templates.ChilledWaterPlant.Validation.BaseChilledWaterPlant(
     redeclare Buildings.Templates.ChilledWaterPlant.Validation.UserProject.RP1711_6_3 chw);

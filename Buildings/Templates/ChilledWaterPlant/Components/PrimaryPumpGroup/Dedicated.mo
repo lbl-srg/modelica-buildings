@@ -36,7 +36,7 @@ model Dedicated
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,-50})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VCHWSup_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatPriSup_flow(
     redeclare final package Medium = Medium,
     final have_sen=have_supFloSen,
     final m_flow_nominal=dat.m_flow_nominal,
@@ -58,9 +58,9 @@ model Dedicated
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter) if have_decoupler
     "Decoupler volume flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Templates.Components.Sensors.Temperature TPCHWSup(
+  Buildings.Templates.Components.Sensors.Temperature TChiWatPriSup(
     redeclare final package Medium = Medium,
-    final have_sen=have_TPCHWSup,
+    final have_sen=have_TChiWatPriSup,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final m_flow_nominal=dat.m_flow_nominal)
     "Primary chilled water supply temperature"
@@ -77,9 +77,9 @@ equation
                                                 color={0,127,255}));
   connect(valByp.port_b, port_byp)
     annotation (Line(points={{-1.77636e-15,-60},{0,-100}}, color={0,127,255}));
-  connect(VCHWSup_flow.port_b, splByp.port_1)
+  connect(VChiWatPriSup_flow.port_b, splByp.port_1)
     annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
-  connect(VCHWSup_flow.y, busCon.VPCHW_flow) annotation (Line(points={{50,12},{
+  connect(VChiWatPriSup_flow.y, busCon.VChiWatPriSup_flow) annotation (Line(points={{50,12},{
           50,80},{0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -97,11 +97,11 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pum.port_b,TPCHWSup. port_a)
+  connect(pum.port_b,TChiWatPriSup. port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
-  connect(TPCHWSup.port_b, VCHWSup_flow.port_a)
+  connect(TChiWatPriSup.port_b, VChiWatPriSup_flow.port_a)
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
-  connect(TPCHWSup.y, busCon.TPCHWSup) annotation (Line(points={{10,12},{10,80},
+  connect(TChiWatPriSup.y, busCon.TChiWatPriSup) annotation (Line(points={{10,12},{10,80},
           {0,80},{0,100}}, color={0,0,127}), Text(
       string="%second",
       index=1,

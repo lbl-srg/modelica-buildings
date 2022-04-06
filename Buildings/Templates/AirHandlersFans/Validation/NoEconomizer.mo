@@ -6,10 +6,10 @@ model NoEconomizer
     "Air medium";
   replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Cooling medium (such as CHW)";
+    "Cooling medium (such as chilled water)";
   replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Heating medium (such as HHW)";
+    "Heating medium (such as hot water)";
 
   inner parameter ExternData.JSONFile dat(
     fileName=Modelica.Utilities.Files.loadResource(

@@ -24,7 +24,7 @@ record Data "Data for primary pump groups"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Pump group nominal flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpCHWValve_nominal=0
+  parameter Modelica.Units.SI.PressureDifference dpChiWatChiValve_nominal=0
     "Nominal pressure drop of chiller valves on chilled water side"
     annotation(Dialog(group = "Valves", enable=not is_dedicated));
   parameter Modelica.Units.SI.PressureDifference dpByp_nominal=0

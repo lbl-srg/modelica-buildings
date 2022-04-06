@@ -5,11 +5,11 @@ partial model AirHandler "Base interface class for air handler"
     "Air medium";
   inner replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Cooling medium (such as CHW)"
+    "Cooling medium (such as chilled water)"
     annotation(Dialog(enable=have_souCoiCoo));
   inner replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Heating medium (such as HHW)"
+    "Heating medium (such as hot water)"
     annotation(Dialog(enable=have_souCoiHeaPre or have_souCoiHeaReh));
 
   parameter Boolean isModCtrSpe = true

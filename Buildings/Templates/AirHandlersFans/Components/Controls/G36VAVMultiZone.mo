@@ -362,7 +362,7 @@ equation
   connect(ctr.yRetDamPos, bus.damRet.y);
   connect(ctr.yRelDamPos, bus.damRel.y);
   connect(ctr.yOutDamPos, bus.damOut.y);
-  connect(ctr.yEneCHWPum, bus.yPumCHW);
+  connect(ctr.yEneChiWatPum, bus.yPumChiWat);
   connect(ctr.ySupFanSpe, bus.fanSup.ySpe);
   connect(ctr.yRetFanSpe, bus.fanRet.ySpe);
   connect(ctr.yRelFanSpe, bus.fanRet.ySpe);
@@ -371,8 +371,8 @@ equation
   connect(ctr.yAla, bus.ala);
   connect(ctr.yExhDam, bus.damRel.y);
 
-  connect(ctr.yChiWatResReq, bus.reqCHWRes);
-  connect(ctr.yChiPlaReq, bus.reqCHWPla);
+  connect(ctr.yChiWatResReq, bus.reqChiWatRes);
+  connect(ctr.yChiPlaReq, bus.reqChiWatPla);
   connect(ctr.yHotWatResReq, bus.reqHHWRes);
   connect(ctr.yHotWatPlaReq, bus.reqHHWPla);
 
