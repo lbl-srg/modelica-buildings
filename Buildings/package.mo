@@ -353,9 +353,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
 </tr>
 <tr><td valign=\"top\">
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_y<br/>
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_y<br/>
-        Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_y
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot<br/>
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot<br/>
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve<br/>
+        Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot
     </td>
     <td valign=\"top\">
     Function and data record that allow the motor efficiency to be provided
