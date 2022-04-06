@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces;
-partial model PartialReliefReturnSection "Relief/return air section"
+partial model PartialReliefReturnSection "Interface class for relief/return air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -18,30 +18,34 @@ partial model PartialReliefReturnSection "Relief/return air section"
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtrFanRet
+  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
     "Return fan control type";
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+  parameter
+    Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
+    dat "Design and operating parameters";
+
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+    if typFanRet <> Buildings.Templates.Components.Types.Fan.None then dat.fanRet.m_flow_nominal
+    elseif typFanRel <> Buildings.Templates.Components.Types.Fan.None then dat.fanRel.m_flow_nominal
+    elseif typDamRel <> Buildings.Templates.Components.Types.Damper.None then dat.damRel.m_flow_nominal
+    else dat.damRet.m_flow_nominal
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpFan_nominal
+
+  final parameter Modelica.Units.SI.PressureDifference dpFan_nominal=
+    if typFanRel <> Buildings.Templates.Components.Types.Fan.None then
+      dat.fanRel.dp_nominal
+    elseif typFanRet <> Buildings.Templates.Components.Types.Fan.None then
+      dat.fanRet.dp_nominal
+    else 0
     "Relief/return fan total pressure rise"
     annotation (
       Dialog(group="Nominal condition",
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.Units.SI.PressureDifference dpDamRel_nominal
-    "Relief air damper pressure drop"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typDamRel<>Buildings.Templates.Components.Types.Damper.None));
-
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -103,7 +107,7 @@ partial model PartialReliefReturnSection "Relief/return air section"
   Buildings.Templates.Components.Sensors.DifferentialPressure pAirRet_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-      typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure)
+      typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure)
     "Return fan discharge static pressure sensor"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 equation
@@ -122,5 +126,26 @@ equation
           extent={{-149,-150},{151,-190}},
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
+    Documentation(info="<html>
+<p>
+This class provides a standard interface for the relief/return
+air section of an air handler.
+Typical components in that section include
+</p>
+<ul>
+<li>
+shut off relief (or exhaust) air dampers, 
+</li>
+<li>
+the relief air side of the heat recovery unit,
+</li>
+<li>
+the relief damper of the air economizer,
+</li>
+<li>
+the relief or return fan.
+</li>
+</ul>
+</html>"));
 end PartialReliefReturnSection;

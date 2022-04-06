@@ -2,10 +2,7 @@ within Buildings.Templates.Components.Coils;
 model None "No coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.None,
-    final typHex=Buildings.Templates.Components.Types.HeatExchanger.None,
-    final typVal=Buildings.Templates.Components.Types.Valve.None,
-    final have_weaBus=false,
-    final have_sou=false);
+    final typVal=Buildings.Templates.Components.Types.Valve.None);
 
 equation
   connect(port_a, port_b)
@@ -16,5 +13,11 @@ equation
           points={{-100,0},{100,0}},
           color={28,108,200},
           thickness=1)}),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a direct fluid pass-through model to represent
+a configuration with no coil.
+</p>
+</html>"));
 end None;

@@ -13,5 +13,11 @@ equation
           points={{-100,0},{100,0}},
           color={28,108,200},
           thickness=1)}),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a direct fluid pass-through model to represent
+a configuration with no pump.
+</p>
+</html>"));
 end None;

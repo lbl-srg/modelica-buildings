@@ -1,24 +1,18 @@
 within Buildings.Templates.Components.Coils;
-model ElectricHeating "Electric heating coil"
+model ElectricHeating "Modulating electric heating coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.ElectricHeating,
-    final typHex=Buildings.Templates.Components.Types.HeatExchanger.None,
-    final typVal=Buildings.Templates.Components.Types.Valve.None,
-    final have_sou=false,
-    final have_weaBus=false,
-    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
+    final typVal=Buildings.Templates.Components.Types.Valve.None);
 
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".Q_flow_nominal.value")
-    "Nominal heat flow rate"
-    annotation (Dialog(
-      group="Nominal condition"));
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final min=0)=
+    dat.Q_flow_nominal
+    "Nominal heat flow rate";
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     redeclare final package Medium = MediumAir,
-    final Q_flow_nominal=Q_flow_nominal,
-    final m_flow_nominal=mAir_flow_nominal,
-    final dp_nominal=dpAir_nominal,
+    final Q_flow_nominal=dat.Q_flow_nominal,
+    final m_flow_nominal=dat.mAir_flow_nominal,
+    final dp_nominal=dat.dpAir_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -30,7 +24,11 @@ equation
   connect(bus.y, hex.u) annotation (Line(
       points={{0,100},{0,20},{-20,20},{-20,6},{-12,6}},
       color={255,204,51},
-      thickness=0.5));
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
@@ -41,6 +39,10 @@ Not supported by OCT though:
 Compliance error at line 8, column 4,
   Constructors for external objects is not supported in functions
 
+</p>
+</html>", info="<html>
+<p>
+This is a model for a modulating electric heating coil.
 </p>
 </html>"));
 end ElectricHeating;

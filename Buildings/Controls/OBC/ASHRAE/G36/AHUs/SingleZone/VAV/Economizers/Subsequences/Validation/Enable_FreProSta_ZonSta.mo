@@ -65,52 +65,47 @@ protected
 
 equation
   connect(TOutBelowCutoff.y, enaDis.TOut)
-    annotation (Line(points={{-18,150},{32,150},{32,59.4},{81,59.4}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{-18,150},{32,150},{32,59},{80,59}}, color={0,0,127}));
   connect(TOutCut.y, enaDis.TCut)
-    annotation (Line(points={{-18,110},{31.5,110},{31.5,57.8},{81,57.8}},
-                                                                      color={0,0,127}));
+    annotation (Line(points={{-18,110},{31.5,110},{31.5,57},{80,57}}, color={0,0,127}));
   connect(TOutCut.y, enaDis1.TCut)
-    annotation (Line(points={{-18,110},{32,110},{32,-22.2},{81,-22.2}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-18,110},{32,110},{32,-23},{80,-23}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
-    annotation (Line(points={{-18,150},{34,150},{34,-20.6},{81,-20.6}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-18,150},{34,150},{34,-21},{80,-21}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
-    annotation (Line(points={{-78,110},{-60,110},{-60,60},{10,60},{10,54},{81,
-          54}},                                                     color={0,0,127}));
+    annotation (Line(points={{-78,110},{-60,110},{-60,60},{10,60},{10,53},{80,53}},
+                                                                    color={0,0,127}));
   connect(hOutCut.y, enaDis.hCut)
-    annotation (Line(points={{-78,70},{-70,70},{-70,52},{81,52}}, color={0,0,127}));
+    annotation (Line(points={{-78,70},{-70,70},{-70,51},{80,51}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis1.hOut)
-    annotation (Line(points={{-78,110},{-60,110},{-60,60},{10,60},{10,-26},{81,
-          -26}},
+    annotation (Line(points={{-78,110},{-60,110},{-60,60},{10,60},{10,-27},{80,-27}},
     color={0,0,127}));
   connect(hOutCut.y, enaDis1.hCut)
-    annotation (Line(points={{-78,70},{-70,70},{-70,56},{6,56},{6,-28},{81,-28}},
+    annotation (Line(points={{-78,70},{-70,70},{-70,56},{6,56},{6,-29},{80,-29}},
     color={0,0,127}));
   connect(zonSta.y, enaDis.uZonSta)
-    annotation (Line(points={{-138,10},{-120,10},{-120,48},{81,48}}, color={255,127,0}));
+    annotation (Line(points={{-138,10},{-120,10},{-120,47},{80,47}}, color={255,127,0}));
   connect(freProSta.y, enaDis.uFreProSta)
-    annotation (Line(points={{-138,50},{-130,50},{-130,50},{81,50}}, color={255,127,0}));
+    annotation (Line(points={{-138,50},{-130,50},{-130,49},{80,49}}, color={255,127,0}));
   connect(freProSta1.y, enaDis1.uFreProSta)
-    annotation (Line(points={{62,-110},{70,-110},{70,-30},{81,-30}}, color={255,127,0}));
+    annotation (Line(points={{62,-110},{70,-110},{70,-31},{80,-31}}, color={255,127,0}));
   connect(zonSta1.y, enaDis1.uZonSta)
-    annotation (Line(points={{62,-70},{72,-70},{72,-32},{81,-32}}, color={255,127,0}));
+    annotation (Line(points={{62,-70},{72,-70},{72,-33},{80,-33}}, color={255,127,0}));
   connect(outDamPosMax.y, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,44},{81,44}}, color={0,0,127}));
+    annotation (Line(points={{-38,-110},{-30,-110},{-30,43},{80,43}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-38,-150},{-28,-150},{-28,42},{81,42}}, color={0,0,127}));
+    annotation (Line(points={{-38,-150},{-28,-150},{-28,41},{80,41}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis1.uOutDamPosMin)
-    annotation (Line(points={{-38,-150},{22,-150},{22,-38},{81,-38}}, color={0,0,127}));
+    annotation (Line(points={{-38,-150},{22,-150},{22,-39},{80,-39}}, color={0,0,127}));
   connect(outDamPosMax.y, enaDis1.uOutDamPosMax)
-    annotation (Line(points={{-38,-110},{20,-110},{20,-36},{81,-36}}, color={0,0,127}));
+    annotation (Line(points={{-38,-110},{20,-110},{20,-37},{80,-37}}, color={0,0,127}));
   connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-138,-30},{-34,-30},{-34,46},{81,46}}, color={255,0,255}));
+    annotation (Line(points={{-138,-30},{-34,-30},{-34,45},{80,45}}, color={255,0,255}));
   connect(supFanSta.y, enaDis1.uSupFan)
-    annotation (Line(points={{-138,-30},{-34,-30},{-34,-34},{81,-34}}, color={255,0,255}));
+    annotation (Line(points={{-138,-30},{-34,-30},{-34,-35},{80,-35}}, color={255,0,255}));
     annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Enable_FreProSta_ZonSta.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Enable_FreProSta_ZonSta.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(
@@ -137,8 +132,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable</a>
 for the zone state and freeze protection stage control signals.
 </p>
 </html>", revisions="<html>

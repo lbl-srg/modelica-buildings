@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Sensors.Interfaces;
-partial model PartialSensor
+partial model PartialSensor "Interface class for sensor"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Boolean have_sen=true
@@ -18,7 +18,7 @@ partial model PartialSensor
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
     "Connector for measured value"
-    annotation (Placement(
+    annotation (Placement(iconVisible=false,
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -49,5 +49,8 @@ equation
           thickness=1)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<p>
+This partial class provides a standard interface for sensor models.
+</p>
 </html>"));
 end PartialSensor;

@@ -1,11 +1,13 @@
 within Buildings.Templates.Components;
-package Types "Generic types for template components"
+package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type Coil = enumeration(
       ElectricHeating
-      "Electric heating coil",
-      Evaporator
-      "Evaporator coil (direct expansion)",
+      "Modulating electric heating coil",
+      EvaporatorMultiStage
+      "Evaporator coil with multi-stage compressor",
+      EvaporatorVariableSpeed
+      "Evaporator coil with variable speed compressor",
       None
       "No coil",
       WaterBasedCooling
@@ -57,26 +59,6 @@ package Types "Generic types for template components"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
-  type HeatExchanger = enumeration(
-      None
-      "No heat exchanger",
-      DXMultiStage
-      "Direct expansion - Multi-stage",
-      DXVariableSpeed
-      "Direct expansion - Variable speed",
-      WetCoilEffectivenessNTU
-      "Water based - Effectiveness-NTU wet",
-      DryCoilEffectivenessNTU
-      "Water based - Effectiveness-NTU dry",
-      WetCoilCounterFlow
-      "Water based - Discretized wet")
-    "Enumeration to configure the heat exchanger";
-  type Junction = enumeration(
-      None
-      "No junction",
-      ThreeWayModulating
-      "Three-way junction")
-    "Enumeration to configure the fluid junction";
   type Pump = enumeration(
       None
       "No pump",
@@ -119,6 +101,7 @@ package Types "Generic types for template components"
       FlowMeter
       "Flow meter")
     "Enumeration to specify the type of volume flow rate sensor";
+  // RFE: Add support for PICV.
   type Valve = enumeration(
       None
       "No valve",
@@ -135,4 +118,9 @@ package Types "Generic types for template components"
       TwoWayTwoPosition
       "Two-way two-position valve")
     "Enumeration to configure the valve";
+  annotation (Documentation(info="<html>
+<p>
+This package contains type definitions.
+</p>
+</html>"));
 end Types;

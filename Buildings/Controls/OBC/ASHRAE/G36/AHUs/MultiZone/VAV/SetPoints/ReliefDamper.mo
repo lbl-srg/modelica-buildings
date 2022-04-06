@@ -30,12 +30,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if relief damper should be enabled"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(
+  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr(
     u1(final unit="Pa", displayUnit="Pa"),
     u2(final unit="Pa", displayUnit="Pa"),
     y(final unit="Pa", displayUnit="Pa"))
     "Control error"
-    annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
@@ -58,9 +58,9 @@ equation
   connect(uSupFan, swi.u2)
     annotation (Line(points={{-120,-30},{58,-30}}, color={255,0,255}));
   connect(dpBuiSetPoi.y, conErr.u2)
-    annotation (Line(points={{-58,0},{-20,0},{-20,18}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-40,0},{-40,24},{-22,24}}, color={0,0,127}));
   connect(conErr.y, conP.u_m)
-    annotation (Line(points={{-8,30},{20,30},{20,58}}, color={0,0,127}));
+    annotation (Line(points={{2,30},{20,30},{20,58}},  color={0,0,127}));
   connect(zer.y, conP.u_s)
     annotation (Line(points={{-8,70},{8,70}}, color={0,0,127}));
   connect(conP.y, swi.u1)
@@ -68,7 +68,7 @@ equation
   connect(zerDam.y, swi.u3)
     annotation (Line(points={{-58,-60},{50,-60},{50,-38},{58,-38}}, color={0,0,127}));
   connect(dpBui, conErr.u1)
-    annotation (Line(points={{-120,30},{-32,30}}, color={0,0,127}));
+    annotation (Line(points={{-120,30},{-60,30},{-60,36},{-22,36}}, color={0,0,127}));
   connect(swi.y, yRelDam)
     annotation (Line(points={{82,-30},{120,-30}}, color={0,0,127}));
 

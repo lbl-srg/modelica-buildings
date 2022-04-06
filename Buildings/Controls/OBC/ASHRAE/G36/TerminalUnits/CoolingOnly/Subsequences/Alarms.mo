@@ -43,7 +43,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Supply fan status"
+    "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
@@ -65,7 +65,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     annotation (Placement(transformation(extent={{240,-190},{280,-150}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
@@ -85,7 +85,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
@@ -120,7 +120,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt
     "Low flow alarms"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
@@ -147,7 +147,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final k=VCooZonMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.1)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
@@ -301,7 +301,7 @@ equation
   connect(booToInt3.y, yLeaDamAla)
     annotation (Line(points={{162,-170},{260,-170}}, color={255,127,0}));
 
-annotation (defaultComponentName="cooBoxAla",
+annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(

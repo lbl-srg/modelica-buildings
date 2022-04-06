@@ -1,4 +1,4 @@
 VAVBoxCoolingOnly
-VAVBoxReheatHotWaterG36
-VAVBoxReheatHotWater
+VAVBoxReheat
+VAVBoxReheatControlG36
 UserProject

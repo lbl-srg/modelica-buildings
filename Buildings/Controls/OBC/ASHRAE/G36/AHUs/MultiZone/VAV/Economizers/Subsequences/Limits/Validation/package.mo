@@ -4,8 +4,8 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

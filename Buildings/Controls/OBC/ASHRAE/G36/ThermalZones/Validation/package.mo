@@ -3,8 +3,8 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1\">
-Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones\">
+Buildings.Controls.OBC.ASHRAE.G36.ThermalZones</a>.
 </p>
 </html>"),
   Icon(graphics={

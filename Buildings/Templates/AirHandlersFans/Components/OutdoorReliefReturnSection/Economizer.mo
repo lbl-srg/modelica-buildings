@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection;
-model Economizer "Air economizer"
+model Economizer "Air Economizer"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.Economizer,
@@ -18,10 +18,7 @@ model Economizer "Air economizer"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mAirSup_flow_nominal,
-      final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
-      final dpDamOut_nominal=dpDamOut_nominal,
-      final dpDamOutMin_nominal=dpDamOutMin_nominal)
+      final dat=dat)
     "Single common OA damper (modulating) with AFMS"
     annotation (
     choices(
@@ -39,9 +36,7 @@ model Economizer "Air economizer"
     secRel constrainedby
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mAirRet_flow_nominal,
-      final dpDamRel_nominal=dpDamRel_nominal,
-      final dpFan_nominal=dpFan_nominal)
+      final dat=dat)
     "Return fan with modulating relief damper"
     annotation (
     choices(
@@ -61,10 +56,9 @@ model Economizer "Air economizer"
 
   Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAirRet_flow_nominal,
-    final dpDamper_nominal=dpDamRet_nominal,
+    final dat=dat.damRet,
     final text_rotation=90)
-    "Return air damper"
+    "Return damper"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -108,4 +102,9 @@ equation
           {-100,-6},{-100,-60},{-48,-60},{-48,-66}}, color={0,127,255}));
   connect(recHea.port_bOut, secOut.port_aHeaRec) annotation (Line(points={{-70,-6},
           {-60,-6},{-60,-56},{-44,-56},{-44,-66}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a configuration with an air economizer.
+</p>
+</html>"));
 end Economizer;

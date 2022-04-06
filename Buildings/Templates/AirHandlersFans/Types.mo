@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans;
-package Types "AHU types"
+package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type Configuration = enumeration(
       SupplyOnly
@@ -13,9 +13,9 @@ package Types "AHU types"
     "Enumeration to configure the AHU";
   type Controller = enumeration(
       G36VAVMultiZone
-      "Guideline 36 controller for multiple-zone VAV air-handling unit",
+      "Guideline 36 controller for multiple-zone VAV",
       OpenLoop
-      "Open loop control")
+      "Open loop controller")
     "Enumeration to configure the AHU controller";
   type ControlEconomizer = enumeration(
       FixedDryBulb
@@ -29,15 +29,18 @@ package Types "AHU types"
       DifferentialEnthalpyWithFixedDryBulb
       "Differential enthalpy with fixed dry bulb")
     "Enumeration to configure the economizer control";
-  type ControlFanReturn = enumeration(
+  /*
+  RFE #1913: Add option for calculated airflow.
       AirflowCalculated
-      "Calculated based on return fan speed (requires constant flow characteristic) and
-    VAV box air flow rates",
-      AirflowMeasured
+      "Calculated based on return fan speed and VAV box flow rates",
+  */
+  type ControlFanReturn = enumeration(
+      AirflowTracking
       "Airflow tracking",
-      Pressure
-      "Direct building pressure (via discharge static pressure)")
+      BuildingPressure
+      "Building pressure (via discharge static pressure)")
     "Enumeration to configure the return fan control";
+  // RFE: Add support for heat recovery.
   type HeatRecovery = enumeration(
       None
       "No heat recovery",
@@ -48,23 +51,15 @@ package Types "AHU types"
       RunAroundCoil
       "Run-around coil")
     "Enumeration to configure the heat recovery";
-  type Location = enumeration(
-      OutdoorAir,
-      MinimumOutdoorAir,
-      Relief,
-      Return,
-      Supply,
-      Terminal)
-  "Enumeration to specify the equipment location";
   type OutdoorSection = enumeration(
       DedicatedDampersAirflow
-      "Separate dedicated OA dampers and OA measurement by AFMS",
+      "Separate dedicated OA dampers with AFMS",
       DedicatedDampersPressure
-      "Separate dedicated OA dampers and OA measurement by differential pressure sensor",
+      "Separate dedicated OA dampers with differential pressure sensor",
       NoEconomizer
       "No economizer",
       SingleDamper
-      "Single common OA damper and OA measurement by AFMS")
+      "Single common OA damper with AFMS")
     "Enumeration to configure the outdoor air section";
   type OutdoorReliefReturnSection = enumeration(
       Economizer
@@ -74,13 +69,15 @@ package Types "AHU types"
       NoEconomizer
       "No air economizer")
     "Enumeration to configure the outdoor/relief/return air section";
+  /* RFE: Add support for the following configurations.
+      Barometric
+        "Barometric relief damper without fan",
+  */
   type ReliefReturnSection = enumeration(
       NoEconomizer
       "No economizer",
       NoRelief
       "No relief branch",
-      Barometric
-      "Barometric relief damper without fan",
       ReliefDamper
       "Modulating relief damper without fan",
       ReliefFan
@@ -88,4 +85,9 @@ package Types "AHU types"
       ReturnFan
       "Return fan with modulating relief damper")
     "Enumeration to configure the relief/return air section";
+  annotation (Documentation(info="<html>
+<p>
+This package contains type definitions.
+</p>
+</html>"));
 end Types;

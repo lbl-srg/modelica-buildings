@@ -45,7 +45,7 @@ equation
     annotation (Line(points={{5,7},{20,7},{20,-38}}, color={0,0,127}));
   connect(val.y_actual, evaClo.u) annotation (Line(points={{5,7},{20,7},{20,-20},
           {-20,-20},{-20,-38}}, color={0,0,127}));
-  connect(evaOpe.y, bus.y_actual) annotation (Line(points={{20,-62},{20,-80},{60,
+  connect(evaOpe.y, bus.y1_actual) annotation (Line(points={{20,-62},{20,-80},{60,
           -80},{60,96},{0,96},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -57,7 +57,7 @@ equation
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(booToRea.u, bus.y) annotation (Line(points={{2.22045e-15,62},{2.22045e-15,
+  connect(booToRea.u, bus.y1) annotation (Line(points={{2.22045e-15,62},{2.22045e-15,
           81},{0,81},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -65,4 +65,24 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(booToRea.y, val.y) annotation (Line(points={{-2.22045e-15,38},{-2.22045e-15,
           25},{0,25},{0,12}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a two-way two-position (isolation) valve.
+</p>
+<ul>
+<li>
+The valve position is commanded with a Boolean signal <code>y1</code>.<br/>
+<code>y1 = false</code> corresponds to fully closed.
+<code>y1 = true</code> corresponds to fully open.
+</li>
+<li>
+The open end switch status <code>y1_actual</code> and
+closed end switch status <code>y0_actual</code> (Booleans)
+are returned.<br/>
+<code>y1_actual = false</code> corresponds to fully closed.
+<code>y1_actual = true</code> corresponds to fully open.
+And the opposite for <code>y0_actual</code>.
+</li>
+</ul>
+</html>"));
 end TwoWayTwoPosition;

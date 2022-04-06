@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block PlantRequests
   "Output plant requests for single zone air handling unit"
 
-  parameter Boolean have_heaCoi = true
-    "True: the AHU has heating coil";
+  parameter Boolean have_hotWatCoi = true
+    "True: the AHU has hot water heating coil";
   parameter Real Thys = 0.1
     "Hysteresis for checking temperature difference"
     annotation(Dialog(tab="Advanced"));
@@ -34,14 +34,14 @@ block PlantRequests
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaEco(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_heaCoi
+    final quantity="ThermodynamicTemperature") if have_hotWatCoi
     "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final unit="1",
     final min=0,
-    final max=1) if have_heaCoi "Heating coil valve position"
+    final max=1) if have_hotWatCoi "Heating coil valve position"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
@@ -52,19 +52,19 @@ block PlantRequests
     "Chiller plant request"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_heaCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_hotWatCoi
     "Hot water reset request"
     annotation (Placement(transformation(extent={{200,-60},{240,-20}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_heaCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{200,-240},{240,-200}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Feedback cooSupTemDif
+  Buildings.Controls.OBC.CDL.Continuous.Subtract cooSupTemDif
     "Find the cooling supply temperature difference to the setpoint"
-    annotation (Placement(transformation(extent={{-170,190},{-150,210}})));
+    annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=3,
     final h=Thys)
@@ -129,78 +129,78 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Send 1 chiller plant request"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback heaSupTemDif if have_heaCoi
+  Buildings.Controls.OBC.CDL.Continuous.Subtract heaSupTemDif if have_hotWatCoi
     "Find the heating supply temperature difference to the setpoint"
-    annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
     final t=17,
     final h=Thys)
-    if have_heaCoi
+    if have_hotWatCoi
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr4(
     final t=8,
     final h=Thys)
-    if have_heaCoi
+    if have_hotWatCoi
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
-    final delayTime=300) if have_heaCoi
+    final delayTime=300) if have_hotWatCoi
     "Check if the input has been true for a certain time"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
-    final delayTime=300) if have_heaCoi
+    final delayTime=300) if have_hotWatCoi
     "Check if the input has been true for a certain time"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes3 if have_heaCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes3 if have_hotWatCoi
     "Send 3 hot water reset request"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes2 if have_heaCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes2 if have_hotWatCoi
     "Send 2 hot water reset request"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2(
     final t=0.85,
     final h=posHys)
-    if have_heaCoi
+    if have_hotWatCoi
     "Check if the hot water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr5(
     final t=0.95,
     final h=posHys)
-    if have_heaCoi
+    if have_hotWatCoi
     "Check if the hot water valve position is greater than a threshold value"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat2 if have_heaCoi
+  Buildings.Controls.OBC.CDL.Logical.Latch lat2 if have_hotWatCoi
     "Keep true signal until other condition becomes true"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes1 if have_heaCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes1 if have_hotWatCoi
     "Send 1 hot water reset request"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
     final t=0.1,
     final h=posHys)
-    if have_heaCoi
+    if have_hotWatCoi
     "Check if the hot water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,-236},{-100,-216}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if have_heaCoi
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if have_hotWatCoi
     "Keep true signal until other condition becomes true"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if have_heaCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if have_hotWatCoi
     "Send 1 hot water plant request"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
 
 equation
   connect(TSup, cooSupTemDif.u1)
-    annotation (Line(points={{-220,200},{-172,200}}, color={0,0,127}));
-  connect(TSupCoo, cooSupTemDif.u2) annotation (Line(points={{-220,160},{-160,160},
-          {-160,188}}, color={0,0,127}));
+    annotation (Line(points={{-220,200},{-180,200},{-180,206},{-162,206}}, color={0,0,127}));
+  connect(TSupCoo, cooSupTemDif.u2) annotation (Line(points={{-220,160},{-190,160},
+          {-190,194},{-162,194}}, color={0,0,127}));
   connect(cooSupTemDif.y, greThr.u)
-    annotation (Line(points={{-148,200},{-82,200}}, color={0,0,127}));
+    annotation (Line(points={{-138,200},{-82,200}}, color={0,0,127}));
   connect(greThr.y, truDel.u)
     annotation (Line(points={{-58,200},{-42,200}}, color={255,0,255}));
   connect(greThr1.y, truDel1.u)
     annotation (Line(points={{-58,150},{-42,150}}, color={255,0,255}));
-  connect(cooSupTemDif.y, greThr1.u) annotation (Line(points={{-148,200},{-100,200},
+  connect(cooSupTemDif.y, greThr1.u) annotation (Line(points={{-138,200},{-100,200},
           {-100,150},{-82,150}}, color={0,0,127}));
   connect(uCooCoi, greThr2.u)
     annotation (Line(points={{-220,100},{-122,100}}, color={0,0,127}));
@@ -245,14 +245,14 @@ equation
   connect(intSwi3.y, yChiPlaReq)
     annotation (Line(points={{102,20},{220,20}}, color={255,127,0}));
   connect(TSup, heaSupTemDif.u2) annotation (Line(points={{-220,200},{-180,200},
-          {-180,-60},{-140,-60},{-140,-52}}, color={0,0,127}));
+          {-180,-46},{-142,-46}}, color={0,0,127}));
   connect(greThr3.y, truDel2.u)
     annotation (Line(points={{-58,-40},{-42,-40}}, color={255,0,255}));
   connect(greThr4.y, truDel3.u)
     annotation (Line(points={{-58,-90},{-42,-90}}, color={255,0,255}));
   connect(heaSupTemDif.y, greThr3.u)
-    annotation (Line(points={{-128,-40},{-82,-40}}, color={0,0,127}));
-  connect(heaSupTemDif.y, greThr4.u) annotation (Line(points={{-128,-40},{-100,-40},
+    annotation (Line(points={{-118,-40},{-82,-40}}, color={0,0,127}));
+  connect(heaSupTemDif.y, greThr4.u) annotation (Line(points={{-118,-40},{-100,-40},
           {-100,-90},{-82,-90}}, color={0,0,127}));
   connect(truDel2.y, hotWatRes3.u2)
     annotation (Line(points={{-18,-40},{158,-40}}, color={255,0,255}));
@@ -299,7 +299,7 @@ equation
   connect(yChiWatResReq, yChiWatResReq)
     annotation (Line(points={{220,200},{220,200}}, color={255,127,0}));
   connect(TSupHeaEco, heaSupTemDif.u1)
-    annotation (Line(points={{-220,-40},{-152,-40}}, color={0,0,127}));
+    annotation (Line(points={{-220,-40},{-160,-40},{-160,-34},{-142,-34}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="sinAHUPlaReq",
@@ -333,7 +333,7 @@ annotation (
           extent={{-100,-82},{-58,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=have_heaCoi,
+          visible=have_hotWatCoi,
           textString="uHeaCoi"),
         Text(
           extent={{34,92},{98,70}},
@@ -350,19 +350,19 @@ annotation (
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yHotWatResReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
         Text(
           extent={{38,-66},{98,-88}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yHotWatPlaReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
         Text(
           extent={{-96,-42},{-40,-60}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupHeaEco",
-          visible=have_heaCoi)}),
+          visible=have_hotWatCoi)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}})),
   Documentation(info="<html>
 <p>
@@ -402,7 +402,7 @@ Else if the chilled water valve position <code>uCooCoi</code> is less than 95%,
 send 0 request.
 </li>
 </ol>
-<h4>If there is a hot-water coil (<code>have_heaCoi=true</code>), hot-water
+<h4>If there is a hot-water coil (<code>have_hotWatCoi=true</code>), hot-water
 reset requests <code>yHotWatResReq</code></h4>
 <ol>
 <li>

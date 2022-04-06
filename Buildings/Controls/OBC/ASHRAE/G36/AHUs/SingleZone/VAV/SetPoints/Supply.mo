@@ -17,7 +17,8 @@ block Supply "Supply air set point for single zone VAV system"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Maximum supply air dew-point temperature"
+    "Maximum supply air dew-point temperature. It's typically only needed in humid type “A” climates. A typical value is 17°C. 
+    For mild and dry climates, a high set point (e.g. 24°C) should be entered for maximum efficiency"
     annotation (Dialog(group="Temperatures"));
   parameter Real TMinSupDea(
     final unit="K",
@@ -50,7 +51,7 @@ block Supply "Supply air set point for single zone VAV system"
     "Minimum fan speed"
     annotation (Dialog(group="Speed"));
   parameter Real looHys(
-    final unit="1")=0.05
+    final unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
   parameter Real temPoiOne(
@@ -179,7 +180,7 @@ protected
     annotation (Placement(transformation(extent={{40,350},{60,370}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch fanSpe "Supply fan speed"
     annotation (Placement(transformation(extent={{100,330},{120,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim(
+  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLim(
     final raisingSlewRate=1/600,
     final Td=60)
     "Prevent changes in fan speed of more than 10% per minute"
@@ -189,18 +190,15 @@ protected
     "Maximum supply air dew-point temperature"
     annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-1,
-    final k=1)
+    final p=-1)
     "Maximum supply dewpoint temperature minus threshold"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-6,
-    final k=1)
+    final p=-6)
     "Zone temperature minus threshold"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=0.5,
-    final k=1)
+    final p=0.5)
     "Zone temperature plus threshold"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Min endPoiTwo
@@ -219,7 +217,7 @@ protected
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Line medFanSpe
     "Medium fan speed"
-    annotation (Placement(transformation(extent={{82,210},{102,230}})));
+    annotation (Placement(transformation(extent={{80,210},{100,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average aveZonSet
     "Average of the zone heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
@@ -291,8 +289,7 @@ protected
     "Cooling supply air temperature"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
-    final p=-1,
-    final k=1)
+    final p=-1)
     "Minimum cooling supply temperature minus threshold"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Line cooSupTem1
@@ -306,15 +303,13 @@ protected
     final k=temPoiFou)
     "Temperature control point four in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-370},{-100,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(
-    final h=looHys)
+  Buildings.Controls.OBC.CDL.Continuous.Less les(final h=looHys)
     "Check if the cooling loop signal is greater than threshold"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch cooFan
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(
-    final h=looHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(t=looHys)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet
@@ -356,15 +351,15 @@ equation
   connect(maxDewPoi.y, endPoiOne.u2) annotation (Line(points={{-138,280},{-120,280},
           {-120,174},{-42,174}},      color={0,0,127}));
   connect(endPoiTwo.y, medFanSpe.x1) annotation (Line(points={{-18,260},{0,260},
-          {0,228},{80,228}}, color={0,0,127}));
+          {0,228},{78,228}}, color={0,0,127}));
   connect(maxCooFanSpe.y, medFanSpe.f1) annotation (Line(points={{-18,130},{0,130},
-          {0,224},{80,224}},      color={0,0,127}));
+          {0,224},{78,224}},      color={0,0,127}));
   connect(endPoiOne.y, medFanSpe.x2) annotation (Line(points={{-18,180},{40,180},
-          {40,216},{80,216}}, color={0,0,127}));
+          {40,216},{78,216}}, color={0,0,127}));
   connect(minFanSpe.y, medFanSpe.f2) annotation (Line(points={{42,130},{60,130},
-          {60,212},{80,212}}, color={0,0,127}));
+          {60,212},{78,212}}, color={0,0,127}));
   connect(TOut, medFanSpe.u) annotation (Line(points={{-200,160},{-160,160},{-160,
-          220},{80,220}},      color={0,0,127}));
+          220},{78,220}},      color={0,0,127}));
   connect(TZonCooSet, aveZonSet.u1) annotation (Line(points={{-200,-90},{-150,-90},
           {-150,-104},{-122,-104}},    color={0,0,127}));
   connect(TZonHeaSet, aveZonSet.u2) annotation (Line(points={{-200,-130},{-150,-130},
@@ -379,13 +374,13 @@ equation
           {60,110},{-68,110},{-68,34},{58,34}}, color={0,0,127}));
   connect(speThrPoi.y, cooFanSpe1.x2) annotation (Line(points={{-98,10},{-86,10},
           {-86,26},{58,26}}, color={0,0,127}));
-  connect(medFanSpe.y, cooFanSpe1.f2) annotation (Line(points={{104,220},{120,220},
+  connect(medFanSpe.y, cooFanSpe1.f2) annotation (Line(points={{102,220},{120,220},
           {120,160},{-60,160},{-60,22},{58,22}},      color={0,0,127}));
   connect(uCoo, cooFanSpe1.u)
     annotation (Line(points={{-200,30},{58,30}}, color={0,0,127}));
   connect(speFouPoi.y, cooFanSpe2.x1) annotation (Line(points={{-18,-30},{20,-30},
           {20,-42},{58,-42}},color={0,0,127}));
-  connect(medFanSpe.y, cooFanSpe2.f1) annotation (Line(points={{104,220},{120,220},
+  connect(medFanSpe.y, cooFanSpe2.f1) annotation (Line(points={{102,220},{120,220},
           {120,160},{-60,160},{-60,-46},{58,-46}},    color={0,0,127}));
   connect(one.y, cooFanSpe2.x2) annotation (Line(points={{-98,-70},{-76,-70},{-76,
           -54},{58,-54}},  color={0,0,127}));

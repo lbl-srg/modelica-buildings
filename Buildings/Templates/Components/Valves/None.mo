@@ -6,4 +6,10 @@ model None "No valve"
 equation
   connect(port_a, port_b)
     annotation (Line(points={{-100,0},{100,0},{100,0}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This is a direct fluid pass-through model to represent
+a configuration with no valve.
+</p>
+</html>"));
 end None;

@@ -9,8 +9,7 @@ model ReliefFan "Relief fan with two-position relief damper"
 
   Buildings.Templates.Components.Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamRel_nominal,
+    final dat=dat.damRel,
     final text_flip=true)
     "Relief damper"
     annotation (Placement(transformation(
@@ -20,8 +19,7 @@ model ReliefFan "Relief fan with two-position relief damper"
   replaceable Buildings.Templates.Components.Fans.SingleVariable fanRel
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpFan_nominal,
+    final dat=dat.fanRel,
     final have_senFlo=false,
     final text_flip=true,
     typSin=Buildings.Templates.Components.Types.FanSingle.Propeller)
@@ -34,7 +32,7 @@ model ReliefFan "Relief fan with two-position relief damper"
         transformation(extent={{-100,-10},{-120,10}})));
 equation
   /* Control point connection - start */
-  connect(fanRel.bus, bus.fanRet);
+  connect(fanRel.bus, bus.fanRel);
   connect(damRel.bus, bus.damRel);
   /* Control point connection - end */
   connect(port_b, damRel.port_b)
@@ -47,12 +45,8 @@ equation
     annotation (Line(points={{180,0},{10,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-5.16.8 Control of Actuated Relief Dampers without Fans
-5.16.8.1 Relief dampers shall be enabled when the associated
-supply fan is proven ON, and disabled otherwise.
-5.16.8.2 When enabled, use a P-only control loop to
-modulate relief dampers to maintain 12 Pa (0.05 in. of water)
-building static pressure. Close damper when disabled.
+This model represents a configuration with an air economizer
+and a relief fan with an actuated relief damper (two-position).
 </p>
 </html>"), Icon(graphics={
               Line(

@@ -6,18 +6,12 @@ block Controller
     "Check if the zone has window status sensor";
   parameter Boolean have_occSen
     "Check if the zone has occupancy sensor";
-  parameter Boolean have_heaCoi=true
-    "True if the air handling unit has heating coil";
-  parameter Boolean have_CO2Sen=false "True: the zone has CO2 sensor";
-  parameter Boolean have_typTerUniWitCO2=false
-    "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAVWitCO2 and not have_parFanPowUniWitCO2)));
-  parameter Boolean have_parFanPowUniWitCO2=false
-    "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAVWitCO2 and not have_typTerUniWitCO2)));
-  parameter Boolean have_SZVAVWitCO2=false
-    "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUniWitCO2 and not have_typTerUniWitCO2)));
+  parameter Boolean have_hotWatCoi=true
+    "True: the AHU has hot water heating coil";
+  parameter Boolean have_eleHeaCoi=false
+    "True: the AHU has electric heating coil";
+  parameter Boolean have_CO2Sen=true
+    "True: the zone has CO2 sensor";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
   parameter Real THeaSetOcc(
@@ -51,12 +45,6 @@ block Controller
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonMin_flow(unit="m3/s")
-                       "Design zone minimum airflow setpoint"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real VCooZonMax_flow(unit="m3/s")
-    "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and not have_SZVAVWitCO2, group="Design conditions"));
   parameter Real CO2Set=894
     "CO2 concentration setpoint, ppm"
     annotation(Dialog(enable=have_CO2Sen, group="Design conditions"));
@@ -346,38 +334,44 @@ block Controller
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController freHeaCoiCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control"));
+    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+                       enable=have_hotWatCoi));
   parameter Real kFreHea=1 "Gain of coil controller"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control"));
+    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+                       enable=have_hotWatCoi));
   parameter Real TiFreHea(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Freeze protection", group="Heating coil control",
-      enable=freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-          or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=have_hotWatCoi and (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                                 or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdFreHea(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Freeze protection", group="Heating coil control",
-      enable=freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=have_hotWatCoi and (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                                 or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMaxFreHea=1
     "Upper limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control"));
+    annotation (Dialog(tab="Freeze protection", group="Heating coil control", enable=have_hotWatCoi));
   parameter Real yMinFreHea=0
     "Lower limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control"));
+    annotation (Dialog(tab="Freeze protection", group="Heating coil control", enable=have_hotWatCoi));
 
   // ----------- parameters for building pressure control -----------
   parameter Real minRelPos(unit="1")
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is positioned to provide minimum outdoor air while the supply fan is at minimum speed"
-    annotation (Dialog(tab="Pressure control", group="Relief damper"));
+    annotation (Dialog(tab="Pressure control", group="Relief damper",
+                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
   parameter Real maxRelPos(unit="1")
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is fully open and the fan speed is at cooling maximum"
-    annotation (Dialog(tab="Pressure control", group="Relief damper"));
+    annotation (Dialog(tab="Pressure control", group="Relief damper",
+                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
   parameter Real speDif=-0.1
     "Speed difference between supply and return fan to maintain building pressure at desired pressure"
-    annotation (Dialog(tab="Pressure control", group="Return fan"));
+    annotation (Dialog(tab="Pressure control", group="Return fan",
+                       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+                            or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
 
-  // ----------- parameters for building pressure control -----------
+  // ----------- Advanced -----------
   parameter Real posHys=0.05 "Hysteresis for damper position check"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real Thys(unit="K")=0.25
@@ -524,9 +518,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
-    if have_heaCoi
-    "Measured mixed air temperature, used for freeze protection if use_TMix is true"
+    final quantity = "ThermodynamicTemperature") if have_hotWatCoi
+    "Measured mixed air temperature, used for freeze protection"
     annotation (Placement(transformation(extent={{-300,-270},{-260,-230}}),
         iconTransformation(extent={{-240,-260},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
@@ -557,7 +550,7 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if have_heaCoi
+    if have_hotWatCoi
     "Heating coil valve position"
     annotation (Placement(transformation(extent={{-300,-470},{-260,-430}}),
         iconTransformation(extent={{-240,-380},{-200,-340}})));
@@ -640,7 +633,7 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if have_heaCoi
+    if have_hotWatCoi
     "Heating coil control signal"
     annotation (Placement(transformation(extent={{260,-200},{300,-160}}),
         iconTransformation(extent={{200,-80},{240,-40}})));
@@ -671,12 +664,12 @@ block Controller
     annotation (Placement(transformation(extent={{260,-410},{300,-370}}),
         iconTransformation(extent={{200,-260},{240,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq
-    if have_heaCoi
+    if have_hotWatCoi
     "Hot water reset request"
     annotation (Placement(transformation(extent={{260,-460},{300,-420}}),
         iconTransformation(extent={{200,-290},{240,-250}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
-    if have_heaCoi
+    if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{260,-500},{300,-460}}),
         iconTransformation(extent={{200,-320},{240,-280}})));
@@ -717,7 +710,7 @@ block Controller
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-130,410},{-110,430}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller conEco(
-    final have_heaCoi=have_heaCoi,
+    final have_heaCoi=have_hotWatCoi or have_eleHeaCoi,
     final use_enthalpy=use_enthalpy,
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final uMin=uMin,
@@ -748,16 +741,16 @@ block Controller
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_typTerUniWitCO2=have_typTerUniWitCO2,
-    final have_parFanPowUniWitCO2=have_parFanPowUniWitCO2,
-    final have_SZVAVWitCO2=have_SZVAVWitCO2,
+    final have_typTerUniWitCO2=false,
+    final have_parFanPowUniWitCO2=false,
+    final have_SZVAVWitCO2=true,
     final permit_occStandby=permit_occStandby,
     final AFlo=AFlo,
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,
-    final VZonMin_flow=VZonMin_flow,
-    final VCooZonMax_flow=VCooZonMax_flow,
+    final VZonMin_flow=0,
+    final VCooZonMax_flow=0,
     final CO2Set=CO2Set,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
@@ -815,7 +808,7 @@ block Controller
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection frePro(
     final buiPreCon=buiPreCon,
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final have_freSta=have_freSta,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freHeaCoiCon,
@@ -828,7 +821,7 @@ block Controller
     "Freeze protection"
     annotation (Placement(transformation(extent={{140,-150},{160,-110}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests plaReq(
-    final have_heaCoi=have_heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final Thys=Thys,
     final posHys=posHys)
     "Plant request"
@@ -846,11 +839,11 @@ block Controller
        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     annotation (Placement(transformation(extent={{60,-340},{80,-320}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
-    if have_heaCoi
+    if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{200,-490},{220,-470}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold freProMod
-    if have_heaCoi
+    if have_hotWatCoi
     "Check if it is in freeze protection mode"
     annotation (Placement(transformation(extent={{120,-470},{140,-450}})));
 
@@ -877,8 +870,8 @@ equation
           394},{-22,394}},   color={0,0,127}));
   connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{58,179},{-50,179},
           {-50,394},{-22,394}},    color={0,0,127}));
-  connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{1,340},{14,340},
-          {14,143},{58,143}},       color={255,127,0}));
+  connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{2,340},{14,
+          340},{14,143},{58,143}},  color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-198,-90},{-180,-90},{-180,
           -98},{-152,-98}},        color={255,127,0}));
   connect(intEqu.y, switch.u) annotation (Line(points={{-128,-90},{-122,-90}},
@@ -906,8 +899,8 @@ equation
                                         color={0,0,127}));
   connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-98,-90},{0,-90},{
           0,42},{58,42}},              color={255,0,255}));
-  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{1,340},{14,340},
-          {14,46},{58,46}},           color={255,127,0}));
+  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{2,340},{14,
+          340},{14,46},{58,46}},      color={255,127,0}));
   connect(cooCoi.TSup, TSup) annotation (Line(points={{58,54},{-60,54},{-60,100},
           {-280,100}},      color={0,0,127}));
   connect(switch.y, conEco.uSupFan) annotation (Line(points={{-98,-90},{0,-90},{
@@ -1164,7 +1157,7 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="TCut"),
         Text(
-          visible=have_heaCoi,
+          visible=have_hotWatCoi,
           extent={{-202,-230},{-162,-246}},
           lineColor={0,0,127},
           fillColor={0,0,0},
@@ -1234,7 +1227,7 @@ annotation (defaultComponentName="conVAV",
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHeaCoi",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
         Text(
           extent={{152,-20},{194,-38}},
           lineColor={0,0,127},
@@ -1254,7 +1247,7 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="yRetDamPos"),
         Text(
-          visible=have_locAdj and not sepAdj,
+          visible=have_locAdj and sepAdj,
           extent={{-196,200},{-140,182}},
           lineColor={0,0,127},
           fillColor={0,0,0},
@@ -1325,7 +1318,7 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="uCooCoi"),
         Text(
-          visible=have_heaCoi,
+          visible=have_hotWatCoi,
           extent={{-196,-350},{-140,-372}},
           lineColor={0,0,127},
           fillColor={0,0,0},
@@ -1371,14 +1364,14 @@ annotation (defaultComponentName="conVAV",
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatResReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
         Text(
           extent={{116,-288},{198,-306}},
           lineColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatPlaReq",
-          visible=have_heaCoi),
+          visible=have_hotWatCoi),
         Text(
           extent={{166,-76},{194,-96}},
           lineColor={255,127,0},

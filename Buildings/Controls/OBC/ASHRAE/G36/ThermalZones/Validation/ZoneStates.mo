@@ -3,23 +3,25 @@ model ZoneStates "Validation models of determining zone state"
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta "Zone state"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uCoo(
-    period=2,
-    offset=0,
-    startTime=1,
-    amplitude=1) "Cooling control signal"
+    final period=2,
+    final shift=1,
+    final offset=0,
+    final amplitude=1) "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uHea(
-    period=2,
-    offset=0,
-    amplitude=1,
-    startTime=2) "Heating control signal"
+    final period=2,
+    final shift=2,
+    final offset=0,
+    final amplitude=1) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+
 equation
   connect(uHea.y, zonSta.uHea) annotation (Line(points={{-58,30},{-50,30},{-50,
           4},{-2,4}},     color={0,0,127}));
   connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-58,-30},{-50,-30},{
           -50,-4},{-2,-4}}, color={0,0,127}));
-  annotation (experiment(StopTime=3, Interval=300, Tolerance=1e-06),
+
+annotation (experiment(StopTime=3, Interval=300, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/ThermalZones/Validation/ZoneState.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

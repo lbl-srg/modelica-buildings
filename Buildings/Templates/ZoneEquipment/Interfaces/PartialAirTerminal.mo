@@ -1,36 +1,57 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
 partial model PartialAirTerminal
-  "Interface class for terminal unit in air system"
+  "Interface class for air terminal unit"
 
-  inner replaceable package MediumAir=Buildings.Media.Air
+  replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
-  inner replaceable package MediumHea=Buildings.Media.Water
+  replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Heating medium (such as HHW)"
-    annotation(Dialog(enable=have_souCoiHea));
+    "HHW medium"
+    annotation(Dialog(enable=have_souHeaWat));
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter String id
+  final parameter String id=dat.id
    "System tag"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration"));
 
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
-
-  parameter Boolean have_souCoiHea
-    "Set to true if heating coil requires fluid ports on the source side"
+  parameter Boolean have_souChiWat
+    "Set to true if system uses CHW"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_souHeaWat
+    "Set to true if system uses HHW"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    dat.getReal(varName=id + ".mechanical.mAir_flow_nominal.value")
+  replaceable parameter Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal dat(
+    final typ=typ,
+    final have_souChiWat=have_souChiWat,
+    final have_souHeaWat=have_souHeaWat)
+    "Design and operating parameters";
+
+  // Design parameters
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+    dat.mAir_flow_nominal
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mAirPri_flow_nominal
+    "Primary air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
+    "Total CHW mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal
+    "Total HHW mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
+    "Total CHW heat flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
+    "Total HHW heat flow rate"
+    annotation (Dialog(group="Nominal condition"));
+
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Sup(
     redeclare final package Medium =MediumAir)
@@ -67,16 +88,14 @@ partial model PartialAirTerminal
         transformation(extent={{290,-90},{310,-70}}), iconTransformation(
           extent={{190,90},{210,110}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
-    redeclare final package Medium=MediumHea) if have_souCoiHea
-    "Heating coil supply port"
-    annotation (Placement(transformation(extent={{10,-290},{30,-270}}),
-      iconTransformation(extent={{-30,-208},{-10,-188}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
-    redeclare final package Medium=MediumHea) if have_souCoiHea
-    "Heating coil return port"
-    annotation (Placement(transformation(extent={{-30,-290},{-10,-270}}),
-      iconTransformation(extent={{10,-208},{30,-188}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(redeclare final package
+      Medium = MediumHeaWat) if have_souHeaWat "HHW supply port" annotation (
+      Placement(transformation(extent={{10,-290},{30,-270}}),
+        iconTransformation(extent={{40,-210},{60,-190}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(redeclare final package
+      Medium = MediumHeaWat) if have_souHeaWat "HHW return port" annotation (
+      Placement(transformation(extent={{-30,-290},{-10,-270}}),
+        iconTransformation(extent={{-60,-210},{-40,-190}})));
 
   Interfaces.Bus bus
     "Terminal unit control bus"
@@ -89,7 +108,8 @@ partial model PartialAirTerminal
         rotation=90,
         origin={-199,160})));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}), graphics={
         Text(
           extent={{-155,-218},{145,-258}},
@@ -107,5 +127,10 @@ partial model PartialAirTerminal
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
-          pattern=LinePattern.None)}));
+          pattern=LinePattern.None)}),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for air terminal unit templates.
+</p>
+</html>"));
 end PartialAirTerminal;

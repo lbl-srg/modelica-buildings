@@ -1,9 +1,7 @@
 within Buildings.Templates.Components.Fans;
 model None "No fan"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.None,
-    final nFan=1,
-    dp_nominal=0);
+    final typ=Buildings.Templates.Components.Types.Fan.None);
 
 equation
   connect(port_a, V_flow.port_a)
@@ -14,5 +12,11 @@ equation
           points={{-100,0},{100,0}},
           color={28,108,200},
           thickness=1)}),
-      Diagram(coordinateSystem(preserveAspectRatio=false)));
+      Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a direct fluid pass-through model to represent
+a configuration with no fan.
+</p>
+</html>"));
 end None;

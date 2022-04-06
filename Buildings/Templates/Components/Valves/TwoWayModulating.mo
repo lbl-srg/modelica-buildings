@@ -24,7 +24,33 @@ equation
   connect(bus.y, val.y) annotation (Line(
       points={{0,100},{0,12}},
       color={255,204,51},
-      thickness=0.5));
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   connect(val.y_actual, bus.y_actual) annotation (Line(points={{5,7},{40,7},{40,
-          96},{0,96},{0,100}}, color={0,0,127}));
+          96},{0,96},{0,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a two-way modulating valve.
+</p>
+<ul>
+<li>
+The valve position is modulated with a fractional position 
+signal <code>y</code> (real).<br/>
+<code>y = 0</code> corresponds to fully closed.
+<code>y = 1</code> corresponds to fully open.
+</li>
+<li>
+The actual valve position <code>y_actual</code> (real) is returned.<br/>
+<code>y_actual = 0</code> corresponds to fully closed.
+<code>y_actual = 1</code> corresponds to fully open.
+</li>
+</ul>
+</html>"));
 end TwoWayModulating;

@@ -21,7 +21,7 @@ model SprayAirWasher_X
 
   replaceable Buildings.Fluid.Humidifiers.SprayAirWasher_X hum(
     mWatMax_flow=mWat_flow_nominal,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
       constrainedby Buildings.Fluid.Humidifiers.SprayAirWasher_X(
         redeclare package Medium = Medium,
         m_flow_nominal=m_flow_nominal,

@@ -378,7 +378,7 @@ during the commissioning and tuning phase.
 
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAVSupTempSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/VAVSupTempSet.png\"/>
 </p>
 
 <h4>During Cool-down modes (<code>uOpeMod=3</code>)</h4>

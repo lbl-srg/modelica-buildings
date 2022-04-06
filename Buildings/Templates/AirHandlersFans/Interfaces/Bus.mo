@@ -1,22 +1,22 @@
 within Buildings.Templates.AirHandlersFans.Interfaces;
-expandable connector Bus "Main control bus"
+expandable connector Bus "Control bus for air handler"
   extends Modelica.Icons.SignalBus;
 
     Templates.Components.Interfaces.Bus fanSup
        "Supply fan points"
        annotation (HideResult=false);
+    Templates.Components.Interfaces.Bus fanRel
+      "Relief fan points"
+      annotation (HideResult=false);
     Templates.Components.Interfaces.Bus fanRet
       "Return fan points"
       annotation (HideResult=false);
 
-    Templates.Components.Interfaces.Bus coiHeaPre
-      "Heating coil (preheat position)points"
+    Templates.Components.Interfaces.Bus coiHea
+      "Heating coil (preheat or reheat position, only one coil allowed) points"
       annotation (HideResult=false);
     Templates.Components.Interfaces.Bus coiCoo
       "Cooling coil points"
-      annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus coiHeaReh
-      "Heating coil (reheat position) points"
       annotation (HideResult=false);
 
     Templates.Components.Interfaces.Bus damOut
@@ -33,5 +33,10 @@ expandable connector Bus "Main control bus"
       annotation (HideResult=false);
 
   annotation (
-    defaultComponentName="bus");
+    defaultComponentName="bus", Documentation(info="<html>
+<p>
+This expandable connector provides a standard interface for 
+all control signals required by an air handler controller. 
+</p>
+</html>"));
 end Bus;

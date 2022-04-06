@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces;
-partial model PartialOutdoorSection "Outdoor air section"
+partial model PartialOutdoorSection "Interface class for outdoor air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -15,31 +15,19 @@ partial model PartialOutdoorSection "Outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
-  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtrEco
+  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
-    "Minimum outdoor air mass flow rate"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.Units.SI.PressureDifference dpDamOut_nominal
-    "Outdoor air damper pressure drop"
-    annotation (
-      Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal
-    "Minimum outdoor air damper pressure drop"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
+  parameter
+    Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
+    dat "Design and operating parameters";
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+    dat.damOut.m_flow_nominal
+    "Air mass flow rate";
+  final parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal=
+    dat.mOutMin_flow_nominal
+    "Minimum outdoor air mass flow rate";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -86,5 +74,23 @@ partial model PartialOutdoorSection "Outdoor air section"
           extent={{-149,-150},{151,-190}},
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
+    Documentation(info="<html>
+<p>
+This class provides a standard interface for the outdoor
+air section of an air handler.
+Typical components in that section include
+</p>
+<ul>
+<li>
+shut off OA dampers, 
+</li>
+<li>
+the OA side of the heat recovery unit,
+</li>
+<li>
+the OA dampers of the air economizer.
+</li>
+</ul>
+</html>"));
 end PartialOutdoorSection;

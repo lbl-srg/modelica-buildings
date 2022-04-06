@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection;
-model EconomizerNoRelief "Air economizer - No relief branch"
+model EconomizerNoRelief "Air Economizer - No Relief Branch"
   extends
     .Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,
@@ -17,10 +17,7 @@ model EconomizerNoRelief "Air economizer - No relief branch"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mAirSup_flow_nominal,
-      final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
-      final dpDamOut_nominal=dpDamOut_nominal,
-      final dpDamOutMin_nominal=dpDamOutMin_nominal)
+      final dat=dat)
     "Outdoor air section"
     annotation (
     choices(
@@ -40,18 +37,17 @@ model EconomizerNoRelief "Air economizer - No relief branch"
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief
     secRel(
       redeclare final package MediumAir = MediumAir,
-      final m_flow_nominal=mAirRet_flow_nominal,
-      final dpDamRel_nominal=dpDamRel_nominal,
-      final dpFan_nominal=dpFan_nominal)
+      final dat=dat)
     "Relief/return air section"
     annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-18,66},{18,94}})));
 
   Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAirRet_flow_nominal,
-    final dpDamper_nominal=dpDamRet_nominal,
-    final text_rotation=90) "Return air damper" annotation (Placement(
+    final dat=dat.damRet,
+    final text_rotation=90)
+    "Return air damper"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -80,4 +76,10 @@ equation
       thickness=0.5));
   connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,60},{
           80,60},{80,140}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a configuration with an air economizer
+and no relief air branch.
+</p>
+</html>"));
 end EconomizerNoRelief;

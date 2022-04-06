@@ -7,18 +7,42 @@ model PressureIndependent "Pressure independent damper"
   Buildings.Fluid.Actuators.Dampers.PressureIndependent dam(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpDamper_nominal=dpDamper_nominal)
+    final dpDamper_nominal=dp_nominal,
+    final dpFixed_nominal=dat.dpFixed_nominal)
     "Pressure independent damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(dam.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(bus.y, dam.y) annotation (Line(
-      points={{0,100},{0,56},{0,56},{0,12}},
-      color={255,204,51},
-      thickness=0.5));
   connect(dam.y_actual, bus.y_actual)
-    annotation (Line(points={{5,7},{40,7},{40,100},{0,100}}, color={0,0,127}));
+    annotation (Line(points={{5,7},{40,7},{40,96},{0,96},{0,100}},
+                                                             color={0,0,127}));
   connect(port_a, dam.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  connect(bus.y, dam.y) annotation (Line(
+      points={{0,100},{0,12}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a pressure independent damper.
+</p>
+<ul>
+<li>
+The airflow set point is modulated with a fractional 
+airflow signal <code>y</code> (real).<br/>
+<code>y = 0</code> corresponds to zero airflow.
+<code>y = 1</code> corresponds to the maximum airflow.
+</li>
+<li>
+The actual damper position <code>y_actual</code> (real) is returned.<br/>
+<code>y_actual = 0</code> corresponds to fully closed.
+<code>y_actual = 1</code> corresponds to fully open.
+</li>
+</ul>
+</html>"));
 end PressureIndependent;

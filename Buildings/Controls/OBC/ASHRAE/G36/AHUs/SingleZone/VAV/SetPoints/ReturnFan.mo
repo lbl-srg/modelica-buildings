@@ -26,8 +26,7 @@ block ReturnFan "Return fan control for single zone AHU"
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=speDif,
-    final k=1)
+    final p=speDif)
     "Adjusted return fan speed"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi "Return fan speed"

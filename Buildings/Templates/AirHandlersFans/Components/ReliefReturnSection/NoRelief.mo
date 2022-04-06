@@ -10,10 +10,9 @@ model NoRelief "No relief branch"
   replaceable Buildings.Templates.Components.Fans.None fanRet
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=dpFan_nominal,
+      final dat=dat.fanRet,
       final have_senFlo=
-        typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
+        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
       final text_flip=true)
     "Return fan"
     annotation (
@@ -43,5 +42,11 @@ equation
               Line(
           points={{0,0},{0,-140}},
           color={28,108,200},
-          thickness=1)}));
+          thickness=1)}), Documentation(info="<html>
+<p>
+This model represents a configuration with an air economizer
+and no relief branch.
+The return fan is optional.
+</p>
+</html>"));
 end NoRelief;

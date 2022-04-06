@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Components.HeatRecovery.Interfaces;
-partial model PartialHeatRecovery
+partial model PartialHeatRecovery "Interface class for heat recovery"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -9,10 +9,9 @@ partial model PartialHeatRecovery
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
@@ -60,5 +59,10 @@ partial model PartialHeatRecovery
         Text(
           extent={{-149,-110},{151,-150}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>
+This class provides a standard interface for the 
+heat recovery unit of an air handler.
+</p>
+</html>"));
 end PartialHeatRecovery;

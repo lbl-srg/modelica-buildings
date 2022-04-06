@@ -1,20 +1,6 @@
 within Buildings.Templates.Components.Pumps.Interfaces;
-partial model PartialPump "Interface class for pumps"
-  // Duplicate PartialTwoPortInterface but with conditional vector/scalar ports
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
-
-  parameter Integer nPum
-    "Number of pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+partial model PartialPump "Interface class for pump"
+  extends Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"
@@ -76,6 +62,32 @@ partial model PartialPump "Interface class for pumps"
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
+  parameter Integer nPum(final min=1) = 1
+    "Number of pumps"
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
+
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
+    "Total pressure rise"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ <> Buildings.Templates.Components.Types.Pump.None));
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 4000
+    "Nominal pressure drop of check valve"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ <> Buildings.Templates.Components.Types.Pump.None));
+
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
+    pressure(
+      V_flow={0, 1, 2} * m_flow_nominal / 1000 / nPum,
+      dp={1.5, 1, 0} * dp_nominal))
+    constrainedby Buildings.Fluid.Movers.Data.Generic(
+      motorCooledByFluid=false)
+    "Performance data"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(enable=typ <> Buildings.Templates.Components.Types.Pum.None),
+      Placement(transformation(extent={{-90,-88},{-70,-68}})));
+
   Buildings.Templates.Components.Interfaces.Bus bus
     "Control bus"
     annotation (
@@ -103,6 +115,11 @@ partial model PartialPump "Interface class for pumps"
       points={{0,-180},{0,-100}},
       color={0,0,0},
       thickness=1)}),
-   Diagram(coordinateSystem(preserveAspectRatio=false)));
+   Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for pump models.
+</p>
+</html>"));
 
 end PartialPump;

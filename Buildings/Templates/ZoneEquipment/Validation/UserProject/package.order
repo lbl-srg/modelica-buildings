@@ -1,3 +1,3 @@
-DummyControlPointsAHU
-DummyControlPointsZone
-TerminalUnits
+ZoneControlPoints
+AirHandlersFans
+ZoneEquipment

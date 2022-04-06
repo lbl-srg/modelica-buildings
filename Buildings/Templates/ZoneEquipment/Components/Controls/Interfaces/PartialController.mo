@@ -1,13 +1,12 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
-partial block PartialController
+partial block PartialController "Interface class for terminal unit controller"
 
   parameter ZoneEquipment.Types.Controller typ "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter String id
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    "External parameter file";
+  replaceable parameter
+    Buildings.Templates.ZoneEquipment.Components.Data.PartialController dat(
+      final typ=typ) "Design and operating parameters";
 
   Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
     "Terminal unit control bus" annotation (Placement(transformation(
@@ -29,5 +28,10 @@ partial block PartialController
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
-            200}})));
+            200}})),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for terminal unit controllers.
+</p>
+</html>"));
 end PartialController;

@@ -46,7 +46,7 @@ equation
     annotation (Line(points={{5,7},{20,7},{20,-38}}, color={0,0,127}));
   connect(val.y_actual, evaClo.u) annotation (Line(points={{5,7},{20,7},{20,-20},
           {-20,-20},{-20,-38}}, color={0,0,127}));
-  connect(evaOpe.y, bus.y_actual) annotation (Line(points={{20,-62},{20,-80},{60,
+  connect(evaOpe.y, bus.y1_actual) annotation (Line(points={{20,-62},{20,-80},{60,
           -80},{60,96},{0,96},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -58,7 +58,7 @@ equation
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(booToRea.u, bus.y) annotation (Line(points={{2.22045e-15,62},{2.22045e-15,
+  connect(booToRea.u, bus.y1) annotation (Line(points={{2.22045e-15,62},{2.22045e-15,
           81},{0,81},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -68,4 +68,24 @@ equation
           25},{0,25},{0,12}}, color={0,0,127}));
   connect(val.port_3, portByp_a)
     annotation (Line(points={{0,-10},{0,-100}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This is a model for a three-way two-position (directional) valve.
+</p>
+<ul>
+<li>
+The valve position is commanded with a Boolean signal <code>y1</code>.<br/>
+<code>y1 = false</code> corresponds to full bypass.
+<code>y1 = true</code> corresponds to zero bypass.
+</li>
+<li>
+The open end switch status <code>y1_actual</code> and
+closed end switch status <code>y0_actual</code> (Booleans)
+are returned.<br/>
+<code>y1_actual = false</code> corresponds to full bypass.
+<code>y1_actual = true</code> corresponds to zero bypass.
+And the opposite for <code>y0_actual</code>.
+</li>
+</ul>
+</html>"));
 end ThreWayTwoPosition;

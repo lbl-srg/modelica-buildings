@@ -55,10 +55,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if relief damper should be enabled"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(
-    u1(final unit="m3/s"),
-    u2(final unit="m3/s"),
-    y(final unit="m3/s"))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr(
+    u1(final unit="m3/s", displayUnit="m3/s"),
+    u2(final unit="m3/s", displayUnit="m3/s"),
+    y(final unit="m3/s", displayUnit="m3/s"))
     "Control error"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
@@ -83,9 +83,9 @@ equation
   connect(swi.y,yRetFan)
     annotation (Line(points={{82,-30},{120,-30}}, color={0,0,127}));
   connect(VSup_flow, conErr.u1)
-    annotation (Line(points={{-120,80},{-42,80}}, color={0,0,127}));
+    annotation (Line(points={{-120,80},{-80,80},{-80,86},{-42,86}}, color={0,0,127}));
   connect(difFlo.y, conErr.u2)
-    annotation (Line(points={{-58,50},{-30,50},{-30,68}}, color={0,0,127}));
+    annotation (Line(points={{-58,50},{-50,50},{-50,74},{-42,74}}, color={0,0,127}));
   connect(conErr.y, conP.u_s)
     annotation (Line(points={{-18,80},{-2,80}}, color={0,0,127}));
   connect(VRet_flow, conP.u_m)

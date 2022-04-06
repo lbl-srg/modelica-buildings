@@ -15,19 +15,14 @@ model NoEconomizer "No air economizer"
 
   Buildings.Templates.AirHandlersFans.Components.OutdoorSection.NoEconomizer secOut(
     redeclare final package MediumAir = MediumAir,
-    final m_flow_nominal=mAirSup_flow_nominal,
-    final mOutMin_flow_nominal=mAirOutMin_flow_nominal,
-    final dpDamOut_nominal=dpDamOut_nominal,
-    final dpDamOutMin_nominal=dpDamOutMin_nominal)
+    final dat=dat)
     "Outdoor air section"
     annotation (
     Dialog(group="Outdoor air section"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoEconomizer secRel(
     redeclare final package MediumAir = MediumAir,
-    final m_flow_nominal=mAirRet_flow_nominal,
-    final dpDamRel_nominal=dpDamRel_nominal,
-    final dpFan_nominal=dpFan_nominal)
+    final dat=dat)
     "Relief/return air section"
     annotation (
     Dialog(group="Exhaust/relief/return section"),
@@ -74,4 +69,10 @@ equation
           {-100,-6},{-100,-60},{-48,-60},{-48,-66}}, color={0,127,255}));
   connect(recHea.port_bOut, secOut.port_aHeaRec) annotation (Line(points={{-70,-6},
           {-60,-6},{-60,-56},{-44,-56},{-44,-66}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a configuration with no air economizer
+for 100% outdoor air applications (such as DOAS).
+</p>
+</html>"));
 end NoEconomizer;

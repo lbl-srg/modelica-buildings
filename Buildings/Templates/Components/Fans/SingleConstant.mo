@@ -1,14 +1,13 @@
 within Buildings.Templates.Components.Fans;
 model SingleConstant "Single fan - Constant speed"
   extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-    final typ=Buildings.Templates.Components.Types.Fan.SingleConstant,
-    final nFan=1);
+    final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare final package Medium =Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final per=per)
+    final per=dat.per)
     "Fan"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -33,7 +32,7 @@ equation
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,-20},
           {2.22045e-15,-20},{2.22045e-15,-38}},
                                  color={0,0,127}));
-  connect(bus.y, sigSta.u) annotation (Line(
+  connect(bus.y1, sigSta.u) annotation (Line(
       points={{0,100},{2.22045e-15,62}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -41,7 +40,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(evaSta.y, bus.y_actual) annotation (Line(points={{0,-62},{0,-80},{60,
+  connect(evaSta.y, bus.y1_actual) annotation (Line(points={{0,-62},{0,-80},{60,
           -80},{60,96},{0,96},{0,100}},     color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -52,5 +51,19 @@ equation
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
      Icon(
      coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a model for a constant speed fan.
+</p>
+<ul>
+<li>
+The fan is commanded On with a Boolean signal <code>y1</code> (starter contact).
+</li>
+<li>
+A status signal <code>y1_actual</code> (Boolean) is returned.
+<code>y1_actual = true</code> means that the fan is On.
+</li>
+</ul>
+</html>"));
 end SingleConstant;

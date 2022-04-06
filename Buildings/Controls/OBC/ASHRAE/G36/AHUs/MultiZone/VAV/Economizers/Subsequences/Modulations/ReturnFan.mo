@@ -14,10 +14,6 @@ block ReturnFan
     final unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
     annotation (Dialog(tab="Commissioning", group="Controller"));
-  parameter Real samplePeriod(
-     final unit="s",
-     final quantity="Time")= 300
-    "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(
     final unit="1")
@@ -83,14 +79,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolRetDam(
-    final samplePeriod=samplePeriod)
-    "First order hold to avoid too fast change of damper postion (which may cause freeze protection to be too slow to compensate)"
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolOutDam(
-    final samplePeriod=samplePeriod) if not have_directControl
-    "First order hold to avoid too fast change of damper position (which may cause freeze protection to be too slow to compensate)"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
 equation
   connect(damMinLimSig.y, retDamPos.x1) annotation (Line(points={{-78,-20},{-60,
@@ -113,17 +101,12 @@ equation
           {38,40}}, color={0,0,127}));
   connect(uTSup, relDamPos.u) annotation (Line(points={{-140,100},{20,100},{20,-50},
           {38,-50}}, color={0,0,127}));
-  connect(retDamPos.y, firOrdHolRetDam.u)
-    annotation (Line(points={{62,40},{78,40}}, color={0,0,127}));
-  connect(firOrdHolRetDam.y, yRetDamPos)
-    annotation (Line(points={{102,40},{140,40}}, color={0,0,127}));
-  connect(relDamPos.y, firOrdHolOutDam.u)
-    annotation (Line(points={{62,-50},{78,-50}}, color={0,0,127}));
-  connect(firOrdHolOutDam.y, yRelDamPos)
-    annotation (Line(points={{102,-50},{140,-50}}, color={0,0,127}));
   connect(one.y, yOutDamPos) annotation (Line(points={{-18,-90},{0,-90},{0,-100},
           {140,-100}}, color={0,0,127}));
-
+  connect(retDamPos.y, yRetDamPos)
+    annotation (Line(points={{62,40},{140,40}}, color={0,0,127}));
+  connect(relDamPos.y, yRelDamPos)
+    annotation (Line(points={{62,-50},{140,-50}}, color={0,0,127}));
 annotation (defaultComponentName="ecoMod",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -208,7 +191,7 @@ The modulation is shown as the control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the damper modulation for economizer in buildings with pressure controller by return fan\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/EcoMod_RetAir.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Modulations/ReturnFan.png\"/>
 </p>
 <p>
 Note in the above chart, if the building has direct pressure control

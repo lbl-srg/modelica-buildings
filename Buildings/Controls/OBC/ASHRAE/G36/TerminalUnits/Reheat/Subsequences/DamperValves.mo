@@ -78,7 +78,7 @@ block DamperValves
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
-    "Measured discharge airflow rate airflow rate"
+    "Measured primary discharge airflow rate"
     annotation (Placement(transformation(extent={{-360,340},{-320,380}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMin_flow(
@@ -277,26 +277,25 @@ block DamperValves
     final h=0.5*dTHys)
     "Check if supply air temperature is greater than room temperature"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,210},{-140,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch watValPosUno "Output hot water valve position"
     annotation (Placement(transformation(extent={{280,-10},{300,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,70},{300,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor if
-       not have_pressureIndependentDamper
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
+    if not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,170},{260,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
     final k=V_flow_nominal)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{200,220},{220,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDisSet_flowNor
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,240},{260,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1) if have_pressureIndependentDamper
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{220,140},{240,160}})));
@@ -323,7 +322,6 @@ block DamperValves
     "Constant real value"
     annotation (Placement(transformation(extent={{-200,-310},{-180,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=3)
     "Zone temperature plus threshold difference"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
@@ -336,8 +334,7 @@ block DamperValves
     "Constant zero"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=dTDisZonSetMax,
-    final k=1)
+    final p=dTDisZonSetMax)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-100},{-240,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowDisAirTem(
@@ -388,13 +385,13 @@ equation
   connect(swi5.y, swi.u1)
     annotation (Line(points={{82,320},{140,320},{140,298},{158,298}},
       color={0,0,127}));
-  connect(TSup, add2.u1)
+  connect(TSup, sub2.u1)
     annotation (Line(points={{-340,220},{-180,220},{-180,226},{-162,226}},
         color={0,0,127}));
-  connect(TZon, add2.u2)
+  connect(TZon, sub2.u2)
     annotation (Line(points={{-340,-200},{-300,-200},{-300,200},{-180,200},{-180,
           214},{-162,214}},   color={0,0,127}));
-  connect(add2.y, greThr.u)
+  connect(sub2.y, greThr.u)
     annotation (Line(points={{-138,220},{-122,220}}, color={0,0,127}));
   connect(greThr.y, and4.u2) annotation (Line(points={{-98,220},{-80,220},{-80,242},
           {-62,242}},      color={255,0,255}));
@@ -532,7 +529,7 @@ equation
   connect(isUno.y, conDam.trigger) annotation (Line(points={{122,-340},{240,-340},
           {240,128},{284,128},{284,238}}, color={255,0,255}));
 annotation (
-  defaultComponentName="damValReh",
+  defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-400},{320,400}}),
         graphics={
         Rectangle(
@@ -760,7 +757,7 @@ calculation is done following the steps below.
 </p>
 <ol>
 <li>
-When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
+When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop output
 <code>uCoo</code> shall be mapped to the airflow
 setpoint from the cooling minimum <code>VActCooMin_flow</code> to the cooling maximum
 <code>VActCooMax_flow</code> airflow setpoints. The heating coil is disabled (<code>yHeaVal=0</code>)
@@ -781,7 +778,7 @@ The heating coil is disabled unless the discharge air temperature is below the m
 setpoint (10 &deg;C).
 </li>
 <li>
-When the zone state is Heating (<code>uHea>0</code>), then the heating loop shall
+When the zone state is Heating (<code>uHea &gt; 0</code>), then the heating loop shall
 maintain space temperature at the heating setpoint as follows:
 <ul>
 <li>

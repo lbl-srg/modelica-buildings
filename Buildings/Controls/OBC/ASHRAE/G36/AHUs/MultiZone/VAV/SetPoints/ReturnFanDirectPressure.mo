@@ -12,7 +12,7 @@ block ReturnFanDirectPressure
     final quantity="PressureDifference",
     final min=0,
     final max=1000) = 2.4
-    "Minimum return fan discharge static pressure difference setpoint";
+    "Minimum return fan discharge static pressure difference setpoint,no less than 2.4 Pa";
   parameter Real dpDisMax(
     final unit="Pa",
     final quantity="PressureDifference",
@@ -60,7 +60,7 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMinOutAirDam
     "Minimum outdoor air damper status, true when it is open"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
@@ -91,7 +91,7 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{120,-170},{160,-130}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
@@ -114,7 +114,7 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div "Normalized the control error"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div "Normalized the control error"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linRetFanSpe "Return fan speed"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
@@ -361,7 +361,7 @@ to <code>dpDisMax</code>. The <code>dpDisMin</code> and
 </ol>
 <p align=\"center\">
 <img alt=\"Image of return fan control for multi zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/ReturnFanControlWithPressure.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/ReturnFanControlWithPressure.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

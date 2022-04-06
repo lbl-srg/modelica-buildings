@@ -2,68 +2,60 @@ within Buildings.Templates.Components.Coils;
 model WaterBasedHeating "Hot water coil"
   extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
-    final typHex=hex.typ,
     final typVal=val.typ,
-    final have_sou=true,
-    final have_weaBus=false,
-    port_aSou(redeclare final package Medium = MediumHea),
-    port_bSou(redeclare final package Medium = MediumHea),
-    mAir_flow_nominal=dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mAir_flow_nominal.value"));
+    port_aSou(redeclare final package Medium = MediumHeaWat),
+    port_bSou(redeclare final package Medium = MediumHeaWat));
 
-  outer replaceable package MediumHea=Buildings.Media.Water
+  replaceable package MediumHeaWat=Buildings.Media.Water
     "Source side medium";
 
-  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".mWat_flow_nominal.value")
-    "Liquid mass flow rate"
-    annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpWat_nominal(
-    displayUnit="Pa")=
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpWat_nominal.value")
-    "Liquid pressure drop"
-    annotation(Dialog(group = "Nominal condition"), Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-    displayUnit="Pa",
-    min=0)=if typVal==Buildings.Templates.Components.Types.Valve.None then 0 else
-    dat.getReal(varName=id + ".mechanical.coil" + funStr + ".dpValve_nominal.value")
-    "Nominal pressure drop of fully open valve"
-    annotation(Dialog(group="Nominal condition",
-      enable=typVal<>Buildings.Templates.Components.Types.Valve.None));
+  final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
+    dat.mWat_flow_nominal
+    "Liquid mass flow rate";
+  final parameter Modelica.Units.SI.PressureDifference dpWat_nominal=
+    dat.dpWat_nominal
+    "Liquid pressure drop across coil";
+  final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
+    dat.dpValve_nominal
+    "Nominal pressure drop across fully open valve";
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
-      redeclare final package Medium = MediumHea,
-      final m_flow_nominal=mWat_flow_nominal,
-      final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=if typVal<>Buildings.Templates.Components.Types.Valve.None then
-        dpWat_nominal else 0)
+      redeclare final package Medium = MediumHeaWat,
+      final dat=datVal)
     "Valve"
     annotation (
-      choicesAllMatching=true,
+      choices(
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.None val
+          "No valve"),
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.ThreeWayModulating val
+          "Three-way modulating valve"),
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
+          "Two-way modulating valve")),
       Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,-60})));
 
-  replaceable
-    Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU hex
-    constrainedby
-    Buildings.Templates.Components.HeatExchangers.Interfaces.PartialCoilWater(
-    redeclare final package Medium1 = MediumHea,
+  // We allow for redeclaration but not through the parameter dialog box.
+  replaceable Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    final use_Q_flow_nominal=true,
+    final Q_flow_nominal=Q_flow_nominal,
+    final T_a1_nominal=dat.TWatEnt_nominal,
+    final T_a2_nominal=dat.TAirEnt_nominal,
+    final dp1_nominal=if val.typ==Buildings.Templates.Components.Types.Valve.None
+      then dpWat_nominal else 0,
+    final dp2_nominal=dpAir_nominal)
+  constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
+    redeclare final package Medium1 = MediumHeaWat,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
-    final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=if typVal==Buildings.Templates.Components.Types.Valve.None then
-      dpWat_nominal else 0,
-    final dp2_nominal=dpAir_nominal)
+    final m2_flow_nominal=mAir_flow_nominal)
     "Heat exchanger"
-    annotation (choices(
-        choice(redeclare replaceable
-          Buildings.Templates.Components.HeatExchangers.DryCoilEffectivenessNTU
-          hex "Epsilon-NTU dry heat exchanger model")), Placement(
-        transformation(extent={{10,4},{-10,-16}})));
+    annotation (Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Templates.BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium=MediumHea)
+    redeclare final package Medium=MediumHeaWat)
     if typVal<>Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through"
     annotation (Placement(
@@ -73,7 +65,7 @@ model WaterBasedHeating "Hot water coil"
         origin={60,-60})));
 
   Buildings.Fluid.FixedResistances.Junction jun(
-    redeclare final package Medium=MediumHea,
+    redeclare final package Medium=MediumHeaWat,
     final m_flow_nominal=mWat_flow_nominal * {1, -1, -1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=fill(0, 3))
@@ -85,9 +77,6 @@ model WaterBasedHeating "Hot water coil"
         rotation=90,
         origin={40,-60})));
 equation
-  /* Control point connection - start */
-  connect(bus, val.bus);
-  /* Control point connection - end */
   connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(hex.port_b2, port_b)
@@ -107,16 +96,24 @@ equation
     annotation (Line(points={{40,-100},{40,-70}}, color={0,127,255}));
   connect(val.portByp_a, jun.port_3)
     annotation (Line(points={{-30,-60},{30,-60}}, color={0,127,255}));
+  connect(bus, val.bus) annotation (Line(
+      points={{0,100},{0,20},{-60,20},{-60,-60},{-50,-60}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
+</html>", info="<html>
 <p>
-Using modified getReal function with annotation(__Dymola_translate=true)
-avoids warning for non literal nominal attributes.
-Not supported by OCT though:
-Compliance error at line 8, column 4,
-  Constructors for external objects is not supported in functions
-
+This is a model for a hot water coil with an optional
+modulating valve.
+The valve position is modulated with the fractional opening
+signal <code>y</code> (real between <code>0</code> and <code>1</code>).
+If no valve is used, no signal is required.
 </p>
 </html>"));
 end WaterBasedHeating;

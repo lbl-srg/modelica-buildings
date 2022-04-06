@@ -1,5 +1,10 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
-package Interfaces "Classes defining the component interfaces"
+package Interfaces "Interface classes"
   extends Modelica.Icons.InterfacesPackage;
 
+annotation (Documentation(info="<html>
+<p>
+This package contains interface classes.
+</p>
+</html>"));
 end Interfaces;

@@ -1,68 +1,73 @@
 within Buildings.Templates.AirHandlersFans;
-model VAVMultiZone "Multiple-zone VAV air-handling unit"
-  extends Buildings.Templates.AirHandlersFans.Interfaces.AirHandler(
-    nZon(min=2),
+model VAVMultiZone "Multiple-zone VAV"
+/*
+  HACK: In Dymola only (ticket SR00860858-01), bindings for the parameter record
+  cannot be made final if propagation from a top-level record (whole building)
+  is needed.
+  Instead those parameter declarations are annoted with enable=false
+  in the record class.
+*/
+  extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
+    nZon(final min=2),
+    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat(
+      typCoiHeaPre=coiHeaPre.typ,
+      typCoiCoo=coiCoo.typ,
+      typCoiHeaReh=coiHeaReh.typ,
+      typValCoiHeaPre=coiHeaPre.typVal,
+      typValCoiCoo=coiCoo.typVal,
+      typValCoiHeaReh=coiHeaReh.typVal,
+      typDamOut=secOutRel.typDamOut,
+      typDamOutMin=secOutRel.typDamOutMin,
+      typDamRet=secOutRel.typDamRet,
+      typDamRel=secOutRel.typDamRel,
+      typCtl=ctl.typ,
+      typSecRel=secOutRel.typSecRel,
+      minOADes=ctl.minOADes,
+      buiPreCon=ctl.buiPreCon),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
-    final have_souCoiCoo = coiCoo.have_sou,
-    final have_souCoiHeaPre=coiHeaPre.have_sou,
-    final have_souCoiHeaReh=coiHeaReh.have_sou);
-
-  parameter Modelica.Units.SI.PressureDifference dpFanSup_nominal=
-    if typFanSup<>Buildings.Templates.Components.Types.Fan.None then
-      dat.getReal(varName=id + ".mechanical.Supply fan.Total pressure rise.value")
-    else 0
-    "Supply fan total pressure rise"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
-  parameter Modelica.Units.SI.PressureDifference dpFanRet_nominal=
-    if typFanRel <> Buildings.Templates.Components.Types.Fan.None or
-      typFanRet <> Buildings.Templates.Components.Types.Fan.None then
-      dat.getReal(varName=id + ".mechanical.Relief/return fan.Total pressure rise.value")
-    else 0
-    "Relief/return fan total pressure rise"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
-          typFanRet <> Buildings.Templates.Components.Types.Fan.None));
+    final have_souChiWat=coiCoo.have_sou,
+    final have_souHeaWat=coiHeaPre.have_sou or coiHeaReh.have_sou,
+    final typFanSup=if
+      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+      fanSupDra.typ elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+      then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
+    final typFanRel=secOutRel.typFanRel,
+    final typFanRet=secOutRel.typFanRet,
+    final mChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.mWat_flow_nominal else 0,
+    final mHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.mWat_flow_nominal else 0) +
+      (if coiHeaReh.have_sou then dat.coiHeaReh.mWat_flow_nominal else 0),
+    final QChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.Q_flow_nominal else 0,
+    final QHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.Q_flow_nominal else 0) +
+      (if coiHeaReh.have_sou then dat.coiHeaReh.Q_flow_nominal else 0));
 
   final parameter Boolean have_senPreBui=
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan or
     secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan and
-    secOutRel.typCtrFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.Pressure
+    secOutRel.typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure
     "Set to true if building static pressure sensor is used"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  final inner parameter Buildings.Templates.Components.Types.Fan typFanSup=if
-      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
-      fanSupDra.typ elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
-      then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None
-    "Type of supply fan" annotation (Evaluate=true);
-  final inner parameter Buildings.Templates.Components.Types.Fan typFanRet=
-    secOutRel.typFanRet
-    "Type of return fan"
-    annotation (Evaluate=true);
-  final inner parameter Buildings.Templates.Components.Types.Fan typFanRel=
-    secOutRel.typFanRel
-    "Type of relief fan"
-    annotation (Evaluate=true);
-
   /*
-  Currently only the configuration with economizer is supported:
-  hence, no choices annotation, but still replaceable to access parameter
+  RFE: Currently only the configuration with economizer is supported.
+  Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
   inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
     constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
-      final mAirSup_flow_nominal=mAirSup_flow_nominal,
-      final mAirRet_flow_nominal=mAirRet_flow_nominal,
-      final dpFan_nominal=dpFanRet_nominal,
-      final typCtrFanRet=ctr.typCtrFanRet,
-      final typCtrEco=ctr.typCtrEco)
+      final typCtlFanRet=ctl.typCtlFanRet,
+      final typCtlEco=ctl.typCtlEco,
+      dat(
+        final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
+        final damOut=dat.damOut,
+        final damOutMin=dat.damOutMin,
+        final damRel=dat.damRel,
+        final damRet=dat.damRet,
+        final fanRel=dat.fanRel,
+        final fanRet=dat.fanRet))
     "Outdoor/relief/return air section"
     annotation (
       Dialog(group="Outdoor/relief/return air section"),
@@ -70,19 +75,19 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.use_TMix,
+    final have_sen=ctl.use_TMix,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal) "Mixed air temperature sensor"
+    final m_flow_nominal=mAirSup_flow_nominal)
+    "Mixed air temperature sensor"
     annotation (Dialog(group="Supply air section", enable=false), Placement(
         transformation(extent={{-110,-210},{-90,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
-      redeclare final package Medium =  MediumAir,
-      final m_flow_nominal=mAirSup_flow_nominal,
-      final dp_nominal=dpFanSup_nominal,
-      final have_senFlo=ctr.typCtrFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
+      redeclare final package Medium = MediumAir,
+      final dat=dat.fanSup,
+      final have_senFlo=ctl.typCtlFanRet==
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
     "Supply fan - Blow through"
     annotation (
       choices(
@@ -119,10 +124,9 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
-      final m_flow_nominal=mAirSup_flow_nominal,
-      final dp_nominal=dpFanSup_nominal,
-      final have_senFlo=ctr.typCtrFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
+      final dat=dat.fanSup,
+      final have_senFlo=ctl.typCtlFanRet==
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
     "Supply fan - Draw through"
     annotation (
       choices(
@@ -136,34 +140,20 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
-  inner replaceable Components.Controls.OpenLoop ctr constrainedby
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialSingleDuct
+  inner replaceable Components.Controls.OpenLoop ctl constrainedby
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
+      final dat=dat.ctl,
+      final nZon=nZon)
     "AHU controller"
     annotation (
       choices(
         choice(redeclare replaceable
-          Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone
-          con "Guideline 36 control sequence"),
-        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop con
-          "Open loop control")),
+          Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
+          "Guideline 36 controller"),
+        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
+          "Open loop controller")),
     Dialog(group="Controls"),
     Placement(transformation(extent={{-220,-10},{-200,10}})));
-
-  /*
-  FIXME: Dummy default values fo testing purposes only.
-  Compute based on design pressure drop of each piece of equipment
-  in case of a lumped pressure drop.
-  */
-  Fluid.FixedResistances.PressureDrop resRet(
-    redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAirRet_flow_nominal,
-    dp_nominal=100)
-    annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
-  Fluid.FixedResistances.PressureDrop resSup(
-    redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAirSup_flow_nominal,
-    dp_nominal=100)
-    annotation (Placement(transformation(extent={{-20,-210},{0,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirSup(
     redeclare final package Medium = MediumAir,
@@ -181,35 +171,35 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
     annotation (Dialog(group="Supply air section"),
       Placement(transformation(extent={{250,-230},{270,-210}})));
 
-  Buildings.Templates.Components.Sensors.DifferentialPressure pAirBui_rel(
+  Buildings.Templates.Components.Sensors.DifferentialPressure pBui_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=have_senPreBui,
     final text_flip=true) "Building static pressure"
-    annotation (Placement(transformation(extent={{10,28},{-10,48}})));
+    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
 
   Buildings.Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
-    final nPorts=2)
+    final nPorts=3)
     "Outdoor conditions"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,80})));
+        origin={-40,90})));
   Buildings.Fluid.Sources.Boundary_pT bui(
     redeclare final package Medium = MediumAir,
-    final use_p_in=true,
-    final nPorts=2)
+    final use_p_in=have_senPreBui,
+    final nPorts=1)
     "Building absolute pressure in representative space"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,82})));
+        origin={40,60})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb
-         or ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
+    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb
+         or ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air temperature sensor"
@@ -218,61 +208,94 @@ model VAVMultiZone "Multiple-zone VAV air-handling unit"
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctr.typCtrEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
     annotation (Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{250,-90},{230,-70}})));
 
-  inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre(
-    final mAir_flow_nominal=mAirSup_flow_nominal)
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil
-    "Heating coil (preheat position)"
+  inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+      final dat=dat.coiHeaPre,
+      redeclare final package MediumAir=MediumAir)
+    "Heating coil in preheat position"
     annotation (
     choices(
       choice(
-        redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre(
-          final mAir_flow_nominal=mAirSup_flow_nominal)
+        redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre
         "No coil"),
       choice(
-        redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre
+        redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
+          redeclare final package MediumHeaWat=MediumHeaWat)
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
-        "Electric heating coil")),
+        "Modulating electric heating coil")),
     Dialog(group="Heating coil",
       enable=coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{10,-210},{30,-190}})));
-  inner replaceable Buildings.Templates.Components.Coils.None coiCoo(
-    final mAir_flow_nominal=mAirSup_flow_nominal)
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil
+
+  inner replaceable Buildings.Templates.Components.Coils.None coiCoo
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+      final dat=dat.coiCoo,
+      redeclare final package MediumAir=MediumAir)
     "Cooling coil"
     annotation (
     choices(
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiCoo(
-        final mAir_flow_nominal=mAirSup_flow_nominal)
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiCoo
         "No coil"),
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo
-        "Chilled water coil")),
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
+        redeclare final package MediumChiWat=MediumChiWat)
+        "Chilled water coil"),
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiCoo
+        "Evaporator coil with variable speed compressor")),
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
-  inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh(
-    final mAir_flow_nominal=mAirSup_flow_nominal)
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil
-    "Heating coil (reheat position)"
+  inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
+    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+      final dat=dat.coiHeaReh,
+      redeclare final package MediumAir=MediumAir)
+    "Heating coil in reheat position"
     annotation (
     choices(
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaReh(
-        final mAir_flow_nominal=mAirSup_flow_nominal)
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaReh
         "No coil"),
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh
+      choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
+        redeclare final package MediumHeaWat=MediumHeaWat)
         "Hot water coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh
-        "Electric heating coil")),
+        "Modulating electric heating coil")),
     Dialog(group="Heating coil",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{130,-210},{150,-190}})));
+  Fluid.FixedResistances.Junction junHeaWatSup(
+    redeclare final package Medium = MediumHeaWat,
+    final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=fill(0, 3)) if have_souHeaWat
+    "HHW supply junction"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={20,-260})));
+  Fluid.FixedResistances.Junction junHeaWatSup1(
+    redeclare final package Medium = MediumHeaWat,
+    final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal=fill(0, 3)) if have_souHeaWat
+    "HHW return junction" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-20,-240})));
+initial equation
+  assert(typFanSup<>Buildings.Templates.Components.Types.Fan.None,
+    "In "+ getInstanceName() + ": "+
+    "The template is configured with no supply fan, which is not supported.");
+  assert(not (fanSupBlo.typ<>Buildings.Templates.Components.Types.Fan.None and
+    fanSupDra.typ<>Buildings.Templates.Components.Types.Fan.None),
+    "In "+ getInstanceName() + ": "+
+    "The template is configured with both a blow-through fan and a draw-through fan, which is not supported.");
 equation
   /* Control point connection - start */
   connect(TAirMix.y, bus.TAirMix);
@@ -287,40 +310,35 @@ equation
   connect(coiCoo.bus, bus.coiCoo);
   connect(coiHeaReh.bus, bus.coiHea);
   connect(secOutRel.bus, bus);
-  connect(bui.p_in, bus.pAirBui);
-  connect(pAirBui_rel.y, bus.pAirBui_rel);
+  connect(bui.p_in, bus.pBui);
+  connect(pBui_rel.y, bus.pBui_rel);
   /* Control point connection - stop */
 
-  connect(coiHeaPre.port_bSou, port_coiHeaPreRet) annotation (Line(points={{15,
-          -210},{15,-260},{-20,-260},{-20,-280}}, color={0,127,255}));
-  connect(port_coiHeaPreSup, coiHeaPre.port_aSou) annotation (Line(points={{20,
-          -280},{20,-260},{25,-260},{25,-210}}, color={0,127,255}));
-  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{100,-280},
-          {100,-260},{85,-260},{85,-210}}, color={0,127,255}));
-  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{75,-210},{
-          75,-260},{60,-260},{60,-280}}, color={0,127,255}));
+  connect(port_aChiWat, coiCoo.port_aSou) annotation (Line(points={{100,-280},{
+          100,-268},{85,-268},{85,-210}},
+                                      color={0,127,255}));
+  connect(coiCoo.port_bSou, port_bChiWat) annotation (Line(points={{75,-210},{
+          75,-268},{60,-268},{60,-280}},
+                                      color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
       points={{0,280},{0,100},{74,100},{74,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TAirMix.port_b, fanSupBlo.port_a)
     annotation (Line(points={{-90,-200},{-50,-200}}, color={0,127,255}));
-  connect(port_coiHeaRehSup, coiHeaReh.port_aSou) annotation (Line(points={{180,-280},
-          {180,-260},{145,-260},{145,-210}}, color={0,127,255}));
-  connect(coiHeaReh.port_bSou, port_coiHeaRehRet) annotation (Line(points={{135,-210},
-          {135,-260},{140,-260},{140,-280}}, color={0,127,255}));
   connect(coiHeaReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{150,-200},{172,-200}}, color={0,127,255}));
   connect(busWea, out.weaBus) annotation (Line(
-      points={{0,280},{0,100},{-40,100},{-40,90},{-39.8,90}},
+      points={{0,280},{0,100},{-39.8,100}},
       color={255,204,51},
       thickness=0.5));
-  connect(pAirBui_rel.port_b, out.ports[1]) annotation (Line(points={{-10,38},{-10,
-          60},{-41,60},{-41,70}}, color={0,127,255}));
-  connect(bui.ports[1], pAirBui_rel.port_a) annotation (Line(points={{39,72},{39,
-          60},{10,60},{10,38}}, color={0,127,255}));
+  connect(pBui_rel.port_b, out.ports[1]) annotation (Line(points={{-10,40},{-40,
+          40},{-40,80},{-41.3333,80}},
+                                  color={0,127,255}));
+  connect(bui.ports[1], pBui_rel.port_a) annotation (Line(points={{40,50},{40,40},
+          {10,40}},             color={0,127,255}));
 
-  connect(ctr.busTer, busTer) annotation (Line(
+  connect(ctl.busTer, busTer) annotation (Line(
       points={{-200,0},{300,0}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -328,7 +346,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(ctr.bus, bus) annotation (Line(
+  connect(ctl.bus, bus) annotation (Line(
       points={{-220,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -336,8 +354,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(resRet.port_a, TAirRet.port_b)
-    annotation (Line(points={{190,-80},{200,-80}}, color={0,127,255}));
   connect(port_Ret, hAirRet.port_a)
     annotation (Line(points={{300,-80},{250,-80}}, color={0,127,255}));
   connect(hAirRet.port_b, TAirRet.port_a)
@@ -352,29 +368,39 @@ equation
     annotation (Line(points={{120,-200},{130,-200}}, color={0,127,255}));
   connect(secOutRel.port_Sup, TAirMix.port_a)
     annotation (Line(points={{-120,-200},{-110,-200}}, color={0,127,255}));
-  connect(secOutRel.port_Ret, resRet.port_b)
-    annotation (Line(points={{-120,-80.2},{10,-80.2},{10,-80},{170,-80}},
-                                                    color={0,127,255}));
   connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-162,-60},
-          {-162,60},{-39,60},{-39,70}},              color={0,127,255}));
+          {-162,80},{-40,80}},                       color={0,127,255}));
   connect(port_Rel, secOutRel.port_Rel)
     annotation (Line(points={{-300,-80},{-280,-80}}, color={0,127,255}));
   connect(port_Out, secOutRel.port_Out)
     annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
-  connect(bui.ports[2], pAirSup_rel.port_b) annotation (Line(points={{41,72},{41,
-          60},{280,60},{280,-220},{270,-220}}, color={0,127,255}));
   connect(TAirSup.port_b, port_Sup)
     annotation (Line(points={{230,-200},{300,-200}}, color={0,127,255}));
   connect(TAirSup.port_b, pAirSup_rel.port_a) annotation (Line(points={{230,-200},
           {240,-200},{240,-220},{250,-220}}, color={0,127,255}));
-  connect(fanSupBlo.port_b, resSup.port_a)
-    annotation (Line(points={{-30,-200},{-20,-200}}, color={0,127,255}));
-  connect(resSup.port_b, coiHeaPre.port_a)
-    annotation (Line(points={{0,-200},{10,-200}}, color={0,127,255}));
   connect(fanSupDra.port_b, TAirSup.port_a)
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
+  connect(port_aHeaWat, junHeaWatSup.port_1)
+    annotation (Line(points={{20,-280},{20,-270}}, color={0,127,255}));
+  connect(port_bHeaWat, junHeaWatSup1.port_2)
+    annotation (Line(points={{-20,-280},{-20,-250}}, color={0,127,255}));
+  connect(junHeaWatSup.port_3, coiHeaReh.port_aSou) annotation (Line(points={{
+          30,-260},{145,-260},{145,-210}}, color={0,127,255}));
+  connect(coiHeaReh.port_bSou, junHeaWatSup1.port_3) annotation (Line(points={{135,
+          -210},{135,-240},{-10,-240}},     color={0,127,255}));
+  connect(coiHeaPre.port_bSou, junHeaWatSup1.port_1) annotation (Line(points={{15,-210},
+          {15,-220},{-20,-220},{-20,-230}},          color={0,127,255}));
+  connect(junHeaWatSup.port_2, coiHeaPre.port_aSou) annotation (Line(points={{20,-250},
+          {20,-220},{25,-220},{25,-210}},          color={0,127,255}));
+  connect(out.ports[3], pAirSup_rel.port_b) annotation (Line(points={{-38.6667,
+          80},{280,80},{280,-220},{270,-220}},
+                                           color={0,127,255}));
+  connect(secOutRel.port_Ret, TAirRet.port_b) annotation (Line(points={{-120,-80.2},
+          {40,-80.2},{40,-80},{200,-80}}, color={0,127,255}));
+  connect(fanSupBlo.port_b, coiHeaPre.port_a)
+    annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
-    defaultComponentName="ahu",
+    defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,280}}),
       graphics={
@@ -428,36 +454,163 @@ INSIDE BUILDING",
           textString="REFERENCE OUTSIDE
 BUILDING",fontSize=4)}),
     Documentation(info="<html>
-Requires building indoor _absolute_ pressure as input
-
-Economizer and fan options options
-
-Common economizer/minimum OA damper
-
-- AFMS required
-
-Dedicated OA damper
-
-- AFMS => modulating OAMin damper
-- dp sensor => two-position OAMin damper
-
-
-Relief fan => Two position relief damper
-
-Return fan
-
-- Modulating relief (exhaust) damper
-- For AHUs with return fans, the outdoor air damper remains
-fully open whenever the AHU is on. But AO point specified nevertheless.
-- Control either return fan discharge pressure (fan) and building pressure (damper),
-or airflow (fan) and exhaust damper modulating in tandem with return damper
-
-Modulating relief damper
-
-- No relief fan
-- Control building static pressure
-
-
-
+<h4>Description</h4>
+<p>
+This template represents a multiple-zone VAV air handler for
+a single duct system serving <b>at least two</b> terminal units.
+</p>
+<p>
+The possible equipment configurations are enumerated in the table below.
+The user may refer to
+<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+for further details.
+The first option displayed in bold characters corresponds to the default configuration.<br/>
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
+<tr><td>Outdoor air section</td>
+<td>
+<b>Single common OA damper with AFMS</b><br/>
+Separate dedicated OA dampers with AFMS<br/>
+Separate dedicated OA dampers with differential pressure sensor
+</td>
+<td></td>
+</tr>
+<tr><td>Relief/return air section</td>
+<td>
+<b>Return fan with modulating relief damper</b><br/>
+Modulating relief damper without fan<br/>
+No relief branch<br/>
+Relief fan with two-position relief damper
+</td>
+<td>Nonactuated barometric relief is currently not supported.</td>
+</tr>
+<tr><td>Supply fan - Blow-through position</td>
+<td>
+<b>No fan</b><br/>
+Single fan - Variable speed<br/>
+Fan array - Variable speed
+</td>
+<td>At least one supply fan must be specified, either in blow-through
+or draw-through position. Those two configurations are exclusive from
+one another.</td>
+</tr>
+<tr><td>Heating coil - Preheat position</td>
+<td>
+<b>No coil</b><br/>
+Modulating electric heating coil<br/>
+Hot water coil
+</td>
+<td>By default a two-way modulating valve is considered for
+a hot water coil.
+Alternative options for the control valve are available.</td>
+</tr>
+<tr><td>Cooling coil</td>
+<td>
+<b>No coil</b><br/>
+Chilled water coil<br/>
+Evaporator coil with variable speed compressor
+</td>
+<td>By default a two-way modulating valve is considered for
+a chilled water coil.
+Alternative options for the control valve are available.</td>
+</tr>
+<tr><td>Heating coil - Reheat position</td>
+<td>
+<b>No coil</b><br/>
+Modulating electric heating coil<br/>
+Hot water coil
+</td>
+<td>By default a two-way modulating valve is considered for
+a hot water coil.
+Alternative options for the control valve are available.</td>
+</tr>
+<tr><td>Supply fan - Draw-through position</td>
+<td>
+<b>Single fan - Variable speed</b><br/>
+Fan array - Variable speed<br/>
+No fan
+</td>
+<td>At least one supply fan must be specified, either in blow-through
+or draw-through position. Those two configurations are exclusive from
+one another.</td>
+</tr>
+<tr><td>Return fan</td>
+<td>
+<b>Single fan - Variable speed</b><br/>
+Fan array - Variable speed<br/>
+No fan
+</td>
+<td>The relief fan and the return fan are both optional and
+they are exclusive from one another.</td>
+</tr>
+<tr><td>Relief fan</td>
+<td>
+<b>No fan</b><br/>
+Single fan - Variable speed<br/>
+Fan array - Variable speed
+</td>
+<td>The relief fan and the return fan are both optional and
+they are exclusive from one another.</td>
+</tr>
+<tr><td>Controller</td>
+<td>
+<b>Open loop controller</b><br/>
+ASHRAE Guideline 36 controller
+</td>
+<td></td>
+</tr>
+<tr><td>Exhaust fan</td>
+<td>
+<i>Not available: see note</i>
+</td>
+<td>All exhaust fans that normally operate with the air handler must
+be configured separately, by means of a dedicated template.
+<!-- RFE: This should be integrated in the AHU template ultimately. -->
+</td>
+</tr>
+<tr><td>Heat recovery</td>
+<td>
+<i>Not available: see note</i>
+</td>
+<td>Currently no heat recovery equipment is supported.
+<!-- RFE: This should be integrated in the AHU template ultimately. -->
+</td>
+</tr>
+</table>
+<h4>Simulation model assumptions and requirements</h4>
+<h5>Pressure reference</h5>
+<p>
+The duct static pressure sensors use the outdoor absolute pressure
+as an approximation of the reference pressure in the mechanical room
+where the air handler is located.
+</p>
+<p>
+When a building static pressure measurement is required by the control
+sequence
+(<code>ctl.typCtlFanRet=AirHandlersFans.Types.ControlFanReturn.BuildingPressure</code>),
+the corresponding sensor <code>pBui_rel</code> is instantiated
+within the current class.
+In this case, an additional variable <code>pBui</code> needs to be
+connected to the control bus to pass in the value of the absolute pressure
+in a representative space of the building.
+This is only for templating purposes, the actual control point remains the
+relative building static pressure.
+</p>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2018\">
+ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end VAVMultiZone;
