@@ -22,14 +22,14 @@ model BaseChilledWaterPlant
       final have_sendpChiWatLoc = chw.con.have_sendpChiWatLoc,
       final have_fixSpeConWatPum = chw.con.have_fixSpeConWatPum,
       final have_ctrHeaPre = chw.con.have_ctrHeaPre),
-    chiGro(
-      final typ = chw.chiGro.typ,
-      final nChi = chw.chiGro.nChi,
-      chi(final typ = chw.chiGro.chi.typ)),
-    cooTowGro(
-      final typ = chw.cooTowGro.typ,
-      final nCooTow = chw.cooTowGro.nCooTow,
-      cooTow(final typ = chw.cooTowGro.cooTow.typ)),
+    chiSec(
+      final typ = chw.chiSec.typ,
+      final nChi = chw.chiSec.nChi,
+      chi(final typ = chw.chiSec.chi.typ)),
+    cooTowSec(
+      final typ = chw.cooTowSec.typ,
+      final nCooTow = chw.cooTowSec.nCooTow,
+      cooTow(final typ = chw.cooTowSec.cooTow.typ)),
     pumPri(
       final typ = chw.pumPri.typ,
       final nPum = chw.pumPri.nPum,

@@ -1,9 +1,9 @@
-Chiller
-ChillerGroup
+Chillers
+ChillerSection
 Controls
-CondenserWaterPumpGroup
-CoolingTowerGroup
-PrimaryPumpGroup
-ReturnSection
-SecondaryPumpGroup
+CondenserPumps
+CoolingTowerSection
+PrimaryPumps
+Economizer
+SecondaryPumps
 Types

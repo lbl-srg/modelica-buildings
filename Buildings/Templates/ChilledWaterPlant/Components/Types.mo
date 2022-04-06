@@ -6,7 +6,7 @@ package Types
       "Electric water cooled chiller",
       AbsorptionChiller
       "Absorption chiller");
-  type ChillerGroup = enumeration(
+  type ChillerSection = enumeration(
       ChillerParallel
       "Chillers in parallel",
       ChillerSeries
@@ -15,7 +15,7 @@ package Types
       ConstantSpeed "Constant speed centrifugal",
       VariableSpeed "Variable speed centrifugal",
       PositiveDisplacement "Positive displacement (screw or scroll)");
-  type CondenserWaterPumpGroup = enumeration(
+  type CondenserPump = enumeration(
       Headered "Headered condensing water pumps",
       Dedicated "Dedicated condensing water pumps");
   type Configuration = enumeration(
@@ -24,17 +24,17 @@ package Types
   type Controller = enumeration(
       Guideline36 "Guideline 36 control sequence",
       OpenLoop "Open loop");
-  type CoolingTowerGroup = enumeration(
+  type CoolingTowerSection = enumeration(
       CoolingTowerParallel
       "Cooling towers in parallel");
-  type PrimaryPumpGroup = enumeration(
+  type PrimaryPump = enumeration(
       Headered "Headered primary pumps",
       Dedicated "Dedicated primary pumps");
-  type ReturnSection = enumeration(
+  type Economizer = enumeration(
       NoEconomizer "No waterside economizer",
       WatersideEconomizer
       "Waterisde economizer");
-  type SecondaryPumpGroup = enumeration(
+  type SecondaryPump = enumeration(
       None "No secondary pumps",
       Centralized "Centralized secondary pumps",
       Distributed "Distributed secondary pumps");

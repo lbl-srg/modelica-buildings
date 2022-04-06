@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.CoolingTower;
-model Merkel
+model Merkel "Cooling tower model using Merkel method"
   extends
     Buildings.Templates.Components.CoolingTower.Interfaces.PartialCoolingTower(
       final typ=Buildings.Templates.Components.Types.CoolingTower.Merkel);

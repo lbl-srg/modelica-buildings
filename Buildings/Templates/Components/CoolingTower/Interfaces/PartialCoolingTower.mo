@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.CoolingTower.Interfaces;
-partial model PartialCoolingTower
+partial model PartialCoolingTower "Partial cooling tower model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Water,
     final m_flow_nominal = dat.m_flow_nominal);

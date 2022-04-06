@@ -81,7 +81,7 @@ block Guideline36WaterCooled
   // ---- General: Cooling tower ----
 
   final parameter Modelica.Units.SI.Temperature dTAppTow_nominal(displayUnit="K", final min=0)=
-    cooTowGro.dTApp_nominal
+    cooTowSec.dTApp_nominal
     "Design cooling tower approach"
     annotation(Evaluate=true, Dialog(tab="General", group="Cooling tower"));
 
@@ -182,7 +182,7 @@ block Guideline36WaterCooled
     final cooTowAppDes=dTAppTow_nominal,
     final schTab=schTab,
     final TChiLocOut=dat.TAirOutLoc,
-    final TOutWetDes=cooTowGro.TAirInWB_nominal,
+    final TOutWetDes=cooTowSec.TAirInWB_nominal,
     final VHeaExcDes_flow=VHeaExcDes_flow,
     final minConWatPumSpe=dat.yPumConWat_min,
     final minHeaPreValPos=dat.yValIsoCon_min,

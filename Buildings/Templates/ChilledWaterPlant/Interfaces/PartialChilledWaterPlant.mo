@@ -38,8 +38,8 @@ partial model PartialChilledWaterPlant
 
   final inner parameter Boolean isAirCoo=
     typ == Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.AirCooled
-    "= true, chillers in group are air cooled, 
-    = false, chillers in group are water cooled";
+    "= true, chillers are air cooled, 
+    = false, chillers are water cooled";
 
   // Record
 

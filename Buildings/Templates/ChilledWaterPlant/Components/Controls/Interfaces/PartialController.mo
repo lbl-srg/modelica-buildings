@@ -29,8 +29,8 @@ block PartialController "Partial controller for chilled water plant"
   outer parameter Boolean have_eco
     "Set to true if the plant has a Waterside Economizer";
   outer parameter Boolean isAirCoo
-    "= true, chillers in group are air cooled, 
-    = false, chillers in group are water cooled";
+    "= true, chillers are air cooled, 
+    = false, chillers are water cooled";
   outer parameter Boolean have_secondary
     "= true if plant has secondary pumping";
 
@@ -51,12 +51,15 @@ block PartialController "Partial controller for chilled water plant"
       final have_fixSpeConWatPum=have_fixSpeConWatPum,
       final have_ctrHeaPre=have_ctrHeaPre) "Controller data";
 
-  outer replaceable Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
+  outer replaceable
+    Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer
     retSec "Chilled water return section";
-  outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.Interfaces.PartialCoolingTowerGroup
-    cooTowGro if isAirCoo "Cooling towers";
-  outer replaceable Buildings.Templates.ChilledWaterPlant.Components.CondenserWaterPumpGroup.Interfaces.PartialCondenserWaterPumpGroup
-    pumCon if isAirCoo "Condenser water pump group";
+  outer replaceable
+    Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Interfaces.PartialCoolingTowerSection
+    cooTowSec if isAirCoo "Cooling towers";
+  outer replaceable
+    Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Interfaces.PartialCondenserPump
+    pumCon if isAirCoo "Condenser pumps";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi = nChi, final nCooTow = nCooTow)

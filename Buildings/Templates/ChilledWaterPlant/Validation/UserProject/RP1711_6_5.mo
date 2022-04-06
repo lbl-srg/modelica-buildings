@@ -5,17 +5,17 @@ model RP1711_6_5
   extends Buildings.Templates.ChilledWaterPlant.WaterCooled(
     final nCooTow=2,
     redeclare
-      Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerGroup.CoolingTowerParallel
-      cooTowGro,
+      Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Parallel
+      cooTowSec,
     redeclare
-      Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerSeries
-      chiGro(final nChi=2, redeclare
+      Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Series
+      chiSec(final nChi=2, redeclare
         Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
         per),
     pumCon(final nPum=2),
     pumPri(final nPum=2),
     redeclare
-      Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.WatersideEconomizer
+      Buildings.Templates.ChilledWaterPlant.Components.Economizer.WatersideEconomizer
       retSec,
     final have_chiByp=false);
 

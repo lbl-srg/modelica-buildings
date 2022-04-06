@@ -1,5 +1,6 @@
 within Buildings.Templates.Components;
-package CoolingTower
+package CoolingTower "Cooling tower models"
+  extends Modelica.Icons.VariantsPackage;
 
 
 annotation (Documentation(info="<html>

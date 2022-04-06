@@ -6,10 +6,10 @@ model PartialChilledWaterLoop
     final have_secondary = not pumSec.dat.is_none,
     final have_eco = retSec.have_eco,
     final have_dedChiWatPum = pumPri.dat.is_dedicated,
-    final nChi = chiGro.nChi,
+    final nChi = chiSec.nChi,
     final nPumPri = pumPri.nPum,
     final nPumSec = pumSec.nPum,
-    final is_series = chiGro.is_series,
+    final is_series = chiSec.is_series,
     busCon(final nChi=nChi));
 
   replaceable package MediumChiWat=Buildings.Media.Water
@@ -31,47 +31,45 @@ model PartialChilledWaterLoop
     "= true if primary flow is measured on return side";
 
   final inner parameter Boolean have_parChi=
-    dat.chiGro.typ==Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerGroup.ChillerParallel
+    dat.chiSec.typ==Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerParallel
     "Set to true if the plant has parallel chillers"
     annotation(Dialog(tab="General", group="Configuration"));
 
   inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.ChillerParallel
-    chiGro constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.ChillerGroup.Interfaces.PartialChillerGroup(
-     redeclare final package MediumChiWat = MediumChiWat,
-     final dat=dat.chiGro)
-    "Chiller group"
-    annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},rotation=90,origin={-40,10})));
+    Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Parallel
+    chiSec constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
+      redeclare final package MediumChiWat = MediumChiWat, final dat=dat.chiSec)
+    "Chiller section" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-40,10})));
   inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.NoEconomizer
-    retSec constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
+    Buildings.Templates.ChilledWaterPlant.Components.Economizer.None retSec
+    constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
     redeclare final package MediumChiWat = MediumChiWat,
     final dat=dat.retSec,
-    final m2_flow_nominal=dat.mChiWatPri_flow_nominal) "Chilled water return section"
-    annotation (Placement(transformation(
+    final m2_flow_nominal=dat.mChiWatPri_flow_nominal)
+    "Chilled water return section" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-72})));
   inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Headered
+    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Headered
     pumPri constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumpGroup.Interfaces.PartialPrimaryPumpGroup(
-      redeclare final package Medium = MediumChiWat,
-      final dat=dat.pumPri,
-      final have_parChi=have_parChi,
-      final have_chiByp=have_chiByp)
-    "Chilled water primary pump group"
+    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Interfaces.PartialPrimaryPump(
+    redeclare final package Medium = MediumChiWat,
+    final dat=dat.pumPri,
+    final have_parChi=have_parChi,
+    final have_chiByp=have_chiByp) "Chilled water primary pumps"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.None
-    pumSec constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumpGroup.Interfaces.PartialSecondaryPumpGroup(
-      redeclare final package Medium = MediumChiWat,
-      final dat=dat.pumSec)
-    "Chilled water secondary pump group"
+    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.None pumSec
+    constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.Interfaces.PartialSecondaryPump(
+      redeclare final package Medium = MediumChiWat, final dat=dat.pumSec)
+    "Chilled water secondary pumps"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   inner replaceable Components.Controls.OpenLoop con constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.PartialController(
@@ -185,7 +183,7 @@ equation
 
   // Bus connection
   connect(pumPri.busCon, busCon);
-  connect(chiGro.busCon, busCon);
+  connect(chiSec.busCon, busCon);
   connect(retSec.busCon, busCon);
   connect(pumSec.busCon, busCon);
 
@@ -200,13 +198,13 @@ equation
       horizontalAlignment=TextAlignment.Left));
 
   // Mechanical
-  connect(chiGro.ports_b2, pumPri.ports_parallel)
+  connect(chiSec.ports_b2, pumPri.ports_parallel)
     annotation (Line(points={{-30,16},{-20,16},{-20,10},{-8.88178e-16,10}},
       color={0,127,255}));
-  connect(chiGro.port_b2, pumPri.port_series)
+  connect(chiSec.port_b2, pumPri.port_series)
     annotation (Line(points={{-34,20},{-34,30},{-10,30},{-10,16},{0,16}},
       color={0,127,255}));
-  connect(splChiByp.port_2, chiGro.port_a2)
+  connect(splChiByp.port_2, chiSec.port_a2)
     annotation (Line(points={{-30,-20},{-34,-20},{-34,0}}, color={0,127,255}));
   connect(splChiByp.port_3,pumPri. port_ChiByp)
     annotation (Line(points={{-20,-10},{-20,4},{0,4}}, color={0,127,255}));
