@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24;
 block AHU "AHU level setpoint calculation"
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
+    "Design of minimum outdoor air and economizer function"
+    annotation (Dialog(group="Economizer design"));
   parameter Boolean have_CO2Sen
     "True: there are zones have CO2 sensor";
   parameter Real VAbsOutAir_flow(unit="m3/s")
@@ -15,134 +18,162 @@ block AHU "AHU level setpoint calculation"
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the zone absolute minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumZonDesMin_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the zone design minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxCO2(
     final unit="1") if have_CO2Sen
     "Maximum Zone CO2 control loop"
-    annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
+    final min=0,
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    "Measured outdoor volumetric airflow rate"
+    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffAbsOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Effective outdoor air absolute minimum setpoint"
-    annotation (Placement(transformation(extent={{100,100},{140,140}}),
+    annotation (Placement(transformation(extent={{100,140},{140,180}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effAbsOutAir_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor air rate "
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation (Placement(transformation(extent={{100,100},{140,140}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffDesOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Effective outdoor air design minimum setpoint"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effDesOutAir_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by the design outdoor air rate "
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effOutAir_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor air rate "
-    annotation (Placement(transformation(extent={{100,-160},{140,-120}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput outAir_normalized(
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    "Normalized outdoor airflow rate"
+    annotation (Placement(transformation(extent={{100,-180},{140,-140}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant absOutAir(
     final k=VAbsOutAir_flow)
     "Design outdoor air rate when all zones with CO2 sensors or occupancy sensors are unpopulated"
-    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Effective outdoor air absolute minimum setpoint"
-    annotation (Placement(transformation(extent={{0,110},{20,130}})));
+    annotation (Placement(transformation(extent={{0,150},{20,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desOutAir(
     final k=VDesOutAir_flow)
     "Design minimum outdoor airflow with areas served by the system are occupied at their design population, including diversity where applicable"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min2 "Effective outdoor air design minimum setpoint"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin1
     "Normalization for minimum outdoor air flow rate"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0.5) if have_CO2Set
+    final k=0.5) if have_CO2Sen
     "Constant value"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=1) if have_CO2Set
+    final k=1) if have_CO2Sen
     "Constant value"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Line effOutAir(
     final limitBelow=false,
-    final limitAbove=true) if have_CO2Set
+    final limitAbove=true) if have_CO2Sen
     "Normalized effective outdoor air setpoint"
-    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1) if not have_CO2Sen
     "When there is no zone has CO2 sensor, design setpoint will be applied"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin2 if have_CO2Set
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin2 if have_CO2Sen
     "Normalization for minimum outdoor air flow rate"
-    annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    "Normalization for outdoor air flow rate"
+    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
+
 equation
-  connect(absOutAir.y, min1.u1) annotation (Line(points={{-58,140},{-20,140},{-20,
-          126},{-2,126}}, color={0,0,127}));
+  connect(absOutAir.y, min1.u1) annotation (Line(points={{-58,180},{-20,180},{-20,
+          166},{-2,166}}, color={0,0,127}));
   connect(min1.y, VEffAbsOutAir_flow)
-    annotation (Line(points={{22,120},{120,120}},color={0,0,127}));
-  connect(desOutAir.y, min2.u1) annotation (Line(points={{-58,40},{-20,40},{-20,
-          26},{-2,26}},    color={0,0,127}));
+    annotation (Line(points={{22,160},{120,160}},color={0,0,127}));
+  connect(desOutAir.y, min2.u1) annotation (Line(points={{-58,80},{-20,80},{-20,
+          66},{-2,66}},    color={0,0,127}));
   connect(min2.y, VEffDesOutAir_flow)
-    annotation (Line(points={{22,20},{120,20}},    color={0,0,127}));
-  connect(VSumZonDesMin_flow, min2.u2) annotation (Line(points={{-120,0},{-40,0},
-          {-40,14},{-2,14}},        color={0,0,127}));
-  connect(VSumZonAbsMin_flow, min1.u2) annotation (Line(points={{-120,100},{-40,
-          100},{-40,114},{-2,114}}, color={0,0,127}));
-  connect(desOutAir.y, norVOutMin.u2) annotation (Line(points={{-58,40},{-20,40},
-          {-20,-26},{-2,-26}}, color={0,0,127}));
-  connect(min1.y, norVOutMin1.u1) annotation (Line(points={{22,120},{50,120},{50,
-          100},{-10,100},{-10,86},{-2,86}}, color={0,0,127}));
-  connect(min2.y, norVOutMin.u1) annotation (Line(points={{22,20},{40,20},{40,0},
-          {-10,0},{-10,-14},{-2,-14}},      color={0,0,127}));
+    annotation (Line(points={{22,60},{120,60}},    color={0,0,127}));
+  connect(VSumZonDesMin_flow, min2.u2) annotation (Line(points={{-120,40},{-40,40},
+          {-40,54},{-2,54}},        color={0,0,127}));
+  connect(VSumZonAbsMin_flow, min1.u2) annotation (Line(points={{-120,140},{-40,
+          140},{-40,154},{-2,154}}, color={0,0,127}));
+  connect(desOutAir.y, norVOutMin.u2) annotation (Line(points={{-58,80},{-20,80},
+          {-20,14},{-2,14}},   color={0,0,127}));
+  connect(min1.y, norVOutMin1.u1) annotation (Line(points={{22,160},{50,160},{50,
+          140},{-10,140},{-10,126},{-2,126}}, color={0,0,127}));
+  connect(min2.y, norVOutMin.u1) annotation (Line(points={{22,60},{40,60},{40,40},
+          {-10,40},{-10,26},{-2,26}},       color={0,0,127}));
   connect(norVOutMin1.y, effAbsOutAir_normalized)
-    annotation (Line(points={{22,80},{120,80}}, color={0,0,127}));
-  connect(norVOutMin.y, effDesOutAir_normalized) annotation (Line(points={{22,-20},
-          {120,-20}}, color={0,0,127}));
+    annotation (Line(points={{22,120},{120,120}}, color={0,0,127}));
+  connect(norVOutMin.y, effDesOutAir_normalized) annotation (Line(points={{22,20},
+          {120,20}},  color={0,0,127}));
   connect(uMaxCO2, effOutAir.u)
-    annotation (Line(points={{-120,-110},{-2,-110}}, color={0,0,127}));
-  connect(con.y, effOutAir.x1) annotation (Line(points={{-58,-80},{-40,-80},{-40,
-          -102},{-2,-102}}, color={0,0,127}));
-  connect(con1.y, effOutAir.x2) annotation (Line(points={{-58,-140},{-40,-140},{
-          -40,-114},{-2,-114}}, color={0,0,127}));
-  connect(gai.y, effOutAir_normalized) annotation (Line(points={{62,-80},{90,-80},
-          {90,-140},{120,-140}}, color={0,0,127}));
-  connect(absOutAir.y, norVOutMin1.u2) annotation (Line(points={{-58,140},{-20,140},
-          {-20,74},{-2,74}}, color={0,0,127}));
-  connect(min2.y, effOutAir.f2) annotation (Line(points={{22,20},{40,20},{40,-40},
-          {-30,-40},{-30,-118},{-2,-118}}, color={0,0,127}));
-  connect(min1.y, effOutAir.f1) annotation (Line(points={{22,120},{50,120},{50,-50},
-          {-10,-50},{-10,-106},{-2,-106}}, color={0,0,127}));
-  connect(norVOutMin.y, gai.u) annotation (Line(points={{22,-20},{60,-20},{60,-60},
-          {30,-60},{30,-80},{38,-80}}, color={0,0,127}));
-  connect(effOutAir.y, norVOutMin2.u1) annotation (Line(points={{22,-110},{40,-110},
-          {40,-134},{58,-134}}, color={0,0,127}));
-  connect(desOutAir.y, norVOutMin2.u2) annotation (Line(points={{-58,40},{-20,40},
-          {-20,-146},{58,-146}}, color={0,0,127}));
+    annotation (Line(points={{-120,-70},{-2,-70}},   color={0,0,127}));
+  connect(con.y, effOutAir.x1) annotation (Line(points={{-58,-40},{-40,-40},{-40,
+          -62},{-2,-62}},   color={0,0,127}));
+  connect(con1.y, effOutAir.x2) annotation (Line(points={{-58,-100},{-40,-100},{
+          -40,-74},{-2,-74}},   color={0,0,127}));
+  connect(gai.y, effOutAir_normalized) annotation (Line(points={{62,-40},{90,-40},
+          {90,-100},{120,-100}}, color={0,0,127}));
+  connect(absOutAir.y, norVOutMin1.u2) annotation (Line(points={{-58,180},{-20,180},
+          {-20,114},{-2,114}}, color={0,0,127}));
+  connect(min2.y, effOutAir.f2) annotation (Line(points={{22,60},{40,60},{40,0},
+          {-30,0},{-30,-78},{-2,-78}},     color={0,0,127}));
+  connect(min1.y, effOutAir.f1) annotation (Line(points={{22,160},{50,160},{50,-10},
+          {-10,-10},{-10,-66},{-2,-66}},   color={0,0,127}));
+  connect(norVOutMin.y, gai.u) annotation (Line(points={{22,20},{60,20},{60,-20},
+          {30,-20},{30,-40},{38,-40}}, color={0,0,127}));
+  connect(effOutAir.y, norVOutMin2.u1) annotation (Line(points={{22,-70},{40,-70},
+          {40,-94},{58,-94}},   color={0,0,127}));
+  connect(desOutAir.y, norVOutMin2.u2) annotation (Line(points={{-58,80},{-20,80},
+          {-20,-106},{58,-106}}, color={0,0,127}));
   connect(norVOutMin2.y, effOutAir_normalized)
-    annotation (Line(points={{82,-140},{120,-140}}, color={0,0,127}));
+    annotation (Line(points={{82,-100},{120,-100}}, color={0,0,127}));
+  connect(VOut_flow, norVOut.u1) annotation (Line(points={{-120,-140},{-40,-140},
+          {-40,-154},{38,-154}}, color={0,0,127}));
+  connect(norVOut.y, outAir_normalized)
+    annotation (Line(points={{62,-160},{120,-160}}, color={0,0,127}));
+  connect(desOutAir.y, norVOut.u2) annotation (Line(points={{-58,80},{-20,80},{-20,
+          -166},{38,-166}}, color={0,0,127}));
 annotation (
   defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -156,11 +187,11 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,48},{-26,32}},
+          extent={{-98,88},{-26,72}},
           lineColor={0,0,0},
           textString="VSumZonAbsMin_flow"),
         Text(
-          extent={{-96,-32},{-26,-48}},
+          extent={{-96,38},{-26,22}},
           lineColor={0,0,0},
           textString="VSumZonDesMin_flow"),
         Text(
@@ -180,15 +211,27 @@ annotation (
           lineColor={0,0,0},
           textString="effDesOutAir_normalized"),
         Text(
-          extent={{-96,-74},{-66,-86}},
+          extent={{-96,-24},{-66,-36}},
           lineColor={0,0,0},
           textString="uMaxCO2",
           visible=have_CO2Sen),
         Text(
-          extent={{18,-68},{96,-90}},
+          extent={{18,-48},{96,-70}},
           lineColor={0,0,0},
-          textString="effOutAir_normalized")}),
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}})),
+          textString="effOutAir_normalized"),
+        Text(
+          extent={{30,-76},{96,-100}},
+          lineColor={0,0,0},
+          textString="outAir_normalized",
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
+        Text(
+          extent={{-98,-74},{-68,-86}},
+          lineColor={0,0,0},
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
+          textString="VOut_flow")}),
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}})),
 Documentation(info="<html>
 <p>
 This sequence outputs AHU level effective outdoor air absolute minimum and design

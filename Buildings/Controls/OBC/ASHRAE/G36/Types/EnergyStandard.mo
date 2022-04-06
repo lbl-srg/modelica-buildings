@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type EnergyStandard = enumeration(
+    Not_Specified "Not specified",
     ASHRAE90_1_2016
       "ASHRAE 90.1-2016 energy code",
     California_Title_24_2016

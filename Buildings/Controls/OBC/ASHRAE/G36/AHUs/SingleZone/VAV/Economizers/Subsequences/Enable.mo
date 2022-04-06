@@ -249,14 +249,16 @@ equation
     annotation (Line(points={{-22,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
   connect(hysOutTem.y, or2.u1)
     annotation (Line(points={{-78,250},{38,250}}, color={255,0,255}));
-  connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-78,170},{0,170},{0,242},
-          {38,242}}, color={255,0,255}));
+  connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-78,170},{6,170},{6,
+          242},{38,242}},
+                     color={255,0,255}));
   connect(entSubst.y, or2.u2) annotation (Line(points={{-38,210},{0,210},{0,242},
           {38,242}}, color={255,0,255}));
   connect(hysOutTem.y, and2.u1) annotation (Line(points={{-78,250},{20,250},{20,
           200},{38,200}}, color={255,0,255}));
-  connect(hysOutEnt.y, and2.u2) annotation (Line(points={{-78,170},{0,170},{0,192},
-          {38,192}}, color={255,0,255}));
+  connect(hysOutEnt.y, and2.u2) annotation (Line(points={{-78,170},{-12,170},{
+          -12,192},{38,192}},
+                     color={255,0,255}));
   connect(or2.y, truFalHol.u) annotation (Line(points={{62,250},{100,250},{100,220},
           {118,220}}, color={255,0,255}));
   connect(and2.y, truFalHol.u) annotation (Line(points={{62,200},{100,200},{100,

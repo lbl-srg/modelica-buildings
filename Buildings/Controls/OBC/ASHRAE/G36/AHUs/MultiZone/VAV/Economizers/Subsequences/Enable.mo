@@ -2,8 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 block Enable "Multi zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
-    "Set to true to evaluate outdoor air enthalpy in addition to temperature"
+    "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
+  parameter Boolean use_differential_enthalpy_with_fixed_drybulb = false
+    "Check if use differential enthalpy with fixed drybulb. It has to be false when not using enthalpy"
+    annotation(Dialog(group="Conditional", enable=use_enthalpy));
   parameter Real delTOutHis(
     final unit="K",
     final displayUnit="K",
@@ -139,26 +142,22 @@ protected
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst(
-    final k=false) if not use_enthalpy
-    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
-    annotation (Placement(transformation(extent={{-80,172},{-60,192}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     if use_enthalpy "Add block determines difference between hOut and hOutCut"
-    annotation (Placement(transformation(extent={{-120,142},{-100,162}})));
+    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Add block determines difference between TOut and TOutCut"
-    annotation (Placement(transformation(extent={{-120,222},{-100,242}})));
+    annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
     final uLow=TOutHigLimCutLow,
     final uHigh=TOutHigLimCutHig)
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
-    annotation (Placement(transformation(extent={{-80,222},{-60,242}})));
+    annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutEnt(
     final uLow=hOutHigLimCutLow,
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
-    annotation (Placement(transformation(extent={{-80,142},{-60,162}})));
+    annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch
     "Set maximum OA damper position to minimum at disable (after a given time delay)"
     annotation (Placement(transformation(extent={{82,-78},{102,-58}})));
@@ -170,8 +169,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{60,-178},{80,-158}})));
-  Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"
-    annotation (Placement(transformation(extent={{-20,182},{0,202}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-60,-58},{-40,-38}})));
   Buildings.Controls.OBC.CDL.Logical.And  and2 "Logical and"
@@ -181,7 +178,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Check if delay time has been passed after economizer being disabled"
     annotation (Placement(transformation(extent={{40,-54},{60,-34}})));
-
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-78,32},{-58,52}})));
@@ -199,26 +195,31 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     "Integer constant, stage 0"
     annotation (Placement(transformation(extent={{-118,12},{-98,32}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(
+    final k=false) if not use_enthalpy
+    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
+    annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    if use_enthalpy and use_differential_enthalpy_with_fixed_drybulb
+    "Check if both the temperature and the enthalpy conditions are satisfied"
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    if not use_differential_enthalpy_with_fixed_drybulb
+    "Check if either the temperature or the enthalpy condition is satisfied"
+    annotation (Placement(transformation(extent={{-60,220},{-40,240}})));
 equation
   connect(TOut, sub1.u1)
-    annotation (Line(points={{-280,252},{-250,252},{-250,238},{-122,238}},color={0,0,127}));
+    annotation (Line(points={{-280,252},{-240,252},{-240,236},{-202,236}},color={0,0,127}));
   connect(TOutCut, sub1.u2)
-    annotation (Line(points={{-280,212},{-232,212},{-232,226},{-122,226}},color={0,0,127}));
+    annotation (Line(points={{-280,212},{-240,212},{-240,224},{-202,224}},color={0,0,127}));
   connect(sub1.y, hysOutTem.u)
-    annotation (Line(points={{-98,232},{-82,232}},   color={0,0,127}));
+    annotation (Line(points={{-178,230},{-162,230}}, color={0,0,127}));
   connect(hOut, sub2.u1)
-    annotation (Line(points={{-280,172},{-232,172},{-232,158},{-122,158}},color={0,0,127}));
+    annotation (Line(points={{-280,172},{-240,172},{-240,156},{-202,156}},color={0,0,127}));
   connect(hOutCut, sub2.u2)
-    annotation (Line(points={{-280,132},{-232,132},{-232,146},{-122,146}}, color={0,0,127}));
+    annotation (Line(points={{-280,132},{-240,132},{-240,144},{-202,144}}, color={0,0,127}));
   connect(sub2.y, hysOutEnt.u)
-    annotation (Line(points={{-98,152},{-82,152}},   color={0,0,127}));
-  connect(hysOutTem.y, nor1.u1)
-    annotation (Line(points={{-58,232},{-40,232},{-40,192},{-22,192}},color={255,0,255}));
-  connect(hysOutEnt.y, nor1.u2)
-    annotation (Line(points={{-58,152},{-40,152},{-40,184},{-22,184}},color={255,0,255}));
-  connect(entSubst.y, nor1.u2)
-    annotation (Line(points={{-58,182},{-40,182},{-40,184},{-22,184}},color={255,0,255}));
+    annotation (Line(points={{-178,150},{-162,150}}, color={0,0,127}));
   connect(uOutDamPosMin, outDamSwitch.u1)
     annotation (Line(points={{-280,-78},{10,-78},{10,-60},{80,-60}},  color={0,0,127}));
   connect(uOutDamPosMax, outDamSwitch.u3)
@@ -227,8 +228,6 @@ equation
     annotation (Line(points={{-280,-118},{58,-118}}, color={0,0,127}));
   connect(uRetDamPosMax, maxRetDamSwitch.u3)
     annotation (Line(points={{-280,-158},{-158,-158},{-158,-134},{58,-134}},color={0,0,127}));
-  connect(nor1.y, truFalHol.u)
-    annotation (Line(points={{2,192},{18,192}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{82,22},{92,22},{92,-8},{-80,-8},{-80,-48},{-62,-48}},
       color={255,0,255}));
@@ -286,7 +285,20 @@ equation
     annotation (Line(points={{104,-68},{190,-68},{190,42},{260,42}},color={0,0,127}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{82,-168},{210,-168},{210,-78},{260,-78}}, color={0,0,127}));
-
+  connect(or2.y, truFalHol.u) annotation (Line(points={{-38,230},{0,230},{0,192},
+          {18,192}}, color={255,0,255}));
+  connect(and4.y, truFalHol.u) annotation (Line(points={{-38,180},{0,180},{0,192},
+          {18,192}}, color={255,0,255}));
+  connect(hysOutTem.y, or2.u1)
+    annotation (Line(points={{-138,230},{-62,230}}, color={255,0,255}));
+  connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-138,150},{-100,150},{-100,
+          222},{-62,222}}, color={255,0,255}));
+  connect(entSubst1.y, or2.u2) annotation (Line(points={{-138,190},{-100,190},{-100,
+          222},{-62,222}}, color={255,0,255}));
+  connect(hysOutTem.y, and4.u1) annotation (Line(points={{-138,230},{-80,230},{-80,
+          180},{-62,180}}, color={255,0,255}));
+  connect(hysOutEnt.y, and4.u2) annotation (Line(points={{-138,150},{-100,150},{
+          -100,172},{-62,172}}, color={255,0,255}));
 annotation (
     defaultComponentName = "enaDis",
     Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
@@ -400,7 +412,7 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-240,260},{220,132}},
+          extent={{-240,258},{220,130}},
           lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),

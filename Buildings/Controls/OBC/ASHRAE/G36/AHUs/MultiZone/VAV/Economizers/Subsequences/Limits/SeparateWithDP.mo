@@ -384,8 +384,9 @@ equation
           {18,266}}, color={0,0,127}));
   connect(minDp1.y, maxRetDam.u_s) annotation (Line(points={{42,270},{60,270},{60,
           170},{118,170}}, color={0,0,127}));
-  connect(minDp1.y, greThr.u) annotation (Line(points={{42,270},{60,270},{60,170},
-          {-90,170},{-90,150},{-82,150}}, color={0,0,127}));
+  connect(minDp1.y, greThr.u) annotation (Line(points={{42,270},{60,270},{60,
+          170},{-90,170},{-90,150},{-82,150}},
+                                          color={0,0,127}));
   connect(one2.y, minDp1.u) annotation (Line(points={{-98,250},{-80,250},{-80,270},
           {18,270}}, color={0,0,127}));
 annotation (

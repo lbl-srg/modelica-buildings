@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type VentilationStandard = enumeration(
+    Not_Specified "Not specified",
     ASHRAE62_1_2016
       "ASHRAE 62.1-2016 ventilation code",
     California_Title_24_2016

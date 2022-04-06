@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1;
 block AHU "Outdoor airflow related calculations at the AHU level"
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
+    "Design of minimum outdoor air and economizer function"
+    annotation (Dialog(group="Economizer design"));
   parameter Real VUncDesOutAir_flow(unit="m3/s")
     "Uncorrected design outdoor air rate, including diversity where applicable"
     annotation(Dialog(group="Nominal condition"));
@@ -14,42 +17,58 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     final quantity="VolumeFlowRate")
     "Sum of the adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{-260,70},{-220,110}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumAdjAreBreZon_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{-260,40},{-220,80}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumZonPri_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the zone primary airflow rates for all zones in all zone groups that are in occupied mode"
-    annotation (Placement(transformation(extent={{-260,-80},{-220,-40}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutAirFra_max(
     final min=0,
     final unit="1") "Maximum zone outdoor air fraction"
-    annotation (Placement(transformation(extent={{-260,-120},{-220,-80}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-260,-90},{-220,-50}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
+    final min=0,
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    "Measured outdoor volumetric airflow rate"
+    annotation (Placement(transformation(extent={{-260,-130},{-220,-90}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VUncOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{220,70},{260,110}}),
-        iconTransformation(extent={{100,20},{140,60}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{220,10},{260,50}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+        iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effOutAir_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor air rate "
-    annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
+    annotation (Placement(transformation(extent={{220,-80},{260,-40}}),
+        iconTransformation(extent={{100,-50},{140,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput outAir_normalized(
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    "Normalized outdoor airflow rate"
+    annotation (Placement(transformation(extent={{220,-120},{260,-80}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uncDesOutAir(
@@ -88,7 +107,12 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
-    annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
+    annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    "Normalization for outdoor air flow rate"
+    annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
 equation
   connect(VSumAdjPopBreZon_flow, add2.u1) annotation (Line(points={{-240,90},{-200,
           90},{-200,86},{-182,86}}, color={0,0,127}));
@@ -104,16 +128,16 @@ equation
           {-22,-14}}, color={0,0,127}));
   connect(div1.y, addPar.u)
     annotation (Line(points={{2,-20},{18,-20}}, color={0,0,127}));
-  connect(uOutAirFra_max, sysVenEff.u2) annotation (Line(points={{-240,-100},{-20,
-          -100},{-20,-46},{78,-46}}, color={0,0,127}));
+  connect(uOutAirFra_max, sysVenEff.u2) annotation (Line(points={{-240,-70},{-20,
+          -70},{-20,-46},{78,-46}},  color={0,0,127}));
   connect(addPar.y, sysVenEff.u1) annotation (Line(points={{42,-20},{60,-20},{60,
           -34},{78,-34}}, color={0,0,127}));
   connect(uncDesOutAir.y, gaiDivZer.u) annotation (Line(points={{-158,10},{-140,
           10},{-140,-20},{-122,-20}}, color={0,0,127}));
   connect(gaiDivZer.y, max1.u1) annotation (Line(points={{-98,-20},{-90,-20},{-90,
           -34},{-82,-34}}, color={0,0,127}));
-  connect(VSumZonPri_flow, max1.u2) annotation (Line(points={{-240,-60},{-140,-60},
-          {-140,-46},{-82,-46}}, color={0,0,127}));
+  connect(VSumZonPri_flow, max1.u2) annotation (Line(points={{-240,-40},{-160,-40},
+          {-160,-46},{-82,-46}}, color={0,0,127}));
   connect(max1.y, div1.u2) annotation (Line(points={{-58,-40},{-40,-40},{-40,-26},
           {-22,-26}}, color={0,0,127}));
   connect(sysVenEff.y, div2.u2) annotation (Line(points={{102,-40},{110,-40},{110,
@@ -127,11 +151,17 @@ equation
   connect(min2.y, VEffOutAir_flow)
     annotation (Line(points={{202,30},{240,30}}, color={0,0,127}));
   connect(min2.y, norVOutMin.u1) annotation (Line(points={{202,30},{210,30},{210,
-          -40},{120,-40},{120,-74},{158,-74}}, color={0,0,127}));
+          -20},{120,-20},{120,-54},{158,-54}}, color={0,0,127}));
   connect(desOutAir.y, norVOutMin.u2) annotation (Line(points={{142,60},{150,60},
-          {150,-86},{158,-86}}, color={0,0,127}));
+          {150,-66},{158,-66}}, color={0,0,127}));
   connect(norVOutMin.y, effOutAir_normalized)
-    annotation (Line(points={{182,-80},{240,-80}}, color={0,0,127}));
+    annotation (Line(points={{182,-60},{240,-60}}, color={0,0,127}));
+  connect(norVOut.y, outAir_normalized)
+    annotation (Line(points={{182,-100},{240,-100}}, color={0,0,127}));
+  connect(VOut_flow, norVOut.u1) annotation (Line(points={{-240,-110},{-160,-110},
+          {-160,-94},{158,-94}}, color={0,0,127}));
+  connect(desOutAir.y, norVOut.u2) annotation (Line(points={{142,60},{150,60},{150,
+          -106},{158,-106}}, color={0,0,127}));
 annotation (
   defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -145,33 +175,45 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,78},{-12,62}},
+          extent={{-98,88},{-12,72}},
           lineColor={0,0,0},
           textString="VSumAdjPopBreZon_flow"),
         Text(
-          extent={{-96,38},{-10,22}},
+          extent={{-96,48},{-10,32}},
           lineColor={0,0,0},
           textString="VSumAdjAreBreZon_flow"),
         Text(
-          extent={{-96,-22},{-32,-38}},
+          extent={{-96,8},{-32,-8}},
           lineColor={0,0,0},
           textString="VSumZonPri_flow"),
         Text(
-          extent={{-98,-62},{-34,-78}},
+          extent={{-96,-32},{-32,-48}},
           lineColor={0,0,0},
           textString="uOutAirFra_max"),
         Text(
-          extent={{38,44},{96,32}},
+          extent={{38,84},{96,72}},
           lineColor={0,0,0},
           textString="VUncOutAir_flow"),
         Text(
-          extent={{40,-30},{98,-46}},
+          extent={{40,40},{98,24}},
           lineColor={0,0,0},
           textString="VEffOutAir_flow"),
         Text(
-          extent={{20,-70},{98,-88}},
+          extent={{18,-20},{96,-38}},
           lineColor={0,0,0},
-          textString="effOutAir_normalized")}),
+          textString="effOutAir_normalized"),
+        Text(
+          extent={{-96,-72},{-50,-88}},
+          lineColor={0,0,0},
+          textString="VOut_flow",
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
+        Text(
+          extent={{30,-70},{98,-86}},
+          lineColor={0,0,0},
+          textString="outAir_normalized",
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper))}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{220,120}})),
 Documentation(info="<html>
 <p>

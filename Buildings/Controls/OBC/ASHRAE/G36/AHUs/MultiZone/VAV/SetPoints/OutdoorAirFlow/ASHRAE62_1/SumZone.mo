@@ -15,58 +15,64 @@ block SumZone "Calculate the sum of zone level setpoints"
     annotation (Placement(transformation(extent={{-260,160},{-220,200}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAdjPopBreZon_flow[nZon](
-    final min=0,
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final min=fill(0,nZon),
+    final unit=fill("m3/s",nZon),
+    final quantity=fill("VolumeFlowRate", nZon))
     "Adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{-260,80},{-220,120}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAdjAreBreZon_flow[nZon](
-    final min=0,
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final min=fill(0,nZon),
+    final unit=fill("m3/s",nZon),
+    final quantity=fill("VolumeFlowRate", nZon))
     "Adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VZonPri_flow[nZon](
-    final min=0,
-    final unit="m3/s",
-    final quantity="VolumeFlowRate") "Measured zone primary airflow rates"
+    final min=fill(0,nZon),
+    final unit=fill("m3/s",nZon),
+    final quantity=fill("VolumeFlowRate", nZon))
+    "Measured zone primary airflow rates"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinOA_flow[nZon](
-    final min=0,
-    final unit="m3/s",
-    final quantity="VolumeFlowRate") "Minimum outdoor airflow setpoint"
+    final min=fill(0,nZon),
+    final unit=fill("m3/s",nZon),
+    final quantity=fill("VolumeFlowRate", nZon))
+    "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-260,-134},{-220,-94}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAhuOpeMod
+    "Operation mode for AHU operation"
+    annotation (Placement(transformation(extent={{220,140},{260,180}}),
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumAdjPopBreZon_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{220,100},{260,140}}),
-        iconTransformation(extent={{100,50},{140,90}})));
+        iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumAdjAreBreZon_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{220,40},{260,80}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumZonPri_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the zone primary airflow rates for all zones in all zone groups that are in occupied mode"
     annotation (Placement(transformation(extent={{220,-40},{260,0}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+        iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput uOutAirFra_max(
     final min=0,
     final unit="1")
     "Maximum zone outdoor air fraction"
     annotation (Placement(transformation(extent={{220,-120},{260,-80}}),
-        iconTransformation(extent={{100,-90},{140,-50}})));
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain groFlo(
     final K=zonGroMat)
@@ -108,15 +114,15 @@ block SumZone "Calculate the sum of zone level setpoints"
     "Zone outdoor air fraction"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nZon](
-    final t=1e-3,
-    final h=0.5e-3)
+    final t=fill(1e-3,nZon),
+    final h=fill(0.5e-3,nZon))
     "Check if the flow rate is zero"
     annotation (Placement(transformation(extent={{-180,-202},{-160,-182}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi[nZon]
     "Ensure non zero value being divided"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nZon](
-    final k=1e5) "Large value"
+    final k=fill(1e5,nZon)) "Large value"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain groFlo3(
     final K=zonGroMatTra)
@@ -136,6 +142,16 @@ block SumZone "Calculate the sum of zone level setpoints"
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nZonGro]
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nZonGro]
+    "Convert integer to real"
+    annotation (Placement(transformation(extent={{20,150},{40,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
+    final nin=nZonGro)
+    "Find the highest priotity operating mode"
+    annotation (Placement(transformation(extent={{60,150},{80,170}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger ahuMod
+    "Air handling operating mode"
+    annotation (Placement(transformation(extent={{100,150},{120,170}})));
 equation
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-240,180},{-102,180}}, color={255,127,0}));
@@ -195,6 +211,14 @@ equation
     annotation (Line(points={{102,-100},{138,-100}}, color={0,0,127}));
   connect(mulMax.y, uOutAirFra_max)
     annotation (Line(points={{162,-100},{240,-100}}, color={0,0,127}));
+  connect(uOpeMod, intToRea.u) annotation (Line(points={{-240,180},{-160,180},{-160,
+          160},{18,160}}, color={255,127,0}));
+  connect(intToRea.y, mulMin.u)
+    annotation (Line(points={{42,160},{58,160}}, color={0,0,127}));
+  connect(mulMin.y, ahuMod.u)
+    annotation (Line(points={{82,160},{98,160}}, color={0,0,127}));
+  connect(ahuMod.y, yAhuOpeMod)
+    annotation (Line(points={{122,160},{240,160}}, color={255,127,0}));
 annotation (
   defaultComponentName="sumZon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -208,11 +232,11 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{10,80},{96,64}},
+          extent={{10,50},{96,34}},
           lineColor={0,0,0},
           textString="VSumAdjPopBreZon_flow"),
         Text(
-          extent={{10,38},{96,22}},
+          extent={{10,8},{96,-8}},
           lineColor={0,0,0},
           textString="VSumAdjAreBreZon_flow"),
         Text(
@@ -220,7 +244,7 @@ annotation (
           lineColor={0,0,0},
           textString="VZonPri_flow"),
         Text(
-          extent={{40,-60},{98,-76}},
+          extent={{40,-70},{98,-86}},
           lineColor={0,0,0},
           textString="uOutAirFra_max"),
         Text(
@@ -228,7 +252,7 @@ annotation (
           lineColor={0,0,0},
           textString="VAdjAreBreZon_flow"),
         Text(
-          extent={{40,-20},{98,-36}},
+          extent={{40,-30},{98,-46}},
           lineColor={0,0,0},
           textString="VSumZonPri_flow"),
         Text(
@@ -242,7 +266,11 @@ annotation (
         Text(
           extent={{-96,96},{-52,82}},
           lineColor={255,127,0},
-          textString="uOpeMod")}),
+          textString="uOpeMod"),
+        Text(
+          extent={{46,90},{96,76}},
+          lineColor={255,127,0},
+          textString="yAhuOpeMod")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},{220,200}})),
 Documentation(info="<html>
 <p>

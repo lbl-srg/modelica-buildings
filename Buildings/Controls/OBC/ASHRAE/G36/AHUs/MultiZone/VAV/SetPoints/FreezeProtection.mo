@@ -426,7 +426,7 @@ block FreezeProtection
 
 protected
   parameter Boolean have_common=
-    minOADes ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.CommonDamper
+    minOADes ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper
     "True: have common damper";
   parameter Boolean have_returns=
     buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir or
