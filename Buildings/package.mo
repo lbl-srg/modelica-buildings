@@ -316,6 +316,16 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    </td>
+    <td valign=\"top\">Corrected assignment of gas constant which lead to a unit error.
+                       This change does not affect the results as the value is not used for this liquid medium.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">IBPSA, #1603</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python36</b>
     </td>
 </tr>
