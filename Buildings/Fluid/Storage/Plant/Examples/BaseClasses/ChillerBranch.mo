@@ -1,32 +1,32 @@
 within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
 model ChillerBranch
   "A branch with a pump, a check valve, and a chiller"
-  extends Interfaces.PartialTwoPortInterface;
-
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium package";
   package MediumCDW = Buildings.Media.Water "Medium model for CDW";
 
-  parameter Modelica.Units.SI.Temperature T_a_nominal=12+273.15
-    "Nominal temperature of CHW supply";
-  parameter Modelica.Units.SI.Temperature T_b_nominal=7+273.15
-    "Nominal temperature of CHW return";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=500000
-    "Nominal pressure difference";
+  parameter Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom
+    "Nominal values";
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
-    per(pressure(dp=dp_nominal*{2,1.2,0}, V_flow=m_flow_nominal/1.2*{0,1.2,2})),
+    per(pressure(dp=nom.dp_nominal*{2,1.2,0},
+                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=m_flow_nominal,
+    m_flow_nominal=nom.mChi_flow_nominal,
     allowFlowReversal=true,
     addPowerToMedium=false,
     m_flow_start=0,
-    T_start=T_a_nominal) "Primary CHW pump"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    T_start=nom.T_CHWR_nominal) "Primary CHW pump"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-50})));
 
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Check valve with series resistance"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+    m_flow_nominal=nom.m_flow_nominal) "Check valve with series resistance"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},  rotation=90,
+        origin={0,-10})));
   Buildings.Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1 = MediumCDW,
     redeclare final package Medium2 = Medium,
@@ -34,28 +34,28 @@ model ChillerBranch
     final dp2_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p2_start=500000,
-    T2_start=T_b_nominal,
+    T2_start=nom.T_CHWS_nominal,
     final per=perChi)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
-    annotation (Placement(transformation(extent={{40,0},{20,20}})));
+    annotation (Placement(transformation(extent={{20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
     "Placeholder, chiller always on"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Sources.Constant set_TEvaLvg(k=T_b_nominal)
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+  Modelica.Blocks.Sources.Constant set_TEvaLvg(k=nom.T_CHWS_nominal)
     "Evaporator leaving temperature setpoint" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={30,-30})));
+        origin={30,0})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW(
     redeclare package Medium = MediumCDW,
-    m_flow=1.2*m_flow_nominal,
+    m_flow=1.2*nom.m_flow_nominal,
     T=305.15,
     nPorts=1) "Source representing CDW supply line" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={50,50})));
+        origin={30,70})));
   Buildings.Fluid.Sources.Boundary_pT sinCDW(
     redeclare final package Medium = MediumCDW,
     final p=300000,
@@ -64,15 +64,15 @@ model ChillerBranch
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={10,50})));
+        origin={-10,70})));
   Modelica.Blocks.Interfaces.RealInput mPumSet_flow
     "Primary pump mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,28}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,40})));
+        rotation=90,
+        origin={40,-110})));
   replaceable parameter
       Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi(
     QEva_flow_nominal=-1E6,
@@ -81,7 +81,7 @@ model ChillerBranch
     PLRMinUnl=0.3,
     PLRMin=0.3,
     etaMotor=1,
-    mEva_flow_nominal=0.7*m_flow_nominal,
+    mEva_flow_nominal=0.7*nom.m_flow_nominal,
     mCon_flow_nominal=1.2*perChi.mEva_flow_nominal,
     TEvaLvg_nominal=280.15,
     capFunT={1,0,0,0,0,0},
@@ -94,65 +94,89 @@ model ChillerBranch
     TConEntMax=333.15)
     "Chiller performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-40,60},{-20,80}})));
+      Placement(transformation(extent={{-80,60},{-60,80}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    p(start=Medium.p_default),
+    redeclare final package Medium = Medium,
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
+        iconTransformation(extent={{90,-70},{110,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    p(start=Medium.p_default),
+    redeclare final package Medium = Medium,
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{110,50},{90,70}}),
+        iconTransformation(extent={{110,50},{90,70}})));
 equation
-  connect(port_a, pum.port_a)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pum.port_b, cheVal.port_a)
-    annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
-  connect(port_b, port_b)
-    annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));
-  connect(on.y, chi.on) annotation (Line(points={{42,-70},{56,-70},{56,13},{42,
-          13}}, color={255,0,255}));
-  connect(set_TEvaLvg.y, chi.TSet) annotation (Line(points={{41,-30},{50,-30},{
-          50,7},{42,7}},
-                      color={0,0,127}));
+    annotation (Line(points={{6.10623e-16,-40},{6.10623e-16,-30},{-5.55112e-16,-30},
+          {-5.55112e-16,-20}},                 color={0,127,255}));
+  connect(on.y, chi.on) annotation (Line(points={{42,-30},{48,-30},{48,33},{22,33}},
+                color={255,0,255}));
+  connect(set_TEvaLvg.y, chi.TSet) annotation (Line(points={{41,0},{46,0},{46,27},
+          {22,27}},   color={0,0,127}));
   connect(pum.m_flow_in, mPumSet_flow)
-    annotation (Line(points={{-70,12},{-70,28},{-110,28}}, color={0,0,127}));
+    annotation (Line(points={{-12,-50},{-96,-50},{-96,28},{-110,28}},
+                                                           color={0,0,127}));
   connect(souCDW.ports[1], chi.port_a1)
-    annotation (Line(points={{50,40},{50,16},{40,16}}, color={0,127,255}));
+    annotation (Line(points={{30,60},{30,36},{20,36}}, color={0,127,255}));
   connect(sinCDW.ports[1], chi.port_b1)
-    annotation (Line(points={{10,40},{10,16},{20,16}}, color={0,127,255}));
-  connect(cheVal.port_b, chi.port_a2) annotation (Line(points={{-20,0},{12,0},{
-          12,4},{20,4}}, color={0,127,255}));
-  connect(chi.port_b2, port_b) annotation (Line(points={{40,4},{84,4},{84,0},{
-          100,0}}, color={0,127,255}));
+    annotation (Line(points={{-10,60},{-10,36},{0,36}},color={0,127,255}));
+  connect(cheVal.port_b, chi.port_a2) annotation (Line(points={{6.10623e-16,0},{
+          6.10623e-16,16},{0,16},{0,24}},
+                         color={0,127,255}));
+  connect(pum.port_a, port_a) annotation (Line(points={{-5.55112e-16,-60},{100,-60}},
+        color={0,127,255}));
+  connect(chi.port_b2, port_b) annotation (Line(points={{20,24},{86,24},{86,60},
+          {100,60}}, color={0,127,255}));
   annotation (Icon(graphics={
-        Ellipse(extent={{-80,20},{-40,-20}}, lineColor={28,108,200}),
-        Polygon(points={{-72,16},{-72,-16},{-40,0},{-72,16}}, lineColor={28,108,
-              200}),
-        Line(points={{-20,-20},{-20,20},{20,-20},{20,20}}, color={28,108,200}),
-        Line(points={{-20,30},{20,30}}, color={28,108,200}),
+        Ellipse(extent={{-20,20},{20,-20}},  lineColor={28,108,200},
+          origin={40,-60},
+          rotation=90),
+        Polygon(points={{-16,16},{-16,-16},{16,0},{-16,16}},  lineColor={28,108,
+              200},
+          origin={36,-60},
+          rotation=180),
+        Line(points={{-20,-20},{-20,20},{20,-20},{20,20}}, color={28,108,200},
+          rotation=90),
+        Line(points={{-20,0},{20,0}},   color={28,108,200},
+          origin={-30,0},
+          rotation=90),
+        Ellipse(extent={{-20,20},{20,-20}},lineColor={28,108,200},
+          origin={40,60},
+          rotation=90),
+        Line(points={{64,35},{56,5}}, color={28,108,200},
+          origin={63,12},
+          rotation=90),
+        Text(
+          extent={{40,-100},{100,-80}},
+          textColor={28,108,200},
+          textString="m_flow"),
+        Line(
+          points={{60,-60},{90,-60}},
+          color={28,108,200},
+          thickness=1),
+        Line(
+          points={{20,-60},{0,-60},{0,-20}},
+          color={28,108,200},
+          thickness=1),
         Polygon(
-          points={{20,30},{10,34},{10,26},{20,30}},
+          points={{-30,20},{-34,10},{-26,10},{-30,20}},
           lineColor={28,108,200},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{40,20},{80,-20}}, lineColor={28,108,200}),
-        Line(points={{48,16},{78,8}}, color={28,108,200}),
-        Line(points={{48,-16},{78,-8}}, color={28,108,200}),
+        Line(points={{-35,-64},{-5,-56}},
+                                      color={28,108,200},
+          origin={63,108},
+          rotation=0),
         Line(
-          points={{-80,0},{-100,0}},
+          points={{60,60},{90,60}},
           color={28,108,200},
           thickness=1),
         Line(
-          points={{-20,0},{-40,0}},
+          points={{20,60},{0,60},{0,20}},
           color={28,108,200},
-          thickness=1),
-        Line(
-          points={{40,0},{20,0}},
-          color={28,108,200},
-          thickness=1),
-        Line(
-          points={{100,0},{80,0}},
-          color={28,108,200},
-          thickness=1),
-        Line(
-          points={{-100,40},{-60,40},{-60,20}},
-          color={28,108,200},
-          pattern=LinePattern.Dash),
-        Text(
-          extent={{-100,40},{-40,60}},
-          textColor={28,108,200},
-          textString="m_flow")}));
+          thickness=1)}));
 end ChillerBranch;
