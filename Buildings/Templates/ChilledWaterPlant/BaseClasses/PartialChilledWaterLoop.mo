@@ -37,7 +37,8 @@ model PartialChilledWaterLoop
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Parallel
-    chiSec constrainedby
+    chiSec(datValChiWatChi=dat.valChiWatChi)
+           constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
       redeclare final package MediumChiWat = MediumChiWat, final dat=dat.chiSec)
     "Chiller section" annotation (Placement(transformation(
@@ -199,7 +200,7 @@ equation
 
   // Mechanical
   connect(chiSec.ports_b2, pumPri.ports_parallel)
-    annotation (Line(points={{-30,16},{-20,16},{-20,10},{-8.88178e-16,10}},
+    annotation (Line(points={{-34,20},{-20,20},{-20,10},{-8.88178e-16,10}},
       color={0,127,255}));
   connect(chiSec.port_b2, pumPri.port_series)
     annotation (Line(points={{-34,20},{-34,30},{-10,30},{-10,16},{0,16}},

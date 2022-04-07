@@ -24,8 +24,13 @@ record Data "Data for condenser water pumps"
     each m_flow_nominal = m_flow_nominal / nPum)
     "Pump data"
     annotation(Dialog(group = "Pumps"));
-  parameter Modelica.Units.SI.PressureDifference dpConWatChiValve_nominal=0
-    "Nominal pressure drop of chiller valves on condenser water side"
-    annotation(Dialog(group = "Valves", enable=not is_dedicated));
+
+  // Fixme : Move this valve to chiller section
+  parameter
+    Buildings.Templates.Components.Data.Valve valConWatChi[nChi](
+      each final m_flow_nominal = m_flow_nominal / nPum,
+      each dpValve_nominal = 0)
+    "Chiller condenser water side isolation valve"
+    annotation (Dialog(group = "Valves", enable=not is_dedicated));
 
 end Data;

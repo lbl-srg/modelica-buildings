@@ -14,6 +14,8 @@ record Data "Data for primary pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nPum(final min=1) "Number of pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Integer nChi(final min=1) "Number of chillers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_dedicated=
     typ ==Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.Dedicated;
 
@@ -26,14 +28,22 @@ record Data "Data for primary pumps"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Pump group nominal flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatChiValve_nominal=0
-    "Nominal pressure drop of chiller valves on chilled water side"
-    annotation(Dialog(group = "Valves", enable=not is_dedicated));
-  parameter Modelica.Units.SI.PressureDifference dpByp_nominal=0
-    "Bypass valve pressure drop"
+
+  // Fixme : Move this valve to chiller section
+  parameter Buildings.Templates.Components.Data.Valve valChiWatChi[nChi](
+    each final m_flow_nominal=m_flow_nominal / nChi,
+    each dpValve_nominal=0)
+    "Chiller chilled water side valve (for headered pumps)"
+    annotation(Dialog(group = "Valves", enable = not is_dedicated));
+  parameter Buildings.Templates.Components.Data.Valve valByp(
+    final m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=0)
+    "Bypass valve data"
     annotation(Dialog(group = "Valves", enable=have_byp));
-  parameter Modelica.Units.SI.PressureDifference dpChiByp_nominal=0
-    "Chiller bypass valve pressure drop"
+  parameter Buildings.Templates.Components.Data.Valve valChiByp(
+    final m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=0)
+    "Chiller bypass valve data"
     annotation(Dialog(group = "Valves", enable=have_chiByp));
 
 end Data;

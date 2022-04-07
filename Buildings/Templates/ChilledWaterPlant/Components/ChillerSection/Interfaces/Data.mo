@@ -26,6 +26,7 @@ record Data "Data for chiller section"
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
     "Chilled water side nominal mass flow rate"
     annotation(Dialog(group="Nominal condition"));
+
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Chillers.Interfaces.Data
     chi[nChi](
@@ -33,8 +34,11 @@ record Data "Data for chiller section"
     each m1_flow_nominal=m1_flow_nominal/nChi,
     each m2_flow_nominal=m2_flow_nominal/nChi) "Chiller data"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatChiValve_nominal=0
-    "Nominal pressure drop of chiller valves on chilled water side"
-    annotation(Dialog(group = "Nominal condition", enable=is_series));
+  parameter
+    Buildings.Templates.Components.Data.Valve valChiWatChi[nChi](
+      each final m_flow_nominal = m2_flow_nominal/nChi,
+      each dpValve_nominal = 0)
+    "Chiller chilled water side isolation valve"
+    annotation(Dialog(group = "Valve", enable=is_series));
 
 end Data;

@@ -14,8 +14,7 @@ model Headered "Headered primary pumps"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiByp(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=dat.m_flow_nominal,
-    final dpValve_nominal=dat.dpChiByp_nominal) if have_chiByp
+    final dat = dat.valChiByp) if have_chiByp
     "Chiller chilled water side bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -25,8 +24,7 @@ model Headered "Headered primary pumps"
     if have_parChi
     constrainedby Buildings.Templates.Components.Valves.TwoWayModulating(
     redeclare each final package Medium = Medium,
-    each final m_flow_nominal=dat.pum.m_flow_nominal,
-    each final dpValve_nominal=dat.dpChiWatChiValve_nominal)
+    final dat = dat.valChiWatChi)
     "Chiller chilled water-side isolation valves"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},rotation=0,origin={-80,0})));

@@ -6,7 +6,7 @@ model Electric "Electric chiller"
       dat(redeclare replaceable
         Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per));
 
-  Fluid.Chillers.ElectricEIR chi(
+  Buildings.Fluid.Chillers.ElectricEIR chi(
     final per=dat.per,
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
@@ -14,8 +14,7 @@ model Electric "Electric chiller"
     final dp2_nominal=dp2_nominal,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chiller"
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(

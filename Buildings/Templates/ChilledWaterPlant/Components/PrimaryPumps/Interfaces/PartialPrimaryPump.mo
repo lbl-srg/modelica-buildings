@@ -55,6 +55,7 @@ partial model PartialPrimaryPump "Partial primary pump model"
     dat(
     final typ=typ,
     final nPum=nPum,
+    final nChi=nChi,
     final have_chiByp=have_chiByp,
     final have_byp=have_byp) "Primary pumps data";
 
@@ -85,8 +86,7 @@ partial model PartialPrimaryPump "Partial primary pump model"
         origin={70,0})));
   Buildings.Templates.Components.Valves.TwoWayModulating valByp(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=dat.m_flow_nominal,
-    final dpValve_nominal=dat.dpByp_nominal) if have_byp
+    final dat=dat.valByp) if have_byp
     "Bypass valve"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

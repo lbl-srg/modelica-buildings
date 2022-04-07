@@ -34,6 +34,13 @@ model MultipleVariable "Multiple pumps (identical) - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
+  Controls.OBC.CDL.Routing.RealScalarReplicator repSig(
+    final nout=nPum)
+    "Replicate signal"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={20,70})));
   Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](
     each t=1E-2,
     each h=0.5E-2)

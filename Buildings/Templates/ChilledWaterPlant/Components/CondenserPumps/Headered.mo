@@ -9,8 +9,7 @@ model Headered "Headered condenser pumps"
     constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare each final package Medium = Medium,
-      each final m_flow_nominal=dat.m_flow_nominal,
-      each final dpValve_nominal=dat.dpConWatChiValve_nominal)
+      final dat=dat.valConWatChi)
     "Chiller condenser water-side isolation valves" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

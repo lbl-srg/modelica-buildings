@@ -5,11 +5,9 @@ model Series "Model for chillers in series"
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries);
 
   inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChi[nChi]
-    constrainedby
-    Buildings.Templates.Components.Valves.Interfaces.PartialValve(
-    redeclare each final package Medium = MediumChiWat,
-    each final m_flow_nominal=dat.m2_flow_nominal/nChi,
-    each final dpValve_nominal=dat.dpChiWatChiValve_nominal)
+    constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+      redeclare each final package Medium = MediumChiWat,
+      final dat=dat.valChiWatChi)
     "Chiller chilled water-side isolation valves"
     annotation (Placement(
         transformation(

@@ -81,7 +81,7 @@ model WatersideEconomizer "Waterside economizer"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={80,-60})));
-  Buildings.Templates.Components.Pumps.ParallelVariable pum(
+  Buildings.Templates.Components.Pumps.MultipleVariable pum(
     redeclare final package Medium = MediumChiWat) if not have_val
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

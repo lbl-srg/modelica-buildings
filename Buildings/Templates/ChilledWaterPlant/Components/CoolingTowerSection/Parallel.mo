@@ -4,9 +4,6 @@ model Parallel "Cooling tower in parallel"
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Interfaces.PartialCoolingTowerSection(
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CoolingTowerSection.CoolingTowerParallel);
 
-  final parameter Modelica.Units.SI.MassFlowRate mTow_flow_nominal=
-    m_flow_nominal/nCooTow "Single tower nominal mass flow rate";
-
   replaceable Buildings.Templates.Components.CoolingTower.Merkel cooTow[nCooTow]
     constrainedby
     Buildings.Templates.Components.CoolingTower.Interfaces.PartialCoolingTower(
@@ -21,18 +18,16 @@ model Parallel "Cooling tower in parallel"
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
-      each final m_flow_nominal=mTow_flow_nominal,
-      final dpValve_nominal=dat.dpValInl_nominal,
-      each final dpFixed_nominal=0) "Cooling tower inlet valves"
+      final dat = dat.valCooTowInl)
+      "Cooling tower inlet valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   inner replaceable Buildings.Templates.Components.Valves.None valCooTowOut[nCooTow]
     constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
-      each final m_flow_nominal=mTow_flow_nominal,
-      final dpValve_nominal=dat.dpValOut_nominal,
-      each final dpFixed_nominal=0) "Cooling tower outlet valves"
+      final dat = dat.valCooTowOut)
+      "Cooling tower outlet valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Fluid.Delays.DelayFirstOrder volInl(

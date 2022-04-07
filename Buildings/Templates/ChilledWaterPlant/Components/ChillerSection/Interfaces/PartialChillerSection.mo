@@ -14,9 +14,6 @@ partial model PartialChillerSection "Partial chiller section model"
     Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection typ
     "Type of chiller section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nChi
-    "Number of chillers"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter Boolean isAirCoo
     "= true, chillers are air cooled,
     = false, chillers are water cooled"
@@ -24,16 +21,18 @@ partial model PartialChillerSection "Partial chiller section model"
   final parameter Boolean is_series = typ ==Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries
     "= true if chillers are connected in series";
 
+  parameter Integer nChi
+    "Number of chillers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter Integer nCooTow "Number of cooling towers";
 
   // Record
 
-  parameter
-    Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.Data
-    dat(
-    final typ=typ,
-    final nChi=nChi,
-    final isAirCoo=isAirCoo) "Chiller section data";
+  parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.Data
+    dat(final typ=typ,
+      final nChi=nChi,
+      final isAirCoo=isAirCoo)
+      "Chiller section data";
 
   // Model configuration parameters
 
@@ -104,8 +103,8 @@ partial model PartialChillerSection "Partial chiller section model"
     "Fluid connector b2 for multiple outlets (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-92,-92},{-108,-28}}),
         iconTransformation(extent={{8,-32},{-8,32}},
-        rotation=270,
-        origin={-60,-100})));
+        rotation=0,
+        origin={-100,-60})));
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
