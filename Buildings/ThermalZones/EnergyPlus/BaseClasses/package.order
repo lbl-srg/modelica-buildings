@@ -7,5 +7,5 @@ getUnitAsString
 initialize
 Synchronize
 buildingsLibraryRoot
-legalFileLocation
 Validation
+legalFileLocation
