@@ -1,8 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Examples;
 model HeatPump "This example shows how to use the motor coupled heat pump model"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water "Medium model";
-  package Medium2 = Buildings.Media.Water "Medium model";
+  package MediumW = Buildings.Media.Water "Medium model";
 
   parameter Modelica.Units.SI.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
@@ -19,7 +18,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     "Nominal mass flow rate at condenser water wide";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = MediumW,
     use_T_in=true,
     m_flow=m1_flow_nominal,
     T=298.15,
@@ -32,7 +31,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = MediumW,
     use_T_in=true,
     m_flow=m2_flow_nominal,
     T=291.15,
@@ -41,7 +40,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
   Buildings.Electrical.AC.OnePhase.Sources.Grid Sou(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium2,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumW,
       m_flow_nominal=m2_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Modelica.Blocks.Sources.Step TSet(
@@ -50,8 +49,8 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     startTime=500) "Condenser side leaving water temperature set point"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   MotorDrive.Coupled.HeatPump hea(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumW,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     P_nominal=P_nominal,
@@ -74,10 +73,10 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     offset=273.15 + 10,
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = MediumW,
       nPorts=1) "Water sink 2"
                 annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumW,
       nPorts=1) "Water sink 1"
                 annotation (Placement(transformation(extent={{100,60},{80,80}})));
 

@@ -1,16 +1,16 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Examples;
 model Pump "This example shows how to use the motor coupled pump model"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water;
+  package MediumW = Buildings.Media.Water;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1 "Nominal mass flow rate";
   parameter Modelica.Units.SI.Pressure dp_nominal=500   "nominal pressure drop";
 
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1/2*dp_nominal) "Pressure loss"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(redeclare package Medium = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumW,
       nPorts=1) "Boundary"
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -23,7 +23,7 @@ model Pump "This example shows how to use the motor coupled pump model"
     X_r=0.464,
     X_m=26.3,
     pum(pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     JMotor=5,
     JLoad=5,
     redeclare
@@ -37,11 +37,11 @@ model Pump "This example shows how to use the motor coupled pump model"
   Buildings.Electrical.AC.OnePhase.Sources.Grid gri(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
     "Flow rate sensor"
     annotation (Placement(transformation(extent={{0,-50},{-20,-30}})));
   Fluid.FixedResistances.PressureDrop dp2(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1/2*dp_nominal) "Pressure loss"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));

@@ -1,8 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Examples;
 model Chiller "This example shows how to use the motor coupled chiller model"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water "Medium model";
-  package Medium2 = Buildings.Media.Water "Medium model";
+  package MediumW = Buildings.Media.Water "Medium model";
 
   parameter Modelica.Units.SI.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
@@ -19,7 +18,7 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     "Nominal mass flow rate at condenser water wide";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = MediumW,
     use_T_in=true,
     m_flow=m1_flow_nominal,
     T=298.15,
@@ -32,15 +31,15 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = MediumW,
     use_T_in=true,
     m_flow=m2_flow_nominal,
     T=291.15,
     nPorts=1) "Water source 2"
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   MotorDrive.Coupled.Chiller chi(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumW,
     show_T=true,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
@@ -62,7 +61,7 @@ model Chiller "This example shows how to use the motor coupled chiller model"
   Buildings.Electrical.AC.OnePhase.Sources.Grid Sou(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium2,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumW,
       m_flow_nominal=m2_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Sources.Step TSet(
@@ -79,9 +78,9 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     offset=273.15 + 15,
     startTime=900) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = MediumW,
       nPorts=1) "Water sink 2" annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumW,
       nPorts=1) "Water sink 1" annotation (Placement(transformation(extent={{60,40},{40,60}})));
 
 equation

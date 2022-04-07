@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Examples;
 model Pump "This example shows how to use the heat pump with mechanical interface"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water;
+  package MediumW = Buildings.Media.Water;
 
   parameter Modelica.Units.SI.Torque tau=0.05
     "Provided torque";
@@ -9,37 +9,34 @@ model Pump "This example shows how to use the heat pump with mechanical interfac
 
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(tau_constant=tau)
     "Torque input"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Fluid.Sources.Boundary_pT sou1(nPorts=1, redeclare package Medium =
-        Medium)
-    "Source 1"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Fluid.Sources.Boundary_pT sou(nPorts=1, redeclare package Medium =
+        MediumW) "Source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
-        Medium, nPorts=1)
-    "Sink 1"
+  Buildings.Fluid.Sources.Boundary_pT sin(redeclare package Medium = MediumW,
+      nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Buildings.Fluid.FixedResistances.PressureDrop res1(
-    redeclare package Medium = Medium,
+  Buildings.Fluid.FixedResistances.PressureDrop res(
+    redeclare package Medium = MediumW,
     m_flow_nominal=1.2,
-    dp_nominal=2000)
-    "Resistance"
+    dp_nominal=2000) "Resistance"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
-  ThermoFluid.Pump Pum(
+  ThermoFluid.Pump pum(
     pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-  redeclare package Medium = Medium, redeclare
+  redeclare package Medium = MediumW, redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per)
     "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(sou1.ports[1], res1.port_a)
-    annotation (Line(points={{-60,0},{-48,0}},     color={0,127,255}));
-  connect(Pum.port_b, sin1.ports[1])
+  connect(sou.ports[1], res.port_a)
+    annotation (Line(points={{-60,0},{-48,0}}, color={0,127,255}));
+  connect(pum.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(res1.port_b, Pum.port_a)
+  connect(res.port_b, pum.port_a)
     annotation (Line(points={{-28,0},{-10,0}}, color={0,127,255}));
-  connect(torSou.flange, Pum.shaft)
-    annotation (Line(points={{-60,70},{0,70},{0,10}}, color={0,0,0}));
+  connect(torSou.flange,pum. shaft)
+    annotation (Line(points={{-20,70},{0,70},{0,10}}, color={0,0,0}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/Pump.mos"
         "Simulate and plot"),

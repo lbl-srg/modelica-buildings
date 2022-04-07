@@ -1,36 +1,35 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Examples;
 model HeatPump "This example shows how to use the heat pump with mechanical interface"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water;
-  package Medium2 = Buildings.Media.Water;
+  package MediumW = Buildings.Media.Water;
   parameter Modelica.Units.SI.Torque tau=20
     "Provided torque";
   parameter Modelica.Units.SI.Inertia JLoad=10
     "Load inertia";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = MediumW,
     use_T_in=true,
     m_flow=2,
     T=298.15,
     nPorts=1)
     "Source 1"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=0,
     duration=60,
     offset=273.15 + 20,
     startTime=60)
     "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-100,4},{-80,24}})));
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = MediumW,
     use_T_in=true,
     m_flow=1.5,
     T=291.15,
     nPorts=1)
     "Source 2"
-    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{60,-16},{40,4}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=0,
     duration=60,
@@ -38,9 +37,9 @@ model HeatPump "This example shows how to use the heat pump with mechanical inte
     offset=273.15 + 15)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  ThermoFluid.HeatPump Hea(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
+  ThermoFluid.HeatPump hea(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumW,
     m1_flow_nominal=2,
     m2_flow_nominal=1.5,
     QEva_flow_nominal=-3*1000,
@@ -59,35 +58,35 @@ model HeatPump "This example shows how to use the heat pump with mechanical inte
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(useSupport=false,
       tau_constant=tau)
     "Torque input"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2,
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = MediumW,
       nPorts=1)
     "Sink 2"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumW,
       nPorts=1)
     "Sink 1"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 
 equation
   connect(TCon_in.y,sou1. T_in) annotation (Line(
-      points={{-79,14},{-62,14}},
+      points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEva_in.y,sou2. T_in) annotation (Line(
-      points={{61,-50},{70,-50},{70,-6},{62,-6}},
+      points={{61,-50},{70,-50},{70,-2},{62,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sou1.ports[1], Hea.port_a1) annotation (Line(points={{-40,10},{-26,10},
-          {-26,6},{-10,6}}, color={0,127,255}));
-  connect(Hea.port_a2, sou2.ports[1]) annotation (Line(points={{10,-6},{26,-6},
-          {26,-10},{40,-10}}, color={0,127,255}));
-  connect(Hea.port_b2, sin2.ports[1]) annotation (Line(points={{-10,-6},{-26,-6},
-          {-26,-30},{-40,-30}}, color={0,127,255}));
-  connect(Hea.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{26,6},{
-          26,30},{40,30}}, color={0,127,255}));
-  connect(torSou.flange, Hea.shaft)
-    annotation (Line(points={{-60,70},{0,70},{0,10}}, color={0,0,0}));
+  connect(sou1.ports[1],hea. port_a1) annotation (Line(points={{-40,6},{-10,6}},
+                            color={0,127,255}));
+  connect(hea.port_a2, sou2.ports[1]) annotation (Line(points={{10,-6},{40,-6}},
+                              color={0,127,255}));
+  connect(hea.port_b2, sin2.ports[1]) annotation (Line(points={{-10,-6},{-20,-6},
+          {-20,-30},{-40,-30}}, color={0,127,255}));
+  connect(hea.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},{20,
+          30},{40,30}},    color={0,127,255}));
+  connect(torSou.flange,hea. shaft)
+    annotation (Line(points={{-20,70},{0,70},{0,10}}, color={0,0,0}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/HeatPump.mos"
         "Simulate and plot"),
