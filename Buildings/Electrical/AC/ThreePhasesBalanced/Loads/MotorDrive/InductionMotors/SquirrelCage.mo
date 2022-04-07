@@ -58,6 +58,7 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
   final X_s=X_s,
   final X_r=X_r,
   final X_m=X_m)
+  "Motor machine interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(final quantity = "Power", final unit = "W")

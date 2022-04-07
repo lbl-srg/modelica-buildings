@@ -12,21 +12,22 @@ model SquirrelCageDrive "This example shows how to use the squirrel cage inducti
     "Voltage source"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Sources.RealExpression tau_m(y=0.002*simMot.omega_r*
-      simMot.omega_r)
+      simMot.omega_r) "Load torque"
   annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Modelica.Blocks.Sources.Step temSet(
     height=-40,
     offset=130,
-    startTime=500)
+    startTime=500) "Set point of control target"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.RealExpression mea(y=simMot.omega_r)
+    "Measured value of control target"
   annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     R_s=R_s,
     R_r=R_r,
     X_s=X_s,
     X_r=X_r,
-    X_m=X_m)
+    X_m=X_m) "Motor with speed control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

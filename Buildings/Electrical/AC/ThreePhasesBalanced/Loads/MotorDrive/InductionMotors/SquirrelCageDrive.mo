@@ -53,6 +53,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     k=0.1,
     Ti=60,
     reverseActing=true) if use_PID
+    "PI controller as variable frequency control"
     annotation (Placement(transformation(extent={{-80,-10},
             {-60,10}})));
   Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
@@ -72,7 +73,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   final R_r=R_r,
   final X_s=X_s,
   final X_r=X_r,
-  final X_m=X_m)
+  final X_m=X_m) "Motor machine interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Math.Product VFDvol "Controlled voltage"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
