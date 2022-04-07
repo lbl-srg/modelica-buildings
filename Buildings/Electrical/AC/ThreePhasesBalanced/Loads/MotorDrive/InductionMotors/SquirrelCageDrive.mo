@@ -196,9 +196,14 @@ equation
           points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},{60,
               -100},{-70,-100},{-70,-90}})}),
     Documentation(info="<html>
-<p>This model implements an induction motor model with built-in idealized frequency control that tracks the set point and adjust the input frequency of motor.</p>
-<p>The model is identical to <a href=\"modelica://MotorDrive.InductionMotors.SquirrelCage\">MotorDrive.InductionMotors.SquirrelCage</a>, except that it takes as an input the set point and adjust the motor torque output to meet the set point. This set point is maintained if the motor allow sufficient torque to meet the load side requirement. </p>
-<p>The built-in control is an idealization of a speed controller, implemented by a PI controller and adjusts the torque output of the motor to meet the set point within its work area.</p>
+<p>This model implements an induction motor model with built-in idealized 
+frequency control that tracks the set point and adjust the input frequency of motor.</p>
+<p>The model is identical to 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage\">MotorDrive.InductionMotors.SquirrelCage</a>, 
+except that it takes as an input the set point and adjust the motor torque output to meet the set point. 
+This set point is maintained if the motor allow sufficient torque to meet the load side requirement. </p>
+<p>The built-in control is an idealization of a speed controller, implemented by 
+a PI controller and adjusts the torque output of the motor to meet the set point within its work area.</p>
 </html>", revisions="<html>
 <ul>
 <li>October 15, 2021, by Mingzhe Liu:<br>Refactored implementation to add mechanical interface and integrate inertia. </li>
