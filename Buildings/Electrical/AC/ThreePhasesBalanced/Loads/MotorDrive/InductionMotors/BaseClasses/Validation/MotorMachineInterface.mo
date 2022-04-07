@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.Validation;
-model MotorMachineInterface "This example validates model MotorMachineInterface"
+model MotorMachineInterface "This model validates the MotorMachineInterface"
   import Modelica.Constants.pi;
   extends Modelica.Icons.Example;
 
@@ -35,7 +35,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
     Documentation(info="<html>
 <p>This example validates 
-<a href=\"modelica://MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">MotorMachineInterface</a> 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">MotorMachineInterface</a> 
 by checking torque speed relationship for induction motors.</p>
 </html>",
 revisions="<html>
