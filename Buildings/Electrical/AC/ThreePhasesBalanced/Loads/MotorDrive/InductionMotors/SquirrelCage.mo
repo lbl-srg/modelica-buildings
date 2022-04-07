@@ -183,7 +183,8 @@ rotor and magnetizing part, respectively. The circuit diagram is found in
 </html>",
 revisions="<html>
 <ul>
-<li>October 15, 2021, by Mingzhe Liu:<br>Refactored implementation to add mechanical interface and integrate inertia. </li>
+<li>October 15, 2021, by Mingzhe Liu:<br>Refactored implementation to add 
+mechanical interface and integrate inertia. </li>
 <li>6 March 2019, by Yangyang Fu:<br>First implementation.</li>
 </ul>
 </html>"));
