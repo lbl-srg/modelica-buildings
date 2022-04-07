@@ -106,7 +106,8 @@ equation
   i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
   i[2] = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2);
 
-  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-39,-30},{-26,-30},{-26,-4},{-12,-4}},
+  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-39,-30},{-20,-30},{
+          -20,-4},{-12,-4}},
                          color={0,0,127}));
 
   connect(fre.y, torSpe.f) annotation (Line(points={{-39,0},{-12,0}},                   color={0,0,127}));

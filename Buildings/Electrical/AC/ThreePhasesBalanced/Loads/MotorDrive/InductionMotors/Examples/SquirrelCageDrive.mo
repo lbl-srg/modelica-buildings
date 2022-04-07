@@ -31,9 +31,8 @@ model SquirrelCageDrive "This example shows how to use the squirrel cage inducti
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(temSet.y, simMot.setPoi) annotation (Line(points={{-39,70},{-26,
-        70},{-26,8},{-12,8}},
-                           color={0,0,127}));
+  connect(temSet.y, simMot.setPoi) annotation (Line(points={{-39,70},{-20,70},{
+          -20,8},{-12,8}}, color={0,0,127}));
   connect(sou.terminal, simMot.terminal) annotation (Line(points={{30,60},{
         30,40},{0,40},{0,10}},                   color={0,120,120}));
 connect(tau_m.y, simMot.tau_m) annotation (Line(points={{-79,50},{-40,50},{
