@@ -91,8 +91,9 @@ equation
           -88,78},{-62,78}}, color={0,0,127}));
   connect(meaPoi, simMot.mea) annotation (Line(points={{-110,50},{-88,50},{-88,
           74},{-62,74}}, color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,30},{-72,30},{-72,
-          62},{-62,62}}, color={0,0,127}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,30},{-80,30},{
+          -80,62},{-62,62}},
+                         color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{-50,80},{-50,100},
           {0,100}},                   color={0,120,120}));
   connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-20},{0,

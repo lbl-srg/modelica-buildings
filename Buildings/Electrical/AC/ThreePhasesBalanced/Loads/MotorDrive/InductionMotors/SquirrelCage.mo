@@ -39,12 +39,12 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
   Modelica.Units.SI.Resistance Req "Equivelant resistance";
   Modelica.Units.SI.Reactance Xeq "Equivelant reactance";
 
-  Modelica.Blocks.Sources.RealExpression w_r(y=omega_r)
+  final Modelica.Blocks.Sources.RealExpression w_r(y=omega_r)
     "Rotor speed"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
+  final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
+  final Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true) "Speed connector"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -106,9 +106,8 @@ equation
   i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
   i[2] = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2);
 
-  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-39,-30},{-20,-30},{
-          -20,-4},{-12,-4}},
-                         color={0,0,127}));
+  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-39,-30},{-20,-30},{-20,
+          -4},{-12,-4}}, color={0,0,127}));
 
   connect(fre.y, torSpe.f) annotation (Line(points={{-39,0},{-12,0}},                   color={0,0,127}));
   connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-39,30},{-20,30},{-20,4},{-12,4}}, color={0,0,127}));

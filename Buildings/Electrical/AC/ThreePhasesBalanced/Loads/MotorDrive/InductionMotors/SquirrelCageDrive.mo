@@ -41,10 +41,10 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   Modelica.Units.SI.Resistance Req "Equivelant resistance";
   Modelica.Units.SI.Reactance Xeq "Equivelant reactance";
 
-  Modelica.Blocks.Sources.RealExpression w_r(y=omega_r)
+  final Modelica.Blocks.Sources.RealExpression w_r(y=omega_r)
     "Rotor speed"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
+  final Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.Continuous.LimPID VFD(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -56,11 +56,11 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     "PI controller as variable frequency control"
     annotation (Placement(transformation(extent={{-80,-10},
             {-60,10}})));
-  Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
+  final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Math.Product VFDfre "Controlled frequency"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Sources.RealExpression NorCoe(y=1) if not use_PID "Coefficient used in uncontrolled case"
+  final Modelica.Blocks.Sources.RealExpression NorCoe(y=1) if not use_PID "Coefficient used in uncontrolled case"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true) "Speed connector"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

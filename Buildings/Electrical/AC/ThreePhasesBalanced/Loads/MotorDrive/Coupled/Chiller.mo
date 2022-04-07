@@ -176,8 +176,9 @@ equation
           88},{-42,88}},     color={0,0,127}));
   connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-80,30},{-80,84},
           {-42,84}},     color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-21,50},{-70,50},{-70,
-          72},{-42,72}}, color={0,0,127}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-21,50},{-60,50},{
+          -60,72},{-42,72}},
+                         color={0,0,127}));
   connect(simMot.P, P) annotation (Line(points={{-18,88},{80,88},{80,30},{110,
           30}}, color={0,0,127}));
   connect(simMot.Q, Q) annotation (Line(points={{-18,84},{80,84},{80,-30},{110,
