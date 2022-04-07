@@ -201,8 +201,8 @@ frequency control that tracks the set point and adjust the input frequency of mo
 <p>The model is identical to 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage\">MotorDrive.InductionMotors.SquirrelCage</a>, 
 except that it takes as an input the set point and adjust the motor torque output to meet the set point. 
-This set point is maintained if the motor allow sufficient torque to meet the load side requirement. </p>
-<p>The built-in control is an idealization of a speed controller, implemented by 
+This set point is maintained if the motor allow sufficient torque to meet the load side requirement. 
+The built-in control is an idealization of a speed controller, implemented by 
 a PI controller and adjusts the torque output of the motor to meet the set point within its work area.</p>
 </html>", revisions="<html>
 <ul>
