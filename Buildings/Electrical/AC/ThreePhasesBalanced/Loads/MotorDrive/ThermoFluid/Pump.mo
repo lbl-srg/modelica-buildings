@@ -23,10 +23,10 @@ model Pump
     redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    per=per,
+    final per=per,
     final use_inputFilter=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
+  Modelica.Mechanics.Rotational.Components.Inertia ine(final J=loaIne,
     phi(fixed=true, start=0), w(fixed=true, start=0))
     "Pump inertia"
     annotation (
@@ -36,7 +36,7 @@ model Pump
         origin={0,80})));
   Modelica.Mechanics.Rotational.Sources.Torque tor "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(y=-tauPum) "Pump torque"
+  Modelica.Blocks.Sources.RealExpression tauSor(final y=-tauPum) "Pump torque"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -50,7 +50,7 @@ model Pump
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
     "Electrical power consumed"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
@@ -132,11 +132,14 @@ equation
           textColor={0,0,127},
           textString="y_actual")}),
     Documentation(info="<html>
-    <p>This model describes a fan or pump with mechanical imterface, it is use the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> as a base model. 
-    </p>
-    <p>The governing equation of this implementation is based on the relationship between the power and torque of the rotating object, which is represented as follow:
+<p>This model describes a fan or pump with mechanical imterface and uses 
+the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> as a base model. </p>
+<p>The governing equation of this implementation is based on the relationship 
+between the power and torque of the rotating object, which is represented as follow:
 <p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W</p>
-<p>Where, the <i>P</i> is power [W], <i>tau</i> is torque [N.m], and <i>W</i> is angular velocity [rad/s].
+<p>Where, the <i>P</i> is power [W], <i>tau</i> is torque [N.m], and <i>W</i> 
+is angular velocity [rad/s].
 </p>
 </html>",
       revisions="<html>
