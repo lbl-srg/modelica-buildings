@@ -80,7 +80,7 @@ model Chiller "Chiller with mechanical interface"
     final dp2_nominal=dp2_nominal,
     final TAppCon_nominal=TAppCon_nominal,
     final TAppEva_nominal=TAppEva_nominal,
-    final P_nominal=P_nominal)
+    final P_nominal=P_nominal) "Chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -93,7 +93,7 @@ model Chiller "Chiller with mechanical interface"
         origin={0,80})));
   Modelica.Mechanics.Rotational.Sources.Torque tor "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(y=-tauChi)
+  Modelica.Blocks.Sources.RealExpression tauSor(y=-tauChi) "Chiller torque"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -101,18 +101,20 @@ model Chiller "Chiller with mechanical interface"
   Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
     annotation (Placement(transformation(extent={{10,50},
             {30,70}})));
-  Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm
+  Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(final nu=3)
+    "Cubic calculation"
     annotation (Placement(transformation(extent={{-68,34},{-80,46}})));
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
+    "Speed normalization"
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate", final unit="W")
     "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
-    "Electric power consumed by compressor"
+    "Electric power consumed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate", final unit="W")

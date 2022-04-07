@@ -7,7 +7,8 @@ model Pump
 
   parameter Modelica.Units.SI.Inertia loaIne(min=0)=1 "Pump inertia";
   parameter Boolean addPowerToMedium=true
-    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
+    "Set to false to avoid any power (=heat and flow work) being added to medium 
+    (may give simpler equations)";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
@@ -23,8 +24,7 @@ model Pump
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
     per=per,
-    final use_inputFilter=false)
-    "Pump model"
+    final use_inputFilter=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(J=loaIne,
     phi(fixed=true, start=0), w(fixed=true, start=0))
@@ -36,7 +36,7 @@ model Pump
         origin={0,80})));
   Modelica.Mechanics.Rotational.Sources.Torque tor "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(y=-tauPum)
+  Modelica.Blocks.Sources.RealExpression tauSor(y=-tauPum) "Pump torque"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -44,7 +44,7 @@ model Pump
   Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
     annotation (Placement(transformation(extent={{10,50},
             {30,70}})));
-  Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm
+  Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
     annotation (Placement(transformation(extent={{30,20},{10,40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"

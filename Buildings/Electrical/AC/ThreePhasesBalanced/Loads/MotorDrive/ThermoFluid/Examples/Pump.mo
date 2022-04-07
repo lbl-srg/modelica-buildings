@@ -8,22 +8,27 @@ model Pump "This example shows how to use the heat pump with mechanical interfac
   parameter Modelica.Units.SI.Inertia JLoad=0.01 "Load inertia";
 
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(tau_constant=tau)
+    "Torque input"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou1(nPorts=1, redeclare package Medium =
         Medium)
+    "Source 1"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium, nPorts=1)
+    "Sink 1"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=1.2,
     dp_nominal=2000)
+    "Resistance"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
   ThermoFluid.Pump Pum(
     pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
   redeclare package Medium = Medium, redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per)
+    "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
