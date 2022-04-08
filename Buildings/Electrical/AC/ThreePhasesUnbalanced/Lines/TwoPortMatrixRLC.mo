@@ -1,9 +1,12 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRLC
   "PI model of a line parameterized with impedance and admittance matrices"
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    "Nominal voltage (V_nominal >= 0)"
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Impedance Z11[2]
     "Element [1,1] of impedance matrix";
   parameter Modelica.SIunits.Impedance Z12[2]
@@ -16,11 +19,11 @@ model TwoPortMatrixRLC
     "Element [2,3] of impedance matrix";
   parameter Modelica.SIunits.Impedance Z33[2]
     "Element [3,3] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z21 = Z12
+  final parameter Modelica.SIunits.Impedance[2] Z21=Z12
     "Element [2,1] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z31 = Z13
+  final parameter Modelica.SIunits.Impedance[2] Z31=Z13
     "Element [3,1] of impedance matrix";
-  final parameter Modelica.SIunits.Impedance[2] Z32 = Z23
+  final parameter Modelica.SIunits.Impedance[2] Z32=Z23
     "Element [3,1] of impedance matrix";
 
   parameter Modelica.SIunits.Admittance B11
@@ -35,51 +38,54 @@ model TwoPortMatrixRLC
     "Element [2,3] of admittance matrix";
   parameter Modelica.SIunits.Admittance B33
     "Element [3,3] of admittance matrix";
-  final parameter Modelica.SIunits.Admittance B21 = B12
+  final parameter Modelica.SIunits.Admittance B21=B12
     "Element [2,1] of admittance matrix";
-  final parameter Modelica.SIunits.Admittance B31 = B13
+  final parameter Modelica.SIunits.Admittance B31=B13
     "Element [3,1] of admittance matrix";
-  final parameter Modelica.SIunits.Admittance B32 = B23
+  final parameter Modelica.SIunits.Admittance B32=B23
     "Element [3,2] of admittance matrix";
 
   Modelica.SIunits.Voltage v1_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
-    each stateSelect = StateSelect.never) = terminal_n.phase[1].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=0),
+    each stateSelect=StateSelect.never) = terminal_n.phase[1].v
     "Voltage in line 1 at connector N";
   Modelica.SIunits.Voltage v2_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= -2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_n.phase[2].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=-2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_n.phase[2].v
     "Voltage in line 2 at connector N";
   Modelica.SIunits.Voltage v3_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_n.phase[3].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_n.phase[3].v
     "Voltage in line 3 at connector N";
   Modelica.SIunits.Voltage v1_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
-    each stateSelect = StateSelect.never) = terminal_p.phase[1].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=0),
+    each stateSelect=StateSelect.never) = terminal_p.phase[1].v
     "Voltage in line 1 at connector P";
   Modelica.SIunits.Voltage v2_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= -2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_p.phase[2].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=-2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_p.phase[2].v
     "Voltage in line 2 at connector P";
   Modelica.SIunits.Voltage v3_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 2*Modelica.Constants.pi/3),
-    each stateSelect = StateSelect.never) = terminal_p.phase[3].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
+        sqrt(3), phi=2*Modelica.Constants.pi/3),
+    each stateSelect=StateSelect.never) = terminal_p.phase[3].v
     "Voltage in line 3 at connector P";
 
 protected
   function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
     "Product between complex quantities";
-  Modelica.SIunits.Current Isr[3,2](
-    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer)
+  Modelica.SIunits.Current Isr[3,2](start=zeros(3, Buildings.Electrical.PhaseSystems.OnePhase.n),
+      each stateSelect=StateSelect.prefer)
     "Currents that pass through the lines";
-  Modelica.SIunits.Current Ish_p[3,2](
-    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer) "Shunt current on side p";
-  Modelica.SIunits.Current Ish_n[3,2](
-    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer) "Shunt current on side n";
+  Modelica.SIunits.Current Ish_p[3,2](start=zeros(3, Buildings.Electrical.PhaseSystems.OnePhase.n),
+      each stateSelect=StateSelect.prefer) "Shunt current on side p";
+  Modelica.SIunits.Current Ish_n[3,2](start=zeros(3, Buildings.Electrical.PhaseSystems.OnePhase.n),
+      each stateSelect=StateSelect.prefer) "Shunt current on side n";
 
 equation
 
@@ -158,6 +164,10 @@ equation
           textString="C 3x3")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Made current and voltage public to allow setting start values.<br/>

@@ -255,6 +255,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
     </td>
 </tr>
+  <tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC_N
+    </td>
+    <td valign=\"top\">Set nominal attribute for voltage at terminal.
+                       This change enables Dymola 2023 beta3 to solve
+                       <code>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DY</code>
+                       and
+                       <code>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD</code>
+                       which otherwise fail during the initialization as the homotopy steps
+                       obtain unreasonable values for the voltages.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus</b>
     </td>
 </tr>
