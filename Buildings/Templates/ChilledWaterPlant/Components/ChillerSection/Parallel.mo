@@ -20,7 +20,8 @@ model Parallel "Model for chillers in parallel"
           Buildings.Templates.Components.Valves.TwoWayTwoPosition
           valConWatChi "Two-positions")));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pasChiWatChi[nChi]
+  Buildings.Templates.BaseClasses.PassThroughFluid pasChiWatChi[nChi](
+    redeclare each final package Medium = MediumChiWat)
     if have_dedChiWatPum
     "Chiller chilled water side passthrough"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));

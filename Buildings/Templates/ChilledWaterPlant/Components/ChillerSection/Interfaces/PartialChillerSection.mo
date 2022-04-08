@@ -83,8 +83,10 @@ partial model PartialChillerSection "Partial chiller section model"
           Buildings.Templates.Components.Valves.TwoWayTwoPosition
           valConWatChi "Two-positions")));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pasConWatChi[nChi]
-    if have_dedChiWatPum "Chiller condenser water side passthrough"
+  Buildings.Templates.BaseClasses.PassThroughFluid pasConWatChi[nChi](
+    redeclare each final package Medium = MediumConWat)
+    if have_dedChiWatPum
+    "Chiller condenser water side passthrough"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.Delays.DelayFirstOrder volConWat(
