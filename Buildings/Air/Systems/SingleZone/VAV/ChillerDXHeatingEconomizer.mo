@@ -130,7 +130,7 @@ model ChillerDXHeatingEconomizer
       final etaHydMet=
         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
       final etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided),
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=false,
     final use_inputFilter=false,
