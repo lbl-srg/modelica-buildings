@@ -501,14 +501,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-400,76},{-360,116}}),
         iconTransformation(extent={{-240,50},{-200,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
-    final min=0,
-    final max=1,
-    final unit="1") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)
-    "Economizer outdoor air damper position"
-    annotation (Placement(transformation(extent={{-400,20},{-360,60}}),
-        iconTransformation(extent={{-240,20},{-200,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=0,
     final max=1,
@@ -642,8 +634,13 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDamPos(
     final min=0,
     final max=1,
-    final unit="1") if not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper
-    "Outdoor air damper position to ensure minimum outdoor air flow"
+    final unit="1") if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    "Minimum outdoor air damper commanded position"
+    annotation (Placement(transformation(extent={{360,130},{400,170}}),
+        iconTransformation(extent={{200,170},{240,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDamPos
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{360,100},{400,140}}),
         iconTransformation(extent={{200,140},{240,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
@@ -665,8 +662,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
-    final unit="1")
-    "Outdoor air damper position"
+    final unit="1") "Economizer outdoor air damper position setpoint"
     annotation (Placement(transformation(extent={{360,-20},{400,20}}),
         iconTransformation(extent={{200,50},{240,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEneCHWPum
@@ -865,13 +861,13 @@ block Controller "Multizone VAV air handling unit controller"
     final maxRes=maxResSupTem)
     "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{-160,440},{-140,460}})));
-  SetPoints.OutdoorAirFlow.ASHRAE62_1.AHU ashOutAirSet(
-    final minOADes=minOADes,                           final VUncDesOutAir_flow=
-       VUncDesOutAir_flow, final VDesTotOutAir_flow=VDesTotOutAir_flow)
- if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.AHU ashOutAirSet(
+    final minOADes=minOADes,
+    final VUncDesOutAir_flow=VUncDesOutAir_flow,
+    final VDesTotOutAir_flow=VDesTotOutAir_flow)
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Minimum outdoor airflow setpoint, when complying with ASHRAE 62.1 requirements"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
-
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper relDam(
     final dpBuiSet=dpBuiSet,
     final k=kRelDam)
@@ -940,10 +936,8 @@ equation
           {-320,-538},{-22,-538}},      color={0,0,127}));
   connect(ashOutAirSet.effOutAir_normalized, ecoCon.VOutMinSet_flow_normalized)
     annotation (Line(points={{-58,187},{40,187},{40,-21},{78,-21}}, color={0,0,127}));
-  connect(ecoCon.uOutDamPos, uOutDamPos) annotation (Line(points={{78,-26},{28,-26},
-          {28,40},{-380,40}},         color={0,0,127}));
-  connect(ecoCon.uSupFanSpe, uSupFanSpe) annotation (Line(points={{78,-28},{22,-28},
-          {22,10},{-380,10}},         color={0,0,127}));
+  connect(ecoCon.uSupFanSpe, uSupFanSpe) annotation (Line(points={{78,-28},{16,
+          -28},{16,10},{-380,10}},    color={0,0,127}));
   connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{78,-38},{22,
           -38},{22,-60},{-380,-60}},    color={0,0,127}));
   connect(supSig.uTSup, ecoCon.uTSup) annotation (Line(points={{-58,416},{-32,416},
@@ -959,7 +953,7 @@ equation
   connect(uSupFan, ecoCon.uSupFan) annotation (Line(points={{-380,380},{-300,380},
           {-300,-54},{78,-54}},   color={255,0,255}));
   connect(ecoCon.yOutDamPosMin, frePro.uOutDamPosMin) annotation (Line(points={{102,-22},
-          {120,-22},{120,-181},{198,-181}},            color={0,0,127}));
+          {128,-22},{128,-181},{198,-181}},            color={0,0,127}));
   connect(TSup, frePro.TSup) annotation (Line(points={{-380,340},{-290,340},{-290,
           -195},{198,-195}}, color={0,0,127}));
   connect(frePro.uFreSta, uFreSta) annotation (Line(points={{198,-198},{104,-198},
@@ -979,15 +973,15 @@ equation
   connect(frePro.yFreProSta, ecoCon.uFreProSta) annotation (Line(points={{222,-215},
           {240,-215},{240,-80},{46,-80},{46,-59},{78,-59}},     color={255,127,0}));
   connect(ecoCon.yOutDamPos, frePro.uOutDamPos) annotation (Line(points={{102,-52},
-          {128,-52},{128,-183},{198,-183}},  color={0,0,127}));
+          {136,-52},{136,-183},{198,-183}},  color={0,0,127}));
   connect(ecoCon.yRetDamPos, frePro.uRetDamPos) annotation (Line(points={{102,-34},
-          {136,-34},{136,-192},{198,-192}},  color={0,0,127}));
-  connect(supSig.yHea, frePro.uHeaCoi) annotation (Line(points={{-58,410},{152,410},
-          {152,-186},{198,-186}}, color={0,0,127}));
+          {144,-34},{144,-193},{198,-193}},  color={0,0,127}));
+  connect(supSig.yHea, frePro.uHeaCoi) annotation (Line(points={{-58,410},{160,410},
+          {160,-186},{198,-186}}, color={0,0,127}));
   connect(conSupFan.ySupFanSpe, frePro.uSupFanSpe) annotation (Line(points={{-198,
           510},{-114,510},{-114,-207},{198,-207}}, color={0,0,127}));
-  connect(supSig.yCoo, frePro.uCooCoi) annotation (Line(points={{-58,404},{144,404},
-          {144,-216},{198,-216}}, color={0,0,127}));
+  connect(supSig.yCoo, frePro.uCooCoi) annotation (Line(points={{-58,404},{152,404},
+          {152,-216},{198,-216}}, color={0,0,127}));
   connect(frePro.yEneCHWPum, yEneCHWPum) annotation (Line(points={{222,-181},{300,
           -181},{300,-60},{380,-60}},   color={255,0,255}));
   connect(frePro.yRetDamPos, yRetDamPos) annotation (Line(points={{222,-185},{270,
@@ -995,13 +989,13 @@ equation
   connect(frePro.yOutDamPos, yOutDamPos) annotation (Line(points={{222,-189},{290,
           -189},{290,0},{380,0}},     color={0,0,127}));
   connect(ecoCon.yMinOutDamPos, frePro.uMinOutDamPos) annotation (Line(points={{102,-27},
-          {112,-27},{112,-189},{198,-189}},            color={0,0,127}));
+          {120,-27},{120,-189},{198,-189}},            color={0,0,127}));
   connect(frePro.yMinOutDamPos, yMinOutDamPos) annotation (Line(points={{222,-193},
-          {260,-193},{260,120},{380,120}}, color={0,0,127}));
-  connect(frePro.ySupFanSpe, ySupFanSpe) annotation (Line(points={{222,-197},{310,
-          -197},{310,-100},{380,-100}}, color={0,0,127}));
-  connect(frePro.yRetFanSpe, yRetFanSpe) annotation (Line(points={{222,-201},{320,
-          -201},{320,-130},{380,-130}}, color={0,0,127}));
+          {250,-193},{250,150},{380,150}}, color={0,0,127}));
+  connect(frePro.ySupFanSpe, ySupFanSpe) annotation (Line(points={{222,-199},{310,
+          -199},{310,-100},{380,-100}}, color={0,0,127}));
+  connect(frePro.yRetFanSpe, yRetFanSpe) annotation (Line(points={{222,-202},{320,
+          -202},{320,-130},{380,-130}}, color={0,0,127}));
   connect(frePro.yCooCoi, yCooCoi) annotation (Line(points={{222,-209},{310,-209},
           {310,-230},{380,-230}}, color={0,0,127}));
   connect(frePro.yHeaCoi, yHeaCoi) annotation (Line(points={{222,-212},{300,-212},
@@ -1045,7 +1039,6 @@ equation
           -215},{240,-510},{170,-510},{170,-560},{178,-560}}, color={255,127,0}));
   connect(frePro.yHotWatPlaReq, intSwi.u1) annotation (Line(points={{222,-217},{
           250,-217},{250,-562},{298,-562}}, color={255,127,0}));
-
   connect(retFanAirTra.yRetFan, frePro.uRetFanSpe) annotation (Line(points={{-138,
           -410},{128,-410},{128,-210},{198,-210}}, color={0,0,127}));
   connect(retFanDpCon.yRetFanSpe, frePro.uRetFanSpe) annotation (Line(points={{-138,
@@ -1057,9 +1050,9 @@ equation
   connect(conTSupSet.TSupSet, TSupSet) annotation (Line(points={{-138,450},{120,
           450},{120,500},{380,500}}, color={0,0,127}));
   connect(tit24OutAirSet.effAbsOutAir_normalized, ecoCon.effAbsOutAir_normalized)
-    annotation (Line(points={{-58,154},{16,154},{16,-31},{78,-31}}, color={0,0,127}));
+    annotation (Line(points={{-58,154},{28,154},{28,-31},{78,-31}}, color={0,0,127}));
   connect(tit24OutAirSet.effDesOutAir_normalized, ecoCon.effDesOutAir_normalized)
-    annotation (Line(points={{-58,146},{10,146},{10,-33},{78,-33}}, color={0,0,127}));
+    annotation (Line(points={{-58,146},{22,146},{22,-33},{78,-33}}, color={0,0,127}));
   connect(uMaxCO2, ecoCon.uMaxCO2) annotation (Line(points={{-380,-30},{-132,-30},
           {-132,-35},{78,-35}}, color={0,0,127}));
   connect(uMaxCO2, tit24OutAirSet.uMaxCO2) annotation (Line(points={{-380,-30},{
@@ -1092,6 +1085,10 @@ equation
           560},{-240,443},{-162,443}}, color={255,127,0}));
   connect(uAhuOpeMod, ecoCon.uOpeMod) annotation (Line(points={{-380,560},{-240,
           560},{-240,-57},{78,-57}}, color={255,127,0}));
+  connect(ecoCon.y1MinOutDamPos, frePro.u1MinOutDamPos) annotation (Line(points=
+         {{102,-29},{112,-29},{112,-191},{198,-191}}, color={255,0,255}));
+  connect(frePro.y1MinOutDamPos, y1MinOutDamPos) annotation (Line(points={{222,-195},
+          {260,-195},{260,120},{380,120}}, color={255,0,255}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1143,12 +1140,6 @@ annotation (
           textString="VOut_flow",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
-       Text(
-          extent={{-196,50},{-126,30}},
-          lineColor={0,0,0},
-          textString="uOutDamPos",
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)),
        Text(extent={{-198,18},{-122,0}},
           lineColor={0,0,0},
           textString="uSupFanSpe",
@@ -1221,10 +1212,11 @@ annotation (
        Text(extent={{118,140},{202,124}},
           lineColor={0,0,0},
           textString="yRetDamPos"),
-       Text(extent={{100,170},{198,152}},
+       Text(
+          extent={{100,200},{198,182}},
           lineColor={0,0,0},
           textString="yMinOutDamPos",
-          visible=not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper),
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow),
        Text(extent={{118,238},{200,222}},
           lineColor={0,0,0},
           textString="VEffOutAir_flow"),
@@ -1251,9 +1243,11 @@ annotation (
           lineColor={255,127,0},
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi),
-       Text(extent={{120,210},{208,192}},
+       Text(
+          extent={{102,172},{196,152}},
           lineColor={255,0,255},
-          textString="yReqOutAir"),
+          textString="y1MinOutDamPos",
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
        Text(extent={{136,392},{204,372}},
           lineColor={255,0,255},
           textString="ySupFan"),

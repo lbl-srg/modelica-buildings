@@ -164,13 +164,6 @@ block Controller
     "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
         iconTransformation(extent={{-140,150},{-100,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
-    final unit="1")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)
-    "Economizer outdoor air damper position"
-    annotation (Placement(transformation(extent={{-280,140},{-240,180}}),
-        iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final unit="1")
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
@@ -264,10 +257,15 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper
-    "Outdoor air damper position to ensure minimum outdoor air flow"
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    "Minimum outdoor air flow damper commanded position"
     annotation (Placement(transformation(extent={{260,160},{300,200}}),
         iconTransformation(extent={{100,110},{140,150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDamPos
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    "Minimum outdoor air damper command on position"
+    annotation (Placement(transformation(extent={{260,120},{300,160}}),
+        iconTransformation(extent={{100,90},{140,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
@@ -381,17 +379,11 @@ protected
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
     "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,180},{-200,200}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea if minOADes ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
-    "Convert boolean to real"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
 equation
   connect(sepAFMS.VOutMinSet_flow_normalized, VOutMinSet_flow_normalized)
     annotation (Line(points={{-142,149},{-160,149},{-160,230},{-260,230}},
         color={0,0,127}));
-  connect(sepAFMS.uOutDamPos, uOutDamPos) annotation (Line(points={{-142,134},{-172,
-          134},{-172,160},{-260,160}},      color={0,0,127}));
   connect(sepAFMS.uSupFanSpe, uSupFanSpe) annotation (Line(points={{-142,131},{-178,
           131},{-178,130},{-260,130}},      color={0,0,127}));
   connect(sepDp.dpMinOutDam, dpMinOutDam) annotation (Line(points={{-142,83},{-184,
@@ -399,8 +391,6 @@ equation
   connect(VOutMinSet_flow_normalized, sepDp.VOutMinSet_flow_normalized)
     annotation (Line(points={{-260,230},{-160,230},{-160,81},{-142,81}},
         color={0,0,127}));
-  connect(uOutDamPos, sepDp.uOutDamPos) annotation (Line(points={{-260,160},{-172,
-          160},{-172,73},{-142,73}},        color={0,0,127}));
   connect(uSupFanSpe, sepDp.uSupFanSpe) annotation (Line(points={{-260,130},{-178,
           130},{-178,71},{-142,71}},        color={0,0,127}));
   connect(uSupFan, sepAFMS.uSupFan) annotation (Line(points={{-260,-190},{-196,-190},
@@ -488,12 +478,8 @@ equation
           -36},{160,-70},{280,-70}}, color={0,0,127}));
   connect(modRet.yRelDamPos, yRelDamPos) annotation (Line(points={{122,30},{180,
           30},{180,20},{280,20}}, color={0,0,127}));
-  connect(sepDp.yMinOutDam, booToRea.u) annotation (Line(points={{-118,88},{-40,
-          88},{-40,100},{18,100}}, color={255,0,255}));
   connect(sepAFMS.yMinOutDamPos, yMinOutDamPos) annotation (Line(points={{-118,148},
           {80,148},{80,180},{280,180}}, color={0,0,127}));
-  connect(booToRea.y, yMinOutDamPos) annotation (Line(points={{42,100},{80,100},
-          {80,180},{280,180}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,38},
           {-80,38},{-80,240},{280,240}}, color={0,0,127}));
   connect(sepDp.yOutDamPosMin, yOutDamPosMin) annotation (Line(points={{-118,85},
@@ -518,6 +504,16 @@ equation
           -208,87},{-142,87}}, color={0,0,127}));
   connect(effDesOutAir_normalized, sepDp.effDesOutAir_normalized) annotation (
       Line(points={{-260,40},{-202,40},{-202,85},{-142,85}}, color={0,0,127}));
+  connect(modRet.yOutDamPos, sepAFMS.uOutDamPos) annotation (Line(points={{122,24},
+          {160,24},{160,160},{-172,160},{-172,134},{-142,134}}, color={0,0,127}));
+  connect(modRet.yOutDamPos, sepDp.uOutDamPos) annotation (Line(points={{122,24},
+          {160,24},{160,160},{-172,160},{-172,73},{-142,73}}, color={0,0,127}));
+  connect(modRel.yOutDamPos, sepAFMS.uOutDamPos) annotation (Line(points={{122,-36},
+          {160,-36},{160,160},{-172,160},{-172,134},{-142,134}}, color={0,0,127}));
+  connect(modRel.yOutDamPos, sepDp.uOutDamPos) annotation (Line(points={{122,-36},
+          {160,-36},{160,160},{-172,160},{-172,73},{-142,73}}, color={0,0,127}));
+  connect(sepDp.yMinOutDam, y1MinOutDamPos) annotation (Line(points={{-118,88},{
+          -40,88},{-40,100},{80,100},{80,140},{280,140}}, color={255,0,255}));
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={
@@ -542,13 +538,6 @@ annotation (defaultComponentName="ecoCon",
           textString="VOut_flow_normalized",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
-        Text(
-          extent={{-96,150},{-44,134}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uOutDamPos",
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)),
         Text(
           extent={{-96,128},{-46,114}},
           lineColor={0,0,127},
@@ -611,7 +600,8 @@ annotation (defaultComponentName="ecoCon",
           extent={{34,142},{98,124}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=not minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+
           textString="yMinOutDamPos"),
         Text(
           extent={{40,70},{96,54}},
@@ -657,7 +647,14 @@ annotation (defaultComponentName="ecoCon",
           pattern=LinePattern.Dash,
           textString="uMaxCO2",
           visible=((have_CO2Sen and venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
-                   and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure))}),
+                   and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)),
+        Text(
+          extent={{34,120},{98,102}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
+
+          textString="y1MinOutDamPos")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-260},{260,260}}),
     graphics={
         Line(points={{156,122}}, color={28,108,200})}),

@@ -132,11 +132,6 @@ model Controller "Validation controller model"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos(
-    final duration=1800,
-    final height=0.7,
-    final offset=0.1) "Outdoor damper position"
-    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
     final duration=3600,
     final height=0.7,
@@ -190,9 +185,6 @@ equation
   connect(not1.y, conAHU.uSofSwiRes) annotation (Line(points={{-178,-160},{56,
           -160},{56,-76.3636},{96,-76.3636}},
                                         color={255,0,255}));
-  connect(outDamPos.y, conAHU.uOutDamPos) annotation (Line(points={{-218,-80},{
-          44,-80},{44,-32.7273},{96,-32.7273}},
-                                             color={0,0,127}));
   connect(supFanSpe.y, mul.u2) annotation (Line(points={{-178,-110},{-120,-110},
           {-120,-106},{-2,-106}}, color={0,0,127}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-58,20},{-20,20},{-20,-94},

@@ -72,11 +72,6 @@ protected
     final offset=-1)
     "Supply air temperature control signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos(
-    final duration=1800,
-    final height=0.7,
-    final offset=0.1) "Outdoor damper position"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
     final duration=1800,
     final height=0.5,
@@ -119,13 +114,8 @@ equation
   connect(uTSup.y, eco1.uTSup) annotation (Line(points={{-98,-40},{0,-40},{0,
           -41},{98,-41}},
                      color={0,0,127}));
-  connect(outDamPos.y, eco.uOutDamPos) annotation (Line(points={{-58,20},{-8,20},
-          {-8,14},{18,14}}, color={0,0,127}));
   connect(supFanSpe.y, eco.uSupFanSpe) annotation (Line(points={{-98,0},{-12,0},
           {-12,12},{18,12}}, color={0,0,127}));
-  connect(outDamPos.y, eco1.uOutDamPos) annotation (Line(points={{-58,20},{-8,
-          20},{-8,-26},{98,-26}},
-                              color={0,0,127}));
   connect(supFanSpe.y, eco1.uSupFanSpe) annotation (Line(points={{-98,0},{-12,0},
           {-12,-28},{98,-28}}, color={0,0,127}));
   connect(dpDam2.y, eco1.dpMinOutDam) annotation (Line(points={{-58,-60},{-32,
