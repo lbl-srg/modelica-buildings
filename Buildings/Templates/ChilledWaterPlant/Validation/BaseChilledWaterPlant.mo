@@ -44,8 +44,7 @@ model BaseChilledWaterPlant
       final typ = chw.pumCon.typ,
       final nPum = chw.pumCon.nPum,
       pum(final typ = chw.pumCon.pum.typ)),
-    retSec(
-      final typ = chw.retSec.typ))
+    eco(final typ = chw.eco.typ))
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res1(

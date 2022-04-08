@@ -9,9 +9,9 @@ model WaterCooled
       Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
         redeclare final package MediumConWat = MediumConWat),
     redeclare replaceable
-      Buildings.Templates.ChilledWaterPlant.Components.Economizer.None retSec
+      Buildings.Templates.ChilledWaterPlant.Components.Economizer.None eco
       constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection(
+      Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
         redeclare final package MediumConWat = MediumConWat),
     final have_dedConWatPum=pumCon.is_dedicated,
     final nCooTow=cooTowSec.nCooTow,
@@ -87,7 +87,7 @@ equation
     annotation (Line(points={{-160,-10},{-140,-10}}, color={0,127,255}));
   connect(TConWatSup.port_b,pumCon. port_a)
     annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));
-  connect(pumCon.port_wse, retSec.port_a1)
+  connect(pumCon.port_wse, eco.port_a1)
     annotation (Line(points={{-80,-16},{-70,-16},{-70,-50},{-46,-50},{-46,-62}},
       color={0,127,255}));
   connect(chiSec.port_b1, mixConWat.port_3)
@@ -101,7 +101,7 @@ equation
       color={0,127,255}));
   connect(mixConWat.port_2, TConWatRet.port_b)
     annotation (Line(points={{-100,-70},{-120,-70}}, color={0,127,255}));
-  connect(mixConWat.port_1, retSec.port_b1)
+  connect(mixConWat.port_1, eco.port_b1)
     annotation (Line(points={{-80,-70},{-60,-70},{-60,-88},{-46,-88},{-46,-82}},
       color={0,127,255}));
 end WaterCooled;

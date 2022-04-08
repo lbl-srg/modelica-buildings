@@ -25,14 +25,13 @@ record UserData
           TWatIn_nominal=308.15,
           dT_nominal=5.56,
           PFan_nominal=5000)},
-      dpValInl_nominal(displayUnit="Pa") = {6000,6000},
-      dpValOut_nominal(displayUnit="Pa") = {0,0}),
-    pumCon(dpConWatChiValve_nominal(displayUnit="Pa") = 6000),
+      valCooTowInl=Buildings.Templates.Components.Data.Valve(dpValve_nominal=6000),
+      valCooTowOut=Buildings.Templates.Components.Data.Valve(dpValve_nominal=0)),
     pumPri(
-      dpChiWatChiValve_nominal(displayUnit="Pa") = 6000,
-      dpByp_nominal(displayUnit="Pa") = 6000,
-      dpChiByp_nominal(displayUnit="Pa") = 6000),
-    chiSec(chi={
+      valByp=Buildings.Templates.Components.Data.Valve(dpValve_nominal=6000),
+      valChiByp=Buildings.Templates.Components.Data.Valve(dpValve_nominal=6000)),
+    chiSec(
+      chi={
           Buildings.Templates.ChilledWaterPlant.Components.Chillers.Interfaces.Data(
           isAirCoo=false,
           m1_flow_nominal=14,
@@ -51,7 +50,12 @@ record UserData
           Q_flow_nominal=-50000,
           TChiWatSup_nominal=280.15,
           per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes)},
-        dpChiWatChiValve_nominal(displayUnit="Pa") = 6000));
+      valChiWatChi={
+        Buildings.Templates.Components.Data.Valve(dpValve_nominal=6000),
+        Buildings.Templates.Components.Data.Valve(dpValve_nominal=6000)},
+      valConWatChi={
+        Buildings.Templates.Components.Data.Valve(dpValve_nominal=6000),
+        Buildings.Templates.Components.Data.Valve(dpValve_nominal=6000)}));
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

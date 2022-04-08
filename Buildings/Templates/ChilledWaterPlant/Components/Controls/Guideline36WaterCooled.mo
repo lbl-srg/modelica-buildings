@@ -95,7 +95,7 @@ block Guideline36WaterCooled
 
   /*
   FIXME: Those parameters should be declared in the interface class
-  Buildings.Templates.ChilledWaterPlant.Components.ReturnSection.Interfaces.PartialReturnSection
+  Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer
   and accessed with inner/outer reference.
   */
   parameter Modelica.Units.SI.Temperature dTAppEco_nominal(displayUnit="K", final min=0)=2

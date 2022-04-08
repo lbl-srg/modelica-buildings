@@ -19,7 +19,7 @@ model RP1711_6_8
       pumSec(final nPum=2),
     redeclare
       Buildings.Templates.ChilledWaterPlant.Components.Economizer.WatersideEconomizer
-      retSec,
+      eco,
     final have_chiByp=false);
 
   annotation (

@@ -4,7 +4,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Interfaces.PartialChilledWaterPlant(
     redeclare final package Medium=MediumChiWat,
     final have_secondary = not pumSec.dat.is_none,
-    final have_eco = retSec.have_eco,
+    final have_eco = eco.have_eco,
     final have_dedChiWatPum = pumPri.dat.is_dedicated,
     final nChi = chiSec.nChi,
     final nPumPri = pumPri.nPum,
@@ -27,7 +27,7 @@ model PartialChilledWaterLoop
   parameter Boolean have_VSecRet_flow = false
     "= true if secondary return chilled water flow is measured"
     annotation(Dialog(enable=have_secondary));
-  parameter Boolean have_VChiWatRet_flow = priPum.have_floSen and not priPum.have_supFloSen
+  parameter Boolean have_VChiWatRet_flow = pumPri.have_floSen and not pumPri.have_supFloSen
     "= true if primary flow is measured on return side";
 
   final inner parameter Boolean have_parChi=
@@ -45,11 +45,11 @@ model PartialChilledWaterLoop
         rotation=90,
         origin={-40,10})));
   inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.Economizer.None retSec
+    Buildings.Templates.ChilledWaterPlant.Components.Economizer.None eco
     constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
     redeclare final package MediumChiWat = MediumChiWat,
-    final dat=dat.retSec,
+    final dat=dat.eco,
     final m2_flow_nominal=dat.mChiWatPri_flow_nominal)
     "Chilled water return section" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -184,7 +184,7 @@ equation
   // Bus connection
   connect(pumPri.busCon, busCon);
   connect(chiSec.busCon, busCon);
-  connect(retSec.busCon, busCon);
+  connect(eco.busCon, busCon);
   connect(pumSec.busCon, busCon);
 
   // Controller
@@ -219,7 +219,7 @@ equation
     annotation (Line(points={{180,-20},{180,10},{200,10}}, color={0,127,255}));
   connect(dpChiWatLoc.port_b,port_a)  annotation (Line(points={{180,-40},{180,-70},
           {200,-70}}, color={0,127,255}));
-  connect(retSec.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
+  connect(eco.port_b2, mixByp.port_1) annotation (Line(points={{-34,-62},{-34,
           -50},{-20,-50}}, color={0,127,255}));
   connect(mixByp.port_2,TChiWatRetPla. port_a)
     annotation (Line(points={{0,-50},{28,-50}}, color={0,127,255}));
@@ -231,7 +231,7 @@ equation
     annotation (Line(points={{120,10},{140,10}}, color={0,127,255}));
   connect(TChiWatRet.port_b, VSecRet_flow.port_b)
     annotation (Line(points={{120,-70},{100,-70}},color={0,127,255}));
-  connect(VSecRet_flow.port_a, retSec.port_a2) annotation (Line(points={{80,-70},
+  connect(VSecRet_flow.port_a, eco.port_a2) annotation (Line(points={{80,-70},
           {-24,-70},{-24,-88},{-34,-88},{-34,-82}}, color={0,127,255}));
   connect(weaBus.TDryBul, TAirOut.u) annotation (Line(
       points={{0,100},{0,80},{18,80}},

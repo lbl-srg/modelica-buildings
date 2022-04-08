@@ -53,7 +53,7 @@ block PartialController "Partial controller for chilled water plant"
 
   outer replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer
-    retSec "Chilled water return section";
+    eco "Chilled water return section";
   outer replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Interfaces.PartialCoolingTowerSection
     cooTowSec if isAirCoo "Cooling towers";

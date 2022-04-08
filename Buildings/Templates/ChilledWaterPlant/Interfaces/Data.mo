@@ -19,7 +19,6 @@ record Data "Data for chilled water plants"
   parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data con(
     final isAirCoo=isAirCoo,
     final capChi_nominal=abs(chiSec.chi.Q_flow_nominal),
-    final mChiWatChi_flow_nominal=chiSec.m2_flow_nominal,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final TChiWatSup_nominal=chiSec.chi[1].TChiWatSup_nominal)
     "Controller data"
@@ -40,15 +39,15 @@ record Data "Data for chilled water plants"
     annotation (Dialog(group="Equipment"));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.Data
-    retSec(
+    eco(
     final isAirCoo=isAirCoo,
     m1_flow_nominal=mChiWatPri_flow_nominal,
     m2_flow_nominal=mCon_flow_nominal) "Waterside Economizer"
-    annotation (Dialog(group="Equipment"));
+    annotation (Dialog(group="Equipment", enable=eco.have_eco));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.Interfaces.Data
     pumSec(m_flow_nominal=mChiWatSec_flow_nominal) "Secondary pumps"
-    annotation (Dialog(group="Equipment"));
+    annotation (Dialog(group="Equipment", enable=not pumSec.is_none));
 
   //Condenser side equipment
 
