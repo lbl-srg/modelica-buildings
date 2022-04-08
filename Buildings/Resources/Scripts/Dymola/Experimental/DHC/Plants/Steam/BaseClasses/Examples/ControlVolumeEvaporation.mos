@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation", tolerance=1e-06, stopTime=1.0, resultFile="ControlVolumeEvaporation");
+simulateModel("Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation", tolerance=1e-06, stopTime=1.0, method="dassl", resultFile="ControlVolumeEvaporation");
 // Plot
 createPlot(id=1, position={27, 10, 521, 446}, 
 	y={"volDyn.port_a.m_flow", "volSte.port_a.m_flow"}, 

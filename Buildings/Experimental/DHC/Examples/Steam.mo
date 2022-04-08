@@ -39,12 +39,12 @@ model Steam "Example model for a complete steam district heating system"
     "Pressure drop of distribution at nominal mass flow rate";
 
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld[N](
-    redeclare package MediumSte = MediumSte,
-    redeclare package MediumWat = MediumWat,
+    redeclare final package MediumSte = MediumSte,
+    redeclare final package MediumWat = MediumWat,
     each have_prv=true,
     each dp_nominal=dpPip/2,
-    each pSte_nominal=pSat,
-    each Q_flow_nominal=QBui_flow_nominal,
+    each final pSte_nominal=pSat,
+    each final Q_flow_nominal=QBui_flow_nominal,
     each pLow_nominal=pLow,
     each tableOnFile=false,
     each QHeaLoa=
@@ -55,22 +55,22 @@ model Steam "Example model for a complete steam district heating system"
     "Buildings"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
   Buildings.Experimental.DHC.Networks.Steam.DistributionCondensatePipe dis(
-    redeclare package MediumSup = MediumSte,
-    redeclare package MediumRet = MediumWat,
+    redeclare final package MediumSup = MediumSte,
+    redeclare final package MediumRet = MediumWat,
     final dp_nominal=dp_nominal,
-    nCon=N,
-    mDis_flow_nominal=mDis_flow_nominal,
-    mCon_flow_nominal=bld.m_flow_nominal)
+    final nCon=N,
+    final mDis_flow_nominal=mDis_flow_nominal,
+    final mCon_flow_nominal=bld.m_flow_nominal)
     "Distribution network"
     annotation (Placement(transformation(extent={{0,-20},{40,0}})));
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
-    redeclare package Medium = MediumWat,
-    redeclare package MediumHea_b = MediumSte,
+    redeclare final package Medium = MediumWat,
+    redeclare final package MediumHea_b = MediumSte,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
-    m_flow_nominal=mDis_flow_nominal,
-    pSteSet=pSat,
-    Q_flow_nominal=QDis_flow_nominal,
-    per=perPumFW,
+    final m_flow_nominal=mDis_flow_nominal,
+    final pSteSet=pSat,
+    final Q_flow_nominal=QDis_flow_nominal,
+    final per=perPumFW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     kBoi=600,
     TiBoi(displayUnit="min") = 120,

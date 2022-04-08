@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Steam;
 model SingleBoiler "A generic steam plant with a single boiler that discharges 
-  saturated steam vapor"
+  saturated steam"
   extends Buildings.Experimental.DHC.Plants.BaseClasses.PartialPlant(
     final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.HeatingGeneration1,
     redeclare replaceable package MediumHea_b=Buildings.Media.Steam,
