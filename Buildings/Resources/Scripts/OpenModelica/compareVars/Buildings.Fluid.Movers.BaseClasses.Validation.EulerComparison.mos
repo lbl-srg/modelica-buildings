@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "eff1.eta",
-    "eff2.eta",
-    "eff1.PEle",
-    "eff2.PEle",
+    "eta1",
+    "eta2",
+    "P1",
+    "P2",
     "eff1.dp",
     "eff1.r_N"
   };

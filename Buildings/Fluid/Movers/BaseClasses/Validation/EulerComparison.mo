@@ -51,6 +51,30 @@ model EulerComparison
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Modelica.Units.SI.VolumeFlowRate V_flow = m_flow.y/rhoCon "Volumetric flow rate";
+  Modelica.Units.SI.Power P1(displayUnit="W")=
+    if per1.etaMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+    then eff1.PEle
+    else eff1.WHyd
+    "Power from interpolation (total or hydraulic depending on data)";
+  Modelica.Units.SI.Power P2(displayUnit="W")=
+    if per1.etaMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+    then eff2.PEle
+    else eff2.WHyd
+    "Power from Euler number (total or hydraulic depending on data)";
+  Modelica.Units.SI.Efficiency eta1=
+    if per1.etaMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+    then eff1.eta
+    else eff1.etaHyd
+    "Efficiency from interpolation (total or hydraulic depending on data)";
+  Modelica.Units.SI.Efficiency eta2=
+    if per2.etaMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+    then eff2.eta
+    else eff2.etaHyd
+    "Efficiency from Euler number (total or hydraulic depending on data)";
 
   Modelica.Blocks.Sources.Ramp m_flow(
     height=eff1.V_flow_max*rhoCon,
@@ -77,12 +101,14 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
 Documentation(
 info="<html>
 <p>
-This model validates the power computation path
-using the Euler number and its correlation as implemented in
+This model validates the power and efficiency computation using the Euler number
+and its correlation as implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.
-Its results of calculated efficiency and power are compared
-with those obtained by using the power characteristic path.
+Its results of calculated efficiency and power are compared with those obtained
+using power curves.
+</p>
+<p>
 Note that full performance curves are needed in this validation model
 because otherwise
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
