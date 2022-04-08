@@ -1,7 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRLC
   "PI model of a line parameterized with impedance and admittance matrices"
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
   parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
     annotation (Evaluate=true, Dialog(group="Nominal conditions"));
@@ -162,6 +164,10 @@ equation
           textString="C 3x3")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Made current and voltage public to allow setting start values.<br/>
