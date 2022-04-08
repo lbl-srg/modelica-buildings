@@ -188,6 +188,8 @@ protected
                strict=false))
     elseif per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+      or   per.etaMotMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
       then Buildings.Utilities.Math.Functions.splineDerivatives(
              x=per.motorEfficiency_yMot_internal.y,
              y=per.motorEfficiency_yMot_internal.eta,
@@ -201,10 +203,11 @@ protected
   final parameter Integer nMotDer_yMot=
     if per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    or per.etaMotMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
       then 9
     else size(per.motorEfficiency_yMot.y,1)
       "Size of array";
-
 
   parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
     haveDPMax then per.pressure.dp[1] else per.pressure.dp[1] - ((per.pressure.dp[
@@ -329,11 +332,7 @@ protected
     "Look-up table for mover power";
 
   Real yMot(final min=0, final start=0.833)=
-    if (per.etaMotMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
-      or per.etaMotMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-      and per.PEle_nominal>1E-6
+    if per.PEle_nominal>1E-6
       then PEle/per.PEle_nominal
     else 1
     "Motor part load ratio";
@@ -707,11 +706,10 @@ equation
   // Hydraulic efficiency not provided
     WHyd = WFlo / etaHyd;
     if per.etaMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
-       per.etaMotMet==
-         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided then
-    // Only eta provided
-      etaHyd = eta / 0.7; // In this case etaMot = 0.7.
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
+    // As long as eta is provided
+      etaHyd = Buildings.Utilities.Math.Functions.smoothMin(
+                 x1=eta / etaMot, x2=1, deltaX=1E-6);
     else
     // Only etaMot provided or neither
       etaHyd = 0.7;
@@ -743,25 +741,36 @@ equation
         y=yMot,
         d=motDer_yMot);
     end if;
-  elseif per.etaMotMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve then
-    if homotopyInitialization then
-      etaMot =homotopy(actual=cha.efficiency_yMot(
-        per=per.motorEfficiency_yMot_internal,
-        y=yMot,
-        d=motDer_yMot), simplified=cha.efficiency_yMot(
-        per=per.motorEfficiency_yMot_internal,
-        y=1,
-        d=motDer_yMot));
-    else
-      etaMot =cha.efficiency_yMot(
-        per=per.motorEfficiency_yMot_internal,
-        y=yMot,
-        d=motDer_yMot);
-    end if;
   else
-  // Motor efficiency not provided
-    etaMot = 0.7;
+    // .GenericCurve or .NotProvided
+    if per.etaMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
+       per.etaHydMet<>
+         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
+    // If both etaMet and etaHydMet provided
+    // (In this case etaMotMet must be NotProvided
+    //  otherwise it violates an assert().)
+      etaMot = Buildings.Utilities.Math.Functions.smoothMin(
+                 x1=eta / etaHyd, x2=1, deltaX=1E-6);
+    else
+    // Otherwise, use per.PEle_nominal and per.etaMot_max to generate generic
+    // curves. When per.PEle_nominal is unavailable (<1E-6), this curve has
+    // constants 0.7.
+      if homotopyInitialization then
+        etaMot =homotopy(actual=cha.efficiency_yMot(
+          per=per.motorEfficiency_yMot_internal,
+          y=yMot,
+          d=motDer_yMot), simplified=cha.efficiency_yMot(
+          per=per.motorEfficiency_yMot_internal,
+          y=1,
+          d=motDer_yMot));
+      else
+        etaMot =cha.efficiency_yMot(
+          per=per.motorEfficiency_yMot_internal,
+          y=yMot,
+          d=motDer_yMot);
+      end if;
+    end if;
   end if;
 
   annotation (
