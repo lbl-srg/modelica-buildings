@@ -92,53 +92,54 @@ block OpenLoop "Open loop controller (output signals only)"
 
   // Vectorized sub-bus need to be declared, otherwise Modelica doesn't know
   // how to expand undeclared parameter in connect statement such as
-  // connect(busCon.valChiWatChi.y, valChiWatChi.y)
+  // connect(busCon.valCooTowInl.y, valCooTowInl.y)
 
-  Buildings.Templates.Components.Interfaces.Bus chi[nChi]
-    annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valChiWatChi[nChi]
-    annotation (HideResult=false);
+  // FIXME : These bus declarations shouldn't be needed (see connect statement below)
+
   Buildings.Templates.Components.Interfaces.Bus cooTow[nCooTow] if not isAirCoo
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus valCooTowInl[nCooTow] if not isAirCoo
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus valCooTowOut[nCooTow] if not isAirCoo
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valConWatChi[nChi] if not isAirCoo
-    annotation (HideResult=false);
+
+//   Buildings.Templates.Components.Interfaces.Bus chi[nChi]
+//     annotation (HideResult=false);
+//   Buildings.Templates.Components.Interfaces.Bus valChiWatChi[nChi]
+//     annotation (HideResult=false);
+//   Buildings.Templates.Components.Interfaces.Bus valConWatChi[nChi] if not isAirCoo
+//     annotation (HideResult=false);
 
 equation
 
   connect(busCon.valByp.y, yValByp.y);
   connect(busCon.valChiByp.y, yValChiByp.y);
 
-  for i in 1:nChi loop
-    connect(chi[i].TSet, chiTSet[i].y);
-    connect(chi[i].on, chiOn[i].y);
-    connect(valChiWatChi[i].y, yValChiWatChi[i].y);
-    connect(valConWatChi[i].y, yValConWatChi[i].y);
-  end for;
-  connect(busCon.chi, chi);
-  connect(busCon.valChiWatChi, valChiWatChi);
-  connect(busCon.valConWatChi, valConWatChi);
+  connect(busCon.chi.TSet, chiTSet.y);
+  connect(busCon.chi.on, chiOn.y);
+  connect(busCon.valChiWatChi.y, yValChiWatChi.y);
+  connect(busCon.valConWatChi.y1, yValConWatChi.y);
 
-  connect(busCon.pumPri.y, yPumPri.y);
-  connect(busCon.pumPri.ySpe, ySpePumPri.y);
+  connect(busCon.pumPri.y1, yPumPri.y);
+  connect(busCon.pumPri.y, ySpePumPri.y);
 
-  connect(busCon.pumSec.y, yPumSec.y);
-  connect(busCon.pumSec.ySpe, ySpePumSec.y);
+  connect(busCon.pumSec.y1, yPumSec.y);
+  connect(busCon.pumSec.y, ySpePumSec.y);
 
-  for i in 1:nCooTow loop
-    connect(cooTow[i].y, yCooTowFan[i].y);
-    connect(valCooTowInl[i].y, yValCooTowInl[i].y);
-    connect(valCooTowOut[i].y, yValCooTowOut[i].y);
-  end for;
+// FIXME: Should be connect(busCon.cooTow.y, yCooTowFan.y);
+  connect(cooTow.y, yCooTowFan.y);
   connect(busCon.cooTow, cooTow);
+
+// FIXME: Should be connect(busCon.valCooTowInl.y1, yValCooTowInl.y);
+  connect(valCooTowInl.y1, yValCooTowInl.y);
   connect(busCon.valCooTowInl, valCooTowInl);
+
+// FIXME: Should be connect(busCon.valCooTowOut.y1, yValCooTowOut.y);
+  connect(valCooTowOut.y1, yValCooTowOut.y);
   connect(busCon.valCooTowOut, valCooTowOut);
 
-  connect(busCon.pumCon.y, yPumCon.y);
-  connect(busCon.pumCon.ySpe, ySpePumCon.y);
+  connect(busCon.pumCon.y1, yPumCon.y);
+  connect(busCon.pumCon.y, ySpePumCon.y);
   connect(busCon.valConWatEco.y, yValConWatEco.y);
 
   annotation (

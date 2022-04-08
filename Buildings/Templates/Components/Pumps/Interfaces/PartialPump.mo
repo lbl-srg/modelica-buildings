@@ -1,7 +1,10 @@
 within Buildings.Templates.Components.Pumps.Interfaces;
 partial model PartialPump "Interface class for pump"
-  extends Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=sum(dat.m_flow_nominal));
+
+  replaceable package Medium=Buildings.Media.Water "Medium in the component";
+
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(dat.m_flow_nominal)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   // Structure parameters
 

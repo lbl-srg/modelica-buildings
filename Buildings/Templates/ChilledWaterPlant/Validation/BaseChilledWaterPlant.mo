@@ -6,7 +6,7 @@ model BaseChilledWaterPlant
     "Chilled water medium";
 
   replaceable Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop chw(dat=dat)
-    annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
+    annotation (Placement(transformation(extent={{-80,-20},{0,20}})));
   Fluid.Sources.Boundary_pT bou1(
     redeclare final package Medium=MediumChiWat,
     nPorts=3)
@@ -38,14 +38,13 @@ model BaseChilledWaterPlant
       pum(final typ = chw.pumPri.pum.typ)),
     pumSec(
       final typ = chw.pumSec.typ,
-      final nPum = chw.pumSec.nPum,
-      pum(final typ = chw.pumSec.pum.typ)),
+      final nPum = chw.pumSec.nPum),
     pumCon(
       final typ = chw.pumCon.typ,
       final nPum = chw.pumCon.nPum,
       pum(final typ = chw.pumCon.pum.typ)),
     eco(final typ = chw.eco.typ))
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare final package Medium = MediumChiWat,
@@ -58,7 +57,7 @@ model BaseChilledWaterPlant
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.FixedResistances.PressureDrop res2(
     redeclare final package Medium = MediumChiWat,
     m_flow_nominal=1,
@@ -76,17 +75,18 @@ equation
   connect(bou1.ports[2],pDem. port) annotation (Line(points={{70,-2.22045e-16},
           {70,30}}, color={0,127,255}));
   connect(weaDat.weaBus, chw.weaBus) annotation (Line(
-      points={{-70,30},{-20,30},{-20,20}},
+      points={{-60,50},{-40,50},{-40,20}},
       color={255,204,51},
       thickness=0.5));
   connect(res2.port_a, bou1.ports[3]) annotation (Line(points={{48,-20},{60,-20},
           {60,1.33333},{70,1.33333}},   color={0,127,255}));
   connect(res1.port_a,chw.port_b)
-    annotation (Line(points={{28,0},{28,2},{0,2}},   color={0,127,255}));
+    annotation (Line(points={{28,0},{26,0},{26,2},{0,2}},
+                                                     color={0,127,255}));
   connect(res2.port_b,chw.port_a)  annotation (Line(points={{28,-20},{6,-20},{6,
           -14},{0,-14}}, color={0,127,255}));
   connect(busConExt, chw.busCon) annotation (Line(
-      points={{30,60},{30,12},{0,12}},
+      points={{30,60},{30,14},{8,14},{8,12},{0,12}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
