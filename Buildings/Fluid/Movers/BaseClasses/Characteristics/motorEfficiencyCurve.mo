@@ -41,7 +41,7 @@ annotation (Documentation(info="<html>
 <p>
 This function generates a generic motor efficiency curve based on the
 rated motor power input and maximum motor efficiency according to U.S. DOE (2014)
-(shown below).
+(shown below). It returns a constant array if the rated power is unavailable.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Characteristics/MotorEfficiencyCurves.png\"

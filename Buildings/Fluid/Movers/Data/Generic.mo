@@ -102,8 +102,8 @@ record Generic "Generic data record for movers"
   parameter Modelica.Units.SI.Power PEle_nominal(final displayUnit="W")=
       if etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
-        then max(power.P)/0.7/0.8
-      else max(power.P)/0.8
+        then max(power.P)/etaMot_max*1.2
+      else max(power.P)*1.2
     "Rated input power of the motor"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==
