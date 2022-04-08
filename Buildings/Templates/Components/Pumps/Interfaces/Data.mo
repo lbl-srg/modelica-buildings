@@ -12,10 +12,10 @@ record Data "Data for pumps"
 
   // Equipment characteristics
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(start=0)
     "Individual pump nominal mass flow rate"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(start=0)
     "Total pressure rise"
     annotation (Dialog(group="Pump", enable=not is_none));
   replaceable parameter Fluid.Movers.Data.Generic per(
@@ -25,7 +25,7 @@ record Data "Data for pumps"
     constrainedby Fluid.Movers.Data.Generic
     "Performance data"
     annotation(Dialog(group="Pump", enable=not is_none));
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(start=0)
     "Check valve pressure drop"
     annotation (Dialog(group="Valve", enable=not is_none));
 

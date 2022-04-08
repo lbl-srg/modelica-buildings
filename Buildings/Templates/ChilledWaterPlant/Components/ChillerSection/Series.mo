@@ -20,10 +20,11 @@ model Series "Model for chillers in series"
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each final m_flow_nominal=fill(dat.m2_flow_nominal, 3),
     each final dp_nominal=fill(0, 3))
-    "Chiller splitter"              annotation (Placement(transformation(
+    "Chiller splitter"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={60,-60})));
+        origin={40,-60})));
   Fluid.FixedResistances.Junction mixChi[nChi](
     redeclare package Medium = MediumChiWat,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -32,35 +33,35 @@ model Series "Model for chillers in series"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-60,-60})));
+        origin={-40,-60})));
 
 equation
 
   connect(chi.port_a2,splChi. port_3)
-    annotation (Line(points={{20,-12},{60,-12},{60,-50}},
+    annotation (Line(points={{20,-12},{40,-12},{40,-50}},
       color={0,127,255}));
   connect(chi.port_b2, mixChi.port_3)
-    annotation (Line(points={{-20,-12},{-60,-12},{-60,-50}},
+    annotation (Line(points={{-20,-12},{-40,-12},{-40,-50}},
       color={0,127,255}));
   connect(valChiWatChi.port_b, mixChi.port_2)
-    annotation (Line(points={{-10,-60},{-50,-60}}, color={0,127,255}));
+    annotation (Line(points={{-10,-60},{-30,-60}}, color={0,127,255}));
   connect(valChiWatChi.port_a, splChi.port_2)
-    annotation (Line(points={{10,-60},{50,-60}}, color={0,127,255}));
+    annotation (Line(points={{10,-60},{30,-60}}, color={0,127,255}));
   connect(port_a2,splChi[1].port_1)
-    annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
+    annotation (Line(points={{100,-60},{50,-60}}, color={0,127,255}));
   connect(mixChi[nChi].port_1, port_b2)
-    annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
+    annotation (Line(points={{-50,-60},{-100,-60}}, color={0,127,255}));
 
   for i in 2:nChi loop
     connect(mixChi[i - 1].port_1, splChi[i].port_1)
       annotation (Line(
-        points={{-70,-60},{-80,-60},{-80,-80},{80,-80},{80,-60},{70,-60}},
+        points={{-50,-60},{-80,-60},{-80,-80},{80,-80},{80,-60},{50,-60}},
         color={0,127,255}));
   end for;
 
   connect(valChiWatChi.bus, busCon.valChiWatChi)
     annotation (Line(
-      points={{0,-50},{0,-40},{40,-40},{40,60},{0.1,60},{0.1,100.1}},
+      points={{0,-50},{0,-32},{-30,-32},{-30,40},{0.1,40},{0.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",

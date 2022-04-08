@@ -1,10 +1,19 @@
 within Buildings.Templates.Components.Pumps.Interfaces;
 partial model PartialPump "Interface class for pump"
-  extends Fluid.Interfaces.PartialTwoPortInterface;
+  extends Fluid.Interfaces.PartialTwoPortInterface(
+    final m_flow_nominal=sum(dat.m_flow_nominal));
+
+  // Structure parameters
 
   parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Integer nPum(final min=1) = 1
+    "Number of pumps"
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
+
+  // Record
 
   parameter Buildings.Templates.Components.Pumps.Interfaces.Data dat[nPum](
     each final typ=typ) "Pump data";
@@ -12,9 +21,6 @@ partial model PartialPump "Interface class for pump"
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  final parameter Modelica.Units.SI.MassFlowRate mTot_flow_nominal = sum(dat.m_flow_nominal)
-    "Pump group total flow";
 
   parameter Boolean have_singlePort_a = true
     "= true if single fluid connector a, = false if vectorized fluid connector a";
@@ -61,32 +67,6 @@ partial model PartialPump "Interface class for pump"
   parameter Boolean text_flip = false
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
-
-  parameter Integer nPum(final min=1) = 1
-    "Number of pumps"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Total pressure rise"
-    annotation (Dialog(group="Nominal condition",
-      enable=typ <> Buildings.Templates.Components.Types.Pump.None));
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 4000
-    "Nominal pressure drop of check valve"
-    annotation (Dialog(group="Nominal condition",
-      enable=typ <> Buildings.Templates.Components.Types.Pump.None));
-
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
-    pressure(
-      V_flow={0, 1, 2} * m_flow_nominal / 1000 / nPum,
-      dp={1.5, 1, 0} * dp_nominal))
-    constrainedby Buildings.Fluid.Movers.Data.Generic(
-      motorCooledByFluid=false)
-    "Performance data"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(enable=typ <> Buildings.Templates.Components.Types.Pum.None),
-      Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
   Buildings.Templates.Components.Interfaces.Bus bus
     "Control bus"

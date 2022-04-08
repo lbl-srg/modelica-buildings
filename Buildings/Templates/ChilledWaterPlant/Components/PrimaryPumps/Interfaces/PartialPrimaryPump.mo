@@ -154,7 +154,7 @@ partial model PartialPrimaryPump "Partial primary pump model"
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     if not have_parChi
     "Pump group inlet for chiller connected in series"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),

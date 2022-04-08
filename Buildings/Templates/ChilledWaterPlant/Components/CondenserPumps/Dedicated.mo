@@ -3,19 +3,15 @@ model Dedicated "Dedicated condenser pumps"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Interfaces.PartialCondenserPump(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserPump.Dedicated,
-    final nPum=nPorEco + nChi,
+    final nPum=nChi,
     pum(final have_singlePort_b=false));
 
   // FIXME : Could we have a dedicated condenser pump with WSE?
-  // If so, would there be a dedicated pump for the WSE?
-protected
-  parameter Integer nPorEco = if have_eco then 1 else 0;
 
 equation
 
   connect(pum.ports_b, ports_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
           points={{-60,0},{-100,0}},

@@ -5,21 +5,6 @@ model Headered "Headered condenser pumps"
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserPump.Headered,
       pum(final have_singlePort_b=true));
 
-  inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatChi[nChi]
-    constrainedby
-    Buildings.Templates.Components.Valves.Interfaces.PartialValve(
-      redeclare each final package Medium = Medium,
-      final dat=dat.valConWatChi)
-    "Chiller condenser water-side isolation valves" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={70,0})), choices(choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayModulating valConWatChi
-          "Modulating"), choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatChi
-          "Two-positions")));
-
   Fluid.Delays.DelayFirstOrder del(
     redeclare final package Medium = Medium,
     final m_flow_nominal=dat.m_flow_nominal,
@@ -33,24 +18,13 @@ protected
 
 equation
 
-  connect(del.ports[2:nChi+1], valConWatChi.port_a)
-    annotation (Line(points={{40,40},{40,0},{60,0}}, color={0,127,255}));
   connect(del.ports[1], pum.port_b)
     annotation (Line(points={{40,40},{40,40},{40,0},{10,0}},
     color={0,127,255}));
+  connect(del.ports[2:nChi+1], ports_b)
+    annotation (Line(points={{40,40},{40,0},{100,0}}, color={0,127,255}));
   connect(del.ports[nPorVol], port_wse)
     annotation (Line(points={{40,40},{40,-60},{100,-60}}, color={0,127,255}));
-  connect(valConWatChi.port_b, ports_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-
-  connect(busCon.valConWatChi, valConWatChi.bus) annotation (Line(
-      points={{0.1,100.1},{0.1,80},{70,80},{70,10}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(

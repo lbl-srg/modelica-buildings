@@ -17,7 +17,7 @@ record Data "Data for primary pumps"
   parameter Integer nChi(final min=1) "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_dedicated=
-    typ ==Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.Dedicated;
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.Dedicated;
 
   // Equipment characteristics
 
@@ -29,12 +29,6 @@ record Data "Data for primary pumps"
     "Pump group nominal flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
-  // Fixme : Move this valve to chiller section
-  parameter Buildings.Templates.Components.Data.Valve valChiWatChi[nChi](
-    each final m_flow_nominal=m_flow_nominal / nChi,
-    each dpValve_nominal=0)
-    "Chiller chilled water side valve (for headered pumps)"
-    annotation(Dialog(group = "Valves", enable = not is_dedicated));
   parameter Buildings.Templates.Components.Data.Valve valByp(
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0)
