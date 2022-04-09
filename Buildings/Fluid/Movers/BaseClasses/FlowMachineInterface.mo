@@ -188,13 +188,14 @@ protected
                strict=false))
     elseif per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
-      or   per.etaMotMet==
+      or  (per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+           and per.havePEle_nominal)
       then Buildings.Utilities.Math.Functions.splineDerivatives(
-             x=per.motorEfficiency_yMot_internal.y,
-             y=per.motorEfficiency_yMot_internal.eta,
+             x=per.motorEfficiency_yMot_generic.y,
+             y=per.motorEfficiency_yMot_generic.eta,
              ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-               x=per.motorEfficiency_yMot_internal.eta,
+               x=per.motorEfficiency_yMot_generic.eta,
                strict=false))
     elseif nMotDer_yMot== 1
       then {0}
@@ -203,8 +204,9 @@ protected
   final parameter Integer nMotDer_yMot=
     if per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
-    or per.etaMotMet==
+    or (per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+        and per.havePEle_nominal)
       then 9
     else size(per.motorEfficiency_yMot.y,1)
       "Size of array";
@@ -332,7 +334,7 @@ protected
     "Look-up table for mover power";
 
   Real yMot(final min=0, final start=0.833)=
-    if per.PEle_nominal>1E-6
+    if per.havePEle_nominal
       then PEle/per.PEle_nominal
     else 1
     "Motor part load ratio";
@@ -472,7 +474,7 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
            or  per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-         and per.PEle_nominal<1E-6),
+         and not per.havePEle_nominal),
          "etaMotMet is set to .Values_yMot or .GenericCurve which requires
          the motor's rated input power, but per.PEle_nominal is not assigned.");
 
@@ -741,35 +743,38 @@ equation
         y=yMot,
         d=motDer_yMot);
     end if;
+  elseif per.etaMotMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve or
+        (per.etaMotMet==
+       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided and
+         per.havePEle_nominal) then
+    // (a) user specifically chooses .GenericCurve or
+    // (b) .NotProvided but has enough information to generate a generic curve
+      if homotopyInitialization then
+        etaMot =homotopy(actual=cha.efficiency_yMot(
+          per=per.motorEfficiency_yMot_generic,
+          y=yMot,
+          d=motDer_yMot), simplified=cha.efficiency_yMot(
+          per=per.motorEfficiency_yMot_generic,
+          y=1,
+          d=motDer_yMot));
+      else
+        etaMot =cha.efficiency_yMot(
+          per=per.motorEfficiency_yMot_generic,
+          y=yMot,
+          d=motDer_yMot);
+      end if;
   else
-    // .GenericCurve or .NotProvided
+  // Not provided
     if per.etaMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided and
        per.etaHydMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
     // If both etaMet and etaHydMet provided
-    // (In this case etaMotMet must be NotProvided
-    //  otherwise it violates an assert().)
       etaMot = Buildings.Utilities.Math.Functions.smoothMin(
                  x1=eta / etaHyd, x2=1, deltaX=1E-6);
     else
-    // Otherwise, use per.PEle_nominal and per.etaMot_max to generate generic
-    // curves. When per.PEle_nominal is unavailable (<1E-6), this curve has
-    // constants 0.7.
-      if homotopyInitialization then
-        etaMot =homotopy(actual=cha.efficiency_yMot(
-          per=per.motorEfficiency_yMot_internal,
-          y=yMot,
-          d=motDer_yMot), simplified=cha.efficiency_yMot(
-          per=per.motorEfficiency_yMot_internal,
-          y=1,
-          d=motDer_yMot));
-      else
-        etaMot =cha.efficiency_yMot(
-          per=per.motorEfficiency_yMot_internal,
-          y=yMot,
-          d=motDer_yMot);
-      end if;
+      etaMot = 0.7;
     end if;
   end if;
 

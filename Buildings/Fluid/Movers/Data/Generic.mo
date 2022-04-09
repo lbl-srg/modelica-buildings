@@ -116,12 +116,14 @@ record Generic "Generic data record for movers"
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve));
   final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
-      motorEfficiency_yMot_internal=
+      motorEfficiency_yMot_generic=
         Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
           P_nominal=PEle_nominal,
           eta_max=etaMot_max)
     "Motor efficiency  vs. part load ratio"
     annotation (Dialog(enable=false));
+  final parameter Boolean havePEle_nominal=PEle_nominal > Modelica.Constants.eps
+    "= true, if the rated power input is provided";
 
   // Speed
   parameter Real speed_nominal(
