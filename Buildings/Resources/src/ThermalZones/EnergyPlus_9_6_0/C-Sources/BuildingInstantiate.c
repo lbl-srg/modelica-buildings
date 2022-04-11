@@ -393,13 +393,13 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
   const char* prefix = "/Resources/bin/";
   const char* suffix = "/bin";
 #ifdef _WIN32 /* Win32 or Win64 */
-  const char* binDir = "win64";
+  const char* binDir = "/win64";
   const char delimiter[2] = ";";
 #elif __APPLE__
-  const char* binDir = "darwin64";
+  const char* binDir = "/darwin64";
   const char delimiter[2] = ":";
 #else
-  const char* binDir = "linux64";
+  const char* binDir = "/linux64";
   const char delimiter[2] = ":";
 #endif
 
