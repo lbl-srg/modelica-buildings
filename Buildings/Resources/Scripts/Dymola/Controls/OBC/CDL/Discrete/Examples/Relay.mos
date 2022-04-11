@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.CDL.Discrete.Examples.Relay", stopTime=120, resultFile="Relay");
+removePlots(false);
+createPlot(id=1, position={15, 15, 2400, 1668}, y=fill("", 0), range={0.0, 120.0, -1.5, 1.5}, grid=true);
+plotExpression(apply(Relay[end].sine.y-Relay[end].const.y), false, "u1-u2", 1);
+plotExpression(apply(Relay[end].relay.deadBand), false, "deadBand", 1);
+plotExpression(apply( -Relay[end].relay.deadBand), false, " -deadband", 1);
+createPlot(id=1, position={15, 15, 2400, 1668}, y={"relay.y"}, range={0.0, 120.0, -1.0, 1.5}, grid=true, subPlot=102, colors={{28,108,200}});
+createPlot(id=1, position={15, 15, 2400, 1668}, y={"relay.dtON", "relay.dtOFF"}, range={0.0, 120.0, -10.0, 40.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, displayUnits={"s", "s"});
+createPlot(id=1, position={15, 15, 2400, 1668}, y={"relay.tON_start", "relay.tOFF_start"}, range={0.0, 120.0, -50.0, 150.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, displayUnits={"s", "s"});
+

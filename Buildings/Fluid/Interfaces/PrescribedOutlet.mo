@@ -18,7 +18,7 @@ model PrescribedOutlet
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
   parameter Modelica.Units.SI.Time tau(min=0) = 10
-    "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
+    "Time constant at nominal flow rate (used if energyDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics"));
   parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Start value of temperature"
@@ -30,11 +30,7 @@ model PrescribedOutlet
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
-
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations", enable=use_TSet));
 
   parameter Boolean use_TSet = true
     "Set to false to disable temperature set point"
@@ -145,9 +141,9 @@ initial equation
   end if;
 
   if use_X_wSet then
-    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+    if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
       der(Xi) = 0;
-    elseif massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    elseif energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
       Xi = X_start[1];
     end if;
   end if;
@@ -156,11 +152,6 @@ initial equation
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
  if use_X_wSet then
@@ -178,8 +169,7 @@ equation
   end if;
   connect(X_wSet, X_wSet_internal);
 
-  if (use_TSet and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-     (use_X_wSet and massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
+  if ((use_TSet or use_X_wSet) and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
     mNor_flow = port_a.m_flow/m_flow_nominal;
     k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
                                          y1= mNor_flow,
@@ -196,7 +186,7 @@ equation
     T = TSet_internal;
   end if;
 
-  if use_X_wSet and massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
+  if use_X_wSet and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
     der(Xi) = (X_wSet_internal-Xi)*k/tau;
   else
     Xi = X_wSet_internal;
@@ -429,8 +419,7 @@ moisture mass flow rate.
 Also, optionally the model allows to take into account first order dynamics.
 </p>
 <p>
-If the parameters <code>energyDynamics</code> or
-<code>massDynamics</code> are not equal to
+If the parameters <code>energyDynamics</code> is not equal to
 <code>Modelica.Fluid.Types.Dynamics.SteadyState</code>,
 the component models the dynamic response using a first order differential equation.
 The time constant of the component is equal to the parameter <code>tau</code>.
@@ -461,6 +450,12 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 April 29, 2021, by Michael Wetter:<br/>
 Removed duplicate declaration of <code>m_flow_nominal</code> which is already

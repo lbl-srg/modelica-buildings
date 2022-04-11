@@ -1,0 +1,9 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.AMIGOWithFOTD", stopTime=120, tolerance=1e-06, resultFile="AMIGOWithFOTD");
+removePlots(false);
+createPlot(id=1, position={0, 0, 2841, 1894}, y={"FOTD.experimentStart", "FOTD.experimentEnd"}, range={0.0, 120.0, -1.0, 2.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 2841, 1894}, y={"relay.y", "relay.uDiff"}, range={0.0, 120.0, -5.0, 10.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 2841, 1894}, y={"relay.dtON", "relay.dtOFF"}, range={0.0, 120.0, -20.0, 40.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, displayUnits={"s", "s"});
+createPlot(id=1, position={0, 0, 2841, 1894}, y={"FOTD.k"}, range={0.0, 120.0, -0.002, 0.006}, grid=true, subPlot=104, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 2841, 1894}, y={"FOTD.Ti"}, range={0.0, 120.0, -50.0, 100.0}, grid=true, subPlot=105, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 2841, 1894}, y={"FOTD.Td"}, range={0.0, 120.0, -20.0, 40.0}, grid=true, subPlot=106, colors={{28,108,200}});
+
