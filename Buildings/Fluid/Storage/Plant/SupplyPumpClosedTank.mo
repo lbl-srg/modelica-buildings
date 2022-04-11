@@ -27,9 +27,8 @@ model SupplyPumpClosedTank
     use_inputFilter=true,
     y_start=0,
     l=1E-5,
-    m_flow_nominal=nom.m_flow_nominal)
-    if allowRemoteCharging
-    "Discharge valve, in series to the pump (normal direction)"
+    m_flow_nominal=nom.m_flow_nominal) if allowRemoteCharging
+    "Discharging valve, open when tank NOT being charged remotely"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCha(
     redeclare package Medium = Medium,
@@ -38,7 +37,7 @@ model SupplyPumpClosedTank
     y_start=0,
     l=1E-5,
     m_flow_nominal=nom.mTan_flow_nominal) if allowRemoteCharging
-    "Charging valve, in parallel to the secondary pump (reverse direction)"
+    "Charging valve, open when tank is being charged remotely"
     annotation (Placement(transformation(extent={{40,-30},{20,-10}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasValDis(
       redeclare package Medium = Medium) if not allowRemoteCharging

@@ -132,6 +132,11 @@ equation
   connect(chi.port_b2, port_b) annotation (Line(points={{20,24},{86,24},{86,60},
           {100,60}}, color={0,127,255}));
   annotation (Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Ellipse(extent={{-20,20},{20,-20}},  lineColor={28,108,200},
           origin={40,-60},
           rotation=90),
@@ -151,7 +156,7 @@ equation
           origin={63,12},
           rotation=90),
         Text(
-          extent={{40,-100},{100,-80}},
+          extent={{-18,-100},{42,-80}},
           textColor={28,108,200},
           textString="m_flow"),
         Line(
