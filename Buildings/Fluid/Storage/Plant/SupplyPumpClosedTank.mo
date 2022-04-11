@@ -61,7 +61,7 @@ model SupplyPumpClosedTank
         origin={-40,110}),  iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-60,110})));
+        origin={-40,110})));
   Modelica.Blocks.Interfaces.RealOutput yValDis_actual
     if allowRemoteCharging                         "Actual valve position"
     annotation (Placement(
@@ -71,7 +71,7 @@ model SupplyPumpClosedTank
         origin={-80,110}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-100,110})));
+        origin={-80,110})));
   Modelica.Blocks.Interfaces.RealInput yValCha if allowRemoteCharging
     "Valve position input" annotation (Placement(transformation(extent={{10,10},
             {-10,-10}},
@@ -122,8 +122,9 @@ equation
           {-80,-20},{20,-20}}, color={0,127,255}));
   connect(valCha.port_a, port_CHWS) annotation (Line(points={{40,-20},{80,-20},{
           80,60},{100,60}}, color={0,127,255}));
-  connect(pasValDis.port_b, port_CHWS) annotation (Line(points={{40,20},{80,20},
-          {80,60},{100,60}}, color={0,127,255}));
+  connect(pasValDis.port_b, port_CHWS) annotation (Line(points={{38.1818,20},{
+          80,20},{80,60},{100,60}},
+                             color={0,127,255}));
   connect(valDis.port_b, port_CHWS)
     annotation (Line(points={{40,60},{100,60}}, color={0,127,255}));
   connect(port_chiInl, port_CHWR)
@@ -149,40 +150,38 @@ equation
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Ellipse(
           extent={{-60,80},{-20,40}},
-          lineColor={28,108,200},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{40,60},{20,70},{20,50},{40,60}},
-          lineColor={28,108,200},
+          lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowRemoteCharging),
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{40,60},{60,70},{60,50},{40,60}},
-          lineColor={28,108,200},
+          lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowRemoteCharging),
+          fillPattern=FillPattern.Solid),
         Line(
           points={{80,60},{80,20},{-80,20},{-80,60}},
           color={28,108,200},
           visible=allowRemoteCharging),
         Polygon(
           points={{40,20},{20,30},{20,10},{40,20}},
-          lineColor={28,108,200},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=allowRemoteCharging),
         Polygon(
           points={{40,20},{60,30},{60,10},{40,20}},
-          lineColor={28,108,200},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=allowRemoteCharging),
         Polygon(
           points={{-20,60},{-50,76},{-50,44},{-20,60}},
-          lineColor={28,108,200},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None)}),                       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
