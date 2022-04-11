@@ -378,7 +378,27 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC_N
+    </td>
+    <td valign=\"top\">Set nominal attribute for voltage at terminal.
+                       This change enables Dymola 2023 beta3 to solve
+                       <code>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DY</code>
+                       and
+                       <code>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD</code>
+                       which otherwise fail during the initialization as the homotopy steps
+                       obtain unreasonable values for the voltages.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Boilers.Polynomial
@@ -954,10 +974,10 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+  <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
-  </tr>
-  <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
                          Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
                          Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple<br/>
                          Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
@@ -986,7 +1006,17 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    </td>
+    <td valign=\"top\">Corrected assignment of gas constant which lead to a unit error.
+                       This change does not affect the results as the value is not used for this liquid medium.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">IBPSA, #1603</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
