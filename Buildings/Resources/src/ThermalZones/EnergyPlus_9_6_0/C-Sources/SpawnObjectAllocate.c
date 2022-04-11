@@ -86,7 +86,7 @@ void setExchangePointerIfAlreadyInstanciated(const char* modelicaName, const int
 }
 
 /* Create the structure and return a pointer to its address. */
-void* EnergyPlusSpawnAllocate(
+void* allocate_Spawn_EnergyPlus_9_6_0(
   const int objectType,
   double startTime,
   const char* modelicaNameBuilding,
@@ -132,7 +132,7 @@ void* EnergyPlusSpawnAllocate(
   char* doubleObjectSpec;
 
   if (logLevel >= MEDIUM){
-    SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnAllocate.\n", startTime, modelicaName);
+    SpawnFormatMessage("%.3f %s: Entered allocate_Spawn_EnergyPlus_9_6_0.\n", startTime, modelicaName);
     SpawnFormatMessage("%.3f %s: Buildings library legal.html file is at %s\n", startTime, modelicaName, buildingsRootFileLocation);
   }
 
@@ -158,7 +158,7 @@ void* EnergyPlusSpawnAllocate(
   setExchangePointerIfAlreadyInstanciated(modelicaName, objectType, &ptrSpaObj);
   if (ptrSpaObj != NULL){
     if (logLevel >= MEDIUM)
-      SpawnFormatMessage("%.3f %s: EnergyPlusSpawnAllocate called more than once for this object.\n", startTime, modelicaName);
+      SpawnFormatMessage("%.3f %s: allocate_Spawn_EnergyPlus_9_6_0 called more than once for this object.\n", startTime, modelicaName);
     /* Return pointer to this Spawn object */
     return (void*) ptrSpaObj;
   }
@@ -173,7 +173,7 @@ void* EnergyPlusSpawnAllocate(
 
   ptrSpaObj = (SpawnObject*) malloc(sizeof(SpawnObject));
   if ( ptrSpaObj == NULL )
-    SpawnError("Not enough memory in EnergyPlusSpawnAllocate.c. to allocate Spawn object.");
+    SpawnError("Not enough memory in allocate_Spawn_EnergyPlus_9_6_0.c. to allocate Spawn object.");
 
   ptrSpaObj->printUnit = printUnit;
   ptrSpaObj->unitPrinted = fmi2False;
@@ -193,7 +193,7 @@ void* EnergyPlusSpawnAllocate(
   /* Assign the Modelica instance name */
   mallocString(
     strlen(modelicaName)+1,
-    "Not enough memory in EnergyPlusSpawnAllocate.c. to allocate Modelica instance name.",
+    "Not enough memory in allocate_Spawn_EnergyPlus_9_6_0.c. to allocate Modelica instance name.",
     &(ptrSpaObj->modelicaName),
     SpawnFormatError);
   strcpy(ptrSpaObj->modelicaName, modelicaName);
@@ -201,7 +201,7 @@ void* EnergyPlusSpawnAllocate(
   /* Assign the json name */
   mallocString(
     strlen(jsonName)+1,
-    "Not enough memory in EnergyPlusSpawnAllocate.c. to allocate json name.",
+    "Not enough memory in allocate_Spawn_EnergyPlus_9_6_0.c. to allocate json name.",
     &(ptrSpaObj->jsonName),
     SpawnFormatError);
   strcpy(ptrSpaObj->jsonName, jsonName);
@@ -209,7 +209,7 @@ void* EnergyPlusSpawnAllocate(
   /* Assign the json keys and values string */
   mallocString(
     strlen(jsonKeysValues)+1,
-    "Not enough memory in EnergyPlusSpawnAllocate.c. to allocate the json keys and values string.",
+    "Not enough memory in allocate_Spawn_EnergyPlus_9_6_0.c. to allocate the json keys and values string.",
     &(ptrSpaObj->jsonKeysValues),
     SpawnFormatError);
   strcpy(ptrSpaObj->jsonKeysValues, jsonKeysValues);

@@ -27,7 +27,7 @@ bool areAllSpawnObjectsInitialized(FMUBuilding* bui){
 
 /* Exchange data between Modelica and EnergyPlus during time stepping
 */
-void EnergyPlusSpawnExchange(
+void exchange_Spawn_EnergyPlus_9_6_0(
   void* object,
   int initialCall,
   const double* u,

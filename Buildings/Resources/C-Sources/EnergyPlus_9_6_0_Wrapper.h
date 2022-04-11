@@ -1,5 +1,5 @@
-#ifndef EnergyPlusWrapper_h
-#define EnergyPlusWrapper_h
+#ifndef EnergyPlus_9_6_0_Wrapper_h
+#define EnergyPlus_9_6_0_Wrapper_h
 
 #include <stdint.h>
 
@@ -31,7 +31,7 @@
 
 /* ********************************************************* */
 /* Thermal zone */
-extern void* EnergyPlusSpawnAllocate(
+extern void* allocate_Spawn_EnergyPlus_9_6_0(
   const int objectType,
   double startTime,
   const char* modelicaNameBuilding,
@@ -70,16 +70,16 @@ extern void* EnergyPlusSpawnAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void EnergyPlusSpawnInitialize(void* object, int *nObj);
+extern void initialize_Spawn_EnergyPlus_9_6_0(void* object, int *nObj);
 
-extern void EnergyPlusSpawnGetParameters(void* object, double *parOut);
+extern void getParameters_Spawn_EnergyPlus_9_6_0(void* object, double *parOut);
 
-extern void EnergyPlusSpawnExchange(
+extern void exchange_Spawn_EnergyPlus_9_6_0(
   void* object,
   int initialCall,
   const double* u,
   double* y);
 
-extern void EnergyPlusSpawnObjectFree(void* object);
+extern void free_Spawn_EnergyPlus_9_6_0(void* object);
 
 #endif

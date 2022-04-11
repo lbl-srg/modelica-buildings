@@ -865,7 +865,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnAllocateAndInstantiateBuilding.\n",
+    SpawnFormatMessage("%.3f %s: Entered allocate_Spawn_EnergyPlus_9_6_0AndInstantiateBuilding.\n",
       bui->time, bui->modelicaNameBuilding);
 
   if (bui->usePrecompiledFMU)

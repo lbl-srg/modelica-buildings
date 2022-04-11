@@ -10,12 +10,12 @@ pure function getParameters
     "Set to variable that is used to synchronize the objects";
   output Real parOut[nParOut]
     "Parameter values returned from EnergyPlus";
-external "C" ModelicaSpawnGetParameters(
+external "C" getParameters_Modelica_EnergyPlus_9_6_0(
   adapter,isSynchronized,parOut)
   annotation (
-      Include="#include <EnergyPlusWrapper.c>",
+      Include="#include <EnergyPlus_9_6_0_Wrapper.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+      Library={"ModelicaBuildingsEnergyPlus_9_6_0","fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

@@ -14,12 +14,12 @@ pure function exchange
     "Dummy value (used to force Modelica tools to call initialize())";
   output Real y[nY]
     "Output values. First all outputs, then all derivatives, then next event time";
-external "C" ModelicaSpawnExchange(
+external "C" exchange_Modelica_EnergyPlus_9_6_0(
   adapter,initialCall,u,dummy,y)
   annotation (
-      Include="#include <EnergyPlusWrapper.c>",
+      Include="#include <EnergyPlus_9_6_0_Wrapper.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+      Library={"ModelicaBuildingsEnergyPlus_9_6_0","fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

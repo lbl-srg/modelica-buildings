@@ -1,7 +1,7 @@
 #ifndef Spawn_declared
 #define Spawn_declared
 
-#include "EnergyPlusWrapper.h"
+#include "EnergyPlus_9_6_0_Wrapper.h"
 
 /* *********************************************************
    Wrapper functions that connect to the library which
@@ -27,7 +27,7 @@ void my_printf(const char *fmt, ...) {
 }
 */
 
-void* ModelicaSpawnAllocate(
+void* allocate_Modelica_EnergyPlus_9_6_0(
   const int objectType,
   double startTime,
   const char* modelicaNameBuilding,
@@ -62,7 +62,7 @@ void* ModelicaSpawnAllocate(
   const double* derivatives_delta,
   const size_t nDer){
 
-    return EnergyPlusSpawnAllocate(
+    return allocate_Spawn_EnergyPlus_9_6_0(
       objectType,
       startTime,
       modelicaNameBuilding,
@@ -102,36 +102,36 @@ void* ModelicaSpawnAllocate(
       ModelicaFormatError);
   }
 
-void ModelicaSpawnInitialize(
+void initialize_Modelica_EnergyPlus_9_6_0(
     void* object,
     double isSynchronized,
     int *nObj){
-      EnergyPlusSpawnInitialize(object, nObj);
+      initialize_Spawn_EnergyPlus_9_6_0(object, nObj);
 }
 
-void ModelicaSpawnGetParameters(
+void getParameters_Modelica_EnergyPlus_9_6_0(
     void* object,
     double isSynchronized,
     double *parOut){
-      EnergyPlusSpawnGetParameters(object, parOut);
+      getParameters_Spawn_EnergyPlus_9_6_0(object, parOut);
 }
 
-void ModelicaSpawnExchange(
+void exchange_Modelica_EnergyPlus_9_6_0(
   void* object,
   int initialCall,
   const double* u,
   double dummy,
   double* y){
 
-    EnergyPlusSpawnExchange(
+    exchange_Spawn_EnergyPlus_9_6_0(
       object,
       initialCall,
       u,
       y);
   }
 
-void ModelicaSpawnFree(void* object){
-    EnergyPlusSpawnObjectFree(object);
+void free_Modelica_EnergyPlus_9_6_0(void* object){
+    free_Spawn_EnergyPlus_9_6_0(object);
 }
 
 #endif
