@@ -168,8 +168,8 @@ Figure 5.16.2.3-2 and Figure 5.16.2.3-3 of ASHRAE Guideline 36, May 2020.
 <p>
 Return air damper position limits, which are the inputs to the sequence, are the outputs of
 sequences in package
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.LimitsPa\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.LimitsPa</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits</a>.
 It also requires input <code>uTSup</code> from
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals</a>

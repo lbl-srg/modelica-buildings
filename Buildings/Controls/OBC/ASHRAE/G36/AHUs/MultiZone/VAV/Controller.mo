@@ -646,8 +646,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
-    final unit="1")
-    "Return air damper position"
+    final unit="1") "Return air damper commanded position"
     annotation (Placement(transformation(extent={{360,60},{400,100}}),
         iconTransformation(extent={{200,110},{240,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
@@ -656,24 +655,23 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="1")
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir)
-    "Relief air damper position"
+    "Relief air damper commanded position"
     annotation (Placement(transformation(extent={{360,20},{400,60}}),
         iconTransformation(extent={{200,80},{240,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
-    final unit="1") "Economizer outdoor air damper position setpoint"
+    final unit="1") "Economizer outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{360,-20},{400,20}}),
         iconTransformation(extent={{200,50},{240,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEneCHWPum
-    "Energize chilled water pump"
-    annotation (Placement(transformation(extent={{360,-80},{400,-40}}),
-        iconTransformation(extent={{200,0},{240,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
+    "Commanded on to energize chilled water pump" annotation (Placement(
+        transformation(extent={{360,-80},{400,-40}}), iconTransformation(extent
+          ={{200,0},{240,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     final min=0,
     final max=1,
-    final unit="1")
-    "Supply fan speed setpoint"
+    final unit="1") "Air handler supply fan commanded speed"
     annotation (Placement(transformation(extent={{360,-120},{400,-80}}),
         iconTransformation(extent={{200,-42},{240,-2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFanSpe(
@@ -682,7 +680,7 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="1")
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-    "Return fan speed setpoint"
+    "Return fan commanded speed"
     annotation (Placement(transformation(extent={{360,-150},{400,-110}}),
         iconTransformation(extent={{200,-70},{240,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe(
@@ -690,21 +688,19 @@ block Controller "Multizone VAV air handling unit controller"
     final max=1,
     final unit="1")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "Relief fan speed setpoint"
+    "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{360,-180},{400,-140}}),
         iconTransformation(extent={{200,-100},{240,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
-    final unit="1")
-    "Cooling coil valve position"
+    final unit="1") "Cooling coil valve commanded position"
     annotation (Placement(transformation(extent={{360,-250},{400,-210}}),
         iconTransformation(extent={{200,-130},{240,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_hotWatCoi
-    "Heating coil valve position"
+    final unit="1") if have_hotWatCoi "Heating coil valve commanded position"
     annotation (Placement(transformation(extent={{360,-280},{400,-240}}),
         iconTransformation(extent={{200,-160},{240,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla
@@ -725,7 +721,7 @@ block Controller "Multizone VAV air handling unit controller"
     final max=1,
     final unit="1")
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    "Exhaust damper control signal (0: closed, 1: open)"
+    "Exhaust damper commanded position"
     annotation (Placement(transformation(extent={{360,-410},{400,-370}}),
         iconTransformation(extent={{200,-270},{240,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
@@ -982,8 +978,8 @@ equation
           510},{-114,510},{-114,-207},{198,-207}}, color={0,0,127}));
   connect(supSig.yCoo, frePro.uCooCoi) annotation (Line(points={{-58,404},{152,404},
           {152,-216},{198,-216}}, color={0,0,127}));
-  connect(frePro.yEneCHWPum, yEneCHWPum) annotation (Line(points={{222,-181},{300,
-          -181},{300,-60},{380,-60}},   color={255,0,255}));
+  connect(frePro.yEneCHWPum, y1EneCHWPum) annotation (Line(points={{222,-181},{
+          300,-181},{300,-60},{380,-60}}, color={255,0,255}));
   connect(frePro.yRetDamPos, yRetDamPos) annotation (Line(points={{222,-185},{270,
           -185},{270,80},{380,80}}, color={0,0,127}));
   connect(frePro.yOutDamPos, yOutDamPos) annotation (Line(points={{222,-189},{290,
