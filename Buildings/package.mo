@@ -210,6 +210,14 @@ Each class (i.e., model, block and function) must be used in an example or valid
 <p>
 Version 9.0.0 is ... xxx
 </p>
+<p>
+This release updates the Modelica version from 3.2.3 to 4.0.0.
+</p>
+<p>
+This release also updates almost all fluid component models to remove the parameter <code>massDynamics</code>,
+which is now set to the same value as the parameter <code>energyDynamics</code>. This simplifies use of the models.
+A conversion script will update this setting when updating from Buildings 8 to 9.
+</p>
 </div>
 <!-- New libraries -->
 <p>
@@ -286,14 +294,24 @@ to <b style=\"color:blue\">existing</b> libraries:
                      Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
                      Buildings.Controls.OBC.CDL.Integers.Subtact
     </td>
-    <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
+    <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
     </td>
-    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
+    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.RadiantSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TSurRelHum
+    </td>
+    <td valign=\"top\">Added controller for radiant cooling that controls the surface temperature
+                       using constant mass flow and variable supply temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2823\">#2823</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
@@ -360,7 +378,27 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL_N<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC_N
+    </td>
+    <td valign=\"top\">Set nominal attribute for voltage at terminal.
+                       This change enables Dymola 2023 beta3 to solve
+                       <code>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DY</code>
+                       and
+                       <code>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD</code>
+                       which otherwise fail during the initialization as the homotopy steps
+                       obtain unreasonable values for the voltages.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Boilers</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Boilers.Polynomial
@@ -368,6 +406,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved part of the code to <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code>
                        to support the new model <code>Buildings.Fluid.Boilers.BoilerTable</code>. <br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\"># 2651</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU
+    </td>
+    <td valign=\"top\">Exposed ratio of convection coefficients, set its default values based on fluid properties and flow rates,
+                     and exposed exponents for convective heat transfer coefficients. <br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2918\"># 2918</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -782,7 +830,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python27
     </td>
-    <td valign=\"top\">R" + "emoved support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
+    <td valign=\"top\">Removed support for Python 27. Use instead <code>Buildings.Utilities.IO.Python36</code>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
@@ -796,6 +844,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
+    </td>
+    <td valign=\"top\">Set <code>final massDynamics=energyDynamic</code>.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">IBPSA, #1542</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -919,7 +974,26 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+  <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
+                         Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented<br/>
+                         Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented_N<br/>
+                         Buildings.Electrical.DC.Sources.PVSimple<br/>
+                         Buildings.Electrical.DC.Sources.PVSimpleOriented<br/>
+                         Buildings.Electrical.Interfaces.PartialPvBase
+    </td>
+    <td valign=\"top\">Corrected wrong documentation string for surface area which
+                       should be gross rather than net area.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage
@@ -932,7 +1006,17 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1563\">Buildings, #1563</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    </td>
+    <td valign=\"top\">Corrected assignment of gas constant which lead to a unit error.
+                       This change does not affect the results as the value is not used for this liquid medium.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">IBPSA, #1603</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RadiationTemperature
@@ -8878,8 +8962,8 @@ Version 1.0 is not backward compatible to version 0.12, i.e., models developed w
 versions 0.12 will require some changes in their parameters to
 work with version 1.0.
 The conversion script
-<a href=\"modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos\">
-Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos</a> can help
+<a href=\"modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_0.12_to_1.0.mos\">
+Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_0.12_to_1.0.mos</a> can help
 in converting old models to this version of the library.
 </p>
 <p>
@@ -10607,7 +10691,7 @@ dateModified="2021-06-08",
 uses(Modelica(version="4.0.0")),
 conversion(
   from(version={"8.0.0", "8.1.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_8_to_9.0.0.mos")),
+      script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

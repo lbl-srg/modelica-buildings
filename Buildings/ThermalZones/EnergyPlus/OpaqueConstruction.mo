@@ -45,7 +45,7 @@ protected
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
     jsonName="buildingSurfaceDetailed",
@@ -177,8 +177,8 @@ If the back-side surface is above ground, then the heat flow rate from the groun
 This model allows for example coupling of a radiant slab that is modeled in Modelica to the EnergyPlus thermal zone model.
 Examples of such radiant systems include a floor slab with embedded pipes and a radiant cooling panel that is suspended from a ceiling.
 The model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
-Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a> illustrates the use of this model for a floor and ceiling slab.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a> illustrates the use of this model for a floor and ceiling slab.
 </p>
 <p>
 Note that if the ground heat transfer of the floor slab is modeled in Modelica,
@@ -234,8 +234,8 @@ surface of a radiant slab, and the
 heat port <code>attFlo.heaPorBac</code> can be connected to the downward facing surface of the radiant slab
 that cool the living room via the surface <code>Living:Ceiling</code>.
 This configuration is illustrated in the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
-Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>.
 </p>
 </html>",
       revisions="<html>
