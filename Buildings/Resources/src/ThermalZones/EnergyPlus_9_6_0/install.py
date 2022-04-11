@@ -95,7 +95,7 @@ def get_vars_as_json(spawnFlag, spawn_exe):
     import json
 
     bin_dir = get_bin_directory()
-    spawn = os.path.join(bin_dir, "spawn-linux64", "bin", spawn_exe)
+    spawn = os.path.join(bin_dir, f"spawn-{version}-{commit}", "linux64", "bin", spawn_exe)
 
     ret = subprocess.run([spawn, spawnFlag], stdout=subprocess.PIPE, check=True)
     vars = json.loads(ret.stdout)
@@ -125,6 +125,8 @@ def replace_table_in_mo(html, varType, moFile):
     import os
     import re
 
+    energyPlus_version_dash = _getEnergyPlusVersion().replace('.', '_')
+
     mo_name = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         "..",
@@ -132,7 +134,7 @@ def replace_table_in_mo(html, varType, moFile):
         "..",
         "..",
         "ThermalZones",
-        "EnergyPlus",
+        f"EnergyPlus_{energyPlus_version_dash}",
         moFile,
     )
     mo_new = ""
@@ -162,18 +164,19 @@ def replace_table_in_mo(html, varType, moFile):
 def _getEnergyPlusVersion():
     """ Return the EnergyPlus version in the form 9.6.0
     """
+    spawn_name = f"spawn-{version}-{commit}"
     idd = os.path.abspath( \
             os.path.join(__file__, \
                 os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
-                "Buildings", "Resources", "bin", "spawn-linux64", "etc", "Energy+.idd"))
+                "Buildings", "Resources", "bin", spawn_name, "linux64", "etc", "Energy+.idd"))
 
     prefix="!IDD_Version "
     with open(idd, 'r') as f:
         lines = f.readlines()
         for lin in lines:
             if lin.find(prefix) > -1:
-                version = lin[len(prefix):].strip()
-                return version
+                versionString = lin[len(prefix):].strip()
+                return versionString
 
     raise ValueError("Failed to find EnergyPlus version.")
 
@@ -182,11 +185,12 @@ def update_version_in_modelica_file(spawn_exe):
     import re
 
     energyPlus_version = _getEnergyPlusVersion()
+    ep_package = f"EnergyPlus_{energyPlus_version}".replace('.', '_')
 
     for rel_file in [\
-        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "Building.mo"),
-        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "package.mo"),
-        os.path.join("Buildings", "ThermalZones", "EnergyPlus", "UsersGuide.mo")
+        os.path.join("Buildings", "ThermalZones", ep_package, "Building.mo"),
+        os.path.join("Buildings", "ThermalZones", ep_package, "package.mo"),
+        os.path.join("Buildings", "ThermalZones", ep_package, "UsersGuide.mo")
         ]:
         # Path to Building.mo
         abs_file = os.path.abspath( \
@@ -233,7 +237,7 @@ if __name__ == "__main__":
     dists.append(
         {
             "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-Linux.tar.gz",
-            "des": "spawn-linux64",
+            "des": f"spawn-{version}-{commit}/linux64",
             "files": {
                 f"bin/{spawn_exe}": "",
                 "README.md": "",
@@ -245,7 +249,7 @@ if __name__ == "__main__":
     dists.append(
         {
             "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-win64.zip",
-            "des": "spawn-win64",
+            "des": f"spawn-{version}-{commit}/win64",
             "files": {
                 "bin/epfmi.dll": "",
                 f"bin/{spawn_exe}.exe": "",
