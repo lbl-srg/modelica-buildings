@@ -190,7 +190,8 @@ def update_version_in_modelica_file(spawn_exe):
     for rel_file in [\
         os.path.join("Buildings", "ThermalZones", ep_package, "Building.mo"),
         os.path.join("Buildings", "ThermalZones", ep_package, "package.mo"),
-        os.path.join("Buildings", "ThermalZones", ep_package, "UsersGuide.mo")
+        os.path.join("Buildings", "ThermalZones", ep_package, "UsersGuide.mo"),
+        os.path.join("Buildings", "Resources", "Scripts", "travis", "pyfmi", "runSpawnFromOtherDirectory.py")
         ]:
         # Path to Building.mo
         abs_file = os.path.abspath( \
