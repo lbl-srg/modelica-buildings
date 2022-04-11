@@ -66,11 +66,11 @@ def simulate(expectToFail):
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise
-    if (process.returncode is not 0) and (not expectToFail):
+    if (process.returncode != 0) and (not expectToFail):
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise RuntimeError("Failed to simulate fmu, but expected successful simulation.")
-    if (process.returncode is 0) and expectToFail:
+    if (process.returncode == 0) and expectToFail:
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise RuntimeError("Simulation was successful, but it was expected to fail.")
@@ -83,7 +83,7 @@ def run_test(pathVariable):
          "des": "my-bin"},
         {"src": os.path.abspath(os.path.join("Buildings", "Resources", "weatherdata")),
          "des": "some_weather_directory_that_the_fmu_does_not_know_about"},
-        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus")),
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus_9_6_0")),
          "des": "some_idf_directory_that_the_fmu_does_not_know_about"},
     ]
 
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     args = ["SPAWNPATH", "PATH", None]
     for arg in args:
         retVal = run_test(arg)
-        if retVal is not 0:
+        if retVal != 0:
             sys.exit(1)
     sys.exit(0)
 
