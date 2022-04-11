@@ -4,8 +4,8 @@ model WithRemoteCharging
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialTankBranch(
-      nom(final allowRemoteCharging=true),
-      souChi(final use_m_flow_in=true));
+      souChi(final use_m_flow_in=true),
+      supPum(final allowRemoteCharging=true));
 
   Modelica.Blocks.Sources.TimeTable set_mTan_flow(table=[0,0; 3600/7,0; 3600/7,
         -1; 3600/7*3,-1; 3600/7*3,0; 3600/7*4,0; 3600/7*4,1; 3600/7*6,1; 3600/7

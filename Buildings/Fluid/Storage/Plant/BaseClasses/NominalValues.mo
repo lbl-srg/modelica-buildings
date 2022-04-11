@@ -2,10 +2,6 @@ within Buildings.Fluid.Storage.Plant.BaseClasses;
 record NominalValues "Nominal values"
   extends Modelica.Icons.Record;
 
-  parameter Boolean allowRemoteCharging = true
-    "= true if the tank is allowed to be charged by a remote source"
-    annotation(dialog(group="Plant configuration"));
-
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
      mTan_flow_nominal+mChi_flow_nominal
     "Nominal mass flow rate"

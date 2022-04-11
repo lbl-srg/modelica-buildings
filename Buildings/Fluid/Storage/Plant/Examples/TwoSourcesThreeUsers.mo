@@ -131,7 +131,6 @@ model TwoSourcesThreeUsers
 
 // Second source: chiller and tank
   Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nomPla2(
-    final allowRemoteCharging=true,
     mTan_flow_nominal=0.75*m_flow_nominal,
     mChi_flow_nominal=0.75*m_flow_nominal,
     dp_nominal=dp_nominal,
@@ -155,6 +154,7 @@ model TwoSourcesThreeUsers
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Fluid.Storage.Plant.SupplyPumpClosedTank supPum(
     redeclare final package Medium = MediumCHW,
+    final allowRemoteCharging=true,
     final nom=nomPla2,
     final valCha(final dpValve_nominal=nomPla2.dp_nominal*0.1),
     final valDis(final dpValve_nominal=nomPla2.dp_nominal*0.1))

@@ -1,12 +1,7 @@
 within Buildings.Fluid.Storage.Plant;
 model TankBranch
   "(Draft) Model of the tank branch where the tank can potentially be charged remotely"
-
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium package";
-
-  parameter Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom
-    "Nominal values";
+  extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
   Buildings.Fluid.FixedResistances.PressureDrop preDroTan(
     redeclare package Medium = Medium,
@@ -46,26 +41,6 @@ model TankBranch
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-30,-30})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_CHWR(redeclare package Medium =
-        Medium)
-    "Port that connects CHW return line to the warmer side of the tank"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
-        iconTransformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_CHWS(redeclare package Medium =
-        Medium)
-    "Port that connects the cooler side of the tank to the CHW supply line"
-    annotation (Placement(transformation(extent={{90,50},{110,70}}),
-        iconTransformation(extent={{90,50},{110,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_chiInl(redeclare package Medium =
-        Medium)
-    "Port that connects the warmer side of the tank to the chiller inlet"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
-        iconTransformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_chiOut(redeclare package Medium =
-        Medium)
-    "Port that connects the chiller outlet to the warmer side of the tank"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
-        iconTransformation(extent={{-110,50},{-90,70}})));
 equation
   connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{-19,-30},{80,-30},
           {80,110}},                  color={0,0,127}));
@@ -74,22 +49,16 @@ equation
   connect(sen_m_flow.port_b, tan.port_a)
     annotation (Line(points={{-30,-20},{-30,0},{-10,0}},
                                                  color={0,127,255}));
+  connect(port_chiOut, port_CHWS)
+    annotation (Line(points={{-100,60},{100,60}}, color={0,127,255}));
+  connect(port_chiInl, port_CHWR)
+    annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
   connect(preDroTan.port_b, port_CHWS)
     annotation (Line(points={{30,40},{30,60},{100,60}}, color={0,127,255}));
-  connect(port_CHWS, port_CHWS)
-    annotation (Line(points={{100,60},{100,60}}, color={0,127,255}));
-  connect(sen_m_flow.port_a, port_chiInl) annotation (Line(points={{-30,-40},{-30,
-          -60},{-100,-60}}, color={0,127,255}));
-  connect(preDroTan.port_b, port_chiOut)
-    annotation (Line(points={{30,40},{30,60},{-100,60}}, color={0,127,255}));
   connect(port_CHWR, sen_m_flow.port_a) annotation (Line(points={{100,-60},{-30,
           -60},{-30,-40}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
-        Text(
-          extent={{-62,-122},{62,-98}},
-          textColor={0,0,127},
-          textString="%name"),
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
         Line(points={{0,60},{0,-60}}, color={28,108,200}),
