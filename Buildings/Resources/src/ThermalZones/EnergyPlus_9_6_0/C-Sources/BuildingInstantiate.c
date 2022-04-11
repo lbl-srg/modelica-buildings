@@ -390,14 +390,16 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
   char *saveptr;
   char *searchPathCopy;
 
+  const char* prefix = "/Resources/bin/";
+  const char* suffix = "/bin";
 #ifdef _WIN32 /* Win32 or Win64 */
-  const char* binDir = "/Resources/bin/spawn-win64/bin";
+  const char* binDir = "win64";
   const char delimiter[2] = ";";
 #elif __APPLE__
-  const char* binDir = "/Resources/bin/spawn-darwin64/bin";
+  const char* binDir = "darwin64";
   const char delimiter[2] = ":";
 #else
-  const char* binDir = "/Resources/bin/spawn-linux64/bin";
+  const char* binDir = "linux64";
   const char delimiter[2] = ":";
 #endif
 
@@ -412,12 +414,15 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.3f %s: In findSpawnExe, trying to to use buildingsLibraryRoot to find spawn.\n", bui->time, bui->modelicaNameBuilding);
 
-    len = strlen(bui->buildingsLibraryRoot) + strlen(binDir) + 1;
+    len = strlen(bui->buildingsLibraryRoot) + strlen(prefix) + strlen(spawnExe) + strlen(binDir) + strlen(suffix) + 1;
     mallocString(len, "Failed to allocate memory in findSpawnExe() for pathToExe.",
       &pathToExe, SpawnFormatError);
     memset(pathToExe, '\0', len);
     strcpy(pathToExe, bui->buildingsLibraryRoot);
+    strcat(pathToExe, prefix);
+    strcat(pathToExe, spawnExe);
     strcat(pathToExe, binDir);
+    strcat(pathToExe, suffix);
 
     /* Recursively call this function, but now with SEARCHPATH set */
     spawnFullPath = findSpawnExe(bui, pathToExe, spawnExe);
