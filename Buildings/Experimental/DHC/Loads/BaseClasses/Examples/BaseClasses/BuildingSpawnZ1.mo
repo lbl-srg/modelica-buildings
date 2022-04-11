@@ -32,13 +32,13 @@ model BuildingSpawnZ1
     k=0)
     "Latent heat gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
     redeclare package Medium=Medium2,
     zoneName="Core_ZN",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
-  inner Buildings.ThermalZones.EnergyPlus.Building building(
+  inner Buildings.ThermalZones.EnergyPlus_9_6_0.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       idfName),
     epwName=Modelica.Utilities.Files.loadResource(
@@ -176,5 +176,5 @@ First implementation.
       graphics={
         Bitmap(
           extent={{-108,-100},{92,100}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/EnergyPlusLogo.png")}));
 end BuildingSpawnZ1;
