@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.OpenTank", 
+ stopTime=3600, 
+ tolerance=1e-06, 
+ method="dassl",
+ resultFile="OpenTank");
+// Plot commands
+createPlot(id=1,
+ position={19, 23, 1004, 372},
+ y={"sinChi.ports[1].m_flow", "tanBra.mTan_flow", "supPum.pum.m_flow"},
+ range={0.0, 3600.0, -3.0, 3.0},
+ grid=true,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ timeUnit="s",
+ displayUnits={"kg/s", "kg/s", "kg/s"});

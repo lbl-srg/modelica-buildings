@@ -18,6 +18,7 @@ partial model PartialPlant "(Draft)"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
+    final nPorts=1,
     final p=300000,
     final T=nom.T_CHWR_nominal)
     "Source representing CHW return line"
@@ -27,6 +28,7 @@ partial model PartialPlant "(Draft)"
         origin={50,-30})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,
+    final nPorts=1,
     final p=300000+nom.dp_nominal,
     final T=nom.T_CHWS_nominal)
               "Sink representing CHW supply line"

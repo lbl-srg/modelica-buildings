@@ -113,7 +113,7 @@ block ReversiblePumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={90,-130})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiValCha
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiValCha if not tankIsOpen
     "True = on (y>0); false = off (y=0)."         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
