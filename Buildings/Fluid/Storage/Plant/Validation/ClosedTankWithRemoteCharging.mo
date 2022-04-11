@@ -1,9 +1,9 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model WithRemoteCharging
+model ClosedTankWithRemoteCharging
   "(Draft) Validation model of the plant allowing remote charging"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialTankBranch(
+    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialClosedTank(
       souChi(final use_m_flow_in=true),
       supPum(final allowRemoteCharging=true));
 
@@ -22,7 +22,8 @@ model WithRemoteCharging
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl
-    conPumSec "Control block for the secondary pump and near-by valves"
+    conPumSec(tankIsOpen=false)
+              "Control block for the secondary pump and near-by valves"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
 equation
   connect(set_mChi_flow.y, souChi.m_flow_in)
@@ -33,24 +34,26 @@ equation
   connect(tanBra.mTan_flow, conPumSec.mTan_flow)
     annotation (Line(points={{-12,11},{-12,54},{9,54}}, color={0,0,127}));
   connect(supPum.yValCha_actual, conPumSec.yValCha_actual) annotation (Line(
-        points={{14,11},{14,36},{4,36},{4,46},{9,46}}, color={0,0,127}));
+        points={{16,11},{16,36},{4,36},{4,46},{9,46}}, color={0,0,127}));
   connect(supPum.yValDis_actual, conPumSec.yValDis_actual) annotation (Line(
-        points={{10,11},{10,34},{2,34},{2,50},{9,50}}, color={0,0,127}));
-  connect(conPumSec.uOnl, uOnl.y) annotation (Line(points={{32,54},{74,54},{74,
-          50},{79,50}}, color={255,0,255}));
+        points={{12,11},{12,34},{2,34},{2,50},{9,50}}, color={0,0,127}));
+  connect(conPumSec.uOnl, uOnl.y) annotation (Line(points={{32,54},{74,54},{74,50},
+          {79,50}},     color={255,0,255}));
   connect(conPumSec.uRemCha, uRemCha.y)
     annotation (Line(points={{32,58},{32,90},{79,90}}, color={255,0,255}));
   connect(conPumSec.yPum, supPum.yPum)
     annotation (Line(points={{20,39},{20,11}}, color={0,0,127}));
   connect(conPumSec.yValCha, supPum.yValCha)
-    annotation (Line(points={{24,39},{24,11}}, color={0,0,127}));
+    annotation (Line(points={{24,39},{24,28},{24,28},{24,11}},
+                                               color={0,0,127}));
   connect(conPumSec.yValDis, supPum.yValDis)
-    annotation (Line(points={{28,39},{28,11}}, color={0,0,127}));
+    annotation (Line(points={{28,39},{28,28},{28,28},{28,11}},
+                                               color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/WithRemoteCharging.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedTankWithRemoteCharging.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -138,4 +141,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end WithRemoteCharging;
+end ClosedTankWithRemoteCharging;

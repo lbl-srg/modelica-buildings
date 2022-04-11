@@ -122,9 +122,8 @@ equation
           {-80,-20},{20,-20}}, color={0,127,255}));
   connect(valCha.port_a, port_CHWS) annotation (Line(points={{40,-20},{80,-20},{
           80,60},{100,60}}, color={0,127,255}));
-  connect(pasValDis.port_b, port_CHWS) annotation (Line(points={{38.1818,20},{
-          80,20},{80,60},{100,60}},
-                             color={0,127,255}));
+  connect(pasValDis.port_b, port_CHWS) annotation (Line(points={{40,20},{80,20},
+          {80,60},{100,60}}, color={0,127,255}));
   connect(valDis.port_b, port_CHWS)
     annotation (Line(points={{40,60},{100,60}}, color={0,127,255}));
   connect(port_chiInl, port_CHWR)

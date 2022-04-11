@@ -173,8 +173,8 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-10})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl conPumSecGro
-                           "Control block for secondary pump-valve group"
+  Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl conPumSecGro(
+      tankIsOpen=false)    "Control block for secondary pump-valve group"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-30})));
@@ -450,9 +450,9 @@ equation
   connect(tanBra.mTan_flow, conPumSecGro.mTan_flow)
     annotation (Line(points={{-92,-49},{-92,-26},{-81,-26}}, color={0,0,127}));
   connect(supPum.yValCha_actual, conPumSecGro.yValCha_actual) annotation (Line(
-        points={{-76,-49},{-76,-44},{-84,-44},{-84,-34},{-81,-34}}, color={0,0,127}));
+        points={{-74,-49},{-74,-44},{-84,-44},{-84,-34},{-81,-34}}, color={0,0,127}));
   connect(supPum.yValDis_actual, conPumSecGro.yValDis_actual) annotation (Line(
-        points={{-80,-49},{-80,-48},{-88,-48},{-88,-30},{-81,-30}}, color={0,0,127}));
+        points={{-78,-49},{-78,-48},{-88,-48},{-88,-30},{-81,-30}}, color={0,0,127}));
   connect(conPumSecGro.uOnl, or2.y) annotation (Line(points={{-58,-26},{-50,-26},
           {-50,-78}}, color={255,0,255}));
   connect(mTanSet_flow.y, conPumSecGro.mTanSet_flow) annotation (Line(points={{-118,
