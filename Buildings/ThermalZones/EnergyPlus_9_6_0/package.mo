@@ -7,11 +7,11 @@ package EnergyPlus_9_6_0 "Package with models to connect to EnergyPlus_9_6_0 9.6
       graphics={
         Bitmap(
           extent={{-100,-100},{100,100}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/spawn_icon_alonelowres.png")}),
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_alonelowres.png")}),
     Documentation(
       info="<html>
 <p align=\"right\">
-<img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
+<img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
 </p>
 <p>
 Package for Spawn of EnergyPlus_9_6_0 that couples Modelica directly to EnergyPlus_9_6_0 9.6.0.

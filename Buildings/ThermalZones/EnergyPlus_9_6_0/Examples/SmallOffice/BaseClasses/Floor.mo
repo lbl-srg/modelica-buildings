@@ -89,7 +89,7 @@ model Floor
     annotation (Placement(transformation(extent={{300,-60},{340,-20}})));
 
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String epwName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
@@ -371,7 +371,7 @@ equation
           fillPattern=FillPattern.Solid),
         Bitmap(
           extent={{192,-58},{342,-18}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/spawn_icon_darkbluetxmedres.png",
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxmedres.png",
           visible=not usePrecompiledFMU)}),
     Documentation(
       info="<html>

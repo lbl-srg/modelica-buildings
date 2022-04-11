@@ -499,7 +499,7 @@ multiple buildings are simulated in EnergyPlus.
     Documentation(
       info="<html>
 <p>
-<img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/spawn_icon_darkbluetxlowres.png\"
+<img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"
      style=\"float:right;height=203px;width:587px;\"/>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model
@@ -539,7 +539,7 @@ how to install EnergyPlus and how EnergyPlus is invoked.
 <li>
 Michael Wetter, Kyle Benne, Antoine Gautier, Thierry S. Nouidui,
 Agnes Ramle, Amir Roth, Hubertus Tummescheit, Stuart Mentzer and Christian Winther.<br/>
-<a href=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/2020-simBuild-spawn.pdf\">
+<a href=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/2020-simBuild-spawn.pdf\">
 Lifting the Garage Door on Spawn, an Open-Source BEM-Controls Engine.</a><br/>
 <i>Proc. of Building Performance Modeling Conference and SimBuild</i>,
 p. 518--525, Chicago, IL, USA, September 2020.

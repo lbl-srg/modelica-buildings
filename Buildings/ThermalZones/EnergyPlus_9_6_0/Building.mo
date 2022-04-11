@@ -88,7 +88,7 @@ to specify building-level parameters. This instance must have the name \"buildin
       graphics={
         Bitmap(
           extent={{-44,-144},{94,-6}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/spawn_icon_darkbluetxmedres.png",
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxmedres.png",
           visible=not usePrecompiledFMU),
         Rectangle(
           extent={{-64,54},{64,-48}},
