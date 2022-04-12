@@ -7,6 +7,9 @@ model Building
       "Name of the spawn executable, without extension, such as spawn-0.3.0-d6204d26f6aaa"
     annotation (HideResult=true);
 
+  constant String idfVersion = "9_6_0"
+    "IDF version with underscore, used for error report";
+
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);

@@ -26,6 +26,7 @@ size_t AllocateBuildingDataStructure(
   const char* idfName,
   const char* epwName,
   const char* spawnExe,
+  const char* idfVersion,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,

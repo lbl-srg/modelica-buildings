@@ -86,6 +86,7 @@ protected
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
     final spawnExe=spawnExe,
+    final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
@@ -252,7 +253,7 @@ equation
   connect(TFlu.y,TAir)
     annotation (Line(points={{41,0},{210,0}},color={0,0,127}));
   connect(heaFloSen.Q_flow,vol.Q_flow)
-    annotation (Line(points={{-30,-20},{-30,-36},{-12,-36}},color={0,0,127}));
+    annotation (Line(points={{-30,-21},{-30,-36},{-12,-36}},color={0,0,127}));
   connect(vol.XiOut[1],fmuZon.X_w)
     annotation (Line(points={{0,-31},{0,-24},{30,-24},{30,-46},{80,-46}},color={0,0,127}));
   connect(X_w.y,relHum.X_w)

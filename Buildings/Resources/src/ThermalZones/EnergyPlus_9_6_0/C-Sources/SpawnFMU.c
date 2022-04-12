@@ -25,6 +25,7 @@ size_t AllocateBuildingDataStructure(
   double startTime,
   const char* modelicaNameBuilding,
   const char* spawnExe,
+  const char* idfVersion,
   const char* idfName,
   const char* epwName,
   double relativeSurfaceTolerance,
@@ -103,6 +104,14 @@ size_t AllocateBuildingDataStructure(
     &(Buildings_FMUS[nFMU]->spawnExe),
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->spawnExe, spawnExe);
+
+  /* Assign the idf version */
+  mallocString(
+    (strlen(idfVersion)+1),
+    "Not enough memory in SpawnFMU.c. to allocate idfVersion.",
+    &(Buildings_FMUS[nFMU]->idfVersion),
+    SpawnFormatError);
+  strcpy(Buildings_FMUS[nFMU]->idfVersion, idfVersion);
 
   /* Assign the idfName name */
   if (usePrecompiledFMU){

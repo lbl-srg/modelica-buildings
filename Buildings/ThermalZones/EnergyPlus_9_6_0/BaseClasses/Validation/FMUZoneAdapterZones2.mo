@@ -19,6 +19,7 @@ model FMUZoneAdapterZones2
   Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter fmuZonCor(
     final modelicaNameBuilding=building.modelicaNameBuilding,
     final spawnExe=building.spawnExe,
+    final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
@@ -61,6 +62,7 @@ model FMUZoneAdapterZones2
   Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter fmuZonSou(
     final modelicaNameBuilding=building.modelicaNameBuilding,
     final spawnExe=building.spawnExe,
+    final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,

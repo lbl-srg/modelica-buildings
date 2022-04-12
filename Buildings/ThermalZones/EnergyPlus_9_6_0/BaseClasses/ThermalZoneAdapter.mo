@@ -13,6 +13,9 @@ model ThermalZoneAdapter
   constant String spawnExe
       "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
     annotation (HideResult=true);
+  constant String idfVersion
+    "IDF version with underscore, used for error report"
+     annotation (HideResult=true);
 
   parameter String idfName
     "Name of the IDF file that contains this zone";
@@ -101,6 +104,7 @@ protected
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     spawnExe=spawnExe,
+    idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,

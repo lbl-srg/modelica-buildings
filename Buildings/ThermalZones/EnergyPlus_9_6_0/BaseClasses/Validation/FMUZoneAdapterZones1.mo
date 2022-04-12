@@ -18,6 +18,7 @@ model FMUZoneAdapterZones1
   Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter fmuZonCor(
     modelicaNameBuilding=building.modelicaNameBuilding,
     final spawnExe=building.spawnExe,
+    final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,

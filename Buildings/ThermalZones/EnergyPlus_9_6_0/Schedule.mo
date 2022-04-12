@@ -38,6 +38,7 @@ protected
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     spawnExe=spawnExe,
+    idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
@@ -64,6 +65,7 @@ protected
     nDer=nDer,
     derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
+
   Real yEP[nY]
     "Output of exchange function";
 

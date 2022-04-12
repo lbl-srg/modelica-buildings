@@ -15,6 +15,9 @@ protected
   constant String spawnExe=building.spawnExe
       "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3"
     annotation (HideResult=true);
+  constant String idfVersion = building.idfVersion
+    "IDF version with underscore, used for error report"
+     annotation (HideResult=true);
   final parameter String idfName=building.idfName
     "Name of the IDF file that contains this zone";
   final parameter String epwName=building.epwName

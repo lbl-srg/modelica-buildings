@@ -865,7 +865,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: Entered allocate_Spawn_EnergyPlus_9_6_0AndInstantiateBuilding.\n",
+    SpawnFormatMessage("%.3f %s: Entered generateAndInstantiateBuilding.\n",
       bui->time, bui->modelicaNameBuilding);
 
   if (bui->usePrecompiledFMU)
@@ -911,7 +911,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
         spawnFullPath = findSpawnExe(bui, env, bui->spawnExe);
     }
     if (spawnFullPath == NULL){
-      SpawnFormatError("%s", "Failed to find spawn executable in Buildings Library installation, on SPAWNPATH and on PATH.");
+      SpawnFormatError("Failed to find spawn executable in Buildings Library installation, on SPAWNPATH and on PATH. See instructions at Buildings.ThermalZones.EnergyPlus_%s.UsersGuide.Installation", bui->idfVersion);
     }
     terminateIfSpacesInInstallation(bui);
     /* Generate FMU using spawnFullPath */

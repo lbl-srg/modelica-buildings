@@ -17,6 +17,7 @@ LBNL_Spawn_EXPORT void* allocate_Spawn_EnergyPlus_9_6_0(
   const char* modelicaNameBuilding,
   const char* modelicaName,
   const char* spawnExe,
+  const char* idfVersion,
   const char* idfName,
   const char* epwName,
   double relativeSurfaceTolerance,

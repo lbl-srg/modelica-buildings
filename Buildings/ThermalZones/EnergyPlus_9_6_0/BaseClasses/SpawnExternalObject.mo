@@ -14,6 +14,8 @@ class SpawnExternalObject
       "Name of the Modelica instance of this object";
     input String spawnExe
       "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3";
+    input String idfVersion
+      "IDF version with underscores, such as 9_6_0";
     input String idfName
       "Name of the IDF";
     input String epwName
@@ -67,6 +69,7 @@ class SpawnExternalObject
     modelicaNameBuilding,
     modelicaInstanceName,
     spawnExe,
+    idfVersion,
     idfName,
     epwName,
     relativeSurfaceTolerance,

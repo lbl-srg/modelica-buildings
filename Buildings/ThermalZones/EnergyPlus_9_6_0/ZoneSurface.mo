@@ -45,6 +45,7 @@ protected
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     spawnExe=spawnExe,
+    idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
