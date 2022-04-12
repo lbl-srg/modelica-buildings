@@ -177,20 +177,22 @@ protected
           x=per.motorEfficiency.eta,
           strict=false))
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
-  final parameter Real motDer_yMot[nMotDer_yMot]=
-    if per.etaMotMet==
+  final parameter Real motDer_yMot[size(per.motorEfficiency_yMot.y,1)]=
+    if not per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
-      then
-        if nMotDer_yMot== 1
-          then {0}
-        else
-          Buildings.Utilities.Math.Functions.splineDerivatives(
-             x=per.motorEfficiency_yMot.y,
-             y=per.motorEfficiency_yMot.eta,
-             ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-               x=per.motorEfficiency_yMot.eta,
-               strict=false))
-    elseif per.etaMotMet==
+      then zeros(size(per.motorEfficiency_yMot.y,1))
+    elseif (size(per.motorEfficiency_yMot.y,1) == 1)
+      then {0}
+    else
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=per.motorEfficiency_yMot.y,
+        y=per.motorEfficiency_yMot.eta,
+        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+          x=per.motorEfficiency_yMot.eta,
+          strict=false))
+    "Coefficients for cubic spline of motor efficiency vs. motor PLR";
+  final parameter Real motDer_yMot_generic[9]=
+    if per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
       or  (per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
@@ -198,20 +200,9 @@ protected
       then Buildings.Utilities.Math.Functions.splineDerivatives(
              x=per.motorEfficiency_yMot_generic.y,
              y=per.motorEfficiency_yMot_generic.eta,
-             ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-               x=per.motorEfficiency_yMot_generic.eta,
-               strict=false))
-    else zeros(nMotDer_yMot)
-    "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
-  final parameter Integer nMotDer_yMot=
-    if per.etaMotMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
-    or (per.etaMotMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
-        and per.havePEle_nominal)
-      then 9
-    else size(per.motorEfficiency_yMot.y,1)
-      "Size of array";
+             ensureMonotonicity=true)
+    else zeros(9)
+    "Coefficients for cubic spline of motor efficiency vs. motor PLR with generic curves";
 
   parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
     haveDPMax then per.pressure.dp[1] else per.pressure.dp[1] - ((per.pressure.dp[
@@ -756,15 +747,15 @@ equation
         etaMot =homotopy(actual=cha.efficiency_yMot(
           per=per.motorEfficiency_yMot_generic,
           y=yMot,
-          d=motDer_yMot), simplified=cha.efficiency_yMot(
+          d=motDer_yMot_generic), simplified=cha.efficiency_yMot(
           per=per.motorEfficiency_yMot_generic,
           y=1,
-          d=motDer_yMot));
+          d=motDer_yMot_generic));
       else
         etaMot =cha.efficiency_yMot(
           per=per.motorEfficiency_yMot_generic,
           y=yMot,
-          d=motDer_yMot);
+          d=motDer_yMot_generic);
       end if;
   else
   // Not provided
@@ -938,7 +929,7 @@ revisions="<html>
 March 8, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
-Refactored the power and efficiency computation to allow computing
+Modified the power and efficiency computation to allow computing
 the total efficiency <code>eta</code>, the hydraulic efficiency <code>etaHyd</code>,
 and the motor efficiency <code>etaMot</code> and their corresponding power terms
 (when applicable) separately;
@@ -949,7 +940,8 @@ or the hydraulic efficiency <code>etaHyd</code> using the Euler number.
 </li>
 <li>
 Implemented the option for the user to provide the motor efficiency
-<code>etaMot</code> as a function of part load ratio <i>y</i>.
+<code>etaMot</code> as a function of part load ratio <i>y</i>. Also allowed generic
+curves to be used.
 </li>
 <li>
 Moved the specification of <code>haveVMax</code> and <code>V_flow_max</code> here
@@ -958,7 +950,7 @@ from
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </li>
 <li>
-Instead of <code>etaHyd</code>, now it outputs <code>WHyd</code> to
+Now it passes <code>WHyd</code> instead of <code>etaHyd</code> to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PowerInterface\">
 Buildings.Fluid.Movers.BaseClasses.PowerInterface</a>.
 </li>
