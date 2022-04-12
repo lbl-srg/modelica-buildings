@@ -549,23 +549,6 @@ Otherwise, you may get an error such as
 /usr/bin/ld: cannot find -lfmilib_shared
 collect2: error: ld returned 1 exit status
 </pre>
-<h5>Models with multiple thermal zones</h5>
-<p>
-For Dymola 2019FD01 and Dymola 2020, only one thermal zone can be in EnergyPlus.
-For Dymola 2020x, this limitation is removed if the flag
-</p>
-<pre>
-Hidden.AvoidDoubleComputation=true
-</pre>
-<p>
-is set in the Dymola command line window.
-For Dymola 2021, this flag will be set to <code>true</code> by default.
-</p>
-<p>
-This limitation only affects Dymola. OPTIMICA and JModelica can simulate Modelica models
-for which the EnergyPlus model has multiple thermal zones, or for which
-multiple buildings are simulated in EnergyPlus.
-</p>
 </html>"));
   end NotesForDymola;
   annotation (
