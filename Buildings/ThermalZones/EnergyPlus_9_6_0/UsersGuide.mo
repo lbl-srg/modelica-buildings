@@ -2,6 +2,120 @@ within Buildings.ThermalZones.EnergyPlus_9_6_0;
 package UsersGuide
   "EnergyPlus package user's guide"
   extends Modelica.Icons.Information;
+
+  class Installation
+    "Installing binaries"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
+<h4>Installation of binaries</h4>
+<p>
+The official release of the Modelica Buildings Library that can be downloaded at
+<a href=\"https://simulationresearch.lbl.gov/modelica/download.html\">simulationresearch.lbl.gov/modelica/download.html</a>
+contains all binaries required to simulated the models in
+<a href=\"modelica://Buildings.ThermalZones\">Buildings.ThermalZones_9_6_0</a>.
+You should not have to do any other installations or settings.
+</p>
+<p>
+However, binaries can also be downloaded and installed manually,
+the binaries can be downloaded from the following links:
+</p>
+<table summary=\"Download instructions\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><th>Operating system</th><th>Link</th>
+</tr>
+<tr>
+<td>Linux</td>
+<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz\">
+https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz</a>
+</td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-win64.zip\">
+https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-win64.zip</a>
+</td>
+</tr>
+</table>
+<p>
+To install, proceed as follows:
+</p>
+<table summary=\"Download instructions\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><th>Operating system</th><th>Link</th>
+</tr>
+<tr>
+<td>Linux</td>
+<td>
+<p>
+Run from a terminal
+</p>
+<pre>
+wget https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz;
+tar xzf Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz;
+export PATH=${PATH}:`pwd`/Spawn-light-0.3.0-d6204d26f6-Linux/bin
+</pre>
+<p>
+and restart your Modelica environment. You may put the last line in your <code>${HOME}/.bashrc</code> file
+to make the setting persistent when you log in the next time.
+</p>
+</td>
+</tr>
+<tr>
+<td>Windows</td>
+<td>
+<ol>
+<li>
+Download the binary from the link above.
+</li>
+<li>
+Unzip <code>Spawn-light-0.3.0-d6204d26f6-win64.zip</code> at your desired location.
+</li>
+<li>
+Add the directory <code>xyz/Spawn-light-0.3.0-d6204d26f6-win64/bin</code>
+to your <code>PATH</code> environment variable.
+</li>
+<li>
+Restart your Modelica environment.
+</li>
+</ol>
+</td>
+</tr>
+</table>
+
+<h4>How is spawn invoked?</h4>
+<p>
+Modelica tries to invoke <code>spawn-0.3.0-d6204d26f6[.exe]</code> in this order:
+</p>
+<ol>
+<li>
+On Linux, it searches for
+<pre>
+Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-d6204d26f6/linux64/bin/spawn-0.3.0-d6204d26f6
+</pre>
+and on Windows, it searches for
+<pre>
+Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-d6204d26f6/win64/bin/spawn-0.3.0-d6204d26f6.exe
+</pre>
+where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
+This file is distributed with the Modelica Buildings Library installation,
+together with all files needed to translate and simulate a model in a Modelica environment.
+</li>
+<li>
+If not found, it searches on the environment variable <code>SPAWNPATH</code> for
+<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
+</li>
+<li>
+If not found, it searches on the environment variable <code>PATH</code> for
+<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
+</li>
+</ol>
+<p>
+If none of this succeeds, it will stop with an error.
+</p>
+</html>"));
+  end Installation;
+
   class GettingStarted
     "Getting started"
     extends Modelica.Icons.Information;
@@ -155,39 +269,6 @@ based on the room temperature.
 </ol>
 </html>"));
   end GettingStarted;
-
-  class InvokingEnergyPlus
-    "Getting started"
-    extends Modelica.Icons.Information;
-    annotation (
-      preferredView="info",
-      Documentation(
-        info="<html>
-<h4>Invoking EnergyPlus</h4>
-<p>
-The Modelica code tries to invoke EnergyPlus in this order:
-</p>
-<ol>
-<li>
-It searches for <code>Buildings[ x.y.z]/Resources/bin/spawn-[linux64,win64]/bin/spawn-0.3.0-d6204d26f6[.exe]</code>
-where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
-This file is distributed with the Modelica Buildings Library installation,
-together with all files needed to translate and simulate a model in a Modelica environment.
-</li>
-<li>
-If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
-</li>
-<li>
-If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
-</li>
-</ol>
-<p>
-If none of this succeeds, it will stop with an error.
-</p>
-</html>"));
-  end InvokingEnergyPlus;
 
   class Conventions
     "Conventions"
@@ -442,13 +523,6 @@ If a simulation starts at a time smaller than <i>0</i>, then an error will be is
 the simulation won't start.<br/>
 This will be addressed through
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">issue 1938</a>.
-</p><h5>FMUs generated with a Spawn model may still require a Buildings library installation</h5>
-<p>
-If an FMU is generated that contains a Spawn model and then simulated on another computer,
-the simulation may fail to start because of depedencies to the Buildings library and the Spawn binaries.
-.<br/>
-This will be addressed through
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2054\">issue 2054</a>.
 </p>
 </html>"));
   end KnownIssues;
@@ -527,12 +601,10 @@ active facade control, or to control lights and equipment schedules that contrib
 to heat gains in the room and its surfaces.
 </p>
 <p>
-This implmentation uses EnergyPlus 9.6.0.
-Windows 64 bit and Linux 64 bit are supported.
 See
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.InvokingEnergyPlus\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.InvokingEnergyPlus</a>
-how to install EnergyPlus and how EnergyPlus is invoked.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</a>
+for how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>
 <ul>
