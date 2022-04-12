@@ -23,7 +23,7 @@ model BuildingTimeSeriesAtETS
   parameter Modelica.Units.SI.AbsolutePressure pSte_nominal=MediumSte.p_default
     "Nominal pressure of steam entering the building"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.Units.SI.AbsolutePressure pLow_nominal
+  parameter Modelica.Units.SI.AbsolutePressure pLow_nominal=0.8*MediumSte.p_default
     "Nominal low pressure setpoint, downstream of PRV (if present)"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Temperature TSte_nominal=
