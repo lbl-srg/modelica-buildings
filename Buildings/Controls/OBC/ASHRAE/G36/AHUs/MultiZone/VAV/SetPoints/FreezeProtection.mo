@@ -10,6 +10,9 @@ block FreezeProtection
     "True: the AHU has heating coil";
   parameter Boolean have_freSta=false
     "True: the system has a physical freeze stat";
+  parameter Boolean freStaNorPos=true
+    "True: the freeze stat is normally open; False: the freeze stat is normal close"
+    annotation(Dialog(enable=have_freSta));
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
     annotation(Dialog(enable=have_hotWatCoi));
@@ -88,16 +91,12 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{-480,30},{-440,70}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreSta if have_freSta
-    "Freeze protection stat signal"
-    annotation (Placement(transformation(extent={{-480,-110},{-440,-70}}),
+    "Freeze protection stat signal. If the stat is normal open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
+    annotation (Placement(transformation(extent={{-480,-180},{-440,-140}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreStaRes if have_freSta
-    "Freeze protection stat reset signal"
-    annotation (Placement(transformation(extent={{-480,-160},{-440,-120}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSofSwiRes if not have_freSta
     "Freeze protection reset signal from software switch"
-    annotation (Placement(transformation(extent={{-480,-200},{-440,-160}}),
+    annotation (Placement(transformation(extent={{-480,-240},{-440,-200}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=0,
@@ -316,12 +315,11 @@ block FreezeProtection
     "Check if it should be in stage 3 mode"
     annotation (Placement(transformation(extent={{-220,-68},{-200,-48}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false) if not have_freSta
-    "Constant false"
-    annotation (Placement(transformation(extent={{-300,-120},{-280,-100}})));
+    final k=false) if not have_freSta "Constant false"
+    annotation (Placement(transformation(extent={{-300,-210},{-280,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Stay in stage 3 freeze protection mode"
-    annotation (Placement(transformation(extent={{-140,-68},{-120,-48}})));
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch supFan
     "Supply fan speed"
     annotation (Placement(transformation(extent={{120,-260},{140,-240}})));
@@ -377,8 +375,7 @@ block FreezeProtection
     final message="Warning: the unit is shut down by freeze protection!")
     "Unit shut down warning"
     annotation (Placement(transformation(extent={{380,-68},{400,-48}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{120,-68},{140,-48}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert disMinVenWar(
     final message="Warning: minimum ventilation was interrupted by freeze protection!")
@@ -449,6 +446,18 @@ block FreezeProtection
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{320,-220},{340,-200}})));
 
+  CDL.Logical.Not norFal if have_freSta
+    "The output is normally false when the freeze stat is normally open (true)"
+    annotation (Placement(transformation(extent={{-360,-100},{-340,-80}})));
+  CDL.Logical.Switch logSwi if have_freSta
+    "Freeze protection enabled by the freeze stat"
+    annotation (Placement(transformation(extent={{-300,-140},{-280,-120}})));
+  CDL.Logical.Sources.Constant norPos(final k=freStaNorPos) if have_freSta
+    "Freeze stat normal position. True means it is normally open, false means it is normally close"
+    annotation (Placement(transformation(extent={{-360,-140},{-340,-120}})));
+  CDL.Logical.FallingEdge falEdg if have_freSta
+    "Reset the freeze protection by the physical reset switch in freeze stat"
+    annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
 protected
   parameter Boolean have_common=
     minOADes ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper
@@ -516,22 +525,17 @@ equation
           -50},{-222,-50}},   color={255,0,255}));
   connect(tim4.passed, or3.u2)
     annotation (Line(points={{-278,-58},{-222,-58}},   color={255,0,255}));
-  connect(uFreSta, or3.u3) annotation (Line(points={{-460,-90},{-240,-90},{-240,
-          -66},{-222,-66}},   color={255,0,255}));
-  connect(con2.y, or3.u3) annotation (Line(points={{-278,-110},{-240,-110},{-240,
-          -66},{-222,-66}},   color={255,0,255}));
-  connect(or3.y, lat1.u)
-    annotation (Line(points={{-198,-58},{-142,-58}},   color={255,0,255}));
-  connect(uFreStaRes, lat1.clr) annotation (Line(points={{-460,-140},{-160,-140},
-          {-160,-64},{-142,-64}},   color={255,0,255}));
-  connect(uSofSwiRes, lat1.clr) annotation (Line(points={{-460,-180},{-160,-180},
-          {-160,-64},{-142,-64}},   color={255,0,255}));
-  connect(lat1.y, supFan.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-250},
-          {118,-250}},       color={255,0,255}));
-  connect(lat1.y, retFan.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-290},
-          {118,-290}},       color={255,0,255}));
-  connect(lat1.y, relFan.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-330},
-          {118,-330}},       color={255,0,255}));
+  connect(con2.y, or3.u3) annotation (Line(points={{-278,-200},{-240,-200},{
+          -240,-66},{-222,-66}},
+                              color={255,0,255}));
+  connect(uSofSwiRes, lat1.clr) annotation (Line(points={{-460,-220},{-160,-220},
+          {-160,-106},{-142,-106}}, color={255,0,255}));
+  connect(lat1.y, supFan.u2) annotation (Line(points={{-118,-100},{20,-100},{20,
+          -250},{118,-250}}, color={255,0,255}));
+  connect(lat1.y, retFan.u2) annotation (Line(points={{-118,-100},{20,-100},{20,
+          -290},{118,-290}}, color={255,0,255}));
+  connect(lat1.y, relFan.u2) annotation (Line(points={{-118,-100},{20,-100},{20,
+          -330},{118,-330}}, color={255,0,255}));
   connect(con3.y, supFan.u1) annotation (Line(points={{-118,-220},{40,-220},{40,
           -242},{118,-242}}, color={0,0,127}));
   connect(con3.y, retFan.u1) annotation (Line(points={{-118,-220},{40,-220},{40,
@@ -552,18 +556,19 @@ equation
     annotation (Line(points={{142,-290},{460,-290}}, color={0,0,127}));
   connect(con3.y, outDam.u1) annotation (Line(points={{-118,-220},{40,-220},{40,
           -122},{318,-122}}, color={0,0,127}));
-  connect(lat1.y, outDam.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-130},
-          {318,-130}},       color={255,0,255}));
+  connect(lat1.y, outDam.u2) annotation (Line(points={{-118,-100},{20,-100},{20,
+          -130},{318,-130}}, color={255,0,255}));
   connect(uCooCoi, cooCoi.u3)
     annotation (Line(points={{-460,-378},{118,-378}}, color={0,0,127}));
-  connect(lat1.y, cooCoi.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-370},
-          {118,-370}},       color={255,0,255}));
+  connect(lat1.y, cooCoi.u2) annotation (Line(points={{-118,-100},{20,-100},{20,
+          -370},{118,-370}}, color={255,0,255}));
   connect(con1.y, cooCoi.u1) annotation (Line(points={{-58,30},{-20,30},{-20,-362},
           {118,-362}}, color={0,0,127}));
   connect(conInt3.y, hotWatPlaReq3.u1)
     annotation (Line(points={{-118,-482},{318,-482}}, color={255,127,0}));
-  connect(lat1.y, hotWatPlaReq3.u2) annotation (Line(points={{-118,-58},{20,-58},
-          {20,-490},{318,-490}}, color={255,0,255}));
+  connect(lat1.y, hotWatPlaReq3.u2) annotation (Line(points={{-118,-100},{20,
+          -100},{20,-490},{318,-490}},
+                                 color={255,0,255}));
   connect(TMix, max1.u2) annotation (Line(points={{-460,-436},{-302,-436}},
           color={0,0,127}));
   connect(TSup, max1.u1) annotation (Line(points={{-460,50},{-420,50},{-420,-424},
@@ -574,22 +579,24 @@ equation
     annotation (Line(points={{-118,-400},{38,-400}}, color={0,0,127}));
   connect(heaCoiMod.y, heaCoiPos.u1) annotation (Line(points={{62,-400},{100,-400},
           {100,-432},{318,-432}}, color={0,0,127}));
-  connect(lat1.y, heaCoiPos.u2) annotation (Line(points={{-118,-58},{20,-58},{20,
-          -440},{318,-440}},    color={255,0,255}));
-  connect(lat1.y, intSwi3.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-540},
-          {318,-540}},       color={255,0,255}));
+  connect(lat1.y, heaCoiPos.u2) annotation (Line(points={{-118,-100},{20,-100},
+          {20,-440},{318,-440}},color={255,0,255}));
+  connect(lat1.y, intSwi3.u2) annotation (Line(points={{-118,-100},{20,-100},{
+          20,-540},{318,-540}},
+                             color={255,0,255}));
   connect(conInt4.y, intSwi3.u1)
     annotation (Line(points={{-118,-532},{318,-532}}, color={255,127,0}));
   connect(lat1.y, not1.u)
-    annotation (Line(points={{-118,-58},{118,-58}},   color={255,0,255}));
+    annotation (Line(points={{-118,-100},{20,-100},{20,-58},{118,-58}},
+                                                      color={255,0,255}));
   connect(not1.y, shuDowWar.u)
     annotation (Line(points={{142,-58},{378,-58}},   color={255,0,255}));
   connect(not2.y, disMinVenWar.u)
     annotation (Line(points={{142,162},{378,162}}, color={255,0,255}));
   connect(holSta2.y, tim5.u) annotation (Line(points={{-278,162},{-270,162},{-270,
           130},{-262,130}}, color={255,0,255}));
-  connect(lat1.y, minOutDam.u2) annotation (Line(points={{-118,-58},{20,-58},{20,
-          -170},{318,-170}},    color={255,0,255}));
+  connect(lat1.y, minOutDam.u2) annotation (Line(points={{-118,-100},{20,-100},
+          {20,-170},{318,-170}},color={255,0,255}));
   connect(con3.y, minOutDam.u1) annotation (Line(points={{-118,-220},{40,-220},{
           40,-162},{318,-162}}, color={0,0,127}));
   connect(uOutDamPos, minVen.u3) annotation (Line(points={{-460,420},{0,420},{0,
@@ -642,24 +649,26 @@ equation
     annotation (Line(points={{-278,512},{-102,512}}, color={255,0,255}));
   connect(or2.y, lat.u)
     annotation (Line(points={{-78,512},{-62,512}}, color={255,0,255}));
-  connect(lat1.y, retDam.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-90},
-          {318,-90}},        color={255,0,255}));
+  connect(lat1.y, retDam.u2) annotation (Line(points={{-118,-100},{20,-100},{20,
+          -90},{318,-90}},   color={255,0,255}));
   connect(con3.y, retDam.u1) annotation (Line(points={{-118,-220},{40,-220},{40,
           -82},{318,-82}},   color={0,0,127}));
   connect(retDam2.y, retDam.u3) annotation (Line(points={{142,118},{260,118},{260,
           -98},{318,-98}},   color={0,0,127}));
   connect(retDam.y, yRetDamPos)
     annotation (Line(points={{342,-90},{460,-90}},   color={0,0,127}));
-  connect(lat1.y, yEneCHWPum) annotation (Line(points={{-118,-58},{20,-58},{20,-30},
-          {460,-30}}, color={255,0,255}));
+  connect(lat1.y, yEneCHWPum) annotation (Line(points={{-118,-100},{20,-100},{
+          20,-30},{460,-30}},
+                      color={255,0,255}));
   connect(outDam.y, yOutDamPos)
     annotation (Line(points={{342,-130},{460,-130}}, color={0,0,127}));
   connect(cooCoi.y, yCooCoi)
     annotation (Line(points={{142,-370},{460,-370}}, color={0,0,127}));
   connect(conInt1.y, intSwi2.u1) annotation (Line(points={{62,60},{290,60},{290,
           38},{378,38}}, color={255,127,0}));
-  connect(lat1.y, intSwi2.u2) annotation (Line(points={{-118,-58},{20,-58},{20,-30},
-          {292,-30},{292,30},{378,30}}, color={255,0,255}));
+  connect(lat1.y, intSwi2.u2) annotation (Line(points={{-118,-100},{20,-100},{
+          20,-30},{292,-30},{292,30},{378,30}},
+                                        color={255,0,255}));
   connect(lat2.y, intSwi4.u2) annotation (Line(points={{-158,162},{20,162},{20,280},
           {318,280}}, color={255,0,255}));
   connect(conInt6.y, intSwi4.u1) annotation (Line(points={{182,330},{290,330},{290,
@@ -685,14 +694,31 @@ equation
           220},{118,220}}, color={255,0,255}));
   connect(con5.y, minOutDam3.u1) annotation (Line(points={{-18,240},{0,240},{0,228},
           {118,228}}, color={255,0,255}));
-  connect(lat1.y, minOutDam1.u2) annotation (Line(points={{-118,-58},{20,-58},{20,
-          -210},{318,-210}}, color={255,0,255}));
+  connect(lat1.y, minOutDam1.u2) annotation (Line(points={{-118,-100},{20,-100},
+          {20,-210},{318,-210}},
+                             color={255,0,255}));
   connect(minOutDam1.y, y1MinOutDamPos)
     annotation (Line(points={{342,-210},{460,-210}}, color={255,0,255}));
   connect(minOutDam3.y, minOutDam1.u3) annotation (Line(points={{142,220},{200,220},
           {200,-218},{318,-218}}, color={255,0,255}));
   connect(con5.y, minOutDam1.u1) annotation (Line(points={{-18,240},{0,240},{0,-202},
           {318,-202}}, color={255,0,255}));
+  connect(norPos.y, logSwi.u2)
+    annotation (Line(points={{-338,-130},{-302,-130}}, color={255,0,255}));
+  connect(uFreSta, norFal.u) annotation (Line(points={{-460,-160},{-400,-160},{
+          -400,-90},{-362,-90}}, color={255,0,255}));
+  connect(norFal.y, logSwi.u1) annotation (Line(points={{-338,-90},{-320,-90},{
+          -320,-122},{-302,-122}}, color={255,0,255}));
+  connect(uFreSta, logSwi.u3) annotation (Line(points={{-460,-160},{-320,-160},
+          {-320,-138},{-302,-138}}, color={255,0,255}));
+  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,-130},{-260,-130},{
+          -260,-66},{-222,-66}}, color={255,0,255}));
+  connect(or3.y, lat1.u) annotation (Line(points={{-198,-58},{-160,-58},{-160,
+          -100},{-142,-100}}, color={255,0,255}));
+  connect(logSwi.y, falEdg.u)
+    annotation (Line(points={{-278,-130},{-222,-130}}, color={255,0,255}));
+  connect(falEdg.y, lat1.clr) annotation (Line(points={{-198,-130},{-180,-130},
+          {-180,-106},{-142,-106}}, color={255,0,255}));
 annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
