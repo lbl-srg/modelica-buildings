@@ -6,7 +6,7 @@ class SpawnExternalObject
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
     input Integer objectType
-      "Type of the object (1: AAA.ThermalZone, 2: AAA.Schedule, 3: AAA.Actuator, 4: Surface)";
+      "Type of the object (1: ThermalZone, 2: Schedule, 3: Actuator, 4: Surface)";
     input Modelica.Units.SI.Time startTime "Start time of the simulation";
     input String modelicaNameBuilding
       "Name of this Modelica building instance that connects to this thermal zone";

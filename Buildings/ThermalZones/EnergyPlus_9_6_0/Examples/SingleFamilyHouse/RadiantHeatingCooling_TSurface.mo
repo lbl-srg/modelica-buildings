@@ -126,11 +126,11 @@ model RadiantHeatingCooling_TSurface
     realTrue=mCoo_flow_nominal)
     "Cooling water mass flow rate"
     annotation (Placement(transformation(extent={{-80,88},{-60,108}})));
-  AAA.OpaqueConstruction attFlo(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.OpaqueConstruction attFlo(
     surfaceName="Attic:LivingFloor")
     "Floor of the attic above the living room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=270,origin={102,90})));
-  AAA.OpaqueConstruction livFlo(surfaceName="Living:Floor")
+  Buildings.ThermalZones.EnergyPlus_9_6_0.OpaqueConstruction livFlo(surfaceName="Living:Floor")
     "Floor of the living room" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

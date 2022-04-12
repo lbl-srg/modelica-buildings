@@ -51,37 +51,37 @@ model Floor
   Modelica.Units.SI.Temperature TAirNor=nor.TAir "Air temperature north zone";
   Modelica.Units.SI.Temperature TAirEas=eas.TAir "Air temperature east zone";
   Modelica.Units.SI.Temperature TAirWes=wes.TAir "Air temperature west zone";
-  AAA.ThermalZone sou(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone sou(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_1")
     "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  AAA.ThermalZone eas(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone eas(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_2")
     "East zone"
     annotation (Placement(transformation(extent={{300,68},{340,108}})));
-  AAA.ThermalZone nor(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone nor(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_3")
     "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  AAA.ThermalZone wes(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone wes(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_4")
     "West zone"
     annotation (Placement(transformation(extent={{12,58},{52,98}})));
-  AAA.ThermalZone cor(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone cor(
     redeclare package Medium=Medium,
     nPorts=11,
     zoneName="Core_ZN")
     "Core zone"
     annotation (Placement(transformation(extent={{144,60},{184,100}})));
-  AAA.ThermalZone att(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone att(
     redeclare package Medium=Medium,
     zoneName="Attic",
     T_start=275.15)

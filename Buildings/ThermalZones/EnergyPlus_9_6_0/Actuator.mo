@@ -148,7 +148,7 @@ has the following entry:
   Lights,
     LIVING ZONE Lights,      !- Name
     LIVING ZONE,             !- Zone or ZoneList Name
-    HOUSE LIGHTING,          !- AAA.Schedule Name
+    HOUSE LIGHTING,          !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     1000,                    !- Lighting Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
