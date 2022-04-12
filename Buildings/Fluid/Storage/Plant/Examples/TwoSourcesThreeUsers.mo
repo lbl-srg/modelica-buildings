@@ -240,7 +240,7 @@ model TwoSourcesThreeUsers
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,130})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCat(uLow=0.05, uHigh=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCat(uLow=0.05, uHigh=0.1)
     "Shut off at con.yVal = 0.05 and restarts at 0.5" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

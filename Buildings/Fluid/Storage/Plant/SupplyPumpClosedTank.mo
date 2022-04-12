@@ -20,8 +20,7 @@ model SupplyPumpClosedTank
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,60})));
-
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valDis(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valDis(
     redeclare package Medium = Medium,
     dpValve_nominal=0.1*nom.dp_nominal,
     use_inputFilter=true,
@@ -96,23 +95,17 @@ model SupplyPumpClosedTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,110})));
+
 equation
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{-40,60},{-20,60}},   color={0,127,255}));
   connect(pasValDis.port_a, cheVal.port_b) annotation (Line(points={{20,20},{10,
           20},{10,60},{-1.77636e-15,60}},
                                      color={0,127,255}));
-  connect(valDis.port_a, cheVal.port_b) annotation (Line(points={{20,60},{0,60}},
-                                color={0,127,255}));
   connect(pum.y, yPum) annotation (Line(points={{-50,72},{-50,90},{0,90},{0,110}},
                  color={0,0,127}));
-  connect(valDis.y, yValDis) annotation (Line(points={{30,72},{30,80},{80,80},{
-          80,110}},  color={0,0,127}));
   connect(valCha.y, yValCha) annotation (Line(points={{30,-8},{30,0},{48,0},{48,
           96},{40,96},{40,110}},   color={0,0,127}));
-  connect(valDis.y_actual, yValDis_actual)
-    annotation (Line(points={{35,67},{44,67},{44,84},{-80,84},{-80,110}},
-                                                        color={0,0,127}));
   connect(valCha.y_actual, yValCha_actual) annotation (Line(points={{25,-13},{
           24,-13},{24,-14},{-66,-14},{-66,96},{-40,96},{-40,110}},
                                                    color={0,0,127}));
@@ -124,10 +117,16 @@ equation
           80,60},{100,60}}, color={0,127,255}));
   connect(pasValDis.port_b, port_CHWS) annotation (Line(points={{40,20},{80,20},
           {80,60},{100,60}}, color={0,127,255}));
-  connect(valDis.port_b, port_CHWS)
-    annotation (Line(points={{40,60},{100,60}}, color={0,127,255}));
   connect(port_chiInl, port_CHWR)
     annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
+  connect(cheVal.port_b, valDis.port_a)
+    annotation (Line(points={{-1.77636e-15,60},{20,60}}, color={0,127,255}));
+  connect(valDis.port_b, port_CHWS)
+    annotation (Line(points={{40,60},{100,60}}, color={0,127,255}));
+  connect(valDis.y, yValDis) annotation (Line(points={{30,72},{30,80},{80,80},{
+          80,110}}, color={0,0,127}));
+  connect(valDis.y_actual, yValDis_actual) annotation (Line(points={{35,67},{44,
+          67},{44,84},{-80,84},{-80,110}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
           points={{-20,0},{40,0}},

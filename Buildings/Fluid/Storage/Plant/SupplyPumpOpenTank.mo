@@ -19,7 +19,7 @@ model SupplyPumpOpenTank
         transformation(
         extent={{-30,-10},{-10,10}},
         rotation=0)));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valDis1(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valDis1(
     redeclare package Medium = Medium,
     dpValve_nominal=0.1*nom.dp_nominal,
     use_inputFilter=true,
@@ -28,7 +28,7 @@ model SupplyPumpOpenTank
     m_flow_nominal=nom.m_flow_nominal)
     "Discharging valve, open when the tank NOT being charged remotely"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCha1(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valCha1(
     redeclare package Medium = Medium,
     dpValve_nominal=0.1*nom.dp_nominal,
     use_inputFilter=true,
@@ -37,7 +37,7 @@ model SupplyPumpOpenTank
     m_flow_nominal=nom.m_flow_nominal)
     "Charging valve, open when the tank is being charged remotely"
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valDis2(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valDis2(
     redeclare package Medium = Medium,
     dpValve_nominal=0.1*nom.dp_nominal,
     use_inputFilter=true,
@@ -49,7 +49,7 @@ model SupplyPumpOpenTank
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,20})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valDis3(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valDis3(
     redeclare package Medium = Medium,
     dpValve_nominal=0.1*nom.dp_nominal,
     use_inputFilter=true,
@@ -61,7 +61,7 @@ model SupplyPumpOpenTank
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={40,20})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCha2(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valCha2(
     redeclare package Medium = Medium,
     dpValve_nominal=0.1*nom.dp_nominal,
     use_inputFilter=true,
@@ -73,7 +73,7 @@ model SupplyPumpOpenTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-20})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCha3(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valCha3(
     redeclare package Medium = Medium,
     dpValve_nominal=0.1*nom.dp_nominal,
     use_inputFilter=true,
@@ -85,7 +85,7 @@ model SupplyPumpOpenTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-20})));
-  FixedResistances.CheckValve                 cheVal(
+  Buildings.Fluid.FixedResistances.CheckValve cheVal(
     redeclare package Medium = Medium,
     m_flow_nominal=nom.m_flow_nominal,
     dpValve_nominal=0.1*nom.dp_nominal,
@@ -138,13 +138,13 @@ model SupplyPumpOpenTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,110})));
-  Controls.OBC.CDL.Continuous.MultiMax mulMaxDis(nin=3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMaxDis(nin=3)
     "Maximum valve position of discharging valves" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,110})));
-  Controls.OBC.CDL.Continuous.MultiMax mulMaxCha(nin=3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMaxCha(nin=3)
     "Maximum valve position of charging valves" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
