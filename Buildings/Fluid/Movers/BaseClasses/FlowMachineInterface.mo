@@ -180,7 +180,11 @@ protected
   final parameter Real motDer_yMot[nMotDer_yMot]=
     if per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot
-      then Buildings.Utilities.Math.Functions.splineDerivatives(
+      then
+        if nMotDer_yMot== 1
+          then {0}
+        else
+          Buildings.Utilities.Math.Functions.splineDerivatives(
              x=per.motorEfficiency_yMot.y,
              y=per.motorEfficiency_yMot.eta,
              ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
@@ -197,8 +201,6 @@ protected
              ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
                x=per.motorEfficiency_yMot_generic.eta,
                strict=false))
-    elseif nMotDer_yMot== 1
-      then {0}
     else zeros(nMotDer_yMot)
     "Coefficients for cubic spline of motor efficiency vs. volume flow rate";
   final parameter Integer nMotDer_yMot=
