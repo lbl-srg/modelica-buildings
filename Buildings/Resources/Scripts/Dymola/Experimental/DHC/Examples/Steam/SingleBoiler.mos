@@ -1,11 +1,11 @@
 ﻿// Simulate
-simulateModel("Buildings.Experimental.DHC.Examples.Steam", stopTime=86400, method="Dassl", tolerance=1e-06, resultFile="Steam");
+simulateModel("Buildings.Experimental.DHC.Examples.Steam.SingleBoiler", stopTime=86400, method="Dassl", tolerance=1e-06, resultFile="SingleBoiler");
 // Plot commands
 createPlot(id=1, position={10, 18, 570, 506}, 
   y={"pla.QFue_flow"}, 
   range={0.0, 90000.0, 30000.0, 70000.0}, 
   grid=true, 
-  filename="Steam.mat", 
+  filename="SingleBoiler.mat", 
   colors={{238,46,47}}, 
   timeUnit="s", 
   displayUnits={"W"});

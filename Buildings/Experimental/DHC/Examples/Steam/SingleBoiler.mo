@@ -1,5 +1,6 @@
-within Buildings.Experimental.DHC.Examples;
-model Steam "Example model for a complete steam district heating system"
+within Buildings.Experimental.DHC.Examples.Steam;
+model SingleBoiler "Example model for a complete steam district heating system with a 
+  central plant that contains a single boiler"
   extends Modelica.Icons.Example;
 
   package MediumSte = Buildings.Media.Steam (
@@ -91,7 +92,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
       __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Steam.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Steam/SingleBoiler.mos"
     "Simulate and plot"),
     experiment(
       StopTime=86400,
@@ -106,7 +107,9 @@ First implementation.
 </html>", info="<html>
 <p>
 This example model demonstrates a complete system simulation for 
-steam district heating systems. 
+steam district heating systems. The central plant features a single boiler.
+For the distribution network, pressure losses on the condensate return 
+pipes are included, while the steam pipes are assumed to be lossless.
 </p>
 </html>"));
-end Steam;
+end SingleBoiler;
