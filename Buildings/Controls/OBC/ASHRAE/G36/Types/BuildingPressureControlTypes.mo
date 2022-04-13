@@ -8,7 +8,7 @@ type BuildingPressureControlTypes = enumeration(
 annotation (
  Evaluate=true, Documentation(info="<html>
 <p>
-Enumeration to define types of building pressure control system.
+Enumeration of define types of building pressure control system.
 Possible values are:
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">

@@ -13,6 +13,8 @@ block Controller "Multizone VAV air handling unit controller"
     Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta
+    "Type of freeze stat";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
     "Design of minimum outdoor air and economizer function"
     annotation (Dialog(group="Economizer design"));
@@ -541,15 +543,14 @@ block Controller "Multizone VAV air handling unit controller"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-400,-170},{-360,-130}}),
         iconTransformation(extent={{-240,-140},{-200,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreSta if have_freSta
-    "Freeze-stat signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreSta if not freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+    "Freeze protection stat signal. If the stat is normal open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
     annotation (Placement(transformation(extent={{-400,-200},{-360,-160}}),
         iconTransformation(extent={{-240,-180},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFreStaRes if have_freSta
-    "Freeze protection stat reset signal"
-    annotation (Placement(transformation(extent={{-400,-230},{-360,-190}}),
-        iconTransformation(extent={{-240,-200},{-200,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSofSwiRes if not have_freSta
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSofSwiRes if not (freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO or
+    freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-400,-260},{-360,-220}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
@@ -666,8 +667,8 @@ block Controller "Multizone VAV air handling unit controller"
         iconTransformation(extent={{200,50},{240,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
     "Commanded on to energize chilled water pump" annotation (Placement(
-        transformation(extent={{360,-80},{400,-40}}), iconTransformation(extent
-          ={{200,0},{240,40}})));
+        transformation(extent={{360,-80},{400,-40}}), iconTransformation(extent=
+           {{200,0},{240,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     final min=0,
     final max=1,
@@ -758,8 +759,8 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
     final buiPreCon=buiPreCon,
     final minOADes=minOADes,
+    final freSta=freSta,
     final have_hotWatCoi=have_hotWatCoi,
-    final have_freSta=have_freSta,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freProHeaCoiCon,
     final k=kFrePro,
@@ -954,8 +955,6 @@ equation
           -195},{198,-195}}, color={0,0,127}));
   connect(frePro.uFreSta, uFreSta) annotation (Line(points={{198,-198},{104,-198},
           {104,-180},{-380,-180}}, color={255,0,255}));
-  connect(frePro.uFreStaRes, uFreStaRes) annotation (Line(points={{198,-201},{112,
-          -201},{112,-210},{-380,-210}},color={255,0,255}));
   connect(frePro.uSofSwiRes, uSofSwiRes) annotation (Line(points={{198,-204},{120,
           -204},{120,-240},{-380,-240}}, color={255,0,255}));
   connect(frePro.uRelFanSpe, uRelFanSpe) annotation (Line(points={{198,-213},{136,
@@ -1253,15 +1252,12 @@ annotation (
        Text(extent={{-198,-148},{-144,-168}},
           lineColor={255,0,255},
           textString="uFreSta",
-          visible=have_freSta),
-       Text(extent={{-194,-168},{-126,-188}},
-          lineColor={255,0,255},
-          textString="uFreStaRes",
-          visible=have_freSta),
+          visible=not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat),
        Text(extent={{-196,-188},{-122,-208}},
           lineColor={255,0,255},
           textString="uSofSwiRes",
-          visible=not have_freSta),
+          visible=not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
+                       or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)),
        Text(extent={{112,30},{200,12}},
           lineColor={255,0,255},
           textString="yEneCHWPum"),

@@ -22,7 +22,7 @@ type ASHRAEClimateZone = enumeration(
 annotation (
  Evaluate=true, Documentation(info="<html>
 <p>
-Enumeration to ASHRAE climate zones. Possible values are:
+Enumeration of different ASHRAE climate zones. Possible values are:
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>

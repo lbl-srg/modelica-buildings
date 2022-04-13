@@ -2,9 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation
 model FreezeProtection
   "Validate model for implementing freeze protection"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection
-    frePro(final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-      final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow)
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+    final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat)
     "Freeze protection control"
     annotation (Placement(transformation(extent={{80,0},{100,40}})));
 
@@ -72,7 +73,7 @@ equation
   connect(minOutDamPos.y,frePro. uMinOutDamPos) annotation (Line(points={{-18,40},
           {52,40},{52,31},{78,31}},     color={0,0,127}));
   connect(retDamPos.y,frePro. uRetDamPos) annotation (Line(points={{-58,20},{44,
-          20},{44,28},{78,28}},     color={0,0,127}));
+          20},{44,27},{78,27}},     color={0,0,127}));
   connect(supTem.y,frePro. TSup) annotation (Line(points={{-18,0},{48,0},{48,25},
           {78,25}},        color={0,0,127}));
   connect(not1.y,frePro. uSofSwiRes) annotation (Line(points={{-18,-30},{52,-30},

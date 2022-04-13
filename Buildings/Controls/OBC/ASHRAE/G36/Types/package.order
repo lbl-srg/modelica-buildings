@@ -2,6 +2,7 @@ ASHRAEClimateZone
 BuildingPressureControlTypes
 ControlEconomizer
 EnergyStandard
+FreezeStat
 OutdoorSection
 Title24ClimateZone
 VentilationStandard
