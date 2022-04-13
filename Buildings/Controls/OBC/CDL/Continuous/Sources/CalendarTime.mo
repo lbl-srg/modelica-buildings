@@ -38,7 +38,7 @@ model CalendarTime
 protected
   final constant Integer firstYear=2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
-  final constant Integer lastYear=firstYear+11
+  final constant Integer lastYear=firstYear+21
     "Last year that is supported (actual building automation system need to support a larger range)";
   Buildings.Utilities.Time.CalendarTime calTim(
     final zerTim=zerTim,
@@ -91,6 +91,11 @@ This is within the 2010-2020 range and is therefore allowed.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2022, by Michael Wetter:<br/>
+Increased value of <code>lastYear</code> as the underlying implementation allows
+for 21 years.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>

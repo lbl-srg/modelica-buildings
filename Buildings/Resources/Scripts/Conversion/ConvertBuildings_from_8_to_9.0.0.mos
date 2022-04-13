@@ -131,8 +131,8 @@ convertClass("Buildings.Controls.OBC.CDL.Types.Day",
              "Buildings.Obsolete.Controls.OBC.CDL.Types.Day");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2759
-convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"showWeatherData"}, fill("",0), true);
-convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"generatePortableFMU"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.EnergyPlus_9_6_0.Building", {"showWeatherData"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.EnergyPlus_9_6_0.Building", {"generatePortableFMU"}, fill("",0), true);
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1522
 convertClass("Buildings.Controls.Continuous.PIDHysteresisTimer",
