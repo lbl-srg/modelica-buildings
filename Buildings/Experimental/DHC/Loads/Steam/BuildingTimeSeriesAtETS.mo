@@ -23,7 +23,7 @@ model BuildingTimeSeriesAtETS
   parameter Modelica.Units.SI.AbsolutePressure pSte_nominal=MediumSte.p_default
     "Nominal pressure of steam entering the building"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.Units.SI.AbsolutePressure pLow_nominal
+  parameter Modelica.Units.SI.AbsolutePressure pLow_nominal=0.8*MediumSte.p_default
     "Nominal low pressure setpoint, downstream of PRV (if present)"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Temperature TSte_nominal=
@@ -268,17 +268,17 @@ equation
   annotation (
     defaultComponentName="bui",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Polygon(
-          points={{20,-70},{60,-85},{20,-100},{20,-70}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=not allowFlowReversal),
-        Line(
-          points={{55,-85},{-60,-85}},
-          color={0,128,255},
-          visible=not allowFlowReversal),
-                                Rectangle(
+      Polygon(
+        points={{20,-70},{60,-85},{20,-100},{20,-70}},
+        lineColor={0,128,255},
+        fillColor={0,128,255},
+        fillPattern=FillPattern.Solid,
+        visible=not allowFlowReversal),
+      Line(
+        points={{55,-85},{-60,-85}},
+        color={0,128,255},
+        visible=not allowFlowReversal),
+      Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -314,10 +314,11 @@ equation
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+      Text(
+        extent={{-149,-114},{151,-154}},
+        textxColor={0,0,255},
+        textString="%name")}),
+      Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model is intended for existing steam district heating systems 

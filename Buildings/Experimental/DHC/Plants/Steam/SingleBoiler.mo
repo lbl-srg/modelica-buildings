@@ -1,15 +1,16 @@
 within Buildings.Experimental.DHC.Plants.Steam;
 model SingleBoiler "A generic steam plant with a single boiler that discharges 
-  saturated steam vapor"
+  saturated steam"
   extends Buildings.Experimental.DHC.Plants.BaseClasses.PartialPlant(
     final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.HeatingGeneration1,
+    redeclare replaceable package MediumHea_b=Buildings.Media.Steam,
     final have_fan=false,
     final have_pum=true,
     final have_fue=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false,
-    redeclare replaceable package MediumHea_b=Buildings.Media.Steam);
+    final allowFlowReversal=false);
 
   // Nominal values
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
@@ -64,11 +65,11 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
 
   // Boiler controller
   parameter Modelica.Blocks.Types.SimpleController controllerTypeBoi=
-    Modelica.Blocks.Types.SimpleController.PID "Type of controller"
+    Modelica.Blocks.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(tab="Control", group="Boiler"));
-  parameter Real kBoi(min=0) = 20 "Gain of controller"
+  parameter Real kBoi(min=0) = 10 "Gain of controller"
     annotation (Dialog(tab="Control", group="Boiler"));
-  parameter Modelica.Units.SI.Time TiBoi(min=Modelica.Constants.small)=30
+  parameter Modelica.Units.SI.Time TiBoi(min=Modelica.Constants.small)=120
     "Time constant of Integrator block"
      annotation (Dialog(enable=
           controllerTypeBoi == Modelica.Blocks.Types.SimpleController.PI or
@@ -103,7 +104,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation(Evaluate=true,
       Dialog(tab="Control", group="Boiler"));
-  parameter Real yBoi_start=0.1 "Initial value of output"
+  parameter Real yBoi_start=0.5 "Initial value of output"
     annotation(Dialog(enable=initTypeBoi ==
       Modelica.Blocks.Types.Init.InitialOutput,
       tab="Control",
@@ -113,7 +114,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
   parameter Modelica.Blocks.Types.SimpleController controllerTypePum=
     Modelica.Blocks.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(tab="Control", group="Pump"));
-  parameter Real kPum(min=0) = 100 "Gain of controller"
+  parameter Real kPum(min=0) = 5 "Gain of controller"
     annotation (Dialog(tab="Control", group="Pump"));
   parameter Modelica.Units.SI.Time TiPum(min=Modelica.Constants.small)=120
     "Time constant of Integrator block"
@@ -150,7 +151,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation(Evaluate=true, Dialog(tab="Control", group="Pump"));
-  parameter Real yPum_start=0.5 "Initial value of output"
+  parameter Real yPum_start=0.7 "Initial value of output"
     annotation(Dialog(enable=initTypePum ==
       Modelica.Blocks.Types.Init.InitialOutput,
       tab="Control", group="Pump"));

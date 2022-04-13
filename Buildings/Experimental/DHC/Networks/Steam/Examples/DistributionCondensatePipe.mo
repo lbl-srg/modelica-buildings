@@ -86,7 +86,7 @@ equation
     annotation (Line(points={{40,44},{12,44},{12,20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=86400, Tolerance=1e-6, __Dymola_Algorithm="Dassl"),
+    experiment(StopTime=86400, Tolerance=1e-6),
     __Dymola_Commands(file=
       "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Steam/Examples/DistributionCondensatePipe.mos"
       "Simulate and plot"),

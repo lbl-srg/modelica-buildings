@@ -85,7 +85,7 @@ equation
           90,-2},{82,-2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=86400, Tolerance=1e-6, __Dymola_Algorithm="Dassl"),
+    experiment(StopTime=86400, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Steam/Examples/ConnectionCondensatePipe.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

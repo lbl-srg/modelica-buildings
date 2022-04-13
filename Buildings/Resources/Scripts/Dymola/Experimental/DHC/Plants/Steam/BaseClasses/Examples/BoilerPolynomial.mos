@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.BoilerPolynomial", stopTime=3600, tolerance=1e-06, resultFile="BoilerPolynomial");
+simulateModel("Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.BoilerPolynomial", stopTime=3600, tolerance=1e-06, method="dassl", resultFile="BoilerPolynomial");
 // Plot commands
 createPlot(id=1, position={33, 21, 614, 476}, 
 	y={"y.y"}, 

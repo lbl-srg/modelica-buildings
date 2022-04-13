@@ -55,9 +55,9 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(
-      StopTime=172800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      StartTime=1728000,
+      StopTime=1814400,
+      Tolerance=1e-06),
 __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Steam/Examples/BuildingTimeSeriesAtETS.mos"
   "Simulate and plot"),

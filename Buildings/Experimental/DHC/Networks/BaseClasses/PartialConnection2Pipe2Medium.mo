@@ -229,10 +229,11 @@ First implementation.
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0}),           Text(
-        extent={{-152,-104},{148,-144}},
-        textString="%name",
-        lineColor={0,0,255}),
+          lineColor={0,0,0}),
+        Text(
+          extent={{-152,-104},{148,-144}},
+          textString="%name",
+          textColor={0,0,255}),
         Rectangle(
           extent={{58,6},{62,100}},
           fillColor={0,0,0},

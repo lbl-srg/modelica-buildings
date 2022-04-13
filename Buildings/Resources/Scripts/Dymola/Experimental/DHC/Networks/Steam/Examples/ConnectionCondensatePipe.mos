@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.ConnectionCondensatePipe", stopTime=86400, tolerance=1e-6, resultFile="ConnectionCondensatePipe");
+simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.ConnectionCondensatePipe", stopTime=86400, tolerance=1e-6, method="dassl", resultFile="ConnectionCondensatePipe");
 // Plot commands
 createPlot(id=1, position={26, 43, 764, 418}, 
   y={"con.port_aDisSup.m_flow", "con.port_bDisRet.m_flow"}, 

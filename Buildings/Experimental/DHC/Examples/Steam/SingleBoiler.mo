@@ -1,5 +1,6 @@
-within Buildings.Experimental.DHC.Examples;
-model Steam "Example model for a complete steam district heating system"
+within Buildings.Experimental.DHC.Examples.Steam;
+model SingleBoiler "Example model for a complete steam district heating system with a 
+  central plant that contains a single boiler"
   extends Modelica.Icons.Example;
 
   package MediumSte = Buildings.Media.Steam (
@@ -39,12 +40,12 @@ model Steam "Example model for a complete steam district heating system"
     "Pressure drop of distribution at nominal mass flow rate";
 
   Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS bld[N](
-    redeclare package MediumSte = MediumSte,
-    redeclare package MediumWat = MediumWat,
+    redeclare final package MediumSte = MediumSte,
+    redeclare final package MediumWat = MediumWat,
     each have_prv=true,
     each dp_nominal=dpPip/2,
-    each pSte_nominal=pSat,
-    each Q_flow_nominal=QBui_flow_nominal,
+    each final pSte_nominal=pSat,
+    each final Q_flow_nominal=QBui_flow_nominal,
     each pLow_nominal=pLow,
     each tableOnFile=false,
     each QHeaLoa=
@@ -55,31 +56,27 @@ model Steam "Example model for a complete steam district heating system"
     "Buildings"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
   Buildings.Experimental.DHC.Networks.Steam.DistributionCondensatePipe dis(
-    redeclare package MediumSup = MediumSte,
-    redeclare package MediumRet = MediumWat,
+    redeclare final package MediumSup = MediumSte,
+    redeclare final package MediumRet = MediumWat,
     final dp_nominal=dp_nominal,
-    nCon=N,
-    mDis_flow_nominal=mDis_flow_nominal,
-    mCon_flow_nominal=bld.m_flow_nominal)
+    final nCon=N,
+    final mDis_flow_nominal=mDis_flow_nominal,
+    final mCon_flow_nominal=bld.m_flow_nominal)
     "Distribution network"
     annotation (Placement(transformation(extent={{0,-20},{40,0}})));
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
-    redeclare package Medium = MediumWat,
-    redeclare package MediumHea_b = MediumSte,
+    redeclare final package Medium = MediumWat,
+    redeclare final package MediumHea_b = MediumSte,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
-    m_flow_nominal=mDis_flow_nominal,
-    pSteSet=pSat,
-    Q_flow_nominal=QDis_flow_nominal,
-    per=perPumFW,
+    final m_flow_nominal=mDis_flow_nominal,
+    final pSteSet=pSat,
+    final Q_flow_nominal=QDis_flow_nominal,
+    final per=perPumFW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    controllerTypeBoi=Modelica.Blocks.Types.SimpleController.PI,
     kBoi=600,
     TiBoi(displayUnit="min") = 120,
-    yBoi_start=0.5,
-    controllerTypePum=Modelica.Blocks.Types.SimpleController.PI,
     kPum=200,
-    TiPum=1000,
-    yPum_start=0.7)
+    TiPum=1000)
     "Plant"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 equation
@@ -95,12 +92,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
       __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Steam.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Steam/SingleBoiler.mos"
     "Simulate and plot"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -111,7 +107,9 @@ First implementation.
 </html>", info="<html>
 <p>
 This example model demonstrates a complete system simulation for 
-steam district heating systems. 
+steam district heating systems. The central plant features a single boiler.
+For the distribution network, pressure losses on the condensate return 
+pipes are included, while the steam pipes are assumed to be lossless.
 </p>
 </html>"));
-end Steam;
+end SingleBoiler;

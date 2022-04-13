@@ -36,36 +36,34 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     "Performance data for condensate return pumps";
 
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
-    redeclare package Medium = MediumWat,
-    redeclare package MediumHea_b = MediumSte,
+    redeclare final package Medium = MediumWat,
+    redeclare final package MediumHea_b = MediumSte,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
-    VBoi=500,
-    VTanFW_start=10,
-    m_flow_nominal=m_flow_nominal,
-    pSteSet=pSat,
-    per=perPumFW,
+    final m_flow_nominal=m_flow_nominal,
+    final pSteSet=pSat,
+    final per=perPumFW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Plant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation vol(
-    redeclare package MediumSte = MediumSte,
-    redeclare package MediumWat = MediumWat,
+    redeclare final package MediumSte = MediumSte,
+    redeclare final package MediumWat = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    p_start=pSat,
-    T_start=TSat,
-    m_flow_nominal=m_flow_nominal,
+    final p_start=pSat,
+    final T_start=TSat,
+    final m_flow_nominal=m_flow_nominal,
     V=1)
     "Volume"
     annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    redeclare package Medium = MediumWat,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal = dpPip)
+    redeclare final package Medium = MediumWat,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal = dpPip)
     "Resistance in district network"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.SteamTrap steTra(
-    redeclare package Medium = MediumWat,
-    m_flow_nominal=m_flow_nominal)
+    redeclare final package Medium = MediumWat,
+    final m_flow_nominal=m_flow_nominal)
     "Steam trap"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Modelica.Blocks.Sources.Sine inp(
@@ -76,7 +74,7 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     "Input signal"
     annotation (Placement(transformation(extent={{90,-20},{70,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare package Medium = MediumWat)
+    redeclare final package Medium = MediumWat)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,-50},{0,-30}})));
   Buildings.Controls.Continuous.LimPID conPumCNR(
@@ -85,12 +83,12 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     Ti=15)
     "Controller"
     annotation (Placement(transformation(extent={{20,-20},{0,0}})));
-  Modelica.Blocks.Math.Gain m_flow(k=m_flow_nominal)
+  Modelica.Blocks.Math.Gain m_flow(final k=m_flow_nominal)
     "Gain to calculate m_flow"
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumCNR(
-    redeclare package Medium = MediumWat,
-    per=perPumCNR,
+    redeclare final package Medium = MediumWat,
+    final per=perPumCNR,
     y_start=1)
     "Condensate return pump"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
@@ -119,7 +117,7 @@ equation
     annotation (Line(points={{69,-10},{62,-10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=864000, Tolerance=1e-6, __Dymola_Algorithm="Dassl"),
+    experiment(StopTime=86400, Tolerance=1e-6),
       __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Steam/Examples/SingleBoiler.mos"
     "Simulate and plot"),
