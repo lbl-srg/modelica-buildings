@@ -4,13 +4,10 @@ model SupplyPumpOpenTank
 
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
-/*  parameter Boolean allowRemoteCharging = true
-    "= true if the tank is allowed to be charged by a remote source";*/
-
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
-    per(pressure(dp=nom.dp_nominal*{2,1.2,0}, V_flow=(nom.m_flow_nominal)/1.2*{0,
-            1.2,2})),
+    per(pressure(dp=nom.dp_nominal*{1.8,1,0}, V_flow=(nom.m_flow_nominal)/1.2*{0,
+            1,1.8})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -94,8 +91,7 @@ model SupplyPumpOpenTank
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={20,0})));
-  Modelica.Blocks.Interfaces.RealOutput yValDis_actual
-                                                   "Actual valve position"
+  Modelica.Blocks.Interfaces.RealOutput yValDis_actual "Actual valve position"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -103,41 +99,40 @@ model SupplyPumpOpenTank
         origin={-80,150}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-80,110})));
-  Modelica.Blocks.Interfaces.RealOutput yValCha_actual
-                                                   "Actual valve position"
+        origin={-100,110})));
+  Modelica.Blocks.Interfaces.RealOutput yValCha_actual "Actual valve position"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-40,150}),  iconTransformation(
+        origin={-50,150}),  iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-40,110})));
+        origin={-60,110})));
   Modelica.Blocks.Interfaces.RealInput yPum "Secondary pump speed input"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={0,150}),    iconTransformation(
+        origin={-20,150}),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,110})));
-  Modelica.Blocks.Interfaces.RealInput yValCha
-    "Valve position input" annotation (Placement(transformation(extent={{10,10},
-            {-10,-10}},
+        origin={-20,110})));
+  Modelica.Blocks.Interfaces.RealInput yValChaOn
+    "Valve position input, on-off signal" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={40,150}),       iconTransformation(
+        origin={40,150}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,110})));
-  Modelica.Blocks.Interfaces.RealInput yValDis
-    "Valve position input" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput yValDisOn
+    "Valve position input, on-off signal" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={80,150}),  iconTransformation(
+        origin={100,150}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={80,110})));
+        origin={100,110})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMaxDis(nin=3)
     "Maximum valve position of discharging valves" annotation (Placement(
         transformation(
@@ -149,7 +144,49 @@ model SupplyPumpOpenTank
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-40,110})));
+        origin={-50,110})));
+  Modelica.Blocks.Interfaces.RealInput yValChaMod
+    "Valve position input, modulating signal" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={20,150}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={20,110})));
+  Modelica.Blocks.Interfaces.RealInput yValDisMod
+    "Valve position input, modulating signal" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={80,150}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={80,110})));
+  Modelica.Blocks.Interfaces.RealOutput pCHWS
+    "Absolute pressure at the supply line" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={110,30}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={110,30})));
+  Modelica.Blocks.Interfaces.RealOutput pCHWR
+    "Absolute pressure at the return line" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={110,-30}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={110,-30})));
+  Buildings.Fluid.Sensors.Pressure senPreCHWR(
+    redeclare final package Medium = Medium)
+    "Pressure sensor"
+    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+  Buildings.Fluid.Sensors.Pressure senPreCHWS(
+    redeclare final package Medium = Medium)
+    "Pressure sensor"
+    annotation (Placement(transformation(extent={{70,40},{90,20}})));
 equation
   connect(port_chiOut, valCha1.port_b)
     annotation (Line(points={{-100,60},{-10,60}}, color={0,127,255}));
@@ -177,20 +214,16 @@ equation
           {40,-7.21645e-16},{40,10}}, color={0,127,255}));
   connect(cheVal.port_b, valCha3.port_a) annotation (Line(points={{30,-7.21645e-16},
           {40,-7.21645e-16},{40,-10}}, color={0,127,255}));
-  connect(pum.y, yPum) annotation (Line(points={{-20,12},{-20,134},{0,134},{0,150}},
+  connect(pum.y, yPum) annotation (Line(points={{-20,12},{-20,150}},
         color={0,0,127}));
-  connect(valCha1.y, yValCha) annotation (Line(points={{0,72},{0,80},{40,80},{40,
-          150}}, color={0,0,127}));
-  connect(valCha3.y, yValCha) annotation (Line(points={{52,-20},{60,-20},{60,80},
-          {40,80},{40,150}}, color={0,0,127}));
-  connect(valCha2.y, yValCha) annotation (Line(points={{-52,-20},{-56,-20},{-56,
-          -36},{60,-36},{60,80},{40,80},{40,150}}, color={0,0,127}));
-  connect(valDis2.y, yValDis) annotation (Line(points={{-52,20},{-60,20},{-60,-40},
-          {80,-40},{80,150}}, color={0,0,127}));
-  connect(valDis3.y, yValDis)
-    annotation (Line(points={{52,20},{80,20},{80,150}}, color={0,0,127}));
-  connect(valDis1.y, yValDis) annotation (Line(points={{0,-48},{0,-40},{80,-40},
-          {80,150}}, color={0,0,127}));
+  connect(valCha3.y, yValChaOn) annotation (Line(points={{52,-20},{60,-20},{60,100},
+          {40,100},{40,150}}, color={0,0,127}));
+  connect(valCha2.y, yValChaOn) annotation (Line(points={{-52,-20},{-52,-36},{60,
+          -36},{60,100},{40,100},{40,150}}, color={0,0,127}));
+  connect(valDis2.y, yValDisOn) annotation (Line(points={{-52,20},{-52,86},{76,86},
+          {76,112},{100,112},{100,150}}, color={0,0,127}));
+  connect(valDis3.y, yValDisOn) annotation (Line(points={{52,20},{52,86},{76,86},
+          {76,112},{100,112},{100,150}}, color={0,0,127}));
   connect(valDis1.y_actual, mulMaxDis.u[1]) annotation (Line(points={{-5,-53},{
           -5,-52},{-79.3333,-52},{-79.3333,98}},
                                               color={0,0,127}));
@@ -202,15 +235,28 @@ equation
   connect(mulMaxDis.y, yValDis_actual)
     annotation (Line(points={{-80,122},{-80,150}}, color={0,0,127}));
   connect(valCha2.y_actual, mulMaxCha.u[1]) annotation (Line(points={{-47,-15},
-          {-68,-15},{-68,92},{-39.3333,92},{-39.3333,98}},color={0,0,127}));
-  connect(valCha1.y_actual, mulMaxCha.u[2]) annotation (Line(points={{-5,67},{-5,
-          92},{-40,92},{-40,98}}, color={0,0,127}));
-  connect(valCha3.y_actual, mulMaxCha.u[3]) annotation (Line(points={{47,-25},{
-          46,-25},{46,-28},{68,-28},{68,92},{-40.6667,92},{-40.6667,98}},
-                                                                       color={0,
+          {-60,-15},{-60,90},{-49.3333,90},{-49.3333,98}},color={0,0,127}));
+  connect(valCha3.y_actual, mulMaxCha.u[2]) annotation (Line(points={{47,-25},{46,
+          -25},{46,-40},{-60,-40},{-60,90},{-50,90},{-50,98}},         color={0,
           0,127}));
   connect(mulMaxCha.y, yValCha_actual)
-    annotation (Line(points={{-40,122},{-40,150}}, color={0,0,127}));
+    annotation (Line(points={{-50,122},{-50,150}}, color={0,0,127}));
+  connect(valCha1.y_actual, mulMaxCha.u[3]) annotation (Line(points={{-5,67},{
+          -6,67},{-6,68},{-60,68},{-60,90},{-50.6667,90},{-50.6667,98}},
+                                                                      color={0,0,
+          127}));
+  connect(valCha1.y, yValChaMod) annotation (Line(points={{0,72},{0,134},{20,134},
+          {20,150}}, color={0,0,127}));
+  connect(valDis1.y, yValDisMod) annotation (Line(points={{0,-48},{68,-48},{68,120},
+          {80,120},{80,150}}, color={0,0,127}));
+  connect(senPreCHWR.port, port_CHWR)
+    annotation (Line(points={{80,-40},{80,-60},{100,-60}}, color={0,127,255}));
+  connect(senPreCHWR.p, pCHWR)
+    annotation (Line(points={{91,-30},{110,-30}}, color={0,0,127}));
+  connect(senPreCHWS.p, pCHWS)
+    annotation (Line(points={{91,30},{110,30}}, color={0,0,127}));
+  connect(senPreCHWS.port, port_CHWS)
+    annotation (Line(points={{80,40},{80,60},{100,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),

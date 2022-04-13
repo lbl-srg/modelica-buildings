@@ -173,11 +173,12 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-10})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl conPumSecGro(
-      tankIsOpen=false)    "Control block for secondary pump-valve group"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl conPumSecGro(
+      tankIsOpen=false) "Control block for secondary pump-valve group"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,-30})));
+        origin={-70,-20})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mTanSet_flow(
     realTrue=nomPla2.mTan_flow_nominal,
     realFalse=-nomPla2.mTan_flow_nominal)
@@ -425,8 +426,9 @@ equation
           82}},     color={255,0,255}));
   connect(preDroS1U2.port_a, chi1.port_b2) annotation (Line(points={{-30,20},{-36,
           20},{-36,80},{-124,80}}, color={0,127,255}));
-  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-90},{-156,-90},{-156,
-          -110},{-50,-110},{-50,-102}},   color={255,0,255}));
+  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-90},{-156,-90},{
+          -156,-116},{-50,-116},{-50,-102}},
+                                          color={255,0,255}));
   connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-110},{-42,-110},{-42,-102}},
         color={255,0,255}));
   connect(tanBra.port_CHWR, supPum.port_chiInl)
@@ -441,25 +443,27 @@ equation
           {-36,-54},{-36,-40},{-30,-40}}, color={0,127,255}));
   connect(supPum.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
-  connect(conPumSecGro.yValDis, supPum.yValDis)
-    annotation (Line(points={{-62,-41},{-62,-49}}, color={0,0,127}));
-  connect(conPumSecGro.yValCha, supPum.yValCha)
-    annotation (Line(points={{-66,-41},{-66,-49}}, color={0,0,127}));
+  connect(conPumSecGro.yValDisOn, supPum.yValDis)
+    annotation (Line(points={{-62,-31},{-62,-49}}, color={0,0,127}));
   connect(conPumSecGro.yPum, supPum.yPum)
-    annotation (Line(points={{-70,-41},{-70,-49}}, color={0,0,127}));
+    annotation (Line(points={{-74,-31},{-74,-36},{-70,-36},{-70,-49}},
+                                                   color={0,0,127}));
   connect(tanBra.mTan_flow, conPumSecGro.mTan_flow)
-    annotation (Line(points={{-92,-49},{-92,-26},{-81,-26}}, color={0,0,127}));
+    annotation (Line(points={{-92,-49},{-92,-22},{-81,-22}}, color={0,0,127}));
   connect(supPum.yValCha_actual, conPumSecGro.yValCha_actual) annotation (Line(
-        points={{-74,-49},{-74,-44},{-84,-44},{-84,-34},{-81,-34}}, color={0,0,127}));
+        points={{-74,-49},{-74,-40},{-81,-40},{-81,-30}},           color={0,0,127}));
   connect(supPum.yValDis_actual, conPumSecGro.yValDis_actual) annotation (Line(
-        points={{-78,-49},{-78,-48},{-88,-48},{-88,-30},{-81,-30}}, color={0,0,127}));
-  connect(conPumSecGro.uOnl, or2.y) annotation (Line(points={{-58,-26},{-50,-26},
+        points={{-78,-49},{-78,-44},{-86,-44},{-86,-26},{-81,-26}}, color={0,0,127}));
+  connect(conPumSecGro.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},
           {-50,-78}}, color={255,0,255}));
   connect(mTanSet_flow.y, conPumSecGro.mTanSet_flow) annotation (Line(points={{-118,
-          -10},{-88,-10},{-88,-22},{-81,-22}}, color={0,0,127}));
-  connect(uRemCha.y, conPumSecGro.uRemCha) annotation (Line(points={{-159,-90},{
-          -156,-90},{-156,-30},{-106,-30},{-106,-14},{-50,-14},{-50,-22},{-58,-22}},
+          -10},{-86,-10},{-86,-18},{-81,-18}}, color={0,0,127}));
+  connect(uRemCha.y, conPumSecGro.uRemCha) annotation (Line(points={{-159,-90},
+          {-156,-90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,
+          -10}},
         color={255,0,255}));
+  connect(conPumSecGro.yValChaMod, supPum.yValCha)
+    annotation (Line(points={{-70,-31},{-66,-31},{-66,-49}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/TwoSourcesThreeUsers.mos"
         "Simulate and plot"),

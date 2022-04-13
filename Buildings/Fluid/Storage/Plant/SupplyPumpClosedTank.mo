@@ -57,17 +57,17 @@ model SupplyPumpClosedTank
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-40,110}),  iconTransformation(
+        origin={-70,110}),  iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-40,110})));
-  Modelica.Blocks.Interfaces.RealOutput yValDis_actual
-    if allowRemoteCharging                         "Actual valve position"
+  Modelica.Blocks.Interfaces.RealOutput yValDis_actual if allowRemoteCharging
+    "Actual valve position"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-80,110}), iconTransformation(
+        origin={-90,110}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-80,110})));
@@ -75,7 +75,7 @@ model SupplyPumpClosedTank
     "Valve position input" annotation (Placement(transformation(extent={{10,10},
             {-10,-10}},
         rotation=90,
-        origin={40,110}),       iconTransformation(
+        origin={60,110}),       iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,110})));
@@ -91,7 +91,7 @@ model SupplyPumpClosedTank
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={0,110}),    iconTransformation(
+        origin={40,110}),   iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,110})));
@@ -102,13 +102,12 @@ equation
   connect(pasValDis.port_a, cheVal.port_b) annotation (Line(points={{20,20},{10,
           20},{10,60},{-1.77636e-15,60}},
                                      color={0,127,255}));
-  connect(pum.y, yPum) annotation (Line(points={{-50,72},{-50,90},{0,90},{0,110}},
-                 color={0,0,127}));
-  connect(valCha.y, yValCha) annotation (Line(points={{30,-8},{30,0},{48,0},{48,
-          96},{40,96},{40,110}},   color={0,0,127}));
+  connect(pum.y, yPum) annotation (Line(points={{-50,72},{-50,96},{40,96},{40,
+          110}}, color={0,0,127}));
+  connect(valCha.y, yValCha) annotation (Line(points={{30,-8},{30,0},{60,0},{60,
+          110}},                   color={0,0,127}));
   connect(valCha.y_actual, yValCha_actual) annotation (Line(points={{25,-13},{
-          24,-13},{24,-14},{-66,-14},{-66,96},{-40,96},{-40,110}},
-                                                   color={0,0,127}));
+          24,-13},{24,0},{-70,0},{-70,110}},       color={0,0,127}));
   connect(port_chiOut, pum.port_a)
     annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
   connect(port_chiOut, valCha.port_b) annotation (Line(points={{-100,60},{-80,60},
@@ -125,8 +124,10 @@ equation
     annotation (Line(points={{40,60},{100,60}}, color={0,127,255}));
   connect(valDis.y, yValDis) annotation (Line(points={{30,72},{30,80},{80,80},{
           80,110}}, color={0,0,127}));
-  connect(valDis.y_actual, yValDis_actual) annotation (Line(points={{35,67},{44,
-          67},{44,84},{-80,84},{-80,110}}, color={0,0,127}));
+  connect(valDis.y_actual, yValDis_actual) annotation (Line(points={{35,67},{40,
+          67},{40,86},{-90,86},{-90,110}}, color={0,0,127}));
+  connect(yValDis_actual, yValDis_actual)
+    annotation (Line(points={{-90,110},{-90,110}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Line(
           points={{-20,0},{40,0}},

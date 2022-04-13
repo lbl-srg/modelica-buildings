@@ -6,7 +6,8 @@ model TankBranch
   Buildings.Fluid.FixedResistances.PressureDrop preDroTan(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
-    final m_flow_nominal=nom.mTan_flow_nominal) "Flow resistance on tank branch"
+    final m_flow_nominal=nom.mTan_flow_nominal)
+    "Flow resistance on tank branch"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
