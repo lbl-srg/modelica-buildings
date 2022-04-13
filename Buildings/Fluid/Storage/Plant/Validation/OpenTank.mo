@@ -3,7 +3,8 @@ model OpenTank "(Draft)"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
       souChi(final use_m_flow_in=true),
-      nom(final dp_nominal=300000));
+      nom(final tankIsOpen=true,
+          final dp_nominal=300000));
 
   Modelica.Blocks.Sources.TimeTable set_mTan_flow(table=[0,0; 3600/7,0; 3600/7,
         -1; 3600/7*3,-1; 3600/7*3,0; 3600/7*4,0; 3600/7*4,1; 3600/7*6,1; 3600/7
@@ -20,7 +21,7 @@ model OpenTank "(Draft)"
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl conPumVal(
-      tankIsOpen=true)
+    final tankIsOpen=nom.tankIsOpen)
     "Control block for the secondary pump and near-by valves"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Modelica.Blocks.Sources.Constant set_pCHWS(k=sin.p - 0.3*nom.dp_nominal)

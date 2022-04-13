@@ -8,13 +8,21 @@ model TwoSourcesThreeUsers
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=500000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    final displayUnit="Pa")=
+     500000
     "Nominal pressure difference";
-  parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation=300000
+  parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation(
+    final displayUnit="Pa")=
+     300000
     "Pressurisation point";
-  parameter Modelica.Units.SI.Temperature T_CHWR_nominal=12+273.15
+  parameter Modelica.Units.SI.Temperature T_CHWR_nominal(
+    final displayUnit="degC")=
+     12+273.15
     "Nominal temperature of CHW return";
-  parameter Modelica.Units.SI.Temperature T_CHWS_nominal=7+273.15
+  parameter Modelica.Units.SI.Temperature T_CHWS_nominal(
+    final displayUnit="degC")=
+     7+273.15
     "Nominal temperature of CHW supply";
   parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.6
     "Nominal cooling load of one consumer";
@@ -131,6 +139,7 @@ model TwoSourcesThreeUsers
 
 // Second source: chiller and tank
   Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nomPla2(
+    tankIsOpen=false,
     mTan_flow_nominal=0.75*m_flow_nominal,
     mChi_flow_nominal=0.75*m_flow_nominal,
     dp_nominal=dp_nominal,

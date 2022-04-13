@@ -3,6 +3,8 @@ model TankBranch
   "(Draft) Model of the tank branch where the tank can potentially be charged remotely"
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
+  final parameter Boolean tankIsOpen = nom.tankIsOpen "Tank is open";
+
   Buildings.Fluid.FixedResistances.PressureDrop preDroTan(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
@@ -20,7 +22,6 @@ model TankBranch
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={80,110})));
-
   Buildings.Fluid.Storage.Stratified tan(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
@@ -42,6 +43,15 @@ model TankBranch
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-30,-30})));
+  Buildings.Fluid.Sources.Boundary_pT atm(
+    redeclare final package Medium = Medium,
+    final p(displayUnit="Pa") = 101325,
+    final T=nom.T_CHWS_nominal,
+    final nPorts=1) if tankIsOpen
+                    "Atmosphere pressure" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-10,90})));
 equation
   connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{-19,-30},{80,-30},
           {80,110}},                  color={0,0,127}));
@@ -58,6 +68,8 @@ equation
     annotation (Line(points={{30,40},{30,60},{100,60}}, color={0,127,255}));
   connect(port_CHWR, sen_m_flow.port_a) annotation (Line(points={{100,-60},{-30,
           -60},{-30,-40}}, color={0,127,255}));
+  connect(atm.ports[1], tan.port_a)
+    annotation (Line(points={{-10,80},{-10,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
@@ -67,7 +79,13 @@ equation
           extent={{-20,40},{20,-40}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-26,36},{26,26}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=tankIsOpen)}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>

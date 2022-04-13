@@ -1,7 +1,8 @@
 within Buildings.Fluid.Storage.Plant.Validation.BaseClasses;
 partial model PartialClosedTank "(Draft)"
 
-  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant;
+  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(nom(
+    final tankIsOpen=false));
 
   Buildings.Fluid.Storage.Plant.SupplyPumpClosedTank supPum(
     redeclare final package Medium = Medium,
