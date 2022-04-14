@@ -47,6 +47,7 @@ model SingleBoiler "Example model for a complete steam district heating system w
     each final pSte_nominal=pSat,
     each final Q_flow_nominal=QBui_flow_nominal,
     each pLow_nominal=pLow,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     each tableOnFile=false,
     each QHeaLoa=
       [0,0.8; 2,1; 10,1; 12,0.5; 20,0.5; 24,0.8]*[1,0;0,QBui_flow_nominal],

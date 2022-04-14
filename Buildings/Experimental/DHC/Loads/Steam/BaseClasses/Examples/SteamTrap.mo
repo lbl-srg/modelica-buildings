@@ -43,6 +43,7 @@ model SteamTrap "Example model to demonstrate the steam trap"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump"

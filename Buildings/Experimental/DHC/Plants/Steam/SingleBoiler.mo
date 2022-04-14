@@ -6,11 +6,17 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     redeclare replaceable package MediumHea_b=Buildings.Media.Steam,
     final have_fan=false,
     final have_pum=true,
-    final have_fue=true,
+    final nFue=1,
+    final fue={fueBoi},
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false,
     final allowFlowReversal=false);
+
+  parameter Buildings.Fluid.Data.Fuels.Generic fueBoi=
+    Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue()
+    "Boiler fuel type"
+     annotation (choicesAllMatching = true, Dialog(enable=have_fue));
 
   // Nominal values
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
@@ -171,7 +177,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     final allowFlowReversal=allowFlowReversal,
     p_start=pSteSet,
     T_start=TSat,
-    final fue=fue,
+    final fue=fueBoi,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=3000,
     final Q_flow_nominal=Q_flow_nominal*boiSca,

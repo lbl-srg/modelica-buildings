@@ -23,9 +23,11 @@ partial model PartialPlant
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_fue=false
-    "Set to true if the plant has fuel use"
+  parameter Integer nFue=0
+    "Number of fuel types (0 means no combustion system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_fue=nFue>0
+    "Set to true if the plant has fuel use";
   parameter Boolean have_eleCoo=false
     "Set to true if the plant has electric cooling system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -35,7 +37,7 @@ partial model PartialPlant
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Buildings.Fluid.Data.Fuels.Generic fue
+  parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
      annotation (choicesAllMatching = true, Dialog(enable=have_fue));
   // IO CONNECTORS
@@ -149,11 +151,6 @@ return.
 </html>",
 revisions="<html>
 <ul>
-<li>
-April 4, 2022, by Kathryn Hinkelman:<br/>
-Changed <code>fue</code> declaration from vector to single instance 
-because index for array expression must be 0 with the record binding.
-</li>
 <li>
 September 20, 2021, by Mingzhe Liu:<br/>
 Refactored <code>if</code> statement to correctly enable and 
