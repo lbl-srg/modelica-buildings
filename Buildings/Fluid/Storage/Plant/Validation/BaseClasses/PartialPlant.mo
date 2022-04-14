@@ -12,9 +12,10 @@ partial model PartialPlant "(Draft)"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
+    preDroTanBot(final dp_nominal=nom.dp_nominal*0.05),
+    preDroTanTop(final dp_nominal=nom.dp_nominal*0.05),
     redeclare final package Medium = Medium,
-    final nom=nom,
-    final preDroTan(final dp_nominal=nom.dp_nominal*0.1)) "Tank branch"
+    final nom=nom) "Tank branch"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,

@@ -5,15 +5,15 @@ model TankBranch
 
   final parameter Boolean tankIsOpen = nom.tankIsOpen "Tank is open";
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDroTan(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroTanBot(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final m_flow_nominal=nom.mTan_flow_nominal)
-    "Flow resistance on tank branch"
-    annotation (Placement(transformation(
+    "Flow resistance on tank branch near tank bottom" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={30,30})));
+        rotation=0,
+        origin={30,0})));
   Modelica.Blocks.Interfaces.RealOutput mTan_flow
     "Mass flow rate through the tank" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -42,7 +42,7 @@ model TankBranch
     final allowFlowReversal=true) "Flow rate sensor"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={-30,-30})));
+        origin={50,30})));
   Buildings.Fluid.Sources.Boundary_pT atm(
     redeclare final package Medium = Medium,
     final p(displayUnit="Pa") = 101325,
@@ -52,24 +52,34 @@ model TankBranch
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-10,90})));
+  FixedResistances.PressureDrop preDroTanTop(
+    redeclare package Medium = Medium,
+    final allowFlowReversal=true,
+    final m_flow_nominal=nom.mTan_flow_nominal)
+    "Flow resistance on tank branch near tank top" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-30,0})));
 equation
-  connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{-19,-30},{80,-30},
+  connect(sen_m_flow.m_flow, mTan_flow) annotation (Line(points={{61,30},{80,30},
           {80,110}},                  color={0,0,127}));
-  connect(preDroTan.port_a, tan.port_b) annotation (Line(points={{30,20},{30,0},
-          {10,0}},                             color={0,127,255}));
-  connect(sen_m_flow.port_b, tan.port_a)
-    annotation (Line(points={{-30,-20},{-30,0},{-10,0}},
-                                                 color={0,127,255}));
   connect(port_chiOut, port_CHWS)
     annotation (Line(points={{-100,60},{100,60}}, color={0,127,255}));
   connect(port_chiInl, port_CHWR)
     annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
-  connect(preDroTan.port_b, port_CHWS)
-    annotation (Line(points={{30,40},{30,60},{100,60}}, color={0,127,255}));
-  connect(port_CHWR, sen_m_flow.port_a) annotation (Line(points={{100,-60},{-30,
-          -60},{-30,-40}}, color={0,127,255}));
   connect(atm.ports[1], tan.port_a)
     annotation (Line(points={{-10,80},{-10,0}}, color={0,127,255}));
+  connect(preDroTanBot.port_b, sen_m_flow.port_a)
+    annotation (Line(points={{40,0},{50,0},{50,20}}, color={0,127,255}));
+  connect(tan.port_b, preDroTanBot.port_a)
+    annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
+  connect(preDroTanTop.port_b, tan.port_a)
+    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
+  connect(preDroTanTop.port_a, port_chiInl) annotation (Line(points={{-40,0},{
+          -78,0},{-78,-60},{-100,-60}}, color={0,127,255}));
+  connect(sen_m_flow.port_b, port_CHWS)
+    annotation (Line(points={{50,40},{50,60},{100,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),

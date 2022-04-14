@@ -147,11 +147,11 @@ model TwoSourcesThreeUsers
     T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
+    preDroTanBot(final dp_nominal=nomPla2.dp_nominal*0.05),
+    preDroTanTop(final dp_nominal=nomPla2.dp_nominal*0.05),
     redeclare final package Medium = MediumCHW,
-    final nom=nomPla2,
-    final preDroTan(final dp_nominal=nomPla2.dp_nominal*0.1))
-    "Tank branch, tank can be charged remotely" annotation (Placement(
-        transformation(
+    final nom=nomPla2) "Tank branch, tank can be charged remotely" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-100,-60})));

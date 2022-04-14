@@ -19,9 +19,10 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
+    preDroTanBot(final dp_nominal=nom.dp_nominal*0.05),
+    preDroTanTop(final dp_nominal=nom.dp_nominal*0.05),
     redeclare final package Medium = Medium,
-    final nom=nom,
-    final preDroTan(final dp_nominal=nom.dp_nominal*0.1)) "Tank branch"
+    final nom=nom) "Tank branch"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch chiBra(
     redeclare final package Medium = Medium,
