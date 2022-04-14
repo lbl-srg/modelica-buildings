@@ -320,6 +320,14 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications</b>
+  <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.IntegratedPrimaryLoadSide
+      </td>
+      <td valign=\"top\">Removed duplicate instances of blocks that generate control signals.<br/>
+                         This is for
+                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2963\">Buildings, issue 2963</a>.
+      </td>
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
