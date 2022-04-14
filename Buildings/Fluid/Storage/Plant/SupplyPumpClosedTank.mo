@@ -153,12 +153,12 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{40,60},{20,70},{20,50},{40,60}},
+          points={{40,60},{24,70},{24,50},{40,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{40,60},{60,70},{60,50},{40,60}},
+          points={{40,60},{56,70},{56,50},{40,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -167,13 +167,13 @@ equation
           color={28,108,200},
           visible=allowRemoteCharging),
         Polygon(
-          points={{40,20},{20,30},{20,10},{40,20}},
+          points={{40,20},{24,30},{24,10},{40,20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=allowRemoteCharging),
         Polygon(
-          points={{40,20},{60,30},{60,10},{40,20}},
+          points={{40,20},{56,30},{56,10},{40,20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

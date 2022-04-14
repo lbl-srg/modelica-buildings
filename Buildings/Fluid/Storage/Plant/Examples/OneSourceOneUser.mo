@@ -10,9 +10,10 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom(
+    tankIsOpen=false,
     mTan_flow_nominal=0.5,
     mChi_flow_nominal=0.5,
-    dp_nominal=500000,
+    dp_nominal=300000,
     T_CHWS_nominal=280.15,
     T_CHWR_nominal=285.15) "Nominal values"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));

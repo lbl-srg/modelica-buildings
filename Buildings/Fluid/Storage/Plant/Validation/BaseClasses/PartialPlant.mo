@@ -6,7 +6,7 @@ partial model PartialPlant "(Draft)"
   Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom(
     mTan_flow_nominal=1,
     mChi_flow_nominal=1,
-    dp_nominal=500000,
+    dp_nominal=300000,
     T_CHWS_nominal=280.15,
     T_CHWR_nominal=285.15) "Nominal values"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
