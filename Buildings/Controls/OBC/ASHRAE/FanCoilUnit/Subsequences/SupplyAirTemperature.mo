@@ -15,7 +15,7 @@ block SupplyAirTemperature
     annotation(Dialog(group="Heating loop parameters",
       enable = have_heatingCoil));
 
-  parameter Real THeaSupAirHi(
+  parameter Real THeaSupAirMax(
     final unit="K",
     displayUnit="degC") = 273.15 + 32
     "Supply air temperature setpoint at maximum heating loop signal"
@@ -36,7 +36,7 @@ block SupplyAirTemperature
     annotation(Dialog(group="Cooling loop parameters",
       enable = have_coolingCoil));
 
-  parameter Real TCooSupAirHi(
+  parameter Real TCooSupAirMin(
     final unit="K",
     displayUnit="degC") = 273.15+12.8
     "Supply air temperature setpoint at maximum cooling loop signal"
@@ -166,7 +166,7 @@ block SupplyAirTemperature
     displayUnit="K",
     quantity="ThermodynamicTemperature") if have_coolingCoil
     "Zone cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
+    annotation (Placement(transformation(extent={{-160,-140},{-120,-100}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
@@ -191,101 +191,91 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiDeaCoo
     "Switch for turning on cooling mode from deadband mode"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiCooCoi
+    "Switch cooling coil signal to zero in deadband mode"
+    annotation (Placement(transformation(extent={{70,-110},{90,-90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiHeaCoi
+    "Switch heating coil signal to zero in deadband mode"
+    annotation (Placement(transformation(extent={{50,80},{70,100}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Line linTHeaSupAir
     "Convert heating loop signal to supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line lin1
+  Buildings.Controls.OBC.CDL.Continuous.Line linTCooSupAir
     "Convert cooling loop signal to supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=THeaSupAirHi)
-    "Heating supply air temperature setpoint limit signals"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTHeaSupAirMax(
+    final k=THeaSupAirMax)
+    "Maximum heating supply air temperature setpoint limit signal"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[2](
-    final k={heaPerMin,heaPerMax})
-    "Heating loop signal support points"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaPerMin(
+    final k=heaPerMin)
+    "Minimum heating loop signal support point"
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
-    final k=TCooSupAirHi)
-    "Cooling supply air temperature setpoint limit signals"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTCooSupAirMin(
+    final k=TCooSupAirMin)
+    "Minimum cooling supply air temperature setpoint limit signal"
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4[2](
-    final k={cooPerMin,cooPerMax})
-    "Cooling loop signal support points"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooPerMin(
+    final k=cooPerMin)
+    "Minimum cooling loop signal support point"
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDHea(
     final controllerType=controllerTypeHeaCoi,
     final k=kHeaCoi,
     final Ti=TiHeaCoi,
-    final Td=TdHeaCoi)
-    "PID controller for heating coil"
+    final Td=TdHeaCoi) "PID controller for heating coil"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDCoo(
     final controllerType=controllerTypeCooCoi,
     final k=kCooCoi,
     final Ti=TiCooCoi,
     final Td=TdCooCoi,
-    final reverseActing=false)
-    "PID controller for cooling coil"
+    final reverseActing=false) "PID controller for cooling coil"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=heaDea - deaHysLim,
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysDeaHea(
+    final uLow=heaDea-deaHysLim,
     final uHigh=heaDea)
     "Hysteresis for switching between deadband mode and heating mode"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZerHeaMod(
     final k=0) if not have_heatingCoil
-    "Constant zero signal"
+    "Constant zero signal for heating mode"
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiDeaHea
     "Switch for turning on heating mode from deadband mode"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=cooDea - deaHysLim,
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysDeaCoo(
+    final uLow=cooDea-deaHysLim,
     final uHigh=cooDea)
     "Hysteresis for switching on cooling mode from deadband mode"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZerCooMod(
     final k=0) if not have_coolingCoil
-    "Constant zero signal"
-    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Convert Boolean to Real"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Output heating coil signal only when heating mode is enabled"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
-    "Convert Boolean to Real"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
-    "Output cooling coil signal only when cooling mode is enabled"
-    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+    "Constant zero signal for cooling mode"
+    annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
     "Boolean to Real conversion"
-    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
+    annotation (Placement(transformation(extent={{60,130},{80,150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
     "Output heating coil signal only when fan is proven on"
@@ -295,132 +285,131 @@ protected
     "Output cooling coil signal only when fan is proven on"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaPerMax(
+    final k=heaPerMax)
+    "Maximum heating loop signal support point"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooPerMax(
+    final k=cooPerMax)
+    "Maximum cooling loop signal support point"
+    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(
+    final k=0)
+    "Constant zero signal"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+
 equation
-  connect(uHea, lin.u)
-    annotation (Line(points={{-140,40},{-102,40},{-102,60},{-62,60}},
-                                                  color={0,0,127}));
+  connect(uHea, linTHeaSupAir.u) annotation (Line(points={{-140,40},{-74,40},{-74,
+          60},{-62,60}}, color={0,0,127}));
 
-  connect(con2[1].y, lin.x1) annotation (Line(points={{-78,20},{-66,20},{-66,68},
-          {-62,68}}, color={0,0,127}));
+  connect(uCoo, linTCooSupAir.u) annotation (Line(points={{-140,-40},{-66,-40},{
+          -66,-60},{-62,-60}}, color={0,0,127}));
 
-  connect(con2[2].y, lin.x2) annotation (Line(points={{-78,20},{-66,20},{-66,56},
-          {-62,56}}, color={0,0,127}));
-
-  connect(uCoo, lin1.u)
-    annotation (Line(points={{-140,-40},{-102,-40},{-102,-60},{-62,-60}},
-                                                    color={0,0,127}));
-
-  connect(con4[1].y, lin1.x1) annotation (Line(points={{-78,-80},{-74,-80},{-74,
-          -52},{-62,-52}}, color={0,0,127}));
-
-  connect(con4[2].y, lin1.x2) annotation (Line(points={{-78,-80},{-74,-80},{-74,
-          -64},{-62,-64}}, color={0,0,127}));
-
-  connect(TAirSup, conPID.u_m)
+  connect(TAirSup, conPIDHea.u_m)
     annotation (Line(points={{-140,0},{30,0},{30,48}}, color={0,0,127}));
 
-  connect(TAirSup, conPID1.u_m) annotation (Line(points={{-140,0},{30,0},{30,-78},
-          {50,-78},{50,-72}},      color={0,0,127}));
+  connect(TAirSup, conPIDCoo.u_m) annotation (Line(points={{-140,0},{30,0},{30,-78},
+          {50,-78},{50,-72}}, color={0,0,127}));
 
-  connect(lin.y, swi1.u1) annotation (Line(points={{-38,60},{-30,60},{-30,68},{-22,
-          68}},    color={0,0,127}));
+  connect(linTHeaSupAir.y, swiDeaHea.u1) annotation (Line(points={{-38,60},{-30,
+          60},{-30,68},{-22,68}}, color={0,0,127}));
 
-  connect(con6.y, hys.u)
+  connect(conZerHeaMod.y, hysDeaHea.u)
     annotation (Line(points={{-48,100},{-42,100}}, color={0,0,127}));
 
-  connect(con6.y, lin.u) annotation (Line(points={{-48,100},{-46,100},{-46,76},{
-          -74,76},{-74,60},{-62,60}},  color={0,0,127}));
+  connect(conZerHeaMod.y, linTHeaSupAir.u) annotation (Line(points={{-48,100},{-46,
+          100},{-46,76},{-74,76},{-74,60},{-62,60}}, color={0,0,127}));
 
-  connect(uHea, hys.u) annotation (Line(points={{-140,40},{-74,40},{-74,76},{-46,
-          76},{-46,100},{-42,100}},     color={0,0,127}));
+  connect(uHea, hysDeaHea.u) annotation (Line(points={{-140,40},{-74,40},{-74,76},
+          {-46,76},{-46,100},{-42,100}}, color={0,0,127}));
 
-  connect(hys.y, swi1.u2) annotation (Line(points={{-18,100},{-10,100},{-10,80},
-          {-26,80},{-26,60},{-22,60}},
-                                color={255,0,255}));
+  connect(hysDeaHea.y, swiDeaHea.u2) annotation (Line(points={{-18,100},{-10,100},
+          {-10,80},{-26,80},{-26,60},{-22,60}}, color={255,0,255}));
 
-  connect(con8.y, lin1.u) annotation (Line(points={{-78,-120},{-66,-120},{-66,-60},
-          {-62,-60}},                    color={0,0,127}));
+  connect(conZerCooMod.y, linTCooSupAir.u) annotation (Line(points={{-78,-140},{
+          -66,-140},{-66,-60},{-62,-60}}, color={0,0,127}));
 
-  connect(hys1.y, swi2.u2)
-    annotation (Line(points={{-18,-20},{-2,-20}},
-                                                color={255,0,255}));
+  connect(hysDeaCoo.y, swiDeaCoo.u2)
+    annotation (Line(points={{-18,-20},{-2,-20}}, color={255,0,255}));
 
-  connect(uCoo, hys1.u) annotation (Line(points={{-140,-40},{-66,-40},{-66,-20},
-          {-42,-20}}, color={0,0,127}));
+  connect(uCoo, hysDeaCoo.u) annotation (Line(points={{-140,-40},{-66,-40},{-66,
+          -20},{-42,-20}}, color={0,0,127}));
 
-  connect(con8.y, hys1.u) annotation (Line(points={{-78,-120},{-66,-120},{-66,-20},
-          {-42,-20}},                    color={0,0,127}));
+  connect(conZerCooMod.y, hysDeaCoo.u) annotation (Line(points={{-78,-140},{-66,
+          -140},{-66,-20},{-42,-20}}, color={0,0,127}));
 
-  connect(swi1.y, swi2.u3) annotation (Line(points={{2,60},{8,60},{8,40},{-10,40},
-          {-10,-28},{-2,-28}},    color={0,0,127}));
+  connect(swiDeaHea.y, swiDeaCoo.u3) annotation (Line(points={{2,60},{8,60},{8,40},
+          {-10,40},{-10,-28},{-2,-28}}, color={0,0,127}));
 
-  connect(lin1.y, swi2.u1) annotation (Line(points={{-38,-60},{-14,-60},{-14,-12},
-          {-2,-12}},
-                 color={0,0,127}));
+  connect(linTCooSupAir.y, swiDeaCoo.u1) annotation (Line(points={{-38,-60},{-14,
+          -60},{-14,-12},{-2,-12}}, color={0,0,127}));
 
-  connect(swi2.y, conPID.u_s) annotation (Line(points={{22,-20},{36,-20},{36,40},
-          {12,40},{12,60},{18,60}}, color={0,0,127}));
+  connect(swiDeaCoo.y, conPIDHea.u_s) annotation (Line(points={{22,-20},{36,-20},
+          {36,40},{12,40},{12,60},{18,60}}, color={0,0,127}));
 
-  connect(swi2.y, conPID1.u_s) annotation (Line(points={{22,-20},{36,-20},{36,-60},
-          {38,-60}}, color={0,0,127}));
+  connect(swiDeaCoo.y, conPIDCoo.u_s) annotation (Line(points={{22,-20},{36,-20},
+          {36,-60},{38,-60}}, color={0,0,127}));
 
-  connect(con1.y, lin.f2) annotation (Line(points={{-88,100},{-80,100},{-80,52},
-          {-62,52}}, color={0,0,127}));
+  connect(conTHeaSupAirMax.y, linTHeaSupAir.f2) annotation (Line(points={{-88,100},
+          {-80,100},{-80,52},{-62,52}}, color={0,0,127}));
 
-  connect(con3.y, lin1.f2) annotation (Line(points={{-78,-20},{-70,-20},{-70,-68},
-          {-62,-68}}, color={0,0,127}));
+  connect(conTCooSupAirMin.y, linTCooSupAir.f2) annotation (Line(points={{-88,-20},
+          {-70,-20},{-70,-68},{-62,-68}}, color={0,0,127}));
 
-  connect(TZonSetHea, lin.f1) annotation (Line(points={{-140,80},{-76,80},{-76,64},
-          {-62,64}}, color={0,0,127}));
+  connect(TZonSetHea, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
+          80},{-74,64},{-62,64}}, color={0,0,127}));
 
-  connect(TZonSetCoo, lin1.f1) annotation (Line(points={{-140,-100},{-72,-100},{
-          -72,-56},{-62,-56}}, color={0,0,127}));
+  connect(TZonSetCoo, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
+          -120},{-64,-56},{-62,-56}}, color={0,0,127}));
 
-  connect(TAirSup, swi1.u3) annotation (Line(points={{-140,0},{-30,0},{-30,52},{
-          -22,52}},color={0,0,127}));
+  connect(TAirSup, swiDeaHea.u3) annotation (Line(points={{-140,0},{-30,0},{-30,
+          52},{-22,52}}, color={0,0,127}));
 
-  connect(con6.y, lin.f1) annotation (Line(points={{-48,100},{-46,100},{-46,76},
-          {-74,76},{-74,64},{-62,64}}, color={0,0,127}));
+  connect(conZerHeaMod.y, linTHeaSupAir.f1) annotation (Line(points={{-48,100},{
+          -46,100},{-46,76},{-74,76},{-74,64},{-62,64}}, color={0,0,127}));
 
-  connect(con8.y, lin1.f1) annotation (Line(points={{-78,-120},{-66,-120},{-66,-56},
-          {-62,-56}},                     color={0,0,127}));
+  connect(conZerCooMod.y, linTCooSupAir.f1) annotation (Line(points={{-78,-140},
+          {-66,-140},{-66,-56},{-62,-56}}, color={0,0,127}));
 
-  connect(hys.y, booToRea.u)
-    annotation (Line(points={{-18,100},{-2,100}},
-                                                color={255,0,255}));
-
-  connect(conPID.y, mul.u2) annotation (Line(points={{42,60},{48,60},{48,54},{58,
-          54}},    color={0,0,127}));
-
-  connect(booToRea.y, mul.u1) annotation (Line(points={{22,100},{48,100},{48,66},
-          {58,66}}, color={0,0,127}));
-
-  connect(hys1.y, booToRea1.u) annotation (Line(points={{-18,-20},{-6,-20},{-6,-70},
-          {-2,-70}},      color={255,0,255}));
-
-  connect(booToRea1.y, mul1.u2) annotation (Line(points={{22,-70},{26,-70},{26,-106},
-          {58,-106}},       color={0,0,127}));
-
-  connect(conPID1.y, mul1.u1) annotation (Line(points={{62,-60},{64,-60},{64,-86},
-          {48,-86},{48,-94},{58,-94}},      color={0,0,127}));
-
-  connect(swi2.y, TAirSupSet) annotation (Line(points={{22,-20},{36,-20},{36,0},
-          {140,0}}, color={0,0,127}));
+  connect(swiDeaCoo.y, TAirSupSet) annotation (Line(points={{22,-20},{36,-20},{36,
+          0},{140,0}}, color={0,0,127}));
 
   connect(uFan, booToRea2.u)
-    annotation (Line(points={{-140,140},{-102,140}}, color={255,0,255}));
+    annotation (Line(points={{-140,140},{58,140}},   color={255,0,255}));
   connect(yHeaCoi, mul2.y)
     annotation (Line(points={{140,60},{112,60}}, color={0,0,127}));
-  connect(mul.y, mul2.u2) annotation (Line(points={{82,60},{84,60},{84,54},{88,54}},
-        color={0,0,127}));
-  connect(booToRea2.y, mul2.u1) annotation (Line(points={{-78,140},{86,140},{86,
-          66},{88,66}}, color={0,0,127}));
+  connect(booToRea2.y, mul2.u1) annotation (Line(points={{82,140},{86,140},{86,66},
+          {88,66}},     color={0,0,127}));
   connect(mul3.y, yCooCoi) annotation (Line(points={{112,-60},{124,-60},{124,-60},
           {140,-60}}, color={0,0,127}));
-  connect(mul1.y, mul3.u2) annotation (Line(points={{82,-100},{84,-100},{84,-66},
-          {88,-66}}, color={0,0,127}));
-  connect(booToRea2.y, mul3.u1) annotation (Line(points={{-78,140},{86,140},{86,
-          -54},{88,-54}}, color={0,0,127}));
+  connect(booToRea2.y, mul3.u1) annotation (Line(points={{82,140},{86,140},{86,-54},
+          {88,-54}},      color={0,0,127}));
+  connect(conHeaPerMax.y, linTHeaSupAir.x2) annotation (Line(points={{-58,20},{-52,
+          20},{-52,40},{-68,40},{-68,56},{-62,56}}, color={0,0,127}));
+  connect(conHeaPerMin.y, linTHeaSupAir.x1) annotation (Line(points={{-88,20},{-84,
+          20},{-84,68},{-62,68}}, color={0,0,127}));
+  connect(conCooPerMin.y, linTCooSupAir.x1) annotation (Line(points={{-88,-60},{
+          -86,-60},{-86,-52},{-62,-52}}, color={0,0,127}));
+  connect(conCooPerMax.y, linTCooSupAir.x2) annotation (Line(points={{-88,-100},
+          {-80,-100},{-80,-64},{-62,-64}}, color={0,0,127}));
+  connect(conPIDCoo.y, swiCooCoi.u1) annotation (Line(points={{62,-60},{66,-60},
+          {66,-92},{68,-92}}, color={0,0,127}));
+  connect(swiCooCoi.y, mul3.u2) annotation (Line(points={{92,-100},{100,-100},{100,
+          -80},{86,-80},{86,-66},{88,-66}}, color={0,0,127}));
+  connect(hysDeaCoo.y, swiCooCoi.u2) annotation (Line(points={{-18,-20},{-6,-20},
+          {-6,-100},{68,-100}}, color={255,0,255}));
+  connect(swiHeaCoi.y, mul2.u2) annotation (Line(points={{72,90},{80,90},{80,54},
+          {88,54}}, color={0,0,127}));
+  connect(conPIDHea.y, swiHeaCoi.u1) annotation (Line(points={{42,60},{44,60},{44,
+          98},{48,98}}, color={0,0,127}));
+  connect(hysDeaHea.y, swiHeaCoi.u2) annotation (Line(points={{-18,100},{-10,100},
+          {-10,90},{48,90}}, color={255,0,255}));
+  connect(conZer.y, swiHeaCoi.u3) annotation (Line(points={{22,20},{46,20},{46,82},
+          {48,82}}, color={0,0,127}));
+  connect(conZer.y, swiCooCoi.u3) annotation (Line(points={{22,20},{46,20},{46,-40},
+          {64,-40},{64,-108},{68,-108}}, color={0,0,127}));
   annotation (defaultComponentName="TSupAir",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),
                                                       graphics={

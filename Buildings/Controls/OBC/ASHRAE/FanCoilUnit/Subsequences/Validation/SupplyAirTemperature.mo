@@ -6,25 +6,25 @@ block SupplyAirTemperature
     final have_coolingCoil=true,
     final have_heatingCoil=true)
     "Instance demonstrating heating signal operation"
-    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+    annotation (Placement(transformation(extent={{-50,60},{-30,84}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir3(
     final have_coolingCoil=true,
     final have_heatingCoil=false)
     "Instance demonstrating cooling signal operation when heating coil is absent"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+    annotation (Placement(transformation(extent={{60,-80},{80,-56}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir2(
     final have_coolingCoil=false,
     final have_heatingCoil=true)
     "Instance demonstrating heating signal operation when cooling coil is absent"
-    annotation (Placement(transformation(extent={{-50,-100},{-30,-80}})));
+    annotation (Placement(transformation(extent={{-50,-100},{-30,-76}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir1(
     final have_coolingCoil=true,
     final have_heatingCoil=true)
     "Instance demonstrating cooling signal operation"
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
+    annotation (Placement(transformation(extent={{80,60},{100,84}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
@@ -126,74 +126,64 @@ protected
 
 equation
   connect(sin.y, TSupAir.TAirSup)
-    annotation (Line(points={{-68,70},{-60,70},{-60,68.3333},{-52,68.3333}},
+    annotation (Line(points={{-68,70},{-60,70},{-60,70},{-52,70}},
                                                  color={0,0,127}));
 
   connect(sin6.y, TSupAir2.TAirSup)
-    annotation (Line(points={{-68,-90},{-60,-90},{-60,-91.6667},{-52,-91.6667}},
+    annotation (Line(points={{-68,-90},{-60,-90},{-60,-90},{-52,-90}},
                                                    color={0,0,127}));
 
   connect(sin8.y, TSupAir2.uHea) annotation (Line(points={{-68,-60},{-60,-60},{
-          -60,-88.3333},{-52,-88.3333}},
-                               color={0,0,127}));
+          -60,-86},{-52,-86}}, color={0,0,127}));
 
   connect(sin4.y,TSupAir1. TAirSup)
-    annotation (Line(points={{62,70},{70,70},{70,68.3333},{78,68.3333}},
+    annotation (Line(points={{62,70},{70,70},{70,70},{78,70}},
                                                color={0,0,127}));
 
-  connect(con.y, TSupAir.TZonSetHea) annotation (Line(points={{-68,130},{-56,130},
-          {-56,75},{-52,75}},      color={0,0,127}));
+  connect(con.y, TSupAir.TZonSetHea) annotation (Line(points={{-68,130},{-56,
+          130},{-56,78},{-52,78}}, color={0,0,127}));
 
   connect(con1.y, TSupAir.TZonSetCoo) annotation (Line(points={{-68,10},{-56,10},
-          {-56,61.6667},{-52,61.6667}},
-                              color={0,0,127}));
+          {-56,62},{-52,62}}, color={0,0,127}));
 
-  connect(con2.y, TSupAir1.TZonSetHea) annotation (Line(points={{62,130},{72,130},
-          {72,75},{78,75}},      color={0,0,127}));
+  connect(con2.y, TSupAir1.TZonSetHea) annotation (Line(points={{62,130},{72,
+          130},{72,78},{78,78}}, color={0,0,127}));
 
   connect(con3.y, TSupAir1.TZonSetCoo) annotation (Line(points={{62,10},{72,10},
-          {72,61.6667},{78,61.6667}},
-                            color={0,0,127}));
+          {72,62},{78,62}}, color={0,0,127}));
 
-  connect(con4.y, TSupAir2.TZonSetHea) annotation (Line(points={{-68,-30},{-56,-30},
-          {-56,-85},{-52,-85}},      color={0,0,127}));
+  connect(con4.y, TSupAir2.TZonSetHea) annotation (Line(points={{-68,-30},{-56,
+          -30},{-56,-82},{-52,-82}}, color={0,0,127}));
 
   connect(con6.y, TSupAir3.TZonSetCoo) annotation (Line(points={{42,-120},{54,
-          -120},{54,-78.3333},{58,-78.3333}},
-                                    color={0,0,127}));
+          -120},{54,-78},{58,-78}}, color={0,0,127}));
 
   connect(con5.y, TSupAir.uHea) annotation (Line(points={{-68,100},{-60,100},{
-          -60,71.6667},{-52,71.6667}},
-                             color={0,0,127}));
+          -60,74},{-52,74}}, color={0,0,127}));
 
   connect(con7.y, TSupAir1.uHea) annotation (Line(points={{62,100},{68,100},{68,
-          71.6667},{78,71.6667}},
-                        color={0,0,127}));
+          74},{78,74}}, color={0,0,127}));
 
   connect(con8.y, TSupAir.uCoo) annotation (Line(points={{-68,40},{-60,40},{-60,
-          65},{-52,65}}, color={0,0,127}));
+          66},{-52,66}}, color={0,0,127}));
 
-  connect(con9.y, TSupAir1.uCoo) annotation (Line(points={{62,40},{70,40},{70,65},
-          {78,65}},     color={0,0,127}));
+  connect(con9.y, TSupAir1.uCoo) annotation (Line(points={{62,40},{70,40},{70,
+          66},{78,66}}, color={0,0,127}));
 
   connect(sin5.y, TSupAir3.uCoo) annotation (Line(points={{42,-90},{52,-90},{52,
-          -75},{58,-75}}, color={0,0,127}));
+          -74},{58,-74}}, color={0,0,127}));
 
   connect(sin3.y, TSupAir3.TAirSup) annotation (Line(points={{42,-60},{52,-60},
-          {52,-71.6667},{58,-71.6667}},
-                              color={0,0,127}));
+          {52,-70},{58,-70}}, color={0,0,127}));
 
   connect(con10.y, TSupAir.uFan) annotation (Line(points={{-98,-10},{-54,-10},{
-          -54,78.3333},{-52,78.3333}},
-                                   color={255,0,255}));
+          -54,82},{-52,82}},       color={255,0,255}));
   connect(con10.y, TSupAir1.uFan) annotation (Line(points={{-98,-10},{74,-10},{
-          74,78.3333},{78,78.3333}},
-                                  color={255,0,255}));
+          74,82},{78,82}},        color={255,0,255}));
   connect(con10.y, TSupAir2.uFan) annotation (Line(points={{-98,-10},{-54,-10},
-          {-54,-81.6667},{-52,-81.6667}},color={255,0,255}));
+          {-54,-78},{-52,-78}},          color={255,0,255}));
   connect(con10.y, TSupAir3.uFan) annotation (Line(points={{-98,-10},{54,-10},{
-          54,-61.6667},{58,-61.6667}},
-                                    color={255,0,255}));
+          54,-58},{58,-58}},        color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
