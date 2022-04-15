@@ -39,5 +39,11 @@ record Data "Data for primary pumps"
     dpValve_nominal=0)
     "Chiller bypass valve data"
     annotation(Dialog(group = "Valves", enable=have_chiByp));
+  parameter Buildings.Templates.Components.Data.Valve valChiWatChi[nChi](
+      each final m_flow_nominal = m_flow_nominal/nChi,
+      each dpValve_nominal = 0)
+    "Chiller chilled water side isolation valve"
+    annotation(Dialog(group = "Valve",
+      enable = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedParallel));
 
 end Data;

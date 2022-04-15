@@ -2,7 +2,8 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerSection;
 model Series "Model for chillers in series"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
-     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries);
+     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries,
+     final typValChiWatChiSer=valChiWatChi.typ);
 
   inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChi[nChi]
     constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
@@ -34,6 +35,12 @@ model Series "Model for chillers in series"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-40,-60})));
+
+initial equation
+  assert(typPumPri == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
+        "In "+ getInstanceName() + ": "+
+    "The primary pump type selected is incompatible with chillers in series." +
+    "The only compatible primary pump type is Headered (Series)");
 
 equation
 

@@ -3,6 +3,8 @@ partial model PartialEconomizer "Partial waterside economizer model"
   extends Fluid.Interfaces.PartialOptionalFourPortInterface(
     redeclare final package Medium1=MediumConWat,
     redeclare final package Medium2=MediumChiWat,
+    final m1_flow_nominal=dat.m1_flow_nominal,
+    final m2_flow_nominal=dat.m2_flow_nominal,
     final haveMedium1=not isAirCoo,
     final haveMedium2=true);
 

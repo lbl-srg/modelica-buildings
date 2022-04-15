@@ -3,8 +3,7 @@ model Electric "Electric chiller"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.Chillers.Interfaces.PartialChiller(
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Chiller.ElectricChiller,
-      dat(redeclare replaceable
-        Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per));
+      dat(redeclare replaceable Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per));
 
   Buildings.Fluid.Chillers.ElectricEIR chi(
     final per=dat.per,

@@ -29,20 +29,23 @@ record Data "Data for chilled water plants"
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.Data
     chiSec(
-    final isAirCoo=isAirCoo,
-    m2_flow_nominal=mChiWatPri_flow_nominal,
-    m1_flow_nominal=mCon_flow_nominal) "Chiller section"
+      final isAirCoo=isAirCoo,
+      final valChiWatChi=pumPri.valChiWatChi,
+      m2_flow_nominal=mChiWatPri_flow_nominal,
+      m1_flow_nominal=mCon_flow_nominal) "Chiller section"
     annotation (Dialog(group="Equipment"));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Interfaces.Data
-    pumPri(m_flow_nominal=mChiWatPri_flow_nominal) "Primary pumps"
+    pumPri(
+      final nChi=chiSec.nChi,
+      m_flow_nominal=mChiWatPri_flow_nominal) "Primary pumps"
     annotation (Dialog(group="Equipment"));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.Data
     eco(
-    final isAirCoo=isAirCoo,
-    m1_flow_nominal=mChiWatPri_flow_nominal,
-    m2_flow_nominal=mCon_flow_nominal) "Waterside Economizer"
+      final isAirCoo=isAirCoo,
+      m1_flow_nominal=mChiWatPri_flow_nominal,
+      m2_flow_nominal=mCon_flow_nominal) "Waterside Economizer"
     annotation (Dialog(group="Equipment", enable=eco.have_eco));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.Interfaces.Data
@@ -53,7 +56,9 @@ record Data "Data for chilled water plants"
 
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Interfaces.Data
-    pumCon(m_flow_nominal=mCon_flow_nominal) "Condenser pumps"
+    pumCon(
+      final nChi=chiSec.nChi,
+      m_flow_nominal=mCon_flow_nominal) "Condenser pumps"
     annotation (Dialog(group="Equipment", enable=not isAirCoo));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Interfaces.Data

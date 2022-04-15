@@ -10,10 +10,15 @@ model PartialChilledWaterLoop
     final nPumPri = pumPri.nPum,
     final nPumSec = pumSec.nPum,
     final is_series = chiSec.is_series,
+    final typValChiWatChi=
+      if is_series then chiSec.typValChiWatChiSer
+      else pumPri.typValChiWatChiPar,
     busCon(final nChi=nChi));
 
   replaceable package MediumChiWat=Buildings.Media.Water
     "Chilled water medium";
+
+  // TODO : Move these parameters to PartialChilledWaterPlant
 
   parameter Boolean have_chiByp = false "= true if chilled water loop has a chiller bypass"
     annotation(Dialog(enable=have_eco));
@@ -46,22 +51,20 @@ model PartialChilledWaterLoop
         origin={-40,10})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.None eco
-    constrainedby
+      constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
-    redeclare final package MediumChiWat = MediumChiWat,
-    final dat=dat.eco,
-    final m2_flow_nominal=dat.mChiWatPri_flow_nominal)
+      redeclare final package MediumChiWat = MediumChiWat,
+      final dat=dat.eco)
     "Chilled water return section" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-72})));
   inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Headered
+    Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.HeaderedSeries
     pumPri constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Interfaces.PartialPrimaryPump(
     redeclare final package Medium = MediumChiWat,
     final dat=dat.pumPri,
-    final have_parChi=have_parChi,
     final have_chiByp=have_chiByp) "Chilled water primary pumps"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   inner replaceable
@@ -198,12 +201,10 @@ equation
       horizontalAlignment=TextAlignment.Left));
 
   // Mechanical
-  connect(chiSec.ports_b2, pumPri.ports_parallel)
-    annotation (Line(points={{-34,20},{-20,20},{-20,10},{-8.88178e-16,10}},
-      color={0,127,255}));
-  connect(chiSec.port_b2, pumPri.port_series)
-    annotation (Line(points={{-34,20},{-34,30},{-10,30},{-10,10},{0,10}},
-      color={0,127,255}));
+  connect(chiSec.ports_b2, pumPri.ports_a) annotation (Line(points={{-34,20},{-20,
+          20},{-20,10},{-8.88178e-16,10}}, color={0,127,255}));
+  connect(chiSec.port_b2, pumPri.port_a) annotation (Line(points={{-34,20},{-34,
+          30},{-10,30},{-10,10},{0,10}}, color={0,127,255}));
   connect(splChiByp.port_2, chiSec.port_a2)
     annotation (Line(points={{-30,-20},{-34,-20},{-34,0}}, color={0,127,255}));
   connect(splChiByp.port_3,pumPri. port_ChiByp)

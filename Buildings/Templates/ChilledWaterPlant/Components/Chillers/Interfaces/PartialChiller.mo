@@ -40,8 +40,7 @@ partial model PartialChiller "Partial chiller model"
 
   // Record
 
-  parameter
-    Buildings.Templates.ChilledWaterPlant.Components.Chillers.Interfaces.Data dat(
+  parameter Buildings.Templates.ChilledWaterPlant.Components.Chillers.Interfaces.Data dat(
     final typ=typ,
     final isAirCoo=isAirCoo,
     final is_heaPreCon=is_heaPreCon,

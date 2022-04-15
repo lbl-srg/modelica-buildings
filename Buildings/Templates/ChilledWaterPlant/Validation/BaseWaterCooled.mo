@@ -1,18 +1,18 @@
 within Buildings.Templates.ChilledWaterPlant.Validation;
-model BaseChilledWaterPlant
+model BaseWaterCooled
   extends Modelica.Icons.Example;
   replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Chilled water medium";
 
-  replaceable Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop chw(dat=dat)
+  replaceable Buildings.Templates.ChilledWaterPlant.WaterCooled chw(dat=dat)
     annotation (Placement(transformation(extent={{-80,-20},{0,20}})));
   Fluid.Sources.Boundary_pT bou1(
     redeclare final package Medium=MediumChiWat,
     nPorts=3)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 
-  Buildings.Templates.ChilledWaterPlant.Interfaces.Data dat(
+  Buildings.Templates.ChilledWaterPlant.Validation.UserProject.UserData dat(
     final typ=chw.typ,
     con(
       final typ = chw.con.typ,
@@ -35,14 +35,16 @@ model BaseChilledWaterPlant
       final nPum = chw.pumPri.nPum,
       final have_byp = chw.pumPri.have_byp,
       final have_chiByp = chw.pumPri.have_chiByp,
-      pum(final typ = chw.pumPri.pum.typ)),
+      valChiWatChi(final typ = chw.typValChiWatChi),
+      pum(each final typ = chw.pumPri.pum.typ)),
     pumSec(
       final typ = chw.pumSec.typ,
       final nPum = chw.pumSec.nPum),
     pumCon(
       final typ = chw.pumCon.typ,
       final nPum = chw.pumCon.nPum,
-      pum(final typ = chw.pumCon.pum.typ)),
+      valConWatChi(final typ = chw.typValConWatChi),
+      pum(each final typ = chw.pumCon.pum.typ)),
     eco(final typ = chw.eco.typ))
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
@@ -103,4 +105,4 @@ equation
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end BaseChilledWaterPlant;
+end BaseWaterCooled;

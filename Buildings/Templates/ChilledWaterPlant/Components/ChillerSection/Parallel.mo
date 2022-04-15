@@ -2,29 +2,8 @@ within Buildings.Templates.ChilledWaterPlant.Components.ChillerSection;
 model Parallel "Model for chillers in parallel"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
-     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerParallel);
-
-  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChi[nChi]
-    if not have_dedChiWatPum
-    constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
-      redeclare each final package Medium = MediumChiWat,
-      final dat = dat.valChiWatChi)
-    "Chiller chilled water side isolation valves"
-    annotation (Placement(
-      transformation(extent={{10,-10},{-10,10}},origin={-70,-80})),
-      choices(
-        choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayModulating
-          valConWatChi "Modulating"),
-        choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayTwoPosition
-          valConWatChi "Two-positions")));
-
-  Buildings.Templates.BaseClasses.PassThroughFluid pasChiWatChi[nChi](
-    redeclare each final package Medium = MediumChiWat)
-    if have_dedChiWatPum
-    "Chiller chilled water side passthrough"
-    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
+     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerParallel,
+     final typValChiWatChiSer=fill(Buildings.Templates.Components.Types.Valve.None,nChi));
 
   Buildings.Fluid.Delays.DelayFirstOrder volChiWat(
     redeclare final package Medium = MediumChiWat,
@@ -33,6 +12,12 @@ model Parallel "Model for chillers in parallel"
     "Chilled water side mixing volume"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=180,origin={40,-80})));
+
+initial equation
+  assert(typPumPri <> Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
+    "In "+ getInstanceName() + ": "+
+    "The primary pump type selected is incompatible with chillers in parallel." +
+    "Compatible primary pump types are Series or Headered (Parallel)");
 
 equation
 
@@ -43,22 +28,8 @@ equation
     annotation (Line(points={{20,-12},{40,-12},{40,-70}},
       color={0,127,255}));
 
-  connect(ports_b2, valChiWatChi.port_b) annotation (Line(points={{-100,-60},{-90,
-          -60},{-90,-80},{-80,-80}}, color={0,127,255}));
-  connect(valChiWatChi.port_a, chi.port_b2) annotation (Line(points={{-60,-80},{
-          -50,-80},{-50,-60},{-40,-60},{-40,-12},{-20,-12}}, color={0,127,255}));
-  connect(chi.port_b2, pasChiWatChi.port_a) annotation (Line(points={{-20,-12},{
-          -40,-12},{-40,-60},{-50,-60},{-50,-40},{-60,-40}}, color={0,127,255}));
-  connect(pasChiWatChi.port_b, ports_b2) annotation (Line(points={{-80,-40},{-90,
-          -40},{-90,-60},{-100,-60}}, color={0,127,255}));
-  connect(valChiWatChi.bus, busCon.valChiWatChi) annotation (Line(
-      points={{-70,-70},{-70,-50},{-30,-50},{-30,40},{0.1,40},{0.1,100.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  connect(chi.port_b2, ports_b2) annotation (Line(points={{-20,-12},{-40,-12},{-40,
+          -60},{-100,-60}}, color={0,127,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},

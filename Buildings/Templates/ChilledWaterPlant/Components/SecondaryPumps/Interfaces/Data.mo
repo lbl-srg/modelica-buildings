@@ -11,7 +11,7 @@ record Data "Data for secondary pumps"
   parameter Integer nPum(final min=0) "Number of pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_none=
-    typ ==Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPump.None
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPump.None
     "= true if there is no secondary pumping";
 
   // Equipment parameters

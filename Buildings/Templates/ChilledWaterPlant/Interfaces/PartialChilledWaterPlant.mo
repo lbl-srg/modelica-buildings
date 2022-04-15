@@ -20,6 +20,14 @@ partial model PartialChilledWaterPlant
   inner parameter Integer nCooTow "Number of cooling towers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  inner parameter Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump typPumPri
+    "Type of primary pump"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChi[nChi]
+    "Type of chiller chilled water side isolation valve";
+  parameter Buildings.Templates.Components.Types.Valve typValConWatChi[nChi]
+    "Type of chiller condenser water side isolation valve";
+
   inner parameter Boolean have_dedChiWatPum
     "Set to true if parallel chillers are connected to dedicated pumps on chilled water side"
     annotation (Evaluate=true, Dialog(group="Configuration"));

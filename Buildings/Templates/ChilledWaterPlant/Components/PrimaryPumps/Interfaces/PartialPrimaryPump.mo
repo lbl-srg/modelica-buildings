@@ -24,9 +24,6 @@ partial model PartialPrimaryPump "Partial primary pump model"
   parameter Boolean have_decouplerFloSen = have_decoupler
     "= true if decoupler flow is measured"
     annotation(Dialog(enable=have_decoupler));
-
-  parameter Boolean have_parChi
-    "= true if chillers in inlet are connected in parallel";
   parameter Boolean have_chiByp = have_eco
     "= true if chilled water loop has a chiller bypass"
     annotation(Dialog(enable=is_series or not have_secondary));
@@ -48,6 +45,9 @@ partial model PartialPrimaryPump "Partial primary pump model"
     "= true if primary chilled water supply temperature is measured"
     annotation(Dialog(enable=have_secondary));
 
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiPar[nChi]
+    "Type of chiller chilled water side isolation valve (chiller in parallel)";
+
   // Record
 
   parameter
@@ -61,6 +61,8 @@ partial model PartialPrimaryPump "Partial primary pump model"
 
   // Model configuration parameters
 
+  parameter Boolean have_singlePort_a
+    "= true if single fluid connector a, = false if vectorized fluid connector a";
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -133,14 +135,14 @@ partial model PartialPrimaryPump "Partial primary pump model"
         rotation=0,
         origin={0,100})));
 
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_parallel[nChi](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nChi](
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_parChi
-    "Pump group inlet for chiller connected in parallel"
-    annotation (Placement(
-      transformation(extent={{-108,-30},{-92,30}}),
-      iconTransformation(extent={{-108,-30},{-92,30}})));
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if not have_singlePort_a
+    "Pump group inlet for chiller connected in parallel" annotation (Placement(
+        transformation(extent={{-108,-30},{-92,30}}), iconTransformation(extent=
+           {{-108,-30},{-92,30}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_ChiByp(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -148,12 +150,11 @@ partial model PartialPrimaryPump "Partial primary pump model"
     if have_chiByp
     "Pump group inlet for waterside economizer bypass"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_series(
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if not have_parChi
-    "Pump group inlet for chiller connected in series"
+    if have_singlePort_a "Pump group inlet for chiller connected in series"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,

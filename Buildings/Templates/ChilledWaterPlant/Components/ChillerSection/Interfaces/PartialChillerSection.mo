@@ -27,19 +27,22 @@ partial model PartialChillerSection "Partial chiller section model"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter Integer nCooTow "Number of cooling towers";
 
+  outer parameter Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump typPumPri
+    "Type of primary pump";
   outer parameter Boolean have_dedChiWatPum
     "Set to true if parallel chillers are connected to dedicated pumps on chilled water side";
   outer parameter Boolean have_dedConWatPum
     "Set to true if parallel chillers are connected to dedicated pumps on condenser water side";
+
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiSer[nChi]
+    "Type of chiller chilled water side isolation valve (chiller in series)";
 
   // Record
 
   parameter Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.Data
     dat(final typ=typ,
       final nChi=nChi,
-      final isAirCoo=isAirCoo,
-      final have_dedChiWatPum=have_dedChiWatPum,
-      final have_dedConWatPum=have_dedConWatPum)
+      final isAirCoo=isAirCoo)
       "Chiller section data";
 
   // Model configuration parameters
@@ -66,28 +69,6 @@ partial model PartialChillerSection "Partial chiller section model"
     redeclare each final package Medium1 = MediumConWat,
     redeclare each final package Medium2 = MediumChiWat) "Chillers" annotation (
      Placement(transformation(extent={{-20,-20},{20,20}}, rotation=0)));
-
-  inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatChi[nChi]
-    if not have_dedConWatPum
-    constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
-      redeclare each final package Medium = MediumConWat,
-      final dat=dat.valConWatChi)
-    "Chiller condenser water side isolation valves"
-    annotation (Placement(
-      transformation(extent={{-10,-10},{10,10}}, origin={-70,40})),
-      choices(
-        choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayModulating
-          valConWatChi "Modulating"),
-        choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayTwoPosition
-          valConWatChi "Two-positions")));
-
-  Buildings.Templates.BaseClasses.PassThroughFluid pasConWatChi[nChi](
-    redeclare each final package Medium = MediumConWat)
-    if have_dedChiWatPum
-    "Chiller condenser water side passthrough"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.Delays.DelayFirstOrder volConWat(
     redeclare final package Medium = MediumConWat,
@@ -173,24 +154,8 @@ equation
     annotation (Line(points={{20,12},{40,12},{40,70}},
       color={0,127,255}));
 
-  connect(ports_a1, valConWatChi.port_a)
-    annotation (Line(points={{-100,60},{-88,60},{-88,40},{-80,40}},
-                                                  color={0,127,255}));
-  connect(valConWatChi.port_b, chi.port_a1) annotation (Line(points={{-60,40},{-50,
-          40},{-50,60},{-40,60},{-40,12},{-20,12}},
-                                  color={0,127,255}));
-  connect(ports_a1, pasConWatChi.port_a) annotation (Line(points={{-100,60},{-88,
-          60},{-88,80},{-80,80}}, color={0,127,255}));
-  connect(pasConWatChi.port_b, chi.port_a1) annotation (Line(points={{-60,80},{-50,
-          80},{-50,60},{-40,60},{-40,12},{-20,12}}, color={0,127,255}));
-  connect(valConWatChi.bus, busCon.valConWatChi) annotation (Line(
-      points={{-70,50},{-70,70},{0,70},{0,86},{0.1,86},{0.1,100.1}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  connect(chi.port_a1, ports_a1) annotation (Line(points={{-20,12},{-40,12},{-40,
+          60},{-100,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

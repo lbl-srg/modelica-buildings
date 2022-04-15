@@ -16,6 +16,7 @@ model WaterCooled
     final have_dedConWatPum=pumCon.is_dedicated,
     final nCooTow=cooTowSec.nCooTow,
     final nPumCon=pumCon.nPum,
+    final typValConWatChi=pumCon.typValConWatChi,
     busCon(final nCooTow=nCooTow));
 
   replaceable package MediumConWat=Buildings.Media.Water "Condenser water medium";
