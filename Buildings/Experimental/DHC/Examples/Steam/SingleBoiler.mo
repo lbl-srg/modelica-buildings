@@ -68,7 +68,6 @@ model SingleBoiler "Example model for a complete steam district heating system w
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
     redeclare final package Medium = MediumWat,
     redeclare final package MediumHea_b = MediumSte,
-    fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     final m_flow_nominal=mDis_flow_nominal,
     final pSteSet=pSat,
     final Q_flow_nominal=QDis_flow_nominal,
