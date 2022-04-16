@@ -5,7 +5,8 @@ model ControlVolumeEvaporation
     redeclare final package Medium_a=MediumWat,
     redeclare final package Medium_b=MediumSte,
     hSte(start = MediumSte.h_default),
-    hWat(start = MediumWat.h_default));
+    hWat(start = MediumWat.h_default),
+    p(fixed=true));
 equation
 // boundary conditions at the ports
   port_a.m_flow = mWat_flow;

@@ -27,7 +27,6 @@ partial model PartialSaturatedControlVolume
     "Saturated state, steam";
   MediumSte.AbsolutePressure p(
     final start=p_start,
-    fixed=true,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     then StateSelect.default else StateSelect.prefer)
     "Pressure inside volume";
