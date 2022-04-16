@@ -4,7 +4,7 @@ partial model PartialSaturatedControlVolume
   extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     p_start=1e6,
-    T_start=MediumSte.saturationTemperature(p_start));
+    final T_start=MediumSte.saturationTemperature(p_start));
 
   // Medium declarations
   replaceable package MediumWat =
@@ -27,6 +27,7 @@ partial model PartialSaturatedControlVolume
     "Saturated state, steam";
   MediumSte.AbsolutePressure p(
     final start=p_start,
+    fixed=true,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     then StateSelect.default else StateSelect.prefer)
     "Pressure inside volume";

@@ -49,7 +49,8 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
   parameter Real boiSca = 1.25 "Boiler heat capacity scaling factor";
   parameter Modelica.Units.SI.Mass mDry = 1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation(Dialog(tab = "Dynamics",
+      enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
       V_flow=m_flow_nominal*1000*{0.4,0.6,0.8,1.0},
@@ -58,7 +59,11 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
 
   // Initial conditions
   parameter Modelica.Units.SI.Volume VTanFW_start=1
-    "Setpoint for liquid water volume in the boiler";
+    "Setpoint for liquid water volume in the boiler"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.Media.Interfaces.Types.AbsolutePressure pBoi_start=pSteSet
+    "Start value of boiler pressure"
+    annotation(Dialog(tab = "Initialization"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
@@ -175,8 +180,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     redeclare final package MediumSte = MediumHea_b,
     redeclare final package MediumWat = Medium,
     final allowFlowReversal=allowFlowReversal,
-    p_start=pSteSet,
-    T_start=TSat,
+    final p_start=pBoi_start,
     final fue=fueBoi,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=3000,
@@ -193,9 +197,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     final wp=wpPum,
     final wd=wdPum,
     final Ni=NiPum,
-    final Nd=NdPum,
-    final initType=initTypePum,
-    final y_start=yPum_start)
+    final Nd=NdPum)
     "Pump control"
     annotation (Placement(transformation(extent={{-80,80},{-60,60}})));
   Modelica.Blocks.Math.Gain VNor(final k=1/VBoiWatSet)
@@ -209,9 +211,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     final wp=wpBoi,
     final wd=wdBoi,
     final Ni=NiBoi,
-    final Nd=NdBoi,
-    final initType=initTypeBoi,
-    final y_start=yBoi_start)
+    final Nd=NdBoi)
     "Boiler control"
     annotation (Placement(transformation(extent={{80,-82},{100,-62}})));
   Modelica.Blocks.Math.Gain PNor(final k=1/pSteSet)

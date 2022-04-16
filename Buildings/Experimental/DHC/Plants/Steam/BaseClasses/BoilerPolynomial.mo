@@ -5,7 +5,8 @@ model BoilerPolynomial
   extends Buildings.BaseClasses.BaseIconLow;
   extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
-    redeclare final package Medium_b=MediumSte);
+    redeclare final package Medium_b=MediumSte,
+    final T_start=MediumSte.saturationTemperature(p_start));
 
   // Medium declarations
   replaceable package MediumWat =
@@ -84,7 +85,6 @@ model BoilerPolynomial
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
-    final T_start=T_start,
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final V=V)

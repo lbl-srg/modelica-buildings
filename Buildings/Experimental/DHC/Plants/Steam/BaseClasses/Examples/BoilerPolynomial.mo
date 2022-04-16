@@ -30,24 +30,24 @@ model BoilerPolynomial
   Modelica.Blocks.Sources.TimeTable y(
     table=[0,0; 1200,1; 1200,0; 2000,0; 2000,1; 3600,1])
     "Load ratio"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumSte,
     p(displayUnit="bar") = 300000,
     T=423.15,
-    nPorts=2)
+    nPorts=1)
     "Sink"
-    annotation (Placement(transformation(extent={{82,-22},{62,-2}})));
+    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumWat,
     p=300000 + dp_nominal,
     T=303.15,
     nPorts=2)
     "Source"
-    annotation (Placement(transformation(extent={{-60,-22},{-40,-2}})));
+    annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial boiDyn(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
@@ -57,7 +57,7 @@ model BoilerPolynomial
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     dp_nominal=dp_nominal)
     "Steam boiler with dynamic balance"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial boiSte(
     redeclare package MediumSte = MediumSte,
     redeclare package MediumWat = MediumWat,
@@ -67,23 +67,31 @@ model BoilerPolynomial
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     dp_nominal=dp_nominal)
     "Steam boiler with steady state balance"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+  Fluid.FixedResistances.PressureDrop           res(
+    redeclare final package Medium = MediumSte,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=6000) "Pipe resistance"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
-  connect(boiDyn.port_b, sin.ports[1])
-    annotation (Line(points={{20,-10},{62,-10}}, color={0,127,255}));
   connect(TAmb.port, boiDyn.heatPort)
-    annotation (Line(points={{0,50},{10,50},{10,-2.8}},   color={191,0,0}));
+    annotation (Line(points={{-20,50},{-10,50},{-10,-2.8}},
+                                                          color={191,0,0}));
   connect(y.y, boiDyn.y)
-    annotation (Line(points={{-39,50},{-30,50},{-30,-2},{-2,-2}},
+    annotation (Line(points={{-59,50},{-50,50},{-50,-2},{-22,-2}},
                    color={0,0,127}));
   connect(sou.ports[1], boiDyn.port_a)
-    annotation (Line(points={{-40,-10},{0,-10}}, color={0,127,255}));
+    annotation (Line(points={{-60,-10},{-20,-10}},
+                                                 color={0,127,255}));
   connect(sou.ports[2], boiSte.port_a)
-    annotation (Line(points={{-40,-14},{-30,
-          -14},{-30,-50},{0,-50}}, color={0,127,255}));
-  connect(boiSte.port_b, sin.ports[2])
-    annotation (Line(points={{20,-50},{50,
-          -50},{50,-14},{62,-14}}, color={0,127,255}));
+    annotation (Line(points={{-60,-14},{-50,-14},{-50,-50},{-20,-50}},
+                                   color={0,127,255}));
+  connect(boiDyn.port_b, res.port_a)
+    annotation (Line(points={{0,-10},{20,-10}}, color={0,127,255}));
+  connect(boiSte.port_b, res.port_a) annotation (Line(points={{0,-50},{10,-50},
+          {10,-10},{20,-10}}, color={0,127,255}));
+  connect(res.port_b, sin.ports[1])
+    annotation (Line(points={{40,-10},{60,-10}}, color={0,127,255}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Steam/BaseClasses/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
