@@ -6,14 +6,14 @@ partial model PartialConnection2Pipe
     redeclare final package MediumSup=Medium,
     redeclare final package MediumRet=Medium,
     redeclare final model Model_pipDisSup = Model_pipDis,
-    redeclare final model Model_pipDisRet = Model_pipDis,
-    redeclare final model Model_pipConSup = Model_pipCon,
-    redeclare final model Model_pipConRet =
-        Buildings.Fluid.FixedResistances.LosslessPipe);
+    redeclare final model Model_pipDisRet = Model_pipDis);
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model";
+  replaceable model Model_pipCon=Fluid.Interfaces.PartialTwoPortInterface (
+    redeclare final package Medium=Medium,
+    final m_flow_nominal=mCon_flow_nominal,
+    final allowFlowReversal=allowFlowReversal);
   replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface;
-  replaceable model Model_pipCon=Fluid.Interfaces.PartialTwoPortInterface;
   parameter Boolean show_entFlo=false
     "Set to true to output enthalpy flow rate difference"
     annotation (Evaluate=true);
@@ -38,6 +38,10 @@ partial model PartialConnection2Pipe
     annotation (Placement(transformation(extent={{100,70},{140,110}}),
         iconTransformation(extent={{100,70},{140,110}})));
   // COMPONENTS
+  Model_pipCon pipCon
+    "Connection pipe"
+    annotation (Placement(
+      transformation(extent={{-10,-10},{10,10}},rotation=90,origin={-20,-10})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCon(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
@@ -64,13 +68,11 @@ equation
   if not show_entFlo then
     connect(port_bCon,senMasFloCon.port_b)
       annotation (Line(points={{-20,120},{-20,50}},color={0,127,255}));
-    connect(port_aCon, pipConRet.port_a)
-      annotation (Line(points={{20,120},{20,0}}, color={0,127,255}));
+    connect(port_aCon, junConRet.port_3)
+      annotation (Line(points={{20,120},{20,-70}}, color={0,127,255}));
   end if;
   connect(senMasFloCon.m_flow,mCon_flow)
     annotation (Line(points={{-9,40},{120,40}},color={0,0,127}));
-  connect(pipConSup.port_b,senMasFloCon.port_a)
-    annotation (Line(points={{-20,0},{-20,30}},color={0,127,255}));
   connect(senRelPre.port_a,junConSup.port_1)
     annotation (Line(points={{-40,-50},{-40,-40},{-30,-40}},color={0,127,255}));
   connect(senRelPre.port_b,junConRet.port_2)
@@ -89,9 +91,12 @@ equation
   connect(senMasFloCon.port_b, senDifEntFlo.port_a1)
     annotation (Line(points={{-20,
           50},{-20,60},{-6,60},{-6,70}}, color={0,127,255}));
-  connect(senDifEntFlo.port_b2, pipConRet.port_a)
-   annotation (Line(points={{6,70},
-          {6,60},{20,60},{20,0}}, color={0,127,255}));
+  connect(senDifEntFlo.port_b2, junConRet.port_3) annotation (Line(points={{6,70},
+          {6,60},{20,60},{20,-70}}, color={0,127,255}));
+  connect(pipCon.port_a, junConSup.port_3)
+    annotation (Line(points={{-20,-20},{-20,-30}}, color={0,127,255}));
+  connect(senMasFloCon.port_a, pipCon.port_b)
+    annotation (Line(points={{-20,30},{-20,0},{-20,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Documentation(

@@ -1,20 +1,30 @@
 ﻿within Buildings.Experimental.DHC.Networks.Steam;
 model ConnectionCondensatePipe
   "Connection for a steam district heating network featuring the condensate return pipe"
-  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
-    redeclare model Model_pipConRet =
-        Buildings.Fluid.FixedResistances.PressureDrop (
-          final dp_nominal=dp_nominal),
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
     redeclare final model Model_pipDisRet =
         Buildings.Fluid.FixedResistances.PressureDrop (
           final dp_nominal=dp_nominal),
     redeclare model Model_pipDisSup =
-        Buildings.Fluid.FixedResistances.LosslessPipe,
-    redeclare final model Model_pipConSup =
         Buildings.Fluid.FixedResistances.LosslessPipe);
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
+  Buildings.Fluid.FixedResistances.PressureDrop pipConRet(
+    redeclare package Medium = MediumRet,
+    m_flow_nominal=mCon_flow_nominal,
+    final dp_nominal=dp_nominal)
+    "Connection return pipe"
+    annotation (Placement(transformation(
+      extent={{10,-10},{-10,10}},rotation=90,origin={20,-10})));
+equation
+  connect(port_aCon, pipConRet.port_a)
+    annotation (Line(points={{20,120},{20,0}}, color={0,127,255}));
+  connect(pipConRet.port_b, junConRet.port_3)
+    annotation (Line(points={{20,-20},{20,-70}}, color={0,127,255}));
+  connect(port_bCon, junConSup.port_3)
+    annotation (Line(points={{-20,120},{-20,-30}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{48,76},{72,24}},
