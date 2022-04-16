@@ -61,7 +61,7 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={28,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySpePumSec[nPumSec](
-      each k=1) if have_secondary annotation (Placement(transformation(
+      each k=1) if have_secPum annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={148,110})));
@@ -73,7 +73,7 @@ block OpenLoop "Open loop controller (output signals only)"
         origin={-170,110})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yPumSec[nPumSec](each k=true)
-    if have_secondary
+    if have_secPum
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

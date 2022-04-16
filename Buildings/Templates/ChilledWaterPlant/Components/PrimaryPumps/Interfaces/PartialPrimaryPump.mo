@@ -16,34 +16,34 @@ partial model PartialPrimaryPump "Partial primary pump model"
 
   parameter Boolean have_conSpePum
     "= true if pumps are constant speed";
-  final parameter Boolean have_byp = not have_secondary and not have_conSpePum
+  final parameter Boolean have_byp = not have_secPum and not have_conSpePum
     "= true if chilled water loop has a minimum flow bypass";
-  final parameter Boolean have_decoupler = have_secondary
+  final parameter Boolean have_decoupler = have_secPum
     "= true if there is a commong leg";
 
   parameter Boolean have_decouplerFloSen = have_decoupler
     "= true if decoupler flow is measured"
     annotation(Dialog(enable=have_decoupler));
-  parameter Boolean have_chiByp = have_eco
+  outer parameter Boolean have_chiByp
     "= true if chilled water loop has a chiller bypass"
-    annotation(Dialog(enable=is_series or not have_secondary));
+    annotation(Dialog(enable=not have_parChi or not have_secPum));
   parameter Boolean have_floSen = true
     "= true if primary flow is measured"
-    annotation(Dialog(enable=not have_secondary));
+    annotation(Dialog(enable=not have_secPum));
   parameter Boolean have_supFloSen = have_floSen
     "= true if primary flow is measured on supply side"
     annotation(Dialog(enable=have_floSen));
 
-  outer parameter Boolean have_secondary
+  outer parameter Boolean have_secPum
     "= true if plant has secondary pumping";
   outer parameter Boolean have_eco
     "= true if plant has waterside economizer";
-  outer parameter Boolean is_series
-    "= true if chillers are in series";
+  outer parameter Boolean have_parChi
+    "= true if plant chillers are in parallel";
 
-  parameter Boolean have_TChiWatPriSup = not have_secondary
+  parameter Boolean have_TChiWatPriSup = not have_secPum
     "= true if primary chilled water supply temperature is measured"
-    annotation(Dialog(enable=have_secondary));
+    annotation(Dialog(enable=have_secPum));
 
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiPar[nChi]
     "Type of chiller chilled water side isolation valve (chiller in parallel)";

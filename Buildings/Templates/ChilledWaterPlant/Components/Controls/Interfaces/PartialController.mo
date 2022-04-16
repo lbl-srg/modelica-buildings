@@ -31,7 +31,7 @@ block PartialController "Partial controller for chilled water plant"
   outer parameter Boolean isAirCoo
     "= true, chillers are air cooled, 
     = false, chillers are water cooled";
-  outer parameter Boolean have_secondary
+  outer parameter Boolean have_secPum
     "= true if plant has secondary pumping";
 
   outer parameter Integer nChi "Number of chillers";

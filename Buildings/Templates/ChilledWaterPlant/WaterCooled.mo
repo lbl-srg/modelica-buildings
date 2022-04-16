@@ -2,37 +2,40 @@ within Buildings.Templates.ChilledWaterPlant;
 model WaterCooled
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.WaterCooled,
-    redeclare replaceable
-      Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Parallel
-      chiSec constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
-        redeclare final package MediumConWat = MediumConWat),
-    redeclare replaceable
-      Buildings.Templates.ChilledWaterPlant.Components.Economizer.None eco
-      constrainedby
-      Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
-        redeclare final package MediumConWat = MediumConWat),
-    final have_dedConWatPum=pumCon.is_dedicated,
-    final nCooTow=cooTowSec.nCooTow,
-    final nPumCon=pumCon.nPum,
-    final typValConWatChi=pumCon.typValConWatChi,
-    busCon(final nCooTow=nCooTow));
+      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.WaterCooled,
+      redeclare replaceable
+        Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Parallel
+        chiSec constrainedby
+        Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
+          redeclare final package MediumConWat = MediumConWat),
+      redeclare replaceable
+        Buildings.Templates.ChilledWaterPlant.Components.Economizer.None eco
+        constrainedby
+        Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
+          redeclare final package MediumConWat = MediumConWat),
+      final nCooTow=cooTowSec.nCooTow,
+      final nPumCon=pumCon.nPum,
+      final have_dedConWatPum=pumCon.is_dedicated,
+      final typValConWatChi=pumCon.typValConWatChi,
+      busCon(final nCooTow=nCooTow));
 
-  replaceable package MediumConWat=Buildings.Media.Water "Condenser water medium";
+  replaceable package MediumConWat = Buildings.Media.Water
+    "Condenser water medium";
 
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Parallel
     cooTowSec constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Interfaces.PartialCoolingTowerSection(
-      redeclare final package Medium = MediumConWat, final dat=dat.cooTowSec)
+      redeclare final package Medium = MediumConWat,
+      final dat=dat.cooTowSec)
     "Cooling tower section"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Headered
     pumCon constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Interfaces.PartialCondenserPump(
-      redeclare final package Medium = MediumConWat, final dat=dat.pumCon)
+      redeclare final package Medium = MediumConWat,
+      final dat=dat.pumCon)
     "Condenser water pumps"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
@@ -50,7 +53,7 @@ model WaterCooled
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Fluid.FixedResistances.Junction mixConWat(
+  Buildings.Fluid.FixedResistances.Junction mixConWat(
     redeclare package Medium = MediumConWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=dat.mCon_flow_nominal*{1,-1,1},
@@ -60,16 +63,19 @@ model WaterCooled
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-90,-70})));
-  Fluid.Sources.Boundary_pT bouConWat(redeclare final package Medium =
-        MediumConWat,
-      nPorts=1) annotation (Placement(transformation(
+  Buildings.Fluid.Sources.Boundary_pT bouConWat(
+    redeclare final package Medium = MediumConWat,
+    nPorts=1)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-110,30})));
+
 protected
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
     dat.chiSec.chi[1].dp1_nominal + dat.cooTowSec.cooTow[1].dp_nominal
     "Nominal pressure drop for condenser loop";
+
 equation
   // Sensors
   connect(TConWatSup.y, busCon.TConWatSup);

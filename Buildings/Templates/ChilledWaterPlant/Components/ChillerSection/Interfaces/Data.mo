@@ -15,7 +15,8 @@ record Data "Data for chiller section"
     "= true, chillers are air cooled,
     = false, chillers are water cooled"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  final parameter Boolean is_series = typ ==Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries
+  final parameter Boolean is_parallel = 
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerParallel
     "= true if chillers are connected in series";
 
   // Equipment characteristics

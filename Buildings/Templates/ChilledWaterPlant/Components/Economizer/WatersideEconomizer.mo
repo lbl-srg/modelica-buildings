@@ -8,12 +8,12 @@ model WatersideEconomizer "Waterside economizer"
 
   // fixme WIP
 
-  replaceable Buildings.Templates.Components.Valves.TwoWayModulating valConWatEco(final
-      dpValve_nominal=dat.dpConWatEcoValve_nominal) if have_eco constrainedby
+  replaceable Buildings.Templates.Components.Valves.TwoWayModulating 
+    valConWatEco constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=dpConWatEcoValve_nominal)
+    final dpValve_nominal=dat.dpConWatEcoValve_nominal)
     "Waterside economizer valve on condenser water side" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
