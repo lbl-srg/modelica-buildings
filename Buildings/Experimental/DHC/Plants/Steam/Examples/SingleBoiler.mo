@@ -38,11 +38,11 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
     redeclare final package Medium = MediumWat,
     redeclare final package MediumHea_b = MediumSte,
-    fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     final m_flow_nominal=m_flow_nominal,
     final pSteSet=pSat,
     final per=perPumFW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Plant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation vol(
@@ -88,6 +88,7 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumCNR(
     redeclare final package Medium = MediumWat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final per=perPumCNR,
     y_start=1)
     "Condensate return pump"

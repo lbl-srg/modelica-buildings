@@ -70,6 +70,7 @@ model DistributionCondensatePipe
     each dh_nominal=dh_nominal,
     Q_flow_nominal={Q1_flow_nominal,Q2_flow_nominal},
     each dp_nominal=dp_nominal,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     QHeaLoa={QHeaLoa1,QHeaLoa2},
     each timeScale(displayUnit="s") = 3600)
     "Building vector consisting of 2 buildings"

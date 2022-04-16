@@ -1,7 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortRLC "Model of an RLC element with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
+
   parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref";
   parameter Modelica.Units.SI.Capacitance C "Capacity";
   parameter Modelica.Units.SI.Inductance L "Inductance";
@@ -199,6 +202,10 @@ to <i>L/3</i>, a resistance equal to <i>R/3</i> and a capacity equal to
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check
