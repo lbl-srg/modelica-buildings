@@ -64,6 +64,8 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure pBoi_start=pSteSet
     "Start value of boiler pressure"
     annotation(Dialog(tab = "Initialization"));
+parameter Real yPum_start=0.7 "Initial value of output"
+    annotation(Dialog(tab="Initialization"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
@@ -110,16 +112,6 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
       controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PD or
       controllerTypeBoi==.Modelica.Blocks.Types.SimpleController.PID,
       tab="Control", group="Boiler"));
-  parameter Modelica.Blocks.Types.Init initTypeBoi=
-    Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-    annotation(Evaluate=true,
-      Dialog(tab="Control", group="Boiler"));
-  parameter Real yBoi_start=0.5 "Initial value of output"
-    annotation(Dialog(enable=initTypeBoi ==
-      Modelica.Blocks.Types.Init.InitialOutput,
-      tab="Control",
-      group="Boiler"));
 
   // Feedwater pump controller
   parameter Modelica.Blocks.Types.SimpleController controllerTypePum=
@@ -157,14 +149,6 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     annotation(Dialog(enable=
       controllerTypePum==.Modelica.Blocks.Types.SimpleController.PD or
       controllerTypePum==.Modelica.Blocks.Types.SimpleController.PID,
-      tab="Control", group="Pump"));
-  parameter Modelica.Blocks.Types.Init initTypePum=
-    Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-    annotation(Evaluate=true, Dialog(tab="Control", group="Pump"));
-  parameter Real yPum_start=0.7 "Initial value of output"
-    annotation(Dialog(enable=initTypePum ==
-      Modelica.Blocks.Types.Init.InitialOutput,
       tab="Control", group="Pump"));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumFW(
