@@ -4,16 +4,13 @@ partial model PartialConnection2Pipe
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
     redeclare final package MediumSup=Medium,
-    redeclare final package MediumRet=Medium,
-    redeclare final model Model_pipDisSup = Model_pipDis,
-    redeclare final model Model_pipDisRet = Model_pipDis);
+    redeclare final package MediumRet=Medium);
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model";
   replaceable model Model_pipCon=Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCon_flow_nominal,
     final allowFlowReversal=allowFlowReversal);
-  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface;
   parameter Boolean show_entFlo=false
     "Set to true to output enthalpy flow rate difference"
     annotation (Evaluate=true);
