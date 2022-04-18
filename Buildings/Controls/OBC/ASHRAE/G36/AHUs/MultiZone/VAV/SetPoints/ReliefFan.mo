@@ -27,9 +27,9 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan[nSupFan]
-    "AHU supply fan proven on status" annotation (Placement(transformation(
-          extent={{-560,330},{-520,370}}), iconTransformation(extent={{-140,60},
-            {-100,100}})));
+    "AHU supply fan proven on status"
+    annotation (Placement(transformation(extent={{-560,330},{-520,370}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     displayUnit="Pa",
     final quantity="PressureDifference")
@@ -41,18 +41,19 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{-560,50},{-520,90}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan[nRelFan]
-    "Relief fan proven on status" annotation (Placement(transformation(extent={{
-            -560,-190},{-520,-150}}), iconTransformation(extent={{-140,-100},{-100,
-            -60}})));
+    "Relief fan proven on status"
+    annotation (Placement(transformation(extent={{-560,-190},{-520,-150}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{500,320},{540,360}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe[nRelFan](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan[nRelFan](
     final unit=fill("1", nRelFan),
-    final max=fill(1,nRelFan)) "Relief fan commanded speed"
+    final max=fill(1, nRelFan))
+    "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{500,210},{540,250}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam[nRelFan](
@@ -526,7 +527,7 @@ equation
           {138,298}},color={0,0,127}));
   connect(booToRea3.y, pro3.u2) annotation (Line(points={{422,-70},{440,-70},{440,
           224},{458,224}}, color={0,0,127}));
-  connect(pro3.y, yRelFanSpe)
+  connect(pro3.y, yRelFan)
     annotation (Line(points={{482,230},{520,230}}, color={0,0,127}));
   connect(reaRep2.y, pro3.u1)
     annotation (Line(points={{422,236},{458,236}}, color={0,0,127}));
@@ -649,11 +650,11 @@ annotation (defaultComponentName="relFanCon",
         Text(
           extent={{-96,92},{-54,72}},
           lineColor={255,0,255},
-          textString="uSupFan"),
+          textString="u1SupFan"),
         Text(
           extent={{-96,-70},{-54,-90}},
           lineColor={255,0,255},
-          textString="uRelFan"),
+          textString="u1RelFan"),
         Text(
           extent={{-98,42},{-56,22}},
           lineColor={0,0,127},
@@ -665,7 +666,7 @@ annotation (defaultComponentName="relFanCon",
         Text(
           extent={{40,12},{98,-8}},
           lineColor={0,0,127},
-          textString="yRelFanSpe"),
+          textString="yRelFan"),
         Text(
           extent={{60,-50},{100,-66}},
           lineColor={0,0,127},

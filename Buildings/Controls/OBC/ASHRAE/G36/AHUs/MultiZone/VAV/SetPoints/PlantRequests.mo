@@ -303,30 +303,30 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,88},{-76,72}},
+          extent={{-98,88},{-70,72}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSup"),
+          textString="TAirSup"),
         Text(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,40},{-60,22}},
+          extent={{-98,40},{-52,20}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSupSet"),
+          textString="TAirSupSet"),
         Text(
-          extent={{-100,-22},{-58,-36}},
+          extent={{-98,-22},{-38,-38}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooCoi"),
+          textString="uCooCoi_actual"),
         Text(
-          extent={{-100,-72},{-58,-86}},
+          extent={{-98,-72},{-36,-88}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           visible=have_hotWatCoi,
-          textString="uHeaCoi"),
+          textString="uHeaCoi_actual"),
         Text(
           extent={{34,92},{98,70}},
           lineColor={255,127,0},

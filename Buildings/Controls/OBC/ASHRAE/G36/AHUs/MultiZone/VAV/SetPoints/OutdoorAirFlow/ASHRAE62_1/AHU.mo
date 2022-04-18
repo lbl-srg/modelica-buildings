@@ -195,9 +195,9 @@ annotation (
           lineColor={0,0,0},
           textString="VUncOutAir_flow"),
         Text(
-          extent={{40,40},{98,24}},
+          extent={{26,40},{98,24}},
           lineColor={0,0,0},
-          textString="VEffOutAir_flow"),
+          textString="VEffAirOut_flow_min"),
         Text(
           extent={{18,-20},{96,-38}},
           lineColor={0,0,0},
@@ -205,9 +205,9 @@ annotation (
         Text(
           extent={{-96,-72},{-50,-88}},
           lineColor={0,0,0},
-          textString="VOut_flow",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
+          textString="VAirOut_flow"),
         Text(
           extent={{30,-70},{98,-86}},
           lineColor={0,0,0},

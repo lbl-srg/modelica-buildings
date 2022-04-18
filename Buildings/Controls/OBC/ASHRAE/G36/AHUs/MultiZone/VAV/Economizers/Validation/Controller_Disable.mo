@@ -9,11 +9,8 @@ model Controller_Disable
     final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final retDamPhyPosMax=1,
-    final retDamPhyPosMin=0,
-    final outDamPhyPosMax=1,
-    final outDamPhyPosMin=0) "Multi zone VAV AHU economizer "
+    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+                             "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
@@ -23,11 +20,8 @@ model Controller_Disable
     final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final retDamPhyPosMax=1,
-    final retDamPhyPosMin=0,
-    final outDamPhyPosMax=1,
-    final outDamPhyPosMin=0) "Multi zone VAV AHU economizer"
+    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+                             "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,0}})));
 
 protected

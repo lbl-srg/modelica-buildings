@@ -54,8 +54,8 @@ block SeparateWithDP
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(final unit="1")
     if have_CO2Sen and venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
-    "Maximum zone CO2 control loop" annotation (Placement(transformation(extent
-          ={{-260,250},{-220,290}}), iconTransformation(extent={{-140,50},{-100,
+    "Maximum zone CO2 control loop" annotation (Placement(transformation(extent=
+           {{-260,250},{-220,290}}), iconTransformation(extent={{-140,50},{-100,
             90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput effDesOutAir_normalized(
     final unit="1")
@@ -409,45 +409,45 @@ annotation (
           textString="VOutMinSet_flow_normalized",
           visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
         Text(
-          extent={{-98,-60},{-42,-76}},
+          extent={{-100,-62},{-60,-74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uOutDamPos"),
+          textString="uOutDam"),
         Text(
-          extent={{-98,-82},{-42,-96}},
+          extent={{-98,-80},{-24,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uSupFanSpe"),
+          textString="uSupFanSpe_actual"),
         Text(
-          extent={{36,60},{98,42}},
+          extent={{44,60},{98,42}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOutDamPosMin"),
+          textString="yOutDam_min"),
         Text(
-          extent={{36,40},{98,22}},
+          extent={{44,40},{98,22}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOutDamPosMax"),
+          textString="yOutDam_max"),
         Text(
-          extent={{38,-40},{98,-58}},
+          extent={{46,-40},{98,-58}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yRetDamPosMax"),
+          textString="yRetDam_max"),
         Text(
-          extent={{38,-20},{98,-38}},
+          extent={{44,-18},{98,-38}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yRetDamPosMin"),
+          textString="yRetDam_min"),
         Text(
           extent={{30,-78},{98,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yRetDamPhyPosMax"),
+          textString="yRetDamPhy_max"),
         Text(
-          extent={{-100,-12},{-58,-26}},
+          extent={{-98,-12},{-56,-26}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uSupFan"),
+          textString="u1SupFan"),
         Text(
           extent={{-100,-32},{-50,-46}},
           lineColor={255,127,0},
@@ -457,7 +457,7 @@ annotation (
           extent={{52,94},{98,70}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yMinOutDam"),
+          textString="y1MinOutDam"),
         Text(
           extent={{-96,98},{-4,84}},
           lineColor={0,0,127},
@@ -471,11 +471,11 @@ annotation (
           textString="effDesOutAir_normalized",
           visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
         Text(
-          extent={{-96,78},{-56,64}},
+          extent={{-96,78},{-36,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uMaxCO2",
-          visible=have_CO2Sen and venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)}),
+          visible=have_CO2Sen and venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016,
+          textString="uCO2Loo_max")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-360},{220,360}})),
   Documentation(info="<html>
 <p>

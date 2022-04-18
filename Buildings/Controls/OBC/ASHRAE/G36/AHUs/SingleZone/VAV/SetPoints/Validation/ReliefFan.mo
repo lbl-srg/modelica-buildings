@@ -104,11 +104,11 @@ equation
           {-40,-20},{-40,7},{-2,7}}, color={255,127,0}));
   connect(intPul.y, relFanCon1.uRelFanAla[1]) annotation (Line(points={{-98,-60},
           {-40,-60},{-40,7},{-2,7}}, color={255,127,0}));
-  connect(relFanCon.yRelFanSpe, zerOrdHol.u)
+  connect(relFanCon.yRelFan, zerOrdHol.u)
     annotation (Line(points={{22,110},{28,110}}, color={0,0,127}));
   connect(zerOrdHol.y, greThr.u)
     annotation (Line(points={{52,110},{58,110}}, color={0,0,127}));
-  connect(relFanCon1.yRelFanSpe, zerOrdHol1.u)
+  connect(relFanCon1.yRelFan, zerOrdHol1.u)
     annotation (Line(points={{22,10},{28,10}}, color={0,0,127}));
   connect(zerOrdHol1.y, greThr1.u)
     annotation (Line(points={{52,10},{58,10}}, color={0,0,127}));
@@ -116,7 +116,7 @@ equation
     annotation (Line(points={{82,-110},{98,-110}}, color={255,0,255}));
   connect(pre2.y,relFanCon2. uRelFan) annotation (Line(points={{122,-110},{130,-110},
           {130,-140},{-10,-140},{-10,-118},{-2,-118}}, color={255,0,255}));
-  connect(relFanCon2.yRelFanSpe,zerOrdHol2. u)
+  connect(relFanCon2.yRelFan, zerOrdHol2.u)
     annotation (Line(points={{22,-110},{28,-110}}, color={0,0,127}));
   connect(zerOrdHol2.y,greThr2. u)
     annotation (Line(points={{52,-110},{58,-110}}, color={0,0,127}));

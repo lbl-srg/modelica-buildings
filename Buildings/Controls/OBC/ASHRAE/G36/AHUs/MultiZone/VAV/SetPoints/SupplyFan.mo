@@ -341,21 +341,17 @@ annotation (
           lineColor={0,0,127},
           textString="uZonPreResReq"),
         Text(
-          extent={{-96,-70},{-54,-90}},
+          extent={{-96,-70},{-60,-90}},
           lineColor={0,0,127},
-          textString="ducStaPre"),
-        Text(
-          extent={{54,-60},{96,-80}},
-          lineColor={0,0,127},
-          textString="sumVDis_flow"),
+          textString="dpDuc"),
         Text(
           extent={{52,10},{94,-10}},
           lineColor={0,0,127},
-          textString="yFanSpe"),
+          textString="ySupFan"),
         Text(
-          extent={{52,78},{94,58}},
+          extent={{52,80},{94,60}},
           lineColor={0,0,127},
-          textString="ySupFan")}),
+          textString="y1SupFan")}),
   Documentation(info="<html>
 <p>
 Supply fan control for a multi zone VAV AHU according to Section 5.16.1 of 

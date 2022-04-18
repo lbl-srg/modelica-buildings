@@ -209,10 +209,10 @@ annotation (
           lineColor={0,0,0},
           textString="effDesOutAir_normalized"),
         Text(
-          extent={{-96,-24},{-66,-36}},
+          extent={{-96,-24},{-46,-38}},
           lineColor={0,0,0},
-          textString="uMaxCO2",
-          visible=have_CO2Sen),
+          visible=have_CO2Sen,
+          textString="uCO2Loo_max"),
         Text(
           extent={{18,-48},{96,-70}},
           lineColor={0,0,0},
@@ -224,11 +224,11 @@ annotation (
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
         Text(
-          extent={{-98,-74},{-68,-86}},
+          extent={{-98,-74},{-54,-88}},
           lineColor={0,0,0},
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
-          textString="VOut_flow")}),
+          textString="VAirOut_flow")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}})),
 Documentation(info="<html>
 <p>
