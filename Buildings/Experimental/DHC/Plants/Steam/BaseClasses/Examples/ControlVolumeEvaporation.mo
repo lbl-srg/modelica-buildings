@@ -40,8 +40,8 @@ package MediumWat =
   Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumSte,
     p=volDyn.p_start,
-    nPorts=1) "Boundary condition"
-    annotation (Placement(transformation(extent={{90,-20},{70,0}})));
+    nPorts=2) "Boundary condition"
+    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1,
     offset=1,
@@ -55,11 +55,6 @@ package MediumWat =
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Fluid.FixedResistances.PressureDrop           res(
-    redeclare final package Medium = MediumSte,
-    final m_flow_nominal=0.02,
-    final dp_nominal=6000) "Pipe resistance"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 equation
   connect(sou.ports[1], volDyn.port_a)
     annotation (Line(points={{2,-10},{10,-10}}, color={0,127,255}));
@@ -77,12 +72,10 @@ equation
                              color={0,0,127}));
   connect(ramp.y, sou1.m_flow_in) annotation (Line(points={{-69,-10},{-40,-10},
           {-40,-42},{-20,-42}}, color={0,0,127}));
-  connect(volDyn.port_b, res.port_a)
-    annotation (Line(points={{30,-10},{40,-10}}, color={0,127,255}));
-  connect(volSte.port_b, res.port_a) annotation (Line(points={{30,-50},{36,-50},
-          {36,-10},{40,-10}}, color={0,127,255}));
-  connect(res.port_b, bou.ports[1])
-    annotation (Line(points={{60,-10},{70,-10}}, color={0,127,255}));
+  connect(volSte.port_b, bou.ports[1]) annotation (Line(points={{30,-50},{50,
+          -50},{50,-11},{60,-11}}, color={0,127,255}));
+  connect(volDyn.port_b, bou.ports[2])
+    annotation (Line(points={{30,-10},{60,-10},{60,-9}}, color={0,127,255}));
   annotation (Documentation(
         info="<html>
 <p>

@@ -6,7 +6,11 @@ model ControlVolumeEvaporation
     redeclare final package Medium_b=MediumSte,
     hSte(start = MediumSte.h_default),
     hWat(start = MediumWat.h_default),
-    p(fixed=true));
+    p(final fixed=fixed_p_start));
+  parameter Boolean fixed_p_start = false
+    "Set to true if p_start is to be used as an explicit initial equation, 
+    not an initial guess"
+    annotation(Dialog(tab = "Initialization"));
 equation
 // boundary conditions at the ports
   port_a.m_flow = mWat_flow;

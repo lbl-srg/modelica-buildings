@@ -165,6 +165,7 @@ parameter Real yPum_start=0.7 "Initial value of output"
     redeclare final package MediumWat = Medium,
     final allowFlowReversal=allowFlowReversal,
     final p_start=pBoi_start,
+    fixed_p_start=true,
     final fue=fueBoi,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=3000,
