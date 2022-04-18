@@ -1,12 +1,11 @@
 within Buildings.Fluid.Storage.Plant.Validation.BaseClasses;
 partial model PartialClosedTank "(Draft)"
 
-  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(nom(
-    final tankIsOpen=false),
+  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
     sin(nPorts=1),
     sou(nPorts=1));
 
-  Buildings.Fluid.Storage.Plant.SupplyPumpClosedTank supPum(
+  Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = Medium,
     final nom=nom) "Supply pump and valves"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));

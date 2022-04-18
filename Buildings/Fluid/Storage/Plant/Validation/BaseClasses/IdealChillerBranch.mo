@@ -32,14 +32,16 @@ model IdealChillerBranch
   Buildings.Fluid.Movers.BaseClasses.IdealSource mFloSou(
     redeclare final package Medium = Medium,
     final control_m_flow=true,
-    final m_flow_small = nom.mChi_flow_nominal * 1E-5) "Ideal flow rate source" annotation (Placement(
+    final m_flow_small = nom.mChi_flow_nominal * 1E-5) "Ideal flow rate source"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-30})));
   Buildings.Fluid.Sources.PropertySource_T temSou(
     redeclare package Medium = Medium,
-    final use_T_in=true) "Ideal temperature source" annotation (Placement(transformation(
+    final use_T_in=true) "Ideal temperature source"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,30})));

@@ -3,7 +3,9 @@ block PumpValveControl
   "Control block for the supply pump and nearby valves"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean tankIsOpen = false "Tank is open";
+  //parameter Boolean tankIsOpen = false "Tank is open";
+  parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp
+    "Type of plant setup";
 
   Modelica.Blocks.Sources.Constant zero(k=0) "Constant 0"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
@@ -11,7 +13,12 @@ block PumpValveControl
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
     Ti=50,
-    reverseActing=false) if not tankIsOpen "PI controller"
+    reverseActing=false)
+    if plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
+    or plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+                                           "PI controller"
                                          annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -130,7 +137,8 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={130,10})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaValCha if tankIsOpen
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaValCha
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "True = 1, false = 0" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -144,7 +152,8 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,10})));
-  Modelica.Blocks.Interfaces.RealOutput yValChaOn if tankIsOpen
+  Modelica.Blocks.Interfaces.RealOutput yValChaOn
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Valve position, on-off signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -152,7 +161,8 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-110})));
-  Modelica.Blocks.Interfaces.RealOutput yValDisMod if tankIsOpen
+  Modelica.Blocks.Interfaces.RealOutput yValDisMod
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Valve position, modulating signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -160,7 +170,8 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-110})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiValDis if tankIsOpen
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiValDis
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "True = on (y>0); false = off (y=0)." annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -169,7 +180,9 @@ block PumpValveControl
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
     Ti=50,
-    reverseActing=false) if tankIsOpen "PI controller" annotation (Placement(
+    reverseActing=false)
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+                                       "PI controller" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -178,13 +191,16 @@ block PumpValveControl
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
     Ti=50,
-    reverseActing=true)  if tankIsOpen "PI controller" annotation (Placement(
+    reverseActing=true)
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+                                       "PI controller" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={90,10})));
 
-  Modelica.Blocks.Interfaces.RealInput mTanTop_flow if tankIsOpen
+  Modelica.Blocks.Interfaces.RealInput mTanTop_flow
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Flow rate measured at the top of the tank" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -194,7 +210,7 @@ block PumpValveControl
         rotation=0,
         origin={-110,0})));
 
-  Controls.Continuous.LimPID conPI_pumSecPos(
+  Buildings.Controls.Continuous.LimPID conPI_pumSecPos(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
     Ti=50,
@@ -203,19 +219,19 @@ block PumpValveControl
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-30,10})));
-  Controls.OBC.CDL.Continuous.LessThreshold isPos(t=0)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isPos(t=0)
     "= true tank flow setpoint is positive" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,-30})));
-  Controls.OBC.CDL.Continuous.Switch           swiPum1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiPum1
     "True = on (y>0); false = off (y=0)." annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,-70})));
 equation
-  if tankIsOpen then
+  if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open then
     connect(uOnl, swiPum.u2) annotation (Line(points={{210,30},{190,30},{190,
             -100},{-70,-100},{-70,-118}},
                                  color={255,0,255}));

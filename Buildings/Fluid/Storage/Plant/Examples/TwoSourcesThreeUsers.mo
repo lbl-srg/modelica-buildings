@@ -139,7 +139,8 @@ model TwoSourcesThreeUsers
 
 // Second source: chiller and tank
   Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nomPla2(
-    tankIsOpen=false,
+    final plaTyp=
+        Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
     mTan_flow_nominal=0.75*m_flow_nominal,
     mChi_flow_nominal=0.75*m_flow_nominal,
     dp_nominal=dp_nominal,
@@ -161,9 +162,8 @@ model TwoSourcesThreeUsers
     final cheVal(final dpValve_nominal=0.1*nomPla2.dp_nominal,
                  final dpFixed_nominal=0.1*nomPla2.dp_nominal)) "Chiller branch"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Fluid.Storage.Plant.SupplyPumpClosedTank supPum(
+  Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = MediumCHW,
-    final allowRemoteCharging=true,
     final nom=nomPla2,
     final valCha(final dpValve_nominal=nomPla2.dp_nominal*0.1),
     final valDis(final dpValve_nominal=nomPla2.dp_nominal*0.1))
@@ -182,8 +182,8 @@ model TwoSourcesThreeUsers
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-10})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl conPumSecGro(
-      tankIsOpen=false) "Control block for secondary pump-valve group"
+  Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl conSupPum(final
+      plaTyp=nomPla2.plaTyp) "Control block for the secondary pump and valves"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -452,27 +452,25 @@ equation
           {-36,-54},{-36,-40},{-30,-40}}, color={0,127,255}));
   connect(supPum.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
-  connect(conPumSecGro.yValDisOn, supPum.yValDis)
-    annotation (Line(points={{-60,-31},{-60,-40},{-62,-40},{-62,-49}},
-                                                   color={0,0,127}));
-  connect(conPumSecGro.yPum, supPum.yPum)
-    annotation (Line(points={{-72,-31},{-72,-36},{-70,-36},{-70,-49}},
-                                                   color={0,0,127}));
-  connect(tanBra.mTanBot_flow, conPumSecGro.mTanBot_flow)
+  connect(conSupPum.yValDisOn, supPum.yValDis) annotation (Line(points={{-60,-31},
+          {-60,-40},{-62,-40},{-62,-49}}, color={0,0,127}));
+  connect(conSupPum.yPum, supPum.yPum) annotation (Line(points={{-72,-31},{-72,
+          -36},{-70,-36},{-70,-49}}, color={0,0,127}));
+  connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
     annotation (Line(points={{-92,-49},{-92,-22},{-81,-22}}, color={0,0,127}));
-  connect(supPum.yValCha_actual, conPumSecGro.yValCha_actual) annotation (Line(
-        points={{-74,-49},{-74,-40},{-81,-40},{-81,-30}},           color={0,0,127}));
-  connect(supPum.yValDis_actual, conPumSecGro.yValDis_actual) annotation (Line(
-        points={{-78,-49},{-78,-44},{-86,-44},{-86,-26},{-81,-26}}, color={0,0,127}));
-  connect(conPumSecGro.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},
-          {-50,-78}}, color={255,0,255}));
-  connect(mTanSet_flow.y, conPumSecGro.mTanSet_flow) annotation (Line(points={{-118,
+  connect(supPum.yValCha_actual, conSupPum.yValCha_actual) annotation (Line(
+        points={{-74,-49},{-74,-40},{-81,-40},{-81,-30}}, color={0,0,127}));
+  connect(supPum.yValDis_actual, conSupPum.yValDis_actual) annotation (Line(
+        points={{-78,-49},{-78,-44},{-86,-44},{-86,-26},{-81,-26}}, color={0,0,
+          127}));
+  connect(conSupPum.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},{
+          -50,-78}}, color={255,0,255}));
+  connect(mTanSet_flow.y, conSupPum.mTanSet_flow) annotation (Line(points={{-118,
           -10},{-86,-10},{-86,-16},{-81,-16}}, color={0,0,127}));
-  connect(uRemCha.y, conPumSecGro.uRemCha) annotation (Line(points={{-159,-90},
-          {-156,-90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,
-          -10}},
+  connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
+          -90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,-10}},
         color={255,0,255}));
-  connect(conPumSecGro.yValChaMod, supPum.yValCha)
+  connect(conSupPum.yValChaMod, supPum.yValCha)
     annotation (Line(points={{-68,-31},{-66,-31},{-66,-49}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/TwoSourcesThreeUsers.mos"

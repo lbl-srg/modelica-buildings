@@ -1,11 +1,8 @@
 within Buildings.Fluid.Storage.Plant;
-model SupplyPumpClosedTank
-  "(Draft) Model section with supply pump and valves for a closed tank"
+model SupplyPumpValve
+  "(Draft) Plant section with supply pump and valves"
 
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
-
-  parameter Boolean allowRemoteCharging = true
-    "= true if the tank is allowed to be charged by a remote source";
 
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
@@ -26,7 +23,10 @@ model SupplyPumpClosedTank
     use_inputFilter=true,
     y_start=0,
     l=1E-5,
-    m_flow_nominal=nom.m_flow_nominal) if allowRemoteCharging
+    m_flow_nominal=nom.m_flow_nominal)
+    if nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+     or nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Discharging valve, open when tank NOT being charged remotely"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCha(
@@ -35,11 +35,16 @@ model SupplyPumpClosedTank
     use_inputFilter=true,
     y_start=0,
     l=1E-5,
-    m_flow_nominal=nom.mTan_flow_nominal) if allowRemoteCharging
+    m_flow_nominal=nom.mTan_flow_nominal)
+    if nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+     or nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Charging valve, open when tank is being charged remotely"
     annotation (Placement(transformation(extent={{40,-30},{20,-10}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasValDis(
-      redeclare package Medium = Medium) if not allowRemoteCharging
+    redeclare package Medium = Medium)
+    if nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
     "Replaces valDis when remote charging not allowed"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
@@ -52,7 +57,11 @@ model SupplyPumpClosedTank
         rotation=180,
         origin={-10,60})));
   Modelica.Blocks.Interfaces.RealOutput yValCha_actual
-    if allowRemoteCharging                         "Actual valve position"
+    if nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+                                                   "Actual valve position"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -61,7 +70,11 @@ model SupplyPumpClosedTank
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-40,110})));
-  Modelica.Blocks.Interfaces.RealOutput yValDis_actual if allowRemoteCharging
+  Modelica.Blocks.Interfaces.RealOutput yValDis_actual
+    if nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Actual valve position"
     annotation (Placement(
         transformation(
@@ -71,7 +84,11 @@ model SupplyPumpClosedTank
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-80,110})));
-  Modelica.Blocks.Interfaces.RealInput yValCha if allowRemoteCharging
+  Modelica.Blocks.Interfaces.RealInput yValCha
+    if nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Valve position input" annotation (Placement(transformation(extent={{10,10},
             {-10,-10}},
         rotation=90,
@@ -79,7 +96,11 @@ model SupplyPumpClosedTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,110})));
-  Modelica.Blocks.Interfaces.RealInput yValDis if allowRemoteCharging
+  Modelica.Blocks.Interfaces.RealInput yValDis
+    if nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or nom.plaTyp ==
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Valve position input" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -197,4 +218,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end SupplyPumpClosedTank;
+end SupplyPumpValve;

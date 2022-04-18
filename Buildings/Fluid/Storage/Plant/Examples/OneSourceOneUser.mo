@@ -10,7 +10,8 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom(
-    tankIsOpen=false,
+    final plaTyp=
+        Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal,
     mTan_flow_nominal=0.5,
     mChi_flow_nominal=0.5,
     dp_nominal=300000,
@@ -33,9 +34,8 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,0})));
-  Buildings.Fluid.Storage.Plant.SupplyPumpClosedTank supPum(
+  Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = Medium,
-    final allowRemoteCharging=false,
     final nom=nom,
     final valCha(final dpValve_nominal=nom.dp_nominal*0.1),
     final valDis(final dpValve_nominal=nom.dp_nominal*0.1))

@@ -2,8 +2,8 @@ within Buildings.Fluid.Storage.Plant.BaseClasses;
 record NominalValues "Nominal values"
   extends Modelica.Icons.Record;
 
-  parameter Boolean tankIsOpen
-    "Tank is open"
+  parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp
+    "Type of plant setup"
     annotation(dialog(group="Plant configuration"));
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=

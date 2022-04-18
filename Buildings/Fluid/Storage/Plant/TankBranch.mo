@@ -3,7 +3,8 @@ model TankBranch
   "(Draft) Model of the tank branch where the tank can potentially be charged remotely"
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
-  final parameter Boolean tankIsOpen = nom.tankIsOpen "Tank is open";
+  final parameter Boolean tankIsOpen = nom.plaTyp ==
+    Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open "Tank is open";
 
   Buildings.Fluid.FixedResistances.PressureDrop preDroTanBot(
     redeclare package Medium = Medium,
@@ -53,7 +54,7 @@ model TankBranch
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-10,30})));
-  FixedResistances.PressureDrop preDroTanTop(
+  Buildings.Fluid.FixedResistances.PressureDrop preDroTanTop(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final m_flow_nominal=nom.mTan_flow_nominal)
