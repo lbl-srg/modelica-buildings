@@ -4,7 +4,6 @@ model ClosedTankWithRemoteCharging
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialClosedTank(
-      souChi(final use_m_flow_in=true),
       supPum(final allowRemoteCharging=true));
 
   Modelica.Blocks.Sources.TimeTable set_mTan_flow(table=[0,0; 3600/7,0; 3600/7,
@@ -20,18 +19,15 @@ model ClosedTankWithRemoteCharging
     annotation (Placement(transformation(extent={{82,40},{62,60}})));
   Modelica.Blocks.Sources.TimeTable set_mChi_flow(table=[0,0; 3600/7,0; 3600/7,
         1; 3600/7*5,1; 3600/7*5,0]) "Chiller flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl conPumVal(
     final tankIsOpen=nom.tankIsOpen)
     "Control block for the secondary pump and near-by valves"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
 equation
-  connect(set_mChi_flow.y, souChi.m_flow_in)
-    annotation (Line(points={{-79,30},{-70,30},{-70,28},{-62,28}},
-                                                       color={0,0,127}));
   connect(set_mTan_flow.y,conPumVal. mTanSet_flow)
-    annotation (Line(points={{-79,70},{6,70},{6,52},{9,52}}, color={0,0,127}));
-  connect(tanBra.mTan_flow,conPumVal. mTan_flow)
+    annotation (Line(points={{-79,70},{6,70},{6,54},{9,54}}, color={0,0,127}));
+  connect(tanBra.mTanBot_flow, conPumVal.mTanBot_flow)
     annotation (Line(points={{-12,11},{-12,48},{9,48}}, color={0,0,127}));
   connect(supPum.yValCha_actual,conPumVal. yValCha_actual) annotation (Line(
         points={{16,11},{16,18},{6,18},{6,40},{9,40}}, color={0,0,127}));
@@ -42,12 +38,14 @@ equation
   connect(conPumVal.uRemCha, uRemCha.y)
     annotation (Line(points={{32,60},{32,90},{59,90}}, color={255,0,255}));
   connect(conPumVal.yPum, supPum.yPum)
-    annotation (Line(points={{16,39},{16,22},{20,22},{20,11}},
+    annotation (Line(points={{18,39},{18,22},{20,22},{20,11}},
                                                color={0,0,127}));
-  connect(conPumVal.yValChaMod, supPum.yValCha) annotation (Line(points={{20,39},
-          {20,26},{24,26},{24,11}}, color={0,0,127}));
-  connect(conPumVal.yValDisOn, supPum.yValDis) annotation (Line(points={{28,39},
-          {28,30},{28,30},{28,11}}, color={0,0,127}));
+  connect(conPumVal.yValChaMod, supPum.yValCha) annotation (Line(points={{22,39},
+          {22,26},{24,26},{24,11}}, color={0,0,127}));
+  connect(conPumVal.yValDisOn, supPum.yValDis) annotation (Line(points={{30,39},
+          {30,30},{28,30},{28,11}}, color={0,0,127}));
+  connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
+    annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

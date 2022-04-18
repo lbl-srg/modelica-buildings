@@ -8,6 +8,8 @@ model ChillerBranch
   parameter Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom
     "Nominal values";
 
+  Modelica.Units.SI.MassFlowRate m_flow=pum.m_flow "Mass flow rate";
+
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     per(pressure(dp=nom.dp_nominal*{2,1.2,0},

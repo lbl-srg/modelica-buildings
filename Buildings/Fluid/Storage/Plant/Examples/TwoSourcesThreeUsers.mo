@@ -453,11 +453,12 @@ equation
   connect(supPum.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
   connect(conPumSecGro.yValDisOn, supPum.yValDis)
-    annotation (Line(points={{-62,-31},{-62,-49}}, color={0,0,127}));
-  connect(conPumSecGro.yPum, supPum.yPum)
-    annotation (Line(points={{-74,-31},{-74,-36},{-70,-36},{-70,-49}},
+    annotation (Line(points={{-60,-31},{-60,-40},{-62,-40},{-62,-49}},
                                                    color={0,0,127}));
-  connect(tanBra.mTan_flow, conPumSecGro.mTan_flow)
+  connect(conPumSecGro.yPum, supPum.yPum)
+    annotation (Line(points={{-72,-31},{-72,-36},{-70,-36},{-70,-49}},
+                                                   color={0,0,127}));
+  connect(tanBra.mTanBot_flow, conPumSecGro.mTanBot_flow)
     annotation (Line(points={{-92,-49},{-92,-22},{-81,-22}}, color={0,0,127}));
   connect(supPum.yValCha_actual, conPumSecGro.yValCha_actual) annotation (Line(
         points={{-74,-49},{-74,-40},{-81,-40},{-81,-30}},           color={0,0,127}));
@@ -466,13 +467,13 @@ equation
   connect(conPumSecGro.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},
           {-50,-78}}, color={255,0,255}));
   connect(mTanSet_flow.y, conPumSecGro.mTanSet_flow) annotation (Line(points={{-118,
-          -10},{-86,-10},{-86,-18},{-81,-18}}, color={0,0,127}));
+          -10},{-86,-10},{-86,-16},{-81,-16}}, color={0,0,127}));
   connect(uRemCha.y, conPumSecGro.uRemCha) annotation (Line(points={{-159,-90},
           {-156,-90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,
           -10}},
         color={255,0,255}));
   connect(conPumSecGro.yValChaMod, supPum.yValCha)
-    annotation (Line(points={{-70,-31},{-66,-31},{-66,-49}}, color={0,0,127}));
+    annotation (Line(points={{-68,-31},{-66,-31},{-66,-49}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/TwoSourcesThreeUsers.mos"
         "Simulate and plot"),
