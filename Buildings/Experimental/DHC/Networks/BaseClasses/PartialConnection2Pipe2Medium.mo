@@ -20,18 +20,6 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting an
     final m_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal)
     "Interface for outlet pipe for the distribution return";
-  replaceable model Model_pipConSup =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface (
-    redeclare final package Medium = MediumSup,
-    final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal
-        "Interface for consumer supply pipe");
-  replaceable model Model_pipConRet =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface (
-    redeclare final package Medium = MediumRet,
-    final m_flow_nominal=mCon_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
-    "Interface for consumer return pipe";
 
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line"
@@ -100,16 +88,6 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting an
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Model_pipDisRet pipDisRet "Distribution return pipe"
     annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
-  Model_pipConSup pipConSup "Connection supply pipe"
-    annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={-20,-10})));
-  Model_pipConRet pipConRet "Connection return pipe"
-    annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},
-      rotation=90,
-      origin={20,-10})));
   Buildings.Fluid.FixedResistances.Junction junConSup(
     redeclare final package Medium = MediumSup,
     final portFlowDirection_1=if allowFlowReversal then
@@ -152,8 +130,6 @@ protected
       X = MediumRet.X_default))
     "Specific heat capacity of medium at default medium state";
 equation
-  connect(junConSup.port_3, pipConSup.port_a)
-    annotation (Line(points={{-20,-30},{-20,-20}}, color={0,127,255}));
   connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
   connect(port_aDisSup, pipDisSup.port_a)
@@ -162,12 +138,6 @@ equation
     annotation (Line(points={{10,-80},{-60,-80}}, color={0,127,255}));
   connect(pipDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
-  connect(pipConRet.port_a, port_aCon)
-    annotation (Line(points={{20,0},{20,0},{20,120}}, color={0,127,255}));
-  connect(pipConRet.port_b, junConRet.port_3)
-    annotation (Line(points={{20,-20},{20,-20},{20,-70}}, color={0,127,255}));
-  connect(pipConSup.port_b, port_bCon)
-    annotation (Line(points={{-20,0},{-20,120}}, color={0,127,255}));
   connect(junConSup.port_2, port_bDisSup)
     annotation (Line(points={{-10,-40},{100,-40}}, color={0,127,255}));
   connect(junConRet.port_1, port_aDisRet)

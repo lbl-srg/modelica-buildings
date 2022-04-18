@@ -9,7 +9,7 @@ createPlot(id=1, position={55, 34, 558, 505},
   colors={{28,108,200}}, 
   displayUnits={"kg/s"});
 createPlot(id=1, position={55, 34, 558, 505}, 
-  y={"pla.QFue_flow[1]", "pla.PPum", "pumCNR.P"}, 
+  y={"pla.QFue_flow", "pla.PPum", "pumCNR.P"}, 
   range={0.0, 90000.0, -1000000.0, 3000000.0}, 
   grid=true, 
   subPlot=102, 

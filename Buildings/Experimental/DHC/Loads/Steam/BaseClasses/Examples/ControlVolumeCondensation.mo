@@ -20,7 +20,6 @@ package MediumWat =
     allowFlowReversal=true) "Dynamic volume"
     annotation (Placement(transformation(extent={{20,0},{40,-20}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation volSte(
-    T_start=393.15,
     V=1,
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,

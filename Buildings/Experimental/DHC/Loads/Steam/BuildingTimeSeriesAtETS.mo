@@ -191,7 +191,6 @@ model BuildingTimeSeriesAtETS
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=if have_prv then pLow_nominal else pSte_nominal,
-    final T_start=if have_prv then TLow_nominal else TSte_nominal,
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final V=V)

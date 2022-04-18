@@ -5,7 +5,8 @@ model BoilerPolynomial
   extends Buildings.BaseClasses.BaseIconLow;
   extends Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium(
     redeclare final package Medium_a=MediumWat,
-    redeclare final package Medium_b=MediumSte);
+    redeclare final package Medium_b=MediumSte,
+    final T_start=MediumSte.saturationTemperature(p_start));
 
   // Medium declarations
   replaceable package MediumWat =
@@ -13,7 +14,11 @@ model BoilerPolynomial
     "Water medium - port_a (inlet)";
   replaceable package MediumSte = Buildings.Media.Steam
      "Steam medium - port_b (oulet)";
-
+  // Initialization
+  parameter Boolean fixed_p_start=false
+    "Set to true if p_start is to be used as an explicit initial equation, 
+    not an initial guess"
+    annotation(Dialog(tab = "Initialization"));
   // Nominal conditions
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
@@ -84,10 +89,10 @@ model BoilerPolynomial
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
-    final T_start=T_start,
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
-    final V=V)
+    final V=V,
+    final fixed_p_start=fixed_p_start)
     "Steam/water control volume"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
@@ -104,6 +109,7 @@ model BoilerPolynomial
     final unit="W",
     min=0) "Heat flow rate of the fuel"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
+
 protected
   final parameter Boolean steadyDynamics=
     if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then true

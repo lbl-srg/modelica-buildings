@@ -5,7 +5,8 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
 
   package MediumSte = Buildings.Media.Steam (
     p_default=300000,
-    T_default=273.15+200)
+    T_default=273.15+200,
+    h_default=2700000)
     "Steam medium";
   package MediumWat =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity (
@@ -50,7 +51,6 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     redeclare final package MediumWat = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final p_start=pSat,
-    final T_start=TSat,
     final m_flow_nominal=m_flow_nominal,
     V=1)
     "Volume"
