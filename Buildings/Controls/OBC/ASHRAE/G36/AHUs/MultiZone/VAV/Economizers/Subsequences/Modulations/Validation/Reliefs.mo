@@ -31,13 +31,13 @@ model Reliefs
 equation
   connect(temLoo.y, mod1.uTSup)
     annotation (Line(points={{-38,0},{58,0}}, color={0,0,127}));
-  connect(maxRetDam.y, mod1.uRetDamPosMax) annotation (Line(points={{-18,80},{40,
+  connect(maxRetDam.y, mod1.uRetDam_max) annotation (Line(points={{-18,80},{40,
           80},{40,9},{58,9}}, color={0,0,127}));
-  connect(minRetDam.y, mod1.uRetDamPosMin) annotation (Line(points={{-18,40},{20,
+  connect(minRetDam.y, mod1.uRetDam_min) annotation (Line(points={{-18,40},{20,
           40},{20,5},{58,5}}, color={0,0,127}));
-  connect(maxOutDam.y, mod1.uOutDamPosMax) annotation (Line(points={{-18,-40},{20,
+  connect(maxOutDam.y, mod1.uOutDam_max) annotation (Line(points={{-18,-40},{20,
           -40},{20,-5},{58,-5}}, color={0,0,127}));
-  connect(minOutDam.y, mod1.uOutDamPosMin) annotation (Line(points={{-18,-80},{40,
+  connect(minOutDam.y, mod1.uOutDam_min) annotation (Line(points={{-18,-80},{40,
           -80},{40,-9},{58,-9}}, color={0,0,127}));
 
 annotation (

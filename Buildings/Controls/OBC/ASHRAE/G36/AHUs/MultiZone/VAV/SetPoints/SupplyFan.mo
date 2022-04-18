@@ -79,26 +79,23 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
    "System operation mode"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
-    final unit="Pa",
-    quantity="PressureDifference")
-    "Measured duct static pressure"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpDuc(final unit="Pa",
+      quantity="PressureDifference") "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
-    "Supply fan on status"
-    annotation (Placement(transformation(extent={{140,50},{180,90}}),
-        iconTransformation(extent={{100,50},{140,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1SupFan
+    "Supply fan command on" annotation (Placement(transformation(extent={{140,
+            50},{180,90}}), iconTransformation(extent={{100,50},{140,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFan(
     min=0,
     max=1,
-    final unit="1") "Supply fan speed"
-    annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    final unit="1") "Supply fan commanded speed" annotation (Placement(
+        transformation(extent={{140,-120},{180,-80}}), iconTransformation(
+          extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond staPreSetRes(
     final iniSet=iniSet,
@@ -196,9 +193,8 @@ equation
   connect(or2.y, or1.u2)
     annotation (Line(points={{42,40},{60,40},{60,62},{78,62}},
       color={255,0,255}));
-  connect(or1.y, ySupFan)
-    annotation (Line(points={{102,70},{160,70}},
-      color={255,0,255}));
+  connect(or1.y, y1SupFan)
+    annotation (Line(points={{102,70},{160,70}}, color={255,0,255}));
   connect(or1.y, staPreSetRes.uDevSta)
     annotation (Line(points={{102,70},{120,70},{120,-8},{-150,-8},{-150,-42},{-132,
           -42}},     color={255,0,255}));
@@ -211,9 +207,8 @@ equation
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{42,-80},{60,-80},{60,-92},{78,-92}},
       color={0,0,127}));
-  connect(swi.y, ySupFanSpe)
-    annotation (Line(points={{102,-100},{160,-100}},
-      color={0,0,127}));
+  connect(swi.y, ySupFan)
+    annotation (Line(points={{102,-100},{160,-100}}, color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
     annotation (Line(points={{-180,-60},{-148,-60},{-148,-58},{-132,-58}},
       color={255,127,0}));
@@ -277,8 +272,8 @@ equation
           70},{102,70}},  color={255,0,255}));
   connect(gaiNor.y, norPSet.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
           -76},{-72,-76}}, color={0,0,127}));
-  connect(ducStaPre, norPMea.u1) annotation (Line(points={{-180,-110},{-80,-110},
-          {-80,-104},{-72,-104}}, color={0,0,127}));
+  connect(dpDuc, norPMea.u1) annotation (Line(points={{-180,-110},{-80,-110},{-80,
+          -104},{-72,-104}}, color={0,0,127}));
   connect(gaiNor.y, norPMea.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
           -116},{-72,-116}}, color={0,0,127}));
   connect(firOrdHol.y, norPSet.u1) annotation (Line(points={{-78,-50},{-76,-50},

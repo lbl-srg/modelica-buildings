@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 block ReturnFan
   "Modulates dampers of economizer in buildings using return fan to control the pressure"
 
-  parameter Boolean have_directControl=true
+  parameter Boolean have_dirCon=true
     "True: the building have direct pressure control";
   parameter Real uMin(
     final max=0,
@@ -20,34 +20,34 @@ block ReturnFan
     "Supply air temperature control loop signal"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDam_max(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDam_min(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if not have_directControl
+    final unit="1") if not have_dirCon
     "Relief air damper position"
     annotation (Placement(transformation(extent={{120,-70},{160,-30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam(
     final min=0,
     final max=1,
     final unit="1") "Outdoor air damper position"
@@ -69,11 +69,11 @@ protected
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Line relDamPos(
     final limitBelow=true,
-    final limitAbove=true) if not have_directControl
+    final limitAbove=true) if not have_dirCon
     "Relief air damper position"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) if not have_directControl
+    final k=0) if not have_dirCon
     "Constant zero"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
@@ -83,11 +83,11 @@ protected
 equation
   connect(damMinLimSig.y, retDamPos.x1) annotation (Line(points={{-78,-20},{-60,
           -20},{-60,48},{38,48}}, color={0,0,127}));
-  connect(uRetDamPosMax, retDamPos.f1) annotation (Line(points={{-140,60},{-80,60},
+  connect(uRetDam_max, retDamPos.f1) annotation (Line(points={{-140,60},{-80,60},
           {-80,44},{38,44}}, color={0,0,127}));
   connect(damMaxLimSig.y, retDamPos.x2) annotation (Line(points={{-18,-20},{0,-20},
           {0,36},{38,36}}, color={0,0,127}));
-  connect(uRetDamPosMin, retDamPos.f2) annotation (Line(points={{-140,10},{-80,10},
+  connect(uRetDam_min, retDamPos.f2) annotation (Line(points={{-140,10},{-80,10},
           {-80,32},{38,32}}, color={0,0,127}));
   connect(damMinLimSig.y, relDamPos.x1) annotation (Line(points={{-78,-20},{-60,
           -20},{-60,-42},{38,-42}}, color={0,0,127}));
@@ -101,11 +101,11 @@ equation
           {38,40}}, color={0,0,127}));
   connect(uTSup, relDamPos.u) annotation (Line(points={{-140,100},{20,100},{20,-50},
           {38,-50}}, color={0,0,127}));
-  connect(one.y, yOutDamPos) annotation (Line(points={{-18,-90},{0,-90},{0,-100},
+  connect(one.y, yOutDam) annotation (Line(points={{-18,-90},{0,-90},{0,-100},
           {140,-100}}, color={0,0,127}));
-  connect(retDamPos.y, yRetDamPos)
+  connect(retDamPos.y, yRetDam)
     annotation (Line(points={{62,40},{140,40}}, color={0,0,127}));
-  connect(relDamPos.y, yRelDamPos)
+  connect(relDamPos.y, yRelDam)
     annotation (Line(points={{62,-50},{140,-50}}, color={0,0,127}));
 annotation (defaultComponentName="ecoMod",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -129,35 +129,35 @@ annotation (defaultComponentName="ecoMod",
           color={0,0,127},
           thickness=0.5),
         Text(
-          extent={{-98,68},{-66,52}},
+          extent={{-98,68},{-72,52}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
-          extent={{-98,10},{-30,-8}},
+          extent={{-98,10},{-44,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uRetDamPosMax"),
+          textString="uRetDam_max"),
         Text(
-          extent={{-98,-50},{-34,-68}},
+          extent={{-98,-50},{-44,-68}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uRetDamPosMin"),
+          textString="uRetDam_min"),
         Text(
-          extent={{44,70},{98,52}},
+          extent={{60,68},{98,52}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yRetDamPos"),
+          textString="yRetDam"),
         Text(
-          extent={{44,10},{98,-8}},
+          extent={{58,10},{98,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yRelDamPos"),
+          textString="yRelDam"),
         Text(
-          extent={{44,-50},{98,-68}},
+          extent={{58,-50},{98,-68}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOutDamPos")}),
+          textString="yOutDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
@@ -195,7 +195,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZo
 </p>
 <p>
 Note in the above chart, if the building has direct pressure control
-(<code>have_directControl</code>), the profile for relief air damper control should
+(<code>have_dirCon</code>), the profile for relief air damper control should
 be ignored.
 </p>
 </html>", revisions="<html>

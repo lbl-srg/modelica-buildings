@@ -27,27 +27,26 @@ block ReturnFanAirflowTracking
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirSup_flow(
     final unit="m3/s",
-    final min = 0,
+    final min=0,
     final quantity="VolumeFlowRate") "Measured AHU supply airflow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VRet_flow(
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirRet_flow(
     final unit="m3/s",
     final min=0,
     final quantity="VolumeFlowRate") "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan proven on status" annotation (Placement(transformation(extent={{
+            -140,-50},{-100,-10}}), iconTransformation(extent={{-140,-80},{-100,
+            -40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final unit="1",
     final min=0,
-    final max=1)
-    "Return fan speed setpoint"
+    final max=1) "Return fan commanded speed"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -76,19 +75,19 @@ protected
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
 equation
-  connect(uSupFan, swi.u2)
+  connect(u1SupFan, swi.u2)
     annotation (Line(points={{-120,-30},{58,-30}}, color={255,0,255}));
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{-58,-60},{40,-60},{40,-38},{58,-38}}, color={0,0,127}));
   connect(swi.y,yRetFan)
     annotation (Line(points={{82,-30},{120,-30}}, color={0,0,127}));
-  connect(VSup_flow, conErr.u1)
-    annotation (Line(points={{-120,80},{-80,80},{-80,86},{-42,86}}, color={0,0,127}));
+  connect(VAirSup_flow, conErr.u1) annotation (Line(points={{-120,80},{-80,80},{
+          -80,86},{-42,86}}, color={0,0,127}));
   connect(difFlo.y, conErr.u2)
     annotation (Line(points={{-58,50},{-50,50},{-50,74},{-42,74}}, color={0,0,127}));
   connect(conErr.y, conP.u_s)
     annotation (Line(points={{-18,80},{-2,80}}, color={0,0,127}));
-  connect(VRet_flow, conP.u_m)
+  connect(VAirRet_flow, conP.u_m)
     annotation (Line(points={{-120,20},{10,20},{10,68}}, color={0,0,127}));
   connect(conP.y, swi.u1)
     annotation (Line(points={{22,80},{40,80},{40,-22},{58,-22}}, color={0,0,127}));
@@ -116,7 +115,7 @@ It is implemented according to Section 5.16.11 of ASHRAE Guideline G36, May 2020
 <ul>
 <li>
 Return fan operates whenever associated supply fan is proven on
-(<code>uSupFan = true</code>).
+(<code>u1SupFan = true</code>).
 </li>
 <li>
 Return fan speed shall be controlled to maintain return airflow equal to supply

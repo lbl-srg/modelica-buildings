@@ -20,9 +20,9 @@ model Controller_Disable
     eco1(
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-    ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
-    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
+    final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
+    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final retDamPhyPosMax=1,
     final retDamPhyPosMin=0,
@@ -91,8 +91,8 @@ protected
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
 equation
-  connect(fanSta.y, eco.uSupFan) annotation (Line(points={{-58,-70},{-12,-70},{
-          -12,6},{18,6}},                   color={255,0,255}));
+  connect(fanSta.y, eco.u1SupFan) annotation (Line(points={{-58,-70},{-12,-70},
+          {-12,6},{18,6}}, color={255,0,255}));
   connect(freProSta.y, eco.uFreProSta) annotation (Line(points={{-98,-120},
           {0,-120},{0,1},{18,1}}, color={255,127,0}));
   connect(TOutBelowCutoff.y, eco.TOut) annotation (Line(points={{-98,100},{-12,
@@ -108,8 +108,8 @@ equation
   connect(VOutMinSet_flow.y, eco1.VOutMinSet_flow_normalized)
     annotation (Line(points={{-58,120},{80,120},{80,-1},{98,-1}},     color={0,
           0,127}));
-  connect(fanSta.y, eco1.uSupFan) annotation (Line(points={{-58,-70},{-12,-70},
-          {-12,-34},{98,-34}},                 color={255,0,255}));
+  connect(fanSta.y, eco1.u1SupFan) annotation (Line(points={{-58,-70},{-12,-70},
+          {-12,-34},{98,-34}}, color={255,0,255}));
   connect(opeMod.y, eco.uOpeMod) annotation (Line(points={{-58,-100},{-6,-100},
           {-6,3},{18,3}},                  color={255,127,0}));
   connect(opeMod.y, eco1.uOpeMod) annotation (Line(points={{-58,-100},{-6,-100},
@@ -120,8 +120,8 @@ equation
           -21},{98,-21}},                                color={0,0,127}));
   connect(freProSta2.y, eco1.uFreProSta) annotation (Line(points={{42,-120},
           {60,-120},{60,-39},{98,-39}}, color={255,127,0}));
-  connect(hOutBelowCutoff.y, eco1.hOut) annotation (Line(points={{-98,0},{-60,0},
-          {-60,-29},{98,-29}},         color={0,0,127}));
+  connect(hOutBelowCutoff.y, eco1.hAirOut) annotation (Line(points={{-98,0},{-60,
+          0},{-60,-29},{98,-29}}, color={0,0,127}));
 
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),

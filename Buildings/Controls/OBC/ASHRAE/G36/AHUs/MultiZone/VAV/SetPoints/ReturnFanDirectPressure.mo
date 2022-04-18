@@ -7,24 +7,24 @@ block ReturnFanDirectPressure
     final quantity="PressureDifference",
     final max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
-  parameter Real dpDisMin(
+  parameter Real dpDis_min(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
     final max=1000) = 2.4
-    "Minimum return fan discharge static pressure difference setpoint,no less than 2.4 Pa";
-  parameter Real dpDisMax(
+    "Return fan discharge static pressure difference minimum setpoint,no less than 2.4 Pa";
+  parameter Real dpDis_max(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
     final max=1000) = 40
-    "Maximum return fan discharge static pressure setpoint";
-  parameter Real disMinSpe(
+    "Return fan discharge static pressure maximum setpoint";
+  parameter Real disSpe_min(
     final unit="1",
     final min=0,
     final max=1)
     "Return fan speed when providing the minimum return fan discharge static pressure difference";
-  parameter Real disMaxSpe(
+  parameter Real disSpe_max(
     final unit="1",
     final min=0,
     final max=1)
@@ -57,14 +57,14 @@ block ReturnFanDirectPressure
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-180,120},{-140,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMinOutAirDam
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1MinOutAirDam
     "Minimum outdoor air damper status, true when it is open"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status"
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan proven on status"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
     final unit="Pa",
     displayUnit="Pa")
@@ -74,7 +74,7 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
      final min=0,
-     final max=1) "Exhaust damper control signal (0: closed, 1: open)"
+     final max=1) "Exhaust damper commanded position"
     annotation (Placement(transformation(extent={{120,70},{160,110}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
@@ -83,13 +83,12 @@ block ReturnFanDirectPressure
      final min=0) "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{120,-40},{160,0}}),
         iconTransformation(extent={{100,-40},{140,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final unit="1",
     final min=0,
-    final max=1)
-    "Return fan speed"
-    annotation (Placement(transformation(extent={{120,-170},{160,-130}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+    final max=1) "Return fan commanded speed" annotation (Placement(
+        transformation(extent={{120,-170},{160,-130}}), iconTransformation(
+          extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
@@ -127,10 +126,10 @@ protected
     final k=dpBuiSet) "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMin(
-    final k=dpDisMin) "Return fan discharge static pressure minimum setpoint"
+    final k=dpDis_min) "Return fan discharge static pressure minimum setpoint"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMax(
-    final k=dpDisMax) "Return fan discharge static pressure maximum setpoint"
+    final k=dpDis_max) "Return fan discharge static pressure maximum setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero fan control signal"
@@ -151,11 +150,11 @@ protected
     "Check if the exhaust damper should be enabled"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanSpeMin(
-    final k=disMinSpe)
+    final k=disSpe_min)
     "Return fan speed when discharge static pressure minimum setpoint"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanSpeMax(
-    final k=disMaxSpe)
+    final k=disSpe_max)
     "Return fan speed when discharge static pressure maximum setpoint"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(
@@ -166,7 +165,7 @@ protected
 equation
   connect(movMea.u, dpBui)
     annotation (Line(points={{-132,140},{-160,140}}, color={0,0,127}));
-  connect(swi.u2, uSupFan)
+  connect(swi.u2, u1SupFan)
     annotation (Line(points={{78,-20},{-160,-20}}, color={255,0,255}));
   connect(swi.u3, zer.y)
     annotation (Line(points={{78,-28},{60,-28},{60,-40},{22,-40}},   color={0,0,127}));
@@ -217,11 +216,10 @@ equation
       color={0,0,127}));
   connect(movMea.y, yDpBui)
     annotation (Line(points={{-108,140},{140,140}}, color={0,0,127}));
-  connect(uMinOutAirDam, enaDam.u1)
+  connect(u1MinOutAirDam, enaDam.u1)
     annotation (Line(points={{-160,90},{-42,90}}, color={255,0,255}));
-  connect(uSupFan, enaDam.u2)
-    annotation (Line(points={{-160,-20},{-60,-20},{-60,82},{-42,82}},
-      color={255,0,255}));
+  connect(u1SupFan, enaDam.u2) annotation (Line(points={{-160,-20},{-60,-20},{-60,
+          82},{-42,82}}, color={255,0,255}));
   connect(enaDam.y, swi1.u2)
     annotation (Line(points={{-18,90},{78,90}}, color={255,0,255}));
   connect(linRetFanStaPre.y, linRetFanSpe.u) annotation (Line(points={{82,30},{100,
@@ -238,9 +236,9 @@ equation
           {100,-130},{60,-130},{60,-142},{78,-142}}, color={0,0,127}));
   connect(zer2.y, swi2.u3) annotation (Line(points={{22,-170},{60,-170},{60,-158},
           {78,-158}}, color={0,0,127}));
-  connect(uSupFan, swi2.u2) annotation (Line(points={{-160,-20},{-60,-20},{-60,-150},
-          {78,-150}}, color={255,0,255}));
-  connect(swi2.y, yRetFanSpe)
+  connect(u1SupFan, swi2.u2) annotation (Line(points={{-160,-20},{-60,-20},{-60,
+          -150},{78,-150}}, color={255,0,255}));
+  connect(swi2.y, yRetFan)
     annotation (Line(points={{102,-150},{140,-150}}, color={0,0,127}));
 
 annotation (
@@ -327,7 +325,7 @@ at setpoint <code>dpBuiSet</code>.</p>
 </li>
 <li>
 <p>Exhaust damper is only enabled when the associated supply and return
-fans are proven on (<code>uFan=true</code>) and the minimum outdoor air damper is open
+fans are proven on (<code>u1SupFan=true</code>) and the minimum outdoor air damper is open
 (to be controlled in a separate sequence).
 The exhaust dampers is closed when the fan is disabled.</p>
 </li>
@@ -354,9 +352,9 @@ dampers from <code>yExhDam = 0</code> (closed) to <code>yExhDam = 1</code> (open
 </li>
 <li>
 From <i>0.5</i> to <i>1</i>, the building pressure control loop resets the return fan
-discharge static pressure setpoint from <code>dpDisMin</code>
-to <code>dpDisMax</code>. The <code>dpDisMin</code> and
-<code>dpDisMax</code> are specified in Section 3.2.1.4.
+discharge static pressure setpoint from <code>dpDis_min</code>
+to <code>dpDis_max</code>. The <code>dpDis_min</code> and
+<code>dpDis_max</code> are specified in Section 3.2.1.4.
 </li>
 </ol>
 <p align=\"center\">

@@ -141,8 +141,8 @@ model Controller "Validation controller model"
 equation
   connect(TOut.y, conAHU.TOut) annotation (Line(points={{-218,190},{62,190},{62,
           25.4545},{96,25.4545}},  color={0,0,127}));
-  connect(ducStaPre.y, conAHU.ducStaPre) annotation (Line(points={{-178,210},{68,
-          210},{68,29.0909},{96,29.0909}},  color={0,0,127}));
+  connect(ducStaPre.y, conAHU.dpDuc) annotation (Line(points={{-178,210},{68,
+          210},{68,29.0909},{96,29.0909}}, color={0,0,127}));
   connect(sine2.y, abs3.u)
     annotation (Line(points={{-218,230},{-162,230}},   color={0,0,127}));
   connect(abs3.y,round4. u)
@@ -159,45 +159,40 @@ equation
           {56,160},{56,20},{96,20}},  color={255,127,0}));
   connect(ducPreResReq.y, conAHU.uZonPreResReq) annotation (Line(points={{-58,230},
           {74,230},{74,34.5455},{96,34.5455}},  color={255,127,0}));
-  connect(TMixMea.y, conAHU.TMix) annotation (Line(points={{-178,-190},{62,-190},
-          {62,-90.9091},{96,-90.9091}},  color={0,0,127}));
-  connect(VOut_flow.y, conAHU.VOut_flow) annotation (Line(points={{-178,-60},{
-          38,-60},{38,-27.2727},{96,-27.2727}},
-                                             color={0,0,127}));
-  connect(TSup.y, conAHU.TSup) annotation (Line(points={{-178,140},{44,140},{44,
-          10.9091},{96,10.9091}},  color={0,0,127}));
+  connect(TMixMea.y, conAHU.TAirMix) annotation (Line(points={{-178,-190},{62,-190},
+          {62,-90.9091},{96,-90.9091}}, color={0,0,127}));
+  connect(VOut_flow.y, conAHU.VAirOut_flow) annotation (Line(points={{-178,-60},
+          {38,-60},{38,-27.2727},{96,-27.2727}}, color={0,0,127}));
+  connect(TSup.y, conAHU.TAirSup) annotation (Line(points={{-178,140},{44,140},
+          {44,10.9091},{96,10.9091}}, color={0,0,127}));
   connect(vavBoxFlo2.y, add2.u1) annotation (Line(points={{-158,20},{-140,20},{-140,
           6},{-122,6}}, color={0,0,127}));
   connect(vavBoxFlo1.y, add2.u2) annotation (Line(points={{-158,-20},{-140,-20},
           {-140,-6},{-122,-6}}, color={0,0,127}));
   connect(uOutAirFra_max.y, conAHU.uOutAirFra_max) annotation (Line(points={{-218,
           -40},{32,-40},{32,-9.09091},{96,-9.09091}},color={0,0,127}));
-  connect(heaCoi.y, conAHU.uHeaCoi) annotation (Line(points={{-218,-250},{80,
-          -250},{80,-118.182},{96,-118.182}},
-                                        color={0,0,127}));
-  connect(cooCoi.y, conAHU.uCooCoi) annotation (Line(points={{-178,-230},{74,
-          -230},{74,-114.545},{96,-114.545}},
-                                        color={0,0,127}));
+  connect(heaCoi.y, conAHU.uHeaCoi_actual) annotation (Line(points={{-218,-250},
+          {80,-250},{80,-118.182},{96,-118.182}}, color={0,0,127}));
+  connect(cooCoi.y, conAHU.uCooCoi_actual) annotation (Line(points={{-178,-230},
+          {74,-230},{74,-114.545},{96,-114.545}}, color={0,0,127}));
   connect(dpBui.y, conAHU.dpBui) annotation (Line(points={{-218,-210},{68,-210},
           {68,-96.3636},{96,-96.3636}}, color={0,0,127}));
   connect(freRes.y,not1. u)
     annotation (Line(points={{-218,-160},{-202,-160}}, color={255,0,255}));
-  connect(not1.y, conAHU.uSofSwiRes) annotation (Line(points={{-178,-160},{56,
-          -160},{56,-76.3636},{96,-76.3636}},
-                                        color={255,0,255}));
+  connect(not1.y, conAHU.u1SofSwiRes) annotation (Line(points={{-178,-160},{56,
+          -160},{56,-76.3636},{96,-76.3636}}, color={255,0,255}));
   connect(supFanSpe.y, mul.u2) annotation (Line(points={{-178,-110},{-120,-110},
           {-120,-106},{-2,-106}}, color={0,0,127}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-58,20},{-20,20},{-20,-94},
           {-2,-94}}, color={0,0,127}));
-  connect(conAHU.ySupFan, pre.u) annotation (Line(points={{184,29.0909},{200,29.0909},
-          {200,40},{218,40}}, color={255,0,255}));
-  connect(pre.y, conAHU.uSupFan) annotation (Line(points={{242,40},{250,40},{
-          250,70},{50,70},{50,16.3636},{96,16.3636}},
-                                                  color={255,0,255}));
+  connect(conAHU.y1SupFan, pre.u) annotation (Line(points={{184,29.0909},{200,
+          29.0909},{200,40},{218,40}}, color={255,0,255}));
+  connect(pre.y, conAHU.u1SupFan) annotation (Line(points={{242,40},{250,40},{
+          250,70},{50,70},{50,16.3636},{96,16.3636}}, color={255,0,255}));
   connect(pre.y, booToRea.u) annotation (Line(points={{242,40},{250,40},{250,70},
           {-100,70},{-100,20},{-82,20}}, color={255,0,255}));
-  connect(mul.y, conAHU.uSupFanSpe) annotation (Line(points={{22,-100},{50,-100},
-          {50,-38.1818},{96,-38.1818}}, color={0,0,127}));
+  connect(mul.y, conAHU.uSupFanSpe_actual) annotation (Line(points={{22,-100},{
+          50,-100},{50,-38.1818},{96,-38.1818}}, color={0,0,127}));
 
   connect(sumDesPopBreZon.y, conAHU.VSumAdjPopBreZon_flow) annotation (Line(
         points={{-178,100},{38,100},{38,5.45455},{96,5.45455}}, color={0,0,127}));

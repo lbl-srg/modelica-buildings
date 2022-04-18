@@ -59,10 +59,10 @@ equation
     annotation (Line(points={{42,3},{50,3},{50,8},{58,8}}, color={0,0,127}));
   connect(zonToAhu.VSumZonDesMin_flow, ahu.VSumZonDesMin_flow)
     annotation (Line(points={{42,-3},{50,-3},{50,3},{58,3}}, color={0,0,127}));
-  connect(zonToAhu.yMaxCO2, ahu.uMaxCO2) annotation (Line(points={{42,-8},{50,-8},
-          {50,-3},{58,-3}}, color={0,0,127}));
-  connect(outAirFlo.y, ahu.VOut_flow) annotation (Line(points={{42,-50},{54,-50},
-          {54,-8},{58,-8}}, color={0,0,127}));
+  connect(zonToAhu.yMaxCO2, ahu.uCO2Loo_max) annotation (Line(points={{42,-8},{
+          50,-8},{50,-3},{58,-3}}, color={0,0,127}));
+  connect(outAirFlo.y, ahu.VAirOut_flow) annotation (Line(points={{42,-50},{54,
+          -50},{54,-8},{58,-8}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/OutdoorAirFlow/Title24/Validation/OutdoorAirFlow.mos"

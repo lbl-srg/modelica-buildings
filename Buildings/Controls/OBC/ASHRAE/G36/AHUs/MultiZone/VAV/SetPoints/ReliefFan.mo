@@ -5,7 +5,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Total number of AHU supply fans that are serving the same common space";
   parameter Integer nRelFan = 4
     "Total number of relief fans that are serving the same common space";
-  parameter Real minSpe(
+  parameter Real fanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed";
@@ -26,10 +26,10 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Hysteresis for checking the controller output value"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan[nSupFan]
-    "AHU supply fan proven on status"
-    annotation (Placement(transformation(extent={{-560,330},{-520,370}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan[nSupFan]
+    "AHU supply fan proven on status" annotation (Placement(transformation(
+          extent={{-560,330},{-520,370}}), iconTransformation(extent={{-140,60},
+            {-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     displayUnit="Pa",
     final quantity="PressureDifference")
@@ -40,10 +40,10 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Relief fan current alarm index"
     annotation (Placement(transformation(extent={{-560,50},{-520,90}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRelFan[nRelFan]
-    "Relief fan proven on status"
-    annotation (Placement(transformation(extent={{-560,-190},{-520,-150}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan[nRelFan]
+    "Relief fan proven on status" annotation (Placement(transformation(extent={{
+            -560,-190},{-520,-150}}), iconTransformation(extent={{-140,-100},{-100,
+            -60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
     displayUnit="Pa",
     final quantity="PressureDifference")
@@ -52,13 +52,13 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe[nRelFan](
     final unit=fill("1", nRelFan),
-    final max=fill(1,nRelFan)) "Relief fan speed setpoint"
+    final max=fill(1,nRelFan)) "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{500,210},{540,250}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam[nRelFan](
     final unit=fill("1",nRelFan),
     final min=fill(0,nRelFan),
-    final max=fill(1,nRelFan)) "Damper position setpoint"
+    final max=fill(1,nRelFan)) "Damper commanded position"
     annotation (Placement(transformation(extent={{500,60},{540,100}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
@@ -127,7 +127,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Enable damper"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
-    final t=minSpe + 0.15,
+    final t=fanSpe_min + 0.15,
     final h=hys)
     "Check if the controller output is greater than minimum speed plus threshold"
     annotation (Placement(transformation(extent={{-320,-110},{-300,-90}})));
@@ -183,7 +183,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Stage up next relief fan"
     annotation (Placement(transformation(extent={{240,-80},{260,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
-    final t=minSpe,
+    final t=fanSpe_min,
     final h=hys)
     "Check if the controller output is less than minimum speed"
     annotation (Placement(transformation(extent={{-320,-330},{-300,-310}})));
@@ -274,7 +274,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=1,
-    final uMin=minSpe)
+    final uMin=fanSpe_min)
     "Limit the controller output"
     annotation (Placement(transformation(extent={{80,270},{100,290}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
@@ -378,7 +378,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{40,-258},{60,-238}})));
 
 equation
-  connect(uSupFan, booToRea.u)
+  connect(u1SupFan, booToRea.u)
     annotation (Line(points={{-540,350},{-502,350}}, color={255,0,255}));
   connect(enaRel.u, booToRea.y)
     annotation (Line(points={{-462,350},{-478,350}}, color={0,0,127}));
@@ -394,8 +394,8 @@ equation
           {-420,204},{-402,204}}, color={0,0,127}));
   connect(div1.y, conP.u_m) annotation (Line(points={{-378,210},{-370,210},{-370,
           268}}, color={0,0,127}));
-  connect(uSupFan, enaRelGro.u) annotation (Line(points={{-540,350},{-510,350},{
-          -510,310},{-502,310}}, color={255,0,255}));
+  connect(u1SupFan, enaRelGro.u) annotation (Line(points={{-540,350},{-510,350},
+          {-510,310},{-502,310}}, color={255,0,255}));
   connect(booToRea1.y, pro.u1) annotation (Line(points={{-438,310},{138,310}},
                            color={0,0,127}));
   connect(enaRelGro.y, booToRea1.u)
@@ -422,8 +422,8 @@ equation
     annotation (Line(points={{-138,180},{-82,180}},  color={255,0,255}));
   connect(booRep.y, enaDam.u2) annotation (Line(points={{-138,150},{-110,150},{-110,
           172},{-82,172}},     color={255,0,255}));
-  connect(uRelFan, booToRea2.u) annotation (Line(points={{-540,-170},{-480,-170},
-          {-480,-6},{-462,-6}},   color={255,0,255}));
+  connect(u1RelFan, booToRea2.u) annotation (Line(points={{-540,-170},{-480,-170},
+          {-480,-6},{-462,-6}}, color={255,0,255}));
   connect(enaRel.y, sub2.u1) annotation (Line(points={{-438,350},{-430,350},{-430,
           6},{-402,6}},     color={0,0,127}));
   connect(booToRea2.y, sub2.u2)
@@ -510,13 +510,13 @@ equation
     annotation (Line(points={{302,-70},{358,-70}}, color={255,0,255}));
   connect(or2.y, logSwi.u1) annotation (Line(points={{102,20},{340,20},{340,-62},
           {358,-62}}, color={255,0,255}));
-  connect(uRelFan, xor.u2) annotation (Line(points={{-540,-170},{70,-170},{70,-218},
+  connect(u1RelFan, xor.u2) annotation (Line(points={{-540,-170},{70,-170},{70,-218},
           {78,-218}}, color={255,0,255}));
-  connect(uRelFan, logSwi1.u3) annotation (Line(points={{-540,-170},{-480,-170},
+  connect(u1RelFan, logSwi1.u3) annotation (Line(points={{-540,-170},{-480,-170},
           {-480,-300},{310,-300},{310,-288},{318,-288}}, color={255,0,255}));
-  connect(uRelFan, booToInt1.u) annotation (Line(points={{-540,-170},{70,-170},{
-          70,-60},{118,-60}},color={255,0,255}));
-  connect(uRelFan, or2.u2) annotation (Line(points={{-540,-170},{70,-170},{70,12},
+  connect(u1RelFan, booToInt1.u) annotation (Line(points={{-540,-170},{70,-170},
+          {70,-60},{118,-60}}, color={255,0,255}));
+  connect(u1RelFan, or2.u2) annotation (Line(points={{-540,-170},{70,-170},{70,12},
           {78,12}}, color={255,0,255}));
   connect(logSwi.y, booToRea3.u)
     annotation (Line(points={{382,-70},{398,-70}}, color={255,0,255}));
@@ -554,7 +554,7 @@ equation
     annotation (Line(points={{-540,70},{-402,70}}, color={255,127,0}));
   connect(conInt.y, intEqu2.u2) annotation (Line(points={{-438,40},{-420,40},{-420,
           62},{-402,62}}, color={255,127,0}));
-  connect(uRelFan, not3.u) annotation (Line(points={{-540,-170},{-480,-170},{-480,
+  connect(u1RelFan, not3.u) annotation (Line(points={{-540,-170},{-480,-170},{-480,
           -60},{-462,-60}}, color={255,0,255}));
   connect(intEqu2.y, and4.u1)
     annotation (Line(points={{-378,70},{-322,70}}, color={255,0,255}));
@@ -604,8 +604,8 @@ equation
     annotation (Line(points={{-138,-60},{-122,-60}}, color={0,0,127}));
   connect(pre1.y, and3.u2) annotation (Line(points={{22,-328},{40,-328},{40,-350},
           {-280,-350},{-280,-328},{-262,-328}},       color={255,0,255}));
-  connect(uRelFan, logSwi3.u1) annotation (Line(points={{-540,-170},{70,-170},{70,
-          -152},{358,-152}},      color={255,0,255}));
+  connect(u1RelFan, logSwi3.u1) annotation (Line(points={{-540,-170},{70,-170},{
+          70,-152},{358,-152}}, color={255,0,255}));
   connect(booRep4.y, logSwi3.u2) annotation (Line(points={{-258,-60},{-230,-60},
           {-230,-160},{358,-160}}, color={255,0,255}));
   connect(logSwi1.y, logSwi3.u3) annotation (Line(points={{342,-280},{350,-280},
@@ -754,7 +754,7 @@ system group that are enabled; close the dampers when the loop output drops to 0
 5 minutes.
 </li>
 <li>
-Stage Up. When control loop is above minimum speed (<code>minSpe</code>) plus 15%, start
+Stage Up. When control loop is above minimum speed (<code>fanSpe_min</code>) plus 15%, start
 stage-up timer. Each time the timer reaches 7 minutes, start the next relief fan (and
 open the associated damper) in the relief system group, per staging order, and reset
 the timer to 0. The timer is reset to 0 and frozen if control loop is below minimum
@@ -762,7 +762,7 @@ speed plus 15%. Note, when staging from Stage 0 (no relief fans) to Stage 1 (one
 fan), the discharge dampers of all nonoperating relief fans must be closed.
 </li>
 <li>
-Stage Down. When PID loop is below minimum speed (<code>minSpe</code>), start stage-down
+Stage Down. When PID loop is below minimum speed (<code>fanSpe_min</code>), start stage-down
 timer. Each time the timer reaches 5 minutes, shut off lag fan per staging order and
 reset the timer to 0. The timer is reset to 0 and frozen if PID loop rises above minimum
 speed or all fans are OFF. If all fans are OFF, go to Stage 0 (all dampers open and all

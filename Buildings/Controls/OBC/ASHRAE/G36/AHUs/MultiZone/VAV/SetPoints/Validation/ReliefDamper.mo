@@ -21,12 +21,12 @@ model ReliefDamper
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
 equation
-  connect(yFan.y, relDam.uSupFan) annotation (Line(points={{-58,70},{-20,70},{-20,
-          64},{18,64}}, color={255,0,255}));
+  connect(yFan.y, relDam.u1SupFan) annotation (Line(points={{-58,70},{-20,70},{
+          -20,64},{18,64}}, color={255,0,255}));
   connect(dpBui.y, relDam.dpBui) annotation (Line(points={{-58,20},{0,20},{0,76},
           {18,76}}, color={0,0,127}));
-  connect(yFan.y, relDam1.uSupFan) annotation (Line(points={{-58,70},{-20,70},{-20,
-          -36},{18,-36}}, color={255,0,255}));
+  connect(yFan.y, relDam1.u1SupFan) annotation (Line(points={{-58,70},{-20,70},
+          {-20,-36},{18,-36}}, color={255,0,255}));
   connect(dpBui.y, relDam1.dpBui) annotation (Line(points={{-58,20},{0,20},{0,-24},
           {18,-24}}, color={0,0,127}));
 

@@ -84,7 +84,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
 equation
-  connect(fanSta.y, eco.uSupFan) annotation (Line(points={{-58,-100},{-28,-100},
+  connect(fanSta.y, eco.u1SupFan) annotation (Line(points={{-58,-100},{-28,-100},
           {-28,-14},{18,-14}}, color={255,0,255}));
   connect(freProSta.y, eco.uFreProSta) annotation (Line(points={{-58,-140},{-20,
           -140},{-20,-19},{18,-19}}, color={255,127,0}));
@@ -102,7 +102,7 @@ equation
                               color={0,0,127}));
   connect(VOutMinSet_flow.y, eco1.VOutMinSet_flow_normalized) annotation (Line(
         points={{-58,100},{80,100},{80,-21},{98,-21}}, color={0,0,127}));
-  connect(fanSta.y, eco1.uSupFan) annotation (Line(points={{-58,-100},{-28,-100},
+  connect(fanSta.y, eco1.u1SupFan) annotation (Line(points={{-58,-100},{-28,-100},
           {-28,-54},{98,-54}}, color={255,0,255}));
   connect(freProSta.y, eco1.uFreProSta) annotation (Line(points={{-58,-140},{-20,
           -140},{-20,-59},{98,-59}}, color={255,127,0}));
@@ -114,10 +114,10 @@ equation
   connect(uTSup.y, eco1.uTSup) annotation (Line(points={{-98,-40},{0,-40},{0,
           -41},{98,-41}},
                      color={0,0,127}));
-  connect(supFanSpe.y, eco.uSupFanSpe) annotation (Line(points={{-98,0},{-12,0},
-          {-12,12},{18,12}}, color={0,0,127}));
-  connect(supFanSpe.y, eco1.uSupFanSpe) annotation (Line(points={{-98,0},{-12,0},
-          {-12,-28},{98,-28}}, color={0,0,127}));
+  connect(supFanSpe.y, eco.uSupFanSpe_actual) annotation (Line(points={{-98,0},
+          {-12,0},{-12,12},{18,12}}, color={0,0,127}));
+  connect(supFanSpe.y, eco1.uSupFanSpe_actual) annotation (Line(points={{-98,0},
+          {-12,0},{-12,-28},{98,-28}}, color={0,0,127}));
   connect(dpDam2.y, eco1.dpMinOutDam) annotation (Line(points={{-58,-60},{-32,
           -60},{-32,-38},{98,-38}},
                                color={0,0,127}));

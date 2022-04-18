@@ -68,8 +68,8 @@ equation
         points={{42,-4},{50,-4},{50,0},{58,0}},   color={0,0,127}));
   connect(zonToAhu.uOutAirFra_max, ahu.uOutAirFra_max)
     annotation (Line(points={{42,-8},{50,-8},{50,-4},{58,-4}}, color={0,0,127}));
-  connect(outAirFlo.y, ahu.VOut_flow) annotation (Line(points={{42,-70},{54,-70},
-          {54,-8},{58,-8}}, color={0,0,127}));
+  connect(outAirFlo.y, ahu.VAirOut_flow) annotation (Line(points={{42,-70},{54,
+          -70},{54,-8},{58,-8}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/OutdoorAirFlow/ASHRAE62_1/Validation/OutdoorAirFlow.mos"

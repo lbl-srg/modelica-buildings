@@ -118,34 +118,34 @@ protected
 equation
   connect(VOutMinSet_flow.y,minCon. VOutMinSet_flow_normalized) annotation (
       Line(points={{142,60},{160,60},{160,21},{198,21}}, color={0,0,127}));
-  connect(fanStatus.y,minCon. uSupFan)
-    annotation (Line(points={{142,20},{160,20},{160,18},{198,18}}, color={255,0,255}));
+  connect(fanStatus.y, minCon.u1SupFan) annotation (Line(points={{142,20},{160,
+          20},{160,18},{198,18}}, color={255,0,255}));
   connect(operationMode.y,minCon. uOpeMod)
     annotation (Line(points={{142,-20},{160,-20},{160,16},{198,16}},color={255,127,0}));
   connect(VOutMinSet_flow1.y, disMinCon.VOutMinSet_flow_normalized) annotation (
      Line(points={{-198,60},{-180,60},{-180,21},{-142,21}}, color={0,0,127}));
-  connect(fanSta.y, disMinCon.uSupFan) annotation (Line(points={{-198,20},{-180,
+  connect(fanSta.y, disMinCon.u1SupFan) annotation (Line(points={{-198,20},{-180,
           20},{-180,18},{-142,18}}, color={255,0,255}));
   connect(opeMod.y, disMinCon.uOpeMod) annotation (Line(points={{-198,-20},{-180,
           -20},{-180,16},{-142,16}}, color={255,127,0}));
-  connect(outDamPos.y, disMinCon.uOutDamPos) annotation (Line(points={{-198,-60},
-          {-170,-60},{-170,13},{-142,13}}, color={0,0,127}));
-  connect(supFanSpe.y, disMinCon.uSupFanSpe) annotation (Line(points={{-198,-100},
-          {-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
+  connect(outDamPos.y, disMinCon.uOutDam) annotation (Line(points={{-198,-60},{
+          -170,-60},{-170,13},{-142,13}}, color={0,0,127}));
+  connect(supFanSpe.y, disMinCon.uSupFanSpe_actual) annotation (Line(points={{-198,
+          -100},{-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
   connect(VOutMinSet_flow2.y, disMinCon1.VOutMinSet_flow_normalized)
     annotation (Line(points={{-38,60},{-20,60},{-20,21},{18,21}}, color={0,0,127}));
-  connect(fanSta1.y, disMinCon1.uSupFan) annotation (Line(points={{-38,20},{-20,
+  connect(fanSta1.y, disMinCon1.u1SupFan) annotation (Line(points={{-38,20},{-20,
           20},{-20,18},{18,18}}, color={255,0,255}));
   connect(opeMod1.y, disMinCon1.uOpeMod) annotation (Line(points={{-38,-20},{-20,
           -20},{-20,16},{18,16}}, color={255,127,0}));
-  connect(outDamPos1.y, disMinCon1.uOutDamPos) annotation (Line(points={{-38,-60},
+  connect(outDamPos1.y, disMinCon1.uOutDam) annotation (Line(points={{-38,-60},
           {-10,-60},{-10,13},{18,13}}, color={0,0,127}));
-  connect(supFanSpe1.y, disMinCon1.uSupFanSpe) annotation (Line(points={{-38,-100},
-          {0,-100},{0,11},{18,11}}, color={0,0,127}));
-  connect(outDamPos2.y, minCon.uOutDamPos) annotation (Line(points={{142,-60},{170,
+  connect(supFanSpe1.y, disMinCon1.uSupFanSpe_actual) annotation (Line(points={
+          {-38,-100},{0,-100},{0,11},{18,11}}, color={0,0,127}));
+  connect(outDamPos2.y, minCon.uOutDam) annotation (Line(points={{142,-60},{170,
           -60},{170,13},{198,13}}, color={0,0,127}));
-  connect(supFanSpe2.y, minCon.uSupFanSpe) annotation (Line(points={{142,-100},{
-          180,-100},{180,11},{198,11}}, color={0,0,127}));
+  connect(supFanSpe2.y, minCon.uSupFanSpe_actual) annotation (Line(points={{142,
+          -100},{180,-100},{180,11},{198,11}}, color={0,0,127}));
   connect(dpDam.y, disMinCon.dpMinOutDam) annotation (Line(points={{-198,100},{-160,
           100},{-160,23},{-142,23}},  color={0,0,127}));
   connect(dpDam1.y, disMinCon1.dpMinOutDam) annotation (Line(points={{-38,100},{

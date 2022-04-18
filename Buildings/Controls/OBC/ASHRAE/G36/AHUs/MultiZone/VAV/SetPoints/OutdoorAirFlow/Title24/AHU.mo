@@ -27,20 +27,18 @@ block AHU "AHU level setpoint calculation"
     "Sum of the zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxCO2(
-    final unit="1") if have_CO2Sen
-    "Maximum Zone CO2 control loop"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(final unit="1")
+    if have_CO2Sen "Maximum Zone CO2 control loop" annotation (Placement(
+        transformation(extent={{-140,-90},{-100,-50}}), iconTransformation(
+          extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirOut_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    final quantity="VolumeFlowRate") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
-    "Measured outdoor volumetric airflow rate"
-    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+    "Measured outdoor air volumetric flow rate" annotation (Placement(
+        transformation(extent={{-140,-160},{-100,-120}}), iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffAbsOutAir_flow(
     final min=0,
     final unit="m3/s",
@@ -146,8 +144,8 @@ equation
     annotation (Line(points={{22,120},{120,120}}, color={0,0,127}));
   connect(norVOutMin.y, effDesOutAir_normalized) annotation (Line(points={{22,20},
           {120,20}},  color={0,0,127}));
-  connect(uMaxCO2, effOutAir.u)
-    annotation (Line(points={{-120,-70},{-2,-70}},   color={0,0,127}));
+  connect(uCO2Loo_max, effOutAir.u)
+    annotation (Line(points={{-120,-70},{-2,-70}}, color={0,0,127}));
   connect(con.y, effOutAir.x1) annotation (Line(points={{-58,-40},{-40,-40},{-40,
           -62},{-2,-62}},   color={0,0,127}));
   connect(con1.y, effOutAir.x2) annotation (Line(points={{-58,-100},{-40,-100},{
@@ -168,7 +166,7 @@ equation
           {-20,-106},{58,-106}}, color={0,0,127}));
   connect(norVOutMin2.y, effOutAir_normalized)
     annotation (Line(points={{82,-100},{120,-100}}, color={0,0,127}));
-  connect(VOut_flow, norVOut.u1) annotation (Line(points={{-120,-140},{-40,-140},
+  connect(VAirOut_flow, norVOut.u1) annotation (Line(points={{-120,-140},{-40,-140},
           {-40,-154},{38,-154}}, color={0,0,127}));
   connect(norVOut.y, outAir_normalized)
     annotation (Line(points={{62,-160},{120,-160}}, color={0,0,127}));

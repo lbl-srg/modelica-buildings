@@ -37,27 +37,27 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     final unit="1") "Maximum zone outdoor air fraction"
     annotation (Placement(transformation(extent={{-260,-90},{-220,-50}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirOut_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    final quantity="VolumeFlowRate") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
-    "Measured outdoor volumetric airflow rate"
-    annotation (Placement(transformation(extent={{-260,-130},{-220,-90}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+    "Measured outdoor air volumetric flow rate" annotation (Placement(
+        transformation(extent={{-260,-130},{-220,-90}}), iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VUncOutAir_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{220,70},{260,110}}),
         iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffOutAir_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffAirOut_flow_min(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{220,10},{260,50}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+    final quantity="VolumeFlowRate")
+    "Effective minimum outdoor airflow setpoint" annotation (Placement(
+        transformation(extent={{220,10},{260,50}}), iconTransformation(extent={
+            {100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effOutAir_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor air rate "
@@ -148,7 +148,7 @@ equation
           36},{178,36}}, color={0,0,127}));
   connect(div2.y, min2.u2) annotation (Line(points={{142,0},{160,0},{160,24},{178,
           24}}, color={0,0,127}));
-  connect(min2.y, VEffOutAir_flow)
+  connect(min2.y, VEffAirOut_flow_min)
     annotation (Line(points={{202,30},{240,30}}, color={0,0,127}));
   connect(min2.y, norVOutMin.u1) annotation (Line(points={{202,30},{210,30},{210,
           -20},{120,-20},{120,-54},{158,-54}}, color={0,0,127}));
@@ -158,8 +158,8 @@ equation
     annotation (Line(points={{182,-60},{240,-60}}, color={0,0,127}));
   connect(norVOut.y, outAir_normalized)
     annotation (Line(points={{182,-100},{240,-100}}, color={0,0,127}));
-  connect(VOut_flow, norVOut.u1) annotation (Line(points={{-240,-110},{-160,-110},
-          {-160,-94},{158,-94}}, color={0,0,127}));
+  connect(VAirOut_flow, norVOut.u1) annotation (Line(points={{-240,-110},{-160,
+          -110},{-160,-94},{158,-94}}, color={0,0,127}));
   connect(desOutAir.y, norVOut.u2) annotation (Line(points={{142,60},{150,60},{150,
           -106},{158,-106}}, color={0,0,127}));
 annotation (

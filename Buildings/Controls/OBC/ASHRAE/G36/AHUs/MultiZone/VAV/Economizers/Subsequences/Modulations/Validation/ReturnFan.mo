@@ -7,7 +7,7 @@ model ReturnFan
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan ecoMod1(
-    final have_directControl=false)
+    final have_dirCon=false)
     "Multi zone VAV AHU minimum outdoor air control - damper modulation, the unit does not have direct pressure control"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
@@ -28,15 +28,15 @@ model ReturnFan
 equation
   connect(temLoo.y, ecoMod.uTSup)
     annotation (Line(points={{-38,0},{10,0},{10,6},{58,6}}, color={0,0,127}));
-  connect(maxRetDam.y, ecoMod.uRetDamPosMax) annotation (Line(points={{-18,80},{
+  connect(maxRetDam.y, ecoMod.uRetDam_max) annotation (Line(points={{-18,80},{
           40,80},{40,0},{58,0}}, color={0,0,127}));
-  connect(minRetDam.y, ecoMod.uRetDamPosMin) annotation (Line(points={{-18,40},{
+  connect(minRetDam.y, ecoMod.uRetDam_min) annotation (Line(points={{-18,40},{
           20,40},{20,-6},{58,-6}}, color={0,0,127}));
   connect(temLoo.y, ecoMod1.uTSup) annotation (Line(points={{-38,0},{10,0},{10,-84},
           {58,-84}}, color={0,0,127}));
-  connect(maxRetDam.y, ecoMod1.uRetDamPosMax) annotation (Line(points={{-18,80},
+  connect(maxRetDam.y, ecoMod1.uRetDam_max) annotation (Line(points={{-18,80},
           {40,80},{40,-90},{58,-90}}, color={0,0,127}));
-  connect(minRetDam.y, ecoMod1.uRetDamPosMin) annotation (Line(points={{-18,40},
+  connect(minRetDam.y, ecoMod1.uRetDam_min) annotation (Line(points={{-18,40},
           {20,40},{20,-96},{58,-96}}, color={0,0,127}));
 
 annotation (

@@ -66,9 +66,8 @@ protected
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
 equation
-  connect(sine1.y, conSupFan.ducStaPre)
-    annotation (Line(points={{-98,-40},{-10,-40},{-10,22},{-2,22}},
-      color={0,0,127}));
+  connect(sine1.y, conSupFan.dpDuc) annotation (Line(points={{-98,-40},{-10,-40},
+          {-10,22},{-2,22}}, color={0,0,127}));
   connect(sine.y, abs1.u)
     annotation (Line(points={{-178,0},{-162,0}}, color={0,0,127}));
   connect(ram.y, abs.u)
@@ -89,14 +88,14 @@ equation
           60,110},{60,38},{78,38}}, color={255,127,0}));
   connect(reaToInt1.y, conSupFan2.uZonPreResReq) annotation (Line(points={{-58,0},
           {60,0},{60,27},{78,27}}, color={255,127,0}));
-  connect(sine1.y, conSupFan2.ducStaPre) annotation (Line(points={{-98,-40},{70,
-          -40},{70,22},{78,22}}, color={0,0,127}));
+  connect(sine1.y, conSupFan2.dpDuc) annotation (Line(points={{-98,-40},{70,-40},
+          {70,22},{78,22}}, color={0,0,127}));
   connect(reaToInt2.y, conSupFan1.uOpeMod) annotation (Line(points={{-58,110},{
           150,110},{150,38},{158,38}}, color={255,127,0}));
   connect(reaToInt1.y, conSupFan1.uZonPreResReq) annotation (Line(points={{-58,0},
           {150,0},{150,27},{158,27}}, color={255,127,0}));
-  connect(sine1.y, conSupFan1.ducStaPre) annotation (Line(points={{-98,-40},{
-          152,-40},{152,22},{158,22}}, color={0,0,127}));
+  connect(sine1.y, conSupFan1.dpDuc) annotation (Line(points={{-98,-40},{152,-40},
+          {152,22},{158,22}}, color={0,0,127}));
 
 annotation (experiment(StopTime=28800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/Validation/SupplyFan.mos"
