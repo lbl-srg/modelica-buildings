@@ -81,7 +81,6 @@ protected
       "Number of sensors that are connected to CFD output";
     input Integer nConExtWin(min=0)
       "number of exterior construction with window";
-    input Boolean verbose "Set to true for verbose output";
     input Integer nXi
       "Number of independent species concentration of the inflowing medium";
     input Integer nC "Number of trace substances of the inflowing medium";
@@ -89,15 +88,10 @@ protected
   protected
     Integer coSimFlag=0;
   algorithm
-    if verbose then
-      Modelica.Utilities.Streams.print("CFDExchange:sendParameter");
-    end if;
-
     for i in 1:nSur loop
       assert(A[i] > 0, "Surface must be bigger than zero.");
     end for;
 
-    Modelica.Utilities.Streams.print(string="Start cosimulation");
     coSimFlag := cfdStartCosimulation(
         cfdFilNam,
         name,
@@ -134,15 +128,10 @@ protected
     input Integer nY "Number of outputs from CFD";
     output Modelica.Units.SI.Time modTimRea
       "Current model time in seconds read from CFD";
-    input Boolean verbose "Set to true for verbose output";
     output Real[nY] y "Output computed by CFD";
     output Integer retVal
       "The exit value, which is negative if an error occurred";
   algorithm
-    if verbose then
-      Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));
-    end if;
-
     (modTimRea,y,retVal) := cfdExchangeData(
         flag,
         t,
@@ -258,8 +247,7 @@ end if;
     nPorts=nPorts,
     nXi=nXi,
     nC=nC,
-    rho_start=rho_start,
-    verbose=verbose);
+    rho_start=rho_start);
 
   // Assignment of parameters and start values
   uInt = zeros(nWri);
@@ -317,8 +305,7 @@ algorithm
         u=uWri,
         nU=size(u, 1),
         yFixed=yFixed,
-        nY=size(y, 1),
-        verbose=verbose);
+        nY=size(y, 1));
     else
       modTimRea := time;
       y := yFixed;
