@@ -6,8 +6,8 @@ model Controller_Mod_DamLim
     eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
+    final fanSpe_min=fanSpe_min,
+    final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
@@ -17,8 +17,8 @@ model Controller_Mod_DamLim
     eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
+    final fanSpe_min=fanSpe_min,
+    final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
@@ -44,11 +44,11 @@ protected
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=290.15
     "Measured supply air temperature";
-  parameter Real yFanMin(
+  parameter Real fanSpe_min(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed";
-  parameter Real yFanMax(
+  parameter Real fanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed";
@@ -100,27 +100,27 @@ protected
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=yFanMin,
-    final height=yFanMax - yFanMin) "Supply fan speed signal"
+    final offset=fanSpe_min,
+    final height=fanSpe_max - fanSpe_min) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
-  connect(fanSta.y, economizer.uSupFan)
-    annotation (Line(points={{-58,-80},{-20,-80},{-20,9},{18,9}}, color={255,0,255}));
+  connect(fanSta.y, economizer.u1SupFan) annotation (Line(points={{-58,-80},{-20,
+          -80},{-20,9},{18,9}}, color={255,0,255}));
   connect(opeMod.y, economizer.uOpeMod)
     annotation (Line(points={{-98,-100},{-10,-100},{-10,5},{18,5}},
     color={255,127,0}));
   connect(hOutBelowCutoff.y, economizer.hOut)
     annotation (Line(points={{-98,30},{-40,30},{-40,34},{18,34}},
                                                 color={0,0,127}));
-  connect(TSupSetSig.y,economizer.TSupHeaEco)
-    annotation (Line(points={{-58,50},{-50,50},{-50,21},{18,21}},color={0,0,127}));
-  connect(TSupSig.y, economizer.TSup)
-    annotation (Line(points={{-58,90},{-46,90},{-46,24},{18,24}}, color={0,0,127}));
-  connect(TSupSig1.y, economizer1.TSup)
-    annotation (Line(points={{62,90},{80,90},{80,-16},{98,-16}}, color={0,0,127}));
-  connect(fanSta.y, economizer1.uSupFan)
-    annotation (Line(points={{-58,-80},{-20,-80},{-20,-30},{98,-30},{98,-31}}, color={255,0,255}));
+  connect(TSupSetSig.y, economizer.TSupHeaEcoSet) annotation (Line(points={{-58,
+          50},{-50,50},{-50,21},{18,21}}, color={0,0,127}));
+  connect(TSupSig.y, economizer.TAirSup) annotation (Line(points={{-58,90},{-46,
+          90},{-46,24},{18,24}}, color={0,0,127}));
+  connect(TSupSig1.y, economizer1.TAirSup) annotation (Line(points={{62,90},{80,
+          90},{80,-16},{98,-16}}, color={0,0,127}));
+  connect(fanSta.y, economizer1.u1SupFan) annotation (Line(points={{-58,-80},{-20,
+          -80},{-20,-30},{98,-30},{98,-31}}, color={255,0,255}));
   connect(freProSta.y, economizer1.uFreProSta)
     annotation (Line(points={{-58,-120},{-2,-120},{-2,-39},{98,-39}}, color={255,127,0}));
   connect(opeMod.y, economizer1.uOpeMod)
@@ -133,18 +133,18 @@ equation
     annotation (Line(points={{-18,90},{6,90},{6,-22},{98,-22}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut) annotation (Line(points={{-98,120},
           {90,120},{90,-1},{98,-1}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer.uSupFanSpe) annotation (Line(points={{-18,50},
-          {2,50},{2,15},{18,15}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer.uSupFanSpe_actual) annotation (Line(points=
+         {{-18,50},{2,50},{2,15},{18,15}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer.TOut) annotation (Line(points={{-98,120},
           {14,120},{14,39},{18,39}}, color={0,0,127}));
   connect(zonSta.y, economizer.uZonSta) annotation (Line(points={{-98,-60},{-6,-60},
           {-6,3},{18,3}}, color={255,127,0}));
   connect(freProSta.y, economizer.uFreProSta) annotation (Line(points={{-58,-120},
           {-2,-120},{-2,1},{18,1}}, color={255,127,0}));
-  connect(TSupSetSig.y, economizer1.TSupHeaEco) annotation (Line(points={{-58,50},
-          {-50,50},{-50,-19},{98,-19}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer1.uSupFanSpe) annotation (Line(points={{-18,
-          50},{2,50},{2,-25},{98,-25}}, color={0,0,127}));
+  connect(TSupSetSig.y, economizer1.TSupHeaEcoSet) annotation (Line(points={{-58,
+          50},{-50,50},{-50,-19},{98,-19}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer1.uSupFanSpe_actual) annotation (Line(
+        points={{-18,50},{2,50},{2,-25},{98,-25}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Mod_DamLim.mos"

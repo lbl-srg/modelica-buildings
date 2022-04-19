@@ -122,29 +122,27 @@ equation
           {52,70},{78,70}},color={0,0,127}));
   connect(occSch.tNexOcc, modSetPoi.tNexOcc) annotation (Line(points={{-59,6},{
           40,6},{40,56},{78,56}},  color={0,0,127}));
-  connect(occSch.occupied, modSetPoi.uOcc) annotation (Line(points={{-59,-6},{
-          36,-6},{36,58},{78,58}},
-                                color={255,0,255}));
+  connect(occSch.occupied, modSetPoi.u1Occ) annotation (Line(points={{-59,-6},{
+          36,-6},{36,58},{78,58}}, color={255,0,255}));
   connect(swi2.y, modSetPoi.cooSetAdj) annotation (Line(points={{22,-40},{44,
           -40},{44,51},{78,51}},
                             color={0,0,127}));
   connect(swi1.y, modSetPoi.heaSetAdj) annotation (Line(points={{22,-80},{48,
           -80},{48,49},{78,49}},
                             color={0,0,127}));
-  connect(occSta.y, modSetPoi.uOccSen) annotation (Line(points={{-58,-120},{52,
-          -120},{52,46},{78,46}},
-                            color={255,0,255}));
+  connect(occSta.y, modSetPoi.u1OccSen) annotation (Line(points={{-58,-120},{52,
+          -120},{52,46},{78,46}}, color={255,0,255}));
   connect(cooDemLimLev.y, modSetPoi.uCooDemLimLev) annotation (Line(points={{-98,
           -140},{56,-140},{56,44},{78,44}}, color={255,127,0}));
   connect(heaDemLimLev.y, modSetPoi.uHeaDemLimLev) annotation (Line(points={{
           -58,-160},{60,-160},{60,42},{78,42}}, color={255,127,0}));
-  connect(THeaSetOcc.y, modSetPoi.THeaSetOcc) annotation (Line(points={{-58,80},
+  connect(THeaSetOcc.y,modSetPoi.TOccHeaSet)  annotation (Line(points={{-58,80},
           {48,80},{48,67},{78,67}}, color={0,0,127}));
-  connect(TCooSetOcc.y, modSetPoi.TCooSetOcc) annotation (Line(points={{-98,60},
+  connect(TCooSetOcc.y,modSetPoi.TOccCooSet)  annotation (Line(points={{-98,60},
           {24,60},{24,65},{78,65}}, color={0,0,127}));
-  connect(TCooSetUno.y, modSetPoi.TCooSetUno) annotation (Line(points={{-98,20},
+  connect(TCooSetUno.y,modSetPoi.TUnoCooSet)  annotation (Line(points={{-98,20},
           {32,20},{32,61},{78,61}}, color={0,0,127}));
-  connect(THeaSetUno.y, modSetPoi.THeaSetUno) annotation (Line(points={{-58,40},
+  connect(THeaSetUno.y,modSetPoi.TUnoHeaSet)  annotation (Line(points={{-58,40},
           {28,40},{28,63},{78,63}}, color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),

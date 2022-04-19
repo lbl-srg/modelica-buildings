@@ -52,16 +52,16 @@ model PlantRequests
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 equation
-  connect(supTem.y, plaReq1.TSup) annotation (Line(points={{-58,-40},{20,-40},{20,
-          -61},{58,-61}}, color={0,0,127}));
-  connect(cooCoi.y, plaReq1.uCooCoi) annotation (Line(points={{-58,-80},{20,-80},
-          {20,-70},{58,-70}}, color={0,0,127}));
-  connect(supTem1.y, plaReq.TSup) annotation (Line(points={{-58,80},{0,80},{0,69},
-          {58,69}}, color={0,0,127}));
-  connect(cooCoi1.y, plaReq.uCooCoi) annotation (Line(points={{-58,40},{10,40},{
-          10,60},{58,60}}, color={0,0,127}));
-  connect(heaCoi.y, plaReq.uHeaCoi) annotation (Line(points={{-58,0},{30,0},{30,
-          51},{58,51}}, color={0,0,127}));
+  connect(supTem.y, plaReq1.TAirSup) annotation (Line(points={{-58,-40},{20,-40},
+          {20,-61},{58,-61}}, color={0,0,127}));
+  connect(cooCoi.y, plaReq1.uCooCoi_actual) annotation (Line(points={{-58,-80},
+          {20,-80},{20,-70},{58,-70}}, color={0,0,127}));
+  connect(supTem1.y, plaReq.TAirSup) annotation (Line(points={{-58,80},{0,80},{
+          0,69},{58,69}}, color={0,0,127}));
+  connect(cooCoi1.y, plaReq.uCooCoi_actual) annotation (Line(points={{-58,40},{
+          10,40},{10,60},{58,60}}, color={0,0,127}));
+  connect(heaCoi.y, plaReq.uHeaCoi_actual) annotation (Line(points={{-58,0},{30,
+          0},{30,51},{58,51}}, color={0,0,127}));
   connect(supTemSet1.y, plaReq.TSupCoo) annotation (Line(points={{-18,60},{0,60},
           {0,65},{58,65}}, color={0,0,127}));
   connect(supTemSet.y, plaReq1.TSupCoo) annotation (Line(points={{-18,-60},{0,-60},

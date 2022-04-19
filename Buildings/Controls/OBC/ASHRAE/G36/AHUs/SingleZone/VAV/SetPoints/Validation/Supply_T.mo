@@ -4,12 +4,12 @@ model Supply_T
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply
     setPoiVAV(
+    final TSup_max=303.15,
+    final TSup_min=289.15,
+    final TSupDew_max=292.15,
     final maxHeaSpe=0.7,
     final maxCooSpe=0.9,
-    final minSpe=0.3,
-    final TSupSetMax=303.15,
-    final TSupSetMin=289.15,
-    final TDewSupMax=292.15)
+    final minSpe=0.3)
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
@@ -58,10 +58,10 @@ equation
           30}},      color={0,0,127}));
   connect(opeMod.y, setPoiVAV.uOpeMod) annotation (Line(points={{-58,70},{40,70},
           {40,-1},{58,-1}}, color={255,127,0}));
-  connect(TZonCooSet.y, setPoiVAV.TZonCooSet) annotation (Line(points={{-18,-40},
-          {16,-40},{16,-16},{58,-16}}, color={0,0,127}));
-  connect(TZonHeaSet.y, setPoiVAV.TZonHeaSet) annotation (Line(points={{-58,-70},
-          {22,-70},{22,-19},{58,-19}}, color={0,0,127}));
+  connect(TZonCooSet.y, setPoiVAV.TCooSet) annotation (Line(points={{-18,-40},{16,
+          -40},{16,-16},{58,-16}}, color={0,0,127}));
+  connect(TZonHeaSet.y, setPoiVAV.THeaSet) annotation (Line(points={{-58,-70},{22,
+          -70},{22,-19},{58,-19}}, color={0,0,127}));
   annotation (
   experiment(StopTime=3600.0, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_T.mos"

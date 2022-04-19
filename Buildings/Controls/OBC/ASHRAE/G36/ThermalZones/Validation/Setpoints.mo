@@ -79,13 +79,13 @@ equation
     annotation (Line(points={{-58,-90},{-42,-90}}, color={255,0,255}));
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-18,-90},{-2,-90}},  color={255,0,255}));
-  connect(TZonCooSetOcc.y, TZonSet.TZonCooSetOcc) annotation (Line(points={{-58,90},
+  connect(TZonCooSetOcc.y, TZonSet.TOccCooSet) annotation (Line(points={{-58,90},
           {-50,90},{-50,110},{44,110},{44,74},{98,74}}, color={0,0,127}));
-  connect(TZonHeaSetOcc.y, TZonSet.TZonHeaSetOcc) annotation (Line(points={{-18,90},
-          {40,90},{40,66},{98,66}},     color={0,0,127}));
-  connect(TZonCooSetUno.y, TZonSet.TZonCooSetUno) annotation (Line(points={{-58,50},
-          {-52,50},{-52,71},{98,71}},     color={0,0,127}));
-  connect(TZonHeaSetUno.y, TZonSet.TZonHeaSetUno) annotation (Line(points={{-18,50},
+  connect(TZonHeaSetOcc.y, TZonSet.TOccHeaSet) annotation (Line(points={{-18,90},
+          {40,90},{40,66},{98,66}}, color={0,0,127}));
+  connect(TZonCooSetUno.y, TZonSet.TUnoCooSet) annotation (Line(points={{-58,50},
+          {-52,50},{-52,71},{98,71}}, color={0,0,127}));
+  connect(TZonHeaSetUno.y, TZonSet.TUnoHeaSet) annotation (Line(points={{-18,50},
           {-12,50},{-12,63},{98,63}}, color={0,0,127}));
   connect(cooDemLimLev.y, TZonSet.uCooDemLimLev)
     annotation (Line(points={{-98,-60},{-80,-60},{-80,-40},{40,-40},{40,52},{98,
@@ -110,9 +110,9 @@ equation
     annotation (Line(points={{-58,-20},{-48,-20},{-48,-28},{-22,-28}}, color={0,0,127}));
   connect(swi1.y, TZonSet.heaSetAdj)
     annotation (Line(points={{2,-20},{20,-20},{20,56},{98,56}}, color={0,0,127}));
-  connect(occSta.y, TZonSet.uOcc) annotation (Line(points={{82,20},{88,20},{88,
+  connect(occSta.y, TZonSet.u1Occ) annotation (Line(points={{82,20},{88,20},{88,
           45},{98,45}}, color={255,0,255}));
-  connect(winSta.y, TZonSet.uWin) annotation (Line(points={{82,-20},{92,-20},{
+  connect(winSta.y, TZonSet.u1Win) annotation (Line(points={{82,-20},{92,-20},{
           92,42},{98,42}}, color={255,0,255}));
   connect(swi2.y, TZonSet.cooSetAdj) annotation (Line(points={{2,20},{10,20},{
           10,58},{98,58}}, color={0,0,127}));

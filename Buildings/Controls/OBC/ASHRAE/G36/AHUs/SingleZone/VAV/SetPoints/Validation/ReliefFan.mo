@@ -80,19 +80,19 @@ equation
           {-80,13},{-2,13}}, color={0,0,127}));
   connect(greThr.y, pre.u)
     annotation (Line(points={{82,110},{98,110}}, color={255,0,255}));
-  connect(supFan1.y, relFanCon.uSupFan[1]) annotation (Line(points={{-98,140},{-20,
+  connect(supFan1.y, relFanCon.u1SupFan[1]) annotation (Line(points={{-98,140},{-20,
           140},{-20,118},{-2,118}}, color={255,0,255}));
-  connect(supFan2.y, relFanCon.uSupFan[2]) annotation (Line(points={{-98,100},{-30,
+  connect(supFan2.y, relFanCon.u1SupFan[2]) annotation (Line(points={{-98,100},{-30,
           100},{-30,118},{-2,118}}, color={255,0,255}));
-  connect(supFan1.y, relFanCon1.uSupFan[1]) annotation (Line(points={{-98,140},{
+  connect(supFan1.y, relFanCon1.u1SupFan[1]) annotation (Line(points={{-98,140},{
           -20,140},{-20,18},{-2,18}}, color={255,0,255}));
-  connect(supFan2.y, relFanCon1.uSupFan[2]) annotation (Line(points={{-98,100},{
+  connect(supFan2.y, relFanCon1.u1SupFan[2]) annotation (Line(points={{-98,100},{
           -30,100},{-30,18},{-2,18}}, color={255,0,255}));
-  connect(pre.y, relFanCon.uRelFan) annotation (Line(points={{122,110},{130,110},
+  connect(pre.y, relFanCon.u1RelFan) annotation (Line(points={{122,110},{130,110},
           {130,80},{-10,80},{-10,102},{-2,102}}, color={255,0,255}));
   connect(greThr1.y, pre1.u)
     annotation (Line(points={{82,10},{98,10}}, color={255,0,255}));
-  connect(pre1.y, relFanCon1.uRelFan) annotation (Line(points={{122,10},{130,10},
+  connect(pre1.y, relFanCon1.u1RelFan) annotation (Line(points={{122,10},{130,10},
           {130,-20},{-10,-20},{-10,2},{-2,2}}, color={255,0,255}));
   connect(conInt.y, relFanCon.uRelFanAla) annotation (Line(points={{-98,-20},{-40,
           -20},{-40,107},{-2,107}}, color={255,127,0}));
@@ -114,7 +114,7 @@ equation
     annotation (Line(points={{52,10},{58,10}}, color={0,0,127}));
   connect(greThr2.y,pre2. u)
     annotation (Line(points={{82,-110},{98,-110}}, color={255,0,255}));
-  connect(pre2.y,relFanCon2. uRelFan) annotation (Line(points={{122,-110},{130,-110},
+  connect(pre2.y,relFanCon2.u1RelFan) annotation (Line(points={{122,-110},{130,-110},
           {130,-140},{-10,-140},{-10,-118},{-2,-118}}, color={255,0,255}));
   connect(relFanCon2.yRelFan, zerOrdHol2.u)
     annotation (Line(points={{22,-110},{28,-110}}, color={0,0,127}));
@@ -122,9 +122,9 @@ equation
     annotation (Line(points={{52,-110},{58,-110}}, color={0,0,127}));
   connect(dpBui1.y, relFanCon2.dpBui) annotation (Line(points={{-98,-110},{-80,-110},
           {-80,-107},{-2,-107}}, color={0,0,127}));
-  connect(supFan1.y, relFanCon2.uSupFan[1]) annotation (Line(points={{-98,140},{
+  connect(supFan1.y, relFanCon2.u1SupFan[1]) annotation (Line(points={{-98,140},{
           -20,140},{-20,-102},{-2,-102}}, color={255,0,255}));
-  connect(supFan2.y, relFanCon2.uSupFan[2]) annotation (Line(points={{-98,100},{
+  connect(supFan2.y, relFanCon2.u1SupFan[2]) annotation (Line(points={{-98,100},{
           -30,100},{-30,-102},{-2,-102}}, color={255,0,255}));
   connect(conInt.y, relFanCon2.uRelFanAla) annotation (Line(points={{-98,-20},{-40,
           -20},{-40,-113},{-2,-113}}, color={255,127,0}));

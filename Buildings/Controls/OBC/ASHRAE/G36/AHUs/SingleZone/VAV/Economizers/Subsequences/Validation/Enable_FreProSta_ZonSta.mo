@@ -83,18 +83,18 @@ equation
     annotation (Line(points={{62,-110},{70,-110},{70,-33},{78,-33}}, color={255,127,0}));
   connect(zonSta1.y, enaDis1.uZonSta)
     annotation (Line(points={{62,-70},{72,-70},{72,-35},{78,-35}}, color={255,127,0}));
-  connect(outDamPosMax.y, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,43},{78,43}}, color={0,0,127}));
-  connect(outDamPosMin.y, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-38,-150},{-28,-150},{-28,41},{78,41}}, color={0,0,127}));
-  connect(outDamPosMin.y, enaDis1.uOutDamPosMin)
-    annotation (Line(points={{-38,-150},{22,-150},{22,-39},{78,-39}}, color={0,0,127}));
-  connect(outDamPosMax.y, enaDis1.uOutDamPosMax)
-    annotation (Line(points={{-38,-110},{20,-110},{20,-37},{78,-37}}, color={0,0,127}));
-  connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-138,-30},{-34,-30},{-34,50},{78,50}}, color={255,0,255}));
-  connect(supFanSta.y, enaDis1.uSupFan)
-    annotation (Line(points={{-138,-30},{78,-30}},                     color={255,0,255}));
+  connect(outDamPosMax.y, enaDis.uOutDam_max) annotation (Line(points={{-38,-110},
+          {-30,-110},{-30,43},{78,43}}, color={0,0,127}));
+  connect(outDamPosMin.y, enaDis.uOutDam_min) annotation (Line(points={{-38,-150},
+          {-28,-150},{-28,41},{78,41}}, color={0,0,127}));
+  connect(outDamPosMin.y, enaDis1.uOutDam_min) annotation (Line(points={{-38,-150},
+          {22,-150},{22,-39},{78,-39}}, color={0,0,127}));
+  connect(outDamPosMax.y, enaDis1.uOutDam_max) annotation (Line(points={{-38,-110},
+          {20,-110},{20,-37},{78,-37}}, color={0,0,127}));
+  connect(supFanSta.y, enaDis.u1SupFan) annotation (Line(points={{-138,-30},{-34,
+          -30},{-34,50},{78,50}}, color={255,0,255}));
+  connect(supFanSta.y, enaDis1.u1SupFan)
+    annotation (Line(points={{-138,-30},{78,-30}}, color={255,0,255}));
   connect(TOutCut.y, enaDis.TCut) annotation (Line(points={{-18,110},{20,110},{20,
           57},{78,57}}, color={0,0,127}));
   connect(hOutCut.y, enaDis.hCut) annotation (Line(points={{-78,20},{-60,20},{-60,

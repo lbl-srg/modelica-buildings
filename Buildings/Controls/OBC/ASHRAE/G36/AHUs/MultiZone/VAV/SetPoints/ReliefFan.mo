@@ -730,7 +730,7 @@ control loop, even if they are associated with different AHUs.
 </li>
 <li>
 A relief fan shall be enabled when its associated supply fan is proven ON
-(<code>uSupFan=true</code>), and shall be disabled otherwise.
+(<code>u1SupFan=true</code>), and shall be disabled otherwise.
 </li>
 <li>
 Building static pressure (<code>dpBui</code>) shall be time averaged with a sliding

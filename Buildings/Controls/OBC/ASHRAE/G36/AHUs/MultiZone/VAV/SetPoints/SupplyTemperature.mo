@@ -318,7 +318,7 @@ inputs for VAV system with multiple zones, implemented according to Section 5.16
 the ASHRAE Guideline G36, May 2020.
 </p>
 <p>
-The control loop is enabled when the supply air fan <code>uSupFan</code> is proven on,
+The control loop is enabled when the supply air fan <code>u1SupFan</code> is proven on,
 and disabled and the output set to deadband (no heating, minimum economizer) otherwise.
 </p>
 <p> The supply air temperature setpoint is computed as follows.</p>

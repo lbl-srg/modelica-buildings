@@ -32,12 +32,12 @@ model CoolingCoil "Validation of cooling coil model"
     annotation (Placement(transformation(extent={{-48,-30},{-28,-10}})));
 
 equation
-  connect(TSup.y, cooCoi.TSup) annotation (Line(points={{-58,30},{-40,30},{-40,4},
-          {-12,4}},      color={0,0,127}));
-  connect(TSupSetSig.y, cooCoi.TSupCoo) annotation (Line(points={{-58,70},{-36,70},
-          {-36,8},{-12,8}},     color={0,0,127}));
-  connect(fanStatus.y, cooCoi.uSupFan) annotation (Line(points={{-58,-50},{-20,-50},
-          {-20,-8},{-12,-8}},      color={255,0,255}));
+  connect(TSup.y, cooCoi.TAirSup) annotation (Line(points={{-58,30},{-40,30},{-40,
+          4},{-12,4}}, color={0,0,127}));
+  connect(TSupSetSig.y, cooCoi.TSupCooSet) annotation (Line(points={{-58,70},{-36,
+          70},{-36,8},{-12,8}}, color={0,0,127}));
+  connect(fanStatus.y, cooCoi.u1SupFan) annotation (Line(points={{-58,-50},{-20,
+          -50},{-20,-8},{-12,-8}}, color={255,0,255}));
   connect(zonSta.y, reaToInt.u)
     annotation (Line(points={{-58,-20},{-50,-20}}, color={0,0,127}));
   connect(reaToInt.y, cooCoi.uZonSta) annotation (Line(points={{-26,-20},{-24,-20},

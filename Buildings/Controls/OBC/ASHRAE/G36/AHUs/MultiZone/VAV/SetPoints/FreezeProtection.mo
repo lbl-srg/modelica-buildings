@@ -6,7 +6,7 @@ block FreezeProtection
     "Type of building pressure control system";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
     "Design of minimum outdoor air and economizer function";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Without_reset_switch_NC
     "Type of freeze stat";
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has heating coil";
@@ -457,8 +457,8 @@ block FreezeProtection
     if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Check if the freeze stat is normally open"
     annotation (Placement(transformation(extent={{-360,-140},{-340,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
 equation

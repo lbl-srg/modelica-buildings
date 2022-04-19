@@ -119,7 +119,7 @@ Documentation(info="<html>
 This example validates enable/disable conditions for
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common</a>
-for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOpeMod</code>.
+for the following input signals: <code>u1SupFan</code>, <code>uFreProSta</code>, <code>uOpeMod</code>.
 </p>
 </html>", revisions="<html>
 <ul>

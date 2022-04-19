@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation;
 model ReliefDamper "Validation of relief damper control"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper relDam(
-    final minRelPos=0.1,
-    final maxRelPos=0.6) "Relief damper controller"
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper relDam(final
+      relDam_min=0.1, final relDam_max=0.6)
+                         "Relief damper controller"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamMin(
     final height=0.1,
@@ -23,11 +23,11 @@ model ReliefDamper "Validation of relief damper control"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-  connect(fanStatus.y,relDam. uSupFan) annotation (Line(points={{-38,-60},{20,-60},
-          {20,-7},{58,-7}},        color={255,0,255}));
-  connect(outDam.y, relDam.uOutDamPos)
+  connect(fanStatus.y, relDam.u1SupFan) annotation (Line(points={{-38,-60},{20,
+          -60},{20,-7},{58,-7}}, color={255,0,255}));
+  connect(outDam.y, relDam.uOutDam)
     annotation (Line(points={{-38,0},{58,0}}, color={0,0,127}));
-  connect(outDamMin.y, relDam.uOutDamPosMin) annotation (Line(points={{-38,60},{
+  connect(outDamMin.y, relDam.uOutDam_min) annotation (Line(points={{-38,60},{
           20,60},{20,7},{58,7}}, color={0,0,127}));
 
 annotation (

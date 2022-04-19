@@ -37,20 +37,20 @@ model Modulation_TSup
     "Fan is on"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
-  connect(TSupSetSig.y,mod.TSupHeaEco)
-    annotation (Line(points={{2,70},{10,70},{10,48},{10,36},{38,36}},color={0,0,127}));
+  connect(TSupSetSig.y, mod.TSupHeaEcoSet) annotation (Line(points={{2,70},{10,
+          70},{10,48},{10,36},{38,36}}, color={0,0,127}));
   connect(TSup.y,mod.TSup)
     annotation (Line(points={{-38,70},{-30,70},{-30,38},{38,38}},color={0,0,127}));
-  connect(RetDamPosMax.y, mod.uRetDamPosMax)
-    annotation (Line(points={{-58,-40},{-20,-40},{-20,32},{38,32}}, color={0,0,127}));
-  connect(RetDamPosMin.y, mod.uRetDamPosMin)
-    annotation (Line(points={{-58,-70},{-10,-70},{-10,30},{38,30}}, color={0,0,127}));
-  connect(outDamPosMax.y, mod.uOutDamPosMax)
-    annotation (Line(points={{-58,20},{-30,20},{-30,26},{38,26}},  color={0,0,127}));
-  connect(outDamPosMin.y, mod.uOutDamPosMin)
-    annotation (Line(points={{-58,-10},{-26,-10},{-26,24},{38,24}},  color={0,0,127}));
-  connect(mod.uSupFan, fanStatus.y)
-    annotation (Line(points={{38,21},{32,21},{32,0},{22,0}}, color={255,0,255}));
+  connect(RetDamPosMax.y, mod.uRetDam_max) annotation (Line(points={{-58,-40},{
+          -20,-40},{-20,32},{38,32}}, color={0,0,127}));
+  connect(RetDamPosMin.y, mod.uRetDam_min) annotation (Line(points={{-58,-70},{
+          -10,-70},{-10,30},{38,30}}, color={0,0,127}));
+  connect(outDamPosMax.y, mod.uOutDam_max) annotation (Line(points={{-58,20},{-30,
+          20},{-30,26},{38,26}}, color={0,0,127}));
+  connect(outDamPosMin.y, mod.uOutDam_min) annotation (Line(points={{-58,-10},{
+          -26,-10},{-26,24},{38,24}}, color={0,0,127}));
+  connect(mod.u1SupFan, fanStatus.y) annotation (Line(points={{38,21},{32,21},{
+          32,0},{22,0}}, color={255,0,255}));
 
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),

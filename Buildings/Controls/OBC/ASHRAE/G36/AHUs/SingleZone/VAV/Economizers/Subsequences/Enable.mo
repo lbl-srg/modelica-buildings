@@ -19,13 +19,13 @@ block Enable
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
-  parameter Real retDamPhyPosMax(
+  parameter Real retDamPhy_max(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
     annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
-  parameter Real retDamPhyPosMin(
+  parameter Real retDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0
@@ -58,10 +58,10 @@ block Enable
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
     "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
     "Freeze protection stage status signal"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
@@ -70,37 +70,37 @@ block Enable
     "Zone state status signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam_max(
     final unit="1",
     final min=0,
     final max=1)
     "Maximum outdoor air damper position, get from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
-      iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam_min(
     final unit="1",
     final min=0,
     final max=1)
     "Minimum outdoor air damper position, get from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam_max(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
-    final min=retDamPhyPosMin,
-    final max=retDamPhyPosMax,
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam_max(
+    final min=retDamPhy_min,
+    final max=retDamPhy_max,
     final unit="1")
     "Maximum return air damper position"
-     annotation (Placement(transformation(extent={{180,-230},{220,-190}}),
+    annotation (Placement(transformation(extent={{180,-230},{220,-190}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
-    final min=retDamPhyPosMin,
-    final max=retDamPhyPosMax,
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam_min(
+    final min=retDamPhy_min,
+    final max=retDamPhy_max,
     final unit="1")
     "Minimum return air damper position"
     annotation (Placement(transformation(extent={{180,-260},{220,-220}}),
@@ -132,12 +132,12 @@ protected
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMinSig(
-    final k=retDamPhyPosMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyMin(
+    final k=retDamPhy_min)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-140,-258},{-120,-238}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(
-    final k=retDamPhyPosMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyMax(
+    final k=retDamPhy_max)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
@@ -193,7 +193,7 @@ protected
     annotation (Placement(transformation(extent={{40,240},{60,260}})));
 
 equation
-  connect(maxOutDam.y, yOutDamPosMax)
+  connect(maxOutDam.y, yOutDam_max)
     annotation (Line(points={{62,-140},{200,-140}}, color={0,0,127}));
   connect(TOut, sub1.u1)
     annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},color={0,0,127}));
@@ -207,27 +207,27 @@ equation
           {-142,164}}, color={0,0,127}));
   connect(sub2.y, hysOutEnt.u)
     annotation (Line(points={{-118,170},{-102,170}}, color={0,0,127}));
-  connect(uOutDamPosMin, maxOutDam.u1) annotation (Line(points={{-200,-160},{-60,
-          -160},{-60,-132},{38,-132}}, color={0,0,127}));
-  connect(uOutDamPosMax, maxOutDam.u3) annotation (Line(points={{-200,-130},{-80,
-          -130},{-80,-148},{38,-148}}, color={0,0,127}));
+  connect(uOutDam_min, maxOutDam.u1) annotation (Line(points={{-200,-160},{-60,-160},
+          {-60,-132},{38,-132}}, color={0,0,127}));
+  connect(uOutDam_max, maxOutDam.u3) annotation (Line(points={{-200,-130},{-80,-130},
+          {-80,-148},{38,-148}}, color={0,0,127}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{62,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}},
         color={255,0,255}));
-  connect(minRetDam.y, yRetDamPosMin)
+  connect(minRetDam.y, yRetDam_min)
     annotation (Line(points={{62,-240},{200,-240}}, color={0,0,127}));
   connect(truFalHol.y, and1.u1)
     annotation (Line(points={{142,220},{164,220},{164,130},{-26,130},{-26,110},{2,110}},
         color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{26,110},{30,110},{30,48},{38,48}}, color={255,0,255}));
-  connect(uSupFan, and1.u2)
-    annotation (Line(points={{-200,110},{-102,110},{-102,102},{2,102}},  color={255,0,255}));
-  connect(retDamPhyPosMaxSig.y, minRetDam.u1) annotation (Line(points={{-118,-210},
+  connect(u1SupFan, and1.u2) annotation (Line(points={{-200,110},{-102,110},{-102,
+          102},{2,102}}, color={255,0,255}));
+  connect(retDamPhyMax.y, minRetDam.u1) annotation (Line(points={{-118,-210},
           {-4,-210},{-4,-232},{38,-232}}, color={0,0,127}));
-  connect(retDamPhyPosMinSig.y, minRetDam.u3)
+  connect(retDamPhyMin.y, minRetDam.u3)
     annotation (Line(points={{-118,-248},{38,-248}}, color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
+  connect(retDamPhyMax.y, yRetDam_max)
     annotation (Line(points={{-118,-210},{200,-210}}, color={0,0,127}));
   connect(not2.y, minRetDam.u2) annotation (Line(points={{12,-60},{16,-60},{16,-240},
           {38,-240}}, color={255,0,255}));
@@ -350,7 +350,7 @@ conditions included in the sequence are:
 Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages</a>,
 </li>
 <li>
-Supply fan status <code>uSupFan</code>,
+Supply fan status <code>u1SupFan</code>,
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates\">
