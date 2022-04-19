@@ -12,7 +12,12 @@ model Parallel "Model for chillers in parallel"
       redeclare final package Medium = MediumChiWat,
       final dat=datPumPri)
     "Chilled water primary pumps"
-    annotation (Placement(transformation(extent={{-50,30},{-70,50}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-90,10}})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Dedicated
+          pumPri "Dedicated primary pumps"),
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.HeaderedParallel
+          pumPri "Headered primary pumps")));
 
   Buildings.Fluid.Delays.DelayFirstOrder volChiWat(
     redeclare final package Medium = MediumChiWat,
@@ -20,7 +25,7 @@ model Parallel "Model for chillers in parallel"
     nPorts=nChi+1)
     "Chilled water side mixing volume"
     annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},rotation=270,origin={90,0})));
+      extent={{-10,10},{10,-10}},rotation=270,origin={50,0})));
 
 initial equation
   assert(typPumPri <> Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
@@ -32,7 +37,7 @@ equation
 
   connect(busCon, pumPri.busCon)
     annotation (Line(
-      points={{0,100},{0,80},{-60,80},{-60,50}},
+      points={{0,100},{0,22},{-80,22},{-80,10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -41,23 +46,25 @@ equation
       horizontalAlignment=TextAlignment.Left));
 
   connect(splChiByp.port_2, volChiWat.ports[1])
-    annotation (Line(points={{-70,-60},{-80,-60},{-80,-20},{66,-20},{66,0},{80,0}},
+    annotation (Line(points={{-70,-60},{-80,-60},{-80,-40},{80,-40},{80,0},{60,0},
+          {60,-1.9984e-15}},
       color={0,127,255}));
   connect(chi.port_a2, volChiWat.ports[2:nChi+1])
-    annotation (Line(points={{20,36},{66,36},{66,0},{80,0}},
+    annotation (Line(points={{20,36},{80,36},{80,0},{70,0},{70,-1.9984e-15},{60,
+          -1.9984e-15}},
       color={0,127,255}));
 
   connect(pumPri.port_byp, mixByp.port_3)
-    annotation (Line(points={{-60,30},{-60,0},{60,0},{60,-50}},
+    annotation (Line(points={{-80,-10},{-80,-30},{60,-30},{60,-50}},
       color={0,127,255}));
   connect(splChiByp.port_3, pumPri.port_ChiByp)
-    annotation (Line(points={{-60,-50},{-60,-40},{-40,-40},{-40,34},{-50,34}},
+    annotation (Line(points={{-60,-50},{-60,-6},{-70,-6}},
       color={0,127,255}));
   connect(chi.port_b2, pumPri.ports_a)
-    annotation (Line(points={{-20,36},{-36,36},{-36,40},{-50,40}},
+    annotation (Line(points={{-20,36},{-30,36},{-30,0},{-70,0}},
       color={0,127,255}));
   connect(pumPri.port_b, port_b2)
-    annotation (Line(points={{-70,40},{-86,40},{-86,-60},{-100,-60}},
+    annotation (Line(points={{-90,0},{-94,0},{-94,-60},{-100,-60}},
       color={0,127,255}));
 
   annotation (Icon(graphics={

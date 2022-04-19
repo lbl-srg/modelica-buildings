@@ -77,8 +77,15 @@ partial model PartialChillerSection "Partial chiller section model"
     Buildings.Templates.ChilledWaterPlant.Components.Chillers.Interfaces.PartialChiller(
     final dat=dat.chi,
     redeclare each final package Medium1 = MediumConWat,
-    redeclare each final package Medium2 = MediumChiWat) "Chillers" annotation (
-     Placement(transformation(extent={{-20,28},{20,68}},  rotation=0)));
+    redeclare each final package Medium2 = MediumChiWat)
+    "Chillers"
+    annotation (
+      Placement(transformation(extent={{-20,28},{20,68}})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.Chillers.Electric
+          chi[nChi] "Electric"),
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.Chillers.Absorption
+          chi[nChi] "Absorption")));
 
   // Evaporator side
 

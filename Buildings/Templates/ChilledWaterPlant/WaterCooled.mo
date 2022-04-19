@@ -41,7 +41,10 @@ model WaterCooled
     "Cooling tower section"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-170,-28})));
+        origin={-170,-28})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Parallel
+          cooTowSec "Cooling towers in parallel")));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Headered
     pumCon constrainedby
@@ -49,7 +52,28 @@ model WaterCooled
       redeclare final package Medium = MediumConWat,
       final dat=dat.pumCon)
     "Condenser water pumps"
-    annotation (Placement(transformation(extent={{-58,0},{-38,20}})));
+    annotation (Placement(transformation(extent={{-58,0},{-38,20}})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Headered
+          pumCon "Headered condenser water pumps"),
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Dedicated
+          pumCon "Dedicated condenser water pumps")));
+  inner replaceable
+    Buildings.Templates.ChilledWaterPlant.Components.Economizer.None
+    eco constrainedby
+    Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
+      redeclare final package MediumChiWat = MediumChiWat,
+      final dat=dat.eco)
+    "Waterside economizer"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={0,-50})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.Economizer.None
+          eco "No economizer"),
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.Economizer.WatersideEconomizer
+          eco "Waterside economizer")));
 
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumConWat,
@@ -97,6 +121,7 @@ equation
   connect(cooTowSec.weaBus, weaBus);
   connect(cooTowSec.busCon, busCon);
   connect(pumCon.busCon, busCon);
+  connect(eco.busCon, busCon);
 
   // Mechanical
   connect(TConWatRet.port_a, cooTowSec.port_a)
@@ -124,4 +149,8 @@ equation
   connect(mixConWat.port_1, eco.port_b1)
     annotation (Line(points={{-40,-70},{-6,-70},{-6,-60}},
       color={0,127,255}));
+  connect(VSecRet_flow.port_a,eco. port_a2)
+    annotation (Line(points={{80,-70},{6,-70},{6,-60}}, color={0,127,255}));
+  connect(eco.port_b2, chiSec.port_a2)
+    annotation (Line(points={{6,-40},{6,-18}},                 color={0,127,255}));
 end WaterCooled;

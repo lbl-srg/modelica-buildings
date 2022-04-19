@@ -50,28 +50,27 @@ model PartialChilledWaterLoop
       final have_TChiWatPlaRet=have_TChiWatPlaRet)
     "Chiller section"
     annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,-8})));
-  inner replaceable
-    Buildings.Templates.ChilledWaterPlant.Components.Economizer.None
-    eco constrainedby
-    Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
-      redeclare final package MediumChiWat = MediumChiWat,
-      final dat=dat.eco)
-    "Waterside economizer"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,-50})));
+      extent={{10,-10},{-10,10}},
+      rotation=90,
+      origin={0,-8})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Parallel
+          chiSec "Chillers in parallel"),
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Series
+          chiSec "Chillers in series")));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.None
-      pumSec constrainedby
+    pumSec constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.Interfaces.PartialSecondaryPump(
       redeclare final package Medium = MediumChiWat,
       final dat=dat.pumSec)
     "Chilled water secondary pumps"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{60,0},{80,20}})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.None
+          pumSec "No secondary pumping"),
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.Centralized
+          pumSec "Centralized secondary pumping")));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop
     con constrainedby
@@ -81,7 +80,12 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={70,60})));
+        origin={70,60})),
+      choices(
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.Controls.OpenLoop
+          con "Open loop controller"),
+        choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.Controls.Guideline36
+          con "Guideline 36 controller")));
 
   Buildings.Templates.Components.Sensors.Temperature TChiWatRet(
     redeclare final package Medium = MediumChiWat,
@@ -152,7 +156,6 @@ equation
 
   // Bus connection
   connect(chiSec.busCon, busCon);
-  connect(eco.busCon, busCon);
   connect(pumSec.busCon, busCon);
 
   connect(weaBus.TDryBul, TAirOut.u)
@@ -189,10 +192,6 @@ equation
     annotation (Line(points={{200,-70},{140,-70}}, color={0,127,255}));
   connect(TChiWatRet.port_b, VSecRet_flow.port_b)
     annotation (Line(points={{120,-70},{100,-70}}, color={0,127,255}));
-  connect(VSecRet_flow.port_a, eco.port_a2)
-    annotation (Line(points={{80,-70},{6,-70},{6,-60}}, color={0,127,255}));
-  connect(eco.port_b2, chiSec.port_a2)
-    annotation (Line(points={{6,-40},{6,-29},{6,-29},{6,-18}}, color={0,127,255}));
   connect(chiSec.port_b2, bouChiWat.ports[1])
     annotation (Line(points={{6,2},{6,10},{29,10},{29,20}}, color={0,127,255}));
   connect(bouChiWat.ports[2], pumSec.port_a)

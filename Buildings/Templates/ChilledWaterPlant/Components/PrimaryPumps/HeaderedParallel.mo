@@ -17,12 +17,10 @@ model HeaderedParallel
     annotation (Placement(
       transformation(extent={{10,-10},{-10,10}},origin={-80,0})),
       choices(
-        choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayModulating
-          valConWatChi "Modulating"),
-        choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayTwoPosition
-          valConWatChi "Two-positions")));
+        choice(redeclare Buildings.Templates.Components.Valves.TwoWayModulating
+          valChiWatChi[nChi] "Modulating"),
+        choice(redeclare Buildings.Templates.Components.Valves.TwoWayTwoPosition
+          valChiWatChi[nChi] "Two-positions")));
 
   Fluid.Delays.DelayFirstOrder del(
     redeclare final package Medium = Medium,

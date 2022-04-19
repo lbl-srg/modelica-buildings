@@ -77,7 +77,10 @@ partial model PartialPrimaryPump "Partial primary pump model"
       final have_singlePort_b=true,
       final dat=dat.pum)
     "Primary pumps"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})),
+      choices(
+        choice(redeclare Buildings.Templates.Components.Pumps.MultipleVariable
+          pum "Variable speed pumps in parallel")));
 
   Fluid.FixedResistances.Junction splByp(
     redeclare package Medium = Medium,

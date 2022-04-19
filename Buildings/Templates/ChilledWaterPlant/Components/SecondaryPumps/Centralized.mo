@@ -12,7 +12,10 @@ model Centralized "Centralized secondary pumping"
       final have_singlePort_b=true,
       final dat=dat.pum)
       "Secondary pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
+      choices(
+        choice(redeclare Buildings.Templates.Components.Pumps.MultipleVariable
+          pum "Variable speed pumps in parallel")));
 
 equation
   connect(port_a, pum.port_a)

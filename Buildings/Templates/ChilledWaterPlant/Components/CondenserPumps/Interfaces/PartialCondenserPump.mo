@@ -37,7 +37,10 @@ partial model PartialCondenserPump "Partial condenser pump model"
       final have_singlePort_a=true,
       final dat=dat.pum)
     "Condenser pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
+      choices(
+        choice(redeclare Buildings.Templates.Components.Pumps.MultipleVariable
+          pum "Variable speed pumps in parallel")));
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
