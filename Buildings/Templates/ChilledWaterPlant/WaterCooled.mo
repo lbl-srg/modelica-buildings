@@ -26,7 +26,7 @@ model WaterCooled
         pumCon(
           typ = pumCon.typ,
           nPum = pumCon.nPum,
-          valConWatChi(final typ = typValConWatChi),
+          valConWatChi(typ = typValConWatChi),
           pum(each typ = pumCon.pum.typ))));
 
   replaceable package MediumConWat = Buildings.Media.Water
