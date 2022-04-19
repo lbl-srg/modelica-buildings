@@ -14,7 +14,31 @@ model PartialChilledWaterLoop
       final typValChiWatChi=
         if have_parChi then pumPri.typValChiWatChiPar
         else chiSec.typValChiWatChiSer,
-      busCon(final nChi=nChi));
+      busCon(final nChi=nChi),
+      dat(
+        con(
+          typ = con.typ,
+          nSenDpChiWatRem = con.nSenDpChiWatRem,
+          nChi = con.nChi,
+          have_eco = con.have_eco,
+          have_sendpChiWatLoc = con.have_sendpChiWatLoc,
+          have_fixSpeConWatPum = con.have_fixSpeConWatPum,
+          have_ctrHeaPre = con.have_ctrHeaPre),
+        chiSec(
+          typ = chiSec.typ,
+          nChi = chiSec.nChi,
+          chi(typ = chiSec.chi.typ)),
+        pumPri(
+          typ = pumPri.typ,
+          nPum = pumPri.nPum,
+          have_byp = pumPri.have_byp,
+          have_chiByp = pumPri.have_chiByp,
+          valChiWatChi(typ = typValChiWatChi),
+          pum(each typ = pumPri.pum.typ)),
+        pumSec(
+          typ = pumSec.typ,
+          nPum = pumSec.nPum),
+        eco(typ = eco.typ)));
 
   replaceable package MediumChiWat=Buildings.Media.Water
     "Chilled water medium";
@@ -99,7 +123,7 @@ model PartialChilledWaterLoop
     "Plant chilled water return temperature (plant side of chilled water minimum flow bypass)"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=0,origin={38,-50})));
-  Buildings.Fluid.FixedResistances.Junction mixByp(
+  Fluid.FixedResistances.Junction mixByp(
     redeclare package Medium = MediumChiWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=dat.mChiWatPri_flow_nominal*{1,-1,1},
@@ -107,7 +131,7 @@ model PartialChilledWaterLoop
     "Bypass mixer"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}},rotation=0,origin={-10,-50})));
-  Buildings.Fluid.FixedResistances.Junction splChiByp(
+  Fluid.FixedResistances.Junction splChiByp(
     redeclare package Medium = MediumChiWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=dat.mChiWatPri_flow_nominal*{1,-1,-1},
@@ -116,7 +140,7 @@ model PartialChilledWaterLoop
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},rotation=0,origin={-20,-20})));
 
-  Buildings.Fluid.Sources.Boundary_pT bouChiWat(
+  Fluid.Sources.Boundary_pT bouChiWat(
     redeclare final package Medium = MediumChiWat,
     nPorts=1)
     annotation (Placement(transformation(

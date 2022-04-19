@@ -17,7 +17,8 @@ record Data "Data for primary pumps"
   parameter Integer nChi(final min=1) "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_dedicated=
-    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.Dedicated;
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.Dedicated
+    "= true if primary pumps are dedicated";
 
   // Equipment characteristics
 

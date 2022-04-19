@@ -8,6 +8,9 @@ partial model PartialPrimaryPump "Partial primary pump model"
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump
     typ "Type of primary pumping"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  final parameter Boolean is_dedicated=
+    typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.Dedicated
+    "= true if primary pumps are dedicated";
 
   parameter Integer nPum "Number of pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
