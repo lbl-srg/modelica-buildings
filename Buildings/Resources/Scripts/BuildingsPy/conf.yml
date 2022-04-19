@@ -278,15 +278,15 @@
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyConstructionBoundary
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyExteriorWallNoWindow
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlySurfaceBoundary
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
   openmodelica:
