@@ -165,9 +165,8 @@ model TwoSourcesThreeUsers
   Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
-    final valCha(final dpValve_nominal=nomPla2.dp_nominal*0.1),
-    final valDis(final dpValve_nominal=nomPla2.dp_nominal*0.1))
-    "Supply pump and valves"
+    valSupCha(final dpValve_nominal=nomPla2.dp_nominal*0.1),
+    valSupOut(final dpValve_nominal=nomPla2.dp_nominal*0.1)) "Supply pump and valves"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={3600/9*6,3600/9*8},
       startValue=false) "Tank is being charged remotely" annotation (Placement(
@@ -452,17 +451,8 @@ equation
           {-36,-54},{-36,-40},{-30,-40}}, color={0,127,255}));
   connect(supPum.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
-  connect(conSupPum.yValDisOn, supPum.yValDis) annotation (Line(points={{-60,-31},
-          {-60,-40},{-62,-40},{-62,-49}}, color={0,0,127}));
-  connect(conSupPum.yPum, supPum.yPum) annotation (Line(points={{-72,-31},{-72,
-          -36},{-70,-36},{-70,-49}}, color={0,0,127}));
   connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
     annotation (Line(points={{-92,-49},{-92,-22},{-81,-22}}, color={0,0,127}));
-  connect(supPum.yValCha_actual, conSupPum.yValCha_actual) annotation (Line(
-        points={{-74,-49},{-74,-40},{-81,-40},{-81,-30}}, color={0,0,127}));
-  connect(supPum.yValDis_actual, conSupPum.yValDis_actual) annotation (Line(
-        points={{-78,-49},{-78,-44},{-86,-44},{-86,-26},{-81,-26}}, color={0,0,
-          127}));
   connect(conSupPum.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},{
           -50,-78}}, color={255,0,255}));
   connect(mTanSet_flow.y, conSupPum.mTanSet_flow) annotation (Line(points={{-118,
@@ -470,8 +460,12 @@ equation
   connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
           -90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,-10}},
         color={255,0,255}));
-  connect(conSupPum.yValChaMod, supPum.yValCha)
-    annotation (Line(points={{-68,-31},{-66,-31},{-66,-49}}, color={0,0,127}));
+  connect(conSupPum.ySup_actual, supPum.ySup_actual) annotation (Line(points={{
+          -81,-30},{-84,-30},{-84,-38},{-78,-38},{-78,-49}}, color={0,0,127}));
+  connect(conSupPum.yPum, supPum.yPumSup)
+    annotation (Line(points={{-70,-31},{-70,-49}}, color={0,0,127}));
+  connect(conSupPum.yValSup, supPum.yValSup)
+    annotation (Line(points={{-66,-31},{-66,-49}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/TwoSourcesThreeUsers.mos"
         "Simulate and plot"),

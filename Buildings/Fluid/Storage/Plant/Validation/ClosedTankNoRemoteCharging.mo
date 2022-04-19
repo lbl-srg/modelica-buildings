@@ -33,7 +33,7 @@ equation
     annotation (Line(points={{-39,70},{-22,70}}, color={0,0,127}));
   connect(tanBra.mTanBot_flow, gai.u) annotation (Line(points={{-12,11},{-12,14},
           {-10,14},{-10,18}}, color={0,0,127}));
-  connect(supPum.yPum, conPID_PumSec.y)
+  connect(supPum.yPumSup, conPID_PumSec.y)
     annotation (Line(points={{20,11},{20,70},{1,70}}, color={0,0,127}));
   connect(mSet_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));

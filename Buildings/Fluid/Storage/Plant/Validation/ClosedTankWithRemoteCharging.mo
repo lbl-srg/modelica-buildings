@@ -29,23 +29,18 @@ equation
     annotation (Line(points={{-79,70},{6,70},{6,54},{9,54}}, color={0,0,127}));
   connect(tanBra.mTanBot_flow,conSupPum. mTanBot_flow)
     annotation (Line(points={{-12,11},{-12,48},{9,48}}, color={0,0,127}));
-  connect(supPum.yValCha_actual,conSupPum. yValCha_actual) annotation (Line(
-        points={{16,11},{16,18},{6,18},{6,40},{9,40}}, color={0,0,127}));
-  connect(supPum.yValDis_actual,conSupPum. yValDis_actual) annotation (Line(
-        points={{12,11},{12,14},{2,14},{2,44},{9,44}}, color={0,0,127}));
   connect(conSupPum.uOnl, uOnl.y) annotation (Line(points={{32,56},{56,56},{56,
           50},{61,50}}, color={255,0,255}));
   connect(conSupPum.uRemCha, uRemCha.y)
     annotation (Line(points={{32,60},{32,90},{59,90}}, color={255,0,255}));
-  connect(conSupPum.yPum, supPum.yPum)
-    annotation (Line(points={{18,39},{18,22},{20,22},{20,11}},
-                                               color={0,0,127}));
-  connect(conSupPum.yValChaMod, supPum.yValCha) annotation (Line(points={{22,39},
-          {22,26},{24,26},{24,11}}, color={0,0,127}));
-  connect(conSupPum.yValDisOn, supPum.yValDis) annotation (Line(points={{30,39},
-          {30,30},{28,30},{28,11}}, color={0,0,127}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
+  connect(supPum.ySup_actual, conSupPum.ySup_actual) annotation (Line(points={{
+          12,11},{12,34},{4,34},{4,40},{9,40}}, color={0,0,127}));
+  connect(conSupPum.yPum, supPum.yPumSup)
+    annotation (Line(points={{20,39},{20,11}}, color={0,0,127}));
+  connect(conSupPum.yValSup, supPum.yValSup)
+    annotation (Line(points={{24,39},{24,11}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

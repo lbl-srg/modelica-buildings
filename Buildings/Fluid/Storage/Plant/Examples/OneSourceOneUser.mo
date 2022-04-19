@@ -37,9 +37,8 @@ model OneSourceOneUser "(Draft) Simple system model with one source and one user
   Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = Medium,
     final nom=nom,
-    final valCha(final dpValve_nominal=nom.dp_nominal*0.1),
-    final valDis(final dpValve_nominal=nom.dp_nominal*0.1))
-    "Supply pump and valves"
+    valSupCha(final dpValve_nominal=nom.dp_nominal*0.1),
+    valSupOut(final dpValve_nominal=nom.dp_nominal*0.1)) "Supply pump and valves"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr(
@@ -132,9 +131,8 @@ equation
           -6},{0,-40},{10,-40}}, color={0,127,255}));
   connect(supPum.port_CHWS, preDro1.port_a) annotation (Line(points={{-10,6},{4,
           6},{4,-20},{10,-20}}, color={0,127,255}));
-  connect(conPI_pumSec.y, supPum.yPum)
-    annotation (Line(points={{-10,39},{-10,16},{-20,16},{-20,11}},
-                                                 color={0,0,127}));
+  connect(conPI_pumSec.y, supPum.yPumSup) annotation (Line(points={{-10,39},{-10,
+          16},{-20,16},{-20,11}}, color={0,0,127}));
   connect(sou_p.ports[1], tanBra.port_CHWR) annotation (Line(points={{-60,-70},{
           -34,-70},{-34,-6},{-40,-6}}, color={0,127,255}));
   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OneSourceOneUser.mos"
