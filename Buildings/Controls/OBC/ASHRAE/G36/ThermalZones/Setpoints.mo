@@ -85,9 +85,9 @@ block Setpoints
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Unoccupied zone cooling setpoint" annotation (Placement(transformation(
-          extent={{-460,470},{-420,510}}), iconTransformation(extent={{-140,90},
-            {-100,130}})));
+    "Unoccupied zone cooling setpoint"
+    annotation (Placement(transformation(extent={{-460,470},{-420,510}}),
+        iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOccHeaSet(
     final unit="K",
     displayUnit="degC",
@@ -98,9 +98,9 @@ block Setpoints
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Unoccupied zone heating setpoint" annotation (Placement(transformation(
-          extent={{-460,390},{-420,430}}), iconTransformation(extent={{-140,10},
-            {-100,50}})));
+    "Unoccupied zone heating setpoint"
+    annotation (Placement(transformation(extent={{-460,390},{-420,430}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
     if have_locAdj and not sepAdj
     "The adjustment value for both heating and cooling setpoints if it allows only single setpoint adjustment"
@@ -125,13 +125,13 @@ block Setpoints
     annotation (Placement(transformation(extent={{-460,-110},{-420,-70}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
-    "Occupancy sensor (occupied=true, unoccupied=false)" annotation (Placement(
-        transformation(extent={{-460,-290},{-420,-250}}), iconTransformation(
-          extent={{-140,-170},{-100,-130}})));
+    "Occupancy sensor (occupied=true, unoccupied=false)"
+    annotation (Placement(transformation(extent={{-460,-290},{-420,-250}}),
+        iconTransformation(extent={{-140,-170},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status (open=true, close=false)" annotation (Placement(
-        transformation(extent={{-460,-430},{-420,-390}}), iconTransformation(
-          extent={{-140,-200},{-100,-160}})));
+    "Window status (open=true, close=false)"
+    annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
+        iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSet(
     final unit="K",
     displayUnit="degC",
@@ -1038,25 +1038,25 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,148},{-14,132}},
+          extent={{-98,148},{-32,132}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSetOcc"),
+          textString="TOccCooSet"),
         Text(
-          extent={{-98,70},{-16,50}},
+          extent={{-98,70},{-36,50}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSetOcc"),
+          textString="TOccHeaSet"),
         Text(
-          extent={{-96,38},{-16,18}},
+          extent={{-96,40},{-38,20}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSetUno"),
+          textString="TUnoHeaSet"),
         Text(
-          extent={{-96,116},{-14,100}},
+          extent={{-96,116},{-32,100}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSetUno"),
+          textString="TUnoCooSet"),
         Text(
           visible=have_locAdj and sepAdj,
           extent={{-96,-30},{-40,-48}},
@@ -1089,28 +1089,28 @@ annotation (
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           origin={-78.5,-150},
-          textString="uOcc"),
+          textString="u1Occ"),
         Text(
           extent={{-18,7.5},{18,-7.5}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           origin={-80,-178.5},
-          textString="uWin"),
+          textString="u1Win"),
         Text(
           extent={{68,-70},{100,-86}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yAla"),
         Text(
-          extent={{36,90},{96,74}},
+          extent={{54,92},{96,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
-          extent={{36,12},{96,-6}},
+          extent={{50,10},{96,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSet"),
+          textString="THeaSet"),
         Text(
           extent={{-120,240},{100,200}},
           lineColor={0,0,255},

@@ -34,12 +34,12 @@ block Setpoints
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation(Dialog(group="Design conditions"));
-  parameter Real VZonMin_flow(
+  parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation(Dialog(enable=not have_SZVAV, group="Design conditions"));
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
@@ -154,11 +154,11 @@ protected
     "Modified occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonMinFlo(
-    final k=VZonMin_flow) if not have_SZVAV
+    final k=VMin_flow) if not have_SZVAV
     "Zone minimum airflow setpoint Vmin"
     annotation (Placement(transformation(extent={{-280,60},{-260,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonCooMaxFlo(
-    final k=VZonCooMax_flow) if have_CO2Sen and not have_SZVAV
+    final k=VCooMax_flow) if have_CO2Sen and not have_SZVAV
     "Maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-280,-160},{-260,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Line popBreOutAir if have_CO2Sen
@@ -573,7 +573,7 @@ outdoor air requirements.
 </p>
 <p>
 2. According to section 3.1.2 of Guideline 36, the zone minimum airflow setpoint
-<code>VZonMin_flow</code> should be provided by designer.
+<code>VMin_flow</code> should be provided by designer.
 </p>
 <h4>Zone ventilation set points</h4>
 <p>
@@ -615,7 +615,7 @@ to the value calculated above. However, it would be modified as noted in below.
 </p>
 <h4>Occupied minimum airflow</h4>
 <p>
-The occupied minimum airflow shall be equal to <code>VZonMin_flow</code> except as
+The occupied minimum airflow shall be equal to <code>VMin_flow</code> except as
 noted in below.
 </p>
 <h4>Set points modification</h4>
@@ -639,7 +639,7 @@ and the occupied minimum airflow rate should be zero.
 <li>
 Else, if the zone has an occupancy sensor, is unpopulated, but occupied-standby mode
 is not permitted: the population components of breathing zone outdoor airflow
-should be zero and the occupied minimum airflow rate should be <code>VZonMin_flow</code>.
+should be zero and the occupied minimum airflow rate should be <code>VMin_flow</code>.
 </li>
 <li>
 If the zone has a CO2 sensor:
@@ -664,8 +664,8 @@ airflow sensor, or dual-duct VAV terminal units with cold-duct minimum control:
 The CO2 control loop output shall reset both the occupied minimum airflow setpoint
 and the population component of the required breathing zone outdoor airflow in parallel.
 The occupied minimum airflow setpoint shall be reset from the zone minimum airflow
-setpoint <code>VZonMin_flow</code> at 0% loop output up to maximum cooling airflow
-setpoint <code>VZonCooMax_flow</code> at 100% loop output. The population component
+setpoint <code>VMin_flow</code> at 0% loop output up to maximum cooling airflow
+setpoint <code>VCooMax_flow</code> at 100% loop output. The population component
 of breathing zone outdoor airflow shall be reset from 0 L/s at 0% loop output up to
 the designed population component airflow setpoint at 100% loop output.
 </li>
@@ -681,14 +681,14 @@ For parallel fan-powered terminal units:
 <li>
 Determin the maximum flow rate for control CO2 level: when the zone state is cooling,
 the maximum flow rate is equal to the maximum cooling airflow setpoint
-<code>VZonCooMax_flow</code>; when the zone state is heating or deadband, the maximum
-flow rate is equal to <code>VZonCooMax_flow</code> minus the parallel fan airflow
+<code>VCooMax_flow</code>; when the zone state is heating or deadband, the maximum
+flow rate is equal to <code>VCooMax_flow</code> minus the parallel fan airflow
 <code>VParFan_flow</code>.
 </li>
 <li>
 The occupied minimum airflow setpoint shall be reset from the zone minimum airflow
-setpoint <code>VZonMin_flow</code> at 0% loop output up to maximum cooling airflow
-setpoint <code>VZonCooMax_flow</code> at 100% loop output. The population component
+setpoint <code>VMin_flow</code> at 0% loop output up to maximum cooling airflow
+setpoint <code>VCooMax_flow</code> at 100% loop output. The population component
 of breathing zone outdoor airflow shall be reset from 0 L/s at 0% loop output up to
 the designed population component airflow setpoint at 100% loop output.
 </li>

@@ -235,7 +235,7 @@ equation
           105},{-110,210},{-180,210}}, color={0,0,127}));
   connect(zonSta.warUpTim, warUpTim) annotation (Line(points={{-82,102},{-120,102},
           {-120,180},{-180,180}}, color={0,0,127}));
-  connect(zonSta.uWin, u1Win) annotation (Line(points={{-82,99},{-130,99},{-130,
+  connect(zonSta.u1Win, u1Win) annotation (Line(points={{-82,99},{-130,99},{-130,
           150},{-180,150}}, color={255,0,255}));
   connect(zonSta.TZon, TZon) annotation (Line(points={{-82,96.2},{-140,96.2},{-140,
           120},{-180,120}}, color={0,0,127}));
@@ -309,13 +309,13 @@ equation
           -130,40},{-60,40},{-60,-138},{98,-138}}, color={255,0,255}));
   connect(cooSetAdj, TZonSet.cooSetAdj) annotation (Line(points={{-180,-90},{-72,
           -90},{-72,-122},{98,-122}}, color={0,0,127}));
-  connect(TOccHeaSet, zonSta.THeaSetOcc) annotation (Line(points={{-180,90},{-120,
+  connect(TOccHeaSet,zonSta.TOccHeaSet)  annotation (Line(points={{-180,90},{-120,
           90},{-120,92},{-82,92}}, color={0,0,127}));
-  connect(TOccCooSet, zonSta.TCooSetOcc) annotation (Line(points={{-180,70},{-116,
+  connect(TOccCooSet,zonSta.TOccCooSet)  annotation (Line(points={{-180,70},{-116,
           70},{-116,89},{-82,89}}, color={0,0,127}));
-  connect(TUnoHeaSet, zonSta.THeaSetUno) annotation (Line(points={{-180,50},{-112,
+  connect(TUnoHeaSet,zonSta.TUnoHeaSet)  annotation (Line(points={{-180,50},{-112,
           50},{-112,86},{-82,86}}, color={0,0,127}));
-  connect(TUnoCooSet, zonSta.TCooSetUno) annotation (Line(points={{-180,30},{-108,
+  connect(TUnoCooSet,zonSta.TUnoCooSet)  annotation (Line(points={{-180,30},{-108,
           30},{-108,83},{-82,83}}, color={0,0,127}));
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),

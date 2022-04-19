@@ -503,11 +503,11 @@ equation
           296},{-202,296}}, color={0,0,127}));
   connect(TZonCooSet, timSup.TSet) annotation (Line(points={{-260,290},{-228,290},
           {-228,304},{-202,304}}, color={0,0,127}));
-  connect(TZonCooSet, conLoo.TZonCooSet) annotation (Line(points={{-260,290},{-228,
+  connect(TZonCooSet, conLoo.TCooSet) annotation (Line(points={{-260,290},{-228,
           290},{-228,266},{-202,266}}, color={0,0,127}));
   connect(TZon, conLoo.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
           260},{-202,260}}, color={0,0,127}));
-  connect(TZonHeaSet, conLoo.TZonHeaSet) annotation (Line(points={{-260,250},{-216,
+  connect(TZonHeaSet, conLoo.THeaSet) annotation (Line(points={{-260,250},{-216,
           250},{-216,254},{-202,254}}, color={0,0,127}));
   connect(uWin, setPoi.uWin) annotation (Line(points={{-260,220},{-186,220},{-186,
           179},{-102,179}}, color={255,0,255}));

@@ -69,27 +69,27 @@ equation
           32,60},{32,2},{78,2}},        color={0,0,127}));
   connect(zonTem.y, witWinZonSta.TZon) annotation (Line(points={{12,20},{36,20},
           {36,-3.8},{78,-3.8}},  color={0,0,127}));
-  connect(uWinSta.y, witWinZonSta.uWin) annotation (Line(points={{-58,-10},{40,-10},
-          {40,-1},{78,-1}},   color={255,0,255}));
+  connect(uWinSta.y, witWinZonSta.u1Win) annotation (Line(points={{-58,-10},{40,
+          -10},{40,-1},{78,-1}}, color={255,0,255}));
   connect(sin2.y, gai.u)
     annotation (Line(points={{-48,20},{-42,20}},   color={0,0,127}));
   connect(gai.y, zonTem.u)
     annotation (Line(points={{-18,20},{-12,20}},   color={0,0,127}));
-  connect(THeaSetOcc.y, noWinZonSta.THeaSetOcc) annotation (Line(points={{-78,-40},
+  connect(THeaSetOcc.y,noWinZonSta.TOccHeaSet)  annotation (Line(points={{-78,-40},
           {44,-40},{44,72},{78,72}}, color={0,0,127}));
-  connect(TCooSetOcc.y, noWinZonSta.TCooSetOcc) annotation (Line(points={{-38,-60},
+  connect(TCooSetOcc.y,noWinZonSta.TOccCooSet)  annotation (Line(points={{-38,-60},
           {48,-60},{48,69},{78,69}}, color={0,0,127}));
-  connect(THeaSetUno.y, noWinZonSta.THeaSetUno) annotation (Line(points={{-78,-80},
+  connect(THeaSetUno.y,noWinZonSta.TUnoHeaSet)  annotation (Line(points={{-78,-80},
           {52,-80},{52,66},{78,66}}, color={0,0,127}));
-  connect(TCooSetUno.y, noWinZonSta.TCooSetUno) annotation (Line(points={{-38,-100},
+  connect(TCooSetUno.y,noWinZonSta.TUnoCooSet)  annotation (Line(points={{-38,-100},
           {56,-100},{56,63},{78,63}}, color={0,0,127}));
-  connect(THeaSetOcc.y, witWinZonSta.THeaSetOcc) annotation (Line(points={{-78,-40},
+  connect(THeaSetOcc.y,witWinZonSta.TOccHeaSet)  annotation (Line(points={{-78,-40},
           {44,-40},{44,-8},{78,-8}}, color={0,0,127}));
-  connect(TCooSetOcc.y, witWinZonSta.TCooSetOcc) annotation (Line(points={{-38,-60},
+  connect(TCooSetOcc.y,witWinZonSta.TOccCooSet)  annotation (Line(points={{-38,-60},
           {48,-60},{48,-11},{78,-11}}, color={0,0,127}));
-  connect(THeaSetUno.y, witWinZonSta.THeaSetUno) annotation (Line(points={{-78,-80},
+  connect(THeaSetUno.y,witWinZonSta.TUnoHeaSet)  annotation (Line(points={{-78,-80},
           {52,-80},{52,-14},{78,-14}}, color={0,0,127}));
-  connect(TCooSetUno.y, witWinZonSta.TCooSetUno) annotation (Line(points={{-38,-100},
+  connect(TCooSetUno.y,witWinZonSta.TUnoCooSet)  annotation (Line(points={{-38,-100},
           {56,-100},{56,-17},{78,-17}}, color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),

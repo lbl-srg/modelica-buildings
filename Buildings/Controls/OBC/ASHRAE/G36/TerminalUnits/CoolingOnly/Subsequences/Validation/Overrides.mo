@@ -1,9 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Validation;
 model Overrides "Validation of model that overrides control"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Overrides ove(
-    final VZonMin_flow=0.1,
-    final VZonCooMax_flow=0.9)
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Overrides ove(final
+      VMin_flow=0.1, final VCooMax_flow=0.9)
     "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
@@ -55,8 +54,8 @@ equation
           {30,4},{58,4}}, color={0,0,127}));
   connect(reaToInt1.y, ove.oveDamPos) annotation (Line(points={{22,-20},{30,-20},
           {30,-4},{58,-4}}, color={255,127,0}));
-  connect(damPos.y, ove.uDamSet) annotation (Line(points={{-18,-60},{40,-60},{40,
-          -8},{58,-8}}, color={0,0,127}));
+  connect(damPos.y, ove.uDam) annotation (Line(points={{-18,-60},{40,-60},{40,-8},
+          {58,-8}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Subsequences/Validation/Overrides.mos"

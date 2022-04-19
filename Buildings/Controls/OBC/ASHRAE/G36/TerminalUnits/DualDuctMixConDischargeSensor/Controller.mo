@@ -408,11 +408,11 @@ equation
           270},{-226,294},{-202,294}}, color={0,0,127}));
   connect(TZonHeaSet, timSupHea.TSet) annotation (Line(points={{-260,240},{-214,
           240},{-214,254},{-202,254}}, color={0,0,127}));
-  connect(TZonCooSet, conLoo.TZonCooSet) annotation (Line(points={{-260,270},{-226,
+  connect(TZonCooSet, conLoo.TCooSet) annotation (Line(points={{-260,270},{-226,
           270},{-226,216},{-202,216}}, color={0,0,127}));
   connect(TZon, conLoo.TZon) annotation (Line(points={{-260,300},{-220,300},{-220,
           210},{-202,210}}, color={0,0,127}));
-  connect(TZonHeaSet, conLoo.TZonHeaSet) annotation (Line(points={{-260,240},{-214,
+  connect(TZonHeaSet, conLoo.THeaSet) annotation (Line(points={{-260,240},{-214,
           240},{-214,204},{-202,204}}, color={0,0,127}));
   connect(uWin, setPoi.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
           159},{-162,159}}, color={255,0,255}));

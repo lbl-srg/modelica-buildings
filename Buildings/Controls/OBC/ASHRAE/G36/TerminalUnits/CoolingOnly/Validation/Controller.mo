@@ -6,8 +6,8 @@ model Controller
     final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final AFlo=20,
     final desZonPop=2,
-    final VZonMin_flow=0.5,
-    final VZonCooMax_flow=1.5,
+    final VMin_flow=0.5,
+    final VCooMax_flow=1.5,
     final V_flow_nominal=1.5,
     final staPreMul=1,
     final floHys=0.01,
@@ -119,14 +119,14 @@ model Controller
 equation
   connect(TZon.y, cooBoxCon.TZon) annotation (Line(points={{-98,160},{60,160},{60,
           28},{98,28}}, color={0,0,127}));
-  connect(cooSet.y, cooBoxCon.TZonCooSet) annotation (Line(points={{-58,140},{56,
+  connect(cooSet.y, cooBoxCon.TCooSet) annotation (Line(points={{-58,140},{56,
           140},{56,26},{98,26}}, color={0,0,127}));
-  connect(heaSet.y, cooBoxCon.TZonHeaSet) annotation (Line(points={{-98,120},{52,
+  connect(heaSet.y, cooBoxCon.THeaSet) annotation (Line(points={{-98,120},{52,
           120},{52,24},{98,24}}, color={0,0,127}));
-  connect(winSta.y, cooBoxCon.uWin) annotation (Line(points={{-58,100},{48,100},
+  connect(winSta.y, cooBoxCon.u1Win) annotation (Line(points={{-58,100},{48,100},
           {48,21},{98,21}}, color={255,0,255}));
-  connect(occ.y, cooBoxCon.uOcc) annotation (Line(points={{-98,80},{44,80},{44,19},
-          {98,19}}, color={255,0,255}));
+  connect(occ.y, cooBoxCon.u1Occ) annotation (Line(points={{-98,80},{44,80},{44,
+          19},{98,19}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-58,60},{-42,60}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
@@ -154,10 +154,10 @@ equation
           52,-80},{52,2},{98,2}}, color={255,127,0}));
   connect(reaToInt3.y, cooBoxCon.oveDamPos) annotation (Line(points={{-18,-110},
           {56,-110},{56,0},{98,0}}, color={255,127,0}));
-  connect(damPos.y, cooBoxCon.uDam) annotation (Line(points={{-98,-140},{60,-140},
-          {60,-4},{98,-4}}, color={0,0,127}));
-  connect(supFanSta.y, cooBoxCon.uFan) annotation (Line(points={{-58,-160},{64,-160},
-          {64,-8},{98,-8}}, color={255,0,255}));
+  connect(damPos.y, cooBoxCon.uDam_actual) annotation (Line(points={{-98,-140},
+          {60,-140},{60,-4},{98,-4}}, color={0,0,127}));
+  connect(supFanSta.y, cooBoxCon.u1Fan) annotation (Line(points={{-58,-160},{64,
+          -160},{64,-8},{98,-8}}, color={255,0,255}));
   connect(CO2Set.y, cooBoxCon.ppmCO2Set) annotation (Line(points={{-98,30},{36,30},
           {36,15},{98,15}}, color={0,0,127}));
 annotation (

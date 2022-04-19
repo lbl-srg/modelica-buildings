@@ -3,7 +3,7 @@ model Alarms "Validation of model that generates alarms"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Alarms ala(
     final staPreMul=1,
-    final VZonCooMax_flow=0.5,
+    final VCooMax_flow=0.5,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -41,14 +41,14 @@ equation
           {40,8},{58,8}},   color={0,0,127}));
   connect(disAirSet.y, ala.VActSet_flow) annotation (Line(points={{-58,30},{20,30},
           {20,4},{58,4}}, color={0,0,127}));
-  connect(supFan.y, ala.uFan) annotation (Line(points={{-58,-10},{20,-10},{20,-4},
-          {58,-4}}, color={255,0,255}));
+  connect(supFan.y, ala.u1Fan) annotation (Line(points={{-58,-10},{20,-10},{20,
+          -4},{58,-4}}, color={255,0,255}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-18,-50},{-10,-50},{-10,
           -54},{-2,-54}}, color={0,0,127}));
   connect(damPos.y, mul.u2) annotation (Line(points={{-58,-80},{-20,-80},{-20,-66},
           {-2,-66}}, color={0,0,127}));
-  connect(mul.y, ala.uDam) annotation (Line(points={{22,-60},{40,-60},{40,-8},{58,
-          -8}}, color={0,0,127}));
+  connect(mul.y, ala.uDam_actual) annotation (Line(points={{22,-60},{40,-60},{
+          40,-8},{58,-8}}, color={0,0,127}));
   connect(damSta.y, booToRea.u)
     annotation (Line(points={{-58,-50},{-42,-50}}, color={255,0,255}));
 annotation (

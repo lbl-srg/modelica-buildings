@@ -3,7 +3,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
 
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -32,8 +32,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured discharge airflow rate airflow rate"
+    final quantity="VolumeFlowRate") "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActSet_flow(
@@ -42,14 +41,14 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final quantity="VolumeFlowRate") "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
     final min=0,
     final unit="1")
-    "Damper position"
+    "Actual damper position"
     annotation (Placement(transformation(extent={{-280,-230},{-240,-190}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
@@ -144,7 +143,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
-    final k=VZonCooMax_flow)
+    final k=VCooMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
@@ -262,7 +261,7 @@ equation
     annotation (Line(points={{-178,-60},{-162,-60}}, color={0,0,127}));
   connect(not3.y, truDel2.u)
     annotation (Line(points={{-178,-100},{-162,-100}}, color={255,0,255}));
-  connect(uFan, not3.u)
+  connect(u1Fan, not3.u)
     annotation (Line(points={{-260,-100},{-202,-100}}, color={255,0,255}));
   connect(gai2.y, gre1.u2) annotation (Line(points={{-138,-60},{-120,-60},{-120,
           -48},{-102,-48}}, color={0,0,127}));
@@ -284,12 +283,12 @@ equation
     annotation (Line(points={{222,150},{260,150}}, color={255,127,0}));
   connect(gre1.y, truDel3.u) annotation (Line(points={{-78,-40},{-60,-40},{-60,-140},
           {-22,-140}}, color={255,0,255}));
-  connect(uDam, cloDam.u)
+  connect(uDam_actual, cloDam.u)
     annotation (Line(points={{-260,-210},{-202,-210}}, color={0,0,127}));
   connect(truDel3.y, leaDamAla.u1) annotation (Line(points={{2,-140},{20,-140},{
           20,-162},{38,-162}}, color={255,0,255}));
-  connect(uFan, leaDamAla.u2) annotation (Line(points={{-260,-100},{-220,-100},{
-          -220,-170},{38,-170}}, color={255,0,255}));
+  connect(u1Fan, leaDamAla.u2) annotation (Line(points={{-260,-100},{-220,-100},
+          {-220,-170},{38,-170}}, color={255,0,255}));
   connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-178,-210},{20,-210},
           {20,-178},{38,-178}}, color={255,0,255}));
   connect(not5.y, assMes3.u)
@@ -376,14 +375,14 @@ suppressed for that zone.
 <p>
 If the fan serving the zone has been OFF (<code>uFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and airflow sensor reading <code>VDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VCooMax_flow</code>,
 generate a Level 3 alarm.
 </p>
 <h4>Leaking damper</h4>
 <p>
 If the damper position (<code>uDam</code>) is 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+<code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>uFan=true</code>), generate a Level
 4 alarm.
 </p>

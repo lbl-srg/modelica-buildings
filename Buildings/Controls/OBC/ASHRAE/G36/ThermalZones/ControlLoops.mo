@@ -23,7 +23,7 @@ block ControlLoops "Heating and cooling control loops"
     "Threshold value to check if the controller output is near zero"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone cooling setpoint"
@@ -35,7 +35,7 @@ block ControlLoops "Heating and cooling control loops"
     final quantity="ThermodynamicTemperature") "Measured zone temperature"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone heating setpoint"
@@ -125,14 +125,14 @@ protected
 equation
   connect(TZon, enaHeaLoo.u1) annotation (Line(points={{-180,0},{-140,0},{-140,-120},
           {-122,-120}}, color={0,0,127}));
-  connect(TZonHeaSet, enaHeaLoo.u2) annotation (Line(points={{-180,-80},{-150,-80},
+  connect(THeaSet, enaHeaLoo.u2) annotation (Line(points={{-180,-80},{-150,-80},
           {-150,-128},{-122,-128}}, color={0,0,127}));
   connect(TZon, enaCooLoo.u2) annotation (Line(points={{-180,0},{-140,0},{-140,12},
           {-122,12}}, color={0,0,127}));
-  connect(TZonCooSet, enaCooLoo.u1) annotation (Line(points={{-180,80},{-140,80},
-          {-140,20},{-122,20}}, color={0,0,127}));
-  connect(TZonCooSet, cooCon.u_s) annotation (Line(points={{-180,80},{-140,80},{
-          -140,100},{-82,100}}, color={0,0,127}));
+  connect(TCooSet, enaCooLoo.u1) annotation (Line(points={{-180,80},{-140,80},{-140,
+          20},{-122,20}}, color={0,0,127}));
+  connect(TCooSet, cooCon.u_s) annotation (Line(points={{-180,80},{-140,80},{-140,
+          100},{-82,100}}, color={0,0,127}));
   connect(TZon, cooCon.u_m)
     annotation (Line(points={{-180,0},{-70,0},{-70,88}}, color={0,0,127}));
   connect(enaCooLoo.y, cooCon.trigger)
@@ -141,8 +141,8 @@ equation
     annotation (Line(points={{-98,20},{-42,20}}, color={255,0,255}));
   connect(cooCon.y, cooConSig.u1) annotation (Line(points={{-58,100},{110,100},{
           110,76},{118,76}}, color={0,0,127}));
-  connect(TZonHeaSet, heaCon.u_s) annotation (Line(points={{-180,-80},{-150,-80},
-          {-150,-40},{-82,-40}}, color={0,0,127}));
+  connect(THeaSet, heaCon.u_s) annotation (Line(points={{-180,-80},{-150,-80},{-150,
+          -40},{-82,-40}}, color={0,0,127}));
   connect(TZon, heaCon.u_m) annotation (Line(points={{-180,0},{-140,0},{-140,-60},
           {-70,-60},{-70,-52}}, color={0,0,127}));
   connect(enaHeaLoo.y, holZon.u)
@@ -196,14 +196,14 @@ annotation (defaultComponentName="conLoo",
           extent={{-96,68},{-52,52}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
           extent={{-96,-52},{-52,-68}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSet"),
+          textString="THeaSet"),
         Text(
-          extent={{-98,6},{-74,-4}},
+          extent={{-98,6},{-72,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
@@ -231,14 +231,14 @@ maintain space temperature at set point.
 <ul>
 <li>
 The heating loop shall be enabled whenever the space temperature <code>TZon</code>
-is below the current zone heating setpoint temperature <code>TZonHeaSet</code> and
+is below the current zone heating setpoint temperature <code>THeaSet</code> and
 disabled when space temperature is above the current zone heating setpoint temperature
 and the loop output is zero for 30 seconds. The loop may remain active at all times
 if provisions are made to minimize integral windup.
 </li>
 <li>
 The cooling loop shall be enabled whenever the space temperature <code>TZon</code>
-is above the current zone cooling setpoint temperature <code>TZonCooSet</code> and
+is above the current zone cooling setpoint temperature <code>TCooSet</code> and
 disabled when space temperature is below the current zone cooling setpoint temperature
 and the loop output is zero for 30 seconds. The loop may remain active at all times
 if provisions are made to minimize integral windup.

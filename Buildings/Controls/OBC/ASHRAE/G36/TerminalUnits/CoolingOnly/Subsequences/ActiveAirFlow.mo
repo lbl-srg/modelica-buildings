@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
 block ActiveAirFlow
   "Active maximum and minimum setpoints for cooling only terminal unit"
 
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -11,7 +11,7 @@ block ActiveAirFlow
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccZonMin_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Occupied minimum airflow setpoint"
@@ -37,7 +37,7 @@ block ActiveAirFlow
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VZonCooMax_flow)
+    final realTrue=VCooMax_flow)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
@@ -97,8 +97,8 @@ equation
           {18,-60}},     color={255,0,255}));
   connect(booToRea.y, actMin.u1) annotation (Line(points={{42,-60},{50,-60},{50,
           -74},{58,-74}}, color={0,0,127}));
-  connect(VOccZonMin_flow, actMin.u2) annotation (Line(points={{-140,-100},{41,-100},
-          {41,-86},{58,-86}},color={0,0,127}));
+  connect(VOccMin_flow, actMin.u2) annotation (Line(points={{-140,-100},{41,-100},
+          {41,-86},{58,-86}}, color={0,0,127}));
   connect(actCooMax.y, VActCooMax_flow)
     annotation (Line(points={{102,70},{140,70}}, color={0,0,127}));
   connect(actMin.y, VActHeaMax_flow)
@@ -122,7 +122,7 @@ annotation (defaultComponentName="actAirSet",
           extent={{-98,-54},{-32,-68}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VOccZonMin_flow"),
+          textString="VOccMin_flow"),
         Text(
           extent={{-96,8},{-60,-4}},
           lineColor={255,127,0},
@@ -155,12 +155,12 @@ Guideline 36, May 2020.
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VZonCooMax_flow</code></td>
-<td><code>VZonCooMax_flow</code></td><td><code>VZonCooMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooMax_flow</code></td>
+<td><code>VCooMax_flow</code></td><td><code>VCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td>
+<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccMin_flow</code></td>
 <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VOccZonMin_flow</code></td>
+<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VOccMin_flow</code></td>
 <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
 <br/>

@@ -5,7 +5,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     noSenZon(
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
+    final VMin_flow=0.018)
     "Setpoints of zone without any sensors"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
@@ -13,7 +13,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     final have_winSen=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
+    final VMin_flow=0.018)
     "Setpoints of a zone with window sensor"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
@@ -21,7 +21,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     final have_occSen=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
+    final VMin_flow=0.018)
     "Setpoints of a zone with occupancy sensor"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
@@ -30,7 +30,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     have_typTerUni=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
+    final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and typical terminal unit"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
@@ -39,7 +39,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     have_parFanPowUni=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
+    final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and parallel fan-powered terminal unit"
     annotation (Placement(transformation(extent={{180,120},{200,140}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
@@ -48,7 +48,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     have_SZVAV=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
+    final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and single zone VAV AHU"
     annotation (Placement(transformation(extent={{180,-20},{200,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(

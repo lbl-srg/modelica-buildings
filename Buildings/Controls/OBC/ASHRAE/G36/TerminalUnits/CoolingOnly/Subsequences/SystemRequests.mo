@@ -42,13 +42,13 @@ block SystemRequests
     "After suppression period due to the setpoint change"
     annotation (Placement(transformation(extent={{-220,140},{-180,180}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Zone cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    "Zone cooling setpoint temperature" annotation (Placement(transformation(
+          extent={{-220,100},{-180,140}}), iconTransformation(extent={{-140,40},
+            {-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",
@@ -77,13 +77,12 @@ block SystemRequests
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
     final min=0,
     final max=1,
-    final unit="1")
-    "Actual damper position"
-    annotation (Placement(transformation(extent={{-220,-190},{-180,-150}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+    final unit="1") "Actual damper position" annotation (Placement(
+        transformation(extent={{-220,-190},{-180,-150}}), iconTransformation(
+          extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{180,120},{220,160}}),
@@ -254,7 +253,7 @@ equation
   connect(booToInt.y, intSwi1.u3) annotation (Line(points={{62,30},{80,30},{80,
           72},{98,72}},
                      color={255,127,0}));
-  connect(uDam, greThr3.u)
+  connect(uDam_actual, greThr3.u)
     annotation (Line(points={{-200,-170},{-162,-170}}, color={0,0,127}));
   connect(VSet_flow, gai1.u) annotation (Line(points={{-200,-40},{-160,-40},{-160,
           -70},{-142,-70}}, color={0,0,127}));
@@ -287,12 +286,10 @@ equation
   connect(swi4.y, yZonPreResReq) annotation (Line(points={{162,-60},{200,-60}},
           color={255,127,0}));
 
-  connect(TZonCooSet, sub2.u2) annotation (Line(points={{-200,120},{-160,120},{
-          -160,114},{-102,114}},
-                            color={0,0,127}));
-  connect(TZonCooSet, sub3.u2) annotation (Line(points={{-200,120},{-160,120},{
-          -160,74},{-102,74}},
-                          color={0,0,127}));
+  connect(TCooSet, sub2.u2) annotation (Line(points={{-200,120},{-160,120},{-160,
+          114},{-102,114}}, color={0,0,127}));
+  connect(TCooSet, sub3.u2) annotation (Line(points={{-200,120},{-160,120},{-160,
+          74},{-102,74}}, color={0,0,127}));
   connect(TZon, sub2.u1) annotation (Line(points={{-200,60},{-140,60},{-140,126},
           {-102,126}}, color={0,0,127}));
   connect(TZon, sub3.u1) annotation (Line(points={{-200,60},{-140,60},{-140,86},
@@ -335,10 +332,10 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,70},{-44,52}},
+          extent={{-98,70},{-64,52}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
           extent={{-100,46},{-72,34}},
           lineColor={0,0,127},
@@ -355,15 +352,15 @@ annotation (
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{-98,-54},{-56,-66}},
+          extent={{-100,-54},{-58,-66}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
-          extent={{-98,-84},{-72,-96}},
+          extent={{-96,-84},{-46,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam"),
+          textString="uDam_actual"),
         Text(
           extent={{36,68},{98,52}},
           lineColor={255,127,0},

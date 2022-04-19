@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
 block Dampers
   "Output signals for controlling VAV cooling only box damper position"
 
-  parameter Boolean have_pressureIndependentDamper=true
+  parameter Boolean have_preIndDam=true
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation(Dialog(group="Damper control"));
   parameter Real V_flow_nominal(
@@ -14,11 +14,11 @@ block Dampers
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController damCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Damper control", enable=not have_pressureIndependentDamper));
+    annotation(Dialog(group="Damper control", enable=not have_preIndDam));
   parameter Real kDam(
     final unit="1")=0.5
     "Gain of controller for damper control"
-    annotation(Dialog(group="Damper control", enable=not have_pressureIndependentDamper));
+    annotation(Dialog(group="Damper control", enable=not have_preIndDam));
   parameter Real TiDam(
     final unit="s",
     final quantity="Time")=300
@@ -26,7 +26,7 @@ block Dampers
     annotation(Dialog(group="Damper control",
       enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
-           and not have_pressureIndependentDamper));
+           and not have_preIndDam));
   parameter Real TdDam(
     final unit="s",
     final quantity="Time")=0.1
@@ -34,7 +34,7 @@ block Dampers
     annotation (Dialog(group="Damper control",
        enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
             or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
-            and not have_pressureIndependentDamper));
+            and not have_preIndDam));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
@@ -79,7 +79,7 @@ block Dampers
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
+    final quantity="VolumeFlowRate") if not have_preIndDam
     "Measured primary discharge airflow rate"
     annotation (Placement(transformation(extent={{-240,-150},{-200,-110}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
@@ -90,11 +90,11 @@ block Dampers
     "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
     final max=1,
     final unit="1")
-    "Signal for VAV damper"
+    "Commanded damper position"
     annotation (Placement(transformation(extent={{200,-90},{240,-50}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -121,7 +121,7 @@ block Dampers
     final controllerType=damCon,
     final k=kDam,
     final Ti=TiDam,
-    final Td=TdDam) if not have_pressureIndependentDamper
+    final Td=TdDam) if not have_preIndDam
     annotation (Placement(transformation(extent={{150,-80},{170,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
@@ -138,11 +138,11 @@ block Dampers
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
-    if not have_pressureIndependentDamper
+    if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=1) if have_pressureIndependentDamper
+    final k=1) if have_preIndDam
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{150,-40},{170,-20}})));
 
@@ -193,10 +193,10 @@ equation
           {160,-82}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{122,-70},{140,-70},
           {140,-30},{148,-30}}, color={0,0,127}));
-  connect(conPID.y, yDamSet)
+  connect(conPID.y, yDam)
     annotation (Line(points={{172,-70},{220,-70}}, color={0,0,127}));
-  connect(gai.y, yDamSet) annotation (Line(points={{172,-30},{180,-30},{180,-70},
-          {220,-70}}, color={0,0,127}));
+  connect(gai.y, yDam) annotation (Line(points={{172,-30},{180,-30},{180,-70},{220,
+          -70}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="damCon",
@@ -237,7 +237,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow",
-          visible=not have_pressureIndependentDamper),
+          visible=not have_preIndDam),
         Text(
           extent={{-100,64},{-80,56}},
           lineColor={0,0,127},
@@ -249,7 +249,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          visible=not have_pressureIndependentDamper,
+          visible=not have_preIndDam,
           extent={{-11.5,4.5},{11.5,-4.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -261,7 +261,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="yDamSet"),
+          textString="yDam"),
         Line(points={{-50,64},{-50,-48},{62,-48}}, color={95,95,95}),
         Line(
           points={{-2,-22},{-2,-48}},

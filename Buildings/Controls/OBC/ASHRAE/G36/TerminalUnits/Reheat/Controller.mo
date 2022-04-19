@@ -459,11 +459,11 @@ equation
           246},{-142,246}}, color={0,0,127}));
   connect(TZonCooSet, timSup.TSet) annotation (Line(points={{-200,230},{-168,230},
           {-168,254},{-142,254}}, color={0,0,127}));
-  connect(TZonCooSet, conLoo.TZonCooSet) annotation (Line(points={{-200,230},{-168,
+  connect(TZonCooSet, conLoo.TCooSet) annotation (Line(points={{-200,230},{-168,
           230},{-168,216},{-142,216}}, color={0,0,127}));
   connect(TZon, conLoo.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           210},{-142,210}}, color={0,0,127}));
-  connect(TZonHeaSet, conLoo.TZonHeaSet) annotation (Line(points={{-200,200},{-160,
+  connect(TZonHeaSet, conLoo.THeaSet) annotation (Line(points={{-200,200},{-160,
           200},{-160,204},{-142,204}}, color={0,0,127}));
   connect(uWin, setPoi.uWin) annotation (Line(points={{-200,170},{-120,170},{-120,
           139},{-102,139}}, color={255,0,255}));

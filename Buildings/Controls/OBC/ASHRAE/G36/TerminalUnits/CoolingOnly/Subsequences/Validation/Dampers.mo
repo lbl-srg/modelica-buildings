@@ -7,7 +7,7 @@ model Dampers
     "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers dam1(
-    final have_pressureIndependentDamper=false,
+    final have_preIndDam=false,
     final kDam=1,
     final V_flow_nominal=0.08)
                             "Output signal for controlling damper position"
