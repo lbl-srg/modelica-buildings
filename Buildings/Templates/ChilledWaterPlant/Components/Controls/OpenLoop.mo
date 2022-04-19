@@ -49,12 +49,12 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValConWatEco(k=1)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValConWatEco(k=true)
     if not isAirCoo
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-130,70})));
+        origin={-130,110})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yValChiByp(k=false)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -110,10 +110,25 @@ block OpenLoop "Open loop controller (output signals only)"
 //   Buildings.Templates.Components.Interfaces.Bus valConWatChi[nChi] if not isAirCoo
 //     annotation (HideResult=false);
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatEcoByp(k=1)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-130,70})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySpePumEco[1](each k=1)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-130,30})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yPumEco[1](each k=true)
+    if not isAirCoo annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-130,-10})));
 equation
 
   connect(busCon.valByp.y, yValByp.y);
-  connect(busCon.valChiByp.y, yValChiByp.y);
+  connect(busCon.valChiByp.y1, yValChiByp.y);
 
   connect(busCon.chi.TSet, chiTSet.y);
   connect(busCon.chi.on, chiOn.y);
@@ -140,7 +155,11 @@ equation
 
   connect(busCon.pumCon.y1, yPumCon.y);
   connect(busCon.pumCon.y, ySpePumCon.y);
-  connect(busCon.valConWatEco.y, yValConWatEco.y);
+
+  connect(busCon.valConWatEco.y1, yValConWatEco.y);
+  connect(busCon.pumEco.y, ySpePumEco.y);
+  connect(busCon.pumEco.y1, yPumEco.y);
+  connect(busCon.valChiWatEcoByp.y, yValChiWatEcoByp.y);
 
   annotation (
   defaultComponentName="conChiWat",

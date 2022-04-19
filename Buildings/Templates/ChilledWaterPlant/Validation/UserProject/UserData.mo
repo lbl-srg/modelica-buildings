@@ -47,7 +47,16 @@ record UserData
         each dp2_nominal=46200,
         each Q_flow_nominal=-50000,
         each TChiWatSup_nominal=280.15,
-        each per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes())));
+        each per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes())),
+    eco(
+      valConWatEco(dpValve_nominal=6000),
+      valChiWatEcoByp(dpValve_nominal=6000),
+      pumEco(dp_nominal=0, dpValve_nominal=0),
+      T_ChiWatHexEnt_nominal=280.15,
+      T_ConWatHexEnt_nominal=308.15,
+      dpChiWatHex_nominal=3000,
+      dpConWatHex_nominal=3000,
+      QHex_flow_nominal=10000));
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

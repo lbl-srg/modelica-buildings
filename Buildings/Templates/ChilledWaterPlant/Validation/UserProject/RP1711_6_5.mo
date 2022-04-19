@@ -1,7 +1,6 @@
 within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 model RP1711_6_5
   "Series Chillers with Waterside Economizer, Variable Primary Chilled Water, Variable Condenser Water, Headered Pumps"
-  //ToDo
   extends Buildings.Templates.ChilledWaterPlant.WaterCooled(
     redeclare Buildings.Templates.ChilledWaterPlant.Components.CoolingTowerSection.Parallel
       cooTowSec(final nCooTow=2),
@@ -15,7 +14,7 @@ model RP1711_6_5
     redeclare Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Headered
       pumCon(final nPum=2),
     redeclare Buildings.Templates.ChilledWaterPlant.Components.Economizer.WatersideEconomizer
-      eco,
+      eco(final have_valChiWatEcoByp=false),
     final have_chiByp=false);
 
   annotation (

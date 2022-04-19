@@ -43,7 +43,6 @@ record Data "Data for chilled water plants"
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.Data
     eco(
-      final isAirCoo=isAirCoo,
       m1_flow_nominal=mChiWatPri_flow_nominal,
       m2_flow_nominal=mCon_flow_nominal) "Waterside Economizer"
     annotation (Dialog(group="Equipment", enable=eco.have_eco));

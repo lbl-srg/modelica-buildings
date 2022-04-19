@@ -10,7 +10,7 @@ partial model PartialEconomizer "Partial waterside economizer model"
 
   replaceable package MediumConWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (Dialog(enable=not isAirCoo));
+      annotation (Dialog(enable=have_eco));
   replaceable package MediumChiWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
 
@@ -23,15 +23,21 @@ partial model PartialEconomizer "Partial waterside economizer model"
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
 
-  outer parameter Boolean isAirCoo "Is chiller plant air cooled";
   final parameter Boolean have_eco=
     dat.typ ==Buildings.Templates.ChilledWaterPlant.Components.Types.Economizer.WatersideEconomizer;
+
+  parameter Boolean have_valChiWatEcoByp=false
+    "= true if CHW flowrate is controlled by a modulating bypass valve"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_eco));
 
   // Record
 
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.Data
-    dat(final typ=typ) "Return section data";
+    dat(
+      final typ=typ,
+      final have_valChiWatEcoByp=have_valChiWatEcoByp)
+      "Waterside economizer data";
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow) if have_eco

@@ -59,7 +59,7 @@ model PartialChilledWaterLoop
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
       redeclare final package MediumChiWat = MediumChiWat,
       final dat=dat.eco)
-    "Chilled water return section"
+    "Waterside economizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -85,7 +85,7 @@ model PartialChilledWaterLoop
 
   Buildings.Templates.Components.Sensors.Temperature TChiWatRet(
     redeclare final package Medium = MediumChiWat,
-    final have_sen=true,
+    final have_sen=not have_eco,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final m_flow_nominal=dat.mChiWatSec_flow_nominal)
     "Chilled water return temperature"
