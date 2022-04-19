@@ -8,7 +8,7 @@ model WatersideEconomizer "Waterside economizer"
 
   // fixme WIP
 
-  replaceable Buildings.Templates.Components.Valves.TwoWayModulating 
+  replaceable Buildings.Templates.Components.Valves.TwoWayModulating
     valConWatEco constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     redeclare final package Medium = Medium,

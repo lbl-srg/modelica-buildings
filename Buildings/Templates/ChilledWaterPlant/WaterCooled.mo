@@ -39,7 +39,9 @@ model WaterCooled
       redeclare final package Medium = MediumConWat,
       final dat=dat.cooTowSec)
     "Cooling tower section"
-    annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-170,-28})));
   inner replaceable
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Headered
     pumCon constrainedby
@@ -47,7 +49,7 @@ model WaterCooled
       redeclare final package Medium = MediumConWat,
       final dat=dat.pumCon)
     "Condenser water pumps"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-58,0},{-38,20}})));
 
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumConWat,
@@ -55,7 +57,7 @@ model WaterCooled
     final m_flow_nominal=dat.mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Condenser water supply temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatRet(
     redeclare final package Medium = MediumConWat,
     final have_sen=true,
@@ -72,14 +74,14 @@ model WaterCooled
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
-        origin={-90,-70})));
+        origin={-50,-70})));
   Buildings.Fluid.Sources.Boundary_pT bouConWat(
     redeclare final package Medium = MediumConWat,
     nPorts=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-110,30})));
+        origin={-90,30})));
 
 protected
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
@@ -98,27 +100,28 @@ equation
 
   // Mechanical
   connect(TConWatRet.port_a, cooTowSec.port_a)
-    annotation (Line(points={{-140,-70},{-192,-70},{-192,-10},{-180,-10}},
+    annotation (Line(points={{-140,-70},{-170,-70},{-170,-38}},
       color={0,127,255}));
   connect(cooTowSec.port_b, TConWatSup.port_a)
-    annotation (Line(points={{-160,-10},{-140,-10}}, color={0,127,255}));
+    annotation (Line(points={{-170,-18},{-170,10},{-140,10}},
+                                                     color={0,127,255}));
   connect(TConWatSup.port_b,pumCon. port_a)
-    annotation (Line(points={{-120,-10},{-100,-10}}, color={0,127,255}));
+    annotation (Line(points={{-120,10},{-58,10}},    color={0,127,255}));
   connect(pumCon.port_wse, eco.port_a1)
-    annotation (Line(points={{-80,-16},{-70,-16},{-70,-50},{-46,-50},{-46,-62}},
+    annotation (Line(points={{-38,4},{-32,4},{-32,-34},{-6,-34},{-6,-40}},
       color={0,127,255}));
   connect(chiSec.port_b1, mixConWat.port_3)
-    annotation (Line(points={{-46,0},{-46,-40},{-90,-40},{-90,-60}},
+    annotation (Line(points={{-6,-18},{-6,-30},{-50,-30},{-50,-60}},
       color={0,127,255}));
   connect(pumCon.ports_b, chiSec.ports_a1)
-    annotation (Line(points={{-80,-10},{-70,-10},{-70,30},{-46,30},{-46,20}},
+    annotation (Line(points={{-38,10},{-6,10},{-6,2}},
       color={0,127,255}));
   connect(bouConWat.ports[1], pumCon.port_a)
-    annotation (Line(points={{-110,20},{-110,-10},{-100,-10}},
+    annotation (Line(points={{-90,20},{-90,10},{-58,10}},
       color={0,127,255}));
   connect(mixConWat.port_2, TConWatRet.port_b)
-    annotation (Line(points={{-100,-70},{-120,-70}}, color={0,127,255}));
+    annotation (Line(points={{-60,-70},{-120,-70}},  color={0,127,255}));
   connect(mixConWat.port_1, eco.port_b1)
-    annotation (Line(points={{-80,-70},{-60,-70},{-60,-88},{-46,-88},{-46,-82}},
+    annotation (Line(points={{-40,-70},{-6,-70},{-6,-60}},
       color={0,127,255}));
 end WaterCooled;

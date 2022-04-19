@@ -31,12 +31,12 @@ model BaseWaterCooled
       final nCooTow = chw.cooTowSec.nCooTow,
       cooTow(final typ = chw.cooTowSec.cooTow.typ)),
     pumPri(
-      final typ = chw.pumPri.typ,
-      final nPum = chw.pumPri.nPum,
-      final have_byp = chw.pumPri.have_byp,
-      final have_chiByp = chw.pumPri.have_chiByp,
+      final typ = chw.chiSec.pumPri.typ,
+      final nPum = chw.chiSec.pumPri.nPum,
+      final have_byp = chw.chiSec.pumPri.have_byp,
+      final have_chiByp = chw.chiSec.pumPri.have_chiByp,
       valChiWatChi(final typ = chw.typValChiWatChi),
-      pum(each final typ = chw.pumPri.pum.typ)),
+      pum(each final typ = chw.chiSec.pumPri.pum.typ)),
     pumSec(
       final typ = chw.pumSec.typ,
       final nPum = chw.pumSec.nPum),

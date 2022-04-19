@@ -5,7 +5,7 @@ partial model PartialEconomizer "Partial waterside economizer model"
     redeclare final package Medium2=MediumChiWat,
     final m1_flow_nominal=dat.m1_flow_nominal,
     final m2_flow_nominal=dat.m2_flow_nominal,
-    final haveMedium1=not isAirCoo,
+    final haveMedium1=have_eco,
     final haveMedium2=true);
 
   replaceable package MediumConWat = Buildings.Media.Water
@@ -48,7 +48,13 @@ partial model PartialEconomizer "Partial waterside economizer model"
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}), Diagram(
+          fillPattern=FillPattern.Solid),
+      Text(
+          extent={{-100,-100},{100,-140}},
+          lineColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 
 end PartialEconomizer;

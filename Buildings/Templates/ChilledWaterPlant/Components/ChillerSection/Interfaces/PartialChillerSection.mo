@@ -34,6 +34,13 @@ partial model PartialChillerSection "Partial chiller section model"
   outer parameter Boolean have_dedConWatPum
     "Set to true if parallel chillers are connected to dedicated pumps on condenser water side";
 
+  parameter Boolean have_TChiWatPlaRet
+    "= true if plant chilled water return temperature is measured"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_VChiWatRet_flow
+    "= true if primary flow is measured on return side"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
+
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiSer[nChi]
     "Type of chiller chilled water side isolation valve (chiller in series)";
 
@@ -44,6 +51,9 @@ partial model PartialChillerSection "Partial chiller section model"
       final nChi=nChi,
       final isAirCoo=isAirCoo)
       "Chiller section data";
+  parameter Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Interfaces.Data
+    datPumPri
+    "Primary pump data";
 
   // Model configuration parameters
 
@@ -68,7 +78,46 @@ partial model PartialChillerSection "Partial chiller section model"
     final dat=dat.chi,
     redeclare each final package Medium1 = MediumConWat,
     redeclare each final package Medium2 = MediumChiWat) "Chillers" annotation (
-     Placement(transformation(extent={{-20,-20},{20,20}}, rotation=0)));
+     Placement(transformation(extent={{-20,28},{20,68}},  rotation=0)));
+
+  // Evaporator side
+
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VSecRet_flow(
+    redeclare final package Medium = MediumChiWat,
+    final m_flow_nominal=dat.m2_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
+    final have_sen=have_VChiWatRet_flow)
+    "Primary chilled water return flow"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={-20,-60})));
+  Buildings.Templates.Components.Sensors.Temperature TChiWatRetPla(
+    redeclare final package Medium = MediumChiWat,
+    final have_sen=have_TChiWatPlaRet,
+    final m_flow_nominal=dat.m2_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    "Plant chilled water return temperature (plant side of chilled water minimum flow bypass)"
+    annotation (Placement(transformation(
+      extent={{10,-10},{-10,10}},origin={20,-60})));
+  Buildings.Fluid.FixedResistances.Junction mixByp(
+    redeclare package Medium = MediumChiWat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=dat.m2_flow_nominal*{1,-1,1},
+    final dp_nominal={0,0,0})
+    "Bypass mixer"
+    annotation (Placement(transformation(
+      extent={{-10,10},{10,-10}},origin={60,-60})));
+  Buildings.Fluid.FixedResistances.Junction splChiByp(
+    redeclare package Medium = MediumChiWat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=dat.m2_flow_nominal*{1,-1,-1},
+    final dp_nominal={0,0,0})
+    "Splitter for chiller bypass"
+    annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},rotation=180,origin={-60,-60})));
+
+  // Condenser side
 
   Buildings.Fluid.Delays.DelayFirstOrder volConWat(
     redeclare final package Medium = MediumConWat,
@@ -76,7 +125,9 @@ partial model PartialChillerSection "Partial chiller section model"
     final nPorts=1+nChi) if not isAirCoo
     "Condenser water side mixing volume"
     annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},rotation=0,origin={40,80})));
+      extent={{-10,-10},{10,10}},rotation=0,origin={80,80})));
+
+  // Ports
 
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nChi](
     redeclare each final package Medium = MediumConWat,
@@ -102,20 +153,11 @@ partial model PartialChillerSection "Partial chiller section model"
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = MediumChiWat,
     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    h_outflow(start = MediumChiWat.h_default, nominal = MediumChiWat.h_default)) if typ
-     == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries
+    h_outflow(start = MediumChiWat.h_default, nominal = MediumChiWat.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b2[nChi](
-    redeclare each final package Medium = MediumChiWat,
-    each m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default)) if typ
-     == Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerParallel
-    "Fluid connector b2 for multiple outlets (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-92,-92},{-108,-28}}),
-        iconTransformation(extent={{8,-32},{-8,32}},
-        rotation=0,
-        origin={-100,-60})));
+
+  // Buses
 
   Buildings.Templates.ChilledWaterPlant.BaseClasses.BusChilledWater busCon(
     final nChi=nChi, final nCooTow=nCooTow)
@@ -136,10 +178,11 @@ partial model PartialChillerSection "Partial chiller section model"
         extent={{-12.5,11.7677},{7.5,-8.23748}},
         rotation=180,
         origin={-42.5,101.768})));
+
 equation
 
   connect(busCon.chi, chi.bus) annotation (Line(
-      points={{0.1,100.1},{0.1,100},{0,100},{0,20}},
+      points={{0.1,100.1},{0.1,68},{0,68}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -147,15 +190,25 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(volConWat.ports[1], port_b1)
-    annotation (Line(points={{40,70},{40,60},{100,60}},
-      color={0,127,255}));
-  connect(chi.port_b1, volConWat.ports[2:3])
-    annotation (Line(points={{20,12},{40,12},{40,70}},
-      color={0,127,255}));
+  connect(TChiWatRetPla.y, busCon.TChiWatRetPla);
+  connect(VSecRet_flow.y, busCon.VSecRet_flow);
 
-  connect(chi.port_a1, ports_a1) annotation (Line(points={{-20,12},{-40,12},{-40,
-          60},{-100,60}}, color={0,127,255}));
+  connect(volConWat.ports[1], port_b1)
+    annotation (Line(points={{80,70},{80,60},{100,60}}, color={0,127,255}));
+  connect(chi.port_b1, volConWat.ports[2:3])
+    annotation (Line(points={{20,60},{80,60},{80,70}}, color={0,127,255}));
+
+  connect(chi.port_a1, ports_a1)
+    annotation (Line(points={{-20,60},{-100,60}}, color={0,127,255}));
+  connect(mixByp.port_1, TChiWatRetPla.port_a)
+    annotation (Line(points={{50,-60},{30,-60}}, color={0,127,255}));
+  connect(TChiWatRetPla.port_b, VSecRet_flow.port_a)
+    annotation (Line(points={{10,-60},{-10,-60}}, color={0,127,255}));
+  connect(VSecRet_flow.port_b, splChiByp.port_1)
+    annotation (Line(points={{-30,-60},{-50,-60}}, color={0,127,255}));
+  connect(port_a2, mixByp.port_2)
+    annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

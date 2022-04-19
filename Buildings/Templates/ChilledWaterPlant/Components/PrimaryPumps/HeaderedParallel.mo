@@ -15,7 +15,7 @@ model HeaderedParallel
       final dat = dat.valChiWatChi)
     "Chiller chilled water side isolation valves"
     annotation (Placement(
-      transformation(extent={{10,-10},{-10,10}},origin={-78,0})),
+      transformation(extent={{10,-10},{-10,10}},origin={-80,0})),
       choices(
         choice(redeclare replaceable
           Buildings.Templates.Components.Valves.TwoWayModulating
@@ -57,16 +57,16 @@ equation
   connect(del.ports[1], pum.port_a)
     annotation (Line(points={{-60,40},{-60,0},{-50,0}}, color={0,127,255}));
   connect(del.ports[2:nChi+1], valChiWatChi.port_a)
-    annotation (Line(points={{-60,40},{-60,0},{-68,0}}, color={0,127,255}));
+    annotation (Line(points={{-60,40},{-60,0},{-70,0}}, color={0,127,255}));
   connect(del.ports[nPorVol], valChiByp.port_b)
     annotation (Line(points={{-60,40},{-60,-60},{-70,-60}},
       color={0,127,255}));
 
   connect(ports_a, valChiWatChi.port_b)
-    annotation (Line(points={{-100,0},{-88,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
 
   connect(busCon.valChiWatChi, valChiWatChi.bus) annotation (Line(
-      points={{0.1,100.1},{0.1,80},{-78,80},{-78,10}},
+      points={{0.1,100.1},{0.1,80},{-80,80},{-80,10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

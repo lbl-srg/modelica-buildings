@@ -74,9 +74,6 @@ partial model PartialChilledWaterPlant
     annotation(Evaluate=true,
       Dialog(enable=have_secPum and not have_VSecRet_flow,
         group="Configuration"));
-  parameter Boolean have_VChiWatRet_flow
-    "= true if primary flow is measured on return side"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
 
   // Record
 
