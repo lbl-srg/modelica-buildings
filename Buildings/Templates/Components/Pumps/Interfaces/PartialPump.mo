@@ -3,7 +3,7 @@ partial model PartialPump "Interface class for pump"
 
   replaceable package Medium=Buildings.Media.Water "Medium in the component";
 
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(dat.m_flow_nominal)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(dat.m_flow_nominal)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   // Structure parameters
@@ -11,7 +11,7 @@ partial model PartialPump "Interface class for pump"
   parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nPum(final min=1) = 1
+  parameter Integer nPum(final min=0) = 1
     "Number of pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));

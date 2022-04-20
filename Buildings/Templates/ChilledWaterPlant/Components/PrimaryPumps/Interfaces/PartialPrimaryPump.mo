@@ -60,7 +60,8 @@ partial model PartialPrimaryPump "Partial primary pump model"
     final nPum=nPum,
     final nChi=nChi,
     final have_chiByp=have_chiByp,
-    final have_byp=have_byp) "Primary pumps data";
+    final have_byp=have_byp,
+    pum(final typ = pum.typ)) "Primary pumps data";
 
   // Model configuration parameters
 

@@ -28,7 +28,11 @@ partial model PartialCondenserPump "Partial condenser pump model"
 
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Interfaces.Data
-    dat(final typ=typ, final nPum=nPum) "Condenser pumps data";
+    dat(
+      final typ=typ, 
+      final nPum=nPum, 
+      pum(final typ = pum.typ)) 
+    "Condenser pumps data";
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
     constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(

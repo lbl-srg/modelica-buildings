@@ -18,6 +18,7 @@ model BaseWaterCooled
       final typ = chw.con.typ,
       final nChi = chw.con.nChi,
       final have_eco = chw.con.have_eco,
+      final nSenDpChiWatRem = chw.con.nSenDpChiWatRem,
       final have_sendpChiWatLoc = chw.con.have_sendpChiWatLoc,
       final have_fixSpeConWatPum = chw.con.have_fixSpeConWatPum,
       final have_ctrHeaPre = chw.con.have_ctrHeaPre),

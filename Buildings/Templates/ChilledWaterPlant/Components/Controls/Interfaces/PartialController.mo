@@ -6,10 +6,10 @@ block PartialController "Partial controller for chilled water plant"
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nSenDpChiWatRem = 1
+  parameter Integer nSenDpChiWatRem = 0
     "Number of remote chilled water differential pressure sensors"
     annotation (Dialog(tab="General", group="Chilled water pump"));
-  parameter Boolean have_sendpChiWatLoc = false
+  parameter Boolean have_sendpChiWatLoc = true
     "Set to true if there is a local DP sensor hardwired to the plant controller"
     annotation (Dialog(tab="General", group="Configuration"));
   parameter Boolean have_fixSpeConWatPum = false

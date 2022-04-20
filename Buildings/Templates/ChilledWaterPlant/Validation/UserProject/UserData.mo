@@ -2,10 +2,10 @@ within Buildings.Templates.ChilledWaterPlant.Validation.UserProject;
 record UserData
   extends Buildings.Templates.ChilledWaterPlant.Interfaces.Data(
     mCon_flow_nominal=34,
-    dpDem_nominal(displayUnit="Pa") = 68900,
+    dpDem_nominal = 68900,
     mChiWatPri_flow_nominal=18,
     con(
-      TAirOutLoc(displayUnit="K") = 289.15,
+      TAirOutLoc = 289.15,
       dpChiWatLoc_max=10000,
       mChiWatChi_flow_min={0.3,0.3},
       dTLif_min=10,
@@ -53,7 +53,9 @@ record UserData
     eco(
       valConWatEco(dpValve_nominal=6000),
       valChiWatEcoByp(dpValve_nominal=6000),
-      pumEco(dp_nominal=0, dpValve_nominal=0),
+      pumEco(
+        dp_nominal=12000,
+        dpValve_nominal=2000),
       T_ChiWatHexEnt_nominal=280.15,
       T_ConWatHexEnt_nominal=308.15,
       dpChiWatHex_nominal=3000,

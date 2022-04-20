@@ -7,7 +7,7 @@ record Data "Data for chilled water plant controller"
   parameter Buildings.Templates.ChilledWaterPlant.Components.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nSenDpChiWatRem = 1
+  parameter Integer nSenDpChiWatRem = 0
     "Number of remote chilled water differential pressure sensors"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nChi
@@ -16,7 +16,7 @@ record Data "Data for chilled water plant controller"
   parameter Boolean have_eco=false
     "Set to true if the plant has a Waterside Economizer"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_sendpChiWatLoc = false
+  parameter Boolean have_sendpChiWatLoc = true
     "Set to true if there is a local DP sensor hardwired to the plant controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_fixSpeConWatPum = false
