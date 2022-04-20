@@ -6,10 +6,10 @@ model Controller
     final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final AFlo=20,
     final desZonPop=2,
-    final VZonMin_flow=0.5,
-    final VZonCooMax_flow=1.5,
+    final VMin_flow=0.5,
+    final VCooMax_flow=1.5,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final have_pressureIndependentDamper=false,
+    final have_preIndDam=false,
     final V_flow_nominal=1.5,
     final staPreMul=1,
     final hotWatRes=1,
@@ -165,14 +165,14 @@ model Controller
 equation
   connect(TZon.y,serFanCon. TZon) annotation (Line(points={{-98,240},{52,240},{52,
           110},{98,110}}, color={0,0,127}));
-  connect(cooSet.y,serFanCon. TZonCooSet) annotation (Line(points={{-58,220},{48,
+  connect(cooSet.y,serFanCon. TCooSet) annotation (Line(points={{-58,220},{48,
           220},{48,108},{98,108}}, color={0,0,127}));
-  connect(heaSet.y,serFanCon. TZonHeaSet) annotation (Line(points={{-98,200},{44,
+  connect(heaSet.y,serFanCon. THeaSet) annotation (Line(points={{-98,200},{44,
           200},{44,106},{98,106}}, color={0,0,127}));
-  connect(winSta.y,serFanCon. uWin) annotation (Line(points={{-58,180},{40,180},
+  connect(winSta.y, serFanCon.u1Win) annotation (Line(points={{-58,180},{40,180},
           {40,104},{98,104}}, color={255,0,255}));
-  connect(occ.y,serFanCon. uOcc) annotation (Line(points={{-98,160},{36,160},{36,
-          102},{98,102}},  color={255,0,255}));
+  connect(occ.y, serFanCon.u1Occ) annotation (Line(points={{-98,160},{36,160},{
+          36,102},{98,102}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-98,130},{-82,130}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
@@ -202,20 +202,20 @@ equation
           60,-80},{60,84},{98,84}}, color={255,127,0}));
   connect(reaToInt4.y,serFanCon. oveFan) annotation (Line(points={{-18,-110},{64,
           -110},{64,82},{98,82}}, color={255,127,0}));
-  connect(damPos.y,serFanCon. uDam) annotation (Line(points={{-58,-160},{72,-160},
+  connect(damPos.y,serFanCon. uDam_actual) annotation (Line(points={{-58,-160},{72,-160},
           {72,78},{98,78}}, color={0,0,127}));
-  connect(valPos.y,serFanCon. uVal) annotation (Line(points={{-98,-180},{76,-180},
+  connect(valPos.y,serFanCon. uVal_actual) annotation (Line(points={{-98,-180},{76,-180},
           {76,76},{98,76}}, color={0,0,127}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-98,-140},{-42,-140}}, color={255,0,255}));
   connect(not1.y,serFanCon. uHeaOff) annotation (Line(points={{-18,-140},{68,-140},
           {68,80},{98,80}}, color={255,0,255}));
-  connect(supFan.y,serFanCon. uFan) annotation (Line(points={{-58,-200},{80,-200},
+  connect(supFan.y, serFanCon.u1Fan) annotation (Line(points={{-58,-200},{80,-200},
           {80,74},{98,74}}, color={255,0,255}));
-  connect(terFan.y,serFanCon. uTerFan) annotation (Line(points={{-98,-220},{84,-220},
-          {84,72},{98,72}}, color={255,0,255}));
-  connect(hotPla.y,serFanCon. uHotPla) annotation (Line(points={{-58,-240},{88,-240},
-          {88,70},{98,70}}, color={255,0,255}));
+  connect(terFan.y, serFanCon.u1TerFan) annotation (Line(points={{-98,-220},{84,
+          -220},{84,72},{98,72}}, color={255,0,255}));
+  connect(hotPla.y, serFanCon.u1HotPla) annotation (Line(points={{-58,-240},{88,
+          -240},{88,70},{98,70}}, color={255,0,255}));
   connect(TSupSet.y,serFanCon. TSupSet) annotation (Line(points={{-98,-20},{52,-20},
           {52,88},{98,88}}, color={0,0,127}));
   connect(TSup.y,serFanCon. TSup) annotation (Line(points={{-58,0},{48,0},{48,90},

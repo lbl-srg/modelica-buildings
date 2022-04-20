@@ -8,7 +8,7 @@ model Dampers
     "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-10},{100,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.Dampers dam1(
-    final have_pressureIndependentDamper=false,
+    final have_preIndDam=false,
     final V_flow_nominal=0.08,
     final kDam=1)
     "Output signal for controlling damper position"
@@ -88,10 +88,10 @@ equation
           23},{78,23}}, color={0,0,127}));
   connect(TCooSup.y, dam1.TColSup) annotation (Line(points={{-78,70},{52,70},{52,
           -57},{78,-57}},    color={0,0,127}));
-  connect(cooAhu.y, dam.uCooAHU) annotation (Line(points={{-38,50},{48,50},{48,17},
-          {78,17}}, color={255,0,255}));
-  connect(cooAhu.y, dam1.uCooAHU) annotation (Line(points={{-38,50},{48,50},{48,
-          -63},{78,-63}}, color={255,0,255}));
+  connect(cooAhu.y, dam.u1CooAHU) annotation (Line(points={{-38,50},{48,50},{48,
+          17},{78,17}}, color={255,0,255}));
+  connect(cooAhu.y, dam1.u1CooAHU) annotation (Line(points={{-38,50},{48,50},{
+          48,-63},{78,-63}}, color={255,0,255}));
   connect(THeaSup.y, dam.THotSup) annotation (Line(points={{-78,-10},{36,-10},{36,
           3},{78,3}},   color={0,0,127}));
   connect(THeaSup.y, dam1.THotSup) annotation (Line(points={{-78,-10},{36,-10},{
@@ -104,9 +104,9 @@ equation
           {28,-50},{28,-3},{78,-3}},      color={0,0,127}));
   connect(VActHeaMax_flow.y, dam1.VActHeaMax_flow) annotation (Line(points={{-78,-50},
           {28,-50},{28,-83},{78,-83}},      color={0,0,127}));
-  connect(heaAhu.y, dam1.uHeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
+  connect(heaAhu.y, dam1.u1HeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
           -89},{78,-89}}, color={255,0,255}));
-  connect(heaAhu.y, dam.uHeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
+  connect(heaAhu.y, dam.u1HeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
           -9},{78,-9}}, color={255,0,255}));
   connect(VDis.y, dam1.VDis_flow) annotation (Line(points={{-78,-100},{60,-100},
           {60,-60},{78,-60}}, color={0,0,127}));

@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Valid
 model Overrides "Validation of model that overrides control"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Overrides ove(
-    final VZonMin_flow=0.1,
-    final VZonCooMax_flow=0.9,
-    final VZonHeaMax_flow=0.8) "Block outputs system requests"
+    final VMin_flow=0.1,
+    final VCooMax_flow=0.9,
+    final VHeaMax_flow=0.8) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
     final height=0.9,
@@ -69,9 +69,9 @@ equation
                             color={0,0,127}));
   connect(reaToInt1.y, ove.oveDamPos) annotation (Line(points={{22,20},{32,20},
           {32,-8},{58,-8}},color={255,127,0}));
-  connect(damPos.y, ove.uDamSet) annotation (Line(points={{-18,-12},{58,-12}},
+  connect(damPos.y, ove.uDam) annotation (Line(points={{-18,-12},{58,-12}},
                     color={0,0,127}));
-  connect(heaValPos.y, ove.uValSet) annotation (Line(points={{-18,-90},{40,-90},
+  connect(heaValPos.y, ove.uVal) annotation (Line(points={{-18,-90},{40,-90},
           {40,-19},{58,-19}},     color={0,0,127}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-58,-50},{-22,-50}}, color={255,0,255}));

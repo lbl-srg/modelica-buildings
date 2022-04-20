@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences
 block ActiveAirFlow
   "Output the active primary airflow setpoint for constant-volume series fan-powered terminal unit"
 
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -11,7 +11,7 @@ block ActiveAirFlow
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-180,10},{-140,50}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccZonMin_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Occupied minimum airflow setpoint"
@@ -49,7 +49,7 @@ protected
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VZonCooMax_flow)
+    final realTrue=VCooMax_flow)
     "Active cooling maximum flow"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal occModInd(
@@ -92,8 +92,8 @@ equation
     annotation (Line(points={{42,50},{78,50}},   color={255,0,255}));
   connect(ifOcc.y, occModInd.u) annotation (Line(points={{-38,70},{0,70},{0,10},
           {18,10}}, color={255,0,255}));
-  connect(VOccZonMin_flow, pro.u2) annotation (Line(points={{-160,-80},{60,-80},
-          {60,-56},{78,-56}}, color={0,0,127}));
+  connect(VOccMin_flow, pro.u2) annotation (Line(points={{-160,-80},{60,-80},{60,
+          -56},{78,-56}}, color={0,0,127}));
   connect(occModInd.y, pro.u1) annotation (Line(points={{42,10},{60,10},{60,-44},
           {78,-44}},  color={0,0,127}));
   connect(actCooMax.y, VActCooMax_flow)
@@ -133,7 +133,7 @@ annotation (
           extent={{-98,-52},{-36,-68}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VOccZonMin_flow")}),
+          textString="VOccMin_flow")}),
 Documentation(info="<html>
 <p>
 This sequence sets the active primary cooling maximum and minimum setpoints
@@ -144,10 +144,10 @@ is according to the Section 5.9.4 of ASHRAE Guideline 36, May 2020.
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VZonCooMax_flow</code></td>
-<td><code>VZonCooMax_flow</code></td><td><code>VZonCooMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooMax_flow</code></td>
+<td><code>VCooMax_flow</code></td><td><code>VCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td><td>0</td>
+<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccMin_flow</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
 <br/>

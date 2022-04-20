@@ -32,16 +32,16 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonMin_flow(unit="m3/s")
+  parameter Real VMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonCooMax_flow(unit="m3/s")
+  parameter Real VCooMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VHeaZonMin_flow(unit="m3/s")
+  parameter Real VHeaMin_flow(unit="m3/s")
     "Design zone heating minimum airflow rate"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonHeaMax_flow(unit="m3/s")
+  parameter Real VHeaMax_flow(unit="m3/s")
     "Design zone heating maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
@@ -79,28 +79,28 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Boolean have_pressureIndependentDamper=false
+  parameter Boolean have_preIndDam=false
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation (Dialog(tab="Damper and valve control", group="Damper"));
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_pressureIndependentDamper));
+      enable=not have_preIndDam));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_pressureIndependentDamper));
+      enable=not have_preIndDam));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_pressureIndependentDamper
+      enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_pressureIndependentDamper
+      enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real V_flow_nominal(unit="m3/s")
@@ -196,25 +196,25 @@ block Controller "Controller for room VAV box with reheat"
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-220,240},{-180,280}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC")
     "Setpoint temperature for room for cooling"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
         iconTransformation(extent={{-140,150},{-100,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC")
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
     "Occupancy status, true if it is occupied, false if it is not occupied"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
@@ -269,25 +269,25 @@ block Controller "Controller for room VAV box with reheat"
     "Override heating valve position, true: close heating valve"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
     final min=0,
     final max=1,
     final unit="1")
     "Actual damper position"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal_actual(
     final min=0,
     final max=1,
     final unit="1")
     "Actual hot water valve position"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
         iconTransformation(extent={{-140,-188},{-100,-148}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-220,-290},{-180,-250}}),
         iconTransformation(extent={{-140,-208},{-100,-168}})));
@@ -298,16 +298,15 @@ block Controller "Controller for room VAV box with reheat"
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{200,210},{240,250}}),
         iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
-    final unit="1")
-    "Damper position setpoint after considering override"
+    final unit="1") "Damper commanded position, after considering override"
     annotation (Placement(transformation(extent={{200,170},{240,210}}),
         iconTransformation(extent={{100,140},{140,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(
     final min=0,
     final unit="1")
-    "Heating valve position setpoint after considering override"
+    "Heating valve commanded position, after considering override"
     annotation (Placement(transformation(extent={{200,130},{240,170}}),
         iconTransformation(extent={{100,110},{140,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
@@ -351,9 +350,9 @@ block Controller "Controller for room VAV box with reheat"
         iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow actAirSet(
-    final VZonCooMax_flow=VZonCooMax_flow,
-    final VHeaZonMin_flow=VHeaZonMin_flow,
-    final VZonHeaMax_flow=VZonHeaMax_flow) "Active airflow setpoint"
+    final VCooMax_flow=VCooMax_flow,
+    final VHeaMin_flow=VHeaMin_flow,
+    final VHeaMax_flow=VHeaMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
     final have_hotWatCoi=have_hotWatCoi,
@@ -384,7 +383,7 @@ block Controller "Controller for room VAV box with reheat"
     final have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
     final hotWatRes=hotWatRes,
-    final VZonCooMax_flow=VZonCooMax_flow,
+    final VCooMax_flow=VCooMax_flow,
     final lowFloTim=lowFloTim,
     final lowTemTim=lowTemTim,
     final fanOffTim=fanOffTim,
@@ -396,9 +395,9 @@ block Controller "Controller for room VAV box with reheat"
     final valPosHys=valPosHys) "Generate alarms"
     annotation (Placement(transformation(extent={{120,-200},{140,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Overrides setOve(
-    final VZonMin_flow=VZonMin_flow,
-    final VZonCooMax_flow=VZonCooMax_flow,
-    final VZonHeaMax_flow=VZonHeaMax_flow) "Override setpoints"
+    final VMin_flow=VMin_flow,
+    final VCooMax_flow=VCooMax_flow,
+    final VHeaMax_flow=VHeaMax_flow) "Override setpoints"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
     final samplePeriod=samplePeriod,
@@ -419,8 +418,8 @@ block Controller "Controller for room VAV box with reheat"
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,
-    final VZonMin_flow=VZonMin_flow,
-    final VZonCooMax_flow=VZonCooMax_flow,
+    final VMin_flow=VMin_flow,
+    final VCooMax_flow=VCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
     final dTHys=dTHys) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
@@ -433,7 +432,7 @@ block Controller "Controller for room VAV box with reheat"
     final kVal=kVal,
     final TiVal=TiVal,
     final TdVal=TdVal,
-    final have_pressureIndependentDamper=have_pressureIndependentDamper,
+    final have_preIndDam=have_preIndDam,
     final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
     final TiDam=TiDam,
@@ -449,25 +448,25 @@ block Controller "Controller for room VAV box with reheat"
     final have_typTerUni=true,
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
-    final VZonMin_flow=VZonMin_flow,
-    final VZonCooMax_flow=VZonCooMax_flow)
+    final VMin_flow=VMin_flow,
+    final VCooMax_flow=VCooMax_flow)
     if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           246},{-142,246}}, color={0,0,127}));
-  connect(TZonCooSet, timSup.TSet) annotation (Line(points={{-200,230},{-168,230},
+  connect(TCooSet, timSup.TSet) annotation (Line(points={{-200,230},{-168,230},
           {-168,254},{-142,254}}, color={0,0,127}));
-  connect(TZonCooSet, conLoo.TCooSet) annotation (Line(points={{-200,230},{-168,
+  connect(TCooSet, conLoo.TCooSet) annotation (Line(points={{-200,230},{-168,
           230},{-168,216},{-142,216}}, color={0,0,127}));
   connect(TZon, conLoo.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           210},{-142,210}}, color={0,0,127}));
-  connect(TZonHeaSet, conLoo.THeaSet) annotation (Line(points={{-200,200},{-160,
+  connect(THeaSet, conLoo.THeaSet) annotation (Line(points={{-200,200},{-160,
           200},{-160,204},{-142,204}}, color={0,0,127}));
-  connect(uWin, setPoi.uWin) annotation (Line(points={{-200,170},{-120,170},{-120,
+  connect(u1Win, setPoi.uWin) annotation (Line(points={{-200,170},{-120,170},{-120,
           139},{-102,139}}, color={255,0,255}));
-  connect(uOcc, setPoi.uOcc) annotation (Line(points={{-200,150},{-124,150},{-124,
+  connect(u1Occ, setPoi.uOcc) annotation (Line(points={{-200,150},{-124,150},{-124,
           137},{-102,137}}, color={255,0,255}));
   connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,120},{-140,120},
           {-140,135},{-102,135}}, color={255,127,0}));
@@ -479,7 +478,7 @@ equation
           121},{-102,121}}, color={0,0,127}));
   connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,120},{-140,
           120},{-140,76},{-62,76}}, color={255,127,0}));
-  connect(setPoi.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
+  connect(setPoi.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-78,134},{-72,134},{-72,64},{-62,64}}, color={0,0,127}));
   connect(VDis_flow, damVal.VDis_flow) annotation (Line(points={{-200,0},{-40,0},
           {-40,-13},{-2,-13}}, color={0,0,127}));
@@ -497,7 +496,7 @@ equation
           -31},{-2,-31}}, color={0,0,127}));
   connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-200,-60},{-44,-60},
           {-44,-34},{-2,-34}}, color={0,0,127}));
-  connect(TZonHeaSet, damVal.TZonHeaSet) annotation (Line(points={{-200,200},{-160,
+  connect(THeaSet, damVal.THeaSet) annotation (Line(points={{-200,200},{-160,
           200},{-160,-37},{-2,-37}}, color={0,0,127}));
   connect(conLoo.yHea, damVal.uHea) annotation (Line(points={{-118,204},{-110,204},
           {-110,-40},{-2,-40}}, color={0,0,127}));
@@ -515,15 +514,15 @@ equation
           {50,-18},{50,-85},{58,-85}},    color={0,0,127}));
   connect(oveDamPos, setOve.oveDamPos) annotation (Line(points={{-200,-120},{20,
           -120},{20,-88},{58,-88}}, color={255,127,0}));
-  connect(damVal.yDamSet, setOve.uDamSet) annotation (Line(points={{22,-23},{46,
+  connect(damVal.yDam, setOve.uDam) annotation (Line(points={{22,-23},{46,
           -23},{46,-92},{58,-92}}, color={0,0,127}));
   connect(uHeaOff, setOve.uHeaOff) annotation (Line(points={{-200,-150},{24,-150},
           {24,-96},{58,-96}}, color={255,0,255}));
-  connect(damVal.yValSet, setOve.uValSet) annotation (Line(points={{22,-41},{42,
+  connect(damVal.yVal, setOve.uVal) annotation (Line(points={{22,-41},{42,
           -41},{42,-99},{58,-99}}, color={0,0,127}));
   connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-118,250},{-68,
           250},{-68,-121},{118,-121}}, color={255,0,255}));
-  connect(TZonCooSet, sysReq.TZonCooSet) annotation (Line(points={{-200,230},{-168,
+  connect(TCooSet, sysReq.TCooSet) annotation (Line(points={{-200,230},{-168,
           230},{-168,-123},{118,-123}}, color={0,0,127}));
   connect(TZon, sysReq.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           -125},{118,-125}}, color={0,0,127}));
@@ -533,37 +532,37 @@ equation
           {90,-84},{90,-129},{118,-129}}, color={0,0,127}));
   connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-200,0},{-40,0},
           {-40,-131},{118,-131}}, color={0,0,127}));
-  connect(uDam, sysReq.uDam) annotation (Line(points={{-200,-180},{30,-180},{30,
-          -133},{118,-133}}, color={0,0,127}));
+  connect(uDam_actual, sysReq.uDam_actual) annotation (Line(points={{-200,-180},
+          {30,-180},{30,-133},{118,-133}}, color={0,0,127}));
   connect(damVal.TDisSet, sysReq.TDisSet) annotation (Line(points={{22,-46},{38,
           -46},{38,-135},{118,-135}}, color={0,0,127}));
   connect(TDis, sysReq.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,
           -137},{118,-137}}, color={0,0,127}));
-  connect(uVal, sysReq.uVal) annotation (Line(points={{-200,-210},{34,-210},{34,
-          -139},{118,-139}}, color={0,0,127}));
+  connect(uVal_actual, sysReq.uVal_actual) annotation (Line(points={{-200,-210},
+          {34,-210},{34,-139},{118,-139}}, color={0,0,127}));
   connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,0},{-40,0},{-40,
           -182},{118,-182}},      color={0,0,127}));
   connect(setOve.VSet_flow, ala.VActSet_flow) annotation (Line(points={{82,-84},
           {90,-84},{90,-184},{118,-184}}, color={0,0,127}));
-  connect(uFan, ala.uFan) annotation (Line(points={{-200,-240},{90,-240},{90,-186},
+  connect(u1Fan, ala.u1Fan) annotation (Line(points={{-200,-240},{90,-240},{90,-186},
           {118,-186}}, color={255,0,255}));
-  connect(uDam, ala.uDam) annotation (Line(points={{-200,-180},{30,-180},{30,-188},
-          {118,-188}}, color={0,0,127}));
-  connect(uVal, ala.uVal) annotation (Line(points={{-200,-210},{34,-210},{34,-190},
-          {118,-190}}, color={0,0,127}));
+  connect(uDam_actual, ala.uDam_actual) annotation (Line(points={{-200,-180},{30,
+          -180},{30,-188},{118,-188}}, color={0,0,127}));
+  connect(uVal_actual, ala.uVal_actual) annotation (Line(points={{-200,-210},{34,
+          -210},{34,-190},{118,-190}}, color={0,0,127}));
   connect(TSup, ala.TSup) annotation (Line(points={{-200,-30},{-48,-30},{-48,-192},
           {118,-192}}, color={0,0,127}));
-  connect(uHotPla, ala.uHotPla) annotation (Line(points={{-200,-270},{94,-270},{
-          94,-194},{118,-194}}, color={255,0,255}));
+  connect(u1HotPla, ala.u1HotPla) annotation (Line(points={{-200,-270},{94,-270},
+          {94,-194},{118,-194}}, color={255,0,255}));
   connect(TDis, ala.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,-196},
           {118,-196}}, color={0,0,127}));
   connect(damVal.TDisSet, ala.TDisSet) annotation (Line(points={{22,-46},{38,-46},
           {38,-198},{118,-198}}, color={0,0,127}));
   connect(setOve.VSet_flow, VSet_flow) annotation (Line(points={{82,-84},{90,-84},
           {90,230},{220,230}}, color={0,0,127}));
-  connect(setOve.yDamSet, yDamSet) annotation (Line(points={{82,-90},{98,-90},{98,
+  connect(setOve.yDam, yDam) annotation (Line(points={{82,-90},{98,-90},{98,
           190},{220,190}}, color={0,0,127}));
-  connect(setOve.yValSet, yValSet) annotation (Line(points={{82,-96},{104,-96},{
+  connect(setOve.yVal, yVal) annotation (Line(points={{82,-96},{104,-96},{
           104,150},{220,150}}, color={0,0,127}));
   connect(sysReq.yZonTemResReq, yZonTemResReq) annotation (Line(points={{142,-122},
           {146,-122},{146,110},{220,110}}, color={255,127,0}));
@@ -585,11 +584,11 @@ equation
           {180,-220},{220,-220}}, color={255,127,0}));
   connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,90},{-136,
           90},{-136,133},{-102,133}}, color={0,0,127}));
-  connect(minFlo.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
-        points={{-78,84},{-72,84},{-72,64},{-62,64}}, color={0,0,127}));
-  connect(uWin, minFlo.uWin) annotation (Line(points={{-200,170},{-120,170},{-120,
+  connect(minFlo.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
+        points={{-78,87},{-72,87},{-72,64},{-62,64}}, color={0,0,127}));
+  connect(u1Win, minFlo.uWin) annotation (Line(points={{-200,170},{-120,170},{-120,
           99},{-102,99}}, color={255,0,255}));
-  connect(uOcc, minFlo.uOcc) annotation (Line(points={{-200,150},{-124,150},{-124,
+  connect(u1Occ, minFlo.uOcc) annotation (Line(points={{-200,150},{-124,150},{-124,
           96},{-102,96}}, color={255,0,255}));
   connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-200,120},{-140,120},
           {-140,93},{-102,93}}, color={255,127,0}));
@@ -636,53 +635,53 @@ annotation (defaultComponentName="rehBoxCon",
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
-          extent={{-98,-114},{-72,-126}},
+          extent={{-98,-114},{-54,-126}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam"),
+          textString="uDam_actual"),
         Text(
-          extent={{-98,-134},{-72,-146}},
+          extent={{-98,-134},{-54,-148}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uVal"),
+          textString="uVal_actual"),
         Text(
           extent={{-98,198},{-72,186}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-98,178},{-40,164}},
+          extent={{-98,178},{-58,164}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
-          extent={{-98,158},{-40,144}},
+          extent={{-98,158},{-56,144}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSet"),
+          textString="THeaSet"),
         Text(
           visible=have_winSen,
-          extent={{-98,128},{-72,116}},
+          extent={{-98,128},{-68,114}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uWin"),
+          textString="u1Win"),
         Text(
           visible=have_occSen,
-          extent={{-98,108},{-72,96}},
+          extent={{-98,108},{-66,94}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uOcc"),
+          textString="u1Occ"),
         Text(
           extent={{-96,-180},{-60,-196}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHotPla",
-          visible=have_hotWatCoi),
+          visible=have_hotWatCoi,
+          textString="u1HotPla"),
         Text(
           extent={{-98,-162},{-72,-174}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uFan"),
+          textString="u1Fan"),
         Text(
           extent={{-98,-94},{-62,-110}},
           lineColor={255,0,255},
@@ -712,12 +711,12 @@ annotation (defaultComponentName="rehBoxCon",
           extent={{56,168},{98,156}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yDamSet"),
+          textString="yDam"),
         Text(
           extent={{56,138},{98,126}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yValSet"),
+          textString="yVal"),
         Text(
           extent={{18,92},{96,74}},
           lineColor={255,127,0},
@@ -777,8 +776,8 @@ annotation (defaultComponentName="rehBoxCon",
 <p>
 Controller for terminal box of VAV system with reheat according to Section 5.6 of ASHRAE
 Guideline 36, May 2020. It outputs discharge airflow setpoint <code>VSet_flow</code>,
-damper position setpoint <code>yDamSet</code>, hot water valve position setpoint
-<code>yValSet</code>, AHU cooling supply temperature
+damper position setpoint <code>yDam</code>, hot water valve position setpoint
+<code>yVal</code>, AHU cooling supply temperature
 setpoint reset request <code>yZonTemResReq</code>, and static pressure setpoint
 reset request <code>yZonPreResReq</code>, hot water reset request <code>yHeaValResReq</code>
 and <code>yHotWatPlaReq</code>. It also outputs the alarms about the low airflow
@@ -790,8 +789,8 @@ airflow sensor calibration alarm <code>yFloSenAla</code>.
 <h4>a. Heating and cooling control loop</h4>
 <p>
 The subsequence is implementd according to Section 5.3.4. The measured zone
-temperature <code>TZon</code>, zone setpoints temperatures <code>TZonHeaSet</code> and
-<code>TZonCooSet</code> are inputs to the instance of class 
+temperature <code>TZon</code>, zone setpoints temperatures <code>THeaSet</code> and
+<code>TCooSet</code> are inputs to the instance of class 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates\">
 Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates</a> to generate the
 heating and cooling control loop signal. 
@@ -810,7 +809,7 @@ This sequence sets the damper and valve position setpoints for VAV reheat termin
 The implementation is according to Section 5.6.5. According to heating and cooling
 control loop signal, it calculates the discharge air temperature setpoint
 <code>TDisSet</code>. Along with the active maximum and minimum airflow setpoint, measured
-zone temperature, the sequence outputs <code>yDamSet</code>, <code>yValSet</code>,
+zone temperature, the sequence outputs <code>yDam</code>, <code>yVal</code>,
 <code>TDisSet</code> and discharge airflow rate setpoint <code>VDisSet_flow</code>.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.DamperValves\">
 Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.DamperValves</a>.

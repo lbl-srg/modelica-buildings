@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequenc
 model Overrides "Validation of model that overrides control"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Overrides ove(
-    final VZonMin_flow=0.1,
-    final VZonCooMax_flow=0.9) "Block outputs system requests"
+    final VMin_flow=0.1,
+    final VCooMax_flow=0.9) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
     final height=0.9,
@@ -87,13 +87,13 @@ equation
     annotation (Line(points={{-18,-60},{-2,-60}}, color={0,0,127}));
   connect(reaToInt1.y, ove.oveDamPos) annotation (Line(points={{22,40},{32,40},{
           32,-6},{58,-6}}, color={255,127,0}));
-  connect(damPos.y, ove.uDamSet) annotation (Line(points={{-18,10},{28,10},{28,-8},
+  connect(damPos.y, ove.uDam) annotation (Line(points={{-18,10},{28,10},{28,-8},
           {58,-8}}, color={0,0,127}));
-  connect(heaValPos.y, ove.uValSet) annotation (Line(points={{-18,-30},{28,-30},
-          {28,-13.8},{58,-13.8}}, color={0,0,127}));
+  connect(heaValPos.y, ove.uVal) annotation (Line(points={{-18,-30},{28,-30},{
+          28,-13.8},{58,-13.8}}, color={0,0,127}));
   connect(reaToInt3.y, ove.oveFan) annotation (Line(points={{22,-60},{36,-60},{36,
           -17},{58,-17}}, color={255,127,0}));
-  connect(terFan.y, ove.uFan) annotation (Line(points={{22,-90},{40,-90},{40,-19},
+  connect(terFan.y, ove.u1Fan) annotation (Line(points={{22,-90},{40,-90},{40,-19},
           {58,-19}}, color={255,0,255}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-58,-10},{-12,-10}}, color={255,0,255}));

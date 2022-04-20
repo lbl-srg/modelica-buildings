@@ -8,7 +8,7 @@ model DamperValves
     "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-10},{100,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves damValFan1(
-    final have_pressureIndependentDamper=false,
+    final have_preIndDam=false,
     final V_flow_nominal=0.08,
     final kDam=1)
     "Output signal for controlling damper position"
@@ -116,9 +116,9 @@ equation
           20},{78,20}}, color={0,0,127}));
   connect(TSup.y, damValFan1.TSup) annotation (Line(points={{-78,70},{52,70},{52,
           -60},{78,-60}}, color={0,0,127}));
-  connect(TZonHeaSet.y, damValFan.TZonHeaSet) annotation (Line(points={{-38,-30},
-          {36,-30},{36,5},{78,5}}, color={0,0,127}));
-  connect(TZonHeaSet.y, damValFan1.TZonHeaSet) annotation (Line(points={{-38,-30},
+  connect(TZonHeaSet.y, damValFan.THeaSet) annotation (Line(points={{-38,-30},{
+          36,-30},{36,5},{78,5}}, color={0,0,127}));
+  connect(TZonHeaSet.y, damValFan1.THeaSet) annotation (Line(points={{-38,-30},
           {36,-30},{36,-75},{78,-75}}, color={0,0,127}));
   connect(TDis.y, damValFan.TDis) annotation (Line(points={{-38,-70},{28,-70},{28,
           -1},{78,-1}}, color={0,0,127}));

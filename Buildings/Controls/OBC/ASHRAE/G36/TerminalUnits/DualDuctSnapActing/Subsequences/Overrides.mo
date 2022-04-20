@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences;
 block Overrides "Software switches to override setpoints"
 
-  parameter Real VZonMin_flow(
+  parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint";
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VZonHeaMax_flow(
+  parameter Real VHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -29,20 +29,18 @@ block Overrides "Software switches to override setpoints"
     "Index of overriding cooling damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam(
     final min=0,
-    final unit="1")
-    "Cooling damper position setpoint"
+    final unit="1") "Cooling damper commanded position"
     annotation (Placement(transformation(extent={{-180,-130},{-140,-90}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveHeaDamPos
     "Index of overriding heating damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam(
     final min=0,
-    final unit="1")
-    "Heating damper position setpoint"
+    final unit="1") "Heating damper commanded position"
     annotation (Placement(transformation(extent={{-180,-250},{-140,-210}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow(
@@ -52,16 +50,16 @@ block Overrides "Software switches to override setpoints"
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{140,20},{180,60}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDam(
     final min=0,
     final unit="1")
-    "Cooling damper position setpoint after considering override"
+    "Cooling damper commanded position, after considering override"
     annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDam(
     final min=0,
     final unit="1")
-    "Heating damper position setpoint after considering override"
+    "Heating damper commanded position, after considering override"
     annotation (Placement(transformation(extent={{140,-220},{180,-180}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
@@ -90,11 +88,11 @@ block Overrides "Software switches to override setpoints"
     "Force zone airflow setpoint to zero"
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cooMax(
-    final realTrue=VZonCooMax_flow)
+    final realTrue=VCooMax_flow)
     "Force zone airflow setpoint to cooling maximum"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal minFlo(
-    final realTrue=VZonMin_flow)
+    final realTrue=VMin_flow)
     "Force zone airflow setpoint to zone minimum flow"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
@@ -143,7 +141,7 @@ block Overrides "Software switches to override setpoints"
     "Check if forcing zone airflow setpoint to minimum flow"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMax(
-    final realTrue=VZonHeaMax_flow)
+    final realTrue=VHeaMax_flow)
     "Force zone airflow setpoint to zone heating maximum flow"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4
@@ -243,9 +241,9 @@ equation
           78,-72}}, color={0,0,127}));
   connect(or2.y, swi1.u2)
     annotation (Line(points={{22,-80},{78,-80}},   color={255,0,255}));
-  connect(uCooDamSet, swi1.u3) annotation (Line(points={{-160,-110},{60,-110},{60,
+  connect(uCooDam, swi1.u3) annotation (Line(points={{-160,-110},{60,-110},{60,
           -88},{78,-88}}, color={0,0,127}));
-  connect(swi1.y, yCooDamSet)
+  connect(swi1.y, yCooDam)
     annotation (Line(points={{102,-80},{160,-80}}, color={0,0,127}));
   connect(oveFloSet, forMinFlo1.u1) annotation (Line(points={{-160,220},{-130,220},
           {-130,100},{-82,100}}, color={255,127,0}));
@@ -291,9 +289,9 @@ equation
           {78,-192}}, color={0,0,127}));
   connect(or4.y,swi2. u2)
     annotation (Line(points={{22,-200},{78,-200}}, color={255,0,255}));
-  connect(uHeaDamSet, swi2.u3) annotation (Line(points={{-160,-230},{60,-230},{60,
+  connect(uHeaDam, swi2.u3) annotation (Line(points={{-160,-230},{60,-230},{60,
           -208},{78,-208}}, color={0,0,127}));
-  connect(swi2.y, yHeaDamSet)
+  connect(swi2.y, yHeaDam)
     annotation (Line(points={{102,-200},{160,-200}}, color={0,0,127}));
 
 annotation (defaultComponentName="ove",
@@ -319,40 +317,40 @@ annotation (defaultComponentName="ove",
           pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
-          extent={{-96,-22},{-42,-36}},
+          extent={{-100,-22},{-46,-36}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooDamSet"),
+          textString="uCooDam"),
         Text(
           extent={{-96,10},{-26,-6}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveCooDamPos"),
         Text(
-          extent={{48,8},{98,-6}},
+          extent={{50,8},{100,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yCooDamSet"),
+          textString="yCooDam"),
         Text(
           extent={{58,68},{98,56}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{-96,-82},{-42,-96}},
+          extent={{-100,-82},{-46,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaDamSet"),
+          textString="uHeaDam"),
         Text(
           extent={{-96,-50},{-26,-66}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveHeaDamPos"),
         Text(
-          extent={{48,-52},{98,-66}},
+          extent={{50,-52},{100,-66}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yHeaDamSet")}),
+          textString="yHeaDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-240},{140,240}})),
 Documentation(info="<html>
 <p>
@@ -372,33 +370,33 @@ when <code>oveFloSet</code> equals to 1, force the zone airflow setpoint
 <li>
 when <code>oveFloSet</code> equals to 2, force the zone airflow setpoint
 <code>VSet_flow</code> to zone cooling maximum airflow rate
-<code>VZonCooMax_flow</code>,
+<code>VCooMax_flow</code>,
 </li>
 <li>
 when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 <code>VSet_flow</code> to zone minimum airflow setpoint
-<code>VZonMin_flow</code>.
+<code>VMin_flow</code>.
 </li>
 <li>
 when <code>oveFloSet</code> equals to 4, force the zone airflow setpoint
 <code>VSet_flow</code> to zone heating maximum airflow setpoint
-<code>VZonHeaMax_flow</code>.
+<code>VHeaMax_flow</code>.
 </li>
 <li>
 when <code>oveCooDamPos</code> equals to 1, force the cooling damper to full closed by setting
-<code>yCooDamSet</code> to 0,
+<code>yCooDam</code> to 0,
 </li>
 <li>
 when <code>oveCooDamPos</code> equals to 2, force the cooling damper to full open by setting
-<code>yCooDamSet</code> to 1.
+<code>yCooDam</code> to 1.
 </li>
 <li>
 when <code>oveHeaDamPos</code> equals to 1, force the heating damper to full closed by setting
-<code>yHeaDamSet</code> to 0,
+<code>yHeaDam</code> to 0,
 </li>
 <li>
 when <code>oveHeaDamPos</code> equals to 2, force the heating damper to full open by setting
-<code>yHeaDamSet</code> to 1.
+<code>yHeaDam</code> to 1.
 </li>
 </ol>
 </html>",revisions="<html>

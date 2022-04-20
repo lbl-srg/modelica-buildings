@@ -11,7 +11,7 @@ model DamperValves
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.DamperValves damValFan1(
     final minRat=0.01,
     final maxRat=0.1,
-    final have_pressureIndependentDamper=false,
+    final have_preIndDam=false,
     final V_flow_nominal=0.08,
     final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-90},{100,-50}})));
@@ -54,7 +54,7 @@ model DamperValves
     final freqHz=1/3600)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSet(
     final k=273.15 + 20)
     "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -114,9 +114,9 @@ equation
           18},{78,18}}, color={0,0,127}));
   connect(TSup.y, damValFan1.TSup) annotation (Line(points={{-78,70},{52,70},{52,
           -60},{78,-60}}, color={0,0,127}));
-  connect(TZonHeaSet.y, damValFan.TZonHeaSet) annotation (Line(points={{-38,-30},
+  connect(THeaSet.y, damValFan.THeaSet) annotation (Line(points={{-38,-30},
           {36,-30},{36,3},{78,3}}, color={0,0,127}));
-  connect(TZonHeaSet.y, damValFan1.TZonHeaSet) annotation (Line(points={{-38,-30},
+  connect(THeaSet.y, damValFan1.THeaSet) annotation (Line(points={{-38,-30},
           {36,-30},{36,-75},{78,-75}}, color={0,0,127}));
   connect(TDis.y, damValFan.TDis) annotation (Line(points={{-38,-70},{28,-70},{
           28,-3},{78,-3}},

@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subseq
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for dual-duct terminal unit"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.ActiveAirFlow actAirSet(
-    final VZonCooMax_flow=0.5,
-    final VZonHeaMax_flow=0.4)
+    final VCooMax_flow=0.5,
+    final VHeaMax_flow=0.4)
     "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(
@@ -32,8 +32,8 @@ equation
       color={0,0,127}));
   connect(reaToInt2.y, actAirSet.uOpeMod)
     annotation (Line(points={{22,0},{50,0},{50,-8},{58,-8}}, color={255,127,0}));
-  connect(minFlo.y, actAirSet.VOccZonMin_flow) annotation (Line(points={{-58,-40},
-          {40,-40},{40,8},{58,8}},   color={0,0,127}));
+  connect(minFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-58,-40},
+          {40,-40},{40,8},{58,8}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),

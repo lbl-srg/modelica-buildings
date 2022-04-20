@@ -42,7 +42,7 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     "After suppression period due to the setpoint change"
     annotation (Placement(transformation(extent={{-220,240},{-180,280}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
@@ -77,7 +77,7 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
     final min=0,
     final max=1,
     final unit="1")
@@ -98,7 +98,7 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal_actual(
     final min=0,
     final max=1,
     final unit="1") if have_hotWatCoi "Hot water valve position"
@@ -336,7 +336,7 @@ equation
     annotation (Line(points={{-38,130},{38,130}}, color={255,0,255}));
   connect(booToInt.y, intSwi1.u3) annotation (Line(points={{62,130},{80,130},{80,
           172},{98,172}},    color={255,127,0}));
-  connect(uDam, greThr3.u)
+  connect(uDam_actual, greThr3.u)
     annotation (Line(points={{-200,-50},{-162,-50}},   color={0,0,127}));
   connect(VSet_flow, gai1.u) annotation (Line(points={{-200,80},{-160,80},{-160,
           50},{-142,50}},   color={0,0,127}));
@@ -398,21 +398,21 @@ equation
           -110},{80,-172},{98,-172}}, color={255,127,0}));
   connect(intSwi3.y, intSwi2.u3) annotation (Line(points={{122,-180},{130,-180},
           {130,-148},{138,-148}}, color={255,127,0}));
-  connect(uVal, greThr5.u)
+  connect(uVal_actual, greThr5.u)
     annotation (Line(points={{-200,-220},{-142,-220}}, color={0,0,127}));
   connect(greThr5.y, booToInt2.u)
     annotation (Line(points={{-118,-220},{-2,-220}}, color={255,0,255}));
   connect(booToInt2.y, intSwi3.u3) annotation (Line(points={{22,-220},{80,-220},
           {80,-188},{98,-188}}, color={255,127,0}));
-  connect(uVal, greThr6.u) annotation (Line(points={{-200,-220},{-160,-220},{-160,
+  connect(uVal_actual, greThr6.u) annotation (Line(points={{-200,-220},{-160,-220},{-160,
           -270},{-142,-270}}, color={0,0,127}));
   connect(greThr6.y, booToInt3.u)
     annotation (Line(points={{-118,-270},{-2,-270}}, color={255,0,255}));
   connect(booToInt3.y, yHotWatPlaReq)
     annotation (Line(points={{22,-270},{200,-270}}, color={255,127,0}));
-  connect(TZonCooSet, sub3.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
+  connect(TCooSet, sub3.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
           174},{-102,174}}, color={0,0,127}));
-  connect(TZonCooSet, sub2.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
+  connect(TCooSet, sub2.u2) annotation (Line(points={{-200,220},{-162,220},{-162,
           214},{-102,214}}, color={0,0,127}));
   connect(TZon, sub2.u1) annotation (Line(points={{-200,160},{-142,160},{-142,226},
           {-102,226}}, color={0,0,127}));
@@ -467,10 +467,10 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,80},{-52,62}},
+          extent={{-98,78},{-72,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
           extent={{-102,56},{-74,46}},
           lineColor={0,0,127},
@@ -482,20 +482,20 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
-          extent={{-98,18},{-60,4}},
+          extent={{-98,16},{-72,4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{-98,-4},{-60,-14}},
+          extent={{-100,-4},{-66,-14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
-          extent={{-98,-24},{-72,-34}},
+          extent={{-98,-24},{-56,-34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam"),
+          textString="uDam_actual"),
         Text(
           extent={{36,88},{98,72}},
           lineColor={255,127,0},
@@ -515,21 +515,21 @@ annotation (
           textString="uAftSup"),
         Text(
           visible=have_hotWatCoi,
-          extent={{-98,-42},{-68,-56}},
+          extent={{-100,-44},{-72,-54}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDisSet"),
         Text(
           visible=have_hotWatCoi,
-          extent={{-102,-64},{-76,-74}},
+          extent={{-100,-64},{-80,-74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
-          extent={{-98,-84},{-80,-94}},
+          extent={{-98,-84},{-64,-94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uVal"),
+          textString="uVal_actual"),
         Text(
           visible=have_hotWatCoi,
           extent={{40,-20},{98,-36}},
@@ -554,13 +554,13 @@ of ASHRAE Guideline 36, May 2020.
 <ol>
 <li>
 If the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
-<code>TZonCooSet</code> by 3 &deg;C (5 &deg;F)) for 2 minutes and after suppression
+<code>TCooSet</code> by 3 &deg;C (5 &deg;F)) for 2 minutes and after suppression
 period (<code>uAftSup=true</code>) due to setpoint change per G36 Part 5.1.20,
 send 3 requests (<code>yZonTemResReq=3</code>).
 </li>
 <li>
 Else if the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
-<code>TZonCooSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes and after suppression
+<code>TCooSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes and after suppression
 period (<code>uAftSup=true</code>) due to setpoint change per G36 Part 5.1.20,
 send 2 requests (<code>yZonTemResReq=2</code>).
 </li>
@@ -577,19 +577,19 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=
 <li>
 If the measured airflow <code>VPri_flow</code> is less than 50% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
-<code>uDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yZonPreResReq=3</code>).
+<code>uDam_actual</code> is greater than 95% for 1 minute, send 3 requests (<code>yZonPreResReq=3</code>).
 </li>
 <li>
 Else if the measured airflow <code>VPri_flow</code> is less than 70% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
-<code>uDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yZonPreResReq=2</code>).
+<code>uDam_actual</code> is greater than 95% for 1 minute, send 2 requests (<code>yZonPreResReq=2</code>).
 </li>
 <li>
-Else if the damper position <code>uDam</code> is greater than 95%, send 1 request
-(<code>yZonPreResReq=1</code>) until <code>uDam</code> is less than 85%.
+Else if the damper position <code>uDam_actual</code> is greater than 95%, send 1 request
+(<code>yZonPreResReq=1</code>) until <code>uDam_actual</code> is less than 85%.
 </li>
 <li>
-Else if the damper position <code>uDam</code> is less than 95%, send 0 request
+Else if the damper position <code>uDam_actual</code> is less than 95%, send 0 request
 (<code>yZonPreResReq=0</code>).
 </li>
 </ol>
@@ -608,11 +608,11 @@ Else ff the discharging air temperature <code>TDis</code> is 8.3 &deg;C (15 &deg
 for 5 minutes, send 2 requests.
 </li>
 <li>
-Else if the hot water valve position <code>uVal</code> is greater than 95%, send 1
+Else if the hot water valve position <code>uVal_actual</code> is greater than 95%, send 1
 request until the hot water valve position is less than 85%.
 </li>
 <li>
-Else if the hot water valve position <code>uVal</code> is less than 95%, send 0 request.
+Else if the hot water valve position <code>uVal_actual</code> is less than 95%, send 0 request.
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
@@ -620,11 +620,11 @@ plant reqeusts. Send the heating hot-water plant that serves the zone a heating
 hot-water plant request as follows:</h4>
 <ol>
 <li>
-If the hot water valve position <code>uVal</code> is greater than 95%, send 1
+If the hot water valve position <code>uVal_actual</code> is greater than 95%, send 1
 request until the hot water valve position is less than 10%.
 </li>
 <li>
-If the hot water valve position <code>uVal</code> is less than 95%, send 0 requests.
+If the hot water valve position <code>uVal_actual</code> is less than 95%, send 0 requests.
 </li>
 </ol>
 </html>", revisions="<html>

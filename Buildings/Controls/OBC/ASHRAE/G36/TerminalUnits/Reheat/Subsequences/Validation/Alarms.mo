@@ -5,7 +5,7 @@ model Alarms "Validation of model that generates alarms"
     final have_hotWatCoi=true,
     final staPreMul=1,
     final hotWatRes=1,
-    final VZonCooMax_flow=1,
+    final VCooMax_flow=1,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
@@ -73,18 +73,16 @@ equation
     annotation (Line(points={{-78,10},{-62,10}}, color={255,0,255}));
   connect(disAir.y, ala.VDis_flow) annotation (Line(points={{-78,120},{48,120},
           {48,58},{78,58}},color={0,0,127}));
-  connect(supFan.y, ala.uFan) annotation (Line(points={{-78,80},{40,80},{40,54},
+  connect(supFan.y, ala.u1Fan) annotation (Line(points={{-78,80},{40,80},{40,54},
           {78,54}}, color={255,0,255}));
-  connect(mul.y, ala.uDam)
+  connect(mul.y, ala.uDam_actual)
     annotation (Line(points={{2,0},{40,0},{40,52},{78,52}}, color={0,0,127}));
-  connect(valPos.y, ala.uVal) annotation (Line(points={{-38,-40},{44,-40},{44,
-          50},{78,50}},
-                    color={0,0,127}));
+  connect(valPos.y, ala.uVal_actual) annotation (Line(points={{-38,-40},{44,-40},
+          {44,50},{78,50}}, color={0,0,127}));
   connect(TSup.y, ala.TSup) annotation (Line(points={{-78,-60},{48,-60},{48,48},
           {78,48}}, color={0,0,127}));
-  connect(hotPla.y, ala.uHotPla) annotation (Line(points={{-38,-80},{52,-80},{
-          52,46},{78,46}},
-                        color={255,0,255}));
+  connect(hotPla.y, ala.u1HotPla) annotation (Line(points={{-38,-80},{52,-80},{
+          52,46},{78,46}}, color={255,0,255}));
   connect(TDis.y, ala.TDis) annotation (Line(points={{-78,-100},{56,-100},{56,
           44},{78,44}},
                     color={0,0,127}));

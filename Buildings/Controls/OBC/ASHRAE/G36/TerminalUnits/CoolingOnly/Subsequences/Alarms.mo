@@ -356,12 +356,12 @@ to the Section 5.5.6 of ASHRAE Guideline 36, May 2020.
 <h4>Low airflow alarm</h4>
 <ol>
 <li>
-If the measured airflow <code>VDis_flow</code> is less then 70% of setpoint
+If the measured airflow <code>VDis_flow</code> is less than 70% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 3 alarm.
 </li>
 <li>
-If the measured airflow <code>VDis_flow</code> is less then 50% of setpoint
+If the measured airflow <code>VDis_flow</code> is less than 50% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 2 alarm.
 </li>

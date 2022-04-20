@@ -6,12 +6,12 @@ model Controller
     final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final AFlo=20,
     final desZonPop=2,
-    final VZonMin_flow=0.5,
-    final VZonCooMax_flow=1.5,
-    final VHeaZonMin_flow=0.5,
-    final VZonHeaMax_flow=1.2,
+    final VMin_flow=0.5,
+    final VCooMax_flow=1.5,
+    final VHeaMin_flow=0.5,
+    final VHeaMax_flow=1.2,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final have_pressureIndependentDamper=false,
+    final have_preIndDam=false,
     final V_flow_nominal=1.5,
     final staPreMul=1,
     final hotWatRes=1,
@@ -152,14 +152,14 @@ model Controller
 equation
   connect(TZon.y,rehBoxCon. TZon) annotation (Line(points={{-98,240},{52,240},{52,
           109},{98,109}}, color={0,0,127}));
-  connect(cooSet.y,rehBoxCon. TZonCooSet) annotation (Line(points={{-58,220},{48,
+  connect(cooSet.y,rehBoxCon. TCooSet) annotation (Line(points={{-58,220},{48,
           220},{48,107},{98,107}}, color={0,0,127}));
-  connect(heaSet.y,rehBoxCon. TZonHeaSet) annotation (Line(points={{-98,200},{44,
+  connect(heaSet.y,rehBoxCon. THeaSet) annotation (Line(points={{-98,200},{44,
           200},{44,105},{98,105}}, color={0,0,127}));
-  connect(winSta.y,rehBoxCon. uWin) annotation (Line(points={{-58,180},{40,180},
+  connect(winSta.y, rehBoxCon.u1Win) annotation (Line(points={{-58,180},{40,180},
           {40,102},{98,102}}, color={255,0,255}));
-  connect(occ.y,rehBoxCon. uOcc) annotation (Line(points={{-98,160},{36,160},{36,
-          100},{98,100}},  color={255,0,255}));
+  connect(occ.y, rehBoxCon.u1Occ) annotation (Line(points={{-98,160},{36,160},{
+          36,100},{98,100}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-98,130},{-82,130}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
@@ -183,18 +183,18 @@ equation
           {40,92},{98,92}}, color={0,0,127}));
   connect(reaToInt3.y,rehBoxCon. oveDamPos) annotation (Line(points={{-18,-100},
           {60,-100},{60,82},{98,82}}, color={255,127,0}));
-  connect(damPos.y,rehBoxCon. uDam) annotation (Line(points={{-58,-160},{68,-160},
-          {68,78},{98,78}}, color={0,0,127}));
-  connect(valPos.y,rehBoxCon. uVal) annotation (Line(points={{-98,-180},{72,-180},
-          {72,76},{98,76}}, color={0,0,127}));
+  connect(damPos.y, rehBoxCon.uDam_actual) annotation (Line(points={{-58,-160},
+          {68,-160},{68,78},{98,78}}, color={0,0,127}));
+  connect(valPos.y, rehBoxCon.uVal_actual) annotation (Line(points={{-98,-180},
+          {72,-180},{72,76},{98,76}}, color={0,0,127}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-98,-140},{-42,-140}}, color={255,0,255}));
   connect(not1.y,rehBoxCon. uHeaOff) annotation (Line(points={{-18,-140},{64,-140},
           {64,80},{98,80}}, color={255,0,255}));
-  connect(supFan.y,rehBoxCon. uFan) annotation (Line(points={{-58,-200},{76,-200},
+  connect(supFan.y, rehBoxCon.u1Fan) annotation (Line(points={{-58,-200},{76,-200},
           {76,73.2},{98,73.2}}, color={255,0,255}));
-  connect(hotPla.y,rehBoxCon. uHotPla) annotation (Line(points={{-58,-240},{80,-240},
-          {80,71.2},{98,71.2}}, color={255,0,255}));
+  connect(hotPla.y, rehBoxCon.u1HotPla) annotation (Line(points={{-58,-240},{80,
+          -240},{80,71.2},{98,71.2}}, color={255,0,255}));
   connect(TSupSet.y,rehBoxCon. TSupSet) annotation (Line(points={{-98,-30},{52,-30},
           {52,86},{98,86}}, color={0,0,127}));
   connect(TSup.y,rehBoxCon. TSup) annotation (Line(points={{-58,-10},{48,-10},{48,

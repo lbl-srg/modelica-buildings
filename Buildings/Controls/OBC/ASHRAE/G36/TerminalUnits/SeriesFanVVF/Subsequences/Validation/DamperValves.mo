@@ -9,7 +9,7 @@ model DamperValves
     annotation (Placement(transformation(extent={{80,0},{100,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.DamperValves damValFan1(
     final maxRat=0.1,
-    final have_pressureIndependentDamper=false,
+    final have_preIndDam=false,
     final V_flow_nominal=0.08,
     final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-100},{100,-60}})));
@@ -56,7 +56,7 @@ model DamperValves
     final freqHz=1/3600)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSet(
     final k=273.15 + 20)
     "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -109,9 +109,9 @@ equation
           15},{78,15}}, color={0,0,127}));
   connect(uHea.y, damValFan1.uHea) annotation (Line(points={{-38,-20},{32,-20},{
           32,-85},{78,-85}}, color={0,0,127}));
-  connect(disAir.y, damValFan.VDis_flow) annotation (Line(points={{-38,140},{64,
+  connect(disAir.y, damValFan.VPri_flow) annotation (Line(points={{-38,140},{64,
           140},{64,39},{78,39}}, color={0,0,127}));
-  connect(disAir.y, damValFan1.VDis_flow) annotation (Line(points={{-38,140},{64,
+  connect(disAir.y, damValFan1.VPri_flow) annotation (Line(points={{-38,140},{64,
           140},{64,-61},{78,-61}}, color={0,0,127}));
   connect(TSupSet.y, damValFan.TSupSet) annotation (Line(points={{-38,20},{40,20},
           {40,21},{78,21}}, color={0,0,127}));
@@ -121,9 +121,9 @@ equation
           30},{78,30}}, color={0,0,127}));
   connect(TSup.y, damValFan1.TSup) annotation (Line(points={{-78,80},{52,80},{52,
           -70},{78,-70}}, color={0,0,127}));
-  connect(TZonHeaSet.y, damValFan.TZonHeaSet) annotation (Line(points={{-78,0},{
+  connect(THeaSet.y, damValFan.THeaSet) annotation (Line(points={{-78,0},{
           36,0},{36,18},{78,18}},    color={0,0,127}));
-  connect(TZonHeaSet.y, damValFan1.TZonHeaSet) annotation (Line(points={{-78,0},
+  connect(THeaSet.y, damValFan1.THeaSet) annotation (Line(points={{-78,0},
           {36,0},{36,-82},{78,-82}},   color={0,0,127}));
   connect(TDis.y, damValFan.TDis) annotation (Line(points={{-78,-40},{28,-40},{28,
           12},{78,12}}, color={0,0,127}));
@@ -138,14 +138,14 @@ equation
           {20,6},{78,6}},         color={255,127,0}));
   connect(reaToInt2.y, damValFan1.uOpeMod) annotation (Line(points={{2,-90},{20,
           -90},{20,-94},{78,-94}},  color={255,127,0}));
-  connect(terFan.y, damValFan.uFan) annotation (Line(points={{-78,-120},{16,-120},
+  connect(terFan.y, damValFan.u1Fan) annotation (Line(points={{-78,-120},{16,-120},
           {16,3},{78,3}}, color={255,0,255}));
-  connect(terFan.y, damValFan1.uFan) annotation (Line(points={{-78,-120},{16,-120},
+  connect(terFan.y, damValFan1.u1Fan) annotation (Line(points={{-78,-120},{16,-120},
           {16,-97},{78,-97}}, color={255,0,255}));
-  connect(damPos.y, damValFan.uDamPos) annotation (Line(points={{-38,-140},{12,-140},
-          {12,1},{78,1}}, color={0,0,127}));
-  connect(damPos.y, damValFan1.uDamPos) annotation (Line(points={{-38,-140},{12,
-          -140},{12,-99},{78,-99}}, color={0,0,127}));
+  connect(damPos.y, damValFan.uDam_actual) annotation (Line(points={{-38,-140},{
+          12,-140},{12,1},{78,1}}, color={0,0,127}));
+  connect(damPos.y, damValFan1.uDam_actual) annotation (Line(points={{-38,-140},
+          {12,-140},{12,-99},{78,-99}}, color={0,0,127}));
   connect(VMinOut_flow.y, damValFan.VOAMin_flow) annotation (Line(points={{-38,-60},
           {24,-60},{24,9},{78,9}}, color={0,0,127}));
   connect(VMinOut_flow.y, damValFan1.VOAMin_flow) annotation (Line(points={{-38,

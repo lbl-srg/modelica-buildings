@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences;
 block Overrides "Software switches to override setpoints"
 
-  parameter Real VZonMin_flow(
+  parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint";
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -25,26 +25,28 @@ block Overrides "Software switches to override setpoints"
     "Index of overriding damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
-    final unit="1") "Damper position setpoint"
+    final unit="1")
+    "Damper commanded position"
     annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaOff
     "Override heating valve position, true: close heating valve"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
         iconTransformation(extent={{-140,-38},{-100,2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uValSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final unit="1")
-    "Heating valve position setpoint"
+    "Heating valve commanded position"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
         iconTransformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFan
     "Index of overriding fan status, 1: turn fan off; 2: turn fan on"
     annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Terminal fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
+    "Terminal fan proven on"
     annotation (Placement(transformation(extent={{-180,-260},{-140,-220}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow(
@@ -54,19 +56,19 @@ block Overrides "Software switches to override setpoints"
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{140,100},{180,140}}),
         iconTransformation(extent={{100,50},{140,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
-    final unit="1") "Damper position setpoint after considering override"
+    final unit="1") "Damper commanded position, after considering override"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(
     final min=0,
     final unit="1")
-    "Heating valve position setpoint after considering override"
+    "Heating valve commanded position, after considering override"
     annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFanStaSet
-    "Fan status after considering override"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Fan
+    "Fan command on, after considering override"
     annotation (Placement(transformation(extent={{140,-170},{180,-130}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
@@ -96,11 +98,11 @@ block Overrides "Software switches to override setpoints"
     "Force zone airflow setpoint to zero"
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cooMax(
-    final realTrue=VZonCooMax_flow)
+    final realTrue=VCooMax_flow)
     "Force zone airflow setpoint to cooling maximum"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal minFlo(
-    final realTrue=VZonMin_flow)
+    final realTrue=VMin_flow)
     "Force zone airflow setpoint to zone minimum flow"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
@@ -237,9 +239,9 @@ equation
                     color={0,0,127}));
   connect(or2.y, swi1.u2)
     annotation (Line(points={{22,0},{78,0}}, color={255,0,255}));
-  connect(uDamSet, swi1.u3) annotation (Line(points={{-160,-30},{60,-30},{60,-8},
-          {78,-8}},   color={0,0,127}));
-  connect(swi1.y, yDamSet)
+  connect(uDam, swi1.u3) annotation (Line(points={{-160,-30},{60,-30},{60,-8},{78,
+          -8}}, color={0,0,127}));
+  connect(swi1.y, yDam)
     annotation (Line(points={{102,0},{160,0}}, color={0,0,127}));
   connect(add2.y, add1.u2) annotation (Line(points={{42,170},{50,170},{50,204},{
           58,204}}, color={0,0,127}));
@@ -247,9 +249,9 @@ equation
     annotation (Line(points={{-160,-60},{-82,-60}}, color={255,0,255}));
   connect(booToRea.y, pro.u1) annotation (Line(points={{-58,-60},{60,-60},{60,-74},
           {78,-74}}, color={0,0,127}));
-  connect(uValSet, pro.u2) annotation (Line(points={{-160,-100},{60,-100},{60,-86},
-          {78,-86}},  color={0,0,127}));
-  connect(pro.y,yValSet)
+  connect(uVal, pro.u2) annotation (Line(points={{-160,-100},{60,-100},{60,-86},
+          {78,-86}}, color={0,0,127}));
+  connect(pro.y,yVal)
     annotation (Line(points={{102,-80},{160,-80}}, color={0,0,127}));
   connect(minFlo.y, add2.u2) annotation (Line(points={{-18,150},{0,150},{0,164},
           {18,164}}, color={0,0,127}));
@@ -271,11 +273,11 @@ equation
     annotation (Line(points={{-38,-200},{18,-200}}, color={255,0,255}));
   connect(con1.y, logSwi1.u1) annotation (Line(points={{2,-170},{10,-170},{10,-192},
           {18,-192}}, color={255,0,255}));
-  connect(uFan, logSwi1.u3) annotation (Line(points={{-160,-240},{0,-240},{0,-208},
+  connect(u1Fan, logSwi1.u3) annotation (Line(points={{-160,-240},{0,-240},{0,-208},
           {18,-208}}, color={255,0,255}));
   connect(logSwi1.y, logSwi.u3) annotation (Line(points={{42,-200},{60,-200},{60,
           -158},{78,-158}}, color={255,0,255}));
-  connect(logSwi.y, yFanStaSet)
+  connect(logSwi.y, y1Fan)
     annotation (Line(points={{102,-150},{160,-150}}, color={255,0,255}));
 
 annotation (defaultComponentName="ove",
@@ -314,7 +316,7 @@ annotation (defaultComponentName="ove",
           extent={{60,36},{100,24}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yDamSet"),
+          textString="yDam"),
         Text(
           extent={{58,78},{98,66}},
           lineColor={0,0,127},
@@ -334,7 +336,7 @@ annotation (defaultComponentName="ove",
           extent={{60,-22},{100,-34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yValSet"),
+          textString="yVal"),
         Text(
           extent={{-100,-82},{-74,-96}},
           lineColor={255,0,255},
@@ -369,24 +371,24 @@ when <code>oveFloSet</code> equals to 1, force the zone airflow setpoint
 <li>
 when <code>oveFloSet</code> equals to 2, force the zone airflow setpoint
 <code>VSet_flow</code> to zone cooling maximum airflow rate
-<code>VZonCooMax_flow</code>,
+<code>VCooMax_flow</code>,
 </li>
 <li>
 when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 <code>VSet_flow</code> to zone minimum airflow setpoint
-<code>VZonMin_flow</code>.
+<code>VMin_flow</code>.
 </li>
 <li>
 when <code>oveDamPos</code> equals to 1, force the damper to full closed by setting
-<code>yDamSet</code> to 0,
+<code>yDam</code> to 0,
 </li>
 <li>
 when <code>oveDamPos</code> equals to 2, force the damper to full open by setting
-<code>yDamSet</code> to 1.
+<code>yDam</code> to 1.
 </li>
 <li>
 when <code>uHeaOff</code> equals to <code>true</code>, force the heating valve to
-full closed by setting <code>yValSet</code> to 0.
+full closed by setting <code>yVal</code> to 0.
 </li>
 <li>
 When <code>oveFan</code> equals to 1, force the fan to turn OFF.

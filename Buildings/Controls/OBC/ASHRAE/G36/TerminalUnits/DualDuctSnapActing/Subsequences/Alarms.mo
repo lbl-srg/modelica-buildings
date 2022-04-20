@@ -5,11 +5,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "True: the unit have dual inlet flow sensor";
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VZonHeaMax_flow(
+  parameter Real VHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -55,11 +55,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Measured cold-duct discharge airflow rate"
     annotation (Placement(transformation(extent={{-280,-80},{-240,-40}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooFan
     "Cooling air handler supply fan status"
     annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam_actual(
     final min=0,
     final unit="1")
     "Actual cold-duct air damper position"
@@ -72,11 +72,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Measured hot-duct discharge airflow rate"
     annotation (Placement(transformation(extent={{-280,-310},{-240,-270}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaFan
     "Heating air handler supply fan status"
     annotation (Placement(transformation(extent={{-280,-370},{-240,-330}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam_actual(
     final min=0,
     final unit="1")
     "Actual hot-duct air damper position"
@@ -192,7 +192,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,290},{120,310}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
-    final k=VZonCooMax_flow) if have_duaSen "Cooling maximum airflow setpoint"
+    final k=VCooMax_flow) if have_duaSen "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.1) if have_duaSen
@@ -248,7 +248,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxFlo(
-    final k=VZonHeaMax_flow)
+    final k=VHeaMax_flow)
     if have_duaSen "Heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=0.1)
@@ -307,7 +307,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-430},{160,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo1(
-    final k=VZonCooMax_flow) if not have_duaSen
+    final k=VCooMax_flow) if not have_duaSen
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
@@ -433,7 +433,7 @@ equation
     annotation (Line(points={{-178,-80},{-162,-80}}, color={0,0,127}));
   connect(not3.y, truDel2.u)
     annotation (Line(points={{-178,-120},{-162,-120}}, color={255,0,255}));
-  connect(uCooFan, not3.u)
+  connect(u1CooFan, not3.u)
     annotation (Line(points={{-260,-120},{-202,-120}}, color={255,0,255}));
   connect(gai2.y, gre1.u2) annotation (Line(points={{-138,-80},{-120,-80},{-120,
           -68},{-102,-68}}, color={0,0,127}));
@@ -453,11 +453,11 @@ equation
     annotation (Line(points={{222,360},{260,360}}, color={255,127,0}));
   connect(gre1.y, truDel3.u) annotation (Line(points={{-78,-60},{-60,-60},{-60,-160},
           {-22,-160}}, color={255,0,255}));
-  connect(uCooDam, cloDam.u)
+  connect(uCooDam_actual, cloDam.u)
     annotation (Line(points={{-260,-230},{-202,-230}}, color={0,0,127}));
   connect(truDel3.y, leaDamAla.u1) annotation (Line(points={{2,-160},{20,-160},{
           20,-182},{38,-182}}, color={255,0,255}));
-  connect(uCooFan, leaDamAla.u2) annotation (Line(points={{-260,-120},{-220,-120},
+  connect(u1CooFan, leaDamAla.u2) annotation (Line(points={{-260,-120},{-220,-120},
           {-220,-190},{38,-190}}, color={255,0,255}));
   connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-178,-230},{20,-230},
           {20,-198},{38,-198}}, color={255,0,255}));
@@ -475,7 +475,7 @@ equation
     annotation (Line(points={{-178,-310},{-162,-310}}, color={0,0,127}));
   connect(not6.y,truDel4. u)
     annotation (Line(points={{-178,-350},{-162,-350}}, color={255,0,255}));
-  connect(uHeaFan, not6.u)
+  connect(u1HeaFan, not6.u)
     annotation (Line(points={{-260,-350},{-202,-350}}, color={255,0,255}));
   connect(gai3.y,gre2. u2) annotation (Line(points={{-138,-310},{-120,-310},{-120,
           -298},{-102,-298}}, color={0,0,127}));
@@ -493,11 +493,11 @@ equation
     annotation (Line(points={{162,-290},{260,-290}}, color={255,127,0}));
   connect(gre2.y,truDel5. u) annotation (Line(points={{-78,-290},{-60,-290},{-60,
           -390},{-22,-390}}, color={255,0,255}));
-  connect(uHeaDam, cloDam1.u)
+  connect(uHeaDam_actual, cloDam1.u)
     annotation (Line(points={{-260,-460},{-202,-460}}, color={0,0,127}));
   connect(truDel5.y, leaDamAla1.u1) annotation (Line(points={{2,-390},{20,-390},
           {20,-412},{38,-412}}, color={255,0,255}));
-  connect(uHeaFan, leaDamAla1.u2) annotation (Line(points={{-260,-350},{-210,-350},
+  connect(u1HeaFan, leaDamAla1.u2) annotation (Line(points={{-260,-350},{-210,-350},
           {-210,-420},{38,-420}}, color={255,0,255}));
   connect(cloDam1.y, leaDamAla1.u3) annotation (Line(points={{-178,-460},{20,-460},
           {20,-428},{38,-428}}, color={255,0,255}));
@@ -519,9 +519,9 @@ equation
           200},{-82,200}}, color={0,0,127}));
   connect(gre3.y, and7.u1)
     annotation (Line(points={{-58,200},{38,200}}, color={255,0,255}));
-  connect(uCooFan, or2.u1) annotation (Line(points={{-260,-120},{-220,-120},{-220,
+  connect(u1CooFan, or2.u1) annotation (Line(points={{-260,-120},{-220,-120},{-220,
           100},{-202,100}}, color={255,0,255}));
-  connect(uHeaFan, or2.u2) annotation (Line(points={{-260,-350},{-210,-350},{-210,
+  connect(u1HeaFan, or2.u2) annotation (Line(points={{-260,-350},{-210,-350},{-210,
           92},{-202,92}}, color={255,0,255}));
   connect(or2.y, not10.u)
     annotation (Line(points={{-178,100},{-162,100}}, color={255,0,255}));
@@ -592,15 +592,15 @@ annotation (defaultComponentName="ala",
           textString="VDis_flow",
           visible=not have_duaSen),
         Text(
-          extent={{-98,28},{-54,14}},
+          extent={{-96,30},{-26,14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooDam"),
+          textString="uCooDam_actual"),
         Text(
           extent={{-98,58},{-58,44}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uCooFan"),
+          textString="u1CooFan"),
         Text(
           extent={{46,190},{96,176}},
           lineColor={255,127,0},
@@ -625,15 +625,15 @@ annotation (defaultComponentName="ala",
           textString="VColDucDis_flow",
           visible=have_duaSen),
         Text(
-          extent={{-96,-162},{-52,-176}},
+          extent={{-96,-160},{-26,-180}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaDam"),
+          textString="uHeaDam_actual"),
         Text(
           extent={{-96,-132},{-56,-146}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHeaFan"),
+          textString="u1HeaFan"),
         Text(
           extent={{-96,-102},{-26,-118}},
           lineColor={0,0,127},
@@ -673,12 +673,12 @@ implementation is according to the Section 5.11.6 of ASHRAE Guideline 36, May 20
 <h4>Low airflow</h4>
 <ol>
 <li>
-If the measured airflow <code>VDis_flow</code> is less then 70% of setpoint
+If the measured airflow <code>VDis_flow</code> is less than 70% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 3 alarm.
 </li>
 <li>
-If the measured airflow <code>VDis_flow</code> is less then 50% of setpoint
+If the measured airflow <code>VDis_flow</code> is less than 50% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 2 alarm.
 </li>
@@ -694,15 +694,15 @@ suppressed for that zone.
 If the unit has dual inlet sensor (<code>have_duaSen=true</code>):
 <ul>
 <li>
-If the cooling fan serving the zone has been OFF (<code>uCooFan=false</code>) for 10 minutes
+If the cooling fan serving the zone has been OFF (<code>u1CooFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and the cold-duct airflow sensor reading <code>VColDucDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VCooMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 <li>
-If the heating fan serving the zone has been OFF (<code>uHeaFan=false</code>) for 10 minutes
+If the heating fan serving the zone has been OFF (<code>u1HeaFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and the hot-duct airflow sensor reading <code>VHotDucDis_flow</code>
-is above 10% of the heating maximum airflow setpoint <code>VZonHeaMax_flow</code>,
+is above 10% of the heating maximum airflow setpoint <code>VHeaMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 </ul>
@@ -711,10 +711,10 @@ generate a Level 3 alarm.
 If the unit has single discharge flow sensor (<code>have_duaSen=false</code>):
 <ul>
 <li>
-If the cooling and heating fans serving the zone have been OFF (<code>uCooFan=false</code>
-and <code>uHeaFan=false</code>) for 10 minutes (<code>fanOffTim</code>), and the
+If the cooling and heating fans serving the zone have been OFF (<code>u1CooFan=false</code>
+and <code>u1HeaFan=false</code>) for 10 minutes (<code>fanOffTim</code>), and the
 discharge airflow sensor reading <code>VDis_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VCooMax_flow</code>,
 generate a Level 3 alarm.
 </li>
 </ul>
@@ -726,17 +726,17 @@ generate a Level 3 alarm.
 If the unit has dual inlet sensor (<code>have_duaSen=true</code>):
 <ul>
 <li>
-If the cooling damper position (<code>uCooDam</code>) is 0% and airflow sensor reading
+If the cooling damper position (<code>uCooDam_actual</code>) is 0% and airflow sensor reading
 <code>VColDucDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
-fan serving the zone is proven on (<code>uCooFan=true</code>), generate a Level
+<code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+fan serving the zone is proven on (<code>u1CooFan=true</code>), generate a Level
 4 alarm.
 </li>
 <li>
-If the heating damper position (<code>uHeaDam</code>) is 0% and airflow sensor reading
+If the heating damper position (<code>uHeaDam_actual</code>) is 0% and airflow sensor reading
 <code>VHotDucDis_flow</code> is above 10% of the heating maximum airflow setpoint
-<code>VZonHeaMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
-fan serving the zone is proven on (<code>uHeaFan=true</code>), generate a Level
+<code>VHeaMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+fan serving the zone is proven on (<code>u1HeaFan=true</code>), generate a Level
 4 alarm.
 </li>
 </ul>
@@ -745,11 +745,11 @@ fan serving the zone is proven on (<code>uHeaFan=true</code>), generate a Level
 If the unit has single discharge flow sensor (<code>have_duaSen=false</code>):
 <ul>
 <li>
-If the cooling and heating damper position (<code>uCooDam</code> and <code>uHeaDam</code>)
+If the cooling and heating damper position (<code>uCooDam_actual</code> and <code>uHeaDam_actual</code>)
 are 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
-fan serving the zone is proven on (<code>uCooFan=true</code> or <code>uHeaFan=true</code>),
+<code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+fan serving the zone is proven on (<code>u1CooFan=true</code> or <code>u1HeaFan=true</code>),
 generate a Level 4 alarm.
 </li>
 </ul>

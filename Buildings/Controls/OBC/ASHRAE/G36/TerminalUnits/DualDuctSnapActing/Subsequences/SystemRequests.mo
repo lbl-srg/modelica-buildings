@@ -43,7 +43,7 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     "After suppression period due to the cooling setpoint change"
     annotation (Placement(transformation(extent={{-240,360},{-200,400}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
@@ -76,21 +76,23 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     "Measured cold duct discharge airflow rate"
     annotation (Placement(transformation(extent={{-240,90},{-200,130}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam_actual(
     final min=0,
     final max=1,
-    final unit="1") "Actual cooling damper position"
+    final unit="1")
+    "Actual cooling damper position"
     annotation (Placement(transformation(extent={{-240,50},{-200,90}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooDamSta if not have_duaSen
-    "Cold duct damper is opening"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooDam
+    if not have_duaSen
+    "Cold duct damper proven on"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSupHea
     "After suppression period due to the heating setpoint change"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
@@ -118,15 +120,16 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     "Measured hot duct discharge airflow rate"
     annotation (Placement(transformation(extent={{-240,-310},{-200,-270}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam_actual(
     final min=0,
     final max=1,
     final unit="1")
     "Actual heating damper position"
     annotation (Placement(transformation(extent={{-240,-350},{-200,-310}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaDamSta if not have_duaSen
-    "Hot duct damper is opening"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaDam
+    if not have_duaSen
+    "Hot duct damper proven on"
     annotation (Placement(transformation(extent={{-240,-380},{-200,-340}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonCooTemResReq
@@ -453,8 +456,8 @@ equation
     annotation (Line(points={{-58,250},{18,250}}, color={255,0,255}));
   connect(booToInt.y, intSwi1.u3) annotation (Line(points={{42,250},{60,250},{60,
           292},{78,292}},    color={255,127,0}));
-  connect(uCooDam, greThr3.u)
-    annotation (Line(points={{-220,70},{-162,70}},   color={0,0,127}));
+  connect(uCooDam_actual, greThr3.u)
+    annotation (Line(points={{-220,70},{-162,70}}, color={0,0,127}));
   connect(VColDuc_flow_Set, gai1.u) annotation (Line(points={{-220,200},{-160,200},
           {-160,170},{-142,170}}, color={0,0,127}));
   connect(VColDuc_flow_Set, gai2.u) annotation (Line(points={{-220,200},{-160,200},
@@ -483,9 +486,9 @@ equation
           {110,188},{118,188}}, color={255,127,0}));
   connect(swi5.y, swi4.u3) annotation (Line(points={{102,110},{110,110},{110,172},
           {118,172}}, color={255,127,0}));
-  connect(TZonCooSet, sub3.u2) annotation (Line(points={{-220,340},{-160,340},{-160,
+  connect(TCooSet, sub3.u2) annotation (Line(points={{-220,340},{-160,340},{-160,
           294},{-122,294}}, color={0,0,127}));
-  connect(TZonCooSet, sub2.u2) annotation (Line(points={{-220,340},{-160,340},{-160,
+  connect(TCooSet, sub2.u2) annotation (Line(points={{-220,340},{-160,340},{-160,
           334},{-122,334}}, color={0,0,127}));
   connect(TZon, sub2.u1) annotation (Line(points={{-220,280},{-180,280},{-180,346},
           {-122,346}}, color={0,0,127}));
@@ -543,7 +546,7 @@ equation
     annotation (Line(points={{-58,-150},{18,-150}}, color={255,0,255}));
   connect(booToInt4.y, intSwi5.u3) annotation (Line(points={{42,-150},{60,-150},
           {60,-108},{78,-108}}, color={255,127,0}));
-  connect(uHeaDam, greThr9.u)
+  connect(uHeaDam_actual, greThr9.u)
     annotation (Line(points={{-220,-330},{-182,-330}}, color={0,0,127}));
   connect(VHotDuc_flow_Set, gai3.u) annotation (Line(points={{-220,-200},{-180,-200},
           {-180,-230},{-162,-230}}, color={0,0,127}));
@@ -573,10 +576,10 @@ equation
           {110,-212},{118,-212}}, color={255,127,0}));
   connect(swi2.y,swi1. u3) annotation (Line(points={{102,-290},{110,-290},{110,-228},
           {118,-228}},color={255,127,0}));
-  connect(TZonHeaSet, sub1.u1) annotation (Line(points={{-220,-60},{-160,-60},{-160,
-          -54},{-122,-54}},         color={0,0,127}));
-  connect(TZonHeaSet, sub4.u1) annotation (Line(points={{-220,-60},{-160,-60},{-160,
-          -94},{-122,-94}},         color={0,0,127}));
+  connect(THeaSet, sub1.u1) annotation (Line(points={{-220,-60},{-160,-60},{-160,
+          -54},{-122,-54}}, color={0,0,127}));
+  connect(THeaSet, sub4.u1) annotation (Line(points={{-220,-60},{-160,-60},{-160,
+          -94},{-122,-94}}, color={0,0,127}));
   connect(TZon, sub1.u2) annotation (Line(points={{-220,280},{-180,280},{-180,-66},
           {-122,-66}},  color={0,0,127}));
   connect(TZon, sub4.u2) annotation (Line(points={{-220,280},{-180,280},{-180,-106},
@@ -593,7 +596,7 @@ equation
     annotation (Line(points={{22,-390},{78,-390}}, color={255,0,255}));
   connect(booToInt6.y, yHeaFanReq)
     annotation (Line(points={{102,-390},{220,-390}}, color={255,127,0}));
-  connect(uCooDamSta, booToInt2.u)
+  connect(u1CooDam, booToInt2.u)
     annotation (Line(points={{-220,40},{18,40}}, color={255,0,255}));
   connect(booToInt2.y, mulInt.u2) annotation (Line(points={{42,40},{140,40},{140,
           54},{158,54}}, color={255,127,0}));
@@ -607,7 +610,7 @@ equation
     annotation (Line(points={{182,100},{220,100}}, color={255,127,0}));
   connect(mulInt.y, yColDucPreResReq) annotation (Line(points={{182,60},{190,60},
           {190,100},{220,100}}, color={255,127,0}));
-  connect(uHeaDamSta, booToInt3.u)
+  connect(u1HeaDam, booToInt3.u)
     annotation (Line(points={{-220,-360},{18,-360}}, color={255,0,255}));
   connect(booToInt3.y, mulInt2.u2) annotation (Line(points={{42,-360},{140,-360},
           {140,-346},{158,-346}}, color={255,127,0}));
@@ -804,13 +807,13 @@ Guideline 36, May 2020.
 <ol>
 <li>
 If the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
-<code>TZonCooSet</code> by 3 &deg;C (5 &deg;F)) for 2 minutes and after suppression
+<code>TCooSet</code> by 3 &deg;C (5 &deg;F)) for 2 minutes and after suppression
 period (<code>uAftSupCoo=true</code>) due to setpoint change per G36 Part 5.1.20,
 send 3 requests (<code>yZonCooTemResReq=3</code>).
 </li>
 <li>
 Else if the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
-<code>TZonCooSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes and after suppression
+<code>TCooSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes and after suppression
 period (<code>uAftSupCoo=true</code>) due to setpoint change per G36 Part 5.1.20,
 send 2 requests (<code>yZonCooTemResReq=3</code>).
 </li>
@@ -827,19 +830,19 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonCooTemResR
 <li>
 If the measured airflow <code>VColDucDis_flow</code> is less than 50% of setpoint
 <code>VColDuc_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uCooDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yColDucPreResReq=3</code>).
+<code>uCooDam_actual</code> is greater than 95% for 1 minute, send 3 requests (<code>yColDucPreResReq=3</code>).
 </li>
 <li>
 Else if the measured airflow <code>VColDucDis_flow</code> is less than 70% of setpoint
 <code>VColDuc_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uCooDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yColDucPreResReq=2</code>).
+<code>uCooDam_actual</code> is greater than 95% for 1 minute, send 2 requests (<code>yColDucPreResReq=2</code>).
 </li>
 <li>
-Else if the damper position <code>uCooDam</code> is greater than 95%, send 1 request
+Else if the damper position <code>uCooDam_actual</code> is greater than 95%, send 1 request
 (<code>yColDucPreResReq=1</code>) until <code>uDam</code> is less than 85%.
 </li>
 <li>
-Else if the damper position <code>uCooDam</code> is less than 95%, send 0 request
+Else if the damper position <code>uCooDam_actual</code> is less than 95%, send 0 request
 (<code>yColDucPreResReq=0</code>).
 </li>
 </ol>
@@ -847,13 +850,13 @@ Else if the damper position <code>uCooDam</code> is less than 95%, send 0 reques
 <ol>
 <li>
 If the zone temperature <code>TZon</code> is below the zone heating setpoint
-<code>TZonHeaSet</code> by 3 &deg;C (5 &deg;F)) for 2 minutes and after suppression
+<code>THeaSet</code> by 3 &deg;C (5 &deg;F)) for 2 minutes and after suppression
 period (<code>uAftSupHea=true</code>) due to setpoint change per G36 Part 5.1.20,
 send 3 requests (<code>yZonHeaTemResReq=3</code>).
 </li>
 <li>
 Else if the zone temperature <code>TZon</code> is below the zone heating setpoint
-<code>TZonHeaSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes and after suppression
+<code>THeaSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes and after suppression
 period (<code>uAftSupHea=true</code>) due to setpoint change per G36 Part 5.1.20,
 send 2 requests (<code>yZonHeaTemResReq=3</code>).
 </li>
@@ -870,19 +873,19 @@ Else if <code>uHea</code> is less than 95%, send 0 request (<code>yZonHeaTemResR
 <li>
 If the measured airflow <code>VHotDucDis_flow</code> is less than 50% of setpoint
 <code>VHotDuc_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uHotDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yHotDucPreResReq=3</code>).
+<code>uHeaDam_actual</code> is greater than 95% for 1 minute, send 3 requests (<code>yHotDucPreResReq=3</code>).
 </li>
 <li>
 Else if the measured airflow <code>VHotDucDis_flow</code> is less than 70% of setpoint
 <code>VHotDuc_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uHotDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yHotDucPreResReq=2</code>).
+<code>uHeaDam_actual</code> is greater than 95% for 1 minute, send 2 requests (<code>yHotDucPreResReq=2</code>).
 </li>
 <li>
-Else if the damper position <code>uHotDam</code> is greater than 95%, send 1 request
-(<code>yHotDucPreResReq=1</code>) until <code>uHeaDam</code> is less than 85%.
+Else if the damper position <code>uHeaDam_actual</code> is greater than 95%, send 1 request
+(<code>yHotDucPreResReq=1</code>) until <code>uHeaDam_actual</code> is less than 85%.
 </li>
 <li>
-Else if the damper position <code>uHotDam</code> is less than 95%, send 0 request
+Else if the damper position <code>uHeaDam_actual</code> is less than 95%, send 0 request
 (<code>yHotDucPreResReq=0</code>).
 </li>
 </ol>

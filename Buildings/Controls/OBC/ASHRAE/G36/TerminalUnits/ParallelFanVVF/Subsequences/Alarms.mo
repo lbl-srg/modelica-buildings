@@ -8,7 +8,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
   parameter Real hotWatRes
     "Importance multiplier for the hot water reset control loop"
     annotation (Dialog(enable=have_hotWatCoi));
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -69,24 +69,25 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
     final quantity="VolumeFlowRate") "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-280,310},{-240,350}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFanCom
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FanCom
     "Terminal fan command on"
     annotation (Placement(transformation(extent={{-280,40},{-240,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTerFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1TerFan
     "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,0},{-240,40}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
     final min=0,
-    final unit="1") "Actual damper position"
+    final unit="1")
+    "Actual damper position"
     annotation (Placement(transformation(extent={{-280,-130},{-240,-90}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal_actual(
     final min=0,
     final unit="1")
     "Actual valve position"
@@ -99,7 +100,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
     "Temperature of the air supplied from central air handler"
     annotation (Placement(transformation(extent={{-280,-250},{-240,-210}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotPla if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-290},{-240,-250}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -221,7 +222,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,280},{120,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
-    final k=VZonCooMax_flow)
+    final k=VCooMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,170},{-180,190}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
@@ -490,8 +491,8 @@ equation
     annotation (Line(points={{-178,180},{-162,180}}, color={0,0,127}));
   connect(not3.y, truDel2.u)
     annotation (Line(points={{-178,140},{-102,140}},   color={255,0,255}));
-  connect(uFan, not3.u)
-    annotation (Line(points={{-260,140},{-202,140}},   color={255,0,255}));
+  connect(u1Fan, not3.u)
+    annotation (Line(points={{-260,140},{-202,140}}, color={255,0,255}));
   connect(gai2.y, gre1.u2) annotation (Line(points={{-138,180},{-120,180},{-120,
           192},{-102,192}}, color={0,0,127}));
   connect(gre1.y, and5.u1)
@@ -510,12 +511,12 @@ equation
     annotation (Line(points={{222,350},{260,350}}, color={255,127,0}));
   connect(gre1.y, truDel3.u) annotation (Line(points={{-78,200},{-60,200},{-60,-40},
           {-22,-40}},  color={255,0,255}));
-  connect(uDam, cloDam.u)
+  connect(uDam_actual, cloDam.u)
     annotation (Line(points={{-260,-110},{-202,-110}}, color={0,0,127}));
   connect(truDel3.y, leaDamAla.u1) annotation (Line(points={{2,-40},{20,-40},{20,
           -62},{38,-62}},      color={255,0,255}));
-  connect(uFan, leaDamAla.u2) annotation (Line(points={{-260,140},{-220,140},{-220,
-          -70},{38,-70}},        color={255,0,255}));
+  connect(u1Fan, leaDamAla.u2) annotation (Line(points={{-260,140},{-220,140},{-220,
+          -70},{38,-70}}, color={255,0,255}));
   connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-178,-110},{20,-110},
           {20,-78},{38,-78}},   color={255,0,255}));
   connect(not5.y, assMes3.u)
@@ -546,7 +547,7 @@ equation
     annotation (Line(points={{-98,-380},{-82,-380}}, color={255,0,255}));
   connect(truDel4.y, and6.u1)
     annotation (Line(points={{-58,-310},{-42,-310}}, color={255,0,255}));
-  connect(uHotPla, and6.u2) annotation (Line(points={{-260,-270},{-50,-270},{-50,
+  connect(u1HotPla, and6.u2) annotation (Line(points={{-260,-270},{-50,-270},{-50,
           -318},{-42,-318}}, color={255,0,255}));
   connect(and6.y, lowTemAla.u2)
     annotation (Line(points={{-18,-310},{138,-310}}, color={255,0,255}));
@@ -562,7 +563,7 @@ equation
     annotation (Line(points={{-58,-380},{-42,-380}}, color={255,0,255}));
   connect(and8.y, booToInt4.u)
     annotation (Line(points={{-18,-380},{78,-380}}, color={255,0,255}));
-  connect(uHotPla, and8.u2) annotation (Line(points={{-260,-270},{-50,-270},{-50,
+  connect(u1HotPla, and8.u2) annotation (Line(points={{-260,-270},{-50,-270},{-50,
           -388},{-42,-388}}, color={255,0,255}));
   connect(and8.y, and9.u1) annotation (Line(points={{-18,-380},{0,-380},{0,-420},
           {18,-420}}, color={255,0,255}));
@@ -586,7 +587,7 @@ equation
           -428},{18,-428}}, color={255,0,255}));
   connect(proInt1.y, yLowTemAla)
     annotation (Line(points={{222,-370},{260,-370}}, color={255,127,0}));
-  connect(uVal, cloVal.u)
+  connect(uVal_actual, cloVal.u)
     annotation (Line(points={{-260,-160},{-202,-160}}, color={0,0,127}));
   connect(cloVal.y, truDel6.u)
     annotation (Line(points={{-178,-160},{-142,-160}}, color={255,0,255}));
@@ -598,7 +599,7 @@ equation
           -160,-208},{-142,-208}}, color={0,0,127}));
   connect(truDel6.y, leaValAla.u1) annotation (Line(points={{-118,-160},{20,-160},
           {20,-172},{38,-172}}, color={255,0,255}));
-  connect(uFan, leaValAla.u2) annotation (Line(points={{-260,140},{-220,140},{-220,
+  connect(u1Fan, leaValAla.u2) annotation (Line(points={{-260,140},{-220,140},{-220,
           -180},{38,-180}}, color={255,0,255}));
   connect(gre2.y, leaValAla.u3) annotation (Line(points={{-118,-200},{20,-200},{
           20,-188},{38,-188}}, color={255,0,255}));
@@ -610,13 +611,13 @@ equation
     annotation (Line(points={{122,-220},{138,-220}}, color={255,0,255}));
   connect(booToInt6.y, yLeaValAla)
     annotation (Line(points={{162,-180},{260,-180}}, color={255,127,0}));
-  connect(uFanCom, truDel7.u)
+  connect(u1FanCom, truDel7.u)
     annotation (Line(points={{-260,60},{-162,60}}, color={255,0,255}));
-  connect(uFanCom, not9.u) annotation (Line(points={{-260,60},{-200,60},{-200,-10},
+  connect(u1FanCom, not9.u) annotation (Line(points={{-260,60},{-200,60},{-200,-10},
           {-182,-10}}, color={255,0,255}));
   connect(not9.y, truDel8.u)
     annotation (Line(points={{-158,-10},{-122,-10}}, color={255,0,255}));
-  connect(uFanCom, and11.u2) annotation (Line(points={{-260,60},{-200,60},{-200,
+  connect(u1FanCom, and11.u2) annotation (Line(points={{-260,60},{-200,60},{-200,
           90},{-22,90}}, color={255,0,255}));
   connect(truDel7.y, and11.u3) annotation (Line(points={{-138,60},{-120,60},{-120,
           82},{-22,82}}, color={255,0,255}));
@@ -642,9 +643,9 @@ equation
     annotation (Line(points={{62,-10},{78,-10}}, color={255,0,255}));
   connect(and10.y, not11.u) annotation (Line(points={{2,20},{20,20},{20,-10},{38,
           -10}}, color={255,0,255}));
-  connect(uTerFan, not12.u) annotation (Line(points={{-260,20},{-180,20},{-180,110},
-          {-162,110}}, color={255,0,255}));
-  connect(uTerFan, and10.u1) annotation (Line(points={{-260,20},{-180,20},{-180,
+  connect(u1TerFan, not12.u) annotation (Line(points={{-260,20},{-180,20},{-180,
+          110},{-162,110}}, color={255,0,255}));
+  connect(u1TerFan, and10.u1) annotation (Line(points={{-260,20},{-180,20},{-180,
           28},{-22,28}}, color={255,0,255}));
   connect(not12.y, and11.u1) annotation (Line(points={{-138,110},{-80,110},{-80,
           98},{-22,98}}, color={255,0,255}));
@@ -672,15 +673,15 @@ annotation (defaultComponentName="ala",
           pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
-          extent={{-100,6},{-72,-4}},
+          extent={{-98,6},{-62,-4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam"),
+          textString="uDam_actual"),
         Text(
           extent={{-98,66},{-80,56}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uFan"),
+          textString="u1Fan"),
         Text(
           extent={{46,98},{96,84}},
           lineColor={255,127,0},
@@ -697,10 +698,10 @@ annotation (defaultComponentName="ala",
           pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
         Text(
-          extent={{-100,-14},{-78,-24}},
+          extent={{-98,-14},{-64,-24}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uVal"),
+          textString="uVal_actual"),
         Text(
           extent={{-100,-34},{-74,-44}},
           lineColor={0,0,127},
@@ -710,8 +711,8 @@ annotation (defaultComponentName="ala",
           extent={{-98,-54},{-66,-66}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHotPla",
-          visible=have_hotWatCoi),
+          visible=have_hotWatCoi,
+          textString="u1HotPla"),
         Text(
           extent={{-100,-74},{-76,-84}},
           lineColor={0,0,127},
@@ -738,7 +739,7 @@ annotation (defaultComponentName="ala",
           extent={{-96,46},{-66,34}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uFanCom"),
+          textString="u1FanCom"),
         Text(
           extent={{48,30},{98,16}},
           lineColor={255,127,0},
@@ -748,7 +749,7 @@ annotation (defaultComponentName="ala",
           extent={{-96,26},{-66,14}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uTerFan")}),
+          textString="u1TerFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-480},{240,480}})),
 Documentation(info="<html>
 <p>
@@ -758,12 +759,12 @@ The implementation is according to the Section 5.8.6 of ASHRAE Guideline 36, May
 <h4>Low airflow</h4>
 <ol>
 <li>
-If the measured airflow <code>VPri_flow</code> is less then 70% of setpoint
+If the measured airflow <code>VPri_flow</code> is less than 70% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 3 alarm.
 </li>
 <li>
-If the measured airflow <code>VPri_flow</code> is less then 50% of setpoint
+If the measured airflow <code>VPri_flow</code> is less than 50% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 2 alarm.
 </li>
@@ -776,13 +777,13 @@ suppressed for that zone.
 <h4>Low-discharging air temperature</h4>
 <ol>
 <li>
-If heating hot-water plant is proven on (<code>uHotPla=true</code>), and the
+If heating hot-water plant is proven on (<code>u1HotPla=true</code>), and the
 discharge temperature (<code>TDis</code>) is 8.3 &deg;C (15 &deg;F) less than the
 setpoint (<code>TDisSet</code>) for 10 minuts (<code>lowTemTim</code>), generate a
 Level 3 alarm.
 </li>
 <li>
-If heating hot-water plant is proven on (<code>uHotPla=true</code>), and the
+If heating hot-water plant is proven on (<code>u1HotPla=true</code>), and the
 discharge temperature (<code>TDis</code>) is 17 &deg;C (30 &deg;F) less than the
 setpoint (<code>TDisSet</code>) for 10 minuts (<code>lowTemTim</code>), generate a
 Level 2 alarm.
@@ -800,35 +801,35 @@ after a period of 15 seconds after a change in output status.
 </p>
 <ol>
 <li>
-Command on (<code>uFanCom=true</code>), status off (<code>uTerFan=false</code>),
+Command on (<code>u1FanCom=true</code>), status off (<code>u1TerFan=false</code>),
 generate Level 2 alarm.
 </li>
 <li>
-Command off (<code>uFanCom=false</code>), status on (<code>uTerFan=true</code>),
+Command off (<code>u1FanCom=false</code>), status on (<code>u1TerFan=true</code>),
 generate Level 4 alarm.
 </li>
 </ol>
 <h4>Airflow sensor calibration</h4>
 <p>
-If the fan serving the zone has been OFF (<code>uFan=false</code>) for 10 minutes
+If the fan serving the zone has been OFF (<code>u1Fan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and airflow sensor reading <code>VPri_flow</code>
-is above 10% of the cooling maximum airflow setpoint <code>VZonCooMax_flow</code>,
+is above 10% of the cooling maximum airflow setpoint <code>VCooMax_flow</code>,
 generate a Level 3 alarm.
 </p>
 <h4>Leaking damper</h4>
 <p>
-If the damper position (<code>uDam</code>) is 0% and airflow sensor reading
+If the damper position (<code>uDam_actual</code>) is 0% and airflow sensor reading
 <code>VPri_flow</code> is above 10% of the cooling maximum airflow setpoint
-<code>VZonCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
-fan serving the zone is proven on (<code>uFan=true</code>), generate a Level
+<code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
+fan serving the zone is proven on (<code>u1Fan=true</code>), generate a Level
 4 alarm.
 </p>
 <h4>Leaking valve</h4>
 <p>
-If the valve position (<code>uVal</code>) is 0% for 15 minutes (<code>valCloTim</code>),
+If the valve position (<code>uVal_actual</code>) is 0% for 15 minutes (<code>valCloTim</code>),
 discharing air temperature <code>TDis</code> is above AHU supply temperature
 <code>TSup</code> by 3 &deg;C (5 &deg;F), and the fan serving the zone is proven
-on (<code>uFan=true</code>), gemerate a Level 4 alarm.
+on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.
 </p>
 </html>",revisions="<html>
 <ul>

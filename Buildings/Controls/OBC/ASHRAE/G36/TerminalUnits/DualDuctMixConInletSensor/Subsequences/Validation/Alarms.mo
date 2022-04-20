@@ -3,8 +3,8 @@ model Alarms "Validation of model that generates alarms"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Alarms ala(
     final staPreMul=1,
-    final VZonCooMax_flow=1,
-    final VZonHeaMax_flow=0.9,
+    final VCooMax_flow=1,
+    final VHeaMax_flow=0.9,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
@@ -79,14 +79,14 @@ equation
           -86},{-2,-86}}, color={0,0,127}));
   connect(heaDammSta.y, booToRea1.u)
     annotation (Line(points={{-58,-70},{-42,-70}}, color={255,0,255}));
-  connect(supCooFan.y, ala.uCooFan) annotation (Line(points={{-58,60},{32,60},{32,
-          44},{58,44}}, color={255,0,255}));
-  connect(mul.y, ala.uCooDam) annotation (Line(points={{22,20},{32,20},{32,42},{
-          58,42}}, color={0,0,127}));
-  connect(supHeaFan.y, ala.uHeaFan) annotation (Line(points={{-58,-40},{40,-40},
+  connect(supCooFan.y, ala.u1CooFan) annotation (Line(points={{-58,60},{32,60},
+          {32,44},{58,44}}, color={255,0,255}));
+  connect(mul.y, ala.uCooDam_actual) annotation (Line(points={{22,20},{32,20},{
+          32,42},{58,42}}, color={0,0,127}));
+  connect(supHeaFan.y, ala.u1HeaFan) annotation (Line(points={{-58,-40},{40,-40},
           {40,36},{58,36}}, color={255,0,255}));
-  connect(mul1.y, ala.uHeaDam) annotation (Line(points={{22,-80},{44,-80},{44,34},
-          {58,34}}, color={0,0,127}));
+  connect(mul1.y, ala.uHeaDam_actual) annotation (Line(points={{22,-80},{44,-80},
+          {44,34},{58,34}}, color={0,0,127}));
   connect(cooDisAir.y, ala.VColDucDis_flow) annotation (Line(points={{-18,80},{36,
           80},{36,46},{58,46}}, color={0,0,127}));
   connect(heaDisAir.y, ala.VHotDucDis_flow) annotation (Line(points={{-18,-20},{

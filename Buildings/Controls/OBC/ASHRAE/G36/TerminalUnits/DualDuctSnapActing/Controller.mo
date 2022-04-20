@@ -32,13 +32,13 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
   parameter Real outAirRat_occupant=0.0025
     "Outdoor airflow rate per occupant, m3/s/p"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonMin_flow(unit="m3/s")
+  parameter Real VMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonCooMax_flow(unit="m3/s")
+  parameter Real VCooMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
-  parameter Real VZonHeaMax_flow(unit="m3/s")
+  parameter Real VHeaMax_flow(unit="m3/s")
     "Design zone heating maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
@@ -55,7 +55,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Dampers control parameters ----------------
-  parameter Boolean have_pressureIndependentDamper
+  parameter Boolean have_preIndDam
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation (Dialog(tab="Dampers"));
   parameter Real V_flow_nominal(unit="m3/s")
@@ -65,21 +65,21 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(tab="Dampers",
-      enable=not have_pressureIndependentDamper));
+      enable=not have_preIndDam));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
     annotation (Dialog(tab="Dampers",
-      enable=not have_pressureIndependentDamper));
+      enable=not have_preIndDam));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(tab="Dampers",
-      enable=not have_pressureIndependentDamper
+      enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(tab="Dampers",
-      enable=not have_pressureIndependentDamper
+      enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   // ---------------- System request parameters ----------------
@@ -157,25 +157,23 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-280,280},{-240,320}}),
         iconTransformation(extent={{-140,180},{-100,220}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final displayUnit="degC")
-    "Setpoint temperature for room for cooling"
+    final displayUnit="degC") "Setpoint temperature for room for cooling"
     annotation (Placement(transformation(extent={{-280,250},{-240,290}}),
         iconTransformation(extent={{-140,160},{-100,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final displayUnit="degC")
-    "Setpoint temperature for room for heating"
+    final displayUnit="degC") "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-280,220},{-240,260}}),
         iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
     "Occupancy status, true if it is occupied, false if it is not occupied"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
@@ -212,7 +210,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Measured cold-duct discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-280,-30},{-240,10}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooAHU
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooAHU
     "Cooling air handler proven on status"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -230,7 +228,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Measured hot-duct discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaAHU
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaAHU
     "Heating air handler proven on status"
     annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -253,13 +251,14 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Index of overriding heating damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-280,-270},{-240,-230}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam_actual(
     final min=0,
     final max=1,
-    final unit="1") "Actual cooling damper position"
+    final unit="1")
+    "Actual cooling damper position"
     annotation (Placement(transformation(extent={{-280,-300},{-240,-260}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam_actual(
     final min=0,
     final max=1,
     final unit="1")
@@ -273,18 +272,18 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{240,270},{280,310}}),
         iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDam(
     final min=0,
     final max=1,
     final unit="1")
-    "Cooling damper position setpoint after considering override"
+    "Cooling damper commanded position, after considering override"
     annotation (Placement(transformation(extent={{240,230},{280,270}}),
         iconTransformation(extent={{100,140},{140,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDam(
     final min=0,
     final max=1,
     final unit="1")
-    "Heating damper position setpoint after considering override"
+    "Heating damper commanded position, after considering override"
     annotation (Placement(transformation(extent={{240,190},{280,230}}),
         iconTransformation(extent={{100,110},{140,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonCooTemResReq
@@ -340,8 +339,8 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.ActiveAirFlow
     actAirSet(
-    final VZonCooMax_flow=VZonCooMax_flow,
-    final VZonHeaMax_flow=VZonHeaMax_flow) "Active airflow setpoint"
+    final VCooMax_flow=VCooMax_flow,
+    final VHeaMax_flow=VHeaMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.SystemRequests
     sysReq(
@@ -369,8 +368,8 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     ala(
     final have_duaSen=have_duaSen,
     final staPreMul=staPreMul,
-    final VZonCooMax_flow=VZonCooMax_flow,
-    final VZonHeaMax_flow=VZonHeaMax_flow,
+    final VCooMax_flow=VCooMax_flow,
+    final VHeaMax_flow=VHeaMax_flow,
     final lowFloTim=lowFloTim,
     final fanOffTim=fanOffTim,
     final leaFloTim=leaFloTim,
@@ -379,9 +378,9 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{100,-240},{120,-200}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Overrides
     setOve(
-    final VZonMin_flow=VZonMin_flow,
-    final VZonCooMax_flow=VZonCooMax_flow,
-    final VZonHeaMax_flow=VZonHeaMax_flow) "Override setpoints"
+    final VMin_flow=VMin_flow,
+    final VCooMax_flow=VCooMax_flow,
+    final VHeaMax_flow=VHeaMax_flow) "Override setpoints"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupCoo(
     final samplePeriod=samplePeriod,
@@ -402,15 +401,15 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,
-    final VZonMin_flow=VZonMin_flow,
-    final VZonCooMax_flow=VZonCooMax_flow,
+    final VMin_flow=VMin_flow,
+    final VCooMax_flow=VCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
     final dTHys=dTHys) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersDualSensors damDuaSen(
-    final have_pressureIndependentDamper=have_pressureIndependentDamper,
+    final have_preIndDam=have_preIndDam,
     final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
     final TiDam=TiDam,
@@ -422,7 +421,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Dampers control when the unit has single dual airflow sensor"
     annotation (Placement(transformation(extent={{0,0},{20,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersSingleSensors damSinSen(
-    final have_pressureIndependentDamper=have_pressureIndependentDamper,
+    final have_preIndDam=have_preIndDam,
     final V_flow_nominal=V_flow_nominal,
     final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
@@ -446,8 +445,8 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final have_typTerUni=true,
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
-    final VZonMin_flow=VZonMin_flow,
-    final VZonCooMax_flow=VZonCooMax_flow)
+    final VMin_flow=VMin_flow,
+    final VCooMax_flow=VCooMax_flow)
     if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
@@ -456,19 +455,19 @@ equation
           -220,286},{-202,286}}, color={0,0,127}));
   connect(TZon, timSupHea.TZon) annotation (Line(points={{-260,300},{-220,300},{
           -220,246},{-202,246}}, color={0,0,127}));
-  connect(TZonCooSet, timSupCoo.TSet) annotation (Line(points={{-260,270},{-226,
-          270},{-226,294},{-202,294}}, color={0,0,127}));
-  connect(TZonHeaSet, timSupHea.TSet) annotation (Line(points={{-260,240},{-214,
-          240},{-214,254},{-202,254}}, color={0,0,127}));
-  connect(TZonCooSet, conLoo.TCooSet) annotation (Line(points={{-260,270},{-226,
-          270},{-226,216},{-202,216}}, color={0,0,127}));
+  connect(TCooSet, timSupCoo.TSet) annotation (Line(points={{-260,270},{-226,270},
+          {-226,294},{-202,294}}, color={0,0,127}));
+  connect(THeaSet, timSupHea.TSet) annotation (Line(points={{-260,240},{-214,240},
+          {-214,254},{-202,254}}, color={0,0,127}));
+  connect(TCooSet, conLoo.TCooSet) annotation (Line(points={{-260,270},{-226,270},
+          {-226,216},{-202,216}}, color={0,0,127}));
   connect(TZon, conLoo.TZon) annotation (Line(points={{-260,300},{-220,300},{-220,
           210},{-202,210}}, color={0,0,127}));
-  connect(TZonHeaSet, conLoo.THeaSet) annotation (Line(points={{-260,240},{-214,
-          240},{-214,204},{-202,204}}, color={0,0,127}));
-  connect(uWin, setPoi.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
+  connect(THeaSet, conLoo.THeaSet) annotation (Line(points={{-260,240},{-214,240},
+          {-214,204},{-202,204}}, color={0,0,127}));
+  connect(u1Win, setPoi.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
           169},{-162,169}}, color={255,0,255}));
-  connect(uOcc, setPoi.uOcc) annotation (Line(points={{-260,170},{-184,170},{-184,
+  connect(u1Occ, setPoi.uOcc) annotation (Line(points={{-260,170},{-184,170},{-184,
           167},{-162,167}}, color={255,0,255}));
   connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-260,140},{-200,140},
           {-200,165},{-162,165}}, color={255,127,0}));
@@ -480,7 +479,7 @@ equation
           151},{-162,151}}, color={0,0,127}));
   connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-260,140},{-200,
           140},{-200,72},{-82,72}}, color={255,127,0}));
-  connect(setPoi.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
+  connect(setPoi.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-138,164},{-120,164},{-120,88},{-82,88}}, color={0,0,127}));
   connect(conLoo.yCoo, damDuaSen.uCoo) annotation (Line(points={{-178,216},{-28,
           216},{-28,39},{-2,39}}, color={0,0,127}));
@@ -488,7 +487,7 @@ equation
       Line(points={{-58,88},{-20,88},{-20,36},{-2,36}}, color={0,0,127}));
   connect(VColDucDis_flow, damDuaSen.VColDucDis_flow) annotation (Line(points={{-260,
           -10},{-60,-10},{-60,30},{-2,30}},    color={0,0,127}));
-  connect(uCooAHU, damDuaSen.uCooAHU) annotation (Line(points={{-260,-40},{-44,-40},
+  connect(u1CooAHU, damDuaSen.u1CooAHU) annotation (Line(points={{-260,-40},{-44,-40},
           {-44,27},{-2,27}}, color={255,0,255}));
   connect(actAirSet.VActMin_flow, damDuaSen.VActMin_flow) annotation (Line(
         points={{-58,80},{-24,80},{-24,22},{-2,22}}, color={0,0,127}));
@@ -500,7 +499,7 @@ equation
       Line(points={{-58,72},{-36,72},{-36,7},{-2,7}}, color={0,0,127}));
   connect(VHotDucDis_flow, damDuaSen.VHotDucDis_flow) annotation (Line(points={{-260,
           -100},{-48,-100},{-48,4},{-2,4}},    color={0,0,127}));
-  connect(uHeaAHU, damDuaSen.uHeaAHU) annotation (Line(points={{-260,-130},{-40,
+  connect(u1HeaAHU, damDuaSen.u1HeaAHU) annotation (Line(points={{-260,-130},{-40,
           -130},{-40,1},{-2,1}}, color={255,0,255}));
   connect(conLoo.yCoo, damSinSen.uCoo) annotation (Line(points={{-178,216},{-28,
           216},{-28,-21},{-2,-21}}, color={0,0,127}));
@@ -512,9 +511,9 @@ equation
           204},{-32,-30},{-2,-30}}, color={0,0,127}));
   connect(actAirSet.VActHeaMax_flow, damSinSen.VActHeaMax_flow) annotation (
       Line(points={{-58,72},{-36,72},{-36,-33},{-2,-33}}, color={0,0,127}));
-  connect(uCooAHU, damSinSen.uCooAHU) annotation (Line(points={{-260,-40},{-44,-40},
+  connect(u1CooAHU, damSinSen.u1CooAHU) annotation (Line(points={{-260,-40},{-44,-40},
           {-44,-55},{-2,-55}}, color={255,0,255}));
-  connect(uHeaAHU, damSinSen.uHeaAHU) annotation (Line(points={{-260,-130},{-40,
+  connect(u1HeaAHU, damSinSen.u1HeaAHU) annotation (Line(points={{-260,-130},{-40,
           -130},{-40,-58},{-2,-58}}, color={255,0,255}));
   connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-260,-190},{0,-190},
           {0,-82},{58,-82}}, color={255,127,0}));
@@ -522,40 +521,36 @@ equation
           {4,-220},{4,-90},{58,-90}}, color={255,127,0}));
   connect(oveHeaDamPos, setOve.oveHeaDamPos) annotation (Line(points={{-260,-250},
           {8,-250},{8,-96},{58,-96}}, color={255,127,0}));
-  connect(damDuaSen.yCooDamSet, setOve.uCooDamSet) annotation (Line(points={{22,
+  connect(damDuaSen.yCooDam, setOve.uCooDam) annotation (Line(points={{22,
           29},{44,29},{44,-93},{58,-93}}, color={0,0,127}));
-  connect(damSinSen.yCooDamSet, setOve.uCooDamSet) annotation (Line(points={{22,
-          -52},{44,-52},{44,-93},{58,-93}}, color={0,0,127}));
-  connect(damDuaSen.yHeaDamSet, setOve.uHeaDamSet) annotation (Line(points={{22,
+  connect(damDuaSen.yHeaDam, setOve.uHeaDam) annotation (Line(points={{22,
           6},{40,6},{40,-99},{58,-99}}, color={0,0,127}));
-  connect(damSinSen.yHeaDamSet, setOve.uHeaDamSet) annotation (Line(points={{22,
-          -58},{40,-58},{40,-99},{58,-99}}, color={0,0,127}));
   connect(damSinSen.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points=
          {{22,-26},{36,-26},{36,-85},{58,-85}}, color={0,0,127}));
   connect(damDuaSen.VDis_flow_Set, setOve.VActSet_flow) annotation (Line(points=
          {{22,38},{36,38},{36,-85},{58,-85}}, color={0,0,127}));
   connect(timSupCoo.yAftSup, sysReq.uAftSupCoo) annotation (Line(points={{-178,290},
           {-100,290},{-100,-121},{98,-121}}, color={255,0,255}));
-  connect(TZonCooSet, sysReq.TZonCooSet) annotation (Line(points={{-260,270},{-226,
-          270},{-226,-124},{98,-124}}, color={0,0,127}));
+  connect(TCooSet, sysReq.TCooSet) annotation (Line(points={{-260,270},{-226,270},
+          {-226,-124},{98,-124}}, color={0,0,127}));
   connect(TZon, sysReq.TZon) annotation (Line(points={{-260,300},{-220,300},{-220,
           -127},{98,-127}}, color={0,0,127}));
   connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-178,216},{-28,216},
           {-28,-130},{98,-130}}, color={0,0,127}));
   connect(damDuaSen.VDis_flow_Set, sysReq.VColDuc_flow_Set) annotation (Line(
         points={{22,38},{36,38},{36,-133},{98,-133}}, color={0,0,127}));
-  connect(uCooDam, sysReq.uCooDam) annotation (Line(points={{-260,-280},{76,-280},
-          {76,-138},{98,-138}}, color={0,0,127}));
+  connect(uCooDam_actual, sysReq.uCooDam_actual) annotation (Line(points={{-260,
+          -280},{76,-280},{76,-138},{98,-138}}, color={0,0,127}));
   connect(timSupHea.yAftSup, sysReq.uAftSupHea) annotation (Line(points={{-178,250},
           {-104,250},{-104,-143},{98,-143}}, color={255,0,255}));
-  connect(TZonHeaSet, sysReq.TZonHeaSet) annotation (Line(points={{-260,240},{-214,
-          240},{-214,-146},{98,-146}}, color={0,0,127}));
+  connect(THeaSet, sysReq.THeaSet) annotation (Line(points={{-260,240},{-214,240},
+          {-214,-146},{98,-146}}, color={0,0,127}));
   connect(conLoo.yHea, sysReq.uHea) annotation (Line(points={{-178,204},{-32,204},
           {-32,-149},{98,-149}}, color={0,0,127}));
   connect(damDuaSen.VDis_flow_Set, sysReq.VHotDuc_flow_Set) annotation (Line(
         points={{22,38},{36,38},{36,-152},{98,-152}}, color={0,0,127}));
-  connect(uHeaDam, sysReq.uHeaDam) annotation (Line(points={{-260,-310},{80,-310},
-          {80,-157},{98,-157}}, color={0,0,127}));
+  connect(uHeaDam_actual, sysReq.uHeaDam_actual) annotation (Line(points={{-260,
+          -310},{80,-310},{80,-157},{98,-157}}, color={0,0,127}));
   connect(VColDucDis_flow, sysReq.VColDucDis_flow) annotation (Line(points={{-260,
           -10},{-60,-10},{-60,-135},{98,-135}}, color={0,0,127}));
   connect(VHotDucDis_flow, sysReq.VHotDucDis_flow) annotation (Line(points={{-260,
@@ -566,29 +561,29 @@ equation
           {-52,-160},{-52,-135},{98,-135}},color={0,0,127}));
   connect(VDis_flow, sysReq.VHotDucDis_flow) annotation (Line(points={{-260,-160},
           {-52,-160},{-52,-154},{98,-154}},color={0,0,127}));
-  connect(damSinSen.yCooDam, sysReq.uCooDamSta) annotation (Line(points={{22,-50},
+  connect(damSinSen.y1CooDam, sysReq.u1CooDam) annotation (Line(points={{22,-50},
           {32,-50},{32,-140},{98,-140}}, color={255,0,255}));
-  connect(damSinSen.yHeaDam, sysReq.uHeaDamSta) annotation (Line(points={{22,-56},
+  connect(damSinSen.y1HeaDam, sysReq.u1HeaDam) annotation (Line(points={{22,-56},
           {28,-56},{28,-159},{98,-159}}, color={255,0,255}));
   connect(VColDucDis_flow, ala.VColDucDis_flow) annotation (Line(points={{-260,-10},
           {-60,-10},{-60,-212},{98,-212}},color={0,0,127}));
-  connect(uCooAHU, ala.uCooFan) annotation (Line(points={{-260,-40},{-44,-40},{-44,
+  connect(u1CooAHU, ala.u1CooFan) annotation (Line(points={{-260,-40},{-44,-40},{-44,
           -215},{98,-215}}, color={255,0,255}));
-  connect(uCooDam, ala.uCooDam) annotation (Line(points={{-260,-280},{76,-280},{
-          76,-218},{98,-218}}, color={0,0,127}));
+  connect(uCooDam_actual, ala.uCooDam_actual) annotation (Line(points={{-260,-280},
+          {76,-280},{76,-218},{98,-218}}, color={0,0,127}));
   connect(VHotDucDis_flow, ala.VHotDucDis_flow) annotation (Line(points={{-260,-100},
           {-48,-100},{-48,-231},{98,-231}},color={0,0,127}));
-  connect(uHeaAHU, ala.uHeaFan) annotation (Line(points={{-260,-130},{-40,-130},
+  connect(u1HeaAHU, ala.u1HeaFan) annotation (Line(points={{-260,-130},{-40,-130},
           {-40,-234},{98,-234}}, color={255,0,255}));
-  connect(uHeaDam, ala.uHeaDam) annotation (Line(points={{-260,-310},{80,-310},{
-          80,-237},{98,-237}}, color={0,0,127}));
+  connect(uHeaDam_actual, ala.uHeaDam_actual) annotation (Line(points={{-260,-310},
+          {80,-310},{80,-237},{98,-237}}, color={0,0,127}));
   connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-260,-160},{-56,-160},
           {-56,-202},{98,-202}}, color={0,0,127}));
   connect(setOve.VSet_flow, VSet_flow) annotation (Line(points={{82,-84},{100,-84},
           {100,290},{260,290}}, color={0,0,127}));
-  connect(setOve.yCooDamSet, yCooDamSet) annotation (Line(points={{82,-90},{106,
+  connect(setOve.yCooDam, yCooDam) annotation (Line(points={{82,-90},{106,
           -90},{106,250},{260,250}}, color={0,0,127}));
-  connect(setOve.yHeaDamSet, yHeaDamSet) annotation (Line(points={{82,-96},{112,
+  connect(setOve.yHeaDam, yHeaDam) annotation (Line(points={{82,-96},{112,
           -96},{112,210},{260,210}}, color={0,0,127}));
   connect(sysReq.yZonCooTemResReq, yZonCooTemResReq) annotation (Line(points={{122,
           -132},{140,-132},{140,160},{260,160}}, color={255,127,0}));
@@ -626,11 +621,11 @@ equation
           {-56,-70},{-260,-70}}, color={0,0,127}));
   connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-260,110},{-196,
           110},{-196,163},{-162,163}}, color={0,0,127}));
-  connect(minFlo.VOccZonMin_flow, actAirSet.VOccZonMin_flow) annotation (Line(
-        points={{-138,104},{-120,104},{-120,88},{-82,88}}, color={0,0,127}));
-  connect(uWin, minFlo.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
+  connect(minFlo.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
+        points={{-138,107},{-120,107},{-120,88},{-82,88}}, color={0,0,127}));
+  connect(u1Win, minFlo.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
           119},{-162,119}}, color={255,0,255}));
-  connect(uOcc, minFlo.uOcc) annotation (Line(points={{-260,170},{-184,170},{-184,
+  connect(u1Occ, minFlo.uOcc) annotation (Line(points={{-260,170},{-184,170},{-184,
           116},{-162,116}}, color={255,0,255}));
   connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-260,140},{-200,140},
           {-200,113},{-162,113}}, color={255,127,0}));
@@ -638,6 +633,10 @@ equation
     annotation (Line(points={{-260,110},{-162,110}}, color={0,0,127}));
   connect(ppmCO2, minFlo.ppmCO2) annotation (Line(points={{-260,80},{-192,80},{-192,
           107},{-162,107}}, color={0,0,127}));
+  connect(damSinSen.yHeaDam, setOve.uHeaDam) annotation (Line(points={{22,-58},{
+          40,-58},{40,-99},{58,-99}}, color={0,0,127}));
+  connect(damSinSen.yCooDam, setOve.uCooDam) annotation (Line(points={{22,-52},{
+          44,-52},{44,-93},{58,-93}}, color={0,0,127}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(
@@ -672,32 +671,32 @@ annotation (defaultComponentName="duaDucCon",
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-98,188},{-40,174}},
+          extent={{-98,188},{-58,174}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
-          extent={{-98,168},{-40,154}},
+          extent={{-98,168},{-56,154}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSet"),
+          textString="THeaSet"),
         Text(
           visible=have_winSen,
           extent={{-98,148},{-72,134}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uWin"),
+          textString="u1Win"),
         Text(
           visible=have_occSen,
           extent={{-98,128},{-72,114}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uOcc"),
+          textString="u1Occ"),
         Text(
           extent={{-96,-12},{-56,-28}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uCooAHU"),
+          textString="u1CooAHU"),
         Text(
           extent={{-96,108},{-50,92}},
           lineColor={255,127,0},
@@ -714,10 +713,10 @@ annotation (defaultComponentName="duaDucCon",
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{42,168},{98,154}},
+          extent={{52,168},{98,154}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yCooDamSet"),
+          textString="yCooDam"),
         Text(
           extent={{4,112},{98,90}},
           lineColor={255,127,0},
@@ -767,7 +766,7 @@ annotation (defaultComponentName="duaDucCon",
           extent={{-96,-74},{-56,-90}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHeaAHU"),
+          textString="u1HeaAHU"),
         Text(
           extent={{-98,-92},{-56,-106}},
           lineColor={0,0,127},
@@ -780,20 +779,20 @@ annotation (defaultComponentName="duaDucCon",
           pattern=LinePattern.Dash,
           textString="oveHeaDamPos"),
         Text(
-          extent={{-96,-172},{-54,-186}},
+          extent={{-96,-172},{-26,-186}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooDam"),
+          textString="uCooDam_actual"),
         Text(
-          extent={{-96,-186},{-54,-200}},
+          extent={{-96,-186},{-26,-200}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaDam"),
+          textString="uHeaDam_actual"),
         Text(
-          extent={{42,138},{98,124}},
+          extent={{52,138},{98,124}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yHeaDamSet"),
+          textString="yHeaDam"),
         Text(
           extent={{16,92},{98,72}},
           lineColor={255,127,0},
@@ -849,7 +848,7 @@ annotation (defaultComponentName="duaDucCon",
 <p>
 Controller for snap-acting controlled dual-duct terminal unit according to Section 5.11 of ASHRAE
 Guideline 36, May 2020. It outputs discharge airflow setpoint <code>VSet_flow</code>,
-cold and hot duct dampers position setpoint (<code>yCooDamSet</code>, <code>yHeaDamSet</code>),
+cold and hot duct dampers position setpoint (<code>yCooDam</code>, <code>yHeaDam</code>),
 cooling supply temperature setpoint reset request <code>yZonCooTemResReq</code>,
 heating supply temperature setpoint reset request <code>yZonHeaTemResReq</code>,
 cold-duct static pressure setpoint reset request <code>yColDucPreResReq</code>,
@@ -862,8 +861,8 @@ leaking dampers, and airflow sensor(s) calibration alarm.
 <h4>a. Heating and cooling control loop</h4>
 <p>
 The subsequence is implementd according to Section 5.3.4. The measured zone
-temperature <code>TZon</code>, zone setpoints temperatures <code>TZonHeaSet</code> and
-<code>TZonCooSet</code> are inputs to the instance of class 
+temperature <code>TZon</code>, zone setpoints temperatures <code>THeaSet</code> and
+<code>TCooSet</code> are inputs to the instance of class 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates\">
 Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates</a> to generate the
 heating and cooling control loop signal. 
@@ -881,7 +880,7 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.
 This sequence sets the dampers position setpoints.
 The implementation is according to Section 5.11.5. The sequence outputs 
 discharge airflow rate setpoint <code>VSet_flow</code>, cold and hot ducts damper
-position setpoints (<code>yCooDamSet</code>, <code>yHeaDamSet</code>). It has two
+position setpoints (<code>yCooDam</code>, <code>yHeaDam</code>). It has two
 sequences depending on if the unit has the dual inlet flow sensor.
 </p>
 <ul>

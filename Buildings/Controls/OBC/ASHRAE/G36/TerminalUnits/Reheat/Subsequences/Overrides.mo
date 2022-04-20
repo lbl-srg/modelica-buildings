@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences;
 block Overrides "Software switches to override setpoints"
 
-  parameter Real VZonMin_flow(
+  parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint";
-  parameter Real VZonCooMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VZonHeaMax_flow(
+  parameter Real VHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
@@ -29,19 +29,18 @@ block Overrides "Software switches to override setpoints"
     "Index of overriding damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
-    final unit="1") "Damper position setpoint"
+    final unit="1") "Damper commanded position"
     annotation (Placement(transformation(extent={{-180,-150},{-140,-110}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaOff
     "Override heating valve position, true: close heating valve"
     annotation (Placement(transformation(extent={{-180,-180},{-140,-140}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uValSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
-    final unit="1")
-    "Heating valve position setpoint"
+    final unit="1") "Heating valve commanded position"
     annotation (Placement(transformation(extent={{-180,-220},{-140,-180}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow(
@@ -51,16 +50,15 @@ block Overrides "Software switches to override setpoints"
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{140,0},{180,40}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
-    final unit="1")
-    "Damper position setpoint after considering override"
+    final unit="1") "Damper commanded position, after considering override"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(
     final min=0,
     final unit="1")
-    "Heating valve position setpoint after considering override"
+    "Heating valve commanded position, after considering override"
     annotation (Placement(transformation(extent={{140,-200},{180,-160}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
@@ -89,11 +87,11 @@ block Overrides "Software switches to override setpoints"
     "Force zone airflow setpoint to zero"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cooMax(
-    final realTrue=VZonCooMax_flow)
+    final realTrue=VCooMax_flow)
     "Force zone airflow setpoint to cooling maximum"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal minFlo(
-    final realTrue=VZonMin_flow)
+    final realTrue=VMin_flow)
     "Force zone airflow setpoint to zone minimum flow"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
@@ -142,7 +140,7 @@ block Overrides "Software switches to override setpoints"
     "Check if forcing zone airflow setpoint to minimum flow"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMax(
-    final realTrue=VZonHeaMax_flow)
+    final realTrue=VHeaMax_flow)
     "Force zone airflow setpoint to zone heating maximum flow"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4
@@ -221,9 +219,9 @@ equation
           78,-92}}, color={0,0,127}));
   connect(or2.y, swi1.u2)
     annotation (Line(points={{22,-100},{78,-100}}, color={255,0,255}));
-  connect(uDamSet, swi1.u3) annotation (Line(points={{-160,-130},{60,-130},{60,-108},
+  connect(uDam, swi1.u3) annotation (Line(points={{-160,-130},{60,-130},{60,-108},
           {78,-108}}, color={0,0,127}));
-  connect(swi1.y, yDamSet)
+  connect(swi1.y, yDam)
     annotation (Line(points={{102,-100},{160,-100}}, color={0,0,127}));
   connect(oveFloSet, forMinFlo1.u1) annotation (Line(points={{-160,200},{-130,200},
           {-130,80},{-82,80}}, color={255,127,0}));
@@ -249,9 +247,9 @@ equation
     annotation (Line(points={{-160,-160},{-82,-160}}, color={255,0,255}));
   connect(booToRea.y, pro.u1) annotation (Line(points={{-58,-160},{60,-160},{60,
           -174},{78,-174}}, color={0,0,127}));
-  connect(uValSet, pro.u2) annotation (Line(points={{-160,-200},{60,-200},{60,-186},
+  connect(uVal, pro.u2) annotation (Line(points={{-160,-200},{60,-200},{60,-186},
           {78,-186}}, color={0,0,127}));
-  connect(pro.y,yValSet)
+  connect(pro.y,yVal)
     annotation (Line(points={{102,-180},{160,-180}}, color={0,0,127}));
 
 annotation (defaultComponentName="ove",
@@ -280,7 +278,7 @@ annotation (defaultComponentName="ove",
           extent={{-98,-14},{-58,-26}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDamSet"),
+          textString="uDam"),
         Text(
           extent={{-96,28},{-46,14}},
           lineColor={255,127,0},
@@ -290,7 +288,7 @@ annotation (defaultComponentName="ove",
           extent={{58,6},{98,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yDamSet"),
+          textString="yDam"),
         Text(
           extent={{58,68},{98,56}},
           lineColor={0,0,127},
@@ -300,7 +298,7 @@ annotation (defaultComponentName="ove",
           extent={{-98,-82},{-58,-94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uValSet"),
+          textString="uVal"),
         Text(
           extent={{-98,-54},{-58,-66}},
           lineColor={255,0,255},
@@ -310,7 +308,7 @@ annotation (defaultComponentName="ove",
           extent={{58,-52},{98,-64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yValSet")}),
+          textString="yVal")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{140,220}})),
 Documentation(info="<html>
 <p>
@@ -329,29 +327,29 @@ when <code>oveFloSet</code> equals to 1, force the zone airflow setpoint
 <li>
 when <code>oveFloSet</code> equals to 2, force the zone airflow setpoint
 <code>VSet_flow</code> to zone cooling maximum airflow rate
-<code>VZonCooMax_flow</code>,
+<code>VCooMax_flow</code>,
 </li>
 <li>
 when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 <code>VSet_flow</code> to zone minimum airflow setpoint
-<code>VZonMin_flow</code>.
+<code>VMin_flow</code>.
 </li>
 <li>
 when <code>oveFloSet</code> equals to 4, force the zone airflow setpoint
 <code>VSet_flow</code> to zone heating maximum airflow setpoint
-<code>VZonHeaMax_flow</code>.
+<code>VHeaMax_flow</code>.
 </li>
 <li>
 when <code>oveDamPos</code> equals to 1, force the damper to full closed by setting
-<code>yDamSet</code> to 0,
+<code>yDam</code> to 0,
 </li>
 <li>
 when <code>oveDamPos</code> equals to 2, force the damper to full open by setting
-<code>yDamSet</code> to 1.
+<code>yDam</code> to 1.
 </li>
 <li>
 when <code>uHeaOff</code> equals to <code>true</code>, force the heating valve to
-full closed by setting <code>yValSet</code> to 0.
+full closed by setting <code>yVal</code> to 0.
 </li>
 </ol>
 </html>",revisions="<html>
