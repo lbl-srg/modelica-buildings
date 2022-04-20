@@ -898,11 +898,12 @@ Motor efficiency:<br/>
 <i>&eta;<sub>mot</sub> = W&#775;<sub>hyd</sub> &frasl; P<sub>ele</sub></i>
 </li>
 </ul>
+<p>
 See
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 Buildings.Fluid.Movers.UsersGuide</a>
-for how the user can provide these items to the programme.
-
+for how the user can provide these items to the model.
+</p>
 <h4>Implementation</h4>
 <p>
 For numerical reasons, the user-provided data points for volume flow rate

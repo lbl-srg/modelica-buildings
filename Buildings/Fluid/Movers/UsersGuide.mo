@@ -450,7 +450,7 @@ Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 </p>
 <p>The efficiencies are defined as</p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub> <br/>
+&eta; = W&#775;<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
 &eta;<sub>hyd</sub> = W&#775;<sub>flo</sub> &frasl; W&#775;<sub>hyd</sub> <br/>
 &eta;<sub>mot</sub> = W&#775;<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
 </p>
@@ -461,7 +461,7 @@ Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 From the definition one has
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-<i>&eta; = &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i>.
+<i>&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i>.
 </p>
 <p>
 Two of the three efficiencies need to be defined, while defining all three would
@@ -499,7 +499,7 @@ on reasonable assumptions. In such cases, the following default values are used:
     <td>&#10060;</td>
     <td>&#10003;</td>
     <td>&#10060;</td>
-    <td><i>= &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
+    <td><i>= &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i></td>
     <td>&#10003;</td>
     <td>= 0.7</td>
   </tr>
@@ -507,7 +507,7 @@ on reasonable assumptions. In such cases, the following default values are used:
     <td>&#10060;</td>
     <td>&#10060;</td>
     <td>&#10003;</td>
-    <td><i>= &eta;<sub>hyd</sub> &sdot; &eta;<sub>mot</sub></i></td>
+    <td><i>= &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i></td>
     <td>= 0.7</td>
     <td>&#10003;</td>
   </tr>
@@ -535,7 +535,7 @@ Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>
 for <i>&eta;<sub>mot</sub></i>.
 </p>
 <p>
-<i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> have the following choices:
+<i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> can be computed using the following choices:
 </p>
 <ul>
 <li>
@@ -576,16 +576,17 @@ where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
 <i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>, 
 with the subscript <i>p</i> denoting the condition where
 the mover is operating at peak efficiency.
-The modified dimensionless Euler number is defined as
+The Euler number is defined as
 <br/>
-<p align=\"center\">
-<i>Eu=(&Delta;p&sdot;D<sup>4</sup>) &frasl; (&rho;&sdot;V&#775;<sup>2</sup>)</i><br/>
+<p align=\"center\" style=\"font-style:italic;\">
+Eu=(pressure forces)/(inertial forces)
 </p>
-Therefore,<br/>
-<p align=\"center\">
-<i>Eu &frasl; Eu<sub>p</sub>=(&Delta;p&sdot;V&#775;<sub>p</sub><sup>2</sup>)
-&frasl; (&Delta;p<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
+from which one can derive the ratio of Euler numbers as<br/>
+<p align=\"center\" style=\"font-style:italic;\">
+Eu &frasl; Eu<sub>p</sub>=(&Delta;p&nbsp;V&#775;<sub>p</sub><sup>2</sup>)
+&frasl; (&Delta;p<sub>p</sub>&nbsp;V&#775;<sup>2</sup>).
 </p>
+<p>
 For more information, see
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
 Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
@@ -603,7 +604,7 @@ During simulation, it will be computed using the other efficiency terms.
 </li>
 </ul>
 <p>
-<i>&eta;<sub>mot</sub></i> have the following choices:
+<i>&eta;<sub>mot</sub></i> can be computed using the following choices:
 </p>
 <ul>
 <li>
@@ -757,6 +758,10 @@ The performance data are interpolated using cubic hermite splines instead of pol
 These functions are implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
+</li>
+<li>
+The efficiency calculation is different, in particular, the models in this package allow
+use of the Euler number to compute the hydraulic efficiency.
 </li>
 </ul>
 <h4>References</h4>

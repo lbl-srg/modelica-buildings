@@ -10,8 +10,8 @@ function getPeak
     peak "Operation point at maximum efficiency";
 
 protected
-  Integer n = size(pressure.V_flow, 1) "Number of data points";
-  Real eta[size(pressure.V_flow,1)] "Efficiency series";
+  parameter Integer n = size(pressure.V_flow, 1) "Number of data points";
+  Real eta[n] "Efficiency series";
   Boolean etaLes "Efficiency series has less than four points";
   Boolean etaMon "Efficiency series is monotonic";
 
@@ -24,12 +24,13 @@ algorithm
   eta:=pressure.V_flow.*pressure.dp./power.P;
   etaLes:=n<4;
   etaMon:=Buildings.Utilities.Math.Functions.isMonotonic(
-    x=eta,strict=false);
-  assert(not etaLes,"Less than 4 data points were supplied. 
+    x=eta,
+    strict=false);
+  assert(not etaLes, "In " + getInstanceName() + ": Less than 4 data points were supplied.
   The point with maximum efficiency will be directly used.
   This may cause the computed values to be highly inaccurate.",
           level = AssertionLevel.warning);
-  assert(not etaMon,"The supplied curve is monotonic.
+  assert(not etaMon, "In " + getInstanceName() + ": The supplied curve is monotonic.
   The point with maximum efficiency will be directly used.
   This may cause the computed values to be highly inaccurate.",
           level = AssertionLevel.warning);
@@ -89,7 +90,8 @@ and the corresponding flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i>
 The results are output as an instance of
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
-If the input series has less than three data points or is monotonic,
+If the input series has less than three data points or the provided flow rate, head and power leads
+to an efficiency that is monotonic,
 the point with the highest efficiency is directly used and the function
 issues a warning stating that the computation may be highly inaccurate.
 </p>

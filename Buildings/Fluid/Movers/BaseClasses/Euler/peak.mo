@@ -8,6 +8,7 @@ record peak
   parameter Modelica.Units.SI.PressureDifference
     dp(min=0,displayUnit="Pa")=0
     "Pressure rise at peak efficiency";
+    // fixme: check if these defaults are needed, and if not, remove them.
   parameter Modelica.Units.SI.Efficiency
     eta=0.7
     "Peak efficiency";
