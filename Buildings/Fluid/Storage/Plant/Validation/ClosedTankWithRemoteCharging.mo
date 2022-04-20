@@ -3,8 +3,8 @@ model ClosedTankWithRemoteCharging
   "(Draft) Validation model of the plant allowing remote charging"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialClosedTank(nom(
-      final plaTyp=
+    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialClosedTank(
+      nom(final plaTyp=
         Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote));
 
   Modelica.Blocks.Sources.TimeTable set_mTan_flow(table=[0,0; 3600/7,0; 3600/7,

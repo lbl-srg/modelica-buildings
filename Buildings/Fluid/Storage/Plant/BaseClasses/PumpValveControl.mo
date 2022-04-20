@@ -3,7 +3,6 @@ block PumpValveControl
   "Control block for the supply pump and nearby valves"
   extends Modelica.Blocks.Icons.Block;
 
-  //parameter Boolean tankIsOpen = false "Tank is open";
   parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp=
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
     "Type of plant setup";
@@ -193,7 +192,7 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,-110})));
-  Controls.OBC.CDL.Continuous.Switch           swiPumSup1
+  Buildings.Controls.OBC.CDL.Continuous.Switch           swiPumSup1
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "True = on (y>0); false = off (y=0)." annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -209,18 +208,24 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-110})));
-  Controls.OBC.CDL.Continuous.Switch swiValOut
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiValOut
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "True = on (y>0); false = off (y=0)." annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={150,-170})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaValCha
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaValCha
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "True = 1, false = 0" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={190,-170})));
+
+initial equation
+  assert(plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+  or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
+  "To use this block, the only values allowed for plaTyp is
+  .Open or .ClosedRemote");
 equation
   connect(conPI_valCha.u_s,mTanSet_flow)  annotation (Line(points={{30,22},{30,88},
           {-150,88}},              color={0,0,127}));

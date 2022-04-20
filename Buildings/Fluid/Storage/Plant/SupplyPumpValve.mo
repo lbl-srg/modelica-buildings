@@ -4,6 +4,10 @@ model SupplyPumpValve
 
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
+  parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp=
+    nom.plaTyp
+    "Type of plant setup";
+
   Buildings.Fluid.Movers.SpeedControlled_y pumSup(
     redeclare final package Medium = Medium,
     per(pressure(dp=nom.dp_nominal*{2,1.2,0}, V_flow=(nom.m_flow_nominal)/1.2*{
@@ -24,9 +28,9 @@ model SupplyPumpValve
     y_start=0,
     l=1E-5,
     m_flow_nominal=nom.m_flow_nominal)
-    if nom.plaTyp ==
+    if plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or nom.plaTyp ==
+    or plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Output valve, open when tank NOT being charged remotely"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
@@ -37,15 +41,15 @@ model SupplyPumpValve
     y_start=0,
     l=1E-5,
     m_flow_nominal=nom.mTan_flow_nominal)
-    if nom.plaTyp ==
+    if plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or nom.plaTyp ==
+    or plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Charging valve, modulated when tank is being charged remotely"
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasValSupOut(
     redeclare final package Medium = Medium)
-    if nom.plaTyp ==
+    if plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
     "Replaces valSupOut when remote charging not allowed"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -59,9 +63,9 @@ model SupplyPumpValve
         rotation=180,
         origin={-10,60})));
   Modelica.Blocks.Interfaces.RealOutput ySup_actual[2]
-    if nom.plaTyp ==
+    if plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or nom.plaTyp ==
+    or plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Positions of 1: valSupOut, 2: valSupCha" annotation (
       Placement(transformation(
@@ -72,9 +76,9 @@ model SupplyPumpValve
         rotation=270,
         origin={-60,110})));
   Modelica.Blocks.Interfaces.RealInput yValSup[2]
-    if nom.plaTyp ==
+    if plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or nom.plaTyp ==
+    or plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Positions of the valves on the supply line" annotation (Placement(
         transformation(
@@ -102,7 +106,7 @@ model SupplyPumpValve
     addPowerToMedium=false,
     y_start=0,
     T_start=nom.T_CHWR_nominal)
-    if nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Auxilliary CHW pump on the return line" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -113,7 +117,7 @@ model SupplyPumpValve
     m_flow_nominal=nom.m_flow_nominal,
     dpValve_nominal=0.1*nom.dp_nominal,
     dpFixed_nominal=0.1*nom.dp_nominal)
-    if nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Check valve" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -125,7 +129,7 @@ model SupplyPumpValve
     y_start=0,
     l=1E-5,
     m_flow_nominal=nom.m_flow_nominal)
-    if nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Charging valve, open when tank is being charged remotely"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valRetOut(
@@ -135,19 +139,19 @@ model SupplyPumpValve
     y_start=0,
     l=1E-5,
     m_flow_nominal=nom.mTan_flow_nominal)
-    if nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Output valve, modulated when tank NOT being charged remotely"
     annotation (Placement(transformation(extent={{40,-100},{20,-80}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasRet(
     redeclare final package Medium = Medium)
-    if nom.plaTyp ==
+    if plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
-    or nom.plaTyp ==
+    or plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
     "Replaces the pump and valves on the return branch when the tank is closed"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Modelica.Blocks.Interfaces.RealOutput yRet_actual[2]
-    if nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Positions of 1: valRetOut, 2: valRetCha" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -157,7 +161,7 @@ model SupplyPumpValve
         rotation=270,
         origin={-100,110})));
   Modelica.Blocks.Interfaces.RealInput yRet[2]
-    if nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Control signals for the valves on the return line" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
@@ -167,7 +171,7 @@ model SupplyPumpValve
         rotation=-90,
         origin={98,110})));
   Modelica.Blocks.Interfaces.RealInput yPumRet
-    if nom.plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Speed input of the auxilliary pump on the return line" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},

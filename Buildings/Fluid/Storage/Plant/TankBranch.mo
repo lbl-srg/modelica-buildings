@@ -3,7 +3,7 @@ model TankBranch
   "(Draft) Model of the tank branch where the tank can potentially be charged remotely"
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
-  final parameter Boolean tankIsOpen = nom.plaTyp ==
+  parameter Boolean tankIsOpen = nom.plaTyp ==
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open "Tank is open";
 
   Buildings.Fluid.FixedResistances.PressureDrop preDroTanBot(
@@ -71,7 +71,7 @@ model TankBranch
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-30})));
-  Modelica.Blocks.Interfaces.RealOutput mTanTop_flow
+  Modelica.Blocks.Interfaces.RealOutput mTanTop_flow if tankIsOpen
     "Mass flow rate measured at the top of the tank" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -123,7 +123,8 @@ equation
         Line(
           points={{40,100},{40,40},{24,40}},
           color={0,0,0},
-          pattern=LinePattern.Dash),
+          pattern=LinePattern.Dash,
+          visible=tankIsOpen),
         Line(
           points={{80,100},{80,-40},{26,-40}},
           color={0,0,0},

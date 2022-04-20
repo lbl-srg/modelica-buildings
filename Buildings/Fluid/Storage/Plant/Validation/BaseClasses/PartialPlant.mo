@@ -15,6 +15,7 @@ partial model PartialPlant "(Draft)"
     ideChiBra(
     redeclare final package Medium = Medium,
     final nom=nom)
+    "Ideal chiller branch that generates flow rate and sets fluid temperature"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
     preDroTanBot(final dp_nominal=nom.dp_nominal*0.05),
