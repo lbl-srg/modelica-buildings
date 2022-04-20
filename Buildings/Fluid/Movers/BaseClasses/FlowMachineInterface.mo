@@ -301,7 +301,7 @@ protected
   Modelica.Blocks.Interfaces.RealOutput dp_internal
     "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide divByRho "Divide by density";
+  Modelica.Blocks.Math.Division divByRho "Divide by density";
   // This block replaces an algebraic equation with connections to allow
   //   the conditional declarations of CombiTable2D blocks used in the Euler number
   //   computations. This avoids the need to provide them with initial table values
