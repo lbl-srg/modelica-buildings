@@ -4,26 +4,29 @@ function motorEfficiencyCurve
   extends Modelica.Icons.Function;
   input Modelica.Units.SI.Power P_nominal "Rated input power of the motor";
   input Modelica.Units.SI.Efficiency eta_max "Maximum motor efficiency";
+  // Below, default values are assigned so that that dimensions are known.
   output Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
-    motorEfficiency_yMot(y=zeros(9)) "Motor efficiency vs. motor part load ratio";
+    motorEfficiency_yMot(
+        y={0,0.1,0.2,0.3,0.4,0.6,0.8,1,1.2},
+        eta=zeros(9)) "Motor efficiency vs. motor part load ratio";
+
 protected
-  parameter Modelica.Units.SI.Power u2[6]={700,2500,7500,15000,35000,70000}
+  constant Modelica.Units.SI.Power u2[6]={700, 2500, 7500, 15000, 35000, 70000}
     "Rated motor input power";
   constant Integer nSiz=6 "Number of motor sizes";
   constant Integer nPoi=9 "Size";
-  parameter Real[nPoi, nSiz] tab=
-    [             1E-6,             1E-6,             1E-6,             1E-6,             1E-6,             1E-6;
-     0.319836509737628,0.329886760993909,0.458027464511497,0.576112127457564,0.643957112752703,0.724359122802955;
-     0.551721742352314,0.613279531297038,0.752726767477942,0.843179028784475,0.903480536322164,0.962525762452817;
-     0.716480140443274,0.804199438688888,0.886622050343885,0.936873306625292,0.956973809137855,0.987124562906699;
-     0.816999745270129,0.922527383461084,0.950165574415858,0.980316328184702,                1,                1;
-     0.906409929833499,                1,                1,                1,                1,                1;
-     0.956863812148299,                1,                1,                1,                1,                1;
-                     1,                1,                1,                1,                1,                1;
-                     1,                1,                1,                1,                1,                1]
+  constant Real[nPoi, nSiz] tab=
+    [             1E-6,              1E-6,              1E-6,              1E-6,              1E-6,              1E-6;
+     0.319836509737628, 0.329886760993909, 0.458027464511497, 0.576112127457564, 0.643957112752703, 0.724359122802955;
+     0.551721742352314, 0.613279531297038, 0.752726767477942, 0.843179028784475, 0.903480536322164, 0.962525762452817;
+     0.716480140443274, 0.804199438688888, 0.886622050343885, 0.936873306625292, 0.956973809137855, 0.987124562906699;
+     0.816999745270129, 0.922527383461084, 0.950165574415858, 0.980316328184702,                 1,                 1;
+     0.906409929833499,                 1,                 1,                 1,                 1,                 1;
+     0.956863812148299,                 1,                 1,                 1,                 1,                 1;
+                     1,                 1,                 1,                 1,                 1,                 1;
+                     1,                 1,                 1,                 1,                 1,                 1]
     "Generic motor efficiency table (eta / eta_max)";
 algorithm
-  motorEfficiency_yMot.y:={0,0.1,0.2,0.3,0.4,0.6,0.8,1,1.2};
   if P_nominal>1E-6 then
     for j in 1:nPoi loop
       motorEfficiency_yMot.eta[j]:=eta_max * Buildings.Utilities.Math.Functions.smoothInterpolation(
