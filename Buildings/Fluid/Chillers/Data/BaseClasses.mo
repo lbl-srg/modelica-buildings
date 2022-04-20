@@ -33,7 +33,8 @@ package BaseClasses "Base classes for package Data"
       annotation (Dialog(group="Performance curves"));
     constant Integer nEIRFunPLR "Number of coefficients for EIRFunPLR"
       annotation (Dialog(group="Performance curves"));
-    parameter Real capFunT[nCapFunT] "Biquadratic coefficients for capFunT"
+    // FIXME : Hardcoded capFunT size should be nCapFunT
+    parameter Real capFunT[6] "Biquadratic coefficients for capFunT"
       annotation (Dialog(group="Performance curves"));
     parameter Real EIRFunT[nEIRFunT] "Biquadratic coefficients for EIRFunT"
       annotation (Dialog(group="Performance curves"));

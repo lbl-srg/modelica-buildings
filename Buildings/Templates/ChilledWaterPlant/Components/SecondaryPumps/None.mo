@@ -2,8 +2,9 @@ within Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps;
 model None "No secondary pumping"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.Interfaces.PartialSecondaryPump(
-    final nPum=0,
+    final nPum=1,
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.SecondaryPump.None);
+  // FIXME : nPum above should be 0, but record for pum[nPum] is not valid with size 0
 
   Buildings.Templates.Components.Pumps.None pum(
       redeclare final package Medium = Medium,

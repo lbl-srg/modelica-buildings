@@ -38,11 +38,13 @@ record Data "Data for chilled water plant controller"
   parameter Modelica.Units.SI.PressureDifference dpChiWatLoc_max(displayUnit="Pa")
     "Maximum chilled water differential pressure setpoint - Local sensors"
     annotation (Dialog(tab="Chilled water pumps", enable=have_sendpChiWatLoc));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatRem_max[nSenDpChiWatRem](each displayUnit="Pa")
+  // FIXME : Hardcoded dpChiWatRem_max size should be nSenDpChiWatRem
+  parameter Modelica.Units.SI.PressureDifference dpChiWatRem_max[0](each displayUnit="Pa")
     "Maximum chilled water differential pressure setpoint - Remote sensors"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min[nChi]
+  // FIXME : Hardcoded mChiWatChi_flow_min size should be nChi
+  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min[2]
     "Minimum chiller chilled water mass flow rate (for each chiller)"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
@@ -58,13 +60,15 @@ record Data "Data for chilled water plant controller"
     sum(capChi_nominal)
     "Plant design capacity (>0 by convention)"
     annotation (Dialog(tab="General", group="Chillers configuration"));
-  parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](each final min=0)
+  // FIXME : Hardcoded capChi_nominal size should be nChi
+  parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[2](each final min=0)
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(displayUnit="degC")
     "Design (minimum) chilled water supply temperature (identical for all chillers)"
     annotation (Dialog(tab="General", group="Chillers configuration"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=
+  // FIXME : Hardcoded mChiWatChi_flow_nominal size should be nChi
+  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[2]=
     fill(mChiWatPri_flow_nominal/nChi,nChi)
     "Design (maximum) chiller chilled water mass flow rate (for each chiller)"
     annotation (Dialog(tab="General", group="Chillers configuration"));
