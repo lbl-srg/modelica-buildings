@@ -988,7 +988,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.ThermalZones.Detailed.CFD<br/>
                        Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditions<br/>
                        Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditionsWithWindow<br/>
-                       " + "Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
+                       Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.<br/>
