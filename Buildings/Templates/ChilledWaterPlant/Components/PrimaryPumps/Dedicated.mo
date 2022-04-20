@@ -6,7 +6,7 @@ model Dedicated "Dedicated primary pumps"
     final nPum=nChi,
     final have_conSpePum=pum.typ == Buildings.Templates.Components.Types.Pump.Constant,
     final have_singlePort_a=false,
-    final typValChiWatChiPar=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
+    final typValChiWatChi=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
     pum(final have_singlePort_a=false));
 
 equation

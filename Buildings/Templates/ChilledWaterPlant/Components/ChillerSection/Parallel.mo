@@ -3,13 +3,14 @@ model Parallel "Model for chillers in parallel"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerParallel,
-     final typValChiWatChiSer=pumPri.typValChiWatChiPar,
+     final typValChiWatChi=pumPri.typValChiWatChi,
      final have_VChiWatRet_flow=pumPri.have_floSen and not pumPri.have_supFloSen);
 
   inner replaceable Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.HeaderedParallel
     pumPri constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Interfaces.PartialPrimaryPump(
       redeclare final package Medium = MediumChiWat,
+      final nChi=nChi,
       final dat=datPumPri)
     "Chilled water primary pumps"
     annotation (Placement(transformation(extent={{-70,-10},{-90,10}})),
@@ -28,7 +29,7 @@ model Parallel "Model for chillers in parallel"
       extent={{-10,10},{10,-10}},rotation=270,origin={50,0})));
 
 initial equation
-  assert(typPumPri <> Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
+  assert(pumPri.typ <> Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
     "In "+ getInstanceName() + ": "+
     "The primary pump type selected is incompatible with chillers in parallel." +
     "Compatible primary pump types are Dedicated or Headered (Parallel)");
@@ -37,7 +38,7 @@ equation
 
   connect(busCon, pumPri.busCon)
     annotation (Line(
-      points={{0,100},{0,22},{-80,22},{-80,10}},
+      points={{0,100},{0,80},{-80,80},{-80,10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

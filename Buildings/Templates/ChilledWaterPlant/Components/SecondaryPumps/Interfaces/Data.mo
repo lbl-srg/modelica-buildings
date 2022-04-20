@@ -17,11 +17,11 @@ record Data "Data for secondary pumps"
   // Equipment parameters
 
   parameter Buildings.Templates.Components.Pumps.Interfaces.Data pum[nPum](
-    each m_flow_nominal = m_flow_nominal / nPum)
+    each m_flow_nominal = if is_none then 0 else m_flow_nominal / nPum)
     "Pump data"
     annotation(Dialog(group = "Pumps", enable=not is_none));
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0
     "Pump group nominal flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation(Dialog(group = "Nominal condition", enable=not is_none));
 
 end Data;

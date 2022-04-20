@@ -31,11 +31,13 @@ record Data "Data for primary pumps"
     annotation(Dialog(group = "Nominal condition"));
 
   parameter Buildings.Templates.Components.Data.Valve valByp(
+    final typ = Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0)
     "Bypass valve data"
     annotation(Dialog(group = "Valves", enable=have_byp));
   parameter Buildings.Templates.Components.Data.Valve valChiByp(
+    final typ = Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0)
     "Chiller bypass valve data"

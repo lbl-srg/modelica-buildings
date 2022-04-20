@@ -3,13 +3,14 @@ model Series "Model for chillers in series"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries,
-     final typValChiWatChiSer=valChiWatChi.typ,
+     final typValChiWatChi=valChiWatChi.typ,
      final have_VChiWatRet_flow=pumPri.have_floSen and not pumPri.have_supFloSen);
 
   inner replaceable Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.HeaderedSeries
     pumPri constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Interfaces.PartialPrimaryPump(
       redeclare final package Medium = MediumChiWat,
+      final nChi=nChi,
       final dat=datPumPri)
     "Chilled water primary pumps"
     annotation (Placement(transformation(extent={{-70,-10},{-90,10}})),
@@ -50,7 +51,7 @@ model Series "Model for chillers in series"
         origin={-30,0})));
 
 initial equation
-  assert(typPumPri == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
+  assert(pumPri.typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
         "In "+ getInstanceName() + ": "+
     "The primary pump type selected is incompatible with chillers in series." +
     "The only compatible primary pump type is Headered (Series)");

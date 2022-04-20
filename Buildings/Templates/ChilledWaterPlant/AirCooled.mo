@@ -2,7 +2,11 @@ within Buildings.Templates.ChilledWaterPlant;
 model AirCooled
   extends
     Buildings.Templates.ChilledWaterPlant.BaseClasses.PartialChilledWaterLoop(
-    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.AirCooled);
+    final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.Configuration.AirCooled,
+    final have_eco = eco.have_eco,
+    dat(eco(
+        typ = eco.typ,
+        have_valChiWatEcoByp = eco.have_valChiWatEcoByp)));
 
   Buildings.Templates.ChilledWaterPlant.Components.Economizer.None eco(
       redeclare final package MediumChiWat = MediumChiWat,

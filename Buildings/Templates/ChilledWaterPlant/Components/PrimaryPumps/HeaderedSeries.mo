@@ -5,7 +5,7 @@ model HeaderedSeries "Headered primary pumps for chiller in series"
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
     final have_conSpePum=pum.typ == Buildings.Templates.Components.Types.Pump.Constant,
     final have_singlePort_a=true,
-    final typValChiWatChiPar=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
+    final typValChiWatChi=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
     pum(final have_singlePort_a=true));
 
   Fluid.Delays.DelayFirstOrder del(

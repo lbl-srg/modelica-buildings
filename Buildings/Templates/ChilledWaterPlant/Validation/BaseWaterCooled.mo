@@ -16,7 +16,6 @@ model BaseWaterCooled
     final typ=chw.typ,
     con(
       final typ = chw.con.typ,
-      final nSenDpChiWatRem = chw.con.nSenDpChiWatRem,
       final nChi = chw.con.nChi,
       final have_eco = chw.con.have_eco,
       final have_sendpChiWatLoc = chw.con.have_sendpChiWatLoc,
@@ -29,23 +28,28 @@ model BaseWaterCooled
     cooTowSec(
       final typ = chw.cooTowSec.typ,
       final nCooTow = chw.cooTowSec.nCooTow,
-      cooTow(final typ = chw.cooTowSec.cooTow.typ)),
+      cooTow(final typ = chw.cooTowSec.cooTow.typ),
+      valCooTowInl(final typ = chw.cooTowSec.valCooTowInl.typ),
+      valCooTowOut(final typ = chw.cooTowSec.valCooTowOut.typ)),
     pumPri(
       final typ = chw.chiSec.pumPri.typ,
       final nPum = chw.chiSec.pumPri.nPum,
       final have_byp = chw.chiSec.pumPri.have_byp,
       final have_chiByp = chw.chiSec.pumPri.have_chiByp,
-      valChiWatChi(final typ = chw.typValChiWatChi),
+      valChiWatChi(final typ = chw.chiSec.typValChiWatChi),
       pum(each final typ = chw.chiSec.pumPri.pum.typ)),
     pumSec(
       final typ = chw.pumSec.typ,
-      final nPum = chw.pumSec.nPum),
+      final nPum = chw.pumSec.nPum,
+      pum(each final typ = chw.pumSec.pum.typ)),
     pumCon(
       final typ = chw.pumCon.typ,
       final nPum = chw.pumCon.nPum,
-      valConWatChi(final typ = chw.typValConWatChi),
+      valConWatChi(final typ = chw.pumCon.typValConWatChi),
       pum(each final typ = chw.pumCon.pum.typ)),
-    eco(final typ = chw.eco.typ))
+    eco(
+      final typ = chw.eco.typ,
+      final have_valChiWatEcoByp= chw.eco.have_valChiWatEcoByp))
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res1(

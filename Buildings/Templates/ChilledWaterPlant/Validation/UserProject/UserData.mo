@@ -6,7 +6,6 @@ record UserData
     mChiWatPri_flow_nominal=18,
     con(
       TAirOutLoc(displayUnit="K") = 289.15,
-      dpChiWatRem_max={10000},
       dpChiWatLoc_max=10000,
       mChiWatChi_flow_min={0.3,0.3},
       dTLif_min=10,
@@ -24,21 +23,24 @@ record UserData
       valCooTowInl(each dpValve_nominal=6000),
       valCooTowOut(each dpValve_nominal=0)),
     pumPri(
+      m_flow_nominal=9,
       pum(
-        each dp_nominal=0,
-        each dpValve_nominal=0),
+        each dp_nominal=12000,
+        each dpValve_nominal=2000),
       valByp(dpValve_nominal=6000),
       valChiByp(dpValve_nominal=6000),
       valChiWatChi(each dpValve_nominal=6000)),
     pumCon(
+      m_flow_nominal=14,
       pum(
-        each dp_nominal=0,
-        each dpValve_nominal=0),
+        each dp_nominal=12000,
+        each dpValve_nominal=2000),
       valConWatChi(each dpValve_nominal=6000)),
     pumSec(
+      m_flow_nominal=9,
       pum(
-        each dp_nominal=0,
-        each dpValve_nominal=0)),
+        each dp_nominal=12000,
+        each dpValve_nominal=2000)),
     chiSec(
       chi(
         each m1_flow_nominal=14,

@@ -9,8 +9,6 @@ model PartialChilledWaterLoop
       final have_parChi = chiSec.is_parallel,
       final have_dedChiWatPum = chiSec.pumPri.is_dedicated,
       final have_secPum = not pumSec.is_none,
-      final have_eco = eco.have_eco,
-      final typValChiWatChi=chiSec.typValChiWatChiSer,
       busCon(final nChi=nChi),
       dat(
         con(
@@ -30,12 +28,12 @@ model PartialChilledWaterLoop
           nPum = chiSec.pumPri.nPum,
           have_byp = chiSec.pumPri.have_byp,
           have_chiByp = chiSec.pumPri.have_chiByp,
-          valChiWatChi(typ = typValChiWatChi),
+          valChiWatChi(typ = chiSec.typValChiWatChi),
           pum(each typ = chiSec.pumPri.pum.typ)),
         pumSec(
           typ = pumSec.typ,
-          nPum = pumSec.nPum),
-        eco(typ = eco.typ)));
+          nPum = pumSec.nPum,
+          pum(each typ = pumSec.pum.typ))));
 
   replaceable package MediumChiWat=Buildings.Media.Water
     "Chilled water medium";

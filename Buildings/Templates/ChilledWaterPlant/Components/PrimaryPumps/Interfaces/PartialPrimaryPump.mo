@@ -14,7 +14,7 @@ partial model PartialPrimaryPump "Partial primary pump model"
 
   parameter Integer nPum "Number of pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  outer parameter Integer nChi "Number of chillers";
+  parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
 
   parameter Boolean have_conSpePum
@@ -48,8 +48,8 @@ partial model PartialPrimaryPump "Partial primary pump model"
     "= true if primary chilled water supply temperature is measured"
     annotation(Dialog(enable=have_secPum));
 
-  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiPar[nChi]
-    "Type of chiller chilled water side isolation valve (chiller in parallel)";
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChi[nChi]
+    "Type of chiller chilled water side isolation valve";
 
   // Record
 

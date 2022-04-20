@@ -6,7 +6,7 @@ model HeaderedParallel
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedParallel,
     final have_conSpePum=pum.typ == Buildings.Templates.Components.Types.Pump.Constant,
     final have_singlePort_a=false,
-    final typValChiWatChiPar=valChiWatChi.typ,
+    final typValChiWatChi=valChiWatChi.typ,
     pum(final have_singlePort_a=true));
 
   inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChi[nChi]

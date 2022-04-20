@@ -8,26 +8,26 @@ model WaterCooled
         chiSec constrainedby
         Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
           redeclare final package MediumConWat = MediumConWat),
-      redeclare replaceable
-        Buildings.Templates.ChilledWaterPlant.Components.Economizer.None eco
-        constrainedby
-        Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
-          redeclare final package MediumConWat = MediumConWat),
       final nCooTow=cooTowSec.nCooTow,
       final nPumCon=pumCon.nPum,
       final have_dedConWatPum=pumCon.is_dedicated,
-      final typValConWatChi=pumCon.typValConWatChi,
+      final have_eco = eco.have_eco,
       busCon(final nCooTow=nCooTow),
       dat(
         cooTowSec(
           typ = cooTowSec.typ,
           nCooTow = cooTowSec.nCooTow,
-          cooTow(typ = cooTowSec.cooTow.typ)),
+          cooTow(typ = cooTowSec.cooTow.typ),
+          valCooTowInl(typ = cooTowSec.valCooTowInl.typ),
+          valCooTowOut(typ = cooTowSec.valCooTowOut.typ)),
         pumCon(
           typ = pumCon.typ,
           nPum = pumCon.nPum,
-          valConWatChi(typ = typValConWatChi),
-          pum(each typ = pumCon.pum.typ))));
+          valConWatChi(typ = pumCon.typValConWatChi),
+          pum(each typ = pumCon.pum.typ)),
+        eco(
+          typ = eco.typ,
+          have_valChiWatEcoByp = eco.have_valChiWatEcoByp)));
 
   replaceable package MediumConWat = Buildings.Media.Water
     "Condenser water medium";
@@ -63,6 +63,7 @@ model WaterCooled
     eco constrainedby
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.PartialEconomizer(
       redeclare final package MediumChiWat = MediumChiWat,
+      redeclare final package MediumConWat = MediumConWat,
       final dat=dat.eco)
     "Waterside economizer"
     annotation (Placement(transformation(

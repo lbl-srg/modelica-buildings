@@ -43,17 +43,20 @@ record Data "Data for waterside economizer"
 
 
   parameter Buildings.Templates.Components.Data.Valve valConWatEco(
-      final m_flow_nominal = m1_flow_nominal,
-      dpValve_nominal = 0)
+    final typ = Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+    final m_flow_nominal = m1_flow_nominal,
+    dpValve_nominal = 0)
     "Waterside economizer condenser water side isolation valve"
     annotation(Dialog(group = "Valves", enable=have_eco));
   parameter Buildings.Templates.Components.Data.Valve valChiWatEcoByp(
-      final m_flow_nominal = m2_flow_nominal,
-      dpValve_nominal = 0)
+    final typ = Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    final m_flow_nominal = m2_flow_nominal,
+    dpValve_nominal = 0)
     "Waterside economizer chilled water side bypass valve"
     annotation(Dialog(group = "Valves", enable=have_eco and have_valChiWatEcoByp));
 
   parameter Buildings.Templates.Components.Pumps.Interfaces.Data pumEco(
+    final typ = Buildings.Templates.Components.Types.Pump.Variable,
     each m_flow_nominal = m2_flow_nominal)
     "Waterside economizer heat exchanger pump"
     annotation(Dialog(group = "Pumps", enable=have_eco and not have_valChiWatEcoByp));
