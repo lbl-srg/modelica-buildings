@@ -36,11 +36,11 @@ equation
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
   connect(supPum.ySup_actual, conSupPum.ySup_actual) annotation (Line(points={{
-          12,11},{12,34},{4,34},{4,40},{9,40}}, color={0,0,127}));
-  connect(conSupPum.yPum, supPum.yPumSup)
-    annotation (Line(points={{20,39},{20,11}}, color={0,0,127}));
+          14,11},{14,34},{4,34},{4,40},{9,40}}, color={0,0,127}));
+  connect(conSupPum.yPumSup, supPum.yPumSup)
+    annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
   connect(conSupPum.yValSup, supPum.yValSup)
-    annotation (Line(points={{24,39},{24,11}}, color={0,0,127}));
+    annotation (Line(points={{22,39},{22,11}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

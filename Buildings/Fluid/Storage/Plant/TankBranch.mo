@@ -7,7 +7,7 @@ model TankBranch
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open "Tank is open";
 
   Buildings.Fluid.FixedResistances.PressureDrop preDroTanBot(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final allowFlowReversal=true,
     final m_flow_nominal=nom.mTan_flow_nominal)
     "Flow resistance on tank branch near tank bottom" annotation (Placement(
@@ -25,7 +25,7 @@ model TankBranch
         rotation=270,
         origin={80,110})));
   Buildings.Fluid.Storage.Stratified tan(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final allowFlowReversal=true,
     hTan=3,
     dIns=0.3,
@@ -39,8 +39,9 @@ model TankBranch
         nom.T_CHWS_nominal,
         tan.nSeg)) "Tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Fluid.Sensors.MassFlowRate senFloBot(redeclare package Medium =
-        Medium, final allowFlowReversal=true) "Flow rate sensor at tank bottom"
+  Modelica.Fluid.Sensors.MassFlowRate senFloBot(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=true) "Flow rate sensor at tank bottom"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -55,7 +56,7 @@ model TankBranch
         rotation=-90,
         origin={-10,30})));
   Buildings.Fluid.FixedResistances.PressureDrop preDroTanTop(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final allowFlowReversal=true,
     final m_flow_nominal=nom.mTan_flow_nominal)
     "Flow resistance on tank branch near tank top" annotation (Placement(
@@ -63,8 +64,9 @@ model TankBranch
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,0})));
-  Modelica.Fluid.Sensors.MassFlowRate senFloTop(redeclare package Medium =
-        Medium, final allowFlowReversal=true) "Flow rate sensor at tank top"
+  Modelica.Fluid.Sensors.MassFlowRate senFloTop(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=true) "Flow rate sensor at tank top"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

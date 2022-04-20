@@ -460,12 +460,12 @@ equation
   connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
           -90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,-10}},
         color={255,0,255}));
-  connect(conSupPum.ySup_actual, supPum.ySup_actual) annotation (Line(points={{
-          -81,-30},{-84,-30},{-84,-38},{-78,-38},{-78,-49}}, color={0,0,127}));
-  connect(conSupPum.yPum, supPum.yPumSup)
-    annotation (Line(points={{-70,-31},{-70,-49}}, color={0,0,127}));
+  connect(conSupPum.ySup_actual, supPum.ySup_actual) annotation (Line(points={{-81,-30},
+          {-84,-30},{-84,-38},{-76,-38},{-76,-49}},          color={0,0,127}));
+  connect(conSupPum.yPumSup, supPum.yPumSup)
+    annotation (Line(points={{-72,-31},{-72,-49}}, color={0,0,127}));
   connect(conSupPum.yValSup, supPum.yValSup)
-    annotation (Line(points={{-66,-31},{-66,-49}}, color={0,0,127}));
+    annotation (Line(points={{-68,-31},{-68,-49}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/TwoSourcesThreeUsers.mos"
         "Simulate and plot"),
