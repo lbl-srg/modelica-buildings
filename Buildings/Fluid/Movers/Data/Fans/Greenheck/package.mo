@@ -16,7 +16,7 @@ The powers were read from the graphs approximately using
 https://eleif.net/photo_measure.html</a>.
 For each pressure-flow rate curve, the points to the left of the highest point
 were abandoned to ensure convergence.
-See <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">UsersGuide</a>
+See <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
 and <a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>
 for more information on the convergence considerations.
 Also note that in the actual names of each fan,
