@@ -15,7 +15,7 @@ model RP1711_6_3
       pumCon(final nPum=2),
     redeclare Buildings.Templates.ChilledWaterPlant.Components.Economizer.WatersideEconomizer
       eco(final have_valChiWatEcoByp=true),
-    final have_chiByp=true);
+    final have_chiWatChiByp=true);
 
   annotation (
     defaultComponentName="chw");

@@ -6,6 +6,9 @@ partial model PartialValve "Interface class for valve"
   parameter Buildings.Templates.Components.Types.Valve typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean is_none = typ == Buildings.Templates.Components.Types.Valve.None
+    "= true if valve is none"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"
@@ -37,7 +40,7 @@ partial model PartialValve "Interface class for valve"
     "Fluid connector with bypass line"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Templates.Components.Interfaces.Bus bus
-    if typ <> Buildings.Templates.Components.Types.Valve.None
+    if not is_none
     "Control bus"
     annotation (Placement(
       transformation(

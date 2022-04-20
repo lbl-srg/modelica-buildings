@@ -28,7 +28,8 @@ model WatersideEconomizer "Waterside economizer"
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=m2_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final have_sen=true) "Chilled water return temperature before economizer"
+    final have_sen=true) 
+    "Chilled water return temperature before economizer"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -37,7 +38,8 @@ model WatersideEconomizer "Waterside economizer"
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=m2_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final have_sen=true) "Chilled water return temperature after economizer"
+    final have_sen=true) 
+    "Chilled water return temperature after economizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -48,13 +50,13 @@ model WatersideEconomizer "Waterside economizer"
   Buildings.Templates.Components.Valves.TwoWayModulating valChiWatEcoByp(
     redeclare final package Medium = MediumChiWat,
     final dat=dat.valChiWatEcoByp) if have_valChiWatEcoByp
-    "Waterside economizer chilled water side bypass valve"
+    "Waterside economizer chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpChiWatHex(
     redeclare final package Medium = MediumChiWat,
     final have_sen=true,
     final text_flip=true) if have_valChiWatEcoByp
-    "Waterside economizer heat exchanger chilled water side differential pressure"
+    "Waterside economizer chilled water differential pressure"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=180)));
   Buildings.Templates.BaseClasses.PassThroughFluid pasHex(
@@ -82,7 +84,8 @@ model WatersideEconomizer "Waterside economizer"
     final m_flow_nominal=m2_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final have_sen=true) if not have_valChiWatEcoByp
-    "Waterside economizer heat exchanger entering temperature" annotation (
+    "Waterside economizer heat exchanger entering chilled water temperature" 
+    annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,

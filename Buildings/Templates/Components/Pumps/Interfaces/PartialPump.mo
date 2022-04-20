@@ -11,6 +11,9 @@ partial model PartialPump "Interface class for pump"
   parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  final parameter Boolean is_none = typ == Buildings.Templates.Components.Types.Pump.None
+    "= true if pump is none"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nPum(final min=0) = 1
     "Number of pumps"
     annotation(Evaluate=true,

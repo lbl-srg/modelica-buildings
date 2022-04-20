@@ -47,13 +47,20 @@ partial model PartialChilledWaterPlant
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   // User defined structure
-
-  inner parameter Boolean have_chiByp = have_eco
+  parameter Boolean have_minFloByp
+    "= true if chilled water loop has a minimum flow bypass";
+  inner parameter Boolean have_chiWatChiByp = have_eco
     "= true if chilled water loop has a chiller bypass"
     annotation(Evaluate=true, Dialog(enable=have_eco, group="Configuration"));
-  parameter Boolean have_TChiWatPlaRet = not have_secPum
+  parameter Boolean have_TPriRet = not have_secPum
     "= true if plant chilled water return temperature is measured"
     annotation(Evaluate=true, Dialog(enable=have_secPum, group="Configuration"));
+  final parameter Boolean have_TSecRet = have_secPum and not have_eco
+    "= true if secondary return temperature is measured"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_TChiWatRet = false
+    "= true if loop chilled water return temperature is measured"
+    annotation(Evaluate=true, Dialog(enable=have_minFloByp and not have_eco, group="Configuration"));
   parameter Boolean have_VSecRet_flow = false
     "= true if secondary return chilled water flow is measured"
     annotation(Evaluate=true, Dialog(enable=have_secPum, group="Configuration"));

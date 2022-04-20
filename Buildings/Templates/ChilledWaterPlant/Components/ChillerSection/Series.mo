@@ -3,7 +3,7 @@ model Series "Model for chillers in series"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerSeries,
-     final typValChiWatChi=valChiWatChi.typ,
+     final typValChiWatChiIso=valChiWatChiIso.typ,
      final have_VChiWatRet_flow=pumPri.have_floSen and not pumPri.have_supFloSen);
 
   inner replaceable Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.HeaderedSeries
@@ -18,17 +18,17 @@ model Series "Model for chillers in series"
         choice(redeclare Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.HeaderedSeries
           pumPri "Headered")));
 
-  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChi[nChi]
+  inner replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChiIso[nChi]
     constrainedby Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare each final package Medium = MediumChiWat,
-      final dat=dat.valChiWatChi)
-    "Chiller chilled water-side isolation valves"
+      final dat=dat.valChiWatChiIso)
+    "Chiller chilled water isolation valves"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})),
       choices(
         choice(redeclare Buildings.Templates.Components.Valves.TwoWayModulating
-          valChiWatChi[nChi] "Modulating"),
+          valChiWatChiIso[nChi] "Modulating"),
         choice(redeclare Buildings.Templates.Components.Valves.TwoWayTwoPosition
-          valChiWatChi[nChi] "Two-positions")));
+          valChiWatChiIso[nChi] "Two-positions")));
 
   Buildings.Fluid.FixedResistances.Junction splChi[nChi](
     redeclare package Medium = MediumChiWat,
@@ -58,7 +58,7 @@ initial equation
 
 equation
 
-  connect(valChiWatChi.bus, busCon.valChiWatChi)
+  connect(valChiWatChiIso.bus, busCon.valChiWatChiIso)
     annotation (Line(
       points={{0,10},{0,20},{40,20},{40,80},{0.1,80},{0.1,100.1}},
       color={255,204,51},
@@ -81,9 +81,9 @@ equation
     annotation (Line(points={{20,36},{30,36},{30,10}}, color={0,127,255}));
   connect(chi.port_b2, mixChi.port_3)
     annotation (Line(points={{-20,36},{-30,36},{-30,10}}, color={0,127,255}));
-  connect(valChiWatChi.port_b, mixChi.port_2)
+  connect(valChiWatChiIso.port_b, mixChi.port_2)
     annotation (Line(points={{-10,0},{-20,0}}, color={0,127,255}));
-  connect(valChiWatChi.port_a, splChi.port_2)
+  connect(valChiWatChiIso.port_a, splChi.port_2)
     annotation (Line(points={{10,0},{15,0},{20,0}}, color={0,127,255}));
 
   for i in 2:nChi loop
@@ -93,13 +93,13 @@ equation
         color={0,127,255}));
   end for;
 
-  connect(splChiByp.port_2, splChi[1].port_1)
+  connect(splChiWatChiByp.port_2, splChi[1].port_1)
     annotation (Line(points={{-70,-60},{-80,-60},{-80,-40},{80,-40},{80,0},{40,0}},
       color={0,127,255}));
-  connect(mixByp.port_3, pumPri.port_byp)
+  connect(mixMinFlowByp.port_3, pumPri.port_minFloByp)
     annotation (Line(points={{60,-50},{60,-30},{-80,-30},{-80,-10}},
       color={0,127,255}));
-  connect(pumPri.port_ChiByp, splChiByp.port_3)
+  connect(pumPri.port_chiWatChiByp, splChiWatChiByp.port_3)
     annotation (Line(points={{-70,-6},{-60,-6},{-60,-50}},
       color={0,127,255}));
   connect(pumPri.port_a, mixChi[nChi].port_1)

@@ -4,7 +4,7 @@ model Dedicated "Dedicated condenser pumps"
     Buildings.Templates.ChilledWaterPlant.Components.CondenserPumps.Interfaces.PartialCondenserPump(
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserPump.Dedicated,
     final nPum=nChi,
-    final typValConWatChi=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
+    final typValConWatChiIso=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
     pum(final have_singlePort_b=false));
 
   // FIXME : Could we have a dedicated condenser pump with WSE?

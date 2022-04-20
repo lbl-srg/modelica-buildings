@@ -8,9 +8,9 @@ record Data "Data for primary pumps"
     Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump typ
     "Type of primary pumping"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_byp "= true if primary pumps have a return bypass"
+  parameter Boolean have_minFloByp "= true if primary pumps have a return bypass"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_chiByp "= true if chilled water loop has a chiller bypass"
+  parameter Boolean have_chiWatChiByp "= true if chilled water loop has a chiller bypass"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nPum(final min=1) "Number of pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -30,22 +30,22 @@ record Data "Data for primary pumps"
     "Pump group nominal flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
-  parameter Buildings.Templates.Components.Data.Valve valByp(
+  parameter Buildings.Templates.Components.Data.Valve valPriMinFloByp(
     final typ = Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0)
-    "Bypass valve data"
-    annotation(Dialog(group = "Valves", enable=have_byp));
-  parameter Buildings.Templates.Components.Data.Valve valChiByp(
+    "Chilled water minimum flow bypass valve"
+    annotation(Dialog(group = "Valves", enable=have_minFloByp));
+  parameter Buildings.Templates.Components.Data.Valve valChiWatChiByp(
     final typ = Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0)
-    "Chiller bypass valve data"
-    annotation(Dialog(group = "Valves", enable=have_chiByp));
-  parameter Buildings.Templates.Components.Data.Valve valChiWatChi[nChi](
+    "Chiller chilled water bypass valve"
+    annotation(Dialog(group = "Valves", enable=have_chiWatChiByp));
+  parameter Buildings.Templates.Components.Data.Valve valChiWatChiIso[nChi](
       each final m_flow_nominal = m_flow_nominal/nChi,
       each dpValve_nominal = 0)
-    "Chiller chilled water side isolation valve"
+    "Chiller chilled water isolation valves"
     annotation(Dialog(group = "Valve",
       enable = typ == Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedParallel));
 

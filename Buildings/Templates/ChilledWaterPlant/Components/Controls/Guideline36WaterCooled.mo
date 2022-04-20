@@ -190,7 +190,7 @@ block Guideline36WaterCooled
     final maxFloSet=dat.mChiWatChi_flow_nominal/1000,
     final minChiWatPumSpe=dat.yPumChiWat_min,
     final nPum_nominal=nPum_nominal,
-    final VChiWat_flow_nominal=dat.mChiWatPri_flow_nominal/1000,
+    final VChiWat_flow_nominal=dat.mPri_flow_nominal/1000,
     final maxLocDp=dat.dpChiWatLoc_max,
     final dpChiWatPumMax=dat.dpChiWatRem_max,
     final posDisMult=posDisMult,
@@ -293,11 +293,11 @@ equation
   if have_eco then
     connect(busCon.wse.TChiWatEcoEnt, ctrPla.TChiWatRet);
   else
-    connect(busCon.TChiWatRetPla, ctrPla.TChiWatRet);
+    connect(busCon.TPriRet, ctrPla.TChiWatRet);
   end if;
   connect(busCon.TConWatRet, ctrPla.TConWatRet);
-  // FIXME: busCon.pumPri.TChiWatPriSup should be renamed.
-  connect(busCon.pumPri.TChiWatPriSup, ctrPla.TChiWatSup);
+  // FIXME: busCon.pumPri.TPriSup should be renamed.
+  connect(busCon.pumPri.TPriSup, ctrPla.TChiWatSup);
   // FIXME: Rename uStaPumPri as "Pri" does not apply to condenser water pumps.
   connect(busCon.uStaPumPri, ctrPla.uConWatPum);
   connect(busCon.TAirOut, ctrPla.TOut);
@@ -337,7 +337,7 @@ equation
   // connect(ctrPla.yHeaPreConValSta, busCon.yHeaPreConValSta);
 
   // FIXME: Missing configurations in controller and system model.
-  connect(FIXME_yHeaPreConVal.y, busCon.valConWatChi.y);
+  connect(FIXME_yHeaPreConVal.y, busCon.valConWatChiIso.y);
 
   // FIXME: Missing configurations in controller and system model.
   // For instance "a single common speed point is appropriate".
@@ -350,13 +350,13 @@ equation
   // connect(ctrPla.yConWatPum, busCon.y);
 
   // FIXME: Only modulating valve supported by controller.
-  connect(ctrPla.yChiWatIsoVal, busCon.valChiWatChi.y);
+  connect(ctrPla.yChiWatIsoVal, busCon.valChiWatChiIso.y);
 
   // FIXME: Controller output does not exist in real life.
   // connect(ctrPla.yReaChiDemLim, busCon.yReaChiDemLim);
 
   // FIXME: Missing configurations in controller.
-  connect(ctrPla.yMinValPosSet, busCon.pumPri.valByp.y);
+  connect(ctrPla.yMinValPosSet, busCon.pumPri.valPriMinFloByp.y);
 
   // FIXME: This is not an output per §4. LIST OF POINTS. Should be deleted.
   // connect(ctrPla.yNumCel, busCon.yNumCel);

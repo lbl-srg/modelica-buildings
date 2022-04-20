@@ -19,7 +19,7 @@ partial model PartialPrimaryPump "Partial primary pump model"
 
   parameter Boolean have_conSpePum
     "= true if pumps are constant speed";
-  final parameter Boolean have_byp = not have_secPum and not have_conSpePum
+  final parameter Boolean have_minFloByp = not have_secPum and not have_conSpePum
     "= true if chilled water loop has a minimum flow bypass";
   final parameter Boolean have_decoupler = have_secPum
     "= true if there is a commong leg";
@@ -27,7 +27,7 @@ partial model PartialPrimaryPump "Partial primary pump model"
   parameter Boolean have_decouplerFloSen = have_decoupler
     "= true if decoupler flow is measured"
     annotation(Dialog(enable=have_decoupler));
-  outer parameter Boolean have_chiByp
+  outer parameter Boolean have_chiWatChiByp
     "= true if chilled water loop has a chiller bypass"
     annotation(Dialog(enable=not have_parChi or not have_secPum));
   parameter Boolean have_floSen = true
@@ -44,11 +44,11 @@ partial model PartialPrimaryPump "Partial primary pump model"
   outer parameter Boolean have_parChi
     "= true if plant chillers are in parallel";
 
-  parameter Boolean have_TChiWatPriSup = not have_secPum
+  parameter Boolean have_TPriSup = not have_secPum
     "= true if primary chilled water supply temperature is measured"
     annotation(Dialog(enable=have_secPum));
 
-  parameter Buildings.Templates.Components.Types.Valve typValChiWatChi[nChi]
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso[nChi]
     "Type of chiller chilled water side isolation valve";
 
   // Record
@@ -59,8 +59,8 @@ partial model PartialPrimaryPump "Partial primary pump model"
     final typ=typ,
     final nPum=nPum,
     final nChi=nChi,
-    final have_chiByp=have_chiByp,
-    final have_byp=have_byp,
+    final have_chiWatChiByp=have_chiWatChiByp,
+    final have_minFloByp=have_minFloByp,
     pum(final typ = pum.typ)) "Primary pumps data";
 
   // Model configuration parameters
@@ -93,15 +93,15 @@ partial model PartialPrimaryPump "Partial primary pump model"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,0})));
-  Buildings.Templates.Components.Valves.TwoWayModulating valByp(
+  Buildings.Templates.Components.Valves.TwoWayModulating valPriMinFloByp(
     redeclare final package Medium = Medium,
-    final dat=dat.valByp) if have_byp
-    "Bypass valve"
+    final dat=dat.valPriMinFloByp) if have_minFloByp
+    "Chilled water minimum flow bypass valve"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,-50})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatPriSup_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VPriSup_flow(
     redeclare final package Medium = Medium,
     final have_sen=have_supFloSen,
     final m_flow_nominal=dat.m_flow_nominal,
@@ -124,9 +124,9 @@ partial model PartialPrimaryPump "Partial primary pump model"
     if have_decoupler
     "Decoupler volume flow rate"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
-  Buildings.Templates.Components.Sensors.Temperature TChiWatPriSup(
+  Buildings.Templates.Components.Sensors.Temperature TPriSup(
     redeclare final package Medium = Medium,
-    final have_sen=have_TChiWatPriSup,
+    final have_sen=have_TPriSup,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final m_flow_nominal=dat.m_flow_nominal)
     "Primary chilled water supply temperature"
@@ -150,11 +150,11 @@ partial model PartialPrimaryPump "Partial primary pump model"
     "Pump group inlet for chiller connected in parallel" annotation (Placement(
         transformation(extent={{-108,-30},{-92,30}}), iconTransformation(extent=
            {{-108,-30},{-92,30}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_ChiByp(
+  Modelica.Fluid.Interfaces.FluidPort_a port_chiWatChiByp(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_chiByp
+    if have_chiWatChiByp
     "Pump group inlet for waterside economizer bypass"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -169,25 +169,25 @@ partial model PartialPrimaryPump "Partial primary pump model"
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Pump group outlet"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_byp(
+  Modelica.Fluid.Interfaces.FluidPort_b port_minFloByp(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_byp or have_decoupler
+    if have_minFloByp or have_decoupler
     "Pump group outlet for bypass or commong leg"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
 equation
   connect(splByp.port_2, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(splByp.port_3,valByp. port_a)
+  connect(splByp.port_3,valPriMinFloByp. port_a)
     annotation (Line(
       points={{70,-10},{70,-30},{0,-30},{0,-36},{0,-40}},
       color={0,127,255}));
-  connect(valByp.port_b, port_byp)
+  connect(valPriMinFloByp.port_b, port_minFloByp)
     annotation (Line(points={{0,-60},{0,-80},{0,-100}},color={0,127,255}));
-  connect(VChiWatPriSup_flow.port_b,splByp. port_1)
+  connect(VPriSup_flow.port_b,splByp. port_1)
     annotation (Line(points={{50,0},{60,0}}, color={0,127,255}));
-  connect(VChiWatPriSup_flow.y, busCon.VChiWatPriSup_flow)
+  connect(VPriSup_flow.y, busCon.VPriSup_flow)
     annotation (Line(points={{40,12},{40,80},{0,80},{0,100}}, color={0,0,127}),
     Text(
       string="%second",
@@ -196,7 +196,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(splByp.port_3,pas. port_a)
     annotation (Line(points={{70,-10},{70,-50}}, color={0,127,255}));
-  connect(port_byp,VDec_flow. port_a)
+  connect(port_minFloByp,VDec_flow. port_a)
     annotation (Line(points={{0,-100},{0,-80},{30,-80}}, color={0,127,255}));
   connect(VDec_flow.port_b,pas. port_b)
     annotation (Line(points={{50,-80},{70,-80},{70,-70}}, color={0,127,255}));
@@ -208,17 +208,17 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pum.port_b,TChiWatPriSup. port_a)
+  connect(pum.port_b,TPriSup. port_a)
     annotation (Line(points={{-30,0},{-10,0}},color={0,127,255}));
-  connect(TChiWatPriSup.port_b,VChiWatPriSup_flow. port_a)
+  connect(TPriSup.port_b,VPriSup_flow. port_a)
     annotation (Line(points={{10,0},{30,0}},color={0,127,255}));
-  connect(TChiWatPriSup.y, busCon.TChiWatPriSup)
+  connect(TPriSup.y, busCon.TPriSup)
     annotation (Line(points={{0,12},{0,100}},color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(valByp.bus, busCon.valByp)
+  connect(valPriMinFloByp.bus, busCon.valPriMinFloByp)
     annotation (Line(points={{-10,-50},{-20,-50},{-20,80},{0,80},{0,100}},
       color={255,204,51},
       thickness=0.5), Text(

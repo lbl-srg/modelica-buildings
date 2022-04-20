@@ -23,7 +23,7 @@ record Data "Data for chillers"
   parameter Boolean have_TChiWatChiSup = true
     "= true if chiller chilled water supply temperature is measured"
     annotation (Dialog(enable=not is_heaPreCon or have_heaPreSig));
-  parameter Boolean have_TConWatRet = true
+  parameter Boolean have_TConWatChiRet = true
     "= true if chiller condenser water return temperature is measured"
     annotation (Dialog(enable=not is_heaPreCon or have_heaPreSig));
 

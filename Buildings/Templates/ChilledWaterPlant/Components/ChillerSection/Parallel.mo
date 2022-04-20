@@ -3,7 +3,7 @@ model Parallel "Model for chillers in parallel"
   extends
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.PartialChillerSection(
      final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.ChillerSection.ChillerParallel,
-     final typValChiWatChi=pumPri.typValChiWatChi,
+     final typValChiWatChiIso=pumPri.typValChiWatChiIso,
      final have_VChiWatRet_flow=pumPri.have_floSen and not pumPri.have_supFloSen);
 
   inner replaceable Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.HeaderedParallel
@@ -46,7 +46,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
-  connect(splChiByp.port_2, volChiWat.ports[1])
+  connect(splChiWatChiByp.port_2, volChiWat.ports[1])
     annotation (Line(points={{-70,-60},{-80,-60},{-80,-40},{80,-40},{80,0},{60,0},
           {60,-1.9984e-15}},
       color={0,127,255}));
@@ -55,10 +55,10 @@ equation
           -1.9984e-15}},
       color={0,127,255}));
 
-  connect(pumPri.port_byp, mixByp.port_3)
+  connect(pumPri.port_minFloByp, mixMinFlowByp.port_3)
     annotation (Line(points={{-80,-10},{-80,-30},{60,-30},{60,-50}},
       color={0,127,255}));
-  connect(splChiByp.port_3, pumPri.port_ChiByp)
+  connect(splChiWatChiByp.port_3, pumPri.port_chiWatChiByp)
     annotation (Line(points={{-60,-50},{-60,-6},{-70,-6}},
       color={0,127,255}));
   connect(chi.port_b2, pumPri.ports_a)

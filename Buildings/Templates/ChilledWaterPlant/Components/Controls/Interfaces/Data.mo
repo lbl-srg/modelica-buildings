@@ -69,7 +69,7 @@ record Data "Data for chilled water plant controller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
   // FIXME : Hardcoded mChiWatChi_flow_nominal size should be nChi
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[2]=
-    fill(mChiWatPri_flow_nominal/nChi,nChi)
+    fill(mPri_flow_nominal/nChi,nChi)
     "Design (maximum) chiller chilled water mass flow rate (for each chiller)"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -88,7 +88,7 @@ record Data "Data for chilled water plant controller"
   parameter Real yPumChiWat_min(final unit="1", final min=0, final max=1)
     "Minimum chilled water pump speed ratio"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
-   parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal
+   parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal
     "Design (maximum) primary chilled water mass flow rate (for the plant)"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 

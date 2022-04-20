@@ -28,10 +28,10 @@ record Data "Data for condenser water pumps"
     "Pump data"
     annotation(Dialog(group = "Pumps"));
   parameter
-    Buildings.Templates.Components.Data.Valve valConWatChi[nChi](
+    Buildings.Templates.Components.Data.Valve valConWatChiIso[nChi](
       each final m_flow_nominal = m_flow_nominal / nChi,
       each dpValve_nominal = 0)
-    "Chiller chilled water side isolation valve"
+    "Chiller condenser water isolation valves"
     annotation(Dialog(group = "Valve", enable=not is_dedicated));
 
 end Data;

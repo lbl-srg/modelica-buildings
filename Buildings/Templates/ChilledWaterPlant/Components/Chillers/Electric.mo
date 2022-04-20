@@ -24,113 +24,43 @@ model Electric "Electric chiller"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,50})));
-  Buildings.Templates.Components.Sensors.Temperature TChiWatRet(
-    redeclare final package Medium = Medium2,
-    final have_sen=true,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=m2_flow_nominal)
-    "Chiller chilled water return temperature"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Templates.Components.Sensors.Temperature TChiWatChiSup(
-    redeclare final package Medium = Medium2,
-    final have_sen=have_TChiWatChiSup,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=m2_flow_nominal)
-    "Chiller chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Templates.Components.Sensors.Temperature TConWatSup(
-    redeclare final package Medium = Medium1,
-    final have_sen=true,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=m1_flow_nominal)
-    "Chiller condenser water supply temperature"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Templates.Components.Sensors.Temperature TConWatRet(
-    redeclare final package Medium = Medium1,
-    final have_sen=have_TConWatRet,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final m_flow_nominal=m1_flow_nominal)
-    "Chiller condenser water return temperature"
-    annotation (Placement(transformation(extent={{58,50},{78,70}})));
 
 equation
-  connect(bus.on, chi.on)
+
+  // Controls points
+
+  connect(bus.y1, chi.on)
     annotation (Line(
       points={{0,100},{0,80},{-28,80},{-28,6},{-12,6},{-12,5}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(bus.TSet, chi.TSet)
+      thickness=0.5));
+  connect(bus.TChiWatChiSupSet, chi.TSet)
     annotation (Line(
       points={{0,100},{0,80},{-28,80},{-28,-1},{-12,-1}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+      thickness=0.5));
+  connect(bus.y1_actual, evaSta.y)
+    annotation (Line(
+      points={{0,100},{0,80},{10,80},{10,62}},
+      color={255,0,255}));
   connect(chi.P, evaSta.u)
     annotation (Line(points={{11,11},{10,11},{10,38}}, color={0,0,127}));
-  connect(evaSta.y, bus.sta)
-    annotation (Line(
-      points={{10,62},{10,80},{0,80},{0,100}},
-      color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(chi.port_a2, TChiWatRet.port_a)
+
+  // Hydraulics
+
+  connect(chi.port_a2, TChiWatChiRet.port_a)
     annotation (Line(points={{10,-4},{40,-4},{40,-60},{60,-60}},
       color={0,127,255}));
-  connect(TChiWatRet.port_b, port_a2)
-    annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
-  connect(port_b2, TChiWatChiSup.port_a)
-    annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
-  connect(TChiWatChiSup.port_b, chi.port_b2)
-    annotation (Line(points={{-60,-60},{-40,-60},{-40,-4},{-10,-4}},
+  connect(chi.port_b2, TChiWatChiSup.port_b)
+    annotation (Line(points={{-10,-4},{-40,-4},{-40,-60},{-60,-60}},
       color={0,127,255}));
-  connect(port_a1, TConWatSup.port_a)
-    annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
-  connect(TConWatSup.port_b, chi.port_a1)
-    annotation (Line(points={{-60,60},{-40,60},{-40,8},{-10,8}},
+  connect(chi.port_a1, TConWatChiSup.port_b)
+    annotation (Line(points={{-10,8},{-40,8},{-40,60},{-60,60}},
       color={0,127,255}));
-  connect(chi.port_b1, TConWatRet.port_a)
+  connect(chi.port_b1, TConWatChiRet.port_a)
     annotation (Line(points={{10,8},{40,8},{40,60},{58,60}},
       color={0,127,255}));
-  connect(TConWatRet.port_b, port_b1)
-    annotation (Line(points={{78,60},{100,60}}, color={0,127,255}));
-  connect(TConWatSup.y, bus.TConWatSup)
-    annotation (Line(points={{-70,72},{-70,80},{0,80},{0,100}},
-      color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(TConWatRet.y, bus.TConWatRet)
-    annotation (Line(points={{68,72},{68,80},{0,80},{0,100}},
-      color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(TChiWatChiSup.y, bus.TChiWatChiSup)
-    annotation (Line(points={{-70,-48},{-28,-48},{-28,80},{0,80},{0,100}},
-      color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(TChiWatRet.y, bus.TChiWatRet)
-    annotation (Line(
-      points={{70,-48},{70,-42},{30,-42},{30,80},{0,80},{0,100}},
-      color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},

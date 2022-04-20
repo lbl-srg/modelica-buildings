@@ -17,31 +17,31 @@ model Parallel "Cooling tower in parallel"
           cooTow[nCooTow] "Merkel method")));
 
   inner replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition
-    valCooTowInl[nCooTow] constrainedby
+    valCooTowInlIso[nCooTow] constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
-      final dat = dat.valCooTowInl)
-      "Cooling tower inlet valves"
+      final dat = dat.valCooTowInlIso)
+      "Cooling tower inlet isolation valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})),
       choices(
-        choice(redeclare Buildings.Templates.Components.Valves.TwoWayModulating
-          valCooTowInl[nCooTow] "Modulating"),
+        choice(redeclare Buildings.Templates.Components.Valves.None
+          valCooTowInlIso[nCooTow] "None"),
         choice(redeclare Buildings.Templates.Components.Valves.TwoWayTwoPosition
-          valCooTowInl[nCooTow] "Two-positions")));
+          valCooTowInlIso[nCooTow] "Two-positions")));
   inner replaceable Buildings.Templates.Components.Valves.None
-    valCooTowOut[nCooTow] constrainedby
+    valCooTowOutIso[nCooTow] constrainedby
     Buildings.Templates.Components.Valves.Interfaces.PartialValve(
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=allowFlowReversal,
-      final dat = dat.valCooTowOut)
-      "Cooling tower outlet valves"
+      final dat = dat.valCooTowOutIso)
+      "Cooling tower outlet isolation valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})),
       choices(
-        choice(redeclare Buildings.Templates.Components.Valves.TwoWayModulating
-          valCooTowOut[nCooTow] "Modulating"),
+        choice(redeclare Buildings.Templates.Components.Valves.None
+          valCooTowOutIso[nCooTow] "None"),
         choice(redeclare Buildings.Templates.Components.Valves.TwoWayTwoPosition
-          valCooTowOut[nCooTow] "Two-positions")));
+          valCooTowOutIso[nCooTow] "Two-positions")));
 
   Buildings.Fluid.Delays.DelayFirstOrder volInl(
     redeclare final package Medium = Medium,
@@ -64,20 +64,24 @@ model Parallel "Cooling tower in parallel"
         rotation=180,
         origin={80,-30})));
 
+initial equation
+  assert(not valCooTowInlIso[1].is_none or not valCooTowOutIso[1].is_none,
+    "Cooling tower must have either an inlet or outlet isolation valve, or both");
+
 equation
   connect(volInl.ports[1], port_a)
     annotation (Line(points={{-80,-20},{-80,0},{-100,0}}, color={0,127,255}));
-  connect(volInl.ports[2:nCooTow+1], valCooTowInl.port_a)
+  connect(volInl.ports[2:nCooTow+1], valCooTowInlIso.port_a)
     annotation (Line(points={{-80,-20},{-80,0},{-60,0}}, color={0,127,255}));
   connect(volOut.ports[1], port_b)
     annotation (Line(points={{80,-20},{80,0},{100,0}}, color={0,127,255}));
-  connect(volOut.ports[2:nCooTow+1], valCooTowOut.port_b)
+  connect(volOut.ports[2:nCooTow+1], valCooTowOutIso.port_b)
     annotation (Line(points={{80,-20},{80,0},{60,0}}, color={0,127,255}));
-  connect(cooTow.port_b, valCooTowOut.port_a)
+  connect(cooTow.port_b, valCooTowOutIso.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(valCooTowInl.port_b, cooTow.port_a)
+  connect(valCooTowInlIso.port_b, cooTow.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
-  connect(busCon.valCooTowInl, valCooTowInl.bus) annotation (Line(
+  connect(busCon.valCooTowInlIso, valCooTowInlIso.bus) annotation (Line(
       points={{0.1,100.1},{0.1,60},{-50,60},{-50,10}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -85,7 +89,7 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(busCon.valCooTowOut, valCooTowOut.bus) annotation (Line(
+  connect(busCon.valCooTowOutIso, valCooTowOutIso.bus) annotation (Line(
       points={{0.1,100.1},{0.1,60},{50,60},{50,10}},
       color={255,204,51},
       thickness=0.5), Text(

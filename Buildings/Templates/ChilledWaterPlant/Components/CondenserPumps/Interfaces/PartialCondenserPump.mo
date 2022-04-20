@@ -13,7 +13,7 @@ partial model PartialCondenserPump "Partial condenser pump model"
     typ ==Buildings.Templates.ChilledWaterPlant.Components.Types.CondenserPump.Dedicated
     "= true if condenser pumps are dedicated";
 
-  parameter Buildings.Templates.Components.Types.Valve typValConWatChi[nChi]
+  parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso[nChi]
     "Type of chiller condenser water side isolation valve";
 
   outer parameter Boolean have_eco

@@ -10,7 +10,7 @@ expandable connector BusChilledWater
 
   Buildings.Templates.Components.Interfaces.Bus chi[nChi]
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valChiWatChi[nChi]
+  Buildings.Templates.Components.Interfaces.Bus valChiWatChiIso[nChi]
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus pumPri
     annotation (HideResult=false);
@@ -19,18 +19,18 @@ expandable connector BusChilledWater
 
   Buildings.Templates.Components.Interfaces.Bus cooTow[nCooTow]
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valCooTowInl[nCooTow]
+  Buildings.Templates.Components.Interfaces.Bus valCooTowInlIso[nCooTow]
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valCooTowOut[nCooTow]
+  Buildings.Templates.Components.Interfaces.Bus valCooTowOutIso[nCooTow]
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus pumCon
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valConWatChi[nChi]
+  Buildings.Templates.Components.Interfaces.Bus valConWatChiIso[nChi]
     annotation (HideResult=false);
 
   Buildings.Templates.Components.Interfaces.Bus valChiWatEcoByp
     annotation (HideResult=false);
-  Buildings.Templates.Components.Interfaces.Bus valConWatEco
+  Buildings.Templates.Components.Interfaces.Bus valConWatEcoIso
     annotation (HideResult=false);
   Buildings.Templates.Components.Interfaces.Bus pumEco
     annotation (HideResult=false);

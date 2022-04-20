@@ -19,7 +19,7 @@ record Data "Data for chilled water plants"
   parameter Buildings.Templates.ChilledWaterPlant.Components.Controls.Interfaces.Data con(
     final isAirCoo=isAirCoo,
     final capChi_nominal=abs(chiSec.chi.Q_flow_nominal),
-    final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
+    final mPri_flow_nominal=mPri_flow_nominal,
     final TChiWatSup_nominal=chiSec.chi[1].TChiWatSup_nominal)
     "Controller data"
     annotation (Dialog(group="Controller"));
@@ -30,25 +30,25 @@ record Data "Data for chilled water plants"
     Buildings.Templates.ChilledWaterPlant.Components.ChillerSection.Interfaces.Data
     chiSec(
       final isAirCoo=isAirCoo,
-      final valChiWatChi=pumPri.valChiWatChi,
-      m2_flow_nominal=mChiWatPri_flow_nominal,
+      final valChiWatChiIso=pumPri.valChiWatChiIso,
+      m2_flow_nominal=mPri_flow_nominal,
       m1_flow_nominal=mCon_flow_nominal) "Chiller section"
     annotation (Dialog(group="Equipment"));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.PrimaryPumps.Interfaces.Data
     pumPri(
       final nChi=chiSec.nChi,
-      m_flow_nominal=mChiWatPri_flow_nominal) "Primary pumps"
+      m_flow_nominal=mPri_flow_nominal) "Primary pumps"
     annotation (Dialog(group="Equipment"));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.Economizer.Interfaces.Data
     eco(
-      m1_flow_nominal=mChiWatPri_flow_nominal,
+      m1_flow_nominal=mPri_flow_nominal,
       m2_flow_nominal=mCon_flow_nominal) "Waterside Economizer"
     annotation (Dialog(group="Equipment", enable=eco.have_eco));
   parameter
     Buildings.Templates.ChilledWaterPlant.Components.SecondaryPumps.Interfaces.Data
-    pumSec(m_flow_nominal=mChiWatSec_flow_nominal) "Secondary pumps"
+    pumSec(m_flow_nominal=mSec_flow_nominal) "Secondary pumps"
     annotation (Dialog(group="Equipment", enable=not pumSec.is_none));
 
   //Condenser side equipment
@@ -66,11 +66,11 @@ record Data "Data for chilled water plants"
 
   // Nominal conditions
 
-  parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal
     "Design primary chilled water mass flow rate"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatSec_flow_nominal=
-    mChiWatPri_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mSec_flow_nominal=
+    mPri_flow_nominal
     "Design secondary chilled water mass flow rate"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.Units.SI.PressureDifference dpDem_nominal

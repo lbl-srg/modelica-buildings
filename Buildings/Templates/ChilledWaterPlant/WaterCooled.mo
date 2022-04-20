@@ -18,12 +18,12 @@ model WaterCooled
           typ = cooTowSec.typ,
           nCooTow = cooTowSec.nCooTow,
           cooTow(typ = cooTowSec.cooTow.typ),
-          valCooTowInl(typ = cooTowSec.valCooTowInl.typ),
-          valCooTowOut(typ = cooTowSec.valCooTowOut.typ)),
+          valCooTowInlIso(typ = cooTowSec.valCooTowInlIso.typ),
+          valCooTowOutIso(typ = cooTowSec.valCooTowOutIso.typ)),
         pumCon(
           typ = pumCon.typ,
           nPum = pumCon.nPum,
-          valConWatChi(typ = pumCon.typValConWatChi),
+          valConWatChiIso(typ = pumCon.typValConWatChiIso),
           pum(each typ = pumCon.pum.typ)),
         eco(
           typ = eco.typ,
@@ -81,14 +81,14 @@ model WaterCooled
     final have_sen=true,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Condenser water supply temperature"
+    "Common condenser water supply temperature from towers"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatRet(
     redeclare final package Medium = MediumConWat,
     final have_sen=true,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Condenser water return temperature"
+    "Common condenser water return temperature to towers"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Fluid.FixedResistances.Junction mixConWat(
     redeclare package Medium = MediumConWat,

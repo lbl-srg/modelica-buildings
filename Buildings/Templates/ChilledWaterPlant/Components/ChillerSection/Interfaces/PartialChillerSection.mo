@@ -32,14 +32,14 @@ partial model PartialChillerSection "Partial chiller section model"
   outer parameter Boolean have_dedConWatPum
     "Set to true if parallel chillers are connected to dedicated pumps on condenser water side";
 
-  parameter Boolean have_TChiWatPlaRet
+  parameter Boolean have_TPriRet
     "= true if plant chilled water return temperature is measured"
     annotation(Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_VChiWatRet_flow
     "= true if primary flow is measured on return side"
     annotation(Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Buildings.Templates.Components.Types.Valve typValChiWatChi[nChi]
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso[nChi]
     "Type of chiller chilled water side isolation valve";
 
   // Record
@@ -87,38 +87,36 @@ partial model PartialChillerSection "Partial chiller section model"
 
   // Evaporator side
 
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VSecRet_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VPriRet_flow(
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=dat.m2_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
     final have_sen=have_VChiWatRet_flow)
-    "Primary chilled water return flow"
+    "Primary chilled water return volume flow rate"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-20,-60})));
-  Buildings.Templates.Components.Sensors.Temperature TChiWatRetPla(
+  Buildings.Templates.Components.Sensors.Temperature TPriRet(
     redeclare final package Medium = MediumChiWat,
-    final have_sen=have_TChiWatPlaRet,
+    final have_sen=have_TPriRet,
     final m_flow_nominal=dat.m2_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Plant chilled water return temperature (plant side of chilled water minimum flow bypass)"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},origin={20,-60})));
-  Buildings.Fluid.FixedResistances.Junction mixByp(
+  Buildings.Fluid.FixedResistances.Junction mixMinFlowByp(
     redeclare package Medium = MediumChiWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=dat.m2_flow_nominal*{1,-1,1},
-    final dp_nominal={0,0,0})
-    "Bypass mixer"
+    final dp_nominal={0,0,0}) "Minimum flow bypass mixer"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}},origin={60,-60})));
-  Buildings.Fluid.FixedResistances.Junction splChiByp(
+  Buildings.Fluid.FixedResistances.Junction splChiWatChiByp(
     redeclare package Medium = MediumChiWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=dat.m2_flow_nominal*{1,-1,-1},
-    final dp_nominal={0,0,0})
-    "Splitter for chiller bypass"
+    final dp_nominal={0,0,0}) "Chiller bypass splitter"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},rotation=180,origin={-60,-60})));
 
@@ -195,8 +193,8 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(TChiWatRetPla.y, busCon.TChiWatRetPla);
-  connect(VSecRet_flow.y, busCon.VSecRet_flow);
+  connect(TPriRet.y, busCon.TPriRet);
+  connect(VPriRet_flow.y, busCon.VPriRet_flow);
 
   connect(volConWat.ports[1], port_b1)
     annotation (Line(points={{80,70},{80,60},{100,60}}, color={0,127,255}));
@@ -205,13 +203,13 @@ equation
 
   connect(chi.port_a1, ports_a1)
     annotation (Line(points={{-20,60},{-100,60}}, color={0,127,255}));
-  connect(mixByp.port_1, TChiWatRetPla.port_a)
+  connect(mixMinFlowByp.port_1, TPriRet.port_a)
     annotation (Line(points={{50,-60},{30,-60}}, color={0,127,255}));
-  connect(TChiWatRetPla.port_b, VSecRet_flow.port_a)
+  connect(TPriRet.port_b, VPriRet_flow.port_a)
     annotation (Line(points={{10,-60},{-10,-60}}, color={0,127,255}));
-  connect(VSecRet_flow.port_b, splChiByp.port_1)
+  connect(VPriRet_flow.port_b, splChiWatChiByp.port_1)
     annotation (Line(points={{-30,-60},{-50,-60}}, color={0,127,255}));
-  connect(port_a2, mixByp.port_2)
+  connect(port_a2, mixMinFlowByp.port_2)
     annotation (Line(points={{100,-60},{70,-60}}, color={0,127,255}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),

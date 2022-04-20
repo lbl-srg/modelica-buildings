@@ -30,14 +30,14 @@ model BaseWaterCooled
       final typ = chw.cooTowSec.typ,
       final nCooTow = chw.cooTowSec.nCooTow,
       cooTow(final typ = chw.cooTowSec.cooTow.typ),
-      valCooTowInl(final typ = chw.cooTowSec.valCooTowInl.typ),
-      valCooTowOut(final typ = chw.cooTowSec.valCooTowOut.typ)),
+      valCooTowInlIso(final typ = chw.cooTowSec.valCooTowInlIso.typ),
+      valCooTowOutIso(final typ = chw.cooTowSec.valCooTowOutIso.typ)),
     pumPri(
       final typ = chw.chiSec.pumPri.typ,
       final nPum = chw.chiSec.pumPri.nPum,
-      final have_byp = chw.chiSec.pumPri.have_byp,
-      final have_chiByp = chw.chiSec.pumPri.have_chiByp,
-      valChiWatChi(final typ = chw.chiSec.typValChiWatChi),
+      final have_minFloByp = chw.chiSec.pumPri.have_minFloByp,
+      final have_chiWatChiByp = chw.chiSec.pumPri.have_chiWatChiByp,
+      valChiWatChiIso(final typ = chw.chiSec.typValChiWatChiIso),
       pum(each final typ = chw.chiSec.pumPri.pum.typ)),
     pumSec(
       final typ = chw.pumSec.typ,
@@ -46,7 +46,7 @@ model BaseWaterCooled
     pumCon(
       final typ = chw.pumCon.typ,
       final nPum = chw.pumCon.nPum,
-      valConWatChi(final typ = chw.pumCon.typValConWatChi),
+      valConWatChiIso(final typ = chw.pumCon.typValConWatChiIso),
       pum(each final typ = chw.pumCon.pum.typ)),
     eco(
       final typ = chw.eco.typ,

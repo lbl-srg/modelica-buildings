@@ -18,13 +18,13 @@ record Data "Data for cooling tower section"
     each m_flow_nominal = mTow_flow_nominal)
     "Cooling tower data"
     annotation (Dialog(group="Cooling towers"));
-  parameter Buildings.Templates.Components.Data.Valve valCooTowInl[nCooTow](
+  parameter Buildings.Templates.Components.Data.Valve valCooTowInlIso[nCooTow](
     each final m_flow_nominal = mTow_flow_nominal)
-    "Inlet isolation valve data"
+    "Cooling tower inlet isolation valves"
     annotation (Dialog(group="Valves"));
-  parameter Buildings.Templates.Components.Data.Valve valCooTowOut[nCooTow](
+  parameter Buildings.Templates.Components.Data.Valve valCooTowOutIso[nCooTow](
     each final m_flow_nominal = mTow_flow_nominal)
-    "Inlet isolation valve data"
+    "Cooling tower outlet isolation valves"
     annotation (Dialog(group="Valves"));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal

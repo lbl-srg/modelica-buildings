@@ -5,7 +5,7 @@ model HeaderedSeries "Headered primary pumps for chiller in series"
     final typ=Buildings.Templates.ChilledWaterPlant.Components.Types.PrimaryPump.HeaderedSeries,
     final have_conSpePum=pum.typ == Buildings.Templates.Components.Types.Pump.Constant,
     final have_singlePort_a=true,
-    final typValChiWatChi=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
+    final typValChiWatChiIso=fill(Buildings.Templates.Components.Types.Valve.None,nChi),
     pum(final have_singlePort_a=true));
 
   Fluid.Delays.DelayFirstOrder del(
@@ -14,23 +14,27 @@ model HeaderedSeries "Headered primary pumps for chiller in series"
     nPorts=nPorVol)
     "Inlet node mixing volume"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiByp(
+
+  // FIXME : For series chiller, there should be a bypass valve for
+  // each chiller rather than a bypass for the whole chiller group
+
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiByp(
     redeclare final package Medium = Medium,
-    final dat = dat.valChiByp) if have_chiByp
-    "Chiller chilled water side bypass valve" annotation (Placement(transformation(
+    final dat = dat.valChiWatChiByp) if have_chiWatChiByp
+    "Chiller chilled water bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-60})));
 
 protected
-  parameter Integer nPorEco = if have_chiByp then 1 else 0;
+  parameter Integer nPorEco = if have_chiWatChiByp then 1 else 0;
   parameter Integer nPorChi = 1;
   parameter Integer nPorVol = nPorEco + nPorChi + 1;
 
 equation
-  connect(port_ChiByp, valChiByp.port_a)
+  connect(port_chiWatChiByp, valChiWatChiByp.port_a)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
-  connect(valChiByp.bus, busCon.valChiByp) annotation (Line(
+  connect(valChiWatChiByp.bus, busCon.valChiWatChiByp) annotation (Line(
       points={{-80,-50},{-80,-40},{-20,-40},{-20,80},{0,80},{0,100}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -43,7 +47,7 @@ equation
     annotation (Line(points={{-60,40},{-60,0},{-50,0}}, color={0,127,255}));
   connect(del.ports[2], port_a)
     annotation (Line(points={{-60,40},{-60,0},{-100,0}}, color={0,127,255}));
-  connect(del.ports[nPorVol], valChiByp.port_b)
+  connect(del.ports[nPorVol], valChiWatChiByp.port_b)
     annotation (Line(points={{-60,40},{-60,-60},{-70,-60}},
       color={0,127,255}));
 

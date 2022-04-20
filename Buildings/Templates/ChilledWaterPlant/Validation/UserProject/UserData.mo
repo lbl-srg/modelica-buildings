@@ -3,7 +3,7 @@ record UserData
   extends Buildings.Templates.ChilledWaterPlant.Interfaces.Data(
     mCon_flow_nominal=34,
     dpDem_nominal = 68900,
-    mChiWatPri_flow_nominal=18,
+    mPri_flow_nominal=18,
     con(
       TAirOutLoc = 289.15,
       dpChiWatLoc_max=10000,
@@ -20,22 +20,22 @@ record UserData
         each TWatIn_nominal=308.15,
         each dT_nominal=5.56,
         each PFan_nominal=5000),
-      valCooTowInl(each dpValve_nominal=6000),
-      valCooTowOut(each dpValve_nominal=0)),
+      valCooTowInlIso(each dpValve_nominal=6000),
+      valCooTowOutIso(each dpValve_nominal=0)),
     pumPri(
       m_flow_nominal=9,
       pum(
         each dp_nominal=12000,
         each dpValve_nominal=2000),
-      valByp(dpValve_nominal=6000),
-      valChiByp(dpValve_nominal=6000),
-      valChiWatChi(each dpValve_nominal=6000)),
+      valPriMinFloByp(dpValve_nominal=6000),
+      valChiWatChiByp(dpValve_nominal=6000),
+      valChiWatChiIso(each dpValve_nominal=6000)),
     pumCon(
       m_flow_nominal=14,
       pum(
         each dp_nominal=12000,
         each dpValve_nominal=2000),
-      valConWatChi(each dpValve_nominal=6000)),
+      valConWatChiIso(each dpValve_nominal=6000)),
     pumSec(
       m_flow_nominal=9,
       pum(
@@ -51,7 +51,7 @@ record UserData
         each TChiWatSup_nominal=280.15,
         each per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes())),
     eco(
-      valConWatEco(dpValve_nominal=6000),
+      valConWatEcoIso(dpValve_nominal=6000),
       valChiWatEcoByp(dpValve_nominal=6000),
       pumEco(
         dp_nominal=12000,
