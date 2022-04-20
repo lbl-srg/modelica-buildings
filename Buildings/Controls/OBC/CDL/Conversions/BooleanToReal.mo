@@ -9,7 +9,7 @@ block BooleanToReal
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y
-    "Connector of Integer output signal"
+    "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -22,16 +22,16 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs the <code>Boolean</code>
-equivalent of the <code>Integer</code> input.
+Block that outputs the <code>Real</code>
+equivalent of the <code>Boolean</code> input.
 </p>
 <pre>
-  y = if u then integerTrue else integerFalse;
+  y = if u then realTrue else realFalse;
 </pre>
 <p>
 where <code>u</code> is of <code>Boolean</code> and <code>y</code>
-of <code>Integer</code> type,
-and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
+of <code>Real</code> type,
+and <code>realTrue</code> and <code>realFalse</code> are parameters.
 </p>
 </html>",
       revisions="<html>

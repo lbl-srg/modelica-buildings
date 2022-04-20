@@ -22,8 +22,8 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs the <code>Boolean</code>
-equivalent of the <code>Integer</code> input.
+Block that outputs the <code>Integer</code>
+equivalent of the <code>Boolean</code> input.
 </p>
 <pre>
   y = if u then integerTrue else integerFalse;
