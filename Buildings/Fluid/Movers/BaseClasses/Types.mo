@@ -11,21 +11,21 @@ package Types "Package with type definitions"
       NotProvided
         "Not provided, computed from other efficiency terms",
       Values
-        "An array of efficiency vs. volumetric flow rate",
+        "Array of efficiency vs. volumetric flow rate",
       PowerCurve
-        "An array of power vs. volumetric flow rate",
+        "Array of power vs. volumetric flow rate",
       EulerNumber
-        "One peak point to be use for the Euler number")
+        "One peak point to be used for the Euler number")
     "Enumeration to choose the computation method for total efficiency and hydraulic efficiency";
   type MotorEfficiencyMethod = enumeration(
       NotProvided
         "Not provided, computed from other efficiency terms",
       Values
-        "An array of efficiency vs. volumetric flow rate",
+        "Array of efficiency vs. volumetric flow rate",
       Values_yMot
-        "The rated input and an array of efficiency vs. motor part load ratio",
+        "Rated input and array of efficiency vs. motor part load ratio",
       GenericCurve
-        "The rated input and maximum efficiency to be used for generic curves")
+        "Rated input and maximum efficiency to be used for generic curves")
     "Enumeration to choose the computation method for motor efficiency";
  annotation (preferredView="info", Documentation(info="<html>
 <p>
