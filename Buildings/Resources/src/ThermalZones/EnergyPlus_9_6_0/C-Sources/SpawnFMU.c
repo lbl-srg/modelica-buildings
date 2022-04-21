@@ -145,9 +145,6 @@ size_t AllocateBuildingDataStructure(
   if ( Buildings_FMUS[nFMU]->runPer == NULL )
     SpawnError("Not enough memory in SpawnFMU.c. to allocate array for Buildings_FMU[nFMU]->runPer.");
   memcpy(Buildings_FMUS[nFMU]->runPer, runPer, sizeof(runPeriod));
-  //ModelicaFormatError("***** RunPeriod has dayOfWeekIsAtTime0 = %i and stored as %i",
-  //  runPer->dayOfWeekIsAtTime0, Buildings_FMUS[nFMU]->runPer->dayOfWeekIsAtTime0);
-
 
   /* Set relative surface tolerance */
   Buildings_FMUS[nFMU]->relativeSurfaceTolerance = relativeSurfaceTolerance;

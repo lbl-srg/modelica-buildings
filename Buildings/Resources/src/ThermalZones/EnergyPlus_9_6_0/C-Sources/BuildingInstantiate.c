@@ -181,8 +181,15 @@ void buildJSONModelStructureForEnergyPlus(
     bui->time, bui->runPer->dayOfWeekForStartDay, bui->runPer->dayOfWeekIsAtTime0, SpawnFormatError);
   buildJSONKeyStringValue(buffer, 2, "day_of_week_for_start_day",
     dayOfWeekForStartDay,
-    false, size, SpawnFormatError);
+    true, size, SpawnFormatError);
   free(dayOfWeekForStartDay);
+
+  buildJSONKeyStringValue(buffer, 2, "apply_weekend_holiday_rule", bui->runPer->applyWeekEndHolidayRule ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_daylight_saving_period", bui->runPer->use_weatherFileDaylightSavingPeriod ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_holidays_and_special_days", bui->runPer->use_weatherFileHolidaysAndSpecialDays ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_rain_indicators", bui->runPer->use_weatherFileRainIndicators ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_snow_indicators", bui->runPer->use_weatherFileSnowIndicators ? "Yes": "No", false, size, SpawnFormatError);
+
   saveAppend(buffer, "  },\n", size, SpawnFormatError);
 
   /* model information */
