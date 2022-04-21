@@ -151,9 +151,23 @@ must be provided. When starting the simulation, EnergyPlus will
 be run with the weather file whose name is identical to <code>epwName</code>,
 while Modelica will use the file specified by <code>weaName</code>.
 </p>
+<p>
+The parameter <code>runPeriod</code> can be used to configure certain data of the EnergyPlus
+<code>RunPeriod</code> object. See
+<a href=\"Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</a>
+for the available options.
+Note however that the simulation start and stop time is controlled by Modelica,
+and therefore the entries in the EnergyPlus input data file for the <code>RunPeriod</code> object are ignored.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 21, 2022, by Michael Wetter:<br/>
+Added support for EnergyPlus <code>RunPeriod</code> object.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
+</li>
 <li>
 November 18, 2021, by Michael Wetter:<br/>
 Removed parameters <code>showWeatherData</code> and <code>generatePortableFMU</code>.

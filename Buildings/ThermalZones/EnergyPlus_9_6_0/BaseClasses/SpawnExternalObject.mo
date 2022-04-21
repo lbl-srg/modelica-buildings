@@ -124,6 +124,11 @@ class SpawnExternalObject
         revisions="<html>
   <ul>
   <li>
+  April 21, 2022, by Michael Wetter:<br/>
+  Added support for EnergyPlus <code>RunPeriod</code> object.<br/>
+  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
+  </li>
+  <li>
   December 11, 2021, by Michael Wetter:<br/>
   Declared function as <code>impure</code> for MSL 4.0.0.
   </li>
