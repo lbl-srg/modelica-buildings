@@ -29,6 +29,22 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
     final min=0,
     displayUnit="Pa")=5000
     "Pressure drop in the ETS return side";
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="Power",
+    final unit="W",
+    displayUnit="kW")
+    "Measured power demand at the ETS"
+    annotation (Placement(
+        transformation(extent={{300,-130},{340,-90}}), iconTransformation(
+          extent={{300,-130},{340,-90}})));
+  Modelica.Blocks.Interfaces.RealOutput Q(
+    final quantity="Energy",
+    final unit="J",
+    displayUnit="kWh")
+    "Measured energy consumption at the ETS"
+     annotation (Placement(transformation(
+          extent={{300,-170},{340,-130}}), iconTransformation(extent={{300,-130},
+            {340,-90}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
     redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
@@ -68,33 +84,17 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
     "District supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{-78,-290},{-58,-270}})));
   Modelica.Blocks.Math.Add dTdis(
-  final k1=-1,
-  final k2=1)
+    final k1=-1,
+    final k2=1)
     "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Modelica.Blocks.Math.Product pro
     "Product"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
   Modelica.Blocks.Math.Gain cp(
-  final k=cp_default)
+    final k=cp_default)
     "Specific heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="Power",
-    final unit="W",
-    displayUnit="kW")
-    "Measured power demand at the ETS"
-    annotation (Placement(
-        transformation(extent={{300,-130},{340,-90}}), iconTransformation(
-          extent={{300,-130},{340,-90}})));
-  Modelica.Blocks.Interfaces.RealOutput Q(
-    final quantity="Energy",
-    final unit="J",
-    displayUnit="kWh")
-    "Measured energy consumption at the ETS"
-     annotation (Placement(transformation(
-          extent={{300,-170},{340,-130}}), iconTransformation(extent={{300,-130},
-            {340,-90}})));
   Modelica.Blocks.Continuous.Integrator int(
     final k=1)
     "Integration"
@@ -169,7 +169,7 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model.</li>
-<li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
+<li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end DirectUncontrolled;

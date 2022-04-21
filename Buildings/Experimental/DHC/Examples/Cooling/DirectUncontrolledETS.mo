@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Cooling;
-model DistrictCooling "Example model for district cooling system"
+model DirectUncontrolledETS
+  "Example model for district cooling system with direct uncontrolled ETS"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model for water";
@@ -111,7 +112,8 @@ model DistrictCooling "Example model for district cooling system"
     mBui_flow_nominal=mBui_flow_nominal)
     "Vectorized time series building load model connected with ETS for cooling."
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium
+      =                                                                         Medium)
     "Relative pressure drop sensor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -162,26 +164,21 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/DistrictCooling.mos" "Simulate and plot"),
     experiment(
       StartTime=12960000,
-      StopTime=13564800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=13564800),
     Documentation(info="<html>
-<p>
-This model illustrates an example of integral district cooling system, consisted 
-by a cooling plant of parallel electric chillers 
+<p>This model illustrates an example of integral district cooling system, 
+consisted by a cooling plant of parallel electric chillers 
 <a href=\"modelica://Buildings/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.mo\">
 Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>, 
 a two-pipe distribution network <a href=\"modelica://Buildings/Experimental/DHC/Networks/Distribution2Pipe.mo\">
-Buildings.Experimental.DHC.Networks.Distribution2Pipe</a>, and a time series building load 
-connected to a direct uncontrolled ETS for cooling 
+Buildings.Experimental.DHC.Networks.Distribution2Pipe</a>, 
+and a time series building load connected to a direct uncontrolled ETS for cooling 
 <a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
-Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>. </p>
+Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>, as illustrated in the schematic below.</p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.png\"/></p>
 </html>", revisions="<html>
 <ul>
-<li>
-January 1, 2022, by Chengnan Shi:<br/>
-First implementation.
-</li>
+<li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
 </ul>
 </html>"));
-end DistrictCooling;
+end DirectUncontrolledETS;

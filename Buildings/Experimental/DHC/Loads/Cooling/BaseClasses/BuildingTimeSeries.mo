@@ -3,8 +3,8 @@ model BuildingTimeSeries
   "Building model with cooling load provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium=Buildings.Media.Water,
-    have_heaWat=false,
-    have_chiWat=true,
+    final have_heaWat=false,
+    final have_chiWat=true,
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
@@ -144,24 +144,24 @@ model BuildingTimeSeries
   Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mHeaWat_flow_nominal,
-    have_pum=true,
-    typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
-    dp_nominal=100000,
-    nPorts_a1=1,
-    nPorts_b1=1) if have_heaWat
+    final m_flow_nominal=mHeaWat_flow_nominal,
+    final have_pum=true,
+    final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
+    final dp_nominal=100000,
+    final nPorts_a1=1,
+    final nPorts_b1=1) if have_heaWat
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mChiWat_flow_nominal,
-    typDis=Buildings.Experimental.DHC.Loads.BaseClasses.Types.DistributionType.ChilledWater,
-    have_pum=true,
-    typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
-    dp_nominal=100000,
-    nPorts_b1=1,
-    nPorts_a1=1) if have_chiWat
+    final m_flow_nominal=mChiWat_flow_nominal,
+    final typDis=Buildings.Experimental.DHC.Loads.BaseClasses.Types.DistributionType.ChilledWater,
+    final have_pum=true,
+    final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
+    final dp_nominal=100000,
+    final nPorts_b1=1,
+    final nPorts_a1=1) if have_chiWat
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
   replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
@@ -282,7 +282,7 @@ equation
 </html>",
       revisions="<html>
 <ul>
-<li></li>
+<li>March 20, 2022, by Chengnan Shi:<br>Disable heating port to specify for cooling loads model.</li>
 <li>December 21, 2020, by Antoine Gautier:<br>Refactored for optional hot water and multiplier factor.<br>This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>. </li>
 <li>September 18, 2020, by Jianjun Hu:<br>Changed flow distribution components and the terminal units to be conditional depending on if there is water-based heating, or cooling system. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2147\">issue 2147</a>. </li>
 <li>February 21, 2020, by Antoine Gautier:<br>First implementation. </li>

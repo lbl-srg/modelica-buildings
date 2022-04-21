@@ -49,8 +49,7 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Cooling/Examples/BuildingTimeSeriesWithETS.mos" "Simulate and plot"),
     experiment(
-      StopTime=31536000,
-      Tolerance=1e-06),
+      StopTime=31536000),
     Documentation(info="<html>
 <p>
 This model provides an example for a building with loads provided 
@@ -58,10 +57,7 @@ as time series and connected to a direct uncontrolled ETS for cooling.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-January 1, 2022, by Chengnan Shi:<br/>
-First implementation.
-</li>
+<li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
 </ul>
 </html>"));
 end BuildingTimeSeriesWithETS;

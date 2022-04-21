@@ -27,7 +27,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     Ti=40,
     yMax=1,
     yMin=0.01,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     yCon_start=0.01,
     reverseActing=false,
@@ -144,8 +144,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Cooling/Examples/Indirect.mos" "Simulate and plot"),
     experiment(
       StartTime=0,
-      StopTime=86400,
-      Tolerance=1e-06),
+      StopTime=86400),
     Documentation(info="<html>
 <p>
 This model provides an example for the indirect cooling energy transfer station model. 
@@ -155,7 +154,7 @@ The mass flow rate of chilled water in the building side is varied based on the 
 </html>",
       revisions="<html>
 <ul>
-<li>December 21, 2021, by Chengnan Shi:<br/>First implementation. </li>
+<li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
 </ul>
 </html>"));
 end Indirect;

@@ -52,10 +52,7 @@ where the space cooling loads are provided as time series.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-January 1, 2022, by Chengnan Shi:<br/>
-First implementation.
-</li>
+<li>March 20, 2022 by Chengnan Shi:<br>First implementation. </li>
 </ul>
 </html>"));
 end BuildingTimeSeriesWithETS;

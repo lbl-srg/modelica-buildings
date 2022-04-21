@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Experimental.DHC.Examples.Cooling.DistrictCooling", tolerance=1e-6, startTime=15724800, stopTime=16329600, numberOfIntervals=500, resultFile="DistrictCooling");
+simulateModel("Buildings.Experimental.DHC.Examples.Cooling.DistrictCooling", tolerance=1e-6, startTime=15724800, stopTime=16329600, method="Dassl", numberOfIntervals=500, resultFile="DistrictCooling");
 // Plot commands
 removePlots(true);
 createPlot(id=1, 

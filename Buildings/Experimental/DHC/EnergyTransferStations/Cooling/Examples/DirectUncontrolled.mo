@@ -141,8 +141,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Cooling/Examples/DirectUncontrolled.mos" "Simulate and plot"),
     experiment(
       StartTime=0,
-      StopTime=86400,
-      Tolerance=1e-06),
+      StopTime=86400),
     Documentation(
       info="<html>
 <p>This model provides an example for the direct cooling energy transfer 
@@ -154,7 +153,7 @@ maximum load.</p>
 </html>",
       revisions="<html>
 <ul>
-<li>December 10, 2021, by Chengnan Shi:<br/>First implementation. </li>
+<li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
 </ul>
 </html>"));
 end DirectUncontrolled;

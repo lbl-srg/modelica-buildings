@@ -77,42 +77,74 @@ model Indirect
   parameter Real k(
     final min=0,
     final unit="1")=1
-    "Gain of controller";
+    "Gain of controller"
+    annotation (Dialog(group="PID controller"));
   parameter Modelica.Units.SI.Time Ti(
     final min=Modelica.Constants.small)=120
-    "Time constant of integrator block";
+    "Time constant of integrator block"
+    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(
     final min=0)=0.1
-    "Time constant of derivative block";
+    "Time constant of derivative block"
+    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
   parameter Real yMax(
     final start=1)=1
-    "Upper limit of output";
+    "Upper limit of output"
+    annotation (Dialog(group="PID controller"));
   parameter Real yMin=0.01
-    "Lower limit of output";
+    "Lower limit of output"
+    annotation (Dialog(group="PID controller"));
   parameter Real wp(
     final min=0)=1
-    "Set-point weight for Proportional block (0..1)";
+    "Set-point weight for Proportional block (0..1)"
+    annotation (Dialog(group="PID controller"));
   parameter Real wd(
     final min=0)=0
-    "Set-point weight for Derivative block (0..1)";
+    "Set-point weight for Derivative block (0..1)"
+    annotation (Dialog(group="PID controller"));
   parameter Real Ni(
     final min=100*Modelica.Constants.eps)=0.9
-    "Ni*Ti is time constant of anti-windup compensation";
+    "Ni*Ti is time constant of anti-windup compensation"
+    annotation (Dialog(group="PID controller"));
   parameter Real Nd(
     final min=100*Modelica.Constants.eps)=10
-    "The higher Nd, the more ideal the derivative block";
+    "The higher Nd, the more ideal the derivative block"
+    annotation (Dialog(group="PID controller"));
   parameter Real xi_start=0
-    "Initial or guess value for integrator output (= integrator state)";
+    "Initial or guess value for integrator output (= integrator state)"
+    annotation (Dialog(group="PID controller"));
   parameter Real xd_start=0
-    "Initial or guess value for derivative block";
+    "Initial or guess value for derivative block"
+    annotation (Dialog(group="PID controller"));
   parameter Real yCon_start=0
-    "Initial value of output from the controller";
+    "Initial value of output from the controller"
+    annotation (Dialog(group="PID controller"));
   parameter Boolean reverseActing=false
-    "Set to true for throttling the water flow rate through a cooling coil controller";
+    "Set to true for throttling the water flow rate through a cooling coil controller"
+    annotation (Dialog(group="PID controller"));
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)";
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
-    "Type of controller";
+    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
+    annotation (Dialog(group="PID controller"));
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
+    "Type of controller"
+    annotation (Dialog(group="PID controller"));
+  Modelica.Blocks.Interfaces.RealInput TSetBuiSup
+    "Setpoint temperature for building supply"
+    annotation (Placement(transformation(extent={{-340,-20},{-300,20}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="Power",
+    final unit="W",
+    displayUnit="kW")
+    "Measured power demand at the ETS"
+    annotation (Placement(
+        transformation(extent={{300,-130},{340,-90}}), iconTransformation(extent={{300,-130},{340,-90}})));
+  Modelica.Blocks.Interfaces.RealOutput Q(
+    final quantity="Energy",
+    final unit="J",
+    displayUnit="kWh")
+    "Measured energy consumption at the ETS"
+     annotation (Placement(transformation(extent={{300,-170},{340,-130}}),
+     iconTransformation(extent={{300,-130},{340,-90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal)
@@ -152,16 +184,13 @@ model Indirect
     final m_flow_nominal=mBui_flow_nominal)
     "Building return temperature sensor"
     annotation (Placement(transformation(extent={{-218,210},{-198,190}})));
-  Modelica.Blocks.Interfaces.RealInput TSetBuiSup
-    "Setpoint temperature for building supply"
-    annotation (Placement(transformation(extent={{-340,-20},{-300,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
     redeclare final package Medium=MediumBui,
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{200,210},{220,190}})));
   Buildings.Controls.Continuous.LimPID con(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
@@ -194,22 +223,6 @@ model Indirect
     final k=1)
     "Integration"
     annotation (Placement(transformation(extent={{240,-160},{260,-140}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="Power",
-    final unit="W",
-    displayUnit="kW")
-    "Measured power demand at the ETS"
-    annotation (Placement(
-        transformation(extent={{300,-130},{340,-90}}), iconTransformation(
-          extent={{300,-130},{340,-90}})));
-  Modelica.Blocks.Interfaces.RealOutput Q(
-    final quantity="Energy",
-    final unit="J",
-    displayUnit="kWh")
-    "Measured energy consumption at the ETS"
-     annotation (Placement(transformation(
-          extent={{300,-170},{340,-130}}), iconTransformation(extent={{300,-130},
-            {340,-90}})));
 protected
   final parameter MediumSer.ThermodynamicState sta_default=MediumSer.setState_pTX(
     T=MediumSer.T_default,
@@ -295,7 +308,7 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>March 21, 2022, by Chengnan Shi:<br/>Update with base class partial model.</li>
-<li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
+<li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end Indirect;

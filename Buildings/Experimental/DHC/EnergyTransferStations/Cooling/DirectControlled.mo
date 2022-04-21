@@ -46,25 +46,47 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   parameter Real k(
     final min=0,
     final unit="1")=1
-    "Gain of controller";
+    "Gain of controller"
+    annotation (Dialog(group="PID controller"));
   parameter Modelica.Units.SI.Time Ti(
     final min=Modelica.Constants.small)=120
-    "Time constant of integrator block";
+    "Time constant of integrator block"
+    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(
     final min=0)=0.1
-    "Time constant of derivative block";
+    "Time constant of derivative block"
+    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
   parameter Real yMax(
     final start=1)=1
-    "Upper limit of output";
+    "Upper limit of output"
+    annotation (Dialog(group="PID controller"));
   parameter Real yMin=0.01
-    "Lower limit of output";
+    "Lower limit of output"
+    annotation (Dialog(group="PID controller"));
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
-    "Type of controller";
+    "Type of controller"
+    annotation (Dialog(group="PID controller"));
   // Advanced parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state";
   parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
     "Nominal pressure drop in pipe junctions";
+  Modelica.Blocks.Interfaces.RealInput TSetDisRet
+    "Setpoint for the minimum district return temperature"
+    annotation (Placement(transformation(extent={{-338,-20},{-298,20}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="Power",
+    final unit="W",
+    displayUnit="kW")
+    "Measured power demand at the ETS"
+    annotation (Placement(
+        transformation(extent={{300,-130},{340,-90}}), iconTransformation(
+          extent={{300,-130},{340,-90}})));
+  Modelica.Blocks.Interfaces.RealOutput Q(
+    final quantity="Energy",
+    final unit="J",
+    displayUnit="kWh")
+    "Measured energy consumption at the ETS";
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal)
@@ -101,8 +123,9 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     riseTime(displayUnit="s") = 60)
     "Control valve"
     annotation (Placement(transformation(extent={{-10,210},{10,190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiRet(redeclare final package
-      Medium = MediumSer, final m_flow_nominal=mBui_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiRet(
+    redeclare final package Medium = MediumSer,
+    final m_flow_nominal=mBui_flow_nominal)
     "Building return temperature sensor"
     annotation (Placement(transformation(extent={{-220,210},{-200,190}})));
   Modelica.Fluid.Valves.ValveIncompressible cheVal(
@@ -134,29 +157,10 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final k=1)
     "Integration"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="Power",
-    final unit="W",
-    displayUnit="kW")
-    "Measured power demand at the ETS"
-    annotation (Placement(
-        transformation(extent={{300,-130},{340,-90}}), iconTransformation(
-          extent={{300,-130},{340,-90}})));
-  Modelica.Blocks.Interfaces.RealOutput Q(
-    final quantity="Energy",
-    final unit="J",
-    displayUnit="kWh")
-    "Measured energy consumption at the ETS"
-     annotation (Placement(transformation(
-          extent={{300,-170},{340,-130}}), iconTransformation(extent={{300,-130},
-            {340,-90}})));
   Modelica.Blocks.Sources.Constant ope(
     final k=1)
     "Check valve is always open in the positive flow direction"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Interfaces.RealInput TSetDisRet
-    "Setpoint for the minimum district return temperature"
-    annotation (Placement(transformation(extent={{-338,-20},{-298,20}})));
   Buildings.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
@@ -261,7 +265,9 @@ equation
           -260,0},{-260,76},{-182,76}}, color={0,0,127}));
   connect(onOffCon.y, notCon.u)
     annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
-  annotation (
+ annotation (Placement(transformation(
+          extent={{300,-170},{340,-130}}), iconTransformation(extent={{300,-130},
+            {340,-90}})),
     defaultComponentName="etsCoo",
     Documentation(info="<html>
 <p>
@@ -287,7 +293,7 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model and standard PI control.</li>
-<li>Novermber 13, 2019, by Kathryn Hinklman:<br/>First implementation. </li>
+<li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end DirectControlled;
