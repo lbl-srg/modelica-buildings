@@ -5,10 +5,20 @@ simulateModel("Buildings.Fluid.Storage.Plant.Validation.OpenTank",
  resultFile="OpenTank");
 // Plot commands
 createPlot(id=1,
- position={19, 23, 1004, 372},
- y={"sinChi.ports[1].m_flow", "tanBra.mTan_flow", "supPum.pum.m_flow"},
- range={0.0, 3600.0, -3.0, 3.0},
+ position={10, 4, 1094, 494},
+ y={"tanBra.mTanTop_flow", "tanBra.mTanBot_flow"},
+ range={0.0, 3600.0, -2.0, 2.0},
  grid=true,
- colors={{28,108,200}, {238,46,47}, {0,140,72}},
- timeUnit="s",
- displayUnits={"kg/s", "kg/s", "kg/s"});
+ subPlot=101,
+ colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1,
+ position={10, 4, 1094, 494},
+ y={"supPum.valSupOut.y_actual", "supPum.valSupCha.y_actual", "supPum.valRetOut.y_actual",
+ "supPum.valRetCha.y_actual"},
+ range={0.0, 3600.0, -0.5, 1.5},
+ autoscale=false,
+ grid=true,
+ subPlot=102,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
+ timeUnit="s");
+
