@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant;
 model TankBranch
-  "(Draft) Model of the tank branch where the tank can potentially be charged remotely"
+  "Model of the tank branch of a storage plant"
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
   parameter Boolean tankIsOpen = nom.plaTyp ==
@@ -23,7 +23,7 @@ model TankBranch
         origin={70,110}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={80,110})));
+        origin={60,110})));
   Buildings.Fluid.Storage.Stratified tan(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -79,7 +79,7 @@ model TankBranch
         origin={50,110}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={40,110})));
+        origin={20,110})));
 equation
   connect(senFloBot.m_flow, mTanBot_flow)
     annotation (Line(points={{61,30},{70,30},{70,110}}, color={0,0,127}));
@@ -108,7 +108,18 @@ equation
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
-        Line(points={{0,60},{0,-60}}, color={28,108,200}),
+        Line(
+          points={{20,100},{20,50},{0,50}},
+          color={0,0,0},
+          pattern=LinePattern.Dash,
+          visible=tankIsOpen),
+        Line(
+          points={{60,100},{60,-52},{40,-52}},
+          color={0,0,0},
+          pattern=LinePattern.Dash),
+        Line(points={{-42,-60}}, color={28,108,200}),
+        Line(points={{-40,-60},{-40,50},{0,50},{0,-52},{40,-52},{40,60}}, color=
+             {28,108,200}),
         Rectangle(
           extent={{-20,40},{20,-40}},
           lineColor={0,0,0},
@@ -119,85 +130,17 @@ equation
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=tankIsOpen),
-        Line(
-          points={{40,100},{40,40},{24,40}},
-          color={0,0,0},
-          pattern=LinePattern.Dash,
-          visible=tankIsOpen),
-        Line(
-          points={{80,100},{80,-40},{26,-40}},
-          color={0,0,0},
-          pattern=LinePattern.Dash)}),                           Diagram(
+          visible=tankIsOpen)}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This plant model has a chiller and a stratified tank.
-By setting <code>allowRemoteCharging = false</code>,
-this model is effectively replacing a common pipe with a tank.
-By setting <code>allowRemoteCharging = true</code>,
-the tank can be charged by the CHW network instead of its own chiller.
+This model is part of a storage plant model. This branch has a stratified tank.
+This tank can potentially be charged remotely by a chiller from its district
+CHW network other than its own local chiller. To model an open storage tank, set
+<code>nom.plaTyp = Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open</code>,
+and a volume at atmospheric pressure is added and connected to the top of the tank.
+Otherwise, the tank is closed an pressurised.
 </p>
-<p>
-When remote charging is enabled, the plant's operation mode is determined by
-two boolean inputs:
-</p>
-<ul>
-<li>
-<code>booFloDir</code> determines the direction flow direction of the plant.
-It has reverse flow when and only when the tank is being charged remotely.
-</li>
-<li>
-<code>booOnOff</code> determines whether the plant outputs CHW to the network.
-When it is off, the plant still allows the tank to be charged remotely
-(if the flow direction is set to reverse at the same time).
-</li>
-</ul>
-<p>
-When remote charging is allowed, the secondary pump and two conditionally-enabled
-control valves are controlled by
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl\">
-Buildings.Fluid.Storage.Plant.BaseClasses.ReversiblePumpValveControl</a> as such:
-</p>
-<ul>
-<li>
-The pump is controlled to track a flow rate setpoint of the tank
-(can be both positive [discharging] or negative [charging])
-under the following conditions:
-<ul>
-<li>
-The plant is on, AND
-</li>
-<li>
-the flow direction is \"normal\" (<code>= true</code>), AND
-</li>
-<li>
-<code>val2</code> (in parallel to the pump) is at most 5% open.
-</li>
-</ul>
-Otherwise the pump is off.
-</li>
-<li>
-The valve in series with the pump (<code>val1</code>) is controlled to open fully
-under the same conditions that allow the pump to be on.
-Otherwise the valve is closed.
-</li>
-<li>
-The valve in parallel with the pump (<code>val2</code>) is controlled
-to track a negative flow rate setpoint of the tank (charging)
-under the following conditions:
-<ul>
-<li>
-The flow direction is \"reverse\" (<code>= false</code>), AND
-</li>
-<li>
-<code>val1</code> (in series to the pump) is at most 5% open.
-</li>
-</ul>
-Otherwise the valve is closed.
-Not that it is NOT closed when the plant is \"off\".
-</li>
-</ul>
 </html>", revisions="<html>
 <ul>
 <li>

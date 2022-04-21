@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Validation.BaseClasses;
-partial model PartialPlant "(Draft)"
+partial model PartialPlant "Partial model of a storage plant validation model"
 
   package Medium = Buildings.Media.Water "Medium model";
 
@@ -66,7 +66,7 @@ equation
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-Documentation pending.
+This is a partial model of a storage plant used for validation.
 </p>
 </html>", revisions="<html>
 <ul>

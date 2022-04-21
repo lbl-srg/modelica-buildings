@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Validation;
 model ClosedLocal
-  "(Draft) Validation model of the plant not allowing remote charging"
+  "Validation model of a storage plant with an open tank"
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
@@ -31,7 +31,7 @@ equation
     annotation (Line(points={{-10,41},{-10,58}},  color={0,0,127}));
   connect(set_mPumSec_flow.y, conPID_PumSec.u_s)
     annotation (Line(points={{-39,70},{-22,70}}, color={0,0,127}));
-  connect(tanBra.mTanBot_flow, gai.u) annotation (Line(points={{-12,11},{-12,14},
+  connect(tanBra.mTanBot_flow, gai.u) annotation (Line(points={{-14,11},{-14,14},
           {-10,14},{-10,18}}, color={0,0,127}));
   connect(supPum.yPumSup, conPID_PumSec.y)
     annotation (Line(points={{18,11},{18,70},{1,70}}, color={0,0,127}));
@@ -44,8 +44,8 @@ equation
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-(Draft) This is a validation model where the plant is configured not to allow
-remotely charging the tank.
+This is a validation model where the storage plant with a closed tank is configured
+NOT to allow remotely charging the tank.
 </p>
 </html>", revisions="<html>
 <ul>

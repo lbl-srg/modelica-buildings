@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant;
 model SupplyPumpValve
-  "(Draft) Plant section with supply pump and valves"
+  "Storage plant section with supply pump and valves"
 
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
@@ -172,7 +172,7 @@ model SupplyPumpValve
         origin={98,110})));
   Modelica.Blocks.Interfaces.RealInput yPumRet
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Speed input of the auxilliary pump on the return line" annotation (
+    "Speed input of the auxiliary pump on the return line" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -328,7 +328,98 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-Documentation pending.
+This model is part of a storage plant model.
+This branch has the following components:
+</p>
+<ul>
+<li>
+A CHW supply pump <code>pumSup</code> that is always enabled.
+</li>
+<li>
+Valves on the supply side <code>valSupOut</code> and <code>valSupCha</code>
+that are only enabled when the tank is configured to allow remote charging,
+i.e. <code>plaTyp</code> has the value
+<code>.ClosedRemote</code> or <code>.Open</code>.
+</li>
+<li>
+An auxiliary CHW pump <code>pumRet</code> and valves <code>valRetOut</code> and
+<code>valRetCha</code> that are only enabled when the tank is open,
+i.e. <code>plaTyp</code> has the value <code>.Open</code>.
+</li>
+</ul>
+<p>
+Under configurations where remote charging is allowed, these components are
+controlled by
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl\">
+Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl</a>.
+</p>
+<table summary= \"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th>Component</th>
+    <th>Enabled</th>
+    <th>Control Objective</th>
+    <th>Condition 1</th>
+    <th>Condition 2</th>
+    <th>Condition 3</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Supply pump<br/>pumSup</td>
+    <td>Always</td>
+    <td>Outputs CHW from the plant,<br/>tracks the flow rate at tank bottom</td>
+    <td rowspan=\"6\">The plant is online.*</td>
+    <td rowspan=\"2\">The tank is NOT being charged remotely.</td>
+    <td rowspan=\"2\">Charging valve(s) are at most 1% open.</td>
+  </tr>
+  <tr>
+    <td>Supply output valve<br/>valSupOut</td>
+    <td rowspan=\"2\">Closed tank allowing<br/>
+        remote charging<br/>
+        or open tank</td>
+    <td>Opens when the supply pump is on,<br/>
+        otherwise closes to isolate the pump</td>
+  </tr>
+  <tr>
+    <td>Supply charging valve<br/>
+        valSupCha</td>
+    <td>Charges the tank,<br/>
+        tracks the flow rate at tank top,<br/>
+        prevents the water from draining into the open tank</td>
+    <td>The tank is being charged remotely.</td>
+    <td>Output valve(s) are at most 1% open.</td>
+  </tr>
+  <tr>
+    <td>Auxiliary pump<br/>
+        pumRet</td>
+    <td rowspan=\"3\">Open tank</td>
+    <td>Pumps water to the pressurised return line<br/>
+        from the open tank when it is being charged remotely</td>
+    <td rowspan=\"2\">The tank is being charged remotely.</td>
+    <td rowspan=\"2\">Output valve(s) are at most 1% open.</td>
+  </tr>
+  <tr>
+    <td>Return charging valve<br/>
+        valRetCha</td>
+    <td>Opens when the auxiliary pump is on,<br/>
+        otherwise closes to isolate the pump</td>
+  </tr>
+  <tr>
+    <td>Return output valve<br/>
+        valRetOut</td>
+    <td>Discharges the tank,<br/>
+        tracks the flow rate at tank top,<br/>
+        prevents the water from draining into the open tank</td>
+    <td>The tank is NOT being charged remotely.</td>
+    <td>Charging valve(s) are at most 1% open.</td>
+  </tr>
+</tbody>
+</table>
+<p>
+*The plant being online means that it is connected to the district CHW network.
+When it is offline, although the valves cut the plant off of the network,
+it can still charge its tank locally.
 </p>
 </html>", revisions="<html>
 <ul>

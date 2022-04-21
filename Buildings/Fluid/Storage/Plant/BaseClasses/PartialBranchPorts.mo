@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.BaseClasses;
 model PartialBranchPorts
-  "(Draft) Common port configuration used by plant branches"
+  "Common port configuration used by plant branches"
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
@@ -48,7 +48,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-Documentation pending.
+This partial model declares the medium model, the nominal values, and the ports
+commonly used by branches of the storage plant model.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.BaseClasses;
 block PumpValveControl
-  "Control block for the supply pump and nearby valves"
+  "Control block for the supply pump and nearby valves that allows remote charging"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp=
@@ -200,7 +200,7 @@ block PumpValveControl
         origin={90,-110})));
   Modelica.Blocks.Interfaces.RealOutput yPumRet
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Speed input of the auxilliary pump on the return line" annotation (
+    "Speed input of the auxiliary pump on the return line" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -335,11 +335,11 @@ First implementation. This is for
 </ul>
 </html>", info="<html>
 <p>
-This is a control block for the secondary pump-valve group in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.ChillerAndTank\">
-Buildings.Fluid.Storage.Plant.ChillerAndTank</a>.
-This block is conditionally enabled when the plant is configured to allow
-remotely charging the tank.
+This is a control block for the group of supply pump(s) and valves in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.SupplyPumpValve\">
+Buildings.Fluid.Storage.Plant.SupplyPumpValve</a>
+whose documentation explains this block's control logic.
+It uses <code>plaTyp</code> to select components used for an open or closed tank.
 </p>
 </html>"));
 end PumpValveControl;

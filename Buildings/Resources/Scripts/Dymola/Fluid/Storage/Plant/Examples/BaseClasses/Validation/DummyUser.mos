@@ -1,6 +1,6 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Examples.BaseClasses.Validation.DummyUser", 
- stopTime=3600, 
- tolerance=1e-06, 
+simulateModel("Buildings.Fluid.Storage.Plant.Examples.BaseClasses.Validation.DummyUser",
+ stopTime=3600,
+ tolerance=1e-06,
  method="dassl",
  resultFile="DummyUser");
 // Plot commands

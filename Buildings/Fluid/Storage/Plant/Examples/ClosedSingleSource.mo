@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Examples;
-model ClosedSingleSource "(Draft) Simple system model with one source and one user"
+model ClosedSingleSource "Simple system model with one source and one user"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model for CDW";
@@ -140,12 +140,9 @@ equation
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>
 <p>
-(Draft) This is a simple system model with only one source and one user.
-The source uses the plant model
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.ChillerAndTank\">
-Buildings.Fluid.Storage.Plant.ChillerAndTank</a>
-which is configured here not to allow charging the tank remotely.
-It is therefore equivalent to having the tank in place of the common pipe.
+This is a simple system model with only one source and one user.
+The configuration of the storage plant is equivalent to having the tank in place of
+the common pipe.
 </p>
 <p>
 The primary and secondary pumps are controlled as such:

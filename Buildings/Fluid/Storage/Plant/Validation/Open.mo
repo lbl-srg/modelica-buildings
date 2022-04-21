@@ -22,13 +22,13 @@ equation
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
   connect(conPumVal.mTanTop_flow, tanBra.mTanTop_flow)
-    annotation (Line(points={{9,50},{-16,50},{-16,11}}, color={0,0,127}));
+    annotation (Line(points={{9,54},{-18,54},{-18,11}}, color={0,0,127}));
   connect(conPumVal.mTanBot_flow, tanBra.mTanBot_flow)
-    annotation (Line(points={{9,48},{-12,48},{-12,11}}, color={0,0,127}));
-  connect(supPum.ySup_actual, conPumVal.ySup_actual) annotation (Line(points={{14,
-          11},{14,34},{4,34},{4,40},{9,40}}, color={0,0,127}));
-  connect(supPum.yRet_actual, conPumVal.yRet_actual) annotation (Line(points={{10,
-          11},{10,30},{0,30},{0,44},{9,44}}, color={0,0,127}));
+    annotation (Line(points={{9,50},{-14,50},{-14,11}}, color={0,0,127}));
+  connect(supPum.ySup_actual, conPumVal.ySup_actual) annotation (Line(points={{14,11},
+          {14,34},{4,34},{4,42},{9,42}},     color={0,0,127}));
+  connect(supPum.yRet_actual, conPumVal.yRet_actual) annotation (Line(points={{10,11},
+          {10,30},{0,30},{0,46},{9,46}},     color={0,0,127}));
   connect(conPumVal.yPumSup, supPum.yPumSup)
     annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
   connect(supPum.yValSup, conPumVal.yValSup)
@@ -45,7 +45,11 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Documentation pending.
+This is a validation model where the storage plant has an open tank.
+This configuration automatically allows charging the tank remotely.
+The operation modes are implemented in the time tables by
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule\">
+Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule</a>.
 </p>
 </html>", revisions="<html>
 <ul>

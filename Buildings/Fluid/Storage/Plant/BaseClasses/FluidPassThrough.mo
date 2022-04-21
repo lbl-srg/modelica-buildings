@@ -13,7 +13,7 @@ equation
           thickness=1)}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 Fluid directly passes through the two ports.
-This is used to replace conditionally-enabled components with a connection.
+This is used to replace conditionally-enabled components with a direct connection.
 </html>", revisions="<html>
 <ul>
 <li>

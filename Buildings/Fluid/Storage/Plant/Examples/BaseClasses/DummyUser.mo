@@ -133,7 +133,7 @@ equation
 <p>
 (Draft)
 For simplicity, instead of setting up a heat exchanger to a room model,
-the consumer control valve simply tracks the return CHW temperature.  
+the consumer control valve simply tracks the return CHW temperature.
 </p>
 </html>", revisions="<html>
 <ul>

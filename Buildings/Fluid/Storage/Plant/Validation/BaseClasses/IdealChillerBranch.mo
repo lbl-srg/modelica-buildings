@@ -104,5 +104,16 @@ equation
           textColor={28,108,200},
           textString="ideal",
           origin={-58,-2},
-          rotation=90)}));
+          rotation=90)}),
+Documentation(info="<html>
+A branch with an ideal flow source and an ideal property (temperature) source.
+</html>", revisions="<html>
+<ul>
+<li>
+April 21, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end IdealChillerBranch;

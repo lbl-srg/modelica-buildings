@@ -452,16 +452,16 @@ equation
   connect(supPum.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
   connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
-    annotation (Line(points={{-92,-49},{-92,-22},{-81,-22}}, color={0,0,127}));
+    annotation (Line(points={{-94,-49},{-94,-20},{-81,-20}}, color={0,0,127}));
   connect(conSupPum.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},{
           -50,-78}}, color={255,0,255}));
   connect(mTanSet_flow.y, conSupPum.mTanSet_flow) annotation (Line(points={{-118,
-          -10},{-86,-10},{-86,-16},{-81,-16}}, color={0,0,127}));
+          -10},{-86,-10},{-86,-12},{-81,-12}}, color={0,0,127}));
   connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
           -90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,-10}},
         color={255,0,255}));
-  connect(conSupPum.ySup_actual, supPum.ySup_actual) annotation (Line(points={{-81,-30},
-          {-84,-30},{-84,-38},{-76,-38},{-76,-49}},          color={0,0,127}));
+  connect(conSupPum.ySup_actual, supPum.ySup_actual) annotation (Line(points={{-81,-28},
+          {-84,-28},{-84,-38},{-76,-38},{-76,-49}},          color={0,0,127}));
   connect(conSupPum.yPumSup, supPum.yPumSup)
     annotation (Line(points={{-72,-31},{-72,-49}}, color={0,0,127}));
   connect(conSupPum.yValSup, supPum.yValSup)
