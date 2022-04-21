@@ -4,6 +4,8 @@ type ControlEconomizer = enumeration(
       "Fixed dry bulb",
     DifferentialDryBulb
       "Differential dry bulb",
+    FixedDryBulbWithDifferentialDryBulb
+      "Fixed dry bulb with differential dry bulb",
     FixedEnthalpyWithFixedDryBulb
       "Fixed enthalpy with fixed dry bulb",
     DifferentialEnthalpyWithFixedDryBulb
@@ -25,6 +27,10 @@ Fixed dry bulb.
 <tr><td><code>DifferentialDryBulb</code></td>
 <td>
 Differential dry bulb.
+</td></tr>
+<tr><td><code>FixedDryBulbWithDifferentialDryBulb</code></td>
+<td>
+Fixed dry bulb with differential dry bulb.
 </td></tr>
 <tr><td><code>FixedEnthalpyWithFixedDryBulb</code></td>
 <td>

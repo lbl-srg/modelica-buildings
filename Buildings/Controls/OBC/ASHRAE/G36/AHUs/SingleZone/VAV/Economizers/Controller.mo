@@ -237,7 +237,6 @@ block Controller "Single zone VAV AHU economizer control sequence"
     enaDis(
     final use_enthalpy=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                        or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
-    final use_differential_enthalpy_with_fixed_drybulb=ecoHigLimCon==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final retDamPhy_max=retDamPhy_max,
     final delTOutHys=delTOutHys,
     final delEntHys=delEntHys,

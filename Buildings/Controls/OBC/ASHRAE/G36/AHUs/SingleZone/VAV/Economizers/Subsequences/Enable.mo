@@ -5,9 +5,6 @@ block Enable
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
-  parameter Boolean use_differential_enthalpy_with_fixed_drybulb = false
-    "Check if use differential enthalpy with fixed drybulb. It has to be false when not using enthalpy"
-    annotation(Dialog(group="Conditional", enable=use_enthalpy));
   parameter Real delTOutHys(
     final unit="K",
     final displayUnit="K",
@@ -131,7 +128,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst(
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
-    annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
+    annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyMin(
     final k=retDamPhy_min)
     "Physically fixed minimum position of the return air damper"
@@ -184,13 +181,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    if use_enthalpy and use_differential_enthalpy_with_fixed_drybulb
-    "Check if both the temperature and the enthalpy conditions are satisfied"
-    annotation (Placement(transformation(extent={{40,190},{60,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2 if not use_differential_enthalpy_with_fixed_drybulb
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if either the temperature or the enthalpy condition is satisfied"
-    annotation (Placement(transformation(extent={{40,240},{60,260}})));
+    annotation (Placement(transformation(extent={{40,210},{60,230}})));
 
 equation
   connect(maxOutDam.y, yOutDam_max)
@@ -248,21 +241,14 @@ equation
   connect(not3.y, andEnaDis.u3)
     annotation (Line(points={{-22,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
   connect(hysOutTem.y, or2.u1)
-    annotation (Line(points={{-78,250},{38,250}}, color={255,0,255}));
-  connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-78,170},{6,170},{6,
-          242},{38,242}},
-                     color={255,0,255}));
-  connect(entSubst.y, or2.u2) annotation (Line(points={{-38,210},{0,210},{0,242},
-          {38,242}}, color={255,0,255}));
-  connect(hysOutTem.y, and2.u1) annotation (Line(points={{-78,250},{20,250},{20,
-          200},{38,200}}, color={255,0,255}));
-  connect(hysOutEnt.y, and2.u2) annotation (Line(points={{-78,170},{-12,170},{
-          -12,192},{38,192}},
-                     color={255,0,255}));
-  connect(or2.y, truFalHol.u) annotation (Line(points={{62,250},{100,250},{100,220},
-          {118,220}}, color={255,0,255}));
-  connect(and2.y, truFalHol.u) annotation (Line(points={{62,200},{100,200},{100,
-          220},{118,220}}, color={255,0,255}));
+    annotation (Line(points={{-78,250},{-20,250},{-20,220},{38,220}},
+                                                  color={255,0,255}));
+  connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-78,170},{0,170},{0,212},
+          {38,212}}, color={255,0,255}));
+  connect(entSubst.y, or2.u2) annotation (Line(points={{-38,200},{0,200},{0,212},
+          {38,212}}, color={255,0,255}));
+  connect(or2.y, truFalHol.u) annotation (Line(points={{62,220},{118,220}},
+                      color={255,0,255}));
 annotation (
   defaultComponentName = "enaDis",
   Icon(graphics={
@@ -288,27 +274,27 @@ annotation (
         extent={{-180,-280},{180,280}}), graphics={
         Rectangle(
           extent={{-170,-44},{170,-274}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-170,16},{170,-36}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-170,76},{170,24}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-170,136},{170,84}},
-          lineColor={0,0,0},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-170,274},{170,144}},
-          lineColor={0,0,0},
+          extent={{-168,274},{172,144}},
+          lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                      Text(

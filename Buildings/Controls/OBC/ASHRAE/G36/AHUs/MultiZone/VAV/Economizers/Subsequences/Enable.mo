@@ -4,9 +4,6 @@ block Enable "Multi zone VAV AHU economizer enable/disable switch"
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
-  parameter Boolean use_differential_enthalpy_with_fixed_drybulb = false
-    "Check if use differential enthalpy with fixed drybulb. It has to be false when not using enthalpy"
-    annotation(Dialog(group="Conditional", enable=use_enthalpy));
   parameter Real delTOutHis(
     final unit="K",
     final displayUnit="K",
@@ -202,14 +199,9 @@ protected
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
-  Buildings.Controls.OBC.CDL.Logical.And and4
-    if use_enthalpy and use_differential_enthalpy_with_fixed_drybulb
-    "Check if both the temperature and the enthalpy conditions are satisfied"
-    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    if not use_differential_enthalpy_with_fixed_drybulb
     "Check if either the temperature or the enthalpy condition is satisfied"
-    annotation (Placement(transformation(extent={{-60,220},{-40,240}})));
+    annotation (Placement(transformation(extent={{-60,182},{-40,202}})));
 equation
   connect(TOut, sub1.u1)
     annotation (Line(points={{-280,252},{-240,252},{-240,236},{-202,236}},color={0,0,127}));
@@ -287,20 +279,15 @@ equation
           {190,42},{260,42}}, color={0,0,127}));
   connect(minRetDamSwitch.y, yRetDam_min) annotation (Line(points={{82,-168},{210,
           -168},{210,-78},{260,-78}}, color={0,0,127}));
-  connect(or2.y, truFalHol.u) annotation (Line(points={{-38,230},{0,230},{0,192},
-          {18,192}}, color={255,0,255}));
-  connect(and4.y, truFalHol.u) annotation (Line(points={{-38,180},{0,180},{0,192},
-          {18,192}}, color={255,0,255}));
+  connect(or2.y, truFalHol.u) annotation (Line(points={{-38,192},{18,192}},
+                     color={255,0,255}));
   connect(hysOutTem.y, or2.u1)
-    annotation (Line(points={{-138,230},{-62,230}}, color={255,0,255}));
+    annotation (Line(points={{-138,230},{-80,230},{-80,192},{-62,192}},
+                                                    color={255,0,255}));
   connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-138,150},{-100,150},{-100,
-          222},{-62,222}}, color={255,0,255}));
+          184},{-62,184}}, color={255,0,255}));
   connect(entSubst1.y, or2.u2) annotation (Line(points={{-138,190},{-100,190},{-100,
-          222},{-62,222}}, color={255,0,255}));
-  connect(hysOutTem.y, and4.u1) annotation (Line(points={{-138,230},{-80,230},{-80,
-          180},{-62,180}}, color={255,0,255}));
-  connect(hysOutEnt.y, and4.u2) annotation (Line(points={{-138,150},{-100,150},{
-          -100,172},{-62,172}}, color={255,0,255}));
+          184},{-62,184}}, color={255,0,255}));
 annotation (
     defaultComponentName = "enaDis",
     Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
