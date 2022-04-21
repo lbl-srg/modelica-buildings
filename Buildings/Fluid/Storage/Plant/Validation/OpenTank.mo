@@ -29,7 +29,7 @@ model OpenTank "(Draft)"
   Buildings.Fluid.FixedResistances.PressureDrop preDroSup(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
-    final m_flow_nominal=nom.mTan_flow_nominal,
+    final m_flow_nominal=nom.m_flow_nominal,
     dp_nominal=0.3*nom.dp_nominal) "Flow resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -38,7 +38,7 @@ model OpenTank "(Draft)"
   Buildings.Fluid.FixedResistances.PressureDrop preDroRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
-    final m_flow_nominal=nom.mTan_flow_nominal,
+    final m_flow_nominal=nom.m_flow_nominal,
     dp_nominal=0.3*nom.dp_nominal) "Flow resistance" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -46,7 +46,11 @@ model OpenTank "(Draft)"
         origin={60,-20})));
   Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = Medium,
-    final nom=nom) "Supply pump and valves"
+    final nom=nom,
+    pumSup(per(pressure(V_flow=nom.m_flow_nominal*{0,1.6,2},
+                        dp=(sin.p-101325)*{2,1.6,0}))),
+    pumRet(per(pressure(V_flow=nom.mTan_flow_nominal*{0,1.6,2},
+                        dp=(sou.p-101325)*{2,1.6,0})))) "Supply pump and valves"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation
   connect(conPumVal.uOnl, uOnl.y) annotation (Line(points={{32,56},{36,56},{36,90},
@@ -57,20 +61,20 @@ equation
     annotation (Line(points={{-10,-6},{10,-6}}, color={0,127,255}));
   connect(supPum.port_chiOut, tanBra.port_CHWS)
     annotation (Line(points={{10,6},{-10,6}}, color={0,127,255}));
-  connect(supPum.port_CHWS, preDroSup.port_a) annotation (Line(points={{30,6},{
-          44,6},{44,20},{50,20}}, color={0,127,255}));
-  connect(supPum.port_CHWR, preDroRet.port_b) annotation (Line(points={{30,-6},
-          {44,-6},{44,-20},{50,-20}}, color={0,127,255}));
+  connect(supPum.port_CHWS, preDroSup.port_a) annotation (Line(points={{30,6},{44,
+          6},{44,20},{50,20}}, color={0,127,255}));
+  connect(supPum.port_CHWR, preDroRet.port_b) annotation (Line(points={{30,-6},{
+          44,-6},{44,-20},{50,-20}}, color={0,127,255}));
   connect(tanBra.mTanTop_flow, conPumVal.mTanTop_flow)
     annotation (Line(points={{-16,11},{-16,50},{9,50}}, color={0,0,127}));
-  connect(conPumVal.mTanSet_flow, set_mTan_flow.y) annotation (Line(points={{9,
-          54},{-72,54},{-72,70},{-79,70}}, color={0,0,127}));
+  connect(conPumVal.mTanSet_flow, set_mTan_flow.y) annotation (Line(points={{9,54},
+          {-72,54},{-72,70},{-79,70}}, color={0,0,127}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
-  connect(supPum.yRet_actual, conPumVal.yRet_actual) annotation (Line(points={{
-          10,11},{10,32},{2,32},{2,44},{9,44}}, color={0,0,127}));
-  connect(conPumVal.ySup_actual, supPum.ySup_actual) annotation (Line(points={{
-          9,40},{6,40},{6,36},{14,36},{14,11}}, color={0,0,127}));
+  connect(supPum.yRet_actual, conPumVal.yRet_actual) annotation (Line(points={{10,
+          11},{10,32},{2,32},{2,44},{9,44}}, color={0,0,127}));
+  connect(conPumVal.ySup_actual, supPum.ySup_actual) annotation (Line(points={{9,
+          40},{6,40},{6,36},{14,36},{14,11}}, color={0,0,127}));
   connect(supPum.yPumSup, conPumVal.yPumSup)
     annotation (Line(points={{18,11},{18,39}}, color={0,0,127}));
   connect(conPumVal.yValSup, supPum.yValSup)

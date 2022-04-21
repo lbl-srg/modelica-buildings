@@ -110,9 +110,9 @@ block PumpValveControl
         origin={190,10})));
   Buildings.Controls.Continuous.LimPID conPI_pumRet(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=5,
-    Ti=50,
-    reverseActing=true)
+    k=1,
+    Ti=10,
+    reverseActing=false)
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -192,7 +192,7 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,-110})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch           swiPumSup1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiPumRet
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "True = on (y>0); false = off (y=0)." annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -250,8 +250,6 @@ equation
     annotation (Line(points={{222,22},{222,210},{62,210}}, color={255,0,255}));
   connect(notRemCha.y, and3Out.u2) annotation (Line(points={{240,58},{240,40},{230,
           40},{230,22}}, color={255,0,255}));
-  connect(conPI_pumRet.u_m, mTanBot_flow) annotation (Line(points={{78,10},{70,10},
-          {70,50},{-150,50}}, color={0,0,127}));
   connect(conPI_pumRet.u_s, mTanSet_flow)
     annotation (Line(points={{90,22},{90,88},{-150,88}}, color={0,0,127}));
 
@@ -283,13 +281,13 @@ equation
           156},{-120,7.5},{-150,7.5}}, color={0,0,127}));
   connect(conPI_pumSup.y, swiPumSup.u1) annotation (Line(points={{-70,-1},{-70,-20},
           {-62,-20},{-62,-158}}, color={0,0,127}));
-  connect(andCha.y, swiPumSup1.u2) annotation (Line(points={{190,-2},{190,-136},
+  connect(andCha.y, swiPumRet.u2) annotation (Line(points={{190,-2},{190,-136},
           {90,-136},{90,-158}}, color={255,0,255}));
-  connect(conPI_pumRet.y, swiPumSup1.u1) annotation (Line(points={{90,-1},{90,-20},
+  connect(conPI_pumRet.y, swiPumRet.u1) annotation (Line(points={{90,-1},{90,-20},
           {98,-20},{98,-158}}, color={0,0,127}));
-  connect(swiPumSup1.u3, zero.y) annotation (Line(points={{82,-158},{82,-110},{-99,
+  connect(swiPumRet.u3, zero.y) annotation (Line(points={{82,-158},{82,-110},{-99,
           -110}}, color={0,0,127}));
-  connect(swiPumSup1.y, yPumRet)
+  connect(swiPumRet.y, yPumRet)
     annotation (Line(points={{90,-182},{90,-210}}, color={0,0,127}));
   connect(booToReaValCha.u, andCha.y)
     annotation (Line(points={{190,-158},{190,-2}}, color={255,0,255}));
@@ -320,6 +318,8 @@ equation
           {170,-194},{170,-212.5}}, color={0,0,127}));
   connect(booToReaValCha.y, yRet[2]) annotation (Line(points={{190,-182},{190,
           -194},{170,-194},{170,-207.5}}, color={0,0,127}));
+  connect(conPI_pumRet.u_m, mTanTop_flow) annotation (Line(points={{78,10},{70,
+          10},{70,68},{-150,68}}, color={0,0,127}));
   annotation (
   defaultComponentName="conPumVal",
   Diagram(coordinateSystem(extent={{-140,-200},{260,240}})), Icon(
