@@ -12,7 +12,7 @@ block PumpValveControl
   Buildings.Controls.Continuous.LimPID conPI_valCha(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
-    Ti=50,
+    Ti=10,
     reverseActing=false)                   "PI controller"
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -110,7 +110,7 @@ block PumpValveControl
         origin={190,10})));
   Buildings.Controls.Continuous.LimPID conPI_pumRet(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
+    k=5,
     Ti=10,
     reverseActing=false)
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
@@ -121,7 +121,7 @@ block PumpValveControl
   Buildings.Controls.Continuous.LimPID conPI_valOut(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
-    Ti=50,
+    Ti=10,
     reverseActing=true)
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "PI controller" annotation (Placement(transformation(
@@ -143,7 +143,7 @@ block PumpValveControl
   Buildings.Controls.Continuous.LimPID conPI_pumSup(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
-    Ti=50,
+    Ti=10,
     reverseActing=true)  "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
