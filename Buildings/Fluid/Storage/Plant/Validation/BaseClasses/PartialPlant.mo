@@ -23,10 +23,15 @@ partial model PartialPlant "(Draft)"
     redeclare final package Medium = Medium,
     final nom=nom) "Tank branch"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+  Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
+    redeclare final package Medium = Medium,
+    final nom=nom) "Supply pump and valves"
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
     final p=300000,
-    final T=nom.T_CHWR_nominal)
+    final T=nom.T_CHWR_nominal,
+    nPorts=1)
     "Source representing CHW return line"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -35,18 +40,27 @@ partial model PartialPlant "(Draft)"
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,
     final p=300000+nom.dp_nominal,
-    final T=nom.T_CHWS_nominal)
-              "Sink representing CHW supply line"
+    final T=nom.T_CHWS_nominal,
+    nPorts=1) "Sink representing CHW supply line"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={90,20})));
 
 equation
+
+  connect(tanBra.port_CHWS, supPum.port_chiOut)
+    annotation (Line(points={{-10,6},{10,6}}, color={0,127,255}));
+  connect(tanBra.port_CHWR, supPum.port_chiInl)
+    annotation (Line(points={{-10,-6},{10,-6}}, color={0,127,255}));
   connect(ideChiBra.port_b, tanBra.port_chiOut)
     annotation (Line(points={{-50,6},{-30,6}}, color={0,127,255}));
   connect(ideChiBra.port_a, tanBra.port_chiInl)
     annotation (Line(points={{-50,-6},{-30,-6}}, color={0,127,255}));
+  connect(supPum.port_CHWS, sin.ports[1]) annotation (Line(points={{30,6},{74,6},
+          {74,20},{80,20}}, color={0,127,255}));
+  connect(supPum.port_CHWR, sou.ports[1]) annotation (Line(points={{30,-6},{74,
+          -6},{74,-20},{80,-20}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),

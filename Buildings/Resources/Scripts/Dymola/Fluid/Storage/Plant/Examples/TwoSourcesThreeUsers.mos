@@ -6,7 +6,7 @@ simulateModel("Buildings.Fluid.Storage.Plant.Examples.TwoSourcesThreeUsers",
 // Plot commands
 createPlot(id=1,
  position={15, 15, 914, 538},
- y={"pumSup1.m_flow", "chiBra2.m_flow", "tanBra.mTanTop_flow", "supPum.pumSup.m_flow"},
+ y={"pumSup1.m_flow", "chiBra2.m_flow", "tanBra.mTanBot_flow", "supPum.pumSup.m_flow"},
  range={0.0, 3600.0, -2.0, 2.0},
  grid=true,
  subPlot=101,
