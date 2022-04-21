@@ -89,6 +89,7 @@ protected
     final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
+    final runPeriod=runPeriod,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final zoneName=zoneName,
     final nFluPor=nPorts,

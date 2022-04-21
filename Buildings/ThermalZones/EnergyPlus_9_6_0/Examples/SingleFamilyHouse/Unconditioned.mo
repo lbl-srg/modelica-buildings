@@ -12,7 +12,9 @@ model Unconditioned
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
-    computeWetBulbTemperature=false)
+    computeWetBulbTemperature=false,
+    runPeriod(
+      dayOfWeekForStartDay=Types.WeekDays.Wednesday))
     "Building model"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   parameter Modelica.Units.SI.Volume VRoo=453.1 "Room volume";

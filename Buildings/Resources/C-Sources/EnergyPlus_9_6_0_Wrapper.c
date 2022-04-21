@@ -36,6 +36,8 @@ void* allocate_Modelica_EnergyPlus_9_6_0(
   const char* idfVersion,
   const char* idfName,
   const char* epwName,
+  int dayOfWeekForStartDay,
+  int dayOfWeekIsAtTime0,
   double relativeSurfaceTolerance,
   const char* epName,
   int usePrecompiledFMU,
@@ -63,6 +65,10 @@ void* allocate_Modelica_EnergyPlus_9_6_0(
   const double* derivatives_delta,
   const size_t nDer){
 
+    runPeriod runPer;
+    runPer.dayOfWeekForStartDay = dayOfWeekForStartDay;
+    runPer.dayOfWeekIsAtTime0 = dayOfWeekIsAtTime0;
+
     return allocate_Spawn_EnergyPlus_9_6_0(
       objectType,
       startTime,
@@ -72,6 +78,7 @@ void* allocate_Modelica_EnergyPlus_9_6_0(
       idfVersion,
       idfName,
       epwName,
+      &runPer,
       relativeSurfaceTolerance,
       epName,
       usePrecompiledFMU,

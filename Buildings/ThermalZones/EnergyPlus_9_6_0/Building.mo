@@ -41,6 +41,10 @@ model Building
     "If true, then this model computes the wet bulb temperature"
     annotation (Dialog(tab="Advanced"));
 
+  parameter Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod runPeriod
+      "EnergyPlus RunPeriod configuration"
+    annotation (Dialog(tab="Run period"));
+
   parameter Boolean printUnits=true
     "Set to true to print units of OutputVariable instances to log file"
     annotation (Dialog(group="Diagnostics"));
