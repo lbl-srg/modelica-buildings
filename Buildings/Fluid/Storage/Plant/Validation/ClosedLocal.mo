@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model ClosedTankNoRemoteCharging
+model ClosedLocal
   "(Draft) Validation model of the plant not allowing remote charging"
   extends Modelica.Icons.Example;
   extends
@@ -37,7 +37,7 @@ equation
     annotation (Line(points={{18,11},{18,70},{1,70}}, color={0,0,127}));
   connect(mSet_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedTankNoRemoteCharging.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedLocal.mos"
         "Simulate and plot"),
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -56,4 +56,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end ClosedTankNoRemoteCharging;
+end ClosedLocal;

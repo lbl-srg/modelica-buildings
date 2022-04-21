@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Validation.OpenTank", 
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.Open", 
  stopTime=3600, 
  tolerance=1e-06, 
  method="dassl",
- resultFile="OpenTank");
+ resultFile="Open");
 // Plot commands
 createPlot(id=1,
  position={14, 11, 1094, 494},

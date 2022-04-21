@@ -1,4 +1,4 @@
-ClosedTankNoRemoteCharging
-ClosedTankWithRemoteCharging
-OpenTank
+ClosedLocal
+ClosedRemote
+Open
 BaseClasses

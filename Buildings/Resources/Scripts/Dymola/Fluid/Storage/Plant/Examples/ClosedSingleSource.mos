@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Examples.OneSourceOneUser", 
+simulateModel("Buildings.Fluid.Storage.Plant.Examples.ClosedSingleSource", 
  stopTime=3600, 
  tolerance=1e-06, 
  method="dassl",
- resultFile="OneSourceOneUser");
+ resultFile="ClosedSingleSource");
 // Plot commands
 createPlot(id=1,
  position={15, 15, 1027, 480},

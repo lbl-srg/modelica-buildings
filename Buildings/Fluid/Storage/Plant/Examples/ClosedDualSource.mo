@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Examples;
-model TwoSourcesThreeUsers
+model ClosedDualSource
   "(Draft) District system model with two sources and three users"
   extends Modelica.Icons.Example;
 
@@ -467,7 +467,7 @@ equation
   connect(conSupPum.yValSup, supPum.yValSup)
     annotation (Line(points={{-68,-31},{-68,-49}}, color={0,0,127}));
     annotation (
-              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/TwoSourcesThreeUsers.mos"
+              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/ClosedDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
         Diagram(coordinateSystem(extent={{-180,-120},{140,140}})), Icon(
@@ -570,4 +570,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end TwoSourcesThreeUsers;
+end ClosedDualSource;

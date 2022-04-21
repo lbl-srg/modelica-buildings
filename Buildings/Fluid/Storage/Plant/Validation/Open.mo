@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model OpenTank "(Draft)"
+model Open "(Draft)"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
       nom(
@@ -41,7 +41,7 @@ equation
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/OpenTank.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/Open.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -56,4 +56,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end OpenTank;
+end Open;

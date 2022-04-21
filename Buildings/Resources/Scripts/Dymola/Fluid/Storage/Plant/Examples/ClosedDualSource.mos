@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Examples.TwoSourcesThreeUsers", 
+simulateModel("Buildings.Fluid.Storage.Plant.Examples.ClosedDualSource", 
  stopTime=3600, 
  tolerance=1e-06, 
  method="dassl",
- resultFile="TwoSourcesThreeUsers");
+ resultFile="ClosedDualSource");
 // Plot commands
 createPlot(id=1,
  position={15, 15, 914, 538},
