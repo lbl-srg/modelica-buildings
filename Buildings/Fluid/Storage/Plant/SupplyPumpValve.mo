@@ -236,22 +236,7 @@ equation
   connect(pumRet.y, yPumRet) annotation (Line(points={{-50,-48},{-50,-26},{66,-26},
           {66,96},{50,96},{50,110}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),       graphics={Line(
-          points={{-20,0},{40,0}},
-          color={28,108,200},
-          pattern=LinePattern.Dash,
-          visible=allowRemoteCharging), Polygon(
-          points={{-20,0},{0,6},{0,-6},{-20,0}},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          visible=allowRemoteCharging),
-        Line(points={{-20,80},{40,80}},  color={28,108,200}),
-        Polygon(
-          points={{40,80},{20,86},{20,74},{40,80}},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
+            {100,100}}),       graphics={
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Ellipse(
@@ -263,33 +248,83 @@ equation
           points={{40,60},{24,70},{24,50},{40,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Polygon(
           points={{40,60},{56,70},{56,50},{40,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Line(
-          points={{80,60},{80,20},{-80,20},{-80,60}},
+          points={{80,60},{80,32},{-80,32},{-80,60}},
           color={28,108,200},
-          visible=allowRemoteCharging),
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Polygon(
-          points={{40,20},{24,30},{24,10},{40,20}},
+          points={{40,32},{24,42},{24,22},{40,32}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=allowRemoteCharging),
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Polygon(
-          points={{40,20},{56,30},{56,10},{40,20}},
+          points={{40,32},{56,42},{56,22},{40,32}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=allowRemoteCharging),
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Polygon(
           points={{-20,60},{-50,76},{-50,44},{-20,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.None)}),                       Diagram(
+          fillPattern=FillPattern.None),
+        Ellipse(
+          extent={{-60,-40},{-20,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          startAngle=0,
+          endAngle=360,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+        Polygon(
+          points={{40,-60},{24,-50},{24,-70},{40,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+        Polygon(
+          points={{40,-60},{56,-50},{56,-70},{40,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+        Line(
+          points={{80,-60},{80,-88},{-80,-88},{-80,-60}},
+          color={28,108,200},
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+        Polygon(
+          points={{40,-88},{24,-78},{24,-98},{40,-88}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+        Polygon(
+          points={{40,-88},{56,-78},{56,-98},{40,-88}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+        Polygon(
+          points={{-20,-60},{-50,-44},{-50,-76},{-20,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None,
+          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open)}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
