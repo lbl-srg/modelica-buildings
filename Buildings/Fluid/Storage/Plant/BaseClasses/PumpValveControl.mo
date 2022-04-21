@@ -33,7 +33,7 @@ block PumpValveControl
           origin={-150,88}), iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-110,40})));
+          origin={-110,80})));
   Modelica.Blocks.Interfaces.RealInput mTanBot_flow
     "Flow rate measured at the bottom of the tank" annotation (Placement(
         transformation(
@@ -42,7 +42,7 @@ block PumpValveControl
         origin={-150,50}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-20})));
+        origin={-110,0})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
     "= true if plant is online (not cut off from the network by valve)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -67,7 +67,7 @@ block PumpValveControl
         origin={-150,-10}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-100})));
+        origin={-110,-80})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValOutClo(t=0.01)
     "= true if valve closed"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
@@ -102,7 +102,7 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,70})));
-  Buildings.Controls.OBC.CDL.Logical.And andCha
+  Buildings.Controls.OBC.CDL.Logical.And3 and3Cha
     "Charging = remote charging command AND outputting valve(s) closed"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -138,7 +138,7 @@ block PumpValveControl
         origin={-150,68}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,0})));
+        origin={-110,40})));
 
   Buildings.Controls.Continuous.LimPID conPI_pumSup(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -167,7 +167,7 @@ block PumpValveControl
         origin={-150,10}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-60})));
+        origin={-110,-40})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxCha
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Max of charging valve positions"
@@ -237,15 +237,11 @@ equation
           -98}},      color={0,0,127}));
   connect(zero.y, swiValCha.u3) annotation (Line(points={{-99,-50},{22,-50},{22,
           -98}},  color={0,0,127}));
-  connect(isValOutClo.y, andCha.u2)
-    annotation (Line(points={{62,130},{182,130},{182,22}}, color={255,0,255}));
   connect(conPI_valCha.y, swiValCha.u1) annotation (Line(points={{30,-1},{30,-20},
           {38,-20},{38,-98}}, color={0,0,127}));
   connect(uRemCha, notRemCha.u)
     annotation (Line(points={{270,108},{240,108},{240,82}},
                                                         color={255,0,255}));
-  connect(andCha.u1, uRemCha) annotation (Line(points={{190,22},{190,108},{270,108}},
-        color={255,0,255}));
   connect(and3Out.u3, isValChaClo.y)
     annotation (Line(points={{222,22},{222,210},{62,210}}, color={255,0,255}));
   connect(notRemCha.y, and3Out.u2) annotation (Line(points={{240,58},{240,40},{230,
@@ -281,16 +277,12 @@ equation
           156},{-120,7.5},{-150,7.5}}, color={0,0,127}));
   connect(conPI_pumSup.y, swiPumSup.u1) annotation (Line(points={{-70,-1},{-70,-20},
           {-62,-20},{-62,-98}},  color={0,0,127}));
-  connect(andCha.y, swiPumRet.u2) annotation (Line(points={{190,-2},{190,-76},{90,
-          -76},{90,-98}}, color={255,0,255}));
   connect(conPI_pumRet.y, swiPumRet.u1) annotation (Line(points={{90,-1},{90,-20},
           {98,-20},{98,-98}}, color={0,0,127}));
   connect(swiPumRet.u3, zero.y)
     annotation (Line(points={{82,-98},{82,-50},{-99,-50}}, color={0,0,127}));
   connect(swiPumRet.y, yPumRet)
     annotation (Line(points={{90,-122},{90,-150}}, color={0,0,127}));
-  connect(booToReaValCha.u, andCha.y)
-    annotation (Line(points={{190,-98},{190,-2}},  color={255,0,255}));
   connect(swiValOut.u2, and3Out.y) annotation (Line(points={{150,-98},{150,-60},
           {230,-60},{230,-2}},  color={255,0,255}));
   connect(conPI_valOut.y, swiValOut.u1) annotation (Line(points={{150,-1},{150,-20},
@@ -299,8 +291,6 @@ equation
           -50}},      color={0,0,127}));
   connect(booToReaValOut.u, and3Out.y) annotation (Line(points={{-10,-98},{-10,-60},
           {230,-60},{230,-2}},                  color={255,0,255}));
-  connect(swiValCha.u2, andCha.y) annotation (Line(points={{30,-98},{30,-76},{190,
-          -76},{190,-2}},       color={255,0,255}));
   connect(maxCha.u2, ySup_actual[2]) annotation (Line(points={{-62,224},{-100,
           224},{-100,-7.5},{-150,-7.5}}, color={0,0,127}));
   connect(pasCha.u, ySup_actual[2]) annotation (Line(points={{-62,190},{-100,
@@ -319,6 +309,18 @@ equation
           {170,-134},{170,-147.5}},       color={0,0,127}));
   connect(conPI_pumRet.u_m, mTanTop_flow) annotation (Line(points={{78,10},{70,10},
           {70,68},{-150,68}}, color={0,0,127}));
+  connect(and3Cha.u2, uRemCha) annotation (Line(points={{190,22},{190,108},{270,
+          108}}, color={255,0,255}));
+  connect(and3Cha.u3, isValOutClo.y)
+    annotation (Line(points={{182,22},{182,130},{62,130}}, color={255,0,255}));
+  connect(and3Cha.u1, uOnl)
+    annotation (Line(points={{198,22},{198,28},{270,28}}, color={255,0,255}));
+  connect(booToReaValCha.u, and3Cha.y)
+    annotation (Line(points={{190,-98},{190,-2}}, color={255,0,255}));
+  connect(and3Cha.y, swiPumRet.u2) annotation (Line(points={{190,-2},{190,-70},
+          {90,-70},{90,-98}}, color={255,0,255}));
+  connect(swiValCha.u2, and3Cha.y) annotation (Line(points={{30,-98},{30,-70},{
+          190,-70},{190,-2}}, color={255,0,255}));
   annotation (
   defaultComponentName="conPumVal",
   Diagram(coordinateSystem(extent={{-140,-140},{260,240}})), Icon(
