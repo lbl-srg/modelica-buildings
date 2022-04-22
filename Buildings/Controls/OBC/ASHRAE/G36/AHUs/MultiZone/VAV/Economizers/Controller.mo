@@ -164,11 +164,13 @@ block Controller
     "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
         iconTransformation(extent={{-140,150},{-100,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(final unit=
-        "1") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)
-    "Actual supply fan speed" annotation (Placement(transformation(extent={{-280,
-            110},{-240,150}}), iconTransformation(extent={{-140,100},{-100,140}})));
+    "Actual supply fan speed"
+    annotation (Placement(transformation(extent={{-280,110},{-240,150}}),
+        iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput effAbsOutAir_normalized(
     final unit="1")
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
@@ -176,12 +178,13 @@ block Controller
     "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor air rate "
     annotation (Placement(transformation(extent={{-280,80},{-240,120}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(
+    final unit="1")
     if (have_CO2Sen and venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
      and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
-    "Maximum Zone CO2 control loop" annotation (Placement(transformation(extent=
-           {{-280,50},{-240,90}}), iconTransformation(extent={{-140,30},{-100,
-            70}})));
+    "Maximum Zone CO2 control loop"
+    annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput effDesOutAir_normalized(
     final unit="1")
     if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
@@ -214,20 +217,26 @@ block Controller
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirOut(final unit="J/kg",
-      final quantity="SpecificEnergy") if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirOut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")
+    if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
      or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)
-    "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-280,-150},
-            {-240,-110}}), iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(final unit="J/kg",
-      final quantity="SpecificEnergy") if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")
+    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
-    "Return air enthalpy" annotation (Placement(transformation(extent={{-280,-180},
-            {-240,-140}}), iconTransformation(extent={{-140,-130},{-100,-90}})));
+    "Return air enthalpy"
+    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
+        iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
-    "Supply fan proven on status" annotation (Placement(transformation(extent={
-            {-280,-210},{-240,-170}}), iconTransformation(extent={{-140,-160},{
-            -100,-120}})));
+    "Supply fan proven on status"
+    annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
+        iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-280,-240},{-240,-200}}),
@@ -239,41 +248,43 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam_min(
     final min=0,
     final max=1,
-    final unit="1") "Minimum outdoor air damper position limit" annotation (
-      Placement(transformation(extent={{260,220},{300,260}}),
+    final unit="1")
+    "Minimum outdoor air damper position limit"
+    annotation (Placement(transformation(extent={{260,220},{300,260}}),
         iconTransformation(extent={{100,160},{140,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDam(
     final min=0,
     final max=1,
-    final unit="1") if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-    "Minimum outdoor air flow damper commanded position" annotation (Placement(
-        transformation(extent={{260,160},{300,200}}), iconTransformation(extent=
-           {{100,110},{140,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam if minOADes
-     == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
-    "Minimum outdoor air damper command on position" annotation (Placement(
-        transformation(extent={{260,120},{300,160}}), iconTransformation(extent=
-           {{100,90},{140,130}})));
+    final unit="1")
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    "Minimum outdoor air flow damper commanded position"
+    annotation (Placement(transformation(extent={{260,160},{300,200}}),
+        iconTransformation(extent={{100,110},{140,150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam
+    if minOADes== Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    "Minimum outdoor air damper command on position"
+    annotation (Placement(transformation(extent={{260,120},{300,160}}),
+        iconTransformation(extent={{100,90},{140,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam(
     final min=0,
     final max=1,
-    final unit="1") "Return air damper commanded position" annotation (
-      Placement(transformation(extent={{260,80},{300,120}}), iconTransformation(
-          extent={{100,40},{140,80}})));
+    final unit="1")
+    "Return air damper commanded position"
+    annotation (Placement(transformation(extent={{260,80},{300,120}}),
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-     and (not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp))
-    "Relief air damper commanded position" annotation (Placement(transformation(
-          extent={{260,0},{300,40}}), iconTransformation(extent={{100,-80},{140,
-            -40}})));
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+    "Relief air damper commanded position"
+    annotation (Placement(transformation(extent={{260,0},{300,40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam(
     final min=0,
     final max=1,
-    final unit="1") "Outdoor air damper commanded position" annotation (
-      Placement(transformation(extent={{260,-90},{300,-50}}),
+    final unit="1")
+    "Outdoor air damper commanded position"
+    annotation (Placement(transformation(extent={{260,-90},{300,-50}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithAFMS
@@ -599,9 +610,8 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-50},{98,-66}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-               and (not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir,
+
           textString="yRelDam"),
         Text(
           extent={{42,-110},{98,-126}},

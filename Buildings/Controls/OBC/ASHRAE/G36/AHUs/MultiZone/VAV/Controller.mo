@@ -622,7 +622,7 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Setpoint for supply air temperature"
+    "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{360,480},{400,520}}),
         iconTransformation(extent={{200,320},{240,360}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffAirOut_flow_min(
@@ -655,9 +655,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir)
+    final unit="1") if not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief air damper commanded position"
     annotation (Placement(transformation(extent={{360,20},{400,60}}),
         iconTransformation(extent={{200,80},{240,120}})));
@@ -719,14 +717,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{360,-340},{400,-300}}),
         iconTransformation(extent={{200,-210},{240,-170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
-    final min=0,
-    final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    "Exhaust damper commanded position"
-    annotation (Placement(transformation(extent={{360,-410},{400,-370}}),
-        iconTransformation(extent={{200,-270},{240,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
     final unit="Pa",
     displayUnit="Pa",
@@ -1017,8 +1007,6 @@ equation
           {-280,-464},{-162,-464}}, color={0,0,127}));
   connect(retFanDpCon.yDpBui, yDpBui) annotation (Line(points={{-138,-462},{200,
           -462},{200,-320},{380,-320}},                color={0,0,127}));
-  connect(retFanDpCon.yExhDam, yExhDam) annotation (Line(points={{-138,-468},{300,
-          -468},{300,-390},{380,-390}}, color={0,0,127}));
   connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-472},{
           310,-472},{310,-420},{380,-420}}, color={0,0,127}));
   connect(u1SupFan, relDam.u1SupFan) annotation (Line(points={{-380,380},{-300,380},
@@ -1085,6 +1073,10 @@ equation
           -29},{112,-29},{112,-191},{198,-191}}, color={255,0,255}));
   connect(frePro.y1MinOutDam, y1MinOutDam) annotation (Line(points={{222,-195},{
           260,-195},{260,120},{380,120}}, color={255,0,255}));
+  connect(yRelDam, yRelDam)
+    annotation (Line(points={{380,40},{380,40}}, color={0,0,127}));
+  connect(retFanDpCon.yRelDam, yRelDam) annotation (Line(points={{-138,-468},{
+          180,-468},{180,40},{380,40}}, color={0,0,127}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1199,12 +1191,11 @@ annotation (
        Text(extent={{142,82},{202,64}},
           lineColor={0,0,0},
           textString="yOutDam"),
-       Text(extent={{142,112},{202,94}},
+       Text(
+          extent={{142,112},{202,94}},
           lineColor={0,0,0},
           textString="yRelDam",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-               and not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          visible=not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan),
        Text(extent={{140,142},{202,124}},
           lineColor={0,0,0},
           textString="yRetDam"),
@@ -1285,11 +1276,6 @@ annotation (
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
           textString="yDpBui"),
-       Text(
-          extent={{136,-240},{198,-258}},
-          lineColor={0,0,0},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
-          textString="yExhDam"),
        Text(
           extent={{138,-260},{200,-278}},
           lineColor={0,0,0},

@@ -71,10 +71,11 @@ block ReturnFanDirectPressure
     "Averaged building static pressure"
     annotation (Placement(transformation(extent={{120,120},{160,160}}),
       iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
-     final unit="1",
-     final min=0,
-     final max=1) "Exhaust damper commanded position"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Relief damper commanded position"
     annotation (Placement(transformation(extent={{120,70},{160,110}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
@@ -86,9 +87,10 @@ block ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final unit="1",
     final min=0,
-    final max=1) "Return fan commanded speed" annotation (Placement(
-        transformation(extent={{120,-170},{160,-130}}), iconTransformation(
-          extent={{100,-100},{140,-60}})));
+    final max=1)
+    "Return fan commanded speed"
+    annotation (Placement(transformation(extent={{120,-170},{160,-130}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
@@ -108,7 +110,7 @@ block ReturnFanDirectPressure
     "Return fan static pressure setpoint"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
-    "Exhaust air damper position"
+    "Relief air damper position"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Return fan discharge static pressure setpoint"
@@ -147,7 +149,7 @@ protected
     "Constant one"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDam
-    "Check if the exhaust damper should be enabled"
+    "Check if the relief damper should be enabled"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanSpeMin(
     final k=disSpe_min)
@@ -193,7 +195,7 @@ equation
   connect(linExhAirDam.y, swi1.u1)
     annotation (Line(points={{82,180},{100,180},{100,130},{60,130},{60,98},{78,98}},
       color={0,0,127}));
-  connect(swi1.y, yExhDam)
+  connect(swi1.y,yRelDam)
     annotation (Line(points={{102,90},{140,90}},
       color={0,0,127}));
   connect(zer1.y, swi1.u3)
@@ -311,7 +313,7 @@ annotation (
           textString="Return fan speed")}),
   Documentation(info="<html>
 <p>
-Setpoint for return fan discharge pressure and exhaust air damper
+Setpoint for return fan discharge pressure and relief air damper
 for a multi zone VAV AHU according to Section 5.16.10 of ASHRAE Guideline G36, May 2020.
 </p>
 <ol>
@@ -324,10 +326,10 @@ off otherwise.</p>
 at setpoint <code>dpBuiSet</code>.</p>
 </li>
 <li>
-<p>Exhaust damper is only enabled when the associated supply and return
+<p>Relief damper is only enabled when the associated supply and return
 fans are proven on (<code>u1SupFan=true</code>) and the minimum outdoor air damper is open
 (to be controlled in a separate sequence).
-The exhaust dampers is closed when the fan is disabled.</p>
+The relief dampers is closed when the fan is disabled.</p>
 </li>
 <li>
 <p>The building static pressure is time averaged with a sliding 5-minute window
@@ -335,7 +337,7 @@ to dampen fluctuations. The averaged value shall be displayed and is used
 for control.</p>
 </li>
 <li>
-<p>When the exhaust damper is enabled, a control loop modulates the exhaust damper
+<p>When the relief damper is enabled, a control loop modulates the relief damper
 in sequence with the return fan static pressure setpoint as shown in the figure
 below to maintain the building pressure equal to <code>dpBuiSet</code>,
 which is by default <i>12</i> Pa (<i>0.05</i> inches).
@@ -348,7 +350,7 @@ The output signal of the building pressure control is as follows:
 <ol>
 <li>
 From <i>0</i> to <i>0.5</i>, the building pressure control loop modulates the exhaust
-dampers from <code>yExhDam = 0</code> (closed) to <code>yExhDam = 1</code> (open).
+dampers from <code>yRelDam = 0</code> (closed) to <code>yRelDam = 1</code> (open).
 </li>
 <li>
 From <i>0.5</i> to <i>1</i>, the building pressure control loop resets the return fan
