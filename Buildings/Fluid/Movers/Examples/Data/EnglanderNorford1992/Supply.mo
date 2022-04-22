@@ -1,6 +1,6 @@
-within Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992;
+within Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992;
 record Supply "Data for the supply fan in Englander and Norford (1992)"
-  extends Generic(
+  extends Buildings.Fluid.Movers.Data.Generic(
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
     speed_rpm_nominal=875,
     power(V_flow={5.44049459041731,8.71715610510046,15.6826378155589,19.9484801648634,22.5450798557444,25.6362699639361,27.8619268418341,29.8402885110767,32.9314786192684,36.764554353426,40.1648634724368,42.9057187017001},
@@ -14,8 +14,8 @@ Documentation(info="<html>
 <p>
 Performance data for the supply fan used in Englander and Norford (1992)
 (figure below). See the documentation of
-<a href=\"modelica://Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992\">
-Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992\">
+Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992</a>.
 </p>
 <p align=\"center\">
 <img alt=\"Fan curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/Supply.png\"/></p>

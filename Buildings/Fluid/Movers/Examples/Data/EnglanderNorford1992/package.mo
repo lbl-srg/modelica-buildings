@@ -1,4 +1,4 @@
-within Buildings.Fluid.Movers.Data.Fans;
+within Buildings.Fluid.Movers.Examples.Data;
 package EnglanderNorford1992 "Package with performance data for fans used in Englander and Norford 1992 paper"
   extends Modelica.Icons.Package;
 

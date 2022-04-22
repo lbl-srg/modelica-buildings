@@ -33,7 +33,7 @@ model StaticReset
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare Buildings.Fluid.Movers.Data.Fans.EnglanderNorford1992.Supply per(
+    redeclare Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992.Supply per(
       final etaHydMet=
         Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve))
     "Fan using power curves"
