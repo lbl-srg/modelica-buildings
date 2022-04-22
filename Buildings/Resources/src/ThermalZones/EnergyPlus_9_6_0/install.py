@@ -17,7 +17,7 @@ import shutil
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
 # The setup below will lead to a specific commit being pulled.
 version = "0.3.0"
-commit = "d6204d26f6"
+commit = "ee6614d522168ceab5cb61b72f7ad67df5e762ab"
 NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
 
 
@@ -95,7 +95,7 @@ def get_vars_as_json(spawnFlag, spawn_exe):
     import json
 
     bin_dir = get_bin_directory()
-    spawn = os.path.join(bin_dir, f"spawn-{version}-{commit}", "linux64", "bin", spawn_exe)
+    spawn = os.path.join(bin_dir, f"spawn-{version}-{commit[0:10]}", "linux64", "bin", spawn_exe)
 
     ret = subprocess.run([spawn, spawnFlag], stdout=subprocess.PIPE, check=True)
     vars = json.loads(ret.stdout)
@@ -164,7 +164,7 @@ def replace_table_in_mo(html, varType, moFile):
 def _getEnergyPlusVersion():
     """ Return the EnergyPlus version in the form 9.6.0
     """
-    spawn_name = f"spawn-{version}-{commit}"
+    spawn_name = f"spawn-{version}-{commit[0:10]}"
     idd = os.path.abspath( \
             os.path.join(__file__, \
                 os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
@@ -238,7 +238,7 @@ if __name__ == "__main__":
     dists.append(
         {
             "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-Linux.tar.gz",
-            "des": f"spawn-{version}-{commit}/linux64",
+            "des": f"spawn-{version}-{commit[0:10]}/linux64",
             "files": {
                 f"bin/{spawn_exe}": "",
                 "README.md": "",
@@ -250,7 +250,7 @@ if __name__ == "__main__":
     dists.append(
         {
             "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-win64.zip",
-            "des": f"spawn-{version}-{commit}/win64",
+            "des": f"spawn-{version}-{commit[0:10]}/win64",
             "files": {
                 "bin/epfmi.dll": "",
                 f"bin/{spawn_exe}.exe": "",
