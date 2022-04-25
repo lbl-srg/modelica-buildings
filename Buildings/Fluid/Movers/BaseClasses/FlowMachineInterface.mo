@@ -703,7 +703,7 @@ equation
     if per.etaMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
     // As long as eta is provided
-      etaHyd = Buildings.Utilities.Math.Functions.smoothMin(
+      etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
                  x1=eta / etaMot, x2=1, deltaX=1E-6);
     else
     // Only etaMot provided or neither
@@ -764,7 +764,7 @@ equation
        per.etaHydMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided then
     // If both etaMet and etaHydMet provided
-      etaMot = Buildings.Utilities.Math.Functions.smoothMin(
+      etaMot = Buildings.Utilities.Math.Functions.smoothMax(
                  x1=eta / etaHyd, x2=1, deltaX=1E-6);
     else
       etaMot = 0.7;
