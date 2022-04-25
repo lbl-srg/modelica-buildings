@@ -3,7 +3,7 @@ record efficiencyParameters_yMot
   "Record for efficiency parameters vs. motor part load ratio"
   extends Modelica.Icons.Record;
   parameter Real y[:](each min=0)
-    "Part load ratio";
+    "Part load ratio, y = PEle/PEle_nominal";
   parameter Modelica.Units.SI.Efficiency eta[size(y, 1)](each max=1)
     "Fan or pump efficiency at these part load ratios";
   annotation (Documentation(info="<html>
