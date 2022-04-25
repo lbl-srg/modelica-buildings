@@ -358,10 +358,10 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed
     </td>
     <td valign=\"top\">
-    Package that allows certain efficiency and power variables to be computed
+    Added package that allows certain efficiency and power variables to be computed
     using the Euler number, its example and validation models, and relevant data
     records.<br/>
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">
@@ -371,9 +371,9 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot
     </td>
     <td valign=\"top\">
-    Function and data record that allow the motor efficiency to be provided
+    Added functions and data records that allow the motor efficiency to be provided
     as a function of part load ratio, and its validation model.<br/>
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
@@ -384,6 +384,15 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Added models for ice storage tank whose performance is characterized by performance curves.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2820\">#2820</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006Euler
+    </td>
+    <td valign=\"top\">Added an example model to demonstrate of the use of the Euler number method.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
     </td>
 </tr>
 </table>
