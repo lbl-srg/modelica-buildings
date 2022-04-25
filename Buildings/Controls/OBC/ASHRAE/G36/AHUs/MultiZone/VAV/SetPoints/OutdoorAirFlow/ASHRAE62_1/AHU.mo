@@ -40,11 +40,12 @@ block AHU "Outdoor airflow related calculations at the AHU level"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirOut_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    final quantity="VolumeFlowRate")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
-    "Measured outdoor air volumetric flow rate" annotation (Placement(
-        transformation(extent={{-260,-130},{-220,-90}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
+    "Measured outdoor air volumetric flow rate"
+    annotation (Placement(transformation(extent={{-260,-130},{-220,-90}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VUncOutAir_flow(
     final min=0,
     final unit="m3/s",
@@ -55,9 +56,9 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Effective minimum outdoor airflow setpoint" annotation (Placement(
-        transformation(extent={{220,10},{260,50}}), iconTransformation(extent={
-            {100,10},{140,50}})));
+    "Effective minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{220,10},{260,50}}),
+        iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effOutAir_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor air rate "

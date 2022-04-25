@@ -597,7 +597,7 @@ block Controller "Multizone VAV air handling unit controller"
         iconTransformation(extent={{-240,-380},{-200,-340}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1MinOutAirDam
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    "Minimum outdoor air damper proven on status, true when it is open. When there is no dedicated damper, it is the economizer damper status"
+    "Minimum outdoor air damper proven on status, true when it is open"
     annotation (Placement(transformation(extent={{-400,-490},{-360,-450}}),
         iconTransformation(extent={{-240,-410},{-200,-370}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi_actual(
