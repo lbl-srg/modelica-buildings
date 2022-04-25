@@ -56,11 +56,20 @@ pressure</a></td>
 </tr>
 <tr>
 <td>Volume flow rate</td>
-<td>Efficiency</td>
+<td>Efficiency<br/>
+    (total, hydraulic, or motor)</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
 efficiencyParameters</a></td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 efficiency</a></td>
+</tr>
+<tr>
+<td>Motor part load ratio</td>
+<td>Motor efficiency</td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot\">
+efficiencyParameters_yMot</a></td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
+efficiency_yMot</a></td>
 </tr>
 <tr>
 <td>Volume flow rate</td>
@@ -651,9 +660,9 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>.
     <th></th>
     <th><code>PowerCurve</code>*</th>
     <th><code>EulerNumber</code>*</th>
-    <th><code>Values</code></th>
-    <th><code>Values_yMot</code></th>
-    <th><code>GenericCurve</code></th>
+    <th><code>Values</code>**</th>
+    <th><code>Values_yMot</code>**</th>
+    <th><code>GenericCurve</code>**</th>
     <th><code>NotProvided</code></th>
   </tr>
 </thead>
@@ -661,7 +670,7 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>.
   <tr>
     <td><i>&eta;</i></td>
     <td>&#10003;</td>
-    <td>&#10003;**</td>
+    <td>&#10003;***</td>
     <td>&#10003;</td>
     <td></td>
     <td></td>
@@ -694,14 +703,19 @@ For example, if <i>&eta;<sub>hyd</sub></i> uses <code>EulerNumber</code>,
 then <i>&eta;</i> must use <code>PowerCurve</code>,
 <code>Values</code>, or <code>NotProvided</code>.<br/>
 ** Although the Euler number method is defined using <i>&eta;<sub>hyd</sub></i>,
-because the motor efficiency tends to be largely constant from full load down to
-25% - 50% of part motor load (see the documentation of
+this implementation applies it also to <i>&eta;</i> and <i>P<sub>ele</sub></i>
+as an approximation. The basis is that <i>&eta;<sub>mot</sub></i> is mostly
+constant for motors larger than about 3.5 kW or 5 HP except when the motor
+part load drops below around 40%, (see the documentation of
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>
-), the relationship between <i>&eta;</i> and
-<i>&eta;<sub>hyd</sub></i> is roughly linear for the range that matters most.
-It is therefore reasonable to approximate that the <code>EulerNumber</code> method
-can also be used to define <i>&eta;</i>.
+Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
+which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
+to eacher other.<br/>
+*** All three efficiency items can use <i>V&#775;</i> as the independent variable
+by selecting <code>Values</code>. <i>&eta;<sub>mot</sub></i> can also use the motor
+part load ratio
+<i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
+when selecting <code>Values_yMot</code> or <code>GenericCurve</code>.
 </p>
 
 <h5>Fluid volume of the component</h5>
