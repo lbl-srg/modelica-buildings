@@ -5,7 +5,7 @@ function efficiency_yMot
   input
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     per "Efficiency performance data";
-  input Real y "Motor part load ratio";
+  input Real y "Motor part load ratio, y = PEle/PEle_nominal";
   input Real d[:] "Derivatives at support points for spline interpolation";
   output Real eta(unit="1", final quantity="Efficiency") "Efficiency";
 
