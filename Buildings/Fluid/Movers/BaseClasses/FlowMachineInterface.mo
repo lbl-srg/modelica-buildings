@@ -443,13 +443,13 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate),
-         "Only one of etaMet and etaHydMet can be set to .Power_VolumeFlowRate.");
+         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet can be set to .Power_VolumeFlowRate.");
 
   assert(not (per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
-         "Only one of etaMet and etaHydMet can be set to .EulerNumber.");
+         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet can be set to .EulerNumber.");
 
   assert(per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
@@ -457,7 +457,7 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
          or per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
-         "The problem is over-specified. At least one of the three efficiency
+         "In " + getInstanceName() + ": The problem is over-specified. At least one of the three efficiency
          methods must be set to .NotProvided.");
 
   assert(not ((per.etaMotMet==
@@ -465,7 +465,7 @@ the simulation stops.");
            or  per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
          and not per.havePEle_nominal),
-         "etaMotMet is set to .Efficiency_MotorPartLoadRatio or .GenericCurve which requires
+         "In " + getInstanceName() + ": etaMotMet is set to .Efficiency_MotorPartLoadRatio or .GenericCurve which requires
          the motor's rated input power, but per.PEle_nominal is not assigned.");
 
 equation
