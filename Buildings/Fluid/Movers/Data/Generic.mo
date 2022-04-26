@@ -66,7 +66,7 @@ record Generic "Generic data record for movers"
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
-    motorEfficiency_yMot(y={0}, eta={0.7}) "Motor efficiency  vs. part load ratio"
+    motorEfficiency_yMot(y={0}, eta={0.7}) "Motor efficiency eta vs. part load ratio y, with y = PEle/PEle_nominal"
     annotation (Dialog(group="Power computation", enable=etaMotMet ==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values_yMot));
 
