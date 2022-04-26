@@ -469,6 +469,12 @@ the simulation stops.");
          the motor's rated input power, but per.PEle_nominal is not assigned or
          cannot be estimated because no power curve is provided.");
 
+  assert(max(per.power.P)<1E-6 or per.PEle_nominal>max(per.power.P)*0.99,
+         "In " + getInstanceName() + ": The rated motor power provided in
+         per.PEle_nominal is smaller than the maximum power provided in per.power.
+         Use a larger value for per.PEle_nominal or leave it blank to allow the
+         model to assume a default value.");
+
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
   connect(dp_internal,dp);
