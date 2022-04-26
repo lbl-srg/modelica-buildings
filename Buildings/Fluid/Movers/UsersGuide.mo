@@ -536,8 +536,8 @@ for doing so, depending on the efficiency being defined, as implemented in
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 The methods are selected by enumeration
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>
 for <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> and by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
 Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>
@@ -548,7 +548,7 @@ for <i>&eta;<sub>mot</sub></i>.
 </p>
 <ul>
 <li>
-<code>Values</code> - An array of efficiency vs. <i>V&#775;</i> is provided.
+<code>Efficiency_VolumeFlowRate</code> - An array of efficiency vs. <i>V&#775;</i> is provided.
 During simulation, if the array has only one element, the efficiency is constant. If the array has
 more than one element, the efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
@@ -559,7 +559,7 @@ Buildings.Fluid.Movers.Validation.PowerSimplified</a>
 as an example.
 </li>
 <li>
-<code>PowerCurve</code> - An array of power vs. <i>V&#775;</i> is provided.
+<code>Power_VolumeFlowRate</code> - An array of power vs. <i>V&#775;</i> is provided.
 During simulation, the power is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
@@ -617,10 +617,10 @@ During simulation, it will be computed using the other efficiency terms.
 </p>
 <ul>
 <li>
-<code>Values</code>
+<code>Efficiency_VolumeFlowRate</code>
 </li>
 <li>
-<code>Values_yMot</code> - An array of efficiency vs. motor part load ratio
+<code>Efficiency_MotorPartLoadRatio</code> - An array of efficiency vs. motor part load ratio
 <i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
 is provided. During simulation, the efficiency is interpolated or extrapolated by
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
@@ -639,7 +639,7 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.
 If a power curve is provided, the maximum power value on this curve with a 20%
 oversize would be used as default.
 The model then computes the efficiency the same way as the option of
-<code>Values_yMot</code>.
+<code>Efficiency_MotorPartLoadRatio</code>.
 Also see
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot\">
 Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot</a>
@@ -658,10 +658,10 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>.
 <thead>
   <tr>
     <th></th>
-    <th><code>PowerCurve</code>*</th>
+    <th><code>Power_VolumeFlowRate</code>*</th>
     <th><code>EulerNumber</code>*</th>
-    <th><code>Values</code>**</th>
-    <th><code>Values_yMot</code>**</th>
+    <th><code>Efficiency_VolumeFlowRate</code>**</th>
+    <th><code>Efficiency_MotorPartLoadRatio</code>**</th>
     <th><code>GenericCurve</code>**</th>
     <th><code>NotProvided</code></th>
   </tr>
@@ -697,11 +697,11 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>.
 </tbody>
 </table>
 <p>
-* The <code>PowerCurve</code> and <code>EulerNumber</code> options cannot
+* The <code>Power_VolumeFlowRate</code> and <code>EulerNumber</code> options cannot
 be used for more than one efficiency item.
 For example, if <i>&eta;<sub>hyd</sub></i> uses <code>EulerNumber</code>,
-then <i>&eta;</i> must use <code>PowerCurve</code>,
-<code>Values</code>, or <code>NotProvided</code>.<br/>
+then <i>&eta;</i> must use <code>Power_VolumeFlowRate</code>,
+<code>Efficiency_VolumeFlowRate</code>, or <code>NotProvided</code>.<br/>
 ** Although the Euler number method is defined using <i>&eta;<sub>hyd</sub></i>,
 this implementation applies it also to <i>&eta;</i> and <i>P<sub>ele</sub></i>
 as an approximation. The basis is that <i>&eta;<sub>mot</sub></i> is mostly
@@ -712,10 +712,10 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
 which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
 to eacher other for motors of this size.<br/>
 *** All three efficiency items can use <i>V&#775;</i> as the independent variable
-by selecting <code>Values</code>. <i>&eta;<sub>mot</sub></i> can also use the motor
+by selecting <code>Efficiency_VolumeFlowRate</code>. <i>&eta;<sub>mot</sub></i> can also use the motor
 part load ratio
 <i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
-when selecting <code>Values_yMot</code> or <code>GenericCurve</code>.
+when selecting <code>Efficiency_MotorPartLoadRatio</code> or <code>GenericCurve</code>.
 </p>
 
 <h5>Fluid volume of the component</h5>
@@ -774,7 +774,8 @@ These functions are implemented in
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 <li>
-The efficiency calculation is different, in particular, the models in this package allow
+The efficiency calculation is different, in particular, the models in this package a"
+           + "llow
 use of the Euler number to compute the hydraulic efficiency.
 </li>
 </ul>

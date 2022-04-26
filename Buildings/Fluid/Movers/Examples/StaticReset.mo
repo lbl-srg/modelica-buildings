@@ -35,7 +35,7 @@ model StaticReset
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992.Supply per(
       final etaHydMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve))
+        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate))
     "Fan using power curves"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Buildings.Fluid.Movers.SpeedControlled_y fan2(
@@ -44,7 +44,7 @@ model StaticReset
     per(
       pressure=fan1.per.pressure,
       final etaHydMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
       peak(
         V_flow=23.022856,
         dp=1211.1604,
@@ -56,13 +56,12 @@ model StaticReset
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(
       pressure=fan1.per.pressure,
-      final etaHydMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-      final etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values,
+      final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+
+      final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+
       hydraulicEfficiency(eta={0.7}),
-      motorEfficiency(eta={0.7})))
-    "Fan using constant efficiency"
+      motorEfficiency(eta={0.7}))) "Fan using constant efficiency"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   // Duct pressure drops

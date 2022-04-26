@@ -365,10 +365,10 @@ initial equation
          per.use_powerCharacteristic == false,
 "*** Warning: You are using a flow or pressure controlled mover with the
              default pressure curve with etaMet or etaHydMet set to
-             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve.
+             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate.
              Since this can cause wrong power consumption, the model will overwrite
              this setting and use instead
-             Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided." +
+             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided." +
              "See the user guide to see what assumptions are made in this setting
              or provide other information to the model.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",

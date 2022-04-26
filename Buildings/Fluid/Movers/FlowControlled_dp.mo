@@ -24,15 +24,15 @@ model FlowControlled_dp
               dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
         final etaMet=
           if per.etaMet ==
-               Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
             and not per.havePressureCurve then
-              Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+              Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
           else per.etaMet,
         final etaHydMet=
           if per.etaHydMet ==
-               Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
             and not per.havePressureCurve then
-              Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided
+              Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
           else per.etaHydMet,
         final etaMotMet=per.etaMotMet),
       r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
@@ -180,10 +180,10 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 <li>
 March 8, 2022, by Hongxiang Fu:<br/>
 Refactored the model by replacing <code>not use_powerCharacteristic</code>
-with the enumeration 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>.
-This is for 
+with the enumeration
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

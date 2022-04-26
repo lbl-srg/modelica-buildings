@@ -22,8 +22,8 @@ model ChillerDXHeatingEconomizer
   parameter Modelica.Units.SI.Power QCoo_flow_nominal(max=0)
     "Design capacity of cooling coil"
     annotation (Dialog(group="Cooling design"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
-     = 500 "Design pressure drop of flow leg with fan"
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
+       500 "Design pressure drop of flow leg with fan"
     annotation (Dialog(group="Air design"));
   final parameter Modelica.Units.SI.MassFlowRate mChiEva_flow_nominal=-
       QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
@@ -125,17 +125,16 @@ model ChillerDXHeatingEconomizer
     final nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=875,
     final per(
-      final etaMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-      final etaHydMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-      final etaMotMet=
-        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+      final etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+
+      final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+
+      final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=false,
     final use_inputFilter=false,
-    redeclare package Medium = MediumA)
-    "Supply fan"
+    redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
     final m_flow_nominal=mAir_flow_nominal,
@@ -633,10 +632,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 <li>
 November 1, 2021, by Hongxiang Fu:<br/>
 Refactored the model by replacing <code>not use_powerCharacteristic</code>
-with the enumeration 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>.
-This is for 
+with the enumeration
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>

@@ -11,9 +11,9 @@ model EulerReducedSpeed
 
   parameter Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13 per1(
     final etaMet=
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
     final etaHydMet=
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaMotMet=
             Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(

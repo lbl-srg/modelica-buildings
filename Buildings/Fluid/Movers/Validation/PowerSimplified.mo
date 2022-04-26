@@ -23,9 +23,12 @@ model PowerSimplified
     redeclare package Medium = Medium,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values,
+      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
@@ -37,9 +40,12 @@ model PowerSimplified
     m_flow_nominal=m_flow_nominal,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
-      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.Values,
-      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Values,
+      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -154,10 +160,10 @@ the nominal speed <i>N<sub>nominal</sub></i>.
 <li>
 March 8, 2022, by Hongxiang Fu:<br/>
 Refactored the model by replacing <code>not use_powerCharacteristic</code>
-with the enumeration 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</a>.
-This is for 
+with the enumeration
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>

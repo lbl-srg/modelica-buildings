@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Data.Fans.Greenheck;
 record BIDW18 "Fan data for Greenheck 18 BIDW fan"
   extends Generic(
-    etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
+    etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     speed_rpm_nominal=3530,
     power(V_flow={2.83387830993139, 3.77636725011219,   4.718856190293,
                   5.66134513047381, 6.60383407065461, 7.55273450022439,
@@ -24,8 +24,8 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-Fan performance data. 
-See the documentation of 
+Fan performance data.
+See the documentation of
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Fans.Greenheck\">
 Buildings.Fluid.Movers.Data.Fans.Greenheck</a>.
 </p>

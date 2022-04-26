@@ -196,7 +196,7 @@ partial model PartialHVAC
         V_flow=mAir_flow_nominal/1.2,
         dp=780 + 10 + dpBuiStaSet,
         eta=0.49),
-      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber),
+      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
 

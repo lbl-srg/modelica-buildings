@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992;
 record Supply "Data for the supply fan in Englander and Norford (1992)"
   extends Buildings.Fluid.Movers.Data.Generic(
-    etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
+    etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     speed_rpm_nominal=875,
     power(V_flow={5.44049459041731, 8.71715610510046, 15.6826378155589,
                   19.9484801648634, 22.5450798557444, 25.6362699639361,

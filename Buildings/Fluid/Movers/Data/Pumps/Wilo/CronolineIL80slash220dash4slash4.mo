@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record CronolineIL80slash220dash4slash4
   "Pump data for a Wilo Cronoline-IL 80/220-4/4 pump"
   extends Generic(
-    etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.PowerCurve,
+    etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     speed_rpm_nominal=1450,
     power(V_flow={0.00303454715219, 0.00578898225957, 0.00863678804855,
                    0.0113912231559,  0.0146125116713,  0.0181605975724,
@@ -31,10 +31,10 @@ Documentation(info="<html>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>
-to support the implementation of 
+to support the implementation of
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 <code>Buildings.Fluid.Movers.BaseClasses.Euler</code></a>.
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>

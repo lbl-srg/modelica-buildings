@@ -672,7 +672,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Refactored the model by replacing all
                        <code>use_powerCharacteristic</code>
                        with the enumeration
-                       <code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code><br/>.
+                       <code>Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</code><br/>.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
@@ -961,7 +961,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Refactored the models and data recoreds by replacing all
                        <code>use_powerCharacteristic</code>
                        with the enumeration
-                       <code>Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod</code><br/>.
+                       <code>Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</code><br/>.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>

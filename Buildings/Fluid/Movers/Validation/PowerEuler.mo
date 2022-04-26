@@ -7,9 +7,9 @@ model PowerEuler
 
   parameter Buildings.Fluid.Movers.Data.Generic perPea(
     final etaMet=
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber,
+            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaHydMet=
-            Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.NotProvided,
+            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
     final etaMotMet=
             Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
@@ -30,7 +30,7 @@ This example is identical to
 Buildings.Fluid.Movers.Validation.PowerSimplified</a>,
 except that the efficiency of the flow controlled pumps
 <code>pump_dp</code> and <code>pump_m_flow</code>
-is estimated by using the Euler number and its correlation as implemented in 
+is estimated by using the Euler number and its correlation as implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.
 </p>
