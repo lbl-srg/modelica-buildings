@@ -582,7 +582,7 @@ The model finds the efficiency by evaluating the following correlation:
 <br/>
 </p>
 where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
-<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>, 
+<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>,
 with the subscript <i>p</i> denoting the condition where
 the mover is operating at peak efficiency.
 The Euler number is defined as
@@ -698,7 +698,7 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>.
 </table>
 <p>
 * The <code>PowerCurve</code> and <code>EulerNumber</code> options cannot
-be used for more than one efficiency item.  
+be used for more than one efficiency item.
 For example, if <i>&eta;<sub>hyd</sub></i> uses <code>EulerNumber</code>,
 then <i>&eta;</i> must use <code>PowerCurve</code>,
 <code>Values</code>, or <code>NotProvided</code>.<br/>
@@ -710,7 +710,7 @@ part load drops below around 40%, (see the documentation of
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
 which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
-to eacher other.<br/>
+to eacher other for motors of this size.<br/>
 *** All three efficiency items can use <i>V&#775;</i> as the independent variable
 by selecting <code>Values</code>. <i>&eta;<sub>mot</sub></i> can also use the motor
 part load ratio
