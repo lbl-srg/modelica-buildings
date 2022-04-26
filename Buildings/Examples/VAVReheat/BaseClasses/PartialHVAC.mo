@@ -188,9 +188,15 @@ partial model PartialHVAC
     annotation (Placement(transformation(extent={{400,130},{380,150}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
-    per(pressure(
-      V_flow={0,mAir_flow_nominal/1.2*2},
-      dp=2*{780 + 10 + dpBuiStaSet,0})),
+    per(
+      pressure(
+        V_flow={0,mAir_flow_nominal/1.2*2},
+        dp=2*{780 + 10 + dpBuiStaSet,0}),
+      peak(
+        V_flow=mAir_flow_nominal/1.2,
+        dp=780 + 10 + dpBuiStaSet,
+        eta=0.49),
+      etaMet=Buildings.Fluid.Movers.BaseClasses.Types.EfficiencyMethod.EulerNumber),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
 
@@ -651,7 +657,13 @@ Buildings.Examples.VAVReheat.Guideline36</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-November 9, 2021, by Baptiste:<br/>
+April 26, 2022, by Michael Wetter:<br/>
+Changed fan efficiency calculation to use Euler number.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
+November 9, 2021, by Baptiste Ravache:<br/>
 Vectorized the terminal boxes to be expanded to any number of zones.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2735\">issue #2735</a>.
 </li>
