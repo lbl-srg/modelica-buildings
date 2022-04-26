@@ -1,5 +1,5 @@
-within Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992;
-record Supply "Data for the supply fan in Englander and Norford (1992)"
+within Buildings.Fluid.Movers.Examples.Data;
+record EnglanderNorford1992 "Data for the supply fan in Englander and Norford (1992)"
   extends Buildings.Fluid.Movers.Data.Generic(
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     speed_rpm_nominal=875,
@@ -26,10 +26,17 @@ Documentation(info="<html>
 <p>
 Performance data for the supply fan used in Englander and Norford (1992)
 (figure below). See the documentation of
-<a href=\"modelica://Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992\">
-Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Fans.Greenheck\">
+Buildings.Fluid.Movers.Data.Fans.Greenheck</a>
+for the methods used to extract data.
 </p>
 <p align=\"center\">
-<img alt=\"Fan curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/Supply.png\"/></p>
+<img alt=\"Fan curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/Supply.png\"/></p>
+<h4>References</h4>
+<p>
+Englander, S. L., and L. K. Norford. 
+\"Saving fan energy in VAV systems- part 1: analysis of a variable-speed-drive retrofit.\" 
+<i>ASHRAE Winter Meeting, Anaheim, CA, USA, 01/25-29/92.</i> 1992.
+</p>
 </html>"));
-end Supply;
+end EnglanderNorford1992;

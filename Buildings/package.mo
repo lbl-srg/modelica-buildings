@@ -339,8 +339,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
 </tr>
 <tr><td valign=\"top\">
-        Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992.Return<br/>
-        Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992.Supply<br/>
+        Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992<br/>
         Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
         Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
         Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
