@@ -3,6 +3,7 @@ record Stratos32slash1to12 "Pump data for a Wilo Stratos 32/1-12 pump"
   extends Generic(
     speed_rpm_nominal=3580,
     etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+    etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     power(V_flow={2.11830535572e-05, 0.000167865707434, 0.000700939248601,
                     0.0012450039968,  0.00177258193445,  0.00227268185452,
                    0.00272332134293,  0.00312450039968,  0.00345423661071},

@@ -3,6 +3,7 @@ record TopS40slash7 "Pump data for a staged Wilo-Top-S 40/7 pump"
   extends Generic(
     speed_rpm_nominal=2800,
     etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+    etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     power(V_flow={9.97406742472e-07, 0.000621384400559, 0.00113006183922,
                    0.00162078595651,  0.00206961899062, 0.00244663873928,
                     0.0029074406543,  0.00330241372432, 0.00375723119888,

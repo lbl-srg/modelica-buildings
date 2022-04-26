@@ -3,6 +3,7 @@ record Stratos30slash1to8 "Pump data for a Wilo Stratos 30/1-8 pump"
   extends Generic(
     speed_rpm_nominal=3040,
     etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+    etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     power(V_flow={2.66111582909e-06, 0.000621486635037, 0.000887056469533,
                     0.0011525489114,  0.00140859349908,  0.00168018209891,
                    0.00191740837085,  0.00219831980599},

@@ -3,6 +3,7 @@ record TopS25slash10 "Pump data for a staged Wilo-Top-S 25/10 pump"
   extends Generic(
     speed_rpm_nominal=2650,
     etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+    etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     power(V_flow={3.51617440225e-06, 0.000523909985935, 0.000847398030942,
                    0.00115682137834,  0.00148382559775,  0.00177918424754,
                    0.00206047819972,  0.00229254571027,            0.0025,

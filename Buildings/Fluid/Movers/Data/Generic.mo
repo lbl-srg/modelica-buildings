@@ -16,11 +16,11 @@ record Generic "Generic data record for movers"
     "Efficiency computation method for the total efficiency eta"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaHydMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+    Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
 

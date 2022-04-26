@@ -3,6 +3,7 @@ record CronolineIL80slash220dash4slash4
   "Pump data for a Wilo Cronoline-IL 80/220-4/4 pump"
   extends Generic(
     etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+    etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     speed_rpm_nominal=1450,
     power(V_flow={0.00303454715219, 0.00578898225957, 0.00863678804855,
                    0.0113912231559,  0.0146125116713,  0.0181605975724,
