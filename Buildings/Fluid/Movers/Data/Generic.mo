@@ -20,7 +20,11 @@ record Generic "Generic data record for movers"
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    if havePEle_nominal
+    then
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    else
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
 
@@ -97,10 +101,14 @@ record Generic "Generic data record for movers"
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
   parameter Modelica.Units.SI.Power PEle_nominal(final displayUnit="W")=
+    if max(power.P)>Modelica.Constants.eps
+    then
       if etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
         then max(power.P)/etaMot_max*1.2
       else max(power.P)*1.2
+    else
+      peak.V_flow*peak.dp/peak.eta/etaMot_max*1.2
     "Rated input power of the motor"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==

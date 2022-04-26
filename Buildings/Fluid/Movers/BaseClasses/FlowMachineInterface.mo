@@ -466,7 +466,8 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
          and not per.havePEle_nominal),
          "In " + getInstanceName() + ": etaMotMet is set to .Efficiency_MotorPartLoadRatio or .GenericCurve which requires
-         the motor's rated input power, but per.PEle_nominal is not assigned.");
+         the motor's rated input power, but per.PEle_nominal is not assigned or
+         cannot be estimated because no power curve is provided.");
 
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
@@ -642,8 +643,7 @@ equation
     Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     connect(effTab.y,eta);
     connect(powTab.y,PEle);
-  elseif per.etaMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate
-       then
+  elseif per.etaMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     PEle = WFlo / eta;
     if homotopyInitialization then
       eta = homotopy(actual=cha.efficiency(per=per.totalEfficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
@@ -685,8 +685,7 @@ equation
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     connect(effTab.y,etaHyd);
     connect(powTab.y,WHyd);
-  elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate
-       then
+  elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     WHyd = WFlo / etaHyd;
     if homotopyInitialization then
       etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta),
@@ -709,8 +708,7 @@ equation
   end if;
 
   // Motor efficiency
-  if per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate
-       then
+  if per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
       etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
