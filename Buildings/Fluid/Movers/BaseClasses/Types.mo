@@ -23,7 +23,7 @@ package Types "Package with type definitions"
       Values
         "Array of efficiency vs. volumetric flow rate",
       Values_yMot
-        "Rated input and array of efficiency vs. motor part load ratio",
+        "Rated input and array of efficiency vs. motor part load ratio yMot=PEle/PEle_nominal",
       GenericCurve
         "Rated input and maximum efficiency to be used for generic curves")
     "Enumeration to choose the computation method for motor efficiency";
