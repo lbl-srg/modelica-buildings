@@ -82,9 +82,9 @@ the set point.
 <ul>
 <li>
 April 26, 2022, by Michael Wetter:<br/>
-Enabled hysteresis for freeze stat. This is required to avoid simulation to stall
-as reported in
-<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2693#issuecomment-1109019179\">pull request 2693</a>.
+Enabled hysteresis for freeze stat. This is required to avoid simulation to stall.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2975\">#2975</a>.
 </li>
 <li>
 April 23, 2021, by Michael Wetter:<br/>

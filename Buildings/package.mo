@@ -521,7 +521,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2781\">#2781</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Controls.FreezeStat
+    </td>
+    <td valign=\"top\">Added hysteresis. Without it, models can stall due to state events.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2975\">#2975</a>.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
                        Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
                        Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
     </td>
