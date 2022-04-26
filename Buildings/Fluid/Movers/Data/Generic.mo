@@ -85,8 +85,8 @@ record Generic "Generic data record for movers"
 
   // Peak condition
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
-    V_flow=0,
-    dp=0,
+    V_flow=max(pressure.V_flow)/2,
+    dp=max(pressure.dp)/2,
     eta=0.7)
     "Volume flow rate, pressure rise, and efficiency (either total or hydraulic) at peak condition"
     annotation (Dialog(group="Power computation",
