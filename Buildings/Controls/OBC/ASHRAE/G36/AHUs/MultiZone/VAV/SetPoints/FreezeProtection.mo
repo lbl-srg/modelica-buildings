@@ -64,14 +64,14 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1") if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-    "Minimum outdoor air damper commanded position" annotation (Placement(
-        transformation(extent={{-480,240},{-440,280}}), iconTransformation(
-          extent={{-140,90},{-100,130}})));
+    "Minimum outdoor air damper commanded position"
+    annotation (Placement(transformation(extent={{-480,240},{-440,280}}),
+        iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1MinOutDam if minOADes ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
-    "Minimum outdoor air damper command on position" annotation (Placement(
-        transformation(extent={{-480,200},{-440,240}}), iconTransformation(
-          extent={{-140,70},{-100,110}})));
+    "Minimum outdoor air damper command on position"
+    annotation (Placement(transformation(extent={{-480,200},{-440,240}}),
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDam(
     final min=0,
     final max=1,
@@ -82,9 +82,9 @@ block FreezeProtection
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Measured supply air temperature" annotation (Placement(transformation(
-          extent={{-480,30},{-440,70}}), iconTransformation(extent={{-140,30},{-100,
-            70}})));
+    "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{-480,30},{-440,70}}),
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if not freSta ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Freeze protection stat signal. If the stat is normal open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
@@ -93,30 +93,34 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes if not (freSta ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO or
     freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
-    "Freeze protection reset signal from software switch" annotation (Placement(
-        transformation(extent={{-480,-240},{-440,-200}}), iconTransformation(
-          extent={{-140,-60},{-100,-20}})));
+    "Freeze protection reset signal from software switch"
+    annotation (Placement(transformation(extent={{-480,-240},{-440,-200}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan(
     final min=0,
     final max=1,
-    final unit="1") "Supply fan commanded speed" annotation (Placement(
-        transformation(extent={{-480,-278},{-440,-238}}), iconTransformation(
-          extent={{-140,-90},{-100,-50}})));
+    final unit="1")
+    "Supply fan commanded speed"
+    annotation (Placement(transformation(extent={{-480,-278},{-440,-238}}),
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-    "Return fan commanded speed" annotation (Placement(transformation(extent={{
-            -480,-318},{-440,-278}}), iconTransformation(extent={{-140,-120},{-100,
-            -80}})));
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    "Return fan commanded speed"
+    annotation (Placement(transformation(extent={{-480,-318},{-440,-278}}),
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "Relief fan commanded speed" annotation (Placement(transformation(extent={{
-            -480,-358},{-440,-318}}), iconTransformation(extent={{-140,-150},{-100,
-            -110}})));
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "Relief fan commanded speed"
+    annotation (Placement(transformation(extent={{-480,-358},{-440,-318}}),
+        iconTransformation(extent={{-140,-150},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
     final max=1,
@@ -171,16 +175,21 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-    "Return fan commanded speed" annotation (Placement(transformation(extent={{440,
-            -310},{480,-270}}), iconTransformation(extent={{100,-40},{140,0}})));
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    "Return fan commanded speed"
+    annotation (Placement(transformation(extent={{440,-310},{480,-270}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "Relief fan commanded speed" annotation (Placement(transformation(extent={{440,
-            -350},{480,-310}}), iconTransformation(extent={{100,-70},{140,-30}})));
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "Relief fan commanded speed"
+    annotation (Placement(transformation(extent={{440,-350},{480,-310}}),
+        iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
@@ -319,7 +328,8 @@ block FreezeProtection
     "Supply fan speed"
     annotation (Placement(transformation(extent={{120,-260},{140,-240}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch retFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan speed"
     annotation (Placement(transformation(extent={{120,-300},{140,-280}})));
@@ -755,7 +765,8 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,-90},{-46,-108}},
           lineColor={0,0,127},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+                  or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
           textString="uRetFan"),
         Text(
@@ -791,7 +802,8 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{52,-10},{98,-26}},
           lineColor={0,0,127},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+                  or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
           textString="yRetFan"),
         Text(

@@ -275,7 +275,9 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+       or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
     "Relief air damper commanded position"
     annotation (Placement(transformation(extent={{260,0},{300,40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -349,7 +351,8 @@ block Controller
     final have_dirCon=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
     final uMin=uHeaMax,
     final uMax=uCooMin)
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
         or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
@@ -483,8 +486,7 @@ equation
   connect(sepAFMS.yOutDam_min, yOutDam_min) annotation (Line(points={{-118,145},
           {-80,145},{-80,240},{280,240}}, color={0,0,127}));
   connect(ecoHigLim.TCut, enaDis.TOutCut) annotation (Line(points={{-118,-44},{
-          -30,-44},{-30,-75},{18,-75}},
-                                    color={0,0,127}));
+          -30,-44},{-30,-75},{18,-75}}, color={0,0,127}));
   connect(ecoHigLim.hCut, enaDis.hOutCut) annotation (Line(points={{-118,-56},{
           -70,-56},{-70,-80},{18,-80}},
                                     color={0,0,127}));
@@ -610,8 +612,8 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-50},{98,-66}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir,
-
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+                  or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
           textString="yRelDam"),
         Text(
           extent={{42,-110},{98,-126}},
