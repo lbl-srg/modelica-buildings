@@ -617,7 +617,8 @@ During simulation, it will be computed using the other efficiency terms.
 </p>
 <ul>
 <li>
-<code>Efficiency_VolumeFlowRate</code>
+<code>Efficiency_VolumeFlowRate</code> - This is same as the option for
+<i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> with the same name.
 </li>
 <li>
 <code>Efficiency_MotorPartLoadRatio</code> - An array of efficiency vs. motor part load ratio
@@ -681,7 +682,8 @@ Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot</a>
 as an example.
 </li>
 <li>
-<code>NotProvided</code>
+<code>NotProvided</code> - This is same as the option for
+<i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> with the same name.
 </li>
 </ul>
 <p>
@@ -755,8 +757,9 @@ part load ratio
 <i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
 when selecting <code>Efficiency_MotorPartLoadRatio</code> or <code>GenericCurve</code>.<br/>
 4. <i>&eta;<sub>mot</sub></i> uses <code>GenericCurve</code> as default unless
-the rated motor input power is not provided and cannot be estimated, in which case
-it uses <code>NotProvided</code>.
+(a) the rated motor input power is not provided and cannot be estimated or
+(b) both of the other two efficiency items have been provided.
+In those cases it uses <code>NotProvided</code> as default.
 </p>
 
 <h5>Fluid volume of the component</h5>
