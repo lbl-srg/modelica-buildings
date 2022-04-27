@@ -673,7 +673,7 @@ equation
     end if;
   end if;
 
-  // Hydraulic efficiency and hydraulic work
+  // Hydraulic efficiency etaHyd and hydraulic work WHyd
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
@@ -713,7 +713,7 @@ equation
     end if;
   end if;
 
-  // Motor efficiency
+  // Motor efficiency etaMot
   if per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
       etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
