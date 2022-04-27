@@ -9,13 +9,13 @@ block Greater
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
   Interfaces.IntegerInput u1
-    "Input u1"
+    "Connector of first Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.IntegerInput u2
-    "Input u2"
+    "Connector of second Integer input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Interfaces.BooleanOutput y
-    "Output y"
+    "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block GreaterThreshold
-  "Output y is true, if input u is greater than threshold"
+  "Output y is true, if input u is greater than a threshold"
   parameter Integer t=0
     "Threshold for comparison";
   parameter Integer h(
@@ -11,10 +11,10 @@ block GreaterThreshold
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
   Interfaces.IntegerInput u
-    "Input"
+    "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y
-    "Output"
+    "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
