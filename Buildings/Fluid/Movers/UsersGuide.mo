@@ -648,18 +648,20 @@ If a total power curve is provided,
 P<sub>ele,nominal</sub>=
 W&#775;<sub>max</sub>
 &frasl; &eta;<sub>mot,max</sub>
-&sdot; 120%;
+&nbsp; 1.2,
 </p>
-and if a hydraulic power curve is provided,
+<p>
+where the factor <i>1.2</i> accounts for a 20% oversizing of the motor, and
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele,nominal</sub>=
 W&#775;<sub>max</sub>
 &frasl; &eta;<sub>hyd,p</sub>
 &frasl; &eta;<sub>mot,max</sub>
-&sdot; 120%,
+&nbsp; 1.2,
 </p>
 where <i>W&#775;<sub>max</sub></i> is the maximum value on the provided power curve.
-Both assume 20% motor oversize.
+Hence, both assume 20% motor oversize.
 </li>
 <li>
 Otherwise, if a pressure curve is provided,
@@ -669,7 +671,7 @@ P<sub>ele,nominal</sub>=
 &nbsp; &Delta; p<sub>max</sub> &frasl; 2)
 &frasl; &eta;<sub>hyd,p</sub>
 &frasl; &eta;<sub>mot,max</sub>
-&sdot; 120%,
+&nbsp; 1.2,
 </p>
 also assuming 20% motor oversize.
 </li>
