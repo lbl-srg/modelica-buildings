@@ -374,6 +374,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Greater<br/>
+                       Buildings.Controls.OBC.CDL.Integers.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Less<br/>
+                       Buildings.Controls.OBC.CDL.Integers.LessThreshold
+    </td>
+    <td valign=\"top\">Added hysteresis.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2978\">issue 2978</a>.
+    </td>
+</tr> 
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime
     </td>
     <td valign=\"top\">Increased number of years that block will output the calendar time.<br/>
