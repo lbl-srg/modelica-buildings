@@ -18,7 +18,7 @@ block Less "Output y is true, if input u1 is less than input u2"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  final parameter Boolean have_hysteresis=h >= 1E-10
+  final parameter Boolean have_hysteresis=h > 0
     "True if the block has no hysteresis"
     annotation (Evaluate=true);
   LessWithHysteresis lesHys(
@@ -217,14 +217,6 @@ The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
 If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u<sub>1</sub> &lt; u<sub>2</sub></i>,
 and it switches to <code>false</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub> + h</i>.
 If <i>h = 0</i>, the output is <i>y = u<sub>1</sub> &lt; u<sub>2</sub></i>.
-</p>
-<p>
-Enabling hysteresis can avoid frequent switching.
-Adding hysteresis is recommended in real controllers to guard against sensor noise, and
-in simulation to guard against numerical noise. Numerical noise can be present if
-an input depends on a state variable or a quantity that requires an iterative solution, such as
-a temperature or a mass flow rate of an HVAC system.
-To disable hysteresis, set <i>h=0</i>.
 </p>
 </html>",
 revisions="<html>
