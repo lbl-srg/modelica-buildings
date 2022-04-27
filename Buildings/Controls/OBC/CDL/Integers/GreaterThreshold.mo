@@ -108,13 +108,11 @@ protected
 
 equation
   connect(u,greHys.u)
-    annotation (Line(points={{-120,0},{-66,0},{-66,30},{-12,30}},color={255,127,
-          0}));
+    annotation (Line(points={{-120,0},{-66,0},{-66,30},{-12,30}},color={255,127,0}));
   connect(greHys.y,y)
     annotation (Line(points={{12,30},{60,30},{60,0},{120,0}},color={255,0,255}));
   connect(u,greNoHys.u)
-    annotation (Line(points={{-120,0},{-66,0},{-66,-30},{-12,-30}},color={255,127,
-          0}));
+    annotation (Line(points={{-120,0},{-66,0},{-66,-30},{-12,-30}},color={255,127,0}));
   connect(greNoHys.y,y)
     annotation (Line(points={{12,-30},{60,-30},{60,0},{120,0}},color={255,0,255}));
   annotation (
