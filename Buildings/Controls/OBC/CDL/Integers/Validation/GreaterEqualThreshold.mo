@@ -21,11 +21,11 @@ model GreaterEqualThreshold
 
 equation
   connect(ramp1.y,round1.u)
-    annotation (Line(points={{-59,0},{-42,0}},color={0,0,127}));
+    annotation (Line(points={{-58,0},{-42,0}},color={0,0,127}));
   connect(round1.y,reaToInt.u)
-    annotation (Line(points={{-19,0},{-2,0}},color={0,0,127}));
+    annotation (Line(points={{-18,0},{-2,0}},color={0,0,127}));
   connect(reaToInt.y,intGreEquThr.u)
-    annotation (Line(points={{21,0},{38,0}},color={255,127,0}));
+    annotation (Line(points={{22,0},{38,0}},color={255,127,0}));
   annotation (
     experiment(
       StopTime=1.0,
