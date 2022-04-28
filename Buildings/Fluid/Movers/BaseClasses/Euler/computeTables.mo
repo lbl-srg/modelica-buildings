@@ -21,6 +21,7 @@ protected
   parameter Modelica.Units.SI.PressureDifference dp_aux[:]=
     linspace(0,dpMax,n-1)
     "Auxilliary array for pressure rise";
+  parameter Real small = 1E-5 "A small value used in place of zero";
   Real etaSup[:,:] = zeros(n,n) "2D look-up table for efficiency";
   Real powSup[:,:] = zeros(n,n) "2D look-up table for power";
   Real log_r_Eu "Log10 of ratio Eu/Eu_peak";
@@ -48,10 +49,8 @@ algorithm
     //[3:end,3:end] are support points.
     for i in 3:n loop
       for j in 3:n loop
-        log_r_Eu:= log10(Buildings.Utilities.Math.Functions.smoothMax(
-                         x1=dp_aux[i-1] * peak.V_flow^2,x2=1E-5,deltaX=1E-6)
-                        /Buildings.Utilities.Math.Functions.smoothMax(
-                         x1=peak.dp * V_flow_aux[j-1]^2,x2=1E-5,deltaX=1E-6));
+        log_r_Eu:= log10(max(dp_aux[i-1] * peak.V_flow^2,small)
+                        /max(peak.dp * V_flow_aux[j-1]^2,small));
         etaSup[i,j]:=peak.eta*
           Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
         powSup[i,j]:=dp_aux[j-1]*V_flow_aux[i-1]/etaSup[i,j];
@@ -59,21 +58,24 @@ algorithm
     end for;
 
     //[2,2:end] and [2:end,2] represent points where V or dp is zero:
-    //  For eta,  their initial zero values are kept.
-    //  For P,    [2,2] is set zero,
-    powSup[2,2]:=0;
-    //            and the rest are extrapolated and bounded away from negative.
+    //  [2,2] is set zero for both P and eta.
+    powSup[2,2]:=small;
+    etaSup[2,2]:=small;
     for i in 3:n loop
-      powSup[2,i]:=max(0, Buildings.Utilities.Math.Functions.smoothInterpolation(
+    //  The rest of P are extrapolated and bounded away from negative.
+      powSup[2,i]:=max(small, Buildings.Utilities.Math.Functions.smoothInterpolation(
         x=0,
         xSup=powSup[3:end, 1],
         ySup=powSup[3:end, i],
         ensureMonotonicity=true));
-      powSup[i,2]:=max(0, Buildings.Utilities.Math.Functions.smoothInterpolation(
+      powSup[i,2]:=max(small, Buildings.Utilities.Math.Functions.smoothInterpolation(
         x=0,
         xSup=powSup[1, 3:end],
         ySup=powSup[i, 3:end],
         ensureMonotonicity=true));
+    //  The rest of eta are set zero.
+      etaSup[2,i]:=small;
+      etaSup[i,2]:=small;
     end for;
 
     curves.eta:=etaSup;
