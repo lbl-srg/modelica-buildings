@@ -2,5 +2,6 @@ compareVars :=
   {
     "intLesEquThr.t",
     "intLesEquThr.u",
-    "intLesEquThr.y"
+    "intLesEquThr.y",
+    "intLesEquThr1.y"
   };
