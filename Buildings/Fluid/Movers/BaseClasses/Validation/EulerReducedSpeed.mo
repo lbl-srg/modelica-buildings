@@ -15,10 +15,7 @@ model EulerReducedSpeed
     final etaHydMet=
             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaMotMet=
-            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
-           pressure=per1.pressure,
-           power=per1.power))
+            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided)
     "Mover performance curves with flow rate, pressure rise, and power";
   parameter Buildings.Fluid.Movers.Data.Generic per2(
     power(V_flow={0.939939939939939,1.88588588588588,2.83183183183181,

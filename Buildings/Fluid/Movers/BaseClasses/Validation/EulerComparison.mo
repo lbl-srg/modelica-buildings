@@ -32,10 +32,7 @@ model EulerComparison
     final etaMotMet=
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     pressure=per1.pressure,
-    power=per1.power,
-    peak=Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
-      pressure=per2.pressure,
-      power=per2.power))
+    power=per1.power)
     "Peak condition";
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per=per2,

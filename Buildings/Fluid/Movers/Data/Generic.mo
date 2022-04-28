@@ -82,15 +82,18 @@ record Generic "Generic data record for movers"
 
   // Peak condition
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
-    V_flow=max(pressure.V_flow)/2,
-    dp=max(pressure.dp)/2,
-    eta=0.7)
+    V_flow=peak_internal.V_flow,
+    dp=peak_internal.dp,
+    eta=peak_internal.eta)
     "Volume flow rate, pressure rise, and efficiency (either total or hydraulic) at peak condition"
     annotation (Dialog(group="Power computation",
                        enable= etaMet==
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
                             or etaHydMet==
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber));
+  final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak_internal=
+    Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    "Internal peak variable";
 
   // Motor
   parameter Boolean motorCooledByFluid=true
@@ -104,7 +107,7 @@ record Generic "Generic data record for movers"
         then max(power.P)/etaMot_max*1.2
       else max(power.P)*1.2
     else
-      peak.V_flow*peak.dp/peak.eta/etaMot_max*1.2
+      peak_internal.V_flow*peak_internal.dp/peak_internal.eta/etaMot_max*1.2
     "Rated input power of the motor"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==
@@ -251,6 +254,37 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 An example that uses manufacturer data can be found in
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos\">
 Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
+</p>
+<h4>Declaration of the peak condition</h4>
+<p>
+The variable <code>peak</code> is intentionally declared in a way that each of its
+element is declared individually. If it was delcared the same way as does
+<code>peak_internal</code>, Modelica would prevent the modification of its
+specific elements with the following error message:<br/>
+<code>
+Record has a value, and attempt to modify specific elements.<br/>
+The element modification of e.g. V_flow will be ignored.<br/>
+</code>
+The other variable <code>peak_internal</code> uses a function call to compute its
+default values. By passing them to <code>peak</code> one by one, the model can
+both have default values and also allow the user to override them easily.
+See <a href=\"https://github.com/modelica/ModelicaSpecification/issues/791\">
+Modelica Specification issue #791</a>.
+</p>
+<p>
+Examples:
+<ul>
+<li>
+In <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison\">
+Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</a>,
+the peak condition is computed from the power and pressure curves automatically.
+</li>
+<li>
+In <a href=\"modelica://Buildings.Fluid.Movers.Examples.StaticReset\">
+Buildings.Fluid.Movers.Examples.StaticReset</a>,
+the peak condition is specified explicitly by the user.
+</li>
+</ul>
 </p>
 <h4>Parameters in RPM</h4>
 <p>
