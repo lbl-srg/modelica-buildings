@@ -738,10 +738,7 @@ equation
         d=motDer_yMot);
     end if;
   elseif per.etaMotMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve or
-        (per.etaMotMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided and
-         per.havePEle_nominal) then
+       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve then
     // (a) user specifically chooses .GenericCurve or
     // (b) .NotProvided but has enough information to generate a generic curve
       if homotopyInitialization then
