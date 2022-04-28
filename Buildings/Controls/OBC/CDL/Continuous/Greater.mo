@@ -214,9 +214,9 @@ is greater than the Real input <code>u2</code>, optionally within a hysteresis <
 </p>
 <p>
 The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
-If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub></i>,
-and it switches to <code>false</code> if <i>u<sub>1</sub> &lt; u<sub>2</sub> - h</i>.
-If <i>h = 0</i>, the output is <i>y=u<sub>1</sub> &gt; u<sub>2</sub></i>.
+For any <i>h &ge; 0</i>, the output switches to <code>true</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub></i>,
+and it switches to <code>false</code> if <i>u<sub>1</sub> &le; u<sub>2</sub> - h</i>.
+Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u<sub>1</sub> &gt; u<sub>2</sub></i>.
 </p>
 <p>
 Enabling hysteresis can avoid frequent switching.
