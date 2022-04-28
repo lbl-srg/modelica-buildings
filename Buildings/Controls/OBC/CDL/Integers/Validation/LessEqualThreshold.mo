@@ -18,14 +18,20 @@ model LessEqualThreshold
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr1(
+    t=2,
+    h=1)
+    "Block output true if input is less or equal to threshold value"
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 equation
   connect(ramp1.y,round1.u)
-    annotation (Line(points={{-59,0},{-42,0}},color={0,0,127}));
+    annotation (Line(points={{-58,0},{-42,0}},color={0,0,127}));
   connect(round1.y,reaToInt.u)
-    annotation (Line(points={{-19,0},{-2,0}},color={0,0,127}));
+    annotation (Line(points={{-18,0},{-2,0}},color={0,0,127}));
   connect(reaToInt.y,intLesEquThr.u)
-    annotation (Line(points={{21,0},{38,0}},color={255,127,0}));
+    annotation (Line(points={{22,0},{38,0}},color={255,127,0}));
+  connect(reaToInt.y, intLesEquThr1.u)
+    annotation (Line(points={{22,0},{30,0},{30,-40},{38,-40}}, color={255,127,0}));
   annotation (
     experiment(
       StopTime=1.0,
@@ -40,8 +46,13 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold</a>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+April 27, 2022, by Jianjun Hu:<br/>
+Added hysteresis.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2978\">issue 2978</a>.
+</li>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>
 First implementation.

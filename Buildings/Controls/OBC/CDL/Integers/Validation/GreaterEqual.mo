@@ -3,7 +3,7 @@ model GreaterEqual
   "Validation model for the GreaterEqual block"
   Buildings.Controls.OBC.CDL.Integers.GreaterEqual intGreEqu
     "Block output true if input 1 is greater or equal to input 2"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
@@ -12,34 +12,31 @@ model GreaterEqual
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[
-      0,-1;
-      0.3,0.5;
-      0.5,0;
-      0.7,1;
-      1,0])
+    table=[0,-1; 0.3,0.5; 0.5,0; 0.6,-1; 0.7,1; 1,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[
-      0,0;
-      0.35,1;
-      0.55,0;
-      0.7,1;
-      1,0])
+    table=[0,0; 0.35,1; 0.65,0; 0.7,1; 1,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqual intGreEqu1(
+    final h=1)
+    "Block output true if input 1 is greater or equal to input 2"
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 equation
   connect(reaToInt.y,intGreEqu.u1)
-    annotation (Line(points={{2,20},{40,20},{40,0},{58,0}},color={255,127,0}));
+    annotation (Line(points={{2,20},{58,20}}, color={255,127,0}));
   connect(reaToInt1.y,intGreEqu.u2)
-    annotation (Line(points={{2,-20},{40,-20},{40,-8},{58,-8}},color={255,127,0}));
+    annotation (Line(points={{2,-20},{20,-20},{20,12},{58,12}},color={255,127,0}));
   connect(timTabLin.y[1],reaToInt.u)
     annotation (Line(points={{-58,20},{-22,20}},color={0,0,127}));
   connect(timTabLin1.y[1],reaToInt1.u)
     annotation (Line(points={{-58,-20},{-22,-20}},color={0,0,127}));
+  connect(reaToInt.y, intGreEqu1.u1)
+    annotation (Line(points={{2,20},{40,20},{40,-20},{58,-20}}, color={255,127,0}));
+  connect(reaToInt1.y, intGreEqu1.u2)
+    annotation (Line(points={{2,-20},{20,-20},{20,-28},{58,-28}}, color={255,127,0}));
   annotation (
     experiment(
       StopTime=1.0,
@@ -54,8 +51,13 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Integers.GreaterEqual</a>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+April 27, 2022, by Jianjun Hu:<br/>
+Added hysteresis.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2978\">issue 2978</a>.
+</li>
 <li>
 September 26, 2017, by Thierry S. Nouidui:<br/>
 Revised implementation for JModelica verification.
