@@ -68,10 +68,10 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real yFanMax(min=0.1, max=1, unit="1") = 1
+  parameter Real maxSpe(min=0.1, max=1, unit="1") = 1
     "Maximum allowed fan speed"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Real yFanMin(min=0.1, max=1, unit="1") = 0.1
+  parameter Real minSpe(min=0.1, max=1, unit="1") = 0.1
     "Lowest allowed fan speed if fan is on"
     annotation (Dialog(group="Fan PID controller"));
 
@@ -79,8 +79,9 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
    "System operation mode"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpDuc(final unit="Pa",
-      quantity="PressureDifference") "Measured duct static pressure"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpDuc(
+    final unit="Pa",
+    final quantity="PressureDifference") "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
@@ -88,14 +89,16 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1SupFan
-    "Supply fan command on" annotation (Placement(transformation(extent={{140,
-            50},{180,90}}), iconTransformation(extent={{100,50},{140,90}})));
+    "Supply fan command on"
+    annotation (Placement(transformation(extent={{140,50},{180,90}}),
+        iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFan(
     min=0,
     max=1,
-    final unit="1") "Supply fan commanded speed" annotation (Placement(
-        transformation(extent={{140,-120},{180,-80}}), iconTransformation(
-          extent={{100,-20},{140,20}})));
+    final unit="1")
+    "Supply fan commanded speed"
+    annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond staPreSetRes(
     final iniSet=iniSet,
@@ -114,9 +117,9 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    final yMax=yFanMax,
-    final yMin=yFanMin,
-    final y_reset=yFanMin) "Supply fan speed control"
+    final yMax=maxSpe,
+    final yMin=minSpe,
+    final y_reset=minSpe) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 protected

@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block PlantRequests "Output plant requests for multizone air handling unit"
 
   parameter Boolean have_hotWatCoi = true
-    "True: the AHU has heating coil";
+    "True: the AHU has hot water coil";
   parameter Real Thys = 0.1
     "Hysteresis for checking temperature difference"
     annotation(Dialog(tab="Advanced"));
@@ -14,22 +14,23 @@ block PlantRequests "Output plant requests for multizone air handling unit"
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Measured supply air temperature" annotation (Placement(transformation(
-          extent={{-240,180},{-200,220}}), iconTransformation(extent={{-140,60},
-            {-100,100}})));
+    "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSupSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Setpoint for supply air temperature" annotation (Placement(transformation(
-          extent={{-240,140},{-200,180}}), iconTransformation(extent={{-140,10},
-            {-100,50}})));
+    "Setpoint for supply air temperature"
+    annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi_actual(
     final unit="1",
     final min=0,
-    final max=1) "Actual cooling coil valve position" annotation (Placement(
-        transformation(extent={{-240,80},{-200,120}}), iconTransformation(
-          extent={{-140,-50},{-100,-10}})));
+    final max=1)
+    "Actual cooling coil valve position"
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi_actual(
     final unit="1",
     final min=0,
@@ -290,8 +291,6 @@ equation
           {78,-228}}, color={255,127,0}));
   connect(intSwi1.y, yHotWatPlaReq)
     annotation (Line(points={{102,-220},{220,-220}}, color={255,127,0}));
-  connect(yChiWatResReq, yChiWatResReq)
-    annotation (Line(points={{220,200},{220,200}}, color={255,127,0}));
 
 annotation (
   defaultComponentName="mulAHUPlaReq",

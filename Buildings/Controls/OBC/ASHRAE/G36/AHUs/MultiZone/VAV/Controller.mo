@@ -112,10 +112,10 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Fan speed", group="PID controller",
       enable=fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real yFanMax=1
+  parameter Real maxSpeSupFan=1
     "Maximum allowed fan speed"
     annotation (Dialog(tab="Fan speed", group="PID controller"));
-  parameter Real yFanMin=0.1
+  parameter Real minSpeSupFan=0.1
     "Lowest allowed fan speed if fan is on"
     annotation (Dialog(tab="Fan speed", group="PID controller"));
 
@@ -197,11 +197,6 @@ block Controller "Multizone VAV air handling unit controller"
 
   // ----------- parameters for economizer control  -----------
   // Limits
-  parameter Real minSpe(unit="1")=0.1
-    "Minimum supply fan speed"
-    annotation (Dialog(tab="Economizer",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController minOAConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of minimum outdoor air controller"
@@ -792,7 +787,7 @@ block Controller "Multizone VAV air handling unit controller"
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon,
     final aveTimRan=aveTimRan,
-    final minSpe=minSpe,
+    final minSpe=minSpeSupFan,
     final minOAConTyp=minOAConTyp,
     final kMinOA=kMinOA,
     final TiMinOA=TiMinOA,
@@ -837,8 +832,8 @@ block Controller "Multizone VAV air handling unit controller"
     final k=kFanSpe,
     final Ti=TiFanSpe,
     final Td=TdFanSpe,
-    final yFanMax=yFanMax,
-    final yFanMin=yFanMin)
+    final maxSpe=maxSpeSupFan,
+    final minSpe=minSpeSupFan)
     "Supply fan speed setpoint"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
