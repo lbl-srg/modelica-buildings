@@ -238,8 +238,10 @@ protected
   // to zero.
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff(
     per(
+      final totalEfficiency =     per.totalEfficiency,
       final hydraulicEfficiency = per.hydraulicEfficiency,
       final motorEfficiency =     per.motorEfficiency,
+      final motorEfficiency_yMot= per.motorEfficiency_yMot,
       final motorCooledByFluid =  per.motorCooledByFluid,
       final speed_nominal =       0,
       final constantSpeed =       0,
