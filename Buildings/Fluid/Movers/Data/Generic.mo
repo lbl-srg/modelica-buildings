@@ -275,14 +275,22 @@ Modelica Specification issue #791</a>.
 Examples:
 <ul>
 <li>
-In <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison\">
-Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</a>,
-the peak condition is computed from the power and pressure curves automatically.
+<a href=\"modelica://Buildings.Fluid.Movers.Examples.StaticReset\">
+Buildings.Fluid.Movers.Examples.StaticReset</a>
+specifies the peak point explicitly.
 </li>
 <li>
-In <a href=\"modelica://Buildings.Fluid.Movers.Examples.StaticReset\">
-Buildings.Fluid.Movers.Examples.StaticReset</a>,
-the peak condition is specified explicitly by the user.
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
+Buildings.Fluid.Movers.Validation.PowerEuler</a>
+explictly calls the function 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
+Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>
+to compute the peak point from power and pressure curves.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison\">
+Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</a>
+implicitly computes the peak point from power and pressure curves.
 </li>
 </ul>
 </p>
