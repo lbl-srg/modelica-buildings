@@ -375,8 +375,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Greater<br/>
+                       Buildings.Controls.OBC.CDL.Integers.GreaterEqual<br/>
+                       Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold<br/>
                        Buildings.Controls.OBC.CDL.Integers.GreaterThreshold<br/>
                        Buildings.Controls.OBC.CDL.Integers.Less<br/>
+                       Buildings.Controls.OBC.CDL.Integers.LessEqual<br/>
+                       Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold<br/>
                        Buildings.Controls.OBC.CDL.Integers.LessThreshold
     </td>
     <td valign=\"top\">Added hysteresis.<br/>
