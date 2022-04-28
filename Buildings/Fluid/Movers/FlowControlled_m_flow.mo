@@ -32,7 +32,11 @@ model FlowControlled_m_flow
             and not per.havePressureCurve then
               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
           else per.etaHydMet,
-        final etaMotMet=per.etaMotMet),
+        final etaMotMet=
+          if per.havePressureCurve then
+            per.etaMotMet
+          else
+            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
       r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 
@@ -126,13 +130,17 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-March 8, 2022, by Hongxiang Fu:<br/>
-Refactored the model by replacing <code>not use_powerCharacteristic</code>
-with the enumeration
+April 27, 2022, by Hongxiang Fu:<br/>
+Replaced <code>not use_powerCharacteristic</code> with the enumerations
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
 This is for

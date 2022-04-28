@@ -20,11 +20,7 @@ record Generic "Generic data record for movers"
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-    if havePEle_nominal
-    then
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
-    else
-      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
 
@@ -185,7 +181,7 @@ Added parameters for computation using Euler number.
 </li>
 <li>
 Added parameters for providing the motor efficiency as an array
-vs. part load ratio.
+vs. motor part load ratio.
 </li>
 </ul>
 These are for
