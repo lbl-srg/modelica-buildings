@@ -271,29 +271,6 @@ both have default values and also allow the user to override them easily.
 See <a href=\"https://github.com/modelica/ModelicaSpecification/issues/791\">
 Modelica Specification issue #791</a>.
 </p>
-<p>
-Examples:
-<ul>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.Examples.StaticReset\">
-Buildings.Fluid.Movers.Examples.StaticReset</a>
-specifies the peak point explicitly.
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
-Buildings.Fluid.Movers.Validation.PowerEuler</a>
-explictly calls the function 
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
-Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>
-to compute the peak point from power and pressure curves.
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison\">
-Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</a>
-implicitly computes the peak point from power and pressure curves.
-</li>
-</ul>
-</p>
 <h4>Parameters in RPM</h4>
 <p>
 The parameters <code>speed_rpm_nominal</code>,

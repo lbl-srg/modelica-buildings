@@ -115,19 +115,24 @@ The results are output as an instance of
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
 There are the following branches of computation based on information provided
 to the function:
+</p>
 <ul>
 <li>
 If <i>&Delta;p(V&#775;)</i> is unavailable, the function simply outputs<br/>
-<i>V&#775;=0,<br/>
-   &Delta;p=0,<br/>
-   &eta;=0.7</i>.
+<p align=\"center\" style=\"font-style:italic;\">
+V&#775;=0,<br/>
+&Delta;p=0,<br/>
+&eta;=0.7.
+</p>
 </li>
 <li>
 If <i>&Delta;p(V&#775;)</i> is provided but <i>P(V&#775;)</i> is unavailable,
 the function provides an estimation of the peak point at<br/>
-<i>V&#775;=V&#775;<sub>max</sub> &frasl; 2,<br/>
-   &Delta;p=&Delta;p(V&#775;=V&#775;<sub>max</sub> &frasl; 2),<br/>
-   &eta;=0.7</i>.
+<p align=\"center\" style=\"font-style:italic;\">
+V&#775;=V&#775;<sub>max</sub> &frasl; 2,<br/>
+&Delta;p=&Delta;p(V&#775;=V&#775;<sub>max</sub> &frasl; 2),<br/>
+&eta;=0.7.
+</p>
 </li>
 <li>
 If both <i>&Delta;p(V&#775;)</i> and <i>P(V&#775;)</i> are available,
@@ -146,7 +151,6 @@ It assumes that there is only one extremum on <i>(0,V&#775;<sub>max</sub>)</i>.
 </ul>
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>

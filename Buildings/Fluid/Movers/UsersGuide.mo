@@ -596,16 +596,43 @@ Eu &frasl; Eu<sub>p</sub>=(&Delta;p&nbsp;V&#775;<sub>p</sub><sup>2</sup>)
 &frasl; (&Delta;p<sub>p</sub>&nbsp;V&#775;<sup>2</sup>).
 </p>
 <p>
-For more information, see
+The peak point can be provided directly by the user or computed by calling
+the function
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
+Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>.
+The function finds the peak point when both pressure and power curves are provided.
+When only the pressure curve is available, the function makes an estimation at
+<i>V&#775;=V&#775;<sub>max</sub> &frasl; 2</i>.
+Examples:
+</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Fluid.Movers.Examples.StaticReset\">
+Buildings.Fluid.Movers.Examples.StaticReset</a>
+specifies the peak point directly.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
+Buildings.Fluid.Movers.Validation.PowerEuler</a>
+explictly calls the function.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison\">
+Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</a>
+implicitly calls the function when
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a>
+is instantiated.
+</li>
+</ul>
+<p>
+For more information on the Euler number method, see
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
 Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
 and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.<br/>
-See
-<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
-Buildings.Fluid.Movers.Validation.PowerEuler</a>
-as an example.
+</p>
 </li>
 <li>
 <code>NotProvided</code> - The information of this efficiency term is not provided.
@@ -667,8 +694,7 @@ Hence, both assume 20% motor oversize.
 Otherwise, if a pressure curve is provided,
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele,nominal</sub>=
-(V&#775;<sub>max</sub> &frasl; 2
-&nbsp; &Delta; p<sub>max</sub> &frasl; 2)
+(V&#775;<sub>p</sub>&nbsp;&Delta;p<sub>p</sub>)
 &frasl; &eta;<sub>hyd,p</sub>
 &frasl; &eta;<sub>mot,max</sub>
 &nbsp; 1.2,
