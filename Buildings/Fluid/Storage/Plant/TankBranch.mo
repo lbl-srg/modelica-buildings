@@ -139,7 +139,16 @@ This tank can potentially be charged remotely by a chiller from its district
 CHW network other than its own local chiller. To model an open storage tank, set
 <code>nom.plaTyp = Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open</code>,
 and a volume at atmospheric pressure is added and connected to the top of the tank.
-Otherwise, the tank is closed an pressurised.
+Otherwise, the tank is closed and pressurised.
+</p>
+<p>
+Because an open tank exposes the hydraulic loop to the atmospheric pressure,
+the mass flow rate of the water through the top port and bottom port of the tank
+is not conserved. Flow rate sensors are therefore put on both the top and bottom
+sides of the tank to allow the pumps and valves implemented in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.SupplyPumpValve\">
+Buildings.Fluid.Storage.Plant.SupplyPumpValve</a>
+to balance the flow, so that the open tank is not flooded or drained.
 </p>
 </html>", revisions="<html>
 <ul>

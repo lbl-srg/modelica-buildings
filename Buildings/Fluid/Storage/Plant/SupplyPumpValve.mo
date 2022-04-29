@@ -360,8 +360,8 @@ Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl</a>.
     <th>Enabled</th>
     <th>Control Objective</th>
     <th>Condition 1</th>
-    <th>Condition 2</th>
-    <th>Condition 3</th>
+    <th>AND Condition 2</th>
+    <th>AND Condition 3</th>
   </tr>
 </thead>
 <tbody>
