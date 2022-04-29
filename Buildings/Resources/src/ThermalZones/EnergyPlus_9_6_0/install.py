@@ -230,6 +230,9 @@ def update_git(spawn_exe):
             print(f"Removing {file} from git")
             if os.path.isdir(file):
                 repo.index.remove([file], r=True)
+                # Remove directory physically if it still exists.
+                if os.path.exists(file):
+                    shutil.rmtree(file)
             else:
                 # The file may already have been removed if its directory was removed in this for loop
                 if os.path.exists(file):
