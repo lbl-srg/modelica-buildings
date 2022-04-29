@@ -70,10 +70,8 @@ protected
     "Specific heat capacity of water"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=1,
-    final k2=-1)
-    "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    "Difference between supply temperature setpoint and return temperature"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
@@ -94,13 +92,13 @@ protected
     annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
 
 equation
-  connect(TRet, add2.u2)
+  connect(TRet,sub2. u2)
     annotation (Line(points={{-140,0},{-110,0},{-110,34},{-102,34}},
       color={0,0,127}));
-  connect(add2.u1, TSupSet)
+  connect(sub2.u1, TSupSet)
     annotation (Line(points={{-102,46},{-110,46},{-110,70},{-140,70}},
       color={0,0,127}));
-  connect(add2.y, pro.u1)
+  connect(sub2.y, pro.u1)
     annotation (Line(points={{-78,40},{10,40},{10,0},{18,0}},
       color={0,0,127}));
   connect(pro.y, movMea.u)
