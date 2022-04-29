@@ -215,9 +215,8 @@ protected
     "Sum of flowrates of all enabled boilers"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
-    "Compare measured flowrate in primary and secondary circuits"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    "Compare measured temperature in primary and secondary loops"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
@@ -248,8 +247,8 @@ protected
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1) if not primarySecondarySensors
+    final p=1e-6) if
+                  not primarySecondarySensors
     "Pass non-zero divisor in case sum is zero"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
@@ -267,16 +266,16 @@ equation
   connect(mulOr.y, swi.u2) annotation (Line(points={{-78,100},{78,100}},
                  color={255,0,255}));
 
-  connect(THotWatPri, add2.u1) annotation (Line(points={{-140,50},{-114,50},{-114,
+  connect(THotWatPri,sub2. u1) annotation (Line(points={{-140,50},{-114,50},{-114,
           36},{-102,36}},   color={0,0,127}));
 
-  connect(THotWatSec, add2.u2) annotation (Line(points={{-140,0},{-110,0},{-110,
+  connect(THotWatSec,sub2. u2) annotation (Line(points={{-140,0},{-110,0},{-110,
           24},{-102,24}},   color={0,0,127}));
 
-  connect(add2.y, hys.u) annotation (Line(points={{-78,30},{-70,30},{-70,50},{-62,
+  connect(sub2.y, hys.u) annotation (Line(points={{-78,30},{-70,30},{-70,50},{-62,
           50}}, color={0,0,127}));
 
-  connect(add2.y, hys1.u) annotation (Line(points={{-78,30},{-70,30},{-70,10},{-62,
+  connect(sub2.y, hys1.u) annotation (Line(points={{-78,30},{-70,30},{-70,10},{-62,
           10}}, color={0,0,127}));
 
   connect(hys1.y, intSwi.u2)
@@ -331,7 +330,7 @@ equation
   connect(mulSum1.u[1:nBoi], pro.y) annotation (Line(points={{78,-80},{76,-80},{76,
           -80},{72,-80}}, color={0,0,127}));
 
-  connect(mulSum1.y, add2.u1) annotation (Line(points={{102,-80},{110,-80},{110,
+  connect(mulSum1.y,sub2. u1) annotation (Line(points={{102,-80},{110,-80},{110,
           -30},{-114,-30},{-114,36},{-102,36}}, color={0,0,127}));
 
   connect(mulSum.y, addPar.u)
