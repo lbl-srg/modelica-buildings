@@ -1,14 +1,15 @@
 within Buildings.Airflow.Multizone;
 model MediumColumnDynamic
   "Vertical shaft with no friction and storage of heat and mass"
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics);
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
-  parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
+  parameter Modelica.Units.SI.Length h(min=0) = 3 "Height of shaft";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
@@ -22,7 +23,7 @@ model MediumColumnDynamic
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
-  parameter Modelica.SIunits.Volume V "Volume in medium shaft";
+  parameter Modelica.Units.SI.Volume V "Volume in medium shaft";
 
   // Heat transfer through boundary
   parameter Boolean use_HeatTransfer = false
@@ -96,15 +97,15 @@ equation
           points={{0,100},{0,-100},{0,-98}}),
         Text(
           extent={{24,-78},{106,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Bottom"),
         Text(
           extent={{32,104},{98,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Top"),
         Text(
           extent={{42,26},{94,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="h=%h"),
@@ -180,6 +181,12 @@ at the top of the column.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.

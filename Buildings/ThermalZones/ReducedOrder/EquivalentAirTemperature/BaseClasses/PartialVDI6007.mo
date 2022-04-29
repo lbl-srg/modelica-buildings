@@ -2,30 +2,30 @@ within Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses;
 partial model PartialVDI6007
   "Partial model for equivalent air temperature as defined in VDI 6007 Part 1"
 
-  parameter Modelica.SIunits.Emissivity aExt
+  parameter Modelica.Units.SI.Emissivity aExt
     "Coefficient of absorption of exterior walls (outdoor)";
   parameter Integer n "Number of orientations (without ground)";
   parameter Real wfWall[n](each final unit="1") "Weight factors of the walls";
   parameter Real wfWin[n](each final unit="1") "Weight factors of the windows";
   parameter Real wfGro(unit="1")
     "Weight factor of the ground (0 if not considered)";
-  parameter Modelica.SIunits.Temperature TGro
+  parameter Modelica.Units.SI.Temperature TGro
     "Temperature of the ground in contact with floor plate";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConWallOut
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hConWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hRad
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hRad
     "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
 
-  Modelica.SIunits.Temperature TEqWall[n] "Equivalent wall temperature";
-  Modelica.SIunits.Temperature TEqWin[n] "Equivalent window temperature";
-  Modelica.SIunits.TemperatureDifference delTEqLW
+  Modelica.Units.SI.Temperature TEqWall[n] "Equivalent wall temperature";
+  Modelica.Units.SI.Temperature TEqWin[n] "Equivalent window temperature";
+  Modelica.Units.SI.TemperatureDifference delTEqLW
     "Equivalent long wave temperature";
-  Modelica.SIunits.TemperatureDifference delTEqLWWin
+  Modelica.Units.SI.TemperatureDifference delTEqLWWin
     "Equivalent long wave temperature for windows";
-  Modelica.SIunits.TemperatureDifference delTEqSW[n]
+  Modelica.Units.SI.TemperatureDifference delTEqSW[n]
     "Equivalent short wave temperature";
 
   Modelica.Blocks.Interfaces.RealInput HSol[n](
@@ -95,7 +95,7 @@ equation
     fillPattern=FillPattern.Solid),
   Text(
     extent={{-70,-110},{76,-146}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
     fillPattern=FillPattern.Solid,

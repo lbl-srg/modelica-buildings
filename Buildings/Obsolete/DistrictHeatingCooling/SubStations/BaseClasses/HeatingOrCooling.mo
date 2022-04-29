@@ -5,9 +5,9 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
     final dp(start=0),
     final allowFlowReversal=false);
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
+  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa") = 30000
     "Pressure difference at nominal flow rate"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
   Modelica.Blocks.Interfaces.RealOutput PPum(unit="W")
     "Electrical power consumed by pump"
@@ -16,14 +16,11 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
   parameter Real deltaM=0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(tab="Flow resistance"));
-  parameter Modelica.SIunits.Time tau=30
+  parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Dialog(tab="Dynamics"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics"));
 
 protected
@@ -31,8 +28,8 @@ protected
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(sta_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
@@ -46,8 +43,7 @@ protected
     final dp_nominal=dp_nominal,
     final deltaM=deltaM,
     final tau=tau,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics)
+    final energyDynamics=energyDynamics)
     "Component to remove heat from or add heat to fluid"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -70,9 +66,9 @@ equation
     annotation (Line(points={{-20,0},{0,0},{20,0}}, color={0,127,255}));
   connect(hex.port_b, port_b)
     annotation (Line(points={{40,0},{40,0},{100,0}}, color={0,127,255}));
-  connect(mPum_flow.y, pum.m_flow_in) annotation (Line(points={{-39,40},{-30.2,40},
-          {-30.2,12}}, color={0,0,127}));
-  connect(pum.P, PPum) annotation (Line(points={{-19,8},{-10,8},{-10,40},{60,40},
+  connect(mPum_flow.y, pum.m_flow_in) annotation (Line(points={{-39,40},{-30,40},
+          {-30,12}},   color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-19,9},{-10,9},{-10,40},{60,40},
           {60,60},{110,60}}, color={0,0,127}));
 
   annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
@@ -116,7 +112,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{52,70},{96,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PPum")}),
     Documentation(info="<html>
 <p>
@@ -127,6 +123,11 @@ difference <code>dTHex</code> over the heat exchanger.
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li><li>
 January 11, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>

@@ -62,8 +62,7 @@ equation
   connect(m_flow.y, sou.m_flow_in)
     annotation (Line(points={{-71,8},{-62,8}}, color={0,0,127}));
   annotation (
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/FlowReversal.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/FlowReversal.mos"
         "Simulate and Plot"),
     experiment(StopTime=150, Tolerance=1e-006),
     Documentation(info="<html>

@@ -38,8 +38,8 @@ block OutsideAirFlow
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
-       have_occSen "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1")
+    if have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
@@ -76,12 +76,11 @@ block OutsideAirFlow
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=VOutPerPer_flow) if
-       have_occSen
-    "Outdoor airflow rate per person"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=VOutPerPer_flow) if have_occSen "Outdoor airflow rate per person"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch for enabling occupancy sensor input"
@@ -89,7 +88,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division zonOutAirRate
+  Buildings.Controls.OBC.CDL.Continuous.Divide zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2
@@ -139,8 +138,8 @@ protected
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0) if
-       not have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0)
+    if not have_occSen
     "Zero occupant when there is no occupancy sensor"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 
@@ -184,13 +183,13 @@ equation
     annotation (Line(points={{-220,160},{-162,160}}, color={0,0,127}));
   connect(swi3.y, VOutMinSet_flow)
     annotation (Line(points={{162,10},{180,10},{180,0},{220,0}}, color={0,0,127}));
-  connect(TZon, add2.u1)
+  connect(TZon, sub2.u1)
     annotation (Line(points={{-220,-40},{-200,-40},{-180,-40},{-180,-54},
       {-162,-54}}, color={0,0,127}));
-  connect(TDis, add2.u2)
+  connect(TDis, sub2.u2)
     annotation (Line(points={{-220,-80},{-180,-80},{-180,-66}, {-162,-66}},
       color={0,0,127}));
-  connect(add2.y, hys.u)
+  connect(sub2.y, hys.u)
     annotation (Line(points={{-138,-60},{-102,-60},{-102,-60}},
         color={0,0,127}));
   connect(hys.y, swi1.u2)
@@ -223,11 +222,11 @@ Icon(graphics={Rectangle(
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-84,78},{92,-72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VOutMinSet_flow"),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,

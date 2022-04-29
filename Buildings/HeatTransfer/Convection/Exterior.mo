@@ -7,16 +7,16 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
     "Convective heat transfer model"
   annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient" annotation (Dialog(enable=(conMod ==
+          Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   parameter Buildings.HeatTransfer.Types.SurfaceRoughness roughness=
     Buildings.HeatTransfer.Types.SurfaceRoughness.Medium "Surface roughness"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
 
-   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   Modelica.Blocks.Interfaces.RealInput v(unit="m/s") "Wind speed"
@@ -24,20 +24,20 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
   Modelica.Blocks.Interfaces.RealInput dir(unit="rad", displayUnit="deg",
      min=0, max=2*Modelica.Constants.pi) "Wind direction (0=wind from North)"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
-  Modelica.SIunits.CoefficientOfHeatTransfer hF
+  Modelica.Units.SI.CoefficientOfHeatTransfer hF
     "Convective heat transfer coefficient due to forced convection";
-  Modelica.SIunits.HeatFlux qN_flow
+  Modelica.Units.SI.HeatFlux qN_flow
     "Convective heat flux from solid -> fluid due to natural convection";
-  Modelica.SIunits.HeatFlux qF_flow
+  Modelica.Units.SI.HeatFlux qF_flow
     "Convective heat flux from solid -> fluid due to forced convection";
 protected
-  constant Modelica.SIunits.Velocity v_small = 0.5
+  constant Modelica.Units.SI.Velocity v_small=0.5
     "Small value for wind velocity below which equations are regularized";
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
   final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
-  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+  final parameter Boolean is_ceiling = abs(sinTil) < 10E-10 and cosTil > 0
     "Flag, true if the surface is a ceiling";
-  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+  final parameter Boolean is_floor = abs(sinTil) < 10E-10 and cosTil < 0
     "Flag, true if the surface is a floor";
 
   parameter Real R(fixed=false) "Surface roughness";
@@ -70,9 +70,9 @@ equation
     // Even if hCon is a step function with a step at zero,
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
-    if isCeiling then
+    if is_ceiling then
        qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
-    elseif isFloor then
+    elseif is_floor then
        qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
     else
        qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
@@ -111,7 +111,7 @@ equation
         Line(points={{100,0},{100,0}}, color={0,127,255}),
         Text(
           extent={{-35,42},{-5,20}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="Q_flow"),
         Line(points={{-60,20},{76,20}}, color={191,0,0}),
         Line(points={{-60,-20},{76,-20}}, color={191,0,0}),
@@ -133,10 +133,10 @@ equation
         Line(points={{56,30},{76,20}}, color={191,0,0}),
                                          Text(
           extent={{-102,128},{-64,98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="v"),               Text(
           extent={{-100,64},{-62,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="dir")}),
     defaultComponentName="con",
     Documentation(info="<html>
@@ -230,6 +230,12 @@ Engineering Research Laboratory, Champaign, IL.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 May 7, 2020, by Michael Wetter:<br/>
 Set wind direction modifier to a constant as wind velocity approaches zero.<br/>

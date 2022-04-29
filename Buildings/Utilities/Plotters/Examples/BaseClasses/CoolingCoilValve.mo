@@ -13,13 +13,13 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Unit converter for controller gains from the ALC control logic"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Parameters"));
 
-  parameter Modelica.SIunits.Temperature TOutCooCut = 50 * (5/9) - 32 * (5/9) + 273.15
-    "Recorded outdoor air temperature cooling threshold"
-    annotation(Evaluate=true, Dialog(group="Enable"));
+  parameter Modelica.Units.SI.Temperature TOutCooCut=50*(5/9) - 32*(5/9) +
+      273.15 "Recorded outdoor air temperature cooling threshold"
+    annotation (Evaluate=true, Dialog(group="Enable"));
 
-  parameter Modelica.SIunits.Temperature TOutDelta = 2 * (5/9) - 32 * (5/9) + 273.15
+  parameter Modelica.Units.SI.Temperature TOutDelta=2*(5/9) - 32*(5/9) + 273.15
     "Recorded outdoor air temperature cooling threshold hysteresis delta"
-    annotation(Evaluate=true, Dialog(group="Enable"));
+    annotation (Evaluate=true, Dialog(group="Enable"));
 
   parameter Real FanFeeCut = 15/100
     "Recorded fan feedback threshold"
@@ -29,17 +29,19 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded fan feedback threshold hysteresis delta"
     annotation(Evaluate=true, Dialog(group="Enable"));
 
-  parameter Modelica.SIunits.Temperature TSupHighLim = 50 * (5/9) - 32 * (5/9) + 273.15
+  parameter Modelica.Units.SI.Temperature TSupHighLim=50*(5/9) - 32*(5/9) +
+      273.15
     "Recorded minimum supply air temperature for defining the upper limit of the valve position"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation (Evaluate=true, Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Temperature TSupHigLim = 42 * (5/9) - 32 * (5/9) + 273.15
+  parameter Modelica.Units.SI.Temperature TSupHigLim=42*(5/9) - 32*(5/9) +
+      273.15
     "Recorded maximum supply air temperature for defining the upper limit of the valve position"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation (Evaluate=true, Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Time interval(min = 1) = 15
+  parameter Modelica.Units.SI.Time interval(min=1) = 15
     "Recorded interval at which integration part of the output gets updated"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation (Evaluate=true, Dialog(group="Controller"));
 
   parameter Boolean reverseActing=false "Controller reverse action"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
@@ -166,7 +168,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     annotation (Placement(transformation(extent={{40,74},{60,94}})));
 
 equation
@@ -224,11 +226,11 @@ equation
         Line(points={{20,58}}, color={28,108,200}),
         Text(
           extent={{-108,138},{102,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Text(
           extent={{-64,-132},{60,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Cooling coil valve")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}}), graphics={
@@ -239,7 +241,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{80,-102},{120,-110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Limiter for
 low TSup"),
         Rectangle(
@@ -249,7 +251,7 @@ low TSup"),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-48,-106},{-20,-112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Enbale/Disable"),
         Rectangle(
           extent={{-120,120},{-12,2}},
@@ -258,7 +260,7 @@ low TSup"),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-112,12},{-92,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Controller")}),
     Documentation(info="<html>
 <p>

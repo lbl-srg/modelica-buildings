@@ -24,9 +24,6 @@
 # If no errors occurred during the unit tests, then
 # this script returns 0. Otherwise, it returns a
 # non-zero exit value.
-#
-# MWetter@lbl.gov                            2011-02-23
-# TSNouidui@lbl.gov                          2017-04-11
 #######################################################
 from __future__ import absolute_import
 from __future__ import division
@@ -74,10 +71,10 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 
-def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification):
+def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification, debug, color):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester(tool=tool, skip_verification=skip_verification)
+    ut = u.Tester(tool=tool, skip_verification=skip_verification, color=color)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
     if package is not None:
@@ -85,10 +82,11 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification
     ut.setNumberOfThreads(n_pro)
     ut.pedanticModelica(True)
     ut.showGUI(show_gui)
+    if debug:
+        ut.deleteTemporaryDirectories(False)
+
     # Below are some option that may occassionally be used.
     # These are currently not exposed as command line arguments.
-#    ut.setNumberOfThreads(1)
-#    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 
     ut.writeOpenModelicaResultDictionary()
@@ -106,14 +104,6 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification
             pass
 
     return retVal
-
-
-def _runOpenModelicaUnitTests():
-    import buildingspy.development.regressiontest as u
-    ut = u.Tester()
-    ut.batchMode(batch)
-    ut.test_OpenModelica(cmpl=True, simulate=True,
-                         packages=['Examples'], number=-1)
 
 
 if __name__ == '__main__':
@@ -134,7 +124,7 @@ if __name__ == '__main__':
     unit_test_group.add_argument('-t', "--tool",
                                  metavar="dymola",
                                  default="dymola",
-                                 help="Tool for the regression tests. Set to dymola or jmodelica")
+                                 help="Tool for the regression tests. Set to dymola, openmodelica or optimica")
     unit_test_group.add_argument('-s', "--single-package",
                                  metavar="Modelica.Package",
                                  help="Test only the Modelica package Modelica.Package")
@@ -151,6 +141,10 @@ if __name__ == '__main__':
     unit_test_group.add_argument("--skip-verification",
                                  help='If specified, do not verify simulation results against reference points',
                                  action="store_true")
+    unit_test_group.add_argument('-d', "--debug",
+                                 action="store_true",
+                                 help="Enable debug output.")
+
 
     html_group = parser.add_argument_group(
         "arguments to check html syntax only")
@@ -206,8 +200,8 @@ if __name__ == '__main__':
                            path=args.path,
                            n_pro=args.number_of_processors,
                            show_gui=args.show_gui,
-                           skip_verification=args.skip_verification
+                           skip_verification=args.skip_verification,
+                           debug=args.debug,
+                           color=True
                            )
     exit(retVal)
-
-#   _runOpenModelicaUnitTests()

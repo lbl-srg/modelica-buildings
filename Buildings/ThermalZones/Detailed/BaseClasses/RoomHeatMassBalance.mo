@@ -23,9 +23,9 @@ partial model RoomHeatMassBalance "Base model for a room"
         extent={{-40,-10},{40,10}},
         rotation=90,
         origin={-150,-100})));
-  final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
-  parameter Modelica.SIunits.Area AFlo "Floor area";
-  parameter Modelica.SIunits.Length hRoo "Average room height";
+  final parameter Modelica.Units.SI.Volume V=AFlo*hRoo "Volume";
+  parameter Modelica.Units.SI.Area AFlo "Floor area";
+  parameter Modelica.Units.SI.Length hRoo "Average room height";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume" annotation (Placement(transformation(extent={{-270,30},
@@ -99,18 +99,18 @@ partial model RoomHeatMassBalance "Base model for a room"
   parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hIntFixed=3.0
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hIntFixed=3.0
     "Constant convection coefficient for room-facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer", enable=(intConMod ==
           Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
   parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hExtFixed=10.0
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hExtFixed=10.0
     "Constant convection coefficient for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer", enable=(extConMod ==
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Boolean sampleModel = false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
@@ -211,12 +211,12 @@ partial model RoomHeatMassBalance "Base model for a room"
     final datConPar = datConPar,
     final datConBou = datConBou,
     final surBou = surBou,
-    final isFloorConExt=isFloorConExt,
-    final isFloorConExtWin=isFloorConExtWin,
-    final isFloorConPar_a=isFloorConPar_a,
-    final isFloorConPar_b=isFloorConPar_b,
-    final isFloorConBou=isFloorConBou,
-    final isFloorSurBou=isFloorSurBou,
+    final is_floorConExt=is_floorConExt,
+    final is_floorConExtWin=is_floorConExtWin,
+    final is_floorConPar_a=is_floorConPar_a,
+    final is_floorConPar_b=is_floorConPar_b,
+    final is_floorConBou=is_floorConBou,
+    final is_floorSurBou=is_floorSurBou,
     final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1] for i in 1:NConExtWin})
     if haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -281,12 +281,12 @@ partial model RoomHeatMassBalance "Base model for a room"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
 protected
-  final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air[NConExtWin]=
-    datConExtWin.glaSys.shade.tauIR_a
+  final parameter Modelica.Units.SI.TransmissionCoefficient tauIRSha_air[
+    NConExtWin]=datConExtWin.glaSys.shade.tauIR_a
     "Infrared transmissivity of shade for radiation coming from the exterior or the room"
     annotation (Dialog(group="Shading"));
-        final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass[NConExtWin]=
-    datConExtWin.glaSys.shade.tauIR_b
+  final parameter Modelica.Units.SI.TransmissionCoefficient tauIRSha_glass[
+    NConExtWin]=datConExtWin.glaSys.shade.tauIR_b
     "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 
@@ -313,19 +313,19 @@ protected
     Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade[:])
     "Set to true if the windows have a shade";
 
-  final parameter Boolean isFloorConExt[NConExt]=
-    datConExt.isFloor "Flag to indicate if floor for exterior constructions";
-  final parameter Boolean isFloorConExtWin[NConExtWin]=
-    datConExtWin.isFloor "Flag to indicate if floor for constructions";
-  final parameter Boolean isFloorConPar_a[NConPar]=
-    datConPar.isFloor "Flag to indicate if floor for constructions";
-  final parameter Boolean isFloorConPar_b[NConPar]=
-    datConPar.isCeiling "Flag to indicate if floor for constructions";
-  final parameter Boolean isFloorConBou[NConBou]=
-    datConBou.isFloor
+  final parameter Boolean is_floorConExt[NConExt]=
+    datConExt.is_floor "Flag to indicate if floor for exterior constructions";
+  final parameter Boolean is_floorConExtWin[NConExtWin]=
+    datConExtWin.is_floor "Flag to indicate if floor for constructions";
+  final parameter Boolean is_floorConPar_a[NConPar]=
+    datConPar.is_floor "Flag to indicate if floor for constructions";
+  final parameter Boolean is_floorConPar_b[NConPar]=
+    datConPar.is_ceiling "Flag to indicate if floor for constructions";
+  final parameter Boolean is_floorConBou[NConBou]=
+    datConBou.is_floor
     "Flag to indicate if floor for constructions with exterior boundary conditions exposed to outside of room model";
-  parameter Boolean isFloorSurBou[NSurBou]=
-    surBou.isFloor
+  parameter Boolean is_floorSurBou[NSurBou]=
+    surBou.is_floor
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
   HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
@@ -782,17 +782,17 @@ equation
             200}}), graphics={
         Text(
           extent={{-104,210},{84,242}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="%name"),
         Text(
           extent={{-220,100},{-144,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="q"),
         Text(
           extent={{-14,-160},{44,-186}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="boundary"),
@@ -819,26 +819,25 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,12},{-22,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="air"),
         Text(
           extent={{-72,-22},{-22,-50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="radiation"),
         Text(
           extent={{-104,-124},{-54,-152}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="surface"),
         Text(
           extent={{-198,144},{-122,112}},
-          lineColor={0,0,127},
-          visible=haveControllableWindow,
+          textColor={0,0,127},
           textString="uWin"),
         Rectangle(
           extent={{-140,140},{140,-140}},
@@ -849,7 +848,7 @@ equation
             min(1, max(0, (heaPorAir.T-295.15)/10))*{255,0,0})),
         Text(
           extent={{134,-84},{14,-134}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f")))}),
     preferredView="info",
     defaultComponentName="roo",
@@ -870,6 +869,12 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>

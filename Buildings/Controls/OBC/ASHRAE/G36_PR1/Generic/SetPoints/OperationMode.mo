@@ -129,8 +129,7 @@ protected
     final uLow=-60)
     "Hysteresis that outputs if the maximum warm-up time is more than allowed warm-up time"
     annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add5(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub5
     "Calculate differential between time-to-next-occupancy and the cool-down time"
     annotation (Placement(transformation(extent={{-160,240},{-140,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
@@ -145,8 +144,7 @@ protected
     final uLow=-60)
     "Hysteresis to activate the warm-up model"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add6(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub6
     "Calculate differential between time-to-next-occupancy and the warm-up time"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
@@ -317,12 +315,10 @@ protected
     final k=TZonFreProOff)
     "Threshold temperature to end the freeze protection mode"
     annotation (Placement(transformation(extent={{-280,-150},{-260,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Calculate differential between minimum zone temperature and freeze protection threshold temperature"
     annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate differential between maximum zone temperature and threshold temperature of ending freeze protection"
     annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -331,12 +327,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or7
     "Enough hot zone or the high average zone temperature"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Calculate the difference between maximum cool down time and the allowed maximum cool down time"
     annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4
     "Calculate the differential between maximum warm-up time and the allowed maximum warm-up time"
     annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
   Buildings.Controls.OBC.CDL.Logical.Edge endSetBac
@@ -346,7 +340,7 @@ protected
     "End setup mode when the input becomes true"
     annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
-    final  t=1) "Check if there is any zone with opening window"
+    final t=1) "Check if there is any zone with opening window"
     annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt6
     "Total cold zone and zones with opening window"
@@ -426,21 +420,9 @@ equation
     annotation (Line(points={{-238,250},{-222,250}}, color={255,0,255}));
   connect(hys3.y, corWarUpTim.u2)
     annotation (Line(points={{-238,150},{-202,150}}, color={255,0,255}));
-  connect(add5.y, hys4.u)
+  connect(sub5.y, hys4.u)
     annotation (Line(points={{-138,250},{-122,250}}, color={0,0,127}));
-  connect(tNexOcc, add5.u1)
-    annotation (Line(points={{-380,330},{-170,330},{-170,256},{-162,256}},
-      color={0,0,127}));
-  connect(corCooDowTim.y, add5.u2)
-    annotation (Line(points={{-198,250},{-180,250},{-180,244},{-162,244}},
-      color={0,0,127}));
-  connect(tNexOcc, add6.u1)
-    annotation (Line(points={{-380,330},{-170,330},{-170,166},{-162,166}},
-      color={0,0,127}));
-  connect(corWarUpTim.y, add6.u2)
-    annotation (Line(points={{-178,150},{-170,150},{-170,154},{-162,154}},
-      color={0,0,127}));
-  connect(add6.y, hys5.u)
+  connect(sub6.y, hys5.u)
     annotation (Line(points={{-138,160},{-122,160}}, color={0,0,127}));
   connect(hys9.y, lat1.u)
     annotation (Line(points={{-158,-90},{-102,-90}},  color={255,0,255}));
@@ -561,17 +543,13 @@ equation
           {-300,-8},{-282,-8}},   color={255,127,0}));
   connect(totZon.y, allHot.u2) annotation (Line(points={{-318,-330},{-300,-330},
           {-300,-228},{-282,-228}}, color={255,127,0}));
-  connect(add2.y, hys9.u)
-    annotation (Line(points={{-198,-90},{-182,-90}},   color={0,0,127}));
-  connect(add1.y, hys10.u)
+  connect(sub.y, hys9.u)
+    annotation (Line(points={{-198,-90},{-182,-90}}, color={0,0,127}));
+  connect(sub1.y, hys10.u)
     annotation (Line(points={{-198,-130},{-182,-130}}, color={0,0,127}));
-  connect(actFreProTem.y, add2.u2) annotation (Line(points={{-258,-100},{-240,-100},
-          {-240,-96},{-222,-96}},       color={0,0,127}));
-  connect(TZonMax, add2.u1) annotation (Line(points={{-380,-80},{-240,-80},{
-          -240,-84},{-222,-84}}, color={0,0,127}));
-  connect(TZonMin, add1.u1) annotation (Line(points={{-380,-120},{-240,-120},{
+  connect(TZonMin, sub1.u1) annotation (Line(points={{-380,-120},{-240,-120},{
           -240,-124},{-222,-124}}, color={0,0,127}));
-  connect(endFreProTem.y, add1.u2) annotation (Line(points={{-258,-140},{-240,-140},
+  connect(endFreProTem.y, sub1.u2) annotation (Line(points={{-258,-140},{-240,-140},
           {-240,-136},{-222,-136}},       color={0,0,127}));
   connect(or1.y, or2.u1)
     annotation (Line(points={{-198,30},{-162,30}}, color={255,0,255}));
@@ -603,21 +581,15 @@ equation
   connect(uHigOccCoo, and2.u2)
     annotation (Line(points={{-380,230},{-90,230},{-90,242},{-82,242}},
       color={255,0,255}));
-  connect(maxWarCooTime.y, add3.u2)
-    annotation (Line(points={{-318,200},{-310,200},{-310,244},{-302,244}},
-      color={0,0,127}));
-  connect(maxWarCooTime.y, add4.u1)
+  connect(maxWarCooTime.y, sub4.u1)
     annotation (Line(points={{-318,200},{-310,200},{-310,156},{-302,156}},
       color={0,0,127}));
-  connect(maxWarUpTim, add4.u2)
+  connect(maxWarUpTim, sub4.u2)
     annotation (Line(points={{-380,180},{-340,180},{-340,144},{-302,144}},
       color={0,0,127}));
-  connect(maxCooDowTim, add3.u1)
-    annotation (Line(points={{-380,280},{-340,280},{-340,256},{-302,256}},
-      color={0,0,127}));
-  connect(add3.y, hys2.u)
+  connect(sub3.y, hys2.u)
     annotation (Line(points={{-278,250},{-262,250}}, color={0,0,127}));
-  connect(add4.y, hys3.u)
+  connect(sub4.y, hys3.u)
     annotation (Line(points={{-278,150},{-262,150}}, color={0,0,127}));
   connect(uEndSetBac, endSetBac.u)
     annotation (Line(points={{-380,-50},{-162,-50}}, color={255,0,255}));
@@ -646,6 +618,22 @@ equation
   connect(addInt7.y, allHot.u1)
     annotation (Line(points={{-308,-220},{-282,-220}}, color={255,127,0}));
 
+  connect(maxCooDowTim, sub3.u2) annotation (Line(points={{-380,280},{-338,280},
+          {-338,244},{-302,244}}, color={0,0,127}));
+  connect(maxWarCooTime.y, sub3.u1) annotation (Line(points={{-318,200},{-310,200},
+          {-310,256},{-302,256}}, color={0,0,127}));
+  connect(corCooDowTim.y, sub5.u1) annotation (Line(points={{-198,250},{-180,250},
+          {-180,256},{-162,256}}, color={0,0,127}));
+  connect(tNexOcc, sub5.u2) annotation (Line(points={{-380,330},{-170,330},{-170,
+          244},{-162,244}}, color={0,0,127}));
+  connect(corWarUpTim.y, sub6.u1) annotation (Line(points={{-178,150},{-174,150},
+          {-174,166},{-162,166}}, color={0,0,127}));
+  connect(tNexOcc, sub6.u2) annotation (Line(points={{-380,330},{-170,330},{-170,
+          154},{-162,154}}, color={0,0,127}));
+  connect(actFreProTem.y, sub.u1) annotation (Line(points={{-258,-100},{-242,-100},
+          {-242,-84},{-222,-84}}, color={0,0,127}));
+  connect(TZonMax, sub.u2) annotation (Line(points={{-380,-80},{-232,-80},{-232,
+          -96},{-222,-96}}, color={0,0,127}));
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(
@@ -688,43 +676,43 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{236,372},{326,354}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
           extent={{158,10},{242,-12}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setback mode"),
         Text(
           extent={{150,-226},{222,-248}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setup mode"),
         Text(
           extent={{214,-338},{318,-368}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Unoccupied mode"),
         Text(
           extent={{180,-94},{352,-122}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
           extent={{164,174},{252,150}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
           extent={{248,258},{336,230}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Cool-down mode")}),
@@ -737,86 +725,86 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,108},{-44,96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxCooDowTim"),
         Text(
           extent={{-98,66},{-50,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxWarUpTim"),
         Text(
           extent={{58,12},{96,-10}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
           extent={{-120,200},{100,160}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,128},{-68,112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
           extent={{-100,144},{-82,136}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
           extent={{-98,88},{-50,76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHigOccCoo"),
         Text(
           extent={{-98,46},{-48,34}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOccHeaHig"),
         Text(
           extent={{-98,6},{-60,-4}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totColZon"),
         Text(
           extent={{-98,-34},{-52,-46}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetBac"),
         Text(
           extent={{-98,-54},{-64,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMax"),
         Text(
           extent={{-98,-74},{-64,-84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
           extent={{-98,-94},{-62,-104}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totHotZon"),
         Text(
           extent={{-98,-134},{-52,-146}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetUp"),
         Text(
           extent={{-98,-14},{-66,-26}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSetBac"),
         Text(
           extent={{-98,-114},{-66,-126}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSetUp"),
         Text(
           extent={{-100,26},{-62,16}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeWin")}),
    Documentation(info="<html>

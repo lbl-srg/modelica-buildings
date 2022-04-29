@@ -26,7 +26,6 @@ model MixingVolumePrescribedHeatFlowRate
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=true,
     prescribedHeatFlowRate=true)
               annotation (Placement(transformation(extent={{30,20},{50,40}})));

@@ -78,8 +78,7 @@ equation
   connect(checkValve_m_flow.port_b, sin.ports[3]) annotation (Line(points={{10,-40},
           {30,-40},{30,-2.66667}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=1),
-      __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/CheckValve.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/CheckValve.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

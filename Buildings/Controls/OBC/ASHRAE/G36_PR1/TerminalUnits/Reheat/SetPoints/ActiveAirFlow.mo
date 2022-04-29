@@ -100,12 +100,11 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{280,10},{320,50}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=VOutPerPer_flow) if have_occSen
-    "Outdoor air per person"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=VOutPerPer_flow) if have_occSen "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.Add breZon if have_occSen
-  "Breathing zone airflow"
+    "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,-350},{-60,-330}})));
   Buildings.Controls.OBC.CDL.Continuous.Line co2ConLoo if have_CO2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
@@ -137,7 +136,9 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  CDL.Continuous.GreaterThreshold greThr(t=0.75, h=0.5) if have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=0.75,
+    final h=0.5) if have_occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 
@@ -663,63 +664,63 @@ according to operation modes")}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-62,66},{58,-56}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="actAirSet"),
         Text(
           visible=have_CO2Sen,
           extent={{-98,48},{-70,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="CO2"),
         Text(
           visible=have_occSen,
           extent={{-98,-32},{-70,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="nOcc"),
         Text(
           extent={{-94,90},{-48,72}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           visible=have_winSen,
           extent={{-98,-74},{-72,-84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uWin"),
         Text(
           extent={{62,88},{98,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{62,58},{98,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMin_flow"),
         Text(
           extent={{72,24},{98,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{62,-2},{98,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMin_flow"),
         Text(
           extent={{62,-32},{98,-46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{62,-72},{98,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOccDisMin_flow")}),
 Documentation(info="<html>

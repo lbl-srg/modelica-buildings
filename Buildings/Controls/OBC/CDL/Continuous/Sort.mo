@@ -33,10 +33,10 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-58,70},{54,-60}},
-          lineColor={0,0,89},
+          textColor={0,0,89},
           textString="sort")}),
     Documentation(
       info="<html>

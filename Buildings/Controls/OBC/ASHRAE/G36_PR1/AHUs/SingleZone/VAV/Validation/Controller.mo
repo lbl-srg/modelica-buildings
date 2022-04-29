@@ -74,14 +74,16 @@ model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final duration=86400,
     final height=6,
-    final offset=273.15 + 16)  "Measured zone temperature"
+    final offset=273.15 + 16,
+    y(unit="K"))  "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     final occupancy=3600*{4,20})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-120,44},{-100,64}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCut(
-    final k=289.15)
+    final k=289.15,
+    y(unit="K"))
     "Fixed dry bulb temperature high limit cutoff for economizer"
     annotation (Placement(transformation(extent={{-120,14},{-100,34}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nOcc(final k=2)
@@ -90,34 +92,43 @@ model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(final k=false)
     "Window status"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(final k=290.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
+    final k=290.15,
+    y(unit="K"))
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
-    final k=301.15)
+    final k=301.15,
+    y(unit="K"))
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,-6},{-160,14}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon1(
     final duration=86400,
     final height=-3,
-    final offset=273.15 + 26)  "Measured zone temperature"
+    final offset=273.15 + 26,
+    y(unit="K"))  "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(final k=295.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(
+    final k=295.15,
+    y(unit="K"))
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut3(
-    final k=289.15)
+    final k=289.15,
+    y(unit="K"))
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final height=2,
     final duration=86400,
-    final offset=273.15 + 22.5) "Terminal unit discharge air temperature"
+    final offset=273.15 + 22.5,
+    y(unit="K")) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup1(
     final height=-3,
     final duration=86400,
-    final offset=273.15 + 24) "Terminal unit discharge air temperature"
+    final offset=273.15 + 24,
+    y(unit="K")) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(
     final k=0)

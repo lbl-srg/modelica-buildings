@@ -24,7 +24,7 @@ equation
   extent={{-100,-100},{100,100}}), graphics={
   Text(
     extent={{-2,4},{26,-30}},
-    lineColor={255,0,0},
+    textColor={255,0,0},
     textString="%",
     textStyle={TextStyle.Bold}),
   Line(
@@ -47,7 +47,7 @@ equation
     color={191,0,0}),
   Text(
     extent={{-48,-82},{52,-100}},
-    lineColor={0,0,255},
+    textColor={0,0,255},
     textString="ThermSplitter")}),
   Documentation(info="<html>
   <p>This model is used to weight thermal ports (inputs) according to given split

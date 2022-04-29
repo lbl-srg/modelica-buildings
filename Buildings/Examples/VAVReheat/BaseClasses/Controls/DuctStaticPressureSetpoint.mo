@@ -1,13 +1,13 @@
 within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 model DuctStaticPressureSetpoint "Computes the duct static pressure setpoint"
   extends Modelica.Blocks.Interfaces.MISO;
-  parameter Modelica.SIunits.AbsolutePressure pMin(displayUnit="Pa")=100
+  parameter Modelica.Units.SI.AbsolutePressure pMin(displayUnit="Pa") = 100
     "Minimum duct static pressure setpoint";
-  parameter Modelica.SIunits.AbsolutePressure pMax(displayUnit="Pa")=410
+  parameter Modelica.Units.SI.AbsolutePressure pMax(displayUnit="Pa") = 410
     "Maximum duct static pressure setpoint";
   parameter Real k=0.1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=60 "Time constant of integrator block";
-  parameter Modelica.SIunits.Time Td=60 "Time constant of derivative block";
+  parameter Modelica.Units.SI.Time Ti=60 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Td=60 "Time constant of derivative block";
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller";
   Buildings.Controls.Continuous.LimPID limPID(
@@ -15,7 +15,7 @@ model DuctStaticPressureSetpoint "Computes the duct static pressure setpoint"
     k=k,
     Ti=Ti,
     Td=Td,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     reverseActing=false)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 protected
@@ -78,13 +78,13 @@ equation
         Text(
           extent={{-76,148},{50,-26}},
           textString="PSet",
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Text(
           extent={{-10,8},{44,-82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%pMax"),
         Text(
           extent={{-16,-54},{48,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%pMin")}));
 end DuctStaticPressureSetpoint;

@@ -19,32 +19,31 @@ model PartialEffectivenessNTU
     annotation (Evaluate=true,
                 Dialog(group="Nominal thermal performance"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(fixed=use_Q_flow_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(fixed=
+        use_Q_flow_nominal)
     "Nominal heat flow rate (positive for heat transfer from 1 to 2)"
-    annotation (Dialog(group="Nominal thermal performance",
-                       enable=use_Q_flow_nominal));
-  parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
-    "Nominal temperature at port a1"
-    annotation (Dialog(group="Nominal thermal performance",
-                       enable=use_Q_flow_nominal));
-  parameter Modelica.SIunits.Temperature T_a2_nominal(fixed=use_Q_flow_nominal)
-    "Nominal temperature at port a2"
-    annotation (Dialog(group="Nominal thermal performance",
-                       enable=use_Q_flow_nominal));
+    annotation (Dialog(group="Nominal thermal performance", enable=
+          use_Q_flow_nominal));
+  parameter Modelica.Units.SI.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
+    "Nominal temperature at port a1" annotation (Dialog(group=
+          "Nominal thermal performance", enable=use_Q_flow_nominal));
+  parameter Modelica.Units.SI.Temperature T_a2_nominal(fixed=use_Q_flow_nominal)
+    "Nominal temperature at port a2" annotation (Dialog(group=
+          "Nominal thermal performance", enable=use_Q_flow_nominal));
 
   parameter Real eps_nominal(fixed=not use_Q_flow_nominal)
     "Nominal heat transfer effectiveness"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=not use_Q_flow_nominal));
 
-  input Modelica.SIunits.ThermalConductance UA "UA value";
+  input Modelica.Units.SI.ThermalConductance UA "UA value";
 
   Real eps(min=0, max=1) "Heat exchanger effectiveness";
 
   // NTU has been removed as NTU goes to infinity as CMin goes to zero.
   // This quantity is not good for modeling.
   //  Real NTU(min=0) "Number of transfer units";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal(fixed=false)
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal(fixed=false)
     "Nominal UA value";
   final parameter Real NTU_nominal(min=0, fixed=false)
     "Nominal number of transfer units";
@@ -59,25 +58,25 @@ protected
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_nominal(fixed=false)
     "Specific heat capacity of medium 1 at nominal condition";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_nominal(fixed=false)
     "Specific heat capacity of medium 2 at nominal condition";
-  parameter Modelica.SIunits.ThermalConductance C1_flow_nominal(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance C1_flow_nominal(fixed=false)
     "Nominal capacity flow rate of Medium 1";
-  parameter Modelica.SIunits.ThermalConductance C2_flow_nominal(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance C2_flow_nominal(fixed=false)
     "Nominal capacity flow rate of Medium 2";
-  parameter Modelica.SIunits.ThermalConductance CMin_flow_nominal(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance CMin_flow_nominal(fixed=false)
     "Minimal capacity flow rate at nominal condition";
-  parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance CMax_flow_nominal(fixed=false)
     "Maximum capacity flow rate at nominal condition";
   parameter Real Z_nominal(
     min=0,
     max=1,
     fixed=false) "Ratio of capacity flow rate at nominal condition";
-  parameter Modelica.SIunits.Temperature T_b1_nominal(fixed=false)
+  parameter Modelica.Units.SI.Temperature T_b1_nominal(fixed=false)
     "Nominal temperature at port b1";
-  parameter Modelica.SIunits.Temperature T_b2_nominal(fixed=false)
+  parameter Modelica.Units.SI.Temperature T_b2_nominal(fixed=false)
     "Nominal temperature at port b2";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";

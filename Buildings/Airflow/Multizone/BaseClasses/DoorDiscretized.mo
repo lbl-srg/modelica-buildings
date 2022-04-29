@@ -5,27 +5,27 @@ partial model DoorDiscretized
 
   parameter Integer nCom=10 "Number of compartments for the discretization";
 
-  parameter Modelica.SIunits.PressureDifference dp_turbulent(
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(
     min=0,
     displayUnit="Pa") = 0.01
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
 
-  Modelica.SIunits.PressureDifference dpAB[nCom](each nominal=1)
+  Modelica.Units.SI.PressureDifference dpAB[nCom](each nominal=1)
     "Pressure difference between compartments";
-  Modelica.SIunits.Velocity v[nCom](each nominal=0.01)
+  Modelica.Units.SI.Velocity v[nCom](each nominal=0.01)
     "Velocity in compartment from A to B";
-  Modelica.SIunits.Velocity vTop "Velocity at top of opening from A to B";
-  Modelica.SIunits.Velocity vBot "Velocity at bottom of opening from A to B";
+  Modelica.Units.SI.Velocity vTop "Velocity at top of opening from A to B";
+  Modelica.Units.SI.Velocity vBot "Velocity at bottom of opening from A to B";
 
 protected
-  parameter Modelica.SIunits.Length dh=hOpe/nCom "Height of each compartment";
+  parameter Modelica.Units.SI.Length dh=hOpe/nCom "Height of each compartment";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default);
 
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
   parameter Real hAg[nCom](each unit="m2/s2")=
@@ -35,23 +35,23 @@ protected
   parameter Real hBg[nCom](each unit="m2/s2")=
     {Modelica.Constants.g_n*(hB - (i - 0.5)*dh) for i in 1:nCom}
     "Product g*h_i for each compartment";
-  Modelica.SIunits.AbsolutePressure pA[nCom](each nominal=101325)
+  Modelica.Units.SI.AbsolutePressure pA[nCom](each nominal=101325)
     "Pressure in compartments of room A";
-  Modelica.SIunits.AbsolutePressure pB[nCom](each nominal=101325)
+  Modelica.Units.SI.AbsolutePressure pB[nCom](each nominal=101325)
     "Pressure in compartments of room B";
 
-  Modelica.SIunits.VolumeFlowRate dV_flow[nCom]
+  Modelica.Units.SI.VolumeFlowRate dV_flow[nCom]
     "Volume flow rate through compartment from A to B";
-  Modelica.SIunits.VolumeFlowRate dVAB_flow[nCom]
+  Modelica.Units.SI.VolumeFlowRate dVAB_flow[nCom]
     "Volume flow rate through compartment from A to B if positive";
-  Modelica.SIunits.VolumeFlowRate dVBA_flow[nCom]
+  Modelica.Units.SI.VolumeFlowRate dVBA_flow[nCom]
     "Volume flow rate through compartment from B to A if positive";
-  Modelica.SIunits.VolumeFlowRate VZerCom_flow = VZer_flow/nCom
+  Modelica.Units.SI.VolumeFlowRate VZerCom_flow=VZer_flow/nCom
     "Small flow rate for regularization";
 
   Real m(min=0.5, max=1) "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  Real kVal "Flow coefficient for each compartment, k = V_flow/ dp^m";
-  Modelica.SIunits.Area dA "Compartment area";
+  Real CVal "Flow coefficient for each compartment, C = V_flow/ dp^m";
+  Modelica.Units.SI.Area dA "Compartment area";
   Real gaiFlo[nCom] "Gain to sum up the positive flows and set the negative to zero in a differentiable way";
 equation
   dA = A/nCom;

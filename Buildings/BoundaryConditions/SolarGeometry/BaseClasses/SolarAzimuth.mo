@@ -26,8 +26,8 @@ protected
   Real tmp "cos(solAzi) before data validity check";
   Real solAziTem "Temporary variable for solar azimuth";
 
-  constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
-  constant Modelica.SIunits.Angle polarCircle = 1.1617
+  constant Modelica.Units.SI.Time day=86400 "Number of seconds in a day";
+  constant Modelica.Units.SI.Angle polarCircle=1.1617
     "Latitude of polar circle (66 degree 33 min 44 sec)";
   Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
     "Flag, true if latitude is outside polar region";
@@ -92,21 +92,21 @@ First implementation.
                               Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-102,84},{-60,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="zen"),
         Text(
           extent={{-96,-36},{-54,-46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solTim"),
         Text(
           extent={{-96,24},{-54,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="decAng"),
         Text(
           extent={{-96,-86},{-54,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="lat")}));
 end SolarAzimuth;

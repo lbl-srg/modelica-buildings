@@ -4,9 +4,9 @@ model ElectroChromicWindow
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air(T_default=T_start) "Medium model";
 
-  constant Modelica.SIunits.Temperature T_start=273.15 + 20 "Initial value";
+  constant Modelica.Units.SI.Temperature T_start=273.15 + 20 "Initial value";
 
-  parameter Modelica.SIunits.Area AFlo=13.94 "Floor area";
+  parameter Modelica.Units.SI.Area AFlo=13.94 "Floor area";
 
   parameter Integer nConExtWin=1 "Number of constructions with a window";
   parameter Integer nConExt=0 "Number of constructions without a window";

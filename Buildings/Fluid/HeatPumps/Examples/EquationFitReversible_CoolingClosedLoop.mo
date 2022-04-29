@@ -6,16 +6,15 @@ model EquationFitReversible_CoolingClosedLoop
   parameter Data.EquationFitReversible.Trane_Axiom_EXW240 per
    "Reversible heat pump performance data"
    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
-   "Source heat exchanger nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
-   "Load heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
+    "Source heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
+    "Load heat exchanger nominal mass flow rate";
 
   Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
     scaling_factor=1)
    "Reversible water to water heat pump"
@@ -63,7 +62,6 @@ model EquationFitReversible_CoolingClosedLoop
   Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mLoa_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -124,10 +122,10 @@ equation
   connect(heaFlo.port, vol.heatPort)
    annotation (Line(points={{70,80},{80,80},{80,-2}},color={191,0,0}));
   connect(pum.port_a, vol.ports[1])
-   annotation (Line(points={{20,50},{40,50},{40,-10},{70,-10}},
+   annotation (Line(points={{20,50},{40,50},{40,-11},{70,-11}},
                                                              color={0,127,255}));
   connect(vol.ports[2], heaPum.port_b1)
-   annotation (Line(points={{70,-14},{20,-14}},
+   annotation (Line(points={{70,-13},{46,-13},{46,-14},{20,-14}},
                                             color={0,127,255}));
   connect(pum.port_b, heaPum.port_a1)
    annotation (Line(points={{0,50},{-20,50},{-20,-14},{0,-14}},

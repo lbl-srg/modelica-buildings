@@ -8,7 +8,7 @@ equation
   annotation (
     defaultComponentName="fac", Icon(graphics={   Text(
           extent={{-90,38},{90,-34}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="factorial()")}),
     Documentation(info="<html>
     <p>This block computes the factorial of the integer input, <i>y=n!</i>.</p>

@@ -4,17 +4,17 @@ model MixingBoxMinimumFlow
  extends Buildings.Fluid.Actuators.Dampers.MixingBox;
   import Modelica.Constants;
 
-  parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
     "Mass flow rate minimum outside air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpDamOutMin_nominal(
-    min=0, displayUnit="Pa")
-    "Pressure drop of damper in minimum outside air leg"
-     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixOutMin_nominal(
-    min=0, displayUnit="Pa") = 0
+  parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal(min=0,
+      displayUnit="Pa") "Pressure drop of damper in minimum outside air leg"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpFixOutMin_nominal(
+    min=0,
+    displayUnit="Pa") = 0
     "Pressure drop of duct and other resistances in minimum outside air leg"
-     annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Real yOutMin_start=y_start
     "Initial value of signal for minimum outside air damper"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -114,7 +114,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-126,144},{-86,112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yMin"),

@@ -5,13 +5,12 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15 + 25.55
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatOut_nominal
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal
+    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.Temperature TWatOut_nominal
     "Nominal water outlet temperature"
     annotation (Dialog(group="Heat transfer"));
 
@@ -22,9 +21,8 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
   parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
     "Fan power divided by water mass flow rate at design condition"
     annotation (Dialog(group="Fan"));
-  parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
-    "Fan power"
-    annotation (Dialog(group="Fan"));
+  parameter Modelica.Units.SI.Power PFan_nominal=fraPFan_nominal*m_flow_nominal
+    "Fan power" annotation (Dialog(group="Fan"));
 
   parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
     "Minimum control signal until fan is switched off (used for smoothing
@@ -85,11 +83,11 @@ initial equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Text(
           extent={{-104,70},{-70,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWB"),
         Rectangle(
           extent={{-100,81},{-70,78}},
@@ -97,12 +95,6 @@ initial equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-54,6},{58,-114}},
-          lineColor={255,255,255},
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Solid,
-          textString="Merkel"),
         Ellipse(
           extent={{-54,62},{0,50}},
           lineColor={255,255,255},
@@ -133,20 +125,10 @@ initial equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{64,114},{98,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PFan"),
         Rectangle(
-          extent={{78,-60},{82,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{70,-58},{104,-96}},
-          lineColor={0,0,127},
-          textString="TLvg"),
-        Rectangle(
-          extent={{78,-58},{102,-62}},
+          extent={{-100,41},{-70,38}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},

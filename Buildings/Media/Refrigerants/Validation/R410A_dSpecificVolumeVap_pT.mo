@@ -3,11 +3,10 @@ model R410A_dSpecificVolumeVap_pT
   "Validation of the derivatives of the specific volume with regards to p and T"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.AbsolutePressure p = 400e3
+  parameter Modelica.Units.SI.AbsolutePressure p=400e3
     "Pressure of refrigerant vapor";
 
-  parameter Modelica.SIunits.Temperature T = 273.15
-    "Temperature of refrigerant";
+  parameter Modelica.Units.SI.Temperature T=273.15 "Temperature of refrigerant";
 
   parameter Real dp(final unit="Pa") = 1.0
     "Delta of pressure of refrigerant vapor";
@@ -50,7 +49,7 @@ protected
     "Numerical delta of specific volume of refrigerant with regards to
     temperature";
 
-  constant Modelica.SIunits.Time oneSec = 1.0
+  constant Modelica.Units.SI.Time oneSec=1.0
     "Unit time variable for unit conversion of time derivatives";
 
 equation

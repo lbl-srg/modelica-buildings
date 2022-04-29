@@ -25,7 +25,7 @@ block TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Modelica.Units.SI.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
   constant Real C14=6.54 "Constant used in the equation";
   constant Real C15=14.526 "Constant used in the equation";
   constant Real C16=0.7389 "Constant used in the equation";
@@ -74,10 +74,10 @@ First implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -88,15 +88,15 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,14},{-72,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{-92,100},{-62,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="p"),
         Polygon(
           points={{86,-74},{76,-72},{76,-76},{86,-74}},
@@ -105,14 +105,14 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
         Line(points={{-48,84},{-48,-74}}),
         Text(
           extent={{60,14},{98,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDewPoi"),
         Line(points={{82,-72},{-66,-72}}),
         Line(points={{-48,-40},{-38,-36},{-24,-30},{8,-2},{20,22},{28,54},{32,

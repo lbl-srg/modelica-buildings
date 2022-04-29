@@ -59,10 +59,10 @@ block PIDWithReset
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-160,-220}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback controlError
+  Buildings.Controls.OBC.CDL.Continuous.Subtract controlError
     "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain P(final k=k) "Proportional action"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter P(final k=k) "Proportional action"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
     final k=k/Ti,
@@ -75,16 +75,16 @@ block PIDWithReset
     final y_start=yd_start) if with_D
     "Derivative term"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errP
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errP
     "P error"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errD if with_D
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errD if with_D
     "D error"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errI1 if with_I
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errI1 if with_I
     "I error (before anti-windup compensation)"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback errI2 if with_I
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract errI2 if with_I
     "I error (after anti-windup compensation)"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
@@ -114,28 +114,24 @@ protected
     final k=0) if not with_I
     "Zero input signal"
     annotation (Placement(transformation(extent={{20,74},{40,94}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uS_revAct(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uS_revAct(
     final k=revAct/r)
     "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uMea_revAct(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uMea_revAct(
     final k=revAct/r)
     "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addPD(
-    final k1=1,
-    final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add addPD
     "Outputs P and D gains added"
     annotation (Placement(transformation(extent={{20,116},{40,136}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addPID(
-    final k1=1,
-    final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add addPID
     "Outputs P, I and D gains added"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback antWinErr if with_I
+  Buildings.Controls.OBC.CDL.Continuous.Subtract antWinErr if with_I
     "Error for anti-windup compensation"
     annotation (Placement(transformation(extent={{162,50},{182,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain antWinGai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter antWinGai(
     k=1/(k*Ni)) if with_I
     "Gain for anti-windup compensation"
     annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
@@ -143,7 +139,7 @@ protected
     final k=y_reset) if with_I
     "Signal for y_reset"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback addRes if with_I
+  Buildings.Controls.OBC.CDL.Continuous.Subtract addRes if with_I
     "Adder for integrator reset"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(
@@ -220,7 +216,7 @@ If <code>k=0</code>, the block reduces to <code>y=0</code>.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -285,10 +281,10 @@ Modelica Standard Library.
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255}),
+            textColor={0,0,255}),
           Text(
             extent={{226,60},{106,10}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString=DynamicSelect("",String(y,
               leftJustified=false,
               significantDigits=3)))}));
@@ -300,66 +296,64 @@ equation
   connect(u_s,uS_revAct.u)
     annotation (Line(points={{-240,0},{-212,0},{-212,40},{-202,40}},color={0,0,127}));
   connect(u_m,uMea_revAct.u)
-    annotation (Line(points={{0,-220},{0,-160},{-190,-160},{-190,-40},{-182,-40}},color={0,0,127}));
-  connect(errP.u2,uMea_revAct.y)
-    annotation (Line(points={{-130,128},{-130,-40},{-158,-40}},                    color={0,0,127}));
+    annotation (Line(points={{0,-220},{0,-160},{-210,-160},{-210,-40},{-182,-40}},color={0,0,127}));
   connect(errD.u2,uMea_revAct.y)
-    annotation (Line(points={{-110,58},{-110,48},{-130,48},{-130,-40},{-158,-40}},
-                                                                                color={0,0,127}));
+    annotation (Line(points={{-142,64},{-150,64},{-150,-40},{-158,-40}}, color={0,0,127}));
   connect(D.u,errD.y)
-    annotation (Line(points={{-52,70},{-98,70}},color={0,0,127}));
+    annotation (Line(points={{-52,70},{-118,70}}, color={0,0,127}));
   connect(errI1.u1,uS_revAct.y)
-    annotation (Line(points={{-122,0},{-170,0},{-170,40},{-178,40}},color={0,0,127}));
-  connect(errI1.u2,uMea_revAct.y)
-    annotation (Line(points={{-110,-12},{-110,-40},{-158,-40}},color={0,0,127}));
+    annotation (Line(points={{-142,6},{-170,6},{-170,40},{-178,40}},color={0,0,127}));
   connect(addPID.u1,addPD.y)
-    annotation (Line(points={{78,96},{68,96},{68,126},{42,126}},color={0,0,127}));
+    annotation (Line(points={{78,96},{60,96},{60,126},{42,126}},color={0,0,127}));
   connect(lim.y,y)
     annotation (Line(points={{142,90},{200,90},{200,0},{240,0}},color={0,0,127}));
   connect(antWinErr.y,antWinGai.u)
     annotation (Line(points={{184,60},{190,60},{190,-20},{182,-20}},color={0,0,127}));
   connect(addPD.u2,Dzero.y)
-    annotation (Line(points={{18,120},{2,120}},                      color={0,0,127}));
+    annotation (Line(points={{18,120},{2,120}}, color={0,0,127}));
   connect(D.y,addPD.u2)
     annotation (Line(points={{-28,70},{10,70},{10,120},{18,120}},  color={0,0,127}));
   connect(addPID.u2,I.y)
     annotation (Line(points={{78,84},{68,84},{68,0},{-28,0}},color={0,0,127}));
-  connect(addRes.u2,addPD.y)
-    annotation (Line(points={{-90,-92},{-90,-100},{60,-100},{60,126},{42,126}},color={0,0,127}));
   connect(addRes.y,I.y_reset_in)
-    annotation (Line(points={{-78,-80},{-66,-80},{-66,-8},{-52,-8}},color={0,0,127}));
+    annotation (Line(points={{-78,-80},{-60,-80},{-60,-8},{-52,-8}},color={0,0,127}));
   connect(antWinErr.u2,lim.y)
-    annotation (Line(points={{172,48},{172,40},{150,40},{150,90},{142,90}},color={0,0,127}));
+    annotation (Line(points={{160,54},{150,54},{150,90},{142,90}},  color={0,0,127}));
   connect(I.u,errI2.y)
     annotation (Line(points={{-52,0},{-68,0}},color={0,0,127}));
   connect(errI1.y,errI2.u1)
-    annotation (Line(points={{-98,0},{-92,0}},color={0,0,127}));
-  connect(errI2.u2,antWinGai.y)
-    annotation (Line(points={{-80,-12},{-80,-20},{158,-20}},color={0,0,127}));
+    annotation (Line(points={{-118,0},{-100,0},{-100,6},{-92,6}}, color={0,0,127}));
   connect(controlError.u1,u_s)
-    annotation (Line(points={{-202,0},{-240,0}},color={0,0,127}));
-  connect(controlError.u2,u_m)
-    annotation (Line(points={{-190,-12},{-190,-160},{0,-160},{0,-220}},color={0,0,127}));
+    annotation (Line(points={{-202,6},{-212,6},{-212,0},{-240,0}}, color={0,0,127}));
   connect(cheYMinMax.y,assMesYMinMax.u)
     annotation (Line(points={{142,-150},{158,-150}},color={255,0,255}));
   connect(Izero.y,addPID.u2)
-    annotation (Line(points={{42,84},{78,84}},                   color={0,0,127}));
+    annotation (Line(points={{42,84},{78,84}}, color={0,0,127}));
   connect(errP.u1,uS_revAct.y)
-    annotation (Line(points={{-142,140},{-170,140},{-170,40},{-178,40}},color={0,0,127}));
+    annotation (Line(points={{-142,146},{-170,146},{-170,40},{-178,40}},color={0,0,127}));
   connect(errD.u1,uS_revAct.y)
-    annotation (Line(points={{-122,70},{-170,70},{-170,40},{-178,40}},color={0,0,127}));
+    annotation (Line(points={{-142,76},{-170,76},{-170,40},{-178,40}},color={0,0,127}));
   connect(addPD.u1, P.y)
-    annotation (Line(points={{18,132},{10,132},{10,140},{-28,140}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{18,132},{10,132},{10,140},{-28,140}}, color={0,0,127}));
   connect(P.u, errP.y)
     annotation (Line(points={{-52,140},{-118,140}},color={0,0,127}));
   connect(addPID.y, lim.u)
     annotation (Line(points={{102,90},{118,90}},color={0,0,127}));
-  connect(addPID.y, antWinErr.u1) annotation (Line(points={{102,90},{110,90},{
-          110,60},{160,60}}, color={0,0,127}));
+  connect(addPID.y, antWinErr.u1) annotation (Line(points={{102,90},{110,90},{110,
+          66},{160,66}},     color={0,0,127}));
   connect(addRes.u1, yResSig.y)
-    annotation (Line(points={{-102,-80},{-118,-80}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-102,-74},{-110,-74},{-110,-80},{-118,-80}}, color={0,0,127}));
+  connect(u_m, controlError.u2) annotation (Line(points={{0,-220},{0,-160},{-210,
+          -160},{-210,-6},{-202,-6}}, color={0,0,127}));
+  connect(uMea_revAct.y, errP.u2) annotation (Line(points={{-158,-40},{-150,-40},
+          {-150,134},{-142,134}}, color={0,0,127}));
+  connect(uMea_revAct.y, errI1.u2) annotation (Line(points={{-158,-40},{-150,-40},
+          {-150,-6},{-142,-6}}, color={0,0,127}));
+  connect(antWinGai.y, errI2.u2) annotation (Line(points={{158,-20},{-100,-20},{
+          -100,-6},{-92,-6}}, color={0,0,127}));
+  connect(addPD.y, addRes.u2) annotation (Line(points={{42,126},{60,126},{60,-100},
+          {-110,-100},{-110,-86},{-102,-86}}, color={0,0,127}));
+
   annotation (
     defaultComponentName="conPID",
     Icon(
@@ -423,7 +417,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-80,-80},{-80,-22}},
           color={0,0,0}),
@@ -627,7 +621,7 @@ This is for
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

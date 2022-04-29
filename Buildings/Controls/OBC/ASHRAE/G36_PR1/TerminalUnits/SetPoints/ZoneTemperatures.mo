@@ -175,30 +175,27 @@ block ZoneTemperatures
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logic not"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
-    final p=incTSetDem_3,
-    final k=1)
+    final p=incTSetDem_3)
     "Increase setpoint by 2.2 degC"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=incTSetDem_2,
-    final k=1)
+    final p=incTSetDem_2)
     "Increase setpoint by 1.1 degC"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=incTSetDem_1,
-    final k=1)
+    final p=incTSetDem_1)
     "Increase setpoint by 0.56 degC"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro6
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro6
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,140},{100,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetFre
@@ -208,31 +205,28 @@ block ZoneTemperatures
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro7
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro7
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar6(
-    final k=1,
     final p=-decTSetDem_1)
     "Decrease setpoint by 0.56 degC"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar5(
-    final k=1,
     final p=-decTSetDem_2)
     "Decrease setpoint by 1.1 degC"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar4(
-    final k=1,
     final p=-decTSetDem_3)
     "Decrease setpoint by 2.2 degC"
     annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro5
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro5
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro4
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro3
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=300)
@@ -245,13 +239,11 @@ block ZoneTemperatures
     "Instant when the zone becomes more than 5 minutes"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter heaSetDec(
-    p=-1.1,
-    final k=1)
+    final p=-1.1)
     "Heating setpoint decrease due to the 5 minutes unpopulation under occupied mode"
     annotation (Placement(transformation(extent={{100,-320},{120,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter cooSetInc(
-    p=1.1,
-    final k=1)
+    final p=1.1)
     "Heating setpoint increase due to the 5 minutes unpopulation under occupied mode"
     annotation (Placement(transformation(extent={{100,-280},{120,-260}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler cooSetSam
@@ -275,8 +267,7 @@ block ZoneTemperatures
     "Limit occupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-240,-590},{-220,-570}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=-0.56,
-    final k=1)
+    final p=-0.56)
     "Cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
 
@@ -1102,49 +1093,49 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,100},{-30,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSetOcc"),
         Text(
           extent={{-96,52},{-28,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSetOcc"),
         Text(
           extent={{-96,28},{-30,12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSetUno"),
         Text(
           extent={{-96,76},{-30,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSetUno"),
         Text(
           visible=heaAdj,
           extent={{-100,-24},{-48,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=cooAdj or sinAdj,
           extent={{-100,0},{-66,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
           extent={{-100,138},{-50,126}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-96,-50},{-20,-68}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
           extent={{-96,-72},{-24,-88}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uHeaDemLimLev"),
         Text(
@@ -1161,22 +1152,22 @@ annotation (
           textString="uWinSta"),
         Text(
           extent={{72,-74},{100,-86}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yAla"),
         Text(
           extent={{50,88},{98,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
           extent={{46,10},{96,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
         Text(
           extent={{-120,180},{100,140}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -1225,32 +1216,32 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{124,632},{322,596}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Operation mode recognition"),
         Text(
           extent={{176,550},{324,506}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setpoints recognition"),
         Text(
           extent={{132,382},{324,332}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Local setpoints adjustment"),
         Text(
           extent={{-254,-290},{-2,-384}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Adjust setpoints due to occupancy"),
         Text(
           extent={{-34,-384},{252,-430}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -1269,7 +1260,7 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-394,-540},{-184,-584}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -1277,7 +1268,7 @@ annotation (
 in the range"),
         Text(
           extent={{-124,-526},{76,-594}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -1285,7 +1276,7 @@ in the range"),
 unoccupied"),
         Text(
           extent={{34,-478},{298,-564}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -1293,7 +1284,7 @@ unoccupied"),
 by heating one"),
         Text(
           extent={{74,192},{326,98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,

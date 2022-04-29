@@ -69,7 +69,7 @@ equation
          graphics={
         Text(
           extent={{-40,126},{-160,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("y", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(y, format=".2f") else String(stage)))}),
     Documentation(info="<html>
@@ -92,6 +92,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 June 17, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>

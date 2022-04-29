@@ -1,14 +1,14 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model Window "Test model for the window"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Area A=1 "Window surface area";
+  parameter Modelica.Units.SI.Area A=1 "Window surface area";
   parameter Real fFra=0.2
     "Fraction of frame, = frame area divided by total area";
-  final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
-  final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
+  final parameter Modelica.Units.SI.Area AFra=fFra*A "Frame area";
+  final parameter Modelica.Units.SI.Area AGla=A - AFra "Glass area";
   parameter Boolean linearize = false "Set to true to linearize emissive power";
-  parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
-  parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi=0 "Surface azimuth";
+  parameter Modelica.Units.SI.Angle til=1.5707963267949 "Surface tilt";
 
   Buildings.HeatTransfer.Windows.Window window(
     A=A,

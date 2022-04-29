@@ -6,7 +6,7 @@ partial model PartialOpenLoop
     "Buildings library air media package with CO2";
   package MediumW = Buildings.Media.Water
     "Buildings library air media package";
-  parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(

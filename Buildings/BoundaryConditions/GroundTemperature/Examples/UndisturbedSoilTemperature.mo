@@ -3,7 +3,7 @@ model UndisturbedSoilTemperature "Example model for undisturbed soil temperature
   extends Modelica.Icons.Example;
 
   parameter Integer nSoi = 4 "Number of probed depths";
-  parameter Modelica.SIunits.Length dep[nSoi] = {0,2,5,9} "Probed depths";
+  parameter Modelica.Units.SI.Length dep[nSoi]={0,2,5,9} "Probed depths";
 
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature
     TSoi[nSoi](dep=dep, each cliCon=cliCon, each soiDat=soiDat)

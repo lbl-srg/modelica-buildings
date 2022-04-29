@@ -47,8 +47,7 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{120,0},{160,40}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
-    delta=300)
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
 
@@ -149,7 +148,7 @@ annotation (
   defaultComponentName="buiPreCon",
   Icon(graphics={
         Text(extent={{-98,142},{102,102}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -169,7 +168,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-50,-36},{60,-62}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Building pressure control loop signal")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{120,140}}),
         graphics={
@@ -187,14 +186,14 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-138,140},{-62,122}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Exhaust air damper control"),
         Text(
           extent={{-136,-98},{-12,-120}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

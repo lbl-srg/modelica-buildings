@@ -246,11 +246,19 @@ block Controller
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   // ----------- parameters for supply air temperature control  -----------
+  parameter Real TSupSetDes(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=285.15
+    "Design coil leaving air temperature"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
   parameter Real TSupSetMin(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
-    "Lowest cooling supply air temperature setpoint"
+    "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the
+    higher value of the reset range and above. This should not be lower than the design coil leaving air temperature"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TSupSetMax(
@@ -258,13 +266,6 @@ block Controller
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
-
-  parameter Real TSupSetDes(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=286.15
-    "Nominal supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TOutMin(
@@ -281,26 +282,12 @@ block Controller
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Real iniSetSupTem(
+  parameter Real TSupWarUpSetBac(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupSetMax
-    "Initial setpoint for supply temperature control"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
-
-  parameter Real maxSetSupTem(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupSetMax
-    "Maximum setpoint for supply temperature control"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
-
-  parameter Real minSetSupTem(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupSetDes
-    "Minimum setpoint for supply temperature control"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+    final quantity="ThermodynamicTemperature")=308.15
+    "Supply temperature in warm up and set back mode"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real delTimSupTem(
     final unit="s",
@@ -509,8 +496,8 @@ block Controller
     annotation (Placement(transformation(extent={{-240,-290},{-200,-250}}),
         iconTransformation(extent={{-240,-330},{-200,-290}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
-      use_G36FrePro
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
+   if use_G36FrePro
    "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-320},{-200,-280}}),
         iconTransformation(extent={{-240,-360},{-200,-320}})));
@@ -621,15 +608,13 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature
     supTemSetPoi(
+    final TSupWarUpSetBac=TSupWarUpSetBac,
     final samplePeriod=samplePeriod,
     final TSupSetMin=TSupSetMin,
     final TSupSetMax=TSupSetMax,
     final TSupSetDes=TSupSetDes,
     final TOutMin=TOutMin,
     final TOutMax=TOutMax,
-    final iniSet=iniSetSupTem,
-    final maxSet=maxSetSupTem,
-    final minSet=minSetSupTem,
     final delTim=delTimSupTem,
     final numIgnReq=numIgnReqSupTem,
     final triAmo=triAmoSupTem,
@@ -680,7 +665,7 @@ block Controller
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(
+  Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
     u1(final unit="m3/s"),
     u2(final unit="m3/s"),
     y(final unit="1"))
@@ -824,111 +809,111 @@ annotation (defaultComponentName="conAHU",
           fillPattern=FillPattern.Solid), Text(
           extent={{-200,450},{200,372}},
           textString="%name",
-          lineColor={0,0,255}),           Text(
+          textColor={0,0,255}),           Text(
           extent={{-200,348},{-116,332}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TZonHeaSet"),       Text(
           extent={{102,-48},{202,-68}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yReqOutAir"),       Text(
           extent={{-196,-238},{-122,-258}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uOpeMod"),          Text(
           extent={{-200,318},{-114,302}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TZonCooSet"),       Text(
           extent={{-198,260},{-120,242}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="ducStaPre"),        Text(
           extent={{-198,288},{-162,272}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TOut"),             Text(
           extent={{-196,110},{-90,88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uDesSysVenEff"),    Text(
           extent={{-196,140},{-22,118}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumDesAreBreZon_flow"),
                                           Text(
           extent={{-196,170},{-20,148}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumDesPopBreZon_flow"),
                                           Text(
           extent={{-196,200},{-88,182}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="sumDesZonPop"),     Text(
           extent={{-200,-42},{-154,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TSup"),             Text(
           extent={{-200,18},{-84,0}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uOutAirFra_max"),   Text(
           extent={{-196,48},{-62,30}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumSysPriAir_flow"),
                                           Text(
           extent={{-196,80},{-42,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumUncOutAir_flow"),
                                           Text(
           extent={{-200,-162},{-126,-180}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VOut_flow"),        Text(
           visible=use_enthalpy,
           extent={{-200,-130},{-134,-148}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="hOutCut"),          Text(
           visible=use_enthalpy,
           extent={{-200,-100},{-160,-118}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="hOut"),             Text(
           extent={{-198,-70},{-146,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TOutCut"),          Text(
           visible=use_TMix,
           extent={{-200,-200},{-154,-218}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TMix"),             Text(
           extent={{-194,-270},{-68,-290}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uZonTemResReq"),    Text(
           extent={{-192,-300},{-74,-320}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uZonPreResReq"),    Text(
           visible=use_G36FrePro,
           extent={{-200,-330},{-110,-348}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uFreProSta"),       Text(
           extent={{106,252},{198,230}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="ySupFanSpe"),       Text(
           extent={{122,192},{202,172}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="TSupSet"),          Text(
           extent={{68,72},{196,52}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yAveOutAirFraPlu"), Text(
           extent={{48,132},{196,110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesUncOutAir_flow"),
                                           Text(
           extent={{150,-104},{200,-126}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yHea"),             Text(
           extent={{94,-288},{200,-308}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yOutDamPos"),       Text(
           extent={{98,-228},{198,-248}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yRetDamPos"),       Text(
           extent={{78,14},{196,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VEffOutAir_flow"),  Text(
           extent={{120,312},{202,292}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="ySupFan"),          Text(
           extent={{150,-166},{200,-188}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yCoo")}),
 Documentation(info="<html>
 <p>

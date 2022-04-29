@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block IntegratorWithReset
   "Output the integral of the input signal"
-  parameter Real k(
-    unit="1")=1
+  parameter Real k=1
     "Integrator gain";
   parameter Real y_start=0
     "Initial or guess value of output (= state)"
@@ -44,7 +43,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-88,-94},{212,-54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="y_reset_in",
           horizontalAlignment=TextAlignment.Left),
         Bitmap(
@@ -52,26 +51,26 @@ equation
           fileName="modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/int.png"),
         Text(
           extent={{-88,56},{206,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="k=%k",
           horizontalAlignment=TextAlignment.Left),
         Text(
           extent={{-92,-12},{208,28}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="u"),
         Text(
           extent={{70,-14},{370,26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="y"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}),
@@ -105,6 +104,12 @@ has been copied into this model rather than extended.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Removed <code>unit=\"1\"</code> declaration for gain <code>k</code>.
+This is to avoid the warning observed in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2872\">#2872</a>.
+</li>
 <li>
 October 21, 2021, by Michael Wetter:<br/>
 Removed errorneous <code>visible</code> attribute in icon.

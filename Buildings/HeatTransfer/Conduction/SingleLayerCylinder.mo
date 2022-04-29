@@ -4,23 +4,23 @@ model SingleLayerCylinder "Heat conduction in a cylinder"
     "Material thermal properties"
   annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Height h "Height of the cylinder";
-  parameter Modelica.SIunits.Radius r_a "Internal radius";
-  parameter Modelica.SIunits.Radius r_b "External radius";
+  parameter Modelica.Units.SI.Height h "Height of the cylinder";
+  parameter Modelica.Units.SI.Radius r_a "Internal radius";
+  parameter Modelica.Units.SI.Radius r_b "External radius";
   parameter Integer nSta(min=1) "Number of state variables";
-  parameter Modelica.SIunits.Temperature TInt_start=293.15
+  parameter Modelica.Units.SI.Temperature TInt_start=293.15
     "Initial temperature at port_a, used if steadyStateInitial = false"
-     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.SIunits.Temperature TExt_start=293.15
+    annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+  parameter Modelica.Units.SI.Temperature TExt_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
-     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+    annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
   parameter Boolean steadyStateInitial=false
     "true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
      annotation (Dialog(group="Initialization"), Evaluate=true);
 
   parameter Real griFac(min=1) = 2 "Grid factor for spacing";
 
-  Modelica.SIunits.TemperatureDifference dT "port_a.T - port_b.T";
+  Modelica.Units.SI.TemperatureDifference dT "port_a.T - port_b.T";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,-10},
@@ -29,31 +29,31 @@ model SingleLayerCylinder "Heat conduction in a cylinder"
     "Heat port at surface b" annotation (Placement(transformation(extent={{90,-10},{
             110,10}})));
 
-  Modelica.SIunits.Temperature T[nSta](start=
-     {TInt_start+ (TExt_start-TInt_start)/Modelica.Math.log(r_b/r_a)
-       *Modelica.Math.log((r_a+(r_b-r_a)/(nSta)*(i-0.5))/r_a) for i in 1:nSta})
+  Modelica.Units.SI.Temperature T[nSta](start={TInt_start + (TExt_start -
+        TInt_start)/Modelica.Math.log(r_b/r_a)*Modelica.Math.log((r_a + (r_b -
+        r_a)/(nSta)*(i - 0.5))/r_a) for i in 1:nSta})
     "Temperature of the states";
-  Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
+  Modelica.Units.SI.HeatFlowRate Q_flow[nSta + 1]
     "Heat flow rate from state i to i+1";
 
-//  Modelica.SIunits.TemperatureSlope der_T[nSta]
+//  Modelica.Units.SI.TemperatureSlope der_T[nSta]
 //    "Time derivative of temperature (= der(T))";
 protected
-  parameter Modelica.SIunits.Radius r[nSta+1](each fixed=false)
+  parameter Modelica.Units.SI.Radius r[nSta + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
-  parameter Modelica.SIunits.Radius rC[nSta](each fixed=false)
+  parameter Modelica.Units.SI.Radius rC[nSta](each fixed=false)
     "Radius to the center of the i-th domain";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity c= material.c
+  final parameter Modelica.Units.SI.SpecificHeatCapacity c=material.c
     "Specific heat capacity";
-  final parameter Modelica.SIunits.ThermalConductivity k= material.k
+  final parameter Modelica.Units.SI.ThermalConductivity k=material.k
     "Thermal conductivity of the material";
-  final parameter Modelica.SIunits.Density d = material.d
+  final parameter Modelica.Units.SI.Density d=material.d
     "Density of the material";
 
-  parameter Modelica.SIunits.ThermalConductance G[nSta+1](each fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance G[nSta + 1](each fixed=false)
     "Heat conductance between the temperature nodes";
-  parameter Modelica.SIunits.HeatCapacity C[nSta](each fixed=false)
+  parameter Modelica.Units.SI.HeatCapacity C[nSta](each fixed=false)
     "Heat capacity of each state";
 
 initial equation
@@ -133,15 +133,15 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-110,-74},{-26,-86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%r_a"),
         Text(
           extent={{-22,-62},{20,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%nSta"),
         Text(
           extent={{16,-76},{102,-88}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%r_b"),
         Polygon(
           points={{-50,60},{-38,34},{-32,0},{-36,-30},{-50,-60},{-62,-60},{-48,

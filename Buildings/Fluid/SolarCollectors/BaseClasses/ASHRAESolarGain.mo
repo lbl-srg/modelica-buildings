@@ -17,7 +17,7 @@ block ASHRAESolarGain
     max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
     annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
 
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.Units.SI.Angle til "Surface tilt";
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
@@ -49,25 +49,25 @@ block ASHRAESolarGain
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Modelica.SIunits.TemperatureDifference dTMax = 1
+  constant Modelica.Units.SI.TemperatureDifference dTMax=1
     "Safety temperature difference to prevent TFlu > Medium.T_max";
-  final parameter Modelica.SIunits.Temperature TMedMax = Medium.T_max-dTMax
+  final parameter Modelica.Units.SI.Temperature TMedMax=Medium.T_max - dTMax
     "Fluid temperature above which there will be no heat gain computed to prevent TFlu > Medium.T_max";
-  final parameter Modelica.SIunits.Temperature TMedMax2 = TMedMax-dTMax
+  final parameter Modelica.Units.SI.Temperature TMedMax2=TMedMax - dTMax
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
 
   final parameter Real iamSky(fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro(fixed = false)
     "Incident angle modifier for diffuse solar radiation from the ground";
-  final parameter Modelica.SIunits.Angle incAngSky(fixed = false)
+  final parameter Modelica.Units.SI.Angle incAngSky(fixed=false)
     "Incident angle of diffuse radiation from the sky";
-  final parameter Modelica.SIunits.Angle incAngGro(fixed = false)
+  final parameter Modelica.Units.SI.Angle incAngGro(fixed=false)
     "Incident angle of diffuse radiation from the ground";
   final parameter Real tilDeg(
-    unit = "deg") = Modelica.SIunits.Conversions.to_deg(til)
+    unit = "deg") = Modelica.Units.Conversions.to_deg(  til)
     "Surface tilt angle in degrees";
-  final parameter Modelica.SIunits.HeatFlux HTotMin = 1
+  final parameter Modelica.Units.SI.HeatFlux HTotMin=1
     "Minimum HTot to avoid div/0";
   final parameter Real HMinDel = 0.001
     "Delta of the smoothing function for HTot";
@@ -80,14 +80,14 @@ protected
 
 initial equation
   // E+ Equ (557)
-  incAngSky = Modelica.SIunits.Conversions.from_deg(59.68 - 0.1388*(tilDeg) +
-  0.001497*(tilDeg)^2);
+  incAngSky =Modelica.Units.Conversions.from_deg(59.68 - 0.1388*(tilDeg) +
+    0.001497*(tilDeg)^2);
   // Diffuse radiation from the sky
   // E+ Equ (555)
   iamSky = SolarCollectors.BaseClasses.IAM(incAngSky, B0, B1);
   // E+ Equ (558)
-  incAngGro = Modelica.SIunits.Conversions.from_deg(90 - 0.5788*(tilDeg)+
-  0.002693*(tilDeg)^2);
+  incAngGro =Modelica.Units.Conversions.from_deg(90 - 0.5788*(tilDeg) +
+    0.002693*(tilDeg)^2);
   // Diffuse radiation from the ground
   // E+ Equ (555)
   iamGro = SolarCollectors.BaseClasses.IAM(

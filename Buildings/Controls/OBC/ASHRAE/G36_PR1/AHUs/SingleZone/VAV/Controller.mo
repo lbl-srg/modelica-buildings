@@ -398,8 +398,8 @@ block Controller
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
-       have_occSen "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1")
+    if have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
         iconTransformation(extent={{-240,-90},{-200,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
@@ -420,13 +420,13 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if
-       use_fixed_plus_differential_drybulb
+    final quantity="ThermodynamicTemperature")
+    if use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-240,-230},{-200,-190}}),
         iconTransformation(extent={{-240,-230},{-200,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
-       use_G36FrePro
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
+    if use_G36FrePro
     "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
         iconTransformation(extent={{-240,-270},{-200,-230}})));
@@ -535,7 +535,7 @@ block Controller
     final Ti=TiCoo,
     final Td=TdCoo)
     "Zone cooling control signal"
-    annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPI(
     final controllerType=controllerTypeHea,
     final k=kHea,
@@ -653,7 +653,8 @@ equation
   connect(intEqu.y, switch.u) annotation (Line(points={{-78,-230},{-72,-230}}, color={255,0,255}));
   connect(outAirSetPoi.uWin, uWin) annotation (Line(points={{38,34},{8,34},{8,-110},
           {-220,-110}},color={255,0,255}));
-  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,130},{-30,130},{-30,148}},
+  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,130},{-30,130},{-30,
+          148}},
           color={0,0,127}));
   connect(nOcc, outAirSetPoi.nOcc) annotation (Line(points={{-220,-80},{-60,-80},
           {-60,38},{38,38}}, color={0,0,127}));
@@ -687,14 +688,15 @@ equation
                                   color={0,0,127}));
   connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-58,220},{0,220},{0,144},
           {38,144}}, color={0,0,127}));
-  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-18,160},{20,160},{
-          20,195},{38,195}}, color={0,0,127}));
+  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-18,160},{20,160},
+          {20,195},{38,195}},color={0,0,127}));
   connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-18,160},{20,160},{20,
           136},{38,136}}, color={0,0,127}));
   connect(switch.y, heaPI.trigger) annotation (Line(points={{-48,-230},{-36,-230},
           {-36,84},{-76,84},{-76,208}}, color={255,0,255}));
-  connect(switch.y, cooPI.trigger) annotation (Line(points={{-48,-230},{-36,-230},
-          {-36,148}}, color={255,0,255}));
+  connect(switch.y, cooPI.trigger) annotation (Line(points={{-48,-230},{-36,
+          -230},{-36,148}},
+                      color={255,0,255}));
   connect(TZon, heaPI.u_m) annotation (Line(points={{-220,130},{-70,130},{-70,208}},
           color={0,0,127}));
   connect(setPoiVAV.TSupCoo, cooCoi.TSupCoo) annotation (Line(points={{62,190},{
@@ -711,8 +713,8 @@ equation
           {-100,152},{-100,110},{220,110}}, color={0,0,127}));
   connect(modSetPoi.TZonCooSet, ave.u1) annotation (Line(points={{-118,160},{-50,
           160},{-50,206},{-42,206}}, color={0,0,127}));
-  connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-118,160},{
-          -42,160}}, color={0,0,127}));
+  connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-118,160},
+          {-42,160}},color={0,0,127}));
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-118,160},
           {-50,160},{-50,60},{220,60}}, color={0,0,127}));
   connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,130},{-168,130},{
@@ -756,167 +758,167 @@ annotation (defaultComponentName="conVAV",
         Text(
           extent={{-204,354},{216,274}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-200,260},{-154,242}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOut"),
         Text(
           extent={{-194,178},{-132,150}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="tNexOcc"),
         Text(
           extent={{-200,142},{-156,122}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
           extent={{-198,116},{-152,96}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOcc"),
         Text(
           extent={{-200,0},{-152,-20}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TCut"),
         Text(
           extent={{-200,32},{-152,10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSup"),
         Text(
           visible=use_TMix,
           extent={{-200,-30},{-156,-50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TMix"),
         Text(
           visible=have_occSen,
           extent={{-196,-82},{-150,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="nOcc"),
         Text(
           visible=have_winSen,
           extent={{-196,-86},{-152,-108}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uWin"),
         Text(
           visible=use_enthalpy,
           extent={{-192,-152},{-138,-190}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hCut"),
         Text(
           visible=use_enthalpy,
           extent={{-192,-114},{-138,-152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hOut"),
         Text(
           visible=use_fixed_plus_differential_drybulb,
           extent={{-192,-190},{-138,-228}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TRet"),
         Text(
           visible=use_G36FrePro,
           extent={{-196,-230},{-112,-262}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uFreProSta"),
         Text(
           extent={{104,238},{190,204}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSupHeaEco"),
         Text(
           extent={{124,186},{190,152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSupCoo"),
         Text(
           extent={{146,134},{194,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yFan"),
         Text(
           extent={{112,78},{190,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonHeaSet"),
         Text(
           extent={{114,22},{194,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonCooSet"),
         Text(
           extent={{140,-40},{194,-78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHeaCoi"),
         Text(
           extent={{140,-100},{194,-138}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yCooCoi"),
         Text(
           extent={{108,-156},{192,-188}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPos"),
         Text(
           extent={{106,-200},{194,-238}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yRetDamPos"),
         Text(
           extent={{-196,238},{-122,206}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="warUpTim"),
         Text(
           extent={{-196,208},{-116,176}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="cooDowTim"),
         Text(
           extent={{-196,84},{-84,62}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uCooDemLimLev"),
         Text(
           extent={{-196,62},{-84,40}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uHeaDemLimLev")}),
