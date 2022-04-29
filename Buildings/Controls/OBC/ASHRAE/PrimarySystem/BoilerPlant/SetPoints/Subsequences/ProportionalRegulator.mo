@@ -32,11 +32,14 @@ block ProportionalRegulator
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TRetSet,
-    final k=-1)
-    "Compare hot water return temperature and minimum return temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+    "Compare minimum return temperature setpoint to measured return temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=TRetSet)
+    "Constant signal source for minimum return temperature setpoint"
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=TRetSet - TRetMinAll,
@@ -50,11 +53,6 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
-  connect(addPar.u, THotWatRet)
-    annotation (Line(points={{-62,0},{-120,0}}, color={0,0,127}));
-
-  connect(lim.u, addPar.y)
-    annotation (Line(points={{-12,0},{-38,0}}, color={0,0,127}));
 
   connect(lim.y, gai.u)
     annotation (Line(points={{12,0},{38,0}}, color={0,0,127}));
@@ -62,6 +60,12 @@ equation
   connect(gai.y, yRegSig)
     annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
 
+  connect(THotWatRet, sub.u2) annotation (Line(points={{-120,0},{-80,0},{-80,-6},
+          {-62,-6}}, color={0,0,127}));
+  connect(con.y, sub.u1) annotation (Line(points={{-68,40},{-66,40},{-66,6},{-62,
+          6}}, color={0,0,127}));
+  connect(sub.y, lim.u)
+    annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
   annotation (defaultComponentName=
     "proReg",
     Icon(graphics={

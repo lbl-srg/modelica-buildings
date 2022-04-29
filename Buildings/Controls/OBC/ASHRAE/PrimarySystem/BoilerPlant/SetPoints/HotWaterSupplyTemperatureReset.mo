@@ -253,8 +253,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TConBoiHotWatSetOff,
-    final k=1)
+    final p=TConBoiHotWatSetOff)
     "Boiler setpoint for condensing boilers in non-condensing type stage"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 

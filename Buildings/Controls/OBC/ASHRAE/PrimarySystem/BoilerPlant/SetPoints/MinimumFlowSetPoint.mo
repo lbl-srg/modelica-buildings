@@ -83,20 +83,23 @@ protected
     "Boiler maximum design flowrate expanded for element-wise multiplication
     with the staging matrix";
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=1/bypSetRat)
+    "Find time required for changing bypass position setpoint"
+    annotation (Placement(transformation(extent={{210,-260},{230,-240}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Find difference between new and old setpoints"
-    annotation (Placement(transformation(extent={{220,-210},{240,-190}})));
+    annotation (Placement(transformation(extent={{230,-210},{250,-190}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Ensure time required is positive"
-    annotation (Placement(transformation(extent={{280,-210},{300,-190}})));
+    annotation (Placement(transformation(extent={{280,-260},{300,-240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=1e-6,
-    final k=1/bypSetRat)
+    final p=1e-6)
     "Calculate time required to reset setpoint"
-    annotation (Placement(transformation(extent={{250,-210},{270,-190}})));
+    annotation (Placement(transformation(extent={{250,-260},{270,-240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
     final h=0)
@@ -143,8 +146,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nSta,nBoi](
-    final p=fill(1e-8,nSta,nBoi),
-    final k=fill(1, nSta, nBoi))
+    final p=fill(1e-8,nSta,nBoi))
     "Prevent divison by zero"
     annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
 
@@ -181,8 +183,8 @@ protected
     "Extract flow ratio of previous setpoint during stage-up"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt(
-    final k2=-1) "Previous stage during stage change"
+  Buildings.Controls.OBC.CDL.Integers.Subtract subInt
+    "Previous stage during stage change"
     annotation (Placement(transformation(extent={{-62,70},{-42,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -382,14 +384,14 @@ equation
           52,80},{58,80}},
                         color={0,0,127}));
 
-  connect(conInt.y, addInt.u2) annotation (Line(points={{-98,70},{-72,70},{-72,74},
+  connect(conInt.y,subInt. u2) annotation (Line(points={{-98,70},{-72,70},{-72,74},
           {-64,74}},
                    color={255,127,0}));
 
-  connect(uStaSet, addInt.u1) annotation (Line(points={{-160,-90},{-128,-90},{-128,
+  connect(uStaSet,subInt. u1) annotation (Line(points={{-160,-90},{-128,-90},{-128,
           100},{-72,100},{-72,86},{-64,86}},   color={255,127,0}));
 
-  connect(addInt.y, extIndSig1.index) annotation (Line(points={{-40,80},{40,80},
+  connect(subInt.y, extIndSig1.index) annotation (Line(points={{-40,80},{40,80},
           {40,60},{70,60},{70,68}},color={255,127,0}));
 
   connect(matGai.y, extIndSig2.u)
@@ -550,25 +552,27 @@ equation
           {188,-208}}, color={0,0,127}));
   connect(lat2.y, swi3.u2) annotation (Line(points={{-58,-70},{176,-70},{176,-200},
           {188,-200}}, color={255,0,255}));
-  connect(triSam.y, add3.u1) annotation (Line(points={{162,-40},{170,-40},{170,-136},
-          {214,-136},{214,-194},{218,-194}}, color={0,0,127}));
-  connect(swi3.y, add3.u2) annotation (Line(points={{212,-200},{214,-200},{214,-206},
-          {218,-206}}, color={0,0,127}));
   connect(pre1.u, gre.y)
     annotation (Line(points={{226,-110},{222,-110}}, color={255,0,255}));
   connect(tim.y, gre.u1) annotation (Line(points={{250,-40},{254,-40},{254,-88},
           {192,-88},{192,-110},{198,-110}}, color={0,0,127}));
-  connect(add3.y, addPar1.u)
-    annotation (Line(points={{242,-200},{248,-200}}, color={0,0,127}));
   connect(addPar1.y, abs.u)
-    annotation (Line(points={{272,-200},{278,-200}}, color={0,0,127}));
-  connect(abs.y, lin1.x2) annotation (Line(points={{302,-200},{310,-200},{310,
-          -180},{184,-180},{184,-144},{258,-144}}, color={0,0,127}));
-  connect(abs.y, gre.u2) annotation (Line(points={{302,-200},{310,-200},{310,
-          -180},{184,-180},{184,-118},{198,-118}}, color={0,0,127}));
-  connect(abs.y, lin.x2) annotation (Line(points={{302,-200},{310,-200},{310,
-          -180},{184,-180},{184,-4},{258,-4}}, color={0,0,127}));
+    annotation (Line(points={{272,-250},{278,-250}}, color={0,0,127}));
+  connect(abs.y, lin1.x2) annotation (Line(points={{302,-250},{310,-250},{310,-180},
+          {184,-180},{184,-144},{258,-144}},       color={0,0,127}));
+  connect(abs.y, gre.u2) annotation (Line(points={{302,-250},{310,-250},{310,-180},
+          {184,-180},{184,-118},{198,-118}},       color={0,0,127}));
+  connect(abs.y, lin.x2) annotation (Line(points={{302,-250},{310,-250},{310,-180},
+          {184,-180},{184,-4},{258,-4}},       color={0,0,127}));
 
+  connect(sub3.y, gai.u) annotation (Line(points={{252,-200},{260,-200},{260,-230},
+          {200,-230},{200,-250},{208,-250}}, color={0,0,127}));
+  connect(gai.y, addPar1.u)
+    annotation (Line(points={{232,-250},{248,-250}}, color={0,0,127}));
+  connect(swi3.y, sub3.u1) annotation (Line(points={{212,-200},{224,-200},{224,-194},
+          {228,-194}}, color={0,0,127}));
+  connect(triSam.y, sub3.u2) annotation (Line(points={{162,-40},{170,-40},{170,-156},
+          {220,-156},{220,-206},{228,-206}}, color={0,0,127}));
 annotation (
   defaultComponentName="minBoiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

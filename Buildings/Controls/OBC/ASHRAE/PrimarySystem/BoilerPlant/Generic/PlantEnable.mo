@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
 block PlantEnable
   "Sequence to enable/disable boiler plant based on heating hot-water requirements"
 
@@ -43,15 +43,15 @@ block PlantEnable
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
     "Number of heating hot-water requests"
     annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured outdoor air temperature"
-    annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
     "Plant enable signal"
@@ -74,6 +74,11 @@ block PlantEnable
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=-1)
+    "Invert signal for subtraction"
+    annotation (Placement(transformation(extent={{-152,-30},{-132,-10}})));
+
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=0.5)
     "Check if schedule lets the controller enable the plant or not"
@@ -107,10 +112,9 @@ protected
     annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TOutLoc,
-    final k=-1)
+    final p=TOutLoc)
     "Compare measured outdoor air temperature to boiler lockout temperature"
-    annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=-locDt,
@@ -143,7 +147,8 @@ equation
     annotation (Line(points={{180,0},{180,0}}, color={255,0,255}));
   connect(greThr.y, not1.u)
     annotation (Line(points={{-98,-110},{-12,-110}}, color={255,0,255}));
-  connect(hys.u, addPar.y) annotation (Line(points={{-122,-50},{-128,-50}}, color={0,0,127}));
+  connect(hys.u, addPar.y) annotation (Line(points={{-122,-50},{-128,-50},{-128,
+          -34},{-96,-34},{-96,-20},{-98,-20}},                              color={0,0,127}));
   connect(not3.y, tim1.u)
     annotation (Line(points={{-48,-30},{-42,-30}}, color={255,0,255}));
   connect(not4.y, tim2.u)
@@ -174,8 +179,6 @@ equation
           {78,-38}}, color={255,0,255}));
   connect(intGreThr.u, supResReq)
     annotation (Line(points={{-122,50},{-180,50}}, color={255,127,0}));
-  connect(addPar.u, TOut)
-    annotation (Line(points={{-152,-50},{-180,-50}}, color={0,0,127}));
   connect(lat.y, yPla)
     annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
   connect(lat.y, pre1.u) annotation (Line(points={{142,0},{150,0},{150,30},{-70,
@@ -190,6 +193,10 @@ equation
           78,-30}}, color={255,0,255}));
   connect(tim1.passed, mulOr.u[3]) annotation (Line(points={{-18,-38},{20,-38},
           {20,-74.6667},{28,-74.6667}},color={255,0,255}));
+  connect(addPar.u, gai.y)
+    annotation (Line(points={{-122,-20},{-130,-20}}, color={0,0,127}));
+  connect(TOut, gai.u)
+    annotation (Line(points={{-180,-20},{-154,-20}}, color={0,0,127}));
   annotation (defaultComponentName = "plaEna",
   Icon(graphics={
         Rectangle(
