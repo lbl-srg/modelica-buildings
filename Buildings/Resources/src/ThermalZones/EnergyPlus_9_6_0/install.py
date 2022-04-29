@@ -228,7 +228,12 @@ def update_git(spawn_exe):
             repo.index.add([file])
         else:
             print(f"Removing {file} from git")
-            repo.index.remove([file])
+            if os.path.isdir(file):
+                repo.index.remove([file], r=True)
+            else:
+                # The file may already have been removed if its directory was removed in this for loop
+                if os.path.exists(file):
+                    repo.index.remove([file])
 
 if __name__ == "__main__":
 
