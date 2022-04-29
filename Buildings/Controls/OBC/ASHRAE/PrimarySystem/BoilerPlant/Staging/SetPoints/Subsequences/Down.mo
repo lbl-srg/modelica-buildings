@@ -238,7 +238,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-150,34},{-130,54}})));
 
@@ -252,7 +252,7 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 

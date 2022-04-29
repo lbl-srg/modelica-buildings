@@ -72,7 +72,7 @@ block EnableLag_flowrate
     "Check if condition for disabling last lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain hotWatFloRat(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter hotWatFloRat(
     final k=1/VHotWat_flow_nominal)
     "Boiler hot water flow ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));

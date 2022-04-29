@@ -76,7 +76,7 @@ protected
     "Block to detect if any of the pumps are proved ON"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Normalize measured hot water flowrate"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 

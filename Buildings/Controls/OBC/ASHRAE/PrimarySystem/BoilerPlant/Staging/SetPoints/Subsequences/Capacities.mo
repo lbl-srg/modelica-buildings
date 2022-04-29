@@ -140,7 +140,7 @@ protected
     operating in the lowest available stage"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=larGai)
     "Ouputs a very large and unachievable staging up capacity when current is
     the highest available stage"

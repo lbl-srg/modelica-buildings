@@ -145,7 +145,7 @@ protected
     "Boiler stage type matrix"
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
@@ -189,7 +189,7 @@ protected
     "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
@@ -200,7 +200,7 @@ protected
     "Find highest BFirMin in each stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2[nSta]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[nSta]
     "Product"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 

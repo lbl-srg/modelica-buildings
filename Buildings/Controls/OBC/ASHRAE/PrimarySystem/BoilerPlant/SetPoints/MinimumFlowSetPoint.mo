@@ -130,15 +130,15 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSta,nBoi]
     "Element-wise division"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
@@ -165,7 +165,7 @@ protected
     "Design maximum boiler flowrate"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
@@ -214,7 +214,7 @@ protected
     "Pass minimum flow setpoint based on whether stage-up involves a boiler being disabled"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro3
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{92,-100},{112,-80}})));
 
@@ -269,7 +269,7 @@ protected
     "Max flowrate as per 5.3.8.2"
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro4
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{140,-280},{160,-260}})));
 

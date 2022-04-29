@@ -44,7 +44,7 @@ protected
     "Limit input for calculating control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/(TRetSet - TRetMinAll))
     "Calculate control signal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

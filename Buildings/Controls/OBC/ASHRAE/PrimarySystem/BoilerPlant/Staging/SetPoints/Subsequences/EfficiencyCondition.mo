@@ -95,7 +95,7 @@ block EfficiencyCondition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
@@ -104,11 +104,11 @@ protected
     final k=1)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div2
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2
     "Divider to get relative value of flow-rate"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 

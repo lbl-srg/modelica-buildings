@@ -213,7 +213,7 @@ protected
     "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{-420,260},{-400,280}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nSta]
     "Element-wise products"
     annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
 

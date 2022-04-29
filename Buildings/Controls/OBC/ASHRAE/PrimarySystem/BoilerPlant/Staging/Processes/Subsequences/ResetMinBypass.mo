@@ -75,7 +75,7 @@ protected
     "Logical latch"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Flow rate error divided by its setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 

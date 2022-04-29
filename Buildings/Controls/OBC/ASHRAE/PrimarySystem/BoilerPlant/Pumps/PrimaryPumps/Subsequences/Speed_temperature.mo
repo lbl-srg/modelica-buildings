@@ -204,7 +204,7 @@ protected
     "Vector of boiler design flowrates"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nBoi] if not
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nBoi] if not
     primarySecondarySensors
     "Vector of design flowrates only for enabled boilers; Zero for disabled boilers"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
@@ -239,11 +239,11 @@ protected
     "Real replicator"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nBoi] if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nBoi] if not primarySecondarySensors
     "Calculate weights for average based on design flowrate"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi] if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nBoi] if not primarySecondarySensors
     "Calculate weighted boiler supply temperatures"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 

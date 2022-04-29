@@ -76,20 +76,20 @@ protected
     "Adder"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=avePer)
     "Moving average"
     annotation (Placement(transformation(extent={{60,-16},{80,4}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Product"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
     "Product"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
     "Product"
     annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
 

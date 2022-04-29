@@ -118,7 +118,7 @@ protected
     "Compare measured flowrate in primary and secondary circuits"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div if primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Divide div if primarySecondarySensors
     "Normalize flow-rate value"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
@@ -157,7 +157,7 @@ protected
     "Ensure divisor is non-zero"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/VHotWat_flow_nominal) if not primarySecondarySensors
     "Normalize flowrate"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));

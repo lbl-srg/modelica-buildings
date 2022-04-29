@@ -68,7 +68,7 @@ protected
     "Limit signal between 0 and 0.5"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=2) if have_varPriPum
     "Multiply signal by 2"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -97,12 +97,12 @@ protected
     "Limit signal between 0 and 0.5"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=2) if have_varPriPum
     "Multiply signal by 2"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro if have_varPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro if have_varPriPum
     "Normalize regulation signal in terms of pump speed"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
