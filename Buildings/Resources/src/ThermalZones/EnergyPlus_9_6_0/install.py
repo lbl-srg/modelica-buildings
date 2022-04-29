@@ -17,7 +17,7 @@ import shutil
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
 # The setup below will lead to a specific commit being pulled.
 version = "0.3.0"
-commit = "ee6614d522168ceab5cb61b72f7ad67df5e762ab"
+commit = "aaffb71c0c598aba4250c8aacfa04ee6073c0000"
 NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
 
 
