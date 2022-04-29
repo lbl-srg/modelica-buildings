@@ -102,7 +102,7 @@ block ReturnFanDirectPressure
     final Ti=Ti,
     final Td=Td)
     "Building static pressure controller"
-    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Line linExhAirDam
     "Exhaust air damper position"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
@@ -147,7 +147,7 @@ protected
     annotation (Placement(transformation(extent={{0,96},{20,116}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
+    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDam
     "Check if the relief damper should be enabled"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
@@ -204,17 +204,17 @@ equation
   connect(swi.y, dpDisSet)
     annotation (Line(points={{102,-20},{140,-20}}, color={0,0,127}));
   connect(conP.y, linExhAirDam.u)
-    annotation (Line(points={{-18,180},{58,180}}, color={0,0,127}));
+    annotation (Line(points={{-38,180},{58,180}}, color={0,0,127}));
   connect(conP.y, linRetFanStaPre.u)
-    annotation (Line(points={{-18,180},{-10,180},{-10,30},{58,30}},   color={0,0,127}));
+    annotation (Line(points={{-38,180},{-10,180},{-10,30},{58,30}},   color={0,0,127}));
   connect(dpBuiSetPoi.y, div.u2)
     annotation (Line(points={{-108,110},{-100,110},{-100,114},{-82,114}}, color={0,0,127}));
   connect(movMea.y, div.u1)
     annotation (Line(points={{-108,140},{-100,140},{-100,126},{-82,126}}, color={0,0,127}));
   connect(conOne.y, conP.u_s)
-    annotation (Line(points={{-58,180},{-42,180}}, color={0,0,127}));
+    annotation (Line(points={{-78,180},{-62,180}}, color={0,0,127}));
   connect(div.y, conP.u_m)
-    annotation (Line(points={{-58,120},{-50,120},{-50,160},{-30,160},{-30,168}},
+    annotation (Line(points={{-58,120},{-50,120},{-50,168}},
       color={0,0,127}));
   connect(movMea.y, yDpBui)
     annotation (Line(points={{-108,140},{140,140}}, color={0,0,127}));
@@ -273,7 +273,7 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{120,220}}),
         graphics={
         Rectangle(
-          extent={{-138,216},{118,82}},
+          extent={{-138,218},{118,84}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

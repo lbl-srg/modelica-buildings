@@ -26,6 +26,12 @@ block ReturnFanAirflowTracking
     annotation (Dialog(group="Fan controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real maxSpe=1
+    "Upper limit of output"
+    annotation (Dialog(group="Fan controller"));
+  parameter Real minSpe=0
+    "Lower limit of output"
+    annotation (Dialog(group="Fan controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirSup_flow(
     final unit="m3/s",
@@ -64,7 +70,9 @@ protected
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
-    final Td=Td)
+    final Td=Td,
+    final yMax=maxSpe,
+    final yMin=minSpe)
     "Building static pressure controller"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(

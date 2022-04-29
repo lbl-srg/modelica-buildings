@@ -10,10 +10,10 @@ block SeparateWithDP
   parameter Real dpAbsOutDam_min(
     unit="Pa",
     displayUnit="Pa")=0
-    "Absolute pressure difference across the minimum outdoor air damper"
+    "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (Dialog(enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   parameter Real dpDesOutDam_min(unit="Pa", displayUnit="Pa")
-    "Design pressure difference across the minimum outdoor air damper";
+    "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow";
   parameter Real minSpe(unit="1")
      "Minimum supply fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpCon=
