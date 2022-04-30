@@ -95,7 +95,7 @@ First implementation.
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
-          ".\\Resources\\Scripts\\Dymola\\Controls\\OBC\\ASHRAE\\PrimarySystem\\BoilerPlant\\BypassValve\\Validation\\BypassValvePosition.mos"
+          "./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/BypassValve/Validation/BypassValvePosition.mos"
         "Simulate and plot"),
     experiment(
       StartTime=0,
