@@ -455,7 +455,7 @@ equation
   connect(netCon.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
   connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
-    annotation (Line(points={{-94,-49},{-94,-20},{-81,-20}}, color={0,0,127}));
+    annotation (Line(points={{-92,-49},{-92,-20},{-81,-20}}, color={0,0,127}));
   connect(conSupPum.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},{
           -50,-78}}, color={255,0,255}));
   connect(mTanSet_flow.y, conSupPum.mTanSet_flow) annotation (Line(points={{-118,

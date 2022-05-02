@@ -26,7 +26,7 @@ equation
   connect(conPumVal.mTanTop_flow, tanBra.mTanTop_flow)
     annotation (Line(points={{9,54},{-18,54},{-18,11}}, color={0,0,127}));
   connect(conPumVal.mTanBot_flow, tanBra.mTanBot_flow)
-    annotation (Line(points={{9,50},{-14,50},{-14,11}}, color={0,0,127}));
+    annotation (Line(points={{9,50},{-12,50},{-12,11}}, color={0,0,127}));
   connect(netCon.ySup_actual, conPumVal.ySup_actual) annotation (Line(points={{14,11},
           {14,34},{4,34},{4,42},{9,42}},     color={0,0,127}));
   connect(netCon.yRet_actual, conPumVal.yRet_actual) annotation (Line(points={{10,11},

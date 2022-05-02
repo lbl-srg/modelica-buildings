@@ -23,7 +23,7 @@ model TankBranch
         origin={70,110}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={60,110})));
+        origin={80,110})));
   Buildings.Fluid.Storage.Stratified tan(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -80,6 +80,26 @@ model TankBranch
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={20,110})));
+  Modelica.Blocks.Interfaces.RealOutput Ql_flow
+    "Heat loss of tank (positive if heat flows from tank to ambient)"
+    annotation (Placement(transformation(extent={{100,-2},{120,18}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
+    "Heat port tank top (outside insulation)"
+    annotation (Placement(transformation(extent={{14,22},{26,34}}),
+        iconTransformation(extent={{14,34},{26,46}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
+    "Heat port tank side (outside insulation)"
+    annotation (Placement(transformation(extent={{64,-6},{76,6}}),
+        iconTransformation(extent={{26,-6},{38,6}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
+    "Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition"
+    annotation (Placement(transformation(extent={{14,-56},{26,-44}}),
+        iconTransformation(extent={{14,-46},{26,-34}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[tan.nSeg] heaPorVol
+    "Heat port that connects to the control volumes of the tank"
+    annotation (Placement(transformation(extent={{-26,-38},{-14,-26}}),
+        iconTransformation(extent={{-6,-6},{6,6}})));
 equation
   connect(senFloBot.m_flow, mTanBot_flow)
     annotation (Line(points={{61,30},{70,30},{70,110}}, color={0,0,127}));
@@ -104,6 +124,16 @@ equation
           -50,-60},{-100,-60}}, color={0,127,255}));
   connect(senFloTop.m_flow, mTanTop_flow) annotation (Line(points={{-61,-30},{
           -66,-30},{-66,70},{50,70},{50,110}}, color={0,0,127}));
+  connect(tan.Ql_flow, Ql_flow)
+    annotation (Line(points={{11,7.2},{11,8},{110,8}}, color={0,0,127}));
+  connect(tan.heaPorTop, heaPorTop) annotation (Line(points={{2,7.4},{2,16},{20,
+          16},{20,28}}, color={191,0,0}));
+  connect(tan.heaPorSid, heaPorSid) annotation (Line(points={{5.6,0},{6,0},{6,-20},
+          {70,-20},{70,0}}, color={191,0,0}));
+  connect(tan.heaPorBot, heaPorBot)
+    annotation (Line(points={{2,-7.4},{2,-50},{20,-50}}, color={191,0,0}));
+  connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-32},{-8,-32},
+          {-8,-4},{0,-4},{0,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
@@ -114,23 +144,35 @@ equation
           pattern=LinePattern.Dash,
           visible=tankIsOpen),
         Line(
-          points={{60,100},{60,-52},{40,-52}},
+          points={{80,100},{80,50},{60,50}},
           color={0,0,0},
           pattern=LinePattern.Dash),
         Line(points={{-42,-60}}, color={28,108,200}),
-        Line(points={{-40,-60},{-40,50},{0,50},{0,-52},{40,-52},{40,60}}, color=
+        Line(points={{-60,-58},{-60,50},{0,50},{0,-52},{60,-52},{60,60}}, color=
              {28,108,200}),
         Rectangle(
-          extent={{-20,40},{20,-40}},
+          extent={{-28,40},{32,-40}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-26,36},{26,26}},
+          extent={{-50,36},{50,26}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=tankIsOpen)}),                                 Diagram(
+          visible=tankIsOpen),
+        Line(
+          points={{38,0},{114,0},{112,0}},
+          color={127,0,0},
+          pattern=LinePattern.Dot),
+        Line(
+          points={{26,-44},{52,-44},{52,0}},
+          color={127,0,0},
+          pattern=LinePattern.Dot),
+        Line(
+          points={{26,44},{52,44},{52,-2}},
+          color={127,0,0},
+          pattern=LinePattern.Dot)}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
