@@ -6,10 +6,12 @@ model Open "(Draft)"
         final plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open,
         final dp_nominal=300000),
       supPum(
+      plaTyp=nom.plaTyp,
         pumSup(per(pressure(V_flow=nom.m_flow_nominal*{0,1.6,2},
                             dp=(sin.p-101325)*{2,1.6,0}))),
         pumRet(per(pressure(V_flow=nom.mTan_flow_nominal*{0,1.6,2},
-                            dp=(sou.p-101325)*{2,1.6,0})))));
+                            dp=(sou.p-101325)*{2,1.6,0})))),
+    tanBra(tankIsOpen=true));
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule(
       conPumVal(final plaTyp=nom.plaTyp));

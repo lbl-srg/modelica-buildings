@@ -148,6 +148,7 @@ model ClosedDualSource
     T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
+    tankIsOpen=false,
     preDroTanBot(final dp_nominal=nomPla2.dp_nominal*0.05),
     preDroTanTop(final dp_nominal=nomPla2.dp_nominal*0.05),
     redeclare final package Medium = MediumCHW,
@@ -165,6 +166,7 @@ model ClosedDualSource
   Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
+    plaTyp=nomPla2.plaTyp,
     valSupCha(final dpValve_nominal=nomPla2.dp_nominal*0.1),
     valSupOut(final dpValve_nominal=nomPla2.dp_nominal*0.1)) "Supply pump and valves"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));

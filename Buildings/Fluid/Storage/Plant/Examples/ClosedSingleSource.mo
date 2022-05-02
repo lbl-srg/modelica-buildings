@@ -20,6 +20,7 @@ model ClosedSingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
+    tankIsOpen=false,
     preDroTanBot(final dp_nominal=nom.dp_nominal*0.05),
     preDroTanTop(final dp_nominal=nom.dp_nominal*0.05),
     redeclare final package Medium = Medium,
@@ -37,6 +38,7 @@ model ClosedSingleSource "Simple system model with one source and one user"
   Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
     redeclare final package Medium = Medium,
     final nom=nom,
+    plaTyp=nom.plaTyp,
     valSupCha(final dpValve_nominal=nom.dp_nominal*0.1),
     valSupOut(final dpValve_nominal=nom.dp_nominal*0.1)) "Supply pump and valves"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));

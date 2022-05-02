@@ -4,7 +4,9 @@ model ClosedRemote
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
       nom(final plaTyp=
-        Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote));
+        Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote),
+    supPum(plaTyp=nom.plaTyp),
+    tanBra(tankIsOpen=false));
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule(
       conPumVal(final plaTyp=nom.plaTyp));
