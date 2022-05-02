@@ -23,9 +23,10 @@ partial model PartialPlant "Partial model of a storage plant validation model"
     redeclare final package Medium = Medium,
     final nom=nom) "Tank branch"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
+  Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = Medium,
-    final nom=nom) "Supply pump and valves"
+    final nom=nom)
+    "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
@@ -49,17 +50,17 @@ partial model PartialPlant "Partial model of a storage plant validation model"
 
 equation
 
-  connect(tanBra.port_CHWS, supPum.port_chiOut)
+  connect(tanBra.port_CHWS,netCon. port_chiOut)
     annotation (Line(points={{-10,6},{10,6}}, color={0,127,255}));
-  connect(tanBra.port_CHWR, supPum.port_chiInl)
+  connect(tanBra.port_CHWR,netCon. port_chiInl)
     annotation (Line(points={{-10,-6},{10,-6}}, color={0,127,255}));
   connect(ideChiBra.port_b, tanBra.port_chiOut)
     annotation (Line(points={{-50,6},{-30,6}}, color={0,127,255}));
   connect(ideChiBra.port_a, tanBra.port_chiInl)
     annotation (Line(points={{-50,-6},{-30,-6}}, color={0,127,255}));
-  connect(supPum.port_CHWS, sin.ports[1]) annotation (Line(points={{30,6},{74,6},
+  connect(netCon.port_CHWS, sin.ports[1]) annotation (Line(points={{30,6},{74,6},
           {74,20},{80,20}}, color={0,127,255}));
-  connect(supPum.port_CHWR, sou.ports[1]) annotation (Line(points={{30,-6},{74,
+  connect(netCon.port_CHWR, sou.ports[1]) annotation (Line(points={{30,-6},{74,
           -6},{74,-20},{80,-20}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

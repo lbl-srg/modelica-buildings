@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant;
-model SupplyPumpValve
+model NetworkConnection
   "Storage plant section with supply pump and valves"
 
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
@@ -326,6 +326,7 @@ equation
           visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open)}),
                                                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    defaultComponentName = "netCon",
     Documentation(info="<html>
 <p>
 This model is part of a storage plant model.
@@ -430,4 +431,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end SupplyPumpValve;
+end NetworkConnection;

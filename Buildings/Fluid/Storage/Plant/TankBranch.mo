@@ -146,8 +146,8 @@ Because an open tank exposes the hydraulic loop to the atmospheric pressure,
 the mass flow rate of the water through the top port and bottom port of the tank
 is not conserved. Flow rate sensors are therefore put on both the top and bottom
 sides of the tank to allow the pumps and valves implemented in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.SupplyPumpValve\">
-Buildings.Fluid.Storage.Plant.SupplyPumpValve</a>
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
+Buildings.Fluid.Storage.Plant.NetworkConnection</a>
 to balance the flow, so that the open tank is not flooded or drained.
 </p>
 </html>", revisions="<html>

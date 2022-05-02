@@ -3,9 +3,9 @@ model ClosedRemote
   "Validation model of a storage plant with a closed tank allowing remote charging"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
+    netCon(plaTyp=nom.plaTyp),
       nom(final plaTyp=
         Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote),
-    supPum(plaTyp=nom.plaTyp),
     tanBra(tankIsOpen=false));
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule(
@@ -14,11 +14,11 @@ model ClosedRemote
 equation
   connect(tanBra.mTanBot_flow,conPumVal. mTanBot_flow)
     annotation (Line(points={{-14,11},{-14,50},{9,50}}, color={0,0,127}));
-  connect(supPum.ySup_actual,conPumVal. ySup_actual) annotation (Line(points={{14,11},
+  connect(netCon.ySup_actual,conPumVal. ySup_actual) annotation (Line(points={{14,11},
           {14,34},{4,34},{4,42},{9,42}},        color={0,0,127}));
-  connect(conPumVal.yPumSup, supPum.yPumSup)
+  connect(conPumVal.yPumSup,netCon.yPumSup)
     annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
-  connect(conPumVal.yValSup, supPum.yValSup)
+  connect(conPumVal.yValSup,netCon.yValSup)
     annotation (Line(points={{22,39},{22,11}}, color={0,0,127}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));

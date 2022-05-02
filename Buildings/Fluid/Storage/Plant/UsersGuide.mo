@@ -46,8 +46,8 @@ if the model is configured to have an open tank.
 </li>
 <li>
 The supply pump and valves are implemented in 
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.SupplyPumpValve\">
-Buildings.Fluid.Storage.Plant.SupplyPumpValve</a>.
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
+Buildings.Fluid.Storage.Plant.NetworkConnection</a>.
 See its documentation for details.
 </li>
 </ul>

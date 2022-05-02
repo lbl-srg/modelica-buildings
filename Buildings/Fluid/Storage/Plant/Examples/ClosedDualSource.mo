@@ -163,12 +163,13 @@ model ClosedDualSource
     final cheVal(final dpValve_nominal=0.1*nomPla2.dp_nominal,
                  final dpFixed_nominal=0.1*nomPla2.dp_nominal)) "Chiller branch"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Fluid.Storage.Plant.SupplyPumpValve supPum(
+  Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
     plaTyp=nomPla2.plaTyp,
     valSupCha(final dpValve_nominal=nomPla2.dp_nominal*0.1),
-    valSupOut(final dpValve_nominal=nomPla2.dp_nominal*0.1)) "Supply pump and valves"
+    valSupOut(final dpValve_nominal=nomPla2.dp_nominal*0.1))
+    "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={3600/9*6,3600/9*8},
       startValue=false) "Tank is being charged remotely" annotation (Placement(
@@ -441,17 +442,17 @@ equation
                                           color={255,0,255}));
   connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-110},{-42,-110},{-42,-102}},
         color={255,0,255}));
-  connect(tanBra.port_CHWR, supPum.port_chiInl)
+  connect(tanBra.port_CHWR,netCon. port_chiInl)
     annotation (Line(points={{-90,-66},{-80,-66}}, color={0,127,255}));
-  connect(tanBra.port_CHWS, supPum.port_chiOut)
+  connect(tanBra.port_CHWS,netCon. port_chiOut)
     annotation (Line(points={{-90,-54},{-80,-54}}, color={0,127,255}));
-  connect(preDroU3S2.port_b, supPum.port_CHWR) annotation (Line(points={{10,-80},
+  connect(preDroU3S2.port_b,netCon. port_CHWR) annotation (Line(points={{10,-80},
           {-36,-80},{-36,-66},{-60,-66}}, color={0,127,255}));
-  connect(preDroU2S2.port_b, supPum.port_CHWR) annotation (Line(points={{10,-20},
+  connect(preDroU2S2.port_b,netCon. port_CHWR) annotation (Line(points={{10,-20},
           {4,-20},{4,-80},{-36,-80},{-36,-66},{-60,-66}}, color={0,127,255}));
-  connect(supPum.port_CHWS, preDroS2U3.port_a) annotation (Line(points={{-60,-54},
+  connect(netCon.port_CHWS, preDroS2U3.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,-40},{-30,-40}}, color={0,127,255}));
-  connect(supPum.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
+  connect(netCon.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
   connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
     annotation (Line(points={{-94,-49},{-94,-20},{-81,-20}}, color={0,0,127}));
@@ -462,11 +463,11 @@ equation
   connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
           -90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,-10}},
         color={255,0,255}));
-  connect(conSupPum.ySup_actual, supPum.ySup_actual) annotation (Line(points={{-81,-28},
+  connect(conSupPum.ySup_actual,netCon. ySup_actual) annotation (Line(points={{-81,-28},
           {-84,-28},{-84,-38},{-76,-38},{-76,-49}},          color={0,0,127}));
-  connect(conSupPum.yPumSup, supPum.yPumSup)
+  connect(conSupPum.yPumSup,netCon. yPumSup)
     annotation (Line(points={{-72,-31},{-72,-49}}, color={0,0,127}));
-  connect(conSupPum.yValSup, supPum.yValSup)
+  connect(conSupPum.yValSup,netCon. yValSup)
     annotation (Line(points={{-68,-31},{-68,-49}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/ClosedDualSource.mos"

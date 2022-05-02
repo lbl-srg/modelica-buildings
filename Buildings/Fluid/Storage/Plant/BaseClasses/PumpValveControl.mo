@@ -336,8 +336,8 @@ First implementation. This is for
 </html>", info="<html>
 <p>
 This is a control block for the group of supply pump(s) and valves in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.SupplyPumpValve\">
-Buildings.Fluid.Storage.Plant.SupplyPumpValve</a>
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
+Buildings.Fluid.Storage.Plant.NetworkConnection</a>
 whose documentation explains this block's control logic.
 It uses <code>plaTyp</code> to select components used for an open or closed tank.
 </p>

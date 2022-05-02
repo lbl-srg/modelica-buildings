@@ -4,9 +4,9 @@ model ClosedLocal
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
+    netCon(plaTyp=nom.plaTyp),
       nom(final plaTyp=
         Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal),
-    supPum(plaTyp=nom.plaTyp),
     tanBra(tankIsOpen=false));
 
   Modelica.Blocks.Sources.TimeTable set_mPumSec_flow(table=[0,1; 900,1; 900,-1;
@@ -35,7 +35,7 @@ equation
     annotation (Line(points={{-39,70},{-22,70}}, color={0,0,127}));
   connect(tanBra.mTanBot_flow, gai.u) annotation (Line(points={{-14,11},{-14,14},
           {-10,14},{-10,18}}, color={0,0,127}));
-  connect(supPum.yPumSup, conPID_PumSec.y)
+  connect(netCon.yPumSup, conPID_PumSec.y)
     annotation (Line(points={{18,11},{18,70},{1,70}}, color={0,0,127}));
   connect(mSet_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
