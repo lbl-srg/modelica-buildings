@@ -57,7 +57,7 @@ spawn fmu --simulate Buildings_Controls_OBC_CDL_Continuous_Validation_Line.fmu -
 * Install clang development libraries. One Linux this would be...
 
 ```shell
-apt install libllvm10 llvm-10-dev clang-10 libclang-10-dev liblld-10-dev liblld-10-dev
+apt install libllvm10 llvm-10-dev clang-10 libclang-10-dev liblld-10-dev liblld-10-dev gfortran
 ```
 
 ```shell
