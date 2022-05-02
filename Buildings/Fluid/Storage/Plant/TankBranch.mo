@@ -90,7 +90,7 @@ model TankBranch
         iconTransformation(extent={{14,34},{26,46}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
     "Heat port tank side (outside insulation)"
-    annotation (Placement(transformation(extent={{64,-6},{76,6}}),
+    annotation (Placement(transformation(extent={{34,-36},{46,-24}}),
         iconTransformation(extent={{26,-6},{38,6}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
     "Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition"
@@ -98,7 +98,7 @@ model TankBranch
         iconTransformation(extent={{14,-46},{26,-34}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[tan.nSeg] heaPorVol
     "Heat port that connects to the control volumes of the tank"
-    annotation (Placement(transformation(extent={{-26,-38},{-14,-26}}),
+    annotation (Placement(transformation(extent={{-26,-36},{-14,-24}}),
         iconTransformation(extent={{-6,-6},{6,6}})));
 equation
   connect(senFloBot.m_flow, mTanBot_flow)
@@ -128,11 +128,11 @@ equation
     annotation (Line(points={{11,7.2},{11,8},{110,8}}, color={0,0,127}));
   connect(tan.heaPorTop, heaPorTop) annotation (Line(points={{2,7.4},{2,16},{20,
           16},{20,28}}, color={191,0,0}));
-  connect(tan.heaPorSid, heaPorSid) annotation (Line(points={{5.6,0},{6,0},{6,-20},
-          {70,-20},{70,0}}, color={191,0,0}));
+  connect(tan.heaPorSid, heaPorSid) annotation (Line(points={{5.6,0},{6,0},{6,
+          -30},{40,-30}},   color={191,0,0}));
   connect(tan.heaPorBot, heaPorBot)
     annotation (Line(points={{2,-7.4},{2,-50},{20,-50}}, color={191,0,0}));
-  connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-32},{-8,-32},
+  connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-30},{-8,-30},
           {-8,-4},{0,-4},{0,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
