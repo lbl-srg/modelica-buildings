@@ -5,8 +5,15 @@ model NegativeStartTime "Validation model for negative start time"
     name="Site Direct Solar Radiation Rate per Area",
     key="Environment",
     y(final unit="W/m2"))
-    "Block that reads incident beam solar radiation on south window from EnergyPlus"
+    "Block that reads direct solar radiation from EnergyPlus"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+  Buildings.ThermalZones.EnergyPlus_9_6_0.OutputVariable sitOutDryBul(
+    name="Site Outdoor Air Drybulb Temperature",
+    key="Environment",
+    y(final unit="K",
+      displayUnit="degC"))
+    "Block that reads outside dry bulb temperature from EnergyPlus"
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   annotation (
   __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Validation/RunPeriod/NegativeStartTime.mos" "Simulate and plot"),
