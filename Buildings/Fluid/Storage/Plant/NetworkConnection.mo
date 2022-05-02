@@ -370,7 +370,7 @@ Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl</a>.
     <td>Supply pump<br/>pumSup</td>
     <td>Always</td>
     <td>Outputs CHW from the plant,<br/>tracks the flow rate at tank bottom</td>
-    <td rowspan=\"6\">The plant is online.*</td>
+    <td rowspan=\"6\">The plant is available.*</td>
     <td rowspan=\"2\">The tank is NOT being charged remotely.</td>
     <td rowspan=\"2\">Charging valve(s) are at most 1% open.</td>
   </tr>
@@ -418,9 +418,9 @@ Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl</a>.
 </tbody>
 </table>
 <p>
-*The plant being online means that it is connected to the district CHW network.
-When it is offline, although the valves cut the plant off of the network,
-it can still charge its tank locally.
+*The plant being available means that it is hydraulically connected to the district
+CHW network. When it is unavailable, although the plant is disconnected from
+the network by valve, it can still charge its tank locally.
 </p>
 </html>", revisions="<html>
 <ul>

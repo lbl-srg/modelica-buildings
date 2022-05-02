@@ -43,8 +43,8 @@ block PumpValveControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,0})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnl
-    "= true if plant is online (not cut off from the network by valve)"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAva
+    "= true if plant is available"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={270,28}),
@@ -89,7 +89,7 @@ block PumpValveControl
         rotation=-90,
         origin={30,-110})));
   Buildings.Controls.OBC.CDL.Logical.And3 and3Out
-    "Outputting = plant online AND no remote charging command AND charging valve(s) closed"
+    "Outputting = plant available AND no remote charging command AND charging valve(s) closed"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -249,7 +249,7 @@ equation
   connect(conPI_pumRet.u_s, mTanSet_flow)
     annotation (Line(points={{90,22},{90,88},{-150,88}}, color={0,0,127}));
 
-  connect(and3Out.u1, uOnl)
+  connect(and3Out.u1,uAva)
     annotation (Line(points={{238,22},{238,28},{270,28}}, color={255,0,255}));
   connect(mTanSet_flow, conPI_valOut.u_s)
     annotation (Line(points={{-150,88},{150,88},{150,22}}, color={0,0,127}));
@@ -313,7 +313,7 @@ equation
           108}}, color={255,0,255}));
   connect(and3Cha.u3, isValOutClo.y)
     annotation (Line(points={{182,22},{182,130},{62,130}}, color={255,0,255}));
-  connect(and3Cha.u1, uOnl)
+  connect(and3Cha.u1,uAva)
     annotation (Line(points={{198,22},{198,28},{270,28}}, color={255,0,255}));
   connect(booToReaValCha.u, and3Cha.y)
     annotation (Line(points={{190,-98},{190,-2}}, color={255,0,255}));

@@ -1,8 +1,8 @@
 within Buildings.Fluid.Storage.Plant.Validation.BaseClasses;
 partial model RemoteChargingSchedule
   "Schedules for validation models with remote charging"
-  Modelica.Blocks.Sources.BooleanTable uOnl(table={3600/7*2})
-    "True = plant online (outputting CHW to the network); False = offline"
+  Modelica.Blocks.Sources.BooleanTable uAva(table={3600/7*2})
+    "True = plant is available; False = unavailable"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={0,3600/7*6}, startValue=true)
               "Tank is being charged remotely"
@@ -21,7 +21,7 @@ partial model RemoteChargingSchedule
 equation
   connect(uRemCha.y, conPumVal.uRemCha) annotation (Line(points={{-39,70},{34,70},
           {34,60},{32,60}}, color={255,0,255}));
-  connect(uOnl.y, conPumVal.uOnl) annotation (Line(points={{-79,90},{38,90},{38,
+  connect(uAva.y,conPumVal.uAva)  annotation (Line(points={{-79,90},{38,90},{38,
           56},{32,56}}, color={255,0,255}));
   connect(conPumVal.mTanSet_flow, set_mTan_flow.y) annotation (Line(points={{9,58},{
           -60,58},{-60,50},{-79,50}},  color={0,0,127}));
@@ -46,7 +46,7 @@ that allows remote charging.
 <tbody>
   <tr>
     <td>1.</td>
-    <td>offline</td>
+    <td>unavailable</td>
     <td>off</td>
     <td>off</td>
     <td>N/A</td>
@@ -54,7 +54,7 @@ that allows remote charging.
   </tr>
   <tr>
     <td>2.</td>
-    <td>offline</td>
+    <td>unavailable</td>
     <td>on</td>
     <td>charging</td>
     <td>N/A</td>
@@ -62,7 +62,7 @@ that allows remote charging.
   </tr>
   <tr>
     <td>3.</td>
-    <td>online</td>
+    <td>available</td>
     <td>on</td>
     <td>charging</td>
     <td>normal</td>
@@ -70,7 +70,7 @@ that allows remote charging.
   </tr>
   <tr>
     <td>4.</td>
-    <td>online</td>
+    <td>available</td>
     <td>on</td>
     <td>off</td>
     <td>normal</td>
@@ -78,7 +78,7 @@ that allows remote charging.
   </tr>
   <tr>
     <td>5.</td>
-    <td>online</td>
+    <td>available</td>
     <td>on</td>
     <td>discharging</td>
     <td>normal</td>
@@ -86,7 +86,7 @@ that allows remote charging.
   </tr>
   <tr>
     <td>6.</td>
-    <td>online</td>
+    <td>available</td>
     <td>off</td>
     <td>discharging</td>
     <td>normal</td>
@@ -94,7 +94,7 @@ that allows remote charging.
   </tr>
   <tr>
     <td>7.</td>
-    <td>online</td>
+    <td>available</td>
     <td>off</td>
     <td>charging</td>
     <td>reverse</td>

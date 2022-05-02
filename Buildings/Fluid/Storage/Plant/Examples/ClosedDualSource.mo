@@ -253,7 +253,7 @@ model ClosedDualSource
         rotation=0,
         origin={-50,130})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCat(uLow=0.05, uHigh=0.1)
-    "Shut off at con.yVal = 0.05 and restarts at 0.5" annotation (Placement(
+    "Shut off at con.yVal = 0.05 and restarts at 0.1" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -456,7 +456,7 @@ equation
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
   connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
     annotation (Line(points={{-92,-49},{-92,-20},{-81,-20}}, color={0,0,127}));
-  connect(conSupPum.uOnl, or2.y) annotation (Line(points={{-58,-14},{-50,-14},{
+  connect(conSupPum.uAva, or2.y) annotation (Line(points={{-58,-14},{-50,-14},{
           -50,-78}}, color={255,0,255}));
   connect(mTanSet_flow.y, conSupPum.mTanSet_flow) annotation (Line(points={{-118,
           -10},{-86,-10},{-86,-12},{-81,-12}}, color={0,0,127}));
@@ -492,8 +492,9 @@ The system is pressurised before this supply pump.
 The second source has a chiller and a stratified CHW tank. Its piping is arranged
 in a way that allows the tank to be charged remotely by the other source.
 Its supply pump is controlled to maintain the flow rate setpoint of the tank.
-This plant is offline when the most open control valve of all users is less than
-5% open and is back online when this value is more than 50%.
+This plant is disconnected (set to be unavailable) when the largest position of
+user control valves less than 5% open. It is set back to be available when
+this value is higher than 10%.
 </p>
 <p>
 The timetables give the system the following behaviour:
