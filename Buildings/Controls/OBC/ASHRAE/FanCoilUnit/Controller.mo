@@ -348,32 +348,32 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-240,50},{-200,90}}),
-      iconTransformation(extent={{-240,20},{-200,60}})));
+      iconTransformation(extent={{-240,60},{-200,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-      iconTransformation(extent={{-240,-260},{-200,-220}})));
+      iconTransformation(extent={{-240,-220},{-200,-180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-      iconTransformation(extent={{-240,-220},{-200,-180}})));
+      iconTransformation(extent={{-240,-180},{-200,-140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
-        iconTransformation(extent={{-240,-20},{-200,20}})));
+        iconTransformation(extent={{-240,20},{-200,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaDemLimLev
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
-        iconTransformation(extent={{-240,-60},{-200,-20}})));
+        iconTransformation(extent={{-240,-20},{-200,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nOcc if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
-        iconTransformation(extent={{-240,-180},{-200,-140}})));
+        iconTransformation(extent={{-240,-140},{-200,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
@@ -381,7 +381,7 @@ block Controller
     final quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-240,170},{-200,210}}),
-        iconTransformation(extent={{-240,220},{-200,260}})));
+        iconTransformation(extent={{-240,260},{-200,300}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
@@ -389,14 +389,14 @@ block Controller
     final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
     annotation (Placement(transformation(extent={{-240,200},{-200,240}}),
-        iconTransformation(extent={{-240,180},{-200,220}})));
+        iconTransformation(extent={{-240,220},{-200,260}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     displayUnit="min",
     final quantity="Time") "Time to next occupied period"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-240,140},{-200,180}})));
+        iconTransformation(extent={{-240,180},{-200,220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
@@ -404,7 +404,7 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Measured zone temperatures"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
-        iconTransformation(extent={{-240,-140},{-200,-100}})));
+        iconTransformation(extent={{-240,-100},{-200,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -412,7 +412,7 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
-        iconTransformation(extent={{-240,-100},{-200,-60}})));
+        iconTransformation(extent={{-240,-60},{-200,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
     final unit="K",
@@ -420,7 +420,7 @@ block Controller
     final quantity="TemperatureDifference") if cooAdj or sinAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
-      iconTransformation(extent={{-240,100},{-200,140}})));
+      iconTransformation(extent={{-240,140},{-200,180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
     final unit="K",
@@ -428,12 +428,46 @@ block Controller
     final quantity="TemperatureDifference") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-      iconTransformation(extent={{-240,60},{-200,100}})));
+      iconTransformation(extent={{-240,100},{-200,140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
+    final unit="1",
+    displayUnit="1") if have_heatingCoil
+    "Measured heating coil control action"
+    annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
+        iconTransformation(extent={{-240,-260},{-200,-220}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
+    final unit="1",
+    displayUnit="1") if have_coolingCoil
+    "Measured cooling coil control action"
+    annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
+        iconTransformation(extent={{-240,-300},{-200,-260}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
     "Fan enable signal"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
-      iconTransformation(extent={{200,100},{240,140}})));
+      iconTransformation(extent={{200,180},{240,220}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq if have_coolingCoil
+    "Chilled water reset request"
+    annotation (Placement(transformation(extent={{200,-120},{240,-80}}),
+        iconTransformation(extent={{200,-100},{240,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq if have_coolingCoil
+    "Chiller plant requests"
+    annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
+        iconTransformation(extent={{200,-140},{240,-100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_heatingCoil
+    "Hot water reset requests"
+    annotation (Placement(transformation(extent={{200,-200},{240,-160}}),
+        iconTransformation(extent={{200,-180},{240,-140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_heatingCoil
+    "Hot water plant requests"
+    annotation (Placement(transformation(extent={{200,-240},{240,-200}}),
+        iconTransformation(extent={{200,-220},{240,-180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSupSet(
     final unit="K",
@@ -441,7 +475,7 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
-      iconTransformation(extent={{200,-140},{240,-100}})));
+      iconTransformation(extent={{200,-60},{240,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
@@ -449,7 +483,7 @@ block Controller
     final unit="1")
     "Fan speed signal"
     annotation (Placement(transformation(extent={{200,140},{240,180}}),
-      iconTransformation(extent={{200,60},{240,100}})));
+      iconTransformation(extent={{200,140},{240,180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
@@ -457,7 +491,7 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
-      iconTransformation(extent={{200,20},{240,60}})));
+      iconTransformation(extent={{200,100},{240,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
@@ -465,7 +499,7 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
-      iconTransformation(extent={{200,-20},{240,20}})));
+      iconTransformation(extent={{200,60},{240,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
@@ -473,7 +507,7 @@ block Controller
     final unit="1") if have_coolingCoil
     "Cooling coil control signal"
     annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
-      iconTransformation(extent={{200,-100},{240,-60}})));
+      iconTransformation(extent={{200,-20},{240,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
@@ -481,7 +515,7 @@ block Controller
     final unit="1") if have_heatingCoil
     "Heating coil control signal"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
-      iconTransformation(extent={{200,-60},{240,-20}})));
+      iconTransformation(extent={{200,20},{240,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
     modSetPoi(
@@ -530,6 +564,16 @@ block Controller
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=0) if not have_coolingCoil
+    "Constant zero signal source if cooling coil is absent"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests sinAHUPlaReq(
+    final have_hotWatCoi=have_heatingCoil)
+    "Block for generating chilled water requests and hot water requests for their respective plants"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant unOccMod(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Unoccupied mode"
@@ -674,8 +718,8 @@ equation
   connect(modSetPoi.yOpeMod, fanSpe.opeMod) annotation (Line(points={{-118,168},
           {-60,168},{-60,180},{20,180},{20,186},{118,186}}, color={255,127,0}));
 
-  connect(TSup, TSupAir.TAirSup) annotation (Line(points={{-220,-20},{-62,-20},{
-          -62,8},{98,8}},  color={0,0,127}));
+  connect(TSup, TSupAir.TAirSup) annotation (Line(points={{-220,-20},{-60,-20},{
+          -60,8},{98,8}},  color={0,0,127}));
 
   connect(uFan, fanSpe.uFanPro) annotation (Line(points={{-220,-120},{28,-120},{
           28,182},{118,182}}, color={255,0,255}));
@@ -709,140 +753,196 @@ equation
           {-184,158},{-142,158}}, color={0,0,127}));
   connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-220,100},{-152,
           100},{-152,156},{-142,156}}, color={0,0,127}));
+  connect(TSupAir.TAirSupSet, sinAHUPlaReq.TSupCoo) annotation (Line(points={{122,
+          10},{130,10},{130,-60},{90,-60},{90,-85},{98,-85}}, color={0,0,127}));
+  connect(TSupAir.TAirSupSet, sinAHUPlaReq.TSupHeaEco) annotation (Line(points={
+          {122,10},{130,10},{130,-60},{90,-60},{90,-95},{98,-95}}, color={0,0,127}));
+  connect(TSup, sinAHUPlaReq.TAirSup) annotation (Line(points={{-220,-20},{-60,-20},
+          {-60,-81},{98,-81}}, color={0,0,127}));
+  connect(uCooCoi, sinAHUPlaReq.uCooCoi_actual) annotation (Line(points={{-220,-240},
+          {80,-240},{80,-90},{98,-90}}, color={0,0,127}));
+  connect(uHeaCoi, sinAHUPlaReq.uHeaCoi_actual) annotation (Line(points={{-220,-200},
+          {90,-200},{90,-99},{98,-99}}, color={0,0,127}));
+  connect(con.y, sinAHUPlaReq.uCooCoi_actual) annotation (Line(points={{62,-50},
+          {80,-50},{80,-90},{98,-90}}, color={0,0,127}));
+  connect(sinAHUPlaReq.yChiWatResReq, yChiWatResReq) annotation (Line(points={{122,
+          -82},{160,-82},{160,-100},{220,-100}}, color={255,127,0}));
+  connect(sinAHUPlaReq.yChiPlaReq, yChiPlaReq) annotation (Line(points={{122,-87},
+          {156,-87},{156,-140},{220,-140}}, color={255,127,0}));
+  connect(sinAHUPlaReq.yHotWatResReq, yHotWatResReq) annotation (Line(points={{122,
+          -93},{150,-93},{150,-180},{220,-180}}, color={255,127,0}));
+  connect(sinAHUPlaReq.yHotWatPlaReq, yHotWatPlaReq) annotation (Line(points={{122,
+          -98},{144,-98},{144,-220},{220,-220}}, color={255,127,0}));
 annotation (defaultComponentName="conFCU",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{200,300}}),
         graphics={Rectangle(
-        extent={{-200,-260},{200,260}},
+        extent={{-200,-300},{200,300}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-210,340},{210,260}},
+          extent={{-200,380},{200,300}},
           textString="%name",
           textColor={0,0,255}),
         Text(
-          extent={{-196,176},{-134,148}},
+          extent={{-196,216},{-134,188}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="tNexOcc"),
         Text(
-          extent={{-200,-108},{-156,-128}},
+          extent={{-200,-68},{-156,-88}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
-          extent={{-200,52},{-154,32}},
+          extent={{-200,92},{-154,72}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOcc"),
         Text(
-          extent={{-200,-68},{-152,-90}},
+          extent={{-200,-28},{-152,-50}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSup"),
         Text(
-          extent={{-198,-172},{-152,-144}},
+          extent={{-198,-132},{-152,-104}},
           textColor={244,125,35},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="nOcc"),
         Text(
           visible=have_winSen,
-          extent={{-198,-226},{-154,-248}},
+          extent={{-198,-186},{-154,-208}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uWin"),
         Text(
-          extent={{132,-102},{198,-136}},
+          extent={{132,-22},{198,-56}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TAirSup"),
         Text(
-          extent={{150,96},{198,72}},
+          extent={{150,174},{198,150}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yFanSpe"),
         Text(
-          extent={{116,56},{194,22}},
+          extent={{116,136},{194,102}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonHeaSet"),
         Text(
-          extent={{116,18},{196,-20}},
+          extent={{116,98},{196,60}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonCooSet"),
         Text(
-          extent={{142,-20},{196,-58}},
+          extent={{142,60},{196,22}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHeaCoi"),
         Text(
-          extent={{142,-60},{196,-98}},
+          extent={{142,20},{196,-18}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yCooCoi"),
         Text(
-          extent={{-194,258},{-120,226}},
+          extent={{-194,298},{-120,266}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="warUpTim"),
         Text(
-          extent={{-194,218},{-114,186}},
+          extent={{-194,258},{-114,226}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="cooDowTim"),
         Text(
-          extent={{-194,14},{-82,-8}},
+          extent={{-194,54},{-82,32}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uCooDemLimLev"),
         Text(
-          extent={{-194,-28},{-82,-50}},
+          extent={{-194,12},{-82,-10}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uHeaDemLimLev"),
         Text(
-          extent={{-202,-190},{-156,-210}},
+          extent={{-202,-150},{-156,-170}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uFan"),
         Text(
-          extent={{158,134},{202,112}},
+          extent={{158,212},{202,190}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yFan"),
         Text(
-          extent={{-196,134},{-134,106}},
+          extent={{-196,174},{-134,146}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="setAdj"),
         Text(
-          extent={{-196,94},{-134,66}},
+          extent={{-196,134},{-134,106}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="heaSetAdj")}),
+          textString="heaSetAdj"),
+        Text(
+          extent={{-196,-228},{-148,-250}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uHeaCoi"),
+        Text(
+          extent={{-196,-268},{-148,-290}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uCooCoi"),
+        Text(
+          extent={{106,-90},{198,-66}},
+          textColor={244,125,35},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yChiWatResReq"),
+        Text(
+          extent={{132,-130},{198,-108}},
+          textColor={244,125,35},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yChiPlaReq"),
+        Text(
+          extent={{104,-170},{196,-146}},
+          textColor={244,125,35},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yHotWatResReq"),
+        Text(
+          extent={{106,-210},{198,-186}},
+          textColor={244,125,35},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yHotWatPlaReq")}),
           Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-200,-200},{200,240}})),
+          preserveAspectRatio=false, extent={{-200,-260},{200,240}})),
 Documentation(info="<html>
 <p>
 Block for fan coil unit control. It outputs supply fan enable signal and speed signal,
