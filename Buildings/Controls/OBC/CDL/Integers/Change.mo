@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block Change
   "Output whether the Integer input changes values, increases or decreases"
-  parameter Boolean y_start=false
-    "Initial value of y";
   Interfaces.IntegerInput u
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -17,7 +15,6 @@ block Change
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 initial equation
-  pre(y)=y_start;
   pre(u)=u;
 
 equation
@@ -68,6 +65,12 @@ When the input <code>u</code> decreases, the output <code>down</code> will be
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 3, 2022, by Michael Wetter:<br/>
+Removed non-needed parameter <code>y_start</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
+</li>
 <li>
 January 26, 2021, by Michael Wetter:<br/>
 Changed initialization of <code>pre(u)</code> to use the initial value of the input rather than <code>0</code>.<br/>

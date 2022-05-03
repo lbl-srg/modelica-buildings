@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block FallingEdge
   "Output y is true, if the input u has a falling edge (y = edge(not u))"
-  parameter Boolean pre_u_start=false
-    "Start value of pre(u) at initial time";
+
   Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -15,7 +14,7 @@ protected
     "Boolean not of the input";
 
 initial equation
-  pre(not_u)=not pre_u_start;
+  pre(not_u)=not u;
 
 equation
   y=edge(not_u);
@@ -64,6 +63,12 @@ Otherwise the output is <code>false</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 3, 2022, by Michael Wetter:<br/>
+Removed non-needed parameter <code>pre_u_start</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

@@ -689,7 +689,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Types.Day
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\">#2839</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -697,7 +697,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\"># 2580</a>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">#2580</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -707,18 +707,27 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\"># 2544</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">#2544</a>.
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-<tr><td valign=\"top\">
-    Buildings.Controls.OBC.CDL.Logical.IntegerSwitch<br/>
-    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch<br/>
-    Buildings.Controls.OBC.CDL.Logical.Switch
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.IntegerSwitch<br/>
+                       Buildings.Controls.OBC.CDL.Logical.LogicalSwitch<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Switch
     </td>
     <td valign=\"top\">Moved the blocks to <code>CDL.Integers.Switch</code>, <code>CDL.Logical.Switch</code>,
                        and <code>CDL.Continuous.Switch</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2650\"># 2650</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2650\">#2650</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
+                       Buildings.Controls.OBC.CDL.Logical.Change
+                       Buildings.Controls.OBC.CDL.Logical.Edge
+                       Buildings.Controls.OBC.CDL.Logical.FallingEdge
+    </td>
+    <td valign=\"top\">Removed non-needed parameter for start value.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
