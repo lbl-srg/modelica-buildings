@@ -958,7 +958,7 @@ that can lead to wrong simulation results):
                        Buildings.Controls.OBC.CDL.Continuous.Less<br/>
                        Buildings.Controls.OBC.CDL.Continuous.LessThreshold
     </td>
-    <td valign=\"top\">Corrected the condition of swiching true back to false. It is caused by the wrong inequality check.<br/>
+    <td valign=\"top\">Corrected the condition of switching true back to false. It is caused by the wrong inequality check.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">#2981</a>.
     </td>
 </tr>
