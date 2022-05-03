@@ -166,9 +166,7 @@ model ClosedDualSource
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
-    plaTyp=nomPla2.plaTyp,
-    valSupCha(final dpValve_nominal=nomPla2.dp_nominal*0.1),
-    valSupOut(final dpValve_nominal=nomPla2.dp_nominal*0.1))
+    plaTyp=nomPla2.plaTyp)
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={3600/9*6,3600/9*8},
@@ -463,8 +461,6 @@ equation
   connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
           -90},{-156,-116},{-32,-116},{-32,-60},{-46,-60},{-46,-10},{-58,-10}},
         color={255,0,255}));
-  connect(conSupPum.ySup_actual,netCon. ySup_actual) annotation (Line(points={{-81,-28},
-          {-84,-28},{-84,-38},{-76,-38},{-76,-49}},          color={0,0,127}));
   connect(conSupPum.yPumSup,netCon. yPumSup)
     annotation (Line(points={{-72,-31},{-72,-49}}, color={0,0,127}));
   connect(conSupPum.yValSup,netCon. yValSup)

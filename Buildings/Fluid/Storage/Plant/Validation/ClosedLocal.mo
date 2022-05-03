@@ -36,7 +36,8 @@ equation
   connect(tanBra.mTanBot_flow, gai.u) annotation (Line(points={{-12,11},{-12,14},
           {-10,14},{-10,18}}, color={0,0,127}));
   connect(netCon.yPumSup, conPID_PumSec.y)
-    annotation (Line(points={{18,11},{18,70},{1,70}}, color={0,0,127}));
+    annotation (Line(points={{18,9.09091},{18,70},{1,70}},
+                                                      color={0,0,127}));
   connect(mSet_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedLocal.mos"

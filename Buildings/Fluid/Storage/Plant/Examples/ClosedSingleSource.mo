@@ -38,9 +38,7 @@ model ClosedSingleSource "Simple system model with one source and one user"
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = Medium,
     final nom=nom,
-    plaTyp=nom.plaTyp,
-    valSupCha(final dpValve_nominal=nom.dp_nominal*0.1),
-    valSupOut(final dpValve_nominal=nom.dp_nominal*0.1))
+    plaTyp=nom.plaTyp)
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
