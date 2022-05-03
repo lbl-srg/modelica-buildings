@@ -17,9 +17,9 @@ model Open "(Draft)"
       conPumVal(final plaTyp=nom.plaTyp));
 
 equation
-  connect(tanBra.port_CHWR,netCon.port_chiInl)
+  connect(tanBra.port_froNet, netCon.port_toChi)
     annotation (Line(points={{-10,-6},{10,-6}}, color={0,127,255}));
-  connect(netCon.port_chiOut, tanBra.port_CHWS)
+  connect(netCon.port_froChi, tanBra.port_toNet)
     annotation (Line(points={{10,6},{-10,6}}, color={0,127,255}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));

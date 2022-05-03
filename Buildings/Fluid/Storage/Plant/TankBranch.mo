@@ -103,9 +103,9 @@ model TankBranch
 equation
   connect(senFloBot.m_flow, mTanBot_flow)
     annotation (Line(points={{61,30},{70,30},{70,110}}, color={0,0,127}));
-  connect(port_chiOut, port_CHWS)
+  connect(port_froChi, port_toNet)
     annotation (Line(points={{-100,60},{100,60}}, color={0,127,255}));
-  connect(port_chiInl, port_CHWR)
+  connect(port_toChi, port_froNet)
     annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
   connect(atm.ports[1], tan.port_a)
     annotation (Line(points={{-10,20},{-10,10},{-10,10},{-10,0}},
@@ -116,12 +116,12 @@ equation
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
   connect(preDroTanTop.port_b, tan.port_a)
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
-  connect(senFloBot.port_b, port_CHWS)
+  connect(senFloBot.port_b, port_toNet)
     annotation (Line(points={{50,40},{50,60},{100,60}}, color={0,127,255}));
   connect(preDroTanTop.port_a, senFloTop.port_b)
     annotation (Line(points={{-40,0},{-50,0},{-50,-20}}, color={0,127,255}));
-  connect(senFloTop.port_a, port_chiInl) annotation (Line(points={{-50,-40},{
-          -50,-60},{-100,-60}}, color={0,127,255}));
+  connect(senFloTop.port_a, port_toChi) annotation (Line(points={{-50,-40},{-50,
+          -60},{-100,-60}}, color={0,127,255}));
   connect(senFloTop.m_flow, mTanTop_flow) annotation (Line(points={{-61,-30},{
           -66,-30},{-66,70},{50,70},{50,110}}, color={0,0,127}));
   connect(tan.Ql_flow, Ql_flow)

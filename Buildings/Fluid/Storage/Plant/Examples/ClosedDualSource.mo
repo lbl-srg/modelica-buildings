@@ -404,9 +404,9 @@ equation
                               color={255,0,255}));
   connect(mChiBra2Set_flow.u, uRemCha.y) annotation (Line(points={{-152,-90},{-159,
           -90}},            color={255,0,255}));
-  connect(tanBra.port_chiInl, chiBra2.port_a) annotation (Line(points={{-110,-66},
-          {-120,-66}},                              color={0,127,255}));
-  connect(tanBra.port_chiOut, chiBra2.port_b) annotation (Line(points={{-110,-54},
+  connect(tanBra.port_toChi, chiBra2.port_a)
+    annotation (Line(points={{-110,-66},{-120,-66}}, color={0,127,255}));
+  connect(tanBra.port_froChi, chiBra2.port_b) annotation (Line(points={{-110,-54},
           {-120,-54}},                              color={0,127,255}));
   connect(chiBra2.mPumSet_flow,mChiBra2Set_flow. y)
     annotation (Line(points={{-126,-71},{-126,-90},{-128,-90}},
@@ -442,17 +442,17 @@ equation
                                           color={255,0,255}));
   connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-110},{-42,-110},{-42,-102}},
         color={255,0,255}));
-  connect(tanBra.port_CHWR,netCon. port_chiInl)
+  connect(tanBra.port_froNet, netCon.port_toChi)
     annotation (Line(points={{-90,-66},{-80,-66}}, color={0,127,255}));
-  connect(tanBra.port_CHWS,netCon. port_chiOut)
+  connect(tanBra.port_toNet, netCon.port_froChi)
     annotation (Line(points={{-90,-54},{-80,-54}}, color={0,127,255}));
-  connect(preDroU3S2.port_b,netCon. port_CHWR) annotation (Line(points={{10,-80},
+  connect(preDroU3S2.port_b, netCon.port_froNet) annotation (Line(points={{10,-80},
           {-36,-80},{-36,-66},{-60,-66}}, color={0,127,255}));
-  connect(preDroU2S2.port_b,netCon. port_CHWR) annotation (Line(points={{10,-20},
+  connect(preDroU2S2.port_b, netCon.port_froNet) annotation (Line(points={{10,-20},
           {4,-20},{4,-80},{-36,-80},{-36,-66},{-60,-66}}, color={0,127,255}));
-  connect(netCon.port_CHWS, preDroS2U3.port_a) annotation (Line(points={{-60,-54},
+  connect(netCon.port_toNet, preDroS2U3.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,-40},{-30,-40}}, color={0,127,255}));
-  connect(netCon.port_CHWS, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
+  connect(netCon.port_toNet, preDroS2U2.port_a) annotation (Line(points={{-60,-54},
           {-36,-54},{-36,0},{-30,0}}, color={0,127,255}));
   connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
     annotation (Line(points={{-92,-49},{-92,-20},{-81,-20}}, color={0,0,127}));

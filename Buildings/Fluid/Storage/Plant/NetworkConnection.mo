@@ -187,17 +187,17 @@ equation
           {10,30},{10,60},{-1.77636e-15,60}},     color={0,127,255}));
   connect(pumSup.y, yPumSup) annotation (Line(points={{-50,72},{-50,96},{10,96},
           {10,110}}, color={0,0,127}));
-  connect(port_chiOut, pumSup.port_a)
+  connect(port_froChi, pumSup.port_a)
     annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
-  connect(port_chiOut, valSupCha.port_b) annotation (Line(points={{-100,60},{-80,
+  connect(port_froChi, valSupCha.port_b) annotation (Line(points={{-100,60},{-80,
           60},{-80,0},{20,0}},     color={0,127,255}));
-  connect(valSupCha.port_a, port_CHWS) annotation (Line(points={{40,0},{60,0},{60,
-          60},{100,60}},     color={0,127,255}));
-  connect(pasValSupOut.port_b, port_CHWS) annotation (Line(points={{40,30},{60,30},
-          {60,60},{100,60}},     color={0,127,255}));
+  connect(valSupCha.port_a, port_toNet) annotation (Line(points={{40,0},{60,0},
+          {60,60},{100,60}}, color={0,127,255}));
+  connect(pasValSupOut.port_b, port_toNet) annotation (Line(points={{40,30},{60,
+          30},{60,60},{100,60}}, color={0,127,255}));
   connect(cheValSup.port_b, valSupOut.port_a)
     annotation (Line(points={{-1.77636e-15,60},{20,60}}, color={0,127,255}));
-  connect(valSupOut.port_b, port_CHWS)
+  connect(valSupOut.port_b, port_toNet)
     annotation (Line(points={{40,60},{100,60}}, color={0,127,255}));
   connect(ySup_actual, ySup_actual)
     annotation (Line(points={{-70,110},{-70,110}}, color={0,0,127}));
@@ -209,21 +209,21 @@ equation
                                            color={0,0,127}));
   connect(valSupCha.y, yValSup[2]) annotation (Line(points={{30,12},{50,12},{50,
           80},{30,80},{30,110.5}},        color={0,0,127}));
-  connect(port_chiInl, pumRet.port_a)
+  connect(port_toChi, pumRet.port_a)
     annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
   connect(pumRet.port_b, cheValRet.port_a)
     annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
   connect(cheValRet.port_b, valRetCha.port_a)
     annotation (Line(points={{-1.77636e-15,-60},{20,-60}}, color={0,127,255}));
-  connect(valRetCha.port_b, port_CHWR)
+  connect(valRetCha.port_b, port_froNet)
     annotation (Line(points={{40,-60},{100,-60}}, color={0,127,255}));
-  connect(valRetOut.port_a, port_CHWR) annotation (Line(points={{40,-90},{80,-90},
-          {80,-60},{100,-60}}, color={0,127,255}));
-  connect(valRetOut.port_b, port_chiInl) annotation (Line(points={{20,-90},{-70,
+  connect(valRetOut.port_a, port_froNet) annotation (Line(points={{40,-90},{80,
+          -90},{80,-60},{100,-60}}, color={0,127,255}));
+  connect(valRetOut.port_b, port_toChi) annotation (Line(points={{20,-90},{-70,
           -90},{-70,-60},{-100,-60}}, color={0,127,255}));
-  connect(port_CHWR, pasRet.port_a) annotation (Line(points={{100,-60},{90,-60},
+  connect(port_froNet, pasRet.port_a) annotation (Line(points={{100,-60},{90,-60},
           {90,-30},{40,-30}}, color={0,127,255}));
-  connect(pasRet.port_b, port_chiInl) annotation (Line(points={{20,-30},{-80,-30},
+  connect(pasRet.port_b, port_toChi) annotation (Line(points={{20,-30},{-80,-30},
           {-80,-60},{-100,-60}}, color={0,127,255}));
   connect(valRetCha.y_actual, yRet_actual[2]) annotation (Line(points={{35,-53},
           {52,-53},{52,-96},{-90,-96},{-90,112.5}}, color={0,0,127}));

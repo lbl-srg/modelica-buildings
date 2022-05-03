@@ -120,25 +120,25 @@ equation
   connect(gaiPumSec.y, conPI_pumSec.u_m)
     annotation (Line(points={{19,90},{8,90},{8,50},{2,50}},
                                                           color={0,0,127}));
-  connect(tanBra.port_chiInl, chiBra.port_a)
+  connect(tanBra.port_toChi, chiBra.port_a)
     annotation (Line(points={{-60,-6},{-70,-6}}, color={0,127,255}));
-  connect(tanBra.port_chiOut, chiBra.port_b)
+  connect(tanBra.port_froChi, chiBra.port_b)
     annotation (Line(points={{-60,6},{-70,6}}, color={0,127,255}));
   connect(mSet_flow.y, chiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-76,-30},{-76,-11}}, color={0,0,127}));
-  connect(tanBra.port_CHWR,netCon. port_chiInl)
+  connect(tanBra.port_froNet, netCon.port_toChi)
     annotation (Line(points={{-40,-6},{-30,-6}}, color={0,127,255}));
-  connect(tanBra.port_CHWS,netCon. port_chiOut)
+  connect(tanBra.port_toNet, netCon.port_froChi)
     annotation (Line(points={{-40,6},{-30,6}}, color={0,127,255}));
-  connect(netCon.port_CHWR, preDro2.port_b) annotation (Line(points={{-10,-6},{0,
-          -6},{0,-40},{10,-40}}, color={0,127,255}));
-  connect(netCon.port_CHWS, preDro1.port_a) annotation (Line(points={{-10,6},{4,
-          6},{4,-20},{10,-20}}, color={0,127,255}));
+  connect(netCon.port_froNet, preDro2.port_b) annotation (Line(points={{-10,-6},
+          {0,-6},{0,-40},{10,-40}}, color={0,127,255}));
+  connect(netCon.port_toNet, preDro1.port_a) annotation (Line(points={{-10,6},{
+          4,6},{4,-20},{10,-20}}, color={0,127,255}));
   connect(conPI_pumSec.y,netCon. yPumSup) annotation (Line(points={{-10,39},{
           -10,16},{-22,16},{-22,11}},
                                   color={0,0,127}));
-  connect(sou_p.ports[1], tanBra.port_CHWR) annotation (Line(points={{-60,-70},{
-          -34,-70},{-34,-6},{-40,-6}}, color={0,127,255}));
+  connect(sou_p.ports[1], tanBra.port_froNet) annotation (Line(points={{-60,-70},
+          {-34,-70},{-34,-6},{-40,-6}}, color={0,127,255}));
   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/ClosedSingleSource.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>

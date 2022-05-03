@@ -50,18 +50,18 @@ partial model PartialPlant "Partial model of a storage plant validation model"
 
 equation
 
-  connect(tanBra.port_CHWS,netCon. port_chiOut)
+  connect(tanBra.port_toNet, netCon.port_froChi)
     annotation (Line(points={{-10,6},{10,6}}, color={0,127,255}));
-  connect(tanBra.port_CHWR,netCon. port_chiInl)
+  connect(tanBra.port_froNet, netCon.port_toChi)
     annotation (Line(points={{-10,-6},{10,-6}}, color={0,127,255}));
-  connect(ideChiBra.port_b, tanBra.port_chiOut)
+  connect(ideChiBra.port_b,tanBra.port_froChi)
     annotation (Line(points={{-50,6},{-30,6}}, color={0,127,255}));
-  connect(ideChiBra.port_a, tanBra.port_chiInl)
+  connect(ideChiBra.port_a, tanBra.port_toChi)
     annotation (Line(points={{-50,-6},{-30,-6}}, color={0,127,255}));
-  connect(netCon.port_CHWS, sin.ports[1]) annotation (Line(points={{30,6},{74,6},
-          {74,20},{80,20}}, color={0,127,255}));
-  connect(netCon.port_CHWR, sou.ports[1]) annotation (Line(points={{30,-6},{74,
-          -6},{74,-20},{80,-20}}, color={0,127,255}));
+  connect(netCon.port_toNet, sin.ports[1]) annotation (Line(points={{30,6},{74,
+          6},{74,20},{80,20}}, color={0,127,255}));
+  connect(netCon.port_froNet, sou.ports[1]) annotation (Line(points={{30,-6},{
+          74,-6},{74,-20},{80,-20}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),

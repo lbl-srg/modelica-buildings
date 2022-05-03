@@ -8,28 +8,25 @@ model PartialBranchPorts
   parameter Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom
     "Nominal values";
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_CHWR(
-    redeclare final package Medium = Medium,
-    p(displayUnit="Pa"))
-    "Port that connects CHW return line to the warmer side of the tank"
+  Modelica.Fluid.Interfaces.FluidPort_a port_froNet(redeclare final package
+      Medium = Medium, p(displayUnit="Pa"))
+    "Port whose nominal flow direction is from the district network"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
         iconTransformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_CHWS(
+  Modelica.Fluid.Interfaces.FluidPort_b port_toNet(redeclare final package
+      Medium = Medium, p(displayUnit="Pa"))
+    "Port whose nominal flow direction is to the district network" annotation (
+      Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
+          extent={{90,50},{110,70}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_toChi(redeclare final package
+      Medium = Medium, p(displayUnit="Pa"))
+    "Port whose nominal flow direction is to the chiller" annotation (Placement(
+        transformation(extent={{-110,-70},{-90,-50}}), iconTransformation(
+          extent={{-110,-70},{-90,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_froChi(
     redeclare final package Medium = Medium,
     p(displayUnit="Pa"))
-    "Port that connects the cooler side of the tank to the CHW supply line"
-    annotation (Placement(transformation(extent={{90,50},{110,70}}),
-        iconTransformation(extent={{90,50},{110,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_chiInl(
-    redeclare final package Medium = Medium,
-    p(displayUnit="Pa"))
-    "Port that connects the warmer side of the tank to the chiller inlet"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
-        iconTransformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_chiOut(
-    redeclare final package Medium = Medium,
-    p(displayUnit="Pa"))
-    "Port that connects the chiller outlet to the warmer side of the tank"
+    "Port whose nominal flow direction is from the chiller"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
 
