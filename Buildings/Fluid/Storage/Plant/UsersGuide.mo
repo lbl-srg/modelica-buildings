@@ -13,6 +13,7 @@ on the same CHW district network.
 The model can be configured to have the following setups using the enumeration
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup\">
 Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup</a>:
+</p>
 <ul>
 <li>
 <code>ClosedLocal</code> - A closed tank that only allows local charging.
@@ -24,7 +25,6 @@ Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup</a>:
 <code>Open</code> - An open tank. Remote charging is always allowed.
 </li>
 </ul>
-</p>
 <p>
 The model is implemented in three parts:
 </p>
@@ -48,12 +48,54 @@ if the model is configured to have an open tank.
 The supply pump and valves are implemented in 
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>.
+Some of its pumps and valves are conditionally enabled based on the plant setup.
 See its documentation for details.
 </li>
 </ul>
+<p>
+The schematics belay show the plant model's structure under different setups.
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th>Plant Setup<br></th>
+    <th>Schematic</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>ClosedLocal</code></td>
+    <td>
 <p align=\"center\">
 <img alt=\"Image of a storage tank\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant.png\"/>
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedLocal.png\"/>
+</p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>ClosedRemote</code></td>
+    <td>
+<p align=\"center\">
+<img alt=\"Image of a storage tank\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedRemote.png\"/>
+</p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>Open</code></td>
+    <td>
+<p align=\"center\">
+<img alt=\"Image of a storage tank\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_Open.png\"/>
+</p>
+    </td>
+  </tr>
+</tbody>
+</table>
+<p>
+When the tank is open, because the district network cannot charged it with
+the pressure difference between the main supply and return pipes,
+an auxiliary pump is needed to pressurise the water to the CHW return line.
 </p>
 </html>"));
 end UsersGuide;
