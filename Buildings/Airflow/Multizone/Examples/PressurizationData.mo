@@ -65,7 +65,6 @@ equation
         "Simulate and plot"),
         experiment(
       StopTime=2592000,
-      Interval=600,
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
