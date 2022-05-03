@@ -48,7 +48,7 @@ package PerfectGas "Model for air as a perfect gas"
     constant Modelica.Units.SI.MolarMass[2] MMX={steam.MM,dryair.MM}
       "Molar masses of components";
 
-    Modelica.SIunits.TemperatureDifference dT(
+    Modelica.Units.SI.TemperatureDifference dT(
       nominal=10,
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - reference_T
       "Temperature difference used to compute enthalpy";
