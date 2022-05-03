@@ -1,11 +1,15 @@
 within Buildings.Controls.OBC.CDL.Types;
 type SimpleController = enumeration(
-    P "P controller",
-    PI "PI controller",
-    PD "PD controller",
-    PID "PID controller")
-  "Enumeration defining P, PI, PD, or PID simple controller type" annotation (
-    Evaluate=true, Documentation(info="<html>
+    P
+  "P controller",
+    PI
+  "PI controller",
+    PD
+  "PD controller",
+    PID
+  "PID controller")
+  "Enumeration defining P, PI, PD, or PID simple controller type"
+  annotation (Evaluate=true,Documentation(info="<html>
 <p>
 Enumeration to define the type of the controller.
 Possible values are:
@@ -31,7 +35,7 @@ Controller with proportional and derivative term.
 Controller with proportional, integral and derivative terms.
 </td></tr>
 </table>
-</html>", revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 March 23, 2017, by Jianjun Hu:<br/>

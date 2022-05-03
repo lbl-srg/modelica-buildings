@@ -6,22 +6,22 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     "Performance data"
     annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine TEnv(
-    freqHz=0.01,
+    f=0.01,
     offset=273.15 + 10,
     amplitude=15) "Temperature of the surrounding environment"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine T1(
     amplitude=15,
-    freqHz=0.1,
+    f=0.1,
     offset=273.15 + 10) "Temperature of the first segment"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.Sine T2(
-    freqHz=0.1,
+    f=0.1,
     amplitude=15,
     offset=273.15 + 15) "Temperature of the second segment"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Sine T3(
-    freqHz=0.1,
+    f=0.1,
     amplitude=15,
     offset=273.15 + 20) "Temperature of the third segment"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));

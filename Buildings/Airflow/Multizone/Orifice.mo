@@ -1,17 +1,18 @@
 within Buildings.Airflow.Multizone;
 model Orifice "Orifice"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(
+  extends Buildings.Airflow.Multizone.Coefficient_V_flow(
     m=0.5,
-    k=CD*A*sqrt(2.0/rho_default));
+    final C=CD*A*sqrt(2.0/rho_default));
 
-  parameter Modelica.SIunits.Area A "Area of orifice"
+  parameter Modelica.Units.SI.Area A "Area of orifice"
     annotation (Dialog(group="Orifice characteristics"));
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
 
-equation
-  v = V_flow/A;
-  annotation (Icon(graphics={
+  Modelica.Units.SI.Velocity v(nominal=1) = V_flow/A "Average velocity";
+
+  annotation (
+    Icon(graphics={
         Rectangle(
           extent={{-100,8},{100,-8}},
           lineColor={0,0,255},
@@ -32,7 +33,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{24,-24},{96,-100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="A=%A")}),
@@ -43,17 +44,17 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    V&#775; = k &Delta;p<sup>m</sup>,
+V&#775; = C &Delta;p<sup>m</sup>,
 </p>
 <p>
 where
 <i>V&#775;</i> is the volume flow rate,
-<i>k</i> is a flow coefficient and
+<i>C</i> is a flow coefficient and
 <i>m</i> is the flow exponent.
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k = C<sub>D</sub> A (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
+C = C<sub>D</sub> A (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where
@@ -78,10 +79,23 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </li>
+<li>Michael Wetter.
+<a href=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a>
+Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
+</li>
 </ul>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 6, 2021, by Klaas De Jonge:<br/>
+Changes due to changes in the baseclass, velocity is now a top-level variable.
+</li>
 <li>
 June 27, 2018, by Michael Wetter:<br/>
 Corrected old parameter annotation.
@@ -93,12 +107,12 @@ the Reynolds number, and the Reynolds number is not used by this model.
 Also removed the variable <code>Re</code> for the Reynolds number.<br/>
 This change is non-backward compatible.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">Buildings, #932</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
 </li>
 <li>
 May 30, 2018, by Michael Wetter:<br/>
 Improved documentation for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/546\">Buildings, #546</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/546\">IBPSA, #546</a>.
 </li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>

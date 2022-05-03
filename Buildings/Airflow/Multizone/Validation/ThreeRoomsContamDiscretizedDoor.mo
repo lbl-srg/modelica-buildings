@@ -14,6 +14,7 @@ model ThreeRoomsContamDiscretizedDoor
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01));
   Modelica.Blocks.Sources.Constant open1(k=1)
+    "Constant signal for door opening"
     annotation (Placement(
         transformation(extent={{-40,-30},{-20,-10}})));
 equation
@@ -21,19 +22,7 @@ equation
           -44},{-2,-44},{-2,-45}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-150},{260,
-            200}}), graphics={
-        Rectangle(
-          extent={{8,48},{152,-100}},
-          lineColor={135,135,135},
-          lineThickness=1),
-        Rectangle(
-          extent={{-160,48},{8,-100}},
-          lineColor={135,135,135},
-          lineThickness=1),
-        Rectangle(
-          extent={{-160,160},{152,49}},
-          lineColor={135,135,135},
-          lineThickness=1)}),
+            200}})),
 experiment(Tolerance=1e-06, StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Validation/ThreeRoomsContamDiscretizedDoor.mos"
         "Simulate and plot"),

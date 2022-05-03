@@ -4,7 +4,7 @@ model ConstantHeatInjection_100Boreholes
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Temperature T_start = 273.15
+  parameter Modelica.Units.SI.Temperature T_start=273.15
     "Initial temperature of the soil";
 
   Buildings.Fluid.Geothermal.Borefields.OneUTube borHol(
@@ -22,7 +22,6 @@ model ConstantHeatInjection_100Boreholes
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
     inputType=Buildings.Fluid.Types.InputType.Constant)
@@ -41,7 +40,7 @@ model ConstantHeatInjection_100Boreholes
     tau=0)
     "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
-  Buildings.Fluid.Geothermal.Borefields.Validation.BaseClasses.ConstantHeatInjection_100Boreholes_Borefield borFieDat
+  parameter Buildings.Fluid.Geothermal.Borefields.Validation.BaseClasses.ConstantHeatInjection_100Boreholes_Borefield borFieDat
     "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sources.Boundary_ph sin(
@@ -81,8 +80,7 @@ equation
   connect(hea.u, heaRat.y) annotation (Line(points={{-52,-14},{-60,-14},{-60,20},
           {-67,20}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=31536.0E+06),
-  __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/ConstantHeatInjection_100Boreholes.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/ConstantHeatInjection_100Boreholes.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>
@@ -98,6 +96,11 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFa
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2021, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword.<br/>
+For <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1464\">IBPSA, issue 1464</a>.
+</li>
 <li>
 June 24, 2019, by Michael Wetter:<br/>
 Changed <code>StopTime</code> from integer to floating point.<br/>

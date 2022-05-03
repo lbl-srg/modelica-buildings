@@ -1,21 +1,22 @@
 within Buildings.Controls.OBC.CDL;
 package Conversions "Package with blocks for type conversion"
-
-annotation (
-Documentation(
-info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Package with blocks for type conversions.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 December 22, 2016, by Michael Wetter:<br/>
 Firt implementation, based on the blocks from the Modelica Standard Library.
 </li>
 </ul>
-</html>"), Icon(graphics={
+</html>"),
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

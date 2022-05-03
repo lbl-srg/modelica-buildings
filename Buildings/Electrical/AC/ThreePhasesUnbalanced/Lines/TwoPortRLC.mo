@@ -1,34 +1,38 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortRLC "Model of an RLC element with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
-  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref";
-  parameter Modelica.SIunits.Capacitance C "Capacity";
-  parameter Modelica.SIunits.Inductance L "Inductance";
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-                            annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature M = 507.65
-    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
-  parameter Modelica.SIunits.Voltage Vc1_start[2] = V_nominal/sqrt(3)*{1,0}
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
+
+  parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref";
+  parameter Modelica.Units.SI.Capacitance C "Capacity";
+  parameter Modelica.Units.SI.Inductance L "Inductance";
+  parameter Modelica.Units.SI.Temperature T_ref=298.15 "Reference temperature"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature M=507.65
+    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Voltage Vc1_start[2]=V_nominal/sqrt(3)*{1,0}
     "Initial voltage phasor of the capacitance located in the middle of phase 1"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Voltage Vc2_start[2] = V_nominal/sqrt(3)*{-1/2,-sqrt(3)/2}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Voltage Vc2_start[2]=V_nominal/sqrt(3)*{-1/2,-
+      sqrt(3)/2}
     "Initial voltage phasor of the capacitance located in the middle of phase 1"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Voltage Vc3_start[2] = V_nominal/sqrt(3)*{-1/2,+sqrt(3)/2}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Voltage Vc3_start[2]=V_nominal/sqrt(3)*{-1/2,+
+      sqrt(3)/2}
     "Initial voltage phasor of the capacitance located in the middle of phase 1"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Nominal conditions"));
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
   OnePhase.Lines.TwoPortRLC phase1(
     final T_ref=T_ref,
     final M=M,
@@ -111,7 +115,7 @@ equation
                                                graphics={
           Text(
             extent={{-150,-28},{136,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R, L=%L"),
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
           Line(points={{68,0},{88,0}}, color={0,0,0}),
@@ -172,11 +176,11 @@ equation
           pattern=LinePattern.None),
           Text(
             extent={{-144,-56},{142,-88}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="C=%C"),
           Text(
             extent={{-142,80},{138,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>
@@ -198,6 +202,10 @@ to <i>L/3</i>, a resistance equal to <i>R/3</i> and a capacity equal to
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check

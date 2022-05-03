@@ -12,7 +12,7 @@ model MixedAirCO2
       amplitude=5,
       startTime=43200));
 
-  parameter Modelica.SIunits.MassFlowRate mOut_flow = 47*2/3600*1.2
+  parameter Modelica.Units.SI.MassFlowRate mOut_flow=47*2/3600*1.2
     "Typical outside air mass flow rate, unless increased by controller";
 
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person"
@@ -24,10 +24,10 @@ model MixedAirCO2
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
   Modelica.Blocks.Sources.Constant CO2Set(k=700)
     "CO2 set point in PPM above the initial value"
-    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
+    annotation (Placement(transformation(extent={{-170,-130},{-150,-110}})));
   Modelica.Blocks.Math.Gain norCO2Set(k=1/700)
     "Normalization for CO2 set point" annotation (
-      Placement(transformation(extent={{-120,-130},{-100,-110}})));
+      Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Modelica.Blocks.Math.Gain norCO2Mea(k=1/700)
     "Normalization for CO2 measurement" annotation (
       Placement(transformation(extent={{-120,-160},{-100,-140}})));
@@ -38,36 +38,39 @@ model MixedAirCO2
     yMin=0,
     reverseActing=false)
     "PI controller for fresh air supply, with negative minimum because of reverse action"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addFlo(
-    p = -mOut_flow,
+    p = 1)
+    "Gain that increases the mass flow rate above its typical value"
+    annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFac(
     k=-mOut_flow)
     "Gain that increases the mass flow rate above its typical value"
-    annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+
 equation
   connect(roo.C_flow[1], gaiCO2.y) annotation (Line(points={{60.4,6.8},{36,6.8},
-          {36,-30},{21,-30}},
-                            color={0,0,127}));
+          {36,-30},{21,-30}}, color={0,0,127}));
   connect(nPer.y, gaiCO2.u) annotation (Line(points={{-59,-10},{-59,-10},{-50,-10},
-          {-50,-30},{-2,-30}},
-                             color={0,0,127}));
+          {-50,-30},{-2,-30}}, color={0,0,127}));
   connect(senCO2.port, roo.ports[3]) annotation (Line(points={{80,-60},{80,-70},
           {62,-70},{62,-6},{67,-6}}, color={0,127,255}));
   connect(CO2Set.y, norCO2Set.u)
-    annotation (Line(points={{-139,-120},{-139,-120},{-122,-120}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-149,-120},{-142,-120}}, color={0,0,127}));
   connect(senCO2.ppm, norCO2Mea.u) annotation (Line(points={{91,-50},{92,-50},{96,
           -50},{100,-50},{100,-170},{-140,-170},{-140,-150},{-122,-150}}, color=
          {0,0,127}));
   connect(norCO2Set.y, conPI.u_s)
-    annotation (Line(points={{-99,-120},{-82,-120}},         color={0,0,127}));
-  connect(norCO2Mea.y, conPI.u_m) annotation (Line(points={{-99,-150},{-99,-150},
-          {-70,-150},{-70,-132}}, color={0,0,127}));
+    annotation (Line(points={{-119,-120},{-102,-120}}, color={0,0,127}));
+  connect(norCO2Mea.y, conPI.u_m) annotation (Line(points={{-99,-150},{-90,-150},
+          {-90,-132}}, color={0,0,127}));
   connect(conPI.y,addFlo. u)
-    annotation (Line(points={{-59,-120},{-52,-120}}, color={0,0,127}));
-  connect(addFlo.y, bou.m_flow_in) annotation (Line(points={{-28,-120},{-16,-120},
-          {-16,-112},{-12,-112}},
-                               color={0,0,127}));
+    annotation (Line(points={{-79,-120},{-72,-120}}, color={0,0,127}));
+  connect(addFlo.y, gaiFac.u)
+    annotation (Line(points={{-48,-120},{-42,-120}}, color={0,0,127}));
+  connect(gaiFac.y, bou.m_flow_in) annotation (Line(points={{-18,-120},{-16,-120},{
+          -16,-112},{-12,-112}}, color={0,0,127}));
+
   annotation (
   Documentation(info="<html>
 <p>
@@ -113,18 +116,18 @@ experiment(StopTime=86400, Tolerance=1e-06),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-168,-90},{-20,-166}},
+          extent={{-172,-96},{-20,-172}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-164,-86},{-92,-108}},
-          lineColor={0,0,0},
+          extent={{-164,-90},{-92,-112}},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Feedback control for fresh air"),
         Text(
           extent={{84,-22},{140,-42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="CO2 sensor for room air")}));
 end MixedAirCO2;

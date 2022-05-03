@@ -3,42 +3,34 @@ model PrescribedOutlet
   "Component that assigns the outlet fluid property at port_a based on an input signal"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
+  parameter Modelica.Units.SI.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum water mass flow rate removal (negative)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.SIunits.Time tau(min=0) = 10
-    "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation(Dialog(tab = "Dynamics"));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter Modelica.Units.SI.Time tau(min=0) = 10
+    "Time constant at nominal flow rate (used if energyDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics"));
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", enable=use_TSet));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
-    "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=use_X_wSet and Medium.nXi > 0));
+    annotation (Dialog(tab="Initialization", enable=use_TSet));
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
+    "Start value of mass fractions m_i/m" annotation (Dialog(tab=
+          "Initialization", enable=use_X_wSet and Medium.nXi > 0));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
-
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations", enable=use_TSet));
 
   parameter Boolean use_TSet = true
     "Set to false to disable temperature set point"
@@ -73,12 +65,11 @@ model PrescribedOutlet
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(
-        Medium.setState_pTX(
-          p=Medium.p_default,
-          T=Medium.T_default,
-          X=Medium.X_default)) "Specific heat capacity at default medium state";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)) "Specific heat capacity at default medium state";
 
   parameter Boolean restrictHeat = QMax_flow < Modelica.Constants.inf/10.0
     "Flag, true if maximum heating power is restricted"
@@ -94,35 +85,34 @@ protected
     "Flag, true if maximum dehumidification is restricted"
     annotation(Evaluate = true);
 
-  parameter Modelica.SIunits.SpecificEnthalpy deltaH=
-    cp_default*1E-6
+  parameter Modelica.Units.SI.SpecificEnthalpy deltaH=cp_default*1E-6
     "Small value for deltaH used for regularization";
 
-  parameter Modelica.SIunits.MassFraction deltaXi = 1E-6
+  parameter Modelica.Units.SI.MassFraction deltaXi=1E-6
     "Small mass fraction used for regularization";
 
-  Modelica.SIunits.MassFlowRate m_flow_pos
+  Modelica.Units.SI.MassFlowRate m_flow_pos
     "Mass flow rate, or zero if reverse flow";
 
-  Modelica.SIunits.MassFlowRate m_flow_non_zero
+  Modelica.Units.SI.MassFlowRate m_flow_non_zero
     "Mass flow rate bounded away from zero";
 
-  Modelica.SIunits.SpecificEnthalpy hSet
+  Modelica.Units.SI.SpecificEnthalpy hSet
     "Set point for enthalpy leaving port_b";
 
-  Modelica.SIunits.Temperature T
+  Modelica.Units.SI.Temperature T
     "Temperature of outlet state assuming unlimited capacity and taking dynamics into account";
 
-  Modelica.SIunits.MassFraction Xi
+  Modelica.Units.SI.MassFraction Xi
     "Water vapor mass fraction of outlet state assuming unlimited capacity and taking dynamics into account";
 
-  Modelica.SIunits.MassFraction Xi_instream[Medium.nXi]
+  Modelica.Units.SI.MassFraction Xi_instream[Medium.nXi]
     "Instreaming water vapor mass fraction at port_a";
 
-  Modelica.SIunits.MassFraction Xi_outflow
+  Modelica.Units.SI.MassFraction Xi_outflow
     "Outstreaming water vapor mass fraction at port_a";
 
-  Modelica.SIunits.SpecificEnthalpy dhAct
+  Modelica.Units.SI.SpecificEnthalpy dhAct
     "Actual enthalpy difference from port_a to port_b";
 
   Real dXiAct(final unit="1")
@@ -151,9 +141,9 @@ initial equation
   end if;
 
   if use_X_wSet then
-    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+    if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
       der(Xi) = 0;
-    elseif massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    elseif energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
       Xi = X_start[1];
     end if;
   end if;
@@ -162,11 +152,6 @@ initial equation
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
  if use_X_wSet then
@@ -184,8 +169,7 @@ equation
   end if;
   connect(X_wSet, X_wSet_internal);
 
-  if (use_TSet and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-     (use_X_wSet and massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
+  if ((use_TSet or use_X_wSet) and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
     mNor_flow = port_a.m_flow/m_flow_nominal;
     k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
                                          y1= mNor_flow,
@@ -202,7 +186,7 @@ equation
     T = TSet_internal;
   end if;
 
-  if use_X_wSet and massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
+  if use_X_wSet and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
     der(Xi) = (X_wSet_internal-Xi)*k/tau;
   else
     Xi = X_wSet_internal;
@@ -357,12 +341,12 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,64},{-76,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_X_wSet,
           textString="X_w"),
         Text(
           extent={{74,72},{120,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Rectangle(
           extent={{-70,60},{70,-60}},
@@ -391,7 +375,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-106,102},{-74,88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=use_TSet,
           textString="T"),
         Rectangle(
@@ -403,7 +387,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{72,108},{120,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Rectangle(
           extent={{70,82},{100,78}},
@@ -435,8 +419,7 @@ moisture mass flow rate.
 Also, optionally the model allows to take into account first order dynamics.
 </p>
 <p>
-If the parameters <code>energyDynamics</code> or
-<code>massDynamics</code> are not equal to
+If the parameters <code>energyDynamics</code> is not equal to
 <code>Modelica.Fluid.Types.Dynamics.SteadyState</code>,
 the component models the dynamic response using a first order differential equation.
 The time constant of the component is equal to the parameter <code>tau</code>.
@@ -467,6 +450,17 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
+<li>
+April 29, 2021, by Michael Wetter:<br/>
+Removed duplicate declaration of <code>m_flow_nominal</code> which is already
+declared in the base class.<br/>
+</li>
 <li>
 March 19, 2018, by Michael Wetter:<br/>
 Added bugfix as the old model did not track <code>TSet</code> and <code>X_wSet</code>

@@ -44,8 +44,8 @@ block AirToOutlet
 
   Modelica.Blocks.Interfaces.RealOutput TAirZon(
     final unit="K",
-    displayUnit="degC") if
-       allowFlowReversal
+    displayUnit="degC")
+    if allowFlowReversal
     "Temperature of the backward flowing medium in the connector outlet"
     annotation (Placement(
         visible=allowFloWReserval,
@@ -57,8 +57,8 @@ block AirToOutlet
         rotation=90,
         origin={-60,-120})));
   Modelica.Blocks.Interfaces.RealOutput X_wZon(
-    final unit="kg/kg") if
-       Medium.nXi > 0 and allowFlowReversal
+    final unit="kg/kg")
+    if Medium.nXi > 0 and allowFlowReversal
     "Water mass fraction per total air mass of the backward flowing medium in the connector outlet"
     annotation (Placement(
         visible=allowFloWReserval,
@@ -70,8 +70,8 @@ block AirToOutlet
         rotation=90,
         origin={0,-120})));
   Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames) if
-       allowFlowReversal
+    final quantity=Medium.extraPropertiesNames)
+    if allowFlowReversal
     "Trace substances of the backward flowing medium in the connector outlet"
     annotation (Placement(
         visible=allowFloWReserval,
@@ -107,8 +107,8 @@ protected
     "Internal connector for zone water vapor mass fraction";
 
   Modelica.Blocks.Interfaces.RealOutput X_wZon_internal2(
-    final unit="kg/kg") = 0 if
-       Medium.nXi == 0 or not allowFlowReversal
+    final unit="kg/kg") = 0
+    if Medium.nXi == 0 or not allowFlowReversal
     "Internal connector for zone water vapor mass fraction, required if X_wZon is removed";
   Modelica.Blocks.Interfaces.RealOutput CZon_internal[Medium.nC]
     "Internal connector for trace substances";
@@ -191,20 +191,20 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{-98,52},{-66,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="h"),
         Text(
           extent={{-92,94},{-28,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow"),
         Text(
           extent={{-104,-26},{-40,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=Medium.nXi > 0,
           textString="Xi"),
         Text(
           extent={{-104,-64},{-40,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=Medium.nC > 0,
           textString="C"),
         Polygon(

@@ -109,8 +109,7 @@ model Basic "Example implementation of flow system"
   Modelica.Blocks.Sources.Sine sine(
     amplitude=0.5,
     offset=0.5,
-    freqHz=0.001)
-    "Valve control signal"
+    f=0.001) "Valve control signal"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valSouth(
     redeclare package Medium = Medium,
@@ -431,29 +430,29 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-110,86},{-94,74}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="X4"),
         Text(
           extent={{-24,86},{-8,74}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="X8"),
         Text(
           extent={{8,86},{24,74}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="X4"),
         Text(
           extent={{96,86},{112,74}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="X8"),
         Text(
           extent={{-66,122},{-36,130}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="South"),
         Text(
           extent={{34,122},{64,130}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="North"),
@@ -469,13 +468,13 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-64,-156},{-34,-148}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Heat"),
         Text(
           extent={{36,-156},{66,-148}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Cold")}),
@@ -532,7 +531,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Basic.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Basic.mos"
         "Simulate and plot"));
 end Basic;

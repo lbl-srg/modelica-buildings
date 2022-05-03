@@ -28,7 +28,7 @@ This component computes the direct solar irradiation on a tilted surface.
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">IBPSA, issue 912</a>.
 </li>
 <li>
 May 5, 2015, by Filip Jorissen:<br/>
@@ -46,13 +46,13 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-50,56},{-102,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HDirNor"),
         Text(
           extent={{-54,-66},{-106,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="incAng")}));
 end DirectTiltedSurface;

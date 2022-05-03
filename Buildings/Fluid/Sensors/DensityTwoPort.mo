@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model DensityTwoPort "Ideal two port density sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
                                           min=0) "Density of the passing fluid"
@@ -14,13 +14,13 @@ model DensityTwoPort "Ideal two port density sensor"
        p=p_start, T=T_start, X=X_start))
     "Initial or guess value of output (=state)"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
     "Temperature used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Pressure p_start=Medium.p_default
+  parameter Modelica.Units.SI.Pressure p_start=Medium.p_default
     "Pressure used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
+  parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
 protected
@@ -64,15 +64,15 @@ annotation (defaultComponentName="senDen",
         grid={1,1}), graphics={
         Text(
           extent={{102,124},{6,95}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="d"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Text(
           extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(d, leftjustified=false, significantDigits=3)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(d, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the density of the fluid flowing from

@@ -2,11 +2,11 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model WatersideEconomizer "Waterside economizer"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel(
     final num=1,
-    val2(each final dpFixed_nominal=0),
+    val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal),
-    kFixed={m1_flow_nominal/sqrt(dp1_nominal),0},
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics,
     final mSenFac=1,
     redeclare final package Medium=Medium2);
   extends
@@ -24,13 +24,16 @@ model WatersideEconomizer "Waterside economizer"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
 
  // Heat exchanger
-  parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
+  parameter Modelica.Units.SI.Efficiency eta(start=0.8)
+    "constant effectiveness";
 
  // Bypass valve parameters
-  parameter Modelica.SIunits.Time tauThrWayVal=10
+  parameter Modelica.Units.SI.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   Modelica.Blocks.Interfaces.RealInput TSet(
     unit="K",
@@ -43,11 +46,12 @@ model WatersideEconomizer "Waterside economizer"
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
+    final dpThrWayVal_nominal=dpThrWayVal_nominal,
     final use_controller=use_controller,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal,
+    final dp1_nominal=0,
+    final dp2_nominal=0,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -77,7 +81,6 @@ model WatersideEconomizer "Waterside economizer"
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -140,6 +143,11 @@ around the setpoint.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Kathryn Hinkelman:<br/>
+Moved nominal pressure differences to <code>dpFixed_nominal</code> at isolation valves 
+to avoid redundant declarations and algebraic loops.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

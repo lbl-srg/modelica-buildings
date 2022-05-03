@@ -1,31 +1,36 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block OnOffController "On-off controller"
-
-  parameter Real bandwidth(min=0) "Bandwidth around reference signal";
-
-  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
-
+block OnOffController
+  "On-off controller"
+  parameter Real bandwidth(
+    min=0)
+    "Bandwidth around reference signal";
+  parameter Boolean pre_y_start=false
+    "Value of pre(y) at initial time";
   Interfaces.RealInput reference
     "Connector of Real input signal used as reference signal"
     annotation (Placement(transformation(extent={{-140,80},{-100,40}})));
-
   Interfaces.RealInput u
     "Connector of Real input signal used as measurement signal"
     annotation (Placement(transformation(extent={{-140,-40},{-100,-80}})));
-
   Interfaces.BooleanOutput y
     "Connector of Real output signal used as actuator signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  pre(y) = pre_y_start;
-equation
-  y = pre(y) and (u < reference + bandwidth/2) or (u < reference - bandwidth/2);
+  pre(y)=pre_y_start;
 
+equation
+  y=pre(y) and
+              (u < reference+bandwidth/2) or
+                                            (u < reference-bandwidth/2);
   annotation (
-        defaultComponentName="onOffCon",
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics={Rectangle(
+    defaultComponentName="onOffCon",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -38,26 +43,38 @@ equation
         Text(
           extent={{-94,-52},{-34,-74}},
           textString="u"),
-        Line(points={{-86,-32},{-78,-6},{-60,26},{-34,40},{-12,42},{6,36},{22,
-              28},{38,12},{48,-6},{58,-28}},
+        Line(
+          points={{-86,-32},{-78,-6},{-60,26},{-34,40},{-12,42},{6,36},{22,28},{38,12},{48,-6},{58,-28}},
           color={0,0,127}),
-        Line(points={{-88,-2},{-16,18},{72,-12}},
+        Line(
+          points={{-88,-2},{-16,18},{72,-12}},
           color={255,0,0}),
-        Line(points={{-88,12},{-16,30},{72,0}}),
-        Line(points={{-88,-16},{-16,4},{72,-26}}),
-        Line(points={{-92,-18},{-66,-18},{-66,-40},{54,-40},{54,-20},{80,-20}},
+        Line(
+          points={{-88,12},{-16,30},{72,0}}),
+        Line(
+          points={{-88,-16},{-16,4},{72,-26}}),
+        Line(
+          points={{-92,-18},{-66,-18},{-66,-40},{54,-40},{54,-20},{80,-20}},
           color={255,0,255}),
         Ellipse(
           extent={{73,7},{87,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
-          textString="%name")}),Documentation(info="<html>
+          textColor={0,0,255},
+          textString="%name")}),
+    Documentation(
+      info="<html>
 <p>
 Block that represents and on/off controller.
 </p>
@@ -71,7 +88,8 @@ plus half of the bandwidth.
 The parameter <code>pre_y_start</code> is used to initialize the
 previous value of the output <code>pre(y)</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

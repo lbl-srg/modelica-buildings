@@ -13,7 +13,7 @@ model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  parameter Modelica.SIunits.Temperature TWetBul_start = Medium.T_default
+  parameter Modelica.Units.SI.Temperature TWetBul_start=Medium.T_default
     "Initial or guess value of wet bulb temperature (used to compute initial output signal))"
     annotation (Dialog(group="Initialization"));
 
@@ -23,7 +23,7 @@ protected
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(
     redeclare package Medium = Medium,
     TWetBul(start=TWetBul_start)) "Block for wet bulb temperature";
-  Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy h "Specific enthalpy";
   Medium.MassFraction Xi[Medium.nXi]
     "Species vector, needed because indexed argument for the operator inStream is not supported";
 initial equation
@@ -87,7 +87,7 @@ annotation (defaultComponentName="senWetBul",
           lineThickness=0.5),
         Text(
           extent={{102,140},{-18,90}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T"),
         Line(
           points={{-12,60},{-12,-25}},
@@ -98,7 +98,7 @@ annotation (defaultComponentName="senWetBul",
         Line(points={{0,100},{0,50}}, color={0,0,127}),
         Text(
          extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(T-273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>

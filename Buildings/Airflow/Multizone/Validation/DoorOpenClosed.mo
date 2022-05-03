@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Validation;
 model DoorOpenClosed
-  "Validation model for the operable door and the door that is always open"
+  "Model with operable door and door that is always open"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air "Medium model";
@@ -114,6 +114,11 @@ instance <code>lea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2021 by Michael Wetter:<br/>
+Updated comments for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/515\">IBPSA, #515</a>.
+</li>
 <li>
 October 12, 2020 by Michael Wetter:<br/>
 First implementation.

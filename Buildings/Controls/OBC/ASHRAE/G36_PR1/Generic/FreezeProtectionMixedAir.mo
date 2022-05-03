@@ -56,9 +56,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoi(final k=TFreSet)
     "Set point for freeze protection"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter yOut(final p=1, final k=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract yOut
     "Freeze protection control signal inverter"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+    final k=1) "Constant 1"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
 equation
   connect(con.u_s, setPoi.y)
@@ -69,8 +72,10 @@ equation
     annotation (Line(points={{-120,0},{-10,0},{-10,18}}, color={0,0,127}));
   connect(con.y, yFrePro) annotation (Line(points={{2,30},{30,30},{30,-30},{120,
           -30}}, color={0,0,127}));
-  connect(con.y, yOut.u) annotation (Line(points={{2,30},{30,30},{30,30},{58,30}},
-        color={0,0,127}));
+  connect(con.y, yOut.u2) annotation (Line(points={{2,30},{30,30},{30,24},{58,
+          24}}, color={0,0,127}));
+  connect(one.y, yOut.u1) annotation (Line(points={{42,70},{50,70},{50,36},{58,
+          36}}, color={0,0,127}));
   annotation (Dialog(
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
@@ -83,7 +88,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-164,144},{164,106}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Line(
           points={{-20,-46},{-20,40},{36,40},{-20,40},{-20,2},{26,2}},

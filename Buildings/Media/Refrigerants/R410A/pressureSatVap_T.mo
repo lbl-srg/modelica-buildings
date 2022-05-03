@@ -1,9 +1,8 @@
 within Buildings.Media.Refrigerants.R410A;
 function pressureSatVap_T
   "Function that calculates the pressure of saturated R410A vapor based on temperature"
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  output Modelica.SIunits.AbsolutePressure p
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  output Modelica.Units.SI.AbsolutePressure p
     "Pressure of saturated refrigerant vapor";
 
 protected

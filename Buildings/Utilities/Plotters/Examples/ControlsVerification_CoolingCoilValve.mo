@@ -94,11 +94,11 @@ model ControlsVerification_CoolingCoilValve
     "Converter to boolean"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter percConv(k=0.01)
     "Converter from percentage"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConv1(k=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter percConv1(k=0.01)
     "Converter from percentage"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 

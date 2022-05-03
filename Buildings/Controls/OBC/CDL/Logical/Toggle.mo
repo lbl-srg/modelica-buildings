@@ -1,40 +1,57 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block Toggle "Toggles output value whenever its input turns true"
-
-  Interfaces.BooleanInput u "Toggle input"
+block Toggle
+  "Toggles output value whenever its input turns true"
+  Interfaces.BooleanInput u
+    "Toggle input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput clr "Clear input"
+  Interfaces.BooleanInput clr
+    "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.BooleanOutput y "Output signal"
+  Interfaces.BooleanOutput y
+    "Output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  pre(y) = false;
-  pre(u) = false;
-  pre(clr) = false;
+  pre(y)=false;
+  pre(u)=false;
+  pre(clr)=false;
 
 equation
   when initial() then
     //scenario = 1
-    y = if clr then false else u;
-  elsewhen (not clr) and change(u) and (pre(u) == false) and (pre(y) == false) then
+    y=if clr then
+        false
+      else
+        u;
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == false) then
     //scenario = 2
-    y = true;
-  elsewhen (not clr) and change(u) and (pre(u) == false) and (pre(y) == true) then
+    y=true;
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == true) then
     //scenario = 3
-    y = false;
-  elsewhen (not clr) and change(u) and (pre(u) == true) then
+    y=false;
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == true) then
     //scenario = 4
-    y = pre(y);
+    y=pre(y);
   elsewhen clr then
     //scenario = 5
-    y = false;
+    y=false;
   end when;
-
-
-annotation (defaultComponentName="tog",
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics={Rectangle(
+  annotation (
+    defaultComponentName="tog",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -42,45 +59,67 @@ annotation (defaultComponentName="tog",
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{-73,9},{-87,-5}},
-          lineColor=DynamicSelect({235,235,235}, if u then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if u then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if u then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-73,-53},{-87,-67}},
-          lineColor=DynamicSelect({235,235,235}, if u0 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u0 then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if u0 then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if u0 then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
-        Line(points={{-68,-62},{4,-62},{4,-22},{74,-22}}, color={255,0,255}),
-        Line(points={{-68,24},{-48,24},{-48,56},{-16,56},{-16,24},{24,24},{24,56},
-              {54,56},{54,24},{74,24}}, color={255,0,255}),
+        Line(
+          points={{-68,-62},{4,-62},{4,-22},{74,-22}},
+          color={255,0,255}),
+        Line(
+          points={{-68,24},{-48,24},{-48,56},{-16,56},{-16,24},{24,24},{24,56},{54,56},{54,24},{74,24}},
+          color={255,0,255}),
         Text(
           extent={{-22,72},{28,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Toggle input"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-14,-10},{14,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Clear")}),
-  Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Block that generates a <code>true</code> output when toggle input <code>u</code> 
 rises from <code>false</code> to <code>true</code>, provided that the clear input
@@ -112,7 +151,8 @@ At initial time, if <code>clr = false</code>, then the output will be
      alt=\"Toggle.png\" />
 </p>
 
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 13, 2020, by Jianjun Hu:<br/>

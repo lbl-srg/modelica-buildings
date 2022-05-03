@@ -10,7 +10,7 @@ equation
   annotation (
     defaultComponentName="bin", Icon(graphics={   Text(
           extent={{-90,38},{90,-34}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="binomial()")}),
     Documentation(info="<html>
     <p>This block computes the binomial coefficient \"n choose k\".</p>

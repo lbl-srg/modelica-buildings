@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.OutdoorLights;
 package Validation "Collection of models that validate the outdoor lighting controllers"
-
-annotation (
-Documentation(
-info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Controls.OBC.OutdoorLights\">
 Buildings.Controls.OBC.OutdoorLights</a>.
 </p>
 </html>"),
-Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

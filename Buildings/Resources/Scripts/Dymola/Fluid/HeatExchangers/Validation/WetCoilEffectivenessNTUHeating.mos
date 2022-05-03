@@ -1,0 +1,34 @@
+﻿simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTUHeating",
+    stopTime=1000,
+    method="cvode",
+    tolerance=1e-6,
+    resultFile="WetCoilEffectivenessNTUHeating");
+createPlot(
+    id=1,
+    position={59, 59, 1186, 1286},
+    y={"hexDis.Q1_flow", "hexWetNTU_TX.Q1_flow", "hexDryNTU_T.Q1_flow"},
+    // range = {0, 1000, -9E4, -5E4},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    y={"hexDis.sta_b2.T", "hexWetNTU_TX.sta_b2.T", "hexDryNTU_T.sta_b2.T"},
+    // range={0.0, 1000.0, 20.0, 40.0},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true,
+    subPlot=102);
+createPlot(
+    id=2,
+    position={1255, 58, 1140, 1286},
+    y={"hexDis.UA_nominal", "hexWetNTU_TX.UA_nominal", "hexDryNTU_T.UA_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);

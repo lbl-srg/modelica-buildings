@@ -6,7 +6,7 @@ import energyplus_csv_to_mos as e
 if __name__ == '__main__':
   dat_fil = "IndirectAbsorptionChiller.dat"
   output_list =[
-   "BIG CHILLER:Chiller Electric Power [W](TimeStep)",
+   "BIG CHILLER:Chiller Electricity Rate [W](TimeStep)",
    "BIG CHILLER:Chiller Evaporator Cooling Rate [W](TimeStep)",
    "BIG CHILLER:Chiller Evaporator Inlet Temperature [C](TimeStep)",
    "BIG CHILLER:Chiller Evaporator Outlet Temperature [C](TimeStep)",
@@ -16,7 +16,7 @@ if __name__ == '__main__':
    "BIG CHILLER:Chiller Condenser Outlet Temperature [C](TimeStep)",
    "BIG CHILLER:Chiller Condenser Mass Flow Rate [kg/s](TimeStep)",
    "BIG CHILLER:Chiller Source Steam Rate [W](TimeStep)",
-   "BIG CHILLER:Chiller Steam Heat Loss Rate [W](TimeStep) "
+   "BIG CHILLER:Chiller Steam Heat Loss Rate [W](TimeStep)"
   ]
 
   e.energyplus_csv_to_mos(

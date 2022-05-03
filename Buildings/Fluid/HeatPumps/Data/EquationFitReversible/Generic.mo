@@ -8,10 +8,10 @@ record Generic
      mLoa_flow = hea.mLoa_flow,
      mSou_flow = hea.mSou_flow)
    "Performance data for cooling mode (set coo.P = 0 to disable operation in cooling mode)";
-  parameter Modelica.SIunits.PressureDifference dpHeaLoa_nominal(min=0) = 30000
-   "Nominal pressure drop at load heat exchanger side at hea.mLoa_flow";
-  parameter Modelica.SIunits.PressureDifference dpHeaSou_nominal(min=0) = 30000
-   "Nominal pressure drop at load heat exchanger side at hea.mSou_flow";
+  parameter Modelica.Units.SI.PressureDifference dpHeaLoa_nominal(min=0) =
+    30000 "Nominal pressure drop at load heat exchanger side at hea.mLoa_flow";
+  parameter Modelica.Units.SI.PressureDifference dpHeaSou_nominal(min=0) =
+    30000 "Nominal pressure drop at load heat exchanger side at hea.mSou_flow";
 
   final parameter Boolean reverseCycle=coo.P > Modelica.Constants.eps
     "= true, if the heat pump can be reversed to also operate in cooling mode"
@@ -19,27 +19,25 @@ record Generic
 
 protected
   record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
-    parameter Modelica.SIunits.HeatFlowRate Q_flow
-     "Nominal capacity"
+    parameter Modelica.Units.SI.HeatFlowRate Q_flow "Nominal capacity"
       annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-    parameter Modelica.SIunits.Power P
-    "Nominal compressor power"
-      annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-    parameter Modelica.SIunits.MassFlowRate mLoa_flow
-     "Nominal mass flow rate at load heat exchanger side";
-    parameter Modelica.SIunits.MassFlowRate mSou_flow
-     "Nominal mass flow rate at source heat exchanger side";
+    parameter Modelica.Units.SI.Power P "Nominal compressor power" annotation (
+        Dialog(group="Nominal conditions at load heat exchanger side"));
+    parameter Modelica.Units.SI.MassFlowRate mLoa_flow
+      "Nominal mass flow rate at load heat exchanger side";
+    parameter Modelica.Units.SI.MassFlowRate mSou_flow
+      "Nominal mass flow rate at source heat exchanger side";
     parameter Real coeQ[5]
      "Load ratio coefficients"
       annotation (Dialog(group="Performance coefficients"));
     parameter Real coeP[5]
      "Power ratio coefficients"
       annotation (Dialog(group="Electrical power performance coefficients"));
-    parameter Modelica.SIunits.Temperature TRefLoa
-     "Reference temperature used to normalize the load heat exchanger inlet water temperature"
+    parameter Modelica.Units.SI.Temperature TRefLoa
+      "Reference temperature used to normalize the load heat exchanger inlet water temperature"
       annotation (Dialog(group="Reference conditions"));
-    parameter Modelica.SIunits.Temperature TRefSou
-     "Reference temperature used to normalize the source heat exchanger inlet water temperature"
+    parameter Modelica.Units.SI.Temperature TRefSou
+      "Reference temperature used to normalize the source heat exchanger inlet water temperature"
       annotation (Dialog(group="Reference conditions"));
     annotation (Documentation(info="<html>
 <p>

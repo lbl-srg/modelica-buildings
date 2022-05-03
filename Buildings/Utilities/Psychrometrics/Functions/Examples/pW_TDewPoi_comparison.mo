@@ -3,12 +3,12 @@ model pW_TDewPoi_comparison
   "Model to test the approximation for pW_TDewPoi and its inverse function"
   extends Modelica.Icons.Example;
 
-  Modelica.SIunits.Temperature T "Dew point temperature";
-  Modelica.SIunits.Temperature TInv "Dew point temperature";
-  Modelica.SIunits.TemperatureDifference dT "Difference between temperatures";
-  Modelica.SIunits.Pressure p_w_ashrae
+  Modelica.Units.SI.Temperature T "Dew point temperature";
+  Modelica.Units.SI.Temperature TInv "Dew point temperature";
+  Modelica.Units.SI.TemperatureDifference dT "Difference between temperatures";
+  Modelica.Units.SI.Pressure p_w_ashrae
     "Water vapor partial pressure according to the ASHRAE handbook";
-  Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
+  Modelica.Units.SI.Pressure p_w "Water vapor partial pressure";
 
   constant Real conv(unit="K/s") = 30 "Conversion factor";
   Real r_p "Ratio of the two approximations";

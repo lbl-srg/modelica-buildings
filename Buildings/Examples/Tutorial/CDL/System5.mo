@@ -126,6 +126,7 @@ Use this new controller instead of the open loop controller <code>conSysSta</cod
 <p>
 Simulate the system to verify that the system is switched off if the room
 temperature exceeeds its set point plus half the dead band.
+This should yield a plot similar to the one below.
 </p>
 <p align=\"center\">
 <img alt=\"Temperatures and control signals.\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/CDL/System5/TemperaturesControl.png\" border=\"1\"/>

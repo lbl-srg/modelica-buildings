@@ -4,25 +4,25 @@ model RectangularBorefield "Example model of a rectangular borefield"
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.Time tLoaAgg=300
+  parameter Modelica.Units.SI.Time tLoaAgg=300
     "Time resolution of load aggregation";
 
-  parameter Modelica.SIunits.Temperature TGro = 283.15
-    "Ground temperature";
-  parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal velocity";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = nBorHol*v_nominal*rTub^2*3.14*1000
-    "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dpBorFie_nominal = (hBor+(xBorFie+yBorFie)/2)*2
-    "Pressure losses for the entire borefield";
-  parameter Modelica.SIunits.Pressure dpHex_nominal = 10000 "Pressure drop heat exchanger";
-  parameter Modelica.SIunits.Pressure dp_nominal = dpBorFie_nominal + dpHex_nominal
-    "Total pressure drop";
+  parameter Modelica.Units.SI.Temperature TGro=283.15 "Ground temperature";
+  parameter Modelica.Units.SI.Velocity v_nominal=1 "Nominal velocity";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=nBorHol*v_nominal*
+      rTub^2*3.14*1000 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.Pressure dpBorFie_nominal=(hBor + (xBorFie +
+      yBorFie)/2)*2 "Pressure losses for the entire borefield";
+  parameter Modelica.Units.SI.Pressure dpHex_nominal=10000
+    "Pressure drop heat exchanger";
+  parameter Modelica.Units.SI.Pressure dp_nominal=dpBorFie_nominal +
+      dpHex_nominal "Total pressure drop";
 
-  parameter Modelica.SIunits.Height hBor = 100 "Total height of the borehole";
-  parameter Modelica.SIunits.Radius rTub = 0.02 "Outer radius of the tubes";
-  parameter Modelica.SIunits.Length xBorFie = 10 "Borefield length";
-  parameter Modelica.SIunits.Length yBorFie = 30 "Borefield width";
-  parameter Modelica.SIunits.Length dBorHol = 5 "Distance between two boreholes";
+  parameter Modelica.Units.SI.Height hBor=100 "Total height of the borehole";
+  parameter Modelica.Units.SI.Radius rTub=0.02 "Outer radius of the tubes";
+  parameter Modelica.Units.SI.Length xBorFie=10 "Borefield length";
+  parameter Modelica.Units.SI.Length yBorFie=30 "Borefield width";
+  parameter Modelica.Units.SI.Length dBorHol=5 "Distance between two boreholes";
 
   final parameter Integer nXBorHol = integer((xBorFie+dBorHol)/dBorHol) "Number of boreholes in x-direction";
   final parameter Integer nYBorHol = integer((yBorFie+dBorHol)/dBorHol) "Number of boreholes in y-direction";
@@ -75,7 +75,6 @@ model RectangularBorefield "Example model of a rectangular borefield"
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     allowFlowReversal=false)
@@ -126,7 +125,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/RectangularBorefield.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/RectangularBorefield.mos"
         "Simulate and plot"),
   experiment(
       StopTime=2678400,Tolerance=1e-6));

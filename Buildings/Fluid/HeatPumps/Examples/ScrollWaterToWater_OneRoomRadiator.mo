@@ -7,19 +7,18 @@ model ScrollWaterToWater_OneRoomRadiator
   replaceable package MediumW =
       Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=20000
     "Nominal heat flow rate of radiator";
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+50
+  parameter Modelica.Units.SI.Temperature TRadSup_nominal=273.15 + 50
     "Radiator nominal supply water temperature";
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+45
+  parameter Modelica.Units.SI.Temperature TRadRet_nominal=273.15 + 45
     "Radiator nominal return water temperature";
-  parameter Modelica.SIunits.MassFlowRate mHeaPum_flow_nominal=
-    Q_flow_nominal/4200/5
-    "Heat pump nominal mass flow rate";
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+  parameter Modelica.Units.SI.MassFlowRate mHeaPum_flow_nominal=Q_flow_nominal/
+      4200/5 "Heat pump nominal mass flow rate";
+  parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=V*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=4000
     "Internal heat gains of the room";
 //------------------------------------------------------------------------------//
 
@@ -72,7 +71,6 @@ model ScrollWaterToWater_OneRoomRadiator
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaPum_flow_nominal,
-    y_start=1,
     m_flow_start=0.85,
     T_start=TRadSup_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
@@ -127,7 +125,6 @@ model ScrollWaterToWater_OneRoomRadiator
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumW,
-    y_start=1,
     m_flow_start=0.85,
     m_flow_nominal=mHeaPum_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
@@ -303,8 +300,20 @@ off when the room temperature rises above <i>21</i>&deg;C.
 </html>", revisions="<html>
 <ul>
 <li>
+July 22, 2021, by Michael Wetter:<br/>
+Removed assignments <code>pumHeaPum(y_start=1)</code> and <code>pumHeaPumSou(y_start=1)</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1498\">#1498</a>.
+</li>
+<li>
+April 21, 2021, by Michael Wetter:<br/>
+Corrected error in calculation of design mass flow rate.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2458\">#2458</a>.
+</li>
+<li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

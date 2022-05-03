@@ -1,15 +1,15 @@
 within Buildings.Electrical.DC.Storage.BaseClasses;
 model Charge "Model to compute the battery charge"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";
-  parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
   parameter Real SOC_start(min=0, max=1, unit="1")=0.1
     "Initial state of charge";
-  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
+  parameter Modelica.Units.SI.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum available charge";
-  Modelica.SIunits.Power PAct "Actual power";
+  Modelica.Units.SI.Power PAct "Actual power";
   Modelica.Blocks.Interfaces.RealInput P(final quantity="Power",
                                          final unit="W") annotation (Placement(transformation(
           extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{
@@ -82,6 +82,12 @@ exceeding the range between 0 and 1.
 
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Corrected wrong unit string.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised documentation.

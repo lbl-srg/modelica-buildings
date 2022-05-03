@@ -5,7 +5,7 @@ model CoolingCoil "Controller for cooling coil valve"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Cooling coil loop signal"));
-  parameter Real kCooCoi(final unit="1/K")=0.1
+  parameter Real kCooCoi=0.1
     "Gain for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal"));
   parameter Real TiCooCoi(final unit="s")=900
@@ -39,6 +39,14 @@ model CoolingCoil "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
+    final reverseActing=false,
+    final controllerType=controllerTypeCooCoi,
+    final k=kCooCoi,
+    final Ti=TiCooCoi,
+    final Td=TdCooCoi) "Cooling coil control signal"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if zone is in cooling state"
@@ -47,14 +55,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
-    final reverseActing=false,
-    final controllerType=controllerTypeCooCoi,
-    final k=kCooCoi,
-    final Ti=TiCooCoi,
-    final Td=TdCooCoi) "Cooling coil control signal"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch "Switch to assign cooling coil control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -74,7 +75,7 @@ equation
     annotation (Line(points={{94,0},{110,0}}, color={0,0,127}));
   connect(intEqu.y, and2.u1) annotation (Line(points={{-18,-20},{-2,-20}},
                     color={255,0,255}));
-  connect(and2.u2, uSupFan) annotation (Line(points={{-2,-28},{-8,-28},{-8,-80},
+  connect(and2.u2, uSupFan) annotation (Line(points={{-2,-28},{-6,-28},{-6,-80},
           {-120,-80}}, color={255,0,255}));
   connect(and2.y, switch.u2) annotation (Line(points={{22,-20},{30,-20},{30,0},
           {70,0}},color={255,0,255}));
@@ -94,7 +95,7 @@ equation
         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        textColor={0,0,255})}),
         Diagram(coordinateSystem(
           preserveAspectRatio=false)),
 Documentation(info="<html>
@@ -105,6 +106,13 @@ Otherwise, the control signal for the coil is set to <code>0</code>.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+May 1, 2021, by Michael Wetter:<br/>
+Changed model to have the PI controller public rather than protected.
+PI controllers should be public, allowing their variables to be inspected.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2477\">#2477</a>.
+</li>
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
 Moved interfaces instances to be right after parameter section.

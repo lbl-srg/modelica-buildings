@@ -14,20 +14,6 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  // Cooling coil
-  parameter Boolean waterSideFlowDependent=true
-    "Set to false to make water-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-  parameter Boolean airSideFlowDependent=true
-    "Set to false to make air-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-  parameter Boolean waterSideTemperatureDependent=false
-    "Set to false to make water-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-  parameter Boolean airSideTemperatureDependent=false
-    "Set to false to make air-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
-
   // Initialization of the fan
   parameter Medium2.AbsolutePressure p_start = Medium2.p_default
     "Start value of pressure"
@@ -51,16 +37,16 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
-  parameter Real kFixed(unit="", min=0) = m1_flow_nominal / sqrt(dp1_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
-    annotation(Dialog(group="Valve"));
 
   parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
     annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.SIunits.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time riseTimeValve=120
     "Rise time of the filter for the water-side valve (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Valve",
+      enable=use_inputFilterValve));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
@@ -73,15 +59,18 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Fan"));
-  parameter Modelica.SIunits.Time tauFan = 1
+  parameter Modelica.Units.SI.Time tauFan=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Fan"));
+    annotation (Dialog(tab="Dynamics", group="Fan"));
   parameter Boolean use_inputFilterFan=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Fan"));
-  parameter Modelica.SIunits.Time riseTimeFan=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
+  parameter Modelica.Units.SI.Time riseTimeFan=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Fan",
+      enable=use_inputFilterFan));
   parameter Modelica.Blocks.Types.Init initFan=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
@@ -94,8 +83,8 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     "Actuator position (0: closed, 1: open) on water side"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput uFan if
-   not inputType == Buildings.Fluid.Types.InputType.Stages
+  Modelica.Blocks.Interfaces.RealInput uFan
+if not inputType == Buildings.Fluid.Types.InputType.Stages
    "Continuous input signal for the fan"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
@@ -113,30 +102,22 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     final unit="1") "Actual valve position"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
                iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.IntegerInput stage if
-    inputType == Buildings.Fluid.Types.InputType.Stages
+  Modelica.Blocks.Interfaces.IntegerInput stage
+ if inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final UA_nominal=UA_nominal,
     final r_nominal=r_nominal,
-    final nEle=nEle,
-    final tau1=tau1,
-    final tau2=tau2,
-    final tau_m=tau_m,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final show_T=show_T,
     final m1_flow_small=m1_flow_small,
     final m2_flow_small=m2_flow_small,
-    final waterSideFlowDependent=waterSideFlowDependent,
-    final airSideFlowDependent=airSideFlowDependent,
-    final waterSideTemperatureDependent=waterSideTemperatureDependent,
-    final airSideTemperatureDependent=airSideTemperatureDependent,
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
@@ -151,14 +132,12 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
       final allowFlowReversal=allowFlowReversal2,
       final show_T=show_T,
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
       final inputType=inputType,
       final tau=tauFan,
       final addPowerToMedium=addPowerToMedium,
       final use_inputFilter=use_inputFilterFan,
       final riseTime=riseTimeFan,
       final init=initFan,
-      final y_start=yFan_start,
       final p_start=p_start,
       final T_start=T_start,
       final X_start=X_start,
@@ -173,7 +152,6 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
       final allowFlowReversal=allowFlowReversal1,
       final show_T=show_T,
       final l=l,
-      final kFixed=kFixed,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
       final from_dp=from_dp1,
       final homotopyInitialization=homotopyInitialization,
@@ -200,15 +178,12 @@ initial equation
     level = AssertionLevel.warning);
 
 equation
-  connect(port_a1, cooCoi.port_a1)
-    annotation (Line(points={{-100,60},{50,60},{50,-48},{60,-48}},
-                                                color={0,127,255}));
-  connect(cooCoi.port_a2, port_a2)
-    annotation (Line(points={{80,-60},{80,-60},{84,-60},{100,-60}},
-               color={0,127,255}));
-  connect(cooCoi.port_b1, watVal.port_a)
-    annotation (Line(points={{80,-48},{80,-48},{80,-26},{80,-34},{80,-20}},
-                                              color={0,127,255}));
+  connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{50,60},
+          {50,-48},{60,-48}}, color={0,127,255}));
+  connect(cooCoi.port_a2, port_a2) annotation (Line(points={{80,-60},{80,-60},
+          {84,-60},{100,-60}}, color={0,127,255}));
+  connect(cooCoi.port_b1, watVal.port_a) annotation (Line(points={{80,-48},{80,
+          -48},{80,-26},{80,-34},{80,-20}}, color={0,127,255}));
   connect(watVal.port_b, port_b1)
    annotation (Line(points={{80,0},{80,0},{80,60},{100,60}},
                  color={0,127,255}));
@@ -227,9 +202,9 @@ equation
   connect(yVal, watVal.y_actual) annotation (Line(points={{110,40},{92,40},{73,
           40},{73,-5}}, color={0,0,127}));
   annotation (      Diagram(coordinateSystem(preserveAspectRatio=false),
-        graphics={Text(extent={{50,74},{76,68}},lineColor={0,0,255},
+        graphics={Text(extent={{50,74},{76,68}},textColor={0,0,255},
                      textString="Waterside",textStyle={TextStyle.Bold}),
-                 Text(extent={{58,-70},{84,-76}},lineColor={0,0,255},
+                 Text(extent={{58,-70},{84,-76}},textColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>
@@ -240,6 +215,16 @@ The valve and fan are partial models, and should be redeclared when used in the 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
+<li>
+April 9, 2021, by Kathryn Hinkelman:<br/>
+Removed <code>kFixed</code> redundancies. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

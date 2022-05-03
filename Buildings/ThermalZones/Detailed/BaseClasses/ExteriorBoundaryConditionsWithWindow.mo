@@ -5,9 +5,8 @@ model ExteriorBoundaryConditionsWithWindow
    final AOpa=conPar[:].AOpa,
    redeclare Buildings.ThermalZones.Detailed.BaseClasses.ParameterConstructionWithWindow conPar);
 
-  final parameter Modelica.SIunits.Area AWin[nCon] = conPar[:].hWin .* conPar[:].wWin
-    "Window area"
-    annotation (Dialog(group="Glazing system"));
+  final parameter Modelica.Units.SI.Area AWin[nCon]=conPar[:].hWin .* conPar[:].wWin
+    "Window area" annotation (Dialog(group="Glazing system"));
 
   final parameter Boolean haveExteriorShade[nCon] = conPar[:].glaSys.haveExteriorShade
     "Set to true if window has exterior shade (at surface a)"
@@ -28,9 +27,8 @@ model ExteriorBoundaryConditionsWithWindow
 
   Buildings.HeatTransfer.Windows.FixedShade sha[nCon](
     final conPar=conPar,
-    each lat=lat,
-    azi=conPar.azi) if
-       haveOverhangOrSideFins "Shade due to overhang or side fins"
+    azi=conPar.azi)
+    if haveOverhangOrSideFins "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](
@@ -75,13 +73,13 @@ model ExteriorBoundaryConditionsWithWindow
     "Incoming radiosity that connects to unshaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,10},{-300,30}}),
         iconTransformation(extent={{-320,10},{-300,30}})));
-  HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon] if
-       haveShade
+  HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon]
+    if haveShade
     "Outgoing radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-300,-210},{-320,-190}}),
         iconTransformation(extent={{-300,-210},{-320,-190}})));
-  HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon] if
-       haveShade
+  HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon]
+    if haveShade
     "Incoming radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,-170},{-300,-150}}),
         iconTransformation(extent={{-320,-170},{-300,-150}})));
@@ -90,13 +88,16 @@ model ExteriorBoundaryConditionsWithWindow
                                                     annotation (Placement(transformation(extent={{-310,
             -90},{-290,-70}}), iconTransformation(extent={{-310,-90},{-290,
             -70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon] if
-       haveShade "Heat port at shaded glass of exterior-facing surface"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon]
+    if haveShade "Heat port at shaded glass of exterior-facing surface"
     annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](T(each nominal=
-          300, each start=283.15))
-    "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-310,
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](
+    each T(
+      nominal=300,
+      start=283.15))
+    "Heat port at frame of exterior-facing surface"
+    annotation (Placement(transformation(extent={{-310,
             -270},{-290,-250}}), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
   Modelica.Blocks.Math.Add HTotConExtWinFra[nCon](
@@ -319,8 +320,10 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-300,-300},{300,
             300}}), graphics),
     Documentation(info="<html>
+<p>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.
+</p>
 <p>
 The model computes the infrared, solar, and convective heat exchange
 between these surfaces and the exterior temperature and the sky temperature.
@@ -339,6 +342,18 @@ the model
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2021, by Michael Wetter:<br/>
+Corrected use of <code>each</code> keyword.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2731\">issue 2731</a>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Added missing <code>each</code>.

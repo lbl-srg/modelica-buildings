@@ -2,17 +2,18 @@ within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalRes
 model FiniteLineSource "Test case for finite line source"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1.0e-6 "Ground thermal diffusivity";
-  parameter Modelica.SIunits.Distance[2] r = {0.075, 7.0}
+  parameter Modelica.Units.SI.ThermalDiffusivity aSoi=1.0e-6
+    "Ground thermal diffusivity";
+  parameter Modelica.Units.SI.Distance[2] r={0.075,7.0}
     "Radial position of evaluation of the solution";
-  parameter Modelica.SIunits.Height len1 = 12.5 "Length of emitting source";
-  parameter Modelica.SIunits.Height burDep1 = 29.0
+  parameter Modelica.Units.SI.Height len1=12.5 "Length of emitting source";
+  parameter Modelica.Units.SI.Height burDep1=29.0
     "Buried depth of emitting source";
-  parameter Modelica.SIunits.Height[7] len2 = {12.5, 8.0, 15.0, 14.0, 6.0, 20.0, 3.0}
+  parameter Modelica.Units.SI.Height[7] len2={12.5,8.0,15.0,14.0,6.0,20.0,3.0}
     "Length of receiving line";
-  parameter Modelica.SIunits.Height[7] burDep2 = {29.0, 25.0, 34.0, 2.0, 32.0, 27.0, 44.0}
-    "Buried depth of receiving line";
-  Modelica.SIunits.Time t "Time";
+  parameter Modelica.Units.SI.Height[7] burDep2={29.0,25.0,34.0,2.0,32.0,27.0,
+      44.0} "Buried depth of receiving line";
+  Modelica.Units.SI.Time t "Time";
   Real[2,7] hRea "Finite line source solution (Real part)";
   Real[2,7] hMir "Finite line source solution (Mirror part)";
   Real[2,7] h "Finite line source solution";

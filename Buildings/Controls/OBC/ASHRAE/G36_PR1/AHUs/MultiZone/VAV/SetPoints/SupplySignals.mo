@@ -4,7 +4,7 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for supply air temperature signal";
-  parameter Real kTSup(final unit="1/K")=0.05
+  parameter Real kTSup=0.05
     "Gain of controller for supply air temperature signal";
   parameter Real TiTSup(
     final unit="s",
@@ -82,7 +82,7 @@ protected
     final reverseActing=false)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
@@ -178,37 +178,37 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,8},{-64,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-94,-38},{-48,-62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{76,8},{96,-2}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yHea"),
         Text(
           extent={{74,46},{96,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
           extent={{76,-34},{96,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCoo"),
         Text(
           extent={{-96,56},{-56,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{-124,146},{96,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
 Block that outputs the supply temperature control loop signal,

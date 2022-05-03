@@ -24,10 +24,6 @@ block Modulation
     final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
     annotation (Dialog(tab="Commissioning", group="Controller"));
-  parameter Real samplePeriod(
-     final unit="s",
-     final quantity="Time")= 300
-    "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
@@ -102,14 +98,6 @@ protected
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max "Overwrite due to freeze protection"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolOutDam(
-    final samplePeriod=samplePeriod)
-    "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
-    annotation (Placement(transformation(extent={{92,-70},{112,-50}})));
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolRetDam(
-    final samplePeriod=samplePeriod)
-    "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
-    annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
 equation
   connect(outDamPos.x2, outDamMaxLimSig.y)
@@ -130,26 +118,22 @@ equation
   connect(retDamPos.f2, uRetDamPosMin)
     annotation (Line(points={{-2,62},{-12,62},{-12,50},{-140,50}}, color={0,0,127}));
   connect(min.u2, uOutDamPosMax)
-    annotation (Line(points={{58,-66},{-108,-66},{-108,-50},{-140,-50}},color={0,0,127}));
+    annotation (Line(points={{58,-66},{-36,-66},{-36,-50},{-140,-50}},  color={0,0,127}));
   connect(min.u1, outDamPos.y)
-    annotation (Line(points={{58,-54},{28,-54},{28,-30},{22,-30}}, color={0,0,127}));
+    annotation (Line(points={{58,-54},{48,-54},{48,-30},{22,-30}}, color={0,0,127}));
   connect(max.u1, retDamPos.y)
     annotation (Line(points={{58,66},{30,66},{30,70},{22,70}}, color={0,0,127}));
   connect(uRetDamPosMin, max.u2)
     annotation (Line(points={{-140,50},{-12,50},{-12,54},{58,54}}, color={0,0,127}));
-  connect(min.y, firOrdHolOutDam.u)
-    annotation (Line(points={{82,-60},{90,-60}}, color={0,0,127}));
-  connect(firOrdHolOutDam.y, yOutDamPos)
-    annotation (Line(points={{114,-60},{140,-60}}, color={0,0,127}));
   connect(uTSup, retDamPos.u)
     annotation (Line(points={{-140,0},{-22,0},{-22,70},{-2,70}}, color={0,0,127}));
   connect(uTSup, outDamPos.u)
     annotation (Line(points={{-140,0},{-22,0},{-22,-30},{-2,-30}}, color={0,0,127}));
-  connect(max.y, firOrdHolRetDam.u)
-    annotation (Line(points={{82,60},{88,60}}, color={0,0,127}));
-  connect(firOrdHolRetDam.y, yRetDamPos)
-    annotation (Line(points={{112,60},{140,60}}, color={0,0,127}));
 
+  connect(yOutDamPos, min.y)
+    annotation (Line(points={{140,-60},{82,-60}}, color={0,0,127}));
+  connect(max.y, yRetDamPos)
+    annotation (Line(points={{82,60},{120,60}}, color={0,0,127}));
 annotation (
     defaultComponentName="mod",
     Icon(graphics={
@@ -170,7 +154,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-108,138},{102,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{
             120,120}}), graphics={
@@ -186,13 +170,13 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-116,118},{-34,102}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position supply
 air temperature control loop"),
         Text(
           extent={{-24,118},{24,106}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments"),
@@ -203,7 +187,7 @@ assignments"),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{54,118},{120,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Overwrite if the freeze protection
 that tracks TFre at the measured
@@ -230,16 +214,6 @@ positions. Return and outdoor damper are not interlocked. When the economizer is
 the damper positions are set to the minimum outdoor air damper position limits.
 </p>
 <p>
-The time rate of change of the damper signals is limited by a first order hold,
-using the sample time <code>samplePeriod</code>.
-This prevents a quick opening of the outdoor air damper, for example when the
-outdoor airflow setpoint has a step change.
-Slowing down the opening of the outdoor air damper allows the freeze protection
-to compensate with its dynamics that is faster than the opening of the outdoor air damper.
-To avoid that all dampers are closed, the return air damper has the same
-time rate of change limitation.
-</p>
-<p>
 The control charts below show the input-output structure and an economizer damper
 modulation sequence assuming a well configured controller. Control diagram:
 </p>
@@ -257,6 +231,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Mul
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 24, 2021, by Michael Wetter:<br/>
+Removed limit on time rate of change on damper signal.
+The dampers model has already a delay which should make them sufficiently slow.
+Adding this delay in the controller makes it harder to tune the controls.
+This change also removed the parameter <code>samplePeriod</code>.
+</li>
 <li>
 October 13, 2017, by Michael Wetter:<br/>
 Corrected implementation for when dampers are

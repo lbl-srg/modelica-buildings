@@ -14,30 +14,29 @@ model ClosedDoors "Model with three closed doors"
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)
+    m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)
+    m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow PrescribedHeatFlow1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    "Prescribed heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{4,40},{24,60}})));
-  Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
-        transformation(extent={{-68,40},{-48,60}})));
-  Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
-          extent={{-28,40},{-8,60}})));
+  Modelica.Blocks.Sources.Sine sinBou(f=1/3600)
+    "Signal for heat flow rate boundary condition"
+    annotation (Placement(transformation(extent={{-68,40},{-48,60}})));
+  Modelica.Blocks.Math.Gain gai(k=100) "Gain for heat flow boundary condition"
+    annotation (Placement(transformation(extent={{-28,40},{-8,60}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volC(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)
+    m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAC(
     redeclare package Medium = Medium,
@@ -53,9 +52,9 @@ model ClosedDoors "Model with three closed doors"
     forceErrorControlOnFlow=true) "Discretized door"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
 equation
-  connect(Gain1.y, PrescribedHeatFlow1.Q_flow)
+  connect(gai.y, preHeaFlo.Q_flow)
     annotation (Line(points={{-7,50},{4,50}}, color={0,0,255}));
-  connect(Sine1.y, Gain1.u)
+  connect(sinBou.y, gai.u)
     annotation (Line(points={{-47,50},{-30,50}}, color={0,0,255}));
   connect(yDoor.y, dooAB.y)
                            annotation (Line(points={{-39,-80},{-34,-80},{-34,-20},
@@ -66,9 +65,8 @@ equation
   connect(yDoor.y, dooBC.y)
     annotation (Line(points={{-39,-80},{-16,-80},{9,-80}},
                                                          color={0,0,255}));
-  connect(PrescribedHeatFlow1.port, volB.heatPort) annotation (Line(
-      points={{24,50},{40,50}},
-      color={191,0,0}));
+  connect(preHeaFlo.port, volB.heatPort)
+    annotation (Line(points={{24,50},{40,50}}, color={191,0,0}));
   connect(volC.ports[1], dooAC.port_b1) annotation (Line(
       points={{77,-40},{76,-40},{76,-44},{74,-44},{74,-44},{30,-44}},
       color={0,127,255}));
@@ -128,6 +126,11 @@ does not account for expansion if air the air is heated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2021 by Michael Wetter:<br/>
+Updated comments for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/515\">IBPSA, #515</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

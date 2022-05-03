@@ -36,7 +36,7 @@ model TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{-12,4},{8,24}})));
   // ===================================================================
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Dew point temperature difference"
     annotation (Placement(transformation(extent={{52,40},{72,60}})));
   Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi1
@@ -50,7 +50,7 @@ model TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Buildings.Utilities.Psychrometrics.X_pTphi X_pTphi1 "Steam mass fraction"
     annotation (Placement(transformation(extent={{-44,-98},{-24,-78}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Dew point temperature difference"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
 
@@ -79,10 +79,10 @@ equation
   connect(phi.y, X_pTphi.phi)
     annotation (Line(points={{-72,50},{-62,50},{-62,8},{-48,8}},
       color={0,0,127}));
-  connect(TDewPoi.T, add.u2)
+  connect(TDewPoi.T, sub.u2)
     annotation (Line(points={{39,14},{44,14},{44,44},{50,44}},
       color={0,0,127}));
-  connect(dewBulPhi.TDewPoi, add.u1)
+  connect(dewBulPhi.TDewPoi, sub.u1)
     annotation (Line(points={{38,84},{42,84},{42,56},{50,56}},
       color={0,0,127}));
   connect(TDryBul2.y, dewBulPhi1.TDryBul)
@@ -109,10 +109,10 @@ equation
   connect(humRat1.p_w, TDewPoi1.p_w)
     annotation (Line(points={{11,-88},{19,-88},{19,-88}},
       color={0,0,127}));
-  connect(dewBulPhi1.TDewPoi, add1.u1)
+  connect(dewBulPhi1.TDewPoi, sub1.u1)
     annotation (Line(points={{40,-18},{44,-18},{44,-44},{50,-44}},
       color={0,0,127}));
-  connect(TDewPoi1.T, add1.u2)
+  connect(TDewPoi1.T, sub1.u2)
     annotation (Line(points={{41,-88},{46,-88},{46,-56},{50,-56}},
       color={0,0,127}));
 

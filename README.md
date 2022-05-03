@@ -24,7 +24,7 @@ The main project site is http://simulationresearch.lbl.gov/modelica.
 
 ## Current release
 
-Download [Buildings Library 7.0.0 (2020-05-28)](https://github.com/lbl-srg/modelica-buildings/releases/download/v7.0.0/Buildings-v7.0.0.zip)
+Download [Buildings Library 8.0.0 (2021-06-08)](https://github.com/lbl-srg/modelica-buildings/releases/download/v8.0.0/Buildings-v8.0.0.zip)
 
 ## License
 
@@ -48,7 +48,9 @@ Developers may build the binaries as follows.
 
 ### Spawn of EnergyPlus
 
-The build the Spawn of EnergyPlus binaries, cmake is required. The binaries
+The Buildings library already contains the compiled binaries that are needed to link to EnergyPlus.
+
+To rebuild the Spawn of EnergyPlus binaries, CMake is required. The binaries
 consist of the fmi-library, and a library that connects Modelica to EnergyPlus.
 
 To build the fmi-library, which is only needed if https://github.com/modelon-community/fmi-library is updated, run
@@ -70,5 +72,5 @@ rm -rf build && mkdir build && cd build && \
 To install the latest build of EnergyPlus that contains the Spawn interface, run
 ```
 cd Buildings/Resources/src/ThermalZones/EnergyPlus/
-./install.sh
+./install.py
 ```

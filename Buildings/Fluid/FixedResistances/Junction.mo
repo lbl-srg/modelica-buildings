@@ -29,13 +29,13 @@ model Junction
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate[3] m_flow_nominal
     "Mass flow rate. Set negative at outflowing ports."
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
+  parameter Modelica.Units.SI.Pressure[3] dp_nominal(each displayUnit="Pa")
     "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
@@ -67,7 +67,7 @@ initial equation
           fillColor={0,128,255}),
         Text(
           extent={{-151,142},{149,102}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent=DynamicSelect({{-100,10},{-100,10}}, {{-100,10},{-100+100*min(1, max(0, port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),
@@ -161,7 +161,7 @@ system of equations.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 February 26, 2020, by Michael Wetter:<br/>

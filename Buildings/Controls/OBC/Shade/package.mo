@@ -1,12 +1,13 @@
 within Buildings.Controls.OBC;
-package Shade "Shading control sequences"
-
+package Shade "Package with controllers for shades"
   annotation (
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
         <p>
         This package contains shade control sequences.
         </p>
-        </html>",revisions="<html>
+        </html>",
+      revisions="<html>
         <ul>
         <li>
         June 07, 2018, by Milica Grahovac:<br/>
@@ -14,7 +15,10 @@ package Shade "Shading control sequences"
         </li>
         </ul>
         </html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+    Icon(
+      coordinateSystem(
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -47,6 +51,8 @@ package Shade "Shading control sequences"
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}), Diagram(coordinateSystem(extent={{-100,-100},{
-          100,100}})));
+          radius=25.0)}),
+    Diagram(
+      coordinateSystem(
+        extent={{-100,-100},{100,100}})));
 end Shade;

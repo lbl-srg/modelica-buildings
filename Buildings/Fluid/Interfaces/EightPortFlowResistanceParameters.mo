@@ -10,8 +10,8 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
-  parameter Modelica.SIunits.Pressure dp1_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.Pressure dp1_nominal(min=0, displayUnit="Pa")
+    "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance1,
@@ -28,8 +28,8 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
-  parameter Modelica.SIunits.Pressure dp2_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.Pressure dp2_nominal(min=0, displayUnit="Pa")
+    "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance2,
@@ -46,8 +46,8 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance3,
                 tab="Flow resistance", group="Medium 3"));
-  parameter Modelica.SIunits.Pressure dp3_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.Pressure dp3_nominal(min=0, displayUnit="Pa")
+    "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance3 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance3,
@@ -64,8 +64,8 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance4,
                 tab="Flow resistance", group="Medium 4"));
-  parameter Modelica.SIunits.Pressure dp4_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.Pressure dp4_nominal(min=0, displayUnit="Pa")
+    "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance4 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance4,
@@ -77,6 +77,7 @@ record EightPortFlowResistanceParameters
 
 annotation (preferredView="info",
 Documentation(info="<html>
+<p>
 This class contains parameters that are used to
 compute the pressure drop in components that have four fluid streams.
 Note that the nominal mass flow rate is not declared here because
@@ -84,6 +85,7 @@ the model
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialEightPortInterface\">
 PartialHeightPortInterface</a>
 already declares it.
+</p>
 </html>",
 revisions="<html>
 <ul>

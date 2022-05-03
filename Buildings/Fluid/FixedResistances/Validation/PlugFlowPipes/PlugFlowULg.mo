@@ -3,13 +3,13 @@ model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Temperature T_start_in=pipeDataULg.T_start_in + 273.15
-    "Initial temperature at pipe inlet";
-  parameter Modelica.SIunits.Temperature T_start_out=pipeDataULg.T_start_out + 273.15
-    "Initial temperature at pipe outlet";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+  parameter Modelica.Units.SI.Temperature T_start_in=pipeDataULg.T_start_in +
+      273.15 "Initial temperature at pipe inlet";
+  parameter Modelica.Units.SI.Temperature T_start_out=pipeDataULg.T_start_out
+       + 273.15 "Initial temperature at pipe outlet";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -94,7 +94,6 @@ model PlugFlowULg "Validation against data from Université de Liège"
     T_start_in=T_start_in,
     R=((1/(2*pipe.kIns)*log((0.0603/2 + pipe.dIns)/(0.0603/2))) + 1/(5*(0.0603
          + 2*pipe.dIns)))/Modelica.Constants.pi,
-    nPorts=1,
     initDelay=true,
     m_flow_start=pipeDataULg.m_flowIni,
     cPip=500,
@@ -149,7 +148,7 @@ equation
           0}},                                  color={0,127,255}));
   connect(senTem_out.port_a, senEntOut.port_b)
     annotation (Line(points={{-160,0},{-140,0}},       color={0,127,255}));
-  connect(senEntOut.port_a, pipe.ports_b[1])
+  connect(senEntOut.port_a, pipe.port_b)
     annotation (Line(points={{-120,0},{-100,0}},       color={0,127,255}));
   connect(pipe.port_a, senEntIn.port_b)
     annotation (Line(points={{-80,0},{-62,0}}, color={0,127,255}));
@@ -227,7 +226,7 @@ put boundary condition in K.
 </ul>
 </html>"),
     experiment(StopTime=875, Tolerance=1e-006),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowULg.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowULg.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-260,-120},{260,120}})));
 end PlugFlowULg;

@@ -7,18 +7,17 @@ partial model Carnot
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0)
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)
-    "Nominal heating flow rate"
-    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0)
+    "Nominal heating flow rate" annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(
-    final max=0) = -10 "Temperature difference evaporator outlet-inlet"
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(final max=0)
+     = -10 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(
-    final min=0) = 10 "Temperature difference condenser outlet-inlet"
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(final min=0)
+     = 10 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
 
   // Efficiency
@@ -35,10 +34,10 @@ partial model Carnot
     "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
-  parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
+  parameter Modelica.Units.SI.Temperature TCon_nominal=303.15
     "Condenser temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
-  parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
+  parameter Modelica.Units.SI.Temperature TEva_nominal=278.15
     "Evaporator temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
@@ -46,18 +45,20 @@ partial model Carnot
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
     annotation (Dialog(group="Efficiency"));
 
-  parameter Modelica.SIunits.Pressure dp1_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp2_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference TAppCon_nominal(min=0) = if cp1_default < 1500 then 5 else 2
+  parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0) =
+    if cp1_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
 
-  parameter Modelica.SIunits.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
+  parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) =
+    if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
@@ -82,17 +83,17 @@ partial model Carnot
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(tab="Flow resistance", group="Evaporator"));
 
-  parameter Modelica.SIunits.Time tau1=60
+  parameter Modelica.Units.SI.Time tau1=60
     "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Condenser"));
-  parameter Modelica.SIunits.Time tau2=60
+  parameter Modelica.Units.SI.Time tau2=60
     "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
-  parameter Modelica.SIunits.Temperature T1_start=Medium1.T_default
+  parameter Modelica.Units.SI.Temperature T1_start=Medium1.T_default
     "Initial or guess value of set point"
     annotation (Dialog(tab="Dynamics", group="Condenser"));
-  parameter Modelica.SIunits.Temperature T2_start=Medium2.T_default
+  parameter Modelica.Units.SI.Temperature T2_start=Medium2.T_default
     "Initial or guess value of set point"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
@@ -136,19 +137,19 @@ partial model Carnot
     x2=TConAct - TEvaAct,
     deltaX=0.25) "Carnot efficiency";
 
-  Modelica.SIunits.Temperature TConAct(start=TCon_nominal + TAppCon_nominal)=
-    Medium1.temperature(staB1) + QCon_flow/QCon_flow_nominal*TAppCon_nominal
+  Modelica.Units.SI.Temperature TConAct(start=TCon_nominal + TAppCon_nominal)
+     = Medium1.temperature(staB1) + QCon_flow/QCon_flow_nominal*TAppCon_nominal
     "Condenser temperature used to compute efficiency, taking into account pinch temperature between fluid and refrigerant";
 
-  Modelica.SIunits.Temperature TEvaAct(start=TEva_nominal - TAppEva_nominal)=
-    Medium2.temperature(staB2) - QEva_flow/QEva_flow_nominal*TAppEva_nominal
+  Modelica.Units.SI.Temperature TEvaAct(start=TEva_nominal - TAppEva_nominal)
+     = Medium2.temperature(staB2) - QEva_flow/QEva_flow_nominal*TAppEva_nominal
     "Evaporator temperature used to compute efficiency, taking into account pinch temperature between fluid and refrigerant";
 
 protected
   constant Boolean COP_is_for_cooling
     "Set to true if the specified COP is for cooling";
 
-  parameter Real etaCarnot_nominal_internal(unit="1") =
+  parameter Real etaCarnot_nominal_internal(unit="1")=
     if use_eta_Carnot_nominal
       then etaCarnot_nominal
       else COP_nominal/
@@ -157,31 +158,31 @@ protected
 
   // For Carnot_y, computing etaPL = f(yPL) introduces a nonlinear equation.
   // The parameter below avoids this if a = {1}.
-  final parameter Boolean evaluate_etaPL =
+  final parameter Boolean evaluate_etaPL=
     not ((size(a, 1) == 1 and abs(a[1] - 1)  < Modelica.Constants.eps))
     "Flag, true if etaPL should be computed as it depends on yPL"
     annotation(Evaluate=true);
 
-  final parameter Modelica.SIunits.Temperature TUseAct_nominal=
-    if COP_is_for_cooling
-      then TEva_nominal - TAppEva_nominal
-      else TCon_nominal + TAppCon_nominal
+  final parameter Modelica.Units.SI.Temperature TUseAct_nominal=if
+      COP_is_for_cooling then TEva_nominal - TAppEva_nominal else TCon_nominal
+       + TAppCon_nominal
     "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
-  Modelica.SIunits.Temperature TUseAct=if COP_is_for_cooling then TEvaAct else TConAct
+  Modelica.Units.SI.Temperature TUseAct=if COP_is_for_cooling then TEvaAct
+       else TConAct
     "Temperature of useful heat (evaporator for chiller, condenser for heat pump), taking into account pinch temperature between fluid and refrigerant";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
-    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-      p = Medium1.p_default,
-      T = Medium1.T_default,
-      X = Medium1.X_default))
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+      Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+      p=Medium1.p_default,
+      T=Medium1.T_default,
+      X=Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
-    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-      p = Medium2.p_default,
-      T = Medium2.T_default,
-      X = Medium2.X_default))
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default=
+      Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+      p=Medium2.p_default,
+      T=Medium2.T_default,
+      X=Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
   Medium1.ThermodynamicState staA1 = Medium1.setState_phX(
@@ -388,7 +389,7 @@ and the part load ratio are set up.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 September 12, 2019, by Michael Wetter:<br/>

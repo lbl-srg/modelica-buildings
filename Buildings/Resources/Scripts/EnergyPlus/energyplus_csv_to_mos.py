@@ -21,7 +21,7 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
     df = pd.read_csv(data_file, delimiter=',')
     #print("\n".join(column_names))
 
-    column_names = ( df.columns.tolist() )
+    column_names = df.columns.tolist()
 
     # EnergyPlus reports the first results after the first time step.
     # In order to have a value at time=0, we add one time step, and
@@ -35,13 +35,16 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
     for name in output_list:
         found = False
         for x in column_names:
-            if name == x:
+            # Below, strip is needed for Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice
+            # and EnergyPlus 9.5.0 as it adds a space in 'PERIMETER_ZN_4:Zone Mean Air Temperature [C](TimeStep) '
+            cleaned_name = x.strip()
+            if name == cleaned_name:
                # Round and store in list
                di.append({"name": name, "x": [f"{ele:.3e}" for ele in df[x].values]})
                found = True
                break
         if not found:
-            raise ValueError(f"Failed to find output series {name}")
+            raise ValueError(f"Failed to find output series {name}.")
 
     # Step-2.0 make timesteps, because energyplus timesteps are not in seconds
     time_seconds=[]

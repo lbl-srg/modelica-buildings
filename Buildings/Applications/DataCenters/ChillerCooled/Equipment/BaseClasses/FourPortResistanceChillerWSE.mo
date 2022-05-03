@@ -10,14 +10,13 @@ record FourPortResistanceChillerWSE
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
-  parameter Modelica.SIunits.PressureDifference dp1_chi_nominal(
-    min=0,displayUnit="Pa")
-    "Pressure difference on medium 1 side in the chillers"
-    annotation(Dialog(group = "Chiller"));
-  parameter Modelica.SIunits.PressureDifference dp1_wse_nominal(
-    min=0,displayUnit="Pa")
-    "Pressure difference on medium 1 side in the watersie economizer"
-    annotation(Dialog(group = "Waterside economizer"));
+  parameter Modelica.Units.SI.PressureDifference dp1_chi_nominal(min=0,
+      displayUnit="Pa") "Pressure difference on medium 1 side in the chillers"
+    annotation (Dialog(group="Chiller"));
+  parameter Modelica.Units.SI.PressureDifference dp1_wse_nominal(min=0,
+      displayUnit="Pa")
+    "Pressure difference on medium 1 side in the waterside economizer"
+    annotation (Dialog(group="Waterside economizer"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance1,
@@ -33,14 +32,13 @@ record FourPortResistanceChillerWSE
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
-  parameter Modelica.SIunits.PressureDifference dp2_chi_nominal(
-    min=0,displayUnit="Pa")
-    "Pressure difference on medium 2 side in the chillers"
-    annotation(Dialog(group = "Chiller"));
-  parameter Modelica.SIunits.PressureDifference dp2_wse_nominal(
-    min=0,displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dp2_chi_nominal(min=0,
+      displayUnit="Pa") "Pressure difference on medium 2 side in the chillers"
+    annotation (Dialog(group="Chiller"));
+  parameter Modelica.Units.SI.PressureDifference dp2_wse_nominal(min=0,
+      displayUnit="Pa")
     "Pressure difference on medium 2 side in the waterside economizer"
-    annotation(Dialog(group = "Waterside economizer"));
+    annotation (Dialog(group="Waterside economizer"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance2,

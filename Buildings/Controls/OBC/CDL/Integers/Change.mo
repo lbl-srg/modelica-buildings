@@ -1,12 +1,13 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block Change
   "Output whether the Integer input changes values, increases or decreases"
-  parameter Boolean y_start = false
+  parameter Boolean y_start=false
     "Initial value of y";
-
-  Interfaces.IntegerInput u "Connector of Integer input signal"
+  Interfaces.IntegerInput u
+    "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y
+    "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Interfaces.BooleanOutput up
     "Connector of Boolean output signal indicating input increase"
@@ -16,16 +17,19 @@ block Change
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 initial equation
-   pre(y) = y_start;
-   pre(u) = u;
+  pre(y)=y_start;
+  pre(u)=u;
 
 equation
-  y = change(u);
-  up = u > pre(u);
-  down = u < pre(u);
-
-annotation (defaultComponentName="cha",
-Icon(coordinateSystem(preserveAspectRatio=true), graphics={
+  y=change(u);
+  up=u > pre(u);
+  down=u < pre(u);
+  annotation (
+    defaultComponentName="cha",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true),
+      graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -35,13 +39,14 @@ Icon(coordinateSystem(preserveAspectRatio=true), graphics={
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-50,62},{50,-56}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="change"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
-Documentation(info="<html>
+          textColor={0,0,255})}),
+    Documentation(
+      info="<html>
 <p>
 Block that evaluates the integer input <code>u</code> to check if its value
 changes.
@@ -61,7 +66,7 @@ When the input <code>u</code> decreases, the output <code>down</code> will be
 </li>
 </ul>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 January 26, 2021, by Michael Wetter:<br/>

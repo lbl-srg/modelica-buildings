@@ -21,7 +21,7 @@ and not overdetermined.
 January 3, 2019 by Michael Wetter:<br/>
 Removed erroneous <code>each</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1068\">Buildings, issue 1068</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1068\">IBPSA, issue 1068</a>.
 </li>
 <li>
 October 23, 2017 by Michael Wetter:<br/>

@@ -21,7 +21,7 @@ model Resistive "Model of a resistive load"
           rotation=180),
         Text(
           extent={{-120,120},{120,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Line(
           points={{-66,50},{-26,50}},

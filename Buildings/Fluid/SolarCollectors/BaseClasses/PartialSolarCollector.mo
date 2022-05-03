@@ -11,13 +11,12 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";
 
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
-  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
-  parameter Modelica.SIunits.Angle til(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt (0 for horizontally mounted collector)";
   parameter Real rho "Ground reflectance";
-  parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
+  parameter Modelica.Units.SI.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
 
   parameter Boolean use_shaCoe_in = false
@@ -35,9 +34,9 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Integer nPanels= 0 "Desired number of panels in the simulation"
     annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number)));
 
-  parameter Modelica.SIunits.Area totalArea=0
-    "Total area of panels in the simulation"
-    annotation(Dialog(group="Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
+  parameter Modelica.Units.SI.Area totalArea=0
+    "Total area of panels in the simulation" annotation (Dialog(group=
+          "Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
 
   parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration sysConfig=
   Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
@@ -55,14 +54,12 @@ model PartialSolarCollector "Partial model for solar collectors"
     final outSkyCon=true,
     final outGroCon=true,
     final til=til,
-    final lat=lat,
     final azi=azi,
     final rho=rho) "Diffuse solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
-    final lat=lat,
     final azi=azi) "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
 
@@ -128,14 +125,13 @@ protected
     Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
 
-    final parameter Modelica.SIunits.PressureDifference dp_nominal_final(displayUnit="Pa")=
-    if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
-       nPanels_internal*perPar.dp_nominal
-    else
-      perPar.dp_nominal "Nominal pressure loss across the system of collectors";
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal_final(
+      displayUnit="Pa") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
+     then nPanels_internal*perPar.dp_nominal else perPar.dp_nominal
+    "Nominal pressure loss across the system of collectors";
 
-  parameter Modelica.SIunits.Area TotalArea_internal=
-      nPanels_internal * perPar.A "Area used in the simulation";
+  parameter Modelica.Units.SI.Area TotalArea_internal=nPanels_internal*perPar.A
+    "Area used in the simulation";
 
   parameter Real nPanels_internal=
     if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
@@ -147,11 +143,11 @@ protected
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(sta_default)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
-  parameter Modelica.SIunits.Density rho_default=
-    Medium.density(sta_default) "Density, used to compute fluid mass";
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
+    "Density, used to compute fluid mass";
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -242,6 +238,12 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

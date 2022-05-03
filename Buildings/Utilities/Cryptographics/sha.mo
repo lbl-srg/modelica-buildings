@@ -1,5 +1,5 @@
 within Buildings.Utilities.Cryptographics;
-function sha
+pure function sha
   "SHA1 encryption of a String"
   extends Modelica.Icons.Function;
   input String str "String to be encrypted";
@@ -19,6 +19,10 @@ will always be 40 hexadecimal characters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>pure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 May 31, 2018 by Alex Laferri&egrave;re:<br/>
 Changed the encryption to a SHA1 with a string array input (rather than a file

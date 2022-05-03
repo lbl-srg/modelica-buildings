@@ -4,9 +4,9 @@ model VariableSpeed "Test model for variable speed DX coil"
 
   package Medium = Buildings.Media.Air "Medium model";
 
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 1000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1000
     "Pressure drop at m_flow_nominal";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -48,7 +48,7 @@ model VariableSpeed "Test model for variable speed DX coil"
     offset=101325,
     startTime=100) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-100,-8},{-80,12}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
     nSta=4, sta={Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(

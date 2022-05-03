@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #####################################################################
 # This script validates the html code in the info section
 # of all .mo files in the current directory and in all its

@@ -68,11 +68,11 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{104,44},{142,-2}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="p_w"),
         Text(
           extent={{-136,50},{-98,4}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="TDP"),
         Line(points={{-68,86},{-68,-72}}),
         Line(points={{82,-72},{-66,-72}}),
@@ -99,13 +99,13 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-64,84},{-42,66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
         Text(
           extent={{82,-80},{92,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),

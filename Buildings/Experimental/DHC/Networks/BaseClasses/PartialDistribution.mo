@@ -3,7 +3,11 @@ partial model PartialDistribution
   "Partial model for distribution network"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(
+      choice(redeclare package Medium=Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nCon
     "Number of connections"
     annotation (Dialog(tab="General"),Evaluate=true);
@@ -23,7 +27,9 @@ partial model PartialDistribution
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Connection return ports"
-    annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,origin={80,100}),iconTransformation(extent={{-20,-80},{20,80}},rotation=90,origin={120,100})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,40}},
+      rotation=90,origin={80,100}),
+      iconTransformation(extent={{-20,-80},{20,80}},rotation=90,origin={120,100})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bCon[nCon](
     redeclare each package Medium=Medium,
     each m_flow(
@@ -36,7 +42,9 @@ partial model PartialDistribution
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Connection supply ports"
-    annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,origin={-80,100}),iconTransformation(extent={{-20,-80},{20,80}},rotation=90,origin={-120,100})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,40}},
+      rotation=90,origin={-80,100}),
+      iconTransformation(extent={{-20,-80},{20,80}},rotation=90,origin={-120,100})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisSup(
     redeclare final package Medium=Medium,
     m_flow(
@@ -49,7 +57,8 @@ partial model PartialDistribution
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Distribution supply inlet port"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(extent={{-220,-20},{-180,20}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
+      iconTransformation(extent={{-220,-20},{-180,20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisSup(
     redeclare final package Medium=Medium,
     m_flow(
@@ -62,7 +71,8 @@ partial model PartialDistribution
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Distribution supply outlet port"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}),iconTransformation(extent={{180,-20},{220,20}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+      iconTransformation(extent={{180,-20},{220,20}})));
   annotation (
     defaultComponentName="dis",
     Documentation(
@@ -88,7 +98,7 @@ First implementation.
       graphics={
         Text(
           extent={{-149,-104},{151,-144}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-200,-100},{200,100}},

@@ -1,6 +1,9 @@
+ASHRAE2006
 Floor
-MixingBox
+Guideline36
+HVACBuilding
 PartialFloor
-PartialOpenLoop
+PartialHVAC
 RoomLeakage
-VAVBranch
+VAVReheatBox
+Controls

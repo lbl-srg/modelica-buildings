@@ -190,7 +190,7 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-220},{260,220}}),
         graphics={Text(
           extent={{-50,214},{530,162}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Example high limit cutoff conditions:
                       ASHRAE 90.1-2013:
@@ -199,17 +199,17 @@ annotation (
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
           extent={{-82,-40},{14,-66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests temperature hysteresis"),
         Text(
           extent={{80,-40},{166,-66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests enthalpy hysteresis"),
         Text(
           extent={{204,-46},{272,-68}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="No enthalpy
 sensor")}),

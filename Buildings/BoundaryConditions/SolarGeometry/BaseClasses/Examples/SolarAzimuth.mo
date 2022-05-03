@@ -1,18 +1,17 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model SolarAzimuth "Test model for zenith angle"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle lat= 41.98*Modelica.Constants.pi/180
-    "Latitude";
+
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=lat)
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen
     "Zenith angle"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi(lat=lat)
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi
     "Solar azimuth"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   WeatherData.ReaderTMY3 weaDat(
@@ -23,13 +22,13 @@ model SolarAzimuth "Test model for zenith angle"
     annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
 equation
   connect(zen.zen, solAzi.zen) annotation (Line(
-      points={{81,50},{90,50},{90,26},{98,26}},
+      points={{81,50},{90,50},{90,28},{98,28}},
       color={0,0,127}));
   connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
       points={{41,-10},{48,-10},{48,45.2},{58,45.2}},
       color={0,0,127}));
   connect(decAng.decAng, solAzi.decAng) annotation (Line(
-      points={{1,50},{20,50},{20,20},{98,20}},
+      points={{1,50},{20,50},{20,22},{98,22}},
       color={0,0,127}));
   connect(decAng.decAng, zen.decAng) annotation (Line(
       points={{1,50},{20,50},{20,55.4},{58,55.4}},
@@ -56,12 +55,24 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solAzi.solTim) annotation (Line(
-      points={{-44,10},{-28,10},{-28,-28},{92,-28},{92,14},{98,14}},
+      points={{-44,10},{-28,10},{-28,-28},{92,-28},{92,16},{98,16}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(zen.lat, weaBus.lat) annotation (Line(points={{58,50},{34,50},{34,10},
+          {-44,10}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(solAzi.lat, weaBus.lat) annotation (Line(points={{98,10},{-44,10}},
+        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
             100}})),

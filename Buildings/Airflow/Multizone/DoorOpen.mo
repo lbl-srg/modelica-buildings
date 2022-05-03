@@ -24,19 +24,19 @@ protected
   parameter Real d = 1/8*m^2 - gamma - m + 15.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
 
-  parameter Real kVal=CD*AOpe*sqrt(2/rho_default) "Flow coefficient, k = V_flow/ dp^m";
+  parameter Real CVal=CD*AOpe*sqrt(2/rho_default)
+    "Flow coefficient, C = V_flow/ dp^m";
   parameter Real kT = rho_default * CD * AOpe/3 *
     sqrt(Modelica.Constants.g_n /(Medium.T_default*conTP) * hOpe)
     "Constant coefficient for buoyancy driven air flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent=
-    kVal * rho_default * sqrt(dp_turbulent)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=CVal*rho_default*
+      sqrt(dp_turbulent)
     "Mass flow rate where regularization to laminar flow occurs for temperature-driven flow";
 
 equation
   // Air flow rate due to static pressure difference
-  VABp_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=kVal,
+  VABp_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(C=CVal,
       dp=port_a1.p-port_a2.p,
       m=m,
       a=a,

@@ -20,10 +20,11 @@ partial model PartialSource
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
     redeclare each package Medium = Medium,
-    m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
-             then 0 else +Modelica.Constants.inf,
-           each min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
-           then 0 else -Modelica.Constants.inf))
+    each m_flow(max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
+                    then 0 else +Modelica.Constants.inf,
+                min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
+                    then 0 else -Modelica.Constants.inf))
+    "Fluid ports"
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
@@ -79,9 +80,14 @@ If the temperature is outside these bounds, the simulation will stop with an err
 </html>", revisions="<html>
 <ul>
 <li>
+April 1, 2021, by Michael Wetter:<br/>
+Corrected misplaced <code>each</code> and added missing instance comment.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1462\">IBPSA, #1462</a>.
+</li>
+<li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA, #1050</a>.
 </li>
 <li>
 May 30, 2018, by Michael Wetter:<br/>
@@ -90,7 +96,7 @@ Improved documentation.
 <li>
 February 2nd, 2018 by Filip Jorissen<br/>
 Initial version for refactoring inputs of sources.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">IBPSA, #882</a>.
 </li>
 </ul>
 </html>"));

@@ -18,26 +18,23 @@ model DXCooledAirsideEconomizer
   replaceable package Medium = Buildings.Media.Air "Medium model";
 
   // Air temperatures at design conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 286.15
+  parameter Modelica.Units.SI.Temperature TASup_nominal=286.15
     "Nominal air temperature supplied to room";
-  parameter Modelica.SIunits.Temperature TRooSet = 298.15
+  parameter Modelica.Units.SI.Temperature TRooSet=298.15
     "Nominal room air temperature";
-  parameter Modelica.SIunits.Temperature TAirSupSet = 291.13
+  parameter Modelica.Units.SI.Temperature TAirSupSet=291.13
     "Nominal room air temperature";
  /////////////////////////////////////////////////////////
   // Cooling loads
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
-     500000 "Internal heat gains of the room";
-  parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
-    -2*QRooInt_flow;
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=500000
+    "Internal heat gains of the room";
+  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=-2*QRooInt_flow;
  ////////////////////////////////////////////////////////////
  // DX Coil
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
-    QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
-    "Nominal air mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=
-    QRooC_flow_nominal
-    "Cooling load of coil";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=QRooC_flow_nominal/
+      1006/(TASup_nominal - TRooSet) "Nominal air mass flow rate";
+  parameter Modelica.Units.SI.HeatFlowRate QCoiC_flow_nominal=
+      QRooC_flow_nominal "Cooling load of coil";
   parameter Real minSpeFan = 0.2
     "Minimum fan speed ratio required by variable speed fans";
 
@@ -90,7 +87,7 @@ model DXCooledAirsideEconomizer
   Modelica.Blocks.Sources.Constant SATSetPoi(k=TAirSupSet)
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-240,90},{-220,110}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
     nSta=4,
     sta={
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
