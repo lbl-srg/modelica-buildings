@@ -23,7 +23,7 @@ partial model PartialSaturatedControlVolume
   // Variables
   MediumWat.ThermodynamicState stateWat(p=p, T=T)
     "Saturated state, liquid water";
-  MediumWat.ThermodynamicState stateSte(p=p, T=T)
+  MediumSte.ThermodynamicState stateSte(p=p, T=T)
     "Saturated state, steam";
   MediumSte.AbsolutePressure p(
     final start=p_start,
@@ -164,6 +164,10 @@ annotation (defaultComponentName="vol",
           +min(1, max(0, (T-273.15)/50))*{255,0,0}))}),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 4, 2022 by David Blum:<br/>
+Update stateSte to use MediumSte instead of MediumWat.
+</li>
 <li>
 February 26, 2022 by Kathryn Hinkelman:<br/>
 First implementation.
