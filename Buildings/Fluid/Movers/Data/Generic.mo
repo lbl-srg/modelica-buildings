@@ -104,6 +104,8 @@ record Generic "Generic data record for movers"
     then
       if etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+      or etaMet==
+           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
         then max(power.P)/etaMot_max*1.2
       else max(power.P)*1.2
     else
