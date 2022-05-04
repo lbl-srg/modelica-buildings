@@ -7,26 +7,7 @@ package UsersGuide "User's Guide"
 <p>
 This package implements a model of a storage plant with a chiller and a tank.
 The tank in this plant can be charged by its local chiller or by a remote chiller
-on the same CHW district network.
-</p>
-<p>
-The model can be configured to have the following setups using the enumeration
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup\">
-Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup</a>:
-</p>
-<ul>
-<li>
-<code>ClosedLocal</code> - A closed tank that only allows local charging.
-</li>
-<li>
-<code>ClosedRemote</code> - A closed tank that allows remote charging.
-</li>
-<li>
-<code>Open</code> - An open tank. Remote charging is always allowed.
-</li>
-</ul>
-<p>
-The model is implemented in three parts:
+on the same CHW district network. The model is implemented in three parts:
 </p>
 <ul>
 <li>
@@ -53,13 +34,30 @@ See its documentation for details.
 </li>
 </ul>
 <p>
+The model can be configured to have the following setups using the enumeration
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup\">
+Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup</a>:
+</p>
+<ul>
+<li>
+<code>ClosedLocal</code> - A closed tank that only allows local charging.
+</li>
+<li>
+<code>ClosedRemote</code> - A closed tank that allows remote charging.
+</li>
+<li>
+<code>Open</code> - An open tank. Remote charging is always allowed.
+</li>
+</ul>
+<p>
 The schematics belay show the plant model's structure under different setups.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
   <tr>
-    <th>Plant Setup<br></th>
+    <th>Plant Setup</th>
     <th>Schematic</th>
+    <th>Description</th>
   </tr>
 </thead>
 <tbody>
@@ -71,6 +69,9 @@ The schematics belay show the plant model's structure under different setups.
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedLocal.png\"/>
 </p>
     </td>
+    <td>The supply pump <code>pumSup</code>
+        tracks a flow rate setpoint of the tank.
+    </td>
   </tr>
   <tr>
     <td><code>ClosedRemote</code></td>
@@ -79,6 +80,16 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedLocal.png\
 <img alt=\"Image of a storage tank\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedRemote.png\"/>
 </p>
+    </td>
+    <td>A pair of interlocked valves are used to allow reversing the flow
+        to charge the storage tank from a remote source.
+        When the storage plant outputs CHW to the district network,
+        <code>valToNet</code> is open and <code>valFroNet</code> is closed.
+        When the storage plant is charged remotely, <code>valToNet</code>
+        is closed to isolate <code>pumSup</code> and <code>valFroNet</code>
+        is modulated to track the flow rate setpoint at the tank.
+        The charging CHW flow is enabled by the pressure difference between
+        the supply and return lines of the CHW network.
     </td>
   </tr>
   <tr>
@@ -89,13 +100,23 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedRemote.png
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_Open.png\"/>
 </p>
     </td>
+    <td>Similar to <code>.ClosedRemote</code>, the reversible flow is managed
+        by pairs of interlocked valves. However, because the open tank is exposed
+        to the atmospheric pressure, it cannot be charged by the pressure
+        difference of the CHW network. The pressurised CHW from the network would
+        simply drain into the open tank. An auxiliary pump is therefore used
+        to pressurise CHW to the return line.<br/>
+        Also due to the tank being open, the mass flow through the tank is not
+        automatically balanced. In order to avoid draining or flooding the open
+        tank, separate pump and valve groups are used to balance the flow.<br/>
+        For example, when the plant is outputting CHW to the district network,
+        <code>pumSup</code> tracks a flow rate setpoint at the tank bottom.
+        At the same time, <code>intValRet.valFroNet</code> tracks the same
+        flow rate setpoint but at the tank top so that the flow rate through
+        the open tank is balanced.
+    </td>
   </tr>
 </tbody>
 </table>
-<p>
-When the tank is open, because the district network cannot charged it with
-the pressure difference between the main supply and return pipes,
-an auxiliary pump is needed to pressurise the water to the CHW return line.
-</p>
 </html>"));
 end UsersGuide;
