@@ -3,15 +3,20 @@ model Dampers
   "Validate model for controlling damper position of cooling  only terminal unit"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers dam(
+    final have_preIndDam=true,
+    final VMin_flow=0.01,
+    final VCooMax_flow=0.09,
     final kDam=1, final V_flow_nominal=0.08)
     "Output signal for controlling damper position"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{80,60},{100,100}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers dam1(
     final have_preIndDam=false,
+    final VMin_flow=0.01,
+    final VCooMax_flow=0.09,
     final kDam=1,
     final V_flow_nominal=0.08)
-                            "Output signal for controlling damper position"
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+    "Output signal for controlling damper position"
+    annotation (Placement(transformation(extent={{80,-80},{100,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
     final height=1,
@@ -19,75 +24,111 @@ model Dampers
     final offset=0,
     final startTime=900)
     "Cooling control signal"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
     final k=273.15 + 22)
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup(
     final k=273.15 + 13)
     "AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin_flow(
     final k=0.01)
     "Active minimum airflow setpoint"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax_flow(
     final k=0.075)
     "Active cooling maximum airflow setpoint"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis_flow(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600)  "Discharge airflow rate"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp zonSta(
     final offset=3,
     final height=-2,
     final duration=1000,
     startTime=1800) "Zone state"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round2(
     final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo(
+    final height=3,
+    final duration=2000,
+    startTime=1000) "Override flow setpoint"
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round1(final n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveDam(
+    final height=2,
+    final duration=2000,
+    startTime=1000) "Override damper position"
+    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round3(final n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
-  connect(uCoo.y, dam.uCoo) annotation (Line(points={{-18,20},{28,20},{28,30},{58,
-          30}}, color={0,0,127}));
-  connect(TSup.y, dam.TSup) annotation (Line(points={{-18,60},{44,60},{44,36},{58,
-          36}}, color={0,0,127}));
-  connect(TZon.y, dam.TZon) annotation (Line(points={{-58,40},{40,40},{40,33},{58,
-          33}}, color={0,0,127}));
-  connect(VActCooMax_flow.y, dam.VActCooMax_flow) annotation (Line(points={{-58,
-          0},{32,0},{32,27},{58,27}}, color={0,0,127}));
-  connect(VActMin_flow.y, dam.VActMin_flow) annotation (Line(points={{-58,80},{48,
-          80},{48,39},{58,39}}, color={0,0,127}));
+  connect(uCoo.y, dam.uCoo) annotation (Line(points={{-38,60},{36,60},{36,89},{78,
+          89}}, color={0,0,127}));
+  connect(TSup.y, dam.TSup) annotation (Line(points={{-38,100},{52,100},{52,95},
+          {78,95}}, color={0,0,127}));
+  connect(TZon.y, dam.TZon) annotation (Line(points={{-78,80},{40,80},{40,92},{78,
+          92}}, color={0,0,127}));
+  connect(VActCooMax_flow.y, dam.VActCooMax_flow) annotation (Line(points={{-78,40},
+          {44,40},{44,86},{78,86}},   color={0,0,127}));
+  connect(VActMin_flow.y, dam.VActMin_flow) annotation (Line(points={{-78,120},{
+          56,120},{56,98},{78,98}}, color={0,0,127}));
   connect(zonSta.y,round2. u)
-    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
+    annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
-    annotation (Line(points={{-18,-40},{-2,-40}},
+    annotation (Line(points={{-38,-60},{-22,-60}},
       color={0,0,127}));
-  connect(reaToInt2.y, dam.uZonSta) annotation (Line(points={{22,-40},{36,-40},{
-          36,24},{58,24}}, color={255,127,0}));
-  connect(VActMin_flow.y, dam1.VActMin_flow) annotation (Line(points={{-58,80},{
-          48,80},{48,-21},{58,-21}}, color={0,0,127}));
-  connect(TSup.y, dam1.TSup) annotation (Line(points={{-18,60},{44,60},{44,-24},
-          {58,-24}}, color={0,0,127}));
-  connect(TZon.y, dam1.TZon) annotation (Line(points={{-58,40},{40,40},{40,-27},
-          {58,-27}}, color={0,0,127}));
-  connect(uCoo.y, dam1.uCoo) annotation (Line(points={{-18,20},{28,20},{28,-30},
-          {58,-30}}, color={0,0,127}));
-  connect(VActCooMax_flow.y, dam1.VActCooMax_flow) annotation (Line(points={{-58,
-          0},{32,0},{32,-33},{58,-33}}, color={0,0,127}));
-  connect(reaToInt2.y, dam1.uZonSta) annotation (Line(points={{22,-40},{36,-40},
-          {36,-36},{58,-36}}, color={255,127,0}));
-  connect(VDis_flow.y, dam1.VDis_flow) annotation (Line(points={{-58,-70},{40,-70},
-          {40,-39},{58,-39}}, color={0,0,127}));
-
+  connect(reaToInt2.y, dam.uZonSta) annotation (Line(points={{2,-60},{48,-60},{48,
+          80},{78,80}},    color={255,127,0}));
+  connect(VActMin_flow.y, dam1.VActMin_flow) annotation (Line(points={{-78,120},
+          {56,120},{56,-42},{78,-42}}, color={0,0,127}));
+  connect(TSup.y, dam1.TSup) annotation (Line(points={{-38,100},{52,100},{52,-45},
+          {78,-45}}, color={0,0,127}));
+  connect(TZon.y, dam1.TZon) annotation (Line(points={{-78,80},{40,80},{40,-48},
+          {78,-48}}, color={0,0,127}));
+  connect(VActCooMax_flow.y, dam1.VActCooMax_flow) annotation (Line(points={{-78,40},
+          {44,40},{44,-54},{78,-54}},   color={0,0,127}));
+  connect(reaToInt2.y, dam1.uZonSta) annotation (Line(points={{2,-60},{78,-60}},
+                              color={255,127,0}));
+  connect(VDis_flow.y, dam1.VDis_flow) annotation (Line(points={{-78,-90},{20,-90},
+          {20,-74},{78,-74}}, color={0,0,127}));
+  connect(uCoo.y, dam1.uCoo) annotation (Line(points={{-38,60},{36,60},{36,-51},
+          {78,-51}}, color={0,0,127}));
+  connect(oveFlo.y,round1. u)
+    annotation (Line(points={{-78,0},{-62,0}}, color={0,0,127}));
+  connect(round1.y,reaToInt1. u)
+    annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
+  connect(oveDam.y,round3. u)
+    annotation (Line(points={{-78,-130},{-62,-130}},  color={0,0,127}));
+  connect(round3.y,reaToInt3. u)
+    annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
+  connect(reaToInt1.y, dam.oveFloSet) annotation (Line(points={{2,0},{32,0},{32,
+          71},{78,71}}, color={255,127,0}));
+  connect(reaToInt1.y, dam1.oveFloSet) annotation (Line(points={{2,0},{32,0},{32,
+          -69},{78,-69}}, color={255,127,0}));
+  connect(reaToInt3.y, dam.oveDamPos) annotation (Line(points={{2,-130},{60,-130},
+          {60,62},{78,62}}, color={255,127,0}));
+  connect(reaToInt3.y, dam1.oveDamPos) annotation (Line(points={{2,-130},{60,-130},
+          {60,-78},{78,-78}}, color={255,127,0}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Subsequences/Validation/Dampers.mos"
@@ -107,7 +148,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -126,5 +168,6 @@ First implementation.
           fillColor={75,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}));
+          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
+    Diagram(coordinateSystem(extent={{-120,-160},{120,160}})));
 end Dampers;
