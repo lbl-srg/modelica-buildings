@@ -285,38 +285,34 @@ where the fan performance (<i>P</i> vs. <i>V&#775;</i>) is examined
 to verify savings of a static pressure reset. The fan speed is controlled
 to track the duct static pressure at a point downstream while the damper
 (representing a VAV box) moves from fully closed to fully open.
+The system was described in Englander and Norford (1992).
+The fan data are implemented in
+<a href=\"Modelica://Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992\">
+Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992</a>.
 </p>
 <ul>
 <li>
-The first fan uses the full fan curve.
+The first fan uses the fan curve to estimate the shaft power at reduced speed.
 </li>
 <li>
-The second fan uses the Euler number and its correlation to estimate fan efficiency
-based on the peak operation condition where its efficiency is at its maximum.
+The second fan uses the Euler number and its correlation to estimate
+the hydraulic efficiency.
 </li>
 <li>
-The third fan assumes a constant efficiency.
+The third fan assumes a constant hydraulic efficiency.
 </li>
 </ul>
 <p>
-If the first fan that uses the power curve is considered the most accurate,
-the second fan that uses the Euler number is better at capturing the trend
-and preventing the power from incorrectly going to zero, but it overestimated
-the power consumption. The overestimation is likely caused by the fact that
-the peak efficiency found from the power curve is lower than the true global
-maximum, leading to understimation of efficiency and then the overstimation
-of power.
+In the results, <i>P</i> computed from the Euler number and from the power curve
+agree on the trend of <i>P</i> vs. <i>V&#775;</i>. Both of them are also able
+to prevent <i>P</i> from incorrectly going to zero as <i>V&#775;</i> approaches
+zero, which the method with constant efficiency failed.
 </p>
+<h4>References</h4>
 <p>
-Also note that the model
-<a href=\"Buildings.Fluid.Movers.SpeedControlled_y\">
-Buildings.Fluid.Movers.SpeedControlled_y</a>
-requires that a <i>&Delta;p</i> vs. <i>V&#775;</i> curve be provided regardless
-of the chosen path of computation. If an arbitrary curve is provided in
-<code>per2</code> and <code>per3</code>, the speed responses
-<code>fan1.y_actual</code>, <code>fan2.y_actual</code> and
-<code>fan3.y_actual</code> would be different
-but the computed power consumptions would remain unchanged.
+Englander, S. L., and L. K. Norford. 
+\"Saving fan energy in VAV systems- part 1: analysis of a variable-speed-drive retrofit.\" 
+<i>ASHRAE Winter Meeting, Anaheim, CA, USA, 01/25-29/92.</i> 1992.
 </p>
 </html>", revisions="<html>
 <ul>
