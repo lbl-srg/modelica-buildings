@@ -376,6 +376,17 @@ initial equation
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
+  assert(per.havePressureCurve or per.peak.V_flow > Modelica.Constants.eps or
+          not per.use_eulerNumber,
+"*** Warning in "+ getInstanceName()+
+             ": per.etaMet or per.etaHydMet is set to .EulerNumber.
+             This requires that per.peak be provided
+             or at least per.pressure be provided so that per.peak can
+             be estimated. Because neither is provided,
+             the model will use the nominal flow and pressure for the peak values.
+             This may lead to inaccurate computation.",
+         level=AssertionLevel.warning);
+
   assert(per.havePressureCurve or per.havePEle_nominal or
           not (per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
@@ -553,7 +564,7 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 revisions="<html>
 <ul>
 <li>
-October 28, 2021, by Hongxiang Fu:<br/>
+May 6, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
 Moved the specification of <code>haveVMax</code>
@@ -562,11 +573,20 @@ and <code>V_flow_max</code> from here to
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </li>
 <li>
-Added <code>per.peak</code> to be also passed down to <code>eff.per</code>
+Added <code>per.peak</code>, <code>per.totalEfficiency,</code>,
+<code>per.motorEfficiency_yMot</code>to be also passed down to <code>eff.per</code>
 at instantiation.
 </li>
+<li>
+Added an <code>assert()</code> warning when the model has to make an unreliable
+guess for efficiency computation using <code>.EulerNumber</code>.
+</li>
+<li>
+Added an <code>assert()</code> warning when the model has to overwrite
+<code>per.etaMotMet</code>.
+</li>
 </ul>
-This is for
+These are for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>
