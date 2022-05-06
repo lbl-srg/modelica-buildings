@@ -33,10 +33,13 @@ model FlowControlled_m_flow
               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
           else per.etaHydMet,
         final etaMotMet=
-          if per.havePressureCurve then
-            per.etaMotMet
-          else
-            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+          if (per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+            and (not per.havePEle_nominal and not per.havePressureCurve) then
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+          else per.etaMotMet),
       r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 

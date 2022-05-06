@@ -376,6 +376,19 @@ initial equation
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
+  assert(per.havePressureCurve or per.havePEle_nominal or
+          not (per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
+"*** Warning in "+ getInstanceName()+
+             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
+             or .GenericCurve. This requires that per.PEle_nominal be provided
+             or at least per.pressure be provided so that per.PEle_nominal can
+             be estimated. Because neither is provided,
+             the model will overwrite this setting and use .NotProvided instead.",
+         level=AssertionLevel.warning);
+
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-34,-94},{-60,-94},{-60,10},{-70,10}},
