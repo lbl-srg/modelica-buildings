@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Change
   "Output y is true, if the input u has a rising or falling edge (y = change(u))"
-
+  parameter Boolean pre_u_start=false
+    "Start value of pre(u) at initial time";
   Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -10,7 +11,7 @@ block Change
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  pre(u)=u;
+  pre(u)=pre_u_start;
 
 equation
   y=change(u);
@@ -60,12 +61,6 @@ Otherwise the output is <code>false</code>.
 </html>",
       revisions="<html>
 <ul>
-<li>
-May 3, 2022, by Michael Wetter:<br/>
-Removed non-needed parameter <code>y_start</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
-</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

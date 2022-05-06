@@ -7,9 +7,6 @@ convertClear();
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2990
 convertModifiers("Buildings.Controls.OBC.CDL.Integers.Change", {"y_start"}, fill("", 0), true);
-convertModifiers("Buildings.Controls.OBC.CDL.Logical.Change", {"pre_u_start"}, fill("", 0), true);
-convertModifiers("Buildings.Controls.OBC.CDL.Logical.Edge", {"pre_u_start"}, fill("", 0), true);
-convertModifiers("Buildings.Controls.OBC.CDL.Logical.FallingEdge", {"pre_u_start"}, fill("", 0), true);
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1542
 convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"massDynamics"}, fill("",0), true);
