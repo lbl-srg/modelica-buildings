@@ -67,7 +67,7 @@ model EulerComparison
     else eff1.etaHyd
     "Efficiency from interpolation (total or hydraulic depending on data)";
   Modelica.Units.SI.Efficiency eta2=
-    if per2.etaMet==
+    if per1.etaMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
     then eff2.eta
     else eff2.etaHyd
