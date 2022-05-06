@@ -301,7 +301,7 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
         iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
-    final unit="1") "Damper commanded position"
+    final unit="1") "Damper commanded position, or commanded flow rate ratio"
     annotation (Placement(transformation(extent={{240,130},{280,170}}),
         iconTransformation(extent={{100,150},{140,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(

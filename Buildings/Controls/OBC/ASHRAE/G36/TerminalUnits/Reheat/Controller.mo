@@ -298,7 +298,7 @@ block Controller "Controller for room VAV box with reheat"
         iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
-    final unit="1") "Damper commanded position, after considering override"
+    final unit="1") "Damper commanded position, or commanded flow rate ratio"
     annotation (Placement(transformation(extent={{200,170},{240,210}}),
         iconTransformation(extent={{100,140},{140,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(

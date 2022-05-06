@@ -226,8 +226,7 @@ block Controller "Controller for cooling only VAV box"
         iconTransformation(extent={{100,140},{140,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
-    final unit="1")
-    "Damper commanded position"
+    final unit="1") "Damper commanded position, or commanded flow rate ratio"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
         iconTransformation(extent={{100,110},{140,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq

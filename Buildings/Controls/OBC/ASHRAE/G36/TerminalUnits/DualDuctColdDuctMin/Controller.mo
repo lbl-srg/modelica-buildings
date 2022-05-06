@@ -254,13 +254,17 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDam(
     final min=0,
     final max=1,
-    final unit="1") "Cooling damper commanded position" annotation (Placement(
+    final unit="1")
+    "Cooling damper commanded position, or commanded flow rate ratio"
+                                                        annotation (Placement(
         transformation(extent={{240,230},{280,270}}), iconTransformation(extent=
            {{100,140},{140,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDam(
     final min=0,
     final max=1,
-    final unit="1") "Heating damper commanded position" annotation (Placement(
+    final unit="1")
+    "Heating damper commanded position, or commanded flow rate ratio"
+                                                        annotation (Placement(
         transformation(extent={{240,190},{280,230}}), iconTransformation(extent=
            {{100,110},{140,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonCooTemResReq
