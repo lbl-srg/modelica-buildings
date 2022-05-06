@@ -722,11 +722,9 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
-                       Buildings.Controls.OBC.CDL.Logical.Change
-                       Buildings.Controls.OBC.CDL.Logical.Edge
-                       Buildings.Controls.OBC.CDL.Logical.FallingEdge
     </td>
-    <td valign=\"top\">Removed non-needed parameter for start value.<br/>
+    <td valign=\"top\">Renamed parameter for start value from <code>y_start</code> to <code>pre_u_start</code>
+                       for consistency with <code>Buildings.Controls.OBC.CDL.Logical.Change</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
                        For Dymola, a conversion script makes this change.
     </td>
