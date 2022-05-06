@@ -101,17 +101,23 @@ block Setpoints
     "Unoccupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,390},{-420,430}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and not sepAdj
     "The adjustment value for both heating and cooling setpoints if it allows only single setpoint adjustment"
     annotation (Placement(transformation(extent={{-460,330},{-420,370}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and sepAdj
     "Cooling setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,290},{-420,330}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and sepAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,250},{-420,290}}),

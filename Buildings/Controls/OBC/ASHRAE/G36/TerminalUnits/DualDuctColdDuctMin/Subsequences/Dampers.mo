@@ -3,26 +3,27 @@ block Dampers
   "Output signals for controlling dampers of dual-duct terminal unit with cold-duct minimum control"
 
   parameter Boolean have_preIndDam = true
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation(Dialog(group="Damper"));
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
+    "True: the VAV damper is pressure independent (with built-in flow controller)";
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
-    final min=1E-10)
-    "Nominal volume flow rate, used to normalize control error"
-    annotation(Dialog(group="Damper"));
+    final unit="m3/s")
+    "Design zone cooling maximum airflow rate";
+  parameter Real VHeaMax_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    "Design zone heating maximum airflow rate";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Damper", enable=not have_preIndDam));
+    annotation(Dialog(enable=not have_preIndDam));
   parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
-    annotation(Dialog(group="Damper", enable=not have_preIndDam));
+    annotation(Dialog(enable=not have_preIndDam));
   parameter Real TiDam(
     final unit="s",
     final quantity="Time")=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(group="Damper",
+    annotation(Dialog(
       enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -30,7 +31,7 @@ block Dampers
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(group="Damper",
+    annotation (Dialog(
       enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -229,10 +230,6 @@ block Dampers
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
-    final k=V_flow_nominal)
-    "Nominal volume flow rate"
-    annotation (Placement(transformation(extent={{80,140},{100,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
@@ -302,6 +299,16 @@ block Dampers
     "Ensure heating damper is closed when it is in cooling or deadband state"
     annotation (Placement(transformation(extent={{240,-240},{260,-220}})));
 
+  CDL.Continuous.Sources.Constant                        cooMax1(final k=
+        VCooMax_flow)
+    "Cooling maximum flow"
+    annotation (Placement(transformation(extent={{20,160},{40,180}})));
+  CDL.Continuous.Sources.Constant                        heaMax1(final k=
+        VHeaMax_flow)
+    "Heating maximum flow"
+    annotation (Placement(transformation(extent={{20,120},{40,140}})));
+  CDL.Continuous.Max                        max2 "Nominal flow"
+    annotation (Placement(transformation(extent={{80,140},{100,160}})));
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,220},{-162,220}}, color={0,0,127}));
@@ -387,12 +394,8 @@ equation
           {258,266}}, color={0,0,127}));
   connect(swi.y, VDisSet_flowNor.u1) annotation (Line(points={{102,210},{120,210},
           {120,176},{138,176}}, color={0,0,127}));
-  connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{102,150},{120,
-          150},{120,164},{138,164}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conCooDam.u_s)
     annotation (Line(points={{162,170},{218,170}}, color={0,0,127}));
-  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{102,150},{120,150},
-          {120,104},{138,104}}, color={0,0,127}));
   connect(VColDucDis_flow, VDis_flowNor.u1) annotation (Line(points={{-340,110},
           {80,110},{80,116},{138,116}}, color={0,0,127}));
   connect(VDis_flowNor.y, conCooDam.u_m)
@@ -456,12 +459,20 @@ equation
   connect(VActMin_flow, swi.u3) annotation (Line(points={{-340,-10},{-20,-10},{-20,
           202},{78,202}}, color={0,0,127}));
 
+  connect(cooMax1.y, max2.u1) annotation (Line(points={{42,170},{60,170},{60,156},
+          {78,156}}, color={0,0,127}));
+  connect(heaMax1.y, max2.u2) annotation (Line(points={{42,130},{60,130},{60,144},
+          {78,144}}, color={0,0,127}));
+  connect(max2.y, VDisSet_flowNor.u2) annotation (Line(points={{102,150},{120,150},
+          {120,164},{138,164}}, color={0,0,127}));
+  connect(max2.y, VDis_flowNor.u2) annotation (Line(points={{102,150},{120,150},
+          {120,104},{138,104}}, color={0,0,127}));
 annotation (
   defaultComponentName="dam",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-300},{320,300}}),
         graphics={
         Rectangle(
-          extent={{-318,266},{138,12}},
+          extent={{-318,278},{138,24}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

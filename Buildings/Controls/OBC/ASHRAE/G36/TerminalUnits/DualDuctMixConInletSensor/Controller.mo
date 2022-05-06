@@ -56,9 +56,6 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
   parameter Boolean have_preIndDam
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation (Dialog(tab="Dampers"));
-  parameter Real V_flow_nominal(unit="m3/s")
-    "Nominal volume flow rate, used to normalize control error"
-    annotation (Dialog(tab="Dampers"));
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -94,7 +91,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     "Duration time of airflow rate less than setpoint"
     annotation (Dialog(tab="System requests", group="Duration time"));
   // ---------------- Parameters for alarms ----------------
-  parameter Real staPreMul
+  parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
     annotation (Dialog(tab="Alarms"));
   parameter Real lowFloTim(unit="s")=300
@@ -383,11 +380,12 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Dampers
     damDuaSen(
     final have_preIndDam=have_preIndDam,
+    final VCooMax_flow=VCooMax_flow,
+    final VHeaMax_flow=VHeaMax_flow,
     final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
     final TiDam=TiDam,
     final TdDam=TdDam,
-    final V_flow_nominal=V_flow_nominal,
     final dTHys=dTHys,
     final looHys=looHys)
     "Dampers control when the unit has single dual airflow sensor"

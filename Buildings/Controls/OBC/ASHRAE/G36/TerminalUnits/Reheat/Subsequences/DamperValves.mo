@@ -70,12 +70,6 @@ block DamperValves
       enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1E-10)
-    "Nominal volume flow rate, used to normalize control error"
-    annotation(Dialog(group="Damper"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
@@ -304,10 +298,6 @@ block DamperValves
     if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
-    final k=V_flow_nominal)
-    "Nominal volume flow rate"
-    annotation (Placement(transformation(extent={{200,120},{220,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
@@ -433,9 +423,19 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Add add4
     "Add up two inputs"
     annotation (Placement(transformation(extent={{0,350},{20,370}})));
-  Buildings.Controls.OBC.CDL.Logical.Or                        or1
+  Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{0,270},{20,290}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax1(
+    final k=VCooMax_flow)
+    "Cooling maximum flow"
+    annotation (Placement(transformation(extent={{120,140},{140,160}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax1(
+    final k=VHeaMax_flow)
+    "Heating maximum flow"
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max2 "Nominal flow"
+    annotation (Placement(transformation(extent={{200,120},{220,140}})));
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,200},{-162,200}}, color={0,0,127}));
@@ -480,12 +480,8 @@ equation
     annotation (Line(points={{302,-20},{340,-20}}, color={0,0,127}));
   connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-340,260},{190,260},
           {190,86},{238,86}},   color={0,0,127}));
-  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{222,130},{230,130},
-          {230,74},{238,74}},   color={0,0,127}));
   connect(VDis_flowNor.y, conDam.u_m)
     annotation (Line(points={{262,80},{290,80},{290,138}},   color={0,0,127}));
-  connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{222,130},{230,
-          130},{230,144},{238,144}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{262,150},{278,150}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{262,150},{270,150},
@@ -660,6 +656,14 @@ equation
           {220,156},{238,156}}, color={0,0,127}));
   connect(swi6.y, VSet_flow)
     annotation (Line(points={{202,280},{340,280}}, color={0,0,127}));
+  connect(cooMax1.y, max2.u1) annotation (Line(points={{142,150},{160,150},{160,
+          136},{198,136}}, color={0,0,127}));
+  connect(heaMax1.y, max2.u2) annotation (Line(points={{142,110},{160,110},{160,
+          124},{198,124}}, color={0,0,127}));
+  connect(max2.y, VDisSet_flowNor.u2) annotation (Line(points={{222,130},{228,130},
+          {228,144},{238,144}}, color={0,0,127}));
+  connect(max2.y, VDis_flowNor.u2) annotation (Line(points={{222,130},{228,130},
+          {228,74},{238,74}}, color={0,0,127}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-500},{320,500}}),

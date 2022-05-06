@@ -3,14 +3,16 @@ model DampersDualSensors
   "Validate model for controlling damper position of dual-duct unit"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersDualSensors dam(
+    final VCooMax_flow=0.08,
+    final VHeaMax_flow=0.06,
     final kDam=1,
-    final V_flow_nominal=0.08,
     final samplePeriod=120)
     "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-10},{100,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersDualSensors dam1(
     final have_preIndDam=false,
-    final V_flow_nominal=0.08,
+    final VCooMax_flow=0.08,
+    final VHeaMax_flow=0.06,
     final kDam=1,
     final samplePeriod=120)
     "Output signal for controlling damper position"

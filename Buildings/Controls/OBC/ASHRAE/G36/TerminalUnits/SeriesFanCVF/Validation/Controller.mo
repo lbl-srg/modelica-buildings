@@ -10,7 +10,6 @@ model Controller
     final VCooMax_flow=1.5,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_preIndDam=false,
-    final V_flow_nominal=1.5,
     final staPreMul=1,
     final hotWatRes=1,
     final floHys=0.01,

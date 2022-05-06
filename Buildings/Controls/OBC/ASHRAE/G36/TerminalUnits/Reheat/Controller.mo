@@ -63,7 +63,8 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Dialog(tab="Damper and valve control"));
   parameter Real TDisMin=283.15 "Lowest discharge air temperature"
     annotation (Dialog(tab="Damper and valve control"));
-  parameter CDL.Types.SimpleController controllerTypeVal
+  parameter CDL.Types.SimpleController controllerTypeVal=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real kVal=0.5
@@ -103,9 +104,6 @@ block Controller "Controller for room VAV box with reheat"
       enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real V_flow_nominal(unit="m3/s")
-    "Nominal volume flow rate, used to normalize control error"
-    annotation (Dialog(tab="Damper and valve control", group="Damper"));
   // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
@@ -129,10 +127,10 @@ block Controller "Controller for room VAV box with reheat"
     "Duration time of discharge air temperature less than setpoint"
     annotation (Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
-  parameter Real staPreMul
+  parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
     annotation (Dialog(tab="Alarms"));
-  parameter Real hotWatRes
+  parameter Real hotWatRes=1
     "Importance multiplier for the hot water reset control loop"
     annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real lowFloTim(unit="s")=300
@@ -438,7 +436,6 @@ block Controller "Controller for room VAV box with reheat"
     final kDam=kDam,
     final TiDam=TiDam,
     final TdDam=TdDam,
-    final V_flow_nominal=V_flow_nominal,
     final dTHys=dTHys,
     final looHys=looHys) "Damper and valve control"
     annotation (Placement(transformation(extent={{0,-52},{20,-12}})));

@@ -9,7 +9,6 @@ model Controller
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final have_preIndDam=true,
-    final V_flow_nominal=1.5,
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,

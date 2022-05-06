@@ -32,9 +32,6 @@ block DamperValves
   parameter Boolean have_preIndDam = true
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation(Dialog(group="Damper"));
-  parameter Real V_flow_nominal(unit="m3/s")
-    "Nominal volume flow rate, used to normalize control error"
-    annotation(Dialog(group="Damper"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -252,8 +249,8 @@ block DamperValves
     annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Hot water valve position"
     annotation (Placement(transformation(extent={{280,-120},{300,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
-    final k=V_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(final k=
+        VCooMax_flow)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
