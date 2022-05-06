@@ -1035,6 +1035,17 @@ units are wrong or errors in documentation):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+  </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.PID<br/>
+                         Buildings.Controls.OBC.CDL.PIDWithReset
+  </td>
+  <td valign=\"top\">Corrected wrong documentation in how the derivative of the control error is approximated.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">Buildings, issue 2994</a>.
+  </td>
+</tr>
   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
     </tr>
