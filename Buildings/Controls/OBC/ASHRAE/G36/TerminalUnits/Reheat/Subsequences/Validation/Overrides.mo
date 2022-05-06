@@ -1,83 +1,54 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Validation;
 model Overrides "Validation of model that overrides control"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Overrides ove(
-    final VMin_flow=0.1,
-    final VCooMax_flow=0.9,
-    final VHeaMax_flow=0.8) "Block outputs system requests"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
-    final height=0.9,
-    final duration=7200,
-    final offset=0.1) "Discharge airflow rate setpoint"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Overrides ove
+    "Block outputs system requests"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
     final duration=3600,
     final height=0.5,
     final offset=0.5) "Damper position setpoint"
-    annotation (Placement(transformation(extent={{-40,-22},{-20,-2}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo(
-    final height=3,
-    final duration=2000,
-    final startTime=1000) "Override flow setpoint"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
-    "Convert real to integer"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
-    final n=0)
-    "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveDam(
     final height=2,
     final duration=2000,
     final startTime=1000) "Override damper position"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round1(
     final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp heaValPos(
     final duration=3600,
     final height=0.5,
     final offset=0.5) "Heating valve position"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse heaOff(
     final width=0.75,
     final period=3600)
     "Close heating valve"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
   connect(oveDam.y, round1.u)
-    annotation (Line(points={{-58,20},{-42,20}},   color={0,0,127}));
+    annotation (Line(points={{-58,70},{-42,70}},   color={0,0,127}));
   connect(round1.y, reaToInt1.u)
-    annotation (Line(points={{-18,20},{-2,20}},   color={0,0,127}));
-  connect(oveFlo.y, round2.u)
-    annotation (Line(points={{-58,90},{-42,90}},   color={0,0,127}));
-  connect(round2.y, reaToInt2.u)
-    annotation (Line(points={{-18,90},{-2,90}},    color={0,0,127}));
-  connect(reaToInt2.y, ove.oveFloSet) annotation (Line(points={{22,90},{40,90},
-          {40,-2},{58,-2}}, color={255,127,0}));
-  connect(disAirSet.y, ove.VActSet_flow) annotation (Line(points={{-18,60},{36,
-          60},{36,-5},{58,-5}},
-                            color={0,0,127}));
-  connect(reaToInt1.y, ove.oveDamPos) annotation (Line(points={{22,20},{32,20},
-          {32,-8},{58,-8}},color={255,127,0}));
-  connect(damPos.y, ove.uDam) annotation (Line(points={{-18,-12},{58,-12}},
-                    color={0,0,127}));
-  connect(heaValPos.y, ove.uVal) annotation (Line(points={{-18,-90},{40,-90},
-          {40,-19},{58,-19}},     color={0,0,127}));
+    annotation (Line(points={{-18,70},{-2,70}},   color={0,0,127}));
+  connect(reaToInt1.y, ove.oveDamPos) annotation (Line(points={{22,70},{40,70},{
+          40,8},{58,8}},   color={255,127,0}));
+  connect(damPos.y, ove.uDam) annotation (Line(points={{-18,30},{30,30},{30,4},{
+          58,4}},   color={0,0,127}));
+  connect(heaValPos.y, ove.uVal) annotation (Line(points={{-18,-80},{40,-80},{40,
+          -7},{58,-7}}, color={0,0,127}));
   connect(heaOff.y, not1.u)
-    annotation (Line(points={{-58,-50},{-22,-50}}, color={255,0,255}));
-  connect(not1.y, ove.uHeaOff) annotation (Line(points={{2,-50},{36,-50},{36,
-          -16},{58,-16}},
-                       color={255,0,255}));
+    annotation (Line(points={{-58,-30},{-22,-30}}, color={255,0,255}));
+  connect(not1.y, ove.uHeaOff) annotation (Line(points={{2,-30},{30,-30},{30,-4},
+          {58,-4}},    color={255,0,255}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Subsequences/Validation/Overrides.mos"
