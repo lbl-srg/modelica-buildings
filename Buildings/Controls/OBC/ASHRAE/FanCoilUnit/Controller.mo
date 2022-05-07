@@ -694,26 +694,26 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.PlantRequests fcuPlaReq(
     final have_hotWatCoi=have_heatingCoil,
-    have_chiWatCoi=have_coolingCoil,
-    cooSpeMax=cooSpeMax,
-    heaSpeMax=heaSpeMax,
-    chiWatPlaReqLim0=chiWatPlaReqLim0,
-    chiWatResReqLim0=chiWatResReqLim0,
-    chiWatPlaReqLim1=chiWatPlaReqLim1,
-    chiWatResReqLim2=chiWatResReqLim2,
-    chiWatResReqTimLim2=chiWatResReqTimLim2,
-    chiWatResReqLim3=chiWatResReqLim3,
-    chiWatResReqTimLim3=chiWatResReqTimLim3,
-    hotWatPlaReqLim0=hotWatPlaReqLim0,
-    hotWatResReqLim0=hotWatResReqLim0,
-    hotWatPlaReqLim1=hotWatPlaReqLim1,
-    hotWatResReqLim2=hotWatResReqLim2,
-    hotWatResReqTimLim2=hotWatResReqTimLim2,
-    hotWatResReqLim3=hotWatResReqLim3,
-    hotWatResReqTimLim3=hotWatResReqTimLim3,
-    Thys=Thys,
-    posHys=posHys,
-    dFanSpe=dFanSpe)
+    final have_chiWatCoi=have_coolingCoil,
+    final cooSpeMax=cooSpeMax,
+    final heaSpeMax=heaSpeMax,
+    final chiWatPlaReqLim0=chiWatPlaReqLim0,
+    final chiWatResReqLim0=chiWatResReqLim0,
+    final chiWatPlaReqLim1=chiWatPlaReqLim1,
+    final chiWatResReqLim2=chiWatResReqLim2,
+    final chiWatResReqTimLim2=chiWatResReqTimLim2,
+    final chiWatResReqLim3=chiWatResReqLim3,
+    final chiWatResReqTimLim3=chiWatResReqTimLim3,
+    final hotWatPlaReqLim0=hotWatPlaReqLim0,
+    final hotWatResReqLim0=hotWatResReqLim0,
+    final hotWatPlaReqLim1=hotWatPlaReqLim1,
+    final hotWatResReqLim2=hotWatResReqLim2,
+    final hotWatResReqTimLim2=hotWatResReqTimLim2,
+    final hotWatResReqLim3=hotWatResReqLim3,
+    final hotWatResReqTimLim3=hotWatResReqTimLim3,
+    final Thys=Thys,
+    final posHys=posHys,
+    final dFanSpe=dFanSpe)
     "Block for generating chilled water requests and hot water requests for their respective plants"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
@@ -779,10 +779,11 @@ protected
     "Fan speed controller"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
 
-  CDL.Continuous.Sources.Constant                        con1(final k=0) if
-    not have_heatingCoil
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+    final k=0) if not have_heatingCoil
     "Constant zero signal source if heating coil is absent"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+
 equation
   connect(unOccMod.y, isUnOcc.u2) annotation (Line(points={{-138,-170},{-120,-170},
           {-120,-178},{-102,-178}}, color={255,127,0}));
@@ -894,35 +895,50 @@ equation
 
   connect(uFan, TSupAir.uFan) annotation (Line(points={{-220,-120},{28,-120},{28,
           20},{98,20}},           color={255,0,255}));
+
   connect(nOcc, havOcc.u) annotation (Line(points={{-220,-90},{-120,-90},{-120,60},
           {-102,60}}, color={255,127,0}));
+
   connect(setAdj, modSetPoi.setAdj) annotation (Line(points={{-220,130},{-184,130},
           {-184,158},{-142,158}}, color={0,0,127}));
+
   connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-220,100},{-152,
           100},{-152,156},{-142,156}}, color={0,0,127}));
+
   connect(TSup, fcuPlaReq.TAirSup) annotation (Line(points={{-220,-20},{-60,-20},
           {-60,-86},{98,-86}},           color={0,0,127}));
+
   connect(uCooCoi, fcuPlaReq.uCooCoi_actual) annotation (Line(points={{-220,-240},
           {80,-240},{80,-93.8},{98,-93.8}},       color={0,0,127}));
+
   connect(uHeaCoi, fcuPlaReq.uHeaCoi_actual) annotation (Line(points={{-220,-200},
           {90,-200},{90,-98},{98,-98}},           color={0,0,127}));
+
   connect(con.y, fcuPlaReq.uCooCoi_actual) annotation (Line(points={{62,-50},{80,
           -50},{80,-93.8},{98,-93.8}},       color={0,0,127}));
+
   connect(fcuPlaReq.yChiWatResReq, yChiWatResReq) annotation (Line(points={{122,-84},
           {160,-84},{160,-100},{220,-100}},      color={255,127,0}));
+
   connect(fcuPlaReq.yChiPlaReq, yChiPlaReq) annotation (Line(points={{122,-88},{
           156,-88},{156,-140},{220,-140}},       color={255,127,0}));
+
   connect(fcuPlaReq.yHotWatResReq, yHotWatResReq) annotation (Line(points={{122,-92},
           {150,-92},{150,-180},{220,-180}},                color={255,127,0}));
+
   connect(fcuPlaReq.yHotWatPlaReq, yHotWatPlaReq) annotation (Line(points={{122,-96},
           {144,-96},{144,-220},{220,-220}},      color={255,127,0}));
+
   connect(TSupAir.TAirSupSet, fcuPlaReq.TSupSet) annotation (Line(points={{122,10},
           {130,10},{130,-70},{94,-70},{94,-90},{98,-90}}, color={0,0,127}));
+
   connect(fanSpe.yFanSpe, fcuPlaReq.uFanSpe) annotation (Line(points={{142,178},
           {150,178},{150,-60},{90,-60},{90,-82},{98,-82}},           color={0,0,
           127}));
+
   connect(con1.y, fcuPlaReq.uHeaCoi_actual) annotation (Line(points={{62,-120},{
           90,-120},{90,-98},{98,-98}}, color={0,0,127}));
+
 annotation (defaultComponentName="conFCU",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{200,300}}),
         graphics={Rectangle(

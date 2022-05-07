@@ -17,103 +17,136 @@ model PlantRequests
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
 
 protected
-  CDL.Continuous.Sources.Pulse faSpe(width=0.8, period=3600) "Fan speed signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse fanSpe(
+    final width=0.8,
+    final period=3600)
+    "Fan speed signal"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  CDL.Continuous.Sources.Pulse faSpe1(width=0.8, period=3600)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse fanSpe1(
+    final width=0.8,
+    final period=3600)
     "Fan speed signal"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
-  CDL.Continuous.Sources.Pulse faSpe2(width=0.8, period=3600)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse fanSpe2(
+    final width=0.8,
+    final period=3600)
     "Fan speed signal"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTem(
     final height=16,
     final offset=273.15 + 15,
-    final duration=3600) "Supply air temperature"
+    final duration=3600)
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTemSet(
     final height=6,
     final offset=273.15 + 14.5,
-    final duration=3600) "Supply air temperature setpoint"
+    final duration=3600)
+    "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp cooCoi(
     final height=-0.3,
     final offset=0.96,
     final duration=3600,
-    startTime=1000) "Cooling coil position"
+    final startTime=1000)
+    "Cooling coil position"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp heaCoi(
     final height=-0.3,
     final offset=0.96,
     final duration=3600,
-    startTime=1000) "Heating coil position"
+    final startTime=1000)
+    "Heating coil position"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTem1(
     final height=8,
     final offset=273.15 + 12,
-    final duration=3600) "Cooling supply air temperature"
+    final duration=3600)
+    "Cooling supply air temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTemSet1(
     final height=25,
     final offset=273.15 + 20,
-    final duration=3600) "Supply air temperature setpoint"
+    final duration=3600)
+    "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooCoi1(
-    final k=0) "Cooling coil position"
+    final k=0)
+    "Cooling coil position"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  CDL.Continuous.Sources.Ramp                        supTem3(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTem3(
     final height=8,
     final offset=273.15 + 15,
-    final duration=3600) "Supply air temperature"
+    final duration=3600)
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Continuous.Sources.Ramp                        supTemSet2(
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTemSet2(
     final height=6,
     final offset=273.15 + 14.5,
-    final duration=3600) "Supply air temperature setpoint"
+    final duration=3600)
+    "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
-  CDL.Continuous.Sources.Ramp                        heaCoi2(
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp heaCoi2(
     final height=-0.3,
     final offset=0.96,
     final duration=3600,
-    startTime=1000) "Heating coil position"
+    final startTime=1000)
+    "Heating coil position"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
+
 equation
   connect(supTem.y, plaReq1.TAirSup) annotation (Line(points={{-58,-40},{20,-40},
-          {20,-66.6667},{58,-66.6667}},
-                              color={0,0,127}));
-  connect(cooCoi.y, plaReq1.uCooCoi_actual) annotation (Line(points={{-58,-80},
-          {20,-80},{20,-73.1667},{58,-73.1667}},
+          {20,-66},{58,-66}}, color={0,0,127}));
+
+  connect(cooCoi.y, plaReq1.uCooCoi_actual) annotation (Line(points={{-58,-80},{
+          20,-80},{20,-73.8},{58,-73.8}},
                                        color={0,0,127}));
-  connect(supTem1.y, plaReq.TAirSup) annotation (Line(points={{-58,80},{0,80},{
-          0,63.3333},{58,63.3333}},
-                          color={0,0,127}));
-  connect(cooCoi1.y, plaReq.uCooCoi_actual) annotation (Line(points={{-58,40},{
-          10,40},{10,56.8333},{58,56.8333}},
-                                   color={0,0,127}));
+
+  connect(supTem1.y, plaReq.TAirSup) annotation (Line(points={{-58,80},{0,80},{0,
+          64},{58,64}},   color={0,0,127}));
+
+  connect(cooCoi1.y, plaReq.uCooCoi_actual) annotation (Line(points={{-58,40},{10,
+          40},{10,56.2},{58,56.2}},color={0,0,127}));
+
   connect(heaCoi.y, plaReq.uHeaCoi_actual) annotation (Line(points={{-58,0},{30,
-          0},{30,53.3333},{58,53.3333}},
-                               color={0,0,127}));
+          0},{30,52},{58,52}}, color={0,0,127}));
+
   connect(supTemSet1.y,plaReq.TSupSet)  annotation (Line(points={{-18,60},{0,60},
           {0,60},{58,60}}, color={0,0,127}));
+
   connect(supTemSet.y,plaReq1.TSupSet)  annotation (Line(points={{-18,-60},{0,-60},
           {0,-70},{58,-70}}, color={0,0,127}));
 
-  connect(faSpe.y, plaReq.uFanSpe) annotation (Line(points={{32,80},{50,80},{50,
-          66.6667},{58,66.6667}}, color={0,0,127}));
-  connect(faSpe1.y, plaReq1.uFanSpe) annotation (Line(points={{42,-20},{52,-20},
-          {52,-63.3333},{58,-63.3333}}, color={0,0,127}));
-  connect(supTem3.y, plaReq2.TAirSup) annotation (Line(points={{-58,-120},{20,
-          -120},{20,-146.667},{58,-146.667}},
-                                        color={0,0,127}));
+  connect(fanSpe.y, plaReq.uFanSpe) annotation (Line(points={{32,80},{50,80},{50,
+          68},{58,68}}, color={0,0,127}));
+
+  connect(fanSpe1.y, plaReq1.uFanSpe) annotation (Line(points={{42,-20},{52,-20},
+          {52,-62},{58,-62}}, color={0,0,127}));
+
+  connect(supTem3.y, plaReq2.TAirSup) annotation (Line(points={{-58,-120},{20,-120},
+          {20,-146},{58,-146}},         color={0,0,127}));
+
   connect(supTemSet2.y, plaReq2.TSupSet) annotation (Line(points={{-18,-140},{0,
           -140},{0,-150},{58,-150}}, color={0,0,127}));
-  connect(faSpe2.y, plaReq2.uFanSpe) annotation (Line(points={{42,-100},{52,
-          -100},{52,-143.333},{58,-143.333}},
-                                        color={0,0,127}));
+
+  connect(fanSpe2.y, plaReq2.uFanSpe) annotation (Line(points={{42,-100},{52,-100},
+          {52,-142},{58,-142}}, color={0,0,127}));
+
   connect(heaCoi2.y, plaReq2.uHeaCoi_actual) annotation (Line(points={{-58,-160},
-          {52,-160},{52,-156.667},{58,-156.667}}, color={0,0,127}));
+          {52,-160},{52,-158},{58,-158}},         color={0,0,127}));
+
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/Validation/PlantRequests.mos"
