@@ -556,7 +556,7 @@ Whenever the value of boolean input signal <code>trigger</code> changes from
 The derivative of the control error <i>d &frasl; dt e(t)</i> is approximated using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-d&frasl;dt x(t) = (e(t)-x(t)) T<sub>d</sub> &frasl; N<sub>d</sub>,
+d&frasl;dt x(t) = (e(t)-x(t)) N<sub>d</sub> &frasl; T<sub>d</sub>,
 </p>
 <p>
 and
@@ -616,6 +616,12 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 6, 2022, by Michael Wetter:<br/>
+Corrected wrong documentation in how the derivative of the control error is approximated.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">issue 2994</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Corrected error in non-released development version
