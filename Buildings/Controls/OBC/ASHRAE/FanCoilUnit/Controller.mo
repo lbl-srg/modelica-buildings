@@ -42,10 +42,14 @@ block Controller
     "Cooling setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
 
-  parameter Real heaDea=0.05
+  parameter Real heaDea(
+    final unit="1",
+    displayUnit="1")=0.05
     "Heating loop signal limit at which deadband mode transitions to heating mode";
 
-  parameter Real cooDea=0.05
+  parameter Real cooDea(
+    final unit="1",
+    displayUnit="1")=0.05
     "Cooling loop signal limit at which deadband mode transitions to cooling mode";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
@@ -327,16 +331,108 @@ block Controller
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
+  parameter Real chiWatPlaReqLim0(
+    final unit = "1",
+    displayUnit="1")=0.1
+    "Valve position limit below which zero chilled water plant requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+
+  parameter Real chiWatResReqLim0(
+    final unit = "1",
+    displayUnit="1")=0.85
+    "Valve position limit below which zero chilled water reset requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+
+  parameter Real chiWatPlaReqLim1(
+    final unit = "1",
+    displayUnit="1")=0.95
+    "Valve position limit above which one chilled water plant request is sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+
+  parameter Real chiWatResReqLim2(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=2.78
+    "Temperature difference limit between setpoint and supply air temperature above which two chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+
+  parameter Real chiWatResReqTimLim2(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")=300
+    "Time period for which chiWatResReqLim2 has to be exceeded before two chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+
+  parameter Real chiWatResReqLim3(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=5.56
+    "Temperature difference limit between setpoint and supply air temperature above which three chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+
+  parameter Real chiWatResReqTimLim3(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")=300
+    "Time period for which chiWatResReqLim3 has to be exceeded before three chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+
+  parameter Real hotWatPlaReqLim0(
+    final unit = "1",
+    displayUnit="1")=0.1
+    "Valve position limit below which zero hot water plant requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+
+  parameter Real hotWatResReqLim0(
+    final unit = "1",
+    displayUnit="1")=0.85
+    "Valve position limit below which zero hot water reset requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+
+  parameter Real hotWatPlaReqLim1(
+    final unit = "1",
+    displayUnit="1")=0.95
+    "Valve position limit above which one hot water plant request is sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+
+  parameter Real hotWatResReqLim2(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=8
+    "Temperature difference limit between setpoint and supply air temperature above which two hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+
+  parameter Real hotWatResReqTimLim2(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")=300
+    "Time period for which hotWatResReqLim2 has to be exceeded before two hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+
+  parameter Real hotWatResReqLim3(
+    final unit="K",
+    displayUnit="K",
+    final quantity="TemperatureDifference")=17
+    "Temperature difference limit between setpoint and supply air temperature above which three hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+
+  parameter Real hotWatResReqTimLim3(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")=300
+    "Time period for which hotWatResReqLim3 has to be exceeded before three hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+
   parameter Real uLow(
     final unit="1",
     displayUnit="1")=-0.1
-    "Low limit of the hysteresis for checking temperature difference"
+    "Lower limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 
   parameter Real uHigh(
     final unit="1",
     displayUnit="1")=0.1
-    "High limit of the hysteresis for checking temperature difference"
+    "Higher limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 
   parameter Real deaHysLim(
@@ -344,6 +440,31 @@ block Controller
     displayUnit="1")=0.01
     "Hysteresis limits for cooling and heating loop signals for deadband mode transitions"
     annotation (Dialog(tab="Advanced"));
+
+  parameter Real preWarCooTim(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")=10800
+    "Maximum cool-down or warm-up time"
+    annotation(Dialog(tab="Advanced", group="Operation mode"));
+
+  parameter Real Thys(
+    final unit="1",
+    displayUnit="1")=0.1
+    "Hysteresis for checking temperature difference"
+    annotation(Dialog(tab="Advanced"));
+
+  parameter Real posHys(
+    final unit="1",
+    displayUnit="1")=0.05
+    "Hysteresis for checking valve position difference"
+    annotation(Dialog(tab="Advanced"));
+
+  parameter Real dFanSpe(
+    final unit="1",
+    displayUnit="1")=0.05
+    "Fan speed hysteresis difference"
+    annotation(Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
@@ -541,8 +662,10 @@ block Controller
     final decTSetDem_1=decTSetDem_1,
     final decTSetDem_2=decTSetDem_2,
     final decTSetDem_3=decTSetDem_3,
+    bouLim=Thys,
     final uLow=uLow,
-    final uHigh=uHigh)
+    final uHigh=uHigh,
+    preWarCooTim=preWarCooTim)
     "Zone setpoint and operation mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
@@ -569,8 +692,28 @@ protected
     "Constant zero signal source if cooling coil is absent"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests sinAHUPlaReq(
-    final have_hotWatCoi=have_heatingCoil)
+  Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.PlantRequests fcuPlaReq(
+    final have_hotWatCoi=have_heatingCoil,
+    have_chiWatCoi=have_coolingCoil,
+    cooSpeMax=cooSpeMax,
+    heaSpeMax=heaSpeMax,
+    chiWatPlaReqLim0=chiWatPlaReqLim0,
+    chiWatResReqLim0=chiWatResReqLim0,
+    chiWatPlaReqLim1=chiWatPlaReqLim1,
+    chiWatResReqLim2=chiWatResReqLim2,
+    chiWatResReqTimLim2=chiWatResReqTimLim2,
+    chiWatResReqLim3=chiWatResReqLim3,
+    chiWatResReqTimLim3=chiWatResReqTimLim3,
+    hotWatPlaReqLim0=hotWatPlaReqLim0,
+    hotWatResReqLim0=hotWatResReqLim0,
+    hotWatPlaReqLim1=hotWatPlaReqLim1,
+    hotWatResReqLim2=hotWatResReqLim2,
+    hotWatResReqTimLim2=hotWatResReqTimLim2,
+    hotWatResReqLim3=hotWatResReqLim3,
+    hotWatResReqTimLim3=hotWatResReqTimLim3,
+    Thys=Thys,
+    posHys=posHys,
+    dFanSpe=dFanSpe)
     "Block for generating chilled water requests and hot water requests for their respective plants"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
@@ -636,6 +779,10 @@ protected
     "Fan speed controller"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
 
+  CDL.Continuous.Sources.Constant                        con1(final k=0) if
+    not have_heatingCoil
+    "Constant zero signal source if heating coil is absent"
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 equation
   connect(unOccMod.y, isUnOcc.u2) annotation (Line(points={{-138,-170},{-120,-170},
           {-120,-178},{-102,-178}}, color={255,127,0}));
@@ -753,26 +900,29 @@ equation
           {-184,158},{-142,158}}, color={0,0,127}));
   connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-220,100},{-152,
           100},{-152,156},{-142,156}}, color={0,0,127}));
-  connect(TSupAir.TAirSupSet, sinAHUPlaReq.TSupCoo) annotation (Line(points={{122,
-          10},{130,10},{130,-60},{90,-60},{90,-85},{98,-85}}, color={0,0,127}));
-  connect(TSupAir.TAirSupSet, sinAHUPlaReq.TSupHeaEco) annotation (Line(points={
-          {122,10},{130,10},{130,-60},{90,-60},{90,-95},{98,-95}}, color={0,0,127}));
-  connect(TSup, sinAHUPlaReq.TAirSup) annotation (Line(points={{-220,-20},{-60,-20},
-          {-60,-81},{98,-81}}, color={0,0,127}));
-  connect(uCooCoi, sinAHUPlaReq.uCooCoi_actual) annotation (Line(points={{-220,-240},
-          {80,-240},{80,-90},{98,-90}}, color={0,0,127}));
-  connect(uHeaCoi, sinAHUPlaReq.uHeaCoi_actual) annotation (Line(points={{-220,-200},
-          {90,-200},{90,-99},{98,-99}}, color={0,0,127}));
-  connect(con.y, sinAHUPlaReq.uCooCoi_actual) annotation (Line(points={{62,-50},
-          {80,-50},{80,-90},{98,-90}}, color={0,0,127}));
-  connect(sinAHUPlaReq.yChiWatResReq, yChiWatResReq) annotation (Line(points={{122,
-          -82},{160,-82},{160,-100},{220,-100}}, color={255,127,0}));
-  connect(sinAHUPlaReq.yChiPlaReq, yChiPlaReq) annotation (Line(points={{122,-87},
-          {156,-87},{156,-140},{220,-140}}, color={255,127,0}));
-  connect(sinAHUPlaReq.yHotWatResReq, yHotWatResReq) annotation (Line(points={{122,
-          -93},{150,-93},{150,-180},{220,-180}}, color={255,127,0}));
-  connect(sinAHUPlaReq.yHotWatPlaReq, yHotWatPlaReq) annotation (Line(points={{122,
-          -98},{144,-98},{144,-220},{220,-220}}, color={255,127,0}));
+  connect(TSup, fcuPlaReq.TAirSup) annotation (Line(points={{-220,-20},{-60,-20},
+          {-60,-86},{98,-86}},           color={0,0,127}));
+  connect(uCooCoi, fcuPlaReq.uCooCoi_actual) annotation (Line(points={{-220,-240},
+          {80,-240},{80,-93.8},{98,-93.8}},       color={0,0,127}));
+  connect(uHeaCoi, fcuPlaReq.uHeaCoi_actual) annotation (Line(points={{-220,-200},
+          {90,-200},{90,-98},{98,-98}},           color={0,0,127}));
+  connect(con.y, fcuPlaReq.uCooCoi_actual) annotation (Line(points={{62,-50},{80,
+          -50},{80,-93.8},{98,-93.8}},       color={0,0,127}));
+  connect(fcuPlaReq.yChiWatResReq, yChiWatResReq) annotation (Line(points={{122,-84},
+          {160,-84},{160,-100},{220,-100}},      color={255,127,0}));
+  connect(fcuPlaReq.yChiPlaReq, yChiPlaReq) annotation (Line(points={{122,-88},{
+          156,-88},{156,-140},{220,-140}},       color={255,127,0}));
+  connect(fcuPlaReq.yHotWatResReq, yHotWatResReq) annotation (Line(points={{122,-92},
+          {150,-92},{150,-180},{220,-180}},                color={255,127,0}));
+  connect(fcuPlaReq.yHotWatPlaReq, yHotWatPlaReq) annotation (Line(points={{122,-96},
+          {144,-96},{144,-220},{220,-220}},      color={255,127,0}));
+  connect(TSupAir.TAirSupSet, fcuPlaReq.TSupSet) annotation (Line(points={{122,10},
+          {130,10},{130,-70},{94,-70},{94,-90},{98,-90}}, color={0,0,127}));
+  connect(fanSpe.yFanSpe, fcuPlaReq.uFanSpe) annotation (Line(points={{142,178},
+          {150,178},{150,-60},{90,-60},{90,-82},{98,-82}},           color={0,0,
+          127}));
+  connect(con1.y, fcuPlaReq.uHeaCoi_actual) annotation (Line(points={{62,-120},{
+          90,-120},{90,-98},{98,-98}}, color={0,0,127}));
 annotation (defaultComponentName="conFCU",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{200,300}}),
         graphics={Rectangle(

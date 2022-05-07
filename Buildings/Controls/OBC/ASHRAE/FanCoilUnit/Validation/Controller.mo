@@ -285,12 +285,23 @@ annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-160},{140,140}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{140,160}})),
 Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller\">
 Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller</a>.
+<br>
+<code>conFCU</code> represents an instance of the controller with heating mode 
+operation, with the open-loop signals for measured zone temperature and measured 
+supply air temperature increasing with time.
+<br>
+<code>conFCU1</code> represents an instance of the controller with cooling mode 
+operation, with the open-loop signals for measured zone temperature and measured 
+supply air temperature decreasing with time.
+<br>
+<code>conFCU2</code> and <code>conFCU3</code> represent instances of the controller 
+with cooling mode operation, with different parameter settings for the window and occupancy sensors.
 </p>
 </html>", revisions="<html>
 <ul>

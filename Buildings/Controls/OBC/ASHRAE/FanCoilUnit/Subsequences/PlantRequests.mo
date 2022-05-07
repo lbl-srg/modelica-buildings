@@ -2,22 +2,126 @@ within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences;
 block PlantRequests "Output plant requests for fan coil unit"
 
   parameter Boolean have_hotWatCoi = true
-    "True: the AHU has hot water heating coil";
-  parameter Real Thys = 0.1
+    "True: the fan coil unit has hot water heating coil";
+
+  parameter Boolean have_chiWatCoi = true
+    "True: the fan coil unit has chilled water cooling coil";
+
+  parameter Real cooSpeMax(
+    final unit="1",
+    displayUnit="1") = 1
+    "Maximum cooling mode fan speed";
+
+  parameter Real heaSpeMax(
+    final unit="1",
+    displayUnit="1") = 0.6
+    "Maximum heating mode fan speed";
+
+  parameter Real chiWatPlaReqLim0(
+    final unit="1",
+    displayUnit="1") = 0.1
+    "Valve position limit below which zero chilled water plant requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+
+  parameter Real chiWatResReqLim0(
+    final unit="1",
+    displayUnit="1") = 0.85
+    "Valve position limit below which zero chilled water reset requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+
+  parameter Real chiWatPlaReqLim1(
+    final unit="1",
+    displayUnit="1") = 0.95
+    "Valve position limit above which one chilled water plant request is sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+
+  parameter Real chiWatResReqLim2(
+    final unit="K",
+    final quantity="TemperatureDifference") = 2.78
+    "Temperature difference limit between setpoint and supply air temperature above which two chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+
+  parameter Real chiWatResReqTimLim2(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time") = 300
+    "Time period for which chiWatResReqLim2 has to be exceeded before two chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+
+  parameter Real chiWatResReqLim3(
+    final unit="K",
+    final quantity="TemperatureDifference") = 5.56
+    "Temperature difference limit between setpoint and supply air temperature above which three chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+
+  parameter Real chiWatResReqTimLim3(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time") = 300
+    "Time period for which chiWatResReqLim3 has to be exceeded before three chilled water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+
+  parameter Real hotWatPlaReqLim0(
+    final unit="1",
+    displayUnit="1") = 0.1
+    "Valve position limit below which zero hot water plant requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+
+  parameter Real hotWatResReqLim0(
+    final unit="1",
+    displayUnit="1") = 0.85
+    "Valve position limit below which zero hot water reset requests are sent when one request was previously being sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+
+  parameter Real hotWatPlaReqLim1(
+    final unit="1",
+    displayUnit="1") = 0.95
+    "Valve position limit above which one hot water plant request is sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+
+  parameter Real hotWatResReqLim2(
+    final unit="K",
+    final quantity="TemperatureDifference") = 8
+    "Temperature difference limit between setpoint and supply air temperature above which two hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+
+  parameter Real hotWatResReqTimLim2(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time") = 300
+    "Time period for which hotWatResReqLim2 has to be exceeded before two hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+
+  parameter Real hotWatResReqLim3(
+    final unit="K",
+    final quantity="TemperatureDifference") = 17
+    "Temperature difference limit between setpoint and supply air temperature above which three hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+
+  parameter Real hotWatResReqTimLim3(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time") = 300
+    "Time period for which hotWatResReqLim3 has to be exceeded before three hot water reset requests are sent"
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+
+  parameter Real Thys(
+    final unit="K",
+    final quantity = "TemperatureDifference") = 0.1
     "Hysteresis for checking temperature difference"
     annotation(Dialog(tab="Advanced"));
-  parameter Real posHys = 0.05
+
+  parameter Real posHys(
+    final unit="1",
+    displayUnit="1") = 0.05
     "Hysteresis for checking valve position difference"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Real cooSpeMax = 1
-    "Maximum cooling mode fan speed";
-
-  parameter Real heaSpeMax = 0.6
-    "Maximum heating mode fan speed";
-
-  parameter Real dFanSpe = 0.05
-    "Fan speed hysteresis difference";
+  parameter Real dFanSpe(
+    final unit="1",
+    displayUnit="1") = 0.05
+    "Fan speed hysteresis difference"
+    annotation(Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
@@ -25,122 +129,128 @@ block PlantRequests "Output plant requests for fan coil unit"
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoo(
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi_actual(
     final unit="1",
     final min=0,
-    final max=1)
-    "Cooling coil valve actual position"
+    final max=1) if have_chiWatCoi
+    "Actual cooling coil control action"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaEco(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_hotWatCoi
-    "Heating supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi_actual(
     final unit="1",
     final min=0,
     final max=1) if have_hotWatCoi
-    "Heating coil valve actual position"
+    "Actual heating coil control action"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+
+  CDL.Interfaces.RealInput uFanSpe(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Fan speed signal"
+    annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq if
+    have_chiWatCoi
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
-        iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq
+        iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq if
+    have_chiWatCoi
     "Chiller plant request"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+        iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_hotWatCoi
     "Hot water reset request"
     annotation (Placement(transformation(extent={{200,-60},{240,-20}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+        iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{200,-240},{240,-200}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
-  CDL.Interfaces.RealInput uFanSpe "Fan speed signal" annotation (Placement(
-        transformation(extent={{-240,220},{-200,260}}), iconTransformation(
-          extent={{-140,80},{-100,120}})));
+protected
   CDL.Continuous.Hysteresis hysFanCoo(uLow=cooSpeMax - 2*dFanSpe, uHigh=
-        cooSpeMax - dFanSpe) "Check if fan is at max cooling mode speed"
+        cooSpeMax - dFanSpe) if have_chiWatCoi
+                             "Check if fan is at max cooling mode speed"
     annotation (Placement(transformation(extent={{-130,230},{-110,250}})));
-  CDL.Conversions.BooleanToInteger booToIntCoo
+  CDL.Conversions.BooleanToInteger booToIntCoo if have_chiWatCoi
     "Output integer 1 when fan is at max cooling mode speed"
     annotation (Placement(transformation(extent={{-80,230},{-60,250}})));
-  CDL.Integers.Multiply mulIntCoo
+  CDL.Integers.Multiply mulIntCoo if have_chiWatCoi
     "Output reset requests only if fan is at max cooling mode speed"
     annotation (Placement(transformation(extent={{100,230},{120,250}})));
-  CDL.Continuous.Hysteresis hysFanHea(uLow=cooSpeMax - 2*dFanSpe, uHigh=
-        cooSpeMax - dFanSpe) "Check if fan is at max heating mode speed"
+  CDL.Continuous.Hysteresis hysFanHea(uLow=heaSpeMax - 2*dFanSpe, uHigh=
+        heaSpeMax - dFanSpe) if have_hotWatCoi
+                             "Check if fan is at max heating mode speed"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  CDL.Conversions.BooleanToInteger booToIntHea
+  CDL.Conversions.BooleanToInteger booToIntHea if have_hotWatCoi
     "Output integer 1 when fan is at max heating mode speed"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  CDL.Integers.Multiply mulIntHea
+  CDL.Integers.Multiply mulIntHea if have_hotWatCoi
     "Output reset requests only if fan is at max heating mode speed"
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
-protected
+
   Buildings.Controls.OBC.CDL.Continuous.Subtract cooSupTemDif
     "Find the cooling supply temperature difference to the setpoint"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=3,
-    final h=Thys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=
+        chiWatResReqLim3,
+    final h=Thys) if have_chiWatCoi
     "Check if the supply temperature is greater than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final t=2,
-    final h=Thys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(final t=
+        chiWatResReqLim2,
+    final h=Thys) if have_chiWatCoi
     "Check if the supply temperature is greater than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(final delayTime=
+        chiWatResReqTimLim3) if
+                            have_chiWatCoi
     "Check if the input has been true for a certain time"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(final delayTime=
+        chiWatResReqTimLim2) if
+                            have_chiWatCoi
     "Check if the input has been true for a certain time"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
-    final t=0.95,
-    final h=posHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(final t=
+        chiWatPlaReqLim1,
+    final h=posHys) if have_chiWatCoi
     "Check if the chilled water valve position is greater than a threshold value"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant thr(
     final k=3) "Constant 3"
     annotation (Placement(transformation(extent={{0,222},{20,242}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes3
+  Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes3 if have_chiWatCoi
     "Send 3 chilled water reset request"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes2
+  Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes2 if have_chiWatCoi
     "Send 2 chilled water reset request"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant two(
     final k=2)
     "Constant 2"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final t=0.85,
-    final h=posHys)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(final t=
+        chiWatResReqLim0,
+    final h=posHys) if have_chiWatCoi
     "Check if the chilled water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat if have_chiWatCoi
     "Keep true signal until other condition becomes true"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes1
+  Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes1 if have_chiWatCoi
     "Send 1 chilled water reset request"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
@@ -149,38 +259,40 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer(
     final k=0) "Constant 0"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if have_chiWatCoi
     "Keep true signal until other condition becomes true"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
-    final t=0.1,
-    final h=posHys)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(final t=
+        chiWatPlaReqLim0,
+    final h=posHys) if have_chiWatCoi
     "Check if the chilled water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,4},{-100,24}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 if have_chiWatCoi
     "Send 1 chiller plant request"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract heaSupTemDif if have_hotWatCoi
     "Find the heating supply temperature difference to the setpoint"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
-    final t=17,
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(final t=
+        hotWatResReqLim3,
     final h=Thys) if
        have_hotWatCoi
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr4(
-    final t=8,
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr4(final t=
+        hotWatResReqLim2,
     final h=Thys) if
        have_hotWatCoi
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
-    final delayTime=300) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(final delayTime=
+        hotWatResReqTimLim3) if
+                            have_hotWatCoi
     "Check if the input has been true for a certain time"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
-    final delayTime=300) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(final delayTime=
+        hotWatResReqTimLim2) if
+                            have_hotWatCoi
     "Check if the input has been true for a certain time"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes3 if have_hotWatCoi
@@ -189,14 +301,14 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes2 if have_hotWatCoi
     "Send 2 hot water reset request"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2(
-    final t=0.85,
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2(final t=
+        hotWatResReqLim0,
     final h=posHys) if
        have_hotWatCoi
     "Check if the hot water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr5(
-    final t=0.95,
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr5(final t=
+        hotWatPlaReqLim1,
     final h=posHys) if
        have_hotWatCoi
     "Check if the hot water valve position is greater than a threshold value"
@@ -207,8 +319,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes1 if have_hotWatCoi
     "Send 1 hot water reset request"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
-    final t=0.1,
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(final t=
+        hotWatPlaReqLim0,
     final h=posHys) if
        have_hotWatCoi
     "Check if the hot water valve position is less than a threshold value"
@@ -223,7 +335,7 @@ protected
 equation
   connect(TAirSup, cooSupTemDif.u1) annotation (Line(points={{-220,200},{-180,200},
           {-180,206},{-142,206}}, color={0,0,127}));
-  connect(TSupCoo, cooSupTemDif.u2) annotation (Line(points={{-220,160},{-190,160},
+  connect(TSupSet, cooSupTemDif.u2) annotation (Line(points={{-220,160},{-190,160},
           {-190,194},{-142,194}}, color={0,0,127}));
   connect(cooSupTemDif.y, greThr.u)
     annotation (Line(points={{-118,200},{-82,200}}, color={0,0,127}));
@@ -325,8 +437,6 @@ equation
     annotation (Line(points={{102,-220},{220,-220}}, color={255,127,0}));
   connect(yChiWatResReq, yChiWatResReq)
     annotation (Line(points={{220,200},{220,200}}, color={255,127,0}));
-  connect(TSupHeaEco, heaSupTemDif.u1)
-    annotation (Line(points={{-220,-40},{-160,-40},{-160,-34},{-142,-34}}, color={0,0,127}));
 
   connect(uFanSpe, hysFanCoo.u)
     annotation (Line(points={{-220,240},{-132,240}}, color={0,0,127}));
@@ -348,17 +458,19 @@ equation
           -170,-10},{-142,-10}}, color={0,0,127}));
   connect(mulIntHea.y, yHotWatResReq) annotation (Line(points={{132,0},{192,0},{
           192,-40},{220,-40}}, color={255,127,0}));
+  connect(TSupSet, heaSupTemDif.u1) annotation (Line(points={{-220,160},{-190,160},
+          {-190,-34},{-142,-34}}, color={0,0,127}));
 annotation (
-  defaultComponentName="sinAHUPlaReq",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),
+  defaultComponentName="fcuPlaReq",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={
         Rectangle(
-          extent={{-100,-120},{100,120}},
+          extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,68},{-76,52}},
+          extent={{-98,48},{-76,32}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
@@ -367,134 +479,135 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,30},{-60,12}},
+          extent={{-98,10},{-60,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSupCoo"),
+          textString="TSupSet"),
         Text(
-          extent={{-100,-12},{-58,-26}},
+          extent={{-98,-30},{-56,-44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCooCoi"),
         Text(
-          extent={{-100,-92},{-58,-106}},
+          extent={{-98,-72},{-56,-86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           visible=have_hotWatCoi,
           textString="uHeaCoi"),
         Text(
-          extent={{34,92},{98,70}},
+          extent={{34,72},{98,50}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yChiWatResReq"),
         Text(
-          extent={{52,42},{98,20}},
+          extent={{52,32},{98,10}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yChiPlaReq"),
         Text(
-          extent={{34,-18},{98,-40}},
+          extent={{34,-8},{98,-30}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yHotWatResReq",
           visible=have_hotWatCoi),
         Text(
-          extent={{38,-66},{98,-88}},
+          extent={{38,-48},{98,-70}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi),
         Text(
-          extent={{-96,-52},{-40,-70}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="TSupHeaEco",
-          visible=have_hotWatCoi),
-        Text(
-          extent={{-98,108},{-56,94}},
+          extent={{-98,88},{-56,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uFanSpe")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}})),
   Documentation(info="<html>
 <p>
-This sequence outputs the system reset requests for single zone air handling unit. The
-implementation is according to the Section 5.18.15 of ASHRAE Guideline 36, May 2020. 
+This sequence outputs the system reset requests for fan coil unit. The
+implementation is according to the Section 5.22.8 of ASHRAE Guideline 36, 2021. 
 </p>
-<h4>chilled water reset request <code>yChiWatResReq</code></h4>
+<h4>If there is a chilled-water coil (<code>have_chiWatCoi=true</code>), chilled
+water reset requests <code>yChiWatResReq</code></h4>
 <ol>
 <li>
-If the supply air temperature <code>TAirSup</code> exceeds the cooling supply air temperature
-set point <code>TSupCoo</code> by 3 &deg;C (5 &deg;F) for 2 minutes, send 3 requests.
+If the supply air temperature <code>TAirSup</code> exceeds the supply air temperature
+set point <code>TSupSet</code> by <code>chiWatResReqLim3</code> for time period <code>chiWatResReqTimLim3</code>,
+send 3 requests.
 </li>
 <li>
-If the supply air temperature <code>TAirSup</code> exceeds the cooling supply air temperature
-set point <code>TSupCoo</code> by 2 &deg;C (3 &deg;F) for 2 minutes, send 2 requests.
+If the supply air temperature <code>TAirSup</code> exceeds <code>TSupSet</code> 
+by <code>chiWatResReqLim2</code> for time period <code>chiWatResReqTimLim2</code>, 
+send 2 requests.
 </li>
 <li>
 Else if the chilled water valve position <code>uCooCoi_actual</code> is greater than
-95%, send 1 request until the <code>uCooCoi_actual</code> is less than 85%.
+<code>chiWatPlaReqLim1</code>, send 1 request until <code>uCooCoi_actual</code>
+is less than <code>chiWatResReqLim0</code>.
 </li>
 <li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is less than 95%,
-send 0 request.
+Else if the chilled water valve position <code>uCooCoi_actual</code> is less than
+<code>chiWatPlaReqLim1</code>, send 0 requests.
 </li>
 </ol>
-<h4>Chiller plant request <code>yChiPlaReq</code></h4>
+<h4>If there is a chilled-water coil and chilled water plant, chiller plant request <code>yChiPlaReq</code></h4>
 <p>
 Send the chiller plant that serves the system a chiller plant request as follows:
 </p>
 <ol>
 <li>
 If the chilled water valve position <code>uCooCoi_actual</code> is greater than
-95%, send 1 request until the <code>uCooCoi_actual</code> is less than 10%.
+<code>chiWatPlaReqLim1</code>, send 1 request until the <code>uCooCoi_actual</code>
+is less than <code>chiWatPlaReqLim0</code>.
 </li>
 <li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is less than 95%,
-send 0 request.
+Else if the chilled water valve position <code>uCooCoi_actual</code> is less than
+<code>chiWatPlaReqLim1</code>, send 0 request.
 </li>
 </ol>
 <h4>If there is a hot-water coil (<code>have_hotWatCoi=true</code>), hot-water
 reset requests <code>yHotWatResReq</code></h4>
 <ol>
 <li>
-If the supply air temperature <code>TAirSup</code> is 17 &deg;C (30 &deg;F) less than
-the heating supply air temperature set point <code>TSupHeaEco</code> for 5 minutes, send 3
-requests.
+If the supply air temperature <code>TAirSup</code> is <code>hotWatResReqLim3</code> less than
+the supply air temperature set point <code>TSupSet</code> for time period <code>hotWatResReqTimLim3</code>,
+send 3 requests.
 </li>
 <li>
-Else if the supply air temperature <code>TAirSup</code> is 8 &deg;C (15 &deg;F) less than
-the heating supply air temperature set point <code>TSupHeaEco</code> for 5 minutes, send 2
-requests.
+Else if the supply air temperature <code>TAirSup</code> is <code>hotWatResReqLim2</code>
+less than <code>TSupSet</code> for time period <code>hotWatResReqTimLim2</code>, 
+send 2 requests.
 </li>
 <li>
 Else if the hot water valve position <code>uHeaCoi_actual</code> is greater than
-95%, send 1 request until the <code>uHeaCoi_actual</code> is less than 85%.
+<code>hotWatPlaReqLim1</code>, send 1 request until the <code>uHeaCoi_actual</code> 
+is less than <code>hotWatResReqLim0</code>.
 </li>
 <li>
-Else if the hot water valve position <code>uHeaCoi_actual</code> is less than 95%,
+Else if the hot water valve position <code>uHeaCoi_actual</code> is less than <code>hotWatPlaReqLim1</code>,
 send 0 request.
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
-plant reqeusts <code>yHotWatPlaReq</code></h4>
+plant requests <code>yHotWatPlaReq</code></h4>
 <p>
 Send the heating hot-water plant that serves the air handling unit a heating hot-water
 plant request as follows:
 </p>
 <ol>
 <li>
-If the hot water valve position <code>uHeaCoi_actual</code> is greater than 95%, send 1
-request until the hot water valve position is less than 10%.
+If the hot water valve position <code>uHeaCoi_actual</code> is greater than <code>hotWatPlaReqLim1</code>, 
+send 1 request until the hot water valve position is less than <code>hotWatPlaReqLim0</code>.
 </li>
 <li>
-If the hot water valve position <code>uHeaCoi_actual</code> is less than 95%, send 0 requests.
+If the hot water valve position <code>uHeaCoi_actual</code> is less than <code>hotWatPlaReqLim1</code>, 
+send 0 requests.
 </li>
 </ol>
 </html>", revisions="<html>
 <ul>
 <li>
-December 1, 2021, by Jianjun Hu:<br/>
+May 6, 2022, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
