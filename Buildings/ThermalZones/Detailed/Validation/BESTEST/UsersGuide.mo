@@ -42,8 +42,8 @@ with anti-windup.
 </p>
 <p>
 Hourly averaged values and annual mean values are computed using an instance of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
-Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingAverage\">
+Buildings.Controls.OBC.CDL.Continuous.MovingAverage</a>.
 </p>
 <h4>Validation results</h4>
 <p>
