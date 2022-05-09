@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Valves;
-model ThreWayTwoPosition "Three-way two-position valve"
+model ThreeWayTwoPosition "Three-way two-position valve"
   extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition);
 
@@ -88,4 +88,4 @@ And the opposite for <code>y0_actual</code>.
 </li>
 </ul>
 </html>"));
-end ThreWayTwoPosition;
+end ThreeWayTwoPosition;
