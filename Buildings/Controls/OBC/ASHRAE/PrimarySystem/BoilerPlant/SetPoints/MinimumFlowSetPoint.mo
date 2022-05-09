@@ -69,9 +69,6 @@ block MinimumFlowSetPoint "Hot water minimum flow setpoint"
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
-    annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
-
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
 
@@ -85,6 +82,11 @@ protected
   parameter Real maxFloSetMat[nSta, nBoi] = {maxFloSet[i] for i in 1:nBoi, j in 1:nSta}
     "Boiler maximum design flowrate expanded for element-wise multiplication
     with the staging matrix";
+
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
+    "Used to break algebraic loop and sample the minimum flow setpoint at the start
+    of stage change process to use as reference for calculations"
+    annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/bypSetRat)
