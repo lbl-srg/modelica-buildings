@@ -819,10 +819,14 @@ function rho_pT "Density as function of temperature and pressure"
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
+  function g2_smooth
+    extends Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2;
+    annotation(smoothOrder=2);
+  end g2_smooth;
 algorithm
   R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
   // Region 2 properties
-  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+  g := g2_smooth(p, T);
   rho := p/(R*T*g.pi*g.gpi);
   annotation (
     Inline=true,
