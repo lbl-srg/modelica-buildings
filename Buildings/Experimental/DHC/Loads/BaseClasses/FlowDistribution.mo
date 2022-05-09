@@ -608,7 +608,7 @@ sensor must be set to zero.
 </ul>
 <p>
 <img alt=\"image\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/BaseClasses/FlowDistribution1.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribution1.png\"/>
 </p>
 <h4>Energy and mass dynamics</h4>
 <p>
@@ -668,7 +668,7 @@ also plotted for the model labelled <code>simple</code>, resp. <code>detailed</c
 </p>
 <p>
 <img alt=\"image\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/BaseClasses/FlowDistribution2.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribution2.png\"/>
 </p>
 </html>",
       revisions="<html>
