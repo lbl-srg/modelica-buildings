@@ -68,6 +68,8 @@ block MinimumFlowSetPoint "Hot water minimum flow setpoint"
     annotation (Placement(transformation(extent={{320,-90},{360,-50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  CDL.Continuous.IntegratorWithReset intWitRes
+    annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
 protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
@@ -301,11 +303,6 @@ protected
     "Timer for change of setpoint"
     annotation (Placement(transformation(extent={{228,-50},{248,-30}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=delSamPer)
-    "Unit delay for Real signal"
-    annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
-
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Logical pre block"
     annotation (Placement(transformation(extent={{228,-120},{248,-100}})));
@@ -531,10 +528,6 @@ equation
           258,8}}, color={0,0,127}));
   connect(con4.y, lin1.x1) annotation (Line(points={{182,110},{188,110},{188,-132},
           {258,-132}}, color={0,0,127}));
-  connect(swi1.y, uniDel.u) annotation (Line(points={{312,-70},{314,-70},{314,-84},
-          {130,-84},{130,-110},{138,-110}}, color={0,0,127}));
-  connect(uniDel.y, triSam.u) annotation (Line(points={{162,-110},{164,-110},{164,
-          -80},{130,-80},{130,-40},{138,-40}}, color={0,0,127}));
   connect(pre1.y, lat3.clr) annotation (Line(points={{250,-110},{260,-110},{260,
           -60},{192,-60},{192,-46},{198,-46}}, color={255,0,255}));
   connect(pre1.y, triSam.trigger) annotation (Line(points={{250,-110},{260,-110},
@@ -573,6 +566,14 @@ equation
           {228,-194}}, color={0,0,127}));
   connect(triSam.y, sub3.u2) annotation (Line(points={{162,-40},{170,-40},{170,-156},
           {220,-156},{220,-206},{228,-206}}, color={0,0,127}));
+  connect(con4.y, intWitRes.u) annotation (Line(points={{182,110},{188,110},{
+          188,-80},{132,-80},{132,-100},{138,-100}}, color={0,0,127}));
+  connect(intWitRes.y, triSam.u) annotation (Line(points={{162,-100},{166,-100},
+          {166,-74},{130,-74},{130,-40},{138,-40}}, color={0,0,127}));
+  connect(swi1.y, intWitRes.y_reset_in) annotation (Line(points={{312,-70},{316,
+          -70},{316,-164},{128,-164},{128,-108},{138,-108}}, color={0,0,127}));
+  connect(gre.y, intWitRes.trigger) annotation (Line(points={{222,-110},{224,
+          -110},{224,-124},{150,-124},{150,-112}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBoiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
