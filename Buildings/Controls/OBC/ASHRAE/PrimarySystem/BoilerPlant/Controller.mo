@@ -944,8 +944,7 @@ model Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatPri_rem[nSenPri](
     final unit=fill("Pa", nSenPri),
     displayUnit=fill("Pa", nSenPri),
-    final quantity=fill("PressureDifference", nSenPri))
- if have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
+    final quantity=fill("PressureDifference", nSenPri)) if have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
     "Measured differential pressure between hot water supply and return in primary circuit"
     annotation (Placement(transformation(extent={{-440,90},{-400,130}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
@@ -1137,8 +1136,7 @@ model Controller
     final staMat=staMat,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
-    final bypSetRat=bypSetRat,
-    final delSamPer=1) if have_priOnl
+    final bypSetRat=bypSetRat) if have_priOnl
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
@@ -1320,8 +1318,7 @@ protected
     final staMat=fill(staMat, nSta),
     final minFloSet=fill(minFloSet, nSta),
     final maxFloSet=fill(maxFloSet, nSta),
-    final bypSetRat=fill(bypSetRat, nSta),
-    final delSamPer=fill(60, nSta))
+    final bypSetRat=fill(bypSetRat, nSta))
     "Calculate vector of minimum flow setpoints for all stages"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
@@ -1531,7 +1528,7 @@ equation
           86,-128},{86,-152.933},{118,-152.933}},
                                             color={255,127,0}));
   connect(supResReq, plaEna.supResReq) annotation (Line(points={{-420,350},{-360,
-          350},{-360,335},{-342,335}},  color={255,127,0}));
+          350},{-360,334},{-342,334}},  color={255,127,0}));
   connect(reaToInt.u, triSam.y)
     annotation (Line(points={{-130,-40},{-138,-40}},
                                                    color={0,0,127}));
@@ -1542,7 +1539,7 @@ equation
           {-80,-60},{-220,-60},{-220,-13},{-212,-13}},
                                                   color={255,127,0}));
   connect(TOut, plaEna.TOut) annotation (Line(points={{-420,310},{-360,310},{-360,
-          325},{-342,325}},
+          326},{-342,326}},
                           color={0,0,127}));
   connect(TSupPri, staSetCon.THotWatSup) annotation (Line(points={{-420,270},{-240,
           270},{-240,8},{-212,8}},                    color={0,0,127}));
@@ -1788,7 +1785,7 @@ equation
   connect(uSecPum, secPumCon.uHotWatPum) annotation (Line(points={{-420,-440},{-20,
           -440},{-20,-346},{118,-346}}, color={255,0,255}));
   connect(uPriPumSpe, mulMax.u[1:2]) annotation (Line(points={{-420,-560},{-402,
-          -560},{-402,-561},{-382,-561}}, color={0,0,127}));
+          -560},{-402,-560},{-382,-560}}, color={0,0,127}));
   connect(mulMax.y, staSetCon.uPumSpe) annotation (Line(points={{-358,-560},{-262,
           -560},{-262,-7},{-212,-7}}, color={0,0,127}));
   connect(uHotWatIsoVal, upProCon.uHotWatIsoVal) annotation (Line(points={{-420,
