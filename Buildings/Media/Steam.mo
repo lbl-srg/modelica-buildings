@@ -920,6 +920,14 @@ properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 12
 </html>", revisions="<html>
 <ul>
 <li>
+May 9, 2022, by David Blum:<br/>
+In function <code>rho_pT</code>, created and used new function extending
+<code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
+annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the 
+<code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to 
+the <code>g2</code> function.
+</li>
+<li>
 April 13, 2021, by Kathryn Hinkelman:<br/>
 Changed pressure from constant to variable and reduced applicable
 pressure-temperature range to improve accuracy of polynomial approximations.
