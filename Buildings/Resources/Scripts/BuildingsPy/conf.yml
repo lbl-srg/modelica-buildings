@@ -248,13 +248,16 @@
     translate: false
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    simulate: false
+    translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.SimpleRoom
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
@@ -264,13 +267,17 @@
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   optimica:
-    simulate: false
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
+    translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
   optimica:
