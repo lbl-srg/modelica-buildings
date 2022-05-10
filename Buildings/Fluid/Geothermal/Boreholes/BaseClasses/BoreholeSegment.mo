@@ -88,7 +88,6 @@ model BoreholeSegment "Vertical segment of a borehole"
     final allowFlowReversal2=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p1_start=p_start,
     T1_start=T_start,
     X1_start=X_start,
@@ -166,7 +165,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaFlo.Q_flow, TBouCon.Q_flow) annotation (Line(
-      points={{-20,-10},{-20,-20},{40,-20},{40,-8},{48,-8}},
+      points={{-20,-11},{-20,-20},{40,-20},{40,-8},{48,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

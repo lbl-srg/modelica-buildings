@@ -30,8 +30,8 @@ services:
 
 env:
   global:
-    - BUILDINGSPY_VERSION=BuildingsPy@1b4308545bc793718c2c7b5b25a3f0f9df12588e
-    - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-573-g07173a7-1
+    - BUILDINGSPY_VERSION=BuildingsPy@e52684deb8c2c2846faaa21c426999fecf3ad58f
+    - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-613-gd6e04c0-1
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:r26446
     - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2022x-x86_64
     - ENERGYPLUS_VERSION=EnergyPlus-9.6.0-f420c06a69-Linux-Ubuntu20.04-x86_64
@@ -45,9 +45,9 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""
-    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.EnergyPlus_9_6_0\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.EnergyPlus_9_6_0\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.EnergyPlus_9_6_0\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""

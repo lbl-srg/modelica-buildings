@@ -14,8 +14,7 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     per=perEP,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Water to Water heat pump"
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Sources.MassFlowSource_T loaPum(

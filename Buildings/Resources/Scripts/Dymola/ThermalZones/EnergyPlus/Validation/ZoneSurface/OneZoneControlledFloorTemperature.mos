@@ -1,4 +1,0 @@
-simulateModel("Buildings.ThermalZones.EnergyPlus.Validation.ZoneSurface.OneZoneControlledFloorTemperature", startTime=10800000, stopTime=11232000, method="Cvode", tolerance=1e-06, resultFile="OneZoneControlledFloorTemperature");
-createPlot(id=1, position={255, 85, 1254, 1005}, y={"zon.TAir", "flo.T", "TSetRooHea.y", "TSetRooCoo.y"}, range={125.0, 130.0, 19.0, 25.0}, grid=true, colors={{238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="d", displayUnits={"degC", "degC", "degC", "degC"});
-createPlot(id=1, position={255, 85, 1254, 1005}, y={"flo.q_flow"}, range={125.0, 130.0, -30.0, 10.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="d", displayUnits={"W/m2"});
-createPlot(id=1, position={255, 85, 1254, 1005}, y={"conHea.y", "conCoo.y"}, range={125.0, 130.0, -0.2, 0.8}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="d");

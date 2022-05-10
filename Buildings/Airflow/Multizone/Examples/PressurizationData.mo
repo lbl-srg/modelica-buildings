@@ -28,7 +28,6 @@ model PressurizationData
     V=2.5*5*5,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Room model"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Airflow.Multizone.Point_m_flow pow_1dat(
@@ -66,8 +65,7 @@ equation
         "Simulate and plot"),
         experiment(
       StopTime=2592000,
-      Interval=600,
-      Tolerance=1e-08),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model illustrates the use of
@@ -86,6 +84,12 @@ In this example, the two models each represent 50% of the surface where airflow 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2022, by Michael Wetter:<br/>
+Changed tolerance from <i>1E-8</i> to <i>1E-6</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1606\">IBPSA, #1606</a>.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>
