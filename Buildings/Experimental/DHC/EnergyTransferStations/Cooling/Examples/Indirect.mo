@@ -30,7 +30,6 @@ model Indirect "Example model for indirect cooling energy transfer station
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     yCon_start=0.01,
-    reverseActing=false,
     nPorts_bChiWat=1,
     nPorts_aChiWat=1)
     "Direct cooling energy transfer station"

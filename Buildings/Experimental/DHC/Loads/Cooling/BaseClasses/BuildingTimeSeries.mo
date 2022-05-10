@@ -282,10 +282,20 @@ equation
 </html>",
       revisions="<html>
 <ul>
-<li>March 20, 2022, by Chengnan Shi:<br>Disable heating port to specify for cooling loads model.</li>
-<li>December 21, 2020, by Antoine Gautier:<br>Refactored for optional hot water and multiplier factor.<br>This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>. </li>
-<li>September 18, 2020, by Jianjun Hu:<br>Changed flow distribution components and the terminal units to be conditional depending on if there is water-based heating, or cooling system. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2147\">issue 2147</a>. </li>
-<li>February 21, 2020, by Antoine Gautier:<br>First implementation. </li>
+<li>March 20, 2022, by Chengnan Shi:<br>
+Disable heating port to specify for cooling loads model.</li>
+<li>December 21, 2020, by Antoine Gautier:<br>
+Refactored for optional hot water and multiplier factor.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>.
+</li>
+<li>September 18, 2020, by Jianjun Hu:<br>
+Changed flow distribution components and the terminal units to be conditional depending 
+on if there is water-based heating, or cooling system. 
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2147\">issue 2147</a>. 
+</li>
+<li>February 21, 2020, by Antoine Gautier:<br>
+First implementation. 
+</li>
 </ul>
 </html>"),
     Icon(

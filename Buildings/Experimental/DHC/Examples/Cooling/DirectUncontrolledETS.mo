@@ -87,8 +87,8 @@ model DirectUncontrolledETS
     "District cooling plant"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-  final computeWetBulbTemperature=true,
-  filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+    final computeWetBulbTemperature=true,
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.BooleanConstant on
@@ -112,8 +112,8 @@ model DirectUncontrolledETS
     mBui_flow_nominal=mBui_flow_nominal)
     "Vectorized time series building load model connected with ETS for cooling."
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium
-      =                                                                         Medium)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
+    redeclare package Medium = Medium)
     "Relative pressure drop sensor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -175,7 +175,7 @@ Buildings.Experimental.DHC.Networks.Distribution2Pipe</a>,
 and a time series building load connected to a direct uncontrolled ETS for cooling 
 <a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
 Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>, as illustrated in the schematic below.</p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.png\"/></p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.png\" alt=\"System schematics\"/></p>
 </html>", revisions="<html>
 <ul>
 <li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>

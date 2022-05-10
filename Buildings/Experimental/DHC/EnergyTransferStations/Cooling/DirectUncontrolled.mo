@@ -30,20 +30,20 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
     displayUnit="Pa")=5000
     "Pressure drop in the ETS return side";
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="Power",
+    final quantity="HeatFlowRate",
     final unit="W",
     displayUnit="kW")
-    "Measured power demand at the ETS"
+    "Measured heating demand at the ETS"
     annotation (Placement(
-        transformation(extent={{300,-130},{340,-90}}), iconTransformation(
-          extent={{300,-130},{340,-90}})));
+        transformation(extent={{300,-140},{340,-100}}),iconTransformation(
+          extent={{300,-140},{340,-100}})));
   Modelica.Blocks.Interfaces.RealOutput Q(
     final quantity="Energy",
     final unit="J",
     displayUnit="kWh")
     "Measured energy consumption at the ETS"
      annotation (Placement(transformation(
-          extent={{300,-170},{340,-130}}), iconTransformation(extent={{300,-130},
+          extent={{300,-180},{340,-140}}), iconTransformation(extent={{300,-130},
             {340,-90}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
     redeclare final package Medium=MediumSer,
@@ -84,8 +84,7 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
     "District supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{-78,-290},{-58,-270}})));
   Modelica.Blocks.Math.Add dTdis(
-    final k1=-1,
-    final k2=1)
+    final k1=-1)
     "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Modelica.Blocks.Math.Product pro
@@ -98,7 +97,7 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
   Modelica.Blocks.Continuous.Integrator int(
     final k=1)
     "Integration"
-    annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
+    annotation (Placement(transformation(extent={{260,-170},{280,-150}})));
 protected
   final parameter MediumSer.ThermodynamicState sta_default=MediumSer.setState_pTX(
     T=MediumSer.T_default,
@@ -128,11 +127,12 @@ equation
   connect(senTBuiRet.port_b, pipRet.port_a)
     annotation (Line(points={{-158,200},{20,200}}, color={0,127,255}));
   connect(cp.y, Q_flow)
-    annotation (Line(points={{21,-110},{320,-110}}, color={0,0,127}));
+    annotation (Line(points={{21,-110},{248,-110},{248,-120},{320,-120}},
+                                                    color={0,0,127}));
   connect(cp.y, int.u)
-    annotation (Line(points={{21,-110},{70.5,-110},{70.5,-150},{118,-150}}, color={0,0,127}));
+    annotation (Line(points={{21,-110},{248,-110},{248,-160},{258,-160}},   color={0,0,127}));
   connect(int.y, Q)
-    annotation (Line(points={{141,-150},{320,-150}},                           color={0,0,127}));
+    annotation (Line(points={{281,-160},{320,-160}},                           color={0,0,127}));
   connect(senMasFlo.port_b, pipSup.port_a)
     annotation (Line(points={{-58,-280},{20,-280}}, color={0,127,255}));
   connect(pipSup.port_b, senTBuiSup.port_a)

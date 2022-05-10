@@ -51,11 +51,11 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   parameter Modelica.Units.SI.Time Ti(
     final min=Modelica.Constants.small)=120
     "Time constant of integrator block"
-    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="PID controller",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(
     final min=0)=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="PID controller",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax(
     final start=1)=1
     "Upper limit of output"
@@ -75,18 +75,21 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     "Setpoint for the minimum district return temperature"
     annotation (Placement(transformation(extent={{-338,-20},{-298,20}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="Power",
+    final quantity="HeatFlowRate",
     final unit="W",
     displayUnit="kW")
-    "Measured power demand at the ETS"
+    "Measured heating demand at the ETS"
     annotation (Placement(
-        transformation(extent={{300,-130},{340,-90}}), iconTransformation(
-          extent={{300,-130},{340,-90}})));
+        transformation(extent={{300,-140},{340,-100}}),iconTransformation(
+          extent={{300,-140},{340,-100}})));
   Modelica.Blocks.Interfaces.RealOutput Q(
     final quantity="Energy",
     final unit="J",
     displayUnit="kWh")
-    "Measured energy consumption at the ETS";
+    "Measured energy consumption at the ETS"
+     annotation (Placement(transformation(
+          extent={{300,-180},{340,-140}}), iconTransformation(extent={{300,-130},
+            {340,-90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal)
@@ -152,11 +155,11 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   Modelica.Blocks.Math.Gain cp(
     final k=cp_default)
     "Specific heat multiplier to calculate heat flow rate"
-    annotation (Placement(transformation(extent={{182,-120},{202,-100}})));
+    annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
   Modelica.Blocks.Continuous.Integrator int(
     final k=1)
     "Integration"
-    annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
+    annotation (Placement(transformation(extent={{260,-170},{280,-150}})));
   Modelica.Blocks.Sources.Constant ope(
     final k=1)
     "Check valve is always open in the positive flow direction"
@@ -215,14 +218,15 @@ equation
     annotation (Line(points={{-110,-269},{-110,-192},
           {90,-192},{90,-116},{118,-116}}, color={0,0,127}));
   connect(pro.y, cp.u)
-    annotation (Line(points={{141,-110},{180,-110}}, color={0,0,127}));
+    annotation (Line(points={{141,-110},{178,-110}}, color={0,0,127}));
   connect(cp.y, Q_flow)
-    annotation (Line(points={{203,-110},{320,-110}}, color={0,0,127}));
+    annotation (Line(points={{201,-110},{248,-110},{248,-120},{320,-120}},
+                                                     color={0,0,127}));
   connect(cp.y, int.u)
-    annotation (Line(points={{203,-110},{204,-110},{204,-150},
-          {258,-150}}, color={0,0,127}));
+    annotation (Line(points={{201,-110},{248,-110},{248,-160},{258,-160}},
+                       color={0,0,127}));
   connect(int.y, Q)
-    annotation (Line(points={{281,-150},{320,-150}}, color={0,0,127}));
+    annotation (Line(points={{281,-160},{320,-160}}, color={0,0,127}));
   connect(dTdis.y, pro.u1)
     annotation (Line(points={{81,-104},{118,-104}}, color={0,0,127}));
   connect(conVal.port_b, senTDisRet.port_a)
@@ -265,9 +269,7 @@ equation
           -260,0},{-260,76},{-182,76}}, color={0,0,127}));
   connect(onOffCon.y, notCon.u)
     annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
- annotation (Placement(transformation(
-          extent={{300,-170},{340,-130}}), iconTransformation(extent={{300,-130},
-            {340,-90}})),
+ annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
 <p>

@@ -82,11 +82,15 @@ model Indirect
   parameter Modelica.Units.SI.Time Ti(
     final min=Modelica.Constants.small)=120
     "Time constant of integrator block"
-    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="PID controller",enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(
     final min=0)=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="PID controller",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="PID controller",enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(
     final start=1)=1
     "Upper limit of output"
@@ -105,20 +109,29 @@ model Indirect
   parameter Real Ni(
     final min=100*Modelica.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
-    annotation (Dialog(group="PID controller"));
+    annotation (Dialog(group="PID controller",enable=
+          controllerType==.Modelica.Blocks.Types.SimpleController.PI or
+          controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real Nd(
     final min=100*Modelica.Constants.eps)=10
     "The higher Nd, the more ideal the derivative block"
-    annotation (Dialog(group="PID controller"));
+    annotation (Dialog(group="PID controller",enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real xi_start=0
     "Initial or guess value for integrator output (= integrator state)"
-    annotation (Dialog(group="PID controller"));
+    annotation (Dialog(group="PID controller",enable=
+          controllerType==.Modelica.Blocks.Types.SimpleController.PI or
+          controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real xd_start=0
     "Initial or guess value for derivative block"
-    annotation (Dialog(group="PID controller"));
+    annotation (Dialog(group="PID controller",enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yCon_start=0
     "Initial value of output from the controller"
-    annotation (Dialog(group="PID controller"));
+    annotation (Dialog(enable=initType == Modelica.Blocks.Types.Init.InitialOutput,
+                group="Initialization"));
   parameter Boolean reverseActing=false
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation (Dialog(group="PID controller"));
@@ -132,10 +145,10 @@ model Indirect
     "Setpoint temperature for building supply"
     annotation (Placement(transformation(extent={{-340,-20},{-300,20}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="Power",
+    final quantity="HeatFlowRate",
     final unit="W",
     displayUnit="kW")
-    "Measured power demand at the ETS"
+    "Measured heating demand at the ETS"
     annotation (Placement(
         transformation(extent={{300,-130},{340,-90}}), iconTransformation(extent={{300,-130},{340,-90}})));
   Modelica.Blocks.Interfaces.RealOutput Q(
@@ -196,17 +209,10 @@ model Indirect
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    final wp=wp,
-    final wd=wd,
-    final Ni=Ni,
-    final Nd=Nd,
-    final initType=Modelica.Blocks.Types.Init.InitialOutput,
-    final xi_start=xi_start,
-    final xd_start=xd_start,
-    final y_start=yCon_start,
-    final reverseActing=reverseActing)
+    final initType=Modelica.Blocks.Types.Init.InitialState)
     "Building supply temperature controller"
     annotation (Placement(transformation(extent={{-180,10},{-160,-10}})));
+
   Modelica.Blocks.Math.Add dTdis(
     final k1=-1,
     final k2=+1)
