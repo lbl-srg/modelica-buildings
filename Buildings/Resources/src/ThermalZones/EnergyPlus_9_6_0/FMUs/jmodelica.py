@@ -35,7 +35,15 @@ for model in models:
 
   ######################################################################
   # Compile fmu
+  # OCT r28242 ignores MODELICAPATH and instead needs to have it set through a function argument.
+  if 'MODELICAPATH' in os.environ:
+    modelicapath=os.environ['MODELICAPATH']
+    del os.environ['MODELICAPATH']
+  else:
+    modelicapath=os.path.abspath('.')
+
   fmu_name = compile_fmu(model,
                          version="2.0",
+                         modelicapath=".",
                          compiler_log_level='warning',
                          compiler_options = {"generate_html_diagnostics" : False})
