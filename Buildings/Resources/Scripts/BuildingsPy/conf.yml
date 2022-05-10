@@ -30,6 +30,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+- model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
+  optimica:
+    comment: 'High solver tolerance required to avoid time out.'
+    rtol: 1.0E-8
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -244,13 +248,16 @@
     translate: false
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    simulate: false
+    translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.SimpleRoom
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
@@ -260,13 +267,17 @@
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   optimica:
-    simulate: false
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
+    translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
   optimica:
@@ -278,15 +289,15 @@
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyConstructionBoundary
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyExteriorWallNoWindow
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlySurfaceBoundary
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
   openmodelica:

@@ -450,7 +450,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2781\">#2781</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Controls.FreezeStat
+    </td>
+    <td valign=\"top\">Added hysteresis. Without it, models can stall due to state events.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2975\">#2975</a>.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
                        Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
                        Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
     </td>
@@ -683,7 +689,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Types.Day
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\"># 2839</a>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\">#2839</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -691,7 +697,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Logical.MultiOr
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\"># 2580</a>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">#2580</a>.<br/>
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -701,18 +707,25 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\"># 2544</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">#2544</a>.
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
-<tr><td valign=\"top\">
-    Buildings.Controls.OBC.CDL.Logical.IntegerSwitch<br/>
-    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch<br/>
-    Buildings.Controls.OBC.CDL.Logical.Switch
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.IntegerSwitch<br/>
+                       Buildings.Controls.OBC.CDL.Logical.LogicalSwitch<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Switch
     </td>
     <td valign=\"top\">Moved the blocks to <code>CDL.Integers.Switch</code>, <code>CDL.Logical.Switch</code>,
                        and <code>CDL.Continuous.Switch</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2650\"># 2650</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2650\">#2650</a>.
+                       For Dymola, a conversion script makes this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
+    </td>
+    <td valign=\"top\">Renamed parameter for start value from <code>y_start</code> to <code>pre_u_start</code>
+                       for consistency with <code>Buildings.Controls.OBC.CDL.Logical.Change</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
                        For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -943,6 +956,30 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Greater<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Less<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessThreshold
+    </td>
+    <td valign=\"top\">Corrected the condition of switching true back to false. It is caused by the wrong inequality check.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">#2981</a>.
+    </td>
+</tr>
+
+
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.ParallelConstantFlow
+    </td>
+    <td valign=\"top\">Removed the model that represented an incorrect hydronic configuration. <br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2967\">#2967</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
     </td>
 </tr>
@@ -988,7 +1025,14 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.IntegratedPrimaryLoadSide
+    </td>
+    <td valign=\"top\">Removed duplicate instances of blocks that generate control signals.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2963\">Buildings, issue 2963</a>.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
                          Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
                          Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
     </td>
@@ -997,6 +1041,17 @@ units are wrong or errors in documentation):
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">Buildings, issue 2706</a>.
     </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+  </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.PID<br/>
+                         Buildings.Controls.OBC.CDL.PIDWithReset
+  </td>
+  <td valign=\"top\">Corrected wrong documentation in how the derivative of the control error is approximated.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">Buildings, issue 2994</a>.
+  </td>
 </tr>
   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
