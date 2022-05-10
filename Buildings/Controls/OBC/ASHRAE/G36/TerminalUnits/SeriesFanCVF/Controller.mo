@@ -402,9 +402,7 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
     final valPosHys=valPosHys) "Generate alarms"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.Overrides
-    setOve(
-    final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow) "Override setpoints"
+    setOve                           "Override setpoints"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
     final samplePeriod=samplePeriod,
@@ -434,6 +432,8 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.DamperValves
     damVal(
     final dTDisZonSetMax=dTDisZonSetMax,
+    final VMin_flow=VMin_flow,
+    final VCooMax_flow=VCooMax_flow,
     final controllerTypeVal=controllerTypeVal,
     final kVal=kVal,
     final TiVal=TiVal,
@@ -510,10 +510,6 @@ equation
           24},{18,24}},   color={0,0,127}));
   connect(uOpeMod, damVal.uOpeMod) annotation (Line(points={{-260,160},{-210,160},
           {-210,7},{18,7}},     color={255,127,0}));
-  connect(oveFloSet, setOve.oveFloSet) annotation (Line(points={{-260,-70},{-100,
-          -70},{-100,-61},{78,-61}}, color={255,127,0}));
-  connect(damVal.VPri_flow_Set, setOve.VActSet_flow) annotation (Line(points={{42,
-          34},{70,34},{70,-63},{78,-63}}, color={0,0,127}));
   connect(oveDamPos, setOve.oveDamPos) annotation (Line(points={{-260,-100},{-94,
           -100},{-94,-61},{78,-61}},color={255,127,0}));
   connect(damVal.yDam, setOve.uDam) annotation (Line(points={{42,29},{66,29},{66,
@@ -530,8 +526,6 @@ equation
           -145},{138,-145}}, color={0,0,127}));
   connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-178,266},{-154,266},
           {-154,-147},{138,-147}},color={0,0,127}));
-  connect(setOve.VSet_flow, sysReq.VSet_flow) annotation (Line(points={{102,-63},
-          {120,-63},{120,-149},{138,-149}}, color={0,0,127}));
   connect(VPri_flow,sysReq.VPri_flow)  annotation (Line(points={{-260,20},{-36,20},
           {-36,-151},{138,-151}}, color={0,0,127}));
   connect(uDam_actual, sysReq.uDam_actual) annotation (Line(points={{-260,-200},{6,-200},{6,-153},
@@ -542,8 +536,6 @@ equation
           -159},{138,-159}}, color={0,0,127}));
   connect(VPri_flow,ala.VPri_flow)  annotation (Line(points={{-260,20},{-36,20},
           {-36,-240},{138,-240}}, color={0,0,127}));
-  connect(setOve.VSet_flow, ala.VActSet_flow) annotation (Line(points={{102,-63},
-          {120,-63},{120,-242},{138,-242}},  color={0,0,127}));
   connect(u1Fan, ala.u1Fan) annotation (Line(points={{-260,-270},{30,-270},{30,-244},
           {138,-244}}, color={255,0,255}));
   connect(uDam_actual, ala.uDam_actual) annotation (Line(points={{-260,-200},{6,-200},{6,-250},
@@ -556,8 +548,6 @@ equation
           {40,-256},{138,-256}}, color={255,0,255}));
   connect(TDis, ala.TDis) annotation (Line(points={{-260,70},{-192,70},{-192,-258},
           {138,-258}}, color={0,0,127}));
-  connect(setOve.VSet_flow, VSet_flow) annotation (Line(points={{102,-63},{120,
-          -63},{120,190},{260,190}}, color={0,0,127}));
   connect(setOve.yDam, yDam) annotation (Line(points={{102,-64},{126,-64},{126,150},
           {260,150}},           color={0,0,127}));
   connect(setOve.yVal, yVal) annotation (Line(points={{102,-70},{132,-70},{132,110},
@@ -614,6 +604,14 @@ equation
           {-198,127},{-122,127}}, color={0,0,127}));
   connect(minFlo.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-98,127},{-80,127},{-80,104},{-42,104}}, color={0,0,127}));
+  connect(oveFloSet, damVal.oveFloSet) annotation (Line(points={{-260,-70},{
+          -100,-70},{-100,39},{18,39}}, color={255,127,0}));
+  connect(damVal.VPri_flow_Set, ala.VActSet_flow) annotation (Line(points={{42,
+          34},{120,34},{120,-242},{138,-242}}, color={0,0,127}));
+  connect(damVal.VPri_flow_Set, sysReq.VSet_flow) annotation (Line(points={{42,
+          34},{120,34},{120,-149},{138,-149}}, color={0,0,127}));
+  connect(damVal.VPri_flow_Set, VSet_flow) annotation (Line(points={{42,34},{
+          120,34},{120,190},{260,190}}, color={0,0,127}));
 annotation (defaultComponentName="serFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

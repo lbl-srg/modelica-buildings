@@ -90,7 +90,11 @@ block ReturnFanDirectPressure
     final max=1)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{120,-170},{160,-130}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{100,-90},{140,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
+    "Return fan commanded on"
+    annotation (Placement(transformation(extent={{120,-220},{160,-180}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=300)
@@ -242,7 +246,8 @@ equation
           -150},{78,-150}}, color={255,0,255}));
   connect(swi2.y, yRetFan)
     annotation (Line(points={{102,-150},{140,-150}}, color={0,0,127}));
-
+  connect(u1SupFan, y1RetFan) annotation (Line(points={{-160,-20},{-60,-20},{-60,
+          -200},{140,-200}}, color={255,0,255}));
 annotation (
   defaultComponentName="retFanDpCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

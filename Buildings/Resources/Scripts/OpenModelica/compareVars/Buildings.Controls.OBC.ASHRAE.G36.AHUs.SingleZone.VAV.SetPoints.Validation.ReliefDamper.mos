@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "relDam.uOutDam_min",
+    "relDam.uOutDam",
+    "relDam.yRelDam"
+  };

@@ -55,7 +55,10 @@ block ReturnFanAirflowTracking
     final max=1) "Return fan commanded speed"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
+    "Return fan commanded on"
+    annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if relief damper should be enabled"
@@ -99,7 +102,8 @@ equation
     annotation (Line(points={{-120,20},{10,20},{10,68}}, color={0,0,127}));
   connect(conP.y, swi.u1)
     annotation (Line(points={{22,80},{40,80},{40,-22},{58,-22}}, color={0,0,127}));
-
+  connect(u1SupFan, y1RetFan) annotation (Line(points={{-120,-30},{0,-30},{0,-70},
+          {120,-70}}, color={255,0,255}));
 annotation (
   defaultComponentName = "retFanAirTra",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

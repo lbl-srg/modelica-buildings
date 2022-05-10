@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.Validation.GroupStatusUp", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="GroupStatus");
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.Validation.GroupStatus", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="GroupStatus");
 createPlot(id=1, position={10, 10, 1000, 1300}, y={"zonGroSta.zonOcc[1]", "zonGroSta.zonOcc[3]", "zonGroSta.uOcc[1]","zonGroSta.uOcc[3]"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
 createPlot(id=1, position={10, 10, 1000, 1300}, y={"zonGroSta.tNexOcc[1]", "zonGroSta.tNexOcc[3]"}, range={0.0, 4000.0, -2000.0, 4000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"s", "s"});
 createPlot(id=1, position={10, 10, 1000, 1300}, y={"zonGroSta.uCooTim[1]", "zonGroSta.uCooTim[3]", "zonGroSta.uWarTim[1]", "zonGroSta.uWarTim[3]"}, range={0.0, 4000.0, -2000.0, 2000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, displayUnits={"s", "s", "s", "s"});

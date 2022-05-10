@@ -185,8 +185,8 @@ equation
           {-120,-106},{-2,-106}}, color={0,0,127}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-58,20},{-20,20},{-20,-94},
           {-2,-94}}, color={0,0,127}));
-  connect(conAHU.y1SupFan, pre.u) annotation (Line(points={{184,29.0909},{200,
-          29.0909},{200,40},{218,40}}, color={255,0,255}));
+  connect(conAHU.y1SupFan, pre.u) annotation (Line(points={{184,-40},{200,-40},
+          {200,40},{218,40}},          color={255,0,255}));
   connect(pre.y, conAHU.u1SupFan) annotation (Line(points={{242,40},{250,40},{
           250,70},{50,70},{50,16.3636},{96,16.3636}}, color={255,0,255}));
   connect(pre.y, booToRea.u) annotation (Line(points={{242,40},{250,40},{250,70},

@@ -504,11 +504,9 @@ equation
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-98,174},{-56,174},{-56,104},{-42,104}}, color={0,0,127}));
   connect(VPri_flow, damVal.VPri_flow) annotation (Line(points={{-260,20},{-36,
-          20},{-36,37},{18,37}},
-                             color={0,0,127}));
+          20},{-36,37},{18,37}}, color={0,0,127}));
   connect(conLoo.yCoo, damVal.uCoo) annotation (Line(points={{-178,266},{-154,
-          266},{-154,34},{18,34}},
-                             color={0,0,127}));
+          266},{-154,34},{18,34}}, color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, damVal.VActCooMax_flow) annotation (Line(
         points={{-18,116},{0,116},{0,31},{18,31}},     color={0,0,127}));
   connect(TSup, damVal.TSup) annotation (Line(points={{-260,-10},{-30,-10},{-30,
@@ -524,18 +522,15 @@ equation
   connect(conLoo.yHea, damVal.uHea) annotation (Line(points={{-178,254},{-160,254},
           {-160,15},{18,15}},   color={0,0,127}));
   connect(TZon, damVal.TZon) annotation (Line(points={{-260,320},{-222,320},{
-          -222,26},{18,26}},
-                          color={0,0,127}));
+          -222,26},{18,26}}, color={0,0,127}));
   connect(uOpeMod, damVal.uOpeMod) annotation (Line(points={{-260,160},{-210,160},
           {-210,6},{18,6}},     color={255,127,0}));
   connect(oveDamPos, setOve.oveDamPos) annotation (Line(points={{-260,-100},{
-          -94,-100},{-94,-61},{78,-61}},
-                                    color={255,127,0}));
+          -94,-100},{-94,-61},{78,-61}}, color={255,127,0}));
   connect(damVal.yDam, setOve.uDam) annotation (Line(points={{42,29},{66,29},{
           66,-63},{78,-63}},       color={0,0,127}));
   connect(uHeaOff, setOve.uHeaOff) annotation (Line(points={{-260,-170},{12,
-          -170},{12,-69},{78,-69}},
-                                  color={255,0,255}));
+          -170},{12,-69},{78,-69}}, color={255,0,255}));
   connect(damVal.yVal, setOve.uVal) annotation (Line(points={{42,8},{62,8},{62,
           -71},{78,-71}},          color={0,0,127}));
   connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-178,300},{-68,
@@ -595,16 +590,13 @@ equation
   connect(damVal.THeaDisSet, sysReq.TDisSet) annotation (Line(points={{42,11},{58,
           11},{58,-155},{138,-155}}, color={0,0,127}));
   connect(setOve.oveFan, oveFan) annotation (Line(points={{78,-77},{-88,-77},{
-          -88,-130},{-260,-130}},
-                              color={255,127,0}));
+          -88,-130},{-260,-130}}, color={255,127,0}));
   connect(setOve.y1Fan, y1Fan) annotation (Line(points={{102,-77},{138,-77},{
-          138,60},{260,60}},
-                         color={255,0,255}));
+          138,60},{260,60}}, color={255,0,255}));
   connect(ala.yFanStaAla, yFanStaAla) annotation (Line(points={{162,-248},{192,-248},
           {192,-230},{260,-230}}, color={255,127,0}));
   connect(damVal.y1Fan, setOve.u1Fan) annotation (Line(points={{42,1},{54,1},{
-          54,-79},{78,-79}},
-                          color={255,0,255}));
+          54,-79},{78,-79}}, color={255,0,255}));
   connect(damVal.y1Fan, ala.u1FanCom) annotation (Line(points={{42,1},{54,1},{54,
           -246},{138,-246}}, color={255,0,255}));
   connect(damVal.THeaDisSet, ala.TDisSet) annotation (Line(points={{42,11},{58,11},
@@ -612,8 +604,7 @@ equation
   connect(damVal.VFan_flow_Set, mul1.u1) annotation (Line(points={{42,3.8},{74,3.8},
           {74,106},{198,106}}, color={0,0,127}));
   connect(setOve.y1Fan, booToRea1.u) annotation (Line(points={{102,-77},{138,
-          -77},{138,80},{158,80}},
-                              color={255,0,255}));
+          -77},{138,80},{158,80}}, color={255,0,255}));
   connect(booToRea1.y, mul1.u2) annotation (Line(points={{182,80},{190,80},{190,
           94},{198,94}}, color={0,0,127}));
   connect(mul1.y, VFan_flow_Set)

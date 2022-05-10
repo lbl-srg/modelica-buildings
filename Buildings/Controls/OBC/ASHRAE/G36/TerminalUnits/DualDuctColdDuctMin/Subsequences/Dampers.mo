@@ -258,10 +258,6 @@ block Dampers
     if have_preIndDam
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{180,60},{200,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow1(
-    final k=V_flow_nominal)
-    "Nominal volume flow rate"
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor1
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
@@ -298,16 +294,15 @@ block Dampers
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
     "Ensure heating damper is closed when it is in cooling or deadband state"
     annotation (Placement(transformation(extent={{240,-240},{260,-220}})));
-
-  CDL.Continuous.Sources.Constant                        cooMax1(final k=
-        VCooMax_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax1(
+    final k=VCooMax_flow)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
-  CDL.Continuous.Sources.Constant                        heaMax1(final k=
-        VHeaMax_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax1(
+    final k=VHeaMax_flow)
     "Heating maximum flow"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
-  CDL.Continuous.Max                        max2 "Nominal flow"
+  Buildings.Controls.OBC.CDL.Continuous.Max max2 "Nominal flow"
     annotation (Placement(transformation(extent={{80,140},{100,160}})));
 equation
   connect(uCoo, lin.u)
@@ -424,12 +419,8 @@ equation
           {278,-278}},       color={0,0,127}));
   connect(swi3.y, VDisSet_flowNor1.u1) annotation (Line(points={{82,-50},{100,-50},
           {100,-74},{118,-74}},   color={0,0,127}));
-  connect(nomFlow1.y, VDisSet_flowNor1.u2) annotation (Line(points={{82,-110},{100,
-          -110},{100,-86},{118,-86}},   color={0,0,127}));
   connect(VDisSet_flowNor1.y, conHeaDam.u_s)
     annotation (Line(points={{142,-80},{198,-80}},   color={0,0,127}));
-  connect(nomFlow1.y, VDis_flowNor1.u2) annotation (Line(points={{82,-110},{100,
-          -110},{100,-156},{118,-156}}, color={0,0,127}));
   connect(VHotDucDis_flow, VDis_flowNor1.u1) annotation (Line(points={{-340,-230},
           {0,-230},{0,-144},{118,-144}}, color={0,0,127}));
   connect(VDis_flowNor1.y, conHeaDam.u_m) annotation (Line(points={{142,-150},{210,
@@ -458,7 +449,6 @@ equation
           -210,224},{-162,224}}, color={0,0,127}));
   connect(VActMin_flow, swi.u3) annotation (Line(points={{-340,-10},{-20,-10},{-20,
           202},{78,202}}, color={0,0,127}));
-
   connect(cooMax1.y, max2.u1) annotation (Line(points={{42,170},{60,170},{60,156},
           {78,156}}, color={0,0,127}));
   connect(heaMax1.y, max2.u2) annotation (Line(points={{42,130},{60,130},{60,144},
@@ -467,6 +457,10 @@ equation
           {120,164},{138,164}}, color={0,0,127}));
   connect(max2.y, VDis_flowNor.u2) annotation (Line(points={{102,150},{120,150},
           {120,104},{138,104}}, color={0,0,127}));
+  connect(max2.y, VDisSet_flowNor1.u2) annotation (Line(points={{102,150},{120,150},
+          {120,-20},{90,-20},{90,-86},{118,-86}}, color={0,0,127}));
+  connect(max2.y, VDis_flowNor1.u2) annotation (Line(points={{102,150},{120,150},
+          {120,-20},{90,-20},{90,-156},{118,-156}}, color={0,0,127}));
 annotation (
   defaultComponentName="dam",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-300},{320,300}}),
