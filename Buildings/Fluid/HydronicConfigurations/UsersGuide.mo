@@ -66,7 +66,6 @@ ensure a control valve authority greater or equal to <i>0.5</i>.
 <h4>
 Practical valve authority
 </h4>
-
 <p>
 Some authors such as Petitjean, 1994 claim that the valve authority should be
 corrected to account for flow imbalance in real systems.
@@ -76,7 +75,7 @@ Some circuits may therefore be exposed to a pressure differential higher
 than at design conditions. Such high pressure differential affects 
 <i>&Delta;p<sub>min</sub></i> and <i>&Delta;p<sub>max</sub></i> with 
 the same factor. 
-Therefore, the valve authority <i>&beta;</i> remains the same
+Therefore, the valve authority <i>&beta;</i> remains the same.
 despite a steeper characteristic and a degraded controllability.
 The concept of \"practical authority\" is introduced to overcome
 that limitation.
