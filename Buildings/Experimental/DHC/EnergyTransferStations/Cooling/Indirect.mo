@@ -150,13 +150,14 @@ model Indirect
     displayUnit="kW")
     "Measured heating demand at the ETS"
     annotation (Placement(
-        transformation(extent={{300,-130},{340,-90}}), iconTransformation(extent={{300,-130},{340,-90}})));
+        transformation(extent={{300,-140},{340,-100}}),iconTransformation(extent={{300,
+            -140},{340,-100}})));
   Modelica.Blocks.Interfaces.RealOutput Q(
     final quantity="Energy",
     final unit="J",
     displayUnit="kWh")
     "Measured energy consumption at the ETS"
-     annotation (Placement(transformation(extent={{300,-170},{340,-130}}),
+     annotation (Placement(transformation(extent={{300,-180},{340,-140}}),
      iconTransformation(extent={{300,-130},{340,-90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
@@ -214,8 +215,7 @@ model Indirect
     annotation (Placement(transformation(extent={{-180,10},{-160,-10}})));
 
   Modelica.Blocks.Math.Add dTdis(
-    final k1=-1,
-    final k2=+1)
+    final k1=-1)
   "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
   Modelica.Blocks.Math.Product pro
@@ -228,7 +228,7 @@ model Indirect
   Modelica.Blocks.Continuous.Integrator int(
     final k=1)
     "Integration"
-    annotation (Placement(transformation(extent={{240,-160},{260,-140}})));
+    annotation (Placement(transformation(extent={{240,-170},{260,-150}})));
 protected
   final parameter MediumSer.ThermodynamicState sta_default=MediumSer.setState_pTX(
     T=MediumSer.T_default,
@@ -277,20 +277,21 @@ equation
     annotation (Line(points={{-208,189},{-210,189},
           {-210,-104},{18,-104}}, color={0,0,127}));
   connect(senMasFlo.m_flow, pro.u2)
-    annotation (Line(points={{-150,-269},{-148,-269},
-          {-148,-140},{100,-140},{100,-116},{118,-116}}, color={0,0,127}));
+    annotation (Line(points={{-150,-269},{-148,-269},{-148,-140},{100,-140},{
+          100,-116},{118,-116}},                         color={0,0,127}));
   connect(dTdis.y, pro.u1)
-    annotation (Line(points={{41,-110},{88,-110},{88,-104},
-          {118,-104}}, color={0,0,127}));
+    annotation (Line(points={{41,-110},{88,-110},{88,-104},{118,-104}},
+                       color={0,0,127}));
   connect(pro.y, cp.u)
     annotation (Line(points={{141,-110},{178,-110}}, color={0,0,127}));
   connect(cp.y, Q_flow)
-    annotation (Line(points={{201,-110},{320,-110}}, color={0,0,127}));
+    annotation (Line(points={{201,-110},{228,-110},{228,-120},{320,-120}},
+                                                     color={0,0,127}));
   connect(cp.y, int.u)
-    annotation (Line(points={{201,-110},{220,-110},{220,-150},
-          {238,-150}}, color={0,0,127}));
+    annotation (Line(points={{201,-110},{228,-110},{228,-160},{238,-160}},
+                       color={0,0,127}));
   connect(int.y, Q)
-    annotation (Line(points={{261,-150},{320,-150}},
+    annotation (Line(points={{261,-160},{320,-160}},
                        color={0,0,127}));
   annotation (
     defaultComponentName="etsCoo",

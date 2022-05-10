@@ -145,8 +145,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
         rotation=90,
         origin={-50,-10})));
   Modelica.Blocks.Math.Add dTdis(
-    final k1=-1,
-    final k2=+1)
+    final k1=-1)
     "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{60,-114},{80,-94}})));
   Modelica.Blocks.Math.Product pro
