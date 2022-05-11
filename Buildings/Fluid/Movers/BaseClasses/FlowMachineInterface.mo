@@ -440,20 +440,23 @@ the simulation stops.");
   end if;
 
   assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
+         ": The constant homotopyInitialization has been modified from its default
+         value. This constant will be removed in future releases.",
+         level = AssertionLevel.warning);
 
   assert(not (per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate),
-         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet can be set to .Power_VolumeFlowRate.");
+         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet
+         can be set to .Power_VolumeFlowRate.");
 
   assert(not (per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
          and per.etaHydMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
-         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet can be set to .EulerNumber.");
+         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet
+         can be set to .EulerNumber.");
 
   assert(per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
@@ -469,7 +472,8 @@ the simulation stops.");
            or  per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
          and not per.havePEle_nominal),
-         "In " + getInstanceName() + ": etaMotMet is set to .Efficiency_MotorPartLoadRatio or .GenericCurve which requires
+         "In " + getInstanceName() + ": etaMotMet is set to
+         .Efficiency_MotorPartLoadRatio or .GenericCurve which requires
          the motor's rated input power, but per.PEle_nominal is not assigned or
          cannot be estimated because no power curve is provided.");
 

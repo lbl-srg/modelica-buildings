@@ -531,6 +531,15 @@ on reasonable assumptions. In such cases, the following default values are used:
 </tbody>
 </table>
 <p>
+Whenever <i>&eta;</i> is provided by the user,
+<i>&eta;<sub>Hyd</sub> &ge; &eta;</i> and
+<i>&eta;<sub>Mot</sub> &ge; &eta;</i> are imposed.
+This is to prevent
+<i>&eta;<sub>Hyd</sub> = &eta; &frasl; &eta;<sub>Mot</sub></i> or
+<i>&eta;<sub>Mot</sub> = &eta; &frasl; &eta;<sub>Hyd</sub></i>
+from producing efficiency values larger than one.
+</p>
+<p>
 For the efficiency values that a user does define, there are different methods
 for doing so, depending on the efficiency being defined, as implemented in
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
@@ -725,9 +734,9 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>.
     <th></th>
     <th><code>Power_VolumeFlowRate</code><sup>1</sup></th>
     <th><code>EulerNumber</code><sup>1</sup></th>
-    <th><code>Efficiency_VolumeFlowRate</code><sup>2</sup></th>
-    <th><code>Efficiency_MotorPartLoadRatio</code><sup>2</sup></th>
-    <th><code>GenericCurve</code><sup>2</sup></th>
+    <th><code>Efficiency_VolumeFlowRate</code><sup>3</sup></th>
+    <th><code>Efficiency_MotorPartLoadRatio</code><sup>3</sup></th>
+    <th><code>GenericCurve</code><sup>3</sup></th>
     <th><code>NotProvided</code></th>
   </tr>
 </thead>
@@ -735,7 +744,7 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>.
   <tr>
     <td><i>&eta;</i></td>
     <td>&#10003;</td>
-    <td>&#10003;<sup>3</sup></td>
+    <td>&#10003;<sup>2</sup></td>
     <td>&#10003;</td>
     <td></td>
     <td></td>
@@ -780,14 +789,18 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
 which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
 to eacher other for motors of this size.<br/>
 3. All three efficiency items can use <i>V&#775;</i> as the independent variable
-by selecting <code>Efficiency_VolumeFlowRate</code>. <i>&eta;<sub>mot</sub></i> can also use the motor
-part load ratio
+by selecting <code>Efficiency_VolumeFlowRate</code>. <i>&eta;<sub>mot</sub></i>
+can also use the motor part load ratio
 <i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
 when selecting <code>Efficiency_MotorPartLoadRatio</code> or <code>GenericCurve</code>.<br/>
-4. <i>&eta;<sub>mot</sub></i> uses <code>GenericCurve</code> as default unless
-(a) the rated motor input power is not provided and cannot be estimated or
-(b) both of the other two efficiency items have been provided.
-In those cases it uses <code>NotProvided</code> as default.
+4. <i>&eta;<sub>mot</sub></i> normally uses <code>GenericCurve</code> as default,
+but
+<a href=\"Modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a> and
+<a href=\"Modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+may override this with <code>NotProvided</code> when
+the rated motor input power is not provided and cannot be estimated.
 </p>
 
 <h5>Fluid volume of the component</h5>
