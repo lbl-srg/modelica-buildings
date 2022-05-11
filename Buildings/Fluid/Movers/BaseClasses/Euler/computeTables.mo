@@ -9,7 +9,7 @@ function computeTables
   input Modelica.Units.SI.VolumeFlowRate V_flow_max
     "Max flow rate";
   input Boolean use
-    "Flag, if false return zeros";
+    "Flag, if false return default values";
   output Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curves
     "Computed efficiency and power curves";
 
@@ -28,8 +28,9 @@ protected
 
 algorithm
   if not use then
-    curves.eta :=zeros(n, n);
-    curves.P :=zeros(n, n);
+    curves.eta :={i+j for i in linspace(0,1,n), j in linspace(0,1,n)};
+    curves.P :={i+j for i in linspace(0,1,n), j in linspace(0,1,n)};
+  //The default values comply with the format requirements of CombiTable2D.
   //The skip is put within this function itself instead of its caller
   //  to make its declaration more straightforward.
   else
@@ -91,9 +92,10 @@ flow rate <i>V&#775;</i> and pressure rise <i>&Delta;p</i> at 10% increments.
 The computation is not performed below 10% of maximum <i>V&#775;</i> or
 <i>&Delta;p</i> to avoid the computed power approaching infinity
 as the efficiency approaches zero.
-<i>P</i> will be extrapolated when <i>V&#775;</i> or <i>&Delta;p</i> is below 10%,
-with the exception that <i>P</i> is set to zero when both are zero.
-<i>&eta;</i> is simply set to zero when <i>V&#775;</i> or <i>&Delta;p</i> is zero.
+<i>P</i> is extrapolated when <i>V&#775;</i> or <i>&Delta;p</i> is below 10%,
+with the exception that it is set to a small value when both are zero.
+<i>&eta;</i> is simply set to a small value when <i>V&#775;</i> or <i>&Delta;p</i>
+is zero.
 </p>
 </html>",
 revisions="<html>
