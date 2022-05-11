@@ -300,9 +300,9 @@ protected
 
   Modelica.Units.SI.Efficiency etaLim=
     if per.etaMet==Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-    then 1E-6
+    then 1E-5
     else eta
-    "etaHyd or etaMot has a limit of >= eta when eta is provided";
+    "Limit etaHyd or etaMot to >= eta if eta is provided, otherwise >= 1E-5";
 
   Modelica.Blocks.Math.Max etaHyd_internal
     "Intermediate block that sets etaHyd:=eta if etaHyd<eta";
@@ -684,10 +684,8 @@ equation
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
-               x1=Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                              x1=WHyd, x2=1E-5, deltaX=1E-6),
-                    x2=1E-5, deltaX=1E-6),
+               x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                         x1=WHyd, x2=1E-5, deltaX=1E-6),
                x2=etaLim, deltaX=1E-6);
     if homotopyInitialization then
       WHyd = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
