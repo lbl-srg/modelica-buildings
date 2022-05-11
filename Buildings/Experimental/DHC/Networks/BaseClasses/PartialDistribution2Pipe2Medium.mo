@@ -4,9 +4,10 @@ partial model PartialDistribution2Pipe2Medium
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Medium;
   replaceable model Model_pipDis =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface (
-    redeclare final package Medium=MediumSup,
-    final allowFlowReversal=allowFlowReversal)
+      Buildings.Fluid.Interfaces.PartialTwoPortInterface
+      constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+        redeclare final package Medium=MediumSup,
+        final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
   parameter Boolean show_heaFlo=false
     "Set to true to output the heat flow rate transferred to each connected load"
@@ -63,7 +64,10 @@ partial model PartialDistribution2Pipe2Medium
   // COMPONENTS
   replaceable
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium
-    con[nCon](
+    con[nCon]
+    constrainedby Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
+    redeclare each final package MediumSup = MediumSup,
+    redeclare each final package MediumRet = MediumRet,
     final mDis_flow_nominal=mDisCon_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
