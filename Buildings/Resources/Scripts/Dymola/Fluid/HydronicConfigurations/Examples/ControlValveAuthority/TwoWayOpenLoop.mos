@@ -4,16 +4,13 @@ createPlot(id=1, position={15, 15, 1184, 744}, x="ope.y", y={"valAut100.m_flow",
 
 createPlot(id=2, position={1214, 15, 1184, 744}, x="ope.y", y={"valAut100.dp", "valAut75.dp", "valAut50.dp", "valAut25.dp", "valAut50Ove.dp", "valAut33Bal.dp"}, autoscale=true, grid=true, filename="TwoWayOpenLoop.mat", color=true);
 
-// Read the size of the trajectories in the result file and
-// store in 'n'
-n = readTrajectorySize("TwoWayOpenLoop.mat");
-// Define what variables should be included
-names = {"ope.y", "valAut50.m_flow", "valAut50Ove.m_flow", "valAut33Bal.m_flow"};
-// Read the trajectories 'names'
-traj = readTrajectory("TwoWayOpenLoop.mat", names, n);
+
+nPoints = readTrajectorySize("TwoWayOpenLoop.mat");
+varNames = {"ope.y", "valAut50.m_flow", "valAut50Ove.m_flow", "valAut33Bal.m_flow"};
+varValues = readTrajectory("TwoWayOpenLoop.mat", varNames, nPoints);
 
 createPlot(id=3, position={594, 342, 1184, 744}, x="ope.y", leftTitle="m_flow(y)/m_flow(100%)", autoscale=true, grid=true, filename="TwoWayOpenLoop.mat", color=true);
 
-plotArray(traj[1], traj[2] / max(traj[2]), erase=false, legend="valAut50");
-plotArray(traj[1], traj[3] / max(traj[3]), erase=false, legend="valAut50Ove");
-plotArray(traj[1], traj[4] / max(traj[4]), erase=false, legend="valAut33Bal");
+plotArray(varValues[1], varValues[2] / max(varValues[2]), erase=false, legend="valAut50");
+plotArray(varValues[1], varValues[3] / max(varValues[3]), erase=false, legend="valAut50Ove");
+plotArray(varValues[1], varValues[4] / max(varValues[4]), erase=false, legend="valAut33Bal");

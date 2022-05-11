@@ -2,14 +2,18 @@ within Buildings.Fluid.HydronicConfigurations;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
-  class ValveAuthority "Definition of the valve authority"
+  class ControlValves "About control valves"
     extends Modelica.Icons.Information;
 
     annotation (preferredView="info",
   Documentation(info="<html>
 <h4>
-Conventional definition
+Control valve authority
 </h4>
+
+<h5>
+Conventional definition
+</h5>
 
 <p>
 To define the concept of the valve authority one may 
@@ -35,7 +39,7 @@ which may be detrimental to the control loop stability.
 </p>
 <p>
 The valve authority <i>&beta;</i> is introduced as a metric of the disturbance of the
-inherent characteristic of the valve when integrated into a hydronic circuit.
+inherent valve characteristic when the valve is integrated into a hydronic circuit.
 See 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.TwoWayValveAuthority\">
 Buildings.Fluid.HydronicConfigurations.Examples.TwoWayValveAuthority</a>
@@ -63,11 +67,11 @@ A general design rule for stable controls of hydronic systems is to
 ensure a control valve authority greater or equal to <i>0.5</i>.
 </p>
 
-<h4>
+<h5>
 Practical valve authority
-</h4>
+</h5>
 <p>
-Some authors such as Petitjean, 1994 claim that the valve authority should be
+Some authors such as R. Petitjean (1994) claim that the valve authority should be
 corrected to account for flow imbalance in real systems.
 Indeed, even for a perfectly balanced system at design conditions, some 
 level of flow imbalance is inevitable at other operating points.
@@ -76,7 +80,9 @@ than at design conditions. Such high pressure differential affects
 <i>&Delta;p<sub>min</sub></i> and <i>&Delta;p<sub>max</sub></i> with 
 the same factor. 
 Therefore, the valve authority <i>&beta;</i> remains the same.
-despite a steeper characteristic and a degraded controllability.
+However, the rate of change of the flow rate with respect to the valve 
+opening is increased and the controllability is degraded, which
+is not captured by the conventional definition of the authority.
 The concept of \"practical authority\" is introduced to overcome
 that limitation.
 It is defined as the ratio of the pressure differential at fully
@@ -108,25 +114,36 @@ analysis.
 </p>
 
 <h4>
-Three-way valve authority
+Three-way valves
 </h4>
 
+<h5>
+Three-way valve authority
+</h5>
 
 <h4>
 References
 </h4>
-
 <p>
-
+Petitjean, R., 1994. Total hydronic balancing. Tour & Andersson AB, Ljung, Sweden.
 </p>
 </html>"));
 
+  end ControlValves;
 
-  end ValveAuthority;
+  class NomenclatureSymbols "Nomenclature and symbols"
+    extends Modelica.Icons.Information;
+
+    annotation (preferredView="info",
+  Documentation(info="<html>
+  </html>"));
+  end NomenclatureSymbols;
 
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
+Three-way valves are typically designed to perform a mixing function,
+i.e., with two inlet ports and one outlet port.
 </p>
 </html>"));
 end UsersGuide;
