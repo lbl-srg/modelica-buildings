@@ -64,7 +64,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure pBoi_start=pSteSet
     "Start value of boiler pressure"
     annotation(Dialog(tab = "Initialization"));
-parameter Real yPum_start=0.7 "Initial value of output"
+  parameter Real yPum_start=0.7 "Initial value of output"
     annotation(Dialog(tab="Initialization"));
 
   // Dynamics
@@ -211,7 +211,7 @@ parameter Real yPum_start=0.7 "Initial value of output"
   Buildings.Fluid.Storage.ExpansionVessel tanFW(
     redeclare final package Medium = Medium,
     final V_start=VTanFW_start,
-    final p=pTanFW)
+    final p_start=pTanFW)
     "Feedwater tank"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
