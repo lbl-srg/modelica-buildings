@@ -30,12 +30,13 @@ algorithm
   if not use then
     curves.eta :={i+j for i in linspace(0,1,n), j in linspace(0,1,n)};
     curves.P :={i+j for i in linspace(0,1,n), j in linspace(0,1,n)};
-  //The default values comply with the format requirements of CombiTable2D.
+  //The default values comply with the format requirements of
+  //  Modelica.Blocks.Tables.CombiTable2Ds.
   //The skip is put within this function itself instead of its caller
   //  to make its declaration more straightforward.
   else
 
-    //[1,1] must be zero for CombiTable2D.
+    //[1,1] must be zero for CombiTable2Ds.
     etaSup[1,1]:=0;
     powSup[1,1]:=0;
 
@@ -59,7 +60,7 @@ algorithm
     end for;
 
     //[2,2:end] and [2:end,2] represent points where V or dp is zero:
-    //  [2,2] is set zero for both P and eta.
+    //  [2,2] is set a small value for both P and eta.
     powSup[2,2]:=small;
     etaSup[2,2]:=small;
     for i in 3:n loop
@@ -74,7 +75,7 @@ algorithm
         xSup=powSup[1, 3:end],
         ySup=powSup[i, 3:end],
         ensureMonotonicity=true));
-    //  The rest of eta are set zero.
+    //  The rest of eta are set to a small value.
       etaSup[2,i]:=small;
       etaSup[i,2]:=small;
     end for;
@@ -101,7 +102,7 @@ is zero.
 revisions="<html>
 <ul>
 <li>
-November 1, 2021, by Hongxiang Fu:<br/>
+May 11, 2021, by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
