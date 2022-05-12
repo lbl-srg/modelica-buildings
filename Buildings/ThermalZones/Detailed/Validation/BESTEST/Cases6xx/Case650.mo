@@ -17,21 +17,21 @@ model Case650
     gaiHea(k=0),
     multiSum(nu=2));
 
-  BaseClasses.DaySchedule vent(table=[      0, -1703.16/3600;
-                                       7*3600, -1703.16/3600;
+  BaseClasses.DaySchedule vent(table=[      0, -1700/3600;
+                                       7*3600, -1700/3600;
                                        7*3600,             0;
                                       18*3600,             0;
-                                      18*3600, -1703.16/3600;
-                                      24*3600, -1703.16/3600])
+                                      18*3600, -1700/3600;
+                                      24*3600, -1700/3600])
     "Ventilation air flow rate"
     annotation (Placement(transformation(extent={{-88,-68},{-80,-60}})));
 equation
   connect(multiSum.u[2], vent.y[1]) annotation (Line(
-      points={{-78,-74},{-76,-74},{-76,-64},{-79.6,-64}},
+      points={{-78,-74},{-76,-74},{-76,-64},{-79.2,-64}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (
-              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case650.mos"
+annotation (
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case650.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+07,
@@ -39,6 +39,11 @@ equation
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2022, by Jianjun Hu:<br/>
+Changed the ventilation fan capacity from 1703.16 m3/h to 1700 m3/h.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+</li>
 <li>
 July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
@@ -72,7 +77,7 @@ otherwise cool = off.
 From 1800 hours to 0700 hours, cooling is always off.
 </li>
 <li>
-Ventilation fan capacity is 1703.16 standard m<sup>3</sup>/h (in addition to specified
+Ventilation fan capacity is 1700 standard m<sup>3</sup>/h (in addition to specified
 infiltration rate).
 </li>
 <li>

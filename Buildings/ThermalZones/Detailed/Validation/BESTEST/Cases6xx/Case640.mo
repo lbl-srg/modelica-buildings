@@ -3,7 +3,7 @@ model Case640 "Case 600, but with heating schedule"
   extends Case600(
     TSetHea(table=[      0, 273.15 + 10;
                     7*3600, 273.15 + 10;
-                    7*3600, 273.15 + 20;
+                    8*3600, 273.15 + 20;
                    23*3600, 273.15 + 20;
                    23*3600,273.15 + 10;
                    24*3600,273.15 + 10]),
@@ -21,6 +21,11 @@ model Case640 "Case 600, but with heating schedule"
       Interval=3600,
       Tolerance=1e-06),    Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2022, by Jianjun Hu:<br/>
+Changed the heating setpoint schedule.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+</li>      
 <li>
 July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
@@ -41,10 +46,18 @@ Case640 is the same as Case600, but with the following modifications:
 From 2300 hours to 0700 hours, heat = on if zone temperature is below 10&deg;C
 </li>
 <li>
-From 0700 hours to 2300 hours, heat = on if zone temperature is above 20&deg;C
+From 0700 hours to 0800 hours, the thermostat set point shall vary linearly with
+time from 10 &deg;C to 20 &deg;C.
+If the zone temperature is less than the thermostat set point for a subhourly
+time step, heat shall be added to the zone such that the zone temperature at the
+end of each subhourly time step shall correspond to the thermostat set point that
+occurs at the end of each subhourly time step.
 </li>
 <li>
-All hours, cool = on if zone temperature below 27&deg;C
+From 0800 hours to 2300 hours, heat = on if zone temperature is below 20&deg;C
+</li>
+<li>
+All hours, cool = on if zone temperature above 27&deg;C
 </li>
 <li>
 Otherwise, mechanical equipment is off.

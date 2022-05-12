@@ -42,7 +42,9 @@ model Case600FF
         k=0.160,
         c=840,
         d=950,
-        nStaRef=nStaRef)}) "Exterior wall"
+        nStaRef=nStaRef)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
+                           "Exterior wall"
     annotation (Placement(transformation(extent={{20,84},{34,98}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     matFlo(
@@ -61,7 +63,9 @@ model Case600FF
         k=0.140,
         c=1200,
         d=650,
-        nStaRef=nStaRef)}) "Floor"
+        nStaRef=nStaRef)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
+                           "Floor"
     annotation (Placement(transformation(extent={{80,84},{94,98}})));
    parameter Buildings.HeatTransfer.Data.Solids.Generic soil(
     x=2,
@@ -144,10 +148,12 @@ model Case600FF
         k=0.160,
         c=840,
         d=950,
-        nStaRef=nStaRef)}) "Roof"
+        nStaRef=nStaRef)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
+                           "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
-    UFra=3,
+    UFra=2.1,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
     annotation (Placement(transformation(extent={{40,84},{54,98}})));
@@ -295,13 +301,12 @@ equation
       points={{-87.6,-74},{-78,-74}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(TRooAir.T, TRooHou.u) annotation (Line(
-      points={{2,-15},{-80,-15},{-80,-24},{-68.8,-24}},
+      points={{1.5,-15},{-80,-15},{-80,-24},{-68.8,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooAir.T, TRooAnn.u) annotation (Line(
-      points={{2,-15},{-80,-15},{-80,-36},{-68.8,-36}},
+      points={{1.5,-15},{-80,-15},{-80,-36},{-68.8,-36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{28,
@@ -317,6 +322,11 @@ The room temperature is free floating.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 12, 2022, by Jianjun Hu:<br/>
+Changed the U-value of windows frame from 3 to 2.1 W/(m2.K) and the exterior surface roughness from medium to rough.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+</li>
 <li>
 January 21, 2020, by Michael Wetter:<br/>
 Changed calculation of time averaged values to use
