@@ -10,22 +10,33 @@ model PartialHydronicConfiguration
           X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
 
+  parameter Boolean use_lumFloRes = false
+    "Set to true to lump secondary and valve flow resistance (typical of single served unit)";
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(final min=0)
     "Mass flow rate at design conditions" annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpSec_nominal(final min=0)
+  parameter Modelica.Units.SI.PressureDifference dpSec_nominal(
+    final min=0,
+    displayUnit="Pa")
     "Secondary pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(final min=0)
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    final min=Modelica.Constants.eps,
+    displayUnit="Pa")
     "Control valve pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(final min=0)
+  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
+    final min=0,
+    displayUnit="Pa") = 0
     "Primary balancing valve pressure drop at design conditions "
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(final min=0)
+  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
+    final min=0,
+    displayUnit="Pa") = 0
     "Secondary balancing valve pressure drop at design conditions "
     annotation (Dialog(group="Nominal condition"));
 
@@ -33,6 +44,10 @@ model PartialHydronicConfiguration
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
+  // FIXME: DynamicFixedInitial differs from MBL default DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
@@ -151,4 +166,9 @@ protected
     "state for medium inflowing through port_b2";
 
 
+  annotation (Icon(graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={175,175,175},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end PartialHydronicConfiguration;

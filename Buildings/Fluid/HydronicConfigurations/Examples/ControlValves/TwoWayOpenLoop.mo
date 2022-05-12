@@ -1,130 +1,130 @@
-within Buildings.Fluid.HydronicConfigurations.Examples.ControlValveAuthority;
+within Buildings.Fluid.HydronicConfigurations.Examples.ControlValves;
 model TwoWayOpenLoop
   "Model illustrating the concept of the authority for two-way valves and open loop control"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water
-    "Medium model for water";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1
+  package MediumLiq = Buildings.Media.Water
+    "Medium model for hot water";
+  parameter Modelica.Units.SI.MassFlowRate mLiq_flow_nominal = 1
     "Circuit mass flow rate at design conditions";
-  parameter Modelica.Units.SI.Pressure pMin_nominal = 2E5
-    "Circuit minimum pressure at design conditions";
-  parameter Modelica.Units.SI.Pressure dpTot_nominal = 1E5
+  parameter Modelica.Units.SI.Pressure p_min = 2E5
+    "Circuit minimum pressure";
+  parameter Modelica.Units.SI.Pressure dp_nominal = 1E5
     "Circuit total pressure drop at design conditions";
 
   Sources.Boundary_pT sup(
-    redeclare final package Medium = Medium,
-    final p=pMin_nominal + dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final p=p_min + dp_nominal,
     nPorts=4) "Pressure boundary condition at supply"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Sources.Boundary_pT ret(
-    redeclare final package Medium = Medium,
-    final p=pMin_nominal,
+    redeclare final package Medium = MediumLiq,
+    final p=p_min,
     nPorts=6)
     "Pressure boundary condition at return"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Actuators.Valves.TwoWayEqualPercentage valAut100(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=dp_nominal,
     use_inputFilter=false) "Control valve with 100% authority"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-100,-20})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp      ope(duration=100)
-                   "Valve opening signal"
+  Controls.OBC.CDL.Continuous.Sources.Ramp ope(duration=100)
+    "Valve opening signal"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   FixedResistances.PressureDrop ter50(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=0.5 * dpTot_nominal)
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dp_nominal=0.5 * dp_nominal)
     "Terminal unit as a fixed resistance destroying 50% of design pressure difference"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut50(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal= 0.5 * dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal= 0.5 * dp_nominal,
     use_inputFilter=false) "Control valve with 50% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-20})));
   FixedResistances.PressureDrop ter75(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=0.75*dpTot_nominal)
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dp_nominal=0.75*dp_nominal)
     "Terminal unit as a fixed resistance destroying 75% of design pressure difference"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut25(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=0.25*dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=0.25*dp_nominal,
     use_inputFilter=false) "Control valve with 25% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-20})));
   FixedResistances.PressureDrop ter25(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.25*dpTot_nominal)
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    dp_nominal=0.25*dp_nominal)
     "Terminal unit as a fixed resistance destroying 25% of design pressure difference"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut75(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=0.75*dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=0.75*dp_nominal,
     use_inputFilter=false) "Control valve with 75% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,-20})));
   Sources.Boundary_pT supOve(
-    redeclare final package Medium = Medium,
-    final p=pMin_nominal + 1.5*dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final p=p_min + 1.5*dp_nominal,
     nPorts=2)
     "Pressure boundary condition at supply augmented by 50% from design value"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
   Actuators.Valves.TwoWayEqualPercentage valAut50Ove(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=0.5*dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=0.5*dp_nominal,
     use_inputFilter=false) "Control valve with 50% authority and overflow"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-20})));
   FixedResistances.PressureDrop ter50Ove(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=0.5*dpTot_nominal)
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dp_nominal=0.5*dp_nominal)
     "Terminal unit as a fixed resistance destroying 50% of design pressure difference"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,20})));
   FixedResistances.PressureDrop ter50Bal(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=0.5*dpTot_nominal)
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dp_nominal=0.5*dp_nominal)
     "Terminal unit as a fixed resistance destroying 50% of design pressure difference"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={120,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut33Bal(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=0.5*dpTot_nominal,
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=0.5*dp_nominal,
     use_inputFilter=false)
     "Control valve with 33% authority and balanced circuit" annotation (
       Placement(transformation(
@@ -132,9 +132,9 @@ model TwoWayOpenLoop
         rotation=-90,
         origin={120,-20})));
   FixedResistances.PressureDrop bal50(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.5*dpTot_nominal)
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    dp_nominal=0.5*dp_nominal)
     "Balancing valve as a fixed resistance destroying 50% of design pressure difference"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

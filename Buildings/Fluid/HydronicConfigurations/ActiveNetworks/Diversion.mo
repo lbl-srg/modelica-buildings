@@ -1,12 +1,14 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Diversion "Diversion circuit"
   extends
-    Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration;
+    Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+      dpValve_nominal=dpSec_nominal);
 
-  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(fraK=1)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
       redeclare final package Medium=Medium,
+      final energyDynamics=energyDynamics,
+      use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
       final portFlowDirection_1=if allowFlowReversal then
         Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
         Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -18,7 +20,8 @@ model Diversion "Diversion circuit"
         Modelica.Fluid.Types.PortFlowDirection.Entering,
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal={dpSec_nominal, dpBal2_nominal})
+      final dpFixed_nominal={dpSec_nominal, dpBal2_nominal} .*
+        (if use_lumFloRes then {1, 1} else {0, 1}))
     "Control valve"
     annotation (Placement(
         transformation(
@@ -27,6 +30,7 @@ model Diversion "Diversion circuit"
         origin={60,0})));
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium=Medium,
+    final energyDynamics=energyDynamics,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
       Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -73,7 +77,9 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (  Icon(
+  annotation (
+    defaultComponentName="con",
+    Icon(
     graphics={
     Bitmap(
       extent={{-100,-100},{100,100}},
