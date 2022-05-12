@@ -604,7 +604,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Moved to <code>Buildings.Applications.BaseClasses</code>.<br/>
                 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2264\"># 2264</a>.<br/>
-                For Dymola, a conversion script makes this change.</td>
+                This change is supported in the conversion script.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
@@ -618,7 +618,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
@@ -642,7 +642,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Moved blocks to <code>Buildings.Obsolete.Controls.Continuous</code>.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, #1522</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
@@ -655,14 +655,14 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package and created new blocks to avoid using input gain factor.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a> and
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Feedback
     </td>
     <td valign=\"top\">Moved the class to <code>Obsolete</code> package.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Division<br/>
@@ -675,7 +675,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed the blocks to <code>Divide</code>, <code>MultiplyByParameter</code>, <code>MovingAverage</code>,
                        <code>Multiply</code>, <code>LimitSlewRate</code>.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Interfaces.DayTypeInput<br/>
@@ -690,7 +690,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Moved classes to <code>Obsolete</code> package.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2839\">#2839</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.MultiAnd<br/>
@@ -698,7 +698,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed parameter <code>nu</code> to <code>nin</code>.
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">#2580</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanReplicator<br/>
@@ -708,7 +708,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed to include <code>BooleanScalarReplicator</code>, <code>IntegerScalarReplicator</code>,
                        and <code>RealScalarReplicator</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2544\">#2544</a>.
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.IntegerSwitch<br/>
@@ -718,7 +718,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved the blocks to <code>CDL.Integers.Switch</code>, <code>CDL.Logical.Switch</code>,
                        and <code>CDL.Continuous.Switch</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2650\">#2650</a>.
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
@@ -726,7 +726,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed parameter for start value from <code>y_start</code> to <code>pre_u_start</code>
                        for consistency with <code>Buildings.Controls.OBC.CDL.Logical.Change</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
@@ -742,7 +742,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
@@ -829,7 +829,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Removed parameter <code>y_start</code> which is not needed by this model because the models
                        use <code>dp_start</code> and <code>m_flow_start</code>, respectively.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">IBPSA #1498</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
@@ -840,9 +840,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Storage.ExpansionVessel
+    </td>
+    <td valign=\"top\">Removed parameter <code>p</code> which was not used.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1614\">IBPSA, #1614</a>.
+                       This change is supported in the conversion script.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
     </td>
 </tr>
@@ -852,7 +862,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
@@ -874,14 +884,14 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed parameter <code>lat</code> for the latitude as this is now obtained from the weather data bus.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
     </td>
     <td valign=\"top\">Set <code>final massDynamics=energyDynamic</code>.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">IBPSA, #1542</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
@@ -903,7 +913,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        <br/>
                        Removed the parameters <code>showWeatherData</code> and <code>generatePortableFMU</code>.
                        Now, the weather data bus is always enabled as it is used in almost all simulations.
-                       For Dymola, a conversion script makes this change.<br/>
+                       This change is supported in the conversion script.<br/>
                        Converted <code>usePrecompiledFMU</code> and the associated <code>fmuName</code> from
                        parameter to a constant as these are only used for debugging by developers.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2759\">#2759</a>.
@@ -946,7 +956,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Corrected name to <code>Polynomial</code>.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1524\">IBPSA, #1524</a>.<br/>
-                       For Dymola, a conversion script makes this change.
+                       This change is supported in the conversion script.
     </td>
 </tr>
 </table>
