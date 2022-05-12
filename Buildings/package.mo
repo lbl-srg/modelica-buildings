@@ -328,6 +328,12 @@ end Version_8_1_2;
 Version 8.1.1 is a patch that has backward compatible bug fixes.
 It is backwards compatible with version 8.0.0 and 8.1.0.
 </p>
+<p>
+The library has been tested with Dymola 2022,
+JModelica (revision 14023),
+OpenModelica 1.19.0-dev (449+g4f16e6af22),
+OPTIMICA (revision OCT-dev-r26446_JM-r14295) and recent versions of Impact.
+</p>
 </div>
   <!-- New libraries -->
 <!-- New components for existing libraries -->
