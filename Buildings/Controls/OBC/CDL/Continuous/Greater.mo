@@ -218,6 +218,7 @@ For any <i>h &ge; 0</i>, the output switches to <code>true</code> if <i>u<sub>1<
 and it switches to <code>false</code> if <i>u<sub>1</sub> &le; u<sub>2</sub> - h</i>.
 Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u<sub>1</sub> &gt; u<sub>2</sub></i>.
 </p>
+<h4>Usage</h4>
 <p>
 Enabling hysteresis can avoid frequent switching.
 Adding hysteresis is recommended in real controllers to guard against sensor noise, and
