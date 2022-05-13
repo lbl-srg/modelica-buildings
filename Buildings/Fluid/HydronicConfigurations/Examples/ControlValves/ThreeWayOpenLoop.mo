@@ -1,6 +1,6 @@
 within Buildings.Fluid.HydronicConfigurations.Examples.ControlValves;
 model ThreeWayOpenLoop
-  "Model illustrating the operation three-way valves with constant speed pump"
+  "Model illustrating the operation of three-way valves with constant speed pump"
   extends Modelica.Icons.Example;
 
   package MediumLiq = Buildings.Media.Water

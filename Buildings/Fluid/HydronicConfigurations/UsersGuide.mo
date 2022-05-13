@@ -117,6 +117,16 @@ analysis.
 Three-way valves
 </h4>
 
+<p>
+Three-way valves are typically designed to perform a mixing function,
+i.e., with two inlet ports and one outlet port.
+Therefore, all configurations that include three-way valves integrate
+them in a mixing arrangement, even when they perfom a diverting function
+such as 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion/a>
+</p>
+
 <h5>
 Three-way valve authority
 </h5>
@@ -142,8 +152,7 @@ Petitjean, R., 1994. Total hydronic balancing. Tour & Andersson AB, Ljung, Swede
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-Three-way valves are typically designed to perform a mixing function,
-i.e., with two inlet ports and one outlet port.
+
 </p>
 </html>"));
 end UsersGuide;

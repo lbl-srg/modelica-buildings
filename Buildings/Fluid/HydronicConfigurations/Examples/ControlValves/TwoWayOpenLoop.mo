@@ -204,7 +204,7 @@ equation
     StopTime=100,
     Tolerance=1e-6),
     __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/Examples/ControlValveAuthority/TwoWayOpenLoop.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/Examples/ControlValves/TwoWayOpenLoop.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>

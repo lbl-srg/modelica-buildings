@@ -1,0 +1,1 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop", stopTime=100, tolerance=1e-06, resultFile="ThreeWayOpenLoop");

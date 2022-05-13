@@ -4,7 +4,7 @@ model Diversion "Diversion circuit"
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
       dpValve_nominal=dpSec_nominal);
 
-  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(fraK=1)
+  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
       redeclare final package Medium=Medium,
       final energyDynamics=energyDynamics,
