@@ -19,10 +19,11 @@ partial model RemoteChargingSchedule
     "Control block for the secondary pump and near-by valves"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
 equation
-  connect(uRemCha.y, conPumVal.uRemCha) annotation (Line(points={{-39,70},{34,70},
-          {34,60},{32,60}}, color={255,0,255}));
+  connect(uRemCha.y, conPumVal.uRemCha) annotation (Line(points={{-39,70},{34,
+          70},{34,58},{32,58}},
+                            color={255,0,255}));
   connect(uAva.y,conPumVal.uAva)  annotation (Line(points={{-79,90},{38,90},{38,
-          56},{32,56}}, color={255,0,255}));
+          54},{32,54}}, color={255,0,255}));
   connect(conPumVal.mTanSet_flow, set_mTan_flow.y) annotation (Line(points={{9,58},{
           -60,58},{-60,50},{-79,50}},  color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

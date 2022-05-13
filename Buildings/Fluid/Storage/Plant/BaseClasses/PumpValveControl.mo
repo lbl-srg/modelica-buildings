@@ -25,7 +25,7 @@ block PumpValveControl
         origin={230,70}),                 iconTransformation(extent={{20,-20},{
             -20,20}},
         rotation=0,
-        origin={120,100})));
+        origin={120,80})));
   Modelica.Blocks.Interfaces.RealInput mTanSet_flow
     "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -50,7 +50,7 @@ block PumpValveControl
         origin={230,28}),
         iconTransformation(extent={{20,-20},{-20,20}},
         rotation=0,
-        origin={120,60})));
+        origin={120,40})));
   Modelica.Blocks.Interfaces.RealOutput yPumSup
     "Speed input of the supply pump" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

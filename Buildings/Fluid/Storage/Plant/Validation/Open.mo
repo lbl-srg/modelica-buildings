@@ -24,7 +24,7 @@ equation
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
   connect(conPumVal.mTanTop_flow, tanBra.mTanTop_flow)
-    annotation (Line(points={{9,54},{-18,54},{-18,11}}, color={0,0,127}));
+    annotation (Line(points={{9,54},{-16,54},{-16,11}}, color={0,0,127}));
   connect(conPumVal.mTanBot_flow, tanBra.mTanBot_flow)
     annotation (Line(points={{9,50},{-12,50},{-12,11}}, color={0,0,127}));
   connect(conPumVal.yPumSup,netCon.yPumSup)

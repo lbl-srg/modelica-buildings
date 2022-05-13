@@ -79,11 +79,13 @@ model TankBranch
         origin={50,110}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={20,110})));
+        origin={40,110})));
   Modelica.Blocks.Interfaces.RealOutput Ql_flow
     "Heat loss of tank (positive if heat flows from tank to ambient)"
     annotation (Placement(transformation(extent={{100,-2},{120,18}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={80,-110})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
     "Heat port tank top (outside insulation)"
     annotation (Placement(transformation(extent={{14,22},{26,34}}),
@@ -139,7 +141,7 @@ equation
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
         Line(
-          points={{20,100},{20,50},{0,50}},
+          points={{40,100},{40,50},{0,50}},
           color={0,0,0},
           pattern=LinePattern.Dash,
           visible=tankIsOpen),
@@ -162,7 +164,7 @@ equation
           fillPattern=FillPattern.Solid,
           visible=tankIsOpen),
         Line(
-          points={{38,0},{114,0},{112,0}},
+          points={{38,0},{80,0},{80,-100}},
           color={127,0,0},
           pattern=LinePattern.Dot),
         Line(
