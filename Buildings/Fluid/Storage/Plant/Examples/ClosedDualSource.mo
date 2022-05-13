@@ -10,7 +10,7 @@ model ClosedDualSource
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final displayUnit="Pa")=
-     500000
+     300000
     "Nominal pressure difference";
   parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation(
     final displayUnit="Pa")=
@@ -139,8 +139,8 @@ model ClosedDualSource
 
 // Second source: chiller and tank
   Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nomPla2(
-    final plaTyp=
-        Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
+    plaTyp=
+      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
     mTan_flow_nominal=0.75*m_flow_nominal,
     mChi_flow_nominal=0.75*m_flow_nominal,
     dp_nominal=dp_nominal,
