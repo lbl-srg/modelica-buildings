@@ -85,7 +85,7 @@ protected
     pre(y)=pre_y_start;
 
   equation
-    y=(not pre(y) and u > t or pre(y) and u >= t-h);
+    y=(not pre(y) and u > t or pre(y) and u > t-h);
     annotation (
       Icon(
         graphics={
@@ -194,10 +194,10 @@ is greater than a threshold <code>t</code>, optionally within a hysteresis <code
 </p>
 <p>
 The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
-If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u &gt; t</i>,
+For any <i>h &ge; 0</i>, the output switches to <code>true</code> if <i>u &gt; t</i>,
 where <i>t</i> is the threshold,
-and it switches to <code>false</code> if <i>u &lt; t - h</i>.
-If <i>h = 0</i>, the output is <i>y = u &gt; t</i>.
+and it switches to <code>false</code> if <i>u &le; t - h</i>.
+Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u &gt; t</i>.
 </p>
 <p>
 Enabling hysteresis can avoid frequent switching.
@@ -208,8 +208,13 @@ a temperature or a mass flow rate of an HVAC system.
 To disable hysteresis, set <code>h=0</code>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+April 29, 2022, by Jianjun Hu:<br/>
+Corrected the condition of swiching true back to false.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">issue 2981</a>.
+</li>
 <li>
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>
