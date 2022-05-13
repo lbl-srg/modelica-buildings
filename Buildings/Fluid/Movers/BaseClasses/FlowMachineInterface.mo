@@ -485,6 +485,7 @@ the simulation stops.");
 
 //  The inequation sum(per.pressure.dp) > -1 (always true) is added here to avoid
 //    the translation error caused by the assertion statement being always false.
+//    This was observed with Dymola 2022x (64-bit) on Ubuntu 64-bit 20.04.3.
   assert(not (sum(per.pressure.dp) > -1 and
          per.etaMet<>
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
@@ -497,6 +498,7 @@ the simulation stops.");
 
 //  The inequation sum(per.pressure.dp) > -1 (always true) is added here to avoid
 //    the translation error caused by the assertion statement being always false.
+//    This was observed with Dymola 2022x (64-bit) on Ubuntu 64-bit 20.04.3.
   assert(not (sum(per.pressure.dp) > -1 and
          per.etaMet<>
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
