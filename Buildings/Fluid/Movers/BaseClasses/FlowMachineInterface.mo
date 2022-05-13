@@ -483,6 +483,30 @@ the simulation stops.");
          Use a larger value for per.PEle_nominal or leave it blank to allow the
          model to assume a default value.");
 
+//  The inequation sum(per.pressure.dp) > -1 (always true) is added here to avoid
+//    the translation error caused by the assertion statement being always false.
+  assert(not (sum(per.pressure.dp) > -1 and
+         per.etaMet<>
+           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+         and per.etaHydMet<>
+           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided),
+"*** Warning in "+ getInstanceName()+
+             ": Because eta and etaHyd are both provided,
+             etaHyd >= eta is now imposed to avoid etaMot = eta / etaHyd > 1.",
+         level=AssertionLevel.warning);
+
+//  The inequation sum(per.pressure.dp) > -1 (always true) is added here to avoid
+//    the translation error caused by the assertion statement being always false.
+  assert(not (sum(per.pressure.dp) > -1 and
+         per.etaMet<>
+           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+         and per.etaMotMet<>
+           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+"*** Warning in "+ getInstanceName()+
+             ": Because eta and etaMot are both provided,
+             etaMot >= eta is now imposed to avoid etaHyd = eta / etaMot > 1.",
+         level=AssertionLevel.warning);
+
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
   connect(dp_internal,dp);
