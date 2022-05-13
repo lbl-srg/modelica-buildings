@@ -50,10 +50,13 @@ Otherwise, it satisfies
 <h4>Usage</h4>
 <p>
 Note that this block shall only be used for input signals <code>u</code> that are
-time sampled.
+time sampled.<br/>
 Otherwise, in simulation, numerical noise from a nonlinear solver or from an
-implicit time integration algorithm may cause the simulation to stall, and
-in real controllers, measurement noise may cause the output to change frequently.
+implicit time integration algorithm may cause the simulation to stall.
+Numerical noise can be present if an input depends
+on a state variable or a quantity that requires an iterative solution,
+such as a temperature or a mass flow rate of an HVAC system.<br/>
+In real controllers, measurement noise may cause the output to change frequently.
 </p>
 <p>
 This block may for example be used in a variable air volume flow
