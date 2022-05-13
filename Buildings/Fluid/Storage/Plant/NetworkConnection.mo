@@ -131,39 +131,39 @@ equation
   connect(pumSup.y, yPumSup) annotation (Line(points={{-50,72},{-50,110},{-10,
           110},{-10,130}},
                      color={0,0,127}));
-  connect(port_froChi, pumSup.port_a)
+  connect(port_aFroChi, pumSup.port_a)
     annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
-  connect(pasSup.port_b, port_toNet) annotation (Line(points={{50,100},{68,100},
+  connect(pasSup.port_b, port_bToNet) annotation (Line(points={{50,100},{68,100},
           {68,60},{100,60}}, color={0,127,255}));
-  connect(port_toChi, pumRet.port_a)
+  connect(port_bToChi, pumRet.port_a)
     annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
   connect(pumRet.port_b, cheValRet.port_a)
     annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
-  connect(port_froNet, pasRet.port_a) annotation (Line(points={{100,-60},{90,-60},
+  connect(port_aFroNet, pasRet.port_a) annotation (Line(points={{100,-60},{90,-60},
           {90,-30},{40,-30}}, color={0,127,255}));
-  connect(pasRet.port_b, port_toChi) annotation (Line(points={{20,-30},{-80,-30},
+  connect(pasRet.port_b, port_bToChi) annotation (Line(points={{20,-30},{-80,-30},
           {-80,-60},{-100,-60}}, color={0,127,255}));
   connect(pumRet.y, yPumRet) annotation (Line(points={{-50,-48},{-50,-20},{72,
           -20},{72,110},{30,110},{30,130}},
                                      color={0,0,127}));
-  connect(intValSup.port_froChi, cheValSup.port_b)
+  connect(intValSup.port_aFroChi, cheValSup.port_b)
     annotation (Line(points={{20,60},{1.77636e-15,60}}, color={0,127,255}));
-  connect(intValSup.port_toNet, port_toNet)
+  connect(intValSup.port_bToNet, port_bToNet)
     annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
-  connect(intValSup.port_toChi, port_froChi) annotation (Line(points={{20,36},{-80,
-          36},{-80,60},{-100,60}}, color={0,127,255}));
-  connect(intValSup.port_froNet, port_toNet) annotation (Line(points={{60,36},{68,
-          36},{68,60},{100,60}}, color={0,127,255}));
+  connect(intValSup.port_bToChi, port_aFroChi) annotation (Line(points={{20,36},
+          {-80,36},{-80,60},{-100,60}}, color={0,127,255}));
+  connect(intValSup.port_aFroNet, port_bToNet) annotation (Line(points={{60,36},
+          {68,36},{68,60},{100,60}}, color={0,127,255}));
   connect(intValSup.yVal, yValSup) annotation (Line(points={{40,70},{20,70},{20,
           110},{10,110},{10,130}}, color={0,0,127}));
-  connect(cheValRet.port_b, intValRet.port_froChi)
+  connect(cheValRet.port_b, intValRet.port_aFroChi)
     annotation (Line(points={{1.77636e-15,-60},{20,-60}}, color={0,127,255}));
-  connect(intValRet.port_toNet, port_froNet)
+  connect(intValRet.port_bToNet, port_aFroNet)
     annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
-  connect(intValRet.port_froNet, port_froNet) annotation (Line(points={{60,-84},
+  connect(intValRet.port_aFroNet, port_aFroNet) annotation (Line(points={{60,-84},
           {70,-84},{70,-60},{100,-60}}, color={0,127,255}));
-  connect(intValRet.port_toChi, port_toChi) annotation (Line(points={{20,-84},{-70,
-          -84},{-70,-60},{-100,-60}}, color={0,127,255}));
+  connect(intValRet.port_bToChi, port_bToChi) annotation (Line(points={{20,-84},
+          {-70,-84},{-70,-60},{-100,-60}}, color={0,127,255}));
   connect(intValRet.yVal, yRet) annotation (Line(points={{40,-50},{76,-50},{76,114},
           {50,114},{50,130}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

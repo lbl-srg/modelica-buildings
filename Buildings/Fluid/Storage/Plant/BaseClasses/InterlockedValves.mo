@@ -56,13 +56,13 @@ model InterlockedValves
         rotation=-90,
         origin={0,110})));
 equation
-  connect(port_froChi, valToNet.port_a)
+  connect(port_aFroChi, valToNet.port_a)
     annotation (Line(points={{-100,60},{-10,60}}, color={0,127,255}));
-  connect(valToNet.port_b, port_toNet)
+  connect(valToNet.port_b, port_bToNet)
     annotation (Line(points={{10,60},{100,60}}, color={0,127,255}));
-  connect(port_froNet, valFroNet.port_a)
+  connect(port_aFroNet, valFroNet.port_a)
     annotation (Line(points={{100,-60},{10,-60}}, color={0,127,255}));
-  connect(valFroNet.port_b, port_toChi)
+  connect(valFroNet.port_b, port_bToChi)
     annotation (Line(points={{-10,-60},{-100,-60}}, color={0,127,255}));
   connect(valToNet.y_actual, isValToNetClo.u) annotation (Line(points={{5,67},{
           4,67},{4,72},{50,72},{50,42}}, color={0,0,127}));
