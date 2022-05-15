@@ -23,7 +23,7 @@ model MotorMachineInterface
         rotation=0,
         origin={-120,40})));
   Modelica.Blocks.Interfaces.RealInput f(final quantity="Frequency", final unit="Hz")
-    "Controllale freuqency to the motor"
+    "Controllable freuqency to the motor"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -81,14 +81,14 @@ balanced three-phase supply based on the transformer model is represented below.
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/torque_euqation.png\"/> </p>
 <p>Where, <br>
 <<i>n</i> = Number of phases in connected power system <br>
-<i>R<sub>1</i></sub> = Stator resistance [ohm]<br>
-<i>R<sub>2</i></sub> = Rotor resistance [ohm]<br>
+<i>R<sub>1</sub></i> = Stator resistance [ohm]<br>
+<i>R<sub>2</sub></i> = Rotor resistance [ohm]<br>
 <i>s</i> = Motor slip of asynchronous motors<br>
-<i>V<sub>rms</i></sub> = Root Mean Square (RMS) Voltage of AC waveform [V]<br>
-<i>w<sub>s</i></sub> = Synchronous speed [rad/s] <br>
-<i>X<sub>1</i></sub> = Stator reactance [ohm]<br>
-<i>X<sub>2</i></sub> = Rotor reactance [ohm]<br>
-<i>X<sub>m</i></sub> = Magnetizing reactance [ohm] </p>
+<i>V<sub>rms</sub></i> = Root Mean Square (RMS) Voltage of AC waveform [V]<br>
+<i>w<sub>s</sub></i> = Synchronous speed [rad/s] <br>
+<i>X<sub>1</sub></i> = Stator reactance [ohm]<br>
+<i>X<sub>2</sub></i> = Rotor reactance [ohm]<br>
+<i>X<sub>m</sub></i> = Magnetizing reactance [ohm] </p>
 <h4>Assumption and limitation</h4>
 <p>This implementation assumes that the power supply is a balanced system, 
 which allows the total torque to be calculated by multiplying the value of the 
@@ -97,10 +97,12 @@ single-phase torque by the number of phases. </p>
 <p><a href=\"https://par.nsf.gov/biblio/10109101\">Fu, Yangyang, et al. 
 &quot;Coupling power system dynamics and building dynamics to enabling building-to-grid 
 integration.&quot; <i>Link&ouml;ping Electronic Conference Proceedings</i>. Vol. 157. 2019.</a></p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
-<li>6 March 2019, by Yangyang Fu:<br>First implementation.</li>
+<li>
+March 6, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end MotorMachineInterface;
