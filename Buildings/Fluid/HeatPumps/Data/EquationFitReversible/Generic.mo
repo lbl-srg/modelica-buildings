@@ -17,7 +17,6 @@ record Generic
     "= true, if the heat pump can be reversed to also operate in cooling mode"
       annotation(Evaluate=true);
 
-protected
   record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
     parameter Modelica.Units.SI.HeatFlowRate Q_flow "Nominal capacity"
       annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
@@ -60,6 +59,13 @@ Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>",  revisions="<html>
 <ul>
+<li>
+May 16, 2022, by Michael Wetter:<br/>
+Removed <code>protected</code> keyword as the Modelica Language Specification only
+allows public sections in a record.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3009\">issue 3009</a>.
+</li>
 <li>
 September 16, 2019 by Michael Wetter:<br/>
 Refactored implementation.

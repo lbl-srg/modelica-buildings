@@ -431,11 +431,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU
     </td>
     <td valign=\"top\">Exposed ratio of convection coefficients, set its default values based on fluid properties and flow rates,
-                     and exposed exponents for convective heat transfer coefficients. <br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2918\"># 2918</a>.
+                       and exposed exponents for convective heat transfer coefficients.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2918\">#2918</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
+    </td>
+    <td valign=\"top\">Removed <code>protected</code> declaration inside the record as the Modelica Language Specification
+                       only allows public sections in a record.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3009\">#3009</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint
