@@ -65,7 +65,7 @@ The schematics belay show the plant model's structure under different setups.
     <td><code>ClosedLocal</code></td>
     <td>
 <p align=\"center\">
-<img alt=\"Image of a storage tank\"
+<img alt=\"ClosedLocal\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedLocal.png\"/>
 </p>
     </td>
@@ -77,7 +77,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedLocal.png\
     <td><code>ClosedRemote</code></td>
     <td>
 <p align=\"center\">
-<img alt=\"Image of a storage tank\"
+<img alt=\"ClosedRemote\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedRemote.png\"/>
 </p>
     </td>
@@ -96,7 +96,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedRemote.png
     <td><code>Open</code></td>
     <td>
 <p align=\"center\">
-<img alt=\"Image of a storage tank\"
+<img alt=\"Open\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_Open.png\"/>
 </p>
     </td>

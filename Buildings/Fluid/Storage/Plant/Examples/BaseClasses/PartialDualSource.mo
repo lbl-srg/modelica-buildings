@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
 partial model PartialDualSource
-  "(Draft) District system model with two sources and three users"
+  "Base model of a district system model with two sources and three users"
 
   package MediumCHW = Buildings.Media.Water "Medium model for CHW";
   package MediumCDW1 = Buildings.Media.Water "Medium model for CDW of chi1";
@@ -460,24 +460,24 @@ equation
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-(Draft)
-This is a district system model with two CHW sources and three users
-as described in
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+This is the base model of a district system model with
+two CHW sources and three users with the following structure:
+</p>
+<p align=\"center\">
+<img alt=\"DualSource\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/DualSource.png\"/>
 </p>
 <p>
 The first source is a simplified CHW plant with only a chiller,
 a single supply pump, and a check valve (with series resistance built in).
 This supply pump is controlled to ensure that all users have enough pressure head.
-The system is pressurised before this supply pump.
 </p>
 <p>
 The second source has a chiller and a stratified CHW tank. Its piping is arranged
 in a way that allows the tank to be charged remotely by the other source.
 Its supply pump is controlled to maintain the flow rate setpoint of the tank.
-This plant is disconnected (set to be unavailable) when the largest position of
-user control valves less than 5% open. It is set back to be available when
-this value is higher than 10%.
+This plant is disconnected when the largest position of user control valves
+less than 5% open and connected back when this value is higher than 10%.
 </p>
 <p>
 The timetables give the system the following behaviour:
@@ -551,7 +551,7 @@ The timetables give the system the following behaviour:
 </html>", revisions="<html>
 <ul>
 <li>
-February 18, 2022 by Hongxiang Fu:<br/>
+May 16, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>

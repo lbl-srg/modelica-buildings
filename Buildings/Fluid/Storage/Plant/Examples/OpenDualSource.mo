@@ -21,12 +21,16 @@ equation
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-(Draft)
+This model is the open-tank version of the district system described in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource\">
+Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource</a>.
+Because the tank in <code>tanBra</code> is exposed to the atmosphere,
+it also serves as the pressurisation point of the system.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-May 13, 2022 by Hongxiang Fu:<br/>
+May 16, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
