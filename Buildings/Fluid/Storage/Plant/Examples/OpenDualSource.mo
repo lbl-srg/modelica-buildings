@@ -1,7 +1,8 @@
 within Buildings.Fluid.Storage.Plant.Examples;
 model OpenDualSource
   "(Draft) District system model with two sources and three users"
-  extends ClosedDualSource(
+  extends Modelica.Icons.Example;
+  extends Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource(
     nomPla2(plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
     tanBra(tankIsOpen=true));
 equation
