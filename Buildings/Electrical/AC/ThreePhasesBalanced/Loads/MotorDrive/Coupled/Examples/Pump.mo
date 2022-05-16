@@ -73,6 +73,15 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>Example that simulates a motor coupled pump to track the set point signal as the load changes.</p>
+<p>
+Example that simulates a motor coupled pump to track the set point signal as the load changes.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 15, 2021, by Mingzhe Liu:<br/>
+First implementation. 
+</li>
+</ul>
 </html>"));
 end Pump;

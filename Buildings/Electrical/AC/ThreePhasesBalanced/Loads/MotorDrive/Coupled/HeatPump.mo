@@ -266,13 +266,17 @@ equation
         Line(points={{80,-30},{80,0}},                color={0,0,255})}),
         defaultComponentName="hea",
     Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled heat pump with ideal speed control. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions.</p>
-</html>",
-      revisions="<html>
+<p>
+This is a model of a squirrel cage induction motor coupled heat pump with 
+ideal speed control. The model has electrical interfaces and can be used for 
+simulating microgrids and discussing grid interactions.
+</p>
+</html>", revisions="<html>
 <ul>
-<li>October 15, 2021,
-    by Mingzhe Liu:<br/>
-    First implementation.</li>
+<li>
+October 15, 2021, by Mingzhe Liu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end HeatPump;

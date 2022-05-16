@@ -150,17 +150,21 @@ equation
           textColor={0,0,127},
           textString="measure_value")}),
     Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled chiller with ideal speed control. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions.</p>
-</html>",
-      revisions="<html>
+<p>
+This is a model of a squirrel cage induction motor coupled chiller with ideal 
+speed control. The model has electrical interfaces and can be used for 
+simulating microgrids and discussing grid interactions.
+</p>
+</html>", revisions="<html>
 <ul>
-<li>September 15, 2021,
-    by Mingzhe Liu:<br/>
-    Refactored implementation to add mechanical interface and integrate inertia.
+<li>
+September 15, 2021, by Mingzhe Liu:<br/>
+Refactored implementation to add mechanical interface and integrate inertia.
 </li>
-<li>6 March 2019, 
-    by Yangyang Fu:<br/>
-      First implementation.</li>
+<li>
+March 6, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end Pump;
