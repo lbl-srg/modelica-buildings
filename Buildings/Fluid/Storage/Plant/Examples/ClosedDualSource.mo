@@ -98,7 +98,7 @@ model ClosedDualSource
         origin={-10,110})));
   Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
     "CHW return setpoint"
-    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Fluid.Sources.Boundary_pT sou_p(
     redeclare final package Medium = MediumCHW,
     final p=p_Pressurisation,
@@ -207,7 +207,7 @@ model ClosedDualSource
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-50,-90})));
+        origin={-70,-90})));
 
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr1(
@@ -244,7 +244,7 @@ model ClosedDualSource
     "Min of pressure head measured from all users"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={70,130})));
+        origin={30,130})));
   Modelica.Blocks.Sources.Constant set_dpUsr(k=1)
     "Normalised consumer differential pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -263,31 +263,31 @@ model ClosedDualSource
         3600/9*1,QCooLoa_flow_nominal; 3600/9*4,QCooLoa_flow_nominal; 3600/9*4,
         0; 3600,0])
     "Cooling load"
-    annotation (Placement(transformation(extent={{120,80},{100,100}})));
+    annotation (Placement(transformation(extent={{120,70},{100,90}})));
   Modelica.Blocks.Sources.TimeTable set_QCooLoa2_flow(table=[0,0; 3600/9*2,0;
         3600/9*2,QCooLoa_flow_nominal; 3600/9*5,QCooLoa_flow_nominal; 3600/9*5,
         0; 3600,0])
     "Cooling load"
-    annotation (Placement(transformation(extent={{120,20},{100,40}})));
+    annotation (Placement(transformation(extent={{120,10},{100,30}})));
   Modelica.Blocks.Sources.TimeTable set_QCooLoa3_flow(table=[0,0; 3600/9*3,0;
         3600/9*3,QCooLoa_flow_nominal; 3600/9*7,QCooLoa_flow_nominal; 3600/9*7,
         0; 3600,0])                                       "Cooling load"
-    annotation (Placement(transformation(extent={{120,-40},{100,-20}})));
+    annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
   Modelica.Blocks.Math.Gain gaiUsr1(k=1/usr1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={110,60})));
+        origin={110,50})));
   Modelica.Blocks.Math.Gain gaiUsr2(k=1/usr2.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={110,0})));
+        origin={110,-10})));
   Modelica.Blocks.Math.Gain gaiUsr3(k=1/usr3.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={110,-60})));
+        origin={110,-70})));
 
 // District pipe network
   Buildings.Fluid.FixedResistances.PressureDrop preDroS2U3(
@@ -340,24 +340,25 @@ model ClosedDualSource
     annotation (Placement(transformation(extent={{30,30},{10,50}})));
 
 equation
-  connect(set_TRet.y,usr1. TSet) annotation (Line(points={{41,110},{44,110},{44,
-          82},{64,82},{64,71}}, color={0,0,127}));
-  connect(set_TRet.y,usr2. TSet) annotation (Line(points={{41,110},{44,110},{44,
-          22},{64,22},{64,11}}, color={0,0,127}));
-  connect(set_TRet.y,usr3. TSet) annotation (Line(points={{41,110},{44,110},{44,
-          -38},{64,-38},{64,-49}}, color={0,0,127}));
-  connect(usr3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-54},
-          {86,-54},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color={0,0,
+  connect(set_TRet.y,usr1. TSet) annotation (Line(points={{81,110},{90,110},{90,
+          68},{71,68}},         color={0,0,127}));
+  connect(set_TRet.y,usr2. TSet) annotation (Line(points={{81,110},{90,110},{90,
+          8},{71,8}},           color={0,0,127}));
+  connect(set_TRet.y,usr3. TSet) annotation (Line(points={{81,110},{90,110},{90,
+          -52},{71,-52}},          color={0,0,127}));
+  connect(usr3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-64},
+          {86,-64},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color={0,0,
           127}));
-  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,6},{86,
-          6},{86,-110},{62,-110}}, color={0,0,127}));
+  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,-4},
+          {86,-4},{86,-110},{62,-110}},
+                                   color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
   connect(set_dpUsr.y,conPI_pumChi1. u_s)
     annotation (Line(points={{-39,130},{-10,130},{-10,122}},
                                                    color={0,0,127}));
-  connect(usr1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,66},
-          {86,66},{86,-110},{62,-110},{62,-109.333}},color={0,0,127}));
+  connect(usr1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,56},
+          {86,56},{86,-110},{62,-110},{62,-109.333}},color={0,0,127}));
   connect(preDroS2U3.port_b,usr3. port_a)
     annotation (Line(points={{-10,-40},{60,-40},{60,-50}}, color={0,127,255}));
   connect(usr3.port_b,preDroU3S2. port_a)
@@ -376,27 +377,30 @@ equation
   connect(usr1.port_b,preDroU1S1. port_a)
     annotation (Line(points={{60,50},{60,40},{30,40}}, color={0,127,255}));
   connect(set_QCooLoa1_flow.y,usr1. QCooLoa_flow)
-    annotation (Line(points={{99,90},{68,90},{68,71}}, color={0,0,127}));
+    annotation (Line(points={{99,80},{94,80},{94,64},{71,64}},
+                                                       color={0,0,127}));
   connect(set_QCooLoa2_flow.y,usr2. QCooLoa_flow)
-    annotation (Line(points={{99,30},{68,30},{68,11}}, color={0,0,127}));
+    annotation (Line(points={{99,20},{94,20},{94,4},{71,4}},
+                                                       color={0,0,127}));
   connect(set_QCooLoa3_flow.y,usr3. QCooLoa_flow)
-    annotation (Line(points={{99,-30},{68,-30},{68,-49}}, color={0,0,127}));
+    annotation (Line(points={{99,-40},{94,-40},{94,-56},{71,-56}},
+                                                          color={0,0,127}));
   connect(usr1.dpUsr, gaiUsr1.u)
-    annotation (Line(points={{71,62},{71,60},{98,60}}, color={0,0,127}));
-  connect(usr2.dpUsr, gaiUsr2.u) annotation (Line(points={{71,2},{71,1.55431e-15},
-          {98,1.55431e-15}}, color={0,0,127}));
-  connect(usr3.dpUsr, gaiUsr3.u) annotation (Line(points={{71,-58},{72,-58},{72,
-          -60},{98,-60}}, color={0,0,127}));
-  connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{121,60},{126,
-          60},{126,129.333},{82,129.333}},
+    annotation (Line(points={{71,52},{71,50},{98,50}}, color={0,0,127}));
+  connect(usr2.dpUsr, gaiUsr2.u) annotation (Line(points={{71,-8},{71,-10},{98,
+          -10}},             color={0,0,127}));
+  connect(usr3.dpUsr, gaiUsr3.u) annotation (Line(points={{71,-68},{71,-70},{98,
+          -70}},          color={0,0,127}));
+  connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{121,50},{126,
+          50},{126,129.333},{42,129.333}},
                                      color={0,0,127}));
-  connect(gaiUsr2.y,mulMin_dpUsr. u[2]) annotation (Line(points={{121,-1.38778e-15},
-          {126,-1.38778e-15},{126,130},{82,130}},  color={0,0,127}));
-  connect(gaiUsr3.y,mulMin_dpUsr. u[3]) annotation (Line(points={{121,-60},{126,
-          -60},{126,130.667},{82,130.667}},
+  connect(gaiUsr2.y,mulMin_dpUsr. u[2]) annotation (Line(points={{121,-10},{126,
+          -10},{126,130},{42,130}},                color={0,0,127}));
+  connect(gaiUsr3.y,mulMin_dpUsr. u[3]) annotation (Line(points={{121,-70},{126,
+          -70},{126,130.667},{42,130.667}},
                                           color={0,0,127}));
   connect(mulMin_dpUsr.y,conPI_pumChi1. u_m)
-    annotation (Line(points={{58,130},{8,130},{8,110},{2,110}},
+    annotation (Line(points={{18,130},{8,130},{8,110},{2,110}},
                                                              color={0,0,127}));
   connect(uTanDis.y, mTanSet_flow.u) annotation (Line(points={{-159,-10},{-142,-10}},
                               color={255,0,255}));
@@ -432,9 +436,10 @@ equation
   connect(preDroS1U2.port_a, chi1.port_b2) annotation (Line(points={{-30,20},{-36,
           20},{-36,80},{-124,80}}, color={0,127,255}));
   connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-90},{-156,-90},{
-          -156,-116},{-50,-116},{-50,-102}},
+          -156,-116},{-70,-116},{-70,-102}},
                                           color={255,0,255}));
-  connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-110},{-42,-110},{-42,-102}},
+  connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-110},{-62,-110},{-62,
+          -102}},
         color={255,0,255}));
   connect(preDroU3S2.port_b, netCon.port_aFroNet) annotation (Line(points={{10,-80},
           {-36,-80},{-36,-56},{-60,-56}}, color={0,127,255}));
@@ -446,12 +451,13 @@ equation
           {-36,-44},{-36,0},{-30,0}}, color={0,127,255}));
   connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
     annotation (Line(points={{-92,-39},{-92,-10},{-81,-10}}, color={0,0,127}));
-  connect(conSupPum.uAva, or2.y) annotation (Line(points={{-58,-6},{-50,-6},{-50,
-          -78}},     color={255,0,255}));
+  connect(conSupPum.uAva, or2.y) annotation (Line(points={{-58,-6},{-52,-6},{
+          -52,-72},{-70,-72},{-70,-78}},
+                     color={255,0,255}));
   connect(mTanSet_flow.y, conSupPum.mTanSet_flow) annotation (Line(points={{-118,
           -10},{-100,-10},{-100,-2},{-81,-2}}, color={0,0,127}));
-  connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
-          -90},{-156,-116},{-32,-116},{-32,-52},{-46,-52},{-46,-2},{-58,-2}},
+  connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{
+          -156,-90},{-156,-116},{-46,-116},{-46,-2},{-58,-2}},
         color={255,0,255}));
   connect(conSupPum.yPumSup,netCon. yPumSup)
     annotation (Line(points={{-72,-21},{-72,-39}}, color={0,0,127}));

@@ -59,16 +59,16 @@ model DummyUser "Dummy user model"
         rotation=0,
         origin={-110,80}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,80})));
+        rotation=-90,
+        origin={-40,110})));
   Modelica.Blocks.Interfaces.RealInput TSet "CHW return setpoint" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,40}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,40})));
+        rotation=-90,
+        origin={-80,110})));
   Modelica.Blocks.Interfaces.RealOutput yVal_actual
     "Consumer control valve actuator position" annotation (Placement(
         transformation(
@@ -77,7 +77,7 @@ model DummyUser "Dummy user model"
         origin={110,40}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-60,110})));
+        origin={40,110})));
   Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = Medium)
     "Differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
@@ -88,7 +88,7 @@ model DummyUser "Dummy user model"
         origin={110,-80}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-20,110})));
+        origin={80,110})));
 equation
   connect(val.port_b, vol.ports[1])
     annotation (Line(points={{-30,0},{1,0}}, color={0,127,255}));

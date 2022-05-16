@@ -57,15 +57,14 @@ model DummyUser "Test model for the dummy user"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation
   connect(set_TRet.y,ideUsr. TSet)
-    annotation (Line(points={{-59,50},{-30,50},{-30,4},{-11,4}},
-                                                       color={0,0,127}));
+    annotation (Line(points={{-59,50},{-8,50},{-8,11}},color={0,0,127}));
   connect(sou.ports[1],ideUsr. port_a) annotation (Line(points={{-60,
           -6.66134e-16},{-35.1,-6.66134e-16},{-35.1,0},{-10,0}},
                                                      color={0,127,255}));
   connect(ideUsr.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   connect(preQCooLoa_flow.y,ideUsr. QCooLoa_flow) annotation (Line(points={{-39,90},
-          {-18,90},{-18,8},{-11,8}},     color={0,0,127}));
+          {-4,90},{-4,11}},              color={0,0,127}));
 annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/BaseClasses/Validation/DummyUser.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>
