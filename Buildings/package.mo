@@ -245,13 +245,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+  </td>
 </tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
+  </td>
+  <td valign=\"top\">Removed <code>protected</code> declaration inside the record as the Modelica Language Specification
+                     only allows public sections in a record.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3009\">#3009</a>.
+  </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
