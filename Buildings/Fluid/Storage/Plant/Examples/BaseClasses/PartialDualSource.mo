@@ -200,7 +200,7 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.7*dp_nominal,
+    dp_nominal=0.3*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Dummy user 1" annotation (Placement(
         transformation(
@@ -210,7 +210,7 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr2(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.7*dp_nominal,
+    dp_nominal=0.3*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Dummy usr 2" annotation (Placement(
         transformation(
@@ -220,7 +220,7 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.7*dp_nominal,
+    dp_nominal=0.3*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Dummy user 3" annotation (Placement(
         transformation(
