@@ -149,8 +149,9 @@ and mechanical interface, which is based on the per-phase equivalent circuit mod
 for an induction motor. The model inputs include load torque, as well as frequency 
 and voltage from the power supply system at the electrical connector as the AC interface.
 Besides the electromagnetic torque equation from 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">BaseClasses.MotorMachineInterface</a>, 
-main governing equations used to construct the model are as follows:
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">
+MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface</a>, main governing 
+equations used to construct the model are as follows:
 </p>
 <p>
 The motor-load torque balance equation:
@@ -194,7 +195,8 @@ X<sub>s</sub>&nbsp;+&nbsp;X<sub>m</sub>&nbsp;*&nbsp;[(R<sub>r</sub>)<sup>2</sup>
 <p>
 Where, the subscripts <i>s</i>, <i>r</i> and <i>m</i> represent the stator, 
 rotor and magnetizing part, respectively. The circuit diagram is found in 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">BaseClasses.MotorMachineInterface</a>.
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">
+MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -97,7 +97,8 @@ Where, <br/>
 <i>w<sub>s</sub></i> = Synchronous speed [rad/s] <br/>
 <i>X<sub>1</sub></i> = Stator reactance [ohm]<br/>
 <i>X<sub>2</sub></i> = Rotor reactance [ohm]<br/>
-<i>X<sub>m</sub></i> = Magnetizing reactance [ohm] </p>
+<i>X<sub>m</sub></i> = Magnetizing reactance [ohm] <br/>
+</p>
 <h4>Assumption and limitation</h4>
 <p>
 This implementation assumes that the power supply is a balanced system, 

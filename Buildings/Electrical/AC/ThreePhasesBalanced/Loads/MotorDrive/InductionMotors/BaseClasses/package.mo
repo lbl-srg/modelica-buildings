@@ -6,6 +6,9 @@ package BaseClasses "Package with base classes for MotorDrive.InductionMotors"
 
 
 annotation (Documentation(info="<html>
-<p>This package contains base classes that are used to construct the models in MotorDrive.InductionMotors. </p>
+<p>
+This package contains base classes that are used to construct the models in 
+MotorDrive.InductionMotors. 
+</p>
 </html>"));
 end BaseClasses;

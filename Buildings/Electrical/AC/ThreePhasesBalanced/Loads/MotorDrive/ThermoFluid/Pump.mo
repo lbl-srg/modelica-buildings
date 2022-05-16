@@ -132,25 +132,30 @@ equation
           textColor={0,0,127},
           textString="y_actual")}),
     Documentation(info="<html>
-<p>This model describes a fan or pump with mechanical imterface and uses 
+<p>
+This model describes a fan or pump with mechanical imterface and uses 
 the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> as a base model. </p>
-<p>The governing equation of this implementation is based on the relationship 
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> as a base model. 
+</p>
+<p>
+The governing equation of this implementation is based on the relationship 
 between the power and torque of the rotating object, which is represented as follow:
-<p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W</p>
-<p>Where, the <i>P</i> is power [W], <i>tau</i> is torque [N.m], and <i>W</i> 
+<p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W
+</p>
+<p>
+Where, the <i>P</i> is power [W], <i>tau</i> is torque [N.m], and <i>W</i> 
 is angular velocity [rad/s].
 </p>
-</html>",
-      revisions="<html>
+</html>", revisions="<html>
 <ul>
-<li>September 15, 2021,
-    by Mingzhe Liu:<br/>
-    Refactored implementation to integrate inertia into the model.
+<li>
+September 15, 2021, by Mingzhe Liu:<br/>
+Refactored implementation to integrate inertia into the model.
 </li>
-<li>6 March 2019, 
-    by Yangyang Fu:<br/>
-      First implementation.</li>
+<li>
+March 6, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end Pump;

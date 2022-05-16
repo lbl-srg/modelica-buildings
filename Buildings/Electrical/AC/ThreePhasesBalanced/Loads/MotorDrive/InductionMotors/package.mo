@@ -4,6 +4,8 @@ package InductionMotors "Package with models for induction motors"
 
 
   annotation (preferredView="info", Documentation(info="<html>
-<p>This package contains models for induction motors. </p>
+<p>
+This package contains models for induction motors. 
+</p>
 </html>"));
 end InductionMotors;

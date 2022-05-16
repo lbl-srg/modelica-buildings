@@ -34,13 +34,18 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/BaseClasses/Validations/MotorMachineInterface.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>This example validates 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">MotorMachineInterface</a> 
-by checking torque speed relationship for induction motors.</p>
-</html>",
-revisions="<html>
+<p>
+This example validates 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">
+MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface</a> by checking 
+torque speed relationship for induction motors.
+</p>
+</html>", revisions="<html>
 <ul>
-<li>6 March 2019, by Yangyang Fu:<br>First implementation.</li>
+<li>
+March 6, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end MotorMachineInterface;

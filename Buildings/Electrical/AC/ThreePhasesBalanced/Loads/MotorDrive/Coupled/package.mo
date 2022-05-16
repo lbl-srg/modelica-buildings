@@ -7,6 +7,8 @@ package Coupled "Package with motor coupled HVAC equipments"
 
 
 annotation (preferredView="info", Documentation(info="<html>
-<p>This package contains models for motor coupled HVAC equipments with electrical interface.</p>
+<p>
+This package contains models for motor coupled HVAC equipments with electrical interface.
+</p>
 </html>"));
 end Coupled;

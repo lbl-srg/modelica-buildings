@@ -43,11 +43,16 @@ connect(mea.y, simMot.mea) annotation (Line(points={{-59,20},{-40,20},{-40,4},{-
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Examples/SquirrelCageDrive.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>Example that simulates an induction motor with a step signal as input. </p>
-</html>",
-revisions="<html>
+<p>
+Example that simulates an induction motor with variable speed control to track 
+a step signal. 
+</p>
+</html>", revisions="<html>
 <ul>
-<li>October 15, 2021, by Mingzhe Liu:<br>First implementation.</li>
+<li>
+October 15, 2021, by Mingzhe Liu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end SquirrelCageDrive;

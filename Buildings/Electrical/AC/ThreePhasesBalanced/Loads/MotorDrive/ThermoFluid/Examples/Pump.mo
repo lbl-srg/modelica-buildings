@@ -41,13 +41,15 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/Pump.mos"
         "Simulate and plot"),
         Documentation(info="<html>
-<p>Example that simulates a pump using the torque as input signal.</p>
-</html>",
-      revisions="<html>
+<p>
+Example that simulates a pump using the torque as input signal.
+</p>
+</html>", revisions="<html>
 <ul>
-<li>6 March 2019, 
-    by Yangyang Fu:<br/>
-      First implementation.</li>
+<li>
+March 6, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end Pump;
