@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #include "ModelicaUtilities.h"
 
@@ -30,13 +31,13 @@
  *
  * @return 0 if no error occurred
  */
-int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
+int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
                  double *t1, double *y) {
   size_t i, j, k;
 
   /*check if current modelica time equals to last time*/
   /*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
-  if(abs(cosim->modelica->lt - t0) < 1E-6){
+  if(fabs(cosim->modelica->lt - t0) < 1E-6){
     return 0;
   }
 
