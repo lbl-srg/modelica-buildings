@@ -196,20 +196,29 @@ equation
           points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},{60,
               -100},{-70,-100},{-70,-90}})}),
     Documentation(info="<html>
-<p>This model implements an induction motor model with a built-in idealized 
-frequency control that tracks the set point and adjust the input frequency of motor.</p>
-<p>The model is identical to 
+<p>
+This model implements an induction motor model with a built-in idealized 
+frequency control that tracks the set point and adjust the input frequency of 
+motor.
+</p>
+<p>
+The model is identical to 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage\">MotorDrive.InductionMotors.SquirrelCage</a>, 
 except that it takes the set point, as an input and adjust the motor torque output 
 to meet the set point. This set point is maintained if the motor allows sufficient 
 torque to meet the load requirement. The built-in control is an ideal speed controller, 
 implemented using a PI controller. The controller adjusts the torque output 
-of the motor to meet the set point within its work area.</p>
+of the motor to meet the set point within its work area.
+</p>
 </html>", revisions="<html>
 <ul>
-<li>October 15, 2021, by Mingzhe Liu:<br>Refactored implementation to add mechanical 
-interface and integrate inertia. </li>
-<li>6 March 2019, by Yangyang Fu:<br>First implementation.</li>
+<li>
+October 15, 2021, by Mingzhe Liu:<br/>
+Refactored implementation to add mechanical interface and integrate inertia. 
+</li>
+<li>March 6, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end SquirrelCageDrive;
