@@ -79,6 +79,9 @@ model Case600FF
     hRoo=2.7,
     nConExtWin=nConExtWin,
     nConBou=1,
+    linearizeRadiation=false,
+    hIntFixed=2.2,
+    hExtFixed=11.9,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     AFlo=48,
@@ -114,19 +117,14 @@ model Case600FF
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.mos"),
       computeWetBulbTemperature=false)
-    annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
+    annotation (Placement(transformation(extent={{98,-98},{86,-86}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-28,76},{-20,84}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
     annotation (Placement(transformation(extent={{-12,76},{-4,84}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=
-        283.15) "Boundary condition for construction"
-                                          annotation (Placement(transformation(
-        extent={{0,0},{-8,8}},
-        origin={72,-52})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(
     nLay=3,
     absIR_a=0.9,
@@ -153,22 +151,10 @@ model Case600FF
                            "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
-    UFra=2.1,
+    UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
     annotation (Placement(transformation(extent={{40,84},{54,98}})));
-  Buildings.HeatTransfer.Conduction.SingleLayer soi(
-    A=48,
-    material=soil,
-    steadyStateInitial=true,
-    stateAtSurface_a=false,
-    stateAtSurface_b=true,
-    T_a_start=283.15,
-    T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
-    annotation (Placement(transformation(
-        extent={{5,-5},{-3,3}},
-        rotation=-90,
-        origin={57,-35})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf(
     redeclare package Medium = MediumA,
     m_flow=1,
@@ -194,7 +180,8 @@ model Case600FF
     annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
    "Weather data bus"
-    annotation (Placement(transformation(extent={{-4,-96},{12,-80}})));
+    annotation (Placement(transformation(extent={{-4,-100},{12,-84}}),
+        iconTransformation(extent={{-4,-96},{12,-80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{5,-5},{-5,5}},
@@ -219,6 +206,23 @@ model Case600FF
     "Annual averaged room air temperature"
     annotation (Placement(transformation(extent={{-68,-40},{-60,-32}})));
 
+  HeatTransfer.Convection.Exterior conOpa(
+    A=48,
+    hFixed=0.8,
+    roughness=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough,
+    final til=Buildings.Types.Tilt.Floor,
+    final azi=0,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
+    "Convection model for opaque part of the wall"
+    annotation (Placement(transformation(extent={{48,-80},{58,-70}})));
+  Modelica.Blocks.Sources.Constant zerWin(k=0) "Zero wind speed"
+    annotation (Placement(transformation(extent={{20,-74},{28,-66}})));
+  Modelica.Blocks.Sources.Constant zerDir(k=0) "Zero wind direction"
+    annotation (Placement(transformation(extent={{20,-88},{28,-80}})));
+protected
+  HeatTransfer.Sources.PrescribedTemperature TAirConExt
+    "Outside air temperature for exterior constructions"
+    annotation (Placement(transformation(extent={{72,-80},{62,-70}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-35.6,76},{-34,76},{-34,70.8},{-18.8,70.8}},
@@ -241,7 +245,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus)  annotation (Line(
-      points={{86,-88},{80.07,-88},{80.07,-1.575},{64.425,-1.575}},
+      points={{86,-92},{80.07,-92},{80.07,-1.575},{64.425,-1.575}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -262,23 +266,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{86,-88},{4,-88}},
+      points={{86,-92},{4,-92}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TSoi[1].port, soi.port_a) annotation (Line(
-      points={{64,-48},{56,-48},{56,-40}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(soi.port_b, roo.surf_conBou[1]) annotation (Line(
-      points={{56,-32},{56,-27},{55.5,-27}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(weaBus, souInf.weaBus)        annotation (Line(
-      points={{4,-88},{-30,-88},{-30,-27.88},{-24,-27.88}},
+      points={{4,-92},{-30,-92},{-30,-27.88},{-24,-27.88}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -311,6 +307,18 @@ equation
       smooth=Smooth.None));
   connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{28,
           -28},{28,-20.5},{39.75,-20.5}}, color={0,127,255}));
+  connect(conOpa.fluid, TAirConExt.port)
+    annotation (Line(points={{58,-75},{62,-75}}, color={191,0,0}));
+  connect(weaBus.TDryBul, TAirConExt.T) annotation (Line(
+      points={{4,-92},{4,-96},{78,-96},{78,-75},{73,-75}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(conOpa.solid, roo.surf_conBou[1]) annotation (Line(points={{48,-75},{
+          34,-75},{34,-34},{55.5,-34},{55.5,-27}}, color={191,0,0}));
+  connect(zerWin.y, conOpa.v)
+    annotation (Line(points={{28.4,-70},{47,-70}}, color={0,0,127}));
+  connect(zerDir.y, conOpa.dir) annotation (Line(points={{28.4,-84},{40,-84},{
+          40,-72.5},{47,-72.5}}, color={0,0,127}));
   annotation (
 experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"
