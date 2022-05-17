@@ -37,6 +37,12 @@ and <code>realTrue</code> and <code>realFalse</code> are parameters.
       revisions="<html>
 <ul>
 <li>
+May 17, 2022, by Hongxiang Fu:<br/>
+Corrected documentation texts where the variables were described with wrong types.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+</li>
+<li>
 April 10, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.

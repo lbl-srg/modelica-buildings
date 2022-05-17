@@ -381,6 +381,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.BooleanToReal<br/>
+    </td>
+    <td valign=\"top\">Corrected documentation texts where the variables were described with wrong types.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">issue 3016</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean<br/>
     </td>
     <td valign=\"top\">Added missing <code>discrete</code> keyword to sampled variable.<br/>
