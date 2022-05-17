@@ -9,7 +9,7 @@ nPoints = readTrajectorySize("TwoWayOpenLoop.mat");
 varNames = {"ope.y", "valAut50.m_flow", "valAut50Ove.m_flow", "valAut33Bal.m_flow"};
 varValues = readTrajectory("TwoWayOpenLoop.mat", varNames, nPoints);
 
-createPlot(id=3, position={594, 342, 1184, 744}, x="ope.y", leftTitle="m_flow(y)/m_flow(100%)", autoscale=true, grid=true, filename="TwoWayOpenLoop.mat", color=true);
+createPlot(id=3, position={594, 342, 1184, 744}, x="ope.y", leftTitle="m_flow(y)/m_flow(100%)", autoscale=true, grid=true, filename="TwoWayOpenLoop.mat", erase=true, color=true);
 
 plotArray(varValues[1], varValues[2] / max(varValues[2]), erase=false, legend="valAut50");
 plotArray(varValues[1], varValues[3] / max(varValues[3]), erase=false, legend="valAut50Ove");

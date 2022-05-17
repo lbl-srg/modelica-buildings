@@ -1,1 +1,17 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop", stopTime=100, tolerance=1e-06, resultFile="ThreeWayOpenLoop");
+
+createPlot(id=1, position={15, 15, 1184, 744}, x="ope.y", y={"pum.m_flow", "con.val.port_1.m_flow", "con.val.port_3.m_flow", "con1.val.port_1.m_flow", "con1.val.port_3.m_flow"}, autoscale=true, grid=true, erase=true, color=true);
+
+createPlot(id=2, position={1214, 15, 1184, 744}, x="ope.y", y={"con.val.res1.dp"}, erase=true, autoscale=true, grid=true, color=true);
+
+createPlot(id=3, position={169, 245, 1184, 744}, autoscale=true, grid=true, erase=true, color=true);
+plotExpression(apply(ThreeWayOpenLoop[end].loa.Q_flow/ThreeWayOpenLoop[end].loa.Q_flow_nominal), false, "loa.Q_flow/loa.Q_flow_nominal", 3);
+plotExpression(apply(ThreeWayOpenLoop[end].loa1.Q_flow/ThreeWayOpenLoop[end].loa1.Q_flow_nominal), false, "loa1.Q_flow/loa1.Q_flow_nominal", 3);
+
+createPlot(id=4, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, range={0.0, 4.0, 0.0, 2E5}, erase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot});
+// Plot pump characteristic and design operating point
+mValues = {0.1 * i for i in 1:40};
+coefValues = {-538.34033613,  -3019.95798319, -16806.72268908, 150000.0};
+dpValues = {coefValues[1] * mValues[i]^3 for i in 1:40} + {coefValues[2] * mValues[i]^2 for i in 1:40} + coefValues[3] .* mValues + fill(coefValues[4], 40);
+plotArray(mValues, dpValues, erase=false, legend="Characteristic");
+plotArray({2}, {1E5}, erase=false, legend="Design operating point");

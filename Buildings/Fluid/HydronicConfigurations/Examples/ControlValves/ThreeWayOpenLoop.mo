@@ -12,6 +12,30 @@ model ThreeWayOpenLoop
   parameter Modelica.Units.SI.Pressure dp_nominal = 1E5
     "Circuit total pressure drop at design conditions";
 
+  parameter Modelica.Units.SI.PressureDifference dpSec_nominal(
+    final min=0,
+    displayUnit="Pa") = 0.1 * dp_nominal
+    "Secondary pressure differential at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    final min=Modelica.Constants.eps,
+    displayUnit="Pa") = 0.1 * dp_nominal
+    "Control valve pressure drop at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
+    final min=0,
+    displayUnit="Pa") = dp_nominal - (dpSec_nominal + dpValve_nominal)
+    "Primary balancing valve pressure drop at design conditions "
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
+    final min=0,
+    displayUnit="Pa") = 0
+    "Secondary balancing valve pressure drop at design conditions "
+    annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal = 20 + 273.15
     "Air entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqEnt_nominal = 60 + 273.15
@@ -37,24 +61,27 @@ model ThreeWayOpenLoop
     final energyDynamics=energyDynamics,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     per(pressure(
-      V_flow=2 * {0,1,2}*mLiq_flow_nominal/1000,
-      dp(displayUnit="Pa") = {1.5,1,0}*dp_nominal)),
+      V_flow=2 * {0,1,2} * mLiq_flow_nominal / 996,
+      dp(displayUnit="Pa") = {1.5, 1, 0} * dp_nominal)),
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Circulation pump"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   ActiveNetworks.Diversion con(
+    val(fraK=1),
     redeclare final package Medium=MediumLiq,
-    use_lumFloRes=true,
+    use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mLiq_flow_nominal,
-    final dpSec_nominal=0.4*dp_nominal,
-    final dpValve_nominal=0.2*dp_nominal,
-    final dpBal1_nominal=0.4*dp_nominal,
-    final dpBal2_nominal=0)
+    final dpSec_nominal=dpSec_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpBal1_nominal=dpBal1_nominal,
+    final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
+
   BaseClasses.Load loa(
     redeclare final package MediumLiq = MediumLiq,
+    dpLiq_nominal=dpSec_nominal,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mLiq_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
@@ -67,20 +94,22 @@ model ThreeWayOpenLoop
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp ope(duration=100)
     "Valve opening signal"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   ActiveNetworks.Diversion con1(
+    use_lumFloRes=false,
+    val(fraK=1),
     redeclare final package Medium = MediumLiq,
-    use_lumFloRes=true,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mLiq_flow_nominal,
-    final dpSec_nominal=0.4*dp_nominal,
-    final dpValve_nominal=0.2*dp_nominal,
-    final dpBal1_nominal=0.4*dp_nominal,
-    final dpBal2_nominal=0)
+    final dpSec_nominal=dpSec_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpBal1_nominal=dpBal1_nominal,
+    final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   BaseClasses.Load loa1(
     redeclare final package MediumLiq = MediumLiq,
+    dpLiq_nominal=dpSec_nominal,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mLiq_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
@@ -90,20 +119,11 @@ model ThreeWayOpenLoop
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.RealExpression ope1(y=1 - ope.y)
     "Valve opening for second circuit"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-protected
-  Interfaces.Bus bus
-    "Local bus instance to comply with Modelica specification §9.1"
-    annotation (Placement(transformation(extent={{-20,0},{20,40}}),
-        iconTransformation(extent={{-310,-62},{-270,-22}})));
-protected
-  Interfaces.Bus bus1
-    "Local bus instance to comply with Modelica specification §9.1"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}}),
-        iconTransformation(extent={{-310,-62},{-270,-22}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+
 equation
-  connect(ref.ports[1], pum.port_a) annotation (Line(points={{-1.33333,-60},{
-          -80,-60},{-80,-40},{-70,-40}},
+  connect(ref.ports[1], pum.port_a) annotation (Line(points={{-1.33333,-60},{-80,
+          -60},{-80,-40},{-70,-40}},
                             color={0,127,255}));
   connect(pum.port_b, con.port_a1)
     annotation (Line(points={{-50,-40},{24,-40},{24,10}},
@@ -117,12 +137,6 @@ equation
           40},{36,29.8}}, color={0,127,255}));
   connect(fraLoa.y, loa.u) annotation (Line(points={{-48,80},{0,80},{0,66},{18,66}},
         color={0,0,127}));
-  connect(bus, con.bus) annotation (Line(
-      points={{0,20},{20,20}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(ope.y, bus.yVal)
-    annotation (Line(points={{-48,20},{0,20}},        color={0,0,127}));
   connect(pum.port_b, con1.port_a1)
     annotation (Line(points={{-50,-40},{64,-40},{64,10}},
                                                       color={0,127,255}));
@@ -135,15 +149,20 @@ equation
           {80,40},{80,60}}, color={0,127,255}));
   connect(fraLoa.y, loa1.u) annotation (Line(points={{-48,80},{50,80},{50,66},{58,
           66}}, color={0,0,127}));
-  connect(bus1.yVal, ope1.y) annotation (Line(
-      points={{0,0},{-19,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus1, con1.bus) annotation (Line(
-      points={{0,0},{60,0},{60,20}},
-      color={255,204,51},
-      thickness=0.5));
-   annotation (    experiment(
+  connect(ope.y, con.y) annotation (Line(points={{-48,40},{-40,40},{-40,20},{18,
+          20}}, color={0,0,127}));
+  connect(ope1.y, con1.y) annotation (Line(points={{-49,0},{50,0},{50,20},{58,20}},
+        color={0,0,127}));
+   annotation (experiment(
     StopTime=100,
-    Tolerance=1e-6));
+    Tolerance=1e-6),
+    __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/Examples/ControlValves/ThreeWayOpenLoop.mos"
+    "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+Secondary and valve flow resistances are not lumped in order 
+to compute valve authority
+</p> 
+</html>"));
 end ThreeWayOpenLoop;

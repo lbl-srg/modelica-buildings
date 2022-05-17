@@ -290,6 +290,8 @@ equation
 <ul>
 <li>
 Heat exchanger modeled in steady-state by default
+(dynamics may be modeled with the parameter 
+<code>energyDynamics</code>)
 </li>
 <li>
 Zero pressure drop on load side and source side

@@ -37,24 +37,18 @@ equation
     annotation (Line(points={{60,-10},{60,-40}}, color={0,127,255}));
   connect(bal1.port_b, port_b1)
     annotation (Line(points={{60,-60},{60,-100}}, color={0,127,255}));
-  connect(bus.yVal, val.y) annotation (Line(
-      points={{-100,0},{-26,0},{-26,2.10942e-15},{48,2.10942e-15}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(port_b2, port_a1)
     annotation (Line(points={{-60,100},{-60,-100}}, color={0,127,255}));
+  connect(y, val.y)
+    annotation (Line(points={{-120,0},{48,0}}, color={0,0,127}));
+
   annotation (
     defaultComponentName="con",
-    Icon(
-    graphics={
-    Bitmap(
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+      Bitmap(
       extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Throttle.svg")}),                                                                                                       Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Throttle.svg")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 

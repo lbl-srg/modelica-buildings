@@ -81,12 +81,12 @@ than at design conditions. Such high pressure differential affects
 the same factor. 
 Therefore, the valve authority <i>&beta;</i> remains the same.
 However, the rate of change of the flow rate with respect to the valve 
-opening is increased and the controllability is degraded, which
+opening is increased and the controllability is potentially degraded, which
 is not captured by the conventional definition of the authority.
 The concept of \"practical authority\" is introduced to overcome
 that limitation.
 It is defined as the ratio of the pressure differential at fully
-open conditions <i>and</i> design flow rate to the maximum
+open conditions <i>and design flow rate</i> to the maximum
 pressure differential corresponding to fully closed conditions.
 </p>
 <p>
@@ -95,8 +95,8 @@ pressure differential corresponding to fully closed conditions.
 </i>
 </p>
 <p>
-The two variables are related by the square of the ratio of the actual flow
-rate to the design flow rate.
+The two definitions of the authority are related by the square of the ratio 
+of the actual flow rate to the design flow rate.
 </p>
 <p>
 <i>
@@ -124,7 +124,7 @@ Therefore, all configurations that include three-way valves integrate
 them in a mixing arrangement, even when they perfom a diverting function
 such as 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion/a>
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion</a>.
 </p>
 
 <h5>

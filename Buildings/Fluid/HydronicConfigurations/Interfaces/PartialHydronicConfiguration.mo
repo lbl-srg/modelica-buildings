@@ -88,16 +88,11 @@ model PartialHydronicConfiguration
     "Secondary return port"
     annotation (Placement(transformation(extent={{-50,90},{-70,110}}),
         iconTransformation(extent={{-50,90},{-70,110}})));
-  Bus bus
-    "Control bus"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-100,0}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-100,0})));
-
+  Controls.OBC.CDL.Interfaces.RealInput y
+    "Input control signal"
+    annotation (
+      Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Medium.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
@@ -165,10 +160,19 @@ protected
     Medium.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
 
-
-  annotation (Icon(graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={175,175,175},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+  annotation (
+    Icon(
+      coordinateSystem(preserveAspectRatio=false),
+      extent={{-100,-100},{100,100}},
+      graphics={Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={175,175,175},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-149,-114},{151,-154}},
+          textColor={0,0,255},
+          textString="%name")}),
+    Diagram(
+      coordinateSystem(preserveAspectRatio=false)));
 end PartialHydronicConfiguration;

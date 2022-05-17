@@ -23,14 +23,6 @@ model TwoWayOpenLoop
     nPorts=6)
     "Pressure boundary condition at return"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Actuators.Valves.TwoWayEqualPercentage valAut100(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=mLiq_flow_nominal,
-    final dpValve_nominal=dp_nominal,
-    use_inputFilter=false) "Control valve with 100% authority"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-100,-20})));
   Controls.OBC.CDL.Continuous.Sources.Ramp ope(duration=100)
     "Valve opening signal"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
@@ -140,15 +132,16 @@ model TwoWayOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={120,-60})));
+  Actuators.Valves.TwoWayEqualPercentage valAut100(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=1*dp_nominal,
+    use_inputFilter=false) "Control valve with 100% authority" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-100,-20})));
 equation
-  connect(sup.ports[1], valAut100.port_a) annotation (Line(points={{-120,58.5},
-          {-100,58.5},{-100,-10}},color={0,127,255}));
-  connect(ope.y, valAut100.y)
-    annotation (Line(points={{-118,100},{-80,100},{-80,-20},{-88,-20}},
-                                                          color={0,0,127}));
-  connect(valAut100.port_b, ret.ports[1]) annotation (Line(points={{-100,-30},{
-          -100,-81.6667},{-120,-81.6667}},
-                              color={0,127,255}));
   connect(sup.ports[2], ter50.port_a)
     annotation (Line(points={{-120,59.5},{-20,59.5},{-20,30}},
                                                         color={0,127,255}));
@@ -198,6 +191,12 @@ equation
           -80},{0,-80},{0,-78.3333},{-120,-78.3333}}, color={0,127,255}));
   connect(ope.y, valAut33Bal.y) annotation (Line(points={{-118,100},{140,100},{
           140,-20},{132,-20}}, color={0,0,127}));
+  connect(sup.ports[1], valAut100.port_a) annotation (Line(points={{-120,58.5},
+          {-110,58.5},{-110,62},{-100,62},{-100,-10}}, color={0,127,255}));
+  connect(valAut100.port_b, ret.ports[1]) annotation (Line(points={{-100,-30},{
+          -100,-81.6667},{-120,-81.6667}}, color={0,127,255}));
+  connect(ope.y, valAut100.y) annotation (Line(points={{-118,100},{-80,100},{-80,
+          -20},{-88,-20}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})),
   experiment(

@@ -69,14 +69,8 @@ equation
     annotation (Line(points={{-50,0},{50,0}}, color={0,127,255}));
   connect(jun.port_2, port_b2)
     annotation (Line(points={{-60,10},{-60,100}}, color={0,127,255}));
-  connect(bus.yVal, val.y) annotation (Line(
-      points={{-100,0},{-80,0},{-80,20},{80,20},{80,0},{72,0}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  connect(y, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,20},{80,20},
+          {80,0},{72,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(
