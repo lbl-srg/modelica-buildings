@@ -13,7 +13,7 @@ model RealToInteger
 
 equation
   connect(ramp1.y,reaToInt.u)
-    annotation (Line(points={{-38,0},{28,0}},color={0,0,127}));
+    annotation (Line(points={{-39,0},{28,0}},color={0,0,127}));
   annotation (
     experiment(
       StopTime=1.0,
