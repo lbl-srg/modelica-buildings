@@ -15,19 +15,16 @@ import shutil
 
 # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
-# The setup below will lead to a specific commit being pulled.
+# The setup below will lead to a specific commits being pulled.
 
+###########################################################################
 # List of all spawn versions and commits that are supported
 # by the Buildings library
 spawn_dists = [
     {"version": "0.3.0",
      "commit": "59ed8c72e47b646e71a3c4d1add8946968a333b2"}
 ]
-#version = "0.3.0"
-#commit = "59ed8c72e47b646e71a3c4d1add8946968a333b2"
-#NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
-
-
+###########################################################################
 
 def log(msg):
     print(msg)
@@ -48,37 +45,63 @@ def download_distribution(dis):
 
 
 def install_distribution_inside_buildings_library(dis):
+    import glob
+
     des_dir = os.path.join(get_bin_directory(), dis["des"])
+    if os.path.exists(des_dir):
+        shutil.rmtree(des_dir)
+
     tar_fil = os.path.basename(dis["src"])
 
+    delete_tar = False
 
-    log("Extracting {}".format(tar_fil))
+    #log("Extracting {}".format(tar_fil))
     if tar_fil.endswith(".zip"):
         # Make a tar.gz out of it.
         with tempfile.TemporaryDirectory(prefix="tmp-Buildings-inst") as zip_dir:
             with zipfile.ZipFile(tar_fil, "r") as zip_ref:
                 zip_ref.extractall(zip_dir)
-            new_name = tar_fil[:-3] + ".tar.gz"
+            curDir = os.path.abspath(os.path.curdir)
+            new_name = os.path.join(curDir, tar_fil[:-3] + "tar.gz")
+            os.chdir(zip_dir)
             with tarfile.open(new_name, "w") as t:
-                t.add(zip_dir)
-        os.remove(tar_fil)
+                t.add(".")
+            os.chdir(curDir)
+        delete_tar = True # At end, delete the zip file
         tar_fil = new_name
 
+    # Extract files
     tar = tarfile.open(tar_fil)
-    tar.extractall(tar_fil)
-    spawn_dir = (os.path.basename(tar_file)).split('.')[0]
+    with tempfile.TemporaryDirectory(prefix="tmp-Buildings-inst-") as tar_dir:
 
-    os.rename(spawn_dir, des_dir)
-    log(f"Wrote {os.path.join(des_dir, spawn_dir)}")
+        tar.extractall(tar_dir)
+        src = os.path.join(tar_dir, os.path.basename(tar_fil[0:-7]))
 
-def get_vars_as_json(spawnFlag, spawn_exe):
+        # Move files
+        if not os.path.exists(des_dir):
+            os.makedirs(des_dir, exist_ok=True)
+        for file in os.listdir(src):
+            file_name = os.path.join(src, file)
+            shutil.move(file_name, des_dir)
+
+    # Delete created tar.gz file
+    if delete_tar:
+        os.remove(tar_fil)
+
+    print(f"Wrote {des_dir}")
+
+def delete_installers(dis):
+    tar_fil = os.path.basename(dis["src"])
+    os.remove(tar_fil)
+
+def get_vars_as_json(spawnFlag, spawn_dir, spawn_exe):
     """Return a json structure that contains the output variables supported by spawn"""
     import os
     import subprocess
     import json
 
     bin_dir = get_bin_directory()
-    spawn = os.path.join(bin_dir, f"spawn-{version}-{commit[0:10]}", "linux64", "bin", spawn_exe)
+    spawn = os.path.join(bin_dir, spawn_dir, "linux64", "bin", spawn_exe)
 
     ret = subprocess.run([spawn, spawnFlag], stdout=subprocess.PIPE, check=True)
     vars = json.loads(ret.stdout)
@@ -103,12 +126,12 @@ def get_html_table(allVars, template_name):
     return html
 
 
-def replace_table_in_mo(html, varType, moFile):
+def replace_table_in_mo(html, varType, moFile, spawn_dir):
     """Replaces in the .mo file the table with the output variables"""
     import os
     import re
 
-    energyPlus_version_dash = _getEnergyPlusVersion().replace('.', '_')
+    energyPlus_version_dash = _getEnergyPlusVersion(spawn_dir).replace('.', '_')
 
     mo_name = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
@@ -144,14 +167,14 @@ def replace_table_in_mo(html, varType, moFile):
         mo_fil.write(mo_new)
 
 
-def _getEnergyPlusVersion():
+def _getEnergyPlusVersion(spawn_dir):
     """ Return the EnergyPlus version in the form 9.6.0
     """
     spawn_name = f"spawn-{version}-{commit[0:10]}"
     idd = os.path.abspath( \
             os.path.join(__file__, \
                 os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
-                "Buildings", "Resources", "bin", spawn_name, "linux64", "etc", "Energy+.idd"))
+                "Buildings", "Resources", "bin", spawn_dir, "linux64", "etc", "Energy+.idd"))
 
     prefix="!IDD_Version "
     with open(idd, 'r') as f:
@@ -163,11 +186,11 @@ def _getEnergyPlusVersion():
 
     raise ValueError("Failed to find EnergyPlus version.")
 
-def update_version_in_modelica_file(spawn_exe):
+def update_version_in_modelica_files(spawn_dir, spawn_exe):
     import os
     import re
 
-    energyPlus_version = _getEnergyPlusVersion()
+    energyPlus_version = _getEnergyPlusVersion(spawn_dir)
     ep_package = f"EnergyPlus_{energyPlus_version}".replace('.', '_')
 
     for rel_file in [\
@@ -186,10 +209,32 @@ def update_version_in_modelica_file(spawn_exe):
         with open (abs_file, 'r' ) as f:
             content = f.read()
         content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", f"{spawn_exe}", content)
+        content = re.sub(r"Spawn-light-\d+.\d+.\d+-.{10}", f"{spawn_dir}", content)
         content = re.sub(r"EnergyPlus \d+.\d+.\d+", f"EnergyPlus {energyPlus_version}", content)
 
         with open(abs_file, 'w' ) as f:
             f.write(content)
+
+
+def update_actuator_output_tables(spawn_dir, spawn_exe):
+    vars = [
+        {
+            "spawnFlag": "--output-vars",
+            "htmlTemplate": "output_vars_template.html",
+            "varType": "output variables",
+            "moFile": "OutputVariable.mo"
+        },
+        {
+            "spawnFlag": "--actuators",
+            "htmlTemplate": "actuators_template.html",
+            "varType": "actuators",
+            "moFile": "Actuator.mo"
+        },
+    ]
+    for v in vars:
+        js = get_vars_as_json(v["spawnFlag"], spawn_dir, spawn_exe)
+        html = get_html_table(js, v["htmlTemplate"])
+        replace_table_in_mo(html, v["varType"], v["moFile"], spawn_dir)
 
 
 #def update_git(spawn_exe):
@@ -227,10 +272,13 @@ if __name__ == "__main__":
     # Build list of distributions
     dists = list()
     for spawn_dist in spawn_dists:
+        version = spawn_dist['version']
+        commit = spawn_dist['commit']
         dists.append(
            {
                 "src": f"https://spawn.s3.amazonaws.com/builds/Spawn-light-{version}-{commit[0:10]}-Linux.tar.gz",
                 "des": f"Spawn-light-{version}-{commit[0:10]}/linux64",
+                "spawn_dir": f"Spawn-light-{version}-{commit[0:10]}",
                 "spawn_exe": f"spawn-{version}-{commit[0:10]}",
             }
         )
@@ -242,37 +290,25 @@ if __name__ == "__main__":
             }
         )
 
-    print(dists)
-    sys.exit(1)
-
     p = Pool(2)
     p.map(download_distribution, dists)
-    p.map(install_distribution_inside_buildings_library, dists)
+    for dist in dists:
+        install_distribution_inside_buildings_library(dist)
+        delete_installers(dist)
+
+        # Update version in
+        # constant String spawnExe="spawn-0.2.0-d7f1e095f3" ...
+        # The version number needs to be only updated for Linux as Windows uses the same .mo files
+        if "Linux" in dist["src"]:
+            update_version_in_modelica_files(
+                spawn_dir = dist["spawn_dir"],
+                spawn_exe = dist["spawn_exe"])
+        # Update the table with supported output variables and actuator names
+        if "Linux" in dist["src"]:
+            update_actuator_output_tables(
+                spawn_dir = dist["spawn_dir"],
+                spawn_exe = dist["spawn_exe"])
 
 
-
-    # Update version in
-    # constant String spawnExe="spawn-0.2.0-d7f1e095f3" ...
-    # in Building.mo
-    update_version_in_modelica_file(spawn_exe)
     # Remove old binaries and add new binaries to git
     #update_git(spawn_exe)
-
-    vars = [
-        {
-            "spawnFlag": "--output-vars",
-            "htmlTemplate": "output_vars_template.html",
-            "varType": "output variables",
-            "moFile": "OutputVariable.mo"
-        },
-        {
-            "spawnFlag": "--actuators",
-            "htmlTemplate": "actuators_template.html",
-            "varType": "actuators",
-            "moFile": "Actuator.mo"
-        },
-    ]
-    for v in vars:
-        js = get_vars_as_json(v["spawnFlag"], spawn_exe)
-        html = get_html_table(js, v["htmlTemplate"])
-        replace_table_in_mo(html, v["varType"], v["moFile"])
