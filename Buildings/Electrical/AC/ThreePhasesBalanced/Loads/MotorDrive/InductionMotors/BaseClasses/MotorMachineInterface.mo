@@ -18,29 +18,34 @@ model MotorMachineInterface
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40}),
-                         iconTransformation(
+        iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40})));
-  Modelica.Blocks.Interfaces.RealInput f(final quantity="Frequency", final unit="Hz")
+  Modelica.Blocks.Interfaces.RealInput f(final quantity="Frequency",
+    final unit="Hz")
     "Controllable freuqency to the motor"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,0}), iconTransformation(
+        origin={-120,0}),
+        iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,0})));
-  Modelica.Blocks.Interfaces.RealInput omega_r(final quantity="AngularVelocity", final unit="rad/s")
+  Modelica.Blocks.Interfaces.RealInput omega_r(final quantity="AngularVelocity",
+    final unit="rad/s")
     "Prescribed rotational speed of rotor"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-40}), iconTransformation(
+        origin={-120,-40}),
+        iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-40})));
-  Modelica.Blocks.Interfaces.RealOutput tau_e(final quantity="Torque", final unit="N.m")
+  Modelica.Blocks.Interfaces.RealOutput tau_e(final quantity="Torque",
+    final unit="N.m")
     "Electromagenetic torque of rotor"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -53,21 +58,23 @@ equation
   omega_s = 4*Modelica.Constants.pi*f/pole;
   s = if noEvent(omega_s>0) then 1-omega_r/omega_s else 0;
   ratio = X_m/(X_m+X_s);
-  tau_e = if noEvent(omega_s>0) then n*R_r*s*(V_rms*ratio)^2/(omega_s*(((s*R_s*ratio^2+R_r)^2)+s^2*(X_s+X_r)^2)) else 0;
+  tau_e = if noEvent(omega_s>0)
+  then n*R_r*s*(V_rms*ratio)^2/(omega_s*(((s*R_s*ratio^2+R_r)^2)+s^2*(X_s+X_r)^2))
+  else 0;
 
-  annotation (defaultComponentName="torSpe",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true), graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
+          fillPattern=FillPattern.Solid),
+          Text(
           extent={{-82,162},{82,116}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
-          textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+          textString="%name")}),
+          defaultComponentName="torSpe",
     Documentation(info="<html>
 <p>
 This block is to implement equations of the simplified model of squirrel cage type 

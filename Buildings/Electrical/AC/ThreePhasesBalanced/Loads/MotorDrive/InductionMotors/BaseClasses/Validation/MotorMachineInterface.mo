@@ -24,12 +24,12 @@ model MotorMachineInterface "This model validates the MotorMachineInterface"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
 equation
-  connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-59,30},{-20,30},{-20,
-          4},{-12,4}}, color={0,0,127}));
-  connect(ramp.y, torSpe.omega_r) annotation (Line(points={{-59,-30},{-20,-30},{
-          -20,-4},{-12,-4}}, color={0,0,127}));
-  connect(fSou.y, torSpe.f)
-    annotation (Line(points={{-59,0},{-12,0}}, color={0,0,127}));
+  connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-59,30},{-20,30},
+          {-20,4},{-12,4}}, color={0,0,127}));
+  connect(ramp.y, torSpe.omega_r) annotation (Line(points={{-59,-30},{-20,-30},
+          {-20,-4},{-12,-4}}, color={0,0,127}));
+  connect(fSou.y, torSpe.f) annotation (Line(points={{-59,0},{-12,0}},
+          color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/BaseClasses/Validations/MotorMachineInterface.mos"
         "Simulate and plot"),

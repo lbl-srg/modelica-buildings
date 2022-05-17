@@ -13,7 +13,7 @@ model Pump
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,60},{80,80}})));
+    Placement(transformation(extent={{60,60},{80,80}})));
 
   Modelica.Units.SI.Torque tauPum "Pump torque";
 
@@ -29,8 +29,7 @@ model Pump
   Modelica.Mechanics.Rotational.Components.Inertia ine(final J=loaIne,
     phi(fixed=true, start=0), w(fixed=true, start=0))
     "Pump inertia"
-    annotation (
-      Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,80})));
@@ -42,8 +41,7 @@ model Pump
         rotation=180,
         origin={-70,90})));
   Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
-    annotation (Placement(transformation(extent={{10,50},
-            {30,70}})));
+    annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
     annotation (Placement(transformation(extent={{30,20},{10,40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
@@ -62,29 +60,30 @@ model Pump
 equation
   pum.P = tauPum*Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8);
 
-  connect(port_a, pum.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pum.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-70},{
-          -60,-70},{-60,-100}}, color={191,0,0}));
-  connect(shaft, ine.flange_b) annotation (Line(points={{0,100},{0,90}}, color={0,0,0}));
-  connect(tor.flange, ine.flange_a)
-    annotation (Line(points={{-20,70},{0,70}}, color={0,0,0}));
+  connect(port_a, pum.port_a) annotation (Line(points={{-100,0},{-10,0}},
+          color={0,127,255}));
+  connect(pum.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
+          color={0,127,255}));
+  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-70},
+          {-60,-70},{-60,-100}}, color={191,0,0}));
+  connect(shaft, ine.flange_b) annotation (Line(points={{0,100},{0,90}},
+          color={0,0,0}));
+  connect(tor.flange, ine.flange_a) annotation (Line(points={{-20,70},{0,70}},
+          color={0,0,0}));
   connect(tauSor.y, tor.tau) annotation (Line(points={{-59,90},{-50,90},{-50,70},
           {-42,70}}, color={0,0,127}));
-  connect(ine.flange_a, spe.flange) annotation (Line(points={{0,70},{0,60},{10,60}}, color={0,0,0}));
-  connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,30},{32,
-          30}}, color={0,0,127}));
-  connect(to_rpm.y, pum.Nrpm)
-    annotation (Line(points={{9,30},{0,30},{0,12}}, color={0,0,127}));
+  connect(ine.flange_a, spe.flange) annotation (Line(points={{0,70},{0,60},{10,60}},
+          color={0,0,0}));
+  connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,30},
+          {32,30}}, color={0,0,127}));
+  connect(to_rpm.y, pum.Nrpm) annotation (Line(points={{9,30},{0,30},{0,12}},
+          color={0,0,127}));
   connect(pum.P, P) annotation (Line(points={{11,9},{90,9},{90,90},{110,90}},
-        color={0,0,127}));
+          color={0,0,127}));
   connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{92,7},{92,70},
           {110,70}}, color={0,0,127}));
-  annotation (defaultComponentName="pum",
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},
           lineColor={0,0,0},
@@ -125,12 +124,9 @@ equation
           points={{0,90},{0,70}},
           color={0,0,0},
           smooth=Smooth.None),
-        Text(extent={{50,104},{100,90}},
-          textColor={0,0,127},
-          textString="P"),
-        Text(extent={{50,84},{100,70}},
-          textColor={0,0,127},
-          textString="y_actual")}),
+        Text(extent={{50,104},{100,90}},textColor={0,0,127},textString="P"),
+        Text(extent={{50,84},{100,70}},textColor={0,0,127},textString="y_actual")}),
+        defaultComponentName="pum",
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with mechanical imterface and uses 

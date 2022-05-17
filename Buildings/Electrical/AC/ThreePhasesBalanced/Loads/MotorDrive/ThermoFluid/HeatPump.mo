@@ -83,8 +83,7 @@ model HeatPump "Heat pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(final J=loaIne,
     phi(fixed=true, start=0), w(fixed=true, start=0)) "Heat pump inertia"
-    annotation (
-      Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,80})));
@@ -96,8 +95,7 @@ model HeatPump "Heat pump with mechanical interface"
         rotation=180,
         origin={-70,90})));
   Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
-    annotation (Placement(transformation(extent={{10,50},
-            {30,70}})));
+    annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(final nu=3)
@@ -106,7 +104,8 @@ model HeatPump "Heat pump with mechanical interface"
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     "Speed normalization"
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate", final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
+    final unit="W")
     "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
@@ -114,7 +113,8 @@ model HeatPump "Heat pump with mechanical interface"
     "Electric power consumed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate", final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
+    final unit="W")
     "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
@@ -149,43 +149,41 @@ protected
 equation
   heaPum.P = Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8)*tauHea;
 
-  connect(port_a1, heaPum.port_a1) annotation (Line(points={{-100,60},{-60,60},{
-          -60,6},{-10,6}}, color={0,127,255}));
-  connect(port_b1, heaPum.port_b1) annotation (Line(points={{100,60},{60,60},{60,
-          6},{10,6}}, color={0,127,255}));
+  connect(port_a1, heaPum.port_a1) annotation (Line(points={{-100,60},{-60,60},
+          {-60,6},{-10,6}}, color={0,127,255}));
+  connect(port_b1, heaPum.port_b1) annotation (Line(points={{100,60},{60,60},
+          {60,6},{10,6}}, color={0,127,255}));
   connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{-60,-60},
           {-60,-6},{-10,-6}}, color={0,127,255}));
-  connect(port_a2, heaPum.port_a2) annotation (Line(points={{100,-60},{60,-60},{
-          60,-6},{10,-6}}, color={0,127,255}));
+  connect(port_a2, heaPum.port_a2) annotation (Line(points={{100,-60},{60,-60},
+          {60,-6},{10,-6}}, color={0,127,255}));
   connect(tauSor.y, tor.tau) annotation (Line(points={{-59,90},{-50,90},{-50,70},
           {-42,70}}, color={0,0,127}));
   connect(ine.flange_a,spe. flange) annotation (Line(points={{-1.77636e-15,70},
-          {-1.77636e-15,60},{10,60}},                                                color={0,0,0}));
-  connect(ine.flange_a, tor.flange)
-    annotation (Line(points={{-1.77636e-15,70},{-20,70}}, color={0,0,0}));
-  connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,40},{12,
-          40}}, color={0,0,127}));
-  connect(to_rpm.y, gaiSpe.u)
-    annotation (Line(points={{-11,40},{-18,40}}, color={0,0,127}));
-  connect(shaft, ine.flange_b)
-    annotation (Line(points={{0,100},{0,90}}, color={0,0,0}));
-  connect(multiProduct.y, heaPum.y) annotation (Line(points={{-81.02,40},{-90,
-          40},{-90,9},{-12,9}}, color={0,0,127}));
+          {-1.77636e-15,60},{10,60}}, color={0,0,0}));
+  connect(ine.flange_a, tor.flange) annotation (Line(points={{-1.77636e-15,70},
+          {-20,70}}, color={0,0,0}));
+  connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,40},
+          {12,40}}, color={0,0,127}));
+  connect(to_rpm.y, gaiSpe.u) annotation (Line(points={{-11,40},{-18,40}},
+          color={0,0,127}));
+  connect(shaft, ine.flange_b) annotation (Line(points={{0,100},{0,90}},
+          color={0,0,0}));
+  connect(multiProduct.y, heaPum.y) annotation (Line(points={{-81.02,40},{-90,40},
+          {-90,9},{-12,9}}, color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[1]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,38.6},{-68,38.6}},     color={0,0,127}));
-  connect(gaiSpe.y, multiProduct.u[2]) annotation (Line(points={{-41,40},{-50,
-          40},{-50,40},{-68,40}}, color={0,0,127}));
+          {-50,38.6},{-68,38.6}}, color={0,0,127}));
+  connect(gaiSpe.y, multiProduct.u[2]) annotation (Line(points={{-41,40},{-50,40},
+          {-50,40},{-68,40}}, color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[3]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,41.4},{-68,41.4}},     color={0,0,127}));
-  connect(heaPum.P, P)
-    annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-  connect(heaPum.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{50,9},{
-          50,90},{110,90}}, color={0,0,127}));
+          {-50,41.4},{-68,41.4}}, color={0,0,127}));
+  connect(heaPum.P, P) annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
+  connect(heaPum.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{50,9},
+          {50,90},{110,90}}, color={0,0,127}));
   connect(heaPum.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{50,-9},
           {50,-90},{110,-90}}, color={0,0,127}));
-  annotation (defaultComponentName = "hea",
-  Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),       graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -265,12 +263,11 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(points={{0,90},{0,36},{0,2},{18,2}},color={0,0,255}),
-        Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},
-                                                 color={0,0,255}),
-        Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255}),
-        Line(points={{62,0},{100,0}},                 color={0,0,255}),
-        Text(extent={{70,24},{120,10}},   textString="P",
-          textColor={0,0,127})}),
+        Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},color={0,0,255}),
+        Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255}),
+        Line(points={{62,0},{100,0}},color={0,0,255}),
+        Text(extent={{70,24},{120,10}}, textString="P", textColor={0,0,127})}),
+        defaultComponentName = "hea",
         Documentation(info="<html>
 <p>
 This model describes a heat pump with mechanical imterface and uses 

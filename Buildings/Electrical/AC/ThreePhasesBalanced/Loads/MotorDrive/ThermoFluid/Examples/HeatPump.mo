@@ -69,24 +69,20 @@ model HeatPump "This example shows how to use the heat pump with mechanical inte
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 
 equation
-  connect(TCon_in.y,sou1. T_in) annotation (Line(
-      points={{-79,10},{-62,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TEva_in.y,sou2. T_in) annotation (Line(
-      points={{61,-50},{70,-50},{70,-2},{62,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(TCon_in.y,sou1. T_in) annotation (Line(points={{-79,10},{-62,10}},
+          color={0,0,127}, smooth=Smooth.None));
+  connect(TEva_in.y,sou2. T_in) annotation (Line(points={{61,-50},{70,-50},
+          {70,-2},{62,-2}}, color={0,0,127}, smooth=Smooth.None));
   connect(sou1.ports[1],hea. port_a1) annotation (Line(points={{-40,6},{-10,6}},
-                            color={0,127,255}));
+          color={0,127,255}));
   connect(hea.port_a2, sou2.ports[1]) annotation (Line(points={{10,-6},{40,-6}},
-                              color={0,127,255}));
+          color={0,127,255}));
   connect(hea.port_b2, sin2.ports[1]) annotation (Line(points={{-10,-6},{-20,-6},
           {-20,-30},{-40,-30}}, color={0,127,255}));
-  connect(hea.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},{20,
-          30},{40,30}},    color={0,127,255}));
-  connect(torSou.flange,hea. shaft)
-    annotation (Line(points={{-20,70},{0,70},{0,10}}, color={0,0,0}));
+  connect(hea.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},
+          {20,30},{40,30}}, color={0,127,255}));
+  connect(torSou.flange,hea. shaft) annotation (Line(points={{-20,70},{0,70},
+          {0,10}}, color={0,0,0}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/HeatPump.mos"
         "Simulate and plot"),

@@ -86,8 +86,7 @@ model Chiller "Chiller with mechanical interface"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(final J=loaIne,
     phi(fixed=true, start=0), w(fixed=true, start=0)) "Chiller inertia"
-    annotation (
-      Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,80})));
@@ -99,8 +98,7 @@ model Chiller "Chiller with mechanical interface"
         rotation=180,
         origin={-70,90})));
   Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
-    annotation (Placement(transformation(extent={{10,50},
-            {30,70}})));
+    annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(final nu=3)
@@ -109,7 +107,8 @@ model Chiller "Chiller with mechanical interface"
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     "Speed normalization"
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate", final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
+    final unit="W")
     "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
@@ -117,7 +116,8 @@ model Chiller "Chiller with mechanical interface"
     "Electric power consumed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate", final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
+    final unit="W")
     "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
@@ -152,46 +152,41 @@ protected
 equation
   chi.P = tauChi*Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8);
 
-  connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-60,60},{
-          -60,6},{-10,6}},
-                       color={0,127,255}));
-  connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-60,-60},{
-          -60,-6},{-10,-6}},
-                         color={0,127,255}));
-  connect(chi.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
-          -60},{100,-60}},
-                      color={0,127,255}));
+  connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-60,60},
+          {-60,6},{-10,6}}, color={0,127,255}));
+  connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-60,-60},
+          {-60,-6},{-10,-6}}, color={0,127,255}));
+  connect(chi.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},
+          {60,-60},{100,-60}}, color={0,127,255}));
   connect(chi.port_b1, port_b1) annotation (Line(points={{10,6},{60,6},{60,60},
-          {100,60}},
-                color={0,127,255}));
+          {100,60}}, color={0,127,255}));
   connect(shaft,ine. flange_b) annotation (Line(points={{0,100},{1.77636e-15,100},
-          {1.77636e-15,90}},                                             color={0,0,0}));
+          {1.77636e-15,90}}, color={0,0,0}));
   connect(tauSor.y, tor.tau) annotation (Line(points={{-59,90},{-50,90},{-50,70},
           {-42,70}}, color={0,0,127}));
-  connect(ine.flange_a,spe. flange) annotation (Line(points={{-1.77636e-15,70},{
-          -1.77636e-15,60},{10,60}},                                                 color={0,0,0}));
-  connect(ine.flange_a, tor.flange)
-    annotation (Line(points={{-1.83187e-15,70},{-20,70}}, color={0,0,0}));
-  connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,40},{12,
-          40}}, color={0,0,127}));
-  connect(to_rpm.y, gaiSpe.u)
-    annotation (Line(points={{-11,40},{-18,40}}, color={0,0,127}));
+  connect(ine.flange_a,spe. flange) annotation (Line(points={{-1.77636e-15,70},
+          {-1.77636e-15,60},{10,60}}, color={0,0,0}));
+  connect(ine.flange_a, tor.flange) annotation (Line(points={{-1.83187e-15,70},
+          {-20,70}}, color={0,0,0}));
+  connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,40},
+          {12,40}}, color={0,0,127}));
+  connect(to_rpm.y, gaiSpe.u) annotation (Line(points={{-11,40},{-18,40}},
+          color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[1]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,38.6},{-68,38.6}},     color={0,0,127}));
+          {-50,38.6},{-68,38.6}}, color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[2])
     annotation (Line(points={{-41,40},{-68,40}}, color={0,0,127}));
   connect(gaiSpe.y, multiProduct.u[3]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,41.4},{-68,41.4}},     color={0,0,127}));
+          {-50,41.4},{-68,41.4}}, color={0,0,127}));
   connect(multiProduct.y, chi.y) annotation (Line(points={{-81.02,40},{-90,40},
-          {-90,9},{-12,9}},color={0,0,127}));
+          {-90,9},{-12,9}}, color={0,0,127}));
   connect(chi.P, P) annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-  connect(chi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{50,9},{50,
-          90},{110,90}}, color={0,0,127}));
-  connect(chi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{50,-9},{
-          50,-90},{110,-90}}, color={0,0,127}));
-  annotation (defaultComponentName = "Chi",
-  Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),       graphics={
+  connect(chi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{50,9},
+          {50,90},{110,90}}, color={0,0,127}));
+  connect(chi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{50,-9},
+          {50,-90},{110,-90}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -271,12 +266,11 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(points={{0,90},{0,36},{0,2},{18,2}},color={0,0,255}),
-        Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},
-                                                 color={0,0,255}),
-        Line(points={{62,0},{100,0}},                 color={0,0,255}),
-        Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255}),
-        Text(extent={{70,24},{120,10}},   textString="P",
-          textColor={0,0,127})}),
+        Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},color={0,0,255}),
+        Line(points={{62,0},{100,0}},color={0,0,255}),
+        Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255}),
+        Text(extent={{70,24},{120,10}},textString="P",textColor={0,0,127})}),
+        defaultComponentName = "Chi",
         Documentation(info="<html>
 <p>
 This model describes a chiller with mechanical imterface and uses 

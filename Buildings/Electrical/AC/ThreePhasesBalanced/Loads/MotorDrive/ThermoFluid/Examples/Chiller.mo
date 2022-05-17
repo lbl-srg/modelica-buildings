@@ -56,38 +56,35 @@ model Chiller "This example shows how to use the chiller with mechanical interfa
     chi(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))
     "Chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(useSupport=false,
-                                                              tau_constant=tau)
+  Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(
+    useSupport=false,
+    tau_constant=tau)
     "Torque input"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = MediumW,
-      nPorts=1)
+    nPorts=1)
     "Sink 2"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumW,
-      nPorts=1)
+    nPorts=1)
     "Sink 1"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 
 equation
-  connect(TCon_in.y,sou1. T_in) annotation (Line(
-      points={{-79,10},{-62,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TEva_in.y,sou2. T_in) annotation (Line(
-      points={{61,-50},{70,-50},{70,-2},{62,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(TCon_in.y,sou1. T_in) annotation (Line(points={{-79,10},{-62,10}},
+          color={0,0,127}, smooth=Smooth.None));
+  connect(TEva_in.y,sou2. T_in) annotation (Line(points={{61,-50},{70,-50},
+          {70,-2},{62,-2}}, color={0,0,127}, smooth=Smooth.None));
   connect(sou1.ports[1],chi. port_a1) annotation (Line(points={{-40,6},{-10,6}},
-                            color={0,127,255}));
+          color={0,127,255}));
   connect(chi.port_a2, sou2.ports[1]) annotation (Line(points={{10,-6},{40,-6}},
-                              color={0,127,255}));
+          color={0,127,255}));
   connect(sin2.ports[1],chi. port_b2) annotation (Line(points={{-40,-30},{-20,-30},
           {-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},{20,
-          30},{40,30}},    color={0,127,255}));
-  connect(torSou.flange,chi. shaft)
-    annotation (Line(points={{-20,70},{0,70},{0,10}}, color={0,0,0}));
+  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},
+          {20,30},{40,30}}, color={0,127,255}));
+  connect(torSou.flange,chi. shaft) annotation (Line(points={{-20,70},{0,70},
+          {0,10}}, color={0,0,0}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/Chiller.mos"
         "Simulate and plot"),
