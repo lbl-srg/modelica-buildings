@@ -217,7 +217,8 @@ to meet the set point within its work area.
 October 15, 2021, by Mingzhe Liu:<br/>
 Refactored implementation to add mechanical interface and integrate inertia. 
 </li>
-<li>March 6, 2019, by Yangyang Fu:<br/>
+<li>
+March 6, 2019, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

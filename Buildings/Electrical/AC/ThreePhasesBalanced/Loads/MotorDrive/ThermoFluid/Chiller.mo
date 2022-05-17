@@ -307,7 +307,8 @@ with Magnetic-Bearing Variable Speed Chillers.&quot;&nbsp;<i>ASHRAE Transactions
 </p>
 </html>", revisions="<html>
 <ul>
-<li>October 15, 2021, by Mingzhe Liu:<br/>
+<li>
+October 15, 2021, by Mingzhe Liu:<br/>
 First implementation.
 </li>
 </ul>

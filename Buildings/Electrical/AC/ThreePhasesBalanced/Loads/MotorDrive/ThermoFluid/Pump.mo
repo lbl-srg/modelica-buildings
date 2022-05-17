@@ -140,6 +140,7 @@ Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> as a base model.
 <p>
 The governing equation of this implementation is based on the relationship 
 between the power and torque of the rotating object, which is represented as follow:
+</p>
 <p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W
 </p>
 <p>
