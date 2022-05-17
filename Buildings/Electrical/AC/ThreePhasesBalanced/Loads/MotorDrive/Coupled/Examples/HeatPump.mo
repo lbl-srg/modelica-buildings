@@ -66,7 +66,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     X_r=0.464,
     X_m=26.3,
     JLoad=5) "Heat pump"
-             annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=0,
     duration=60,
@@ -74,17 +74,15 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = MediumW,
-      nPorts=1) "Water sink 2"
-                annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    nPorts=1) "Water sink 2"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumW,
-      nPorts=1) "Water sink 1"
-                annotation (Placement(transformation(extent={{100,60},{80,80}})));
+    nPorts=1) "Water sink 1"
+    annotation (Placement(transformation(extent={{100,60},{80,80}})));
 
 equation
-  connect(TCon_in.y,sou1. T_in) annotation (Line(
-      points={{-79,30},{-70,30},{-70,34},{-62,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(TCon_in.y,sou1. T_in) annotation (Line(points={{-79,30},{-70,30},
+          {-70,34},{-62,34}}, color={0,0,127}, smooth=Smooth.None));
   connect(hea.port_a2, sou2.ports[1]) annotation (Line(points={{10,-6},{26,-6},
           {26,-10},{40,-10}}, color={0,127,255}));
   connect(sou1.ports[1], hea.port_a1) annotation (Line(points={{-40,30},{-26,30},
@@ -95,10 +93,10 @@ equation
           {0,32},{0,10}}, color={0,120,120}));
   connect(TSet.y, hea.setPoi) annotation (Line(points={{-39,70},{-24,70},{-24,9},
           {-11,9}}, color={0,0,127}));
-  connect(senTem.T, hea.meaPoi) annotation (Line(points={{50,51},{50,96},{-18,
-          96},{-18,3},{-11,3}}, color={0,0,127}));
-  connect(sou2.T_in, TEva_in.y) annotation (Line(points={{62,-6},{74,-6},{74,
-          -30},{79,-30}}, color={0,0,127}));
+  connect(senTem.T, hea.meaPoi) annotation (Line(points={{50,51},{50,96},
+          {-18,96},{-18,3},{-11,3}}, color={0,0,127}));
+  connect(sou2.T_in, TEva_in.y) annotation (Line(points={{62,-6},{74,-6},
+          {74,-30},{79,-30}}, color={0,0,127}));
   connect(hea.port_b2, sin2.ports[1]) annotation (Line(points={{-10,-6},{-26,-6},
           {-26,-30},{-40,-30}}, color={0,127,255}));
   connect(senTem.port_b, sin1.ports[1]) annotation (Line(points={{60,40},{74,40},

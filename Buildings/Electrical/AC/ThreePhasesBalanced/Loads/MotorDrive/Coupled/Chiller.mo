@@ -166,31 +166,30 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
 
 equation
-  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-60,60},{
-          -60,6},{-10,6}}, color={0,127,255}));
+  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-60,60},
+          {-60,6},{-10,6}}, color={0,127,255}));
   connect(port_b2, mecChi.port_b2) annotation (Line(points={{-100,-60},{-60,-60},
           {-60,-6},{-10,-6}}, color={0,127,255}));
   connect(mecChi.port_b1, port_b1) annotation (Line(points={{10,6},{60,6},{60,60},
           {100,60}}, color={0,127,255}));
-  connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
-          -60},{100,-60}}, color={0,127,255}));
+  connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},
+          {60,-60},{100,-60}}, color={0,127,255}));
   connect(simMot.shaft, mecChi.shaft) annotation (Line(points={{-20,80},{40,80},
           {40,30},{0,30},{0,10}}, color={0,0,0}));
-  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-80,90},{-80,
-          88},{-42,88}},     color={0,0,127}));
+  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-80,90},
+          {-80,88},{-42,88}}, color={0,0,127}));
   connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-80,30},{-80,84},
-          {-42,84}},     color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-21,50},{-60,50},{
-          -60,72},{-42,72}},
-                         color={0,0,127}));
-  connect(simMot.P, P) annotation (Line(points={{-18,88},{80,88},{80,30},{110,
-          30}}, color={0,0,127}));
-  connect(simMot.Q, Q) annotation (Line(points={{-18,84},{80,84},{80,-30},{110,
-          -30}}, color={0,0,127}));
+          {-42,84}}, color={0,0,127}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-21,50},{-60,50},
+          {-60,72},{-42,72}}, color={0,0,127}));
+  connect(simMot.P, P) annotation (Line(points={{-18,88},{80,88},{80,30},
+          {110,30}}, color={0,0,127}));
+  connect(simMot.Q, Q) annotation (Line(points={{-18,84},{80,84},{80,-30},
+          {110,-30}}, color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{-30,90},{-30,100},
-          {0,100}},          color={0,120,120}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),       graphics={
+          {0,100}}, color={0,120,120}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
+            {100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -269,11 +268,11 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{62,0},{80,0}},                  color={0,0,255}),
-        Line(points={{80,30},{100,30}},               color={0,0,255}),
-        Line(points={{80,0},{80,30}},                 color={0,0,255}),
-        Line(points={{80,-30},{100,-30}},             color={0,0,255}),
-        Line(points={{80,-30},{80,0}},                color={0,0,255})}),
+        Line(points={{62,0},{80,0}}, color={0,0,255}),
+        Line(points={{80,30},{100,30}}, color={0,0,255}),
+        Line(points={{80,0},{80,30}}, color={0,0,255}),
+        Line(points={{80,-30},{100,-30}}, color={0,0,255}),
+        Line(points={{80,-30},{80,0}}, color={0,0,255})}),
         defaultComponentName="chi",
     Documentation(info="<html>
 <p>

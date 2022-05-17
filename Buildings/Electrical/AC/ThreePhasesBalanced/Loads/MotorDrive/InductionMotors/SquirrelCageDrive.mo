@@ -54,13 +54,14 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     Ti=60,
     reverseActing=true) if use_PID
     "PI controller as variable frequency control"
-    annotation (Placement(transformation(extent={{-80,-10},
-            {-60,10}})));
-  final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi)) "Supply voltage frequency"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi))
+    "Supply voltage frequency"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Math.Product VFDfre "Controlled frequency"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  final Modelica.Blocks.Sources.RealExpression NorCoe(y=1) if not use_PID "Coefficient used in uncontrolled case"
+  final Modelica.Blocks.Sources.RealExpression NorCoe(y=1) if not use_PID
+    "Coefficient used in uncontrolled case"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true) "Speed connector"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -83,7 +84,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,70}),
-                         iconTransformation(
+        iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,80})));
@@ -91,7 +92,8 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,40}),  iconTransformation(
+        origin={-120,40}),
+        iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40})));
@@ -101,7 +103,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-80}),
-                         iconTransformation(
+        iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-80})));
@@ -140,35 +142,32 @@ equation
   i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
   i[2] = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2);
 
-  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-19,-50},{-16,-50},{-16,-4},{-12,-4}},
-                         color={0,0,127}));
-
+  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-19,-50},{-16,-50},
+          {-16,-4},{-12,-4}}, color={0,0,127}));
   connect(setPoi, VFD.u_s) annotation (Line(points={{-120,70},{-92,70},{-92,0},
-          {-82,0}},color={0,0,127}));
+          {-82,0}}, color={0,0,127}));
   connect(fre.y, VFDfre.u1) annotation (Line(points={{-59,-70},{-48,-70},{-48,6},
-          {-42,6}},color={0,0,127}));
-  connect(VFD.y, VFDfre.u2) annotation (Line(points={{-59,0},{-50,0},{-50,-6},{
-          -42,-6}},
-                color={0,0,127}));
-  connect(VFDfre.y, torSpe.f)
-    annotation (Line(points={{-19,0},{-12,0}},
-                                            color={0,0,127}));
-  connect(NorCoe.y, VFDfre.u2) annotation (Line(points={{-59,-50},{-46,-50},{
-          -46,-6},{-42,-6}},
-                         color={0,0,127}));
-  connect(mea, VFD.u_m) annotation (Line(points={{-120,40},{-92,40},{-92,-20},{
-          -70,-20},{-70,-12}}, color={0,0,127}));
-  connect(shaft,speed. flange)
-    annotation (Line(points={{100,0},{80,0}}, color={0,0,0}));
+          {-42,6}}, color={0,0,127}));
+  connect(VFD.y, VFDfre.u2) annotation (Line(points={{-59,0},{-50,0},{-50,-6},
+          {-42,-6}}, color={0,0,127}));
+  connect(VFDfre.y, torSpe.f) annotation (Line(points={{-19,0},{-12,0}},
+          color={0,0,127}));
+  connect(NorCoe.y, VFDfre.u2) annotation (Line(points={{-59,-50},{-46,-50},
+          {-46,-6},{-42,-6}}, color={0,0,127}));
+  connect(mea, VFD.u_m) annotation (Line(points={{-120,40},{-92,40},{-92,-20},
+          {-70,-20},{-70,-12}}, color={0,0,127}));
+  connect(shaft,speed. flange) annotation (Line(points={{100,0},{80,0}},
+          color={0,0,0}));
   connect(w_r.y, speed.w_ref) annotation (Line(points={{-19,-50},{40,-50},{40,0},
           {58,0}}, color={0,0,127}));
   connect(Vrms.y, VFDvol.u1) annotation (Line(points={{-59,50},{-48,50},{-48,56},
           {-42,56}}, color={0,0,127}));
-  connect(VFD.y, VFDvol.u2) annotation (Line(points={{-59,0},{-50,0},{-50,44},{
-          -42,44}}, color={0,0,127}));
-  connect(VFDvol.y, torSpe.V_rms) annotation (Line(points={{-19,50},{-16,50},{
-          -16,4},{-12,4}}, color={0,0,127}));
-  annotation(defaultComponentName="motDri", Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+  connect(VFD.y, VFDvol.u2) annotation (Line(points={{-59,0},{-50,0},{-50,44},
+          {-42,44}}, color={0,0,127}));
+  connect(VFDvol.y, torSpe.V_rms) annotation (Line(points={{-19,50},{-16,50},
+          {-16,4},{-12,4}}, color={0,0,127}));
+  annotation(Icon(coordinateSystem(preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           origin={0,0},
           fillColor={255,0,0},
@@ -193,8 +192,9 @@ equation
         Polygon(
           origin={2.835,0},
           fillPattern=FillPattern.Solid,
-          points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},{60,
-              -100},{-70,-100},{-70,-90}})}),
+          points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},
+          {60,-100},{-70,-100},{-70,-90}})}),
+        defaultComponentName="motDri",
     Documentation(info="<html>
 <p>
 This model implements an induction motor model with a built-in idealized 

@@ -14,8 +14,8 @@ model Pump "Motor coupled chiller"
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
-     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-80,-80},{-60,-60}})));
+     annotation (choicesAllMatching=true,Placement(transformation(
+     extent={{-80,-80},{-60,-60}})));
 
   //Motor parameters
   parameter Integer pole=4 "Number of pole pairs";
@@ -61,8 +61,7 @@ model Pump "Motor coupled chiller"
         rotation=0,
         origin={-110,80})));
   Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target"
-    annotation (Placement(transformation(extent={{-120,40},
-            {-100,60}}),
+    annotation (Placement(transformation(extent={{-120,40},{-100,60}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
     "Real power"
@@ -79,30 +78,28 @@ model Pump "Motor coupled chiller"
 
 equation
 
-  connect(port_a, pum.port_a)
-    annotation (Line(points={{-100,0},{-10,0}},color={0,127,255}));
-  connect(pum.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(simMot.shaft, pum.shaft)
-    annotation (Line(points={{-40,70},{0,70},{0,10}},   color={0,0,0}));
+  connect(port_a, pum.port_a) annotation (Line(points={{-100,0},{-10,0}},
+          color={0,127,255}));
+  connect(pum.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
+          color={0,127,255}));
+  connect(simMot.shaft, pum.shaft) annotation (Line(points={{-40,70},{0,70},
+          {0,10}}, color={0,0,0}));
   connect(simMot.P, P) annotation (Line(points={{-38,78},{80,78},{80,90},{110,
           90}}, color={0,0,127}));
   connect(simMot.Q, Q) annotation (Line(points={{-38,74},{80,74},{80,70},{110,
           70}}, color={0,0,127}));
-  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,80},{-88,80},{
-          -88,78},{-62,78}}, color={0,0,127}));
-  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,50},{-88,50},{-88,
-          74},{-62,74}}, color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,30},{-80,30},{
-          -80,62},{-62,62}},
-                         color={0,0,127}));
+  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,80},{-88,80},
+          {-88,78},{-62,78}}, color={0,0,127}));
+  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,50},{-88,50},
+          {-88,74},{-62,74}}, color={0,0,127}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,30},{-80,30},
+          {-80,62},{-62,62}}, color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{-50,80},{-50,100},
-          {0,100}},                   color={0,120,120}));
-  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-20},{0,
-          -68},{0,-68}},   color={191,0,0}));
-  annotation (defaultComponentName="pum",
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={
+          {0,100}}, color={0,120,120}));
+  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-20},
+          {0,-68},{0,-68}}, color={191,0,0}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},
           lineColor={0,0,0},
@@ -151,6 +148,7 @@ equation
         Text(extent={{-140,72},{-60,44}},
           textColor={0,0,127},
           textString="measure_value")}),
+        defaultComponentName="pum",
     Documentation(info="<html>
 <p>
 This is a model of a squirrel cage induction motor coupled chiller with ideal 

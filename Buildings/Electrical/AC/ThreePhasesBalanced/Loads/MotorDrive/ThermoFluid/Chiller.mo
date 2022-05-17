@@ -6,7 +6,7 @@ model Chiller "Chiller with mechanical interface"
 
   //Chiller parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
-    "Nominal cooling heat flow rate (Negetive)"
+    "Nominal cooling heat flow rate (Negative)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate (Positive)"

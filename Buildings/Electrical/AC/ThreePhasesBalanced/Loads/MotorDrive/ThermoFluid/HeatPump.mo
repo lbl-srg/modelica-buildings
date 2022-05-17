@@ -7,7 +7,7 @@ model HeatPump "Heat pump with mechanical interface"
   //Heat pump parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal = -P_nominal*(
       COP_nominal - 1)
-    "Nominal cooling heat flow rate (Negetive)"
+    "Nominal cooling heat flow rate (Negative)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate (Positive)"

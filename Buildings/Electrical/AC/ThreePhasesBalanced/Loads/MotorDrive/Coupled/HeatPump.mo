@@ -10,7 +10,7 @@ model HeatPump "Motor coupled heat pump"
 
   //Heat pump parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
-    "Nominal cooling heat flow rate (Negetive)"
+    "Nominal cooling heat flow rate (Negative)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
     "Nominal heating flow rate (Positive)"
@@ -120,8 +120,7 @@ model HeatPump "Motor coupled heat pump"
         rotation=0,
         origin={-110,90})));
   Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target"
-    annotation (Placement(transformation(extent={{-120,20},
-            {-100,40}}),
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
     "Real power"
@@ -160,32 +159,30 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
 
 equation
-  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-60,60},{
-          -60,6},{-10,6}},  color={0,127,255}));
+  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-60,60},
+          {-60,6},{-10,6}}, color={0,127,255}));
   connect(port_b2,mecHea. port_b2) annotation (Line(points={{-100,-60},{-60,-60},
           {-60,-6},{-10,-6}}, color={0,127,255}));
-  connect(port_b1,mecHea. port_b1) annotation (Line(points={{100,60},{60,60},{60,
-          6},{10,6}},    color={0,127,255}));
-  connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{60,-60},{
-          60,-6},{10,-6}},  color={0,127,255}));
-  connect(simMot.shaft, mecHea.shaft)
-    annotation (Line(points={{-20,80},{40,80},{40,30},{0,30},{0,10}},
-                                                      color={0,0,0}));
-  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-80,90},{-80,
-          88},{-42,88}},     color={0,0,127}));
-  connect(simMot.tau_m, loaTor.y) annotation (Line(points={{-42,72},{-60,72},{
-          -60,50},{-21,50}},
-                         color={0,0,127}));
-  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-80,30},{-80,84},
-          {-42,84}},     color={0,0,127}));
-  connect(simMot.P, P) annotation (Line(points={{-18,88},{80,88},{80,30},{110,
-          30}}, color={0,0,127}));
-  connect(simMot.Q, Q) annotation (Line(points={{-18,84},{80,84},{80,-30},{110,
-          -30}},color={0,0,127}));
+  connect(port_b1,mecHea. port_b1) annotation (Line(points={{100,60},{60,60},
+          {60,6},{10,6}}, color={0,127,255}));
+  connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{60,-60},
+          {60,-6},{10,-6}}, color={0,127,255}));
+  connect(simMot.shaft, mecHea.shaft) annotation (Line(points={{-20,80},{40,80},
+          {40,30},{0,30},{0,10}}, color={0,0,0}));
+  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-80,90},
+          {-80,88},{-42,88}}, color={0,0,127}));
+  connect(simMot.tau_m, loaTor.y) annotation (Line(points={{-42,72},{-60,72},
+          {-60,50},{-21,50}}, color={0,0,127}));
+  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-80,30},
+          {-80,84},{-42,84}}, color={0,0,127}));
+  connect(simMot.P, P) annotation (Line(points={{-18,88},{80,88},{80,30},
+          {110,30}}, color={0,0,127}));
+  connect(simMot.Q, Q) annotation (Line(points={{-18,84},{80,84},{80,-30},
+          {110,-30}}, color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{-30,90},{-30,100},
-          {0,100}},          color={0,120,120}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),       graphics={
+          {0,100}}, color={0,120,120}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
+          {100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -264,11 +261,11 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{62,0},{80,0}},                  color={0,0,255}),
-        Line(points={{80,30},{100,30}},               color={0,0,255}),
-        Line(points={{80,0},{80,30}},                 color={0,0,255}),
-        Line(points={{80,-30},{100,-30}},             color={0,0,255}),
-        Line(points={{80,-30},{80,0}},                color={0,0,255})}),
+        Line(points={{62,0},{80,0}}, color={0,0,255}),
+        Line(points={{80,30},{100,30}}, color={0,0,255}),
+        Line(points={{80,0},{80,30}}, color={0,0,255}),
+        Line(points={{80,-30},{100,-30}}, color={0,0,255}),
+        Line(points={{80,-30},{80,0}}, color={0,0,255})}),
         defaultComponentName="hea",
     Documentation(info="<html>
 <p>
