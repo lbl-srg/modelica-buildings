@@ -6,8 +6,8 @@ package Validation "Validation of the baseclasses"
 <p>
 This package contains models that validate the 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses\">
-MotorDrive.InductionMotors.BaseClasses</a> that used to build induction motor 
-models.
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.
+BaseClasses</a> that used to build induction motor models.
 </p>
 </html>"));
 end Validation;

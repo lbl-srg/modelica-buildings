@@ -37,8 +37,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
 <p>
 This example validates 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">
-MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface</a> by checking 
-torque speed relationship for induction motors.
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.
+BaseClasses.MotorMachineInterface</a> by checking torque speed relationship 
+for induction motors.
 </p>
 </html>", revisions="<html>
 <ul>
