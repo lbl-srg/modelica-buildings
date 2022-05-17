@@ -7,10 +7,10 @@ model HeatPump "Heat pump with mechanical interface"
   //Heat pump parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal = -P_nominal*(
       COP_nominal - 1)
-    "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
+    "Nominal cooling heat flow rate (Negetive)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
-    "Nominal heating flow rate"
+    "Nominal heating flow rate (Positive)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
     final max=0) = -10 "Temperature difference evaporator outlet-inlet"
@@ -119,6 +119,9 @@ model HeatPump "Heat pump with mechanical interface"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
+initial equation
+  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
+
 protected
   constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";
@@ -126,7 +129,8 @@ protected
     if COP_is_for_cooling
       then TEva_nominal - TAppEva_nominal
       else TCon_nominal + TAppCon_nominal
-    "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
+    "Nominal evaporator temperature for chiller or condenser temperature for 
+    heat pump, taking into account pinch temperature between fluid and refrigerant";
 
   final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(

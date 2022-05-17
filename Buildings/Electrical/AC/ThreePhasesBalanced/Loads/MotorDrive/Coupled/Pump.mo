@@ -9,7 +9,8 @@ model Pump "Motor coupled chiller"
     redeclare replaceable Interfaces.Terminal_n terminal);
 
   parameter Boolean addPowerToMedium=true
-    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
+    "Set to false to avoid any power (=heat and flow work) being added to 
+    medium (may give simpler equations)";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
@@ -30,9 +31,10 @@ model Pump "Motor coupled chiller"
   parameter Modelica.Units.SI.Reactance X_m=2.4
     "Complex component of the magnetizing reactance";
   parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Pump inertia";
-  parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
+  parameter Modelica.Units.SI.Inertia JMotor=2 "Motor inertia";
 
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau) "Pump torque block"
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau)
+    "Pump torque block"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   ThermoFluid.Pump pum(
     redeclare final package Medium = Medium,

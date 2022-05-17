@@ -10,10 +10,10 @@ model HeatPump "Motor coupled heat pump"
 
   //Heat pump parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
-    "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
+    "Nominal cooling heat flow rate (Negetive)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
-    "Nominal heating flow rate"
+    "Nominal heating flow rate (Positive)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
     final max=0) = -10 "Temperature difference evaporator outlet-inlet"
@@ -76,9 +76,10 @@ model HeatPump "Motor coupled heat pump"
   parameter Modelica.Units.SI.Reactance X_m=26.3
     "Complex component of the magnetizing reactance";
   parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Load inertia";
-  parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
+  parameter Modelica.Units.SI.Inertia JMotor=2 "Motor inertia";
 
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau) "Heat pump torque block"
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau)
+    "Heat pump torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
   ThermoFluid.HeatPump mecHea(
     redeclare final package Medium1 = Medium1,
@@ -97,7 +98,8 @@ model HeatPump "Motor coupled heat pump"
     final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal,
     final TAppCon_nominal=TAppCon_nominal,
-    final TAppEva_nominal=TAppEva_nominal) "Heat pump model with mechanical interface"
+    final TAppEva_nominal=TAppEva_nominal)
+    "Heat pump model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
@@ -126,9 +128,12 @@ model HeatPump "Motor coupled heat pump"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),
         iconTransformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Interfaces.RealOutput Q(final quantity="Power", final unit="var")
-   "Reactive power"
+    "Reactive power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
+
+initial equation
+  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
 
 protected
   constant Boolean COP_is_for_cooling = false

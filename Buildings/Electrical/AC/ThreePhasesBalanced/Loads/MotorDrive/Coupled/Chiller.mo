@@ -11,10 +11,10 @@ model Chiller "Motor coupled chiller"
 
   //Chiller parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
-    "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
+    "Nominal cooling heat flow rate (Negative)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
-    "Nominal heating flow rate"
+    "Nominal heating flow rate (Positive)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
     final max=0)=-10 "Temperature difference evaporator outlet-inlet"
@@ -77,7 +77,7 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Reactance X_m=26.3
     "Complex component of the magnetizing reactance";
   parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Load inertia";
-  parameter Modelica.Units.SI.Inertia JMotor=2         "Motor inertia";
+  parameter Modelica.Units.SI.Inertia JMotor=2 "Motor inertia";
 
   ThermoFluid.Chiller mecChi(
     redeclare final package Medium1 = Medium1,
@@ -99,9 +99,11 @@ model Chiller "Motor coupled chiller"
     final P_nominal=P_nominal,
     final QEva_flow_nominal=QEva_flow_nominal,
     final QCon_flow_nominal=QCon_flow_nominal,
-    final Nrpm_nominal=Nrpm_nominal) "Chiller model with mechanical interface"
+    final Nrpm_nominal=Nrpm_nominal)
+    "Chiller model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau) "Chiller torque block"
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau)
+    "Chiller torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
   InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
@@ -125,16 +127,18 @@ model Chiller "Motor coupled chiller"
         origin={-110,90})));
   Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}}),
-        iconTransformation(extent={{-120,20},{-100,40}})));
+    iconTransformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power",final unit="W")
     "Real power"
-    annotation (Placement(transformation(extent={{100,20},{120,40}}),  iconTransformation(extent={{100,20},
-            {120,40}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}}),
+    iconTransformation(extent={{100,20}, {120,40}})));
   Modelica.Blocks.Interfaces.RealOutput Q(final quantity="Power",final unit="var")
-  "Reactive power"
+    "Reactive power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
-                                                                      iconTransformation(extent={{100,-40},
-            {120,-20}})));
+    iconTransformation(extent={{100,-40}, {120,-20}})));
+
+initial equation
+  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
 
 protected
   constant Boolean COP_is_for_cooling = true
