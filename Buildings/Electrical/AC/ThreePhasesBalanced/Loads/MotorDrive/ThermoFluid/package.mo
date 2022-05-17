@@ -2,16 +2,6 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive;
 package ThermoFluid "Package with HVAC equipment models"
     extends Modelica.Icons.Package;
 
-
-
-
-
-
-
-
-
-
-
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>

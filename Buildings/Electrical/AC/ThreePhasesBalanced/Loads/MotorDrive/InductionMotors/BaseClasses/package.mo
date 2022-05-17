@@ -2,9 +2,6 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 package BaseClasses "Package with base classes for MotorDrive.InductionMotors"
   extends Modelica.Icons.BasesPackage;
 
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in 
