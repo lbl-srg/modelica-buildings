@@ -27,14 +27,14 @@ the binaries can be downloaded from the following links:
 </tr>
 <tr>
 <td>Linux</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-59ed8c72e4-Linux.tar.gz\">
+https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-59ed8c72e4-Linux.tar.gz</a>
 </td>
 </tr>
 <tr>
 <td>Windows</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-win64.zip\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-win64.zip</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-59ed8c72e4-win64.zip\">
+https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-59ed8c72e4-win64.zip</a>
 </td>
 </tr>
 </table>
@@ -51,9 +51,9 @@ To install, proceed as follows:
 Run from a terminal
 </p>
 <pre>
-wget https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz;
-tar xzf Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz;
-export PATH=${PATH}:`pwd`/Spawn-light-0.3.0-d6204d26f6-Linux/bin
+wget https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-59ed8c72e4-Linux.tar.gz;
+tar xzf Spawn-light-0.3.0-59ed8c72e4-Linux.tar.gz;
+export PATH=${PATH}:`pwd`/Spawn-light-0.3.0-59ed8c72e4-Linux/bin
 </pre>
 <p>
 and restart your Modelica environment. You may put the last line in your <code>${HOME}/.bashrc</code> file
@@ -69,10 +69,10 @@ to make the setting persistent when you log in the next time.
 Download the binary from the link above.
 </li>
 <li>
-Unzip <code>Spawn-light-0.3.0-d6204d26f6-win64.zip</code> at your desired location.
+Unzip <code>Spawn-light-0.3.0-59ed8c72e4-win64.zip</code> at your desired location.
 </li>
 <li>
-Add the directory <code>xyz/Spawn-light-0.3.0-d6204d26f6-win64/bin</code>
+Add the directory <code>xyz/Spawn-light-0.3.0-59ed8c72e4-win64/bin</code>
 to your <code>PATH</code> environment variable.
 </li>
 <li>
