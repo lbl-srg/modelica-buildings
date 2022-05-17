@@ -155,8 +155,9 @@ for an induction motor. The model inputs include load torque, as well as frequen
 and voltage from the power supply system at the electrical connector as the AC interface.
 Besides the electromagnetic torque equation from 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface\">
-MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface</a>, main governing 
-equations used to construct the model are as follows:
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.
+BaseClasses.MotorMachineInterface</a>, main governing equations used to 
+construct the model are as follows:
 </p>
 <p>
 The motor-load torque balance equation:

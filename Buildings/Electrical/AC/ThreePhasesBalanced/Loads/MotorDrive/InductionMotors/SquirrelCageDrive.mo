@@ -204,12 +204,13 @@ motor.
 <p>
 The model is identical to 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage\">
-MotorDrive.InductionMotors.SquirrelCage</a>, except that it takes the set point, 
-as an input and adjust the motor torque output to meet the set point. This set 
-point is maintained if the motor allows sufficient torque to meet the load 
-requirement. The built-in control is an ideal speed controller, implemented 
-using a PI controller. The controller adjusts the torque output of the motor 
-to meet the set point within its work area.
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.
+SquirrelCage</a>, except that it takes the set point, as an input and adjust 
+the motor torque output to meet the set point. This set point is maintained 
+if the motor allows sufficient torque to meet the load requirement. The built-in 
+control is an ideal speed controller, implemented using a PI controller. 
+The controller adjusts the torque output of the motor to meet the set point 
+within its work area.
 </p>
 </html>", revisions="<html>
 <ul>
