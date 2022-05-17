@@ -16,9 +16,16 @@ import shutil
 # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
 # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
 # The setup below will lead to a specific commit being pulled.
-version = "0.3.0"
-commit = "59ed8c72e47b646e71a3c4d1add8946968a333b2"
-NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
+
+# List of all spawn versions and commits that are supported
+# by the Buildings library
+spawn_dists = [
+    {"version": "0.3.0",
+     "commit": "59ed8c72e47b646e71a3c4d1add8946968a333b2"}
+]
+#version = "0.3.0"
+#commit = "59ed8c72e47b646e71a3c4d1add8946968a333b2"
+#NAME_VERSION = f"Spawn-light-{version}-{commit[0:10]}"
 
 
 
@@ -33,13 +40,17 @@ def get_bin_directory():
     )
 
 
-def get_distribution(dis):
-    des_dir = os.path.join(get_bin_directory(), dis["des"])
+def download_distribution(dis):
     tar_fil = os.path.basename(dis["src"])
-
     # Download the file
     log("Downloading {}".format(dis["src"]))
     urllib.request.urlretrieve(dis["src"], tar_fil)
+
+
+def install_distribution_inside_buildings_library(dis):
+    des_dir = os.path.join(get_bin_directory(), dis["des"])
+    tar_fil = os.path.basename(dis["src"])
+
 
     log("Extracting {}".format(tar_fil))
     if tar_fil.endswith(".zip"):
@@ -54,39 +65,11 @@ def get_distribution(dis):
         tar_fil = new_name
 
     tar = tarfile.open(tar_fil)
-    for key in dis["files"]:
-        found = False
-        for nam in tar.getnames():
-            if nam.endswith(key):
-                dis["files"][key] = nam
-                found = True
-        if not found:
-            raise IOError("Failed to find '{}'".format(key))
+    tar.extractall(tar_fil)
+    spawn_dir = (os.path.basename(tar_file)).split('.')[0]
 
-    # Extract and move the files
-    for key in dis["files"]:
-        tar.extract(dis["files"][key], path=".")
-
-        des_fil = os.path.join(des_dir, key)
-
-        # Create the target directory
-        try:
-            os.stat(os.path.dirname(des_fil))
-        except:
-            os.makedirs(os.path.dirname(des_fil))
-
-        os.rename(dis["files"][key], des_fil)
-        log(("Wrote {} {}".format(dis["files"][key], des_fil)))
-
-    # Delete the created empty directories
-    top = dis["files"]["README.md"].split(os.path.sep)[0]
-    for root, dirs, files in os.walk(top, topdown=False):
-        for name in dirs:
-            os.rmdir(os.path.join(root, name))
-    os.rmdir(top)
-    # Delete the tar.gz file
-    os.remove(tar_fil)
-
+    os.rename(spawn_dir, des_dir)
+    log(f"Wrote {os.path.join(des_dir, spawn_dir)}")
 
 def get_vars_as_json(spawnFlag, spawn_exe):
     """Return a json structure that contains the output variables supported by spawn"""
@@ -209,75 +192,71 @@ def update_version_in_modelica_file(spawn_exe):
             f.write(content)
 
 
-def update_git(spawn_exe):
-    import os
-    import glob
-    from git import Repo
-    import sys
-
-    git_folder = os.path.abspath( \
-        os.path.join(__file__, \
-            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, ".git"))
-    repo = Repo(git_folder)
-
-    # Get the old Spawn executuables
-    for file in glob.glob(os.path.join("Buildings", "Resources", "bin", "**/spawn-?.?.?-*"), recursive=True):
-        if spawn_exe in file:
-            # Add to git
-            print(f"Adding {file} to git")
-            repo.index.add([file])
-        else:
-            print(f"Removing {file} from git")
-            if os.path.isdir(file):
-                repo.index.remove([file], r=True)
-                # Remove directory physically if it still exists.
-                if os.path.exists(file):
-                    shutil.rmtree(file)
-            else:
-                # The file may already have been removed if its directory was removed in this for loop
-                if os.path.exists(file):
-                    repo.index.remove([file])
+#def update_git(spawn_exe):
+#    import os
+#    import glob
+#    from git import Repo
+#    import sys
+#
+#    git_folder = os.path.abspath( \
+#        os.path.join(__file__, \
+#            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, ".git"))
+#    repo = Repo(git_folder)
+#
+#    # Get the old Spawn executuables
+#    for file in glob.glob(os.path.join("Buildings", "Resources", "bin", "**/spawn-?.?.?-*"), recursive=True):
+#        if spawn_exe in file:
+#            # Add to git
+#            print(f"Adding {file} to git")
+#            repo.index.add([file])
+#        else:
+#            print(f"Removing {file} from git")
+#            if os.path.isdir(file):
+#                repo.index.remove([file], r=True)
+#                # Remove directory physically if it still exists.
+#                if os.path.exists(file):
+#                    shutil.rmtree(file)
+#            else:
+#                # The file may already have been removed if its directory was removed in this for loop
+#                if os.path.exists(file):
+#                    repo.index.remove([file])
 
 if __name__ == "__main__":
+    import sys
 
-    spawn_exe = f"spawn-{version}-{commit[0:10]}"
-
+    # Build list of distributions
     dists = list()
-    dists.append(
-        {
-            "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-Linux.tar.gz",
-            "des": f"spawn-{version}-{commit[0:10]}/linux64",
-            "files": {
-                f"bin/{spawn_exe}": "",
-                "README.md": "",
-                "lib/epfmi.so": "",
-                "etc/Energy+.idd": "",
-            },
-        }
-    )
-    dists.append(
-        {
-            "src": f"https://spawn.s3.amazonaws.com/builds/{NAME_VERSION}-win64.zip",
-            "des": f"spawn-{version}-{commit[0:10]}/win64",
-            "files": {
-                "bin/epfmi.dll": "",
-                f"bin/{spawn_exe}.exe": "",
-                "README.md": "",
-                "lib/epfmi.lib": "",
-                "etc/Energy+.idd": "",
-            },
-        }
-    )
+    for spawn_dist in spawn_dists:
+        dists.append(
+           {
+                "src": f"https://spawn.s3.amazonaws.com/builds/Spawn-light-{version}-{commit[0:10]}-Linux.tar.gz",
+                "des": f"Spawn-light-{version}-{commit[0:10]}/linux64",
+                "spawn_exe": f"spawn-{version}-{commit[0:10]}",
+            }
+        )
+        dists.append(
+            {
+                "src": f"https://spawn.s3.amazonaws.com/builds/Spawn-light-{version}-{commit[0:10]}-win64.zip",
+                "des": f"Spawn-light-{version}-{commit[0:10]}/win64",
+                "spawn_exe": f"spawn-{version}-{commit[0:10]}"
+            }
+        )
+
+    print(dists)
+    sys.exit(1)
 
     p = Pool(2)
-    p.map(get_distribution, dists)
+    p.map(download_distribution, dists)
+    p.map(install_distribution_inside_buildings_library, dists)
+
+
 
     # Update version in
     # constant String spawnExe="spawn-0.2.0-d7f1e095f3" ...
     # in Building.mo
     update_version_in_modelica_file(spawn_exe)
     # Remove old binaries and add new binaries to git
-    update_git(spawn_exe)
+    #update_git(spawn_exe)
 
     vars = [
         {
