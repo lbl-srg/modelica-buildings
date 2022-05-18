@@ -248,6 +248,11 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
   </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Boilers.Data.Lochinvar
+  </td>
+  <td valign=\"top\">Added annotation <code>defaultComponentPrefixes = \"parameter\"</code>.
+  </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
   </td>
   <td valign=\"top\">Removed <code>protected</code> declaration inside the record as the Modelica Language Specification
