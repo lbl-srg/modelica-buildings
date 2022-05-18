@@ -38,7 +38,7 @@ and <code>realTrue</code> and <code>realFalse</code> are parameters.
 <ul>
 <li>
 May 17, 2022, by Hongxiang Fu:<br/>
-Corrected documentation texts where the variables were described with wrong types.
+Corrected documentation texts where the variables were described with wrong types.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
 </li>
