@@ -85,17 +85,17 @@ Restart your Modelica environment.
 
 <h4>How is spawn invoked?</h4>
 <p>
-Modelica tries to invoke <code>spawn-0.3.0-d6204d26f6[.exe]</code> in this order:
+Modelica tries to invoke <code>spawn-0.3.0-59ed8c72e4[.exe]</code> in this order:
 </p>
 <ol>
 <li>
 On Linux, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-d6204d26f6/linux64/bin/spawn-0.3.0-d6204d26f6
+Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-59ed8c72e4/linux64/bin/spawn-0.3.0-59ed8c72e4
 </pre>
 and on Windows, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-d6204d26f6/win64/bin/spawn-0.3.0-d6204d26f6.exe
+Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-59ed8c72e4/win64/bin/spawn-0.3.0-59ed8c72e4.exe
 </pre>
 where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
 This file is distributed with the Modelica Buildings Library installation,
@@ -103,11 +103,11 @@ together with all files needed to translate and simulate a model in a Modelica e
 </li>
 <li>
 If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
+<code>spawn-0.3.0-59ed8c72e4[.exe]</code>.
 </li>
 <li>
 If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
+<code>spawn-0.3.0-59ed8c72e4[.exe]</code>.
 </li>
 </ol>
 <p>
@@ -323,6 +323,10 @@ method can be used.
 <li>
 The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
+</li>
+<li>
+In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
+This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
 </li>
 </ul>
 </html>"));

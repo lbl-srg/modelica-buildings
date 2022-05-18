@@ -558,7 +558,7 @@ that can reset the output should be used.
 The derivative of the control error <i>d &frasl; dt e(t)</i> is approximated using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-d&frasl;dt x(t) = (e(t)-x(t)) T<sub>d</sub> &frasl; N<sub>d</sub>,
+d&frasl;dt x(t) = (e(t)-x(t)) N<sub>d</sub> &frasl; T<sub>d</sub>,
 </p>
 <p>
 and
@@ -618,6 +618,12 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 6, 2022, by Michael Wetter:<br/>
+Corrected wrong documentation in how the derivative of the control error is approximated.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">issue 2994</a>.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>

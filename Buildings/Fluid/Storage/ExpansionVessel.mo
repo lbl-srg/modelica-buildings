@@ -6,8 +6,6 @@ model ExpansionVessel "Expansion vessel with fixed pressure"
    final mSenFac=1);
   parameter Modelica.Units.SI.Volume V_start(start=1)
     "Volume of liquid stored in the vessel at the start of the simulation";
-  parameter Modelica.Units.SI.Pressure p=Medium.p_default
-    "Constant pressure of the expansion vessel";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium) "Fluid port"
@@ -110,6 +108,12 @@ of equations, which may result in faster simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 11, 2022, by Michael Wetter:<br/>
+Removed nonused parameter <code>p</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1614\">IBPSA, #1614</a>.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

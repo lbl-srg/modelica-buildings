@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block Sort
   "Sort elements of input vector in ascending or descending order"
   parameter Integer nin(
-    min=0)=0
+    final min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
   parameter Boolean ascending=true
-    "= true if ascending order, otherwise descending order";
+    "Set to true if ascending order, otherwise order is descending";
   Interfaces.RealInput u[nin]
     "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -46,6 +46,17 @@ If the parameter <code>ascending = true</code>, then the output signal satisfies
 <i>y<sub>i</sub> &lt;= y<sub>i+1</sub></i> for all <i>i &isin; {1, ..., n-1}</i>.
 Otherwise, it satisfies
 <i>y<sub>i</sub> &gt;= y<sub>i+1</sub></i> for all <i>i &isin; {1, ..., n-1}</i>.
+</p>
+<h4>Usage</h4>
+<p>
+Note that this block shall only be used for input signals <code>u</code> that are
+time sampled.<br/>
+Otherwise, in simulation, numerical noise from a nonlinear solver or from an
+implicit time integration algorithm may cause the simulation to stall.
+Numerical noise can be present if an input depends
+on a state variable or a quantity that requires an iterative solution,
+such as a temperature or a mass flow rate of an HVAC system.<br/>
+In real controllers, measurement noise may cause the output to change frequently.
 </p>
 <p>
 This block may for example be used in a variable air volume flow
