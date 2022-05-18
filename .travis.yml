@@ -141,7 +141,7 @@ install:
     fi;
   - if [[ "$TEST_ARG" == *EnergyPlus_9_6_0* ]] || [[ "$TEST_ARG" == *Buildings.{Applications,Experimental}* ]]; then
       echo "Installing Spawn binaries";
-      Buildings/Resources/src/ThermalZones/EnergyPlus_9_6_0/install.py;
+      Buildings/Resources/src/ThermalZones/install.py;
     fi;
 
 # Execute tests
