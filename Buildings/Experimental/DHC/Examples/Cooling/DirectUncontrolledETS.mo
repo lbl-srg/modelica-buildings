@@ -54,7 +54,7 @@ model DirectUncontrolledETS
     "Library path of the file with thermal loads as time series"
     annotation (Dialog(group="Buildings"));
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nLoa](
-    max=-Modelica.Constants.eps)={Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
+    each max=-Modelica.Constants.eps)={Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam[i])) for i in 1:nLoa}
     "Space cooling design load (<=0)";
@@ -161,7 +161,7 @@ equation
       coordinateSystem(
       preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/DistrictCooling.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.mos" "Simulate and plot"),
     experiment(
       StartTime=12960000,
       StopTime=13564800),
