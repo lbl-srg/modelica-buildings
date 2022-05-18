@@ -81,7 +81,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-
+The secondary balancing valve pressure drop 
+<code>dpBal2_nominal</code> 
+stands for the pressure drop of the balancing valve 
+in the bypass.
 </p>
 </html>"));
 end Diversion;

@@ -15,17 +15,17 @@ model TwoWayOpenLoop
   Sources.Boundary_pT sup(
     redeclare final package Medium = MediumLiq,
     final p=p_min + dp_nominal,
-    nPorts=4) "Pressure boundary condition at supply"
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+    nPorts=5) "Pressure boundary condition at supply"
+    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Sources.Boundary_pT ret(
     redeclare final package Medium = MediumLiq,
     final p=p_min,
-    nPorts=6)
+    nPorts=7)
     "Pressure boundary condition at return"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp ope(duration=100)
     "Valve opening signal"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+    annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   FixedResistances.PressureDrop ter50(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -34,7 +34,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,20})));
+        origin={-40,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut50(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -43,7 +43,7 @@ model TwoWayOpenLoop
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,-20})));
+        origin={-40,-20})));
   FixedResistances.PressureDrop ter75(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -52,7 +52,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={20,20})));
+        origin={40,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut25(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -61,7 +61,7 @@ model TwoWayOpenLoop
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={20,-20})));
+        origin={40,-20})));
   FixedResistances.PressureDrop ter25(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -70,7 +70,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-60,20})));
+        origin={-80,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut75(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -79,13 +79,13 @@ model TwoWayOpenLoop
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-60,-20})));
+        origin={-80,-20})));
   Sources.Boundary_pT supOve(
     redeclare final package Medium = MediumLiq,
     final p=p_min + 1.5*dp_nominal,
     nPorts=2)
     "Pressure boundary condition at supply augmented by 50% from design value"
-    annotation (Placement(transformation(extent={{50,50},{70,70}})));
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Actuators.Valves.TwoWayEqualPercentage valAut50Ove(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -94,7 +94,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={80,-20})));
+        origin={100,-20})));
   FixedResistances.PressureDrop ter50Ove(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -103,7 +103,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={80,20})));
+        origin={100,20})));
   FixedResistances.PressureDrop ter50Bal(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -112,7 +112,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={120,20})));
+        origin={140,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut33Bal(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -122,7 +122,7 @@ model TwoWayOpenLoop
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={120,-20})));
+        origin={140,-20})));
   FixedResistances.PressureDrop bal50(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -131,7 +131,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={120,-60})));
+        origin={140,-60})));
   Actuators.Valves.TwoWayEqualPercentage valAut100(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -140,63 +140,96 @@ model TwoWayOpenLoop
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-100,-20})));
+        origin={-120,-20})));
+  FixedResistances.PressureDrop ter67(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dp_nominal=0.67*dp_nominal)
+    "Terminal unit as a fixed resistance destroying 67% of design pressure difference"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,20})));
+  Actuators.Valves.TwoWayEqualPercentage valAut33(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=0.33*dp_nominal,
+    use_inputFilter=false) "Control valve with 33% authority" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,-20})));
 equation
   connect(sup.ports[2], ter50.port_a)
-    annotation (Line(points={{-120,59.5},{-20,59.5},{-20,30}},
+    annotation (Line(points={{-140,59.2},{-40,59.2},{-40,30}},
                                                         color={0,127,255}));
   connect(ter50.port_b, valAut50.port_a)
-    annotation (Line(points={{-20,10},{-20,-10}},
+    annotation (Line(points={{-40,10},{-40,-10}},
                                                 color={0,127,255}));
-  connect(ope.y, valAut50.y) annotation (Line(points={{-118,100},{0,100},{0,-20},
-          {-8,-20}}, color={0,0,127}));
-  connect(ter75.port_b, valAut25.port_a)
-    annotation (Line(points={{20,10},{20,-10}}, color={0,127,255}));
-  connect(ope.y, valAut25.y) annotation (Line(points={{-118,100},{40,100},{40,
-          -20},{32,-20}},
+  connect(ope.y, valAut50.y) annotation (Line(points={{-138,100},{-20,100},{-20,
+          -20},{-28,-20}},
                      color={0,0,127}));
-  connect(sup.ports[3], ter75.port_a) annotation (Line(points={{-120,60.5},{20,
-          60.5},{20,30}},
-                    color={0,127,255}));
-  connect(ter25.port_a, sup.ports[4]) annotation (Line(points={{-60,30},{-60,
-          61.5},{-120,61.5}},
+  connect(ter75.port_b, valAut25.port_a)
+    annotation (Line(points={{40,10},{40,-10}}, color={0,127,255}));
+  connect(ope.y, valAut25.y) annotation (Line(points={{-138,100},{60,100},{60,
+          -20},{52,-20}},
+                     color={0,0,127}));
+  connect(sup.ports[3], ter75.port_a) annotation (Line(points={{-140,60},{40,60},
+          {40,30}}, color={0,127,255}));
+  connect(ter25.port_a, sup.ports[4]) annotation (Line(points={{-80,30},{-80,
+          60.8},{-140,60.8}},
                            color={0,127,255}));
   connect(ter25.port_b, valAut75.port_a)
-    annotation (Line(points={{-60,10},{-60,-10}}, color={0,127,255}));
-  connect(valAut75.port_b, ret.ports[2]) annotation (Line(points={{-60,-30},{
-          -60,-78},{-120,-78},{-120,-81}},  color={0,127,255}));
-  connect(valAut50.port_b, ret.ports[3]) annotation (Line(points={{-20,-30},{
-          -20,-80.3333},{-120,-80.3333}},
+    annotation (Line(points={{-80,10},{-80,-10}}, color={0,127,255}));
+  connect(valAut75.port_b, ret.ports[2]) annotation (Line(points={{-80,-30},{
+          -80,-78},{-140,-78},{-140,-81.1429}},
+                                            color={0,127,255}));
+  connect(valAut50.port_b, ret.ports[3]) annotation (Line(points={{-40,-30},{
+          -40,-80.5714},{-140,-80.5714}},
                                       color={0,127,255}));
   connect(valAut25.port_b, ret.ports[4])
-    annotation (Line(points={{20,-30},{20,-79.6667},{-120,-79.6667}},
+    annotation (Line(points={{40,-30},{40,-80},{-140,-80}},
                                                           color={0,127,255}));
-  connect(ope.y, valAut75.y) annotation (Line(points={{-118,100},{-40,100},{-40,
-          -20},{-48,-20}}, color={0,0,127}));
+  connect(ope.y, valAut75.y) annotation (Line(points={{-138,100},{-60,100},{-60,
+          -20},{-68,-20}}, color={0,0,127}));
   connect(supOve.ports[1], ter50Ove.port_a)
-    annotation (Line(points={{70,59},{80,59},{80,30}}, color={0,127,255}));
-  connect(valAut50Ove.port_b, ret.ports[5]) annotation (Line(points={{80,-30},{
-          80,-80},{-120,-80},{-120,-79}}, color={0,127,255}));
+    annotation (Line(points={{90,59},{100,59},{100,30}},
+                                                       color={0,127,255}));
+  connect(valAut50Ove.port_b, ret.ports[5]) annotation (Line(points={{100,-30},
+          {100,-80},{-140,-80},{-140,-79.4286}},
+                                          color={0,127,255}));
   connect(ter50Ove.port_b, valAut50Ove.port_a)
-    annotation (Line(points={{80,10},{80,-10}}, color={0,127,255}));
-  connect(ope.y, valAut50Ove.y) annotation (Line(points={{-118,100},{100,100},{
-          100,-20},{92,-20}}, color={0,0,127}));
+    annotation (Line(points={{100,10},{100,-10}},
+                                                color={0,127,255}));
+  connect(ope.y, valAut50Ove.y) annotation (Line(points={{-138,100},{120,100},{
+          120,-20},{112,-20}},color={0,0,127}));
   connect(ter50Bal.port_b, valAut33Bal.port_a)
-    annotation (Line(points={{120,10},{120,-10}}, color={0,127,255}));
-  connect(supOve.ports[2], ter50Bal.port_a) annotation (Line(points={{70,61},{
-          96,61},{96,60},{120,60},{120,30}}, color={0,127,255}));
+    annotation (Line(points={{140,10},{140,-10}}, color={0,127,255}));
+  connect(supOve.ports[2], ter50Bal.port_a) annotation (Line(points={{90,61},{
+          116,61},{116,60},{140,60},{140,30}},
+                                             color={0,127,255}));
   connect(valAut33Bal.port_b, bal50.port_a)
-    annotation (Line(points={{120,-30},{120,-50}}, color={0,127,255}));
-  connect(bal50.port_b, ret.ports[6]) annotation (Line(points={{120,-70},{120,
-          -80},{0,-80},{0,-78.3333},{-120,-78.3333}}, color={0,127,255}));
-  connect(ope.y, valAut33Bal.y) annotation (Line(points={{-118,100},{140,100},{
-          140,-20},{132,-20}}, color={0,0,127}));
-  connect(sup.ports[1], valAut100.port_a) annotation (Line(points={{-120,58.5},
-          {-110,58.5},{-110,62},{-100,62},{-100,-10}}, color={0,127,255}));
-  connect(valAut100.port_b, ret.ports[1]) annotation (Line(points={{-100,-30},{
-          -100,-81.6667},{-120,-81.6667}}, color={0,127,255}));
-  connect(ope.y, valAut100.y) annotation (Line(points={{-118,100},{-80,100},{-80,
-          -20},{-88,-20}}, color={0,0,127}));
+    annotation (Line(points={{140,-30},{140,-50}}, color={0,127,255}));
+  connect(bal50.port_b, ret.ports[6]) annotation (Line(points={{140,-70},{140,
+          -80},{20,-80},{20,-78.8571},{-140,-78.8571}},
+                                                      color={0,127,255}));
+  connect(ope.y, valAut33Bal.y) annotation (Line(points={{-138,100},{160,100},{
+          160,-20},{152,-20}}, color={0,0,127}));
+  connect(sup.ports[1], valAut100.port_a) annotation (Line(points={{-140,58.4},
+          {-130,58.4},{-130,62},{-120,62},{-120,-10}}, color={0,127,255}));
+  connect(valAut100.port_b, ret.ports[1]) annotation (Line(points={{-120,-30},{
+          -120,-81.7143},{-140,-81.7143}}, color={0,127,255}));
+  connect(ope.y, valAut100.y) annotation (Line(points={{-138,100},{-100,100},{
+          -100,-20},{-108,-20}},
+                           color={0,0,127}));
+  connect(valAut33.port_a, ter67.port_b)
+    annotation (Line(points={{0,-10},{0,10}}, color={0,127,255}));
+  connect(valAut33.port_b, ret.ports[7]) annotation (Line(points={{0,-30},{0,
+          -78.2857},{-140,-78.2857}}, color={0,127,255}));
+  connect(ter67.port_a, sup.ports[5])
+    annotation (Line(points={{0,30},{0,61.6},{-140,61.6}}, color={0,127,255}));
+  connect(valAut33.y, ope.y) annotation (Line(points={{12,-20},{20,-20},{20,100},
+          {-138,100}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})),
   experiment(
@@ -215,7 +248,9 @@ The valve authority
 &beta; = &Delta;p<sub>min</sub> / &Delta;p<sub>max</sub>
 </i>
 can be computed by dividing the pressure drop across the
-valve between those two extreme positions (see plot #2). 
+valve between those two extreme positions (see plot #2 for
+the pressure drop values and the command log for the computed
+value of the authority). 
 </p>
 <ul>
 <li>
@@ -261,17 +296,18 @@ differential at the circuit boundaries.
 <li>
 The conventional authority does not depend on the available pressure
 differential at the circuit boundaries as it affects <i>&Delta;p<sub>min</sub></i>
-adn <i>/ &Delta;p<sub>max</sub></i> with the same factor (see for instance
+and <i>/ &Delta;p<sub>max</sub></i> with the same factor (see for instance
 components <code>valAut50</code> and <code>valAut50Ove</code>).
 </li>
 <li>
-The disturbance of the flow characteristic of the valve (normalized flow rate
-as a function of the valve opening) is explained by the conventional authority.
+The disturbance of the flow characteristic of the valve (flow rate normalized by 
+its maximum value, as a function of the valve opening, see plot #3) is explained 
+by the conventional authority.
 However, this has little value if the maximum flow rate is significantly different
 from the design value.
 Normalizing by the design flow rate gives more indication on the controllability
 of the system. The disturbance of the flow characteristic (when the fractional flow rate 
-is expressed as a fraction of the design flow rate) is then explained by the 
+is expressed as a fraction of the design flow rate, see plot #1) is then explained by the 
 practical authority as 
 <i>d(V&#775;(y) / V&#775;<sub>design</sub>) / dy = 
 1 / &beta;' <sup>1/2</sup> * d(Kv(y) / Kvs) / dy</i>

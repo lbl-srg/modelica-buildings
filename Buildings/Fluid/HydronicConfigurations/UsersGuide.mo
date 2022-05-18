@@ -55,12 +55,9 @@ maximum <i>&Delta;p<sub>max</sub></i> pressure differential at the valve boundar
 <p>
 Those extreme values of the pressure differential at the valve boundaries
 are obtained when the valve is fully open and fully closed, respectively.
-<i>&Delta;p<sub>max</sub></i> is sometimes presented as the pressure 
-differential at the extreme boundaries of the circuit where the flow rate
-is modulated by the control valve. However, this definition proves
-to be less tractable to compute the valve authority in non obvious 
-configurations, for instance with an intermediary bypass or in case
-of a three-way valve (see below).
+<i>&Delta;p<sub>max</sub></i> may also be apprehended as the pressure 
+differential at the boundaries of the circuit where the flow rate
+is modulated by the control valve.
 </p>
 <p>
 A general design rule for stable controls of hydronic systems is to 
@@ -130,7 +127,70 @@ Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion</a>.
 <h5>
 Three-way valve authority
 </h5>
-
+<p>
+The most generic definition of the authority for a three-way valve is given 
+by the ratio between the pressure drop across the valve and the pressure drop 
+across the bypass branch (including any balancing valve) 
+<i>at fully open conditions</i> (design flow through the direct branch).
+Refering to the figure below, this can be written as:
+</p>
+<p>
+<i>
+&beta; = &Delta;p<sub>A-AB</sub> / &Delta;p<sub>J-AB</sub>
+</i>
+<br/>
+</p>
+<p>
+<img alt=\"Three-way valve schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/ThreeWayValve.png\"/>
+</p>
+<p>
+The above definition is valid whether the bypass branch is balanced or
+not, and whether the valve performs a mixing or a diverting function.
+The definition using the equivalent pair of two-way valves actuated 
+in opposition and considering 
+<i>&beta; = &Delta;p<sub>A-B</sub>(y=100%) / &Delta;p<sub>A-B</sub>(y=0%)</i>
+is only valid in the case where the bypass branch is balanced.
+In the case where it is not balanced and considering for instance 
+<i>&Delta;p<sub>A-B</sub>(y=100%) &asymp; &Delta;p<sub>L-M</sub>(y=0%)</i>
+the valve authority computed with the latter equation is close to
+one whatever the pressure differential at the circuit boundaries.
+See 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop\">
+Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop</a>
+for a numerical example.
+</p>
+<p>
+For the common case where the valve is used to modulate the flow rate through
+a coil with a design pressure drop <i>&Delta;p<sub>coil</sub></i>
+the generic definition of the authority can be rewritten as
+<i>&beta; = &Delta;p<sub>A-AB</sub>(y=100%) /
+(&Delta;p<sub>A-AB</sub>(y=100%) + &Delta;p<sub>coil</sub>)</i>.
+</p>
+<h5>
+Default model parameter
+</h5>
+<p>
+The models
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear\">
+Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear</a>
+and
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.ThreeWayLinear\">
+Buildings.Fluid.Actuators.Valves.ThreeWayLinear</a>
+both use a default value of <code>fraK = 0.7</code> for the ratio of 
+the <i>Kvs</i> coefficient between the bypass branch and the 
+direct branch.
+This default setting yields a pressure drop in the
+bypass branch <i>&Delta;p<sub>L-M</sub>(y=0%)</i> that is 
+<i>1 / 0.7<sup>2</sup> &asymp; 2</i> times higher at design flow rate 
+than the pressure drop in the
+direct branch <i>&Delta;p<sub>A-B</sub>(y=100%)</i>.
+If the valve is sized with an authority of <i>&beta; = 0.5</i>
+this default setting implies that the bypass branch is balanced.
+However, note that the corresponding flow resistance is variable (with the 
+valve opening) as opposed to the fixed flow resistance provided by a
+balancing valve. 
+</p>
 <h4>
 References
 </h4>

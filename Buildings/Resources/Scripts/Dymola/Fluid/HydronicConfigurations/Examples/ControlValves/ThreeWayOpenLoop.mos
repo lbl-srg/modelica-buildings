@@ -1,17 +1,32 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop", stopTime=100, tolerance=1e-06, resultFile="ThreeWayOpenLoop");
 
-createPlot(id=1, position={15, 15, 1184, 744}, x="ope.y", y={"pum.m_flow", "con.val.port_1.m_flow", "con.val.port_3.m_flow", "con1.val.port_1.m_flow", "con1.val.port_3.m_flow"}, autoscale=true, grid=true, erase=true, color=true);
+createPlot(id=1, position={15, 15, 1184, 744}, x="ope.y", y={"valAut100.res1.m_flow", "valAut75.res1.m_flow", "valAut50.res1.m_flow", "valAut33.res1.m_flow", "valAut25.res1.m_flow", "valAut50Ove.res1.m_flow", "valAut50Bal.res1.m_flow", "valAut50Bal80.res1.m_flow"}, erase=true, autoscale=true, grid=true, color=true);
 
-createPlot(id=2, position={1214, 15, 1184, 744}, x="ope.y", y={"con.val.res1.dp"}, erase=true, autoscale=true, grid=true, color=true);
+createPlot(id=11, position={15, 15, 1184, 744}, x="ope.y", y={"valAut100.res2.m_flow", "valAut75.res2.m_flow", "valAut50.res2.m_flow", "valAut33.res2.m_flow", "valAut25.res2.m_flow", "valAut50Ove.res2.m_flow", "valAut50Bal.res2.m_flow", "valAut50Bal80.res2.m_flow"}, erase=true, autoscale=true, grid=true, color=true);
 
-createPlot(id=3, position={169, 245, 1184, 744}, autoscale=true, grid=true, erase=true, color=true);
-plotExpression(apply(ThreeWayOpenLoop[end].loa.Q_flow/ThreeWayOpenLoop[end].loa.Q_flow_nominal), false, "loa.Q_flow/loa.Q_flow_nominal", 3);
-plotExpression(apply(ThreeWayOpenLoop[end].loa1.Q_flow/ThreeWayOpenLoop[end].loa1.Q_flow_nominal), false, "loa1.Q_flow/loa1.Q_flow_nominal", 3);
+createPlot(id=2, position={1214, 15, 1184, 744}, x="ope.y", y={"valAut100.res1.dp", "valAut75.res1.dp", "valAut50.res1.dp", "valAut33.res1.dp", "valAut25.res1.dp", "valAut50Ove.res1.dp", "valAut50Bal.res1.dp", "valAut50Bal80.res1.dp"}, range={0.0, 1.0, 0.0, 2E5}, erase=true, grid=true, color=true);
 
-createPlot(id=4, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, range={0.0, 4.0, 0.0, 2E5}, erase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot});
-// Plot pump characteristic and design operating point
-mValues = {0.1 * i for i in 1:40};
-coefValues = {-538.34033613,  -3019.95798319, -16806.72268908, 150000.0};
-dpValues = {coefValues[1] * mValues[i]^3 for i in 1:40} + {coefValues[2] * mValues[i]^2 for i in 1:40} + coefValues[3] .* mValues + fill(coefValues[4], 40);
-plotArray(mValues, dpValues, erase=false, legend="Characteristic");
-plotArray({2}, {1E5}, erase=false, legend="Design operating point");
+nPoints = readTrajectorySize("TwoWayOpenLoop.mat");
+componentNames = {"valAut100", "valAut75", "valAut50", "valAut33", "valAut25", "valAut50Ove", "valAut50Bal", "valAut50Bal80"};
+varNames = {c + ".res1.m_flow" for c in componentNames}
+m_flow = readTrajectory("ThreeWayOpenLoop.mat", varNames, nPoints);
+varNames = {c + ".res2.m_flow" for c in componentNames}
+m2_flow = readTrajectory("ThreeWayOpenLoop.mat", varNames, nPoints);
+varNames = {c + ".res1.dp" for c in componentNames}
+dpDir = readTrajectory("ThreeWayOpenLoop.mat", varNames, nPoints);
+varNames = {c + ".res3.dp" for c in componentNames}
+dpByp = readTrajectory("ThreeWayOpenLoop.mat", varNames, nPoints);
+ope = readTrajectory("ThreeWayOpenLoop.mat", {"ope.y"}, nPoints);
+m_flow_nominal = readTrajectory("ThreeWayOpenLoop.mat", {"mLiq_flow_nominal"}, nPoints);
+
+createPlot(id=3, position={594, 342, 1184, 744}, x="ope.y", leftTitle="m_flow(y)/m_flow(100%)", autoscale=true, grid=true, erase=true, color=true);
+plotArray(ope[1], abs(m_flow[3]) / max(abs(m_flow[3])), erase=false, legend="valAut50");
+plotArray(ope[1], abs(m_flow[6]) / max(abs(m_flow[6])), erase=false, legend="valAut50Ove");
+plotArray(ope[1], abs(m_flow[7]) / max(abs(m_flow[7])), erase=false, legend="valAut50Bal");
+plotArray(ope[1], abs(m_flow[8]) / max(abs(m_flow[8])), erase=false, legend="valAut50Bal80");
+
+for i in 1:(size(componentNames))[1] loop
+  beta := dpDir[i, end] / dpByp[i, end];
+  betaPrim := dpDir[i, end] / dpDir[i, 1]; // beta / (abs(m2_flow[i, end]) / m_flow_nominal[1, 1])^2;
+  Modelica.Utilities.Streams.print("Component " + componentNames[i] + ": Beta = " + String(beta) + "\tBeta' = " + String(betaPrim));
+end for;
