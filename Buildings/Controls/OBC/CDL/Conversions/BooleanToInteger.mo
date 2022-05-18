@@ -23,8 +23,8 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs the <code>Boolean</code>
-equivalent of the <code>Integer</code> input.
+Block that outputs the <code>Integer</code>
+equivalent of the <code>Boolean</code> input.
 </p>
 <pre>
   y = if u then integerTrue else integerFalse;
@@ -37,6 +37,12 @@ and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 17, 2022, by Hongxiang Fu:<br/>
+Corrected documentation texts where the variables were described with wrong types.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
