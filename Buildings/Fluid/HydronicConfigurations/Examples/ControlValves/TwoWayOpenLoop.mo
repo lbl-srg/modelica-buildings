@@ -85,7 +85,7 @@ model TwoWayOpenLoop
     final p=p_min + 1.5*dp_nominal,
     nPorts=2)
     "Pressure boundary condition at supply augmented by 50% from design value"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Actuators.Valves.TwoWayEqualPercentage valAut50Ove(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -94,7 +94,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={100,-20})));
+        origin={120,-20})));
   FixedResistances.PressureDrop ter50Ove(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -103,7 +103,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={100,20})));
+        origin={120,20})));
   FixedResistances.PressureDrop ter50Bal(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -112,7 +112,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,20})));
+        origin={160,20})));
   Actuators.Valves.TwoWayEqualPercentage valAut33Bal(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -122,7 +122,7 @@ model TwoWayOpenLoop
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,-20})));
+        origin={160,-20})));
   FixedResistances.PressureDrop bal50(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -131,7 +131,7 @@ model TwoWayOpenLoop
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,-60})));
+        origin={160,-60})));
   Actuators.Valves.TwoWayEqualPercentage valAut100(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -193,28 +193,28 @@ equation
   connect(ope.y, valAut75.y) annotation (Line(points={{-138,100},{-60,100},{-60,
           -20},{-68,-20}}, color={0,0,127}));
   connect(supOve.ports[1], ter50Ove.port_a)
-    annotation (Line(points={{90,59},{100,59},{100,30}},
+    annotation (Line(points={{110,59},{120,59},{120,30}},
                                                        color={0,127,255}));
-  connect(valAut50Ove.port_b, ret.ports[5]) annotation (Line(points={{100,-30},
-          {100,-80},{-140,-80},{-140,-79.4286}},
+  connect(valAut50Ove.port_b, ret.ports[5]) annotation (Line(points={{120,-30},
+          {120,-80},{-140,-80},{-140,-79.4286}},
                                           color={0,127,255}));
   connect(ter50Ove.port_b, valAut50Ove.port_a)
-    annotation (Line(points={{100,10},{100,-10}},
+    annotation (Line(points={{120,10},{120,-10}},
                                                 color={0,127,255}));
-  connect(ope.y, valAut50Ove.y) annotation (Line(points={{-138,100},{120,100},{
-          120,-20},{112,-20}},color={0,0,127}));
+  connect(ope.y, valAut50Ove.y) annotation (Line(points={{-138,100},{140,100},{
+          140,-20},{132,-20}},color={0,0,127}));
   connect(ter50Bal.port_b, valAut33Bal.port_a)
-    annotation (Line(points={{140,10},{140,-10}}, color={0,127,255}));
-  connect(supOve.ports[2], ter50Bal.port_a) annotation (Line(points={{90,61},{
-          116,61},{116,60},{140,60},{140,30}},
+    annotation (Line(points={{160,10},{160,-10}}, color={0,127,255}));
+  connect(supOve.ports[2], ter50Bal.port_a) annotation (Line(points={{110,61},{
+          136,61},{136,60},{160,60},{160,30}},
                                              color={0,127,255}));
   connect(valAut33Bal.port_b, bal50.port_a)
-    annotation (Line(points={{140,-30},{140,-50}}, color={0,127,255}));
-  connect(bal50.port_b, ret.ports[6]) annotation (Line(points={{140,-70},{140,
-          -80},{20,-80},{20,-78.8571},{-140,-78.8571}},
+    annotation (Line(points={{160,-30},{160,-50}}, color={0,127,255}));
+  connect(bal50.port_b, ret.ports[6]) annotation (Line(points={{160,-70},{160,
+          -80},{40,-80},{40,-78.8571},{-140,-78.8571}},
                                                       color={0,127,255}));
-  connect(ope.y, valAut33Bal.y) annotation (Line(points={{-138,100},{160,100},{
-          160,-20},{152,-20}}, color={0,0,127}));
+  connect(ope.y, valAut33Bal.y) annotation (Line(points={{-138,100},{180,100},{
+          180,-20},{172,-20}}, color={0,0,127}));
   connect(sup.ports[1], valAut100.port_a) annotation (Line(points={{-140,58.4},
           {-130,58.4},{-130,62},{-120,62},{-120,-10}}, color={0,127,255}));
   connect(valAut100.port_b, ret.ports[1]) annotation (Line(points={{-120,-30},{

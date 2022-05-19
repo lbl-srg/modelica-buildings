@@ -38,25 +38,24 @@ With respect to the control loop this means an increase of the process gain
 which may be detrimental to the control loop stability.
 </p>
 <p>
-The valve authority <i>&beta;</i> is introduced as a metric of the disturbance of the
+The valve authority <i>&beta;</i> is introduced as a metric of this disturbance of the
 inherent valve characteristic when the valve is integrated into a hydronic circuit.
 See 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.TwoWayValveAuthority\">
 Buildings.Fluid.HydronicConfigurations.Examples.TwoWayValveAuthority</a>
 for a numerical illustration.
-The authority is defined as the ratio between the minimum <i>&Delta;p<sub>min</sub></i> and the 
-maximum <i>&Delta;p<sub>max</sub></i> pressure differential at the valve boundaries.
+The authority is defined as the ratio between the pressure differential at 
+the valve boundaries when the valve is fully open and the pressure differential at 
+the valve boundaries when the valve is fully closed.
 </p>
 <p>
 <i>
-&beta; = &Delta;p<sub>min</sub> / &Delta;p<sub>max</sub>
+&beta; = &Delta;p(y=100%) / &Delta;p(y=0%)
 </i>
 </p>
 <p>
-Those extreme values of the pressure differential at the valve boundaries
-are obtained when the valve is fully open and fully closed, respectively.
-<i>&Delta;p<sub>max</sub></i> may also be apprehended as the pressure 
-differential at the boundaries of the circuit where the flow rate
+As mentioned previously, <i>&Delta;p(y=0%)</i> may also be apprehended 
+as the pressure differential at the boundaries of the circuit where the flow rate
 is modulated by the control valve.
 </p>
 <p>
@@ -154,7 +153,9 @@ is only valid in the case where the bypass branch is balanced.
 In the case where it is not balanced and considering for instance 
 <i>&Delta;p<sub>A-B</sub>(y=100%) &asymp; &Delta;p<sub>L-M</sub>(y=0%)</i>
 the valve authority computed with the latter equation is close to
-one whatever the pressure differential at the circuit boundaries.
+one whatever the pressure differential at the circuit boundaries,
+provided that the overflow in the bypass branch is not significant when the valve
+is closed.
 See 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop</a>
