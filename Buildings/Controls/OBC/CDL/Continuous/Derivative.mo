@@ -10,13 +10,13 @@ block Derivative
   Buildings.Controls.OBC.CDL.Interfaces.RealInput k(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Connector for gain signal"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput Td(
     quantity="Time",
     unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Connector for time constant signal"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Input to be differentiated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -70,15 +70,15 @@ This is for
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
           Line(
-            points={{-80.0,78.0},{-80.0,-90.0}},
+            points={{-56,78},{-56,-90}},
             color={192,192,192}),
           Polygon(
             lineColor={192,192,192},
             fillColor={192,192,192},
             fillPattern=FillPattern.Solid,
-            points={{-80.0,90.0},{-88.0,68.0},{-72.0,68.0},{-80.0,90.0}}),
+            points={{-56,90},{-64,68},{-48,68},{-56,90}}),
           Line(
-            points={{-90.0,-80.0},{82.0,-80.0}},
+            points={{-64,-80},{82,-80}},
             color={192,192,192}),
           Polygon(
             lineColor={192,192,192},
@@ -87,12 +87,9 @@ This is for
             points={{90.0,-80.0},{68.0,-72.0},{68.0,-88.0},{90.0,-80.0}}),
           Line(
             origin={-24.667,-27.333},
-            points={{-55.333,87.333},{-19.333,-40.667},{86.667,-52.667}},
+            points={{-31.333,89.333},{-19.333,-40.667},{86.667,-52.667}},
             color={0,0,127},
             smooth=Smooth.Bezier),
-          Text(
-            extent={{-150.0,-150.0},{150.0,-110.0}},
-            textString="k=%k"),
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
@@ -102,7 +99,23 @@ This is for
             textColor={0,0,0},
             textString=DynamicSelect("",String(y,
               leftJustified=false,
-              significantDigits=3)))}),
+              significantDigits=3))),
+        Text(
+          extent={{-106,14},{-62,-12}},
+          textColor={0,0,0},
+          textString="u"),
+        Text(
+          extent={{46,14},{90,-12}},
+          textColor={0,0,0},
+          textString="y=du/dt"),
+        Text(
+          extent={{-108,94},{-64,68}},
+          textColor={0,0,0},
+          textString="k"),
+        Text(
+          extent={{-102,54},{-58,28}},
+          textColor={0,0,0},
+          textString="Td")}),
               Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200})}),
       Diagram(coordinateSystem(preserveAspectRatio=false)));
