@@ -41,7 +41,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
   parameter Modelica.Units.SI.Time riseTimeValve=120
-    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+    "Rise time of the filter (time to become 99.6 % open)" annotation (
       Dialog(
       tab="Dynamics",
       group="Valve",
