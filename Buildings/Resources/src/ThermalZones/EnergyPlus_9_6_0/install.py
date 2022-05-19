@@ -83,6 +83,7 @@ def install_distribution_inside_buildings_library(dis):
         for file in os.listdir(src):
             file_name = os.path.join(src, file)
             shutil.move(file_name, des_dir)
+    tar.close()
 
     # Delete created tar.gz file
     if delete_tar:
@@ -268,27 +269,49 @@ def update_actuator_output_tables(spawn_dir, spawn_exe):
 
 if __name__ == "__main__":
     import sys
+    import argparse
+    import platform
+
+    # Configure the argument parser
+    parser = argparse.ArgumentParser(
+        description='Install and updates files used by Spawn.',
+        allow_abbrev=False)
+
+    parser.add_argument("--binaries-for-os-only",
+                        action="store_true",
+                        help="Only install binaries needed for the current operating system.")
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    on_linux = "Linux" in platform.system()
+    on_windows = "Windows" in platform.system()
+    install_linux = on_linux     or not args.binaries_for_os_only
+    install_windows = on_windows or not args.binaries_for_os_only
+    update_mo_files = on_linux and not args.binaries_for_os_only
 
     # Build list of distributions
     dists = list()
     for spawn_dist in spawn_dists:
         version = spawn_dist['version']
         commit = spawn_dist['commit']
-        dists.append(
-           {
-                "src": f"https://spawn.s3.amazonaws.com/builds/Spawn-light-{version}-{commit[0:10]}-Linux.tar.gz",
-                "des": f"Spawn-light-{version}-{commit[0:10]}/linux64",
-                "spawn_dir": f"Spawn-light-{version}-{commit[0:10]}",
-                "spawn_exe": f"spawn-{version}-{commit[0:10]}",
-            }
-        )
-        dists.append(
-            {
-                "src": f"https://spawn.s3.amazonaws.com/builds/Spawn-light-{version}-{commit[0:10]}-win64.zip",
-                "des": f"Spawn-light-{version}-{commit[0:10]}/win64",
-                "spawn_exe": f"spawn-{version}-{commit[0:10]}"
-            }
-        )
+        if install_linux:
+            dists.append(
+               {
+                    "src": f"https://spawn.s3.amazonaws.com/builds/Spawn-light-{version}-{commit[0:10]}-Linux.tar.gz",
+                    "des": f"Spawn-light-{version}-{commit[0:10]}/linux64",
+                    "spawn_dir": f"Spawn-light-{version}-{commit[0:10]}",
+                    "spawn_exe": f"spawn-{version}-{commit[0:10]}",
+                }
+            )
+        if install_windows:
+            dists.append(
+                {
+                    "src": f"https://spawn.s3.amazonaws.com/builds/Spawn-light-{version}-{commit[0:10]}-win64.zip",
+                    "des": f"Spawn-light-{version}-{commit[0:10]}/win64",
+                    "spawn_exe": f"spawn-{version}-{commit[0:10]}"
+                }
+            )
 
     p = Pool(2)
     p.map(download_distribution, dists)
@@ -299,12 +322,14 @@ if __name__ == "__main__":
         # Update version in
         # constant String spawnExe="spawn-0.2.0-d7f1e095f3" ...
         # The version number needs to be only updated for Linux as Windows uses the same .mo files
-        if "Linux" in dist["src"]:
+        if update_mo_files and 'linux' in dist['des']:
+            print("Updating Spawn version in Modelica files.")
             update_version_in_modelica_files(
                 spawn_dir = dist["spawn_dir"],
                 spawn_exe = dist["spawn_exe"])
         # Update the table with supported output variables and actuator names
-        if "Linux" in dist["src"]:
+        if update_mo_files and 'linux' in dist['des']:
+            print("Updating actuator and output tables.")
             update_actuator_output_tables(
                 spawn_dir = dist["spawn_dir"],
                 spawn_exe = dist["spawn_exe"])
