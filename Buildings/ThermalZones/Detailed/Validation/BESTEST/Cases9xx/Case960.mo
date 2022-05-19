@@ -18,10 +18,10 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       each til=Buildings.Types.Tilt.Wall)),
     souInf(nPorts=2),
     staRes(
-      annualHea(Min=2.311*3.6e9, Max=3.373*3.6e9, Mean=2.846*3.6e9),
-      annualCoo(Min=-0.411*3.6e9, Max=-0.803*3.6e9, Mean=-0.618*3.6e9),
-      peakHea(Min=2.410*1000, Max=2.863*1000, Mean=2.701*1000),
-      peakCoo(Min=-0.953*1000, Max=-1.404*1000, Mean=-1.212*1000)));
+      annualHea(Min=2.522*3.6e9, Max=2.860*3.6e9, Mean=2.693*3.6e9),
+      annualCoo(Min=-0.789*3.6e9, Max=-0.950*3.6e9, Mean=-0.896*3.6e9),
+      peakHea(Min=2.085*1000, Max=2.300*1000, Mean=2.196*1000),
+      peakCoo(Min=-1.338*1000, Max=-1.480*1000, Mean=-1.393*1000)));
 
   Buildings.HeatTransfer.Conduction.MultiLayer
     parWal(layers=matLayPar, A=8*2.7,
@@ -159,7 +159,7 @@ equation
       smooth=Smooth.None));
   connect(weaDat.weaBus, sunSpa.weaBus)
                                      annotation (Line(
-      points={{86,-88},{80,-88},{80,-1.575},{182.425,-1.575}},
+      points={{86,-92},{80,-92},{80,-1.575},{182.425,-1.575}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -189,7 +189,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(product1.y, sinInf2.m_flow_in)       annotation (Line(
-      points={{84.5,-133},{103.25,-133},{103.25,-133.2},{124,-133.2}},
+      points={{84.5,-133},{103.25,-133},{103.25,-133.2},{122.8,-133.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCoo1.port_b, sunSpa.ports[1])

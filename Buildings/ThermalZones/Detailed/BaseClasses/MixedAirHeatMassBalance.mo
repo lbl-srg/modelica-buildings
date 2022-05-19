@@ -69,8 +69,8 @@ model MixedAirHeatMassBalance
     final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in 1:NConExtWin},
     final haveInteriorShade={datConExtWin[i].glaSys.haveInteriorShade for i in 1:NConExtWin},
     final til=datConExtWin.til,
-    each conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
-    each hFixed=2.4,
+    each conMod=conMod,
+    each hFixed=hFixed,
     final A=AConExtWinGla + AConExtWinFra)
     if haveConExtWin "Model for convective heat transfer at window"
     annotation (Placement(transformation(extent={{98,110},{118,130}})));

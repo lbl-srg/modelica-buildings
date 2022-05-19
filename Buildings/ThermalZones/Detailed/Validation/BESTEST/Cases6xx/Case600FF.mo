@@ -43,8 +43,7 @@ model Case600FF
         c=840,
         d=950,
         nStaRef=nStaRef)},
-    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
-                           "Exterior wall"
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) "Exterior wall"
     annotation (Placement(transformation(extent={{20,84},{34,98}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     matFlo(
@@ -65,7 +64,7 @@ model Case600FF
         d=650,
         nStaRef=nStaRef)},
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
-                           "Floor"
+    "Floor"
     annotation (Placement(transformation(extent={{80,84},{94,98}})));
    parameter Buildings.HeatTransfer.Data.Solids.Generic soil(
     x=2,
@@ -80,7 +79,6 @@ model Case600FF
     nConExtWin=nConExtWin,
     nConBou=1,
     linearizeRadiation=false,
-    hIntFixed=2.2,
     hExtFixed=11.9,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -147,10 +145,9 @@ model Case600FF
         c=840,
         d=950,
         nStaRef=nStaRef)},
-    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
-                           "Roof"
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
-  parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
+  replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
     UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
@@ -167,8 +164,8 @@ model Case600FF
   Buildings.Fluid.Sources.Outside souInf(redeclare package Medium = MediumA,
       nPorts=1) "Source model for air infiltration"
            annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
-  Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
-    "0.41 ACH adjusted for the altitude (0.5 at sea level)"
+  Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.414/3600)
+    "0.414 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{-96,-78},{-88,-70}})));
   Modelica.Blocks.Math.Product product
     "Product to compute infiltration mass flow rate"
@@ -190,9 +187,9 @@ model Case600FF
   replaceable parameter
     Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating
       staRes(
-        minT( Min=-18.8+273.15, Max=-15.6+273.15, Mean=-17.6+273.15),
-        maxT( Min=64.9+273.15,  Max=69.5+273.15,  Mean=66.2+273.15),
-        meanT(Min=24.2+273.15,  Max=25.9+273.15,  Mean=25.1+273.15))
+        minT( Min=-13.8+273.15, Max=-9.9+273.15, Mean=-12.7+273.15),
+        maxT( Min=62.4+273.15,  Max=68.4+273.15,  Mean=64.6+273.15),
+        meanT(Min=24.3+273.15,  Max=26.1+273.15,  Mean=25.2+273.15))
           constrainedby Modelica.Icons.Record
     "Reference results from ASHRAE/ANSI Standard 140"
     annotation (Placement(transformation(extent={{80,40},{94,54}})));
@@ -261,10 +258,6 @@ equation
       points={{-45,-76},{32,-76},{32,-24.5},{39.75,-24.5}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(density.d, product.u2) annotation (Line(
-      points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{86,-92},{4,-92}},
       color={255,204,51},
@@ -319,6 +312,8 @@ equation
     annotation (Line(points={{28.4,-70},{47,-70}}, color={0,0,127}));
   connect(zerDir.y, conOpa.dir) annotation (Line(points={{28.4,-84},{40,-84},{
           40,-72.5},{47,-72.5}}, color={0,0,127}));
+  connect(density.d, product.u2) annotation (Line(points={{-50.5,-71},{-56,-71},
+          {-56,-58},{-51,-58}}, color={0,0,127}));
   annotation (
 experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"
@@ -332,7 +327,8 @@ The room temperature is free floating.
 <ul>
 <li>
 May 12, 2022, by Jianjun Hu:<br/>
-Changed the U-value of windows frame from 3 to 2.1 W/(m2.K) and the exterior surface roughness from medium to rough.<br/>
+Changed the floor to be raised floor, disabled linearize the emissive power,
+changed weather data and adjusted infiltration rate from 0.5 ACH to 0.414 ACH for the altitude.</br>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
 </li>
 <li>
