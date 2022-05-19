@@ -79,7 +79,7 @@ model Chiller "Motor coupled chiller"
   parameter Modelica.Units.SI.Inertia JLoad(min=0)=2 "Load inertia";
   parameter Modelica.Units.SI.Inertia JMotor=2 "Motor inertia";
 
-  ThermoFluid.Chiller mecChi(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Chiller mecChi(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final m1_flow_nominal=m1_flow_nominal,
@@ -105,7 +105,7 @@ model Chiller "Motor coupled chiller"
   final Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau)
     "Chiller torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
-  InductionMotors.SquirrelCageDrive simMot(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
     final n=n,
     final J=JMotor,

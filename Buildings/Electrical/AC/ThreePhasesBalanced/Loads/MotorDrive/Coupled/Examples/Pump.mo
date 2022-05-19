@@ -5,16 +5,11 @@ model Pump "This example shows how to use the motor coupled pump model"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1 "Nominal mass flow rate";
   parameter Modelica.Units.SI.Pressure dp_nominal=500   "nominal pressure drop";
 
-  Buildings.Fluid.FixedResistances.PressureDrop dp1(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=1/2*dp_nominal) "Pressure loss"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumW,
       nPorts=1) "Boundary"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={-90,20})));
-  MotorDrive.Coupled.Pump pum(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump pum(
     R_s=0.641,
     R_r=0.332,
     X_s=1.106,
@@ -34,10 +29,15 @@ model Pump "This example shows how to use the motor coupled pump model"
   Buildings.Electrical.AC.OnePhase.Sources.Grid gri(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
     "Flow rate sensor"
     annotation (Placement(transformation(extent={{0,-50},{-20,-30}})));
-  Fluid.FixedResistances.PressureDrop dp2(
+  Buildings.Fluid.FixedResistances.PressureDrop dp1(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=1/2*dp_nominal) "Pressure loss"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.Fluid.FixedResistances.PressureDrop dp2(
     redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1/2*dp_nominal) "Pressure loss"

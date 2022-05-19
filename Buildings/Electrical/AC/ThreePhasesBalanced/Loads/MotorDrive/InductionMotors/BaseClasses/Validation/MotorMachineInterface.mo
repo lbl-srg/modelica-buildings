@@ -7,7 +7,8 @@ model MotorMachineInterface "This model validates the MotorMachineInterface"
   parameter Modelica.Units.SI.Frequency f=60 "Fequency";
   parameter Modelica.Units.SI.Voltage v=120 "Fequency";
 
-  MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface torSpe(pole=pole)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface
+    torSpe(pole=pole)
     "Torque speed relationship"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant Vrms(k=v) "Voltage"

@@ -37,7 +37,7 @@ model HeatPump "This example shows how to use the heat pump with mechanical inte
     offset=273.15 + 15)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  ThermoFluid.HeatPump hea(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.HeatPump hea(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=2,

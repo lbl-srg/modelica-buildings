@@ -37,7 +37,7 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     T=291.15,
     nPorts=1) "Water source 2"
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-  MotorDrive.Coupled.Chiller chi(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller chi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     show_T=true,

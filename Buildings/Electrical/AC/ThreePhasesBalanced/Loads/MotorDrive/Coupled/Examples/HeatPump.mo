@@ -48,7 +48,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     offset=273.15 + 20,
     startTime=500) "Condenser side leaving water temperature set point"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  MotorDrive.Coupled.HeatPump hea(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump hea(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     dTEva_nominal=dTEva_nominal,

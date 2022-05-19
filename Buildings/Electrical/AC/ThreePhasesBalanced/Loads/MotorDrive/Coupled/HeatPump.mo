@@ -81,7 +81,7 @@ model HeatPump "Motor coupled heat pump"
   final Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau)
     "Heat pump torque block"
     annotation (Placement(transformation(extent={{0,40},{-20,60}})));
-  ThermoFluid.HeatPump mecHea(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.HeatPump mecHea(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final m1_flow_nominal=m1_flow_nominal,
@@ -101,7 +101,7 @@ model HeatPump "Motor coupled heat pump"
     final TAppEva_nominal=TAppEva_nominal)
     "Heat pump model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  InductionMotors.SquirrelCageDrive simMot(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
     final n=n,
     final J=JMotor,

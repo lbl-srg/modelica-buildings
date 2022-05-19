@@ -37,7 +37,7 @@ model Chiller "This example shows how to use the chiller with mechanical interfa
     offset=273.15 + 15)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  ThermoFluid.Chiller chi(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Chiller chi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=2,

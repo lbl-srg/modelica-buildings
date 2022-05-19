@@ -36,12 +36,12 @@ model Pump "Motor coupled chiller"
   final Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau)
     "Pump torque block"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
-  ThermoFluid.Pump pum(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     redeclare final package Medium = Medium,
     final addPowerToMedium=addPowerToMedium,
     final per=per) "Mechanical pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  InductionMotors.SquirrelCageDrive simMot(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
     final n=n,
     final J=JMotor,

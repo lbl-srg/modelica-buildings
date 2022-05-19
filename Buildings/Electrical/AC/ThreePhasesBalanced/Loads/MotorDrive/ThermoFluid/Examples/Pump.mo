@@ -21,7 +21,7 @@ model Pump "This example shows how to use the heat pump with mechanical interfac
     m_flow_nominal=1.2,
     dp_nominal=2000) "Resistance"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
-  ThermoFluid.Pump pum(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare package Medium = MediumW,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per)
