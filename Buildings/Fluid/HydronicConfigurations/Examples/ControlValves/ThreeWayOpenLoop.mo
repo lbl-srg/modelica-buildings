@@ -346,6 +346,13 @@ of the flow resistance affects the operating point of a pump
 operated at constant speed, and the pressure differential available
 at other terminal units.
 
+In the case where it is not balanced and considering for instance 
+<i>&Delta;p<sub>A-B</sub>(y=100%) &asymp; &Delta;p<sub>L-M</sub>(y=0%)</i>
+the valve authority computed with the latter equation is close to
+one whatever the pressure differential at the circuit boundaries,
+provided that the overflow in the bypass branch is not significant when the valve
+is closed.
+
 The valve authority
 <i>
 &beta; = &Delta;p<sub>min</sub> / &Delta;p<sub>max</sub>

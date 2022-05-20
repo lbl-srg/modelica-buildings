@@ -150,12 +150,6 @@ The definition using the equivalent pair of two-way valves actuated
 in opposition and considering 
 <i>&beta; = &Delta;p<sub>A-B</sub>(y=100%) / &Delta;p<sub>A-B</sub>(y=0%)</i>
 is only valid in the case where the bypass branch is balanced.
-In the case where it is not balanced and considering for instance 
-<i>&Delta;p<sub>A-B</sub>(y=100%) &asymp; &Delta;p<sub>L-M</sub>(y=0%)</i>
-the valve authority computed with the latter equation is close to
-one whatever the pressure differential at the circuit boundaries,
-provided that the overflow in the bypass branch is not significant when the valve
-is closed.
 See 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop</a>
