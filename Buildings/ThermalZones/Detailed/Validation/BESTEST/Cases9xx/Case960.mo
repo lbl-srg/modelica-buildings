@@ -93,16 +93,6 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     annotation (Placement(transformation(extent={{108,16},{116,24}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow1(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{92,8},{100,16}})));
-  Buildings.HeatTransfer.Conduction.SingleLayer soiSunSpa(
-    material=soil,
-    steadyStateInitial=true,
-    A=16,
-    T_a_start=283.15,
-    T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
-    annotation (Placement(transformation(
-        extent={{5,-5},{-3,3}},
-        rotation=-90,
-        origin={175,-35})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf2(
     redeclare package Medium = MediumA,
     m_flow=1,
@@ -120,13 +110,7 @@ model Case960 "Case 900, but with an unconditioned sun-space"
   Buildings.Fluid.Sensors.Density density1(redeclare package Medium = MediumA)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{84,-162},{74,-152}})));
-
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoiSunSpa[nConBou](
-      each T=283.15) "Boundary condition for construction" annotation (
-      Placement(transformation(
-        extent={{0,0},{-8,8}},
-        origin={194,-52})));
-  Fluid.FixedResistances.PressureDrop heaCoo1(
+  Buildings.Fluid.FixedResistances.PressureDrop heaCoo1(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     m_flow_nominal=48*2.7*0.41/3600*1.2,
@@ -134,6 +118,15 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     linearized=true,
     from_dp=true) "Heater and cooler"
     annotation (Placement(transformation(extent={{124,-120},{136,-108}})));
+  Buildings.HeatTransfer.Convection.Exterior conOpa1(
+    A=16,
+    hFixed=0.8,
+    roughness=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough,
+    final til=Buildings.Types.Tilt.Floor,
+    final azi=0,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
+    "Convection model for opaque part of the wall"
+    annotation (Placement(transformation(extent={{170,-64},{180,-54}})));
 equation
   connect(sunSpa.uSha, replicator.y)
                                   annotation (Line(
@@ -147,14 +140,6 @@ equation
   connect(parWal.port_b, sunSpa.surf_surBou[1])
                                              annotation (Line(
       points={{130,-42},{166,-42},{166,-25.5},{166.15,-25.5}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(sunSpa.surf_conBou[1], soiSunSpa.port_b) annotation (Line(
-      points={{173.5,-27},{173.5,-29.5},{174,-29.5},{174,-32}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(TSoiSunSpa[1].port, soiSunSpa.port_a) annotation (Line(
-      points={{186,-48},{174,-48},{174,-40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, sunSpa.weaBus)
@@ -210,6 +195,14 @@ equation
       points={{-12,-28},{-10,-28},{-10,-114},{124,-114}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(zerWin.y, conOpa1.v) annotation (Line(points={{28.4,-70},{36,-70},{36,
+          -54},{169,-54}}, color={0,0,127}));
+  connect(zerDir.y, conOpa1.dir) annotation (Line(points={{28.4,-84},{40,-84},{40,
+          -56.5},{169,-56.5}}, color={0,0,127}));
+  connect(TAirConExt.port, conOpa1.fluid) annotation (Line(points={{64,-75},{60,
+          -75},{60,-66},{188,-66},{188,-59},{180,-59}}, color={191,0,0}));
+  connect(conOpa1.solid, sunSpa.surf_conBou[1]) annotation (Line(points={{170,-59},
+          {164,-59},{164,-46},{173.5,-46},{173.5,-27}}, color={191,0,0}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case960.mos"
         "Simulate and plot"),
       experiment(

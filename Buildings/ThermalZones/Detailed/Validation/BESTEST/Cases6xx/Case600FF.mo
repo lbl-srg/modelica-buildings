@@ -204,7 +204,7 @@ model Case600FF
     final azi=0,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
     "Convection model for opaque part of the wall"
-    annotation (Placement(transformation(extent={{48,-80},{58,-70}})));
+    annotation (Placement(transformation(extent={{44,-80},{54,-70}})));
   Modelica.Blocks.Sources.Constant zerWin(k=0) "Zero wind speed"
     annotation (Placement(transformation(extent={{20,-74},{28,-66}})));
   Modelica.Blocks.Sources.Constant zerDir(k=0) "Zero wind direction"
@@ -212,7 +212,7 @@ model Case600FF
 protected
   HeatTransfer.Sources.PrescribedTemperature TAirConExt
     "Outside air temperature for exterior constructions"
-    annotation (Placement(transformation(extent={{72,-80},{62,-70}})));
+    annotation (Placement(transformation(extent={{74,-80},{64,-70}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-35.6,76},{-34,76},{-34,70.8},{-18.8,70.8}},
@@ -294,17 +294,17 @@ equation
   connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{28,
           -28},{28,-20.5},{39.75,-20.5}}, color={0,127,255}));
   connect(conOpa.fluid, TAirConExt.port)
-    annotation (Line(points={{58,-75},{62,-75}}, color={191,0,0}));
+    annotation (Line(points={{54,-75},{64,-75}}, color={191,0,0}));
   connect(weaBus.TDryBul, TAirConExt.T) annotation (Line(
-      points={{4,-92},{4,-96},{78,-96},{78,-75},{73,-75}},
+      points={{4,-92},{4,-96},{78,-96},{78,-75},{75,-75}},
       color={255,204,51},
       thickness=0.5));
-  connect(conOpa.solid, roo.surf_conBou[1]) annotation (Line(points={{48,-75},{
+  connect(conOpa.solid, roo.surf_conBou[1]) annotation (Line(points={{44,-75},{
           34,-75},{34,-34},{55.5,-34},{55.5,-27}}, color={191,0,0}));
   connect(zerWin.y, conOpa.v)
-    annotation (Line(points={{28.4,-70},{47,-70}}, color={0,0,127}));
+    annotation (Line(points={{28.4,-70},{43,-70}}, color={0,0,127}));
   connect(zerDir.y, conOpa.dir) annotation (Line(points={{28.4,-84},{40,-84},{
-          40,-72.5},{47,-72.5}}, color={0,0,127}));
+          40,-72.5},{43,-72.5}}, color={0,0,127}));
   connect(density.d, product.u2) annotation (Line(points={{-50.5,-71},{-56,-71},
           {-56,-58},{-51,-58}}, color={0,0,127}));
   annotation (
