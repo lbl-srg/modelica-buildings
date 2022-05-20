@@ -73,14 +73,13 @@ block PIDWithInputGains
     final y_start=xi_start) if with_I
     "Integral term"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Controls.OBC.Utilities.BaseClasses.Derivative D(
-    final Nd=Nd,
+  Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final y_start=yd_start) if with_D
     "Derivative term"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract errP
     "P error"
-    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
+    annotation (Placement(transformation(extent={{-140,136},{-120,156}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract errD if with_D
     "D error"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
@@ -98,18 +97,21 @@ block PIDWithInputGains
   Buildings.Controls.OBC.CDL.Continuous.Divide antWinGai2 "Outputs of anti-windup compensation"
     annotation (Placement(transformation(extent={{142,-36},{122,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide gaiI if with_I "Gain of the integral term"
-    annotation (Placement(transformation(extent={{-202,92},{-182,112}})));
+    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply errIWithGai if with_I
     "I error (after multiplying with the gain of the integral term)"
     annotation (Placement(transformation(extent={{-84,28},{-64,48}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulkTd if with_D
     "Product of k and Td"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrkTd(t=1E-17, h=0)
     if with_D
     "Check if k*Td is larger than 0"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
 
+  BaseClasses.Derivative TEST_OLD_DERIVATIVE(y_start=yd_start, Nd=Nd)
+    "fixme : this is the old derivative block"
+    annotation (Placement(transformation(extent={{2,172},{22,192}})));
 protected
   final parameter Real revAct=
     if reverseActing then
@@ -132,8 +134,7 @@ protected
     "Zero input signal"
     annotation (Placement(transformation(extent={{20,74},{40,94}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uS_revAct(
-    final k=revAct/r)
-    "Set point multiplied by reverse action sign"
+    final k=revAct/r) "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uMea_revAct(
     final k=revAct/r)
@@ -169,6 +170,12 @@ protected
     "Assertion on k and Td"
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
 
+  CDL.Continuous.MultiplyByParameter gaiT(final k=1/Nd) if with_D
+    "Gain to compute time constant for derivative action"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
+  CDL.Continuous.MultiplyByParameter gaik(final k=1/Nd) if with_D
+    "Gain for derivative action"
+    annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
 equation
   connect(trigger,I.trigger)
     annotation (Line(points={{-160,-220},{-160,-140},{-40,-140},{-40,-12}},color={255,0,255}));
@@ -207,7 +214,7 @@ equation
   connect(Izero.y,addPID.u2)
     annotation (Line(points={{42,84},{78,84}}, color={0,0,127}));
   connect(errP.u1,uS_revAct.y)
-    annotation (Line(points={{-142,146},{-170,146},{-170,40},{-178,40}},color={0,0,127}));
+    annotation (Line(points={{-142,152},{-170,152},{-170,40},{-178,40}},color={0,0,127}));
   connect(errD.u1,uS_revAct.y)
     annotation (Line(points={{-142,76},{-170,76},{-170,40},{-178,40}},color={0,0,127}));
   connect(addPD.u1, P.y)
@@ -221,15 +228,16 @@ equation
   connect(u_m, controlError.u2)
     annotation (Line(points={{0,-220},{0,-160},{-210,-160},{-210,-6},{-202,-6}}, color={0,0,127}));
   connect(uMea_revAct.y, errP.u2)
-    annotation (Line(points={{-158,-40},{-150,-40},{-150,134},{-142,134}}, color={0,0,127}));
+    annotation (Line(points={{-158,-40},{-150,-40},{-150,140},{-142,140}}, color={0,0,127}));
   connect(uMea_revAct.y, errI1.u2)
     annotation (Line(points={{-158,-40},{-150,-40},{-150,-6},{-142,-6}}, color={0,0,127}));
   connect(addPD.y, addRes.u2)
     annotation (Line(points={{42,126},{60,126},{60,-100},{-110,-100},{-110,-86},{-102,-86}}, color={0,0,127}));
   connect(errP.y, P.u2)
-    annotation (Line(points={{-118,140},{-92,140},{-92,134},{-52,134}}, color={0,0,127}));
+    annotation (Line(points={{-118,146},{-112,146},{-112,134},{-52,134}},
+                                                                        color={0,0,127}));
   connect(P.u1, k)
-    annotation (Line(points={{-52,146},{-100,146},{-100,164},{-170,164},{-170,
+    annotation (Line(points={{-52,146},{-106,146},{-106,162},{-172,162},{-172,
           200},{-240,200}},                                                                   color={0,0,127}));
   connect(antWinGai1.y, antWinGai2.u1)
     annotation (Line(points={{158,-20},{144,-20}}, color={0,0,127}));
@@ -239,33 +247,41 @@ equation
   connect(antWinGai2.y, errI2.u2)
     annotation (Line(points={{120,-26},{-98,-26},{-98,-6},{-92,-6}}, color={0,0,127}));
   connect(gaiI.u1, k)
-    annotation (Line(points={{-204,108},{-208,108},{-208,200},{-240,200}}, color={0,0,127}));
+    annotation (Line(points={{-202,136},{-212,136},{-212,200},{-240,200}}, color={0,0,127}));
   connect(gaiI.u2, Ti)
-    annotation (Line(points={{-204,96},{-214,96},{-214,140},{-240,140}},
+    annotation (Line(points={{-202,124},{-214,124},{-214,140},{-240,140}},
                                                                        color={0,0,127}));
   connect(gaiI.y, errIWithGai.u1)
-    annotation (Line(points={{-180,102},{-92,102},{-92,44},{-86,44}}, color={0,0,127}));
+    annotation (Line(points={{-178,130},{-104,130},{-104,44},{-86,44}},
+                                                                      color={0,0,127}));
   connect(errI2.y, errIWithGai.u2)
     annotation (Line(points={{-68,0},{-64,0},{-64,20},{-92,20},{-92,32},{-86,32}}, color={0,0,127}));
   connect(errIWithGai.y, I.u)
     annotation (Line(points={{-62,38},{-60,38},{-60,0},{-52,0}}, color={0,0,127}));
-  connect(D.k, k) annotation (Line(points={{-52,76},{-86,76},{-86,116},{-100,
-          116},{-100,164},{-170,164},{-170,200},{-240,200}},
-    color={0,0,127}));
-  connect(D.Td, Td)
-    annotation (Line(points={{-52,64},{-106,64},{-106,88},{-176,88},{-176,80},{
-          -240,80}},                                                                          color={0,0,127}));
   connect(mulkTd.u1, k)
-    annotation (Line(points={{18,-64},{-100,-64},{-100,164},{-170,164},{-170,
-          200},{-240,200}},
+    annotation (Line(points={{-202,176},{-212,176},{-212,200},{-240,200}},
               color={0,0,127}));
   connect(greThrkTd.y, assMeskTd.u)
     annotation (Line(points={{142,-110},{158,-110}}, color={255,0,255}));
   connect(mulkTd.y, greThrkTd.u)
-    annotation (Line(points={{42,-70},{100,-70},{100,-110},{118,-110}}, color={0,0,127}));
+    annotation (Line(points={{-178,170},{-76,170},{-76,54},{72,54},{72,-110},{
+          118,-110}},                                                   color={0,0,127}));
   connect(mulkTd.u2, Td)
-    annotation (Line(points={{18,-76},{-50,-76},{-50,-52},{-112,-52},{-112,88},
-          {-176,88},{-176,80},{-240,80}},                                                      color={0,0,127}));
+    annotation (Line(points={{-202,164},{-206,164},{-206,80},{-240,80}},                       color={0,0,127}));
+  connect(Td, gaiT.u) annotation (Line(points={{-240,80},{-180,80},{-180,110},{
+          -142,110}}, color={0,0,127}));
+  connect(gaiT.y, D.T) annotation (Line(points={{-118,110},{-108,110},{-108,74},
+          {-52,74}}, color={0,0,127}));
+  connect(TEST_OLD_DERIVATIVE.k, k) annotation (Line(points={{0,188},{-170,188},
+          {-170,200},{-240,200}}, color={0,0,127}));
+  connect(TEST_OLD_DERIVATIVE.u, errD.y) annotation (Line(points={{0,182},{-98,
+          182},{-98,72},{-110,72},{-110,70},{-120,70}}, color={0,0,127}));
+  connect(TEST_OLD_DERIVATIVE.Td, Td) annotation (Line(points={{0,176},{-172,
+          176},{-172,80},{-228,80}}, color={0,0,127}));
+  connect(gaik.u, mulkTd.y) annotation (Line(points={{-92,110},{-96,110},{-96,
+          170},{-178,170}}, color={0,0,127}));
+  connect(gaik.y, D.k) annotation (Line(points={{-68,110},{-58,110},{-58,78},{
+          -52,78}}, color={0,0,127}));
   annotation (
     defaultComponentName="conPID",
     Icon(
