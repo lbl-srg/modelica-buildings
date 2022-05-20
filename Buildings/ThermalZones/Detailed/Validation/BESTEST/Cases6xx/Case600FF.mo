@@ -66,12 +66,6 @@ model Case600FF
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
     "Floor"
     annotation (Placement(transformation(extent={{80,84},{94,98}})));
-   parameter Buildings.HeatTransfer.Data.Solids.Generic soil(
-    x=2,
-    k=1.3,
-    c=800,
-    d=1500) "Soil properties"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
@@ -79,7 +73,6 @@ model Case600FF
     nConExtWin=nConExtWin,
     nConBou=1,
     linearizeRadiation=false,
-    hExtFixed=11.9,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     AFlo=48,
@@ -192,7 +185,7 @@ model Case600FF
         meanT(Min=24.3+273.15,  Max=26.1+273.15,  Mean=25.2+273.15))
           constrainedby Modelica.Icons.Record
     "Reference results from ASHRAE/ANSI Standard 140"
-    annotation (Placement(transformation(extent={{80,40},{94,54}})));
+    annotation (Placement(transformation(extent={{82,42},{96,56}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
     "Multi sum for infiltration air flow rate"
     annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));

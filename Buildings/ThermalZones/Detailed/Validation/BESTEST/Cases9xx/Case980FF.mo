@@ -11,11 +11,11 @@ model Case980FF
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.ExteriorWallCase980 extWalCase980
     "Exterior wall"
-    annotation (Placement(transformation(extent={{60,60},{74,74}})));
+    annotation (Placement(transformation(extent={{60,20},{74,34}})));
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.RoofCase680 roofCase680
     "Roof"
-    annotation (Placement(transformation(extent={{80,60},{94,74}})));
+    annotation (Placement(transformation(extent={{80,20},{94,34}})));
 
   annotation (
 experiment(Tolerance=1e-06, StopTime=3.1536e+07),
