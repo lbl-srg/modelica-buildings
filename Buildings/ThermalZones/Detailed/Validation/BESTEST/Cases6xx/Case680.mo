@@ -19,7 +19,7 @@ model Case680
     annotation (Placement(transformation(extent={{80,60},{94,74}})));
 
 annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case660.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case680.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+07,

@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx;
-model Case910 "Case 610 with high thermal mass"
+model Case910 "Case 900, but the window has an overhang"
   extends Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900(
   roo(
      datConExtWin(
@@ -14,7 +14,7 @@ model Case910 "Case 610 with high thermal mass"
     peakHea(Min=2.469*1000, Max=2.799*1000, Mean=2.648*1000),
     peakCoo(Min=-2.081*1000, Max=-2.722*1000, Mean=-2.306*1000)));
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case610.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case910.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+07,

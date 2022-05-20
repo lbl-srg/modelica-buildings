@@ -10,7 +10,13 @@ model Case985
      peakHea(Min=2.452*1000, Max=2.785*1000, Mean=2.631*1000),
      peakCoo(Min=-3.208*1000, Max=-4.225*1000, Mean=-3.824*1000)));
 
-  annotation (
+annotation (
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case985.mos"
+        "Simulate and plot"),
+        experiment(
+      StopTime=3.1536e+07,
+      Interval=3600,
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>

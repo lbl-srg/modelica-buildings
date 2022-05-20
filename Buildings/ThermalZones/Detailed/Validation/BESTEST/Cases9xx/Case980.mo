@@ -19,7 +19,13 @@ model Case980
     "Roof"
     annotation (Placement(transformation(extent={{80,20},{94,34}})));
 
-  annotation (
+annotation (
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case980.mos"
+        "Simulate and plot"),
+        experiment(
+      StopTime=3.1536e+07,
+      Interval=3600,
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>

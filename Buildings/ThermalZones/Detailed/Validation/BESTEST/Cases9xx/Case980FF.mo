@@ -4,7 +4,7 @@ model Case980FF
   extends Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900FF(
     matExtWal = extWalCase980,
     roof =    roofCase680,
-    redeclare Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating staRes(
+    staRes(
       minT( Min=7.3+273.15, Max=12.5+273.15, Mean=10.4+273.15),
       maxT( Min=48.5+273.15, Max=52.8+273.15, Mean=50.5+273.15),
       meanT(Min=30.5+273.15, Max=33.3+273.15, Mean=31.8+273.15)));
