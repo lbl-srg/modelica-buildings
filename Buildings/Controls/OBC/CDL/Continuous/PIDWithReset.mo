@@ -69,9 +69,7 @@ block PIDWithReset
     final y_start=xi_start) if with_I
     "Integral term"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Derivative D(
-    final k=k*Td,
-    final T=Td/Nd,
+  Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final y_start=yd_start) if with_D
     "Derivative term"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
@@ -105,6 +103,12 @@ protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
+  Sources.Constant kDer(k=k*Td) if with_D
+    "Gain for derivative block"
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+  Sources.Constant TDer(k=Td/Nd) if with_D
+    "Time constant for approximation in derivative block"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Dzero(
     final k=0) if not with_D
     "Zero input signal"
@@ -150,145 +154,6 @@ protected
     message="LimPID: Limits must be yMin < yMax")
     "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
-
-  block Derivative
-    "Block that approximates the derivative of the input"
-    parameter Real k(
-      unit="1")=1
-      "Gains";
-    parameter Real T(
-      final quantity="Time",
-      final unit="s",
-      min=1E-60)=0.01
-      "Time constant (T>0 required)";
-    parameter Real y_start=0
-      "Initial value of output (= state)"
-      annotation (Dialog(group="Initialization"));
-    Interfaces.RealInput u
-      "Connector of Real input signal"
-      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.RealOutput y
-      "Connector of Real output signal"
-      annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-    output Real x
-      "State of block";
-
-  protected
-    parameter Boolean zeroGain=abs(k) < 1E-17
-      "= true, if gain equals to zero";
-
-  initial equation
-    if zeroGain then
-      x=u;
-    else
-      x=u-T*y_start/k;
-    end if;
-
-  equation
-    der(x)=
-      if zeroGain then
-        0
-      else
-        (u-x)/T;
-    y=if zeroGain then
-        0
-      else
-        (k/T)*(u-x);
-    annotation (
-      defaultComponentName="der",
-      Documentation(
-        info="<html>
-<p>
-This blocks defines the transfer function between the
-input <code>u</code> and the output <code>y</code>
-as <i>approximated derivative</i>:
-</p>
-<pre>
-             k * s
-     y = ------------ * u
-            T * s + 1
-</pre>
-<p>
-If <code>k=0</code>, the block reduces to <code>y=0</code>.
-</p>
-</html>",
-        revisions="<html>
-<ul>
-<li>
-November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
-</li>
-<li>
-August 7, 2020, by Michael Wetter:<br/>
-Moved to protected block in PID controller because the derivative block is no longer part of CDL.
-</li>
-<li>
-April 21, 2020, by Michael Wetter:<br/>
-Removed option to not set the initialization method or to set the initial state.
-The new implementation only allows to set the initial output, from which
-the initial state is computed.
-<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1887\">issue 1887</a>.
-</li>
-<li>
-March 2, 2020, by Michael Wetter:<br/>
-Changed icon to display dynamically the output value.
-</li>
-<li>
-March 24, 2017, by Jianjun Hu:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
-</li>
-</ul>
-</html>"),
-      Icon(
-        coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={
-          Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={0,0,127},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
-          Line(
-            points={{-80.0,78.0},{-80.0,-90.0}},
-            color={192,192,192}),
-          Polygon(
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid,
-            points={{-80.0,90.0},{-88.0,68.0},{-72.0,68.0},{-80.0,90.0}}),
-          Line(
-            points={{-90.0,-80.0},{82.0,-80.0}},
-            color={192,192,192}),
-          Polygon(
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid,
-            points={{90.0,-80.0},{68.0,-72.0},{68.0,-88.0},{90.0,-80.0}}),
-          Line(
-            origin={-24.667,-27.333},
-            points={{-55.333,87.333},{-19.333,-40.667},{86.667,-52.667}},
-            color={0,0,127},
-            smooth=Smooth.Bezier),
-          Text(
-            extent={{-150.0,-150.0},{150.0,-110.0}},
-            textString="k=%k"),
-          Text(
-            extent={{-150,150},{150,110}},
-            textString="%name",
-            textColor={0,0,255}),
-          Text(
-            extent={{226,60},{106,10}},
-            textColor={0,0,0},
-            textString=DynamicSelect("",String(y,
-              leftJustified=false,
-              significantDigits=3)))}));
-  end Derivative;
 
 equation
   connect(trigger,I.trigger)
@@ -353,6 +218,10 @@ equation
           -100,-6},{-92,-6}}, color={0,0,127}));
   connect(addPD.y, addRes.u2) annotation (Line(points={{42,126},{60,126},{60,-100},
           {-110,-100},{-110,-86},{-102,-86}}, color={0,0,127}));
+  connect(kDer.y, D.k) annotation (Line(points={{-78,120},{-58,120},{-58,78},{
+          -52,78}}, color={0,0,127}));
+  connect(TDer.y, D.T) annotation (Line(points={{-78,90},{-60,90},{-60,74},{-52,
+          74}}, color={0,0,127}));
 
   annotation (
     defaultComponentName="conPID",
@@ -610,6 +479,12 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 20, 2022, by Michael Wetter:<br/>
+Refactored implementation to use new derivative block from CDL package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">issue 3022</a>.
+</li>
 <li>
 May 6, 2022, by Michael Wetter:<br/>
 Corrected wrong documentation in how the derivative of the control error is approximated.<br/>

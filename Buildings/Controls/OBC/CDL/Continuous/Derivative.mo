@@ -55,7 +55,7 @@ If <code>k=0</code>, the block reduces to <code>y=0</code>.
         revisions="<html>
 <ul>
 <li>
-May 17, 2022, by Sen Huang and Michael Wetter:<br/>
+May 20, 2022, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">issue 3022</a>.
