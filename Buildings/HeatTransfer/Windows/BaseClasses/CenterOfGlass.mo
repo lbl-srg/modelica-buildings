@@ -37,7 +37,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
     final gas=glaSys.gas,
     each final til=til,
     each linearize=linearize,
-    each final homotopyInitialization=homotopyInitialization)
+    each final homotopyInitialization=homotopyInitialization) if have_GasLay
     "Window gas layer"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
@@ -64,6 +64,8 @@ model CenterOfGlass "Model for center of glass of a window construction"
 protected
   final parameter Integer nGlaLay = size(glaSys.glass, 1)
     "Number of glass layers";
+  final parameter Boolean have_GasLay = nGlaLay > 1
+    "True if it has gas layer";
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
