@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "PID.k",
+    "PIDWithInputGains.k",
+    "PID.Ti",
+    "PIDWithInputGains.Ti",
+    "PID.Td",
+    "PIDWithInputGains.Td",
+    "PID.y",
+    "PIDWithInputGains.y"
+  };
