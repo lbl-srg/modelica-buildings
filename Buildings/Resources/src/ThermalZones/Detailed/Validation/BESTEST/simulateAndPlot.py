@@ -33,7 +33,7 @@ PACKAGE = 'Buildings.ThermalZones.Detailed.Validation.BESTEST'
 CASES = ['Case600', 'Case600FF', 'Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF', \
          'Case660', 'Case670', 'Case680', 'Case680FF', 'Case685', 'Case695', \
          'Case900', 'Case900FF', 'Case910', 'Case920', 'Case930', 'Case940', 'Case950', 'Case950FF', \
-         'Case960', 'Case980', 'Case985', 'Case995']
+         'Case960', 'Case980', 'Case980FF', 'Case985', 'Case995']
 
 plt.rc('axes', labelsize=9)
 plt.rc('xtick', labelsize=9)
