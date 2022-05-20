@@ -70,7 +70,7 @@ equation
     annotation (Line(points={{162,36},{168,36}}, color={255,0,255}));
   annotation (
     experiment(
-      StopTime=1.0,
+      StopTime=10.0,
       Tolerance=1e-06),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Derivative.mos" "Simulate and plot"),
