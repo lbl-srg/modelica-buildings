@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Divide "Output first input divided by second input"
   Interfaces.RealInput u1
-    "Connector of Real input signal 1"
+    "Connector for dividend"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Interfaces.RealInput u2
-    "Connector of Real input signal 2"
+    "Connector for divisor"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Connector for quotient"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
