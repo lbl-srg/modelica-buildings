@@ -4,19 +4,16 @@ block Derivative
   parameter Real y_start=0
     "Initial value of output (= state)"
     annotation (Dialog(group="Initialization"));
-  parameter Real Nd(
-    min=100*CDL.Constants.eps)=10
-    "The higher Nd, the more ideal the derivative block";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput k(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput k
     "Connector for gain signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Td(
-    quantity="Time",
-    unit="s",
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
+    final quantity="Time",
+    final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Connector for time constant signal"
-    annotation (Placement(transformation(extent={{-140,60},{-100,20}})));
+    "Time constant (T>0 required; T=0 is ideal derivative block)"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Input to be differentiated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -24,29 +21,35 @@ block Derivative
     "Approximation of derivative du/dt"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
+  Real T_nonZero(final unit="s") "Non-zero value for T";
+
   output Real x
     "State of block";
 
 initial equation
-  x=u-y_start/k/Nd;
+  x= if abs(k) < Buildings.Controls.OBC.CDL.Constants.eps then u else u - T*y_start/k;
 
 equation
-  der(x)=(u-x)*Nd/Td;
-  y=(k*Nd)*(u-x);
+  T_nonZero = max(T, 100*Buildings.Controls.OBC.CDL.Constants.eps);
+  der(x) = (u-x)/T_nonZero;
+  y = (k/T_nonZero)*(u-x);
+
   annotation (
     defaultComponentName="der",
     Documentation(
       info="<html>
-<p>This blocks defines the transfer function between the input <code>u</code>
-and the output <code>y</code> as the approximate derivative:
+<p>
+This blocks defines the transfer function between the
+input <code>u</code> and the output <code>y</code>
+as <i>approximated derivative</i>:
 </p>
 <pre>
-          k * Td * s
-     y = ------------ * u
-         Td/Nd * s + 1
+                s
+  y = k * ------------ * u
+            T * s + 1
 </pre>
 <p>
-The block requires that <code>k * Td</code> is larger than 0.
+If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
 </html>",
         revisions="<html>
@@ -61,7 +64,6 @@ This is for
 </html>"),
       Icon(
         coordinateSystem(
-          preserveAspectRatio=true,
           extent={{-100.0,-100.0},{100.0,100.0}}),
         graphics={
           Rectangle(
@@ -113,10 +115,7 @@ This is for
           textColor={0,0,0},
           textString="k"),
         Text(
-          extent={{-102,54},{-58,28}},
+          extent={{-108,54},{-64,28}},
           textColor={0,0,0},
-          textString="Td")}),
-              Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="T")}));
 end Derivative;
