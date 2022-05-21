@@ -76,7 +76,15 @@ jobs:
               git diff --exit-code Buildings
 
       - name: Check for UTF-8 BOM
-        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."
+        run: |
+             files=`find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF'`
+             if [ "${files}x" != "x" ]; then
+               echo "Found UTF-8 BOM in"
+               for ff in files; do
+                 echo $ff
+               done
+               exit 1
+             fi;
 
       - name: Check for file permissions
         run : |
