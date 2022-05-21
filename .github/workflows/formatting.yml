@@ -80,7 +80,7 @@ jobs:
              files=`find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF'`
              if [ "${files}x" != "x" ]; then
                echo "Found UTF-8 BOM in"
-               for ff in files; do
+               for ff in ${files}; do
                  echo $ff
                done
                exit 1
