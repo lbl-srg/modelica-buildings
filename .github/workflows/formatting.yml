@@ -34,12 +34,16 @@ jobs:
       - name: Check for UTF-8 BOM
         run: |
              files=`find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF'`
+             failed="false"
              if [ "${files}x" != "x" ]; then
                echo "Found UTF-8 BOM in"
                for ff in ${files}; do
                  echo "$ff"
                done
-               exit 1
+               failed="true"
+             fi;
+             if [ "${failed}" == "true" ]; then
+                exit 1
              fi;
 
       - uses: actions/setup-python@v2
