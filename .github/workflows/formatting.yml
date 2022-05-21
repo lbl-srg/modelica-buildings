@@ -31,6 +31,17 @@ jobs:
       - name: Checkout code
         uses: nschloe/action-cached-lfs-checkout@v1
 
+      - name: Check for UTF-8 BOM
+        run: |
+             files=`find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF'`
+             if [ "${files}x" != "x" ]; then
+               echo "Found UTF-8 BOM in"
+               for ff in ${files}; do
+                 echo "$ff"
+               done
+               exit 1
+             fi;
+
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.10' # Version range or exact version of a Python version to use, using SemVer's version range syntax
@@ -74,17 +85,6 @@ jobs:
               cd ..
               python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
               git diff --exit-code Buildings
-
-      - name: Check for UTF-8 BOM
-        run: |
-             files=`find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF'`
-             if [ "${files}x" != "x" ]; then
-               echo "Found UTF-8 BOM in"
-               for ff in ${files}; do
-                 echo $ff
-               done
-               exit 1
-             fi;
 
       - name: Check for file permissions
         run : |
