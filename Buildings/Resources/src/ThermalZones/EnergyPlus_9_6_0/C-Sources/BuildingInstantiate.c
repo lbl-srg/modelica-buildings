@@ -790,8 +790,12 @@ void importSpawnFMU(FMUBuilding* bui){
   if(jm_status == jm_status_error){
     SpawnFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
   }
+  /* Set the FMU mode to instantiationMode */
+  setFMUMode(bui, instantiationMode);
+
   /* Set the debug level in the FMU */
   setFMUDebugLevel(bui);
+
 }
 
 void setReusableFMU(FMUBuilding* bui){
