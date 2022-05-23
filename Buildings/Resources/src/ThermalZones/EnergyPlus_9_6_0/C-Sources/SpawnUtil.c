@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdio.h>
 #ifdef _WIN32 /* Win32 or Win64 */
-
+#include <windows.h>
 #else
 #include <dirent.h>
 #endif
