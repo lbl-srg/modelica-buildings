@@ -247,6 +247,26 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case660<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case670<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case680<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case680FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case685<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case695<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case910<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case930<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case980<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case980FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case985<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case995
+    </td>
+    <td valign=\"top\">Added new test cases based on the ASHRAE 140-2020.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Air</b>
     </td>
 </tr>
@@ -332,6 +352,20 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case600FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case640<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case650<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case650FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case950<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case950FF
+    </td>
+    <td valign=\"top\">Updated the test cases based on the ASHRAE 140-2020.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>

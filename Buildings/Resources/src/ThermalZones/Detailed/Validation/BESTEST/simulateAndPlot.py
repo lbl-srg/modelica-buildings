@@ -14,7 +14,7 @@ import shutil
 # If true, run simulations and not only the post processing.
 DO_SIMULATIONS = True
 # If true, delete the simulation result files.
-CLEAN_MAT = False
+CLEAN_MAT = True
 # If true, temporary directories will be deleted.
 DelTemDir = True
 
@@ -528,22 +528,22 @@ def get_data_list():
                      'data_head': '# AVERAGE ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE', \
                      'tools': allTool})
     dataList.append({'data_set': 'FF_temperature_600FF_Feb1', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 600FF, JAN 4', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 600FF, FEB 1', \
                      'tools': allTool})
     dataList.append({'data_set': 'FF_temperature_900FF_Feb1', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 900FF, JAN 4', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 900FF, FEB 1', \
                      'tools': allTool})
     dataList.append({'data_set': 'FF_temperature_650FF_Jul14', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 650FFV, JULY 27', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 650FFV, JULY 14', \
                      'tools': allTool})
     dataList.append({'data_set': 'FF_temperature_950FF_Jul14', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 950FFV, JULY 27', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 950FFV, JULY 14', \
                      'tools': allTool})
     dataList.append({'data_set': 'hourly_load_600_Feb1', \
-                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 600 JAN 4', \
+                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 600 FEB 1', \
                      'tools': allTool})
     dataList.append({'data_set': 'hourly_load_900_Feb1', \
-                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 900 JAN 4', \
+                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 900 FEB 1', \
                      'tools': allTool})
     dataList.append({'data_set': 'bin_temperature_900FF', \
                      'data_head': '# HOURLY ANNUAL ZONE TEMPERATURE BIN DATA (hours): CASE 900FF', \
@@ -784,8 +784,7 @@ def _addSingleCase_to_standard(keyWord, table_name, moData, oneSet, tool):
 def bar_compare(data, yLabel, minimum, maximum):
     import numpy as np
 
-    tools = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-             'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND', 'MBL/LBNL']
+    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'MBL']
     fillColor = plt.get_cmap('tab20c')
     yLim = [minimum, maximum]
     pltName = data['data_set']
@@ -830,10 +829,9 @@ def bar_compare(data, yLabel, minimum, maximum):
 
 def plot_lines(data, xLabel, yLabel, xMin, xMax, dx, yMin, yMax):
     import numpy as np
-    tools = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-             'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND', 'MBL/LBNL']
+    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'MBL']
     lineColor = plt.get_cmap('tab20c')
-    lineMarker = ['.', ',', 'o', 's', 'p', '*', 'x', '+', 'd']
+    lineMarker = ['.', ',', 'o', 's', 'p', '*', 'x']
     pltName = data['data_set']
     plt.clf()
     _,ax = plt.subplots(figsize=(10,5))
@@ -869,7 +867,7 @@ def plot_figures(comDat):
     barPlot_yLabel = ['Annual Heating Load [MWh]', 'Annual Cooling Load [MWh]', 'Peak Heating Load [kW]', 'Peak Cooling Load [kW]', \
                       'Maximum Temperature [degC]', 'Minimum Temperature [degC]', 'Average Temperature [degC]']
     barPlot_yMin = [0, 0, 0, 0, 0, -25, 0]
-    barPlot_yMax = [8, 9, 8, 8, 80, 10, 35]
+    barPlot_yMax = [8, 10, 8, 8, 80, 10, 35]
     line_variable = ['FF_temperature_600FF_Feb1', 'FF_temperature_900FF_Feb1', 'FF_temperature_650FF_Jul14', \
                      'FF_temperature_950FF_Jul14', 'hourly_load_600_Feb1', 'hourly_load_900_Feb1', 'bin_temperature_900FF']
     line_xLable = ['Hour of Day (Case600FF, Feb1)', 'Hour of Day (Case900FF, Feb1)', 'Hour of Day (Case650FF, Jul14)', \
@@ -879,8 +877,8 @@ def plot_figures(comDat):
     line_xMin = [1, 1, 1, 1, 1, 1, -10]
     line_xMax = [24, 24, 24, 24, 24, 24, 50]
     line_dx = [1, 1, 1, 1, 1, 1, 5]
-    line_yMin = [-30, -30, 0, 0, -4, 0, 0]
-    line_yMax = [40, 40, 60, 60, 5, 4, 500]
+    line_yMin = [-10, -10, 10, 10, -6, -2, 0]
+    line_yMax = [50, 50, 50, 50, 4, 2, 500]
 
     for i in range(len(comDat)):
         data = comDat[i]
@@ -977,7 +975,6 @@ def _generate_load_tables(comDat, allTools, lessTools):
 
     peakUnits = '''
 <tr>
-<td>kW</td><td>hour</td>
 <td>kW</td><td>hour</td>
 <td>kW</td><td>hour</td>
 <td>kW</td><td>hour</td>
