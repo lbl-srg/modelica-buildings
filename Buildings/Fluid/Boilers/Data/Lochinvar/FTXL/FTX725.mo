@@ -6,7 +6,10 @@ record FTX725 "Specifications for Lochinvar FTXL FTX725 boiler"
     mDry=260.8156128,
     m_flow_nominal=4.479404,
     dp_nominal=14646.00);
-  annotation (Documentation(info="<html>
+    annotation (
+  defaultComponentName = "per",
+  defaultComponentPrefixes = "parameter",
+  Documentation(info="<html>
 <p>
 Performance data for boiler model.
 See the documentation of

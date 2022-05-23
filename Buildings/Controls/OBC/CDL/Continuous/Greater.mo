@@ -86,7 +86,7 @@ protected
     pre(y)=pre_y_start;
 
   equation
-    y=(not pre(y) and u1 > u2 or pre(y) and u1 >= u2-h);
+    y=(not pre(y) and u1 > u2 or pre(y) and u1 > u2-h);
     annotation (
       Icon(
         graphics={
@@ -214,21 +214,33 @@ is greater than the Real input <code>u2</code>, optionally within a hysteresis <
 </p>
 <p>
 The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
-If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub></i>,
-and it switches to <code>false</code> if <i>u<sub>1</sub> &lt; u<sub>2</sub> - h</i>.
-If <i>h = 0</i>, the output is <i>y=u<sub>1</sub> &gt; u<sub>2</sub></i>.
+For any <i>h &ge; 0</i>, the output switches to <code>true</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub></i>,
+and it switches to <code>false</code> if <i>u<sub>1</sub> &le; u<sub>2</sub> - h</i>.
+Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u<sub>1</sub> &gt; u<sub>2</sub></i>.
 </p>
 <p>
-Enabling hysteresis can avoid frequent switching.
-Adding hysteresis is recommended in real controllers to guard against sensor noise, and
-in simulation to guard against numerical noise. Numerical noise can be present if
-an input depends on a state variable or a quantity that requires an iterative solution, such as
-a temperature or a mass flow rate of an HVAC system.
 To disable hysteresis, set <code>h=0</code>.
 </p>
+<h4>Usage</h4>
+<p>
+Enabling hysteresis can avoid frequent switching.<br/>
+In simulation, adding hysteresis is recommended to guard against numerical noise.
+Otherwise, numerical noise from a nonlinear solver or from an
+implicit time integration algorithm may cause the simulation to stall.
+Numerical noise can be present if an input depends
+on a state variable or a quantity that requires an iterative solution,
+such as a temperature or a mass flow rate of an HVAC system.<br/>
+In real controllers, adding hysteresis is recommended to guard against measurement noise.
+Otherwise, measurement noise may cause the output to change frequently.
+</p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+April 29, 2022, by Jianjun Hu:<br/>
+Corrected the condition of swiching true back to false.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">issue 2981</a>.
+</li>
 <li>
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>
