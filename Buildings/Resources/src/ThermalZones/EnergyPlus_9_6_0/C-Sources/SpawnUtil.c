@@ -727,6 +727,7 @@ void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *s
 #endif
 }
 
+#ifndef _WIN32 /* Not Win32 or Win64 */
 int isDirectory(const char *path){
    struct stat statbuf;
    if (stat(path, &statbuf) != 0)
@@ -740,6 +741,7 @@ int isRegularFile(const char *path) {
        return 0;
    return S_ISREG(statbuf.st_mode);
 }
+#endif
 
 
 void remove_files_or_directory(FMUBuilding* bui, const char* directory, const char* wildCard, bool recursive){
@@ -753,10 +755,7 @@ void remove_files_or_directory(FMUBuilding* bui, const char* directory, const ch
   int nFil;
 #endif
 
-//--  size_t lenPat;
   size_t lenFil;
-
-//--  char* path;
   char* filName;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
@@ -765,12 +764,6 @@ void remove_files_or_directory(FMUBuilding* bui, const char* directory, const ch
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Entered remove_files_or_directory, directory = '%s', wildCard = '%s'.\n",
       bui->time, bui->modelicaNameBuilding, directory, wildCard);
-//--  lenPat = strlen(bui->tmpDir) + strlen(binDir) + 1;
-//--  mallocString(lenPat, "Failed to allocate memory in remove_files_or_directory() for path.",
-//--      &path, SpawnFormatError);
-//--  memset(path, '\0', lenPat);
-//--  strcpy(path, bui->tmpDir);
-//--  strcat(path, binDir);
 
 #ifdef _WIN32 /* Win32 or Win64 */
   /* Specify file mask */
@@ -807,6 +800,8 @@ void remove_files_or_directory(FMUBuilding* bui, const char* directory, const ch
             strcat(filName, "/");
             strcat(filName, fdFile.cFileName);
             remove_files_or_directory(bui, filName, "*", recursive);
+            /* Now the directory is empty, delete it. */
+            _rmdir(filName);
             free(filName);
           }
           else{
