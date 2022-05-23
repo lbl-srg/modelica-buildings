@@ -22,7 +22,7 @@ import shutil
 # by the Buildings library
 spawn_dists = [
     {"version": "0.3.0",
-     "commit": "59ed8c72e47b646e71a3c4d1add8946968a333b2"}
+     "commit": "0fa49be49715a5acc87f078ba583e369d435cdf9"}
 ]
 ###########################################################################
 
