@@ -840,7 +840,6 @@ void remove_files_or_directory(FMUBuilding* bui, const char* directory, const ch
     return;
   }
   while (nFil--){
-    SpawnFormatMessage("%.3f %s: *** Parsing dir = '%s', d_name %s.\n", bui->time, bui->modelicaNameBuilding, directory, namelist[nFil]->d_name);
     if ( (strcmp(namelist[nFil]->d_name, "..") == 0) ||
          (strcmp(namelist[nFil]->d_name, ".")  == 0) ) {
       /* Skip for ".." and for "." */
@@ -874,7 +873,7 @@ void remove_files_or_directory(FMUBuilding* bui, const char* directory, const ch
     }
     else{
       if (bui->logLevel >= MEDIUM)
-        SpawnFormatMessage("%.3f %s: Skipping removal of '%s', as it is neither a regular file nor a directory.\n",
+        SpawnFormatMessage("%.3f %s: Skipping removal of '%s', as it is does not match pattern.\n",
           bui->time, bui->modelicaNameBuilding, filName);
     }
     free(filName);
