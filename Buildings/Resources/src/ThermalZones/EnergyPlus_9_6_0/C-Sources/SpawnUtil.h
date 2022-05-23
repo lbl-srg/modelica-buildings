@@ -85,7 +85,7 @@ void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *s
 
 int deleteFile(const char* fileName);
 
-void delete_old_epfmi_binaries(FMUBuilding* bui);
+void delete_extracted_fmu_files(FMUBuilding* bui);
 
 void buildVariableNames(
   const char* firstPart,
