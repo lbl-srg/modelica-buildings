@@ -29,6 +29,7 @@ First implementation.
 This model is the case 985 of the BESTEST validation suite. Case 985 differs from
 case 900 in that it has single heating and cooling setpoint.
 </p>
+<ul>
 <li>
 Heat = on if zone temperature is below 20&deg;C
 </li>

@@ -41,6 +41,7 @@ This model is the case 995 of the BESTEST validation suite. Case 995 differs fro
 case 900 in that it has single heating and cooling setpoint and increased exterior wall
 and roof insulation.
 </p>
+<ul>
 <li>
 Heat = on if zone temperature is below 20&deg;C
 </li>
