@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <dirent.h>
 
 void mallocString(const size_t nChar, const char *error_message, char** str, void (*SpawnFormatError)(const char *string, ...)){
   *str = malloc(nChar * sizeof(char));
@@ -716,6 +717,79 @@ void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *s
 #endif
       SpawnFormatError("Failed to create directory %s", dirName);
   }
+}
+
+int filter_epfmi_binaries(const struct dirent *entry)
+{
+   return (0 == strncmp(entry->d_name, "epfmi", 5));
+}
+
+void delete_old_epfmi_binaries(FMUBuilding* bui){
+  /* Delete old .so or .lib files.
+   */
+  struct dirent **namelist;
+  int nFil;
+  size_t len;
+  size_t lenFil;
+
+#ifdef _WIN32 /* Win32 or Win64 */
+  const char* binDir = "/binaries/win64/";
+#elif __APPLE__
+  const char* binDir = "/binaries/darwin64/";
+#else
+  const char* binDir = "/binaries/linux64/";
+#endif
+  char* path;
+  char* libName;
+
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
+  SpawnFormatMessage("%.3f %s: Entered delete_old_epfmi_binaries.\n", bui->time, bui->modelicaNameBuilding);
+  len = strlen(bui->tmpDir) + strlen(binDir) + 1;
+  mallocString(len, "Failed to allocate memory in delete_old_epfmi_binaries() for path.",
+      &path, SpawnFormatError);
+  memset(path, '\0', len);
+  strcpy(path, bui->tmpDir);
+  strcat(path, binDir);
+
+  /* Scan the directory for files */
+  nFil = scandir(path, &namelist, filter_epfmi_binaries, alphasort);
+  if (nFil == -1){
+    /* scandir had an error, this may be if the directory does not exist. */
+     if (bui->logLevel >= MEDIUM)
+      SpawnFormatMessage("%.3f %s: Did not find old epfmi binaries in '%s'.\n", bui->time, bui->modelicaNameBuilding, path);
+    free(path);
+    return;
+  }
+  while (nFil--){
+    lenFil = len + strlen(namelist[nFil]->d_name);
+
+    mallocString(lenFil, "Failed to allocate memory in delete_old_epfmi_binaries() for libName.",
+      &libName, SpawnFormatError);
+    memset(libName, '\0', lenFil);
+    strcpy(libName, path);
+    strcat(libName, namelist[nFil]->d_name);
+    free(namelist[nFil]);
+
+    if (bui->logLevel >= MEDIUM)
+      SpawnFormatMessage("%.3f %s: Deleting old epfmi binary '%s'.\n", bui->time, bui->modelicaNameBuilding, libName);
+    deleteFile(libName);
+    free(libName);
+  }
+  free(namelist);
+
+  free(path);
+}
+
+int deleteFile(const char* fileName){
+  /* Remove file if it exists */
+  if (access(fileName, F_OK) == 0) {
+    /* File exists. Delete it. */
+    return remove(fileName);
+  }
+  else
+    return 0;
 }
 
 
