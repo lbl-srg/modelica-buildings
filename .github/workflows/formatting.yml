@@ -31,6 +31,20 @@ jobs:
       - name: Checkout code
         uses: nschloe/action-cached-lfs-checkout@v1
 
+      - name: Check for UTF-8 BOM with grep
+        run : |
+              for ff in `grep -rlI --exclude="*.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
+                echo "::error file=${ff}:: Found BOM in ${ff}."
+              done;
+              test -z "${ff}"
+
+
+      - name: Check for UTF-8 BOM with find
+              for ff in `find . -type f -name '*.*' -not -name '*.vcxproj' -not -path '.git*' -print0 | sort -z | xargs -0 grep -l $'^\xEF\xBB\xBF'`; do
+                echo "::error file=${ff}:: Found BOM in ${ff}."
+              done;
+              test -z "${ff}"
+
       - name: Check for UTF-8 BOM
         run : |
               for ff in `find . -type f -name '*.*' -not -name '*.vcxproj' -not -path '.git*' -print0 | sort -z | xargs -0 grep -l $'^\xEF\xBB\xBF'`; do
