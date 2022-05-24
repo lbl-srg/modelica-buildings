@@ -104,7 +104,9 @@ block PIDWithInputGains
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulkTd if with_D
     "Product of k and Td"
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrkTd(t=1E-17, h=0)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrkTd(
+    t=1E-6,
+    h=1E-6/2)
     if with_D
     "Check if k*Td is larger than 0"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
