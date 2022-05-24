@@ -33,11 +33,9 @@ jobs:
 
       - name: Check for UTF-8 BOM
         run : |
-              files=`find . -type f -name '*.*' -not -name '*.vcxproj' -not -path '.git*' -print0 | xargs -0 grep -l $'^\xEF\xBB\xBF'`
-              for ff in ${files}; do
+              for ff in `find . -type f -name '*.*' -not -name '*.vcxproj' -not -path '.git*' -print0 | xargs -0 grep -l $'^\xEF\xBB\xBF'`; do
                 echo "::error file=${ff}:: Found BOM."
               done;
-              test -z "${files}"
 
 
       - name: Check for UTF-8 BOM II
