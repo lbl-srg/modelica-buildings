@@ -42,7 +42,7 @@ jobs:
       - name: "Install BuildingsPy"
         run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v4.0.0
 
-      - name: Check for UTF-8 BOM with grep
+      - name: Check for UTF-8 BOM
         run : |
               for ff in `grep -rlI --exclude="ffd.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
                 echo "::error file=${ff}:: Found BOM in ${ff}."
