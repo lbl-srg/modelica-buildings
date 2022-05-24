@@ -104,43 +104,6 @@ model Indirect
   parameter Real yMin=0.01
     "Lower limit of output"
     annotation (Dialog(group="PID controller"));
-  parameter Real wp(
-    final min=0)=1
-    "Set-point weight for Proportional block (0..1)"
-    annotation (Dialog(group="PID controller"));
-  parameter Real wd(
-    final min=0)=0
-    "Set-point weight for Derivative block (0..1)"
-    annotation (Dialog(group="PID controller"));
-  parameter Real Ni(
-    final min=100*Modelica.Constants.eps)=0.9
-    "Ni*Ti is time constant of anti-windup compensation"
-    annotation (Dialog(group="PID controller",enable=
-          controllerType==.Modelica.Blocks.Types.SimpleController.PI or
-          controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Nd(
-    final min=100*Modelica.Constants.eps)=10
-    "The higher Nd, the more ideal the derivative block"
-    annotation (Dialog(group="PID controller",enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real xi_start=0
-    "Initial or guess value for integrator output (= integrator state)"
-    annotation (Dialog(group="PID controller",enable=
-          controllerType==.Modelica.Blocks.Types.SimpleController.PI or
-          controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real xd_start=0
-    "Initial or guess value for derivative block"
-    annotation (Dialog(group="PID controller",enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real yCon_start=0
-    "Initial value of output from the controller"
-    annotation (Dialog(enable=initType == Modelica.Blocks.Types.Init.InitialOutput,
-                group="Initialization"));
-  parameter Boolean reverseActing=false
-    "Set to true for throttling the water flow rate through a cooling coil controller"
-    annotation (Dialog(group="PID controller"));
   Modelica.Blocks.Interfaces.RealInput TSetBuiSup
     "Setpoint temperature for building supply"
     annotation (Placement(transformation(extent={{-340,-20},{-300,20}})));
