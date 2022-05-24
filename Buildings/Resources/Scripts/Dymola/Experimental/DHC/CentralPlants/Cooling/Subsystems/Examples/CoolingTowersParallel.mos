@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowersParallel", 
 	startTime=15552000, 
 	stopTime=15724800, 
