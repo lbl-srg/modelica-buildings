@@ -255,9 +255,12 @@ def get_time_series_result():
         if 'FF' in case['case']:
             # free floating cases
             resVal = ['TRooHou.y', 'TRooAnn.y']
+        elif (case['case'] == 'Case960'):
+            # case with sun space: back zone is conditioned and sun space is free floating
+            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'TSunSpaHou.y', 'TSunSpaAnn.y']
         else:
             # cases with heating and cooling
-            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'TRooHou.y', 'TRooAnn.y']
+            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y']
         # extract time and value of the variables
         time_series_data = _extract_data(case['matFile'], resVal)
         temp['result'] = time_series_data
@@ -425,12 +428,13 @@ def get_mo_data(data_set):
                      'binData': binData}
         else:
             for varVal in data['result']:
-                if varVal['variable'] == 'TRooAnn.y':
-                    annAveTemp1 = varVal['value'][-1]
-                elif varVal['variable'] == 'TRooHou.y':
-                    peaMax1 = _find_peak(varVal, True, 'max')
-                    peaMin1 = _find_peak(varVal, True, 'min')
-                elif varVal['variable'] == 'PCoo.y':
+                if (data['case'] == 'Case960'):
+                    if varVal['variable'] == 'TSunSpaAnn.y':
+                        annAveTemp1 = varVal['value'][-1]
+                    elif varVal['variable'] == 'TSunSpaHou.y':
+                        peaMax1 = _find_peak(varVal, True, 'max')
+                        peaMin1 = _find_peak(varVal, True, 'min')
+                if varVal['variable'] == 'PCoo.y':
                     pCoo = _find_peak(varVal, False, 'min')
                 elif varVal['variable'] == 'PHea.y':
                     pHea = _find_peak(varVal, False, 'max')
@@ -439,14 +443,21 @@ def get_mo_data(data_set):
                 else:
                     eHea = varVal['value'][-1]
             load = _find_load(data['result'])
-            temp1 = {'annAveTem': '{:.1f}'.format(annAveTemp1-273.15),
-                     'peaMax': peaMax1,
-                     'peaMin': peaMin1,
-                     'peaCoo': pCoo,
-                     'peaHea': pHea,
-                     'Feb1': ['{:.2f}'.format(ele / 1000) for ele in load[745:769]],
-                     'eCoo': '{:.3f}'.format(abs(eCoo / MWh)),
-                     'eHea': '{:.3f}'.format(abs(eHea / MWh))}
+            if (data['case'] == 'Case960'):
+                temp1 = {'annAveTem': '{:.1f}'.format(annAveTemp1-273.15),
+                         'peaMax': peaMax1,
+                         'peaMin': peaMin1,
+                         'peaCoo': pCoo,
+                         'peaHea': pHea,
+                         'Feb1': ['{:.2f}'.format(ele / 1000) for ele in load[745:769]],
+                         'eCoo': '{:.3f}'.format(abs(eCoo / MWh)),
+                         'eHea': '{:.3f}'.format(abs(eHea / MWh))}
+            else:
+                temp1 = {'peaCoo': pCoo,
+                         'peaHea': pHea,
+                         'Feb1': ['{:.2f}'.format(ele / 1000) for ele in load[745:769]],
+                         'eCoo': '{:.3f}'.format(abs(eCoo / MWh)),
+                         'eHea': '{:.3f}'.format(abs(eHea / MWh))}
         temp['extData'] = list()
         temp['extData'].append(temp1)
         results.append(temp)
