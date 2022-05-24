@@ -283,8 +283,10 @@ void FMUBuildingFree(FMUBuilding* bui){
     }
 
     /* The call to fmi2_import_terminate causes a seg fault if
-       fmi2_import_create_dllfmu was not successful */
-    if (bui->dllfmu_created){
+       fmi2_import_create_dllfmu was not successful.
+       Also, per the FMI specification, fmi2_import_terminate must only be called in continuous time mode or event mode */
+    if (bui->dllfmu_created &&
+       ((bui->mode == continuousTimeMode) || (bui->mode == eventMode)) ){
       if (bui->logLevel >= MEDIUM)
         SpawnFormatMessage("%.3f %s: Calling fmi2_import_terminate to terminate EnergyPlus.\n", bui->time, bui->modelicaNameBuilding);
       status = fmi2_import_terminate(bui->fmu);
@@ -293,6 +295,7 @@ void FMUBuildingFree(FMUBuilding* bui){
           bui->time, bui->modelicaNameBuilding,
           fmi2_status_to_string(status));
       }
+      setFMUMode(bui, terminatedMode);
     }
     if (bui->fmu != NULL){
       if (bui->logLevel >= MEDIUM)
@@ -305,6 +308,8 @@ void FMUBuildingFree(FMUBuilding* bui){
     if (bui->context != NULL){
       fmi_import_free_context(bui->context);
     }
+    /* Clean up files that were extracted from the FMU */
+    delete_extracted_fmu_files(bui);
 
     if (bui->buildingsLibraryRoot != NULL)
       free(bui->buildingsLibraryRoot);

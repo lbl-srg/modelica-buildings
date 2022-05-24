@@ -83,6 +83,10 @@ void getSimulationTemporaryDirectory(
 
 void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *string, ...));
 
+int deleteFile(const char* fileName);
+
+void delete_extracted_fmu_files(FMUBuilding* bui);
+
 void buildVariableNames(
   const char* firstPart,
   const char** secondParts,
