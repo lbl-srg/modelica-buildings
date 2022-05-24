@@ -26,7 +26,8 @@ model Case960 "Case 900, but with an unconditioned sun-space"
   Buildings.HeatTransfer.Conduction.MultiLayer
     parWal(layers=matLayPar, A=8*2.7,
     stateAtSurface_a=true,
-    stateAtSurface_b=true)          "Partition wall between the two rooms"
+    stateAtSurface_b=true)
+    "Partition wall between the two rooms"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={120,-42})));
@@ -127,9 +128,18 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
     "Convection model for opaque part of the wall"
     annotation (Placement(transformation(extent={{170,-64},{180,-54}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSunSpaAir
+    "Sun space room air temperature"
+    annotation (Placement(transformation(extent={{5,-5},{-5,5}},
+        rotation=0, origin={107,-11})));
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage TSunSpaHou(delta=3600)
+    "Hourly averaged room air temperature"
+    annotation (Placement(transformation(extent={{88,-28},{96,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage TSunSpaAnn(delta=86400*365)
+    "Annual averaged room air temperature"
+    annotation (Placement(transformation(extent={{88,-40},{96,-32}})));
 equation
-  connect(sunSpa.uSha, replicator.y)
-                                  annotation (Line(
+  connect(sunSpa.uSha, replicator.y) annotation (Line(
       points={{152.8,-1.5},{122,-1.5},{122,80},{-3.6,80}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -203,6 +213,12 @@ equation
           -75},{60,-66},{188,-66},{188,-59},{180,-59}}, color={191,0,0}));
   connect(conOpa1.solid, sunSpa.surf_conBou[1]) annotation (Line(points={{170,-59},
           {164,-59},{164,-46},{173.5,-46},{173.5,-27}}, color={191,0,0}));
+  connect(TSunSpaAir.port, sunSpa.heaPorAir) annotation (Line(points={{112,-11},
+          {140,-11},{140,-16},{168.25,-16},{168.25,-15}}, color={191,0,0}));
+  connect(TSunSpaAir.T, TSunSpaHou.u) annotation (Line(points={{101.5,-11},{74,-11},
+          {74,-24},{87.2,-24}}, color={0,0,127}));
+  connect(TSunSpaAir.T, TSunSpaAnn.u) annotation (Line(points={{101.5,-11},{74,-11},
+          {74,-36},{87.2,-36}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case960.mos"
         "Simulate and plot"),
       experiment(
