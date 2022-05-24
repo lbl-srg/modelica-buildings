@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Media.Examples.SteamSaturationConsistencyCheck", method="dassl", startTime=0, stopTime=1.0, tolerance=1e-06, resultFile="SteamSaturationConsistencyCheck");
+simulateModel("Buildings.Media.Examples.SteamSaturationConsistencyCheck", method="dassl", startTime=0, stopTime=1.0, tolerance=1e-06, resultFile="SteamSaturationConsistencyCheck");
 createPlot(id=1, position={15, 10, 498, 544}, 
   x="TSat_degC", 
   y={"TSat0", "TSat"}, 
