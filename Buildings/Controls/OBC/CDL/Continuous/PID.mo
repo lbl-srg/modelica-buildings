@@ -54,7 +54,7 @@ block PID
     "Connector of actuator output signal"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract controlError "Control error (set point - measurement)"
-    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
+    annotation (Placement(transformation(extent={{-200,-16},{-180,4}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter P(final k=k)
     "Gain for proportional control action"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
@@ -151,9 +151,10 @@ protected
 
 equation
   connect(u_s,uS_revAct.u)
-    annotation (Line(points={{-240,0},{-212,0},{-212,40},{-202,40}},color={0,0,127}));
+    annotation (Line(points={{-240,0},{-210,0},{-210,42},{-206,42},{-206,40},{
+          -202,40}},                                                color={0,0,127}));
   connect(u_m,uMea_revAct.u)
-    annotation (Line(points={{0,-220},{0,-160},{-212,-160},{-212,-40},{-202,-40}},color={0,0,127}));
+    annotation (Line(points={{0,-220},{0,-160},{-210,-160},{-210,-40},{-202,-40}},color={0,0,127}));
   connect(D.u,errD.y)
     annotation (Line(points={{-52,70},{-118,70}},
                                                 color={0,0,127}));
@@ -161,15 +162,15 @@ equation
     annotation (Line(points={{-142,12},{-170,12},{-170,40},{-178,40}},
                                                                     color={0,0,127}));
   connect(addPID.u1,addPD.y)
-    annotation (Line(points={{78,96},{60,96},{60,134},{42,134}},color={0,0,127}));
+    annotation (Line(points={{78,96},{50,96},{50,134},{42,134}},color={0,0,127}));
   connect(lim.y,y)
     annotation (Line(points={{142,90},{200,90},{200,0},{240,0}},color={0,0,127}));
   connect(antWinErr.y,antWinGai.u)
     annotation (Line(points={{182,60},{190,60},{190,-20},{182,-20}},color={0,0,127}));
   connect(addPD.u2,Dzero.y)
-    annotation (Line(points={{18,128},{-12,128},{-12,100},{-28,100}},color={0,0,127}));
+    annotation (Line(points={{18,128},{-10,128},{-10,100},{-28,100}},color={0,0,127}));
   connect(D.y,addPD.u2)
-    annotation (Line(points={{-28,70},{-12,70},{-12,128},{18,128}},color={0,0,127}));
+    annotation (Line(points={{-28,70},{-10,70},{-10,128},{18,128}},color={0,0,127}));
   connect(addPID.u2,I.y)
     annotation (Line(points={{78,84},{60,84},{60,0},{-28,0}},color={0,0,127}));
   connect(antWinErr.u2,lim.y)
@@ -198,13 +199,14 @@ equation
     annotation (Line(points={{-52,140},{-118,140}},color={0,0,127}));
   connect(addPID.y, lim.u)
     annotation (Line(points={{102,90},{118,90}},color={0,0,127}));
-  connect(addPID.y, antWinErr.u1) annotation (Line(points={{102,90},{110,90},{
-          110,66},{158,66}},
+  connect(addPID.y, antWinErr.u1) annotation (Line(points={{102,90},{114,90},{
+          114,66},{158,66}},
                          color={0,0,127}));
-  connect(u_s, controlError.u1) annotation (Line(points={{-240,0},{-212,0},{
-          -212,6},{-202,6}}, color={0,0,127}));
+  connect(u_s, controlError.u1) annotation (Line(points={{-240,0},{-202,0}},
+                             color={0,0,127}));
   connect(u_m, controlError.u2) annotation (Line(points={{0,-220},{0,-160},{
-          -212,-160},{-212,-6},{-202,-6}}, color={0,0,127}));
+          -210,-160},{-210,-12},{-202,-12}},
+                                           color={0,0,127}));
   connect(uMea_revAct.y, errP.u2) annotation (Line(points={{-178,-40},{-150,-40},
           {-150,134},{-142,134}}, color={0,0,127}));
   connect(uMea_revAct.y, errD.u2) annotation (Line(points={{-178,-40},{-150,-40},
