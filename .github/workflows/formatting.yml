@@ -32,7 +32,7 @@ jobs:
         uses: nschloe/action-cached-lfs-checkout@v1
 
       - name: Check for UTF-8 BOM
-        run: ${GITHUB_WORKSPACE}/bin/checkForBOM.sh
+        uses: arma-actions/bom-check@v1.1
 
       - uses: actions/setup-python@v2
         with:
