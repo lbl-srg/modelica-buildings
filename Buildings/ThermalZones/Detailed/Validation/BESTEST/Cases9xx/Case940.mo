@@ -45,7 +45,7 @@ From 2300 hours to 0700 hours, heat = on if zone temperature is below 10&deg;C
 From 0700 hours to 2300 hours, heat = on if zone temperature is above 20&deg;C
 </li>
 <li>
-All hours, cool = on if zone temperature below 27&deg;C
+All hours, cool = on if zone temperature above 27&deg;C
 </li>
 <li>
 Otherwise, mechanical equipment is off.
