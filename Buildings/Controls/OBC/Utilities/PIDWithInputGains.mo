@@ -73,7 +73,7 @@ block PIDWithInputGains
     final y_start=xi_start) if with_I
     "Integral term"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Derivative                               D(
+  Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final y_start=yd_start) if with_D
     "Derivative term"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
@@ -260,7 +260,7 @@ equation
     annotation (Line(points={{-240,80},{-180,80},{-180,110},{-142,110}}, color={0,0,127}));
   connect(gaiT.y, D.T)
     annotation (Line(points={{-118,110},{-108,110},{-108,74},{-52,74}}, color={0,0,127}));
-  connect(D.k, greThrkTd.u) 
+  connect(D.k, greThrkTd.u)
     annotation (Line(points={{-52,78},{-100,78},{-100,170},
     {-64,170},{-64,186},{64,186},{64,-110},{118,-110}}, color={0,0,127}));
   annotation (
@@ -372,7 +372,7 @@ with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
 the measured quantity,
 <i>k</i> is the gain,
 <i>T<sub>i</sub></i> is the time constant of the integral term,
-<i>T<sub>d</sub></i> is the time constant of the derivative term,  
+<i>T<sub>d</sub></i> is the time constant of the derivative term,
 <i>r</i> is a scaling factor, with default <i>r=1</i>.
 The scaling factor should be set to the typical order of magnitude of the range of the error <i>e</i>.
 For example, you may set <i>r=100</i> to <i>r=1000</i>
@@ -384,7 +384,7 @@ Note that the units of <i>k</i> are the inverse of the units of the control erro
 while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
 The major difference between this block and <code>
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</code> is that
-<i>k</i>, <i>T<sub>i</sub></i>, and <i>T<sub>d</sub></i> are inputs rather than parameters. 
+<i>k</i>, <i>T<sub>i</sub></i>, and <i>T<sub>d</sub></i> are inputs rather than parameters.
 </p>
 <p>
 The actual control output is
