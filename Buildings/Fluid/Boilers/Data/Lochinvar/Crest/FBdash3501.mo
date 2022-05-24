@@ -6,7 +6,10 @@ record FBdash3501 "Specifications for Lochinvar Crest FB-3501 boiler"
     mDry = 1459.660247,
     m_flow_nominal = 21.198306,
     dp_nominal = 29590.90);
-  annotation (Documentation(info="<html>
+    annotation (
+  defaultComponentName = "per",
+  defaultComponentPrefixes = "parameter",
+  Documentation(info="<html>
 <p>
 Performance data for boiler model.
 See the documentation of
