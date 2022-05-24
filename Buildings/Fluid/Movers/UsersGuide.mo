@@ -531,10 +531,10 @@ on reasonable assumptions. In such cases, the following default values are used:
 </tbody>
 </table>
 <p>
-Whenever <i>&eta;</i> is provided by the user,
-<i>&eta;<sub>Hyd</sub> &ge; &eta;</i> and
-<i>&eta;<sub>Mot</sub> &ge; &eta;</i> are imposed.
-This is to prevent
+Constraints
+<i>&eta;<sub>Hyd</sub> &le; 1</i> and
+<i>&eta;<sub>Mot</sub> &le; 1</i>
+are imposed to prevent the division
 <i>&eta;<sub>Hyd</sub> = &eta; &frasl; &eta;<sub>Mot</sub></i> or
 <i>&eta;<sub>Mot</sub> = &eta; &frasl; &eta;<sub>Hyd</sub></i>
 from producing efficiency values larger than one.
