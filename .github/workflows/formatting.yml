@@ -39,18 +39,6 @@ jobs:
               test -z "${ff}"
 
 
-      - name: Check for UTF-8 BOM
-        run : |
-              for ff in `find . -type f -name '*.*' -not -name '*.vcxproj' -not -path '.git*' -print0 | sort -z | xargs -0 grep -l $'^\xEF\xBB\xBF'`; do
-                echo "::error file=${ff}:: Found BOM in ${ff}."
-              done;
-              test -z "${ff}"
-
-
-      - name: Check for UTF-8 BOM II
-        uses: arma-actions/bom-check@v1
-
-
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.10' # Version range or exact version of a Python version to use, using SemVer's version range syntax
