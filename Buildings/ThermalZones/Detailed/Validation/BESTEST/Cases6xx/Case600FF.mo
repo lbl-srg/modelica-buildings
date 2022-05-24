@@ -109,7 +109,8 @@ model Case600FF
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.mos"),
-      computeWetBulbTemperature=false)
+      computeWetBulbTemperature=false,
+    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.File)
     annotation (Placement(transformation(extent={{98,-98},{86,-86}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
@@ -189,10 +190,16 @@ model Case600FF
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
     "Multi sum for infiltration air flow rate"
     annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
-  Controls.OBC.CDL.Continuous.MovingAverage TRooHou(delta=3600)
+  Controls.OBC.CDL.Continuous.MovingAverage TRooHou(
+    delta=3600,
+    y(final unit="K",
+      displayUnit="degC"))
     "Hourly averaged room air temperature"
     annotation (Placement(transformation(extent={{-68,-28},{-60,-20}})));
-  Controls.OBC.CDL.Continuous.MovingAverage TRooAnn(delta=86400*365)
+  Controls.OBC.CDL.Continuous.MovingAverage TRooAnn(
+    delta=86400*365,
+    y(final unit="K",
+      displayUnit="degC"))
     "Annual averaged room air temperature"
     annotation (Placement(transformation(extent={{-68,-40},{-60,-32}})));
 
@@ -209,6 +216,13 @@ model Case600FF
     annotation (Placement(transformation(extent={{20,-74},{28,-66}})));
   Modelica.Blocks.Sources.Constant zerDir(k=0) "Zero wind direction"
     annotation (Placement(transformation(extent={{20,-88},{28,-80}})));
+  Fluid.FixedResistances.PressureDrop res(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=0.0147,
+    from_dp=true,
+    dp_nominal=5)
+    "Flow resistance to decouple pressure from weather file from room pressure"
+    annotation (Placement(transformation(extent={{0,-38},{20,-18}})));
 protected
   HeatTransfer.Sources.PrescribedTemperature TAirConExt
     "Outside air temperature for exterior constructions"
@@ -291,8 +305,6 @@ equation
       points={{1.5,-15},{-80,-15},{-80,-36},{-68.8,-36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{28,
-          -28},{28,-20.5},{39.75,-20.5}}, color={0,127,255}));
   connect(conOpa.fluid, TAirConExt.port)
     annotation (Line(points={{54,-75},{64,-75}}, color={191,0,0}));
   connect(weaBus.TDryBul, TAirConExt.T) annotation (Line(
@@ -307,6 +319,10 @@ equation
           40,-72.5},{43,-72.5}}, color={0,0,127}));
   connect(density.d, product.u2) annotation (Line(points={{-50.5,-71},{-56,-71},
           {-56,-58},{-51,-58}}, color={0,0,127}));
+  connect(souInf.ports[1], res.port_a)
+    annotation (Line(points={{-12,-28},{0,-28}}, color={0,127,255}));
+  connect(res.port_b, roo.ports[3]) annotation (Line(points={{20,-28},{28,-28},{
+          28,-20.5},{39.75,-20.5}}, color={0,127,255}));
   annotation (
 experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"
@@ -318,6 +334,12 @@ The room temperature is free floating.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 24, 2022, by Michael Wetter:<br/>
+Set air pressure to be the same pressure as is recorded in the weather data file.
+This changes the annual cooling energy for Case 900 by about 4%.</br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+</li>
 <li>
 May 12, 2022, by Jianjun Hu:<br/>
 Changed the floor to be raised floor, disabled linearize the emissive power,
