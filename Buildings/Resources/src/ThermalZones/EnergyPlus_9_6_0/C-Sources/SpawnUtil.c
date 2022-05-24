@@ -113,6 +113,8 @@ char* fmuModeToString(FMUMode mode){
     return "event";
   if (mode == continuousTimeMode)
     return "continuous";
+  if (mode == terminatedMode)
+    return "terminated";
   return "unknown mode for FMU";
 }
 
@@ -736,8 +738,6 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Instantiate building.\n", bui->time, modelicaInstanceName);
-
-  setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */
   if (bui->logLevel >= MEDIUM)

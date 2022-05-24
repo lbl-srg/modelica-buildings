@@ -48,7 +48,7 @@ jobs:
         run: pip3 install --upgrade pip wheel
 
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@e52684deb8c2c2846faaa21c426999fecf3ad58f
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v4.0.0
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
