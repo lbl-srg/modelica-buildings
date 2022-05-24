@@ -34,6 +34,7 @@ jobs:
       - name: Check for UTF-8 BOM
         uses: arma-actions/bom-check@v1
 
+
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.10' # Version range or exact version of a Python version to use, using SemVer's version range syntax
