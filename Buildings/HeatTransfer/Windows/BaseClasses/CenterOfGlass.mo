@@ -37,7 +37,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
     final gas=glaSys.gas,
     each final til=til,
     each linearize=linearize,
-    each final homotopyInitialization=homotopyInitialization)
+    each final homotopyInitialization=homotopyInitialization) if have_GasLay
     "Window gas layer"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
@@ -64,6 +64,8 @@ model CenterOfGlass "Model for center of glass of a window construction"
 protected
   final parameter Integer nGlaLay = size(glaSys.glass, 1)
     "Number of glass layers";
+  final parameter Boolean have_GasLay = nGlaLay > 1
+    "True if it has gas layer";
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -208,6 +210,12 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 24, 2022, by Jianjun Hu:<br/>
+Changed the gas layer to be conditional.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3026\">#3026</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
