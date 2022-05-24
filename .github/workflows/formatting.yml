@@ -31,14 +31,6 @@ jobs:
       - name: Checkout code
         uses: nschloe/action-cached-lfs-checkout@v1
 
-      - name: Check for UTF-8 BOM with grep
-        run : |
-              for ff in `grep -rlI --exclude="ffd.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
-                echo "::error file=${ff}:: Found BOM in ${ff}."
-              done;
-              test -z "${ff}"
-
-
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.10' # Version range or exact version of a Python version to use, using SemVer's version range syntax
@@ -49,6 +41,13 @@ jobs:
 
       - name: "Install BuildingsPy"
         run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v4.0.0
+
+      - name: Check for UTF-8 BOM with grep
+        run : |
+              for ff in `grep -rlI --exclude="ffd.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
+                echo "::error file=${ff}:: Found BOM in ${ff}."
+              done;
+              test -z "${ff}"
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
