@@ -33,7 +33,7 @@ jobs:
 
       - name: Check for UTF-8 BOM with grep
         run : |
-              for ff in `grep -rlI --exclude="*.vcxproj" --exclude-dir="\.git" \$'^\xEF\xBB\xBF' .`; do
+              for ff in `grep -rlI --exclude="\*\.vcxproj" --exclude-dir="\.git" \$'^\xEF\xBB\xBF' .`; do
                 echo "::error file=${ff}:: Found BOM in ${ff}."
               done;
               test -z "${ff}"
