@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.Validation.ChilledWaterBypass", 
     stopTime=1200, 
     method="Cvode", 

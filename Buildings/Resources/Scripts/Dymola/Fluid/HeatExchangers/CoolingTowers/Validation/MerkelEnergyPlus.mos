@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus", stopTime=172800, tolerance=1E-6, method="CVode", resultFile="MerkelEnergyPlus");
 // Plot commands
 removePlots(false);

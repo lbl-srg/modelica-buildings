@@ -96,7 +96,11 @@ jobs:
               git diff --exit-code Buildings
 
       - name: Check for UTF-8 BOM
-        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."
+        run : |
+              for ff in `grep -rlI --exclude="ffd.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
+                echo "::error file=${ff}:: Found BOM in ${ff}."
+              done;
+              test -z "${ff}"
 
       - name: Check for file permissions
         run : |

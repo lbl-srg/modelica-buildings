@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Examples.Plant", 
     stopTime=86400, 
     method="cvode",
