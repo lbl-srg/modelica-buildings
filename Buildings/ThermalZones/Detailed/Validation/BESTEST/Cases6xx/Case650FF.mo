@@ -2,7 +2,7 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx;
 model Case650FF
   "Case 600, no heating, no cooling, and ventilation as in case 650"
   extends Case600FF(
-  staRes(
+  redeclare Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating staRes(
       minT( Min=-17.8+273.15, Max=-16.7+273.15, Mean=-17.3+273.15),
       maxT( Min=61.1+273.15, Max=66.8+273.15, Mean=63.1+273.15),
       meanT(Min=17.6+273.15, Max=18.9+273.15, Mean=18.3+273.15)),
