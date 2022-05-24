@@ -12,14 +12,14 @@ model Derivative
     offset=0.01,
     startTime=5) "Ramp for time constant used in approximating derivative"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Sources.ModelTime modTim
+  Sources.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes(y_start=1)
     "Integration of input"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Logical.Sources.Constant booSig(k=false) "Contant boolean signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Cos cos
+  Buildings.Controls.OBC.CDL.Continuous.Cos cos "Cosine of model time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative der2(y_start=0)
     "Derivative block with input gains"
@@ -32,10 +32,12 @@ model Derivative
     "Issue an error if results differ more than a threshold"
     annotation (Placement(transformation(extent={{170,26},{190,46}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+    "Difference between original signal, and differentiated integral of that signal"
     annotation (Placement(transformation(extent={{80,26},{100,46}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute difference"
     annotation (Placement(transformation(extent={{110,26},{130,46}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(t=0.1, h=0.01)
+    "Output true if difference is within expected accuracy"
     annotation (Placement(transformation(extent={{140,26},{160,46}})));
 equation
   connect(con.y, der1.k) annotation (Line(points={{-58,80},{-10,80},{-10,58},{38,
