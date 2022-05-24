@@ -211,6 +211,12 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>.
 revisions="<html>
 <ul>
 <li>
+May 24, 2022, by Jianjun Hu:<br/>
+Changed the gas layer to be conditional.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3026\">#3026</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
