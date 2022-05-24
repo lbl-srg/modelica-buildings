@@ -33,19 +33,15 @@ jobs:
 
       - name: Check for UTF-8 BOM
         run: |
-             for ff in `find Fluid/Storage -name '*.mo'`; do
-               echo "Running sed on ${ff}"
-               sed -i 1s/'^\xEF\xBB\xBF'// $ff;
+             for ff in `find . -name '*.mo'`; do
+               sed -i 1s/'^\xEF\xBB\xBF'// ${ff};
              done
-             git diff .
-             git diff --exit-code .
-
-#             retVal=`git diff --exit-code .`
-#             if [ "${retVal}" != "0" ]; then
-#               echo "Error, found BOM in the following files"
-#               git diff .
-#             fi;
-#             exit ${retVal}
+             retVal=`git status --porcelain .`
+             if [ "x${retVal}" != "x" ]; then
+               echo "Error, found BOM in the following files:"
+               git diff .
+             fi;
+             test -z "$(git status --porcelain .)"
 
       - uses: actions/setup-python@v2
         with:
