@@ -43,6 +43,9 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     "Nominal pressure drop in the check valve"
     annotation(Dialog(group="Nominal condition"));
   // Controller parameters
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="PID controller"));
   parameter Real k(
     final min=0,
     final unit="1")=1
@@ -62,9 +65,6 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     annotation (Dialog(group="PID controller"));
   parameter Real yMin=0.01
     "Lower limit of output"
-    annotation (Dialog(group="PID controller"));
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
-    "Type of controller"
     annotation (Dialog(group="PID controller"));
   // Advanced parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial

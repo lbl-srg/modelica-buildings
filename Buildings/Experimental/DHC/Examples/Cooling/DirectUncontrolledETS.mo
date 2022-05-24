@@ -164,7 +164,8 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.mos" "Simulate and plot"),
     experiment(
       StartTime=12960000,
-      StopTime=13564800),
+      StopTime=13564800,
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>This model illustrates an example of integral district cooling system, 
 consisted by a cooling plant of parallel electric chillers 

@@ -143,7 +143,8 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Cooling/Examples/Indirect.mos" "Simulate and plot"),
     experiment(
       StartTime=0,
-      StopTime=86400),
+      StopTime=86400,
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model provides an example for the indirect cooling energy transfer station model. 

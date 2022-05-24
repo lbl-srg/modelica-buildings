@@ -144,7 +144,8 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Cooling/Examples/DirectControlled.mos" "Simulate and plot"),
     experiment(
       StartTime=0,
-      StopTime=86400),
+      StopTime=86400,
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>This model provides an example for the direct cooling energy transfer station 
 model, which contains in-building pumping and controls the district return 

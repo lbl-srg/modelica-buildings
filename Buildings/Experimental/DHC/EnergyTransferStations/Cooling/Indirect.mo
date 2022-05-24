@@ -74,6 +74,12 @@ model Indirect
     "Constant effectiveness"
     annotation (Dialog(group="Heat exchanger"));
    //Controller parameters
+  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
+    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
+    annotation (Dialog(group="PID controller"));
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
+    "Type of controller"
+    annotation (Dialog(group="PID controller"));
   parameter Real k(
     final min=0,
     final unit="1")=1
@@ -134,12 +140,6 @@ model Indirect
                 group="Initialization"));
   parameter Boolean reverseActing=false
     "Set to true for throttling the water flow rate through a cooling coil controller"
-    annotation (Dialog(group="PID controller"));
-  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-    annotation (Dialog(group="PID controller"));
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
-    "Type of controller"
     annotation (Dialog(group="PID controller"));
   Modelica.Blocks.Interfaces.RealInput TSetBuiSup
     "Setpoint temperature for building supply"
