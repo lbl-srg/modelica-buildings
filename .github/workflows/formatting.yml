@@ -33,9 +33,11 @@ jobs:
 
       - name: Check for UTF-8 BOM
         run: |
-             for ff in `find . -name '*.mo'`; do
+             for ff in `find Fluid/Storage -name '*.mo'`; do
+               echo "Running sed on {ff}"
                sed -i '1s/^\xEF\xBB\xBF//' ${ff};
              done
+             git diff .
              git diff --exit-code .
 
 #             retVal=`git diff --exit-code .`
