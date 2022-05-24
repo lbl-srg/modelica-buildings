@@ -33,7 +33,6 @@ jobs:
 
       - name: Check for UTF-8 BOM
         run: |
-             find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF'
              for ff in `find . -name '*.mo'`; do
                sed -i '1s/^\xEF\xBB\xBF//' $ff;
              done
