@@ -9,7 +9,7 @@ model PIDWithInputGains
     k=0.5)
     "Measured value"
     annotation (Placement(transformation(extent={{-30,-22},{-10,-2}})));
-  Buildings.Controls.OBC.Utilities.PIDWithInputGains PIDWithInputGains(
+  Buildings.Controls.OBC.Utilities.PIDWithInputGains PIDWitInpGai(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
     "PID controller with input gains"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
@@ -51,21 +51,21 @@ model PIDWithInputGains
 equation
   connect(resSig.y, PID.trigger) annotation (Line(points={{-58,50},{0,50},{0,10},
           {24,10},{24,18}}, color={255,0,255}));
-  connect(PIDWithInputGains.trigger, PID.trigger) annotation (Line(points={{24,
+  connect(PIDWitInpGai.trigger, PID.trigger) annotation (Line(points={{24,
           -32},{24,-60},{0,-60},{0,10},{24,10},{24,18}}, color={255,0,255}));
   connect(pulse.y, PID.u_s) annotation (Line(points={{-8,24},{14,24},{14,30},{
           18,30}}, color={0,0,127}));
-  connect(PIDWithInputGains.u_s, PID.u_s) annotation (Line(points={{18,-20},{14,
+  connect(PIDWitInpGai.u_s, PID.u_s) annotation (Line(points={{18,-20},{14,
           -20},{14,30},{18,30}}, color={0,0,127}));
   connect(const.y, PID.u_m) annotation (Line(points={{-8,-12},{8,-12},{8,0},{30,
           0},{30,18}}, color={0,0,127}));
-  connect(PIDWithInputGains.u_m, PID.u_m) annotation (Line(points={{30,-32},{30,
+  connect(PIDWitInpGai.u_m, PID.u_m) annotation (Line(points={{30,-32},{30,
           -40},{8,-40},{8,0},{30,0},{30,18}}, color={0,0,127}));
-  connect(k.y, PIDWithInputGains.k) annotation (Line(points={{-58,10},{-40,10},{
+  connect(k.y, PIDWitInpGai.k) annotation (Line(points={{-58,10},{-40,10},{
           -40,4},{12,4},{12,-12},{18,-12}}, color={0,0,127}));
-  connect(PIDWithInputGains.Ti, Ti.y) annotation (Line(points={{18,-16},{2,-16},
+  connect(PIDWitInpGai.Ti, Ti.y) annotation (Line(points={{18,-16},{2,-16},
           {2,-30},{-58,-30}}, color={0,0,127}));
-  connect(PIDWithInputGains.Td, Td.y) annotation (Line(points={{18,-24},{14,-24},
+  connect(PIDWitInpGai.Td, Td.y) annotation (Line(points={{18,-24},{14,-24},
           {14,-70},{-58,-70}}, color={0,0,127}));
   annotation (
     experiment(
@@ -79,8 +79,13 @@ equation
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
-This model tests if this block can generate the same output as <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a> when the gains are the same.
+</p>
+<p>
+For <i>t &isin; [0, 0.6]</i> both PID controllers have the same gains.
+During this time, they generate the same output.
+Afterwards, the gains, and hence also their outputs, differ.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
 </p>
 </html>",
       revisions="<html>
