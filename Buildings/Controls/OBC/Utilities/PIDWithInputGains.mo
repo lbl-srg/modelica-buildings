@@ -384,9 +384,6 @@ leave <i>r=1</i> if the control input is a room temperature.
 <p>
 Note that the units of <i>k</i> are the inverse of the units of the control error,
 while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
-The major difference between this block and <code>
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</code> is that
-<i>k</i>, <i>T<sub>i</sub></i>, and <i>T<sub>d</sub></i> are inputs rather than parameters.
 </p>
 <p>
 The actual control output is
@@ -396,6 +393,13 @@ y = min( y<sub>max</sub>, max( y<sub>min</sub>, y)),
 </p>
 <p>
 where <i>y<sub>min</sub></i> and <i>y<sub>max</sub></i> are limits for the control signal.
+</p>
+<p>
+This block is identical to
+<a href=\"Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>,
+except that the controller gains
+<i>k</i>, <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are inputs rather than parameters.
 </p>
 <h4>P, PI, PD, or PID action</h4>
 <p>
