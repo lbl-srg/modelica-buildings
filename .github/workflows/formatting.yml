@@ -32,6 +32,15 @@ jobs:
         uses: nschloe/action-cached-lfs-checkout@v1
 
       - name: Check for UTF-8 BOM
+        run : |
+              files=`find . -type f -name '*.*' -not -name '*.vcxproj' -not -path '.git*' -print0 | xargs -0 grep -l $'^\xEF\xBB\xBF'`
+              for ff in ${files}; do
+                echo "Found BOM in ${ff}"
+              done;
+              test -z "${files}"
+
+
+      - name: Check for UTF-8 BOM II
         uses: arma-actions/bom-check@v1
 
 
