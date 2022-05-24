@@ -35,7 +35,7 @@ jobs:
         run : |
               files=`find . -type f -name '*.*' -not -name '*.vcxproj' -not -path '.git*' -print0 | xargs -0 grep -l $'^\xEF\xBB\xBF'`
               for ff in ${files}; do
-                echo "Found BOM in ${ff}"
+                echo "::error file=${ff}:: Found BOM."
               done;
               test -z "${files}"
 
