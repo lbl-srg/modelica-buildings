@@ -298,9 +298,15 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Derivative
     </td>
-    <td valign=\"top\">New block based on the discussion from ASHRAE Standard 231P Committee.<br/>
+    <td valign=\"top\">Created new block which is required for PID controller with gain scheduling.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">#3022</a>.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.AddParameter
+    </td>
+    <td valign=\"top\">Created new block based on the discussion from ASHRAE Standard 231P Committee.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">#2876</a>.
     </td>
 </tr>
