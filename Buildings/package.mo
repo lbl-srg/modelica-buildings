@@ -204,9 +204,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
- class Version_8_1_2 "Version 8.1.2"
-   extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+class Version_8_1_2 "Version 8.1.2"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 8.1.2 is ... xxx
