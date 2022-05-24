@@ -308,6 +308,8 @@ void FMUBuildingFree(FMUBuilding* bui){
     if (bui->context != NULL){
       fmi_import_free_context(bui->context);
     }
+    /* Clean up files that were extracted from the FMU */
+    delete_extracted_fmu_files(bui);
 
     if (bui->buildingsLibraryRoot != NULL)
       free(bui->buildingsLibraryRoot);

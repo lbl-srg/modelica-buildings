@@ -817,17 +817,6 @@ void setReusableFMU(FMUBuilding* bui){
   }
 }
 
-
-int deleteFile(const char* fileName){
-  /* Remove file if it exists */
-  if (access(fileName, F_OK) == 0) {
-    /* FMU exists. Delete it. */
-    return remove(fileName);
-  }
-  else
-    return 0;
-}
-
 void copyBinaryFile(
   const char* src,
   const char* des,
