@@ -36,6 +36,7 @@ jobs:
              for ff in `find . -name '*.mo'`; do
                sed -i '1s/^\xEF\xBB\xBF//' ${ff};
              done
+             git diff --exit-code .
 
 #             retVal=`git diff --exit-code .`
 #             if [ "${retVal}" != "0" ]; then
