@@ -48,6 +48,24 @@ model PIDWithInputGains
     "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
+  CDL.Continuous.Abs abs1 "Absolute value of controller output"
+    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
+  CDL.Continuous.Subtract sub "Difference in controller output"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  CDL.Continuous.LessThreshold lesThr(t=1E-5, h=1E-4)
+    "Output true if outputs are bigger than threshold"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+  CDL.Utilities.Assert assMes(message="Control outputs differ more than expected")
+    "Make sure outputs are within expected tolerance"
+    annotation (Placement(transformation(extent={{200,20},{220,40}})));
+  CDL.Continuous.Sources.ModelTime modTim
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  CDL.Continuous.GreaterThreshold greThr(t=0.59)
+    "Output true if model time is below 0.6"
+    annotation (Placement(transformation(extent={{140,40},{160,60}})));
+  CDL.Logical.Or or2
+    "Output true either if time is bigger than 0.59, or if tolerance is maintained"
+    annotation (Placement(transformation(extent={{170,20},{190,40}})));
 equation
   connect(resSig.y, PID.trigger) annotation (Line(points={{-58,50},{0,50},{0,10},
           {24,10},{24,18}}, color={255,0,255}));
@@ -67,6 +85,22 @@ equation
           {2,-30},{-58,-30}}, color={0,0,127}));
   connect(PIDWitInpGai.Td, Td.y) annotation (Line(points={{18,-24},{14,-24},
           {14,-70},{-58,-70}}, color={0,0,127}));
+  connect(PID.y, sub.u1)
+    annotation (Line(points={{42,30},{50,30},{50,6},{78,6}}, color={0,0,127}));
+  connect(PIDWitInpGai.y, sub.u2) annotation (Line(points={{42,-20},{50,-20},{50,
+          -6},{78,-6}}, color={0,0,127}));
+  connect(sub.y, abs1.u)
+    annotation (Line(points={{102,0},{108,0}}, color={0,0,127}));
+  connect(abs1.y, lesThr.u)
+    annotation (Line(points={{132,0},{138,0}}, color={0,0,127}));
+  connect(modTim.y, greThr.u)
+    annotation (Line(points={{102,50},{138,50}}, color={0,0,127}));
+  connect(greThr.y, or2.u1) annotation (Line(points={{162,50},{166,50},{166,30},
+          {168,30}}, color={255,0,255}));
+  connect(lesThr.y, or2.u2) annotation (Line(points={{162,0},{166,0},{166,22},{168,
+          22}}, color={255,0,255}));
+  connect(or2.y, assMes.u)
+    annotation (Line(points={{192,30},{198,30}}, color={255,0,255}));
   annotation (
     experiment(
       StopTime=1.0,
@@ -96,7 +130,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
       graphics={
         Ellipse(
           lineColor={75,138,73},
@@ -108,5 +142,14 @@ First implementation.
           fillColor={75,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-100,-100},{240,100}}), graphics={
+          Rectangle(
+          extent={{72,80},{228,-20}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Text(
+          extent={{78,78},{168,68}},
+          textColor={0,0,0},
+          textString="Trigger an assertion if outputs differ more than threshold")}));
 end PIDWithInputGains;
