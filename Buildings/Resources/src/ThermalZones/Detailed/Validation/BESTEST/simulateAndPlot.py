@@ -440,7 +440,7 @@ def get_mo_data(data_set):
                     pHea = _find_peak(varVal, False, 'max')
                 elif varVal['variable'] == 'ECoo.y':
                     eCoo = varVal['value'][-1]
-                else:
+                elif varVal['variable'] == 'EHea.y':
                     eHea = varVal['value'][-1]
             load = _find_load(data['result'])
             if (data['case'] == 'Case960'):
