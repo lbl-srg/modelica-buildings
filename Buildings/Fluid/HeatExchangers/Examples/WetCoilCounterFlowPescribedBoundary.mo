@@ -6,14 +6,6 @@ model WetCoilCounterFlowPescribedBoundary
    "Medium model for water";
   package Medium2 = Buildings.Media.Air
    "Medium model for air";
-  Modelica.Blocks.Sources.CombiTimeTable datRea(
-    tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings//Resources/Data/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPescribedBoundary.dat"),
-    columns=2:6,
-    tableName="WetCoilCounterFlow")
-    "Reader for boundary conditions"
-    annotation(Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow
     hex(
     redeclare package Medium1 = Medium1,
@@ -25,7 +17,7 @@ model WetCoilCounterFlowPescribedBoundary
     UA_nominal=1161730,
     show_T=true,
     nEle=4,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling coil"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_w(
@@ -35,7 +27,7 @@ model WetCoilCounterFlowPescribedBoundary
     T=282.15,
     nPorts=1,
     redeclare package Medium = Medium1,
-    use_m_flow_in=false)
+    use_m_flow_in=true)
     "Source for water"
     annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin_w(
@@ -63,6 +55,11 @@ model WetCoilCounterFlowPescribedBoundary
     nPorts=1)
     "sink for air"
     annotation (Placement(transformation(extent={{-62,-52},{-42,-32}})));
+  Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+    height=-447.32114,
+    duration=3600,
+    offset=447.32114)
+    annotation (Placement(transformation(extent={{-92,18},{-72,38}})));
 equation
   connect(sou_w.ports[1], hex.port_a1) annotation (Line(points={{-38,20},{-20,20},
           {-20,6},{-10,6}}, color={0,127,255}));
@@ -72,22 +69,14 @@ equation
           {20,-6},{10,-6}}, color={0,127,255}));
   connect(sin_a.ports[1], hex.port_b2) annotation (Line(points={{-42,-42},{-20,-42},
           {-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(datRea.y[1], sou_a.T_in) annotation (Line(points={{-59,70},{86,70},{86,
-          -40},{70,-40}}, color={0,0,127}));
-  connect(sou_a.m_flow_in, datRea.y[2]) annotation (Line(points={{70,-36},{80,-36},
-          {80,70},{-59,70}}, color={0,0,127}));
-  connect(sou_a.Xi_in[1], datRea.y[3]) annotation (Line(points={{70,-48},{94,-48},
-          {94,70},{-59,70}}, color={0,0,127}));
-  connect(sou_w.T_in, datRea.y[4]) annotation (Line(points={{-60,24},{-80,24},{-80,
-          46},{-40,46},{-40,70},{-59,70}}, color={0,0,127}));
-  connect(sou_w.m_flow_in, datRea.y[5]) annotation (Line(points={{-60,28},{-74,28},
-          {-74,56},{-44,56},{-44,70},{-59,70}}, color={0,0,127}));
+  connect(sou_w.m_flow_in, ram.y)
+    annotation (Line(points={{-60,28},{-70,28}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StartTime=8640000,
-      StopTime=9849600,
+      StopTime=3600,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPescribedBoundary.mos"
         "Simulate and plot"));
