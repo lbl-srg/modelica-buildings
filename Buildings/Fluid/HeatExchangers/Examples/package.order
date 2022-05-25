@@ -12,7 +12,6 @@ WaterHeater_T
 WaterHeater_u
 WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
-WetCoilCounterFlowPescribedBoundary
 WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 WetCoilEffectivenessNTUMassFlow
