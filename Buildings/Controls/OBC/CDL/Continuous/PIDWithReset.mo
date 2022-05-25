@@ -219,8 +219,8 @@ equation
   connect(uMea_revAct.y, errI1.u2) annotation (Line(points={{-178,-40},{-150,
           -40},{-150,0},{-142,0}},
                                 color={0,0,127}));
-  connect(antWinGai.y, errI2.u2) annotation (Line(points={{158,-20},{-108,-20},
-          {-108,-6},{-102,-6}},
+  connect(antWinGai.y, errI2.u2) annotation (Line(points={{158,-20},{-110,-20},
+          {-110,-6},{-102,-6}},
                               color={0,0,127}));
   connect(addPD.y, addRes.u2) annotation (Line(points={{42,134},{50,134},{50,
           -100},{-110,-100},{-110,-86},{-102,-86}},

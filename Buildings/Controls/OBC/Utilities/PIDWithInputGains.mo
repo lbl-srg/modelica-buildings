@@ -95,7 +95,7 @@ block PIDWithInputGains
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide antWinGai2 "Outputs of anti-windup compensation"
-    annotation (Placement(transformation(extent={{140,-36},{120,-16}})));
+    annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide gaiI if with_I "Gain of the integral term"
     annotation (Placement(transformation(extent={{-200,116},{-180,136}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply errIWithGai if with_I
@@ -242,12 +242,13 @@ equation
     annotation (Line(points={{-52,146},{-70,146},{-70,188},{-212,188},{-212,180},
           {-240,180}},                                                                         color={0,0,127}));
   connect(antWinGai1.y, antWinGai2.u1)
-    annotation (Line(points={{158,-20},{142,-20}}, color={0,0,127}));
+    annotation (Line(points={{158,-20},{140,-20},{140,-14},{102,-14}},
+                                                   color={0,0,127}));
   connect(antWinGai2.u2, k)
-    annotation (Line(points={{142,-32},{150,-32},{150,0},{108,0},{108,188},{
-          -212,188},{-212,180},{-240,180}},                                          color={0,0,127}));
+    annotation (Line(points={{102,-26},{108,-26},{108,188},{-212,188},{-212,180},
+          {-240,180}},                                                               color={0,0,127}));
   connect(antWinGai2.y, errI2.u2)
-    annotation (Line(points={{118,-26},{-108,-26},{-108,-6},{-102,-6}},
+    annotation (Line(points={{78,-20},{-110,-20},{-110,-6},{-102,-6}},
                                                                      color={0,0,127}));
   connect(gaiI.u1, k)
     annotation (Line(points={{-202,132},{-212,132},{-212,180},{-240,180}}, color={0,0,127}));

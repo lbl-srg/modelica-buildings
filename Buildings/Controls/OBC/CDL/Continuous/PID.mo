@@ -78,7 +78,7 @@ block PID
     annotation (Placement(transformation(extent={{-140,-4},{-120,16}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract errI2 if with_I
     "I error (after anti-windup compensation)"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=yMax,
     final uMin=yMin)
@@ -176,9 +176,9 @@ equation
   connect(antWinErr.u2,lim.y)
     annotation (Line(points={{158,54},{150,54},{150,90},{142,90}},         color={0,0,127}));
   connect(I.u,errI2.y)
-    annotation (Line(points={{-52,0},{-68,0}},color={0,0,127}));
+    annotation (Line(points={{-52,0},{-78,0}},color={0,0,127}));
   connect(errI1.y,errI2.u1)
-    annotation (Line(points={{-118,6},{-92,6}},
+    annotation (Line(points={{-118,6},{-102,6}},
                                               color={0,0,127}));
   connect(cheYMinMax.y,assMesYMinMax.u)
     annotation (Line(points={{142,-150},{158,-150}},color={255,0,255}));
@@ -213,8 +213,8 @@ equation
           {-150,64},{-142,64}}, color={0,0,127}));
   connect(uMea_revAct.y, errI1.u2) annotation (Line(points={{-178,-40},{-150,
           -40},{-150,0},{-142,0}},   color={0,0,127}));
-  connect(antWinGai.y, errI2.u2) annotation (Line(points={{158,-20},{-100,-20},
-          {-100,-6},{-92,-6}}, color={0,0,127}));
+  connect(antWinGai.y, errI2.u2) annotation (Line(points={{158,-20},{-110,-20},
+          {-110,-6},{-102,-6}},color={0,0,127}));
   connect(kDer.y, D.k) annotation (Line(points={{-78,120},{-58,120},{-58,78},{
           -52,78}}, color={0,0,127}));
   connect(TDer.y, D.T) annotation (Line(points={{-78,90},{-60,90},{-60,74},{-52,
