@@ -1,4 +1,9 @@
-last-generated=2020-08-17
+last-generated=2022-05-24
+statistics-initialization=
+{
+  "nonlinear": "1, 1",
+  "numerical Jacobians": "0"
+}
 statistics-simulation=
 {
   "linear": "0",
