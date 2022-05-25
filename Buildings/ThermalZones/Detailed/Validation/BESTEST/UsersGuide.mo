@@ -269,7 +269,7 @@ in the table after the plots below.
 <td>2.689</td>
 <td>2.624</td>
 <td>2.860</td>
-<td>2.679</td>
+<td>2.652</td>
 </tr>
 <tr>
 <td>Case980</td>
@@ -489,7 +489,7 @@ in the table after the plots below.
 <td>0.907</td>
 <td>0.950</td>
 <td>0.789</td>
-<td>0.937</td>
+<td>0.946</td>
 </tr>
 <tr>
 <td>Case980</td>
@@ -846,7 +846,7 @@ in the table after the plots below.
 <td>09-Feb:6</td>
 <td>2.300</td>
 <td>09-Feb:</td>
-<td>2.141</td>
+<td>2.133</td>
 <td>9-Feb:6</td>
 </tr>
 <tr>
@@ -1222,7 +1222,7 @@ in the table after the plots below.
 <td>26-Jun:17</td>
 <td>1.338</td>
 <td>26-Jun:17</td>
-<td>1.461</td>
+<td>1.463</td>
 <td>26-Jun:17</td>
 </tr>
 <tr>
@@ -1433,7 +1433,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>12-Oct:15</td>
 <td>48.1</td>
 <td>12-Oct:15</td>
-<td>47.6</td>
+<td>47.9</td>
 <td>12-Oct:16</td>
 </tr>
 <tr>
@@ -1571,7 +1571,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>09-Feb:7</td>
 <td>4.2</td>
 <td>09-Feb:7</td>
-<td>3.7</td>
+<td>4.0</td>
 <td>9-Feb:7</td>
 </tr>
 <tr>
