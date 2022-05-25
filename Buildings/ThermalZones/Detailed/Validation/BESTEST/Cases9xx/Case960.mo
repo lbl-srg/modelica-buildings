@@ -103,8 +103,8 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     use_C_in=false,
     nPorts=1) "Sink model for sunspace infiltration"
     annotation (Placement(transformation(extent={{124,-144},{136,-132}})));
-  Modelica.Blocks.Sources.Constant InfiltrationRate1(k=-16*2.7*0.5/3600)
-    "0.41 ACH adjusted for the altitude (0.5 at sea level)"
+  Modelica.Blocks.Sources.Constant InfiltrationRate1(k=-16*2.7*0.414/3600)
+    "0.414 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{54,-134},{62,-126}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{74,-138},{84,-128}})));
@@ -113,7 +113,6 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     annotation (Placement(transformation(extent={{84,-162},{74,-152}})));
   Buildings.Fluid.FixedResistances.PressureDrop heaCoo1(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
     m_flow_nominal=48*2.7*0.41/3600*1.2,
     dp_nominal=1,
     linearized=true,
@@ -189,7 +188,7 @@ equation
       smooth=Smooth.None));
   connect(heaCoo1.port_b, sunSpa.ports[1])
                                         annotation (Line(
-      points={{136,-114},{144,-114},{144,-24.5},{157.75,-24.5}},
+      points={{136,-114},{144,-114},{144,-23.5},{157.75,-23.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sinInf2.ports[1], sunSpa.ports[2])    annotation (Line(
@@ -198,7 +197,7 @@ equation
       smooth=Smooth.None));
   connect(density1.port, sunSpa.ports[3])
                                        annotation (Line(
-      points={{79,-162},{152,-162},{152,-20.5},{157.75,-20.5}},
+      points={{79,-162},{152,-162},{152,-21.5},{157.75,-21.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souInf.ports[2], heaCoo1.port_a) annotation (Line(
