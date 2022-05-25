@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Validation;
-model WetCoilCounterFlowPescribedBoundary
+model WetCoilCounterFlowLowWaterFlowRate
   "Model that tests a heat exchanger with prescribed boundary conditions, in terms of properties of inlet water and inlet air"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
@@ -78,6 +78,6 @@ equation
       StopTime=3600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilCounterFlowPescribedBoundary.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilCounterFlowLowWaterFlowRate.mos"
         "Simulate and plot"));
-end WetCoilCounterFlowPescribedBoundary;
+end WetCoilCounterFlowLowWaterFlowRate;
