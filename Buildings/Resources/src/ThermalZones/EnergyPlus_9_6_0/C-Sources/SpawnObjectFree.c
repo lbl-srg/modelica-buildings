@@ -14,7 +14,7 @@ void free_Spawn_EnergyPlus_9_6_0(void* object){
   if ( object != NULL ){
     SpawnObject* ptrSpaObj = (SpawnObject*) object;
 
-    /* The building may not have been instanciated yet if there was an error during instantiation */
+    /* The building may not have been instantiated yet if there was an error during instantiation */
     if (ptrSpaObj->bui != NULL){
       ptrSpaObj->bui->nExcObj--;
       FMUBuildingFree(ptrSpaObj->bui);
