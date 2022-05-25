@@ -183,11 +183,5 @@ First implementation.
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={Text(
-          extent={{60,72},{84,58}},
-          textColor={0,0,255},
-          textString="water-side"), Text(
-          extent={{50,-32},{90,-38}},
-          textColor={0,0,255},
-          textString="air-side")}));
+        initialScale=0.5)));
 end WetCoilCounterFlow;

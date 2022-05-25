@@ -24,14 +24,18 @@ model WetCoilCounterFlowPescribedBoundary
     dp1_nominal(displayUnit="Pa") = 3000,
     UA_nominal=1161730,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    nEle=4,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Cooling coil"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_w(
-    use_T_in=true,
+    use_Xi_in=false,
+    m_flow=3.145E-4,
+    use_T_in=false,
+    T=282.15,
     nPorts=1,
     redeclare package Medium = Medium1,
-    use_m_flow_in=true)
+    use_m_flow_in=false)
     "Source for water"
     annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin_w(
@@ -42,11 +46,14 @@ model WetCoilCounterFlowPescribedBoundary
     "sink for water"
     annotation (Placement(transformation(extent={{66,16},{46,36}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_a(
-    use_Xi_in=true,
-    use_T_in=true,
+    use_Xi_in=false,
+    X={0.01,0.99},
+    m_flow=227,
+    use_T_in=false,
+    T=285.15,
     nPorts=1,
     redeclare package Medium = Medium2,
-    use_m_flow_in=true)
+    use_m_flow_in=false)
     "Source for air"
     annotation (Placement(transformation(extent={{68,-54},{48,-34}})));
   Buildings.Fluid.Sources.Boundary_pT sin_a(
