@@ -209,35 +209,18 @@ class Version_8_1_2 "Version 8.1.2"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 8.1.2 is ... xxx
+Version 8.1.2 is a patch that has backward compatible bug fixes.
+It is backwards compatible with versions 8.0.0, 8.1.0 and 8.1.1.
+</p>
+<p>
+The library has been tested with Dymola 2022,
+JModelica (revision 14023),
+OpenModelica 1.19.0-dev (449+g4f16e6af22),
+OPTIMICA (revision OCT-dev-r26446_JM-r14295) and recent versions of Impact.
 </p>
 </div>
 <!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -255,17 +238,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3026\">#3026</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls</b>
-  </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger<br/>
-                       Buildings.Controls.OBC.CDL.Conversions.BooleanToReal<br/>
-    </td>
-    <td valign=\"top\">Corrected documentation texts where the variables were described with wrong types.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
   </td>
 </tr>
@@ -281,46 +253,9 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3009\">#3009</a>.
   </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">non-backward compatible</b> way:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
 <!-- Errors that have been fixed -->
-<p>
-The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
-that can lead to wrong simulation results):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
@@ -328,23 +263,18 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
+  </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.BooleanToReal<br/>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected documentation texts where the variables were described with wrong types.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
 end Version_8_1_2;
 
@@ -9593,7 +9523,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_2\">Version 8.1.2</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_2\">Version 8.1.2</a> (May 26, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_1\">Version 8.1.1</a> (May 12, 2022)
@@ -10119,7 +10049,7 @@ annotation (
 preferredView="info",
 version="8.1.2",
 versionDate="2021-06-08",
-dateModified="2022-05-12",
+dateModified="2022-05-26",
 uses(Modelica(version="3.2.3")),
 conversion(
   noneFromVersion="8.0.0",
