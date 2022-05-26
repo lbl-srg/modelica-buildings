@@ -29,26 +29,25 @@ protected
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaConVapAir
     "Heat conductor for latent heat flow rate, accounting for latent heat removed with vapor"
-    annotation (Placement(transformation(extent={{0,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{2,-30},{-18,-10}})));
   Modelica.Blocks.Math.Product pro
     "Product to compute the latent heat flow rate"
-    annotation (Placement(transformation(extent={{60,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{62,10},{42,30}})));
   Modelica.Blocks.Sources.RealExpression h_fg(final y=Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "Enthalpy of vaporization"
-    annotation (Placement(transformation(extent={{90,-4},{70,16}})));
+    annotation (Placement(transformation(extent={{98,16},{78,36}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaConVapCoi
     "Heat conductor for latent heat flow rate, accounting for latent heat deposited with vapor on the coil"
     annotation (Placement(transformation(extent={{0,10},{-20,30}})));
-  Modelica.Blocks.Math.Gain gain(final k=-1)
+  Modelica.Blocks.Math.Gain gain(final k=0)
     annotation (Placement(transformation(extent={{30,10},{10,30}})));
+  Modelica.Blocks.Math.Gain gain1(final k=1)
+    annotation (Placement(transformation(extent={{30,-30},{10,-10}})));
 equation
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{-40,0},{20,0},{20,
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{-40,0},{42,0},{42,
           -22},{48,-22}},               color={0,0,127}));
-  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{71,-30},{
-          80,-30},{80,-44},{44,-44},{44,-52},{14,-52}},
-                                       color={0,0,127}));
   connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},{
-          -20,-44},{30,-44},{30,-30},{48,-30}},
+          -20,-44},{34,-44},{34,-30},{48,-30}},
                                color={0,0,127}));
   connect(Gc_2, masExc.Gc) annotation (Line(
       points={{40,-100},{40,-38},{48,-38}},
@@ -58,21 +57,25 @@ equation
       points={{-60,0},{-66,0},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heaConVapAir.Q_flow, pro.y) annotation (Line(points={{0,-20},{0,-20},{
-          36,-20},{36,0},{39,0}}, color={0,0,127}));
-  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{80,-30},
-          {80,-6},{62,-6}},color={0,0,127}));
+  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{76,-30},
+          {76,14},{64,14}},color={0,0,127}));
   connect(pro.u1, h_fg.y)
-    annotation (Line(points={{62,6},{66,6},{69,6}},
-                                               color={0,0,127}));
-  connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{-20,-20},{-24,
-          -20},{-24,-40},{-30,-40}}, color={191,0,0}));
+    annotation (Line(points={{64,26},{77,26}}, color={0,0,127}));
+  connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{-18,-20},{
+          -24,-20},{-24,-40},{-30,-40}},
+                                     color={191,0,0}));
   connect(heaConVapCoi.port, con2.solid) annotation (Line(points={{-20,20},{-66,
           20},{-66,0},{-66,-40},{-50,-40}}, color={191,0,0}));
   connect(gain.y, heaConVapCoi.Q_flow)
     annotation (Line(points={{9,20},{6,20},{0,20}}, color={0,0,127}));
-  connect(pro.y, gain.u) annotation (Line(points={{39,0},{36,0},{36,0},{36,20},{
-          32,20}}, color={0,0,127}));
+  connect(pro.y, gain.u) annotation (Line(points={{41,20},{32,20}},
+                   color={0,0,127}));
+  connect(pro.y, gain1.u) annotation (Line(points={{41,20},{38,20},{38,-20},{32,
+          -20}}, color={0,0,127}));
+  connect(gain1.y, heaConVapAir.Q_flow)
+    annotation (Line(points={{9,-20},{2,-20}}, color={0,0,127}));
+  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{71,-30},{
+          76,-30},{76,-52},{14,-52}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
