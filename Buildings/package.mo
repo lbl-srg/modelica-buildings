@@ -223,7 +223,7 @@ The following major changes have been done:
 The Modelica version has been updated from version 3.2.3 to 4.0.0.
 </li>
 <li>
-Almost all fluid component models have been updated to remove the parameter <code>massDynamics</code>,
+Most fluid component models have been updated to remove the parameter <code>massDynamics</code>,
 which is now set to the same value as the parameter <code>energyDynamics</code>.
 </li>
 <li>
