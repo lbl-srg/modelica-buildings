@@ -32,17 +32,10 @@ protected
     annotation (Placement(transformation(extent={{2,-30},{-18,-10}})));
   Modelica.Blocks.Math.Product pro
     "Product to compute the latent heat flow rate"
-    annotation (Placement(transformation(extent={{62,10},{42,30}})));
+    annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Modelica.Blocks.Sources.RealExpression h_fg(final y=Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "Enthalpy of vaporization"
     annotation (Placement(transformation(extent={{98,16},{78,36}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaConVapCoi
-    "Heat conductor for latent heat flow rate, accounting for latent heat deposited with vapor on the coil"
-    annotation (Placement(transformation(extent={{0,10},{-20,30}})));
-  Modelica.Blocks.Math.Gain gain(final k=0)
-    annotation (Placement(transformation(extent={{30,10},{10,30}})));
-  Modelica.Blocks.Math.Gain gain1(final k=1)
-    annotation (Placement(transformation(extent={{30,-30},{10,-10}})));
 equation
   connect(temSen.T, masExc.TSur) annotation (Line(points={{-40,0},{42,0},{42,
           -22},{48,-22}},               color={0,0,127}));
@@ -57,25 +50,17 @@ equation
       points={{-60,0},{-66,0},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{76,-30},
-          {76,14},{64,14}},color={0,0,127}));
+  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{76,-30},{
+          76,14},{62,14}}, color={0,0,127}));
   connect(pro.u1, h_fg.y)
-    annotation (Line(points={{64,26},{77,26}}, color={0,0,127}));
+    annotation (Line(points={{62,26},{77,26}}, color={0,0,127}));
   connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{-18,-20},{
           -24,-20},{-24,-40},{-30,-40}},
                                      color={191,0,0}));
-  connect(heaConVapCoi.port, con2.solid) annotation (Line(points={{-20,20},{-66,
-          20},{-66,0},{-66,-40},{-50,-40}}, color={191,0,0}));
-  connect(gain.y, heaConVapCoi.Q_flow)
-    annotation (Line(points={{9,20},{6,20},{0,20}}, color={0,0,127}));
-  connect(pro.y, gain.u) annotation (Line(points={{41,20},{32,20}},
-                   color={0,0,127}));
-  connect(pro.y, gain1.u) annotation (Line(points={{41,20},{38,20},{38,-20},{32,
-          -20}}, color={0,0,127}));
-  connect(gain1.y, heaConVapAir.Q_flow)
-    annotation (Line(points={{9,-20},{2,-20}}, color={0,0,127}));
   connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{71,-30},{
           76,-30},{76,-52},{14,-52}}, color={0,0,127}));
+  connect(pro.y, heaConVapAir.Q_flow) annotation (Line(points={{39,20},{20,20},{
+          20,-20},{4,-20}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -89,14 +74,18 @@ Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement</a>
 for a description of the physics of the sensible heat exchange.
 For the latent heat exchange, this model removes water vapor from the air stream, as
 computed by the instance <code>masExc</code>. This effectively moves water vapor molecules
-out of the air, and deposits them on the coil. Hence, the latent heat that is carried
-by these water vapor molecules is removed from the air stream, and added to the coil
-surface. This is done using the heat flow sources <code>heaConVapAir</code> and
-<code>heaConVapWat</code>.
+out of the air, and deposits them on the coil from where it drains from the system.
+Hence, the latent heat that is carried
+by these water vapor molecules is removed from the air stream. This is done using the heat flow source <code>heaConVapAir</code>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 26, 2022, by Michael Wetter:<br/>
+Removed addition of heat to <code>mas.T</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">#3027</a>.
+</li>
 <li>
 March 11, 2021, by Michael Wetter:<br/>
 Changed constant <code>simplify_mWat_flow</code> from protected to public because it is assigned by
