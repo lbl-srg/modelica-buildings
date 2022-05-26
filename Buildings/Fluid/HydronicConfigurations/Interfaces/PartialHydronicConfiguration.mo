@@ -10,33 +10,59 @@ model PartialHydronicConfiguration
           X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
 
+  extends Buildings.Fluid.HydronicConfigurations.Data.Configuration;
+
+  parameter Buildings.Fluid.HydronicConfigurations.Data.Generic dat(
+    have_ctl = have_ctl,
+    typFun=typFun,
+    have_pum = have_pum,
+    typPum=typPum)
+    "Sizing and operating parameters"
+    annotation(Placement(transformation(extent={{76,76},{96,96}})));
+
+  final parameter Boolean have_yPum = have_pum and
+    typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
+    "Set to true if an analog input is used for pump control"
+    annotation(Dialog(group="Configuration"));
+  final parameter Boolean have_y1Pum = have_pum and
+    typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
+    "Set to true if a digital input is used for pump control"
+    annotation(Dialog(group="Configuration"));
+  final parameter Boolean have_yVal = not have_ctl
+    "Set to true if an analog input is used for valve control"
+    annotation(Dialog(group="Configuration"));
+  final parameter Boolean have_set = have_ctl
+    "Set to true if an analog input is used as a set point"
+    annotation(Dialog(group="Configuration"));
+  final parameter Boolean have_mod = have_ctl and
+    typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver
+    "Set to true if an analog input is used as a control mode selector"
+    annotation(Dialog(group="Configuration"));
+
   parameter Boolean use_lumFloRes = false
     "Set to true to lump secondary and valve flow resistance (typical of single served unit)";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(final min=0)
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+    final min=0)=dat.m_flow_nominal
     "Mass flow rate at design conditions" annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpSec_nominal(
-    final min=0,
-    displayUnit="Pa")
+  final parameter Modelica.Units.SI.PressureDifference dpSec_nominal(
+    displayUnit="Pa")=dat.dpSec_nominal
     "Secondary pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-    final min=Modelica.Constants.eps,
-    displayUnit="Pa")
+  final parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    displayUnit="Pa")=dat.dpValve_nominal
     "Control valve pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
-    final min=0,
-    displayUnit="Pa") = 0
+  final parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
+    displayUnit="Pa")=dat.dpBal1_nominal
     "Primary balancing valve pressure drop at design conditions "
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
-    final min=0,
-    displayUnit="Pa") = 0
+  final parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
+    displayUnit="Pa")=dat.dpBal2_nominal
     "Secondary balancing valve pressure drop at design conditions "
     annotation (Dialog(group="Nominal condition"));
 
@@ -88,11 +114,23 @@ model PartialHydronicConfiguration
     "Secondary return port"
     annotation (Placement(transformation(extent={{-50,90},{-70,110}}),
         iconTransformation(extent={{-50,90},{-70,110}})));
-  Controls.OBC.CDL.Interfaces.RealInput y
-    "Input control signal"
-    annotation (
-      Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealInput yVal if have_yVal
+    "Valve control signal" annotation (Placement(transformation(extent={{-140,-20},
+            {-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealInput set if have_set "Set point"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Pum if have_y1Pum
+    "Pump control signal (constant speed)" annotation (Placement(transformation(
+          extent={{-140,60},{-100,100}}), iconTransformation(extent={{-140,20},
+            {-100,60}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealInput yPum if have_yPum
+    "Pump control signal (variable speed)" annotation (Placement(transformation(
+          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,-20},
+            {-100,20}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod if have_mod
+    "Operating mode" annotation (Placement(transformation(extent={{-140,-100},{
+            -100,-60}}), iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Medium.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
@@ -163,7 +201,6 @@ protected
   annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=false),
-      extent={{-100,-100},{100,100}},
       graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={175,175,175},

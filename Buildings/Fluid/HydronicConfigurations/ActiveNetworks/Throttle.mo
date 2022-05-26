@@ -2,7 +2,9 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Throttle "Throttle circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dpValve_nominal=dpSec_nominal);
+      dat(dpValve_nominal=dpSec_nominal),
+      final have_pum=false,
+      final have_ctl=false);
 
   replaceable Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
@@ -34,7 +36,7 @@ equation
     annotation (Line(points={{60,-60},{60,-100}}, color={0,127,255}));
   connect(port_b2, port_a1)
     annotation (Line(points={{-60,100},{-60,-100}}, color={0,127,255}));
-  connect(y, val.y)
+  connect(yVal, val.y)
     annotation (Line(points={{-120,0},{48,0}}, color={0,0,127}));
 
   connect(val.port_b, bal1.port_a)

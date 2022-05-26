@@ -60,21 +60,24 @@ model Load "Model of a load on hydronic circuit"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  Controls.OBC.CDL.Interfaces.RealInput u "Load modulating signal" annotation (
-     Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(
-          extent={{-140,40},{-100,80}})));
-  Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1") "Valve demand signal"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}), iconTransformation(extent={{100,40},
-            {140,80}})));
-  Controls.OBC.CDL.Interfaces.RealOutput u_s(final unit="K", displayUnit="degC")
-    "Controller set point" annotation (Placement(transformation(extent={{100,-50},
-            {140,-10}}), iconTransformation(extent={{100,-50},{140,-10}})));
-  Controls.OBC.CDL.Interfaces.RealOutput u_m(final unit="K", displayUnit="degC")
-    "Controller measured value" annotation (Placement(transformation(extent={{100,-70},
-            {140,-30}}),       iconTransformation(extent={{100,-70},{140,-30}})));
-  Controls.OBC.CDL.Interfaces.RealOutput dTLiq(final unit="K", displayUnit="K")
-    "Liquid deltaT" annotation (Placement(transformation(extent={{100,-90},{140,
-            -50}}), iconTransformation(extent={{100,-90},{140,-50}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Load modulating signal"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1")
+    "Valve demand signal" annotation (Placement(transformation(extent={{100,40},
+            {140,80}}), iconTransformation(extent={{100,40},{140,80}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_s(final unit="K",
+      displayUnit="degC") "Controller set point" annotation (Placement(
+        transformation(extent={{100,-50},{140,-10}}), iconTransformation(extent=
+           {{100,-50},{140,-10}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_m(final unit="K",
+      displayUnit="degC") "Controller measured value" annotation (Placement(
+        transformation(extent={{100,-70},{140,-30}}), iconTransformation(extent=
+           {{100,-70},{140,-30}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput dTLiq(final unit="K",
+      displayUnit="K") "Liquid deltaT" annotation (Placement(transformation(
+          extent={{100,-90},{140,-50}}), iconTransformation(extent={{100,-90},{
+            140,-50}})));
 
   Sources.Boundary_pT outAir(
     redeclare final package Medium = MediumAir,
@@ -122,20 +125,20 @@ model Load "Model of a load on hydronic circuit"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={40,20})));
-  Controls.OBC.CDL.Continuous.PID ctl(
+  .Buildings.Controls.OBC.CDL.Continuous.PID ctl(
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC"),
     final controllerType=controllerType,
     final k=k,
     final Ti=120,
-    final reverseActing=Q_flow_nominal>0)
+    final reverseActing=Q_flow_nominal > 0)
     "Controller for supply air temperature"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
 
-  Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=TAirLvg_nominal -
-        TAirEnt_nominal) "Scale load signal"
+  .Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=
+        TAirLvg_nominal - TAirEnt_nominal) "Scale load signal"
     annotation (Placement(transformation(extent={{-68,70},{-48,90}})));
-  Controls.OBC.CDL.Continuous.AddParameter set(p=TAirEnt_nominal)
+  .Buildings.Controls.OBC.CDL.Continuous.AddParameter set(p=TAirEnt_nominal)
     "Compute set point"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
   HeatExchangers.WetCoilEffectivenessNTU coiNom(
@@ -201,12 +204,12 @@ model Load "Model of a load on hydronic circuit"
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={60,0})));
-  Controls.OBC.CDL.Continuous.Subtract dT "Compute deltaT"
+  .Buildings.Controls.OBC.CDL.Continuous.Subtract dT "Compute deltaT"
     annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
-  Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
-    "Total heat flow rate transferred to the load"
-                    annotation (Placement(transformation(extent={{100,-110},{140,
-            -70}}), iconTransformation(extent={{100,-110},{140,-70}})));
+  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
+    "Total heat flow rate transferred to the load" annotation (Placement(
+        transformation(extent={{100,-110},{140,-70}}), iconTransformation(
+          extent={{100,-110},{140,-70}})));
   Modelica.Blocks.Sources.RealExpression heaFlo(y=coi.Q2_flow)
     "Access coil heat flow rate"
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));

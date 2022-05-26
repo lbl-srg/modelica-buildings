@@ -2,7 +2,9 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Diversion "Diversion circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dpValve_nominal=dpSec_nominal);
+      dat(dpValve_nominal=dpSec_nominal),
+      final have_pum=false,
+      final have_ctl=false);
 
   replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
@@ -41,8 +43,7 @@ model Diversion "Diversion circuit"
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
       Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final m_flow_nominal=m_flow_nominal .* {1,-1,-1},
-    final dp_nominal=fill(0, 3))
-    "Junction"
+    final dp_nominal=fill(0, 3)) "Junction"
      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -69,7 +70,7 @@ equation
     annotation (Line(points={{-50,0},{50,0}}, color={0,127,255}));
   connect(jun.port_2, port_b2)
     annotation (Line(points={{-60,10},{-60,100}}, color={0,127,255}));
-  connect(y, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,20},{80,20},
+  connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,20},{80,20},
           {80,0},{72,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",

@@ -1,16 +1,10 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
-model DiversionCircuitOpenLoop
-  "Model illustrating the operation of three-way valves with constant speed pump"
+model InjectionThreeWayValve
+  "Model illustrating the operation of inversion circuits with three-way valves"
   extends Modelica.Icons.Example;
-
-  replaceable model ThreeWayValve =
-      Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear;
 
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
-
-  parameter Boolean is_bypBal = false
-    "Set to true for a balancing valve in the bypass";
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
     "Terminal unit mass flow rate at design conditions";
@@ -62,11 +56,11 @@ model DiversionCircuitOpenLoop
     redeclare final package Medium = MediumLiq,
     final p=p_min,
     final T=TLiqEnt_nominal,
-    nPorts=3)
+    nPorts=2)
     "Pressure and temperature boundary condition"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-20,-70})));
+        origin={-80,-70})));
   Movers.SpeedControlled_y pum(
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
@@ -76,8 +70,9 @@ model DiversionCircuitOpenLoop
       dp(displayUnit="Pa") = {1.5, 1, 0} * dpPum_nominal)),
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Circulation pump"
-    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
-  ActiveNetworks.Diversion con(
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWayValve
+                           con(
     redeclare replaceable ThreeWayValve val(fraK=1),
     redeclare final package Medium=MediumLiq,
     final use_lumFloRes=false,
@@ -99,24 +94,9 @@ model DiversionCircuitOpenLoop
     final TLiqLvg_nominal=TLiqLvg_nominal,
     k=10) "Load"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
+  .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp ope(duration=100)
-    "Valve opening signal"
-    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
-  ActiveNetworks.Diversion con1(
-    redeclare replaceable ThreeWayValve val(fraK=1),
-    final use_lumFloRes=false,
-    redeclare final package Medium = MediumLiq,
-    final energyDynamics=energyDynamics,
-    final m_flow_nominal=mTer_flow_nominal,
-    final dpSec_nominal=dpTer_nominal,
-    final dpValve_nominal=dpValve_nominal,
-    final dpBal1_nominal=dpPum_nominal - 2 * dpPip_nominal - dpTer_nominal - dpValve_nominal,
-    final dpBal2_nominal=dpBal2_nominal)
-    "Hydronic connection"
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
     redeclare final package MediumLiq = MediumLiq,
     final dpLiq_nominal=dpTer_nominal,
@@ -133,26 +113,38 @@ model DiversionCircuitOpenLoop
     final dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  FixedResistances.PressureDrop res1(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=mTer_flow_nominal,
-    final dp_nominal=dpPip_nominal)
-    "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Sensors.RelativePressure dp(
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Sensors.RelativePressure dp1(
-    redeclare final package Medium = MediumLiq)
-    "Differential pressure"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Modelica.Blocks.Sources.RealExpression ope1(y=1 - ope.y)
-    "Valve opening signal"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+  .Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ope(
+    table=[0,1,1; 1,0,1; 2,1,0; 3,0,0],
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
+    timeScale=100) "Valve opening signal"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+
+  Sensors.TemperatureTwoPort TRet(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mPum_flow_nominal,
+    T_start=TLiqLvg_nominal) "Return temperature sensor" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={-40,-60})));
+  Sensors.TemperatureTwoPort TSup(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mPum_flow_nominal,
+    T_start=TLiqEnt_nominal) "Supply temperature sensor" annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=0,
+        origin={-50,-40})));
+  .Buildings.Controls.OBC.CDL.Continuous.Subtract delT(y(final unit="K"))
+    "Primary delta-T"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 equation
-  connect(ref.ports[1], pum.port_a) annotation (Line(points={{-21.3333,-60},{
-          -100,-60},{-100,-40},{-70,-40}},
+  connect(ref.ports[1], pum.port_a) annotation (Line(points={{-81,-60},{-100,-60},
+          {-100,-40},{-90,-40}},
                             color={0,127,255}));
   connect(con.port_b2, loa.port_a) annotation (Line(points={{4,30},{4,40},{0,40},
           {0,60}},      color={0,127,255}));
@@ -161,36 +153,28 @@ equation
   connect(fraLoa.y, loa.u) annotation (Line(points={{-68,80},{-20,80},{-20,66},{
           -2,66}},
         color={0,0,127}));
-  connect(con1.port_b2, loa1.port_a) annotation (Line(points={{64,30},{64,40},{60,
-          40},{60,60}}, color={0,127,255}));
-  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{76,29.8},{76,40},
-          {80,40},{80,60}}, color={0,127,255}));
   connect(fraLoa.y, loa1.u) annotation (Line(points={{-68,80},{40,80},{40,66},{58,
           66}}, color={0,0,127}));
-  connect(ope.y, con.y) annotation (Line(points={{-68,40},{-60,40},{-60,20},{-2,
-          20}}, color={0,0,127}));
-  connect(pum.port_b, res.port_a)
-    annotation (Line(points={{-50,-40},{-30,-40}}, color={0,127,255}));
-  connect(res.port_b, res1.port_a)
-    annotation (Line(points={{-10,-40},{30,-40}}, color={0,127,255}));
   connect(res.port_b, dp.port_a)
     annotation (Line(points={{-10,-40},{0,-40},{0,-20}},   color={0,127,255}));
-  connect(dp.port_b, ref.ports[2]) annotation (Line(points={{20,-20},{20,-60},{-20,
-          -60}}, color={0,127,255}));
-  connect(dp1.port_a, res1.port_b)
-    annotation (Line(points={{60,-20},{60,-40},{50,-40}}, color={0,127,255}));
-  connect(dp1.port_a, con1.port_a1) annotation (Line(points={{60,-20},{60,0},{64,
-          0},{64,10}}, color={0,127,255}));
-  connect(con1.port_b1, dp1.port_b) annotation (Line(points={{76,10},{76,0},{80,
-          0},{80,-20}},  color={0,127,255}));
-  connect(dp1.port_b, ref.ports[3]) annotation (Line(points={{80,-20},{80,-60},
-          {-18.6667,-60}},color={0,127,255}));
   connect(con.port_b1, dp.port_b) annotation (Line(points={{16,10},{16,2},{20,2},
           {20,-20}}, color={0,127,255}));
   connect(con.port_a1, dp.port_a) annotation (Line(points={{4,10},{4,2},{0,2},{0,
           -20}},     color={0,127,255}));
-  connect(ope1.y, con1.y) annotation (Line(points={{-69,0},{40,0},{40,20},{58,
-          20}}, color={0,0,127}));
+  connect(ope.y[1], con.yVal)
+    annotation (Line(points={{-68,20},{-2,20}}, color={0,0,127}));
+  connect(TRet.port_b, ref.ports[2])
+    annotation (Line(points={{-50,-60},{-79,-60}}, color={0,127,255}));
+  connect(TRet.port_a, dp.port_b)
+    annotation (Line(points={{-30,-60},{20,-60},{20,-20}}, color={0,127,255}));
+  connect(pum.port_b, TSup.port_a)
+    annotation (Line(points={{-70,-40},{-60,-40}}, color={0,127,255}));
+  connect(TSup.port_b, res.port_a)
+    annotation (Line(points={{-40,-40},{-30,-40}}, color={0,127,255}));
+  connect(TRet.T, delT.u1)
+    annotation (Line(points={{-40,-71},{-40,-74},{-2,-74}}, color={0,0,127}));
+  connect(TSup.T, delT.u2)
+    annotation (Line(points={{-50,-51},{-50,-86},{-2,-86}}, color={0,0,127}));
    annotation (experiment(
     StopTime=200,
     Tolerance=1e-6),
@@ -203,12 +187,12 @@ This model illustrates the use of a diversion circuit to modulate
 the heat flow rate transmitted to a constant load.
 Two identical secondary circuits are connected to a primary circuit 
 with a constant speed pump.
-The valve of the circuit closest to the pump is actuated
-from fully closed to fully open position.
-The valve of the remote circuit closest is actuated 
-with a complementary control signal.
+The main assumptions are enumerated below.
 </p>
 <ul>
+<li> 
+The model is configured in steady-state.
+</li>
 <li> 
 Secondary and valve flow resistances are not lumped together
 so that the valve authority can be computed as
@@ -216,8 +200,8 @@ so that the valve authority can be computed as
 fully open.
 </li>
 <li> 
-The design conditions are defined without considering
-any load diversity.
+The design conditions at <code>time = 0</code> are defined without 
+considering any load diversity.
 </li>
 <li> 
 Each circuit is balanced at design conditions.
@@ -228,6 +212,11 @@ design conditions if the parameter <code>is_bypBal</code>
 is set to <code>true</code>. Otherwise no fixed flow
 resistance is considered in the bypass branch, only the 
 variable flow resistance corresponding to the control valve.
+The parameter <code>fraK</code> of the control valves is 
+set at <i>1.0</i> to effectively have an unbalanced bypass branch
+for <code>con.dpBal2_nominal = 0</code>, see
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
+Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>.
 </li> 
 </ul>
 <p>
@@ -237,22 +226,30 @@ shows the following points.
 <ul>
 <li> 
 The overflow caused by the unbalanced bypass branch when the valve
-is fully closed (see plot #1).
-This creates a concomitant flow shortage in the other circuit with the
+is fully closed (see plot #2 at <code>time = 100</code>)
+creates a concomitant flow shortage in the other circuit with the
 valve fully open. 
-However, the flow shortage (<i>6%</i>) is of a much lower amplitude than the overflow
-(<i>27%</i>).
+However, the flow shortage (<i>6%</i>) is of a much lower amplitude than 
+the overflow (<i>27%</i>).
 Indeed the equivalent flow resistance seen by the pump is lower than at
 design conditions, leading a shift of the operating point of the pump
 towards a flow rate value higher than design, which partly compensates
 for the overflow.
 </li> 
 <li>
-The impact on the heat flow rate transferred to the load is even is of an
+The impact on the heat flow rate transferred to the load (see plot #4) is of an
 even lower amplitude (<i>2%</i>) due to the emission characteristic of the
 terminal unit.
 </li>
+<li>
+The equal-percentage / linear characteristic of the control valve yields
+a relationship between the heat flow rate transferred to the load and the 
+valve opening that is close to linear (see plot #4).
+</li>
 </ul>
+<h4>
+Sensitivity analysis
+</h4>
 <p>
 Those observations are confirmed by a sensitivity study to the following
 parameters.
@@ -260,7 +257,8 @@ parameters.
 <ul>
 <li>
 Ratio of the terminal unit pressure drop to the pump head at 
-design conditions: 
+design conditions (see the icon of the diversion circuit component for the 
+location of points J and A): 
 <i>&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub></i> 
 varying from <i>0.1</i> to <i>0.4</i>  
 </li>
@@ -278,29 +276,77 @@ Valve characteristic:
 <code>ThreeWayValve</code> switched from equal percentage-linear (EL) to
 linear-linear (LL).
 </li>
-<br/>
 </ul>
+<h5>
+Direct and bypass mass flow rate
+</h5>
+<p>
+The overflow in the bypass branch when the valve is fully closed increases with
+<i>&psi;</i> and decreases with <i>&beta;</i>.
+It it close to <i>80%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
+However, the concomitant flow shortage in the other terminal unit with a valve
+fully open is limited to about <i>20%</i>.
+For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage 
+is limited to about <i>10%</i>, indicating that selecting the control valve with
+a suitable authority largely dampens the impact of an unbalanced bypass branch.
+</p>
 <p>
 <img alt=\"Diversion circuit bypass flow rate\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionCircuitOpenLoop_mBypass.png\"/>
+<br/>
+<i>Bypass mass flow rate (ratio to design value) at fully closed conditions
+as a function of 
+&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
+for various valve authorities &beta; (color scale),
+and a bypass branch either balanced (right plot) or not (left plot).
+</i>
 </p>
 <p>
 <img alt=\"Diversion circuit direct flow rate\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionCircuitOpenLoop_mDirect.png\"/>
+<br/>
+<i>Direct mass flow rate (ratio to design value) at fully open conditions
+as a function of 
+&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
+for various valve authorities &beta; (color scale),
+and a bypass branch either balanced (right plot) or not (left plot).
+</i>
 </p>
 <p>
 <img alt=\"Diversion circuit pump flow rate\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionCircuitOpenLoop_mPump.png\"/>
+<br/>
+<i>Pump mass flow rate (ratio to design value) as a function of 
+&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
+for various valve authorities &beta; (color scale),
+a bypass branch either balanced (right plots) or not (left plots)
+and either an equal-percentage / linear valve characteristic (top plots)
+or a linear / linear valve characteristic (bottom plots).
+</i>
 </p>
 <p>
 <img alt=\"Diversion circuit heat flow rate fully open\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionCircuitOpenLoop_Q100.png\"/>
+<br/>
+<i>Heat flow rate (ratio to design value) at fully open conditions
+as a function of 
+&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
+for various valve authorities &beta; (color scale),
+and a bypass branch either balanced (right plot) or not (left plot).
+</i>
 </p>
 <p>
 <img alt=\"Diversion circuit heat flow rate 10% open\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionCircuitOpenLoop_Q10.png\"/>
+<br/>
+<i>Heat flow rate (ratio to design value) at 10% open conditions
+as a function of 
+&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
+for various valve authorities &beta; (color scale),
+and a bypass branch either balanced (right plot) or not (left plot).
+</i>
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-120,-100},{100,100}})));
-end DiversionCircuitOpenLoop;
+end InjectionThreeWayValve;

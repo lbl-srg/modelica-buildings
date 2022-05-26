@@ -44,7 +44,7 @@ model TwoWayClosedLoop
         rotation=-90,
         origin={-40,0})));
 
-  Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(
+  .Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(
     table=[0,0; 1,0.2; 2,0.2; 3,0.5; 4,0.5; 5,0.7; 6,0.7; 7,0.6; 8,0.6; 9,1; 10,
         1],
     timeScale=20,
