@@ -211,6 +211,11 @@ Each class (i.e., model, block and function) must be used in an example or valid
 Version 9.0.0 is a major release that updates the Modelica version from 3.2.3 to 4.0.0.
 </p>
 <p>
+The library has been tested with Dymola 2022x,
+OpenModelica 1.19.0-dev (613-gd6e04c0-1),
+OPTIMICA (revision 2022-05-09-master-4b0cd2bf71) and recent versions of Impact.
+</p>
+<p>
 The following major changes have been done:
 </p>
 <ul>
@@ -219,7 +224,7 @@ The Modelica version has been updated from version 3.2.3 to 4.0.0.
 </li>
 <li>
 Almost all fluid component models have been updated to remove the parameter <code>massDynamics</code>,
-which is now set to the same value as the parameter <code>energyDynamics</code>. This simplifies use of the models.
+which is now set to the same value as the parameter <code>energyDynamics</code>.
 </li>
 <li>
 The models for coupling with EnergyPlus have been moved to the package
