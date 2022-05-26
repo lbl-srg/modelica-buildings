@@ -259,8 +259,8 @@ improved to obtain the latitude of the building from the weather data bus,
 rather than requiring the user to specify it.
 </li>
 <li>
-Updated the run-time coupling with Python to Python version 3.8,
-and renamed the package to <code>Buildings.Utilities.IO.Python_3_8</code>.
+The run-time coupling with Python has been updated to Python version 3.8,
+and it has been renamed to <code>Buildings.Utilities.IO.Python_3_8</code>.
 </li>
 <li>
 Various other models have been improved or added, in particular for modeling of
