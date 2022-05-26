@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "buiWitETS.bui.loa.y[1]",
+    "buiWitETS.ets.Q_flow",
+    "senMasFlo.m_flow",
+    "buiWitETS.ets.senMasFlo.m_flow",
+    "supChiWat.T",
+    "buiWitETS.ets.senTDisSup.T",
+    "buiWitETS.ets.senTBuiSup.T",
+    "buiWitETS.ets.senTDisRet.T",
+    "buiWitETS.ets.senTBuiRet.T"
+  };

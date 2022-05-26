@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "cooETS.senTDisSup.T",
+    "cooETS.senTBuiSup.T",
+    "cooETS.senTBuiRet.T",
+    "cooETS.senTDisRet.T",
+    "cooETS.senMasFlo.m_flow",
+    "val.y",
+    "cooETS.Q_flow",
+    "cooETS.Q"
+  };
