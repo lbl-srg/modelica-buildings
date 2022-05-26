@@ -22,7 +22,7 @@ model WetCoilCounterFlowLowWaterFlowRate
     dp1_nominal(displayUnit="Pa") = 3000,
     UA_nominal=mWat_flow_nominal*4200*10/30,
     show_T=true,
-    nEle=4,
+    nEle=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling coil"
     annotation(Placement(transformation(extent={{10,-12},{30,8}})));
