@@ -40,7 +40,14 @@ jobs:
         run: pip3 install --upgrade pip wheel
 
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@e52684deb8c2c2846faaa21c426999fecf3ad58f
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v4.0.0
+
+      - name: Check for UTF-8 BOM
+        run : |
+              for ff in `grep -rlI --exclude="ffd.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
+                echo "::error file=${ff}:: Found BOM in ${ff}."
+              done;
+              test -z "${ff}"
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
@@ -74,9 +81,6 @@ jobs:
               cd ..
               python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
               git diff --exit-code Buildings
-
-      - name: Check for UTF-8 BOM
-        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."
 
       - name: Check for file permissions
         run : |
