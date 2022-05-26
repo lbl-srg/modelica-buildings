@@ -10533,7 +10533,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 27, 2022)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 31, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_2\">Version 8.1.2</a> (May 26, 2022)
@@ -11075,8 +11075,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="9.0.0",
-versionDate="2022-05-27",
-dateModified="2022-05-27",
+versionDate="2022-05-31",
+dateModified="2022-05-31",
 uses(Modelica(version="4.0.0")),
 conversion(
   from(version={"8.0.0", "8.1.0", "8.1.1", "8.1.2"},
