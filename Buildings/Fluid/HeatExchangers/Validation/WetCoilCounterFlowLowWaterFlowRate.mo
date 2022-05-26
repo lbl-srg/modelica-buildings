@@ -120,5 +120,21 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilCounterFlowLowWaterFlowRate.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This is a validation case in which the air flow rate is about a third of the design flow rate,
+and the water mass flow rate is ramped to zero.
+The validation verifies that the outlet temperatures approach the inlet temperature of the air.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 26, 2022, by Michael Wetter:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">issue 3027</a>.
+</li>
+</ul>
+</html>"));
 end WetCoilCounterFlowLowWaterFlowRate;
