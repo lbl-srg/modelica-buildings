@@ -29,15 +29,15 @@ protected
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaConVapAir
     "Heat conductor for latent heat flow rate, accounting for latent heat removed with vapor"
-    annotation (Placement(transformation(extent={{2,-30},{-18,-10}})));
+    annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
   Modelica.Blocks.Math.Product pro
     "Product to compute the latent heat flow rate"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Modelica.Blocks.Sources.RealExpression h_fg(final y=Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "Enthalpy of vaporization"
-    annotation (Placement(transformation(extent={{98,16},{78,36}})));
+    annotation (Placement(transformation(extent={{90,16},{70,36}})));
 equation
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{-40,0},{42,0},{42,
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{-39,0},{40,0},{40,
           -22},{48,-22}},               color={0,0,127}));
   connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},{
           -20,-44},{34,-44},{34,-30},{48,-30}},
@@ -50,17 +50,18 @@ equation
       points={{-60,0},{-66,0},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{76,-30},{
-          76,14},{62,14}}, color={0,0,127}));
+  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{80,-30},
+          {80,14},{62,14}},color={0,0,127}));
   connect(pro.u1, h_fg.y)
-    annotation (Line(points={{62,26},{77,26}}, color={0,0,127}));
-  connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{-18,-20},{
-          -24,-20},{-24,-40},{-30,-40}},
+    annotation (Line(points={{62,26},{69,26}}, color={0,0,127}));
+  connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{-10,-20},{
+          -20,-20},{-20,-40},{-30,-40}},
                                      color={191,0,0}));
   connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{71,-30},{
-          76,-30},{76,-52},{14,-52}}, color={0,0,127}));
-  connect(pro.y, heaConVapAir.Q_flow) annotation (Line(points={{39,20},{20,20},{
-          20,-20},{4,-20}}, color={0,0,127}));
+          80,-30},{80,-52},{14,-52}}, color={0,0,127}));
+  connect(pro.y, heaConVapAir.Q_flow) annotation (Line(points={{39,20},{20,20},
+          {20,-20},{10,-20}},
+                            color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
