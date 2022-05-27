@@ -76,10 +76,6 @@ Modelica Standard Library.
         Ellipse(
           fillPattern=FillPattern.Solid,
           extent={{-5,-30},{5,-20}}),
-        Text(
-          textColor={0,0,255},
-          extent={{-150,110},{150,150}},
-          textString="%name"),
         Line(
           points={{-100,60},{-66,60},{-40,30}},
           color={0,0,127}),
