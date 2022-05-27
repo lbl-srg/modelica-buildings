@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTUHeating",
+simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTUHeating",
     stopTime=1000,
     method="cvode",
     tolerance=1e-6,
