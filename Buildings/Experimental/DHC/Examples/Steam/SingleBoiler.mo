@@ -5,12 +5,13 @@ model SingleBoiler "Example model for a complete steam district heating system w
 
   package MediumSte = Buildings.Media.Steam (
     p_default=400000,
-    T_default=144+273.15)
+    T_default=143.61+273.15)
     "Steam medium";
   package MediumWat =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity (
       p_default=101325,
-      T_default=100+273.15)
+      T_default=100+273.15,
+      h_default=2738100)
     "Water medium";
 
   parameter Modelica.Units.SI.AbsolutePressure pSat=400000
