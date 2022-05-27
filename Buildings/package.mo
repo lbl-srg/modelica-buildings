@@ -320,6 +320,15 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2823\">#2823</a>.<br/>
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithInputGains
+    </td>
+    <td valign=\"top\">Added PID controller with anti-windup and control gains exposed as inputs.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2993\">#2993</a>.<br/>
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
     </td>
 </tr>
@@ -10640,6 +10649,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Sen Huang, Pacific Northwest National Laboratory, USA
 </li>
 <li>Kathryn Hinkelman, University of Colorado Boulder, Colorado, USA
 </li>

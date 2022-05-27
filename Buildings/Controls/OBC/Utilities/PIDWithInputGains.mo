@@ -1,26 +1,10 @@
-within Buildings.Controls.OBC.CDL.Continuous;
-block PID
-  "P, PI, PD, and PID controller"
+within Buildings.Controls.OBC.Utilities;
+block PIDWithInputGains
+  "P, PI, PD, and PID controller with output reset and input gains"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-  parameter Real k(
-    min=100*Constants.eps)=1
-    "Gain of controller"
-    annotation (Dialog(group="Control gains"));
-  parameter Real Ti(
-    final quantity="Time",
-    final unit="s",
-    min=100*Constants.eps)=0.5
-    "Time constant of integrator block"
-    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
-  parameter Real Td(
-    final quantity="Time",
-    final unit="s",
-    min=100*Constants.eps)=0.1
-    "Time constant of derivative block"
-    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
   parameter Real r(
-    min=100*Constants.eps)=1
+    min=100*CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   parameter Real yMax=1
     "Upper limit of output"
@@ -29,13 +13,13 @@ block PID
     "Lower limit of output"
     annotation (Dialog(group="Limits"));
   parameter Real Ni(
-    min=100*Constants.eps)=0.9
+    min=100*CDL.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
-    annotation (Dialog(tab="Advanced",group="Integrator anti-windup",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(tab="Advanced",group="Integrator anti-windup",enable=controllerType == CDL.Types.SimpleController.PI or controllerType ==CDL.Types.SimpleController.PID));
   parameter Real Nd(
-    min=100*Constants.eps)=10
+    min=100*CDL.Constants.eps)=10
     "The higher Nd, the more ideal the derivative block"
-    annotation (Dialog(tab="Advanced",group="Derivative block",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(tab="Advanced",group="Derivative block",enable=controllerType == CDL.Types.SimpleController.PD or controllerType ==CDL.Types.SimpleController.PID));
   parameter Real xi_start=0
     "Initial value of integrator state"
     annotation (Dialog(tab="Advanced",group="Initialization",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
@@ -44,22 +28,48 @@ block PID
     annotation (Dialog(tab="Advanced",group="Initialization",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
   parameter Boolean reverseActing=true
     "Set to true for reverse acting, or false for direct acting control action";
+  parameter Real y_reset=xi_start
+    "Value to which the controller output is reset if the boolean trigger has a rising edge"
+    annotation (Dialog(enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID,group="Integrator reset"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector of setpoint input signal"
+    "Connector for setpoint input signal"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
-    "Connector of measurement input signal"
+    "Connector for measurement input signal"
     annotation (Placement(transformation(origin={0,-220},extent={{20,-20},{-20,20}},rotation=270),iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput k(
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    "Connector for control gain signal"
+    annotation (Placement(transformation(extent={{-260,160},{-220,200}}),iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput Ti(
+    quantity="Time",
+    unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    if with_I
+    "Connector for time constant signal for the integral term"
+    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
+    iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput Td(
+    quantity="Time",
+    unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    if with_D
+    "Connector for time constant signal for the derivative term"
+    annotation (Placement(transformation(extent={{-260,40},{-220,80}}),   iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of actuator output signal"
+    "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract controlError "Control error (set point - measurement)"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
+    "Resets the controller output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-160,-220}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract controlError
+    "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-16},{-180,4}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter P(final k=k)
-    "Gain for proportional control action"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply P
+    "Proportional action"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
-    final k=k/Ti,
+    final k=1,
     final y_start=xi_start) if with_I
     "Integral term"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -84,6 +94,22 @@ block PID
     final uMin=yMin)
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide antWinGai2 "Outputs of anti-windup compensation"
+    annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide gaiI if with_I "Gain of the integral term"
+    annotation (Placement(transformation(extent={{-200,116},{-180,136}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply errIWithGai if with_I
+    "I error (after multiplying with the gain of the integral term)"
+    annotation (Placement(transformation(extent={{-84,28},{-64,48}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mulkTd if with_D
+    "Product of k and Td"
+    annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrkTd(
+    t=1E-6,
+    h=1E-6/2)
+    if with_D
+    "Check if k*Td is larger than 0"
+    annotation (Placement(transformation(extent={{140,160},{160,180}})));
 
 protected
   final parameter Real revAct=
@@ -98,22 +124,21 @@ protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
-  Sources.Constant kDer(k=k*Td) if with_D
-    "Gain for derivative block"
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Sources.Constant TDer(k=Td/Nd) if with_D
-    "Time constant for approximation in derivative block"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Dzero(
     final k=0) if not with_D
     "Zero input signal"
     annotation (Evaluate=true,HideResult=true,Placement(transformation(extent={{-50,90},
             {-30,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Izero(
+    final k=0) if not with_I
+    "Zero input signal"
+    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uS_revAct(
     final k=revAct/r) "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter uMea_revAct(
-    final k=revAct/r) "Set point multiplied by reverse action sign"
+    final k=revAct/r)
+    "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPD
     "Outputs P and D gains added"
@@ -124,40 +149,42 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Subtract antWinErr if with_I
     "Error for anti-windup compensation"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter antWinGai(k=1/(k*Ni))
-    if with_I "Gain for anti-windup compensation"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter antWinGai1(k=1/Ni)
+    if with_I "Gain for anti-windup compensation without the proportional gain"
     annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(
-    final k=yMin < yMax)
-    "Check for values of yMin and yMax"
-    annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(
-    message="LimPID: Limits must be yMin < yMax")
-    "Assertion on yMin and yMax"
-    annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Izero(
-    final k=0) if not with_I
-    "Zero input signal"
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0) if with_I
-    "Constant zero"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=false) if with_I
-    "Constant false"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(
+    final k=y_reset) if with_I
+    "Signal for y_reset"
+    annotation (Placement(transformation(extent={{-140,-84},{-120,-64}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract addRes if with_I
+    "Adder for integrator reset"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(
+    final k=yMin < yMax) "Check for values of yMin and yMax"
+    annotation (Placement(transformation(extent={{140,120},{160,140}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(
+    message="LimPID: Limits must be yMin < yMax") "Assertion on yMin and yMax"
+    annotation (Placement(transformation(extent={{180,120},{200,140}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMeskTd(
+    message="LimPIDWithInputGains: Limits must be k*Td > 0")
+    if with_D
+    "Assertion on k and Td"
+    annotation (Placement(transformation(extent={{180,160},{200,180}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiT(final k=1/Nd) if with_D
+    "Gain to compute time constant for derivative action"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
 equation
+  connect(trigger,I.trigger)
+    annotation (Line(points={{-160,-220},{-160,-140},{-40,-140},{-40,-12}},color={255,0,255}));
   connect(u_s,uS_revAct.u)
-    annotation (Line(points={{-240,0},{-210,0},{-210,42},{-206,42},{-206,40},{
-          -202,40}},                                                color={0,0,127}));
+    annotation (Line(points={{-240,0},{-210,0},{-210,40},{-202,40}},color={0,0,127}));
   connect(u_m,uMea_revAct.u)
     annotation (Line(points={{0,-220},{0,-160},{-210,-160},{-210,-40},{-202,-40}},color={0,0,127}));
+  connect(errD.u2,uMea_revAct.y)
+    annotation (Line(points={{-142,64},{-150,64},{-150,-40},{-178,-40}}, color={0,0,127}));
   connect(D.u,errD.y)
-    annotation (Line(points={{-52,70},{-118,70}},
-                                                color={0,0,127}));
+    annotation (Line(points={{-52,70},{-118,70}}, color={0,0,127}));
   connect(errI1.u1,uS_revAct.y)
     annotation (Line(points={{-142,12},{-170,12},{-170,40},{-178,40}},
                                                                     color={0,0,127}));
@@ -165,60 +192,90 @@ equation
     annotation (Line(points={{78,96},{50,96},{50,134},{42,134}},color={0,0,127}));
   connect(lim.y,y)
     annotation (Line(points={{142,90},{200,90},{200,0},{240,0}},color={0,0,127}));
-  connect(antWinErr.y,antWinGai.u)
-    annotation (Line(points={{182,60},{190,60},{190,-20},{182,-20}},color={0,0,127}));
+  connect(antWinErr.y, antWinGai1.u)
+    annotation (Line(points={{182,60},{190,60},{190,-20},{182,-20}}, color={0,0,127}));
   connect(addPD.u2,Dzero.y)
-    annotation (Line(points={{18,128},{-10,128},{-10,100},{-28,100}},color={0,0,127}));
+    annotation (Line(points={{18,128},{-10,128},{-10,100},{-28,100}},
+                                                color={0,0,127}));
   connect(D.y,addPD.u2)
     annotation (Line(points={{-28,70},{-10,70},{-10,128},{18,128}},color={0,0,127}));
   connect(addPID.u2,I.y)
-    annotation (Line(points={{78,84},{60,84},{60,0},{-28,0}},color={0,0,127}));
+    annotation (Line(points={{78,84},{68,84},{68,0},{-28,0}},color={0,0,127}));
+  connect(addRes.y,I.y_reset_in)
+    annotation (Line(points={{-78,-80},{-60,-80},{-60,-8},{-52,-8}},color={0,0,127}));
   connect(antWinErr.u2,lim.y)
-    annotation (Line(points={{158,54},{150,54},{150,90},{142,90}},         color={0,0,127}));
-  connect(I.u,errI2.y)
-    annotation (Line(points={{-52,0},{-78,0}},color={0,0,127}));
+    annotation (Line(points={{158,54},{150,54},{150,90},{142,90}},  color={0,0,127}));
   connect(errI1.y,errI2.u1)
-    annotation (Line(points={{-118,6},{-102,6}},
-                                              color={0,0,127}));
+    annotation (Line(points={{-118,6},{-102,6}},                  color={0,0,127}));
+  connect(controlError.u1,u_s)
+    annotation (Line(points={{-202,0},{-240,0}},                   color={0,0,127}));
   connect(cheYMinMax.y,assMesYMinMax.u)
-    annotation (Line(points={{142,-150},{158,-150}},color={255,0,255}));
+    annotation (Line(points={{162,130},{178,130}},  color={255,0,255}));
   connect(Izero.y,addPID.u2)
-    annotation (Line(points={{-28,30},{60,30},{60,84},{78,84}},
-                                                              color={0,0,127}));
-  connect(con.y,I.y_reset_in)
-    annotation (Line(points={{-78,-40},{-60,-40},{-60,-8},{-52,-8}},color={0,0,127}));
-  connect(con1.y,I.trigger)
-    annotation (Line(points={{-78,-80},{-40,-80},{-40,-12}},color={255,0,255}));
-  connect(uS_revAct.y,errP.u1)
-    annotation (Line(points={{-178,40},{-170,40},{-170,146},{-142,146}},color={0,0,127}));
+    annotation (Line(points={{-28,30},{58,30},{58,84},{78,84}},
+                                               color={0,0,127}));
+  connect(errP.u1,uS_revAct.y)
+    annotation (Line(points={{-142,146},{-170,146},{-170,40},{-178,40}},color={0,0,127}));
   connect(errD.u1,uS_revAct.y)
     annotation (Line(points={{-142,76},{-170,76},{-170,40},{-178,40}},color={0,0,127}));
   connect(addPD.u1, P.y)
-    annotation (Line(points={{18,140},{-28,140}}, color={0,0,127}));
-  connect(P.u, errP.y)
-    annotation (Line(points={{-52,140},{-118,140}},color={0,0,127}));
+    annotation (Line(points={{18,140},{-28,140}},                   color={0,0,127}));
   connect(addPID.y, lim.u)
     annotation (Line(points={{102,90},{118,90}},color={0,0,127}));
-  connect(addPID.y, antWinErr.u1) annotation (Line(points={{102,90},{114,90},{
-          114,66},{158,66}},
-                         color={0,0,127}));
-  connect(u_s, controlError.u1) annotation (Line(points={{-240,0},{-202,0}},
-                             color={0,0,127}));
-  connect(u_m, controlError.u2) annotation (Line(points={{0,-220},{0,-160},{
-          -210,-160},{-210,-12},{-202,-12}},
-                                           color={0,0,127}));
-  connect(uMea_revAct.y, errP.u2) annotation (Line(points={{-178,-40},{-150,-40},
-          {-150,134},{-142,134}}, color={0,0,127}));
-  connect(uMea_revAct.y, errD.u2) annotation (Line(points={{-178,-40},{-150,-40},
-          {-150,64},{-142,64}}, color={0,0,127}));
-  connect(uMea_revAct.y, errI1.u2) annotation (Line(points={{-178,-40},{-150,
-          -40},{-150,0},{-142,0}},   color={0,0,127}));
-  connect(antWinGai.y, errI2.u2) annotation (Line(points={{158,-20},{-110,-20},
-          {-110,-6},{-102,-6}},color={0,0,127}));
-  connect(kDer.y, D.k) annotation (Line(points={{-78,120},{-58,120},{-58,78},{
-          -52,78}}, color={0,0,127}));
-  connect(TDer.y, D.T) annotation (Line(points={{-78,90},{-60,90},{-60,74},{-52,
-          74}}, color={0,0,127}));
+  connect(addPID.y, antWinErr.u1)
+    annotation (Line(points={{102,90},{114,90},{114,66},{158,66}},color={0,0,127}));
+  connect(addRes.u1, yResSig.y)
+    annotation (Line(points={{-102,-74},{-118,-74}},                       color={0,0,127}));
+  connect(u_m, controlError.u2)
+    annotation (Line(points={{0,-220},{0,-160},{-210,-160},{-210,-12},{-202,-12}},
+                                                                                 color={0,0,127}));
+  connect(uMea_revAct.y, errP.u2)
+    annotation (Line(points={{-178,-40},{-150,-40},{-150,134},{-142,134}}, color={0,0,127}));
+  connect(uMea_revAct.y, errI1.u2)
+    annotation (Line(points={{-178,-40},{-150,-40},{-150,0},{-142,0}},   color={0,0,127}));
+  connect(addPD.y, addRes.u2)
+    annotation (Line(points={{42,134},{50,134},{50,-100},{-110,-100},{-110,-86},
+          {-102,-86}},                                                                       color={0,0,127}));
+  connect(errP.y, P.u2)
+    annotation (Line(points={{-118,140},{-74,140},{-74,134},{-52,134}},  color={0,0,127}));
+  connect(P.u1, k)
+    annotation (Line(points={{-52,146},{-70,146},{-70,188},{-212,188},{-212,180},
+          {-240,180}},                                                                         color={0,0,127}));
+  connect(antWinGai1.y, antWinGai2.u1)
+    annotation (Line(points={{158,-20},{140,-20},{140,-14},{102,-14}},
+                                                   color={0,0,127}));
+  connect(antWinGai2.u2, k)
+    annotation (Line(points={{102,-26},{108,-26},{108,188},{-212,188},{-212,180},
+          {-240,180}},                                                               color={0,0,127}));
+  connect(antWinGai2.y, errI2.u2)
+    annotation (Line(points={{78,-20},{-110,-20},{-110,-6},{-102,-6}},
+                                                                     color={0,0,127}));
+  connect(gaiI.u1, k)
+    annotation (Line(points={{-202,132},{-212,132},{-212,180},{-240,180}}, color={0,0,127}));
+  connect(gaiI.u2, Ti)
+    annotation (Line(points={{-202,120},{-240,120}},                      color={0,0,127}));
+  connect(gaiI.y, errIWithGai.u1)
+    annotation (Line(points={{-178,126},{-100,126},{-100,44},{-86,44}},color={0,0,127}));
+  connect(errI2.y, errIWithGai.u2)
+    annotation (Line(points={{-78,0},{-70,0},{-70,20},{-100,20},{-100,32},{-86,
+          32}},                                                                    color={0,0,127}));
+  connect(errIWithGai.y, I.u)
+    annotation (Line(points={{-62,38},{-60,38},{-60,0},{-52,0}}, color={0,0,127}));
+  connect(mulkTd.u1, k)
+    annotation (Line(points={{-202,166},{-212,166},{-212,180},{-240,180}},color={0,0,127}));
+  connect(greThrkTd.y, assMeskTd.u)
+    annotation (Line(points={{162,170},{178,170}},   color={255,0,255}));
+  connect(mulkTd.y, greThrkTd.u)
+    annotation (Line(points={{-178,160},{-168,160},{-168,184},{132,184},{132,
+          170},{138,170}},                                                                 color={0,0,127}));
+  connect(mulkTd.u2, Td)
+    annotation (Line(points={{-202,154},{-206,154},{-206,60},{-240,60}},color={0,0,127}));
+  connect(Td, gaiT.u)
+    annotation (Line(points={{-240,60},{-180,60},{-180,110},{-142,110}}, color={0,0,127}));
+  connect(gaiT.y, D.T)
+    annotation (Line(points={{-118,110},{-84,110},{-84,74},{-52,74}},   color={0,0,127}));
+  connect(mulkTd.y, D.k) annotation (Line(points={{-178,160},{-168,160},{-168,
+          184},{-80,184},{-80,78},{-52,78}}, color={0,0,127}));
   annotation (
     defaultComponentName="conPID",
     Icon(
@@ -320,6 +377,7 @@ PID controller in the standard form
 y<sub>u</sub> = k/r &nbsp; (e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(&tau;) d&tau; + T<sub>d</sub> d&frasl;dt e(t)),
 </p>
 <p>
+with output reset,
 where
 <i>y<sub>u</sub></i> is the control signal before output limitation,
 <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error,
@@ -328,7 +386,6 @@ the measured quantity,
 <i>k</i> is the gain,
 <i>T<sub>i</sub></i> is the time constant of the integral term,
 <i>T<sub>d</sub></i> is the time constant of the derivative term,
-and
 <i>r</i> is a scaling factor, with default <i>r=1</i>.
 The scaling factor should be set to the typical order of magnitude of the range of the error <i>e</i>.
 For example, you may set <i>r=100</i> to <i>r=1000</i>
@@ -347,6 +404,13 @@ y = min( y<sub>max</sub>, max( y<sub>min</sub>, y)),
 </p>
 <p>
 where <i>y<sub>min</sub></i> and <i>y<sub>max</sub></i> are limits for the control signal.
+</p>
+<p>
+This block is identical to
+<a href=\"Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>,
+except that the controller gains
+<i>k</i>, <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are inputs rather than parameters.
 </p>
 <h4>P, PI, PD, or PID action</h4>
 <p>
@@ -405,18 +469,9 @@ has order of magnitude one, and hence the anti-windup compensation should work w
 </p>
 <h4>Reset of the controller output</h4>
 <p>
-Note that this controller implements an integrator anti-windup. Therefore,
-for most applications, the controller output does not need to be reset.
-However, if the controller is used in conjuction with equipment that is being
-switched on, better control performance may be achieved by resetting the controller
-output when the equipment is switched on. This is in particular the case in situations
-where the equipment control input should continuously increase as the equipment is
-switched on, such as a light dimmer that may slowly increase the luminance, or
-a variable speed drive of a motor that should continuously increase the speed. In
-this case, the controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
-that can reset the output should be used.
+Whenever the value of boolean input signal <code>trigger</code> changes from
+<code>false</code> to <code>true</code>, the controller output is reset by setting
+<code>y</code> to the value of the parameter <code>y_reset</code>.
 </p>
 <h4>Approximation of the derivative term</h4>
 <p>
@@ -484,121 +539,20 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
       revisions="<html>
 <ul>
 <li>
-May 20, 2022, by Michael Wetter:<br/>
-Refactored implementation to use new derivative block from CDL package.<br/>
+May 17, 2022, by Sen Huang:<br/>
+Changing the gains from parameters to inputs<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">issue 3022</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2993\">issue 2993</a>.
 </li>
 <li>
-May 6, 2022, by Michael Wetter:<br/>
-Corrected wrong documentation in how the derivative of the control error is approximated.<br/>
+April 30, 2021, by Michael Wetter:<br/>
+Corrected error in non-released development version
+when reset trigger is <code>true</code>.<br/>
+Refactored implementation to have separate blocks that show the P, I and D contribution,
+each with the control gain applied.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">issue 2994</a>.
-</li>
-<li>
-November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
-</li>
-<li>
-October 15, 2020, by Michael Wetter:<br/>
-Added scaling factor <code>r</code>, removed set point weights <code>wp</code> and <code>wd</code>.
-Revised documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.
-</li>
-<li>
-August 4, 2020, by Jianjun Hu:<br/>
-Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>.
-Refactored to internally implement the derivative block.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
-</li>
-<li>
-June 1, 2020, by Michael Wetter:<br/>
-Corrected wrong convention of reverse and direct action.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
-</li>
-<li>
-April 23, 2020, by Michael Wetter:<br/>
-Changed default parameters for limits <code>yMax</code> from unspecified to <code>1</code>
-and <code>yMin</code> from <code>-yMax</code> to <code>0</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">issue 1888</a>.
-</li>
-<li>
-April 7, 2020, by Michael Wetter:<br/>
-Reimplemented block using only CDL constructs.
-This refactoring removes the no longer use parameters <code>xd_start</code> that was
-used to initialize the state of the derivative term. This state is now initialized
-based on the requested initial output <code>yd_start</code> which is a new parameter
-with a default of <code>0</code>.
-Also, removed the parameters <code>y_start</code> and <code>initType</code> because
-the initial output of the controller can be set by using <code>xi_start</code>
-and <code>yd_start</code>.
-This is a non-backward compatible change, made to simplify the controller through
-the removal of options that can be realized differently and are hardly ever used.
-This refactoring also removes the parameter <code>strict</code> that
-was used in the output limiter. The new implementation enforces a strict check by default.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">issue 1878</a>.
-</li>
-<li>
-March 9, 2020, by Michael Wetter:<br/>
-Corrected unit declaration for gain <code>k</code>.<br/>
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1821\">issue 1821</a>.
-</li>
-<li>
-March 2, 2020, by Michael Wetter:<br/>
-Changed icon to display dynamically the output value.
-</li>
-<li>
-February 25, 2020, by Michael Wetter:<br/>
-Changed icon to display the output value.
-</li>
-<li>
-October 19, 2019, by Michael Wetter:<br/>
-Disabled homotopy to ensure bounded outputs
-by copying the implementation from MSL 3.2.3 and by
-hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
-</li>
-<li>
-November 13, 2017, by Michael Wetter:<br/>
-Changed default controller type from PID to PI.
-</li>
-<li>
-November 6, 2017, by Michael Wetter:<br/>
-Explicitly declared types and used integrator with reset from CDL.
-</li>
-<li>
-October 22, 2017, by Michael Wetter:<br/>
-Added to CDL to have a PI controller with integrator reset.
-</li>
-<li>
-September 29, 2016, by Michael Wetter:<br/>
-Refactored model.
-</li>
-<li>
-August 25, 2016, by Michael Wetter:<br/>
-Removed parameter <code>limitsAtInit</code> because it was only propagated to
-the instance <code>limiter</code>, but this block no longer makes use of this parameter.
-This is a non-backward compatible change.<br/>
-Revised implemenentation, added comments, made some parameter in the instances final.
-</li>
-<li>July 18, 2016, by Philipp Mehrfeld:<br/>
-Added integrator reset.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">issue 494</a>.
-</li>
-<li>
-March 15, 2016, by Michael Wetter:<br/>
-Changed the default value to <code>strict=true</code> in order to avoid events
-when the controller saturates.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">issue 433</a>.
-</li>
-<li>
-February 24, 2010, by Michael Wetter:<br/>
-First implementation.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2475\">issue 2475</a>.
 </li>
 </ul>
 </html>"));
-end PID;
+end PIDWithInputGains;
