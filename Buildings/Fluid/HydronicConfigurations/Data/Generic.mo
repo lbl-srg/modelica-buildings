@@ -4,9 +4,6 @@ record Generic "Record for hydronic configuration"
 
   extends Buildings.Fluid.HydronicConfigurations.Data.Configuration;
 
-  parameter Boolean use_lumFloRes = false
-    "Set to true to lump secondary and valve flow resistance (typical of single served unit)";
-
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(final min=0)
     "Mass flow rate at design conditions" annotation (Dialog(group="Nominal condition"));
 

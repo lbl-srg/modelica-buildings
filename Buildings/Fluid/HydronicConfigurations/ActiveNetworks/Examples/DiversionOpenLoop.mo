@@ -16,15 +16,15 @@ model DiversionOpenLoop
     "Terminal unit mass flow rate at design conditions";
   parameter Modelica.Units.SI.Pressure dpTer_nominal(
     final min=0,
-    displayUnit="Pa") = 5E4
-    "Terminal unit pressure drop at design conditions";
+    displayUnit="Pa") = 3E4
+    "Liquid pressure drop across terminal unit at design conditions";
   parameter Modelica.Units.SI.Pressure dpValve_nominal(
     final min=0,
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions";
   parameter Modelica.Units.SI.Pressure dpPip_nominal(
     final min=0,
-    displayUnit="Pa") = 1E4
+    displayUnit="Pa") = 0.5E4
     "Pipe section pressure drop at design conditions";
   parameter Real kSizPum(
     final min=1,
@@ -70,10 +70,11 @@ model DiversionOpenLoop
   Movers.SpeedControlled_y pum(
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
+    addPowerToMedium=false,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     per(pressure(
       V_flow={0, 1, 2} * mPum_flow_nominal / 996,
-      dp(displayUnit="Pa") = {1.2, 1, 0.4} * dpPum_nominal)),
+      dp = {1.2, 1, 0.4} * dpPum_nominal)),
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Circulation pump"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
@@ -390,6 +391,5 @@ and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-120,-100},{100,100}})));
+    Diagram(coordinateSystem(extent={{-120,-100},{120,100}})));
 end DiversionOpenLoop;

@@ -103,13 +103,15 @@ block PIDWithOperatingMode "PID controller with operating mode input"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-60})));
+  Buildings.Controls.OBC.CDL.Integers.AddParameter
+                                             addPar(p=1)
+    "Convert operating mode integer into array index"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-60,-20})));
 equation
-  connect(mod, cha.u) annotation (Line(points={{-60,-120},{-60,-40},{-22,-40}},
-        color={255,127,0}));
   connect(cha.y, conPID.trigger)
     annotation (Line(points={{2,-40},{14,-40},{14,-12}}, color={255,0,255}));
-  connect(mod, extIndSig.index)
-    annotation (Line(points={{-60,-120},{-60,8}},  color={255,127,0}));
   connect(map.y, extIndSig.u) annotation (Line(points={{-48,60},{-40,60},{-40,40},
           {-80,40},{-80,20},{-72,20}}, color={0,0,127}));
   connect(u_s, mulSet.u2) annotation (Line(points={{-120,0},{-80,0},{-80,-6},{-22,
@@ -126,6 +128,12 @@ equation
     annotation (Line(points={{2,0},{8,0}}, color={0,0,127}));
   connect(conPID.y, y)
     annotation (Line(points={{32,0},{120,0}}, color={0,0,127}));
+  connect(mod, addPar.u)
+    annotation (Line(points={{-60,-120},{-60,-32}}, color={255,127,0}));
+  connect(mod, cha.u) annotation (Line(points={{-60,-120},{-60,-40},{-22,-40},{
+          -22,-40}}, color={255,127,0}));
+  connect(addPar.y, extIndSig.index)
+    annotation (Line(points={{-60,-8},{-60,8}}, color={255,127,0}));
   annotation (
     defaultComponentName="ctl",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -16,11 +16,13 @@ model Load "Model of a load on hydronic circuit"
     annotation(Evaluate=true);
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    Q_flow_nominal / 10 / 1006
+    Q_flow_nominal / 10 / 1015
     "Air mass flow rate at design conditions";
-  parameter Modelica.Units.SI.Temperature TAirEnt_nominal = 20 + 273.15
+  parameter Modelica.Units.SI.Temperature TAirEnt_nominal=293.15
     "Air entering temperature at design conditions";
-  final parameter Modelica.Units.SI.Temperature TAirLvg_nominal(fixed=false)
+  final parameter Modelica.Units.SI.Temperature TAirLvg_nominal(
+    fixed=false,
+    start=TAirEnt_nominal+Q_flow_nominal/mAir_flow_nominal/1015)
     "Air leaving temperature at design conditions";
   parameter Modelica.Units.SI.MassFraction phiAirEnt_nominal = 0.5
     "Air entering relative humidity at design conditions";
@@ -31,10 +33,11 @@ model Load "Model of a load on hydronic circuit"
   final parameter Modelica.Units.SI.MassFraction xAirEnt_nominal=
     XAirEnt_nominal / (1 - XAirEnt_nominal)
     "Air entering humidity ratio at design conditions (kg/kg dry air)";
-  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal = 60 + 273.15
+  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=333.15
     "Hot water entering temperature at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal = 50 + 273.15
+  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=323.15
     "Hot water leaving temperature at design conditions";
+
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
     (TLiqEnt_nominal - TLiqLvg_nominal) * mLiq_flow_nominal * 4186
     "Coil capacity at design conditions"
@@ -44,13 +47,10 @@ model Load "Model of a load on hydronic circuit"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k(
-    min=100*Modelica.Constants.eps)=1
+    min=100*Modelica.Constants.eps)=0.1
     "Gain of controller"
     annotation (Dialog(group="Control gains"));
-  parameter Real Ti(
-    final quantity="Time",
-    final unit="s",
-    min=100*Modelica.Constants.eps)=60
+  parameter Real Ti(unit="s")=60
     "Time constant of integrator block"
     annotation (Dialog(group="Control gains",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -59,6 +59,7 @@ model Load "Model of a load on hydronic circuit"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
 
   .Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
@@ -136,7 +137,8 @@ model Load "Model of a load on hydronic circuit"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
 
   .Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=
-        TAirLvg_nominal - TAirEnt_nominal) "Scale load signal"
+    TAirLvg_nominal - TAirEnt_nominal)
+    "Scale load signal"
     annotation (Placement(transformation(extent={{-68,70},{-48,90}})));
   .Buildings.Controls.OBC.CDL.Continuous.AddParameter set(p=TAirEnt_nominal)
     "Compute set point"
@@ -157,7 +159,7 @@ model Load "Model of a load on hydronic circuit"
     w_a2_nominal=xAirEnt_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Coil operating at design conditions (used for model parameterization)"
-                                          annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={0,-30})));
@@ -214,7 +216,7 @@ model Load "Model of a load on hydronic circuit"
     "Access coil heat flow rate"
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
 protected
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
     MediumAir.specificHeatCapacityCp(MediumAir.setState_pTX(
     p=MediumAir.p_default,
     T=TAirEnt_nominal,
@@ -293,7 +295,7 @@ equation
 <ul>
 <li>
 Heat exchanger modeled in steady-state by default
-(dynamics may be modeled with the parameter 
+(dynamics may be reintroduced with the parameter 
 <code>energyDynamics</code>)
 </li>
 <li>
@@ -303,7 +305,11 @@ Zero pressure drop on load side and source side
 Constant flow rate on load side
 </li>
 <li>
-Constant load side inlet conditions: load modulated by set point variation
+Constant load side inlet conditions: load modulated by set point variation.
+In steady-state conditions, the model provides zero load for <code>u = 0</code>
+and the design load for <code>u = 1</code>.
+However, for a cooling load with condensation, the relationship between 
+<code>u</code> and the load is not linear.
 </li>
 </ul>
 </html>"));

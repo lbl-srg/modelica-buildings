@@ -2,11 +2,11 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionThreeWayValve "Injection circuit with three-way valve"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(dpValve_nominal=dpSec_nominal),
+      dat(dpValve_nominal=0.3e4),
       final have_pum=true);
 
   replaceable Actuators.Valves.ThreeWayEqualPercentageLinear val
-    constrainedby Actuators.Valves.ThreeWayEqualPercentageLinear(
+    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
       redeclare final package Medium=Medium,
       final energyDynamics=energyDynamics,
       use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -24,7 +24,9 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
       final dpFixed_nominal={dpSec_nominal, dpBal2_nominal} .*
         (if use_lumFloRes then {1, 1} else {0, 1}))
     "Control valve"
-    annotation (Placement(
+    annotation (
+      choicesAllMatching = true,
+      Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -92,13 +94,18 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,50})));
-  replaceable Movers.SpeedControlled_y pum
+  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final per=dat.pum)
     "Pump"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+    annotation (
+      choicesAllMatching = true,
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,40})));
   Sensors.TemperatureTwoPort TSup(
@@ -110,20 +117,29 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,60})));
-  .Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea if have_y1Pum
-    "Convert input signal"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Controls.PIDWithOperatingMode ctl(
     final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,
-    final controllerType=dat.controllerType,
-    final k=dat.k,
-    final Ti=dat.Ti,
-    final Ni=dat.Ni,
-    final y_reset=dat.y_reset) if have_ctl
+    final controllerType=dat.ctl.controllerType,
+    final k=dat.ctl.k,
+    final Ti=dat.ctl.Ti,
+    final Ni=dat.ctl.Ni,
+    final y_reset=dat.ctl.y_reset) if have_ctl
     "Controller"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(t=Controls.OperatingModes.disabled)
+    "Returns true if enabled"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch on/off"
+    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+    "Zero"
+    annotation (Placement(transformation(extent={{50,22},{30,42}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1)
+    if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
+    "one"
+    annotation (Placement(transformation(extent={{50,60},{30,80}})));
 equation
   connect(jun.port_3, val.port_3)
     annotation (Line(points={{-50,-40},{50,-40}}, color={0,127,255}));
@@ -149,16 +165,10 @@ equation
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(TSup.port_b, port_b2)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
-  connect(y1Pum, booToRea.u) annotation (Line(points={{-120,80},{-92,80}},
-                     color={255,0,255}));
-  connect(booToRea.y, pum.y) annotation (Line(points={{-68,80},{-66,80},{-66,68},
-          {-80,68},{-80,40},{-72,40}},
-                     color={0,0,127}));
-  connect(yPum, pum.y)
-    annotation (Line(points={{-120,40},{-72,40}}, color={0,0,127}));
   connect(ctl.y, val.y) annotation (Line(points={{12,-20},{80,-20},{80,-40},{72,
           -40}}, color={0,0,127}));
-  connect(mod, ctl.mod) annotation (Line(points={{-120,-80},{-6,-80},{-6,-32}},
+  connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-90,80},{-90,-56},{-6,
+          -56},{-6,-32}},
         color={255,127,0}));
   connect(TSup.T, ctl.u_m) annotation (Line(points={{-49,60},{-20,60},{-20,-60},
           {0,-60},{0,-32}}, color={0,0,127}));
@@ -166,6 +176,18 @@ equation
           {-12,-20}}, color={0,0,127}));
   connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,20},{80,20},
           {80,-40},{72,-40}}, color={0,0,127}));
+  connect(mod, isEna.u)
+    annotation (Line(points={{-120,80},{-42,80}}, color={255,127,0}));
+  connect(isEna.y, swi.u2) annotation (Line(points={{-18,80},{26,80},{26,40},{12,
+          40}}, color={255,0,255}));
+  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-84,40},{-84,56},{20,
+          56},{20,48},{12,48}}, color={0,0,127}));
+  connect(zer.y, swi.u3)
+    annotation (Line(points={{28,32},{12,32}}, color={0,0,127}));
+  connect(swi.y, pum.y)
+    annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
+  connect(One.y, swi.u1) annotation (Line(points={{28,70},{20,70},{20,48},{12,48}},
+        color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

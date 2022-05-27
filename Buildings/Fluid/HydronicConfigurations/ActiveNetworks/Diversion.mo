@@ -25,7 +25,9 @@ model Diversion "Diversion circuit"
       final dpFixed_nominal={dpSec_nominal, dpBal2_nominal} .*
         (if use_lumFloRes then {1, 1} else {0, 1}))
     "Control valve"
-    annotation (Placement(
+    annotation (
+      choicesAllMatching = true,
+      Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

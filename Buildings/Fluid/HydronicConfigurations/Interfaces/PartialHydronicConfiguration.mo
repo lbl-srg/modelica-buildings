@@ -34,8 +34,7 @@ model PartialHydronicConfiguration
   final parameter Boolean have_set = have_ctl
     "Set to true if an analog input is used as a set point"
     annotation(Dialog(group="Configuration"));
-  final parameter Boolean have_mod = have_ctl and
-    typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver
+  final parameter Boolean have_mod = have_ctl or have_pum
     "Set to true if an analog input is used as a control mode selector"
     annotation(Dialog(group="Configuration"));
 
@@ -120,17 +119,13 @@ model PartialHydronicConfiguration
   .Buildings.Controls.OBC.CDL.Interfaces.RealInput set if have_set "Set point"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Pum if have_y1Pum
-    "Pump control signal (constant speed)" annotation (Placement(transformation(
-          extent={{-140,60},{-100,100}}), iconTransformation(extent={{-140,20},
-            {-100,60}})));
   .Buildings.Controls.OBC.CDL.Interfaces.RealInput yPum if have_yPum
     "Pump control signal (variable speed)" annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,-20},
-            {-100,20}})));
+          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,
+            60}})));
   .Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod if have_mod
-    "Operating mode" annotation (Placement(transformation(extent={{-140,-100},{
-            -100,-60}}), iconTransformation(extent={{-140,-60},{-100,-20}})));
+    "Operating mode" annotation (Placement(transformation(extent={{-140,60},{-100,
+            100}}),      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Medium.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
@@ -143,7 +138,7 @@ model PartialHydronicConfiguration
     "Pressure difference between port_a2 and port_b2";
 
   Medium.ThermodynamicState sta_a1=
-    if allowFlowReversal1 then
+    if allowFlowReversal then
       Medium.setState_phX(port_a1.p,
                           noEvent(actualStream(port_a1.h_outflow)),
                           noEvent(actualStream(port_a1.Xi_outflow)))
@@ -153,7 +148,7 @@ model PartialHydronicConfiguration
                           inStream(port_a1.Xi_outflow))
       if show_T "Medium properties in port_a1";
   Medium.ThermodynamicState sta_b1=
-    if allowFlowReversal1 then
+    if allowFlowReversal then
       Medium.setState_phX(port_b1.p,
                           noEvent(actualStream(port_b1.h_outflow)),
                           noEvent(actualStream(port_b1.Xi_outflow)))
@@ -164,7 +159,7 @@ model PartialHydronicConfiguration
        if show_T "Medium properties in port_b1";
 
   Medium.ThermodynamicState sta_a2=
-    if allowFlowReversal2 then
+    if allowFlowReversal then
       Medium.setState_phX(port_a2.p,
                           noEvent(actualStream(port_a2.h_outflow)),
                           noEvent(actualStream(port_a2.Xi_outflow)))
@@ -174,7 +169,7 @@ model PartialHydronicConfiguration
                           inStream(port_a2.Xi_outflow))
       if show_T "Medium properties in port_a2";
   Medium.ThermodynamicState sta_b2=
-    if allowFlowReversal2 then
+    if allowFlowReversal then
       Medium.setState_phX(port_b2.p,
                           noEvent(actualStream(port_b2.h_outflow)),
                           noEvent(actualStream(port_b2.Xi_outflow)))

@@ -16,7 +16,9 @@ model Throttle "Throttle circuit"
       final dpFixed_nominal=dpBal1_nominal +
         (if use_lumFloRes then dpSec_nominal else 0))
     "Control valve"
-    annotation (Placement(
+    annotation (
+      choicesAllMatching = true,
+      Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,

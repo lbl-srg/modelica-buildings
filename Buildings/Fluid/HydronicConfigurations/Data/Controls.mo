@@ -7,10 +7,10 @@ record Controls "Record with control parameters"
     "Type of controller"
     annotation(Dialog(group="Controls"), Evaluate=true);
   parameter Real k(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
     "Gain of controller"
     annotation (Dialog(group="Controls"));
-  parameter Real Ti(unit="s")=0.5
+  parameter Real Ti(unit="s")=60
     "Time constant of integrator block"
     annotation (Dialog(group="Controls",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
