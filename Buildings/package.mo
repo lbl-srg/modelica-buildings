@@ -247,6 +247,26 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case660<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case670<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case680<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case680FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case685<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case695<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case910<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case930<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case980<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case980FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case985<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case995
+    </td>
+    <td valign=\"top\">Added new test cases based on the ASHRAE 140-2020.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Air</b>
     </td>
 </tr>
@@ -320,6 +340,15 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2823\">#2823</a>.<br/>
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithInputGains
+    </td>
+    <td valign=\"top\">Added PID controller with anti-windup and control gains exposed as inputs.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2993\">#2993</a>.<br/>
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.Ice</b>
     </td>
 </tr>
@@ -338,6 +367,30 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.CenterOfGlass
+    </td>
+    <td valign=\"top\">Changed the gas layer to be conditional.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3026\">#3026</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case600FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case640<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case650<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case650FF<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case950<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Case950FF
+    </td>
+    <td valign=\"top\">Updated the test cases based on the ASHRAE 140-2020.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
     </td>
 </tr>
@@ -10650,6 +10703,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Sen Huang, Pacific Northwest National Laboratory, USA
 </li>
 <li>Kathryn Hinkelman, University of Colorado Boulder, Colorado, USA
 </li>
