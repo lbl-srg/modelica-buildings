@@ -19,48 +19,46 @@ model HexElementLatent "Element of a heat exchanger with humidity condensation o
 
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"
-    annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
     T(final quantity="ThermodynamicTemperature",
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaConVapAir
     "Heat conductor for latent heat flow rate, accounting for latent heat removed with vapor"
-    annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Math.Product pro
     "Product to compute the latent heat flow rate"
-    annotation (Placement(transformation(extent={{60,10},{40,30}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.RealExpression h_fg(final y=Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "Enthalpy of vaporization"
-    annotation (Placement(transformation(extent={{90,16},{70,36}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 equation
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{-39,0},{40,0},{40,
-          -22},{48,-22}},               color={0,0,127}));
-  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},{
-          -20,-44},{34,-44},{34,-30},{48,-30}},
-                               color={0,0,127}));
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{-39,8},{-12,8}},
+                                        color={0,0,127}));
+  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-24,-64},{
+          -24,0},{-12,0}},     color={0,0,127}));
   connect(Gc_2, masExc.Gc) annotation (Line(
-      points={{40,-100},{40,-38},{48,-38}},
+      points={{40,-100},{40,-20},{-20,-20},{-20,-8},{-12,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.port, con1.solid) annotation (Line(
-      points={{-60,0},{-66,0},{-66,60},{-50,60}},
+      points={{-60,8},{-66,8},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{80,-30},
-          {80,14},{62,14}},color={0,0,127}));
+  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{11,0},{26,0},{26,
+          -6},{38,-6}},    color={0,0,127}));
   connect(pro.u1, h_fg.y)
-    annotation (Line(points={{62,26},{69,26}}, color={0,0,127}));
-  connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{-10,-20},{
-          -20,-20},{-20,-40},{-30,-40}},
-                                     color={191,0,0}));
-  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{71,-30},{
-          80,-30},{80,-52},{14,-52}}, color={0,0,127}));
-  connect(pro.y, heaConVapAir.Q_flow) annotation (Line(points={{39,20},{20,20},
-          {20,-20},{10,-20}},
+    annotation (Line(points={{38,6},{30,6},{30,20},{11,20}},
+                                               color={0,0,127}));
+  connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{90,0},{94,0},
+          {94,-40},{-30,-40}},       color={191,0,0}));
+  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{11,0},{26,
+          0},{26,-52},{14,-52}},      color={0,0,127}));
+  connect(pro.y, heaConVapAir.Q_flow) annotation (Line(points={{61,0},{70,0}},
                             color={0,0,127}));
   annotation (
     Documentation(info="<html>
@@ -78,6 +76,11 @@ computed by the instance <code>masExc</code>. This effectively moves water vapor
 out of the air, and deposits them on the coil from where it drains from the system.
 Hence, the latent heat that is carried
 by these water vapor molecules is removed from the air stream. This is done using the heat flow source <code>heaConVapAir</code>.
+</p>
+<p>
+Note that the driving potential for latent heat transfer is the temperature of the instance <code>mas</code>.
+This is an approximation as it neglects the thermal resistance of the water film that builds up on the coil.
+Thus, the model does not take into account effects of hydrophobic coatings.
 </p>
 </html>",
 revisions="<html>
