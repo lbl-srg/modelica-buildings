@@ -21,7 +21,8 @@ record ExteriorWallCase900 =
         k=0.510,
         c=1000,
         d=1400,
-        nStaRef=nStaRef)}) "High Mass Case: Exterior Wall"
+        nStaRef=nStaRef)},
+     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) "High Mass Case: Exterior Wall"
     annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datOpaCon",
