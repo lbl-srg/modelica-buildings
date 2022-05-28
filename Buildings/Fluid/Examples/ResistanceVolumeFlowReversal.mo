@@ -89,10 +89,10 @@ equation
         points={{40,-20},{56,-20}},
         color={0,127,255}));
     connect(res[i].port_b, vol[i].ports[1]) annotation (Line(
-      points={{76,-20},{80,-20},{80,-70},{52,-70},{52,-66}},
+      points={{76,-20},{80,-20},{80,-70},{51,-70},{51,-66}},
       color={0,127,255}));
     connect(vol[i].ports[2], val.port_3) annotation (Line(
-      points={{48,-66},{48,-70},{0,-70},{0,-30}},
+      points={{49,-66},{49,-70},{0,-70},{0,-30}},
       color={0,127,255}));
   end for;
   annotation (experiment(
@@ -119,7 +119,7 @@ This is illustrated by the results below.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/216\">issue 216</a> for a discussion.
 </p>
 <p>
-Note that Dymola 2015FD01 can only reliable solve the last case. For the other
+Note that Dymola 2015FD01 can only reliably solve the last case. For the other
 two cases the Newton solver of the nonlinear system does not converge.
 </p>
 <p>
