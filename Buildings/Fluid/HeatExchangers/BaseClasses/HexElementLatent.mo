@@ -80,7 +80,6 @@ by these water vapor molecules is removed from the air stream. This is done usin
 <p>
 Note that the driving potential for latent heat transfer is the temperature of the instance <code>mas</code>.
 This is an approximation as it neglects the thermal resistance of the water film that builds up on the coil.
-Thus, the model does not take into account effects of hydrophobic coatings.
 </p>
 </html>",
 revisions="<html>
