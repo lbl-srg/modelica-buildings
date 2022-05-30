@@ -101,9 +101,11 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,50})));
-  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum
-    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+  Buildings.Fluid.HydronicConfigurations.Components.Pump pum(
     redeclare final package Medium = Medium,
+    final typ=typPumMod,
+    final m_flow_nominal=m1_flow_nominal,
+    final dp_nominal=dp2_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -195,7 +197,8 @@ equation
   connect(zer.y, swi.u3)
     annotation (Line(points={{28,32},{12,32}}, color={0,0,127}));
   connect(swi.y, pum.y)
-    annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
+    annotation (Line(points={{-12,40},{-32,40},{-32,40},{-48,40}},
+                                                 color={0,0,127}));
   connect(One.y, swi.u1) annotation (Line(points={{28,70},{20,70},{20,48},{12,48}},
         color={0,0,127}));
   annotation (

@@ -16,4 +16,14 @@ package Types "Package with type definitions"
       SingleVariable
       "Single pump - Variable speed")
     "Enumeration to specify the type of pump";
+  type PumpModel = enumeration(
+      Head
+      "Pump with ideally controlled head as input",
+      MassFlowRate
+      "Pump with ideally controlled mass flow rate as input",
+      SpeedFractional
+      "Pump with ideally controlled normalized speed as input",
+      SpeedRotational
+      "Pump with ideally controlled rotational speed as input")
+    "Enumeration to specify the type of pump model";
 end Types;
