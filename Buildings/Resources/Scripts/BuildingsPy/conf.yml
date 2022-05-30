@@ -79,6 +79,9 @@
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
+  dymola:
+    simulate: false
+    comment: Simulation does not terminate.
   openmodelica:
     comment: timed out after 300 seconds.
     simulate: false
@@ -86,6 +89,9 @@
     rtol: 1.0e-08
     solver: CVode
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
+  dymola:
+    simulate: false
+    comment: Simulation does not terminate.
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
     simulate: false
