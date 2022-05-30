@@ -273,12 +273,12 @@ equation
     StopTime=86400,
     Tolerance=1e-6),
     __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/InjectionThreeWayValve.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/SingleMixing.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of an injection circuit with a three-way valve
-that serves as the interface between a constant flow primary circuit at constant
+This model illustrates the use of a single mixing circuit 
+that serves as the interface between a variable flow primary circuit at constant
 supply temperature and a constant flow secondary circuit at variable supply
 temperature.
 Two identical terminal units circuits are served by the secondary circuit.
@@ -291,20 +291,7 @@ The design conditions are defined without
 considering any load diversity.
 </li>
 <li> 
-Each circuit is balanced at design conditions.
-</li>
-<li> 
-The bypass branch of the three-way valve is balanced at
-design conditions if the parameter <code>is_bypBal</code>
-is set to <code>true</code>. Otherwise no fixed flow
-resistance is considered in the bypass branch, only the 
-variable flow resistance corresponding to the control valve.
-The parameter <code>fraK</code> of the control valves is 
-set at <i>1.0</i> to effectively have an unbalanced bypass branch
-for <code>con.dpBal2_nominal = 0</code>, see
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
-Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>.
-</li> 
+Each circuit is balanced at design conditions: UPDATE
 </ul>
 
 </html>"),

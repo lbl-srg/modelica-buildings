@@ -79,7 +79,7 @@ model Pump "Container class for circulation pumps"
     annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,120}),                 iconTransformation(extent={{-20,-20},{20,
+        origin={0,120}), iconTransformation(extent={{-20,-20},{20,
             20}},
         rotation=-90,
         origin={0,120})));
@@ -220,8 +220,6 @@ equation
         color={0,0,127}));
   connect(mulY.y, pum_y.y)
     annotation (Line(points={{-20,48},{-20,12}}, color={0,0,127}));
-  connect(port_a, port_a)
-    annotation (Line(points={{-100,0},{-100,0}}, color={0,127,255}));
   connect(port_a, pum_Nrpm.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,
           -20},{10,-20}}, color={0,127,255}));
   connect(pum_Nrpm.port_b, port_b) annotation (Line(points={{30,-20},{80,-20},{80,
@@ -238,22 +236,23 @@ equation
           -80,-40},{50,-40}}, color={0,127,255}));
   connect(pum_m_flow.port_b, port_b) annotation (Line(points={{70,-40},{80,-40},
           {80,0},{100,0}}, color={0,127,255}));
-  connect(pum_dp.P, P) annotation (Line(points={{-49,29},{28.5,29},{28.5,90},{120,
-          90}}, color={0,0,127}));
-  connect(pum_dp.y_actual, y_actual) annotation (Line(points={{-49,27},{25.5,27},
-          {25.5,70},{120,70}}, color={0,0,127}));
-  connect(pum_y.P, P) annotation (Line(points={{-9,9},{48.5,9},{48.5,90},{120,90}},
+  connect(pum_dp.P, P) annotation (Line(points={{-49,29},{86,29},{86,90},{120,90}},
+                color={0,0,127}));
+  connect(pum_dp.y_actual, y_actual) annotation (Line(points={{-49,27},{90,27},{
+          90,70},{120,70}},    color={0,0,127}));
+  connect(pum_y.P, P) annotation (Line(points={{-9,9},{86,9},{86,90},{120,90}},
         color={0,0,127}));
-  connect(pum_y.y_actual, y_actual) annotation (Line(points={{-9,7},{51.5,7},{51.5,
-          70},{120,70}}, color={0,0,127}));
-  connect(pum_Nrpm.P, P) annotation (Line(points={{31,-11},{31,38.5},{120,38.5},
-          {120,90}}, color={0,0,127}));
-  connect(pum_Nrpm.y_actual, y_actual) annotation (Line(points={{31,-13},{70.5,-13},
-          {70.5,70},{120,70}}, color={0,0,127}));
+  connect(pum_y.y_actual, y_actual) annotation (Line(points={{-9,7},{90,7},{90,70},
+          {120,70}},     color={0,0,127}));
+  connect(pum_Nrpm.P, P) annotation (Line(points={{31,-11},{86,-11},{86,90},{120,
+          90}},      color={0,0,127}));
+  connect(pum_Nrpm.y_actual, y_actual) annotation (Line(points={{31,-13},{90,-13},
+          {90,70},{120,70}},   color={0,0,127}));
   connect(pum_m_flow.P, P)
-    annotation (Line(points={{71,-31},{71,90},{120,90}}, color={0,0,127}));
-  connect(pum_m_flow.y_actual, y_actual) annotation (Line(points={{71,-33},{71,17.5},
-          {120,17.5},{120,70}}, color={0,0,127}));
+    annotation (Line(points={{71,-31},{86,-31},{86,90},{120,90}},
+                                                         color={0,0,127}));
+  connect(pum_m_flow.y_actual, y_actual) annotation (Line(points={{71,-33},{90,-33},
+          {90,70},{120,70}},    color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},

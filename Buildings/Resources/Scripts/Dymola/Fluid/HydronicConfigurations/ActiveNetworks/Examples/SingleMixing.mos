@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="InjectionThreeWayValve");
+simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.SingleMixing", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="SingleMixing");
 
 createPlot(id=1, position={14, 11, 1181, 908}, y={"set.y", "TSecSup.T", "TSecRet.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
@@ -6,24 +6,24 @@ createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale
 createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.m2_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
 
 createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
-plotExpression(apply(InjectionThreeWayValve.loa.loa.Q_flow/InjectionThreeWayValve.loa.loa.Q_flow_nominal), false, "loa.Q_flow/loa.Q_flow_nominal");
-plotExpression(apply(InjectionThreeWayValve.loa1.loa.Q_flow/InjectionThreeWayValve.loa1.loa.Q_flow_nominal), false, "loa1.Q_flow/loa1.Q_flow_nominal");
+plotExpression(apply(SingleMixing.loa.loa.Q_flow/SingleMixing.loa.loa.Q_flow_nominal), false, "loa.Q_flow/loa.Q_flow_nominal");
+plotExpression(apply(SingleMixing.loa1.loa.Q_flow/SingleMixing.loa1.loa.Q_flow_nominal), false, "loa1.Q_flow/loa1.Q_flow_nominal");
 
 createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
 
 
 // Delta-T function of the load
-q_flow_nom = readTrajectory("InjectionThreeWayValve.mat", {"loa.loa.Q_flow_nominal"}, 1);
-q1_flow_nom = readTrajectory("InjectionThreeWayValve.mat", {"loa1.loa.Q_flow_nominal"}, 1);
-TEnt_nom = readTrajectory("InjectionThreeWayValve.mat", {"loa1.loa.TLiqEnt_nominal"}, 1);
-TLvg_nom = readTrajectory("InjectionThreeWayValve.mat", {"loa1.loa.TLiqLvg_nominal"}, 1);
-mPri_flow_nom = readTrajectory("InjectionThreeWayValve.mat", {"con.dat.m1_flow_nominal"}, 1);
-mSec_flow_nom = readTrajectory("InjectionThreeWayValve.mat", {"con.dat.m2_flow_nominal"}, 1);
+q_flow_nom = readTrajectory("SingleMixing.mat", {"loa.loa.Q_flow_nominal"}, 1);
+q1_flow_nom = readTrajectory("SingleMixing.mat", {"loa1.loa.Q_flow_nominal"}, 1);
+TEnt_nom = readTrajectory("SingleMixing.mat", {"loa1.loa.TLiqEnt_nominal"}, 1);
+TLvg_nom = readTrajectory("SingleMixing.mat", {"loa1.loa.TLiqLvg_nominal"}, 1);
+mPri_flow_nom = readTrajectory("SingleMixing.mat", {"con.dat.m1_flow_nominal"}, 1);
+mSec_flow_nom = readTrajectory("SingleMixing.mat", {"con.dat.m2_flow_nominal"}, 1);
 dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
 dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
-q_flow = readTrajectory("InjectionThreeWayValve.mat", {"loa.loa.Q_flow"}, nPoints);
-q1_flow = readTrajectory("InjectionThreeWayValve.mat", {"loa1.loa.Q_flow"}, nPoints);
-dT = readTrajectory("InjectionThreeWayValve.mat", {"delT.y"}, nPoints);
+q_flow = readTrajectory("SingleMixing.mat", {"loa.loa.Q_flow"}, nPoints);
+q1_flow = readTrajectory("SingleMixing.mat", {"loa1.loa.Q_flow"}, nPoints);
+dT = readTrajectory("SingleMixing.mat", {"delT.y"}, nPoints);
 ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
 
 createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");

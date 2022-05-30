@@ -6,7 +6,7 @@ model InjectionThreeWayValve
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Boolean have_priBal=true
+  parameter Boolean have_priBal=false
     "Set to true for a primary balancing valve";
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
@@ -25,8 +25,8 @@ model InjectionThreeWayValve
     "Control valve pressure drop at design conditions";
   parameter Modelica.Units.SI.Pressure dpPip_nominal(displayUnit="Pa")=0.5E4
     "Pipe section pressure drop at design conditions";
-  parameter Real kSizPum(final unit="1") = 2.0
-    "Pump head oversizing coefficient";
+  parameter Real kSizPum(final unit="1") = 5.0
+    "Pump oversizing coefficient";
   final parameter Modelica.Units.SI.Pressure dpPum_nominal(
     final min=0,
     displayUnit="Pa")=
