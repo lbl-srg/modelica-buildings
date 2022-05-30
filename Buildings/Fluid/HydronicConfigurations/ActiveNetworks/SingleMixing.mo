@@ -1,9 +1,9 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
-model InjectionThreeWayValve "Injection circuit with three-way valve"
+model SingleMixing "Single mixing circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(dpValve_nominal=0.3e4),
-      final have_bypFix=true,
+      dat(m1_flow_nominal=m2_flow_nominal),
+      final have_bypFix=false,
       final have_pum=true);
 
   replaceable Actuators.Valves.ThreeWayEqualPercentageLinear val
@@ -28,9 +28,9 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
       choicesAllMatching = true,
       Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=-90,
-        origin={60,-40})));
+        origin={-60,-40})));
   FixedResistances.Junction jun(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -44,43 +44,9 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
     final dp_nominal=fill(0, 3))
     "Junction"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-60,-40})));
-  FixedResistances.Junction junBypSup(
-    redeclare final package Medium = Medium,
-    final energyDynamics=energyDynamics,
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m2_flow_nominal .* {1,-1,1},
-    final dp_nominal=fill(0, 3))
-    "Junction"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-60,0})));
-  FixedResistances.Junction junBypRet(
-    redeclare final package Medium = Medium,
-    final energyDynamics=energyDynamics,
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m2_flow_nominal .* {1,-1,-1},
-    final dp_nominal=fill(0, 3))
-    "Junction"
-    annotation (Placement(
-        transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={60,0})));
+        origin={60,-40})));
   FixedResistances.PressureDrop bal1(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -152,40 +118,27 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
     annotation (Placement(transformation(extent={{50,60},{30,80}})));
 equation
   connect(jun.port_3, val.port_3)
-    annotation (Line(points={{-50,-40},{50,-40}}, color={0,127,255}));
-  connect(junBypRet.port_2, val.port_1)
-    annotation (Line(points={{60,-10},{60,-30},{60,-30}}, color={0,127,255}));
-  connect(junBypSup.port_3, junBypRet.port_3)
-    annotation (Line(points={{-50,0},{50,0}}, color={0,127,255}));
-  connect(jun.port_2, junBypSup.port_1)
-    annotation (Line(points={{-60,-30},{-60,-10}}, color={0,127,255}));
-  connect(port_a1, jun.port_1)
-    annotation (Line(points={{-60,-100},{-60,-50}}, color={0,127,255}));
+    annotation (Line(points={{50,-40},{-50,-40}}, color={0,127,255}));
   connect(port_b1, bal1.port_b)
     annotation (Line(points={{60,-100},{60,-80}}, color={0,127,255}));
-  connect(bal1.port_a, val.port_2)
-    annotation (Line(points={{60,-60},{60,-50}}, color={0,127,255}));
   connect(port_a2, bal2.port_a)
     annotation (Line(points={{60,100},{60,60}}, color={0,127,255}));
-  connect(bal2.port_b, junBypRet.port_1)
-    annotation (Line(points={{60,40},{60,10}}, color={0,127,255}));
-  connect(junBypSup.port_2, pum.port_a)
-    annotation (Line(points={{-60,10},{-60,30}}, color={0,127,255}));
   connect(pum.port_b, TSup.port_a)
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(TSup.port_b, port_b2)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
-  connect(ctl.y, val.y) annotation (Line(points={{12,-20},{80,-20},{80,-40},{72,
-          -40}}, color={0,0,127}));
+  connect(ctl.y, val.y) annotation (Line(points={{12,-20},{20,-20},{20,-60},{-80,
+          -60},{-80,-40},{-72,-40}},
+                 color={0,0,127}));
   connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-90,80},{-90,-56},{-6,
           -56},{-6,-32}},
         color={255,127,0}));
-  connect(TSup.T, ctl.u_m) annotation (Line(points={{-49,60},{-20,60},{-20,-60},
-          {0,-60},{0,-32}}, color={0,0,127}));
-  connect(set, ctl.u_s) annotation (Line(points={{-120,-40},{-80,-40},{-80,-20},
+  connect(TSup.T, ctl.u_m) annotation (Line(points={{-49,60},{-20,60},{-20,-36},
+          {0,-36},{0,-32}}, color={0,0,127}));
+  connect(set, ctl.u_s) annotation (Line(points={{-120,-40},{-94,-40},{-94,-20},
           {-12,-20}}, color={0,0,127}));
-  connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,20},{80,20},
-          {80,-40},{72,-40}}, color={0,0,127}));
+  connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,-40},{-72,
+          -40}},              color={0,0,127}));
   connect(mod, isEna.u)
     annotation (Line(points={{-120,80},{-42,80}}, color={255,127,0}));
   connect(isEna.y, swi.u2) annotation (Line(points={{-18,80},{26,80},{26,40},{12,
@@ -198,49 +151,41 @@ equation
     annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
   connect(One.y, swi.u1) annotation (Line(points={{28,70},{20,70},{20,48},{12,48}},
         color={0,0,127}));
+  connect(jun.port_2, bal1.port_a)
+    annotation (Line(points={{60,-50},{60,-60}}, color={0,127,255}));
+  connect(bal2.port_b, jun.port_1)
+    annotation (Line(points={{60,40},{60,-30},{60,-30}}, color={0,127,255}));
+  connect(val.port_2, pum.port_a)
+    annotation (Line(points={{-60,-30},{-60,30}}, color={0,127,255}));
+  connect(val.port_1, port_a1)
+    annotation (Line(points={{-60,-50},{-60,-100}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
     Bitmap(
       extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/InjectionThreeWayValve.svg")}),
+      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/SingleMixing.svg")}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
+Variable primary
+</p>
+    
+<p>
 This is a typical configuration for constant flow secondary circuits that
-have a design supply temperature different from the primary circuit
-(for instance underfloor heating systems).
-The reduced flow through the control valve due to the intermediary 
-bypass allows selecting a smaller valve for the same design pressure drop.
-The pressure drop through the control valve is compensated by the primary pump, 
-reducing the secondary pump head.
+have a design supply temperature identical to the primary circuit.
+
 The control valve authority is close to <i>1</i> (<i>&Delta;p<sub>A-AB</sub> &asymp;
 &Delta;p<sub>J-AB</sub></i>) so the sizing is only based on a 
 minimum pressure drop of <i>3</i> kPa at design flow rate.
 </p>
 <p>
-The balancing procedure should ensure that the three-way valve is fully
-open at design conditions. This gives the following relationship
-between the primary and secondary mass flow rate, involving the secondary
-supply and return temperature and the primary supply temperature.
-</p>
-<p>
-<i>
-m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
-(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) / 
-(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
-</i>
-</p>
-<p>
-Improper balancing is not detrimental to the consumer circuit operation:
-the control valve compensates for the elevated pressure differential
-by working at a lower opening fraction in average.
-However, the primary circuit operation is degraded with a lower <i>&Delta;T</i>
-and a higher mass flow rate. See
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve</a>
-for a numerical illustration of improper balancing.
+The balancing procedure should ensure that the 
+primary pressure differential is compensated for by the primary balancing valve.
+Otherwise, the flow may reverse in the bypass branch and the mixing function of
+the three-way valve cannot be achieved.
+Valve authority = Δp_V / (Δp1 + Δp_Vbyp) (independent of the balancing valve Δp). For good authority Δp_V~Δp1 which must be compensated for by the secondary pump. 
 </p>
 <h4>
 Parameterization
@@ -252,4 +197,4 @@ The partner valve <code>bal2</code> is therefore configured with zero
 pressure drop.
 </p>
 </html>"));
-end InjectionThreeWayValve;
+end SingleMixing;

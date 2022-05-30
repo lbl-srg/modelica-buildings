@@ -127,15 +127,13 @@ Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion</a>.
 Three-way valve authority
 </h5>
 <p>
-The most generic definition of the authority for a three-way valve is given 
-by the ratio between the pressure drop across the valve and the pressure drop 
-across the bypass branch (including any balancing valve) 
-<i>at fully open conditions</i> (design flow through the direct branch).
-Refering to the figure below, this can be written as:
+The definition of the authority for a three-way valve is based on the
+equivalence with a pair of two-way valves actuated in opposition, 
+as illustrated in the figure below.
 </p>
 <p>
 <i>
-&beta; = &Delta;p<sub>A-AB</sub> / &Delta;p<sub>J-AB</sub>
+<i>&beta; = &Delta;p<sub>A-B</sub>(y=100%) / &Delta;p<sub>A-B</sub>(y=0%)</i>
 </i>
 <br/>
 </p>
@@ -144,16 +142,22 @@ Refering to the figure below, this can be written as:
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/ThreeWayValve.png\"/>
 </p>
 <p>
-The above definition is valid whether the bypass branch is balanced or
-not, and whether the valve performs a mixing or a diverting function.
-The definition using the equivalent pair of two-way valves actuated 
-in opposition and considering 
-<i>&beta; = &Delta;p<sub>A-B</sub>(y=100%) / &Delta;p<sub>A-B</sub>(y=0%)</i>
-is only valid in the case where the bypass branch is balanced.
-See 
+The same caveat holds for the flow rate at 
+which the pressure drop <i>&beta; = &Delta;p<sub>A-B</sub>(y=100%)</i> is evaluated.
+There is some additional intricacy for the flow rate at which 
+<i>&beta; = &Delta;p<sub>A-B</sub>(y=0%)</i> is evaluated because contrary
+to the two-valve, that pressure drop is impacted by the flow rate 
+in the bypass branch.
+The example 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop</a>
-for a numerical example.
+shows that if the bypass branch is not balanced, the authority given by 
+the above formula can virtually take any value and is no more representative
+of the valve installed characteristic. 
+Contrary to the pressure drop <i>p<sub>A-B</sub>(y=100%)</i> that can be corrected
+to account for a given amount of overflow (see the definition of the practical authority)
+there is no straightforward correction term that can be formulated for the pressure drop 
+<i>p<sub>A-B</sub>(y=0%)</i>.
 </p>
 <p>
 For the common case where the valve is used to modulate the flow rate through
