@@ -1,8 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors;
 model SquirrelCageDrive "Squirrel cage type induction motor with electrical interface and built-in speed control"
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-  redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-  redeclare replaceable Interfaces.Terminal_n terminal);
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare replaceable Interfaces.Terminal_n terminal);
 
   parameter Integer pole=4 "Number of pole pairs";
   parameter Integer n=3 "Number of phases";
@@ -52,7 +52,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     k=0.1,
     Ti=60,
     reverseActing=true) if use_PID
-    "PI controller as variable frequency control"
+    "PI controller as variable frequency drive"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi))
     "Supply voltage frequency"
@@ -67,13 +67,13 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface torSpe(
-  final n=n,
-  final pole=pole,
-  final R_s=R_s,
-  final R_r=R_r,
-  final X_s=X_s,
-  final X_r=X_r,
-  final X_m=X_m) "Motor machine interface"
+    final n=n,
+    final pole=pole,
+    final R_s=R_s,
+    final R_r=R_r,
+    final X_s=X_s,
+    final X_r=X_r,
+    final X_m=X_m) "Motor machine interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Math.Product VFDvol "Controlled voltage"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));

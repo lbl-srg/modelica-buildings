@@ -2,8 +2,8 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid;
 model Pump
   "Fan or pump with mechanical interface"
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
-  port_a(p(start=Medium.p_default)),
-  port_b(p(start=Medium.p_default)));
+    port_a(p(start=Medium.p_default)),
+    port_b(p(start=Medium.p_default)));
 
   parameter Modelica.Units.SI.Inertia loaIne(min=0)=1 "Pump inertia";
   parameter Boolean addPowerToMedium=true

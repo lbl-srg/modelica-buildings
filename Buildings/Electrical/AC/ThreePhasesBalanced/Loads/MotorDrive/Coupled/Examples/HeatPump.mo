@@ -41,7 +41,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumW,
-      m_flow_nominal=m2_flow_nominal) "Temperature sensor"
+    m_flow_nominal=m2_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Modelica.Blocks.Sources.Step TSet(
     height=5,

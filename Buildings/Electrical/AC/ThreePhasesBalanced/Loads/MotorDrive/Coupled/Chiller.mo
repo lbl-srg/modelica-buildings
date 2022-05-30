@@ -1,12 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled;
 model Chiller "Motor coupled chiller"
-
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-    redeclare package PhaseSystem =
-        Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
   //Chiller parameters
@@ -151,7 +149,7 @@ protected
     "Nominal evaporator temperature for chiller or condenser temperature for heat pump, 
     taking into account pinch temperature between fluid and refrigerant";
 
-    final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
       p = Medium1.p_default,
       T = Medium1.T_default,

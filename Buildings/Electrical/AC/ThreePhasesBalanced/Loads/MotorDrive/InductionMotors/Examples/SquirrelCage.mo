@@ -14,8 +14,7 @@ model SquirrelCage "This example shows how to use the squirrel cage induction mo
   Modelica.Blocks.Sources.RealExpression tau_m(y=0.002*simMot.omega_r*simMot.omega_r)
     "Load torque"
     annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage
-    simMot(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage simMot(
     R_s=R_s,
     R_r=R_r,
     X_s=X_s,

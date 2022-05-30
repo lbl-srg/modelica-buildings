@@ -1,11 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled;
 model Pump "Motor coupled chiller"
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
-  port_a(p(start=Medium.p_default)),
-  port_b(p(start=Medium.p_default)));
+    port_a(p(start=Medium.p_default)),
+    port_b(p(start=Medium.p_default)));
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-    redeclare package PhaseSystem =
-        Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
   parameter Boolean addPowerToMedium=true

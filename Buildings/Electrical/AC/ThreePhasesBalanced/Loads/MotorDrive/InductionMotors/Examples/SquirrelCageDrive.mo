@@ -22,8 +22,7 @@ model SquirrelCageDrive "This example shows how to use the squirrel cage inducti
   Modelica.Blocks.Sources.RealExpression mea(y=simMot.omega_r)
     "Measured value of control target"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
-    simMot(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     R_s=R_s,
     R_r=R_r,
     X_s=X_s,

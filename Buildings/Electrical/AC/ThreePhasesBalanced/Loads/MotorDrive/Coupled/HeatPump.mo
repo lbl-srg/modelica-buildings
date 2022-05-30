@@ -4,8 +4,7 @@ model HeatPump "Motor coupled heat pump"
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-    redeclare package PhaseSystem =
-        Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
 
   //Heat pump parameters
@@ -137,6 +136,7 @@ initial equation
 protected
   constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";
+
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal=
     if COP_is_for_cooling
       then TEva_nominal - TAppEva_nominal

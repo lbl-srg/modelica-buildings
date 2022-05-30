@@ -56,15 +56,15 @@ model HeatPump "This example shows how to use the heat pump with mechanical inte
     "Heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(useSupport=false,
-      tau_constant=tau)
+    tau_constant=tau)
     "Torque input"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = MediumW,
-      nPorts=1)
+    nPorts=1)
     "Sink 2"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumW,
-      nPorts=1)
+    nPorts=1)
     "Sink 1"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 

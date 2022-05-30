@@ -6,7 +6,7 @@ model Pump "This example shows how to use the motor coupled pump model"
   parameter Modelica.Units.SI.Pressure dp_nominal=500   "nominal pressure drop";
 
   Buildings.Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumW,
-      nPorts=1) "Boundary"
+    nPorts=1) "Boundary"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={-90,20})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump pum(
