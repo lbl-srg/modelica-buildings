@@ -13,6 +13,7 @@ model PartialHydronicConfiguration
   extends Buildings.Fluid.HydronicConfigurations.Data.Configuration;
 
   parameter Buildings.Fluid.HydronicConfigurations.Data.Generic dat(
+    have_bypFix=have_bypFix,
     have_ctl = have_ctl,
     typFun=typFun,
     have_pum = have_pum,
@@ -41,12 +42,18 @@ model PartialHydronicConfiguration
   parameter Boolean use_lumFloRes = false
     "Set to true to lump secondary and valve flow resistance (typical of single served unit)";
 
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
-    final min=0)=dat.m_flow_nominal
-    "Mass flow rate at design conditions" annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)=
+    dat.m1_flow_nominal
+    "Mass flow rate in primary circuit at design conditions"
+    annotation (Dialog(group="Nominal condition"));
 
-  final parameter Modelica.Units.SI.PressureDifference dpSec_nominal(
-    displayUnit="Pa")=dat.dpSec_nominal
+  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
+    dat.m2_flow_nominal
+    "Mass flow rate in consumer circuit at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+
+  final parameter Modelica.Units.SI.PressureDifference dp2_nominal(
+    displayUnit="Pa")=dat.dp2_nominal
     "Secondary pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
@@ -65,7 +72,7 @@ model PartialHydronicConfiguration
     "Secondary balancing valve pressure drop at design conditions "
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
@@ -114,17 +121,21 @@ model PartialHydronicConfiguration
     annotation (Placement(transformation(extent={{-50,90},{-70,110}}),
         iconTransformation(extent={{-50,90},{-70,110}})));
   .Buildings.Controls.OBC.CDL.Interfaces.RealInput yVal if have_yVal
-    "Valve control signal" annotation (Placement(transformation(extent={{-140,-20},
+    "Valve control signal"
+    annotation (Placement(transformation(extent={{-140,-20},
             {-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.RealInput set if have_set "Set point"
+  .Buildings.Controls.OBC.CDL.Interfaces.RealInput set if have_set
+    "Set point"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   .Buildings.Controls.OBC.CDL.Interfaces.RealInput yPum if have_yPum
-    "Pump control signal (variable speed)" annotation (Placement(transformation(
+    "Pump control signal (variable speed)"
+    annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,
             60}})));
   .Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod if have_mod
-    "Operating mode" annotation (Placement(transformation(extent={{-140,60},{-100,
+    "Operating mode"
+    annotation (Placement(transformation(extent={{-140,60},{-100,
             100}}),      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Medium.MassFlowRate m1_flow = port_a1.m_flow

@@ -1,18 +1,5 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="InjectionThreeWayValve");
 
-createPlot(id=5, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot}, timeUnit="kg/s", displayUnits={"Pa"});
-
-// Pump characteristic and design operating point
-nPoints = readTrajectorySize("InjectionThreeWayValve.mat");
-dp_nom = readTrajectory("InjectionThreeWayValve.mat", {"dpPum_nominal"}, 1);
-m_flow_nom = readTrajectory("InjectionThreeWayValve.mat", {"mPum_flow_nominal"}, 1);
-
-mValues = {0.1 * i for i in 1:40};
-coefValues = {-535.71428571,  -1785.71428571,  -4285.71428571, 120000.} * dp_nom[1,1] * 1e-5 ;
-dpValues = {coefValues[1] * mValues[i]^3 for i in 1:40} + {coefValues[2] * mValues[i]^2 for i in 1:40} + coefValues[3] .* mValues + fill(coefValues[4], 40);
-plotArray(mValues, dpValues, id=5, erase=false, legend="Characteristic");
-plotArray({m_flow_nom[1, 1]}, {dp_nom[1, 1]}, id=5, erase=false, legend="Design operating point");
-
 createPlot(id=1, position={14, 11, 1181, 908}, y={"set.y", "TSecSup.T", "TSecRet.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
 

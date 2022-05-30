@@ -27,7 +27,6 @@ model DiversionOpenLoop
     displayUnit="Pa") = 0.5E4
     "Pipe section pressure drop at design conditions";
   parameter Real kSizPum(
-    final min=1,
     final unit="1") = 1.0
     "Pump head oversizing coefficient";
   final parameter Modelica.Units.SI.Pressure dpPum_nominal(
@@ -83,8 +82,8 @@ model DiversionOpenLoop
     redeclare final package Medium=MediumLiq,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
-    dat(final m_flow_nominal=mTer_flow_nominal,
-    final dpSec_nominal=dpTer_nominal,
+    dat(final m2_flow_nominal=mTer_flow_nominal,
+    final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal2_nominal=dpBal2_nominal))
@@ -108,8 +107,8 @@ model DiversionOpenLoop
     final use_lumFloRes=false,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
-    dat(final m_flow_nominal=mTer_flow_nominal,
-    final dpSec_nominal=dpTer_nominal,
+    dat(final m2_flow_nominal=mTer_flow_nominal,
+    final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - 2 * dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal2_nominal=dpBal2_nominal))

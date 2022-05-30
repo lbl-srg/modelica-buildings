@@ -2,6 +2,10 @@ within Buildings.Fluid.HydronicConfigurations.Data;
 record Configuration "Record with configuration parameters"
   extends Modelica.Icons.Record;
 
+  parameter Boolean have_bypFix
+    "Set to true in case of a fixed bypass"
+    annotation(Dialog(group="Configuration", enable=false), Evaluate=true);
+
   parameter Boolean have_ctl = false
     "Set to true in case of built-in controls"
     annotation(Dialog(group="Configuration"), Evaluate=true);
@@ -11,7 +15,7 @@ record Configuration "Record with configuration parameters"
     "Circuit function (for built-in controls)"
     annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
 
-  parameter Boolean have_pum = false
+  parameter Boolean have_pum
     "Set to true if a secondary pump is used"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
@@ -20,5 +24,5 @@ record Configuration "Record with configuration parameters"
     "Type of secondary pump"
     annotation(Dialog(group="Pump", enable=have_pum), Evaluate=true);
 
-  annotation (defaultComponentName="ctl");
+  annotation (defaultComponentName="cfg");
 end Configuration;

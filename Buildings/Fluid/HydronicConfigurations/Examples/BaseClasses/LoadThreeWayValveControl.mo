@@ -57,12 +57,13 @@ model LoadThreeWayValveControl
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Data.Generic dat(
+    have_bypFix=con.have_bypFix,
     have_ctl=con.have_ctl,
     typFun=con.typFun,
     have_pum=con.have_pum,
     typPum=con.typPum,
-    m_flow_nominal=m_flow_nominal,
-    dpSec_nominal=dpTer_nominal,
+    m2_flow_nominal=m_flow_nominal,
+    dp2_nominal=dpTer_nominal,
     dpValve_nominal=dpTer_nominal,
     dpBal1_nominal=0,
     dpBal2_nominal=0)

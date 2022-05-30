@@ -2,7 +2,8 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Diversion "Diversion circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(dpValve_nominal=dpSec_nominal),
+      dat(dpValve_nominal=dp2_nominal),
+      final have_bypFix=false,
       final have_pum=false,
       final have_ctl=false);
 
@@ -20,9 +21,9 @@ model Diversion "Diversion circuit"
       final portFlowDirection_3=if allowFlowReversal then
         Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
         Modelica.Fluid.Types.PortFlowDirection.Entering,
-      final m_flow_nominal=m_flow_nominal,
+      final m_flow_nominal=m2_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal={dpSec_nominal, dpBal2_nominal} .*
+      final dpFixed_nominal={dp2_nominal, dpBal2_nominal} .*
         (if use_lumFloRes then {1, 1} else {0, 1}))
     "Control valve"
     annotation (
@@ -44,18 +45,20 @@ model Diversion "Diversion circuit"
     final portFlowDirection_3=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
       Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m_flow_nominal .* {1,-1,-1},
-    final dp_nominal=fill(0, 3)) "Junction"
-     annotation (Placement(transformation(
+    final m_flow_nominal=m2_flow_nominal .* {1,-1,-1},
+    final dp_nominal=fill(0, 3))
+    "Junction"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,0})));
   Buildings.Fluid.FixedResistances.PressureDrop bal1(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dpBal1_nominal)
-    "Primary balancing valve" annotation (Placement(transformation(
+    "Primary balancing valve"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-50})));

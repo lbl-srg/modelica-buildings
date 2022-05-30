@@ -6,26 +6,33 @@ model InjectionThreeWayValve
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Boolean have_priBal=true
+  parameter Boolean have_priBal=false
     "Set to true for a primary balancing valve";
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
     "Terminal unit mass flow rate at design conditions";
+  final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)=
+    m2_flow_nominal * (TLiqEnt_nominal - TLiqLvg_nominal) / (TLiqSup_nominal - TLiqLvg_nominal)
+    "Mass flow rate in primary circuit at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
+    2 * mTer_flow_nominal
+    "Mass flow rate in consumer circuit at design conditions"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Pressure dpTer_nominal(displayUnit="Pa")=3E4
     "Terminal unit pressure drop at design conditions";
   parameter Modelica.Units.SI.Pressure dpValve_nominal(displayUnit="Pa")=0.3E4
     "Control valve pressure drop at design conditions";
   parameter Modelica.Units.SI.Pressure dpPip_nominal(displayUnit="Pa")=0.5E4
     "Pipe section pressure drop at design conditions";
-  parameter Real kSizPum(unit="1")=2.0
+  parameter Real kSizPum(final unit="1") = 2.0
     "Pump head oversizing coefficient";
   final parameter Modelica.Units.SI.Pressure dpPum_nominal(
     final min=0,
     displayUnit="Pa")=
     (dpPip_nominal + dpValve_nominal) * kSizPum
     "Pump head at design conditions";
-  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal = 2 * mTer_flow_nominal
-    * (TLiqEnt_nominal-TLiqLvg_nominal) / (TLiqSup_nominal-TLiqLvg_nominal)
+  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal=m1_flow_nominal
     "Primary pump mass flow rate at design conditions";
 
   parameter Modelica.Units.SI.Pressure p_min=200000
@@ -72,10 +79,11 @@ model InjectionThreeWayValve
     use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     dat(
-      final m_flow_nominal=2*mTer_flow_nominal,
-      final dpSec_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
+      final m1_flow_nominal=m1_flow_nominal,
+      final m2_flow_nominal=m2_flow_nominal,
+      final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
       final dpBal1_nominal=(dpPum_nominal - dpPip_nominal - dpValve_nominal) *
-        (2*mTer_flow_nominal / mPum_flow_nominal)^2 * (if have_priBal then 1 else 0),
+        (if have_priBal then 1 else 0),
       ctl(k=0.1, Ti=60)))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -91,8 +99,10 @@ model InjectionThreeWayValve
     final TLiqLvg_nominal=TLiqLvg_nominal)
           "Load" annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
-        0,0; 6,1,1; 7,1,0.5; 8,0.5,0; 16,0.5,0; 17,0,1; 22,0,1; 22,0,0; 24,0,0],
-      timeScale=3600) "Load modulating signal"
+        0,0; 6,1,1; 7,1,0.5; 8,0.5,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 22,0,1;
+        22,0,0; 24,0,0],
+      timeScale=3600)
+    "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.LoadThreeWayValveControl
     loa1(
@@ -103,7 +113,7 @@ model InjectionThreeWayValve
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal)
-          "Load"
+    "Load"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumLiq,
@@ -115,11 +125,12 @@ model InjectionThreeWayValve
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-
   Sensors.TemperatureTwoPort TRet(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
-    T_start=TLiqSup_nominal) "Return temperature sensor" annotation (Placement(
+    T_start=TLiqSup_nominal)
+    "Return temperature sensor"
+    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
@@ -127,7 +138,9 @@ model InjectionThreeWayValve
   Sensors.TemperatureTwoPort TSup(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
-    T_start=TLiqSup_nominal) "Supply temperature sensor" annotation (Placement(
+    T_start=TLiqSup_nominal)
+    "Supply temperature sensor"
+    annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -141,45 +154,59 @@ model InjectionThreeWayValve
     final dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable   mod(table=[0,0; 6,0; 6,
-        1; 22,1; 22,0; 24,0], timeScale=3600,
-    period=86400) "Operating mode (time schedule)"
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mod(
+    table=[0,0; 6,0; 6,
+        1; 22,1; 22,0; 24,0],
+    timeScale=3600,
+    period=86400)
+    "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 12,
         0; 13,-5; 14,-7; 16,-2; 24,0], timeScale=3600)
     "Offset applied to design supply temperature to compute set point"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter set(p=TLiqEnt_nominal, y(final
-        unit="K", displayUnit="degC"))
-    "Compute supply temperature set point"  annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter set(
+    final p=TLiqEnt_nominal,
+    y(final unit="K", displayUnit="degC"))
+    "Compute supply temperature set point"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,60})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal rea
-    "Convert signal into real" annotation (Placement(transformation(
+    "Convert signal into real"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,-20})));
-  Buildings.Controls.OBC.CDL.Integers.Min min "Min with 1" annotation (
+  Buildings.Controls.OBC.CDL.Integers.Min min
+    "Min with 1"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-20})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(k=1) "One"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
+    final k=1)
+    "One"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   Sensors.TemperatureTwoPort TSecSup(
     redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=2*mTer_flow_nominal,
-    T_start=TLiqEnt_nominal) "Supply temperature sensor" annotation (Placement(
+    final m_flow_nominal=m2_flow_nominal,
+    T_start=TLiqEnt_nominal)
+    "Supply temperature sensor"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={20,40})));
   Sensors.TemperatureTwoPort TSecRet(
     redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=mPum_flow_nominal,
-    T_start=TLiqLvg_nominal) "Return temperature sensor" annotation (Placement(
+    final m_flow_nominal=m2_flow_nominal,
+    T_start=TLiqLvg_nominal)
+    "Return temperature sensor"
+    annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -235,7 +262,7 @@ equation
   connect(con.port_b2, TSecSup.port_a)
     annotation (Line(points={{4,10},{4,40},{10,40}}, color={0,127,255}));
   connect(TSecSup.port_b, loa.port_a)
-    annotation (Line(points={{30,40},{30,80},{40,80}}, color={0,127,255}));
+    annotation (Line(points={{30,40},{40,40},{40,80}}, color={0,127,255}));
   connect(TSecSup.port_b, res1.port_a)
     annotation (Line(points={{30,40},{70,40}}, color={0,127,255}));
   connect(loa1.port_b, TSecRet.port_a)
@@ -262,13 +289,7 @@ The main assumptions are enumerated below.
 </p>
 <ul>
 <li> 
-Secondary and valve flow resistances are not lumped together
-so that the valve authority can be computed as
-<code>val.res1.dp / val.res2.dp</code> when the valve is
-fully open.
-</li>
-<li> 
-The design conditions at <code>time = 0</code> are defined without 
+The design conditions are defined without 
 considering any load diversity.
 </li>
 <li> 

@@ -3,6 +3,7 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
       dat(dpValve_nominal=0.3e4),
+      final have_bypFix=true,
       final have_pum=true);
 
   replaceable Actuators.Valves.ThreeWayEqualPercentageLinear val
@@ -19,10 +20,9 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
       final portFlowDirection_3=if allowFlowReversal then
         Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
         Modelica.Fluid.Types.PortFlowDirection.Entering,
-      final m_flow_nominal=m_flow_nominal,
+      final m_flow_nominal=m1_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal={dpSec_nominal, dpBal2_nominal} .*
-        (if use_lumFloRes then {1, 1} else {0, 1}))
+      final dpFixed_nominal={0, 0})
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -40,9 +40,10 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m_flow_nominal .* {1,-1,-1},
-    final dp_nominal=fill(0, 3)) "Junction"
-     annotation (Placement(transformation(
+    final m_flow_nominal=m1_flow_nominal .* {1,-1,-1},
+    final dp_nominal=fill(0, 3))
+    "Junction"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-40})));
@@ -55,13 +56,15 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m_flow_nominal .* {1,-1,1},
-    final dp_nominal=fill(0, 3)) "Junction" annotation (Placement(
+    final m_flow_nominal=m2_flow_nominal .* {1,-1,1},
+    final dp_nominal=fill(0, 3))
+    "Junction"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,0})));
-  FixedResistances.Junction jun2(
+  FixedResistances.Junction junBypRet(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -70,27 +73,31 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m_flow_nominal .* {1,-1,-1},
-    final dp_nominal=fill(0, 3)) "Junction"
-     annotation (Placement(transformation(
+    final m_flow_nominal=m2_flow_nominal .* {1,-1,-1},
+    final dp_nominal=fill(0, 3))
+    "Junction"
+    annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={60,0})));
   FixedResistances.PressureDrop bal1(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dpBal1_nominal)
-    "Primary balancing valve" annotation (Placement(transformation(
+    "Primary balancing valve"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-70})));
   FixedResistances.PressureDrop bal2(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dpBal2_nominal)
-    "Primary balancing valve" annotation (Placement(transformation(
+    "Primary balancing valve"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,50})));
@@ -110,10 +117,11 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
         origin={-60,40})));
   Sensors.TemperatureTwoPort TSup(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     tau=if energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState then 0 else 1)
-    "Secondary supply temperature sensor" annotation (Placement(transformation(
+    "Secondary supply temperature sensor"
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,60})));
@@ -128,10 +136,12 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
     final y_reset=dat.ctl.y_reset) if have_ctl
     "Controller"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(t=Controls.OperatingModes.disabled)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(
+    final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch on/off"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+    "Switch on/off"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero"
@@ -143,9 +153,9 @@ model InjectionThreeWayValve "Injection circuit with three-way valve"
 equation
   connect(jun.port_3, val.port_3)
     annotation (Line(points={{-50,-40},{50,-40}}, color={0,127,255}));
-  connect(jun2.port_2, val.port_1)
+  connect(junBypRet.port_2, val.port_1)
     annotation (Line(points={{60,-10},{60,-30},{60,-30}}, color={0,127,255}));
-  connect(junBypSup.port_3, jun2.port_3)
+  connect(junBypSup.port_3, junBypRet.port_3)
     annotation (Line(points={{-50,0},{50,0}}, color={0,127,255}));
   connect(jun.port_2, junBypSup.port_1)
     annotation (Line(points={{-60,-30},{-60,-10}}, color={0,127,255}));
@@ -157,7 +167,7 @@ equation
     annotation (Line(points={{60,-60},{60,-50}}, color={0,127,255}));
   connect(port_a2, bal2.port_a)
     annotation (Line(points={{60,100},{60,60}}, color={0,127,255}));
-  connect(bal2.port_b, jun2.port_1)
+  connect(bal2.port_b, junBypRet.port_1)
     annotation (Line(points={{60,40},{60,10}}, color={0,127,255}));
   connect(junBypSup.port_2, pum.port_a)
     annotation (Line(points={{-60,10},{-60,30}}, color={0,127,255}));
@@ -208,6 +218,19 @@ reducing the secondary pump head.
 The control valve authority is close to <i>1</i> (<i>&Delta;p<sub>A-AB</sub> &asymp;
 &Delta;p<sub>J-AB</sub></i>) so the sizing is only based on a 
 minimum pressure drop of <i>3</i> kPa at design flow rate.
+</p>
+<p>
+The balancing procedure should ensure that the three-way valve is fully
+open at design conditions. This gives the following relationship
+between the primary and secondary mass flow rate, involving the secondary
+supply and return temperature and the primary supply temperature.
+</p>
+<p>
+<i>
+m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
+(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) / 
+(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
+</i>
 </p>
 </html>"));
 end InjectionThreeWayValve;

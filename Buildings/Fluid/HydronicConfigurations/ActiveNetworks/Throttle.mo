@@ -2,7 +2,8 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Throttle "Throttle circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(dpValve_nominal=dpSec_nominal),
+      dat(dpValve_nominal=dp2_nominal, m1_flow_nominal=m2_flow_nominal),
+      final have_bypFix=true,
       final have_pum=false,
       final have_ctl=false);
 
@@ -11,10 +12,10 @@ model Throttle "Throttle circuit"
       redeclare final package Medium=Medium,
       use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
       final allowFlowReversal=allowFlowReversal,
-      final m_flow_nominal=m_flow_nominal,
+      final m_flow_nominal=m2_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
       final dpFixed_nominal=dpBal1_nominal +
-        (if use_lumFloRes then dpSec_nominal else 0))
+        (if use_lumFloRes then dp2_nominal else 0))
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -26,7 +27,7 @@ model Throttle "Throttle circuit"
   Buildings.Fluid.FixedResistances.PressureDrop bal1(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dpBal1_nominal)
     "Primary balancing valve"
     annotation (Placement(transformation(
