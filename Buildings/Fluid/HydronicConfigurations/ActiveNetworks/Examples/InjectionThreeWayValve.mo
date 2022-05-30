@@ -6,7 +6,7 @@ model InjectionThreeWayValve
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Boolean have_priBal=false
+  parameter Boolean have_priBal=true
     "Set to true for a primary balancing valve";
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
@@ -217,11 +217,12 @@ equation
                             color={0,127,255}));
   connect(res.port_b, dp.port_a)
     annotation (Line(points={{-10,-60},{0,-60},{0,-40}},   color={0,127,255}));
-  connect(con.port_b1, dp.port_b) annotation (Line(points={{16,-10},{16,-18},{20,
-          -18},{20,-40}},
+  connect(con.port_b1, dp.port_b) annotation (Line(points={{16,-10},{16,-18},{
+          20,-18},{20,-40}},
                      color={0,127,255}));
-  connect(con.port_a1, dp.port_a) annotation (Line(points={{4,-10},{4,-18},{0,-18},
-          {0,-40}},  color={0,127,255}));
+  connect(con.port_a1, dp.port_a) annotation (Line(points={{4,-10},{4,-18},{0,
+          -18},{0,-40}},
+                     color={0,127,255}));
   connect(TRet.port_b, ref.ports[2])
     annotation (Line(points={{-50,-80},{-79,-80}}, color={0,127,255}));
   connect(TRet.port_a, dp.port_b)
@@ -243,10 +244,11 @@ equation
           {98,86}}, color={0,0,127}));
   connect(setOff.y[1], set.u)
     annotation (Line(points={{-98,60},{-72,60}}, color={0,0,127}));
-  connect(mod.y[1], con.mod) annotation (Line(points={{-98,-20},{-90,-20},{-90,0},
-          {-20,0},{-20,8},{-2,8}},   color={255,127,0}));
-  connect(set.y, con.set) annotation (Line(points={{-48,60},{-40,60},{-40,-4},{-2,
-          -4}}, color={0,0,127}));
+  connect(mod.y[1], con.mod) annotation (Line(points={{-98,-20},{-90,-20},{-90,
+          0},{-20,0},{-20,8},{-2,8}},color={255,127,0}));
+  connect(set.y, con.set) annotation (Line(points={{-48,60},{-40,60},{-40,-4},{
+          -2,-4}},
+                color={0,0,127}));
   connect(rea.y, pum.y) annotation (Line(points={{-28,-20},{-20,-20},{-20,-40},{
           -80,-40},{-80,-48}},
                            color={0,0,127}));

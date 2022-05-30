@@ -24,5 +24,10 @@ record Configuration "Record with configuration parameters"
     "Type of secondary pump"
     annotation(Dialog(group="Pump", enable=have_pum), Evaluate=true);
 
+  parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typPumMod=
+    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    "Type of pump model"
+    annotation(Dialog(group="Pump", enable=have_pum), Evaluate=true);
+
   annotation (defaultComponentName="cfg");
 end Configuration;
