@@ -192,7 +192,13 @@ equation
           origin={2.835,0},
           fillPattern=FillPattern.Solid,
           points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},
-          {60,-100},{-70,-100},{-70,-90}})}),
+          {60,-100},{-70,-100},{-70,-90}}),
+        Text(
+          extent={{-82,162},{82,116}},
+          textColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None,
+          textString="%name")}),
         defaultComponentName="motDri",
     Documentation(info="<html>
 <p>

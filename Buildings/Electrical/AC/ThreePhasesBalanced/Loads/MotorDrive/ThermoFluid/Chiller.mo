@@ -299,7 +299,7 @@ induction and synchronous reluctance motors in chiller systems for energy
 efficient buildings.&quot;&nbsp;<i>IEEE Transactions on Industrial Informatics</i>&nbsp;15.8 (2019): 4384-4393.</a></span>
 </p>
 <p>
-<span style=\"font-family: Arial;\"><a href=\"https://www.proquest.com/docview/2414053191?pq-origsite=gscholar&fromopenview=true\">
+<span style=\"font-family: Arial;\"><a href=\"https://www.proquest.com/docview/2414053191?pq-origsite=gscholar\">
 Lei Wang PhD, P. E., and Yasuko Sakurai. &quot;Optimize a Chilled-Water Plant 
 with Magnetic-Bearing Variable Speed Chillers.&quot;&nbsp;<i>ASHRAE Transactions</i>&nbsp;126 (2020): 725-735.</a></span>
 </p>
