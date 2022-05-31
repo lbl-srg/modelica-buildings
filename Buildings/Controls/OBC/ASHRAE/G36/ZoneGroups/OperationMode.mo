@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups;
 block OperationMode "Block that outputs the operation mode"
 
-  parameter Integer numZon(min=1) "Number of zones";
+  parameter Integer nZon(min=1) "Number of zones";
   parameter Real preWarCooTim(
     final unit="s",
     final quantity="Time") = 10800
@@ -299,7 +299,7 @@ protected
     "Get the start of the warm-up time"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
-    final k=numZon) "Total number of zones"
+    final k=nZon) "Total number of zones"
     annotation (Placement(transformation(extent={{-340,-340},{-320,-320}})));
   Buildings.Controls.OBC.CDL.Integers.Equal allCol
     "Check if all zones are cold zone"

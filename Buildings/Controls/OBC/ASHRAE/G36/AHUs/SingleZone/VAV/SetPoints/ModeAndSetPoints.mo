@@ -182,7 +182,7 @@ block ModeAndSetPoints
         iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode opeModSel(
-    final numZon=1,
+    final nZon=1,
     final preWarCooTim=preWarCooTim,
     final TZonFreProOn=TZonFreProOn,
     final TZonFreProOff=TZonFreProOff) "Operation mode"
