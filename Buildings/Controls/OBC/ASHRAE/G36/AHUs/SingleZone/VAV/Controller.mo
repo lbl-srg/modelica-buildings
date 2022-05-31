@@ -218,7 +218,8 @@ block Controller
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
     annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
-                       enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                       enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+                              and have_occSen));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
     annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
@@ -1093,8 +1094,7 @@ equation
           {-280,-370},{-50,-370},{-50,155},{58,155}}, color={0,0,127}));
 annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
-        graphics={
-                  Rectangle(
+        graphics={Rectangle(
         extent={{-200,-400},{200,400}},
         lineColor={0,0,127},
         fillColor={255,255,255},

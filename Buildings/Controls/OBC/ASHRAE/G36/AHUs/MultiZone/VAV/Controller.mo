@@ -36,9 +36,6 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Boolean have_perZonRehBox=false
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="System and building parameters"));
-  parameter Boolean have_freSta=false
-    "True: the system has a physical freeze stat"
-    annotation (Dialog(group="System and building parameters"));
 
   parameter Real VUncDesOutAir_flow=0
     "Uncorrected design outdoor air rate, including diversity where applicable. Needed when complying with ASHRAE 62.1 requirements"
@@ -1208,11 +1205,12 @@ annotation (
           textString="VAirOut_flow",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
-       Text(extent={{-194,18},{-82,0}},
+       Text(
+          extent={{-194,18},{-82,0}},
           lineColor={0,0,0},
           textString="uSupFanSpe_actual",
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS
-                  or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP)),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)),
        Text(
           extent={{-198,-40},{-116,-58}},
           lineColor={0,0,0},
@@ -1277,7 +1275,8 @@ annotation (
           extent={{142,112},{202,94}},
           lineColor={0,0,0},
           textString="yRelDam",
-          visible=not buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan),
+          visible=not (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief)),
        Text(extent={{140,142},{202,124}},
           lineColor={0,0,0},
           textString="yRetDam"),

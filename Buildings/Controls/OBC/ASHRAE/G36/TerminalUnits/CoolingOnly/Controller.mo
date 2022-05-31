@@ -11,7 +11,8 @@ block Controller "Controller for cooling only VAV box"
     "True: the zone has CO2 sensor";
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+                              and have_occSen));
   parameter Real VOccMin_flow=0
     "Zone minimum outdoor airflow for occupants"
     annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
@@ -222,38 +223,79 @@ block Controller "Controller for cooling only VAV box"
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Discharge airflow setpoint after considering override"
-    annotation (Placement(transformation(extent={{200,0},{240,40}}),
-        iconTransformation(extent={{100,140},{140,180}})));
+    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
+        iconTransformation(extent={{100,160},{140,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
     final unit="1") "Damper commanded position, or commanded flow rate ratio"
-    annotation (Placement(transformation(extent={{200,-40},{240,0}}),
-        iconTransformation(extent={{100,110},{140,150}})));
+    annotation (Placement(transformation(extent={{200,-60},{240,-20}}),
+        iconTransformation(extent={{100,130},{140,170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjPopBreZon_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    "Adjusted population component breathing zone flow rate"
+    annotation (Placement(transformation(extent={{200,160},{240,200}}),
+        iconTransformation(extent={{100,100},{140,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjAreBreZon_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    "Adjusted area component breathing zone flow rate"
+    annotation (Placement(transformation(extent={{200,130},{240,170}}),
+        iconTransformation(extent={{100,80},{140,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VMinOA_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    "Minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{200,100},{240,140}}),
+        iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VZonAbsMin_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    "Zone absolute minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{200,70},{240,110}}),
+        iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VZonDesMin_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    "Zone design minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{200,40},{240,80}}),
+        iconTransformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCO2(
+    final unit="1")
+    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    "CO2 control loop signal"
+    annotation (Placement(transformation(extent={{200,10},{240,50}}),
+        iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
-        iconTransformation(extent={{100,30},{140,70}})));
+        iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
-        iconTransformation(extent={{100,0},{140,40}})));
+        iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
     "Low airflow alarms"
     annotation (Placement(transformation(extent={{200,-190},{240,-150}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+        iconTransformation(extent={{100,-120},{140,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFloSenAla
     "Airflow sensor calibration alarm"
     annotation (Placement(transformation(extent={{200,-230},{240,-190}}),
-        iconTransformation(extent={{100,-140},{140,-100}})));
+        iconTransformation(extent={{100,-150},{140,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLeaDamAla
     "Leaking damper alarm"
     annotation (Placement(transformation(extent={{200,-270},{240,-230}}),
-        iconTransformation(extent={{100,-170},{140,-130}})));
+        iconTransformation(extent={{100,-180},{140,-140}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.ActiveAirFlow actAirSet(
     final VCooMax_flow=VCooMax_flow)
     "Active airflow setpoint"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.SystemRequests sysReq(
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
@@ -322,7 +364,7 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{60,-60},{80,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta
     "Check if the zone is in cooling state"
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Setpoints minFlo(
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
@@ -367,10 +409,10 @@ equation
                             color={0,0,127}));
   connect(TDis, setPoi.TDis) annotation (Line(points={{-200,0},{-120,0},{-120,
           101},{-102,101}}, color={0,0,127}));
-  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,90},{-138,
-          90},{-138,30},{-22,30}},  color={255,127,0}));
+  connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,90},{-138,90},
+          {-138,20},{-22,20}},      color={255,127,0}));
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
-        points={{-78,114},{-60,114},{-60,24},{-22,24}}, color={0,0,127}));
+        points={{-78,114},{-60,114},{-60,14},{-22,14}}, color={0,0,127}));
   connect(VDis_flow, dam.VDis_flow) annotation (Line(points={{-200,-80},{-138,
           -80},{-138,-54},{58,-54}},
                                 color={0,0,127}));
@@ -378,12 +420,12 @@ equation
           -50,-31},{58,-31}},
                           color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, dam.VActCooMax_flow) annotation (Line(
-        points={{2,36},{28,36},{28,-34},{58,-34}},     color={0,0,127}));
+        points={{2,26},{28,26},{28,-34},{58,-34}},     color={0,0,127}));
   connect(TSup, dam.TSup)
     annotation (Line(points={{-200,-40},{22,-40},{22,-25},{58,-25}},
                                                    color={0,0,127}));
-  connect(actAirSet.VActMin_flow, dam.VActMin_flow) annotation (Line(points={{2,30},{
-          34,30},{34,-22},{58,-22}},        color={0,0,127}));
+  connect(actAirSet.VActMin_flow, dam.VActMin_flow) annotation (Line(points={{2,20},{
+          34,20},{34,-22},{58,-22}},        color={0,0,127}));
   connect(TZon, dam.TZon) annotation (Line(points={{-200,250},{-144,250},{-144,
           -28},{58,-28}},
                      color={0,0,127}));
@@ -421,10 +463,10 @@ equation
   connect(ala.yLeaDamAla, yLeaDamAla) annotation (Line(points={{142,-216},{180,-216},
           {180,-250},{220,-250}}, color={255,127,0}));
   connect(conLoo.yHea, zonSta.uHea) annotation (Line(points={{-78,174},{-40,174},
-          {-40,134},{-22,134}}, color={0,0,127}));
+          {-40,144},{-22,144}}, color={0,0,127}));
   connect(conLoo.yCoo, zonSta.uCoo) annotation (Line(points={{-78,186},{-50,186},
-          {-50,126},{-22,126}}, color={0,0,127}));
-  connect(zonSta.yZonSta, dam.uZonSta) annotation (Line(points={{2,130},{40,130},
+          {-50,136},{-22,136}}, color={0,0,127}));
+  connect(zonSta.yZonSta, dam.uZonSta) annotation (Line(points={{2,140},{40,140},
           {40,-40},{58,-40}},  color={255,127,0}));
   connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,60},{-162,
           60},{-162,113},{-102,113}}, color={0,0,127}));
@@ -442,7 +484,7 @@ equation
           -156,67},{-102,67}},
                           color={0,0,127}));
   connect(minFlo.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
-        points={{-78,67},{-60,67},{-60,24},{-22,24}}, color={0,0,127}));
+        points={{-78,67},{-60,67},{-60,14},{-22,14}}, color={0,0,127}));
   connect(dam.VSet_flow, sysReq.VSet_flow) annotation (Line(points={{82,-31},{
           94,-31},{94,-153},{118,-153}}, color={0,0,127}));
   connect(dam.VSet_flow, ala.VActSet_flow) annotation (Line(points={{82,-31},{
@@ -451,10 +493,22 @@ equation
           -110},{-6,-49},{58,-49}}, color={255,127,0}));
   connect(oveDamPos, dam.oveDamPos) annotation (Line(points={{-200,-140},{0,
           -140},{0,-58},{58,-58}}, color={255,127,0}));
-  connect(dam.VSet_flow, VSet_flow) annotation (Line(points={{82,-31},{94,-31},
-          {94,20},{220,20}}, color={0,0,127}));
-  connect(dam.yDam, yDam) annotation (Line(points={{82,-49},{106,-49},{106,-20},
-          {220,-20}}, color={0,0,127}));
+  connect(dam.VSet_flow, VSet_flow) annotation (Line(points={{82,-31},{94,-31},{
+          94,0},{220,0}},    color={0,0,127}));
+  connect(dam.yDam, yDam) annotation (Line(points={{82,-49},{106,-49},{106,-40},
+          {220,-40}}, color={0,0,127}));
+  connect(setPoi.VAdjPopBreZon_flow, VAdjPopBreZon_flow) annotation (Line(
+        points={{-78,118},{80,118},{80,180},{220,180}}, color={0,0,127}));
+  connect(setPoi.VAdjAreBreZon_flow, VAdjAreBreZon_flow) annotation (Line(
+        points={{-78,110},{86,110},{86,150},{220,150}}, color={0,0,127}));
+  connect(setPoi.VMinOA_flow, VMinOA_flow) annotation (Line(points={{-78,106},{92,
+          106},{92,120},{220,120}}, color={0,0,127}));
+  connect(minFlo.VZonAbsMin_flow, VZonAbsMin_flow) annotation (Line(points={{-78,
+          79},{86,79},{86,90},{220,90}}, color={0,0,127}));
+  connect(minFlo.VZonDesMin_flow, VZonDesMin_flow) annotation (Line(points={{-78,
+          76},{86,76},{86,60},{220,60}}, color={0,0,127}));
+  connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,64},{80,64},{80,30},{
+          220,30}}, color={0,0,127}));
 annotation (defaultComponentName="cooBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
@@ -541,37 +595,37 @@ annotation (defaultComponentName="cooBoxCon",
           pattern=LinePattern.Dash,
           textString="oveDamPos"),
         Text(
-          extent={{54,168},{96,156}},
+          extent={{54,188},{96,176}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{70,138},{98,126}},
+          extent={{70,158},{98,146}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yDam"),
         Text(
-          extent={{18,62},{96,44}},
+          extent={{18,-28},{96,-46}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yZonTemResReq"),
         Text(
-          extent={{18,32},{96,14}},
+          extent={{18,-58},{96,-76}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yZonPreResReq"),
         Text(
-          extent={{42,-80},{98,-98}},
+          extent={{42,-90},{98,-108}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yLowFloAla"),
         Text(
-          extent={{40,-108},{98,-126}},
+          extent={{40,-118},{98,-136}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yFloSenAla"),
         Text(
-          extent={{40,-138},{98,-156}},
+          extent={{40,-148},{98,-166}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
@@ -580,7 +634,43 @@ annotation (defaultComponentName="cooBoxCon",
           extent={{-100,40},{-58,28}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="ppmCO2")}),
+          textString="ppmCO2"),
+        Text(
+          extent={{12,130},{96,112}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VAdjPopBreZon_flow",
+          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+        Text(
+          extent={{12,110},{96,92}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VAdjAreBreZon_flow",
+          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+        Text(
+          extent={{36,90},{96,70}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VMinOA_flow",
+          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+        Text(
+          extent={{18,70},{96,50}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VZonAbsMin_flow",
+          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+        Text(
+          extent={{18,48},{96,30}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VZonDesMin_flow",
+          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+        Text(
+          extent={{66,26},{96,10}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yCO2",
+          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{200,280}})),
   Documentation(info="<html>
 <p>
