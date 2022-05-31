@@ -19,7 +19,8 @@ block Setpoints
     annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUni and not have_typTerUni)));
 
   parameter Boolean permit_occStandby=true
-    "True: occupied-standby mode is permitted";
+    "True: occupied-standby mode is permitted"
+    annotation(Dialog(enable=have_occSen));
   parameter Real AFlo(
     final quantity="Area",
     final unit="m2")
@@ -101,7 +102,9 @@ block Setpoints
     final displayUnit="degC") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-340,-360},{-300,-320}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjPopBreZon_flow
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjPopBreZon_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
     "Adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{300,270},{340,310}}),
         iconTransformation(extent={{100,60},{140,100}})));
@@ -111,7 +114,9 @@ block Setpoints
     "Occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{300,210},{340,250}}),
         iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjAreBreZon_flow
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjAreBreZon_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
     "Adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{300,120},{340,160}}),
         iconTransformation(extent={{100,-20},{140,20}})));
