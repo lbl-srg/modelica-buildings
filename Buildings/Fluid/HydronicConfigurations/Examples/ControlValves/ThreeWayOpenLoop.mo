@@ -270,6 +270,7 @@ model ThreeWayOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-30,-160})));
+
 equation
   connect(ope.y, valAut50.y) annotation (Line(points={{-158,100},{-44,100},{-44,
           -20},{-48,-20}},
@@ -352,8 +353,8 @@ equation
   connect(valAut33.port_2, ret.ports[4])
     annotation (Line(points={{-20,-30},{-20,-80.4444},{-160,-80.4444}},
                                                           color={0,127,255}));
-  connect(valAut25.port_2, ret.ports[5]) annotation (Line(points={{20,-30},{20,-80},
-          {-160,-80}},      color={0,127,255}));
+  connect(valAut25.port_2, ret.ports[5]) annotation (Line(points={{20,-30},{20,
+          -80},{-160,-80}}, color={0,127,255}));
   connect(valAut50Ove.port_2, ret.ports[6]) annotation (Line(points={{140,-30},
           {140,-80},{-160,-80},{-160,-79.5556}},color={0,127,255}));
   connect(bal50.port_b, ret.ports[7]) annotation (Line(points={{180,-70},{180,

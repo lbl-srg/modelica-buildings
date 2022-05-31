@@ -55,6 +55,12 @@ model Pump "Container class for circulation pumps"
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
+  // Variables
+  Modelica.Units.SI.VolumeFlowRate VMachine_flow = V_flow.V_flow
+    "Volume flow rate";
+  Modelica.Units.SI.PressureDifference dpMachine(displayUnit="Pa") = port_b.p - port_a.p
+    "Pressure rise";
+
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y_actual(
     final unit="1")
@@ -181,6 +187,11 @@ model Pump "Container class for circulation pumps"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,60})));
+  Sensors.VolumeFlowRate V_flow(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal)
+    "Volume flow rate"
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 protected
   final parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
@@ -253,7 +264,13 @@ equation
                                                          color={0,0,127}));
   connect(pum_m_flow.y_actual, y_actual) annotation (Line(points={{71,-33},{90,-33},
           {90,70},{120,70}},    color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  connect(port_a, V_flow.port_a) annotation (Line(points={{-100,0},{-92,0},{-92,
+          -60},{-10,-60}}, color={0,127,255}));
+  connect(V_flow.port_b, port_b) annotation (Line(points={{10,-60},{92,-60},{92,
+          0},{100,0}}, color={0,127,255}));
+  annotation (
+    defaultComponentName="pum",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},
           lineColor={0,0,0},
