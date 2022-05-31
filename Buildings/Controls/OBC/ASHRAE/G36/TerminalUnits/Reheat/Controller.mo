@@ -40,7 +40,7 @@ block Controller "Controller for room VAV box with reheat"
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   parameter Real VHeaMin_flow(unit="m3/s")
-    "Design zone heating minimum airflow rate"
+    "Design zone heating minimum airflow rate, for the reheat box with water hot coil, it should be zero"
     annotation (Dialog(group="Design conditions"));
   parameter Real VHeaMax_flow(unit="m3/s")
     "Design zone heating maximum airflow rate"

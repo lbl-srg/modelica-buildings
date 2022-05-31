@@ -9,7 +9,7 @@ block ActiveAirFlow
   parameter Real VHeaMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
-    "Design zone heating minimum airflow rate";
+    "Design zone heating minimum airflow rate, for the reheat box with water hot coil, it should be zero";
   parameter Real VHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
