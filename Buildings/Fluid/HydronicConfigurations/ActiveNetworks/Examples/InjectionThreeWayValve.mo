@@ -290,25 +290,25 @@ Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>
 <ul>
-<li> 
-The design conditions are defined without 
+<li>
+The design conditions are defined without
 considering any load diversity.
 </li>
-<li> 
+<li>
 Each circuit is balanced at design conditions.
 </li>
-<li> 
+<li>
 The bypass branch of the three-way valve is balanced at
 design conditions if the parameter <code>is_bypBal</code>
 is set to <code>true</code>. Otherwise no fixed flow
-resistance is considered in the bypass branch, only the 
+resistance is considered in the bypass branch, only the
 variable flow resistance corresponding to the control valve.
-The parameter <code>fraK</code> of the control valves is 
+The parameter <code>fraK</code> of the control valves is
 set at <i>1.0</i> to effectively have an unbalanced bypass branch
 for <code>con.dpBal2_nominal = 0</code>, see
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
 Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>.
-</li> 
+</li>
 </ul>
 
 </html>"),

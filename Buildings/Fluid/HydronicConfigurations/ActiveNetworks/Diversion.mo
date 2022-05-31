@@ -23,8 +23,8 @@ model Diversion "Diversion circuit"
         Modelica.Fluid.Types.PortFlowDirection.Entering,
       final m_flow_nominal=m2_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal={dp2_nominal, dpBal2_nominal} .*
-        (if use_lumFloRes then {1, 1} else {0, 1}))
+      final dpFixed_nominal=if use_lumFloRes then {dp2_nominal, dpBal2_nominal} else
+        {0, dpBal2_nominal})
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -86,6 +86,11 @@ equation
       fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Diversion.svg")}),                                                                                                       Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<p>
+Lumped flow resistance includes consumer circuit only.
+Primary balancing valve always modeled as a distinct
+flow resistance.
+</p>
 <p>
 The secondary balancing valve pressure drop 
 <code>dpBal2_nominal</code> 

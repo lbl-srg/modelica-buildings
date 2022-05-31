@@ -22,7 +22,7 @@ model SingleMixing "Single mixing circuit"
         Modelica.Fluid.Types.PortFlowDirection.Entering,
       final m_flow_nominal=m1_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal={0, 0})
+      final dpFixed_nominal=if use_lumFloRes then {dpBal1_nominal, 0} else {0,0})
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -51,7 +51,7 @@ model SingleMixing "Single mixing circuit"
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
-    final dp_nominal=dpBal1_nominal)
+    final dp_nominal=if use_lumFloRes then 0 else dpBal1_nominal)
     "Primary balancing valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

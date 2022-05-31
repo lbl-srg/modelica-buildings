@@ -1,8 +1,11 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop", method="CVode", stopTime=300, tolerance=1e-06, resultFile="DiversionOpenLoop");
 
+
 createPlot(id=1, position={15, 15, 1184, 744},y={"ope.y[1]", "ope.y[2]"}, autoscale=true, grid=true, autoerase=true, color=true);
 
 createPlot(id=2, position={616, 16, 1184, 744}, y={"pum.m_flow", "con.val.port_1.m_flow", "con.val.port_3.m_flow", "con1.val.port_1.m_flow", "con1.val.port_3.m_flow"}, autoscale=true, grid=true, autoerase=true, color=true);
+plotExpression(apply(-1 * DiversionOpenLoop.con.val.port_2.m_flow), false, "-con.val.port_2.m_flow");
+plotExpression(apply(-1 * DiversionOpenLoop.con1.val.port_2.m_flow), false, "-con1.val.port_2.m_flow");
 
 createPlot(id=3, position={1214, 15, 1184, 744}, y={"pum.dpMachine", "dp.p_rel", "dp1.p_rel", "con.val.res1.dp", "con1.val.res1.dp"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true);
 

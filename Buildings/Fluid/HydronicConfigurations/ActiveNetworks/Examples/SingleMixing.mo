@@ -277,7 +277,7 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of a single mixing circuit 
+This model illustrates the use of a single mixing circuit
 that serves as the interface between a variable flow primary circuit at constant
 supply temperature and a constant flow secondary circuit at variable supply
 temperature.
@@ -286,11 +286,11 @@ Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>
 <ul>
-<li> 
-The design conditions are defined without 
+<li>
+The design conditions are defined without
 considering any load diversity.
 </li>
-<li> 
+<li>
 Each circuit is balanced at design conditions: UPDATE
 </ul>
 

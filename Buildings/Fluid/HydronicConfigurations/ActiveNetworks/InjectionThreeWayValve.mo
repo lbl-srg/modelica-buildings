@@ -211,6 +211,11 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
+Lumped flow resistance includes control valve only.
+Primary balancing valve always modeled as a distinct
+flow resistance.
+</p>
+<p>
 This is a typical configuration for constant flow secondary circuits that
 have a design supply temperature different from the primary circuit
 (for instance underfloor heating systems).

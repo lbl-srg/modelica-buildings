@@ -14,8 +14,7 @@ model Throttle "Throttle circuit"
       final allowFlowReversal=allowFlowReversal,
       final m_flow_nominal=m2_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=dpBal1_nominal +
-        (if use_lumFloRes then dp2_nominal else 0))
+      final dpFixed_nominal=if use_lumFloRes then dpBal1_nominal + dp2_nominal else 0)
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -28,7 +27,7 @@ model Throttle "Throttle circuit"
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
-    final dp_nominal=dpBal1_nominal)
+    final dp_nominal=if use_lumFloRes then 0 else dpBal1_nominal)
     "Primary balancing valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -55,7 +54,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-
+Lumped flow resistance includes consumer circuit AND primary balancing 
+valve.
 </p>
 </html>"));
 end Throttle;
