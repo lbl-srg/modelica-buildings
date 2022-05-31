@@ -6,24 +6,28 @@ model ThreeWayValve "Container class for three-way valves"
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
-  parameter Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve typ=
-    Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.EqualPercentageLinear
-    "Type of valve"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic
+    typCha=Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
+    "Valve characteristic"
+    annotation (Dialog(group="Configuration"), Evaluate=true);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Actuators.Valves.Data.Generic flowCharacteristics1
+  parameter Actuators.Valves.Data.Generic flowCharacteristics1(
+    y={0,1},
+    phi={0.0001,1})
     "Table with flow characteristics for direct flow path at port_1"
      annotation (
-     Dialog(enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.Table),
+     Dialog(enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
      choicesAllMatching=true, Placement(transformation(extent={{30,72},
             {50,92}})));
-  parameter Actuators.Valves.Data.Generic flowCharacteristics3
+  parameter Actuators.Valves.Data.Generic flowCharacteristics3(
+    y={0,1},
+    phi={0.0001,1})
     "Table with flow characteristics for bypass flow path at port_3"
     annotation (
-    Dialog(enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.Table),
+    Dialog(enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
     choicesAllMatching=true, Placement(transformation(extent={{70,72},
             {90,92}})));
 
@@ -34,11 +38,11 @@ model ThreeWayValve "Container class for three-way valves"
 
   parameter Real R = 50 "Rangeability, R=50...100 typically"
     annotation(Dialog(
-      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.EqualPercentageLinear));
+      enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage));
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law"
     annotation(Dialog(
-      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.EqualPercentageLinear));
+      enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage));
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
@@ -166,7 +170,7 @@ model ThreeWayValve "Container class for three-way valves"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final y_start=y_start) if typ == Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.EqualPercentageLinear
+    final y_start=y_start) if typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Three-way valve with equal percentage and linear characteristics"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -196,11 +200,13 @@ model ThreeWayValve "Container class for three-way valves"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final y_start=y_start) if typ == Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.LinearLinear
+    final y_start=y_start) if typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
     "Three-way valve with linear characteristics"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   Actuators.Valves.ThreeWayTable valEquLin1(
     redeclare final package Medium = Medium,
+    final flowCharacteristics1=flowCharacteristics1,
+    final flowCharacteristics3=flowCharacteristics3,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -224,7 +230,7 @@ model ThreeWayValve "Container class for three-way valves"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final y_start=y_start) if typ == Buildings.Fluid.HydronicConfigurations.Types.ThreeWayValve.Table
+    final y_start=y_start) if typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
     "Three-way valve with equal percentage and linear characteristics"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
@@ -258,6 +264,8 @@ equation
           {90,60},{120,60}}, color={0,0,127}));
   connect(valLinLin.y_actual, y_actual) annotation (Line(points={{-55,47},{90,47},
           {90,60},{120,60}}, color={0,0,127}));
+  connect(valLinLin.port_2, port_2) annotation (Line(points={{-50,40},{80,40},{
+          80,0},{100,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="val",
     Icon(graphics={

@@ -6,23 +6,25 @@ model SingleMixing "Single mixing circuit"
       final have_bypFix=false,
       final have_pum=true);
 
-  replaceable Actuators.Valves.ThreeWayEqualPercentageLinear val
-    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
-      redeclare final package Medium=Medium,
-      final energyDynamics=energyDynamics,
-      use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-      final portFlowDirection_1=if allowFlowReversal then
-        Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-        Modelica.Fluid.Types.PortFlowDirection.Entering,
-      final portFlowDirection_2=if allowFlowReversal then
-        Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-        Modelica.Fluid.Types.PortFlowDirection.Leaving,
-      final portFlowDirection_3=if allowFlowReversal then
-        Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
-        Modelica.Fluid.Types.PortFlowDirection.Entering,
-      final m_flow_nominal=m1_flow_nominal,
-      final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=if use_lumFloRes then {dpBal1_nominal, 0} else {0,0})
+  Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
+    redeclare final package Medium=Medium,
+    final typCha=typCha,
+    final energyDynamics=energyDynamics,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final m_flow_nominal=m1_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal=if use_lumFloRes then {dpBal1_nominal, 0} else {0,0},
+    final flowCharacteristics1=dat.flowCharacteristics1,
+    final flowCharacteristics3=dat.flowCharacteristics3)
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -67,9 +69,11 @@ model SingleMixing "Single mixing circuit"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,50})));
-  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum
-    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+  Buildings.Fluid.HydronicConfigurations.Components.Pump pum(
     redeclare final package Medium = Medium,
+    final typ=typPumMod,
+    final m_flow_nominal=m2_flow_nominal,
+    final dp_nominal=dp2_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,

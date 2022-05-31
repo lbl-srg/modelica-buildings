@@ -6,7 +6,7 @@ model InjectionThreeWayValve
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Boolean have_priBal=false
+  parameter Boolean is_bal=false
     "Set to true for a primary balancing valve";
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
@@ -42,7 +42,7 @@ model InjectionThreeWayValve
     "Air entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=313.15
     "Hot water entering temperature at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=308.15
+  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal-5
     "Hot water leaving temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqSup_nominal=333.15
     "Hot water primary supply temperature at design conditions";
@@ -83,7 +83,7 @@ model InjectionThreeWayValve
       final m2_flow_nominal=m2_flow_nominal,
       final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
       final dpBal1_nominal=(dpPum_nominal - dpPip_nominal - dpValve_nominal) *
-        (if have_priBal then 1 else 0),
+        (if is_bal then 1 else 0),
       ctl(k=0.1, Ti=60)))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -296,18 +296,6 @@ considering any load diversity.
 </li>
 <li>
 Each circuit is balanced at design conditions.
-</li>
-<li>
-The bypass branch of the three-way valve is balanced at
-design conditions if the parameter <code>is_bypBal</code>
-is set to <code>true</code>. Otherwise no fixed flow
-resistance is considered in the bypass branch, only the
-variable flow resistance corresponding to the control valve.
-The parameter <code>fraK</code> of the control valves is
-set at <i>1.0</i> to effectively have an unbalanced bypass branch
-for <code>con.dpBal2_nominal = 0</code>, see
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
-Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>.
 </li>
 </ul>
 

@@ -19,13 +19,13 @@ model ThreeWayOpenLoop
   Sources.Boundary_pT sup(
     redeclare final package Medium = MediumLiq,
     final p=p_min + dp_nominal,
-    nPorts=13)
+    nPorts=15)
     "Pressure boundary condition at supply"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Sources.Boundary_pT ret(
     redeclare final package Medium = MediumLiq,
     final p=p_min,
-    nPorts=9)
+    nPorts=10)
     "Pressure boundary condition at return"
     annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ope(duration=100)
@@ -271,6 +271,27 @@ model ThreeWayOpenLoop
         rotation=180,
         origin={-30,-160})));
 
+  FixedResistances.PressureDrop ter1(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=mLiq_flow_nominal,
+    dp_nominal=0.25*dp_nominal)
+    "Terminal unit as a fixed resistance destroying 25% of design pressure difference"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-182,10})));
+  Components.ThreeWayValve                       valAut1(
+    redeclare final package Medium = MediumLiq,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=mLiq_flow_nominal,
+    final dpValve_nominal=0.75*dp_nominal,
+    final dpFixed_nominal={0,0.25}*dp_nominal*(if is_bypBal then 1 else 0),
+    use_inputFilter=false,
+    fraK=1)                "Control valve with 75% authority" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-182,-30})));
 equation
   connect(ope.y, valAut50.y) annotation (Line(points={{-158,100},{-44,100},{-44,
           -20},{-48,-20}},
@@ -286,35 +307,35 @@ equation
   connect(ope.y, valAut100.y) annotation (Line(points={{-158,100},{-124,100},{-124,
           -20},{-128,-20}},color={0,0,127}));
   connect(sup.ports[1], valAut100.port_1) annotation (Line(points={{-160,
-          58.1538},{-140,58.1538},{-140,-10}},
+          58.1333},{-140,58.1333},{-140,-10}},
                                       color={0,127,255}));
-  connect(sup.ports[2], valAut100.port_3) annotation (Line(points={{-160,
-          58.4615},{-160,-20},{-150,-20}},
+  connect(sup.ports[2], valAut100.port_3) annotation (Line(points={{-160,58.4},
+          {-160,-20},{-150,-20}},
                             color={0,127,255}));
-  connect(sup.ports[3], ter25.port_a) annotation (Line(points={{-160,58.7692},{
-          -100,58.7692},{-100,30}},
+  connect(sup.ports[3], ter25.port_a) annotation (Line(points={{-160,58.6667},{
+          -100,58.6667},{-100,30}},
                               color={0,127,255}));
   connect(ter25.port_b, valAut75.port_1)
     annotation (Line(points={{-100,10},{-100,-10}},
                                                   color={0,127,255}));
   connect(ter50.port_b, valAut50.port_1)
     annotation (Line(points={{-60,10},{-60,-10}}, color={0,127,255}));
-  connect(sup.ports[4], valAut75.port_3) annotation (Line(points={{-160,59.0769},
-          {-120,59.0769},{-120,-20},{-110,-20}},
+  connect(sup.ports[4], valAut75.port_3) annotation (Line(points={{-160,58.9333},
+          {-120,58.9333},{-120,-20},{-110,-20}},
                                        color={0,127,255}));
   connect(ter67.port_b, valAut33.port_1)
     annotation (Line(points={{-20,10},{-20,-10}},
                                               color={0,127,255}));
-  connect(sup.ports[5], ter50.port_a) annotation (Line(points={{-160,59.3846},{
-          -60,59.3846},{-60,30}},
-                           color={0,127,255}));
-  connect(sup.ports[6], valAut50.port_3) annotation (Line(points={{-160,59.6923},
-          {-80,59.6923},{-80,-20},{-70,-20}},
+  connect(sup.ports[5], ter50.port_a) annotation (Line(points={{-160,59.2},{-60,
+          59.2},{-60,30}}, color={0,127,255}));
+  connect(sup.ports[6], valAut50.port_3) annotation (Line(points={{-160,59.4667},
+          {-80,59.4667},{-80,-20},{-70,-20}},
                                       color={0,127,255}));
   connect(sup.ports[7], ter67.port_a)
-    annotation (Line(points={{-160,60},{-20,60},{-20,30}}, color={0,127,255}));
-  connect(sup.ports[8], valAut33.port_3) annotation (Line(points={{-160,60.3077},
-          {-40,60.3077},{-40,-20},{-30,-20}},
+    annotation (Line(points={{-160,59.7333},{-20,59.7333},{-20,30}},
+                                                           color={0,127,255}));
+  connect(sup.ports[8], valAut33.port_3) annotation (Line(points={{-160,60},{
+          -40,60},{-40,-20},{-30,-20}},
                                     color={0,127,255}));
   connect(valAut33.y, ope.y) annotation (Line(points={{-8,-20},{-4,-20},{-4,100},
           {-158,100}}, color={0,0,127}));
@@ -333,61 +354,68 @@ equation
     annotation (Line(points={{180,-30},{180,-50}}, color={0,127,255}));
   connect(supOve.ports[4],valAut50Bal. port_3) annotation (Line(points={{120,61.5},
           {160,61.5},{160,-20},{170,-20}}, color={0,127,255}));
-  connect(sup.ports[9], ter75.port_a) annotation (Line(points={{-160,60.6154},{
-          20,60.6154},{20,30}},
+  connect(sup.ports[9], ter75.port_a) annotation (Line(points={{-160,60.2667},{
+          20,60.2667},{20,30}},
                     color={0,127,255}));
   connect(sup.ports[10], valAut25.port_3) annotation (Line(points={{-160,
-          60.9231},{0,60.9231},{0,-20},{10,-20}},
+          60.5333},{0,60.5333},{0,-20},{10,-20}},
                                        color={0,127,255}));
   connect(ter75.port_b, valAut25.port_1)
     annotation (Line(points={{20,10},{20,-10}}, color={0,127,255}));
   connect(valAut100.port_2, ret.ports[1]) annotation (Line(points={{-140,-30},{
-          -140,-81.7778},{-160,-81.7778}},
-                                      color={0,127,255}));
+          -140,-81.8},{-160,-81.8}},  color={0,127,255}));
   connect(valAut75.port_2, ret.ports[2]) annotation (Line(points={{-100,-30},{
-          -100,-81.3333},{-160,-81.3333}},
-                                      color={0,127,255}));
+          -100,-81.4},{-160,-81.4}},  color={0,127,255}));
   connect(valAut50.port_2, ret.ports[3]) annotation (Line(points={{-60,-30},{
-          -60,-80.8889},{-160,-80.8889}},
-                                      color={0,127,255}));
+          -60,-81},{-160,-81}},       color={0,127,255}));
   connect(valAut33.port_2, ret.ports[4])
-    annotation (Line(points={{-20,-30},{-20,-80.4444},{-160,-80.4444}},
+    annotation (Line(points={{-20,-30},{-20,-80.6},{-160,-80.6}},
                                                           color={0,127,255}));
   connect(valAut25.port_2, ret.ports[5]) annotation (Line(points={{20,-30},{20,
-          -80},{-160,-80}}, color={0,127,255}));
+          -80.2},{-160,-80.2}},
+                            color={0,127,255}));
   connect(valAut50Ove.port_2, ret.ports[6]) annotation (Line(points={{140,-30},
-          {140,-80},{-160,-80},{-160,-79.5556}},color={0,127,255}));
+          {140,-80},{-160,-80},{-160,-79.8}},   color={0,127,255}));
   connect(bal50.port_b, ret.ports[7]) annotation (Line(points={{180,-70},{180,
-          -80},{40,-80},{40,-79.1111},{-160,-79.1111}},
+          -80},{40,-80},{40,-79.4},{-160,-79.4}},
                                            color={0,127,255}));
   connect(ter10Bal.port_b,valAut50Ter10. port_1)
     annotation (Line(points={{60,10},{60,-10}},  color={0,127,255}));
   connect(valAut50Ter10.port_2, bal80.port_a)
     annotation (Line(points={{60,-30},{60,-40}},   color={0,127,255}));
   connect(bal80.port_b, ret.ports[8]) annotation (Line(points={{60,-60},{60,-80},
-          {-160,-80},{-160,-78.6667}},      color={0,127,255}));
+          {-160,-80},{-160,-79}},           color={0,127,255}));
   connect(ope.y,valAut50Ter10. y) annotation (Line(points={{-158,100},{80,100},{
           80,-20},{72,-20}},    color={0,0,127}));
-  connect(sup.ports[11], ter10Bal.port_a) annotation (Line(points={{-160,
-          61.2308},{-64,61.2308},{-64,62},{60,62},{60,30}},
-                                                 color={0,127,255}));
+  connect(sup.ports[11], ter10Bal.port_a) annotation (Line(points={{-160,60.8},
+          {-64,60.8},{-64,62},{60,62},{60,30}},  color={0,127,255}));
   connect(sup.ports[12],valAut50Ter10. port_3) annotation (Line(points={{-160,
-          61.5385},{40,61.5385},{40,-20},{50,-20}},     color={0,127,255}));
+          61.0667},{40,61.0667},{40,-20},{50,-20}},     color={0,127,255}));
   connect(valAut50Mix.port_3, balMix.port_a) annotation (Line(points={{0,-130},{
           0,-160},{-20,-160}}, color={0,127,255}));
   connect(terMix.port_b, balMix.port_a) annotation (Line(points={{60,-150},{60,-160},
           {-20,-160}}, color={0,127,255}));
   connect(balMix.port_b, ret.ports[9]) annotation (Line(points={{-40,-160},{
-          -160,-160},{-160,-78.2222}},
+          -160,-160},{-160,-78.6}},
                                   color={0,127,255}));
   connect(valAut50Mix.port_2, pum.port_a) annotation (Line(points={{10,-120},{30,
           -120},{30,-120}}, color={0,127,255}));
   connect(valAut50Mix.port_1, sup.ports[13]) annotation (Line(points={{-10,-120},
-          {-156,-120},{-156,61.8462},{-160,61.8462}}, color={0,127,255}));
+          {-156,-120},{-156,61.3333},{-160,61.3333}}, color={0,127,255}));
   connect(pum.port_b, terMix.port_a) annotation (Line(points={{50,-120},{60,-120},
           {60,-130}}, color={0,127,255}));
   connect(ope.y, valAut50Mix.y)
     annotation (Line(points={{-158,100},{0,100},{0,-108}}, color={0,0,127}));
+  connect(sup.ports[14], ter1.port_a) annotation (Line(points={{-160,61.6},{
+          -172,61.6},{-172,20},{-182,20}}, color={0,127,255}));
+  connect(ter1.port_b, valAut1.port_1)
+    annotation (Line(points={{-182,0},{-182,-20}}, color={0,127,255}));
+  connect(sup.ports[15], valAut1.port_3) annotation (Line(points={{-160,61.8667},
+          {-176,61.8667},{-176,-30},{-192,-30}}, color={0,127,255}));
+  connect(valAut1.port_2, ret.ports[10]) annotation (Line(points={{-182,-40},{
+          -172,-40},{-172,-78.2},{-160,-78.2}}, color={0,127,255}));
+  connect(ope.y, valAut1.y) annotation (Line(points={{-158,100},{-164,100},{
+          -164,-30},{-170,-30}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-120},{220,120}})),
   experiment(

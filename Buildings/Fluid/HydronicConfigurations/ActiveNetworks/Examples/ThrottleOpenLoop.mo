@@ -253,7 +253,8 @@ equation
     Documentation(info="<html>
 <p>
 The pipe pressure drop between the two consumer circuits is voluntarily
-high to exhibit the overflow due to unbalanced circuits.
+high to showcase typical balancing issues encountered in large 
+distribution systems.
 </p>
 <p>
 This model illustrates the use of a throttle circuit to modulate

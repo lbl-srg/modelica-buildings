@@ -12,9 +12,15 @@ model PartialHydronicConfiguration
 
   extends Buildings.Fluid.HydronicConfigurations.Data.Configuration;
 
+  /*
+  FIXME: Assignments of configuration parameters should be final.
+  A bug in Dymola (DS#SRF00860858) prevents from doing that if dat is propagated
+  from the top level.
+  */
   parameter Buildings.Fluid.HydronicConfigurations.Data.Generic dat(
     have_bypFix=have_bypFix,
-    have_ctl = have_ctl,
+    typCha=typCha,
+    have_ctl=have_ctl,
     typFun=typFun,
     have_pum = have_pum,
     typPum=typPum,

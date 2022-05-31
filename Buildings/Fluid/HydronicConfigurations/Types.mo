@@ -26,12 +26,12 @@ package Types "Package with type definitions"
       SpeedRotational
       "Pump with ideally controlled rotational speed as input")
     "Enumeration to specify the type of pump model";
-  type ThreeWayValve = enumeration(
-      EqualPercentageLinear
-      "Three-way valve with equal percentage and linear characteristics",
-      LinearLinear
-      "Three-way valve with linear characteristics",
+  type ValveCharacteristic = enumeration(
+      EqualPercentage
+      "Equal percentage - Equal percentage and linear for three-way valves",
+      Linear
+      "Linear",
       Table
-      "Three-way valve with table-specified characteristics")
-    "Enumeration to specify the type of three-way valve";
+      "Table-specified")
+    "Enumeration to specify the valve characteristic";
 end Types;

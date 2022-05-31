@@ -3,14 +3,16 @@ model DiversionOpenLoop
   "Model illustrating the operation of diversion circuits with constant speed pump"
   extends Modelica.Icons.Example;
 
-  replaceable model ThreeWayValve =
-      Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear;
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
+    Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
+    "Control valve characteristic"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
 
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Boolean is_bypBal = false
-    "Set to true for a balancing valve in the bypass";
+  parameter Boolean is_bal = false
+    "Set to true for a balanced bypass branch";
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
     "Terminal unit mass flow rate at design conditions";
@@ -42,7 +44,7 @@ model DiversionOpenLoop
 
   parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
     final min=0,
-    displayUnit="Pa") = if is_bypBal then dpTer_nominal else 0
+    displayUnit="Pa") = if is_bal then dpTer_nominal else 0
     "Secondary balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
@@ -78,8 +80,9 @@ model DiversionOpenLoop
     "Circulation pump"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   ActiveNetworks.Diversion con(
-    redeclare replaceable ThreeWayValve val(fraK=1),
     redeclare final package Medium=MediumLiq,
+    val(fraK=1),
+    final typCha=typCha,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     dat(final m2_flow_nominal=mTer_flow_nominal,
@@ -103,9 +106,10 @@ model DiversionOpenLoop
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   ActiveNetworks.Diversion con1(
-    redeclare replaceable ThreeWayValve val(fraK=1),
-    final use_lumFloRes=false,
     redeclare final package Medium = MediumLiq,
+    val(fraK=1),
+    final typCha=typCha,
+    final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     dat(final m2_flow_nominal=mTer_flow_nominal,
     final dp2_nominal=dpTer_nominal,
@@ -251,7 +255,7 @@ Each circuit is balanced at design conditions.
 </li>
 <li>
 The bypass branch of the three-way valve is balanced at
-design conditions if the parameter <code>is_bypBal</code>
+design conditions if the parameter <code>is_bal</code>
 is set to <code>true</code>. Otherwise no fixed flow
 resistance is considered in the bypass branch, only the
 variable flow resistance corresponding to the control valve.
@@ -312,7 +316,7 @@ varying from <i>0.1</i> to <i>0.7</i>
 </li>
 <li>
 Balanced bypass branch:
-<code>is_bypBal</code> switched from <code>false</code> to <code>true</code>
+<code>is_bal</code> switched from <code>false</code> to <code>true</code>
 </li>
 <li>
 Valve characteristic:
