@@ -8,10 +8,10 @@ model Case940 "Case 900, but with heating schedule"
                    23*3600,273.15 + 10;
                    24*3600,273.15 + 10]),
     staRes(
-      annualHea(Min=0.793*3.6e9, Max=1.411*3.6e9, Mean=1.160*3.6e9),
-      annualCoo(Min=-2.079*3.6e9, Max=-3.241*3.6e9, Mean=-2.578*3.6e9),
-      peakHea(Min=3.980*1000, Max=6.428*1000, Mean=5.494*1000),
-      peakCoo(Min=-2.886*1000, Max=-3.871*1000, Mean=-3.390*1000)));
+      annualHea(Min=0.863*3.6e9, Max=1.389*3.6e9, Mean=1.109*3.6e9),
+      annualCoo(Min=-2.203*3.6e9, Max=-2.613*3.6e9, Mean=-2.401*3.6e9),
+      peakHea(Min=3.052*1000, Max=3.882*1000, Mean=3.377*1000),
+      peakCoo(Min=-2.556*1000, Max=-3.376*1000, Mean=-2.993*1000)));
 
     annotation (
        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case940.mos"
@@ -45,7 +45,7 @@ From 2300 hours to 0700 hours, heat = on if zone temperature is below 10&deg;C
 From 0700 hours to 2300 hours, heat = on if zone temperature is above 20&deg;C
 </li>
 <li>
-All hours, cool = on if zone temperature below 27&deg;C
+All hours, cool = on if zone temperature above 27&deg;C
 </li>
 <li>
 Otherwise, mechanical equipment is off.
