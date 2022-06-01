@@ -37,19 +37,27 @@ block Controller "Multizone VAV air handling unit controller"
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="System and building parameters"));
 
-  parameter Real VUncDesOutAir_flow=0
-    "Uncorrected design outdoor air rate, including diversity where applicable. Needed when complying with ASHRAE 62.1 requirements"
+  parameter Real VUncDesOutAir_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0
+    "Uncorrected design outdoor air rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Real VDesTotOutAir_flow=0
-    "Design total outdoor air rate. Needed when complying with ASHRAE 62.1 requirements"
+  parameter Real VDesTotOutAir_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0
+    "Design total outdoor air rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Real VAbsOutAir_flow=0
+  parameter Real VAbsOutAir_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0
     "Design outdoor air rate when all zones with CO2 sensors or occupancy sensors are unpopulated. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-  parameter Real VDesOutAir_flow=0
+  parameter Real VDesOutAir_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0
     "Design minimum outdoor airflow with areas served by the system are occupied at their design population, including diversity where applicable. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));

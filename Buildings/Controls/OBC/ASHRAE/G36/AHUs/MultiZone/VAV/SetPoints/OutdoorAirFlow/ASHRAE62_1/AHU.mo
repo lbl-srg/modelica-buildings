@@ -5,10 +5,10 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     "Design of minimum outdoor air and economizer function"
     annotation (Dialog(group="Economizer design"));
   parameter Real VUncDesOutAir_flow(unit="m3/s")
-    "Uncorrected design outdoor air rate, including diversity where applicable"
+    "Uncorrected design outdoor air rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation(Dialog(group="Nominal condition"));
   parameter Real VDesTotOutAir_flow(unit="m3/s")
-    "Design total outdoor air rate"
+    "Design total outdoor air rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation(Dialog(group="Nominal condition"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumAdjPopBreZon_flow(
