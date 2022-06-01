@@ -640,17 +640,17 @@ equation
           {90,-18},{90,-184},{118,-184}}, color={0,0,127}));
   connect(oveFloSet, damVal.oveFloSet) annotation (Line(points={{-200,-90},{-34,
           -90},{-34,-13},{-2,-13}}, color={255,127,0}));
-  connect(setPoi.VAdjPopBreZon_flow, VAdjPopBreZon_flow1) annotation (Line(
-        points={{-78,138},{20,138},{20,180},{220,180}}, color={0,0,127}));
-  connect(setPoi.VAdjAreBreZon_flow, VAdjAreBreZon_flow1) annotation (Line(
-        points={{-78,130},{28,130},{28,150},{220,150}}, color={0,0,127}));
-  connect(setPoi.VMinOA_flow, VMinOA_flow1) annotation (Line(points={{-78,126},{
-          28,126},{28,120},{220,120}}, color={0,0,127}));
-  connect(minFlo.VZonAbsMin_flow, VZonAbsMin_flow1) annotation (Line(points={{-78,
-          99},{36,99},{36,90},{220,90}}, color={0,0,127}));
-  connect(minFlo.VZonDesMin_flow, VZonDesMin_flow1) annotation (Line(points={{-78,
-          96},{28,96},{28,60},{220,60}}, color={0,0,127}));
-  connect(minFlo.yCO2, yCO1) annotation (Line(points={{-78,84},{20,84},{20,30},{
+  connect(setPoi.VAdjPopBreZon_flow, VAdjPopBreZon_flow) annotation (Line(
+        points={{-78,138},{60,138},{60,180},{220,180}}, color={0,0,127}));
+  connect(setPoi.VAdjAreBreZon_flow, VAdjAreBreZon_flow) annotation (Line(
+        points={{-78,130},{66,130},{66,150},{220,150}}, color={0,0,127}));
+  connect(setPoi.VMinOA_flow, VMinOA_flow) annotation (Line(points={{-78,126},{60,
+          126},{60,120},{220,120}}, color={0,0,127}));
+  connect(minFlo.VZonAbsMin_flow, VZonAbsMin_flow) annotation (Line(points={{-78,
+          99},{60,99},{60,90},{220,90}}, color={0,0,127}));
+  connect(minFlo.VZonDesMin_flow, VZonDesMin_flow) annotation (Line(points={{-78,
+          96},{54,96},{54,60},{220,60}}, color={0,0,127}));
+  connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,84},{48,84},{48,30},{
           220,30}}, color={0,0,127}));
 annotation (defaultComponentName="rehBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
