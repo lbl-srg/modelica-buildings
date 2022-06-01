@@ -72,7 +72,7 @@ block useCase_singleLayer
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoil.dat"),
-    columns=2:11,
+    columns=2:12,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
@@ -115,6 +115,27 @@ block useCase_singleLayer
         "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
+  Modelica.Blocks.Sources.RealExpression TSupAir(y=datRea.y[4])
+    "Supply air temperature"
+    annotation (Placement(transformation(extent={{20,120},{40,140}})));
+  Modelica.Blocks.Sources.RealExpression mSupAir_flow(y=datRea.y[11])
+    "Supply air mass flowrate"
+    annotation (Placement(transformation(extent={{60,120},{80,140}})));
+  Modelica.Blocks.Sources.RealExpression TRetAir(y=datRea.y[5])
+    "Return air temperature"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+  Modelica.Blocks.Sources.RealExpression mRetAir_flow(y=datRea.y[6])
+    "Return air mass flowrate"
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
+  Modelica.Blocks.Sources.RealExpression uFan(y=datRea.y[6]/fCUSizing.mAir_flow_nominal)
+    "Fan control signal"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Modelica.Blocks.Sources.RealExpression uCoo(y=datRea.y[8]/fCUSizing.mChiWat_flow_nominal)
+    "Cooling control signal"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Modelica.Blocks.Sources.RealExpression uHea(y=datRea.y[10]/fCUSizing.mHotWat_flow_nominal)
+    "Heating control signal"
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
 equation
 
   connect(fCU_singleLayer.port_CCW_outlet, sinCoo.ports[1]) annotation (Line(
@@ -187,5 +208,7 @@ equation
     experiment(
       StopTime=86400,
       Interval=60,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUsecase.mos"
+      "Simulate and plot"));
 end useCase_singleLayer;
