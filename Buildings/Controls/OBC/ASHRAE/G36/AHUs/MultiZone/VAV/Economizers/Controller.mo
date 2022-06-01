@@ -362,7 +362,8 @@ block Controller
     final uOutDamMax=uOutDamMax,
     final uRetDamMin=uRetDamMin)
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief)
     "Modulate economizer dampers position for buildings with relief damper or fan controlling pressure"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim(
@@ -371,10 +372,15 @@ block Controller
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon) "High limits"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=-1) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
+    "Dummy block"
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(
-    final delta=aveTimRan) if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    final delta=aveTimRan)
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
     "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,180},{-200,200}})));
@@ -488,15 +494,13 @@ equation
   connect(ecoHigLim.TCut, enaDis.TOutCut) annotation (Line(points={{-118,-44},{
           -30,-44},{-30,-75},{18,-75}}, color={0,0,127}));
   connect(ecoHigLim.hCut, enaDis.hOutCut) annotation (Line(points={{-118,-56},{
-          -70,-56},{-70,-80},{18,-80}},
-                                    color={0,0,127}));
+          -70,-56},{-70,-80},{18,-80}}, color={0,0,127}));
   connect(hAirRet, ecoHigLim.hRet) annotation (Line(points={{-260,-160},{-160,-160},
           {-160,-56},{-142,-56}}, color={0,0,127}));
   connect(TAirRet, ecoHigLim.TRet) annotation (Line(points={{-260,-100},{-202,-100},
           {-202,-44},{-142,-44}}, color={0,0,127}));
-  connect(TOut, enaDis.TOut) annotation (Line(points={{-260,-70},{-110,-70},{
-          -110,-73},{18,-73}},
-                          color={0,0,127}));
+  connect(TOut, enaDis.TOut) annotation (Line(points={{-260,-70},{-180,-70},{-180,
+          -73},{18,-73}}, color={0,0,127}));
   connect(hAirOut, enaDis.hOut) annotation (Line(points={{-260,-130},{6,-130},{
           6,-78},{18,-78}}, color={0,0,127}));
   connect(effAbsOutAir_normalized, sepDp.effAbsOutAir_normalized) annotation (
@@ -515,6 +519,10 @@ equation
           160,-36},{160,160},{-172,160},{-172,73},{-142,73}}, color={0,0,127}));
   connect(sepDp.y1MinOutDam, y1MinOutDam) annotation (Line(points={{-118,88},{-40,
           88},{-40,100},{80,100},{80,140},{280,140}}, color={255,0,255}));
+  connect(TOut, addPar.u) annotation (Line(points={{-260,-70},{-180,-70},{-180,-110},
+          {-142,-110}}, color={0,0,127}));
+  connect(addPar.y, enaDis.TOutCut) annotation (Line(points={{-118,-110},{-30,-110},
+          {-30,-75},{18,-75}}, color={0,0,127}));
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={

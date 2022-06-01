@@ -33,6 +33,7 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC")
+    if not eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
     "Outdoor air temperature high limit cutoff"
     annotation (Placement(transformation(extent={{540,790},{580,830}}),
         iconTransformation(extent={{100,40},{140,80}})));
@@ -990,7 +991,8 @@ annotation (defaultComponentName="ecoHigLim",
           extent={{70,70},{98,54}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TCut")}),
+          textString="TCut",
+          visible=not eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-540,-1260},{540,
             1260}})),
 Documentation(info="<html>

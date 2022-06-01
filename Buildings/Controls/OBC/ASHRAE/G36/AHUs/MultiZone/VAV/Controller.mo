@@ -653,7 +653,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffAirOut_flow_min(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{360,230},{400,270}}),
         iconTransformation(extent={{200,210},{240,250}})));
@@ -850,7 +850,7 @@ block Controller "Multizone VAV air handling unit controller"
     final have_CO2Sen=have_CO2Sen,
     final dpAbsOutDam_min=dpAbsOutDam_min)
     "Economizer controller"
-    annotation (Placement(transformation(extent={{60,-60},{80,-20}})));
+    annotation (Placement(transformation(extent={{62,-60},{82,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan conSupFan(
     final have_perZonRehBox=have_perZonRehBox,
     final iniSet=pIniSet,
@@ -984,24 +984,29 @@ equation
   connect(uHeaCoi_actual, plaReq.uHeaCoi_actual) annotation (Line(points={{-380,
           -560},{-320,-560},{-320,-538},{-22,-538}}, color={0,0,127}));
   connect(ashOutAirSet.effOutAir_normalized, ecoCon.VOutMinSet_flow_normalized)
-    annotation (Line(points={{-58,187},{40,187},{40,-21},{58,-21}}, color={0,0,127}));
-  connect(ecoCon.uSupFanSpe_actual, uSupFanSpe_actual) annotation (Line(points={{58,-28},
+    annotation (Line(points={{-58,187},{40,187},{40,-21},{60,-21}}, color={0,0,127}));
+  connect(ecoCon.uSupFanSpe_actual, uSupFanSpe_actual) annotation (Line(points={{60,-28},
           {16,-28},{16,10},{-380,10}},          color={0,0,127}));
-  connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{58,-38},{22,
-          -38},{22,-60},{-380,-60}},    color={0,0,127}));
-  connect(supSig.uTSup, ecoCon.uTSup) annotation (Line(points={{-58,416},{-32,416},
-          {-32,-41},{58,-41}},   color={0,0,127}));
-  connect(TOut, ecoCon.TOut) annotation (Line(points={{-380,450},{-320,450},{-320,
-          -44},{58,-44}},   color={0,0,127}));
+  connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{60,-38},{
+          22,-38},{22,-60},{-380,-60}}, color={0,0,127}));
+  connect(supSig.uTSup, ecoCon.uTSup) annotation (Line(points={{-58,416},{-32,
+          416},{-32,-41},{60,-41}},
+                                 color={0,0,127}));
+  connect(TOut, ecoCon.TOut) annotation (Line(points={{-380,450},{-320,450},{
+          -320,-44},{60,-44}},
+                            color={0,0,127}));
   connect(TAirRet, ecoCon.TAirRet) annotation (Line(points={{-380,-90},{28,-90},
-          {28,-46},{58,-46}}, color={0,0,127}));
-  connect(ecoCon.hAirOut, hAirOut) annotation (Line(points={{58,-49},{34,-49},{34,
-          -120},{-380,-120}}, color={0,0,127}));
-  connect(hAirRet, ecoCon.hAirRet) annotation (Line(points={{-380,-150},{40,-150},
-          {40,-51},{58,-51}}, color={0,0,127}));
-  connect(u1SupFan, ecoCon.u1SupFan) annotation (Line(points={{-380,380},{-300,380},
-          {-300,-54},{58,-54}}, color={255,0,255}));
-  connect(ecoCon.yOutDam_min, frePro.uOutDamPosMin) annotation (Line(points={{82,-22},
+          {28,-46},{60,-46}}, color={0,0,127}));
+  connect(ecoCon.hAirOut, hAirOut) annotation (Line(points={{60,-49},{34,-49},{
+          34,-120},{-380,-120}},
+                              color={0,0,127}));
+  connect(hAirRet, ecoCon.hAirRet) annotation (Line(points={{-380,-150},{40,
+          -150},{40,-51},{60,-51}},
+                              color={0,0,127}));
+  connect(u1SupFan, ecoCon.u1SupFan) annotation (Line(points={{-380,380},{-300,
+          380},{-300,-54},{60,-54}},
+                                color={255,0,255}));
+  connect(ecoCon.yOutDam_min, frePro.uOutDamPosMin) annotation (Line(points={{84,-22},
           {128,-22},{128,-181},{178,-181}},      color={0,0,127}));
   connect(TAirSup, frePro.TAirSup) annotation (Line(points={{-380,340},{-290,340},
           {-290,-195},{178,-195}}, color={0,0,127}));
@@ -1015,14 +1020,17 @@ equation
           {144,-310},{-380,-310}}, color={0,0,127}));
   connect(ashOutAirSet.VEffAirOut_flow_min, VEffAirOut_flow_min) annotation (
       Line(points={{-58,193},{250,193},{250,250},{380,250}}, color={0,0,127}));
-  connect(ecoCon.yRelDam, yRelDam) annotation (Line(points={{82,-46},{260,-46},{
-          260,60},{380,60}},  color={0,0,127}));
-  connect(frePro.yFreProSta, ecoCon.uFreProSta) annotation (Line(points={{202,-215},
-          {220,-215},{220,-80},{46,-80},{46,-59},{58,-59}},     color={255,127,0}));
-  connect(ecoCon.yOutDam, frePro.uOutDam) annotation (Line(points={{82,-52},{136,
-          -52},{136,-183},{178,-183}}, color={0,0,127}));
-  connect(ecoCon.yRetDam, frePro.uRetDam) annotation (Line(points={{82,-34},{144,
-          -34},{144,-193},{178,-193}}, color={0,0,127}));
+  connect(ecoCon.yRelDam, yRelDam) annotation (Line(points={{84,-46},{260,-46},
+          {260,60},{380,60}}, color={0,0,127}));
+  connect(frePro.yFreProSta, ecoCon.uFreProSta) annotation (Line(points={{202,
+          -215},{220,-215},{220,-80},{46,-80},{46,-59},{60,-59}},
+                                                                color={255,127,0}));
+  connect(ecoCon.yOutDam, frePro.uOutDam) annotation (Line(points={{84,-52},{
+          136,-52},{136,-183},{178,-183}},
+                                       color={0,0,127}));
+  connect(ecoCon.yRetDam, frePro.uRetDam) annotation (Line(points={{84,-34},{
+          144,-34},{144,-193},{178,-193}},
+                                       color={0,0,127}));
   connect(supSig.yHeaCoi, frePro.uHeaCoi) annotation (Line(points={{-58,410},{160,
           410},{160,-186},{178,-186}}, color={0,0,127}));
   connect(conSupFan.ySupFan, frePro.uSupFan) annotation (Line(points={{-198,510},
@@ -1036,7 +1044,7 @@ equation
   connect(frePro.yOutDam, yOutDam) annotation (Line(points={{202,-187},{270,-187},
           {270,30},{380,30}},
                             color={0,0,127}));
-  connect(ecoCon.yMinOutDam, frePro.uMinOutDam) annotation (Line(points={{82,-27},
+  connect(ecoCon.yMinOutDam, frePro.uMinOutDam) annotation (Line(points={{84,-27},
           {120,-27},{120,-189},{178,-189}}, color={0,0,127}));
   connect(frePro.yMinOutDam, yMinOutDam) annotation (Line(points={{202,-190},{230,
           -190},{230,160},{380,160}}, color={0,0,127}));
@@ -1093,23 +1101,23 @@ equation
   connect(conTSupSet.TAirSupSet, TAirSupSet) annotation (Line(points={{-138,450},
           {120,450},{120,500},{380,500}}, color={0,0,127}));
   connect(tit24OutAirSet.effAbsOutAir_normalized, ecoCon.effAbsOutAir_normalized)
-    annotation (Line(points={{-58,154},{28,154},{28,-31},{58,-31}}, color={0,0,127}));
+    annotation (Line(points={{-58,154},{28,154},{28,-31},{60,-31}}, color={0,0,127}));
   connect(tit24OutAirSet.effDesOutAir_normalized, ecoCon.effDesOutAir_normalized)
-    annotation (Line(points={{-58,146},{22,146},{22,-33},{58,-33}}, color={0,0,127}));
-  connect(uCO2Loo_max, ecoCon.uCO2Loo_max) annotation (Line(points={{-380,-30},{
-          -132,-30},{-132,-35},{58,-35}}, color={0,0,127}));
+    annotation (Line(points={{-58,146},{22,146},{22,-33},{60,-33}}, color={0,0,127}));
+  connect(uCO2Loo_max, ecoCon.uCO2Loo_max) annotation (Line(points={{-380,-30},
+          {-132,-30},{-132,-35},{60,-35}},color={0,0,127}));
   connect(uCO2Loo_max, tit24OutAirSet.uCO2Loo_max) annotation (Line(points={{-380,
           -30},{-132,-30},{-132,147},{-82,147}}, color={0,0,127}));
   connect(tit24OutAirSet.effOutAir_normalized, ecoCon.VOutMinSet_flow_normalized)
-    annotation (Line(points={{-58,144},{40,144},{40,-21},{58,-21}}, color={0,0,127}));
+    annotation (Line(points={{-58,144},{40,144},{40,-21},{60,-21}}, color={0,0,127}));
   connect(VAirOut_flow, tit24OutAirSet.VAirOut_flow) annotation (Line(points={{-380,96},
           {-126,96},{-126,142},{-82,142}},     color={0,0,127}));
   connect(VAirOut_flow, ashOutAirSet.VAirOut_flow) annotation (Line(points={{-380,96},
           {-126,96},{-126,182},{-82,182}},     color={0,0,127}));
   connect(ashOutAirSet.outAir_normalized, ecoCon.VOut_flow_normalized)
-    annotation (Line(points={{-58,182},{34,182},{34,-23},{58,-23}}, color={0,0,127}));
+    annotation (Line(points={{-58,182},{34,182},{34,-23},{60,-23}}, color={0,0,127}));
   connect(tit24OutAirSet.outAir_normalized, ecoCon.VOut_flow_normalized)
-    annotation (Line(points={{-58,141},{34,141},{34,-23},{58,-23}}, color={0,0,127}));
+    annotation (Line(points={{-58,141},{34,141},{34,-23},{60,-23}}, color={0,0,127}));
   connect(VSumZonDesMin_flow, tit24OutAirSet.VSumZonDesMin_flow) annotation (
       Line(points={{-380,126},{-138,126},{-138,153},{-82,153}}, color={0,0,127}));
   connect(VSumZonAbsMin_flow, tit24OutAirSet.VSumZonAbsMin_flow)
@@ -1127,8 +1135,8 @@ equation
   connect(uAhuOpeMod, conTSupSet.uOpeMod) annotation (Line(points={{-380,560},{-240,
           560},{-240,443},{-162,443}}, color={255,127,0}));
   connect(uAhuOpeMod, ecoCon.uOpeMod) annotation (Line(points={{-380,560},{-240,
-          560},{-240,-57},{58,-57}}, color={255,127,0}));
-  connect(ecoCon.y1MinOutDam, frePro.u1MinOutDam) annotation (Line(points={{82,-29},
+          560},{-240,-57},{60,-57}}, color={255,127,0}));
+  connect(ecoCon.y1MinOutDam, frePro.u1MinOutDam) annotation (Line(points={{84,-29},
           {112,-29},{112,-191},{178,-191}},      color={255,0,255}));
   connect(frePro.y1MinOutDam, y1MinOutDam) annotation (Line(points={{202,-192},{
           240,-192},{240,130},{380,130}}, color={255,0,255}));
