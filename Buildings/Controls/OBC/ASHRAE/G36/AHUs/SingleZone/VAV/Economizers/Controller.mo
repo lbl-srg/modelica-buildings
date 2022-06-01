@@ -275,7 +275,10 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon) "High limits"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=-1)
+    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
+    "Dummy block"
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 equation
   connect(u1SupFan, enaDis.u1SupFan) annotation (Line(points={{-160,-90},{-120,-90},
           {-120,-70},{18,-70}}, color={255,0,255}));
@@ -284,7 +287,7 @@ equation
   connect(hOut, enaDis.hOut)
     annotation (Line(points={{-160,140},{-4,140},{-4,-65},{18,-65}},   color={0,0,127}));
   connect(TOut, enaDis.TOut)
-    annotation (Line(points={{-160,220},{4,220},{4,-61},{18,-61}},      color={0,0,127}));
+    annotation (Line(points={{-160,220},{-68,220},{-68,-61},{18,-61}},  color={0,0,127}));
   connect(u1SupFan, damLim.u1SupFan) annotation (Line(points={{-160,-90},{-120,-90},
           {-120,10},{-102,10}}, color={255,0,255}));
   connect(uOpeMod, damLim.uOpeMod)
@@ -333,6 +336,10 @@ equation
           {-52,-24},{-42,-24}}, color={0,0,127}));
   connect(hAirRet, ecoHigLim.hRet) annotation (Line(points={{-160,110},{-56,110},
           {-56,-36},{-42,-36}}, color={0,0,127}));
+  connect(TOut, addPar.u) annotation (Line(points={{-160,220},{-68,220},{-68,-110},
+          {-42,-110}}, color={0,0,127}));
+  connect(addPar.y, enaDis.TCut) annotation (Line(points={{-18,-110},{0,-110},{0,
+          -63},{18,-63}}, color={0,0,127}));
 annotation (defaultComponentName = "conEco",
         Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
              graphics={Rectangle(
