@@ -1,5 +1,4 @@
 within Buildings.Fluid.ZoneEquipment;
-
 block useCase_singleLayer
 
   replaceable package MediumA = Buildings.Media.Air
@@ -108,8 +107,7 @@ block useCase_singleLayer
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=1/fCUSizing.mHotWat_flow_nominal)
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[3](p=fill(273.15, 3), k=fill(
-        1, 3))
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[3](p=fill(273.15, 3))
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -190,5 +188,4 @@ equation
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"));
-
 end useCase_singleLayer;
