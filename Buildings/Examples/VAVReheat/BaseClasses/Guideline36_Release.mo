@@ -75,7 +75,10 @@ model Guideline36_Release
     minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
     buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
-    have_perZonRehBox=true) "Air handler unit controller"
+    have_perZonRehBox=true,
+    VUncDesOutAir_flow=0.644,
+    VDesTotOutAir_flow=1.107)
+                            "Air handler unit controller"
     annotation (Placement(transformation(extent={{460,460},{540,636}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone
@@ -151,8 +154,8 @@ model Guideline36_Release
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(final
       nout=numZon) "Supply fan commanded on"
     annotation (Placement(transformation(extent={{640,538},{660,558}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant hotWatPla[numZon](final k
-      =fill(true, numZon)) "Hot water plant status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant hotWatPla[numZon](final k=
+       fill(true, numZon)) "Hot water plant status"
     annotation (Placement(transformation(extent={{500,160},{520,180}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum preRetReq(nin=numZon)
     "Zone pressure reset request"
@@ -391,10 +394,10 @@ equation
   connect(mulAHUCon.y1SupFan, sysHysCoo.sysOn) annotation (Line(points={{544,
           548},{602,548},{602,-316},{-8,-316},{-8,-244},{18,-244}}, color={255,
           0,255}));
-  connect(valHeaCoi.y_actual, mulAHUCon.uHeaCoi_actual) annotation (Line(points
-        ={{121,-205},{121,-190},{432,-190},{432,462},{456,462}}, color={0,0,127}));
-  connect(valCooCoi.y_actual, mulAHUCon.uCooCoi_actual) annotation (Line(points
-        ={{213,-205},{213,-190},{432,-190},{432,466},{456,466}}, color={0,0,127}));
+  connect(valHeaCoi.y_actual, mulAHUCon.uHeaCoi_actual) annotation (Line(points=
+         {{121,-205},{121,-190},{432,-190},{432,462},{456,462}}, color={0,0,127}));
+  connect(valCooCoi.y_actual, mulAHUCon.uCooCoi_actual) annotation (Line(points=
+         {{213,-205},{213,-190},{432,-190},{432,466},{456,466}}, color={0,0,127}));
   connect(mulAHUCon.yRetDam, damRet.y) annotation (Line(points={{544,574},{566,
           574},{566,40},{-20,40},{-20,-10},{-12,-10}}, color={0,0,127}));
   connect(mulAHUCon.yOutDam, damOut.y) annotation (Line(points={{544,562},{560,
