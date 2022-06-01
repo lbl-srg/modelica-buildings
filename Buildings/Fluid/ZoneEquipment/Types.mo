@@ -1,4 +1,5 @@
 within Buildings.Fluid.ZoneEquipment;
+
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
@@ -27,6 +28,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
   type capacityControl = enumeration(
       multispeedCyclingFanConstantWater "Multi-speed cycling fan with constant water flow rate",
       constantSpeedContinuousFanVariableWater "Constant speed continuous fan with variable water flow rate",
@@ -69,7 +71,9 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
 annotation (Documentation(info="<html>
 This package contains type definitions.
 </html>"));
+
 end Types;

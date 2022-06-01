@@ -1,4 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.Data;
+
 record FCUSizing
 
   extends Modelica.Icons.Record;
@@ -81,4 +82,5 @@ record FCUSizing
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
+
 end FCUSizing;
