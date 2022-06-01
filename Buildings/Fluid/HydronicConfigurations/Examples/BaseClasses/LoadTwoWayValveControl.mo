@@ -1,6 +1,6 @@
 within Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses;
-model LoadThreeWayValveControl
-  "Model of a load on hydronic circuit with flow rate modulation by three-way valve"
+model LoadTwoWayValveControl
+  "Model of a load on hydronic circuit with flow rate modulation by two-way valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal);
@@ -90,7 +90,7 @@ model LoadThreeWayValveControl
     final energyDynamics=energyDynamics)
     "Load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  ActiveNetworks.Diversion con(
+  ActiveNetworks.Throttle  con(
     final dat=dat, use_lumFloRes=true)
     "Diversion connection"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -129,10 +129,7 @@ equation
         Polygon(
           points={{40,10},{40,-10},{60,0},{40,10}},
           lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
+          lineThickness=0.5),
         Polygon(
           points={{-10,10},{-10,-10},{10,0},{-10,10}},
           lineColor={0,0,0},
@@ -141,19 +138,6 @@ equation
           rotation=180),
         Line(
           points={{-100,0},{-72,0}},
-          color={0,0,0},
-          thickness=0.5),
-        Polygon(
-          points={{-10,10},{-10,-10},{10,0},{-10,10}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={60,-10},
-          rotation=90,
-          pattern=LinePattern.None),
-        Line(
-          points={{-82,0},{-82,-70},{60,-70},{60,-20}},
           color={0,0,0},
           thickness=0.5),
         Line(
@@ -174,18 +158,6 @@ equation
           extent={{50,30},{70,10}},
           lineColor={0,0,0},
           lineThickness=0.5),
-        Ellipse(
-          extent={{-32,82},{-12,62}},
-          lineColor={0,0,0},
-          lineThickness=0.5),
-        Rectangle(
-          extent={{10,82},{50,62}},
-          lineColor={0,0,0},
-          lineThickness=0.5),
-        Line(
-          points={{10,82},{30,72},{10,62}},
-          color={0,0,0},
-          thickness=0.5),
         Line(
           points={{-22,50},{-22,62}},
           color={0,0,0},
@@ -196,10 +168,22 @@ equation
           thickness=0.5,
           pattern=LinePattern.Dot),
         Line(
+          points={{10,82},{30,72},{10,62}},
+          color={0,0,0},
+          thickness=0.5),
+        Rectangle(
+          extent={{10,82},{50,62}},
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(
           points={{50,72},{60,72},{60,30}},
           color={0,0,0},
           pattern=LinePattern.Dot,
           thickness=0.5),
+        Ellipse(
+          extent={{-32,82},{-12,62}},
+          lineColor={0,0,0},
+          lineThickness=0.5),
         Line(
           points={{-22,68},{-22,76}},
           color={0,0,0},
@@ -209,4 +193,4 @@ equation
           color={0,0,0},
           thickness=1)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end LoadThreeWayValveControl;
+end LoadTwoWayValveControl;

@@ -33,13 +33,23 @@ record Generic "Record for hydronic configuration"
     "Secondary balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Balancing valves"));
 
+  parameter Actuators.Valves.Data.Generic flowCharacteristics(
+    y={0,1},
+    phi={0.0001,1})
+    "Table with flow characteristics"
+     annotation (
+     Dialog(group="Control valve",
+     enable=typVal==Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay
+     and typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
+     choicesAllMatching=true);
   parameter Actuators.Valves.Data.Generic flowCharacteristics1(
     y={0,1},
     phi={0.0001,1})
     "Table with flow characteristics for direct flow path at port_1"
      annotation (
      Dialog(group="Control valve",
-     enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
+     enable=typVal==Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay
+     and typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
      choicesAllMatching=true);
   parameter Actuators.Valves.Data.Generic flowCharacteristics3(
     y={0,1},
@@ -47,7 +57,8 @@ record Generic "Record for hydronic configuration"
     "Table with flow characteristics for bypass flow path at port_3"
     annotation (
     Dialog(group="Control valve",
-    enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
+     enable=typVal==Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay
+     and typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
     choicesAllMatching=true);
 
   replaceable parameter Movers.Data.Generic pum

@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
-model ThrottleOpenLoop
+model ThrottleTwoWayTest
   "Model illustrating the operation of throttle circuits with variable speed pump"
   extends Modelica.Icons.Example;
 
@@ -16,24 +16,17 @@ model ThrottleOpenLoop
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
     "Terminal unit mass flow rate at design conditions";
-  parameter Modelica.Units.SI.Pressure dpTer_nominal(
-    final min=0,
-    displayUnit="Pa") = 3E4
+  parameter Modelica.Units.SI.Pressure dpTer_nominal(displayUnit="Pa")=3E4
     "Liquid pressure drop across terminal unit at design conditions";
   parameter Modelica.Units.SI.Pressure dpValve_nominal(
     final min=0,
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpPip_nominal(
-    final min=0,
-    displayUnit="Pa") = 0.5E4
+  parameter Modelica.Units.SI.Pressure dpPip_nominal(displayUnit="Pa")=0.5E4
     "Pipe section (before first circuit) pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpPip1_nominal(
-    final min=0,
-    displayUnit="Pa") = 3E4
+  parameter Modelica.Units.SI.Pressure dpPip1_nominal(displayUnit="Pa")=3E4
     "Pipe section (between two circuits) pressure drop at design conditions";
-  parameter Real kSizPum(
-    final unit="1") = 1.0
+  parameter Real kSizPum(unit="1")=1.0
     "Pump oversizing coefficient";
   final parameter Modelica.Units.SI.Pressure dpPum_nominal(
     final min=0,
@@ -43,14 +36,14 @@ model ThrottleOpenLoop
   parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal= (2 * mTer_flow_nominal)*1.1
     "Pump mass flow rate at design conditions";
 
-  parameter Modelica.Units.SI.Pressure p_min = 2E5
+  parameter Modelica.Units.SI.Pressure p_min=200000
     "Circuit minimum pressure";
 
-  parameter Modelica.Units.SI.Temperature TAirEnt_nominal = 20 + 273.15
+  parameter Modelica.Units.SI.Temperature TAirEnt_nominal=293.15
     "Air entering temperature at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal = 60 + 273.15
+  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=333.15
     "Hot water entering temperature at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal = 50 + 273.15
+  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=323.15
     "Hot water leaving temperature at design conditions";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
@@ -77,7 +70,8 @@ model ThrottleOpenLoop
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Circulation pump"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Throttle con(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.ThrottleTwoWayTest
+           con(
     redeclare final package Medium=MediumLiq,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
@@ -102,7 +96,8 @@ model ThrottleOpenLoop
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Throttle con1(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.ThrottleTwoWayTest
+           con1(
     final use_lumFloRes=false,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
@@ -405,4 +400,4 @@ and a bypass branch either balanced (right plot) or not (left plot).
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-100},{120,100}})));
-end ThrottleOpenLoop;
+end ThrottleTwoWayTest;

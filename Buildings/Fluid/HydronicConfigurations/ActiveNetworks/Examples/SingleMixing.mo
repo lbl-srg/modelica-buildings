@@ -189,26 +189,6 @@ model SingleMixing
     final k=1)
     "One"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Sensors.TemperatureTwoPort TSecSup(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=m2_flow_nominal,
-    T_start=TLiqEnt_nominal)
-    "Supply temperature sensor"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={20,40})));
-  Sensors.TemperatureTwoPort TSecRet(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=m2_flow_nominal,
-    T_start=TLiqLvg_nominal)
-    "Return temperature sensor"
-    annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={40,20})));
 equation
   connect(ref.ports[1], pum.port_a) annotation (Line(points={{-81,-80},{-100,-80},
           {-100,-60},{-90,-60}},
@@ -257,18 +237,14 @@ equation
   connect(one.y, min.u1) annotation (Line(points={{-98,10},{-88,10},{-88,-14},{-82,
           -14}},
                color={255,127,0}));
-  connect(con.port_b2, TSecSup.port_a)
-    annotation (Line(points={{4,10},{4,40},{10,40}}, color={0,127,255}));
-  connect(TSecSup.port_b, loa.port_a)
-    annotation (Line(points={{30,40},{40,40},{40,80}}, color={0,127,255}));
-  connect(TSecSup.port_b, res1.port_a)
-    annotation (Line(points={{30,40},{70,40}}, color={0,127,255}));
-  connect(loa1.port_b, TSecRet.port_a)
-    annotation (Line(points={{120,80},{120,20},{50,20}}, color={0,127,255}));
-  connect(TSecRet.port_b, con.port_a2)
-    annotation (Line(points={{30,20},{16,20},{16,9.8}}, color={0,127,255}));
-  connect(loa.port_b, TSecRet.port_a)
-    annotation (Line(points={{60,80},{60,20},{50,20}}, color={0,127,255}));
+  connect(con.port_b2, loa.port_a) annotation (Line(points={{4,10},{4,40},{40,
+          40},{40,80}}, color={0,127,255}));
+  connect(loa.port_b, con.port_a2)
+    annotation (Line(points={{60,80},{60,9.8},{16,9.8}}, color={0,127,255}));
+  connect(loa1.port_b, con.port_a2)
+    annotation (Line(points={{120,80},{120,9.8},{16,9.8}}, color={0,127,255}));
+  connect(con.port_b2, res1.port_a)
+    annotation (Line(points={{4,10},{4,40},{70,40}}, color={0,127,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),

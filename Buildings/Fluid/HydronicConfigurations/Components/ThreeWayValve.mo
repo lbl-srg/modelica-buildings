@@ -4,17 +4,14 @@ model ThreeWayValve "Container class for three-way valves"
     final massDynamics=energyDynamics,
     final mSenFac=1);
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+    rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic
     typCha=Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Valve characteristic"
     annotation (Dialog(group="Configuration"), Evaluate=true);
 
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
-  parameter Actuators.Valves.Data.Generic flowCharacteristics1(
+  parameter Buildings.Fluid.Actuators.Valves.Data.Generic flowCharacteristics1(
     y={0,1},
     phi={0.0001,1})
     "Table with flow characteristics for direct flow path at port_1"
@@ -22,7 +19,7 @@ model ThreeWayValve "Container class for three-way valves"
      Dialog(enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
      choicesAllMatching=true, Placement(transformation(extent={{30,72},
             {50,92}})));
-  parameter Actuators.Valves.Data.Generic flowCharacteristics3(
+  parameter Buildings.Fluid.Actuators.Valves.Data.Generic flowCharacteristics3(
     y={0,1},
     phi={0.0001,1})
     "Table with flow characteristics for bypass flow path at port_3"
@@ -203,7 +200,7 @@ model ThreeWayValve "Container class for three-way valves"
     final y_start=y_start) if typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
     "Three-way valve with linear characteristics"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-  Actuators.Valves.ThreeWayTable valEquLin1(
+  Actuators.Valves.ThreeWayTable valTab(
     redeclare final package Medium = Medium,
     final flowCharacteristics1=flowCharacteristics1,
     final flowCharacteristics3=flowCharacteristics3,
@@ -230,8 +227,8 @@ model ThreeWayValve "Container class for three-way valves"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final y_start=y_start) if typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
-    "Three-way valve with equal percentage and linear characteristics"
+    final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
+    "Three-way valve with table-specified characteristics"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
 equation
@@ -252,15 +249,15 @@ equation
           52}}, color={0,0,127}));
   connect(valLinLin.port_3, port_3) annotation (Line(points={{-60,30},{-60,-80},
           {0,-80},{0,-100}}, color={0,127,255}));
-  connect(y, valEquLin1.y) annotation (Line(points={{0,120},{0,60},{60,60},{60,-28}},
+  connect(y, valTab.y) annotation (Line(points={{0,120},{0,60},{60,60},{60,-28}},
         color={0,0,127}));
-  connect(valEquLin1.port_1, port_1) annotation (Line(points={{50,-40},{-80,-40},
-          {-80,0},{-100,0}}, color={0,127,255}));
-  connect(port_3, valEquLin1.port_3) annotation (Line(points={{0,-100},{0,-80},{
-          60,-80},{60,-50}}, color={0,127,255}));
-  connect(valEquLin1.port_2, port_2) annotation (Line(points={{70,-40},{80,-40},
-          {80,0},{100,0}}, color={0,127,255}));
-  connect(valEquLin1.y_actual, y_actual) annotation (Line(points={{65,-33},{90,-33},
+  connect(valTab.port_1, port_1) annotation (Line(points={{50,-40},{-80,-40},{-80,
+          0},{-100,0}}, color={0,127,255}));
+  connect(port_3, valTab.port_3) annotation (Line(points={{0,-100},{0,-80},{60,
+          -80},{60,-50}}, color={0,127,255}));
+  connect(valTab.port_2, port_2) annotation (Line(points={{70,-40},{80,-40},{80,
+          0},{100,0}}, color={0,127,255}));
+  connect(valTab.y_actual, y_actual) annotation (Line(points={{65,-33},{90,-33},
           {90,60},{120,60}}, color={0,0,127}));
   connect(valLinLin.y_actual, y_actual) annotation (Line(points={{-55,47},{90,47},
           {90,60},{120,60}}, color={0,0,127}));
@@ -341,5 +338,9 @@ equation
       visible=use_inputFilter,
       points={{-30,40},{30,40}}),
             Line(
-      points={{0,40},{0,0}})}));
+      points={{0,40},{0,0}}),
+        Text(
+          extent={{-149,-114},{151,-154}},
+          textColor={0,0,255},
+          textString="%name")}));
 end ThreeWayValve;

@@ -1,0 +1,32 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayValve", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="InjectionTwoWayValve");
+
+createPlot(id=1, position={14, 11, 1181, 908}, y={"set.y", "con.T2Sup.T", "con.T2Ret.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
+
+createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.m2_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+plotExpression(apply(InjectionTwoWayValve.loa.loa.Q_flow/InjectionTwoWayValve.loa.loa.Q_flow_nominal), false, "loa.Q_flow/loa.Q_flow_nominal");
+plotExpression(apply(InjectionTwoWayValve.loa1.loa.Q_flow/InjectionTwoWayValve.loa1.loa.Q_flow_nominal), false, "loa1.Q_flow/loa1.Q_flow_nominal");
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
+
+
+// Delta-T function of the load
+q_flow_nom = readTrajectory("InjectionTwoWayValve.mat", {"loa.loa.Q_flow_nominal"}, 1);
+q1_flow_nom = readTrajectory("InjectionTwoWayValve.mat", {"loa1.loa.Q_flow_nominal"}, 1);
+TEnt_nom = readTrajectory("InjectionTwoWayValve.mat", {"loa1.loa.TLiqEnt_nominal"}, 1);
+TLvg_nom = readTrajectory("InjectionTwoWayValve.mat", {"loa1.loa.TLiqLvg_nominal"}, 1);
+mPri_flow_nom = readTrajectory("InjectionTwoWayValve.mat", {"con.dat.m1_flow_nominal"}, 1);
+mSec_flow_nom = readTrajectory("InjectionTwoWayValve.mat", {"con.dat.m2_flow_nominal"}, 1);
+dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
+dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
+q_flow = readTrajectory("InjectionTwoWayValve.mat", {"loa.loa.Q_flow"}, nPoints);
+q1_flow = readTrajectory("InjectionTwoWayValve.mat", {"loa1.loa.Q_flow"}, nPoints);
+dT = readTrajectory("InjectionTwoWayValve.mat", {"delT.y"}, nPoints);
+ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
+
+createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
+plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="delT.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray({1}, {dTPri_nom}, id=6, erase=false, legend="Design operating point", color={238,46,47});
+plotArray({0, 1}, {0, dTPri_nom}, id=6, erase=false, legend="Linear trend", color={0,140,72}, pattern=LinePattern.Dash);

@@ -6,10 +6,14 @@ record Configuration "Record with configuration parameters"
     "Set to true in case of a fixed bypass"
     annotation(Dialog(group="Configuration", enable=false), Evaluate=true);
 
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Valve typVal
+    "Type of control valve"
+    annotation(Dialog(group="Control valve"), Evaluate=true);
+
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Control valve characteristic"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
+    annotation(Dialog(group="Control valve"), Evaluate=true);
 
   parameter Boolean have_ctl = false
     "Set to true in case of built-in controls"
@@ -31,7 +35,13 @@ record Configuration "Record with configuration parameters"
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typFun(
     start=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating)
-    "Circuit function (for built-in controls)"
+    "Circuit function (in case of built-in controls)"
     annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
+
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlVariable typCtl=
+    Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
+    "Controlled variable (in case of built-in controls)"
+    annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
+
   annotation (defaultComponentName="cfg");
 end Configuration;

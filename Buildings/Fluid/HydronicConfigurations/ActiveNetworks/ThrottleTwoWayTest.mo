@@ -1,16 +1,15 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
-model Throttle "Throttle circuit"
+model ThrottleTwoWayTest "Throttle circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
       dat(dpValve_nominal=dp2_nominal, m1_flow_nominal=m2_flow_nominal),
-    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
-    final have_bypFix=true,
-    final have_pum=false,
-    final have_ctl=false);
+      final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
+      final have_bypFix=true,
+      final have_pum=false,
+      final have_ctl=false);
 
-  Buildings.Fluid.HydronicConfigurations.Components.TwoWayValve val(
+  Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium,
-    final typCha=typCha,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
@@ -59,4 +58,4 @@ Lumped flow resistance includes consumer circuit AND primary balancing
 valve.
 </p>
 </html>"));
-end Throttle;
+end ThrottleTwoWayTest;

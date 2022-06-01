@@ -19,6 +19,7 @@ model PartialHydronicConfiguration
   */
   parameter Buildings.Fluid.HydronicConfigurations.Data.Generic dat(
     have_bypFix=have_bypFix,
+    typVal=typVal,
     typCha=typCha,
     have_ctl=have_ctl,
     typFun=typFun,

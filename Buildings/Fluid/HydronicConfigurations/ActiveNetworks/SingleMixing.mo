@@ -3,6 +3,7 @@ model SingleMixing "Single mixing circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
       dat(m1_flow_nominal=m2_flow_nominal),
+      final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
       final have_bypFix=false,
       final have_pum=true);
 
@@ -85,13 +86,13 @@ model SingleMixing "Single mixing circuit"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,40})));
-  Sensors.TemperatureTwoPort TSup(
+  Sensors.TemperatureTwoPort T2Sup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    tau=if energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState then 0 else 1)
-    "Secondary supply temperature sensor"
-    annotation (Placement(transformation(
+    tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
+         else 1) "Consumer circuit supply temperature sensor" annotation (
+      Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,60})));
@@ -119,7 +120,7 @@ model SingleMixing "Single mixing circuit"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1)
     if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
     "one"
-    annotation (Placement(transformation(extent={{50,60},{30,80}})));
+    annotation (Placement(transformation(extent={{50,70},{30,90}})));
 equation
   connect(jun.port_3, val.port_3)
     annotation (Line(points={{50,-40},{-50,-40}}, color={0,127,255}));
@@ -127,9 +128,9 @@ equation
     annotation (Line(points={{60,-100},{60,-80}}, color={0,127,255}));
   connect(port_a2, bal2.port_a)
     annotation (Line(points={{60,100},{60,60}}, color={0,127,255}));
-  connect(pum.port_b, TSup.port_a)
+  connect(pum.port_b, T2Sup.port_a)
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
-  connect(TSup.port_b, port_b2)
+  connect(T2Sup.port_b, port_b2)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
   connect(ctl.y, val.y) annotation (Line(points={{12,-20},{20,-20},{20,-60},{-80,
           -60},{-80,-40},{-72,-40}},
@@ -137,7 +138,7 @@ equation
   connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-90,80},{-90,-56},{-6,
           -56},{-6,-32}},
         color={255,127,0}));
-  connect(TSup.T, ctl.u_m) annotation (Line(points={{-49,60},{-20,60},{-20,-36},
+  connect(T2Sup.T, ctl.u_m) annotation (Line(points={{-49,60},{-20,60},{-20,-36},
           {0,-36},{0,-32}}, color={0,0,127}));
   connect(set, ctl.u_s) annotation (Line(points={{-120,-40},{-94,-40},{-94,-20},
           {-12,-20}}, color={0,0,127}));
@@ -145,15 +146,17 @@ equation
           -40}},              color={0,0,127}));
   connect(mod, isEna.u)
     annotation (Line(points={{-120,80},{-42,80}}, color={255,127,0}));
-  connect(isEna.y, swi.u2) annotation (Line(points={{-18,80},{26,80},{26,40},{12,
-          40}}, color={255,0,255}));
+  connect(isEna.y, swi.u2) annotation (Line(points={{-18,80},{16,80},{16,40},{
+          12,40}},
+                color={255,0,255}));
   connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-84,40},{-84,56},{20,
           56},{20,48},{12,48}}, color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{28,32},{12,32}}, color={0,0,127}));
   connect(swi.y, pum.y)
     annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
-  connect(One.y, swi.u1) annotation (Line(points={{28,70},{20,70},{20,48},{12,48}},
+  connect(One.y, swi.u1) annotation (Line(points={{28,80},{20,80},{20,48},{12,
+          48}},
         color={0,0,127}));
   connect(jun.port_2, bal1.port_a)
     annotation (Line(points={{60,-50},{60,-60}}, color={0,127,255}));

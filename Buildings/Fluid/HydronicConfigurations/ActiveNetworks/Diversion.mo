@@ -3,6 +3,7 @@ model Diversion "Diversion circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
       dat(dpValve_nominal=dp2_nominal, m1_flow_nominal=m2_flow_nominal),
+      final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
       final have_bypFix=false,
       final have_pum=false,
       final have_ctl=false);

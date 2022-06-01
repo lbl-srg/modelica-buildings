@@ -3,13 +3,13 @@ model DiversionOpenLoop
   "Model illustrating the operation of diversion circuits with constant speed pump"
   extends Modelica.Icons.Example;
 
+  package MediumLiq = Buildings.Media.Water
+    "Medium model for hot water";
+
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Control valve characteristic"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-
-  package MediumLiq = Buildings.Media.Water
-    "Medium model for hot water";
 
   parameter Boolean is_bal = false
     "Set to true for a balanced bypass branch";
@@ -223,7 +223,7 @@ equation
   connect(TSup.T, delT.u2)
     annotation (Line(points={{-50,-51},{-50,-86},{-2,-86}}, color={0,0,127}));
    annotation (experiment(
-    StopTime=200,
+    StopTime=300,
     Tolerance=1e-6),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop.mos"

@@ -90,8 +90,8 @@ model Pump "Container class for circulation pumps"
         rotation=-90,
         origin={0,120})));
 
-  Movers.FlowControlled_dp pum_dp(
-    redeclare final package Medium=Medium,
+  Movers.FlowControlled_dp pumDp(
+    redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
@@ -106,12 +106,13 @@ model Pump "Container class for circulation pumps"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final per=per) if typ==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head
+    final per=per)
+    if typ == Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head
     "Pump with ideally controlled head as input signal"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
-  Movers.SpeedControlled_y pum_y(
-    redeclare final package Medium=Medium,
+  Movers.SpeedControlled_y pumSpe(
+    redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
@@ -134,7 +135,7 @@ model Pump "Container class for circulation pumps"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,62})));
-  Movers.SpeedControlled_Nrpm pum_Nrpm(
+  Movers.SpeedControlled_Nrpm pumRot(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final p_start=p_start,
@@ -162,7 +163,7 @@ model Pump "Container class for circulation pumps"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,60})));
-  Movers.FlowControlled_m_flow pum_m_flow(
+  Movers.FlowControlled_m_flow pumFlo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -191,7 +192,7 @@ model Pump "Container class for circulation pumps"
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
     "Volume flow rate"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 protected
   final parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
@@ -207,67 +208,64 @@ protected
       Medium.specificEnthalpy(sta_start) "Start value for outflowing enthalpy";
 
 equation
-  connect(port_a, pum_dp.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,
-          20},{-70,20}}, color={0,127,255}));
-  connect(pum_dp.port_b, port_b) annotation (Line(points={{-50,20},{80,20},{80,0},
+  connect(pumDp.port_b, port_b) annotation (Line(points={{-50,20},{80,20},{80,0},
           {100,0}}, color={0,127,255}));
-  connect(port_a, pum_y.port_a) annotation (Line(points={{-100,0},{-30,0}},
-                     color={0,127,255}));
-  connect(pum_y.port_b, port_b) annotation (Line(points={{-10,0},{100,0}},
-                    color={0,127,255}));
-  connect(pum_dp.heatPort, heatPort) annotation (Line(points={{-60,13.2},{-60,-80},
+  connect(pumSpe.port_b, port_b)
+    annotation (Line(points={{-10,0},{100,0}}, color={0,127,255}));
+  connect(pumDp.heatPort, heatPort) annotation (Line(points={{-60,13.2},{-60,-80},
           {0,-80},{0,-100}}, color={191,0,0}));
-  connect(pum_y.heatPort, heatPort) annotation (Line(points={{-20,-6.8},{-20,-80},
+  connect(pumSpe.heatPort, heatPort) annotation (Line(points={{-20,-6.8},{-20,-80},
           {0,-80},{0,-100}}, color={191,0,0}));
-  connect(pum_dp.dp_in, mulDp.y)
+  connect(pumDp.dp_in, mulDp.y)
     annotation (Line(points={{-60,32},{-60,50}}, color={0,0,127}));
   connect(mulDp.u, y) annotation (Line(points={{-60,74},{-60,80},{0,80},{0,120}},
         color={0,0,127}));
   connect(y, mulNrpm.u) annotation (Line(points={{0,120},{0,80},{20,80},{20,72}},
         color={0,0,127}));
-  connect(mulNrpm.y, pum_Nrpm.Nrpm)
+  connect(mulNrpm.y, pumRot.Nrpm)
     annotation (Line(points={{20,48},{20,-8}}, color={0,0,127}));
   connect(y, mulY.u) annotation (Line(points={{0,120},{0,80},{-20,80},{-20,72}},
         color={0,0,127}));
-  connect(mulY.y, pum_y.y)
+  connect(mulY.y, pumSpe.y)
     annotation (Line(points={{-20,48},{-20,12}}, color={0,0,127}));
-  connect(port_a, pum_Nrpm.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,
-          -20},{10,-20}}, color={0,127,255}));
-  connect(pum_Nrpm.port_b, port_b) annotation (Line(points={{30,-20},{80,-20},{80,
+  connect(pumRot.port_b, port_b) annotation (Line(points={{30,-20},{80,-20},{80,
           0},{100,0}}, color={0,127,255}));
-  connect(pum_Nrpm.heatPort, heatPort) annotation (Line(points={{20,-26.8},{20,-80},
+  connect(pumRot.heatPort, heatPort) annotation (Line(points={{20,-26.8},{20,-80},
           {0,-80},{0,-100}}, color={191,0,0}));
-  connect(pum_m_flow.heatPort, heatPort) annotation (Line(points={{60,-46.8},{60,
-          -80},{0,-80},{0,-100}}, color={191,0,0}));
+  connect(pumFlo.heatPort, heatPort) annotation (Line(points={{60,-46.8},{60,-80},
+          {0,-80},{0,-100}}, color={191,0,0}));
   connect(y, mulFlo.u) annotation (Line(points={{0,120},{0,80},{60,80},{60,72}},
         color={0,0,127}));
-  connect(mulFlo.y, pum_m_flow.m_flow_in)
+  connect(mulFlo.y, pumFlo.m_flow_in)
     annotation (Line(points={{60,48},{60,-28}}, color={0,0,127}));
-  connect(port_a, pum_m_flow.port_a) annotation (Line(points={{-100,0},{-80,0},{
-          -80,-40},{50,-40}}, color={0,127,255}));
-  connect(pum_m_flow.port_b, port_b) annotation (Line(points={{70,-40},{80,-40},
-          {80,0},{100,0}}, color={0,127,255}));
-  connect(pum_dp.P, P) annotation (Line(points={{-49,29},{86,29},{86,90},{120,90}},
-                color={0,0,127}));
-  connect(pum_dp.y_actual, y_actual) annotation (Line(points={{-49,27},{90,27},{
-          90,70},{120,70}},    color={0,0,127}));
-  connect(pum_y.P, P) annotation (Line(points={{-9,9},{86,9},{86,90},{120,90}},
-        color={0,0,127}));
-  connect(pum_y.y_actual, y_actual) annotation (Line(points={{-9,7},{90,7},{90,70},
-          {120,70}},     color={0,0,127}));
-  connect(pum_Nrpm.P, P) annotation (Line(points={{31,-11},{86,-11},{86,90},{120,
-          90}},      color={0,0,127}));
-  connect(pum_Nrpm.y_actual, y_actual) annotation (Line(points={{31,-13},{90,-13},
-          {90,70},{120,70}},   color={0,0,127}));
-  connect(pum_m_flow.P, P)
-    annotation (Line(points={{71,-31},{86,-31},{86,90},{120,90}},
-                                                         color={0,0,127}));
-  connect(pum_m_flow.y_actual, y_actual) annotation (Line(points={{71,-33},{90,-33},
-          {90,70},{120,70}},    color={0,0,127}));
-  connect(port_a, V_flow.port_a) annotation (Line(points={{-100,0},{-92,0},{-92,
-          -60},{-10,-60}}, color={0,127,255}));
-  connect(V_flow.port_b, port_b) annotation (Line(points={{10,-60},{92,-60},{92,
+  connect(pumFlo.port_b, port_b) annotation (Line(points={{70,-40},{80,-40},{80,
           0},{100,0}}, color={0,127,255}));
+  connect(pumDp.P, P) annotation (Line(points={{-49,29},{86,29},{86,90},{120,90}},
+        color={0,0,127}));
+  connect(pumDp.y_actual, y_actual) annotation (Line(points={{-49,27},{90,27},{
+          90,70},{120,70}}, color={0,0,127}));
+  connect(pumSpe.P, P) annotation (Line(points={{-9,9},{86,9},{86,90},{120,90}},
+        color={0,0,127}));
+  connect(pumSpe.y_actual, y_actual) annotation (Line(points={{-9,7},{90,7},{90,
+          70},{120,70}}, color={0,0,127}));
+  connect(pumRot.P, P) annotation (Line(points={{31,-11},{86,-11},{86,90},{120,
+          90}}, color={0,0,127}));
+  connect(pumRot.y_actual, y_actual) annotation (Line(points={{31,-13},{90,-13},
+          {90,70},{120,70}}, color={0,0,127}));
+  connect(pumFlo.P, P) annotation (Line(points={{71,-31},{86,-31},{86,90},{120,
+          90}}, color={0,0,127}));
+  connect(pumFlo.y_actual, y_actual) annotation (Line(points={{71,-33},{90,-33},
+          {90,70},{120,70}}, color={0,0,127}));
+  connect(port_a, V_flow.port_a)
+    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
+  connect(V_flow.port_b, pumSpe.port_a)
+    annotation (Line(points={{-70,0},{-30,0}}, color={0,127,255}));
+  connect(V_flow.port_b, pumDp.port_a)
+    annotation (Line(points={{-70,0},{-70,20}}, color={0,127,255}));
+  connect(V_flow.port_b, pumRot.port_a)
+    annotation (Line(points={{-70,0},{-70,-20},{10,-20}}, color={0,127,255}));
+  connect(V_flow.port_b, pumFlo.port_a)
+    annotation (Line(points={{-70,0},{-70,-40},{50,-40}}, color={0,127,255}));
   annotation (
     defaultComponentName="pum",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

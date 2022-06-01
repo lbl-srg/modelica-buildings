@@ -1,6 +1,6 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
-model InjectionThreeWayValve
-  "Model illustrating the operation of an inversion circuit with three-way valve"
+model InjectionTwoWayValve
+  "Model illustrating the operation of an inversion circuit with two-way valve"
   extends Modelica.Icons.Example;
 
   package MediumLiq = Buildings.Media.Water
@@ -71,7 +71,7 @@ model InjectionThreeWayValve
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Circulation pump"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWayValve con(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWayValve   con(
     have_ctl=true,
     typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
@@ -82,8 +82,9 @@ model InjectionThreeWayValve
       final m1_flow_nominal=m1_flow_nominal,
       final m2_flow_nominal=m2_flow_nominal,
       final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
-      final dpBal1_nominal=(dpPum_nominal - dpPip_nominal - dpValve_nominal) *
-        (if is_bal then 1 else 0),
+
+      final dpBal1_nominal=(dpPum_nominal - dpPip_nominal - dpValve_nominal)*(
+          if is_bal then 1 else 0),
       ctl(k=0.1, Ti=60)))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -253,7 +254,7 @@ equation
     StopTime=86400,
     Tolerance=1e-6),
     __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/InjectionThreeWayValve.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/InjectionTwoWayValve.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -277,4 +278,4 @@ Each circuit is balanced at design conditions.
 
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-120},{140,120}})));
-end InjectionThreeWayValve;
+end InjectionTwoWayValve;
