@@ -7,8 +7,8 @@ model Guideline36_Release
       dpFixed_nominal=10),
     amb(nPorts=3));
 
-  parameter Modelica.Units.SI.VolumeFlowRate minZonPriFlo[numZon]=conVAV.VDisSetMin_flow
-    "Minimum expected zone primary flow rate";
+//   parameter Modelica.Units.SI.VolumeFlowRate minZonPriFlo[numZon]=conVAV.VDisSetMin_flow
+//     "Minimum expected zone primary flow rate";
   parameter Modelica.Units.SI.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
   parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")=
@@ -85,8 +85,8 @@ model Guideline36_Release
     sumZon(
     final nZon=numZon,
     final nZonGro=1,
-    final zonGroMat=[true,true,true,true,true],
-    final zonGroMatTra=[true; true; true; true; true])
+    final zonGroMat=[1,1,1,1,1],
+    final zonGroMatTra=[1; 1; 1; 1; 1])
     "Sum up zone ventilation setpoints"
            annotation (Placement(transformation(extent={{240,580},{260,600}})));
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode opeModSel(final
@@ -119,7 +119,8 @@ model Guideline36_Release
     annotation (Placement(transformation(extent={{20,300},{40,320}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller rehBoxCon[
     numZon](
-    venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    venSta=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+        numZon),
     have_winSen=fill(false, numZon),
     have_occSen=fill(false, numZon),
     have_CO2Sen=fill(false, numZon),
@@ -345,8 +346,6 @@ equation
     annotation (Line(points={{544,548},{638,548}}, color={255,0,255}));
   connect(booScaRep.y, rehBoxCon.u1Fan) annotation (Line(points={{662,548},{688,
           548},{688,234},{608,234},{608,181.2},{616,181.2}}, color={255,0,255}));
-  connect(intRep.y, sumZon.uOpeMod) annotation (Line(points={{42,310},{180,310},
-          {180,599},{238,599}}, color={255,127,0}));
   connect(rehBoxCon.VAdjPopBreZon_flow, sumZon.VAdjPopBreZon_flow) annotation (
       Line(points={{640,210},{720,210},{720,320},{200,320},{200,594},{238,594}},
         color={0,0,127}));
@@ -423,6 +422,8 @@ equation
           -60,360},{338,360}}, color={255,0,255}));
   connect(falEdg.y, mulAHUCon.u1SofSwiRes) annotation (Line(points={{362,360},{
           396,360},{396,508},{456,508}}, color={255,0,255}));
+  connect(opeModSel.yOpeMod, sumZon.uOpeMod[1]) annotation (Line(points={{-18,
+          400},{180,400},{180,599},{238,599}}, color={255,127,0}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1420,
