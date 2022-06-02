@@ -134,7 +134,7 @@ model Guideline36_Release
     VHeaMin_flow=fill(0, numZon),
     VHeaMax_flow=mHeaVAV_flow_nominal/1.2)
                                      "Reheat box control"
-    annotation (Placement(transformation(extent={{618,178},{638,218}})));
+    annotation (Placement(transformation(extent={{620,180},{640,220}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TSupAHU(final nout=
         numZon) "Replicate AHU supply temperature" annotation (Placement(
@@ -312,55 +312,55 @@ equation
   connect(demLimLev.y, TZonSet.uHeaDemLimLev) annotation (Line(points={{-278,
           240},{0,240},{0,249},{78,249}}, color={255,127,0}));
   connect(TRoo, rehBoxCon.TZon) annotation (Line(points={{-400,320},{-136,320},
-          {-136,217},{616,217}}, color={0,0,127}));
+          {-136,219},{618,219}}, color={0,0,127}));
   connect(TZonSet.TCooSet, rehBoxCon.TCooSet) annotation (Line(points={{102,268},
-          {160,268},{160,215},{616,215}}, color={0,0,127}));
+          {160,268},{160,217},{618,217}}, color={0,0,127}));
   connect(TZonSet.THeaSet, rehBoxCon.THeaSet) annotation (Line(points={{102,260},
-          {156,260},{156,213},{616,213}}, color={0,0,127}));
+          {156,260},{156,215},{618,215}}, color={0,0,127}));
   connect(intRep.y, rehBoxCon.uOpeMod) annotation (Line(points={{42,310},{180,
-          310},{180,206},{616,206}}, color={255,127,0}));
+          310},{180,208},{618,208}}, color={255,127,0}));
   connect(VAVBox.TSup, rehBoxCon.TDis) annotation (Line(points={{762,48},{780,
-          48},{780,120},{440,120},{440,200},{616,200}}, color={0,0,127}));
+          48},{780,120},{440,120},{440,202},{618,202}}, color={0,0,127}));
   connect(VAVBox.VSup_flow, rehBoxCon.VDis_flow) annotation (Line(points={{762,56},
-          {774,56},{774,112},{446,112},{446,198},{616,198}},     color={0,0,127}));
+          {774,56},{774,112},{446,112},{446,200},{618,200}},     color={0,0,127}));
   connect(TSup.T, TSupAHU.u)
     annotation (Line(points={{340,-29},{340,80},{378,80}}, color={0,0,127}));
   connect(TSupAHU.y, rehBoxCon.TSup) annotation (Line(points={{402,80},{452,80},
-          {452,196},{616,196}}, color={0,0,127}));
+          {452,198},{618,198}}, color={0,0,127}));
   connect(mulAHUCon.TAirSupSet, TSupAHUSet.u)
     annotation (Line(points={{544,616},{638,616}}, color={0,0,127}));
   connect(TSupAHUSet.y, rehBoxCon.TSupSet) annotation (Line(points={{662,616},{
-          680,616},{680,240},{460,240},{460,194},{616,194}}, color={0,0,127}));
+          680,616},{680,240},{460,240},{460,196},{618,196}}, color={0,0,127}));
   connect(oveRid.y, rehBoxCon.oveFloSet) annotation (Line(points={{402,170},{
-          466,170},{466,192},{616,192}}, color={255,127,0}));
+          466,170},{466,194},{618,194}}, color={255,127,0}));
   connect(oveRid.y, rehBoxCon.oveDamPos) annotation (Line(points={{402,170},{
-          466,170},{466,190},{616,190}}, color={255,127,0}));
+          466,170},{466,192},{618,192}}, color={255,127,0}));
   connect(falSta.y, rehBoxCon.uHeaOff) annotation (Line(points={{-278,340},{
-          -140,340},{-140,188},{616,188}}, color={255,0,255}));
+          -140,340},{-140,190},{618,190}}, color={255,0,255}));
   connect(VAVBox.y_actual, rehBoxCon.uDam_actual) annotation (Line(points={{762,40},
-          {786,40},{786,128},{588,128},{588,186},{616,186}},     color={0,0,127}));
+          {786,40},{786,128},{588,128},{588,188},{618,188}},     color={0,0,127}));
   connect(VAVBox.yVal_actual, rehBoxCon.uVal_actual) annotation (Line(points={{762,32},
-          {792,32},{792,136},{596,136},{596,184},{616,184}},         color={0,0,
+          {792,32},{792,136},{596,136},{596,186},{618,186}},         color={0,0,
           127}));
   connect(mulAHUCon.y1SupFan, booScaRep.u)
     annotation (Line(points={{544,548},{638,548}}, color={255,0,255}));
   connect(booScaRep.y, rehBoxCon.u1Fan) annotation (Line(points={{662,548},{688,
-          548},{688,234},{608,234},{608,181.2},{616,181.2}}, color={255,0,255}));
+          548},{688,234},{608,234},{608,183.2},{618,183.2}}, color={255,0,255}));
   connect(rehBoxCon.VAdjPopBreZon_flow, sumZon.VAdjPopBreZon_flow) annotation (
-      Line(points={{640,210},{720,210},{720,320},{200,320},{200,594},{238,594}},
+      Line(points={{642,212},{720,212},{720,320},{200,320},{200,594},{238,594}},
         color={0,0,127}));
   connect(rehBoxCon.VAdjAreBreZon_flow, sumZon.VAdjAreBreZon_flow) annotation (
-      Line(points={{640,208},{728,208},{728,328},{208,328},{208,590},{238,590}},
+      Line(points={{642,210},{728,210},{728,328},{208,328},{208,590},{238,590}},
         color={0,0,127}));
-  connect(rehBoxCon.VMinOA_flow, sumZon.VMinOA_flow) annotation (Line(points={{
-          640,206},{736,206},{736,336},{224,336},{224,582},{238,582}}, color={0,
+  connect(rehBoxCon.VMinOA_flow, sumZon.VMinOA_flow) annotation (Line(points={{642,208},
+          {736,208},{736,336},{224,336},{224,582},{238,582}},          color={0,
           0,127}));
   connect(VAVBox.VSup_flow, sumZon.VZonPri_flow) annotation (Line(points={{762,
           56},{774,56},{774,112},{216,112},{216,586},{238,586}}, color={0,0,127}));
-  connect(rehBoxCon.yVal, VAVBox.yHea) annotation (Line(points={{640,213},{660,
-          213},{660,46},{716,46}}, color={0,0,127}));
-  connect(rehBoxCon.yDam, VAVBox.yVAV) annotation (Line(points={{640,215},{666,
-          215},{666,56},{716,56}}, color={0,0,127}));
+  connect(rehBoxCon.yVal, VAVBox.yHea) annotation (Line(points={{642,215},{660,
+          215},{660,46},{716,46}}, color={0,0,127}));
+  connect(rehBoxCon.yDam, VAVBox.yVAV) annotation (Line(points={{642,217},{666,
+          217},{666,56},{716,56}}, color={0,0,127}));
   connect(sumZon.yAhuOpeMod, mulAHUCon.uAhuOpeMod) annotation (Line(points={{
           262,598},{360,598},{360,634},{456,634}}, color={255,127,0}));
   connect(sumZon.VSumAdjPopBreZon_flow, mulAHUCon.VSumAdjPopBreZon_flow)
@@ -404,14 +404,14 @@ equation
   connect(mulAHUCon.ySupFan, fanSup.y) annotation (Line(points={{544,543.6},{
           554,543.6},{554,-20},{310,-20},{310,-28}}, color={0,0,127}));
   connect(hotWatPla.y, rehBoxCon.u1HotPla) annotation (Line(points={{522,170},{
-          608,170},{608,179.2},{616,179.2}}, color={255,0,255}));
+          608,170},{608,181.2},{618,181.2}}, color={255,0,255}));
   connect(mulAHUCon.y1SupFan, mulAHUCon.u1SupFan) annotation (Line(points={{544,
           548},{602,548},{602,420},{420,420},{420,610},{456,610}}, color={255,0,
           255}));
-  connect(rehBoxCon.yZonTemResReq, temResReq.u) annotation (Line(points={{640,
-          196},{744,196},{744,220},{758,220}}, color={255,127,0}));
-  connect(rehBoxCon.yZonPreResReq, preRetReq.u) annotation (Line(points={{640,
-          194},{750,194},{750,270},{758,270}}, color={255,127,0}));
+  connect(rehBoxCon.yZonTemResReq, temResReq.u) annotation (Line(points={{642,198},
+          {744,198},{744,220},{758,220}},      color={255,127,0}));
+  connect(rehBoxCon.yZonPreResReq, preRetReq.u) annotation (Line(points={{642,196},
+          {750,196},{750,270},{758,270}},      color={255,127,0}));
   connect(preRetReq.y, mulAHUCon.uZonPreResReq) annotation (Line(points={{782,
           270},{800,270},{800,360},{404,360},{404,630},{456,630}}, color={255,
           127,0}));
