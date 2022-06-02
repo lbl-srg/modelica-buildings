@@ -179,43 +179,36 @@ model WaterLoopDistrictCooling
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal(realTrue=1, realFalse=
         0.1)
     "Valve signal"
-    annotation (Placement(transformation(extent={{4,40},{16,52}})));
+    annotation (Placement(transformation(extent={{2,30},{14,42}})));
   Controls.OBC.CDL.Conversions.BooleanToReal           booToReaPum3(realTrue=
         mWat_flow_nominal, realFalse=mWat_flow_nominal/10)
                            "Pump signal"
     annotation (Placement(transformation(extent={{78,-92},{66,-80}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant pum4Flow(k=mWat_flow_nominal)
-    "Pump 4 flow rate"
-    annotation (Placement(transformation(extent={{160,34},{148,46}})));
-  Actuators.Motors.IdealMotor motVal12(tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{24,40},{36,52}})));
-  Actuators.Motors.IdealMotor motVal3(tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{78,40},{66,52}})));
-  Modelica.StateGraph.StepWithSignal modSwi(nIn=1, nOut=1) "Mode switch"
+  Modelica.StateGraph.StepWithSignal mod4(nIn=1, nOut=1) "Mode 4"
     annotation (Placement(transformation(extent={{-110,34},{-98,22}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of the state graph"
     annotation (Placement(transformation(extent={{-98,76},{-84,90}})));
-  Modelica.StateGraph.StepWithSignal chillerOn(nIn=1, nOut=1) "Chiller is on"
+  Modelica.StateGraph.StepWithSignal mod5(nIn=1, nOut=1) "Chiller is on"
     annotation (Placement(transformation(extent={{-110,-34},{-98,-22}})));
-  Modelica.StateGraph.TransitionWithSignal T2 "Transition to switch pumps on"
+  Modelica.StateGraph.TransitionWithSignal T3 "Transition to switch pumps on"
     annotation (Placement(transformation(extent={{-128,18},{-108,38}})));
   Modelica.StateGraph.InitialStep ste0(nOut=1, nIn=1) "Initial Step"
     annotation (Placement(transformation(extent={{-180,-2},{-168,10}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT1(t=273.15 + 6)
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT1(t=273.15 + 5)
     "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-4,14},{-16,26}})));
   Controls.OBC.CDL.Continuous.GreaterThreshold greThrT3(t=273.15 + 11)
     "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{150,-44},{162,-32}})));
+    annotation (Placement(transformation(extent={{152,-44},{164,-32}})));
   Controls.OBC.CDL.Continuous.LessThreshold lesThrT3(t=273.15 + 7)
-    annotation (Placement(transformation(extent={{150,-66},{162,-54}})));
-  Modelica.StateGraph.TransitionWithSignal T3 "Transition to switch pumps on"
+    annotation (Placement(transformation(extent={{152,-66},{164,-54}})));
+  Modelica.StateGraph.TransitionWithSignal T4 "Transition to switch pumps on"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
-  Modelica.StateGraph.Transition           T1 "Transition to switch pumps on"
+  Modelica.StateGraph.TransitionWithSignal T0 "Transition to switch pumps on"
     annotation (Placement(transformation(extent={{-170,-6},{-150,14}})));
-  Modelica.StateGraph.TransitionWithSignal T5 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-114,-62},{-134,-42}})));
+  Modelica.StateGraph.TransitionWithSignal T6 "Transition to switch pumps on"
+    annotation (Placement(transformation(extent={{-124,-62},{-144,-42}})));
   Modelica.StateGraph.Parallel parallel
     "Split for alternative execution paths"
     annotation (Placement(transformation(extent={{-154,-36},{-56,44}})));
