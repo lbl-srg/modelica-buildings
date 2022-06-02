@@ -109,7 +109,17 @@ record Generic "Generic data record for movers"
         then max(power.P)/etaMot_max*1.2
       else max(power.P)*1.2
     else
-      peak_internal.V_flow*peak_internal.dp/peak_internal.eta/etaMot_max*1.2
+      if havePressureCurve
+        then (pressure.V_flow[end]
+                -(pressure.V_flow[end] - pressure.V_flow[end - 1])
+                /(pressure.dp[end] - pressure.dp[end - 1])
+                * pressure.dp[end])/2*
+             (pressure.dp[1]
+                -(pressure.dp[1] - pressure.dp[2])
+                /(pressure.V_flow[1] - pressure.V_flow[2])
+                * pressure.V_flow[1])/2
+              /0.7/etaMot_max*1.2
+      else 0
     "Rated input power of the motor"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==

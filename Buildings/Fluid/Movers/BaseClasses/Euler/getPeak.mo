@@ -36,10 +36,10 @@ algorithm
                 /(pressure.dp[end] - pressure.dp[end - 1])
                 * pressure.dp[end])/2;
     peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x=peak.V_flow,
-      xSup=pressure.V_flow,
-      ySup=pressure.dp,
-      ensureMonotonicity=true);
+               x=peak.V_flow,
+               xSup=pressure.V_flow,
+               ySup=pressure.dp,
+               ensureMonotonicity=true);
     peak.eta:=0.7;
 
   else
