@@ -1,8 +1,7 @@
 Diversion
-InjectionThreeWayValve
-InjectionTwoWayValve
-InjectionTwoWayValveCheckValve
+InjectionThreeWay
+InjectionTwoWay
+InjectionTwoWayCheckValve
 SingleMixing
 Throttle
-ThrottleTwoWayTest
 Examples

@@ -23,7 +23,8 @@ model PartialHydronicConfiguration
     typCha=typCha,
     have_ctl=have_ctl,
     typFun=typFun,
-    have_pum = have_pum,
+    typCtl=typCtl,
+    have_pum=have_pum,
     typPum=typPum,
     typPumMod=typPumMod)
     "Sizing and operating parameters"
@@ -48,7 +49,7 @@ model PartialHydronicConfiguration
     annotation(Dialog(group="Configuration"));
 
   parameter Boolean use_lumFloRes = false
-    "Set to true to lump secondary and valve flow resistance (typical of single served unit)"
+    "Set to true to use a lumped flow resistance"
     annotation(Evaluate=true);
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typPumMod=

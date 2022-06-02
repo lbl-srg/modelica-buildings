@@ -1,6 +1,9 @@
 DiversionOpenLoop
-InjectionThreeWayValve
-InjectionTwoWayValve
+InjectionThreeWay
+InjectionTwoWayConstant
+InjectionTwoWayVariable
+InjectionTwoWayVariableReturn
 SingleMixing
 ThrottleOpenLoop
-ThrottleTwoWayTest
+TestVariableSupply
+BaseClasses

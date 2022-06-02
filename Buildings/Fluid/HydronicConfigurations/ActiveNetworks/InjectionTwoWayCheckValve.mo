@@ -1,6 +1,7 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
-model InjectionTwoWayValveCheckValve "Injection circuit with two-way valve and check valve in bypass branch"
-  extends Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWayValve(
+model InjectionTwoWayCheckValve
+  "Injection circuit with two-way valve and check valve in bypass branch"
+  extends Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay(
     redeclare FixedResistances.CheckValve byp(
       final allowFlowReversal=allowFlowReversal,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -33,4 +34,4 @@ Lumped flow resistance includes...
 Default dpValve_nominal=0.34e4 for check valve
 </p>
 </html>"));
-end InjectionTwoWayValveCheckValve;
+end InjectionTwoWayCheckValve;

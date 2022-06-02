@@ -11,10 +11,10 @@ package Types "Package with type definitions"
     "Heating")
   "Enumeration to specify the circuit function in case of built-in controls";
   type ControlVariable = enumeration(
-      ReturnTemperature
-    "Consumer circuit return temperature",
       SupplyTemperature
-    "Consumer circuit supply temperature")
+    "Consumer circuit supply temperature",
+      ReturnTemperature
+    "Consumer circuit return temperature")
   "Enumeration to specify the controlled variable";
   type Pump = enumeration(
       SingleConstant

@@ -16,7 +16,7 @@ model Load "Model of a load on hydronic circuit"
     annotation(Evaluate=true);
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    Q_flow_nominal / 10 / 1015
+    abs(Q_flow_nominal) / 10 / 1015
     "Air mass flow rate at design conditions";
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=293.15
     "Air entering temperature at design conditions";
@@ -66,7 +66,7 @@ model Load "Model of a load on hydronic circuit"
         iconTransformation(extent={{-140,40},{-100,80}})));
   .Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1")
     "Valve demand signal" annotation (Placement(transformation(extent={{100,40},
-            {140,80}}), iconTransformation(extent={{100,40},{140,80}})));
+            {140,80}}), iconTransformation(extent={{100,60},{140,100}})));
   .Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_s(final unit="K",
       displayUnit="degC") "Controller set point" annotation (Placement(
         transformation(extent={{100,-50},{140,-10}}), iconTransformation(extent=
@@ -126,12 +126,12 @@ model Load "Model of a load on hydronic circuit"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={40,20})));
-  .Buildings.Controls.OBC.CDL.Continuous.PID ctl(
+  .Buildings.Controls.OBC.CDL.Continuous.PID conPI(
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC"),
     final controllerType=controllerType,
     final k=k,
-    final Ti=120,
+    final Ti=Ti,
     final reverseActing=Q_flow_nominal > 0)
     "Controller for supply air temperature"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
@@ -215,6 +215,12 @@ model Load "Model of a load on hydronic circuit"
   Modelica.Blocks.Sources.RealExpression heaFlo(y=coi.Q2_flow)
     "Access coil heat flow rate"
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
+    "Actual load fraction met" annotation (Placement(transformation(extent={{100,
+            10},{140,50}}), iconTransformation(extent={{100,20},{140,60}})));
+  Modelica.Blocks.Sources.RealExpression loaFra(y=Q_flow/Q_flow_nominal)
+    "Compute actual load fraction"
+    annotation (Placement(transformation(extent={{70,20},{90,40}})));
 protected
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
     MediumAir.specificHeatCapacityCp(MediumAir.setState_pTX(
@@ -231,16 +237,15 @@ equation
           39},{-60,20},{-50,20}}, color={0,127,255}));
   connect(TAirSup.port_a, coi.port_b2) annotation (Line(points={{-30,20},{-20,20},
           {-20,12},{-10,12}}, color={0,127,255}));
-  connect(ctl.y, y)
-    annotation (Line(points={{32,60},{120,60}},  color={0,0,127}));
+  connect(conPI.y, y)
+    annotation (Line(points={{32,60},{120,60}}, color={0,0,127}));
   connect(gai.y, set.u)
     annotation (Line(points={{-46,80},{-32,80}}, color={0,0,127}));
   connect(u, gai.u)
     annotation (Line(points={{-120,60},{-80,60},{-80,80},{-70,80}},
                                                   color={0,0,127}));
-  connect(set.y, ctl.u_s)
-    annotation (Line(points={{-8,80},{0,80},{0,60},{8,60}},
-                                              color={0,0,127}));
+  connect(set.y, conPI.u_s)
+    annotation (Line(points={{-8,80},{0,80},{0,60},{8,60}}, color={0,0,127}));
   connect(souAirNom.ports[1], coiNom.port_a2)
     annotation (Line(points={{30,-20},{20,-20},{20,-24},{10,-24}},
                                                  color={0,127,255}));
@@ -267,12 +272,14 @@ equation
     annotation (Line(points={{60,-11},{60,-64},{68,-64}}, color={0,0,127}));
   connect(TLiqEnt.T, dT.u2) annotation (Line(points={{-80,-11},{-80,-80},{60,-80},
           {60,-76},{68,-76}}, color={0,0,127}));
-  connect(TAirSup.T, ctl.u_m) annotation (Line(points={{-40,31},{-40,40},{20,40},
+  connect(TAirSup.T, conPI.u_m) annotation (Line(points={{-40,31},{-40,40},{20,40},
           {20,48}}, color={0,0,127}));
   connect(TAirSup.T, u_m) annotation (Line(points={{-40,31},{-40,40},{76,40},{76,
           -50},{120,-50}}, color={0,0,127}));
   connect(heaFlo.y, Q_flow)
     annotation (Line(points={{91,-90},{120,-90}}, color={0,0,127}));
+  connect(yLoa_actual, loaFra.y)
+    annotation (Line(points={{120,30},{91,30}}, color={0,0,127}));
   annotation (
   defaultComponentName="loa",
   Icon(graphics={

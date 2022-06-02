@@ -90,7 +90,8 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Lumped flow resistance includes consumer circuit only.
+Lumped flow resistance includes consumer circuit 
+and control valve only.
 Primary balancing valve always modeled as a distinct
 flow resistance.
 </p>

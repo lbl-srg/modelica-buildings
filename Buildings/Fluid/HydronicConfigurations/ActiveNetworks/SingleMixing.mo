@@ -183,9 +183,15 @@ Variable primary
 This is a typical configuration for constant flow secondary circuits that
 have a design supply temperature identical to the primary circuit.
 
-The control valve authority is close to <i>1</i> (<i>&Delta;p<sub>A-AB</sub> &asymp;
-&Delta;p<sub>J-AB</sub></i>) so the sizing is only based on a 
-minimum pressure drop of <i>3</i> kPa at design flow rate.
+The control valve authority is equal to 
+<i>&beta; = &Delta;p<sub>A-AB</sub> / (&Delta;p<sub>a1-b1</sub>
++ &Delta;p<sub>B-AB</sub></i>).
+The valve is typically sized so that the design pressure drop in 
+the direct branch <i>&Delta;p<sub>A-AB</sub></i> is close 
+to the primary pressure differential <i>&Delta;p<sub>a1-b1</sub></i>,
+which yields an authority close to <i>0.5</i>.
+(Note that the authority does not depend on the primary balancing 
+valve.)
 </p>
 <p>
 The balancing procedure should ensure that the 

@@ -86,7 +86,7 @@ model SingleMixing
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.LoadThreeWayValveControl
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa(
     redeclare final package MediumLiq = MediumLiq,
     k=0.1,
@@ -94,15 +94,15 @@ model SingleMixing
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal)
-          "Load" annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6,1,1; 7,1,0.5; 8,0.5,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 22,0,1;
         22,0,0; 24,0,0],
       timeScale=3600)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.LoadThreeWayValveControl
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa1(
     redeclare final package MediumLiq = MediumLiq,
     k=0.1,
@@ -110,8 +110,7 @@ model SingleMixing
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal)
-    "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumLiq,

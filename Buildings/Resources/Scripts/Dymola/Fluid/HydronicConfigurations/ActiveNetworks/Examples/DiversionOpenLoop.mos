@@ -8,9 +8,7 @@ createPlot(id=2, position={616, 16, 1183, 972}, y={"pum.m_flow", "con1.val.m1_fl
 
 createPlot(id=3, position={1214, 15, 1184, 744}, y={"pum.dpMachine", "dp.p_rel", "dp1.p_rel", "con.val.res1.dp", "con1.val.res1.dp"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true);
 
-createPlot(id=4, position={169, 245, 1184, 744}, y={"ope.y[1]", "ope.y[2]"}, autoscale=true, grid=true, autoerase=true, color=true);
-plotExpression(apply(DiversionOpenLoop.loa.Q_flow/DiversionOpenLoop.loa.Q_flow_nominal), false, "loa.Q_flow/loa.Q_flow_nominal");
-plotExpression(apply(DiversionOpenLoop.loa1.Q_flow/DiversionOpenLoop.loa1.Q_flow_nominal), false, "loa1.Q_flow/loa1.Q_flow_nominal");
+createPlot(id=4, position={169, 245, 1184, 744}, y={"ope.y[1]", "ope.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true);
 
 createPlot(id=5, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot});
 

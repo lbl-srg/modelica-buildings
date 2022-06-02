@@ -5,9 +5,7 @@ createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale
 
 createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.m2_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
 
-createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
-plotExpression(apply(SingleMixing.loa.loa.Q_flow/SingleMixing.loa.loa.Q_flow_nominal), false, "loa.Q_flow/loa.Q_flow_nominal");
-plotExpression(apply(SingleMixing.loa1.loa.Q_flow/SingleMixing.loa1.loa.Q_flow_nominal), false, "loa1.Q_flow/loa1.Q_flow_nominal");
+createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 
 createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
 

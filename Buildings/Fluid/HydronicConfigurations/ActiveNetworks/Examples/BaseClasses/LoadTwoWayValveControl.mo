@@ -1,4 +1,4 @@
-within Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses;
+within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses;
 model LoadTwoWayValveControl
   "Model of a load on hydronic circuit with flow rate modulation by two-way valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -16,7 +16,7 @@ model LoadTwoWayValveControl
     "Liquid pressure drop across terminal unit at design conditions";
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    Q_flow_nominal / 10 / 1015
+    abs(Q_flow_nominal) / 10 / 1015
     "Air mass flow rate at design conditions";
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=293.15
     "Air entering temperature at design conditions";
@@ -57,12 +57,14 @@ model LoadTwoWayValveControl
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Data.Generic dat(
-    have_bypFix=con.have_bypFix,
-    have_ctl=con.have_ctl,
-    typVal=con.typVal,
-    typFun=con.typFun,
-    have_pum=con.have_pum,
-    typPum=con.typPum,
+    final have_bypFix=con.have_bypFix,
+    final typVal=con.typVal,
+    final typCha=con.typCha,
+    final have_ctl=con.have_ctl,
+    final typFun=con.typFun,
+    final have_pum=con.have_pum,
+    final typPum=con.typPum,
+    final typPumMod=con.typPumMod,
     m2_flow_nominal=m_flow_nominal,
     dp2_nominal=dpTer_nominal,
     dpValve_nominal=dpTer_nominal,
@@ -76,7 +78,7 @@ model LoadTwoWayValveControl
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Load loa(
+  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
     final mLiq_flow_nominal=mLiq_flow_nominal,
     final dpLiq_nominal=0,
     final mAir_flow_nominal=mAir_flow_nominal,
@@ -87,14 +89,17 @@ model LoadTwoWayValveControl
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final energyDynamics=energyDynamics)
-    "Load"
+    final energyDynamics=energyDynamics) "Load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   ActiveNetworks.Throttle  con(
-    final dat=dat, use_lumFloRes=true)
+    final dat=dat, use_lumFloRes=true,
+    final energyDynamics=energyDynamics)
     "Diversion connection"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
+    "Actual load fraction met" annotation (Placement(transformation(extent={{100,
+            40},{140,80}}), iconTransformation(extent={{100,40},{140,80}})));
 equation
   connect(port_a, con.port_a1)
     annotation (Line(points={{-100,0},{-6,0}}, color={0,127,255}));
@@ -104,10 +109,12 @@ equation
           40},{-10,60}}, color={0,127,255}));
   connect(con.port_a2, loa.port_b) annotation (Line(points={{6,19.8},{6,40},{10,
           40},{10,60}}, color={0,127,255}));
-  connect(loa.y, con.yVal) annotation (Line(points={{12,66},{20,66},{20,80},{-20,
+  connect(loa.y, con.yVal) annotation (Line(points={{12,68},{20,68},{20,80},{-20,
           80},{-20,10},{-12,10}}, color={0,0,127}));
   connect(u, loa.u) annotation (Line(points={{-120,60},{-40,60},{-40,66},{-12,66}},
         color={0,0,127}));
+  connect(loa.yLoa_actual, yLoa_actual) annotation (Line(points={{12,64},{80,64},
+          {80,60},{120,60}}, color={0,0,127}));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

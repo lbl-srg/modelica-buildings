@@ -1,8 +1,8 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
-model InjectionTwoWayValve "Injection circuit with two-way valve"
+model InjectionTwoWay "Injection circuit with two-way valve"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-    dat(dpValve_nominal=0.3e4, m1_flow_nominal=m2_flow_nominal),
+    dat(m1_flow_nominal=m2_flow_nominal),
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final have_bypFix=true,
     final have_pum=true);
@@ -44,10 +44,9 @@ model InjectionTwoWayValve "Injection circuit with two-way valve"
     final typCha=typCha,
     use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=m2_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal=if use_lumFloRes then dpBal1_nominal + dp2_nominal
-         else 0)
+    final dpFixed_nominal=if use_lumFloRes then dpBal1_nominal else 0)
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -147,8 +146,8 @@ model InjectionTwoWayValve "Injection circuit with two-way valve"
     final m_flow_nominal=m2_flow_nominal)
     "Fluid pass-through that can be replaced by check valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(
-    final k=Integer(dat.typCtl))
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(final k=Integer(
+        typCtl))
     "Controlled variable selector"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 equation
@@ -212,9 +211,20 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Lumped flow resistance includes...
+Variable primary &
+Variable or constant secondary.
 
-Default dpValve_nominal=0.34e4 for check valve
+</p>
+<p>
+Lumped flow resistance includes primary balancing valve 
+and control valve only.
+
+Default dpValve_nominal=0.34e4 for check valve.
+
+The control valve authority is equal to 
+<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i>.
+(Note that the authority does not depend on the primary balancing 
+valve.)
 </p>
 </html>"));
-end InjectionTwoWayValve;
+end InjectionTwoWay;

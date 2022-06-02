@@ -55,8 +55,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Lumped flow resistance includes consumer circuit AND primary balancing 
-valve.
+Lumped flow resistance includes consumer circuit, primary balancing 
+valve and control valve.
 </p>
 </html>"));
 end Throttle;

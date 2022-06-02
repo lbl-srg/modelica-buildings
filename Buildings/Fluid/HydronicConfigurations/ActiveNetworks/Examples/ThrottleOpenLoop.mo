@@ -37,11 +37,11 @@ model ThrottleOpenLoop
     "Pump oversizing coefficient";
   final parameter Modelica.Units.SI.Pressure dpPum_nominal(
     final min=0,
-    displayUnit="Pa")=
-    (dpPip_nominal + dpPip1_nominal + set.k) * kSizPum
+    displayUnit="Pa") = (dpPip_nominal + dpPip1_nominal + dpSetVal.k)*kSizPum
     "Pump head at design conditions";
-  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal= (2 * mTer_flow_nominal)*1.1
-    "Pump mass flow rate at design conditions";
+  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal=
+    2 * mTer_flow_nominal / 0.9
+    "Pump mass flow rate at design conditions (including 10% recirculation)";
 
   parameter Modelica.Units.SI.Pressure p_min = 2E5
     "Circuit minimum pressure";
@@ -171,18 +171,22 @@ model ThrottleOpenLoop
     y(final unit="K"))
     "Primary delta-T"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(k=0.1, Ti=60)
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+    k=10,
+    Ti=1,
+    r=MediumLiq.p_default,
+    xi_start=1)
+    "Pump controller"
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant set(
-    final k=dpTer_nominal + dpValve_nominal)
-    "Pressure differential set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpSetVal(final k=
+        dpTer_nominal + dpValve_nominal) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  FixedResistances.PressureDrop res2(
+  FixedResistances.PressureDrop resEnd(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=0.1*mPum_flow_nominal,
-    final dp_nominal=set.k)
-    "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    final dp_nominal=dpSetVal.k) "Pipe pressure drop" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,-50})));
 equation
@@ -237,13 +241,13 @@ equation
     annotation (Line(points={{-50,-51},{-50,-86},{-2,-86}}, color={0,0,127}));
   connect(conPID.y, pum.y) annotation (Line(points={{-48,10},{-40,10},{-40,-20},
           {-80,-20},{-80,-28}}, color={0,0,127}));
-  connect(dp1.p_rel, conPID.u_m) annotation (Line(points={{70,-11},{70,-6},{-60,
-          -6},{-60,-2}},  color={0,0,127}));
-  connect(set.y, conPID.u_s)
+  connect(dp1.p_rel, conPID.u_m) annotation (Line(points={{70,-11},{70,-8},{-60,
+          -8},{-60,-2}},  color={0,0,127}));
+  connect(dpSetVal.y, conPID.u_s)
     annotation (Line(points={{-78,10},{-72,10}}, color={0,0,127}));
-  connect(res1.port_b, res2.port_a)
+  connect(res1.port_b, resEnd.port_a)
     annotation (Line(points={{50,-40},{100,-40}}, color={0,127,255}));
-  connect(res2.port_b, TRet.port_a)
+  connect(resEnd.port_b, TRet.port_a)
     annotation (Line(points={{100,-60},{-30,-60}}, color={0,127,255}));
    annotation (experiment(
     StopTime=300,

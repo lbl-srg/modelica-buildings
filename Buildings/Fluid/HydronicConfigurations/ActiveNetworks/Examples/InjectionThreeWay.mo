@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
-model InjectionThreeWayValve
+model InjectionThreeWay
   "Model illustrating the operation of an inversion circuit with three-way valve"
   extends Modelica.Icons.Example;
 
@@ -71,24 +71,25 @@ model InjectionThreeWayValve
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Circulation pump"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWayValve con(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay con(
     have_ctl=true,
     typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
+
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
-    redeclare final package Medium=MediumLiq,
+    redeclare final package Medium = MediumLiq,
     use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     dat(
       final m1_flow_nominal=m1_flow_nominal,
       final m2_flow_nominal=m2_flow_nominal,
       final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
-      final dpBal1_nominal=(dpPum_nominal - dpPip_nominal - dpValve_nominal) *
-        (if is_bal then 1 else 0),
-      ctl(k=0.1, Ti=60)))
-    "Hydronic connection"
+
+      final dpBal1_nominal=(dpPum_nominal - dpPip_nominal - dpValve_nominal)*(
+          if is_bal then 1 else 0),
+      ctl(k=0.1, Ti=60))) "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.LoadThreeWayValveControl
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa(
     redeclare final package MediumLiq = MediumLiq,
     k=0.1,
@@ -96,15 +97,15 @@ model InjectionThreeWayValve
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal)
-          "Load" annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6,1,1; 7,1,0.5; 8,0.5,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 22,0,1;
         22,0,0; 24,0,0],
       timeScale=3600)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.LoadThreeWayValveControl
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa1(
     redeclare final package MediumLiq = MediumLiq,
     k=0.1,
@@ -112,8 +113,7 @@ model InjectionThreeWayValve
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal)
-    "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumLiq,
@@ -277,4 +277,4 @@ Each circuit is balanced at design conditions.
 
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-120},{140,120}})));
-end InjectionThreeWayValve;
+end InjectionThreeWay;

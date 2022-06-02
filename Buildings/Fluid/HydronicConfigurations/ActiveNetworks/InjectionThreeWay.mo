@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
-model InjectionThreeWayValve "Injection circuit with three-way valve"
+model InjectionThreeWay "Injection circuit with three-way valve"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
       dat(dpValve_nominal=0.3e4),
@@ -290,4 +290,4 @@ The partner valve <code>bal2</code> is therefore configured with zero
 pressure drop.
 </p>
 </html>"));
-end InjectionThreeWayValve;
+end InjectionThreeWay;
