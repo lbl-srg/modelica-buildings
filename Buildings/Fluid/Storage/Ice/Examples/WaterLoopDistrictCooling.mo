@@ -45,24 +45,6 @@ model WaterLoopDistrictCooling
         rotation=-90,
         origin={60,-33})));
 
-  Modelica.Blocks.Sources.Sine disCooLoad(
-    amplitude=1,
-    f=0.00001157,
-    offset=1,
-    startTime=1)
-    annotation (Placement(transformation(extent={{166,-14},{154,-2}})));
-
-  HeatExchangers.HeaterCooler_u disCooCoi(redeclare package Medium =
-        MediumWater,
-    m_flow_nominal=mWat_flow_nominal,
-    dp_nominal=10000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_nominal=4500)
-    "District cooling coil" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={134,-24})));
-
   Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -151,7 +133,7 @@ model WaterLoopDistrictCooling
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
-        origin={134,-44})));
+        origin={134,-46})));
 
   Sources.MassFlowSource_T           sou1(
     nPorts=1,
@@ -241,8 +223,8 @@ model WaterLoopDistrictCooling
   Controls.OBC.CDL.Continuous.LessThreshold    lesThrT1(t=273.15 + 3)
     "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-4,-20},{-16,-8}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal1(realTrue=1, realFalse
-      =0.1)
+  Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal1(realTrue=1, realFalse=
+       0.1)
     "Valve signal"
     annotation (Placement(transformation(extent={{2,48},{14,60}})));
   Controls.OBC.CDL.Logical.MultiOr mulOr(nin=2) annotation (Placement(
@@ -291,6 +273,17 @@ model WaterLoopDistrictCooling
   Controls.OBC.CDL.Continuous.Sources.Constant TCooSet(k=273.15 + 7)
     "District cooling temperature setpoint"
     annotation (Placement(transformation(extent={{170,16},{158,28}})));
+  Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries          bui(
+    have_heaWat=false,
+    redeclare package Medium2 = MediumAir,
+    nPorts_aHeaWat=1,
+    nPorts_bHeaWat=1,
+    nPorts_bChiWat=1,
+    nPorts_aChiWat=1)
+    "Building"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={134,-22})));
 equation
   connect(pum3.port_b, chiWat.port_a2)
     annotation (Line(points={{54,-58},{54,-43}}, color={0,127,255}));
@@ -307,10 +300,8 @@ equation
           26},{54,20}},    color={0,127,255}));
   connect(pum4.port_a, val3.port_b)
     annotation (Line(points={{116,26},{54,26},{54,20}}, color={0,127,255}));
-  connect(disCooCoi.port_b, temSen3.port_a)
-    annotation (Line(points={{134,-34},{134,-38}}, color={0,127,255}));
-  connect(temSen3.port_b, pum3.port_a) annotation (Line(points={{134,-50},{134,-76},
-          {54,-76},{54,-70}},      color={0,127,255}));
+  connect(temSen3.port_b, pum3.port_a) annotation (Line(points={{134,-52},{134,
+          -76},{54,-76},{54,-70}}, color={0,127,255}));
   connect(pum2.port_a, pum3.port_a) annotation (Line(points={{14,-60},{14,-76},{
           54,-76},{54,-70}},  color={0,127,255}));
   connect(val3.port_b, pum3.port_a) annotation (Line(points={{54,20},{54,26},{
@@ -324,8 +315,6 @@ equation
     annotation (Line(points={{66,-43},{66,-55},{74,-55}}, color={0,127,255}));
   connect(preSou1.ports[1], pum3.port_a) annotation (Line(points={{90,-24},{88,
           -24},{88,-76},{54,-76},{54,-70}},color={0,127,255}));
-  connect(disCooCoi.u, disCooLoad.y)
-    annotation (Line(points={{140,-12},{140,-8},{153.4,-8}},color={0,0,127}));
   connect(pum2.port_b, vol.ports[1])
     annotation (Line(points={{14,-48},{14,-33}}, color={0,127,255}));
   connect(temSen1.port_a, vol.ports[2])
@@ -340,9 +329,9 @@ equation
           {86,-14},{86,-86},{79.2,-86}}, color={255,0,255}));
   connect(temSen1.T, greThrT1.u) annotation (Line(points={{7.4,-4},{0,-4},{0,20},
           {-2.8,20}}, color={0,0,127}));
-  connect(temSen3.T, lesThrT3.u) annotation (Line(points={{140.6,-44},{148,-44},
+  connect(temSen3.T, lesThrT3.u) annotation (Line(points={{140.6,-46},{148,-46},
           {148,-60},{150.8,-60}}, color={0,0,127}));
-  connect(temSen3.T, greThrT3.u) annotation (Line(points={{140.6,-44},{148,-44},
+  connect(temSen3.T, greThrT3.u) annotation (Line(points={{140.6,-46},{148,-46},
           {148,-38},{150.8,-38}}, color={0,0,127}));
   connect(mod5.active, booToReaPum3.u) annotation (Line(points={{-104,-34.6},{
           -104,-94},{86,-94},{86,-86},{79.2,-86}}, color={255,0,255}));
@@ -432,18 +421,20 @@ equation
           -24},{104,12},{122,12},{122,18.8}}, color={0,0,127}));
   connect(pum4.port_b, val8.port_a)
     annotation (Line(points={{128,26},{134,26},{134,4}}, color={0,127,255}));
-  connect(val8.port_b, disCooCoi.port_a)
-    annotation (Line(points={{134,-4},{134,-14}}, color={0,127,255}));
-  connect(temSen3.T, conPI.u_m) annotation (Line(points={{140.6,-44},{148,-44},
+  connect(temSen3.T, conPI.u_m) annotation (Line(points={{140.6,-46},{148,-46},
           {148,14.8}}, color={0,0,127}));
   connect(TCooSet.y, conPI.u_s)
     annotation (Line(points={{156.8,22},{155.2,22}}, color={0,0,127}));
   connect(conPI.y, val8.y) annotation (Line(points={{140.8,22},{140,22},{140,0},
           {138.8,0}}, color={0,0,127}));
   connect(relPre.port_b, temSen3.port_b) annotation (Line(points={{112,-32},{
-          112,-54},{134,-54},{134,-50}}, color={0,127,255}));
+          112,-56},{134,-56},{134,-52}}, color={0,127,255}));
   connect(relPre.port_a, val8.port_a) annotation (Line(points={{112,-16},{112,8},
           {134,8},{134,4}}, color={0,127,255}));
+  connect(bui.ports_bChiWat[1], temSen3.port_a) annotation (Line(points={{128,
+          -32},{128,-36},{134,-36},{134,-40}}, color={0,127,255}));
+  connect(bui.ports_aChiWat[1], val8.port_b) annotation (Line(points={{128,-12},
+          {128,-8},{134,-8},{134,-4}}, color={0,127,255}));
   annotation (
     experiment(
       StopTime=259200,
