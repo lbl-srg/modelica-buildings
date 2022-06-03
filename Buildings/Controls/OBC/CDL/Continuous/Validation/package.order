@@ -40,7 +40,6 @@ PIDInitialState
 PIDScale
 PIDWithReset
 PIDWithResetScale
-PIDWithAutoTuning
 Round
 Sin
 Sort
@@ -48,5 +47,3 @@ Sqrt
 Subtract
 Switch
 Tan
-NormalizedDelay
-AMIGOWithFOTD
