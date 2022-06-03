@@ -72,8 +72,8 @@ This model must be used with
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.Grid\">
 Buildings.Electrical.AC.OnePhase.Sources.Grid</a>
 or with a voltage source from the package
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Sources</a>.
+<a href=\"modelica://Modelica.Electrical.QuasiStatic.SinglePhase.Sources\">
+Modelica.Electrical.QuasiStatic.SinglePhase.Sources</a>.
 Otherwise, there will be no equation that defines the phase
 angle of the voltage.
 </p>

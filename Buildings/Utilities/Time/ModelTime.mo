@@ -44,10 +44,16 @@ and its output is advanced at the same rate as the simulation time.
 <p>
 The model is used to allow the simulation to start from any time without having to set
 the parameters for the clock, as would be necessary for the model
-<a href=\"modelica://Modelica.Blocks.Sources.Clock\">Modelica.Blocks.Sources.Clock</a>.
+<a href=\"modelica://Modelica.Blocks.Sources.ContinuousClock\">Modelica.Blocks.Sources.ContinuousClock</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 2, 2022, by Michael Wetter:<br/>
+Corrected hyperlink in documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1609\">IBPSA, #1609</a>.
+</li>
 <li>
 April 17, 2020, by Michael Wetter:<br/>
 Refactored so that the output connector has a better comment string, because

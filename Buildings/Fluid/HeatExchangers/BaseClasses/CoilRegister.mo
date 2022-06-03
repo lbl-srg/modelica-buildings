@@ -111,7 +111,7 @@ model CoilRegister "Register for a heat exchanger"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   Modelica.Blocks.Interfaces.RealInput Gc_2
     "Signal representing the convective thermal conductance medium 2 in [W/K]"

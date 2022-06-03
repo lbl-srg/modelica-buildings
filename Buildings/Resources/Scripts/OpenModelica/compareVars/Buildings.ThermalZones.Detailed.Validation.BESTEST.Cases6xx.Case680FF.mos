@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "TRooHou.y",
+    "staRes.minT.Min",
+    "staRes.minT.Mean",
+    "staRes.minT.Max",
+    "staRes.maxT.Min",
+    "staRes.maxT.Mean",
+    "staRes.maxT.Max",
+    "TRooAnn.y",
+    "staRes.meanT.Min",
+    "staRes.meanT.Mean",
+    "staRes.meanT.Max"
+  };

@@ -12,7 +12,6 @@ model OneOpenDoor "Model with one open and one closed door"
     redeclare package Medium = Medium,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=4,
     m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
@@ -20,7 +19,6 @@ model OneOpenDoor "Model with one open and one closed door"
     redeclare package Medium = Medium,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=4,
     m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
