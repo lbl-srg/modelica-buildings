@@ -679,36 +679,39 @@ If <i>P<sub>ele,nominal</sub></i> is unspecified, the model tries to
 estimate it in the following ways:
 <ul>
 <li>
-If a total power curve is provided,
+If a power curve is provided,
+<ul>
+<li>
+If the curve refers to total power,
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele,nominal</sub>=
-W&#775;<sub>max</sub>
-&frasl; &eta;<sub>mot,max</sub>
-&nbsp; 1.2,
-</p>
-<p>
-where the factor <i>1.2</i> accounts for a 20% oversizing of the motor, and
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele,nominal</sub>=
-W&#775;<sub>max</sub>
-&frasl; &eta;<sub>hyd,p</sub>
-&frasl; &eta;<sub>mot,max</sub>
-&nbsp; 1.2,
+W&#775;<sub>max</sub>,
 </p>
 where <i>W&#775;<sub>max</sub></i> is the maximum value on the provided power curve.
-Hence, both assume 20% motor oversize.
 </li>
 <li>
-Otherwise, if a pressure curve is provided,
+If the curve refers to hydraulic power,
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele,nominal</sub>=
-(V&#775;<sub>p</sub>&nbsp;&Delta;p<sub>p</sub>)
-&frasl; &eta;<sub>hyd,p</sub>
+W&#775;<sub>max</sub>
 &frasl; &eta;<sub>mot,max</sub>
 &nbsp; 1.2,
 </p>
-also assuming 20% motor oversize.
+where the factor <i>1.2</i> accounts for a 20% oversize of the motor.
+</li>
+</ul>
+</li>
+<li>
+Otherwise, if only a pressure curve is provided,
+<p align=\"center\" style=\"font-style:italic;\">
+P<sub>ele,nominal</sub>=
+(V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
+&frasl; 0.7
+&frasl; &eta;<sub>mot,max</sub>
+&nbsp; 1.2,
+</p>
+where the factor <i>1 &frasl; 0.7</i> is the assumption for hydraulic efficiency
+and the factor <i>1.2</i> also assumes a 20% oversize.
 </li>
 </ul>
 The model then computes the efficiency the same way as the option of
