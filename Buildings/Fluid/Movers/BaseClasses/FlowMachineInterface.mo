@@ -656,7 +656,8 @@ equation
   end if;
 
   // Flow work definition
-  WFlo = dp_internal*V_flow;
+  WFlo = Buildings.Utilities.Math.Functions.smoothMax(
+                    x1=dp_internal*V_flow, x2=1E-5, deltaX=1E-6);
 
   // Total efficiency eta and consumed electric power PEle
   if per.etaMet==
@@ -686,8 +687,8 @@ equation
     end if;
   else
   // Total efficiency not provided
-    PEle = WHyd / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=etaMot, x2=1E-5, deltaX=1E-6);
+    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                    x1=etaHyd * etaMot, x2=1E-5, deltaX=1E-6);
     if per.etaHydMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided or
        per.etaMotMet<>
@@ -977,6 +978,11 @@ Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 Now it passes <code>WHyd</code> instead of <code>etaHyd</code> to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PowerInterface\">
 Buildings.Fluid.Movers.BaseClasses.PowerInterface</a>.
+</li>
+<li>
+Now the flow work <code>WFlo</code> is bounded positive to prevent negative
+computed power when the mover is not generating enough pressure to overcome
+its own resistance.
 </li>
 </ul>
 These are for
