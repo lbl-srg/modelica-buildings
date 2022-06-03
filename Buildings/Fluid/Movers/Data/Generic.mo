@@ -107,7 +107,7 @@ record Generic "Generic data record for movers"
       or etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
         then max(power.P)/etaMot_max*1.2
-      else max(power.P)*1.2
+      else max(power.P)
     else
       if havePressureCurve
         then (pressure.V_flow[end]
