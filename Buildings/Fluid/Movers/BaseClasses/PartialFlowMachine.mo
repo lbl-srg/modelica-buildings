@@ -340,6 +340,8 @@ initial equation
   assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
   ": The value of parameter m_flow_nominal should be greater or equal than " +
   String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
+
+initial algorithm
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.

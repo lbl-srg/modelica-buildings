@@ -435,11 +435,6 @@ the simulation stops.");
       y=pCur3.dp);
   end if;
 
-  assert(homotopyInitialization, "In " + getInstanceName() +
-         ": The constant homotopyInitialization has been modified from its default
-         value. This constant will be removed in future releases.",
-         level = AssertionLevel.warning);
-
   assert(not (per.etaMet==
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
          and per.etaHydMet==
@@ -479,27 +474,28 @@ the simulation stops.");
          Use a larger value for per.PEle_nominal or leave it blank to allow the
          model to assume a default value.");
 
-//  The inequation sum(per.pressure.dp) > -1 (always true) is added here to avoid
-//    the translation error caused by the assertion statement being always false.
+initial algorithm
+//  Assert() warnings have been moved here to avoid the occasional translation
+//    error caused by the assertion statement being always false.
 //    This was observed with Dymola 2022x (64-bit) on Ubuntu 64-bit 20.04.3.
-  assert(not (sum(per.pressure.dp) > -1 and
-         per.etaMet<>
+  assert(homotopyInitialization, "In " + getInstanceName() +
+         ": The constant homotopyInitialization has been modified from its default
+         value. This constant will be removed in future releases.",
+         level = AssertionLevel.warning);
+
+  assert(per.etaMet<>
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
          and per.etaHydMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided),
+           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
 "*** Warning in "+ getInstanceName()+
              ": Because eta and etaHyd are both provided,
              etaMot = eta / etaHyd is now imposed to have an upper limit of 1.",
          level=AssertionLevel.warning);
 
-//  The inequation sum(per.pressure.dp) > -1 (always true) is added here to avoid
-//    the translation error caused by the assertion statement being always false.
-//    This was observed with Dymola 2022x (64-bit) on Ubuntu 64-bit 20.04.3.
-  assert(not (sum(per.pressure.dp) > -1 and
-         per.etaMet<>
+  assert(per.etaMet<>
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
          and per.etaMotMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
 "*** Warning in "+ getInstanceName()+
              ": Because eta and etaMot are both provided,
              etaHyd = eta / etaMot is now imposed to have an upper limit of 1.",
