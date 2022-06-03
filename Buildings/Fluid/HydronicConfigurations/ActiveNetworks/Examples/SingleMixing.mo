@@ -76,13 +76,12 @@ model SingleMixing
     redeclare final package Medium=MediumLiq,
     use_lumFloRes=false,
     final energyDynamics=energyDynamics,
-    dat(
-      final m1_flow_nominal=m1_flow_nominal,
-      final m2_flow_nominal=m2_flow_nominal,
-      final dpValve_nominal=dpValve_nominal,
-      final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
-      final dpBal1_nominal=dpValve_nominal * (if is_bal then 1 else 0),
-      ctl(k=0.1, Ti=60)))
+    final m2_flow_nominal=m2_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
+    final dpBal1_nominal=if is_bal then dpValve_nominal else 0,
+    k=0.1,
+    Ti=60)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 

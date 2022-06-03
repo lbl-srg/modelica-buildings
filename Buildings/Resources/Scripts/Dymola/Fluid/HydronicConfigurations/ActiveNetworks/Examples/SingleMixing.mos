@@ -11,16 +11,16 @@ createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa
 
 
 // Delta-T function of the load
-q_flow_nom = readTrajectory("SingleMixing.mat", {"loa.loa.Q_flow_nominal"}, 1);
-q1_flow_nom = readTrajectory("SingleMixing.mat", {"loa1.loa.Q_flow_nominal"}, 1);
-TEnt_nom = readTrajectory("SingleMixing.mat", {"loa1.loa.TLiqEnt_nominal"}, 1);
-TLvg_nom = readTrajectory("SingleMixing.mat", {"loa1.loa.TLiqLvg_nominal"}, 1);
-mPri_flow_nom = readTrajectory("SingleMixing.mat", {"con.dat.m1_flow_nominal"}, 1);
-mSec_flow_nom = readTrajectory("SingleMixing.mat", {"con.dat.m2_flow_nominal"}, 1);
+q_flow_nom = readTrajectory("SingleMixing.mat", {"loa.Q_flow_nominal"}, 1);
+q1_flow_nom = readTrajectory("SingleMixing.mat", {"loa1.Q_flow_nominal"}, 1);
+TEnt_nom = readTrajectory("SingleMixing.mat", {"loa1.TLiqEnt_nominal"}, 1);
+TLvg_nom = readTrajectory("SingleMixing.mat", {"loa1.TLiqLvg_nominal"}, 1);
+mPri_flow_nom = readTrajectory("SingleMixing.mat", {"con.m1_flow_nominal"}, 1);
+mSec_flow_nom = readTrajectory("SingleMixing.mat", {"con.m2_flow_nominal"}, 1);
 dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
 dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
-q_flow = readTrajectory("SingleMixing.mat", {"loa.loa.Q_flow"}, nPoints);
-q1_flow = readTrajectory("SingleMixing.mat", {"loa1.loa.Q_flow"}, nPoints);
+q_flow = readTrajectory("SingleMixing.mat", {"loa.Q_flow"}, nPoints);
+q1_flow = readTrajectory("SingleMixing.mat", {"loa1.Q_flow"}, nPoints);
 dT = readTrajectory("SingleMixing.mat", {"delT.y"}, nPoints);
 ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
 

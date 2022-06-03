@@ -12,8 +12,13 @@ model LoadThreeWayValveControl
   parameter Modelica.Units.SI.MassFlowRate mLiq_flow_nominal = 1
     "Liquid mass flow rate at design conditions";
 
-  parameter Modelica.Units.SI.Pressure dpTer_nominal(displayUnit="Pa")=3E4
+  parameter Modelica.Units.SI.Pressure dpTer_nominal(
+    displayUnit="Pa")=3E4
     "Liquid pressure drop across terminal unit at design conditions";
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    displayUnit="Pa")=dpTer_nominal
+    "Control valve pressure drop at design conditions"
+    annotation (Dialog(group="Control valve"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     abs(Q_flow_nominal) / 10 / 1015
@@ -56,23 +61,6 @@ model LoadThreeWayValveControl
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  parameter Data.Generic dat(
-    final have_bypFix=con.have_bypFix,
-    final typVal=con.typVal,
-    final typCha=con.typCha,
-    final have_ctl=con.have_ctl,
-    final typFun=con.typFun,
-    final have_pum=con.have_pum,
-    final typPum=con.typPum,
-    final typPumMod=con.typPumMod,
-    m2_flow_nominal=m_flow_nominal,
-    dp2_nominal=dpTer_nominal,
-    dpValve_nominal=dpTer_nominal,
-    dpBal1_nominal=0,
-    dpBal2_nominal=0)
-    "Sizing and operating parameters"
-    annotation(Placement(transformation(extent={{78,78},{98,98}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput  u
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
@@ -89,10 +77,14 @@ model LoadThreeWayValveControl
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final energyDynamics=energyDynamics) "Load"
+    final energyDynamics=energyDynamics)
+    "Load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   ActiveNetworks.Diversion con(
-    final dat=dat, use_lumFloRes=true,
+    final m2_flow_nominal=m_flow_nominal,
+    final dp2_nominal=dpTer_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    use_lumFloRes=true,
     final energyDynamics=energyDynamics)
     "Diversion connection"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -100,6 +92,10 @@ model LoadThreeWayValveControl
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
     "Actual load fraction met" annotation (Placement(transformation(extent={{100,
             40},{140,80}}), iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput  Q_flow(final unit="W")
+    "Total heat flow rate transferred to the load" annotation (Placement(
+        transformation(extent={{100,-80},{140,-40}}),  iconTransformation(
+          extent={{100,-80},{140,-40}})));
 equation
   connect(port_a, con.port_a1)
     annotation (Line(points={{-100,0},{-6,0}}, color={0,127,255}));
@@ -115,6 +111,8 @@ equation
         color={0,0,127}));
   connect(loa.yLoa_actual, yLoa_actual) annotation (Line(points={{12,64},{80,64},
           {80,60},{120,60}}, color={0,0,127}));
+  connect(loa.Q_flow, Q_flow) annotation (Line(points={{12,51},{80,51},{80,-60},
+          {120,-60}}, color={0,0,127}));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

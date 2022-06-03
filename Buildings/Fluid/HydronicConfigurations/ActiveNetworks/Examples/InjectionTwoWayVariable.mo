@@ -1,10 +1,9 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayVariable
   "Model illustrating the operation of an inversion circuit with two-way valve and variable secondary"
-  extends
-    Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialInjectionTwoWay(
+  extends Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialInjectionTwoWay(
     del2(nPorts=4),
-    dat(dp2_nominal=dpPip_nominal + loa1.dat.dp2_nominal + loa1.dat.dpValve_nominal),
+    dp2_nominal=dpPip_nominal + loa1.dpTer_nominal + loa1.dpValve_nominal,
     con(typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable));
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl
@@ -26,7 +25,8 @@ model InjectionTwoWayVariable
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal)
+    "Load"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
   FixedResistances.PressureDrop res2(
     redeclare final package Medium = MediumLiq,
@@ -34,8 +34,8 @@ model InjectionTwoWayVariable
     final dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
-                                                     set(k=TLiqEnt_nominal,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant set(
+    k=TLiqEnt_nominal,
     y(final unit="K", displayUnit="degC"))
     "Compute supply temperature set point"
     annotation (Placement(
@@ -55,7 +55,7 @@ model InjectionTwoWayVariable
         rotation=-90,
         origin={140,40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(
-    final k=loa1.dat.dp2_nominal + loa1.dat.dpValve_nominal)
+    final k=loa1.dpTer_nominal + loa1.dpValve_nominal)
     "Pressure differential set point"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Controls.PIDWithOperatingMode ctl2(

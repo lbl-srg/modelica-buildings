@@ -1,8 +1,8 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Throttle "Throttle circuit"
-  extends
-    Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(dpValve_nominal=dp2_nominal, m1_flow_nominal=m2_flow_nominal),
+  extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    dpValve_nominal=dp2_nominal,
+    final m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final have_bypFix=true,
     final have_pum=false,
@@ -15,7 +15,8 @@ model Throttle "Throttle circuit"
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal=if use_lumFloRes then dpBal1_nominal + dp2_nominal else 0)
+    final dpFixed_nominal=if use_lumFloRes then dpBal1_nominal + dp2_nominal else 0,
+    final flowCharacteristics=flowCharacteristics)
     "Control valve"
     annotation (
       choicesAllMatching = true,

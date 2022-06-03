@@ -74,19 +74,18 @@ model InjectionThreeWay
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay con(
     have_ctl=true,
     typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
-
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium = MediumLiq,
     use_lumFloRes=false,
     final energyDynamics=energyDynamics,
-    dat(
-      final m1_flow_nominal=m1_flow_nominal,
-      final m2_flow_nominal=m2_flow_nominal,
-      final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
-
-      final dpBal1_nominal=(dpPum_nominal - dpPip_nominal - dpValve_nominal)*(
-          if is_bal then 1 else 0),
-      ctl(k=0.1, Ti=60))) "Hydronic connection"
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
+    final dpBal1_nominal= if is_bal then dpPum_nominal - dpPip_nominal - dpValve_nominal
+      else 0,
+    k=0.1,
+    Ti=60)
+    "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
@@ -97,12 +96,14 @@ model InjectionThreeWay
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal)
+    "Load"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
-        0,0; 6,1,1; 7,1,0.5; 8,0.5,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 22,0,1;
-        22,0,0; 24,0,0],
-      timeScale=3600)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(
+    table=[0,0,0; 6,
+      0,0; 6,1,1; 7,1,0.5; 8,0.5,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 22,0,1;
+      22,0,0; 24,0,0],
+    timeScale=3600)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
@@ -113,7 +114,8 @@ model InjectionThreeWay
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal)
+    "Load"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumLiq,
@@ -173,7 +175,7 @@ model InjectionThreeWay
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-60,60})));
+        origin={-70,60})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal rea
     "Convert signal into real"
     annotation (Placement(transformation(
@@ -223,12 +225,11 @@ equation
   connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-98,100},{80,100},{80,86},
           {98,86}}, color={0,0,127}));
   connect(setOff.y[1], set.u)
-    annotation (Line(points={{-98,60},{-72,60}}, color={0,0,127}));
-  connect(mod.y[1], con.mod) annotation (Line(points={{-98,-20},{-90,-20},{-90,
-          0},{-20,0},{-20,8},{-2,8}},color={255,127,0}));
-  connect(set.y, con.set) annotation (Line(points={{-48,60},{-40,60},{-40,-4},{
-          -2,-4}},
-                color={0,0,127}));
+    annotation (Line(points={{-98,60},{-82,60}}, color={0,0,127}));
+  connect(mod.y[1], con.mod) annotation (Line(points={{-98,-20},{-90,-20},{-90,0},
+          {-10,0},{-10,8},{-2,8}},   color={255,127,0}));
+  connect(set.y, con.set) annotation (Line(points={{-58,60},{-20,60},{-20,-4},{-2,
+          -4}}, color={0,0,127}));
   connect(rea.y, pum.y) annotation (Line(points={{-28,-20},{-20,-20},{-20,-40},{
           -80,-40},{-80,-48}},
                            color={0,0,127}));
@@ -253,7 +254,7 @@ equation
     StopTime=86400,
     Tolerance=1e-6),
     __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/InjectionThreeWayValve.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/InjectionThreeWay.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>

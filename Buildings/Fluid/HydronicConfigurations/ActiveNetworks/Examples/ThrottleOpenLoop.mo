@@ -81,12 +81,12 @@ model ThrottleOpenLoop
     redeclare final package Medium=MediumLiq,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
-    dat(final m2_flow_nominal=mTer_flow_nominal,
+    final m2_flow_nominal=mTer_flow_nominal,
     final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=if is_bal then
-      (dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal)
-       else 0))
+      dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal
+      else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
@@ -106,10 +106,10 @@ model ThrottleOpenLoop
     final use_lumFloRes=false,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
-    dat(final m2_flow_nominal=mTer_flow_nominal,
+    final m2_flow_nominal=mTer_flow_nominal,
     final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
-    final dpBal1_nominal=0))
+    final dpBal1_nominal=0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(

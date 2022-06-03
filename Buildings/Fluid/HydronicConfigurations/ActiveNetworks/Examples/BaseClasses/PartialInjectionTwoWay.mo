@@ -9,23 +9,6 @@ partial model PartialInjectionTwoWay
   parameter Boolean is_bal=false
     "Set to true for a primary balancing valve";
 
-  parameter Data.Generic dat(
-    final have_bypFix=con.have_bypFix,
-    final typVal=con.typVal,
-    final typCha=con.typCha,
-    final have_ctl=con.have_ctl,
-    final typFun=con.typFun,
-    final have_pum=con.have_pum,
-    final typPum=con.typPum,
-    final typPumMod=con.typPumMod,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
-    dpValve_nominal=0.5 * dp1Set,
-    dpBal1_nominal=if is_bal then dp1Set - dat.dpValve_nominal else 0,
-    ctl(k=0.1, Ti=60))
-    "Design and operating parameters for hydronic connection"
-    annotation (Placement(transformation(extent={{80,-18},{100,2}})));
-
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
     "Terminal unit mass flow rate at design conditions";
   final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)=
@@ -35,6 +18,9 @@ partial model PartialInjectionTwoWay
   final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
     2 * mTer_flow_nominal
     "Mass flow rate in consumer circuit at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa")
+    "Consumer circuit pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")=3E4
     "Terminal unit pressure drop at design conditions";
@@ -85,8 +71,10 @@ partial model PartialInjectionTwoWay
     final energyDynamics=energyDynamics,
     addPowerToMedium=false,
     use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(pressure(V_flow={0,1,2}*mPum_flow_nominal/996, dp={1.2,1,0.4}*
-            dpPum_nominal)),
+    per(
+      pressure(
+        V_flow={0,1,2}*mPum_flow_nominal/996,
+        dp={1.2,1,0.4}*dpPum_nominal)),
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Circulation pump"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
@@ -96,9 +84,15 @@ partial model PartialInjectionTwoWay
     typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium = MediumLiq,
-    use_lumFloRes=false,
+    use_lumFloRes=true,
     final energyDynamics=energyDynamics,
-    final dat=dat,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final dp2_nominal=dp2_nominal,
+    dpValve_nominal=0.5 * dp1Set,
+    final dpBal1_nominal=if is_bal then dp1Set - con.dpValve_nominal else 0,
+    k=0.1,
+    Ti=60,
     pum(addPowerToMedium=false))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));

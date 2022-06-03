@@ -1,12 +1,12 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Diversion "Diversion circuit"
-  extends
-    Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(dpValve_nominal=dp2_nominal, m1_flow_nominal=m2_flow_nominal),
-      final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-      final have_bypFix=false,
-      final have_pum=false,
-      final have_ctl=false);
+  extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    dpValve_nominal=dp2_nominal,
+    final m1_flow_nominal=m2_flow_nominal,
+    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
+    final have_bypFix=false,
+    final have_pum=false,
+    final have_ctl=false);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -26,8 +26,8 @@ model Diversion "Diversion circuit"
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=if use_lumFloRes then {dp2_nominal, dpBal2_nominal} else
       {0, dpBal2_nominal},
-    final flowCharacteristics1=dat.flowCharacteristics1,
-    final flowCharacteristics3=dat.flowCharacteristics3)
+    final flowCharacteristics1=flowCharacteristics1,
+    final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
     annotation (
       choicesAllMatching = true,

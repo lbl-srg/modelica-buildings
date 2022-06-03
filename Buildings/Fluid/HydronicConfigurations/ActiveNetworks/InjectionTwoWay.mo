@@ -2,7 +2,7 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionTwoWay "Injection circuit with two-way valve"
   extends
     Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-    dat(m1_flow_nominal=m2_flow_nominal),
+    m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final have_bypFix=true,
     final have_pum=true);
@@ -30,7 +30,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
-    final per=dat.pum)
+    final per=perPum)
     "Pump"
     annotation (
       choicesAllMatching = true,
@@ -46,7 +46,8 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal=if use_lumFloRes then dpBal1_nominal else 0)
+    final dpFixed_nominal=if use_lumFloRes then dpBal1_nominal else 0,
+    final flowCharacteristics=flowCharacteristics)
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -115,11 +116,9 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,
-    final controllerType=dat.ctl.controllerType,
-    final k=dat.ctl.k,
-    final Ti=dat.ctl.Ti,
-    final Ni=dat.ctl.Ni,
-    final y_reset=dat.ctl.y_reset) if have_ctl
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti) if have_ctl
     "Controller"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)

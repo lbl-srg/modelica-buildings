@@ -1,10 +1,9 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayConstant
   "Model illustrating the operation of an inversion circuit with two-way valve and constant secondary"
-  extends
-    Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialInjectionTwoWay(
+  extends Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialInjectionTwoWay(
     del2(nPorts=3),
-    dat(dp2_nominal=dpPip_nominal + loa1.dat.dp2_nominal + loa1.dat.dpValve_nominal));
+    dp2_nominal=dpPip_nominal + loa1.dpTer_nominal + loa1.dpValve_nominal);
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa(
@@ -14,7 +13,8 @@ model InjectionTwoWayConstant
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal)
+    "Load"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa1(

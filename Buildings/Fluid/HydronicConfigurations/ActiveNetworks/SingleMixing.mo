@@ -1,11 +1,10 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model SingleMixing "Single mixing circuit"
-  extends
-    Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(m1_flow_nominal=m2_flow_nominal),
-      final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-      final have_bypFix=false,
-      final have_pum=true);
+  extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    final m1_flow_nominal=m2_flow_nominal,
+    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
+    final have_bypFix=false,
+    final have_pum=true);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -24,8 +23,8 @@ model SingleMixing "Single mixing circuit"
     final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=if use_lumFloRes then {dpBal1_nominal, 0} else {0,0},
-    final flowCharacteristics1=dat.flowCharacteristics1,
-    final flowCharacteristics3=dat.flowCharacteristics3)
+    final flowCharacteristics1=flowCharacteristics1,
+    final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -78,7 +77,7 @@ model SingleMixing "Single mixing circuit"
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final per=dat.pum)
+    final per=perPum)
     "Pump"
     annotation (
       choicesAllMatching = true,
@@ -91,7 +90,9 @@ model SingleMixing "Single mixing circuit"
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
-         else 1) "Consumer circuit supply temperature sensor" annotation (
+         else 1)
+    "Consumer circuit supply temperature sensor"
+    annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -100,11 +101,9 @@ model SingleMixing "Single mixing circuit"
     final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,
-    final controllerType=dat.ctl.controllerType,
-    final k=dat.ctl.k,
-    final Ti=dat.ctl.Ti,
-    final Ni=dat.ctl.Ni,
-    final y_reset=dat.ctl.y_reset) if have_ctl
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti) if have_ctl
     "Controller"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(

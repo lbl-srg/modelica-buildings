@@ -85,11 +85,11 @@ model DiversionOpenLoop
     final typCha=typCha,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
-    dat(final m2_flow_nominal=mTer_flow_nominal,
+    final m2_flow_nominal=mTer_flow_nominal,
     final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal,
-    final dpBal2_nominal=dpBal2_nominal))
+    final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
@@ -111,11 +111,11 @@ model DiversionOpenLoop
     final typCha=typCha,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
-    dat(final m2_flow_nominal=mTer_flow_nominal,
+    final m2_flow_nominal=mTer_flow_nominal,
     final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - 2 * dpPip_nominal - dpTer_nominal - dpValve_nominal,
-    final dpBal2_nominal=dpBal2_nominal))
+    final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(

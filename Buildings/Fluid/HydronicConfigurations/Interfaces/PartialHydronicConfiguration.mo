@@ -10,25 +10,47 @@ model PartialHydronicConfiguration
           X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
 
-  extends Buildings.Fluid.HydronicConfigurations.Data.Configuration;
+  parameter Boolean have_ctl = false
+    "Set to true in case of built-in controls"
+    annotation(Dialog(group="Controls"), Evaluate=true);
 
-  /*
-  FIXME: Assignments of configuration parameters should be final.
-  A bug in Dymola (DS#SRF00860858) prevents from doing that if dat is propagated
-  from the top level.
-  */
-  parameter Buildings.Fluid.HydronicConfigurations.Data.Generic dat(
-    have_bypFix=have_bypFix,
-    typVal=typVal,
-    typCha=typCha,
-    have_ctl=have_ctl,
-    typFun=typFun,
-    typCtl=typCtl,
-    have_pum=have_pum,
-    typPum=typPum,
-    typPumMod=typPumMod)
-    "Sizing and operating parameters"
-    annotation(Placement(transformation(extent={{76,76},{96,96}})));
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)=
+    m2_flow_nominal
+    "Mass flow rate in primary circuit at design conditions"
+    annotation (Dialog(group="Nominal condition", enable=have_bypFix));
+
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)
+    "Mass flow rate in consumer circuit at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa")
+    "Consumer circuit pressure differential at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
+    Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
+    "Control valve characteristic"
+    annotation(Dialog(group="Control valve"), Evaluate=true);
+
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Pump typPum=
+    Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
+    "Type of secondary pump"
+    annotation(Dialog(group="Pump", enable=have_pum), Evaluate=true);
+
+  parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typPumMod=
+    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    "Type of pump model"
+    annotation(Dialog(group="Pump", enable=have_pum), Evaluate=true);
+
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typFun(
+    start=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating)
+    "Circuit function (in case of built-in controls)"
+    annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
+
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlVariable typCtl=
+    Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
+    "Controlled variable (in case of built-in controls)"
+    annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
 
   final parameter Boolean have_yPum = have_pum and
     typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
@@ -48,53 +70,81 @@ model PartialHydronicConfiguration
     "Set to true if an analog input is used as a control mode selector"
     annotation(Dialog(group="Configuration"));
 
-  parameter Boolean use_lumFloRes = false
-    "Set to true to use a lumped flow resistance"
-    annotation(Evaluate=true);
+  parameter Boolean use_lumFloRes = true
+    "Set to true to use a lumped flow resistance when possible"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typPumMod=
-    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
-    "Type of pump model"
-    annotation(Dialog(group="Pump"), Evaluate=true);
-
-  final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)=
-    dat.m1_flow_nominal
-    "Mass flow rate in primary circuit at design conditions"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
-    dat.m2_flow_nominal
-    "Mass flow rate in consumer circuit at design conditions"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.Units.SI.PressureDifference dp2_nominal(
-    displayUnit="Pa")=dat.dp2_nominal
-    "Secondary pressure differential at design conditions"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-    displayUnit="Pa")=dat.dpValve_nominal
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    displayUnit="Pa")
     "Control valve pressure drop at design conditions"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Control valve"));
 
-  final parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
-    displayUnit="Pa")=dat.dpBal1_nominal
-    "Primary balancing valve pressure drop at design conditions "
-    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(displayUnit=
+        "Pa")=0
+    "Primary balancing valve pressure drop at design conditions"
+    annotation (Dialog(group="Balancing valves"));
 
-  final parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
-    displayUnit="Pa")=dat.dpBal2_nominal
-    "Secondary balancing valve pressure drop at design conditions "
-    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(displayUnit=
+        "Pa")=0
+    "Secondary balancing valve pressure drop at design conditions"
+    annotation (Dialog(group="Balancing valves"));
 
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
+  parameter Actuators.Valves.Data.Generic flowCharacteristics(
+    y={0,1},
+    phi={0.0001,1})
+    "Table with flow characteristics"
+     annotation (
+     Dialog(group="Control valve",
+     enable=typVal==Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay
+     and typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
+     choicesAllMatching=true);
+  parameter Actuators.Valves.Data.Generic flowCharacteristics1(
+    y={0,1},
+    phi={0.0001,1})
+    "Table with flow characteristics for direct flow path at port_1"
+     annotation (
+     Dialog(group="Control valve",
+     enable=typVal==Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay
+     and typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
+     choicesAllMatching=true);
+  parameter Actuators.Valves.Data.Generic flowCharacteristics3(
+    y={0,1},
+    phi={0.0001,1})
+    "Table with flow characteristics for bypass flow path at port_3"
+    annotation (
+    Dialog(group="Control valve",
+     enable=typVal==Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay
+     and typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
+    choicesAllMatching=true);
+
+  replaceable parameter Movers.Data.Generic perPum
+    constrainedby Movers.Data.Generic(
+      pressure(
+        V_flow={0, 1, 2} * m2_flow_nominal / 996,
+        dp={1.2, 1, 0.4} * dp2_nominal))
+    "Pump parameters"
+    annotation (
+    Dialog(group="Pump", enable=have_pum),
+    Placement(transformation(extent={{74,74},{94,94}})));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
+  parameter Real k(
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
+    "Gain of controller"
+    annotation (Dialog(group="Controls", enable=have_ctl));
+  parameter Real Ti(unit="s")=60
+    "Time constant of integrator block"
+    annotation (Dialog(group="Controls",
+    enable=have_ctl and (controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // FIXME: DynamicFixedInitial differs from MBL default DynamicFreeInitial
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
@@ -206,6 +256,16 @@ model PartialHydronicConfiguration
        if show_T "Medium properties in port_b2";
 
 protected
+  parameter Boolean have_bypFix
+    "Set to true in case of a fixed bypass"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Boolean have_pum
+    "Set to true if a secondary pump is used"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Valve typVal
+    "Type of control valve"
+    annotation(Dialog(group="Control valve"), Evaluate=true);
+
   Medium.ThermodynamicState state_a1_inflow=
     Medium.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
     "state for medium inflowing through port_a1";

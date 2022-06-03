@@ -1,11 +1,11 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionTwoWayCheckValve
   "Injection circuit with two-way valve and check valve in bypass branch"
-  extends Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay(
+  extends Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay(
     redeclare FixedResistances.CheckValve byp(
+      dpValve_nominal=0.34e4,
       final allowFlowReversal=allowFlowReversal,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-      dpValve_nominal=0.34e4,
       final dpFixed_nominal=0))
   annotation (
     IconMap(primitivesVisible = false));

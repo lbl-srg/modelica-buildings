@@ -14,16 +14,16 @@ createPlot(id=7, y={"pum.y_actual", "con.pum.y_actual"}, autoscale=true, grid=tr
 
 // Delta-T function of the load
 nPoints = readTrajectorySize("InjectionTwoWayVariable.mat");
-q_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa.loa.Q_flow_nominal"}, 1);
-q1_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.loa.Q_flow_nominal"}, 1);
-TEnt_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.loa.TLiqEnt_nominal"}, 1);
-TLvg_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.loa.TLiqLvg_nominal"}, 1);
-mPri_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"con.dat.m1_flow_nominal"}, 1);
-mSec_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"con.dat.m2_flow_nominal"}, 1);
+q_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa.Q_flow_nominal"}, 1);
+q1_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.Q_flow_nominal"}, 1);
+TEnt_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.TLiqEnt_nominal"}, 1);
+TLvg_nom = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.TLiqLvg_nominal"}, 1);
+mPri_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"con.m1_flow_nominal"}, 1);
+mSec_flow_nom = readTrajectory("InjectionTwoWayVariable.mat", {"con.m2_flow_nominal"}, 1);
 dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
 dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
-q_flow = readTrajectory("InjectionTwoWayVariable.mat", {"loa.loa.Q_flow"}, nPoints);
-q1_flow = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.loa.Q_flow"}, nPoints);
+q_flow = readTrajectory("InjectionTwoWayVariable.mat", {"loa.Q_flow"}, nPoints);
+q1_flow = readTrajectory("InjectionTwoWayVariable.mat", {"loa1.Q_flow"}, nPoints);
 dT = readTrajectory("InjectionTwoWayVariable.mat", {"delT.y"}, nPoints);
 ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
 

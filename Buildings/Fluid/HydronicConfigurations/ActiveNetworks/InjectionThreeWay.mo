@@ -1,11 +1,10 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionThreeWay "Injection circuit with three-way valve"
-  extends
-    Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-      dat(dpValve_nominal=0.3e4),
-      final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-      final have_bypFix=true,
-      final have_pum=true);
+  extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    dpValve_nominal=0.3e4,
+    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
+    final have_bypFix=true,
+    final have_pum=true);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -24,8 +23,8 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal={0, 0},
-    final flowCharacteristics1=dat.flowCharacteristics1,
-    final flowCharacteristics3=dat.flowCharacteristics3)
+    final flowCharacteristics1=flowCharacteristics1,
+    final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
     annotation (
       choicesAllMatching = true,
@@ -111,7 +110,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final per=dat.pum)
+    final per=perPum)
     "Pump"
     annotation (
       choicesAllMatching = true,
@@ -133,11 +132,9 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,
-    final controllerType=dat.ctl.controllerType,
-    final k=dat.ctl.k,
-    final Ti=dat.ctl.Ti,
-    final Ni=dat.ctl.Ni,
-    final y_reset=dat.ctl.y_reset) if have_ctl
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti) if have_ctl
     "Controller"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(
@@ -170,7 +167,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         rotation=-90,
         origin={-40,-80})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(
-    final k=Integer(dat.typCtl))
+    final k=Integer(typCtl))
     "Controlled variable selector"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 equation
