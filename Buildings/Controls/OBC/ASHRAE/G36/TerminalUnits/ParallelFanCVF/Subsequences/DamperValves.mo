@@ -787,11 +787,11 @@ rate) for 1 minute, and shall shut off when the <code>VPri_flow</code> is above 
 </ul>
 </li>
 </ol>
-<p>The sequences of controlling fan, damper and valve position for constant-volume
+<p>The sequences of controlling fan, damper position for constant-volume
 parallel fan-powered terminal unit are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for constant-volume parallel fan-powered terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper control for constant-volume parallel fan-powered terminal unit\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/ParallelFanCVF/Subsequences/Dampers.png\"/>
 </p>
 <p>
 As specified in Section 5.7.7 of ASHRAE Guideline 36, the airflow setpoint could be

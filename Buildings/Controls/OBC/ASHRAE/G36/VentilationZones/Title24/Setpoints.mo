@@ -589,7 +589,7 @@ to reset outdoor air minimum.
 </ul>
 <p align=\"center\">
 <img alt=\"Image of airflow setpoint for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_reheat.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/Title24/setpoints_reheat.png\"/>
 </p>
 </li>
 <li>
@@ -611,7 +611,7 @@ to 100% will be used at the system level to reset outdoor air minimum.
 </ul>
 <p align=\"center\">
 <img alt=\"Image of airflow setpoint for VAV parallel-fan terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_parallelFan.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/Title24/setpoints_parallelFan.png\"/>
 </p>
 </li>
 </ol>
@@ -625,7 +625,7 @@ to <code>VZonDesMin_flow</code> at 100% signal.
 </p>
 <p align=\"center\">
 <img alt=\"Image of airflow setpoint for single zone VAV AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_SZVAV.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/Title24/setpoints_SZVAV.png\"/>
 </p>
 <p>
 If there is no CO2 sensor, the minimum outdoor air setpoint should be <code>VZonDesMin_flow</code>.

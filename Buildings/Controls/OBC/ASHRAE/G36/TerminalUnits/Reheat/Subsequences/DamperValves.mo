@@ -952,7 +952,7 @@ no lower than 10 &deg;C (50 &deg;F).
 unit are described in the following figure below.</p>
 <p align=\"center\">
 <img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Subsequences/DamperValves.png\"/>
 </p>
 <p>
 As specified in Section 5.6.7 of ASHRAE Guideline 36, the airflow setpoint could be

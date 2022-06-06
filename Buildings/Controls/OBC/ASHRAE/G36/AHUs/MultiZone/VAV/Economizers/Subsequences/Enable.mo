@@ -478,13 +478,6 @@ The outdoor air damper is closed to its minimum outoor airflow control limit (<c
 after a <code>disDel</code> time delay.
 </li>
 </ul>
-<p>
-This sequence also has an overwrite of the damper positions to track
-a minimum mixed air temperature of <code>TFreSet</code>, which is
-by default set to <i>4</i>&deg;C (<i>39.2</i> F).
-This is implemented using a proportional controller with a default deadband of
-<i>1</i> K, which can be adjusted using the parameter <code>kPFrePro</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -693,7 +693,7 @@ flow rate is equal to <code>VCooMax_flow</code> minus the parallel fan airflow
 <li>
 The occupied minimum airflow setpoint shall be reset from the zone minimum airflow
 setpoint <code>VMin_flow</code> at 0% loop output up to maximum cooling airflow
-setpoint <code>VCooMax_flow</code> at 100% loop output. The population component
+setpoint determined by CO2 control level at 100% loop output. The population component
 of breathing zone outdoor airflow shall be reset from 0 L/s at 0% loop output up to
 the designed population component airflow setpoint at 100% loop output.
 </li>

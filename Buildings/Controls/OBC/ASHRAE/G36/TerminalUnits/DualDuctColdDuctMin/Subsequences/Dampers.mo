@@ -696,8 +696,8 @@ damper shall be closed (<code>yCooDam=0</code>).
 <p>The sequences of controlling dampers position for dual-duct terminal unit
 with cold-duct minimum control are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper and valve control for dual-duct terminal unit with cold-duct minimum control\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctColdDuctMin/Subsequences/Dampers.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

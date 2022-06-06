@@ -1011,11 +1011,11 @@ airflow setpoint <code>maxRat</code>.
 </ul>
 </li>
 </ol>
-<p>The sequences of controlling fan, damper and valve position for variable-volume
+<p>The sequences of controlling fan, damper position for variable-volume
 series fan-powered terminal unit are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper and fan control for variable-volume series fan-powered terminal unit\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/SeriesFanVVF/Subsequences/Damper.png\"/>
 </p>
 <p>
 As specified in Section 5.10.7 of ASHRAE Guideline 36, the airflow setpoint could be

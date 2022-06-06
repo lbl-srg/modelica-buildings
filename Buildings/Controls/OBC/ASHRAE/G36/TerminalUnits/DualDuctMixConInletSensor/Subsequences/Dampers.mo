@@ -739,8 +739,8 @@ damper shall be closed (<code>yCooDam=0</code>).
 <p>The sequences of controlling dampers position for dual-duct terminal unit
 using mixing control with inlet flow sensor are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper control for dual-duct terminal unit using mixing control with inlet flow sensor\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctMixConInletSensor/Subsequences/Dampers.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

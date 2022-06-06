@@ -1094,7 +1094,8 @@ equation
           {-280,-370},{-50,-370},{-50,155},{58,155}}, color={0,0,127}));
 annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
-        graphics={Rectangle(
+        graphics={
+                  Rectangle(
         extent={{-200,-400},{200,400}},
         lineColor={0,0,127},
         fillColor={255,255,255},

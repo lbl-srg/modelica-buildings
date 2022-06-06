@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences;
 block DamperValves
-  "Output signals for controlling constant-volume parallel fan-powered terminal unit"
+  "Output signals for controlling constant-volume series fan-powered terminal unit"
 
   parameter Real dTDisZonSetMax(
     final unit="K",
@@ -818,11 +818,11 @@ override is released.
 </ul>
 </li>
 </ol>
-<p>The sequences of controlling fan, damper and valve position for constant-volume
+<p>The sequences of controlling fan, damper position for constant-volume
 series fan-powered terminal unit are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for constant-volume parallel fan-powered terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper and valve control for constant-volume series fan-powered terminal unit\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/SeriesFanCVF/Subsequences/Damper.png\"/>
 </p>
 <p>
 As specified in Section 5.9.7 of ASHRAE Guideline 36, the airflow setpoint could be

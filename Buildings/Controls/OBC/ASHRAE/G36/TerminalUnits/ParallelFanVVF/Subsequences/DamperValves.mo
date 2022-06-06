@@ -984,11 +984,11 @@ up to the maximum heating-fan airflow setpoint <code>maxRat</code>.
 </ul>
 </li>
 </ol>
-<p>The sequences of controlling damper and valve position for VAV reheat terminal
+<p>The sequences of controlling damper and the parallel fan for the
 unit are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper control for variable-volume parallel fan-powered terminal unit\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/ParallelFanVVF/Subsequences/Dampers.png\"/>
 </p>
 <p>
 As specified in Section 5.8.7 of ASHRAE Guideline 36, the airflow setpoint could be

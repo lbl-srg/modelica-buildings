@@ -628,8 +628,8 @@ damper shall be closed (<code>yCooDam=0</code>).
 <p>The sequences of controlling dampers position for snap-acting controlled dual-duct terminal unit
 with single discharge airflow sensors are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper control for snap-acting controlled dual-duct terminal unit\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctSnapActing/Subsequences/Dampers.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
