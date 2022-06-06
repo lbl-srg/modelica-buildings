@@ -863,7 +863,7 @@ computed in a separate block. The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of warm-up mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Warm-upModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/Warm-upModeDefinition.png\"/>
 </p>
 <h4>Cooldown Mode</h4>
 <p>
@@ -877,7 +877,7 @@ computed in a separate block.
 </p>
 <p align=\"center\">
 <img alt=\"Image of cool-down mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Cool-downModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/Cool-downModeDefinition.png\"/>
 </p>
 <h4>Setback Mode</h4>
 <p>
@@ -890,7 +890,7 @@ unoccupied setpoints (<code>uEndSetBac</code> becomes true).
 </p>
 <p align=\"center\">
 <img alt=\"Image of setback mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetbackModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/SetbackModeDefinition.png\"/>
 </p>
 <h4>Freeze Protection Setback Mode</h4>
 <p>
@@ -910,7 +910,7 @@ open shall be ignored.
 </p>
 <p align=\"center\">
 <img alt=\"Image of setup mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetupModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/SetupModeDefinition.png\"/>
 </p>
 <h4>Unoccupied Mode</h4>
 <p>
