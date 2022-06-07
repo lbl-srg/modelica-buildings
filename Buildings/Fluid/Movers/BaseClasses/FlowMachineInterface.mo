@@ -486,19 +486,19 @@ initial algorithm
          value. This constant will be removed in future releases.",
          level = AssertionLevel.warning);
 
-  assert(per.etaMet<>
+  assert(not (per.etaMet<>
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
          and per.etaHydMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided),
 "*** Warning in "+ getInstanceName()+
              ": Because eta and etaHyd are both provided,
              etaMot = eta / etaHyd is now imposed to have an upper limit of 1.",
          level=AssertionLevel.warning);
 
-  assert(per.etaMet<>
+  assert(not (per.etaMet<>
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
          and per.etaMotMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
+           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
 "*** Warning in "+ getInstanceName()+
              ": Because eta and etaMot are both provided,
              etaHyd = eta / etaMot is now imposed to have an upper limit of 1.",
