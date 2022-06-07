@@ -212,6 +212,9 @@ protected
   parameter Real kRes(min=0, unit="kg/(s.m4)") =  dpMax/V_flow_max*delta^2/10
     "Coefficient for internal pressure drop of the fan or pump";
 
+  parameter Modelica.Units.SI.Power deltaP = 1E-6 * V_flow_max * dpMax
+    "Small value used for regularisation of power terms";
+
   parameter Integer curve=
      if (haveVMax and haveDPMax) or (nOri == 2) then 1
      elseif haveVMax or haveDPMax then 2
@@ -659,14 +662,14 @@ equation
   WFlo = Buildings.Utilities.Math.Functions.smoothMax(
            x1=dp_internal*V_flow,
            x2=0,
-           deltaX=1E-6*V_flow_max*dpMax);
+           deltaX=deltaP);
 
   // Total efficiency eta and consumed electric power PEle
   if per.etaMet==
     Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     eta = Buildings.Utilities.Math.Functions.smoothMax(
             x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                      x1=PEle, x2=1E-5, deltaX=1E-6),
+                      x1=PEle, x2=10*deltaP, deltaX=deltaP),
             x2=1E-5, deltaX=1E-6);
     if homotopyInitialization then
       PEle = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
@@ -708,7 +711,7 @@ equation
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
                x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                         x1=WHyd, x2=1E-5, deltaX=1E-6),
+                         x1=WHyd, x2=10*deltaP, deltaX=deltaP),
                x2=1E-5, deltaX=1E-6);
     if homotopyInitialization then
       WHyd = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
