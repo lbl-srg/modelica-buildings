@@ -212,7 +212,7 @@ protected
   parameter Real kRes(min=0, unit="kg/(s.m4)") =  dpMax/V_flow_max*delta^2/10
     "Coefficient for internal pressure drop of the fan or pump";
 
-  parameter Modelica.Units.SI.Power deltaP = 1E-6 * V_flow_max * dpMax
+  parameter Modelica.Units.SI.Power deltaP = 1E-4 * V_flow_max * dpMax
     "Small value used for regularisation of power terms";
 
   parameter Integer curve=
@@ -670,7 +670,7 @@ equation
     eta = Buildings.Utilities.Math.Functions.smoothMax(
             x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
                       x1=PEle, x2=10*deltaP, deltaX=deltaP),
-            x2=1E-5, deltaX=1E-6);
+            x2=1E-2, deltaX=1E-3);
     if homotopyInitialization then
       PEle = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
@@ -693,7 +693,7 @@ equation
   else
   // Total efficiency not provided
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=etaHyd * etaMot, x2=1E-5, deltaX=1E-6);
+                    x1=etaHyd * etaMot, x2=1E-2, deltaX=1E-3);
     if per.etaHydMet<>
          Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided or
        per.etaMotMet<>
@@ -712,7 +712,7 @@ equation
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
                x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
                          x1=WHyd, x2=10*deltaP, deltaX=deltaP),
-               x2=1E-5, deltaX=1E-6);
+               x2=1E-2, deltaX=1E-3);
     if homotopyInitialization then
       WHyd = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
@@ -739,7 +739,7 @@ equation
          Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided then
     // As long as eta is provided
       etaHyd = Buildings.Utilities.Math.Functions.smoothMin(
-                 x1=eta / etaMot, x2=1, deltaX=1E-6);
+                 x1=eta / etaMot, x2=1, deltaX=1E-3);
     else
     // Only etaMot provided or neither
       etaHyd = 0.7;
@@ -794,7 +794,7 @@ equation
          Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided then
     // If both etaMet and etaHydMet provided
       etaMot = Buildings.Utilities.Math.Functions.smoothMin(
-                 x1=eta / etaHyd, x2=1, deltaX=1E-6);
+                 x1=eta / etaHyd, x2=1, deltaX=1E-3);
     else
       etaMot = 0.7;
     end if;
