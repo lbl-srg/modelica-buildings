@@ -11,7 +11,7 @@ m_flow = readTrajectory("TwoWayOpenLoop.mat", varNames, nPoints);
 varNames = {c + ".dp" for c in componentNames}
 dp = readTrajectory("TwoWayOpenLoop.mat", varNames, nPoints);
 ope = readTrajectory("TwoWayOpenLoop.mat", {"ope.y"}, nPoints);
-m_flow_nominal = readTrajectory("TwoWayOpenLoop.mat", {"mLiq_flow_nominal"}, nPoints);
+m_flow_nominal = readTrajectory("TwoWayOpenLoop.mat", {"mLiq_flow_nominal"}, 1);
 
 createPlot(id=3, position={594, 342, 1184, 744}, x="ope.y", leftTitle="m_flow(y)/m_flow(100%)", autoscale=true, grid=true, erase=true, color=true);
 plotArray(ope[1], m_flow[3] / max(m_flow[3]), erase=false, legend="valAut50");

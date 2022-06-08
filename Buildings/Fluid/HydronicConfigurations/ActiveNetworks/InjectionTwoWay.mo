@@ -120,7 +120,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final k=k,
     final Ti=Ti) if have_ctl
     "Controller"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
@@ -142,13 +142,25 @@ model InjectionTwoWay "Injection circuit with two-way valve"
         origin={-40,-60})));
   replaceable FixedResistances.LosslessPipe byp(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m2_flow_nominal)
+    final m_flow_nominal=m2_flow_nominal-m1_flow_nominal)
     "Fluid pass-through that can be replaced by check valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(final k=Integer(
-        typCtl))
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(
+    final k=Integer(typCtl))
     "Controlled variable selector"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+initial equation
+  assert(m2_flow_nominal > m1_flow_nominal,
+    "In " + getInstanceName() +
+    ": Primary mass flow rate must be strictly lower than consumer circuit mass flow rate " +
+    "at design conditions.");
+
+  if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable and
+    typCtl==Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature then
+    Modelica.Utilities.Streams.print(
+      "*** Warning: In " + getInstanceName() +
+      ": Return temperature control is likely not compatible with a variable flow consumer circuit.");
+  end if;
 equation
   connect(junSup.port_2, pum.port_a)
     annotation (Line(points={{-60,10},{-60,30}}, color={0,127,255}));
@@ -169,9 +181,9 @@ equation
   connect(T2Ret.port_a, port_a2)
     annotation (Line(points={{60,70},{60,100}}, color={0,127,255}));
   connect(ctl.y, val.y)
-    annotation (Line(points={{42,-40},{48,-40}}, color={0,0,127}));
+    annotation (Line(points={{32,-40},{48,-40}}, color={0,0,127}));
   connect(set, ctl.u_s)
-    annotation (Line(points={{-120,-40},{18,-40}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{8,-40}},  color={0,0,127}));
   connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,54},{20,
           54},{20,48},{12,48}}, color={0,0,127}));
   connect(One.y, swi.u1) annotation (Line(points={{28,80},{20,80},{20,48},{12,48}},
@@ -189,10 +201,11 @@ equation
   connect(junRet.port_2, val.port_a)
     annotation (Line(points={{60,-10},{60,-30}}, color={0,127,255}));
   connect(extIndSig.y, ctl.u_m)
-    annotation (Line(points={{-40,-72},{-40,-80},{30,-80},{30,-52}},
+    annotation (Line(points={{-40,-72},{-40,-80},{20,-80},{20,-52}},
                                                           color={0,0,127}));
-  connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-60},{24,
-          -60},{24,-52}}, color={255,127,0}));
+  connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-60},{
+          14,-60},{14,-52}},
+                          color={255,127,0}));
   connect(junRet.port_3,byp. port_a) annotation (Line(points={{50,0},{10,0}},
                         color={0,127,255}));
   connect(byp.port_b, junSup.port_3) annotation (Line(points={{-10,0},{-50,0}},
@@ -201,6 +214,8 @@ equation
     annotation (Line(points={{-68,-60},{-52,-60}}, color={255,127,0}));
   connect(swi.y, pum.y)
     annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
+  connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{40,
+          -20},{40,-40},{48,-40}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

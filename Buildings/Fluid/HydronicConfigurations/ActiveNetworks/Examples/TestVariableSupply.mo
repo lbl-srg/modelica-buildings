@@ -78,8 +78,7 @@ model TestVariableSupply
     redeclare final package Medium = MediumLiq,
     final p=p_min + 10*(loa1.dpTer_nominal + loa1.dpValve_nominal),
     use_T_in=true,
-    nPorts=1)
-    "Pressure and temperature boundary condition"
+    nPorts=1) "Pressure and temperature boundary condition"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-30,18})));
@@ -93,8 +92,7 @@ model TestVariableSupply
   Sources.Boundary_pT ref3(
     redeclare final package Medium = MediumLiq,
     final p=p_min,
-    nPorts=1)
-    "Pressure and temperature boundary condition"
+    nPorts=1) "Pressure and temperature boundary condition"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={80,18})));
@@ -102,8 +100,7 @@ model TestVariableSupply
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=loa.mLiq_flow_nominal,
     tau=0,
-    T_start=loa1.TLiqEnt_nominal)
-    "Supply temperature sensor"
+    T_start=loa1.TLiqEnt_nominal) "Supply temperature sensor"
     annotation (Placement(
         transformation(
         extent={{-10,8},{10,28}},
@@ -112,8 +109,7 @@ model TestVariableSupply
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=loa.mLiq_flow_nominal,
     tau=0,
-    T_start=loa1.TLiqLvg_nominal)
-    "Return temperature sensor"
+    T_start=loa1.TLiqLvg_nominal) "Return temperature sensor"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -172,7 +168,7 @@ model TestVariableSupply
     dp1_nominal=0,
     dp2_nominal=0,
     UA_nominal=1.2 * 9000,
-    nEle=20,
+    nEle=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Cooling coil discretized"
     annotation (Placement(transformation(extent={{20,-48},{40,-68}})));

@@ -135,7 +135,7 @@ model PartialHydronicConfiguration
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
     "Gain of controller"
     annotation (Dialog(group="Controls", enable=have_ctl));
-  parameter Real Ti(unit="s")=60
+  parameter Real Ti(unit="s")=120
     "Time constant of integrator block"
     annotation (Dialog(group="Controls",
     enable=have_ctl and (controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or

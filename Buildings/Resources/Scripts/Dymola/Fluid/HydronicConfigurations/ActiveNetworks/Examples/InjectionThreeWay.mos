@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWay", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="InjectionThreeWay");
 
-createPlot(id=1, position={14, 11, 1181, 908}, y={"set.y", "TSecSup.T", "TSecRet.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
 
 createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.m2_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");

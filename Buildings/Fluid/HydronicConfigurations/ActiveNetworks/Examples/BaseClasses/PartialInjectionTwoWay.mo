@@ -15,7 +15,7 @@ partial model PartialInjectionTwoWay
     m2_flow_nominal * (TLiqEnt_nominal - TLiqLvg_nominal) / (TLiqSup_nominal - TLiqLvg_nominal)
     "Mass flow rate in primary branch at design conditions"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
     2 * mTer_flow_nominal
     "Mass flow rate in consumer circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
@@ -44,14 +44,12 @@ partial model PartialInjectionTwoWay
   parameter Modelica.Units.SI.Pressure p_min=200000
     "Circuit minimum pressure";
 
-  parameter Modelica.Units.SI.Temperature TAirEnt_nominal=293.15
-    "Air entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=313.15
-    "Hot water entering temperature at design conditions";
+    "Liquid entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal-5
-    "Hot water leaving temperature at design conditions";
+    "Liquid leaving temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqSup_nominal=333.15
-    "Hot water primary supply temperature at design conditions";
+    "Liquid primary supply temperature at design conditions";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -91,8 +89,6 @@ partial model PartialInjectionTwoWay
     final dp2_nominal=dp2_nominal,
     dpValve_nominal=0.5 * dp1Set,
     final dpBal1_nominal=if is_bal then dp1Set - con.dpValve_nominal else 0,
-    k=0.1,
-    Ti=60,
     pum(addPowerToMedium=false))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -136,11 +132,11 @@ partial model PartialInjectionTwoWay
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-90})));
-  Controls.PIDWithOperatingMode             ctl(
+  Controls.PIDWithOperatingMode ctlPum(
     k=1,
     Ti=60,
     r=MediumLiq.p_default,
-    y_reset=1) "Pump controller"
+    y_reset=1) "Primary pump controller"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp1SetVal(final k=
         dp1Set) "Pressure differential set point"
@@ -189,18 +185,17 @@ equation
   connect(TSup.T,delT. u2)
     annotation (Line(points={{-40,-91},{-40,-126},{-10,-126}},
                                                             color={0,0,127}));
-  connect(dp1SetVal.y, ctl.u_s)
+  connect(dp1SetVal.y, ctlPum.u_s)
     annotation (Line(points={{-98,-20},{-72,-20}}, color={0,0,127}));
-  connect(dp1.p_rel, ctl.u_m) annotation (Line(points={{30,-51},{30,-40},{-60,-40},
-          {-60,-32}}, color={0,0,127}));
-  connect(ctl.y,pum. y) annotation (Line(points={{-48,-20},{-40,-20},{-40,-60},{
-          -60,-60},{-60,-68}},
-                           color={0,0,127}));
+  connect(dp1.p_rel, ctlPum.u_m) annotation (Line(points={{30,-51},{30,-40},{-60,
+          -40},{-60,-32}}, color={0,0,127}));
+  connect(ctlPum.y, pum.y) annotation (Line(points={{-48,-20},{-40,-20},{-40,-60},
+          {-60,-60},{-60,-68}}, color={0,0,127}));
   connect(mod1.y[1], con.mod) annotation (Line(points={{-98,20},{10,20},{10,18},
           {18,18}},
                 color={255,127,0}));
-  connect(mod1.y[1], ctl.mod) annotation (Line(points={{-98,20},{-80,20},{-80,-40},
-          {-66,-40},{-66,-32}}, color={255,127,0}));
+  connect(mod1.y[1], ctlPum.mod) annotation (Line(points={{-98,20},{-80,20},{-80,
+          -40},{-66,-40},{-66,-32}}, color={255,127,0}));
   connect(resEnd1.port_b, del1.ports[1])
     annotation (Line(points={{80,-100},{38.6667,-100}}, color={0,127,255}));
   connect(del1.ports[2], TRet.port_a)

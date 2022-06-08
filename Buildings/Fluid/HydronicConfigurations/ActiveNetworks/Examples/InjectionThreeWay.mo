@@ -82,9 +82,7 @@ model InjectionThreeWay
     final m2_flow_nominal=m2_flow_nominal,
     final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
     final dpBal1_nominal= if is_bal then dpPum_nominal - dpPip_nominal - dpValve_nominal
-      else 0,
-    k=0.1,
-    Ti=60)
+      else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
@@ -99,10 +97,9 @@ model InjectionThreeWay
     final TLiqLvg_nominal=TLiqLvg_nominal)
     "Load"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(
-    table=[0,0,0; 6,
-      0,0; 6,1,1; 7,1,0.5; 8,0.5,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 22,0,1;
-      22,0,0; 24,0,0],
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0;
+        6,0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,
+        1; 22,0,0; 24,0,0],
     timeScale=3600)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
@@ -164,14 +161,12 @@ model InjectionThreeWay
     "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 12,
-        0; 13,-5; 14,-7; 16,-2; 24,0], timeScale=3600)
+        0; 13,-5; 14,-7; 17,0; 24,0],  timeScale=3600)
     "Offset applied to design supply temperature to compute set point"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter set(
-    final p=TLiqEnt_nominal,
-    y(final unit="K", displayUnit="degC"))
-    "Compute supply temperature set point"
-    annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter T2Set(final p=
+        TLiqEnt_nominal, y(final unit="K", displayUnit="degC"))
+    "Consumer circuit temperature set point" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -224,12 +219,12 @@ equation
           {38,86}}, color={0,0,127}));
   connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-98,100},{80,100},{80,86},
           {98,86}}, color={0,0,127}));
-  connect(setOff.y[1], set.u)
+  connect(setOff.y[1], T2Set.u)
     annotation (Line(points={{-98,60},{-82,60}}, color={0,0,127}));
   connect(mod.y[1], con.mod) annotation (Line(points={{-98,-20},{-90,-20},{-90,0},
           {-10,0},{-10,8},{-2,8}},   color={255,127,0}));
-  connect(set.y, con.set) annotation (Line(points={{-58,60},{-20,60},{-20,-4},{-2,
-          -4}}, color={0,0,127}));
+  connect(T2Set.y, con.set) annotation (Line(points={{-58,60},{-20,60},{-20,-4},
+          {-2,-4}}, color={0,0,127}));
   connect(rea.y, pum.y) annotation (Line(points={{-28,-20},{-20,-20},{-20,-40},{
           -80,-40},{-80,-48}},
                            color={0,0,127}));

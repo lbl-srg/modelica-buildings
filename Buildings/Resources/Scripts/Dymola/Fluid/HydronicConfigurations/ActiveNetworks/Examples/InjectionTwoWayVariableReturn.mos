@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="InjectionTwoWayVariableReturn");
 
-createPlot(id=1, position={14, 11, 1181, 908}, y={"set.y", "con.T2Sup.T", "con.T2Ret.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
 
 createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "con.byp.m_flow", "mPum_flow_nominal", "con.m2_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
@@ -9,7 +9,7 @@ createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]"
 
 createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
 
-createPlot(id=7, position={1319, 248, 1193, 979}, y={"dp1SetVal.y", "dp1.p_rel", "dp2SetVal.y", "dp2.p_rel"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=1);
+createPlot(id=7, position={1319, 243, 1186, 853}, y={"dp1SetVal.y", "dp1.p_rel", "dp2SetVal.y", "dp2.p_rel"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=1);
 createPlot(id=7, y={"pum.y_actual", "con.pum.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
 
 // Delta-T function of the load
@@ -26,8 +26,18 @@ q_flow = readTrajectory("InjectionTwoWayVariableReturn.mat", {"loa.Q_flow"}, nPo
 q1_flow = readTrajectory("InjectionTwoWayVariableReturn.mat", {"loa1.Q_flow"}, nPoints);
 dT = readTrajectory("InjectionTwoWayVariableReturn.mat", {"delT.y"}, nPoints);
 ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
+T2Sup = readTrajectory("InjectionTwoWayVariableReturn.mat", {"con.T2Sup.T"}, nPoints);
+T2Ret = readTrajectory("InjectionTwoWayVariableReturn.mat", {"con.T2Ret.T"}, nPoints);
 
 createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
-plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="delT.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="dT1", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray(ratQTot_flow, T2Ret[1] - T2Sup[1], id=6, erase=false, legend="dT2", pattern=LinePattern.None, marker=MarkerStyle.Dot, color={238,46,47});
 plotArray({1}, {dTPri_nom}, id=6, erase=false, legend="Design operating point", color={238,46,47});
 plotArray({0, 1}, {0, dTPri_nom}, id=6, erase=false, legend="Linear trend", color={0,140,72}, pattern=LinePattern.Dash);
+
+createPlot(id=8, position={785, 244, 1184, 852}, y={"TSupOpe.T", "TRetOpe.T"}, autoscale=true, autoerase=true, grid=true, color=true, timeUnit="h", subPlot=1);
+plotSignalOperator("TRetOpe.T", SignalOperator.Max, 21600, 79200);
+plotSignalOperator("TRetOpe.T", SignalOperator.Min, 21600, 79200);
+
+createPlot(id=8, y={"loaOpe.yLoa_actual"}, autoscale=true, autoerase=true, grid=true, color=true, timeUnit="h", subPlot=2);
+plotExpression(apply(InjectionTwoWayVariableReturn.loaOpe.m_flow / InjectionTwoWayVariableReturn.loaOpe.m_flow_nominal), false, "loaOpe.m_flow/m_flow_nominal");
