@@ -76,7 +76,8 @@ model PartialLoadValveControl
     "Load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   replaceable HydronicConfigurations.Interfaces.PartialHydronicConfiguration con
-    constrainedby HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    constrainedby
+    HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     redeclare final package Medium=MediumLiq,
     final m2_flow_nominal=m_flow_nominal,
     final dp2_nominal=dpTer_nominal,
@@ -87,12 +88,15 @@ model PartialLoadValveControl
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
-    "Actual load fraction met" annotation (Placement(transformation(extent={{100,
-            40},{140,80}}), iconTransformation(extent={{100,40},{140,80}})));
+    "Actual load fraction met" annotation (Placement(transformation(extent={{100,20},
+            {140,60}}),     iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
     "Total heat flow rate transferred to the load" annotation (Placement(
         transformation(extent={{100,-80},{140,-40}}),  iconTransformation(
-          extent={{100,-80},{140,-40}})));
+          extent={{100,-70},{140,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal_actual(final unit="1")
+    "Valve position feedback" annotation (Placement(transformation(extent={{100,
+            60},{140,100}}), iconTransformation(extent={{100,60},{140,100}})));
 equation
   connect(port_a, con.port_a1)
     annotation (Line(points={{-100,0},{-6,0}}, color={0,127,255}));
@@ -102,14 +106,16 @@ equation
           40},{-10,60}}, color={0,127,255}));
   connect(con.port_a2, loa.port_b) annotation (Line(points={{6,19.8},{6,40},{10,
           40},{10,60}}, color={0,127,255}));
-  connect(loa.y, con.yVal) annotation (Line(points={{12,68},{20,68},{20,80},{-20,
-          80},{-20,10},{-12,10}}, color={0,0,127}));
+  connect(loa.yVal, con.yVal) annotation (Line(points={{12,68},{20,68},{20,80},
+          {-20,80},{-20,10},{-12,10}}, color={0,0,127}));
   connect(u, loa.u) annotation (Line(points={{-120,60},{-40,60},{-40,66},{-12,66}},
         color={0,0,127}));
-  connect(loa.yLoa_actual, yLoa_actual) annotation (Line(points={{12,64},{80,64},
-          {80,60},{120,60}}, color={0,0,127}));
+  connect(loa.yLoa_actual, yLoa_actual) annotation (Line(points={{12,64},{90,64},
+          {90,40},{120,40}}, color={0,0,127}));
   connect(loa.Q_flow, Q_flow) annotation (Line(points={{12,51},{80,51},{80,-60},
           {120,-60}}, color={0,0,127}));
+  connect(con.yVal_actual, yVal_actual) annotation (Line(points={{12,10},{70,10},
+          {70,80},{120,80}}, color={0,0,127}));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

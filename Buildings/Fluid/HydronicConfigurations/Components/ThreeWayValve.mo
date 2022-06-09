@@ -17,19 +17,17 @@ model ThreeWayValve "Container class for three-way valves"
     "Table with flow characteristics for direct flow path at port_1"
      annotation (
      Dialog(enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
-     choicesAllMatching=true, Placement(transformation(extent={{30,72},
-            {50,92}})));
+     choicesAllMatching=true, Placement(transformation(extent={{-30,-68},{-10,-48}})));
   parameter Buildings.Fluid.Actuators.Valves.Data.Generic flowCharacteristics3(
     y={0,1},
     phi={0.0001,1})
     "Table with flow characteristics for bypass flow path at port_3"
     annotation (
     Dialog(enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
-    choicesAllMatching=true, Placement(transformation(extent={{70,72},
-            {90,92}})));
+    choicesAllMatching=true, Placement(transformation(extent={{10,-68},{30,-48}})));
 
-  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal[2](displayUnit=
-       "Pa")={0,0}
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal[2](
+    each displayUnit="Pa")={0,0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
     annotation (Dialog(group="Nominal condition"));
 
@@ -230,6 +228,11 @@ model ThreeWayValve "Container class for three-way valves"
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
     "Three-way valve with table-specified characteristics"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
+
+initial equation
+  assert(typCha<>Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent,
+    "In " + getInstanceName() +
+    ": The pressure independent option is only available for two-way valves.");
 
 equation
 

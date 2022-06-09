@@ -26,8 +26,7 @@ model TwoWayValve "Container class for two-way valves"
     "Table with flow characteristics"
     annotation (
     Dialog(enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
-    choicesAllMatching=true, Placement(transformation(extent={{-80,
-            60},{-60,80}})));
+    choicesAllMatching=true, Placement(transformation(extent={{-20,-68},{0,-48}})));
 
   parameter Real R=50
     "Rangeability, R=50...100 typically"
@@ -95,7 +94,7 @@ model TwoWayValve "Container class for two-way valves"
     final y_start=y_start)
     if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Two-way valve with equal percentage characteristic"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Actuators.Valves.TwoWayLinear valLin(
     redeclare final package Medium = Medium,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -114,7 +113,7 @@ model TwoWayValve "Container class for two-way valves"
     final y_start=y_start)
     if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
     "Two-way valve with linear characteristic"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   Actuators.Valves.TwoWayTable valTab(
     redeclare final package Medium = Medium,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -133,35 +132,63 @@ model TwoWayValve "Container class for two-way valves"
     final flowCharacteristics=flowCharacteristics)
     if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
     "Two-way valve with table-specified characteristic"
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
+  Actuators.Valves.TwoWayPressureIndependent valPre(
+    redeclare final package Medium=Medium,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final rhoStd=rhoStd,
+    final dpFixed_nominal=dpFixed_nominal,
+    final l=l,
+    final deltaM=deltaM,
+    final from_dp=from_dp,
+    final allowFlowReversal=allowFlowReversal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start)
+    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent
+    "Pressure-independent two-way valve"
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps, "In " + getInstanceName() +
   ": Model requires dpFixed_nominal >= 0 but received dpFixed_nominal = "
     + String(dpFixed_nominal) + " Pa.");
 equation
   connect(y, valEqu.y)
-    annotation (Line(points={{0,120},{0,12}}, color={0,0,127}));
+    annotation (Line(points={{0,120},{0,80},{-20,80},{-20,12}},
+                                              color={0,0,127}));
   connect(valEqu.y_actual, y_actual)
-    annotation (Line(points={{5,7},{90,7},{90,60},{120,60}}, color={0,0,127}));
+    annotation (Line(points={{-15,7},{90,7},{90,60},{120,60}},
+                                                             color={0,0,127}));
   connect(port_a, valEqu.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-30,0}}, color={0,127,255}));
   connect(valEqu.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{-10,0},{100,0}},color={0,127,255}));
   connect(port_a, valTab.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,
-          -40},{30,-40}}, color={0,127,255}));
+          -40},{10,-40}}, color={0,127,255}));
   connect(port_a, valLin.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,
-          40},{-50,40}}, color={0,127,255}));
-  connect(valLin.port_b, port_b) annotation (Line(points={{-30,40},{80,40},{80,0},
+          40},{-70,40}}, color={0,127,255}));
+  connect(valLin.port_b, port_b) annotation (Line(points={{-50,40},{80,40},{80,0},
           {100,0}}, color={0,127,255}));
-  connect(valLin.y_actual, y_actual) annotation (Line(points={{-35,47},{90,47},{
+  connect(valLin.y_actual, y_actual) annotation (Line(points={{-55,47},{90,47},{
           90,60},{120,60}}, color={0,0,127}));
-  connect(y, valLin.y) annotation (Line(points={{0,120},{0,80},{-40,80},{-40,52}},
+  connect(y, valLin.y) annotation (Line(points={{0,120},{0,80},{-60,80},{-60,52}},
         color={0,0,127}));
-  connect(y, valTab.y) annotation (Line(points={{0,120},{0,80},{40,80},{40,-28}},
+  connect(y, valTab.y) annotation (Line(points={{0,120},{0,80},{20,80},{20,-28}},
         color={0,0,127}));
-  connect(valTab.port_b, port_b) annotation (Line(points={{50,-40},{80,-40},{80,
+  connect(valTab.port_b, port_b) annotation (Line(points={{30,-40},{80,-40},{80,
           0},{100,0}}, color={0,127,255}));
-  connect(valTab.y_actual, y_actual) annotation (Line(points={{45,-33},{90,-33},
+  connect(valTab.y_actual, y_actual) annotation (Line(points={{25,-33},{90,-33},
+          {90,60},{120,60}}, color={0,0,127}));
+  connect(port_a, valPre.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,
+          -80},{50,-80}}, color={0,127,255}));
+  connect(valPre.port_b, port_b) annotation (Line(points={{70,-80},{80,-80},{80,
+          0},{100,0}}, color={0,127,255}));
+  connect(y, valPre.y) annotation (Line(points={{0,120},{0,80},{60,80},{60,-68}},
+        color={0,0,127}));
+  connect(valPre.y_actual, y_actual) annotation (Line(points={{65,-73},{90,-73},
           {90,60},{120,60}}, color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(

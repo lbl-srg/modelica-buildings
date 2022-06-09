@@ -16,22 +16,22 @@ model DiversionOpenLoop
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
     "Terminal unit mass flow rate at design conditions";
-  parameter Modelica.Units.SI.Pressure dpTer_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
     final min=0,
     displayUnit="Pa") = 3E4
     "Liquid pressure drop across terminal unit at design conditions";
-  parameter Modelica.Units.SI.Pressure dpValve_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     final min=0,
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpPip_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpPip_nominal(
     final min=0,
     displayUnit="Pa") = 0.5E4
     "Pipe section pressure drop at design conditions";
   parameter Real kSizPum(
     final unit="1") = 1.0
     "Pump oversizing coefficient";
-  final parameter Modelica.Units.SI.Pressure dpPum_nominal(
+  final parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
     final min=0,
     displayUnit="Pa")=
     (2 * dpPip_nominal + dpTer_nominal + dpValve_nominal) * kSizPum

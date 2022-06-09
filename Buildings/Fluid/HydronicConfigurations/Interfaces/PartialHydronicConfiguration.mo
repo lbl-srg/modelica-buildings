@@ -60,7 +60,8 @@ model PartialHydronicConfiguration
     typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
     "Set to true if a digital input is used for pump control"
     annotation(Dialog(group="Configuration"));
-  final parameter Boolean have_yVal = not have_ctl
+  final parameter Boolean have_yVal = not have_ctl and
+    typVal<>Buildings.Fluid.HydronicConfigurations.Types.Valve.None
     "Set to true if an analog input is used for valve control"
     annotation(Dialog(group="Configuration"));
   final parameter Boolean have_set = have_ctl
@@ -79,13 +80,13 @@ model PartialHydronicConfiguration
     "Control valve pressure drop at design conditions"
     annotation (Dialog(group="Control valve"));
 
-  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(displayUnit=
-        "Pa")=0
+  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
+    displayUnit="Pa")=0
     "Primary balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Balancing valves"));
 
-  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(displayUnit=
-        "Pa")=0
+  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
+    displayUnit="Pa")=0
     "Secondary balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Balancing valves"));
 
@@ -202,6 +203,22 @@ model PartialHydronicConfiguration
     "Operating mode"
     annotation (Placement(transformation(extent={{-140,60},{-100,
             100}}),      iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput  yVal_actual
+    if typVal <> Buildings.Fluid.HydronicConfigurations.Types.Valve.None
+    "Valve position feedback"
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+                         iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum_actual(
+    final unit="1") if have_pum
+    "Actual normalised pump speed that is used for computations"
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+        iconTransformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
+    quantity="Power",
+    final unit="W") if have_pum
+    "Pump electrical power"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+        iconTransformation(extent={{100,60},{140,100}})));
 
   Medium.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";

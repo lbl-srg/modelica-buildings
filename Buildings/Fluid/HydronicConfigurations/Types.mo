@@ -33,6 +33,8 @@ package Types "Package with type definitions"
       "Pump with ideally controlled rotational speed as input")
     "Enumeration to specify the type of pump model";
   type Valve = enumeration(
+      None
+    "No valve",
       ThreeWay
     "Three-way valve",
       TwoWay
@@ -43,6 +45,8 @@ package Types "Package with type definitions"
       "Equal percentage - Equal percentage and linear for three-way valves",
       Linear
       "Linear",
+      PressureIndependent
+      "Pressure independent",
       Table
       "Table-specified")
     "Enumeration to specify the control valve characteristic";

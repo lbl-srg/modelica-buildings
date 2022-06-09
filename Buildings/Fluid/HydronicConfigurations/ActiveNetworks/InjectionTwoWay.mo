@@ -149,11 +149,14 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final k=Integer(typCtl))
     "Controlled variable selector"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+
 initial equation
-  assert(m2_flow_nominal > m1_flow_nominal,
-    "In " + getInstanceName() +
-    ": Primary mass flow rate must be strictly lower than consumer circuit mass flow rate " +
-    "at design conditions.");
+  if m2_flow_nominal <= m1_flow_nominal then
+    Modelica.Utilities.Streams.print(
+      "*** Warning: In " + getInstanceName() +
+      ": Primary mass flow rate should be strictly lower than consumer circuit mass flow rate " +
+      "at design conditions to ensure an actual variable flow in the primary.");
+  end if;
 
   if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable and
     typCtl==Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature then
@@ -184,8 +187,9 @@ equation
     annotation (Line(points={{32,-40},{48,-40}}, color={0,0,127}));
   connect(set, ctl.u_s)
     annotation (Line(points={{-120,-40},{8,-40}},  color={0,0,127}));
-  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,54},{20,
-          54},{20,48},{12,48}}, color={0,0,127}));
+  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,56},{
+          20,56},{20,48},{12,48}},
+                                color={0,0,127}));
   connect(One.y, swi.u1) annotation (Line(points={{28,80},{20,80},{20,48},{12,48}},
         color={0,0,127}));
   connect(zer.y, swi.u3)
@@ -216,6 +220,12 @@ equation
     annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
   connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{40,
           -20},{40,-40},{48,-40}}, color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-51,52},{-51,54},{80,54},{80,
+          60},{120,60}}, color={0,0,127}));
+  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},
+          {80,40},{120,40}}, color={0,0,127}));
+  connect(val.y_actual, yVal_actual)
+    annotation (Line(points={{53,-46},{53,-60},{120,-60}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

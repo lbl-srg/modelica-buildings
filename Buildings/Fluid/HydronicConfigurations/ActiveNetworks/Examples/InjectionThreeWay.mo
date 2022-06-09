@@ -19,15 +19,15 @@ model InjectionThreeWay
     2 * mTer_flow_nominal
     "Mass flow rate in consumer circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Pressure dpTer_nominal(displayUnit="Pa")=3E4
+  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")=3E4
     "Terminal unit pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpValve_nominal(displayUnit="Pa")=0.3E4
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(displayUnit="Pa")=0.3E4
     "Control valve pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpPip_nominal(displayUnit="Pa")=0.5E4
+  parameter Modelica.Units.SI.PressureDifference dpPip_nominal(displayUnit="Pa")=0.5E4
     "Pipe section pressure drop at design conditions";
   parameter Real kSizPum(final unit="1") = 5.0
     "Pump oversizing coefficient";
-  final parameter Modelica.Units.SI.Pressure dpPum_nominal(
+  final parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
     final min=0,
     displayUnit="Pa")=
     (dpPip_nominal + dpValve_nominal) * kSizPum

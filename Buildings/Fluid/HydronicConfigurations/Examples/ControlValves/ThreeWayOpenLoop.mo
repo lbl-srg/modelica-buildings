@@ -13,7 +13,7 @@ model ThreeWayOpenLoop
     "Circuit mass flow rate at design conditions";
   parameter Modelica.Units.SI.Pressure p_min=200000
     "Circuit minimum pressure";
-  parameter Modelica.Units.SI.Pressure dp_nominal=100000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=100000
     "Circuit total pressure drop at design conditions";
 
   Sources.Boundary_pT sup(
@@ -426,22 +426,22 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the concept of the authority for three-way control valves 
+This model illustrates the concept of the authority for three-way control valves
 controlled with an open loop that modulates the valve from fully
 closed (bypass flow) to fully open position.
 
-Another phenomenon may also be observed with that example, that is 
+Another phenomenon may also be observed with that example, that is
 the overflow when the valve is fully closed.
 However, a more detailed analysis of that phenomenom is needed (and
-provided with the model 
+provided with the model
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>) 
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>)
 to take into account how the variation
 of the flow resistance affects the operating point of a pump
 operated at constant speed, and the pressure differential available
 at other terminal units.
 
-In the case where it is not balanced and considering for instance 
+In the case where it is not balanced and considering for instance
 <i>&Delta;p<sub>A-B</sub>(y=100%) &asymp; &Delta;p<sub>L-M</sub>(y=0%)</i>
 the valve authority computed with the latter equation is close to
 one whatever the pressure differential at the circuit boundaries,
@@ -455,14 +455,14 @@ The valve authority
 can be computed by dividing the pressure drop across the
 valve between those two extreme positions (see plot #2 for
 the pressure drop values and the command log for the computed
-value of the authority). 
+value of the authority).
 </p>
 <ul>
 <li>
 The components <code>valAut&lt;25..100&gt;</code> show how the authority
-affects the inherent flow characteristic of the valve which corresponds 
+affects the inherent flow characteristic of the valve which corresponds
 to an authority <i>&beta; = 100%</i> (see plot #1).
-The major disturbance appears for authorities strictly lower than 
+The major disturbance appears for authorities strictly lower than
 <i>&beta; = 50%</i> which is usually adopted as the sizing criteria
 for control valves.
 </li>

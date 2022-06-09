@@ -16,26 +16,26 @@ model ThrottleOpenLoop
 
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
     "Terminal unit mass flow rate at design conditions";
-  parameter Modelica.Units.SI.Pressure dpTer_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
     final min=0,
     displayUnit="Pa") = 3E4
     "Liquid pressure drop across terminal unit at design conditions";
-  parameter Modelica.Units.SI.Pressure dpValve_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     final min=0,
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpPip_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpPip_nominal(
     final min=0,
     displayUnit="Pa") = 0.5E4
     "Pipe section (before first circuit) pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpPip1_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpPip1_nominal(
     final min=0,
     displayUnit="Pa") = 3E4
     "Pipe section (between two circuits) pressure drop at design conditions";
   parameter Real kSizPum(
     final unit="1") = 1.0
     "Pump oversizing coefficient";
-  final parameter Modelica.Units.SI.Pressure dpPum_nominal(
+  final parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
     final min=0,
     displayUnit="Pa") = (dpPip_nominal + dpPip1_nominal + dpSetVal.k)*kSizPum
     "Pump head at design conditions";
@@ -258,7 +258,7 @@ equation
     Documentation(info="<html>
 <p>
 The pipe pressure drop between the two consumer circuits is voluntarily
-high to showcase typical balancing issues encountered in large 
+high to showcase typical balancing issues encountered in large
 distribution systems.
 </p>
 <p>

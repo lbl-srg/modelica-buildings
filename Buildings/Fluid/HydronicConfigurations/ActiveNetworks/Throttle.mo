@@ -47,6 +47,8 @@ equation
     annotation (Line(points={{60,10},{60,100},{60,100}}, color={0,127,255}));
   connect(yVal, val.y)
     annotation (Line(points={{-120,0},{48,0}}, color={0,0,127}));
+  connect(val.y_actual, yVal_actual) annotation (Line(points={{53,-6},{53,-20},
+          {80,-20},{80,-60},{120,-60}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

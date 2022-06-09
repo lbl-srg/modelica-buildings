@@ -228,6 +228,12 @@ equation
           -40}}, color={0,0,127}));
   connect(ctlVar.y, extIndSig.index)
     annotation (Line(points={{-68,-80},{-52,-80}}, color={255,127,0}));
+  connect(val.y_actual, yVal_actual) annotation (Line(points={{67,-46},{67,-50},
+          {90,-50},{90,-60},{120,-60}}, color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-51,52},{-51,54},{80,54},{80,
+          60},{120,60}}, color={0,0,127}));
+  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},
+          {80,40},{120,40}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

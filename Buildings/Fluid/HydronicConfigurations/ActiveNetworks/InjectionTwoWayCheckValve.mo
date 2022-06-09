@@ -29,6 +29,27 @@ model InjectionTwoWayCheckValve
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
+This circuit is similar to
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>
+except for the check valve that is added into the bypass.
+If used in DHC systems and if the control valve is not properly sized 
+to maintain the set point at all loads, the check valve prevents recirculation 
+in the service line which degrades the &Delta;T in the distribution system.
+If used to connect a heating coil, the check valve reduces the risk 
+of freezing in case of secondary pump failure.
+</p>
+<p>
+Primary pressure differential may be transmitted to the consumer circuit,
+lowering the authority of the terminal control valves.
+Therefore this configuration is rather recommended in conjunction with
+a variable flow consumer circuit where the circulation pump speed is 
+modulated to track a differential pressure set point.
+Hence, when the primary and secondary pumps are in series, the secondary
+pump is operated at a lower speed.
+</p>
+<p>
+Note that 
 Lumped flow resistance includes...
 
 Default dpValve_nominal=0.34e4 for check valve

@@ -1,36 +1,26 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayVariable
   "Model illustrating the operation of an inversion circuit with two-way valve and variable secondary"
-  extends HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant(
-    redeclare BaseClasses.LoadTwoWayValveControl loa(
-      final mAir_flow_nominal=mAir_flow_nominal),
-    redeclare BaseClasses.LoadTwoWayValveControl loa1(
-      final mAir_flow_nominal=mAir_flow_nominal),
+  extends InjectionTwoWayConstantReturn(
+    redeclare BaseClasses.LoadTwoWayValveControl loa,
+    redeclare BaseClasses.LoadTwoWayValveControl loa1,
     del2(nPorts=4),
     dp2_nominal=dpPip_nominal + dp2Set,
-    m2_flow_nominal=2 * mTer_flow_nominal / 0.9,
-    mTer_flow_nominal=2.46,
-    TAirEnt_nominal=25.6 + 273.15,
-    phiAirEnt_nominal = 0.5,
-    TLiqEnt_nominal=4.4+273.15,
-    TLiqLvg_nominal=13.5+273.15,
-    TLiqSup_nominal=3+273.15,
+    m2_flow_nominal=2*mTer_flow_nominal/0.9,
     con(
       typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
-      typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Cooling,
       typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature),
-    setOff(table=[0,0; 9,0; 15,+5; 16,+5; 17,0; 24,0]));
+    res2(final m_flow_nominal=mTer_flow_nominal + resEnd2.m_flow_nominal));
 
-  parameter Modelica.Units.SI.Pressure dp2Set(
+  parameter Modelica.Units.SI.PressureDifference dp2Set(
     final min=0,
     displayUnit="Pa") = loa1.dpTer_nominal + loa1.dpValve_nominal
-    "Secondary pressure differential set point";
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=6.8
-    "Air mass flow rate at design conditions";
+    "Secondary pressure differential set point"
+    annotation (Dialog(group="Controls"));
 
   FixedResistances.PressureDrop res2(
     redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=mTer_flow_nominal,
+    final m_flow_nominal=mTer_flow_nominal + resEnd2.m_flow_nominal,
     final dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
@@ -50,13 +40,13 @@ model InjectionTwoWayVariable
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(
     final k=dp2Set)
     "Pressure differential set point"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Controls.PIDWithOperatingMode ctlPum2(
     k=1,
     Ti=60,
     r=MediumLiq.p_default,
     y_reset=1) "Pump controller"
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
 
 equation
@@ -67,15 +57,16 @@ equation
   connect(res2.port_b, resEnd2.port_a)
     annotation (Line(points={{90,60},{140,60},{140,50}}, color={0,127,255}));
   connect(resEnd2.port_b, del2.ports[4])
-    annotation (Line(points={{140,30},{140,20},{60,20}}, color={0,127,255}));
+    annotation (Line(points={{140,30},{140,0},{60,0}},   color={0,127,255}));
   connect(dp2SetVal.y, ctlPum2.u_s)
-    annotation (Line(points={{-98,60},{-72,60}}, color={0,0,127}));
+    annotation (Line(points={{-118,20},{-72,20}},color={0,0,127}));
   connect(mod1.y[1], ctlPum2.mod)
-    annotation (Line(points={{-98,20},{-66,20},{-66,48}}, color={255,127,0}));
-  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{110,61},{110,40},{-60,
-          40},{-60,48}}, color={0,0,127}));
-  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-48,60},{6,60},{6,14},
-          {18,14}}, color={0,0,127}));
+    annotation (Line(points={{-118,-20},{-66,-20},{-66,8}},
+                                                          color={255,127,0}));
+  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{110,61},{110,4},{-60,
+          4},{-60,8}},   color={0,0,127}));
+  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-48,20},{6,20},{6,-6},{
+          18,-6}},  color={0,0,127}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -108,7 +99,36 @@ Setting of PI for dp set point tracking: reset at max is important,
 so is the scaling.
 </li>
 </ul>
-
+<p>
+Fractional load mismatch OK in cooling
+</p>
+<p>
+For this circuit to operate as intended, it is critical that the 
+secondary supply temperature set point be different than the primary 
+supply temperature.
+Otherwise, the tracking error does not change sign and there is no 
+overshoot that can desaturate the integral term of the PI controller.
+In other words, the controller output is fixed as soon as the measured
+value equals the set point.
+Threfore, the equilibrium point typically differs from the control
+intent which is a primary flow rate varying with the load. 
+One can observe that behavior by setting
+<code>TLiqSup_nominal=TLiqEnt_nominal</code> and
+<code>have_resT2=false</code>.
+Such setting yields a fixed valve position with a primary recirculation 
+and a flow reversal in the bypass whereas the control intent would 
+be a slighlty closer position ensuring a positive flow in the bypass.
+Note that this is nearly invisible from an operating standpoint
+since the set point and the loads are met.
+However, this is definitely detrimental to the overall performance
+as the primary circuit is operated at a higher flow rate and lower
+&Delta;T than needed.
+The system practically behaves as there was no control valve installed
+on the primary return line.
+This observation holds for both variable and constant consumer circuits, 
+although the detrimental effects are much more tangible in the case
+of variable consumer circuits.
+</p>
 </html>"),
     Diagram(coordinateSystem(extent={{-160,-160},{160,160}})));
 end InjectionTwoWayVariable;

@@ -9,7 +9,7 @@ model TwoWayOpenLoop
     "Circuit mass flow rate at design conditions";
   parameter Modelica.Units.SI.Pressure p_min = 2E5
     "Circuit minimum pressure";
-  parameter Modelica.Units.SI.Pressure dp_nominal = 1E5
+  parameter Modelica.Units.SI.PressureDifference dp_nominal = 1E5
     "Circuit total pressure drop at design conditions";
 
   Sources.Boundary_pT sup(
@@ -240,7 +240,7 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the concept of the authority for two-way control valves 
+This model illustrates the concept of the authority for two-way control valves
 controlled with an open loop that modulates the valve from fully
 closed to fully open position.
 The valve authority
@@ -250,33 +250,33 @@ The valve authority
 can be computed by dividing the pressure drop across the
 valve between those two extreme positions (see plot #2 for
 the pressure drop values and the command log for the computed
-value of the authority). 
+value of the authority).
 </p>
 <ul>
 <li>
 The components <code>valAut&lt;25..100&gt;</code> show how the authority
-affects the inherent flow characteristic of the valve which corresponds 
+affects the inherent flow characteristic of the valve which corresponds
 to an authority <i>&beta; = 100%</i> (see plot #1).
-The major disturbance appears for authorities strictly lower than 
+The major disturbance appears for authorities strictly lower than
 <i>&beta; = 50%</i> which is usually adopted as the sizing criteria
 for control valves.
 </li>
 <li>
 The components <code>valAut50Ove</code> and <code>valAut33Bal</code> illustrate
-the concept of \"practical authority\". 
+the concept of \"practical authority\".
 The circuits are exposed to a pressure differential <i>50%</i> higher than
 design whereas the valve size is identical in both cases
 (<i>Kvs = 5.1</i> m3/h/bar^(1/2)).
-The circuit with <code>valAut33Bal</code> includes a balancing valve that 
+The circuit with <code>valAut33Bal</code> includes a balancing valve that
 enables reaching the design flow when the control valve is fully open.
 The computed authority for <code>valAut50Ove</code> (<i>&beta; = 50%</i>) is higher
-than for <code>valAut33Bal</code> (<i>&beta; = 33%</i>) due to the overflow in 
+than for <code>valAut33Bal</code> (<i>&beta; = 33%</i>) due to the overflow in
 fully open conditions for the former component.
-This is paradoxical because practically the controllability should be 
-similar in a real system since the two valves are identical and the pressure 
+This is paradoxical because practically the controllability should be
+similar in a real system since the two valves are identical and the pressure
 differential at the circuit boundaries is the same.
 To support that statement one can notice that the rate of change of the flow
-rate with respect to the valve opening is similar between the two 
+rate with respect to the valve opening is similar between the two
 components at low valve opening (<i>y &le; 50% </i>).
 Now computing the practical authority we get:
 <i>
@@ -300,19 +300,19 @@ and <i>/ &Delta;p<sub>max</sub></i> with the same factor (see for instance
 components <code>valAut50</code> and <code>valAut50Ove</code>).
 </li>
 <li>
-The disturbance of the flow characteristic of the valve (flow rate normalized by 
-its maximum value, as a function of the valve opening, see plot #3) is explained 
+The disturbance of the flow characteristic of the valve (flow rate normalized by
+its maximum value, as a function of the valve opening, see plot #3) is explained
 by the conventional authority.
 However, this has little value if the maximum flow rate is significantly different
 from the design value.
 Normalizing by the design flow rate gives more indication on the controllability
-of the system. The disturbance of the flow characteristic (when the fractional flow rate 
-is expressed as a fraction of the design flow rate, see plot #1) is then explained by the 
-practical authority as 
-<i>d(V&#775;(y) / V&#775;<sub>design</sub>) / dy = 
+of the system. The disturbance of the flow characteristic (when the fractional flow rate
+is expressed as a fraction of the design flow rate, see plot #1) is then explained by the
+practical authority as
+<i>d(V&#775;(y) / V&#775;<sub>design</sub>) / dy =
 1 / &beta;' <sup>1/2</sup> * d(Kv(y) / Kvs) / dy</i>
-when <i>y</i> tends towards zero and where <i>Kv(y) / Kvs = f(y)</i> is the 
-inherent valve characteristic. 
+when <i>y</i> tends towards zero and where <i>Kv(y) / Kvs = f(y)</i> is the
+inherent valve characteristic.
 </li>
 </ul>
 </li>

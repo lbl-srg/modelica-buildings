@@ -68,7 +68,7 @@ model SingleMixing "Single mixing circuit"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={60,50})));
+        origin={60,30})));
   Buildings.Fluid.HydronicConfigurations.Components.Pump pum(
     redeclare final package Medium = Medium,
     final typ=typPumMod,
@@ -126,7 +126,7 @@ equation
   connect(port_b1, bal1.port_b)
     annotation (Line(points={{60,-100},{60,-80}}, color={0,127,255}));
   connect(port_a2, bal2.port_a)
-    annotation (Line(points={{60,100},{60,60}}, color={0,127,255}));
+    annotation (Line(points={{60,100},{60,40}}, color={0,127,255}));
   connect(pum.port_b, T2Sup.port_a)
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(T2Sup.port_b, port_b2)
@@ -160,11 +160,17 @@ equation
   connect(jun.port_2, bal1.port_a)
     annotation (Line(points={{60,-50},{60,-60}}, color={0,127,255}));
   connect(bal2.port_b, jun.port_1)
-    annotation (Line(points={{60,40},{60,-30},{60,-30}}, color={0,127,255}));
+    annotation (Line(points={{60,20},{60,-30}},          color={0,127,255}));
   connect(val.port_2, pum.port_a)
     annotation (Line(points={{-60,-30},{-60,30}}, color={0,127,255}));
   connect(val.port_1, port_a1)
     annotation (Line(points={{-60,-50},{-60,-100}}, color={0,127,255}));
+  connect(pum.P, PPum) annotation (Line(points={{-51,52},{-51,54},{80,54},{80,
+          60},{120,60}}, color={0,0,127}));
+  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},
+          {80,40},{120,40}}, color={0,0,127}));
+  connect(val.y_actual, yVal_actual) annotation (Line(points={{-67,-34},{-67,
+          -32},{-78,-32},{-78,-58},{80,-58},{80,-60},{120,-60}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

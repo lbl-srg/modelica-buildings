@@ -62,7 +62,7 @@ model Load "Model of a load on hydronic circuit"
   .Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1")
+  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(final unit="1")
     "Valve demand signal" annotation (Placement(transformation(extent={{100,40},
             {140,80}}), iconTransformation(extent={{100,60},{140,100}})));
   .Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_s(final unit="K",
@@ -219,7 +219,7 @@ model Load "Model of a load on hydronic circuit"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
     "Actual load fraction met" annotation (Placement(transformation(extent={{100,
             10},{140,50}}), iconTransformation(extent={{100,20},{140,60}})));
-  Modelica.Blocks.Sources.RealExpression loaFra(y=Q_flow/Q_flow_nominal)
+  Modelica.Blocks.Sources.RealExpression loaFra(y=Q_flow/coiNom.Q2_flow)
     "Compute actual load fraction"
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
   Sensors.TemperatureTwoPort TAirLvgNom(
@@ -254,11 +254,10 @@ equation
   connect(souAir.ports[1], coi.port_a2) annotation (Line(points={{30,20},{20,20},
           {20,12},{10,12}}, color={0,127,255}));
   connect(outAir.ports[1],TAirLvg. port_b) annotation (Line(points={{-70,19},{
-          -60,19},{-60,20},{-50,20}},
-                                  color={0,127,255}));
+          -70,20},{-50,20}},      color={0,127,255}));
   connect(TAirLvg.port_a, coi.port_b2) annotation (Line(points={{-30,20},{-20,20},
           {-20,12},{-10,12}}, color={0,127,255}));
-  connect(ctl.y, y)
+  connect(ctl.y, yVal)
     annotation (Line(points={{32,60},{120,60}}, color={0,0,127}));
   connect(TAirSupSet.y, ctl.u_s)
     annotation (Line(points={{-8,80},{0,80},{0,60},{8,60}}, color={0,0,127}));

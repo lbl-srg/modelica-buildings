@@ -9,7 +9,7 @@ model TwoWayClosedLoop
     "Circuit mass flow rate at design conditions";
   parameter Modelica.Units.SI.Pressure p_min = 2E5
     "Circuit minimum pressure";
-  parameter Modelica.Units.SI.Pressure dp_nominal = 1E5
+  parameter Modelica.Units.SI.PressureDifference dp_nominal = 1E5
     "Circuit total pressure drop at design conditions";
 
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal = 20 + 273.15
@@ -80,8 +80,8 @@ model TwoWayClosedLoop
 equation
   connect(loa100.port_b, valAut100.port_a)
     annotation (Line(points={{-50,40},{-40,40},{-40,10}}, color={0,127,255}));
-  connect(loa100.y, valAut100.y) annotation (Line(points={{-48,46},{-20,46},{-20,
-          0},{-28,0}}, color={0,0,127}));
+  connect(loa100.yVal, valAut100.y) annotation (Line(points={{-48,46},{-20,46},
+          {-20,0},{-28,0}}, color={0,0,127}));
   connect(fraLoa.y[1], loa100.u) annotation (Line(points={{-98,60},{-80,60},{-80,
           46},{-72,46}}, color={0,0,127}));
   connect(sup.ports[1], loa100.port_a) annotation (Line(points={{-81,-80},{-80,-80},
@@ -92,7 +92,7 @@ equation
           {-80,-40},{0,-40},{0,40},{10,40}}, color={0,127,255}));
   connect(loa20.port_b, valAut20.port_a)
     annotation (Line(points={{30,40},{40,40},{40,10}}, color={0,127,255}));
-  connect(loa20.y, valAut20.y)
+  connect(loa20.yVal, valAut20.y)
     annotation (Line(points={{32,46},{60,46},{60,0},{52,0}}, color={0,0,127}));
   connect(fraLoa.y[1], loa20.u) annotation (Line(points={{-98,60},{-10,60},{-10,
           46},{8,46}}, color={0,0,127}));

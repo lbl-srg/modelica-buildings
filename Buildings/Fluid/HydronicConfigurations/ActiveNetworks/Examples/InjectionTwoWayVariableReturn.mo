@@ -1,8 +1,8 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayVariableReturn
   "Model illustrating the operation of an inversion circuit with two-way valve and variable secondary with return temperature control"
-  extends InjectionTwoWayVariable(T2Set(p=TLiqLvg_nominal), con(typCtl=
-          Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
+  extends InjectionTwoWayVariable(
+    con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
 
   BaseClasses.LoadTwoWayValveControl loaOpe(
     mAir_flow_nominal=mAir_flow_nominal,
@@ -15,14 +15,14 @@ model InjectionTwoWayVariableReturn
     final phiAirEnt_nominal=phiAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal) "Load with open loop control"
-    annotation (Placement(transformation(extent={{230,-100},{250,-80}})));
+    annotation (Placement(transformation(extent={{210,-120},{230,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSupVal1(
     height=6,
     duration=16*3600,
     offset=TLiqEnt_nominal,
     startTime=6*3600,
     y(final unit="K", displayUnit="degC")) "Supply temperature"
-    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
+    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Sources.Boundary_pT refOpe(
     redeclare final package Medium = MediumLiq,
     final p=p_min + 10*(loa1.dpTer_nominal + loa1.dpValve_nominal),
@@ -31,7 +31,7 @@ model InjectionTwoWayVariableReturn
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={180,-90})));
+        origin={160,-110})));
   Sources.Boundary_pT refOpe1(
     redeclare final package Medium = MediumLiq,
     final p=p_min,
@@ -39,13 +39,13 @@ model InjectionTwoWayVariableReturn
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={300,-90})));
+        origin={280,-110})));
   Sensors.TemperatureTwoPort TSupOpe(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=loa.mLiq_flow_nominal,
     tau=0,
     T_start=loa1.TLiqEnt_nominal) "Supply temperature sensor" annotation (
-      Placement(transformation(extent={{202,-100},{222,-80}},
+      Placement(transformation(extent={{182,-120},{202,-100}},
                                                             rotation=0)));
   Sensors.TemperatureTwoPort TRetOpe(
     redeclare final package Medium = MediumLiq,
@@ -55,28 +55,28 @@ model InjectionTwoWayVariableReturn
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={270,-90})));
+        origin={250,-110})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  fraLoa1(k=0.7)
     "Load modulating signal"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
 equation
   connect(TSupOpe.port_b, loaOpe.port_a)
-    annotation (Line(points={{222,-90},{230,-90}},
+    annotation (Line(points={{202,-110},{210,-110}},
                                                color={0,127,255}));
   connect(loaOpe.port_b, TRetOpe.port_a)
-    annotation (Line(points={{250,-90},{260,-90}},
+    annotation (Line(points={{230,-110},{240,-110}},
                                                color={0,127,255}));
   connect(TSupVal1.y, refOpe.T_in)
-    annotation (Line(points={{162,-90},{168,-90},{168,-94}},
+    annotation (Line(points={{142,-110},{148,-110},{148,-114}},
                                                         color={0,0,127}));
-  connect(fraLoa1.y, loaOpe.u) annotation (Line(points={{162,-50},{222,-50},{
-          222,-84},{228,-84}},
+  connect(fraLoa1.y, loaOpe.u) annotation (Line(points={{142,-70},{202,-70},{202,
+          -104},{208,-104}},
                     color={0,0,127}));
   connect(refOpe.ports[1], TSupOpe.port_a)
-    annotation (Line(points={{190,-90},{202,-90}},
+    annotation (Line(points={{170,-110},{182,-110}},
                                                color={0,127,255}));
   connect(TRetOpe.port_b, refOpe1.ports[1])
-    annotation (Line(points={{280,-90},{290,-90}},
+    annotation (Line(points={{260,-110},{270,-110}},
                                                color={0,127,255}));
    annotation (experiment(
     StopTime=86400,
@@ -86,13 +86,29 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of an injection circuit with a two-way valve
-that serves as the interface between a variable flow primary circuit at constant
-supply temperature and a constant flow secondary circuit at variable supply
-temperature.
-Two identical terminal units circuits are served by the secondary circuit.
-Each terminal unit has its own hourly load profile.
-The main assumptions are enumerated below.
+This model illustrates a configuration that is not recommended, 
+that is an injection circuit with a two-way valve serving
+a variable flow consumer circuit, and controlled based on the 
+return temperature.
+One can notice that the design load is not met (see plot #4 
+between 6h and 8h) despite the return temperature set point 
+being met (see plot #1) and the consumer circuit being operated
+at design flow rate (see plot #2).
+This is because, for the specific sizing of the cooling coil and
+for certain operating conditions the \"process characteristic\" is not
+monotonuously decreasing as expected.
+This is illustrated by the simulation of the load model with open loop
+control (see plot #9).
+That simulation shows that for a constant load, an increasing supply
+temperature yields a decreasing return temperature.
+However, the control logic is based on the consideration that a 
+decreasing return temperature is the signature of a decreasing load.
+It thus triggers the closing of the control valve, which in turn 
+yields an increasing secondary flow recirculation, so an increasing
+supply temperature that furthers decreases the return temperature.
+The result is that the equilibrium point differs from the control intent,
+here with a supply temperature much higher than the design value
+(<i>6.6</i>&deg;C instead of <i>4.4</i>&deg;C).
 </p>
 <ul>
 <li>
@@ -105,14 +121,14 @@ Each circuit is balanced at design conditions.
 </ul>
 
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{340,160}}), graphics={
+    Diagram(coordinateSystem(extent={{-160,-160},{320,180}}), graphics={
           Rectangle(
-          extent={{120,0},{320,-120}},
+          extent={{100,-20},{300,-140}},
           lineColor={28,108,200},
           fillColor={208,208,208},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
-          extent={{120,0},{320,-20}},
+          extent={{100,-20},{300,-40}},
           textColor={28,108,200},
           textString="Open loop simulation of consumer circuit")}));
 end InjectionTwoWayVariableReturn;

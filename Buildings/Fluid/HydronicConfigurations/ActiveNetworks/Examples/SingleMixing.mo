@@ -19,14 +19,14 @@ model SingleMixing
     2 * mTer_flow_nominal
     "Mass flow rate in consumer circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Pressure dpTer_nominal(displayUnit="Pa")=3E4
+  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")=3E4
     "Terminal unit pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpValve_nominal(displayUnit="Pa")=
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(displayUnit="Pa")=
     dpPum_nominal-dpPip_nominal
     "Control valve pressure drop at design conditions";
-  parameter Modelica.Units.SI.Pressure dpPip_nominal(displayUnit="Pa")=0.5E4
+  parameter Modelica.Units.SI.PressureDifference dpPip_nominal(displayUnit="Pa")=0.5E4
     "Pipe section pressure drop at design conditions";
-  final parameter Modelica.Units.SI.Pressure dpPum_nominal(
+  final parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
     final min=0,
     displayUnit="Pa")=10e4
     "Pump head at design conditions";

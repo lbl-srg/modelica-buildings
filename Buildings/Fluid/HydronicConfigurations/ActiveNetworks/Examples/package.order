@@ -1,10 +1,10 @@
 DiversionOpenLoop
 InjectionThreeWay
 InjectionTwoWayConstant
+InjectionTwoWayConstantReturn
 InjectionTwoWayVariable
 InjectionTwoWayVariableReturn
 SingleMixing
 ThrottleOpenLoop
-TestVariableSupply
 BugWetCoil
 BaseClasses
