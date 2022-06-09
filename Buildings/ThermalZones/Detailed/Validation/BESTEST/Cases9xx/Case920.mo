@@ -19,10 +19,10 @@ model Case920 "Case 900, but with windows on East and West side walls"
       til={C_,Z_,Z_},
       azi={S_,S_,N_})),
    staRes(
-    annualHea(Min=3.313*3.6e9, Max=4.300*3.6e9, Mean=3.973*3.6e9),
-    annualCoo(Min=-1.840*3.6e9, Max=-3.092*3.6e9, Mean=-2.552*3.6e9),
-    peakHea(Min=3.308*1000, Max=4.061*1000, Mean=3.804*1000),
-    peakCoo(Min=-2.385*1000, Max=-3.505*1000, Mean=-3.077*1000)));
+    annualHea(Min=2.956*3.6e9, Max=3.607*3.6e9, Mean=3.326*3.6e9),
+    annualCoo(Min=-2.549*3.6e9, Max=-3.128*3.6e9, Mean=-2.786*3.6e9),
+    peakHea(Min=2.512*1000, Max=2.895*1000, Mean=2.710*1000),
+    peakCoo(Min=-2.710*1000, Max=-3.481*1000, Mean=-3.127*1000)));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case920.mos"
         "Simulate and plot"),

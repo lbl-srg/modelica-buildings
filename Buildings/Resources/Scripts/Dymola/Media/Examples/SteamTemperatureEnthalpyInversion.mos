@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Media.Examples.SteamTemperatureEnthalpyInversion", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="MediaExamplesSteamTemperatureEnthalpyInversion");
+simulateModel("Buildings.Media.Examples.SteamTemperatureEnthalpyInversion", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="MediaExamplesSteamTemperatureEnthalpyInversion");
 createPlot(id = 1,
  position = {31, 30, 400, 280},
  y = {"T"},
