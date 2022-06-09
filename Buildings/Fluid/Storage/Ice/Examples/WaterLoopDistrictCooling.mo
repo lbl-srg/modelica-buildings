@@ -276,6 +276,8 @@ model WaterLoopDistrictCooling
   Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries          bui(
     have_heaWat=false,
     redeclare package Medium2 = MediumAir,
+    filNam="Fluid/Storage/Ice/Examples/SampleDistrictCoolingLoads.txt",
+    QHea_flow_nominal=1e-15,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
