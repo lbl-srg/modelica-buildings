@@ -414,7 +414,11 @@ model TwoRoomsWithStorage
     initType=Modelica.Blocks.Types.Init.SteadyState,
     y(unit="K")) "Integrated average of outside temperature"
     annotation (Placement(transformation(extent={{540,300},{560,320}})));
-  Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutSwi(k(
+      final unit="K",
+      displayUnit="degC") = 289.15,
+    y(final unit="K",
+      displayUnit="degC"))
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = MediumW)
@@ -1206,6 +1210,11 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022, by Michael Wetter:<br/>
+Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
+</li>
 <li>
 March 4, 2021, by David Blum:<br/>
 Changed <code>dpVal_nominal</code> to 6 kPa.
