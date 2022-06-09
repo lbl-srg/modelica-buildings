@@ -1,4 +1,0 @@
-simulateModel("Buildings.Controls.OBC.Utilities.BaseClasses.Validation.RelayHalfPeriodRatio", method="Cvode", tolerance=1e-06, resultFile="RelayHalfPeriodRatio");
-createPlot(id=1, position={15, 15, 1742, 1559}, y={"relayHalfPeriodRatio.tOn", "relayHalfPeriodRatio.tOff"}, range={0.0, 1.0, -0.5, 3.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={15, 15, 1742, 1559}, y={"relayHalfPeriodRatio.halfPeriodRatio"}, range={0.0, 1.0, 0.9500000000000001, 1.5500000000000003}, grid=true, subPlot=102, colors={{28,108,200}});
-
