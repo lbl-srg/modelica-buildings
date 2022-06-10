@@ -5,6 +5,7 @@ model InjectionTwoWayVariableReturn
     con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
 
   BaseClasses.LoadTwoWayValveControl loaOpe(
+    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Cooling,
     mAir_flow_nominal=mAir_flow_nominal,
     redeclare final package MediumLiq = MediumLiq,
     k=1,
@@ -45,8 +46,7 @@ model InjectionTwoWayVariableReturn
     final m_flow_nominal=loa.mLiq_flow_nominal,
     tau=0,
     T_start=loa1.TLiqEnt_nominal) "Supply temperature sensor" annotation (
-      Placement(transformation(extent={{182,-120},{202,-100}},
-                                                            rotation=0)));
+      Placement(transformation(extent={{182,-120},{202,-100}}, rotation=0)));
   Sensors.TemperatureTwoPort TRetOpe(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=loa.mLiq_flow_nominal,
@@ -58,7 +58,11 @@ model InjectionTwoWayVariableReturn
         origin={250,-110})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  fraLoa1(k=0.7)
     "Load modulating signal"
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant modOpe(
+    k=1)
+    "Operating mode"
+    annotation (Placement(transformation(extent={{150,-90},{170,-70}})));
 equation
   connect(TSupOpe.port_b, loaOpe.port_a)
     annotation (Line(points={{202,-110},{210,-110}},
@@ -69,8 +73,8 @@ equation
   connect(TSupVal1.y, refOpe.T_in)
     annotation (Line(points={{142,-110},{148,-110},{148,-114}},
                                                         color={0,0,127}));
-  connect(fraLoa1.y, loaOpe.u) annotation (Line(points={{142,-70},{202,-70},{202,
-          -104},{208,-104}},
+  connect(fraLoa1.y, loaOpe.u) annotation (Line(points={{142,-60},{202,-60},{
+          202,-102},{208,-102}},
                     color={0,0,127}));
   connect(refOpe.ports[1], TSupOpe.port_a)
     annotation (Line(points={{170,-110},{182,-110}},
@@ -78,6 +82,8 @@ equation
   connect(TRetOpe.port_b, refOpe1.ports[1])
     annotation (Line(points={{260,-110},{270,-110}},
                                                color={0,127,255}));
+  connect(modOpe.y, loaOpe.mod) annotation (Line(points={{172,-80},{200,-80},{
+          200,-106},{208,-106}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -121,7 +127,7 @@ Each circuit is balanced at design conditions.
 </ul>
 
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{320,180}}), graphics={
+    Diagram(coordinateSystem(extent={{-160,-160},{320,200}}), graphics={
           Rectangle(
           extent={{100,-20},{300,-140}},
           lineColor={28,108,200},

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model SingleMixing "Single mixing circuit"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-    final m1_flow_nominal=m2_flow_nominal,
+    m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
     final have_bypFix=false,
     final have_pum=true);

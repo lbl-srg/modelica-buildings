@@ -19,7 +19,7 @@ model InjectionTwoWayVariable
 
   Sensors.RelativePressure dp2(redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{100,44},{120,64}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
   FixedResistances.PressureDrop resEnd2(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=0.1*m2_flow_nominal,
@@ -29,37 +29,37 @@ model InjectionTwoWayVariable
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,30})));
+        origin={140,40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(
     final k=dp2Set)
     "Pressure differential set point"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Controls.PIDWithOperatingMode ctlPum2(
     k=1,
     Ti=60,
     r=MediumLiq.p_default,
     y_reset=1) "Pump controller"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 
 
 equation
   connect(dp2.port_a, loa1.port_a)
-    annotation (Line(points={{100,54},{100,80}},  color={0,127,255}));
+    annotation (Line(points={{100,80},{100,110}}, color={0,127,255}));
   connect(dp2.port_b, loa1.port_b)
-    annotation (Line(points={{120,54},{120,80}},  color={0,127,255}));
+    annotation (Line(points={{120,80},{120,110}}, color={0,127,255}));
   connect(resEnd2.port_b, del2.ports[4])
-    annotation (Line(points={{140,20},{140,20},{60,20}}, color={0,127,255}));
+    annotation (Line(points={{140,30},{140,20},{60,20}}, color={0,127,255}));
   connect(dp2SetVal.y, ctlPum2.u_s)
-    annotation (Line(points={{-118,20},{-72,20}},color={0,0,127}));
-  connect(mod.y[1], ctlPum2.mod) annotation (Line(points={{-118,0},{-66,0},{-66,
-          8}},     color={255,127,0}));
-  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{110,45},{110,-20},{
-          -60,-20},{-60,8}},
+    annotation (Line(points={{-118,30},{-92,30}},color={0,0,127}));
+  connect(mod.y[1], ctlPum2.mod) annotation (Line(points={{-118,0},{-86,0},{-86,
+          18}},    color={255,127,0}));
+  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{110,71},{110,-8},{
+          -80,-8},{-80,18}},
                          color={0,0,127}));
-  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-48,20},{6,20},{6,14},
+  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-68,30},{6,30},{6,14},
           {18,14}}, color={0,0,127}));
   connect(res2.port_b, resEnd2.port_a)
-    annotation (Line(points={{90,40},{140,40},{140,40}}, color={0,127,255}));
+    annotation (Line(points={{90,60},{140,60},{140,50}}, color={0,127,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),

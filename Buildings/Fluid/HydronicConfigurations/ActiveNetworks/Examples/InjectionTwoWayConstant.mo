@@ -5,7 +5,7 @@ model InjectionTwoWayConstant
     Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialInjectionTwoWay(
     del2(nPorts=3),
     dp2_nominal=dpPip_nominal + loa1.dpTer_nominal + loa1.dpValve_nominal,
-    con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
+    con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature));
 
   parameter Boolean have_resT2 = false
     "Set to true for consumer circuit temperature reset, false for constant set point"
@@ -26,6 +26,7 @@ model InjectionTwoWayConstant
   replaceable BaseClasses.LoadThreeWayValveControl loa
     constrainedby BaseClasses.PartialLoadValveControl(
       redeclare final package MediumLiq = MediumLiq,
+      final typ=typ,
       final energyDynamics=energyDynamics,
       final mLiq_flow_nominal=mTer_flow_nominal,
       final TAirEnt_nominal=TAirEnt_nominal,
@@ -34,10 +35,11 @@ model InjectionTwoWayConstant
       final TLiqLvg_nominal=TLiqLvg_nominal,
       dpBal1_nominal=dp2_nominal-loa.dpTer_nominal-loa.dpValve_nominal)
     "Load"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    annotation (Placement(transformation(extent={{40,100},{60,120}})));
   replaceable BaseClasses.LoadThreeWayValveControl loa1
     constrainedby BaseClasses.PartialLoadValveControl(
       redeclare final package MediumLiq = MediumLiq,
+      final typ=typ,
       final energyDynamics=energyDynamics,
       final mLiq_flow_nominal=mTer_flow_nominal,
       final TAirEnt_nominal=TAirEnt_nominal,
@@ -46,13 +48,13 @@ model InjectionTwoWayConstant
       final TLiqLvg_nominal=TLiqLvg_nominal,
       dpBal1_nominal=0)
     "Load"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,100},{120,120}})));
   FixedResistances.PressureDrop res2(
     redeclare final package Medium = MediumLiq,
     m_flow_nominal=con.pum.m_flow_nominal - loa.mLiq_flow_nominal,
     dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetLim1(
     final k=T2Set_nominal,
     y(final unit="K", displayUnit="degC"))
@@ -60,24 +62,24 @@ model InjectionTwoWayConstant
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,50})));
+        origin={-130,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0], timeScale=3600) "Load modulating signal"
-    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Controls.PIDWithOperatingMode resT2(
     k=1,
     Ti=60,
     reverseActing=false,
     y_reset=1) "PI controller for consumer circuit temperature reset"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Line T2SetVar(
     y(final unit="K", displayUnit="degC")) if have_resT2
     "Consumer circuit temperature set point (reset)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,90})));
+        origin={-50,110})));
   Buildings.Controls.OBC.CDL.Continuous.Max yValMax(
     y(final unit="1"))
     "Maximum valve opening"
@@ -85,7 +87,7 @@ model InjectionTwoWayConstant
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={50,120})));
+        origin={50,150})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValSet(
     k=0.9,
     y(final unit="1"))
@@ -93,7 +95,7 @@ model InjectionTwoWayConstant
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,130})));
+        origin={-130,150})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     final k=1,
     y(final unit="1"))
@@ -101,7 +103,7 @@ model InjectionTwoWayConstant
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,130})));
+        origin={-50,150})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0,
     y(final unit="1"))
@@ -109,7 +111,7 @@ model InjectionTwoWayConstant
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-90,130})));
+        origin={-90,150})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetLim0(
     k=T2Set_nominal + (if con.typFun == Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
          then -10 else +5),
@@ -118,67 +120,74 @@ model InjectionTwoWayConstant
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,90})));
+        origin={-130,110})));
   Modelica.Blocks.Routing.RealPassThrough T2SetCst(
    y(final unit="K", displayUnit="degC")) if not have_resT2
     "Consumer circuit temperature set point (constant)"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Routing.RealPassThrough T2Set(
     y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature set point"
-    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
+    annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
 equation
-  connect(fraLoa.y[1], loa.u) annotation (Line(points={{-118,160},{30,160},{30,
-          86},{38,86}},
+  connect(fraLoa.y[1], loa.u) annotation (Line(points={{-118,180},{30,180},{30,118},
+          {38,118}}, color={0,0,127}));
+  connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-118,180},{90,180},{90,
+          118},{98,118}},
                      color={0,0,127}));
-  connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-118,160},{90,160},{90,
-          86},{98,86}},
-                     color={0,0,127}));
-  connect(con.port_b2, loa.port_a) annotation (Line(points={{24,20},{24,40},{40,
-          40},{40,80}},
+  connect(con.port_b2, loa.port_a) annotation (Line(points={{24,20},{24,60},{40,
+          60},{40,110}},
                      color={0,127,255}));
   connect(del2.ports[2], loa1.port_b)
-    annotation (Line(points={{60,20},{120,20},{120,80}},color={0,127,255}));
+    annotation (Line(points={{60,20},{120,20},{120,110}},
+                                                        color={0,127,255}));
   connect(loa.port_b, del2.ports[3])
-    annotation (Line(points={{60,80},{60,20}},        color={0,127,255}));
+    annotation (Line(points={{60,110},{60,20}},       color={0,127,255}));
   connect(con.port_b2, res2.port_a)
-    annotation (Line(points={{24,20},{24,40},{70,40}}, color={0,127,255}));
+    annotation (Line(points={{24,20},{24,60},{70,60}}, color={0,127,255}));
   connect(res2.port_b, loa1.port_a)
-    annotation (Line(points={{90,40},{100,40},{100,80}},  color={0,127,255}));
+    annotation (Line(points={{90,60},{100,60},{100,110}}, color={0,127,255}));
   connect(resT2.y, T2SetVar.u)
-    annotation (Line(points={{-78,90},{-62,90}}, color={0,0,127}));
-  connect(loa.yVal_actual, yValMax.u2) annotation (Line(points={{62,88},{70,88},
-          {70,114},{62,114}}, color={0,0,127}));
-  connect(loa1.yVal_actual, yValMax.u1) annotation (Line(points={{122,88},{130,
-          88},{130,126},{62,126}},  color={0,0,127}));
-  connect(yValMax.y, resT2.u_m) annotation (Line(points={{38,120},{20,120},{20,
-          70},{-90,70},{-90,78}},
+    annotation (Line(points={{-78,110},{-62,110}},
+                                                 color={0,0,127}));
+  connect(loa.yVal_actual, yValMax.u2) annotation (Line(points={{62,118},{70,
+          118},{70,144},{62,144}},
                               color={0,0,127}));
-  connect(mod.y[1], resT2.mod) annotation (Line(points={{-118,0},{-96,0},{-96,78}},
-                color={255,127,0}));
+  connect(loa1.yVal_actual, yValMax.u1) annotation (Line(points={{122,118},{130,
+          118},{130,156},{62,156}}, color={0,0,127}));
+  connect(yValMax.y, resT2.u_m) annotation (Line(points={{38,150},{20,150},{20,
+          90},{-90,90},{-90,98}},
+                              color={0,0,127}));
+  connect(mod.y[1], resT2.mod) annotation (Line(points={{-118,0},{-96,0},{-96,
+          98}}, color={255,127,0}));
   connect(yValSet.y, resT2.u_s)
-    annotation (Line(points={{-118,130},{-106,130},{-106,90},{-102,90}},
+    annotation (Line(points={{-118,150},{-106,150},{-106,110},{-102,110}},
                                                    color={0,0,127}));
   connect(zer.y, T2SetVar.x1)
-    annotation (Line(points={{-78,130},{-72,130},{-72,98},{-62,98}},
+    annotation (Line(points={{-78,150},{-72,150},{-72,118},{-62,118}},
                                                            color={0,0,127}));
-  connect(one.y, T2SetVar.x2) annotation (Line(points={{-38,130},{-34,130},{-34,
-          110},{-68,110},{-68,86},{-62,86}},
+  connect(one.y, T2SetVar.x2) annotation (Line(points={{-38,150},{-34,150},{-34,
+          130},{-68,130},{-68,106},{-62,106}},
                                    color={0,0,127}));
-  connect(T2SetLim1.y, T2SetVar.f2) annotation (Line(points={{-118,50},{-68,50},
-          {-68,82},{-62,82}}, color={0,0,127}));
-  connect(T2SetLim0.y, T2SetVar.f1) annotation (Line(points={{-118,90},{-110,90},
-          {-110,106},{-76,106},{-76,94},{-62,94}},
+  connect(T2SetLim1.y, T2SetVar.f2) annotation (Line(points={{-118,70},{-68,70},
+          {-68,102},{-62,102}},
+                              color={0,0,127}));
+  connect(T2SetLim0.y, T2SetVar.f1) annotation (Line(points={{-118,110},{-110,
+          110},{-110,126},{-76,126},{-76,114},{-62,114}},
                                                  color={0,0,127}));
   connect(T2SetLim1.y, T2SetCst.u)
-    annotation (Line(points={{-118,50},{-62,50}}, color={0,0,127}));
+    annotation (Line(points={{-118,70},{-62,70}}, color={0,0,127}));
   connect(T2SetCst.y, T2Set.u)
-    annotation (Line(points={{-39,50},{-32,50}}, color={0,0,127}));
-  connect(T2SetVar.y, T2Set.u) annotation (Line(points={{-38,90},{-36,90},{-36,
-          50},{-32,50}},
+    annotation (Line(points={{-39,70},{-32,70}}, color={0,0,127}));
+  connect(T2SetVar.y, T2Set.u) annotation (Line(points={{-38,110},{-36,110},{
+          -36,70},{-32,70}},
                      color={0,0,127}));
-  connect(T2Set.y, con.set) annotation (Line(points={{-9,50},{0,50},{0,6},{18,6}},
+  connect(T2Set.y, con.set) annotation (Line(points={{-9,70},{0,70},{0,6},{18,6}},
                  color={0,0,127}));
+  connect(mod.y[1], loa.mod) annotation (Line(points={{-118,0},{10,0},{10,114},{
+          38,114}}, color={255,127,0}));
+  connect(mod.y[1], loa1.mod) annotation (Line(points={{-118,0},{10,0},{10,80},{
+          80,80},{80,114},{98,114}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -232,6 +241,5 @@ see
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn</a>.
 </p>
-</html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{160,200}})));
+</html>"));
 end InjectionTwoWayConstant;

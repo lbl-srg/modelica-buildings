@@ -9,11 +9,16 @@ model PartialLoadValveControl
     "Medium model for air";
   replaceable package MediumLiq = Buildings.Media.Water
     "Medium model for liquid (CHW or HHW)";
+
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typ
+    "Load type"
+    annotation(Evaluate=true);
+
   parameter Modelica.Units.SI.MassFlowRate mLiq_flow_nominal = 1
     "Liquid mass flow rate at design conditions";
 
-  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")=
-     3E4
+  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
+    displayUnit="Pa")=3E4
     "Liquid pressure drop across terminal unit at design conditions";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa")=dpTer_nominal
@@ -27,18 +32,42 @@ model PartialLoadValveControl
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     abs(Q_flow_nominal) / 10 / 1015
     "Air mass flow rate at design conditions";
-  parameter Modelica.Units.SI.Temperature TAirEnt_nominal=293.15
+  parameter Modelica.Units.SI.Temperature TAirEnt_nominal=
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+      then 20+273.15 else 26+273.15
     "Air entering temperature at design conditions";
+  parameter Modelica.Units.SI.Temperature TAirEntChg_nominal=20+273.15
+    "Air entering temperature in change-over mode"
+    annotation(Dialog(
+      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
   parameter Modelica.Units.SI.MassFraction phiAirEnt_nominal = 0.5
-    "Air entering relative humidity at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=333.15
-    "Hot water entering temperature at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=323.15
-    "Hot water leaving temperature at design conditions";
+    "Air entering relative humidity at design conditions"
+    annotation(Dialog(
+      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
+  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+      then 60+273.15 else 7+273.15
+    "Liquid entering temperature at design conditions";
+  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal+(
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+      then -10 else +5)
+    "Liquid leaving temperature at design conditions";
+  parameter Modelica.Units.SI.Temperature TLiqEntChg_nominal=
+    60+273.15
+    "Liquid entering temperature in change-over mode"
+    annotation(Dialog(
+      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
+  parameter Modelica.Units.SI.Temperature TLiqLvgChg_nominal=
+    TLiqEnt_nominal-10
+    "Liquid leaving temperature in change-over mode"
+    annotation(Dialog(
+      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
-    (TLiqEnt_nominal - TLiqLvg_nominal) * mLiq_flow_nominal * 4186
-    "Coil capacity at design conditions"
+   (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-
+    MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqLvg_nominal, X=MediumLiq.X_default))*
+    mLiq_flow_nominal
+    "Transmitted heat flow rate at design conditions"
     annotation(Evaluate=true);
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -54,18 +83,24 @@ model PartialLoadValveControl
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Load modulating signal"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod
+    "Operating mode"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
     redeclare final package MediumAir=MediumAir,
     redeclare final package MediumLiq=MediumLiq,
+    final typ=typ,
     final mLiq_flow_nominal=mLiq_flow_nominal,
     final dpLiq_nominal=0,
     final mAir_flow_nominal=mAir_flow_nominal,
@@ -73,6 +108,9 @@ model PartialLoadValveControl
     final phiAirEnt_nominal=phiAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
+    final TAirEntChg_nominal=TAirEntChg_nominal,
+    final TLiqEntChg_nominal=TLiqEntChg_nominal,
+    final TLiqLvgChg_nominal=TLiqLvgChg_nominal,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -111,9 +149,9 @@ equation
           40},{-10,60}}, color={0,127,255}));
   connect(con.port_a2, loa.port_b) annotation (Line(points={{6,19.8},{6,40},{10,
           40},{10,60}}, color={0,127,255}));
-  connect(loa.yVal, con.yVal) annotation (Line(points={{12,68},{20,68},{20,80},
-          {-20,80},{-20,10},{-12,10}}, color={0,0,127}));
-  connect(u, loa.u) annotation (Line(points={{-120,60},{-40,60},{-40,66},{-12,66}},
+  connect(loa.yVal, con.yVal) annotation (Line(points={{12,68},{20,68},{20,80},{
+          -20,80},{-20,10},{-12,10}},  color={0,0,127}));
+  connect(u, loa.u) annotation (Line(points={{-120,80},{-40,80},{-40,68},{-12,68}},
         color={0,0,127}));
   connect(loa.yLoa_actual, yLoa_actual) annotation (Line(points={{12,64},{90,64},
           {90,40},{120,40}}, color={0,0,127}));
@@ -121,6 +159,10 @@ equation
           {120,-60}}, color={0,0,127}));
   connect(con.yVal_actual, yVal_actual) annotation (Line(points={{12,10},{70,10},
           {70,80},{120,80}}, color={0,0,127}));
+  connect(mod, loa.mod) annotation (Line(points={{-120,40},{-40,40},{-40,64},{-12,
+          64}}, color={255,127,0}));
+  connect(mod, con.mod) annotation (Line(points={{-120,40},{-40,40},{-40,18},{-12,
+          18}}, color={255,127,0}));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

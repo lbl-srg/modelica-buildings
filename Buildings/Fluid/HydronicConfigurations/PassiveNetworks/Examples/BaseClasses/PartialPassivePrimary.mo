@@ -23,15 +23,12 @@ model PartialPassivePrimary
     nTer * mTer_flow_nominal
     "Mass flow rate in consumer circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa")
-    "Consumer circuit pressure differential at design conditions"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")=
     3E4
     "Terminal unit pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpPip_nominal(displayUnit="Pa")=
-     0.5E4
+    0.5E4
     "Pipe section pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
@@ -60,35 +57,36 @@ model PartialPassivePrimary
     "Pressure and temperature boundary condition"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-90,-120})));
+        origin={-90,-70})));
   Sensors.TemperatureTwoPort TRet(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=m1_flow_nominal,
+    final tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+         then 0 else 1,
     T_start=TLiqSup_nominal)
     "Return temperature sensor"
     annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
-        origin={-20,-120})));
+        origin={-40,-80})));
   Sensors.TemperatureTwoPort TSup(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=m1_flow_nominal,
+    final tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+     then 0 else 1,
     T_start=TLiqSup_nominal)
     "Supply temperature sensor"
     annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={-40,-100})));
+        origin={-60,-60})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract delT(y(final unit="K"))
     "Primary delta-T"
-    annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mod(
-    table=[0,0; 6,0; 6,1; 22,1; 22,0; 24,0],
-    timeScale=3600,
-    period=86400) "Operating mode (time schedule)"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-50,-110})));
   Delays.DelayFirstOrder del1(
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
@@ -96,23 +94,21 @@ model PartialPassivePrimary
     tau=10,
     nPorts=1)
     "Fluid transport delay"
-    annotation (Placement(transformation(extent={{30,-120},{50,-140}})));
+    annotation (Placement(transformation(extent={{10,-80},{30,-100}})));
 
 
 equation
   connect(TRet.port_b,ref. ports[1])
-    annotation (Line(points={{-30,-120},{-80,-120},{-80,-119}},
+    annotation (Line(points={{-50,-80},{-80,-80},{-80,-69}},
                                                    color={0,127,255}));
   connect(TRet.T,delT. u1)
-    annotation (Line(points={{-20,-131},{-20,-134},{-12,-134}},
-                                                            color={0,0,127}));
+    annotation (Line(points={{-40,-91},{-40,-98},{-44,-98}},color={0,0,127}));
   connect(TSup.T,delT. u2)
-    annotation (Line(points={{-40,-111},{-40,-146},{-12,-146}},
-                                                            color={0,0,127}));
+    annotation (Line(points={{-60,-71},{-60,-98},{-56,-98}},color={0,0,127}));
   connect(del1.ports[1], TRet.port_a)
-    annotation (Line(points={{40,-120},{-10,-120}}, color={0,127,255}));
+    annotation (Line(points={{20,-80},{-30,-80}},   color={0,127,255}));
 
-  connect(ref.ports[2], TSup.port_a) annotation (Line(points={{-80,-121},{-80,-100},
-          {-50,-100}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,160}})));
+  connect(ref.ports[2], TSup.port_a) annotation (Line(points={{-80,-71},{-80,-60},
+          {-70,-60}},  color={0,127,255}));
+  annotation (Diagram(coordinateSystem(extent={{-140,-140},{140,140}})));
 end PartialPassivePrimary;

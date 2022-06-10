@@ -33,16 +33,17 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final dpBal1_nominal=dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
     redeclare final package MediumLiq = MediumLiq,
+    final typ=typ,
     final dpLiq_nominal=dpTer_nominal,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
     k=10) "Load"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -58,73 +59,79 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final dpBal1_nominal=dpPum_nominal - 2 * dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
     redeclare final package MediumLiq = MediumLiq,
+    final typ=typ,
     final dpLiq_nominal=dpTer_nominal,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
     k=10) "Load"
-    annotation (Placement(transformation(extent={{80,50},{100,70}})));
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
   FixedResistances.PressureDrop res1b(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal - mTer_flow_nominal,
     final dp_nominal=dpPip_nominal) "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
+    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Sensors.RelativePressure dp(
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Sensors.RelativePressure dp1(
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ope(
     table=[0,1,1; 1,0,1; 2,1,0; 3,0,0],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
     timeScale=100) "Valve opening signal"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mod(k=1)
+    "Operating mode"
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 equation
-  connect(con.port_b2, loa.port_a) annotation (Line(points={{24,30},{24,40},{20,
-          40},{20,60}}, color={0,127,255}));
-  connect(loa.port_b, con.port_a2) annotation (Line(points={{40,60},{40,40},{36,
-          40},{36,29.8}}, color={0,127,255}));
-  connect(fraLoa.y, loa.u) annotation (Line(points={{-78,80},{0,80},{0,66},{18,
-          66}},
+  connect(con.port_b2, loa.port_a) annotation (Line(points={{4,30},{0,30},{0,60}},
+                        color={0,127,255}));
+  connect(loa.port_b, con.port_a2) annotation (Line(points={{20,60},{20,30},{16,
+          30},{16,29.8}}, color={0,127,255}));
+  connect(fraLoa.y, loa.u) annotation (Line(points={{-78,80},{0,80},{0,68},{-2,68}},
         color={0,0,127}));
-  connect(con1.port_b2, loa1.port_a) annotation (Line(points={{84,30},{84,40},{80,
-          40},{80,60}}, color={0,127,255}));
-  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{96,29.8},{96,40},
-          {100,40},{100,60}},
-                            color={0,127,255}));
-  connect(fraLoa.y, loa1.u) annotation (Line(points={{-78,80},{60,80},{60,66},{
-          78,66}},
-                color={0,0,127}));
+  connect(con1.port_b2, loa1.port_a) annotation (Line(points={{64,30},{60,30},{60,
+          60}},         color={0,127,255}));
+  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{76,29.8},{76,30},
+          {80,30},{80,60}}, color={0,127,255}));
+  connect(fraLoa.y, loa1.u) annotation (Line(points={{-78,80},{40,80},{40,68},{58,
+          68}}, color={0,0,127}));
   connect(dp1.port_a, res1b.port_b)
-    annotation (Line(points={{80,-20},{80,-60},{70,-60}}, color={0,127,255}));
-  connect(dp1.port_a, con1.port_a1) annotation (Line(points={{80,-20},{80,0},{84,
-          0},{84,10}}, color={0,127,255}));
-  connect(con1.port_b1, dp1.port_b) annotation (Line(points={{96,10},{96,0},{100,
-          0},{100,-20}}, color={0,127,255}));
-  connect(con.port_b1, dp.port_b) annotation (Line(points={{36,10},{36,2},{40,2},
-          {40,-20}}, color={0,127,255}));
-  connect(con.port_a1, dp.port_a) annotation (Line(points={{24,10},{24,2},{20,2},
+    annotation (Line(points={{60,-20},{60,-60},{50,-60}}, color={0,127,255}));
+  connect(dp1.port_a, con1.port_a1) annotation (Line(points={{60,-20},{60,0},{64,
+          0},{64,10}}, color={0,127,255}));
+  connect(con1.port_b1, dp1.port_b) annotation (Line(points={{76,10},{76,0},{80,
+          0},{80,-20}},  color={0,127,255}));
+  connect(con.port_b1, dp.port_b) annotation (Line(points={{16,10},{16,2},{20,2},
           {20,-20}}, color={0,127,255}));
+  connect(con.port_a1, dp.port_a) annotation (Line(points={{4,10},{4,2},{0,2},{0,
+          -20}},     color={0,127,255}));
   connect(ope.y[1], con.yVal)
-    annotation (Line(points={{-78,20},{18,20}}, color={0,0,127}));
-  connect(ope.y[2], con1.yVal) annotation (Line(points={{-78,20},{0,20},{0,0},{
-          60,0},{60,20},{78,20}},  color={0,0,127}));
-  connect(res1.port_b, dp.port_a) annotation (Line(points={{10,-60},{20,-60},{20,
+    annotation (Line(points={{-78,0},{-20,0},{-20,20},{-2,20}},
+                                                color={0,0,127}));
+  connect(ope.y[2], con1.yVal) annotation (Line(points={{-78,0},{40,0},{40,20},{
+          58,20}},                 color={0,0,127}));
+  connect(res1.port_b, dp.port_a) annotation (Line(points={{-10,-60},{0,-60},{0,
           -20}},     color={0,127,255}));
   connect(dp.port_b, del1.ports[2])
-    annotation (Line(points={{40,-20},{40,-80}},   color={0,127,255}));
+    annotation (Line(points={{20,-20},{20,-80}},   color={0,127,255}));
   connect(res1.port_b, res1b.port_a)
-    annotation (Line(points={{10,-60},{50,-60}},   color={0,127,255}));
-  connect(dp1.port_b, del1.ports[3]) annotation (Line(points={{100,-20},{100,-80},
-          {40,-80}},  color={0,127,255}));
+    annotation (Line(points={{-10,-60},{30,-60}},  color={0,127,255}));
+  connect(dp1.port_b, del1.ports[3]) annotation (Line(points={{80,-20},{80,-80},
+          {20,-80}},  color={0,127,255}));
+  connect(mod.y, loa.mod) annotation (Line(points={{-78,40},{-20,40},{-20,64},{-2,
+          64}}, color={255,127,0}));
+  connect(mod.y, loa1.mod) annotation (Line(points={{-78,40},{40,40},{40,64},{58,
+          64}}, color={255,127,0}));
    annotation (experiment(
     StopTime=300,
     Tolerance=1e-6),

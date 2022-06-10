@@ -1,7 +1,9 @@
 within Buildings.Fluid.HydronicConfigurations.PassiveNetworks;
 model SingleMixing "Single mixing circuit"
   extends Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing(
-    final dpBal1_nominal=0)
+    final m1_flow_nominal=m2_flow_nominal,
+    final dpBal1_nominal=0,
+    dpValve_nominal=3e3)
   annotation (IconMap(primitivesVisible = false));
 
   annotation (

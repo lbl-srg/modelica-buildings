@@ -10,6 +10,11 @@ model PartialActivePrimary
     "Set to true for balanced configuration"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typ=
+    Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+    "Load type"
+    annotation(Evaluate=true);
+
   parameter Integer nTer=2
     "Number of terminal units";
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
@@ -45,21 +50,21 @@ model PartialActivePrimary
   parameter Modelica.Units.SI.Pressure p_min=200000
     "Circuit minimum pressure";
 
-  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=TLiqSup_nominal
-    "Liquid entering temperature at design conditions"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal-10
-    "Liquid leaving temperature at design conditions"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TLiqSup_nominal=60+273.15
+  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+      then 60+273.15 else 7+273.15
+    "Liquid entering temperature at design conditions";
+  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal+(
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+      then -10 else +5)
+    "Liquid leaving temperature at design conditions";
+  parameter Modelica.Units.SI.Temperature TLiqSup_nominal=TLiqEnt_nominal
     "Liquid primary supply temperature at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
-
-
 
   Sources.Boundary_pT ref(
     redeclare final package Medium = MediumLiq,
@@ -69,7 +74,7 @@ model PartialActivePrimary
     "Pressure and temperature boundary condition"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-60,-90})));
+        origin={-80,-90})));
   Movers.SpeedControlled_y pum(
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
@@ -79,13 +84,13 @@ model PartialActivePrimary
             dpPum_nominal)),
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Circulation pump"
-    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
   FixedResistances.PressureDrop res1(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
     final dp_nominal=dpPip_nominal) "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Sensors.TemperatureTwoPort TRet(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
@@ -97,7 +102,7 @@ model PartialActivePrimary
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
-        origin={-20,-80})));
+        origin={-40,-80})));
   Sensors.TemperatureTwoPort TSup(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
@@ -109,34 +114,35 @@ model PartialActivePrimary
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={-40,-60})));
+        origin={-60,-60})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract  delT(y(final unit="K"))
     "Primary delta-T"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-50,-110})));
   Delays.DelayFirstOrder del1(
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mPum_flow_nominal,
     nPorts=1)
     "Fluid transport delay"
-    annotation (Placement(transformation(extent={{30,-80},{50,-100}})));
+    annotation (Placement(transformation(extent={{10,-80},{30,-100}})));
 equation
   connect(pum.port_b,TSup. port_a)
-    annotation (Line(points={{-50,-60},{-50,-60}}, color={0,127,255}));
+    annotation (Line(points={{-70,-60},{-70,-60}}, color={0,127,255}));
   connect(TSup.port_b,res1. port_a)
-    annotation (Line(points={{-30,-60},{-10,-60}}, color={0,127,255}));
+    annotation (Line(points={{-50,-60},{-30,-60}}, color={0,127,255}));
   connect(TRet.T,delT. u1)
-    annotation (Line(points={{-20,-91},{-20,-94},{-12,-94}},color={0,0,127}));
+    annotation (Line(points={{-40,-91},{-40,-98},{-44,-98}},color={0,0,127}));
   connect(TSup.T,delT. u2)
-    annotation (Line(points={{-40,-71},{-40,-106},{-12,-106}},
-                                                            color={0,0,127}));
+    annotation (Line(points={{-60,-71},{-60,-98},{-56,-98}},color={0,0,127}));
 
-  connect(ref.ports[1], pum.port_a) annotation (Line(points={{-61,-80},{-80,-80},
-          {-80,-60},{-70,-60}},   color={0,127,255}));
+  connect(ref.ports[1], pum.port_a) annotation (Line(points={{-81,-80},{-100,-80},
+          {-100,-60},{-90,-60}},  color={0,127,255}));
   connect(ref.ports[2], TRet.port_b)
-    annotation (Line(points={{-59,-80},{-30,-80}},   color={0,127,255}));
+    annotation (Line(points={{-79,-80},{-50,-80}},   color={0,127,255}));
   connect(TRet.port_a, del1.ports[1])
-    annotation (Line(points={{-10,-80},{40,-80}},   color={0,127,255}));
+    annotation (Line(points={{-30,-80},{20,-80}},   color={0,127,255}));
   annotation (
   Diagram(
       coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));

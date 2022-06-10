@@ -28,6 +28,7 @@ model SingleMixing
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa(
     redeclare final package MediumLiq = MediumLiq,
+    final typ=typ,
     k=0.1,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
@@ -44,6 +45,7 @@ model SingleMixing
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa1(
     redeclare final package MediumLiq = MediumLiq,
+    final typ=typ,
     k=0.1,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
@@ -95,7 +97,7 @@ model SingleMixing
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
     final k=1)
     "One"
-    annotation (Placement(transformation(extent={{-100,-36},{-80,-16}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 equation
   connect(con.port_b1, dp.port_b) annotation (Line(points={{36,0},{36,-20},{40,
           -20},{40,-40}},
@@ -105,12 +107,10 @@ equation
                      color={0,127,255}));
   connect(res2.port_b, loa1.port_a) annotation (Line(points={{90,40},{100,40},{
           100,72}},     color={0,127,255}));
-  connect(fraLoa.y[1], loa.u) annotation (Line(points={{-78,100},{20,100},{20,
-          76},{38,76}},
-                    color={0,0,127}));
-  connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-78,100},{80,100},{80,
-          78},{98,78}},
-                    color={0,0,127}));
+  connect(fraLoa.y[1], loa.u) annotation (Line(points={{-78,100},{20,100},{20,78},
+          {38,78}}, color={0,0,127}));
+  connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-78,100},{80,100},{80,80},
+          {98,80}}, color={0,0,127}));
   connect(setOff.y[1], T2Set.u)
     annotation (Line(points={{-78,60},{-52,60}}, color={0,0,127}));
   connect(mod.y[1], con.mod) annotation (Line(points={{-78,20},{10,20},{10,18},
@@ -131,16 +131,22 @@ equation
   connect(con.port_b2,res2. port_a)
     annotation (Line(points={{24,20},{24,40},{70,40}},
                                                      color={0,127,255}));
-  connect(res1.port_b, dp.port_a) annotation (Line(points={{10,-60},{20,-60},{
+  connect(res1.port_b, dp.port_a) annotation (Line(points={{-10,-60},{20,-60},{
           20,-40}},  color={0,127,255}));
   connect(dp.port_b, del1.ports[2])
-    annotation (Line(points={{40,-40},{40,-80}},   color={0,127,255}));
-  connect(rea.y, pum.y) annotation (Line(points={{-8,-20},{0,-20},{0,-40},{-60,
-          -40},{-60,-48}},   color={0,0,127}));
+    annotation (Line(points={{40,-40},{40,-60},{40,-80},{20,-80}},
+                                                   color={0,127,255}));
+  connect(rea.y, pum.y) annotation (Line(points={{-8,-20},{0,-20},{0,-40},{-80,
+          -40},{-80,-48}},   color={0,0,127}));
   connect(mod.y[1], min.u1) annotation (Line(points={{-78,20},{-70,20},{-70,-14},
           {-62,-14}}, color={255,127,0}));
   connect(one.y, min.u2)
-    annotation (Line(points={{-78,-26},{-62,-26}}, color={255,127,0}));
+    annotation (Line(points={{-78,-20},{-70,-20},{-70,-26},{-62,-26}},
+                                                   color={255,127,0}));
+  connect(mod.y[1], loa.mod) annotation (Line(points={{-78,20},{10,20},{10,74},
+          {38,74}}, color={255,127,0}));
+  connect(mod.y[1], loa1.mod) annotation (Line(points={{-78,20},{10,20},{10,52},
+          {80,52},{80,76},{98,76}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
