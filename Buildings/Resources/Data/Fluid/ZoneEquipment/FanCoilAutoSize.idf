@@ -4,6 +4,9 @@
 !-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 
+Output:Variable,*,Zone Thermostat Heating Setpoint Temperature,Timestep;
+Output:Variable,*,Zone Thermostat Cooling Setpoint Temperature,Timestep;
+Output:Variable,*,Zone Total Internal Total Heating Rate,Timestep;
 Output:Variable,Zone1FanCoilHWInletNode,System Node Temperature,Timestep;
 Output:Variable,Zone1FanCoilHWInletNode,System Node Mass Flow Rate ,Timestep;
 Output:Variable,Zone1FanCoilChWInletNode,System Node Temperature,Timestep;

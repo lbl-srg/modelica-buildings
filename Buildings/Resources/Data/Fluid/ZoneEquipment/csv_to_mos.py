@@ -16,7 +16,9 @@ if __name__ == '__main__':
    "ZONE1FANCOILCHWINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
    "ZONE1FANCOILHWINLETNODE:System Node Temperature [C](TimeStep)",
    "ZONE1FANCOILHWINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
-   "ZONE1FANCOILAIROUTLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)"
+   "ZONE1FANCOILAIROUTLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
+   "WEST ZONE:Zone Thermostat Heating Setpoint Temperature [C](TimeStep)",
+   "WEST ZONE:Zone Thermostat Cooling Setpoint Temperature [C](TimeStep)"
   ]
 
   e.energyplus_csv_to_mos(
