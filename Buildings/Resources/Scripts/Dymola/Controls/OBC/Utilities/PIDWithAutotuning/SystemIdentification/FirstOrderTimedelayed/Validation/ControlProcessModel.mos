@@ -1,4 +1,4 @@
 simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation.ControlProcessModel", method="Cvode", tolerance=1e-06, resultFile="ControlProcessModel");
-createPlot(id=1, position={95, 95, 1484, 920}, y={"controlProcessModel.T", "referenceT.y"}, range={0.0, 1.0, 0.6000000000000001, 1.2000000000000002}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={95, 95, 1484, 920}, y={"controlProcessModel.L", "referenceL.y"}, range={0.0, 1.0, 0.0, 0.6000000000000001}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});
-
+createPlot(id=1, position={75, 75, 1761, 1431}, y={"controlProcessModel.T", "referenceT.y"}, range={0.0, 1.0, 0.0, 5.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={75, 75, 1761, 1431}, y={"controlProcessModel.L", "referenceL.y"}, range={0.0, 1.0, 0.4, 1.8000000000000003}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={75, 75, 1761, 1431}, y={"tuningStart.y[1]", "tuningEnd.y[1]"}, range={0.0, 1.0, -0.2, 1.2000000000000002}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}});

@@ -1,11 +1,10 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
-model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
+model PIWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD
-    PIDWitAutotuning(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+  .Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD
+    PIDWitAutotuning(controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yHig=1,
     yLow=0.1,
     deaBan=0.1,
@@ -13,13 +12,13 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
     "PID controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PID(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti=0.5,
     Td=0.1)
     "PID controller with constant gains"
      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
+  CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
@@ -69,7 +68,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIDWithAutotuningAmigoFOTD.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIWithAutotuningAmigoFOTD.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
@@ -78,7 +77,7 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD</a>.
 </p>
 <p>
-This example is to compare the output of a PID controller with an autotuning feature to that of another PID controller with arbitary gains
+This example is to compare the output of a PI controller with an autotuning feature to that of another PI controller with arbitary gains
 </p>
 </html>",
       revisions="<html>
@@ -103,4 +102,4 @@ First implementation<br/>
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-80},{100,100}})));
-end PIDWithAutotuningAmigoFOTD;
+end PIWithAutotuningAmigoFOTD;

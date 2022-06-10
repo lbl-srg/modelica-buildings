@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
 block Gain "Identifies the gain of a first order time delayed model"
-  parameter Real yHig(min=1E-6,max=1) = 1
+  parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
-  parameter Real yLow(min=1E-6,max=1) = 0.5
+  parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector for the response signal of a relay controller"
@@ -47,7 +47,7 @@ block Gain "Identifies the gain of a first order time delayed model"
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-40,-120})));
+        origin={0,-120})));
   CDL.Continuous.AddParameter addPar(p=1E-11)
     annotation (Placement(transformation(extent={{32,-50},{52,-30}})));
 equation
@@ -66,8 +66,8 @@ equation
   connect(highRealyOuput.y, mul2.u1) annotation (Line(points={{-58,30},{-52,30},
           {-52,26},{-42,26}}, color={0,0,127}));
   connect(mul2.u2, tOn) annotation (Line(points={{-42,14},{-52,14},{-52,0},{-120,0}}, color={0,0,127}));
-  connect(Iy.trigger, triggerStart) annotation (Line(points={{-30,68},{-30,60},{
-          -4,60},{-4,-96},{-40,-96},{-40,-120}}, color={255,0,255}));
+  connect(Iy.trigger, triggerStart) annotation (Line(points={{-30,68},{-30,50},{
+          -4,50},{-4,-80},{0,-80},{0,-120}},     color={255,0,255}));
   connect(divIyIu.u1, Iy.y) annotation (Line(points={{30,6},{-2,6},{-2,80},{-18,
           80}}, color={0,0,127}));
   connect(Iu.y, addPar.u)

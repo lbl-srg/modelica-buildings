@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
 block TimeConstantDelay
   "Calculates the time constant and the time delay of a first order time delayed model"
-  parameter Real yHig(min=0,max=1) = 1
+  parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
-  parameter Real yLow(min=0,max=1) = 0.5
+  parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   parameter Real deaBan(min=0) = 0.5
     "Deadband for holding the output value";
@@ -51,27 +51,23 @@ block TimeConstantDelay
     "exp(L/T)(yHig + yLow)"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
-    "h/|k|-yLow+exp(L/T)(yHig + yLow)"
+    "Calculates the result of h/|k|-yLow+exp(L/T)(yHig + yLow)"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "yHig - deaBan/exp(L/T)"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
-    "(h/|k|-yLow+exp(L/T)(yHig + yLow))/(yHig-h/|k|)"
+    "Calculates the result of (h/|k|-yLow+exp(L/T)(yHig + yLow))/(yHig-h/|k|)"
     annotation (Placement(transformation(extent={{60,-78},{80,-58}})));
   Buildings.Controls.OBC.CDL.Continuous.Log log
-    "the natural logarithm of (h/|k|-yLow+exp(L/T)(yHig + yLow))/(yHig-h/|k|)"
+    "Natural logarithm of (h/|k|-yLow+exp(L/T)(yHig + yLow))/(yHig-h/|k|)"
     annotation (Placement(transformation(extent={{-20,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div3
     "Calculates the time constant"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
     "Calculates the time delay"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
 equation
-//   assert(
-//     abs(k)>1E-12,
-//     "the absulte values of k should be larger than 0. Check inputs.");
   connect(absk.u, k)
     annotation (Line(points={{-82,-10},{-92,-10},{-92,0},{-120,0}},
                                                 color={0,0,127}));
@@ -140,14 +136,14 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the time constant and the time delay of a first-order time-delayed model</p>
 <P>The time constant, <i>T</i>, is calculated by <p>
-<P> T = t<sub>on</sub>/(ln((&delta;/|k|-yLow+exp(&tau;)(yHig + yLow))/(yHig-&delta;/|k|)))</p>
+<P> T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub>hig</sub> + y<sub>low</sub>))/(y<sub>hig</sub>-&delta;/|k|)))</p>
 <p>where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value and the lower value of the relay control output, respectively,</p>
 <p><i>t<sub>on</sub></i> is the length of the On period,</p>
 <p><i>&delta;</i> is the dead band of a relay controller,</p>
 <p><i>k</i> is the gain of the first-order time-delayed model.</p>
 <p><i>&tau;</i> is the normalized time delay.</p>
 <P>The time delay, <i>L</i>, is calculated by <p>
-<P> L = T &tau;</p>
+<P> L = T &tau;/(1 - &tau;);</p>
 <h4>References</h4>
 <p>
 Josefin Berner (2015).

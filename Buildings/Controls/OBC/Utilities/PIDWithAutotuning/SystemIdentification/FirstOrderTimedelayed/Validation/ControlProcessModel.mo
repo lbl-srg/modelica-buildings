@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.F
 model ControlProcessModel "Test model for ControlProcessModel"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
-    controlProcessModel(yLow=0.1)
+    controlProcessModel(yLow=0.1, deaBan=0.05)
     "Calculates the parameters of the system model for the control process"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   CDL.Continuous.Sources.TimeTable tOn(
@@ -11,19 +11,19 @@ model ControlProcessModel "Test model for ControlProcessModel"
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "The length of the On period"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Sources.TimeTable ratioLT(
+  CDL.Continuous.Sources.TimeTable tau(
     table=[0,0.3; 0.1,0.5; 0.3,0.1; 0.7,0.5; 0.83,0.8; 0.85,0.5],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "The ratio between the time constant and the time delay of a first order time delay model"
+    "The normalized time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Sources.RealExpression referenceT(y=tOn.y[1]/log(max((0.5/max(
-         abs(controlProcessModel.k), 1E-11) - 0.1 + exp(ratioLT.y[1])*(1 + 0.1))
-        /(1 - 0.5/max(abs(controlProcessModel.k), 1E-11)), 1E-11)))
+  Modelica.Blocks.Sources.RealExpression referenceT(y=tOn.y[1]/log((0.05/
+        controlProcessModel.k - 0.1 + exp(tau.y[1]/(1 - tau.y[1]))*(1 + 0.1))/(
+        1 - 0.05/abs(controlProcessModel.k))))
     "Reference value for the time constant"
     annotation (Placement(transformation(extent={{-10,48},{10,68}})));
-  Modelica.Blocks.Sources.RealExpression referenceL(y=ratioLT.y[1]*referenceT.y)
-    "Reference value for the time delay"
+  Modelica.Blocks.Sources.RealExpression referenceL(y=tau.y[1]/(1 - tau.y[1])*
+        referenceT.y) "Reference value for the time delay"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   CDL.Continuous.Sources.TimeTable u(
     table=[0,1; 0.1,0.5; 0.3,0.5; 0.7,0.5; 0.83,1; 0.85,1],
@@ -45,12 +45,12 @@ model ControlProcessModel "Test model for ControlProcessModel"
         1; 0.85,1], period=2) "Mimicking the signal for the tuning period end"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 equation
-  connect(tOn.y[1], controlProcessModel.tOn) annotation (Line(points={{-38,30},{
-          -20,30},{-20,4},{-12,4}}, color={0,0,127}));
-  connect(ratioLT.y[1], controlProcessModel.ratioLT) annotation (Line(points={{-38,
-          -30},{-20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
-  connect(u.y[1], controlProcessModel.u) annotation (Line(points={{-38,60},{-16,
-          60},{-16,8},{-12,8}}, color={0,0,127}));
+  connect(tOn.y[1], controlProcessModel.tOn) annotation (Line(points={{-38,30},
+          {-24,30},{-24,4},{-12,4}},color={0,0,127}));
+  connect(tau.y[1], controlProcessModel.tau) annotation (Line(points={{-38,-30},
+          {-20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
+  connect(u.y[1], controlProcessModel.u) annotation (Line(points={{-38,60},{-20,
+          60},{-20,8},{-12,8}}, color={0,0,127}));
   connect(tOff.y[1], controlProcessModel.tOff) annotation (Line(points={{-38,0},
           {-20,0},{-20,-4},{-12,-4}}, color={0,0,127}));
   connect(tuningStart.y[1], controlProcessModel.triggerStart) annotation (Line(

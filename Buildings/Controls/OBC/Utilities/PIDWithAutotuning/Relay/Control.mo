@@ -21,7 +21,8 @@ block Control
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput On
     "Relay switch signal"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr "Control error signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
+    "Control error signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(bandwidth=deaBan*2, pre_y_start=true)
     "check if the measured value is larger than the reference"
@@ -35,7 +36,6 @@ block Control
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(final k=-yLow)
     "Default temperature slope in case of zero division"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Subtract controlError
     "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-76,10},{-56,30}})));

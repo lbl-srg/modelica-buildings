@@ -26,9 +26,6 @@ model Gain "Test model for Gain"
         0.83,1; 0.85,1], period=2)
     "Mimicking the signal for the tuning period start"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  CDL.Logical.Sources.TimeTable tuningEnd(table=[0,0; 0.1,0; 0.3,0; 0.7,0; 0.83,
-        0; 0.9,1], period=2) "Mimicking the signal for the tuning period end"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 equation
   connect(tOn.y[1], gain.tOn)
     annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
@@ -36,10 +33,8 @@ equation
           -40},{-38,-40}}, color={0,0,127}));
   connect(u.y[1], gain.u) annotation (Line(points={{-38,40},{-20,40},{-20,8},{-12,
           8}}, color={0,0,127}));
-  connect(tuningEnd.y[1], gain.triggerEnds) annotation (Line(points={{2,-70},{
-          20,-70},{20,-20},{4,-20},{4,-12}}, color={255,0,255}));
-  connect(gain.triggerStart, tuningStart.y[1]) annotation (Line(points={{-4,-12},
-          {-6,-12},{-6,-48},{-36,-48},{-36,-70},{-38,-70}}, color={255,0,255}));
+  connect(tuningStart.y[1], gain.triggerStart)
+    annotation (Line(points={{-38,-70},{0,-70},{0,-12}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

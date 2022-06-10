@@ -81,8 +81,8 @@ equation
           {50,56},{20,56},{20,70},{38,70}},color={0,0,127}));
   connect(timOn.u, tim) annotation (Line(points={{-32,40},{-92,40},{-92,60},{
           -120,60}}, color={0,0,127}));
-  connect(timOff.u, tim) annotation (Line(points={{-32,-30},{-94,-30},{-94,60},
-          {-120,60}},                   color={0,0,127}));
+  connect(timOff.u, tim) annotation (Line(points={{-32,-30},{-76,-30},{-76,40},
+          {-92,40},{-92,60},{-120,60}}, color={0,0,127}));
   connect(timOnRecord.y, tOn)
     annotation (Line(points={{82,40},{110,40}}, color={0,0,127}));
   connect(timOffRecord.y, tOff)

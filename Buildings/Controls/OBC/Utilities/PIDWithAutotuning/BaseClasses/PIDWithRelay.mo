@@ -19,6 +19,12 @@ partial block PIDWithRelay
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
     "Start value of the time constant of derivative block"
     annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+  parameter Real yHig(min=1E-6) = 1
+    "Higher value for the output";
+  parameter Real yLow(min=1E-6) = 0.5
+    "Lower value for the output";
+  parameter Real deaBan(min=1E-6) = 0.5
+    "Deadband for holding the output value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector for setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -32,13 +38,13 @@ partial block PIDWithRelay
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Control relay(
-    yHig=1,
-    yLow=0.1,
-    deaBan=0.2)
+    yHig=yHig,
+    yLow=yLow,
+    deaBan=deaBan)
     "A relay controller"
     annotation (Placement(transformation(extent={{22,20},{42,40}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains pid(
-     controllerType=controllerType)
+     controllerType=controllerType) "A pid controller"
     annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a PID controller and a relay controller"
@@ -104,10 +110,31 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This blocks is designed as a generic form for implementing automatic tuning methods for PID controllers, 
+This blocks is designed as a generic form for implementing automatic tuning methods for PID controllers.
 </p>
 <p>
-based on response from a relay controller.
+It consists of a PID controller and a relay controller.
+</p>
+<p>
+There is also a switcher that determines the output of which controller is used as the output signal.
+</p>
+<p>
+When the simulation starts, the output from the relay contoller is used to excite the system.
+</p>
+<p>
+When the output of the relay controllers switches from On to Off or from Off to On,
+</p>
+<p>
+the tuning process begins.
+</p>
+<p>
+Then after the output of the relay controllers switches twice,
+</p>
+<p>
+the tuning process ends.
+</p>
+<p>
+When the tuning process ends, the parameters of the PID control change and its output becomes the output signal.
 </p>
 </html>"));
 end PIDWithRelay;

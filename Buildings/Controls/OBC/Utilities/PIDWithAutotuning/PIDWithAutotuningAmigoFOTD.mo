@@ -2,23 +2,29 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block PIDWithAutotuningAmigoFOTD
   "A autotuning PID controller with an Amigo tuner and a first order time delayed system model"
   extends
-    Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.PIDWithRelay(
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.PIDWithRelay(
       relay(
-      yHig=1,
-      yLow=0.1,       deaBan=0.1));
+      yHig=yHig,
+      yLow=yLow,
+      deaBan=deaBan));
+  parameter Real setPoint(min=1E-6) = 0.8
+    "Setpoint used for PID tuning";
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
     controlProcessModel(
-    yHig=0.2,
-    yLow=0.9,
-    deaBan=0.1)
+    yHig=yHig - setPoint,
+    yLow=setPoint + yLow,
+    deaBan=deaBan)
+    "A block to approximate the control process"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PI piParameters
-    if not with_D
+    if not with_D "A block to calculates the parameters of a PI controller"
     annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PID pidParameters
-    if with_D annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess responseProcess(yHig=0.2,
-      yLow=0.9)
+    if with_D "A block to calculates the parameters of a PID controller"
+    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess responseProcess(yHig=yHig
+         - setPoint, yLow=setPoint + yLow)
+    "A block to process the response from the relay controller"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
@@ -72,4 +78,12 @@ equation
   connect(responseProcess.triggerStart, controlProcessModel.triggerStart)
     annotation (Line(points={{-1,46},{-10,46},{-10,34},{-24,34},{-24,38}},
         color={255,0,255}));
+  annotation (Documentation(info="<html>
+<p>
+This blocks implements a AMIGO PID tuning method and the control process is approximated with a first order delay process.
+</p>
+<p>
+Noted that this block can only support a PI controller or a PID controller.
+</p>
+</html>"));
 end PIDWithAutotuningAmigoFOTD;

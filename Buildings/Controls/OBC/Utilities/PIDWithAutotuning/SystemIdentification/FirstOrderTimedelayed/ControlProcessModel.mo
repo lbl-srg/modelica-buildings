@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
 block ControlProcessModel
   "Identifies the parameters of a first order time delayed model for the control process"
-  parameter Real yHig= 1
+  parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
-  parameter Real yLow= 0.5
+  parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   parameter Real deaBan(min=0) = 0.5
     "Deadband for holding the output value";
@@ -65,11 +65,11 @@ block ControlProcessModel
   CDL.Discrete.TriggeredSampler samtau(y_start=0.5)
     "Sampling the normalized time delay"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-90}})));
-  CDL.Continuous.MultiplyByParameter gai(k=-1)
+  CDL.Continuous.MultiplyByParameter gai(k=-1) "Product of tau and -1"
     annotation (Placement(transformation(extent={{-36,-90},{-16,-70}})));
-  CDL.Continuous.AddParameter addPar(p=1)
+  CDL.Continuous.AddParameter addPar(p=1) "1- tau"
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
-  CDL.Continuous.Divide div1
+  CDL.Continuous.Divide div "tau/(1- tau)"
     annotation (Placement(transformation(extent={{12,-60},{32,-40}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-86,8},{-88,8},{-88,80},{-120,80}},
@@ -78,8 +78,8 @@ equation
           -120,40}},               color={0,0,127}));
   connect(gain.tOff, tOff) annotation (Line(points={{-86,-8},{-94,-8},{-94,-40},
           {-120,-40}}, color={0,0,127}));
-  connect(gain.triggerStart, triggerStart) annotation (Line(points={{-78,-12},{
-          -78,-96},{-60,-96},{-60,-120}}, color={255,0,255}));
+  connect(gain.triggerStart, triggerStart) annotation (Line(points={{-74,-12},{-74,
+          -96},{-60,-96},{-60,-120}},     color={255,0,255}));
   connect(timeConstantDelay.T, samT.u)
     annotation (Line(points={{21,7},{60,7},{60,0},{68,0}}, color={0,0,127}));
   connect(samT.y, T)
@@ -114,12 +114,12 @@ equation
     annotation (Line(points={{-38,-80},{-48,-80}}, color={0,0,127}));
   connect(gai.y, addPar.u)
     annotation (Line(points={{-14,-80},{-10,-80}}, color={0,0,127}));
-  connect(addPar.y, div1.u2) annotation (Line(points={{14,-80},{20,-80},{20,-62},
+  connect(addPar.y, div.u2) annotation (Line(points={{14,-80},{20,-80},{20,-62},
           {4,-62},{4,-56},{10,-56}}, color={0,0,127}));
-  connect(div1.y, timeConstantDelay.ratioLT) annotation (Line(points={{34,-50},
-          {34,-24},{-6,-24},{-6,-6},{-2,-6}}, color={0,0,127}));
-  connect(div1.u1, samtau.y) annotation (Line(points={{10,-44},{-40,-44},{-40,
-          -80},{-48,-80}}, color={0,0,127}));
+  connect(div.y, timeConstantDelay.ratioLT) annotation (Line(points={{34,-50},{
+          34,-24},{-6,-24},{-6,-6},{-2,-6}}, color={0,0,127}));
+  connect(div.u1, samtau.y) annotation (Line(points={{10,-44},{-40,-44},{-40,-80},
+          {-48,-80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
