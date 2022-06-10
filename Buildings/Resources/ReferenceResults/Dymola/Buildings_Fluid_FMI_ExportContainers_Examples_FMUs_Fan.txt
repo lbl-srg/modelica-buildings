@@ -1,4 +1,4 @@
-last-generated=2022-05-24
+last-generated=2022-06-09
 statistics-fmu-dependencies=
 {
   "Derivatives": {},
@@ -8,10 +8,6 @@ statistics-fmu-dependencies=
       "inlet.p",
       "outlet.backward.T",
       "outlet.backward.X_w",
-      "com.per.motorEfficiency.V_flow[1]",
-      "com.per.motorEfficiency.eta[1]",
-      "com.per.motorEfficiency_yMot.y[1]",
-      "com.per.motorEfficiency_yMot.eta[1]",
       "com.per.power.V_flow[1]",
       "com.per.motorCooledByFluid",
       "dp_in"
@@ -24,10 +20,6 @@ statistics-fmu-dependencies=
       "inlet.p",
       "inlet.forward.T",
       "inlet.forward.X_w",
-      "com.per.motorEfficiency.V_flow[1]",
-      "com.per.motorEfficiency.eta[1]",
-      "com.per.motorEfficiency_yMot.y[1]",
-      "com.per.motorEfficiency_yMot.eta[1]",
       "com.per.power.V_flow[1]",
       "com.per.motorCooledByFluid",
       "dp_in"
