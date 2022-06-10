@@ -19,6 +19,10 @@ model PartialLoadValveControl
     displayUnit="Pa")=dpTer_nominal
     "Control valve pressure drop at design conditions"
     annotation (Dialog(group="Control valve"));
+  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
+    displayUnit="Pa")=0
+    "Balancing valve pressure drop at design conditions"
+    annotation (Dialog(group="Balancing valves"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     abs(Q_flow_nominal) / 10 / 1015
@@ -82,6 +86,7 @@ model PartialLoadValveControl
     final m2_flow_nominal=m_flow_nominal,
     final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
+    final dpBal1_nominal=dpBal1_nominal,
     use_lumFloRes=true,
     final energyDynamics=energyDynamics)
     "Diversion connection"

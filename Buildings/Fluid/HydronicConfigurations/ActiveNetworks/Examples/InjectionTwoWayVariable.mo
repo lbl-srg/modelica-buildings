@@ -9,8 +9,7 @@ model InjectionTwoWayVariable
     m2_flow_nominal=2*mTer_flow_nominal/0.9,
     con(
       typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
-      typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature),
-    res2(final m_flow_nominal=mTer_flow_nominal + resEnd2.m_flow_nominal));
+      typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature));
 
   parameter Modelica.Units.SI.PressureDifference dp2Set(
     final min=0,
@@ -18,15 +17,9 @@ model InjectionTwoWayVariable
     "Secondary pressure differential set point"
     annotation (Dialog(group="Controls"));
 
-  FixedResistances.PressureDrop res2(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=mTer_flow_nominal + resEnd2.m_flow_nominal,
-    final dp_nominal=dpPip_nominal)
-    "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Sensors.RelativePressure dp2(redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{100,44},{120,64}})));
   FixedResistances.PressureDrop resEnd2(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=0.1*m2_flow_nominal,
@@ -36,7 +29,7 @@ model InjectionTwoWayVariable
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,40})));
+        origin={140,30})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(
     final k=dp2Set)
     "Pressure differential set point"
@@ -51,22 +44,22 @@ model InjectionTwoWayVariable
 
 equation
   connect(dp2.port_a, loa1.port_a)
-    annotation (Line(points={{100,70},{100,100}}, color={0,127,255}));
+    annotation (Line(points={{100,54},{100,80}},  color={0,127,255}));
   connect(dp2.port_b, loa1.port_b)
-    annotation (Line(points={{120,70},{120,100}}, color={0,127,255}));
-  connect(res2.port_b, resEnd2.port_a)
-    annotation (Line(points={{90,60},{140,60},{140,50}}, color={0,127,255}));
+    annotation (Line(points={{120,54},{120,80}},  color={0,127,255}));
   connect(resEnd2.port_b, del2.ports[4])
-    annotation (Line(points={{140,30},{140,0},{60,0}},   color={0,127,255}));
+    annotation (Line(points={{140,20},{140,20},{60,20}}, color={0,127,255}));
   connect(dp2SetVal.y, ctlPum2.u_s)
     annotation (Line(points={{-118,20},{-72,20}},color={0,0,127}));
-  connect(mod1.y[1], ctlPum2.mod)
-    annotation (Line(points={{-118,-20},{-66,-20},{-66,8}},
-                                                          color={255,127,0}));
-  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{110,61},{110,4},{-60,
-          4},{-60,8}},   color={0,0,127}));
-  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-48,20},{6,20},{6,-6},{
-          18,-6}},  color={0,0,127}));
+  connect(mod.y[1], ctlPum2.mod) annotation (Line(points={{-118,0},{-66,0},{-66,
+          8}},     color={255,127,0}));
+  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{110,45},{110,-20},{
+          -60,-20},{-60,8}},
+                         color={0,0,127}));
+  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-48,20},{6,20},{6,14},
+          {18,14}}, color={0,0,127}));
+  connect(res2.port_b, resEnd2.port_a)
+    annotation (Line(points={{90,40},{140,40},{140,40}}, color={0,127,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -129,6 +122,5 @@ This observation holds for both variable and constant consumer circuits,
 although the detrimental effects are much more tangible in the case
 of variable consumer circuits.
 </p>
-</html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{160,160}})));
+</html>"));
 end InjectionTwoWayVariable;

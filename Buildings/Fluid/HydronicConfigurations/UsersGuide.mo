@@ -132,10 +132,11 @@ equivalence with a pair of two-way valves actuated in opposition,
 as illustrated in the figure below.
 </p>
 <p>
+Using the nomenclature from the right-hand side figure with the pair of
+two-way valves, we have:
 <i>
-<i>&beta; = &Delta;p<sub>A-B</sub>(y=100%) / &Delta;p<sub>A-B</sub>(y=0%)</i>
-</i>
-<br/>
+&beta; = &Delta;p<sub>A-B</sub>(y=100%) / &Delta;p<sub>A-B</sub>(y=0%)
+</i>.
 </p>
 <p>
 <img alt=\"Three-way valve schematic\"
@@ -143,9 +144,9 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGu
 </p>
 <p>
 The same caveat holds for the flow rate at 
-which the pressure drop <i>&beta; = &Delta;p<sub>A-B</sub>(y=100%)</i> is evaluated.
+which the pressure drop <i>&Delta;p<sub>A-B</sub>(y=100%)</i> is evaluated.
 There is some additional intricacy for the flow rate at which 
-<i>&beta; = &Delta;p<sub>A-B</sub>(y=0%)</i> is evaluated because contrary
+<i>&Delta;p<sub>A-B</sub>(y=0%)</i> is evaluated because contrary
 to the two-valve, that pressure drop is impacted by the flow rate 
 in the bypass branch.
 The example 

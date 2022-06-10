@@ -91,6 +91,7 @@ equation
       fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Diversion.svg")}),                                                                                                       Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+
 <p>
 Lumped flow resistance includes consumer circuit 
 and control valve only.

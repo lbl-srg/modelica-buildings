@@ -1,7 +1,6 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayConstantReturn
-  extends
-    HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant(
+  extends InjectionTwoWayConstant(
     loa(final mAir_flow_nominal=mAir_flow_nominal),
     loa1(final mAir_flow_nominal=mAir_flow_nominal),
     mTer_flow_nominal=2.46,

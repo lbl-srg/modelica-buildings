@@ -1,84 +1,26 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
-model DiversionOpenLoop
-  "Model illustrating the operation of diversion circuits with constant speed pump"
-  extends Modelica.Icons.Example;
-
-  package MediumLiq = Buildings.Media.Water
-    "Medium model for hot water";
+model DiversionOpenLoop "Model illustrating the operation of diversion circuits with constant speed pump"
+  extends BaseClasses.PartialActivePrimary(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dpPum_nominal=
+    (2 * dpPip_nominal + dpTer_nominal + dpValve_nominal) * kSizPum,
+    pum(inputType=Buildings.Fluid.Types.InputType.Constant),
+    del1(nPorts=3));
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Control valve characteristic"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-
-  parameter Boolean is_bal = false
-    "Set to true for a balanced bypass branch";
-
-  parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1
-    "Terminal unit mass flow rate at design conditions";
-  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
-    final min=0,
-    displayUnit="Pa") = 3E4
-    "Liquid pressure drop across terminal unit at design conditions";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     final min=0,
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions";
-  parameter Modelica.Units.SI.PressureDifference dpPip_nominal(
-    final min=0,
-    displayUnit="Pa") = 0.5E4
-    "Pipe section pressure drop at design conditions";
-  parameter Real kSizPum(
-    final unit="1") = 1.0
-    "Pump oversizing coefficient";
-  final parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
-    final min=0,
-    displayUnit="Pa")=
-    (2 * dpPip_nominal + dpTer_nominal + dpValve_nominal) * kSizPum
-    "Pump head at design conditions";
-  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal = 2 * mTer_flow_nominal
-    "Pump mass flow rate at design conditions";
-
-  parameter Modelica.Units.SI.Pressure p_min = 2E5
-    "Circuit minimum pressure";
-
   parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
     final min=0,
     displayUnit="Pa") = if is_bal then dpTer_nominal else 0
     "Secondary balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Temperature TAirEnt_nominal = 20 + 273.15
-    "Air entering temperature at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal = 60 + 273.15
-    "Hot water entering temperature at design conditions";
-  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal = 50 + 273.15
-    "Hot water leaving temperature at design conditions";
-
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
-    "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
-
-  Sources.Boundary_pT ref(
-    redeclare final package Medium = MediumLiq,
-    final p=p_min,
-    final T=TLiqEnt_nominal,
-    nPorts=2)
-    "Pressure and temperature boundary condition"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-80,-70})));
-  Movers.SpeedControlled_y pum(
-    redeclare final package Medium=MediumLiq,
-    final energyDynamics=energyDynamics,
-    addPowerToMedium=false,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(pressure(
-      V_flow={0, 1, 2} * mPum_flow_nominal / 996,
-      dp = {1.2, 1, 0.4} * dpPum_nominal)),
-    inputType=Buildings.Fluid.Types.InputType.Constant)
-    "Circulation pump"
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   ActiveNetworks.Diversion con(
     redeclare final package Medium=MediumLiq,
     val(fraK=1),
@@ -91,20 +33,19 @@ model DiversionOpenLoop
     final dpBal1_nominal=dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
     redeclare final package MediumLiq = MediumLiq,
     final dpLiq_nominal=dpTer_nominal,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
-    final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
     k=10) "Load"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   ActiveNetworks.Diversion con1(
     redeclare final package Medium = MediumLiq,
     val(fraK=1),
@@ -117,111 +58,73 @@ model DiversionOpenLoop
     final dpBal1_nominal=dpPum_nominal - 2 * dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal2_nominal=dpBal2_nominal)
     "Hydronic connection"
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
     redeclare final package MediumLiq = MediumLiq,
     final dpLiq_nominal=dpTer_nominal,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
-    final TAirEnt_nominal=TAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
     k=10) "Load"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  FixedResistances.PressureDrop res(
-    redeclare final package Medium=MediumLiq,
-    final m_flow_nominal=mPum_flow_nominal,
-    final dp_nominal=dpPip_nominal)
-    "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  FixedResistances.PressureDrop res1(
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
+  FixedResistances.PressureDrop res1b(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal - mTer_flow_nominal,
-    final dp_nominal=dpPip_nominal)
-    "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+    final dp_nominal=dpPip_nominal) "Pipe pressure drop"
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Sensors.RelativePressure dp(
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Sensors.RelativePressure dp1(
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ope(
     table=[0,1,1; 1,0,1; 2,1,0; 3,0,0],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
     timeScale=100) "Valve opening signal"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
-  Sensors.TemperatureTwoPort TRet(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=mPum_flow_nominal,
-    T_start=TLiqLvg_nominal) "Return temperature sensor" annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=0,
-        origin={-40,-60})));
-  Sensors.TemperatureTwoPort TSup(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=mPum_flow_nominal,
-    T_start=TLiqEnt_nominal) "Supply temperature sensor" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-50,-40})));
-  .Buildings.Controls.OBC.CDL.Continuous.Subtract delT(y(final unit="K"))
-    "Primary delta-T"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 equation
-  connect(ref.ports[1], pum.port_a) annotation (Line(points={{-81,-60},{-100,-60},
-          {-100,-40},{-90,-40}},
-                            color={0,127,255}));
-  connect(con.port_b2, loa.port_a) annotation (Line(points={{4,30},{4,40},{0,40},
-          {0,60}},      color={0,127,255}));
-  connect(loa.port_b, con.port_a2) annotation (Line(points={{20,60},{20,40},{16,
-          40},{16,29.8}}, color={0,127,255}));
-  connect(fraLoa.y, loa.u) annotation (Line(points={{-68,80},{-20,80},{-20,66},{
-          -2,66}},
+  connect(con.port_b2, loa.port_a) annotation (Line(points={{24,30},{24,40},{20,
+          40},{20,60}}, color={0,127,255}));
+  connect(loa.port_b, con.port_a2) annotation (Line(points={{40,60},{40,40},{36,
+          40},{36,29.8}}, color={0,127,255}));
+  connect(fraLoa.y, loa.u) annotation (Line(points={{-78,80},{0,80},{0,66},{18,
+          66}},
         color={0,0,127}));
-  connect(con1.port_b2, loa1.port_a) annotation (Line(points={{64,30},{64,40},{60,
-          40},{60,60}}, color={0,127,255}));
-  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{76,29.8},{76,40},
-          {80,40},{80,60}}, color={0,127,255}));
-  connect(fraLoa.y, loa1.u) annotation (Line(points={{-68,80},{40,80},{40,66},{58,
-          66}}, color={0,0,127}));
-  connect(res.port_b, res1.port_a)
-    annotation (Line(points={{-10,-40},{30,-40}}, color={0,127,255}));
-  connect(res.port_b, dp.port_a)
-    annotation (Line(points={{-10,-40},{0,-40},{0,-20}},   color={0,127,255}));
-  connect(dp1.port_a, res1.port_b)
-    annotation (Line(points={{60,-20},{60,-40},{50,-40}}, color={0,127,255}));
-  connect(dp1.port_a, con1.port_a1) annotation (Line(points={{60,-20},{60,0},{64,
-          0},{64,10}}, color={0,127,255}));
-  connect(con1.port_b1, dp1.port_b) annotation (Line(points={{76,10},{76,0},{80,
-          0},{80,-20}},  color={0,127,255}));
-  connect(con.port_b1, dp.port_b) annotation (Line(points={{16,10},{16,2},{20,2},
+  connect(con1.port_b2, loa1.port_a) annotation (Line(points={{84,30},{84,40},{80,
+          40},{80,60}}, color={0,127,255}));
+  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{96,29.8},{96,40},
+          {100,40},{100,60}},
+                            color={0,127,255}));
+  connect(fraLoa.y, loa1.u) annotation (Line(points={{-78,80},{60,80},{60,66},{
+          78,66}},
+                color={0,0,127}));
+  connect(dp1.port_a, res1b.port_b)
+    annotation (Line(points={{80,-20},{80,-60},{70,-60}}, color={0,127,255}));
+  connect(dp1.port_a, con1.port_a1) annotation (Line(points={{80,-20},{80,0},{84,
+          0},{84,10}}, color={0,127,255}));
+  connect(con1.port_b1, dp1.port_b) annotation (Line(points={{96,10},{96,0},{100,
+          0},{100,-20}}, color={0,127,255}));
+  connect(con.port_b1, dp.port_b) annotation (Line(points={{36,10},{36,2},{40,2},
+          {40,-20}}, color={0,127,255}));
+  connect(con.port_a1, dp.port_a) annotation (Line(points={{24,10},{24,2},{20,2},
           {20,-20}}, color={0,127,255}));
-  connect(con.port_a1, dp.port_a) annotation (Line(points={{4,10},{4,2},{0,2},{0,
-          -20}},     color={0,127,255}));
   connect(ope.y[1], con.yVal)
-    annotation (Line(points={{-68,20},{-2,20}}, color={0,0,127}));
-  connect(ope.y[2], con1.yVal) annotation (Line(points={{-68,20},{-20,20},{-20,0},
-          {40,0},{40,20},{58,20}}, color={0,0,127}));
-  connect(TRet.port_b, ref.ports[2])
-    annotation (Line(points={{-50,-60},{-79,-60}}, color={0,127,255}));
-  connect(TRet.port_a, dp.port_b)
-    annotation (Line(points={{-30,-60},{20,-60},{20,-20}}, color={0,127,255}));
-  connect(TRet.port_a, dp1.port_b)
-    annotation (Line(points={{-30,-60},{80,-60},{80,-20}}, color={0,127,255}));
-  connect(pum.port_b, TSup.port_a)
-    annotation (Line(points={{-70,-40},{-60,-40}}, color={0,127,255}));
-  connect(TSup.port_b, res.port_a)
-    annotation (Line(points={{-40,-40},{-30,-40}}, color={0,127,255}));
-  connect(TRet.T, delT.u1)
-    annotation (Line(points={{-40,-71},{-40,-74},{-2,-74}}, color={0,0,127}));
-  connect(TSup.T, delT.u2)
-    annotation (Line(points={{-50,-51},{-50,-86},{-2,-86}}, color={0,0,127}));
+    annotation (Line(points={{-78,20},{18,20}}, color={0,0,127}));
+  connect(ope.y[2], con1.yVal) annotation (Line(points={{-78,20},{0,20},{0,0},{
+          60,0},{60,20},{78,20}},  color={0,0,127}));
+  connect(res1.port_b, dp.port_a) annotation (Line(points={{10,-60},{20,-60},{20,
+          -20}},     color={0,127,255}));
+  connect(dp.port_b, del1.ports[2])
+    annotation (Line(points={{40,-20},{40,-80}},   color={0,127,255}));
+  connect(res1.port_b, res1b.port_a)
+    annotation (Line(points={{10,-60},{50,-60}},   color={0,127,255}));
+  connect(dp1.port_b, del1.ports[3]) annotation (Line(points={{100,-20},{100,-80},
+          {40,-80}},  color={0,127,255}));
    annotation (experiment(
     StopTime=300,
     Tolerance=1e-6),
@@ -393,6 +296,5 @@ for various valve authorities &beta; (color scale),
 and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>
-</html>"),
-    Diagram(coordinateSystem(extent={{-120,-100},{120,100}})));
+</html>"));
 end DiversionOpenLoop;

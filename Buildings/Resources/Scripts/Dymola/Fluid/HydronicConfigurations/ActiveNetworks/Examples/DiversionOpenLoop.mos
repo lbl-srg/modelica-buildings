@@ -6,7 +6,7 @@ createPlot(id=1, position={15, 15, 1184, 744},y={"ope.y[1]", "ope.y[2]"}, patter
 createPlot(id=2, position={616, 16, 1183, 972}, y={"pum.m_flow", "con.val.m1_flow", "con.val.m2_flow", "con.val.m3_flow"}, subPlot=1, autoscale=true, grid=true, autoerase=true, color=true);
 createPlot(id=2, position={616, 16, 1183, 972}, y={"pum.m_flow", "con1.val.m1_flow", "con1.val.m2_flow", "con1.val.m3_flow"}, subPlot=2, autoscale=true, grid=true, autoerase=true, color=true);
 
-createPlot(id=3, position={1214, 15, 1184, 744}, y={"pum.dpMachine", "dp.p_rel", "dp1.p_rel", "con.val.res1.dp", "con1.val.res1.dp"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true);
+createPlot(id=3, position={1214, 15, 1184, 744}, y={"pum.dpMachine", "dp.p_rel", "dp1.p_rel", "con.val.dp1", "con1.val.dp1"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true);
 
 createPlot(id=4, position={169, 245, 1184, 744}, y={"ope.y[1]", "ope.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true);
 

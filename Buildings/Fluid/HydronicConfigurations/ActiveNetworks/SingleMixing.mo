@@ -90,8 +90,7 @@ model SingleMixing "Single mixing circuit"
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
-         else 1)
-    "Consumer circuit supply temperature sensor"
+         else 1) "Consumer circuit supply temperature sensor"
     annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -120,13 +119,21 @@ model SingleMixing "Single mixing circuit"
     if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
     "one"
     annotation (Placement(transformation(extent={{50,70},{30,90}})));
+  Sensors.TemperatureTwoPort T2Ret(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m2_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
+         else 1) "Consumer circuit return temperature sensor" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={60,58})));
 equation
   connect(jun.port_3, val.port_3)
     annotation (Line(points={{50,-40},{-50,-40}}, color={0,127,255}));
   connect(port_b1, bal1.port_b)
     annotation (Line(points={{60,-100},{60,-80}}, color={0,127,255}));
-  connect(port_a2, bal2.port_a)
-    annotation (Line(points={{60,100},{60,40}}, color={0,127,255}));
   connect(pum.port_b, T2Sup.port_a)
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(T2Sup.port_b, port_b2)
@@ -171,6 +178,10 @@ equation
           {80,40},{120,40}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual) annotation (Line(points={{-67,-34},{-67,
           -32},{-78,-32},{-78,-58},{80,-58},{80,-60},{120,-60}}, color={0,0,127}));
+  connect(port_a2, T2Ret.port_a)
+    annotation (Line(points={{60,100},{60,68}}, color={0,127,255}));
+  connect(T2Ret.port_b, bal2.port_a)
+    annotation (Line(points={{60,48},{60,40}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

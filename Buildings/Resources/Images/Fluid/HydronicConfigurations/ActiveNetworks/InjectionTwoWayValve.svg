@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="26.590624mm"
-   height="26.590624mm"
-   viewBox="0 0 26.590624 26.590624"
+   width="100"
+   height="100.00003"
+   viewBox="0 0 26.458334 26.458342"
    version="1.1"
    id="svg1272"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,11 +26,11 @@
   </defs>
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="m 5.2916667,9.2604167 15.8749993,0"
+     d="M 5.2916672,9.2604172 H 21.166667"
      id="path1441-3-5-7" />
   <g
      id="g16622-8-9-4"
-     transform="rotate(-90,-13.229168,125.67708)"
+     transform="rotate(-90,-13.229167,125.67708)"
      style="fill:#ffffff">
     <path
        style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -51,12 +51,12 @@
   </g>
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="m 21.166667,15.875 0,2.645833"
+     d="m 21.166668,15.875001 v 2.645833"
      id="path1443-5" />
   <path
      style="fill:#000000;stroke:#000000;stroke-width:0.132292"
      id="path22200-9-0-8-3"
-     d="m 21.166667,1.8520833 0.229136,-0.39687 0.229136,-0.39688 h -0.458272 -0.458271 l 0.229136,0.39688 z" />
+     d="m 21.166668,1.8520838 0.229136,-0.39687 0.229136,-0.39688 h -0.458272 -0.458271 l 0.229136,0.39688 z" />
   <g
      transform="matrix(0,-0.26458333,-0.26458333,0,635.51237,211.6681)"
      id="g1737-6"
@@ -91,7 +91,7 @@
      aria-label="B"
      id="text6376-7-2-9-59-9-6-0-8-3-9"
      style="font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';display:inline;fill:#808080;stroke-width:0.264583"
-     transform="translate(-37.04491,-121.70436)">
+     transform="translate(-37.044909,-121.70436)">
     <path
        d="m 58.582678,137.11942 q 0,0.12953 -0.09439,0.20188 -0.0944,0.0717 -0.262516,0.0717 h -0.394119 v -0.97083 h 0.352777 q 0.341754,0 0.341754,0.23565 0,0.0861 -0.04823,0.14469 -0.04823,0.0586 -0.136425,0.0786 0.115755,0.0138 0.178455,0.0779 0.0627,0.0634 0.0627,0.16054 z m -0.188791,-0.4458 q 0,-0.0785 -0.05374,-0.11231 -0.05374,-0.0338 -0.155719,-0.0338 H 57.96325 v 0.3073 h 0.221175 q 0.10542,0 0.157097,-0.0393 0.05237,-0.04 0.05237,-0.12196 z m 0.05581,0.43546 q 0,-0.17156 -0.241157,-0.17156 h -0.24529 v 0.35002 h 0.255626 q 0.120579,0 0.1757,-0.0448 0.05512,-0.0448 0.05512,-0.13367 z"
        id="path2489" />
@@ -100,66 +100,30 @@
      aria-label="A"
      id="text6376-7-2-9-59-9-6-0-8-3-9-5"
      style="font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';display:inline;fill:#808080;stroke-width:0.264583"
-     transform="translate(-37.04491,-121.70436)">
+     transform="translate(-37.044909,-121.70436)">
     <path
        d="m 58.540623,133.45868 -0.110932,-0.28388 h -0.44235 l -0.111621,0.28388 h -0.136426 l 0.396186,-0.97083 h 0.149517 l 0.389984,0.97083 z m -0.332107,-0.87161 -0.0062,0.0193 q -0.01723,0.0572 -0.05099,0.14676 l -0.124023,0.31902 h 0.363113 l -0.124713,-0.32039 q -0.01929,-0.0476 -0.03858,-0.10749 z"
        id="path2492" />
   </g>
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264582;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="m 21.166667,7.9375 0,2.645833"
+     d="M 21.166668,7.9375005 V 10.583334"
      id="path1441" />
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="m 21.166667,23.8125 0,2.64583"
+     d="m 21.166668,23.812501 v 2.64583"
      id="path1443" />
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="M 5.291667,7.9375 V 26.45834"
+     d="M 5.2916675,7.9375005 V 26.458341"
      id="path1441-3" />
-  <text
-     id="text6376-7-2-9-59-9-6-0-8-3-05-8"
-     y="26.212471"
-     x="7.1136575"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
-     xml:space="preserve"><tspan
-       id="tspan2764-9-0-5-8-9-60"
-       x="7.1136575"
-       y="26.212471">a1</tspan></text>
-  <text
-     id="text6376-7-2-9-59-9-6-0-8-3-05-4-4"
-     y="26.238304"
-     x="17.862162"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
-     xml:space="preserve"><tspan
-       id="tspan2764-9-0-5-8-9-6-88"
-       x="17.862162"
-       y="26.238304">b1</tspan></text>
-  <text
-     id="text6376-7-2-9-59-9-6-0-8-3-05-9-8"
-     y="1.3087842"
-     x="7.150538"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
-     xml:space="preserve"><tspan
-       id="tspan2764-9-0-5-8-9-2-9"
-       x="7.150538"
-       y="1.3087842">b2</tspan></text>
-  <text
-     id="text6376-7-2-9-59-9-6-0-8-3-05-4-2-7"
-     y="1.3273847"
-     x="17.871058"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
-     xml:space="preserve"><tspan
-       id="tspan2764-9-0-5-8-9-6-4-7"
-       x="17.871058"
-       y="1.3273847">a2</tspan></text>
   <path
      style="fill:#000000;stroke:#000000;stroke-width:0.132292"
      id="path22200-9-0-8-3-8"
-     d="m 5.291667,13.030728 0.229136,0.39687 0.229136,0.39688 H 5.291667 4.833396 l 0.229136,-0.39688 z" />
+     d="m 5.2916675,13.030729 0.229136,0.39687 0.229136,0.39688 h -0.458272 -0.458271 l 0.229136,-0.39688 z" />
   <g
      id="g22409-8-2-1"
-     transform="rotate(-90,-21.783887,117.03174)">
+     transform="rotate(-90,-21.783886,117.03174)">
     <circle
        r="2.6458333"
        cy="-89.956184"
@@ -174,20 +138,20 @@
   </g>
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="M 5.2916667,0 V 2.6458333"
+     d="M 5.2916672,4.8538605e-7 V 2.6458338"
      id="path1441-3-54" />
   <text
      id="text6376-7-2-9-59-9-6-0-8-3-05-7-6"
-     y="9.7020769"
-     x="4.2112846"
+     y="9.7020779"
+     x="4.2112851"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
      xml:space="preserve"><tspan
        id="tspan2764-9-0-5-8-9-7-4"
-       x="4.2112846"
-       y="9.7020769">J</tspan></text>
+       x="4.2112851"
+       y="9.7020779">J</tspan></text>
   <g
      id="g16622-8-9-4-6"
-     transform="rotate(-90,-21.162078,117.73499)"
+     transform="rotate(-90,-21.162077,117.73499)"
      style="fill:#ffffff">
     <path
        style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -208,14 +172,61 @@
   </g>
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264582;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="M 21.166667,1.5e-7 V 2.6458332"
+     d="M 21.166668,6.3538605e-7 V 2.6458337"
      id="path1441-7" />
   <path
      style="fill:#000000;stroke:#000000;stroke-width:0.132292"
      id="path22200-9-0-8-3-4"
-     d="m 12.7,9.2604167 0.39687,0.229136 0.39688,0.229136 v -0.458272 -0.458271 l -0.39688,0.229136 z" />
+     d="m 12.700001,9.2604172 0.39687,0.229136 0.39688,0.229136 v -0.458272 -0.458271 l -0.39688,0.229136 z" />
   <path
      style="fill:#000000;stroke:#000000;stroke-width:0.132292"
      id="path22200-9-0-8-3-5"
-     d="m 21.166667,17.727083 0.229136,-0.39687 0.229136,-0.39688 h -0.458272 -0.458271 l 0.229136,0.39688 z" />
+     d="m 21.166668,17.727084 0.229136,-0.39687 0.229136,-0.39688 h -0.458272 -0.458271 l 0.229136,0.39688 z" />
+  <g
+     id="g1459"
+     transform="translate(-66.859665,-98.450256)">
+    <text
+       id="text6376-7-2-9-59-9-6-0-8-3-05-8"
+       y="124.63023"
+       x="74.016853"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         id="tspan2764-9-0-5-8-9-60"
+         x="74.016853"
+         y="124.63023">a1</tspan></text>
+    <text
+       id="text6376-7-2-9-59-9-6-0-8-3-05-4-4"
+       y="124.63023"
+       x="84.584686"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         id="tspan2764-9-0-5-8-9-6-88"
+         x="84.584686"
+         y="124.63023">b1</tspan></text>
+    <text
+       id="text6376-7-2-9-59-9-6-0-8-3-05-9-8"
+       y="99.73735"
+       x="74.00238"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         id="tspan2764-9-0-5-8-9-2-9"
+         x="74.00238"
+         y="99.73735">b2</tspan></text>
+    <text
+       id="text6376-7-2-9-59-9-6-0-8-3-05-4-2-7"
+       y="99.700142"
+       x="84.601219"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         id="tspan2764-9-0-5-8-9-6-4-7"
+         x="84.601219"
+         y="99.700142">a2</tspan></text>
+    <rect
+       style="fill:none;stroke:#4d4d4d;stroke-width:0"
+       id="rect625"
+       width="26.458332"
+       height="26.458332"
+       x="66.859665"
+       y="98.450256" />
+  </g>
 </svg>

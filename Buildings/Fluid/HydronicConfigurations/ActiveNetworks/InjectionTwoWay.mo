@@ -235,20 +235,52 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Variable primary &
-Variable or constant secondary.
-
+The following table presents the main characteristics of this configuration.<br/>
 </p>
+<table summary = \"Main characteristics\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\">
+<tr>
+<td><p>Primary circuit</p></td>
+<td><p>Variable flow
+(See caveats in examples.)
+</p></td>
+</tr>
+<tr>
+<td><p>Secondary (consumer) circuit</p></td>
+<td><p>Constant or variable flow</p></td>
+</tr>
+<tr>
+<td><p>Typical applications</p></td>
+<td><p>...</p></td>
+</tr>
+<tr>
+<td><p>Built-in control options</p></td>
+<td><p>
+Supply temperature (must be different from primary)</p>
+<p>
+Return temperature (incompatible with variable secondary)
+</p></td>
+</tr>
+<tr>
+<td><p>Control valve authority
+(See the nomenclature in the icon layer.)
+</p></td>
+<td><p>
+<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i><br/>
+(Does not depend on the primary balancing valve.)
+</p></td>
+</tr>
+<tr>
+<td><p>Balancing requirement</p></td>
+<td><p>
+...
+</p></td>
+</tr>
+</table>
+
 <p>
 Lumped flow resistance includes primary balancing valve 
 and control valve only.
 
-Default dpValve_nominal=0.34e4 for check valve.
-
-The control valve authority is equal to 
-<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i>.
-(Note that the authority does not depend on the primary balancing 
-valve.)
 </p>
 </html>"));
 end InjectionTwoWay;
