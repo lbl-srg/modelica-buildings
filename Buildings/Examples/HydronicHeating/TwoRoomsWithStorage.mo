@@ -398,7 +398,11 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{540,380},{560,400}})));
   Modelica.Blocks.Logical.OnOffController onOff(bandwidth=2) "On/off switch"
     annotation (Placement(transformation(extent={{580,334},{600,354}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutSwi(k=16 + 293.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutSwi(k(
+      final unit="K",
+      displayUnit="degC") = 289.15,
+    y(final unit="K",
+      displayUnit="degC"))
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = MediumW)
@@ -1189,6 +1193,11 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022, by Michael Wetter:<br/>
+Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
+</li>
 <li>
 September 21, 2021, by Michael Wetter:<br/>
 Updated controls to use blocks from the CDL package. Replaced PID controller with CDL version.<br/>
