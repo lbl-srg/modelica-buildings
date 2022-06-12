@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block OnOffPeriod
-  "Processes a relay signal to calculate the lengths of the On period and the Off period"
+  "Calculates the lengths of the On period and the Off period"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
     "Connector for relay switch signal" annotation (Placement(transformation(
           extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
             {-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff
-    "Connector for a Real output signal of the length for the Off period"
+    "Connector for a real output signal of the length for the Off period"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn
-    "Connector for a output signal of the length for the On period"
+    "Connector for a real output signal of the length for the On period"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOn
     "Simulation time when the input signal becomes On (True)"
@@ -105,7 +105,7 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block processes a relay feedback signal and calculates</p>
+<p>This block processes a relay swtich output signal and calculates</p>
 <p>1) the length of the On period (when the relay switch signal becomes True);</p>
 <p>2) the length of the Off period (when the relay switch signal becomes False).</p>
 <h4>References</h4>

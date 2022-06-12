@@ -34,8 +34,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.BaseClasses.Relay.NormalizedTimeDelay\">
-Buildings.Controls.OBC.Utilities.BaseClasses.Relay.NormalizedTimeDelay</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay</a>.
 </p>
 </html>"));
 end NormalizedTimeDelay;

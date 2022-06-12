@@ -4,16 +4,7 @@ package Validation "Collection of models that validate the SetPoints blocks of t
     preferredView="info",
     Documentation(
       info="<html>
-<p>
-This package contains models that validate the blocks in
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.SetPoints\">
-Buildings.Controls.OBC.Utilities.SetPoints</a>.
-</p>
-<p>
-The examples plot various outputs, which have been verified against
-analytical solutions. These model outputs are stored as reference data to
-allow continuous validation whenever models in the library change.
-</p>
+<p>This package contains models that validate the blocks in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWIthAutotuning\">Buildings.Controls.OBC.Utilities.PIDWIthAutotuning</a>. </p>
 </html>"),
     Icon(
       graphics={

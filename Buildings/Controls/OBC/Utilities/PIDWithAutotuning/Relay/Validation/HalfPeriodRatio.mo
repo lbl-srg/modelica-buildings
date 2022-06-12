@@ -41,8 +41,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.ResponseProcess.Relay.HalfPeriodRatio\">
-Buildings.Controls.OBC.Utilities.ResponseProcess.Relay.HalfPeriodRatio</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
 </p>
 </html>"));
 end HalfPeriodRatio;

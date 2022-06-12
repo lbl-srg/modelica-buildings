@@ -2,16 +2,16 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block NormalizedTimeDelay
   "Calculates the normalized time delay of a response from a relay controller"
   parameter Real gamma(min=1+1E-6) = 4
-    "Asymmetry level of the relay controller";
+  "Asymmetry level of the relay controller";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rho
-    "Connector for the half period ratio signal"
+    "Connector for a real signal of the half period ratio signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
-    "Connector for a output signal of the normalized time delay"
+    "Connector for a real signal of the normalized time delay"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant asymmetryLevel(k=gamma)
-    "Asymmetry level of the relay"
+    "Asymmetry level of the relay controller"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract subGammaRho "gamma-rho"
     annotation (Placement(transformation(extent={{0,12},{20,32}})));
@@ -25,15 +25,15 @@ block NormalizedTimeDelay
     "calculates tau"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(p=0.65)
-    "rho*0.35+0.65"
+    "calculates rho*0.35+0.65"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(p=-1)
-    "gamma-1"
+    "calculates gamma-1"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 equation
   assert(
     gamma-rho>1E-6,
-    "the asymmetry level should be larger than the half period ratio. Check parameters.");
+    "The asymmetry level should be larger than the half period ratio. Check parameters.");
   connect(subGammaRho.u1, asymmetryLevel.y) annotation (Line(points={{-2,28},{-20,
           28},{-20,50},{-58,50}}, color={0,0,127}));
   connect(subGammaRho.u2, rho) annotation (Line(points={{-2,16},{-42,16},{-42,

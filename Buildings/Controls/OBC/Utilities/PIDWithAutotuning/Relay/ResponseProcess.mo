@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block ResponseProcess
-  "Processes a relay signal to calculate the lengths of the On period and the Off period as well as the half period ratio"
-  parameter Real yHig = 1
+  "Calculates the lengths of the On period and the Off period, the half period ratio, as well as the times when the tuning starts and ends"
+  parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
-  parameter Real yLow = 0.5
+  parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
     "Connector for relay switch signal" annotation (Placement(transformation(
@@ -14,24 +14,25 @@ block ResponseProcess
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn
-    "Connector for a output signal of the length for the On period"
+    "Connector for a real signal of the length for the On period"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff
-    "Connector for a Real output signal of the length for the Off period"
+    "Connector for a real output signal of the length for the Off period"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerStart
-    "Relay tuning status, true if the tuning starts"
+    "Connector for a boolean signal, true if the tuning starts"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerEnd
-    "Relay tuning status, true if the tuning ends"
+    "Connector for a boolean signal, true if the tuning ends"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
-    "Connector for a output signal of the normalized time delay"
+    "Connector for a real signal of the normalized time delay"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPeriod
     "Calculates the length of the On period and the Off period"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halfPeriodRatio "Calculates the half period ratio"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halfPeriodRatio
+    "Calculates the half period ratio"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay normalizedTimeDelay(gamma=max(
         yHig, yLow)/min(yLow, yHig))
@@ -81,11 +82,11 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block processes a relay feedback signal and calculates</p>
+<p>This block processes a relay swtich output signall and calculates</p>
 <p>1) the length of the On period (when the relay switch signal becomes True);</p>
 <p>2) the length of the Off period (when the relay switch signal becomes False);</p>
 <p>3) the normalized time delay of the responses;</p>
-<p>4) the flag which indicates if the tuning completes.</p>
+<p>4) the flags which indicates if the tuning starts and completes, respectively.</p>
 <p>For more details, please refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>,</p>
 <p><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay</a>,</p>
 <p><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod</a>.</p>

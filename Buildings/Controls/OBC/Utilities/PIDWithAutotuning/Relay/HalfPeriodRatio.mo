@@ -10,15 +10,17 @@ block HalfPeriodRatio
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rho
-    "Connector for a output signal of the half period ratio"
+    "Connector for a real signal of the half period ratio"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerStart
-    "Relay tuning status, true if the tuning starts" annotation (Placement(
+    "Connector for a boolean signal, true if the tuning starts"
+    annotation (Placement(
         transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={
             {100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerEnd
-    "Relay tuning status, true if the tuning completes" annotation (Placement(
+    "Connector for a boolean signal, true if the tuning completes"
+    annotation (Placement(
         transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent=
            {{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Min tmin

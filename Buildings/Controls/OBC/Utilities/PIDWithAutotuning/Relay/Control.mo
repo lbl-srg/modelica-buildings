@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block Control
-  "Outputs a relay signal for tuning PID controllers"
+  "Outputs relay signals for tuning PID controllers"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
   parameter Real yLow(min=1E-6) = 0.5
@@ -16,16 +16,16 @@ block Control
     annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},rotation=270),
     iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Relay control output signal"
+    "Control output signal"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput On
-    "Relay switch signal"
+    "Control switch signal"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
     "Control error signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(bandwidth=deaBan*2, pre_y_start=true)
-    "check if the measured value is larger than the reference"
+    "check if the measured value is larger than the reference, by default the relay control is On"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a higher value and a lower value"
@@ -43,7 +43,7 @@ block Control
 initial equation
   assert(
     yHig-yLow>1E-6,
-    "the absulte values of yHig should be different from that of yLow. Check parameters.");
+    "The absulte values of yHig should be different from that of yLow. Check parameters.");
 
 equation
   connect(swi.y, y)
@@ -86,12 +86,12 @@ equation
           textColor={0,0,255})}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block grenerates a relay feedback signal, as described below:</p>
-<p>if e(t) &gt; &delta;, then y(t) = y<sub>hig</sub>,</p>
-<p>if e(t) &lt; &delta;, then y(t) = -y<sub>low</sub>,</p>
-<p>otherwise, y(t) = y(t-&Delta;t).</p>
-<p>where <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error, <i>y<sub>hig</i></sub> and <i>y<sub>low</i></sub> are the higher value and the lower value of the output <i>y,</i> respectively.</p>
-<p><i>y(t-&Delta;t)</i> is the output at the previous time step.</p>
+<p>This block grenerates a real control output signal, y, and a boolean control switch signal, y<sub>On</sub>, as described below:</p>
+<p>if e(t) &lt; - &delta;, then y(t) = y<sub>hig</sub>, y<sub>On</sub>(t) = true</p>
+<p>if e(t) &gt; &delta;, then y(t) = -y<sub>low</sub>, y<sub>On</sub>(t) = false</p>
+<p>otherwise, y(t) = y(t-&Delta;t), y<sub>On</sub>(t) = y<sub>On</sub>(t-&Delta;t)</p>
+<p>where <i>&delta;</i> is a dead band, <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error, <i>y<sub>hig</i></sub> and <i>y<sub>low</i></sub> are the higher value and the lower value of the output <i>y,</i> respectively.</p>
+<p><i>t-&Delta;t</i> is the previous time step.</p>
 <p>Note that this block generates a asymmetric signal, meaning <i>y<sub>hig</sub> &ne; y<sub>low</i></sub> </p>
 <h4>References</h4>
 <p>Josefin Berner (2017). &quot;Automatic Controller Tuning using Relay-based Model Identification.&quot; Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
