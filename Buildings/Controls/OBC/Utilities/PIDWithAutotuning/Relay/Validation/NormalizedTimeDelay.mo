@@ -9,6 +9,7 @@ model NormalizedTimeDelay "Test model for NormalizedTimeDelay"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay
     normalizedTimeDelay(gamma=4)
+    "calculates the normalized time delay"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Modelica.Blocks.Sources.RealExpression reference(y=(normalizedTimeDelay.gamma
          - rho.y[1])/(normalizedTimeDelay.gamma - 1)/(0.35*rho.y[1] + 0.65))

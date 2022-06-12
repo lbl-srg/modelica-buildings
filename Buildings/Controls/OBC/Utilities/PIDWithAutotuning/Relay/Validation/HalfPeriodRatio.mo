@@ -2,19 +2,20 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model HalfPeriodRatio "Test model for HalfPeriodRatio"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio
-    halfPeriodRatio "Calculating the half period ratio"
+    halfPeriodRatio
+    "Calculates the half period ratio"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
     table=[0,0; 0.1,1; 0.3,1; 0.7,1; 0.83,2; 0.85,6],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "The length of the On period"
+    "Signal for the length of the On period"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOff(
     table=[0,0; 0.1,0; 0.3,0; 0.7,3; 0.83,3; 0.85,3],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "The length of the Off period"
+    "Signal for the length of the Off period"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(tOn.y[1],halfPeriodRatio. tOn) annotation (Line(points={{-38,30},{-20,

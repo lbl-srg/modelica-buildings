@@ -3,11 +3,11 @@ model ResponseProcess "Test model for ResponseProcess"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess
     responseProcess(yHig=1, yLow=0.2)
-    "Calculating the length of the On period and the Off period"
+    "Calculates the length of the On period and the Off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable relayResponse(
      table=[0,1;0.1,0; 0.3,0; 0.7,1; 0.83,0; 0.85,1], period=2)
-    "Mimicking the response for a relay controller"
+    "Mimicks the response for a relay controller"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
