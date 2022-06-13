@@ -1,10 +1,8 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionTwoWay "Injection circuit with two-way valve"
-  extends
-    Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-    m1_flow_nominal=m2_flow_nominal,
+  extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    final dpBal3_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
-    final have_bypFix=true,
     final have_pum=true);
 
   FixedResistances.Junction junSup(
@@ -38,7 +36,6 @@ model InjectionTwoWay "Injection circuit with two-way valve"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,40})));
-
   Components.TwoWayValve val(
     redeclare final package Medium = Medium,
     final typCha=typCha,
@@ -56,7 +53,6 @@ model InjectionTwoWay "Injection circuit with two-way valve"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={60,-40})));
-
   Sensors.TemperatureTwoPort T2Sup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m2_flow_nominal,
@@ -77,22 +73,23 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final m_flow_nominal=m1_flow_nominal .* {1,-1,-1},
-    final dp_nominal=fill(0, 3)) "Junction" annotation (Placement(
+    final dp_nominal=fill(0, 3))
+    "Junction"
+    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={60,0})));
-  FixedResistances.PressureDrop bal2(
+  FixedResistances.PressureDrop res2(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dpBal2_nominal)
-    "Primary balancing valve"
+    final dp_nominal=dpBal2_nominal) "Secondary balancing valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,30})));
-  FixedResistances.PressureDrop bal1(
+  FixedResistances.PressureDrop res1(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
@@ -107,7 +104,8 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
-         else 1) "Consumer circuit return temperature sensor" annotation (
+         else 1)
+    "Consumer circuit return temperature sensor" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -140,9 +138,9 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,-60})));
-  replaceable FixedResistances.LosslessPipe byp(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m2_flow_nominal-m1_flow_nominal)
+  replaceable FixedResistances.LosslessPipe res3(
+    redeclare final package Medium =Medium,
+    final m_flow_nominal=m2_flow_nominal - m1_flow_nominal)
     "Fluid pass-through that can be replaced by check valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(
@@ -173,13 +171,13 @@ equation
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(T2Sup.port_b, port_b2)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
-  connect(junRet.port_1, bal2.port_b)
+  connect(junRet.port_1,res2. port_b)
     annotation (Line(points={{60,10},{60,20}}, color={0,127,255}));
-  connect(val.port_b, bal1.port_a)
+  connect(val.port_b,res1. port_a)
     annotation (Line(points={{60,-50},{60,-70}}, color={0,127,255}));
-  connect(bal1.port_b, port_b1)
+  connect(res1.port_b, port_b1)
     annotation (Line(points={{60,-90},{60,-100}}, color={0,127,255}));
-  connect(bal2.port_a, T2Ret.port_b)
+  connect(res2.port_a, T2Ret.port_b)
     annotation (Line(points={{60,40},{60,50}}, color={0,127,255}));
   connect(T2Ret.port_a, port_a2)
     annotation (Line(points={{60,70},{60,100}}, color={0,127,255}));
@@ -210,10 +208,10 @@ equation
   connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-60},{
           14,-60},{14,-52}},
                           color={255,127,0}));
-  connect(junRet.port_3,byp. port_a) annotation (Line(points={{50,0},{10,0}},
-                        color={0,127,255}));
-  connect(byp.port_b, junSup.port_3) annotation (Line(points={{-10,0},{-50,0}},
-                            color={0,127,255}));
+  connect(junRet.port_3, res3.port_a)
+    annotation (Line(points={{50,0},{10,0}}, color={0,127,255}));
+  connect(res3.port_b, junSup.port_3)
+    annotation (Line(points={{-10,0},{-50,0}}, color={0,127,255}));
   connect(ctlVar.y, extIndSig.index)
     annotation (Line(points={{-68,-60},{-52,-60}}, color={255,127,0}));
   connect(swi.y, pum.y)

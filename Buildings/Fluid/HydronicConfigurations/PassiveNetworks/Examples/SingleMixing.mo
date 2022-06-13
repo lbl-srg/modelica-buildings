@@ -111,7 +111,7 @@ model SingleMixing
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-80,-120})));
-  Modelica.Blocks.Sources.RealExpression dp2Pum(y=dp2Set + con1.val.dp3)
+  Modelica.Blocks.Sources.RealExpression dp2Pum(y=(dp2Set + con1.val.dp3)/con1.pum.dp_nominal)
     "Pump pressure rise set point"
     annotation (Placement(transformation(extent={{30,-36},{50,-16}})));
 equation
@@ -190,5 +190,7 @@ The pump model for the second circuit is an ideal
 &Delta;p-controlled model, its input being computed to 
 mimic tracking a pressure differential set point at the
 boundaries of the terminal unit. 
+</p>
+TODO: illustrate negative back pressure effect, see p. 207
 </html>"));
 end SingleMixing;

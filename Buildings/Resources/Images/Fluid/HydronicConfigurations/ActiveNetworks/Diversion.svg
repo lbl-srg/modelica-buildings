@@ -235,22 +235,22 @@
   <g
      id="g16622-6-3"
      transform="translate(-78.052071,-146.84373)"
-     style="fill:#ffffff;stroke:#b3b3b3"
+     style="fill:#ffffff;stroke:#4d4d4d;stroke-opacity:1"
      clip-path="url(#clipPath613)">
     <path
-       style="fill:#ffffff;stroke:#b3b3b3;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 93.858345,158.743 v 2.64149 l -2.577095,-1.32075 z"
        id="path5025-11-8" />
     <path
-       style="fill:#ffffff;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 88.704182,158.743 v 2.64149 l 2.577068,-1.32075 z"
        id="path5027-59-5" />
     <path
-       style="fill:#ffffff;stroke:#b3b3b3;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 91.28125,158.22084 c 0,1.85208 0,1.85208 0,1.85208"
        id="path5031-8-6" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#b3b3b3;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 92.339581,158.22084 c -2.116666,0 -2.116666,0 -2.116666,0"
        id="path5031-5-48-1" />
   </g>
@@ -425,13 +425,13 @@
        y="13.711159">B</tspan></text>
   <text
      id="text6376-7-2-9-59-9-6-0-8-3-05-7"
-     y="13.708778"
-     x="4.2085953"
+     y="13.744553"
+     x="4.1616759"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
      xml:space="preserve"><tspan
        id="tspan2764-9-0-5-8-9-7"
-       x="4.2085953"
-       y="13.708778">J</tspan></text>
+       x="4.1616759"
+       y="13.744553">J</tspan></text>
   <g
      id="g1459"
      transform="translate(-66.859665,-98.450256)">

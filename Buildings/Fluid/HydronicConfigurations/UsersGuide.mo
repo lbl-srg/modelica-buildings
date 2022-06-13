@@ -145,9 +145,9 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGu
 <p>
 The same caveat holds for the flow rate at 
 which the pressure drop <i>&Delta;p<sub>A-B</sub>(y=100%)</i> is evaluated.
-There is some additional intricacy for the flow rate at which 
-<i>&Delta;p<sub>A-B</sub>(y=0%)</i> is evaluated because contrary
-to the two-valve, that pressure drop is impacted by the flow rate 
+There is some additional intricacy for evaluating 
+<i>&Delta;p<sub>A-B</sub>(y=0%)</i> because contrary
+to the two-valve, that pressure drop is here impacted by the flow rate 
 in the bypass branch.
 The example 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop\">

@@ -2,13 +2,12 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionTwoWayCheckValve
   "Injection circuit with two-way valve and check valve in bypass branch"
   extends Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay(
-    redeclare FixedResistances.CheckValve byp(
-      dpValve_nominal=0.34e4,
+    redeclare FixedResistances.CheckValve res3(
+      final dpValve_nominal=3.4e3,
       final allowFlowReversal=allowFlowReversal,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
       final dpFixed_nominal=0))
-  annotation (
-    IconMap(primitivesVisible = false));
+  annotation (IconMap(primitivesVisible=false));
 
   annotation (
     defaultComponentName="con",
@@ -52,7 +51,9 @@ pump is operated at a lower speed.
 Note that 
 Lumped flow resistance includes...
 
-Default dpValve_nominal=0.34e4 for check valve
+The check valve is configured with a default pressure drop 
+<code>res3.dpValve_nominal=3.4e3</code>&nbsp;Pa
+for a mass flow rate of...
 </p>
 </html>"));
 end InjectionTwoWayCheckValve;

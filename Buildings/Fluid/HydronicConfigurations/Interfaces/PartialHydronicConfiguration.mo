@@ -14,10 +14,9 @@ model PartialHydronicConfiguration
     "Set to true in case of built-in controls"
     annotation(Dialog(group="Controls"), Evaluate=true);
 
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)=
-    m2_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)
     "Mass flow rate in primary circuit at design conditions"
-    annotation (Dialog(group="Nominal condition", enable=have_bypFix));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)
     "Mass flow rate in consumer circuit at design conditions"
@@ -84,10 +83,13 @@ model PartialHydronicConfiguration
     displayUnit="Pa")=0
     "Primary balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Balancing valves"));
-
   parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
     displayUnit="Pa")=0
     "Secondary balancing valve pressure drop at design conditions"
+    annotation (Dialog(group="Balancing valves"));
+  parameter Modelica.Units.SI.PressureDifference dpBal3_nominal(
+    displayUnit="Pa")=0
+    "Bypass balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Balancing valves"));
 
   parameter Actuators.Valves.Data.Generic flowCharacteristics(
@@ -273,9 +275,6 @@ model PartialHydronicConfiguration
        if show_T "Medium properties in port_b2";
 
 protected
-  parameter Boolean have_bypFix
-    "Set to true in case of a fixed bypass"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Boolean have_pum
     "Set to true if a secondary pump is used"
     annotation(Dialog(group="Configuration"), Evaluate=true);

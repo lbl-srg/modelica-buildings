@@ -2,8 +2,8 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionThreeWay "Injection circuit with three-way valve"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpValve_nominal=0.3e4,
+    final dpBal3_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-    final have_bypFix=true,
     final have_pum=true);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
@@ -82,7 +82,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={60,0})));
-  FixedResistances.PressureDrop bal1(
+  FixedResistances.PressureDrop res1(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
@@ -92,12 +92,11 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-80})));
-  FixedResistances.PressureDrop bal2(
+  FixedResistances.PressureDrop res2(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dpBal2_nominal)
-    "Primary balancing valve"
+    final dp_nominal=dpBal2_nominal) "Secondary balancing valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -181,11 +180,11 @@ equation
     annotation (Line(points={{-60,-30},{-60,-10}}, color={0,127,255}));
   connect(port_a1, jun.port_1)
     annotation (Line(points={{-60,-100},{-60,-50}}, color={0,127,255}));
-  connect(port_b1, bal1.port_b)
+  connect(port_b1,res1. port_b)
     annotation (Line(points={{60,-100},{60,-90}}, color={0,127,255}));
-  connect(bal1.port_a, val.port_2)
+  connect(res1.port_a, val.port_2)
     annotation (Line(points={{60,-70},{60,-50}}, color={0,127,255}));
-  connect(bal2.port_b, junBypRet.port_1)
+  connect(res2.port_b, junBypRet.port_1)
     annotation (Line(points={{60,20},{60,10}}, color={0,127,255}));
   connect(junBypSup.port_2, pum.port_a)
     annotation (Line(points={{-60,10},{-60,30}}, color={0,127,255}));
@@ -215,7 +214,7 @@ equation
         color={0,0,127}));
   connect(port_a2, T2Ret.port_a)
     annotation (Line(points={{60,100},{60,70}}, color={0,127,255}));
-  connect(T2Ret.port_b, bal2.port_a)
+  connect(T2Ret.port_b,res2. port_a)
     annotation (Line(points={{60,50},{60,40}}, color={0,127,255}));
   connect(extIndSig.y, ctl.u_m) annotation (Line(points={{-40,-92},{-40,-96},{40,
           -96},{40,-72}}, color={0,0,127}));

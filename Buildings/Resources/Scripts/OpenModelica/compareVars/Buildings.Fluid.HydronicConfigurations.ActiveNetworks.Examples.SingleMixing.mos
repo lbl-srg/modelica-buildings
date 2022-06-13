@@ -9,7 +9,7 @@ compareVars :=
     "pum.m_flow",
     "con.pum.m_flow",
     "mPum_flow_nominal",
-    "con.m2_flow_nominal",
+    "con.pum.m_flow_nominal",
     "con.val.m3_flow",
     "fraLoa.y[1]",
     "fraLoa.y[2]",

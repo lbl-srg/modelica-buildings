@@ -178,7 +178,23 @@
          y="-95.247864"
          transform="rotate(90)" />
     </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath517-7">
+      <rect
+         style="fill:none;stroke:#cccccc;stroke-width:0.132292"
+         id="rect519-3"
+         width="26.458332"
+         height="26.458332"
+         x="138.89708"
+         y="-96.572922"
+         transform="rotate(90)" />
+    </clipPath>
   </defs>
+  <path
+     style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264582;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
+     d="M 10.583333,13.229167 H 7.9375"
+     id="path2800-3-1-8-3-1-8" />
   <g
      id="g22409-8-2-1"
      transform="rotate(-90,-21.783884,117.03175)"
@@ -255,10 +271,6 @@
      id="path22200-0-0-1-81"
      d="M 5.2916665,20.720182 5.0625304,21.117057 4.8333946,21.513932 H 5.2916665 5.7499383 L 5.5208022,21.117057 Z" />
   <path
-     style="fill:#000000;stroke:#000000;stroke-width:0.132292"
-     id="path22200-0-0-2-7-3"
-     d="m 13.030732,13.22918 0.396875,-0.229136 0.396874,-0.229136 v 0.458271 0.458271 l -0.396874,-0.229136 z" />
-  <path
      style="font-variation-settings:normal;fill:#808080;fill-opacity:1;stroke:#808080;stroke-width:0.132291;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#ExperimentalArrow-39-2-6-2-3);marker-end:url(#marker32009-1-7-6-5-4);stop-color:#000000"
      d="m 13.229163,33.602067 v -3.70416"
      id="path31704-33-85-3-9-8"
@@ -270,7 +282,7 @@
      id="path2800-3-1-8-3" />
   <path
      style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264582;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
-     d="M 21.166665,13.229168 H 7.9374995"
+     d="M 21.166665,13.229168 15.875,13.229167"
      id="path2800-3-1-8-3-1" />
   <text
      id="text6376-7-2-9-59-9-6-0-8-3-05-8"
@@ -385,4 +397,39 @@
      height="26.458332"
      x="0"
      y="0" />
+  <g
+     id="g16622-10-9-3-6"
+     transform="translate(-78.052083,-146.83457)"
+     style="fill:#ffffff"
+     clip-path="url(#clipPath517-7)">
+    <path
+       style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 93.858345,158.743 v 2.64149 l -2.577095,-1.32075 z"
+       id="path5025-3-9-9-5" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 88.704182,158.743 v 2.64149 l 2.577068,-1.32075 z"
+       id="path5027-4-4-0-6" />
+    <path
+       style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 91.28125,158.22084 c 0,1.85208 0,1.85208 0,1.85208"
+       id="path5031-0-5-8-3" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 92.339581,158.22084 c -2.116666,0 -2.116666,0 -2.116666,0"
+       id="path5031-5-3-9-8-9" />
+  </g>
+  <path
+     style="fill:#000000;stroke:#000000;stroke-width:0.132292"
+     id="path22200-0-0-2-7-3"
+     d="m 18.157032,13.229168 0.396875,-0.229136 0.396874,-0.229136 v 0.458271 0.458271 l -0.396874,-0.229136 z" />
+  <text
+     id="text6376-7-2-9-59-9-6-0-8-3-05-7-6"
+     y="13.744553"
+     x="21.673784"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#808080;stroke-width:0.264583"
+     xml:space="preserve"><tspan
+       id="tspan2764-9-0-5-8-9-7-4"
+       x="21.673784"
+       y="13.744553">J</tspan></text>
 </svg>

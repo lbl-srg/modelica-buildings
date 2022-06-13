@@ -18,9 +18,7 @@ model Pump "Container class for circulation pumps"
     "Type of pump model"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    min=0,
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pump head at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
@@ -175,6 +173,27 @@ model Pump "Container class for circulation pumps"
     final m_flow_nominal=m_flow_nominal)
     "Volume flow rate"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaHea(k=dp_nominal)
+    "Scale control input to design head" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-60,60})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaSpe(k=per.speed_nominal)
+    "Scale control input to design speed" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-20,60})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaFlo(k=
+        m_flow_nominal) "Scale control input to design flow rate" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={60,60})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaRot(k=per.speed_rpm_nominal)
+    "Scale control input to design speed" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={20,60})));
 protected
   final parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
@@ -232,14 +251,22 @@ equation
     annotation (Line(points={{-70,0},{-70,-20},{10,-20}}, color={0,127,255}));
   connect(V_flow.port_b, pumFlo.port_a)
     annotation (Line(points={{-70,0},{-70,-40},{50,-40}}, color={0,127,255}));
-  connect(y, pumDp.dp_in) annotation (Line(points={{0,120},{0,40},{-60,40},{-60,
-          32}}, color={0,0,127}));
-  connect(y, pumSpe.y) annotation (Line(points={{0,120},{0,40},{-20,40},{-20,12}},
+  connect(y, scaHea.u) annotation (Line(points={{0,120},{0,80},{-60,80},{-60,72}},
         color={0,0,127}));
-  connect(y, pumRot.Nrpm) annotation (Line(points={{0,120},{0,40},{20,40},{20,-8}},
+  connect(scaHea.y, pumDp.dp_in)
+    annotation (Line(points={{-60,48},{-60,32}}, color={0,0,127}));
+  connect(y, scaSpe.u) annotation (Line(points={{0,120},{0,80},{-20,80},{-20,72}},
         color={0,0,127}));
-  connect(y, pumFlo.m_flow_in) annotation (Line(points={{0,120},{0,40},{60,40},{
-          60,-28}}, color={0,0,127}));
+  connect(scaSpe.y, pumSpe.y)
+    annotation (Line(points={{-20,48},{-20,12}}, color={0,0,127}));
+  connect(scaFlo.y, pumFlo.m_flow_in)
+    annotation (Line(points={{60,48},{60,-28}}, color={0,0,127}));
+  connect(y, scaFlo.u) annotation (Line(points={{0,120},{0,80},{60,80},{60,72}},
+        color={0,0,127}));
+  connect(scaRot.y, pumRot.Nrpm)
+    annotation (Line(points={{20,48},{20,-8}}, color={0,0,127}));
+  connect(y, scaRot.u) annotation (Line(points={{0,120},{0,80},{20,80},{20,72}},
+        color={0,0,127}));
   annotation (
     defaultComponentName="pum",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -3,8 +3,8 @@ model Diversion "Diversion circuit"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpValve_nominal=dp2_nominal,
     final m1_flow_nominal=m2_flow_nominal,
+    final dpBal2_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-    final have_bypFix=false,
     final have_pum=false,
     final have_ctl=false);
 
@@ -24,8 +24,8 @@ model Diversion "Diversion circuit"
       Modelica.Fluid.Types.PortFlowDirection.Entering,
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal=if use_lumFloRes then {dp2_nominal, dpBal2_nominal} else
-      {0, dpBal2_nominal},
+    final dpFixed_nominal=if use_lumFloRes then {dp2_nominal, dpBal3_nominal} else
+      {0, dpBal3_nominal},
     final flowCharacteristics1=flowCharacteristics1,
     final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
@@ -55,7 +55,7 @@ model Diversion "Diversion circuit"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,0})));
-  Buildings.Fluid.FixedResistances.PressureDrop bal1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
@@ -68,9 +68,9 @@ model Diversion "Diversion circuit"
 equation
   connect(port_a2, val.port_1)
     annotation (Line(points={{60,100},{60,10}}, color={0,127,255}));
-  connect(val.port_2, bal1.port_a)
+  connect(val.port_2,res1. port_a)
     annotation (Line(points={{60,-10},{60,-40}}, color={0,127,255}));
-  connect(bal1.port_b, port_b1)
+  connect(res1.port_b, port_b1)
     annotation (Line(points={{60,-60},{60,-100}}, color={0,127,255}));
   connect(jun.port_1, port_a1) annotation (Line(points={{-60,-10},{-60,-100},{-60,
           -100}}, color={0,127,255}));

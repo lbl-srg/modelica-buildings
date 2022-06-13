@@ -2,9 +2,10 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Throttle "Throttle circuit"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpValve_nominal=dp2_nominal,
+    final dpBal2_nominal=0,
+    final dpBal3_nominal=0,
     final m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
-    final have_bypFix=true,
     final have_pum=false,
     final have_ctl=false);
 
@@ -25,7 +26,7 @@ model Throttle "Throttle circuit"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={60,0})));
-  Buildings.Fluid.FixedResistances.PressureDrop bal1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
@@ -36,12 +37,12 @@ model Throttle "Throttle circuit"
         rotation=-90,
         origin={60,-50})));
 equation
-  connect(bal1.port_b, port_b1)
+  connect(res1.port_b, port_b1)
     annotation (Line(points={{60,-60},{60,-100}}, color={0,127,255}));
   connect(port_b2, port_a1)
     annotation (Line(points={{-60,100},{-60,-100}}, color={0,127,255}));
 
-  connect(val.port_b, bal1.port_a)
+  connect(val.port_b,res1. port_a)
     annotation (Line(points={{60,-10},{60,-40}}, color={0,127,255}));
   connect(val.port_a, port_a2)
     annotation (Line(points={{60,10},{60,100},{60,100}}, color={0,127,255}));

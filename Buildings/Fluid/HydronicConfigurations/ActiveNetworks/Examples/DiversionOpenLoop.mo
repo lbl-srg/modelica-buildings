@@ -15,10 +15,10 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final min=0,
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions";
-  parameter Modelica.Units.SI.PressureDifference dpBal2_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpBal3_nominal(
     final min=0,
     displayUnit="Pa") = if is_bal then dpTer_nominal else 0
-    "Secondary balancing valve pressure drop at design conditions"
+    "Bypass balancing valve pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
   ActiveNetworks.Diversion con(
@@ -31,7 +31,7 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal,
-    final dpBal2_nominal=dpBal2_nominal)
+    final dpBal3_nominal=dpBal3_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
@@ -57,7 +57,7 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - 2 * dpPip_nominal - dpTer_nominal - dpValve_nominal,
-    final dpBal2_nominal=dpBal2_nominal)
+    final dpBal3_nominal=dpBal3_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
