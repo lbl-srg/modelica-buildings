@@ -68,12 +68,10 @@ model InjectionThreeWay
     final dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mod(
-    table=[0,0; 6,0; 6,
-        1; 22,1; 22,0; 24,0],
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
+    table=[0,0; 6,0; 6,1; 22,1; 22,0; 24,0],
     timeScale=3600,
-    period=86400)
-    "Operating mode (time schedule)"
+    period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 12,
         0; 13,-5; 14,-7; 17,0; 24,0],  timeScale=3600)
@@ -117,8 +115,8 @@ equation
           {78,78}}, color={0,0,127}));
   connect(setOff.y[1], T2Set.u)
     annotation (Line(points={{-98,60},{-82,60}}, color={0,0,127}));
-  connect(mod.y[1], con.mod) annotation (Line(points={{-98,20},{-20,20},{-20,18},
-          {-2,18}},                  color={255,127,0}));
+  connect(mode.y[1], con.mod) annotation (Line(points={{-98,20},{-20,20},{-20,
+          18},{-2,18}}, color={255,127,0}));
   connect(T2Set.y, con.set) annotation (Line(points={{-58,60},{-40,60},{-40,6},{
           -2,6}},   color={0,0,127}));
   connect(min.y, rea.u)
@@ -143,14 +141,14 @@ equation
   connect(rea.y, pum.y) annotation (Line(points={{-26,-20},{-20,-20},{-20,-40},{
           -80,-40},{-80,-48}},
                              color={0,0,127}));
-  connect(mod.y[1], min.u1) annotation (Line(points={{-98,20},{-90,20},{-90,-14},
+  connect(mode.y[1], min.u1) annotation (Line(points={{-98,20},{-90,20},{-90,-14},
           {-82,-14}}, color={255,127,0}));
   connect(one.y, min.u2)
     annotation (Line(points={{-98,-20},{-90,-20},{-90,-26},{-82,-26}},
                                                    color={255,127,0}));
-  connect(mod.y[1], loa.mod) annotation (Line(points={{-98,20},{-20,20},{-20,74},
-          {18,74}}, color={255,127,0}));
-  connect(mod.y[1], loa1.mod) annotation (Line(points={{-98,20},{-20,20},{-20,
+  connect(mode.y[1], loa.mode) annotation (Line(points={{-98,20},{-20,20},{-20,
+          74},{18,74}}, color={255,127,0}));
+  connect(mode.y[1], loa1.mode) annotation (Line(points={{-98,20},{-20,20},{-20,
           50},{60,50},{60,74},{78,74}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,

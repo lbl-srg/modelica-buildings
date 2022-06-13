@@ -51,8 +51,8 @@ equation
     annotation (Line(points={{140,30},{140,20},{60,20}}, color={0,127,255}));
   connect(dp2SetVal.y, ctlPum2.u_s)
     annotation (Line(points={{-118,30},{-92,30}},color={0,0,127}));
-  connect(mod.y[1], ctlPum2.mod) annotation (Line(points={{-118,0},{-86,0},{-86,
-          18}},    color={255,127,0}));
+  connect(mode.y[1], ctlPum2.mod)
+    annotation (Line(points={{-118,0},{-86,0},{-86,18}}, color={255,127,0}));
   connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{110,71},{110,-8},{
           -80,-8},{-80,18}},
                          color={0,0,127}));

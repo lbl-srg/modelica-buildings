@@ -20,7 +20,7 @@ model SingleMixing
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
-    final dp2_nominal=dpValve_nominal + loa1.dpTer_nominal + loa1.dpValve_nominal + dpPip_nominal,
+    final dp2_nominal=loa1.dpTer_nominal + loa1.dpValve_nominal + dpPip_nominal,
     final dpBal1_nominal=if is_bal then dpPum_nominal-dpPip_nominal else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -63,12 +63,10 @@ model SingleMixing
     final dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mod(
-    table=[0,0; 6,0; 6,
-        1; 22,1; 22,0; 24,0],
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
+    table=[0,0; 6,0; 6,1; 22,1; 22,0; 24,0],
     timeScale=3600,
-    period=86400)
-    "Operating mode (time schedule)"
+    period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 9,0;
         15,-10; 16,-10; 17,0; 24,0],   timeScale=3600)
@@ -113,8 +111,8 @@ equation
           {98,80}}, color={0,0,127}));
   connect(setOff.y[1], T2Set.u)
     annotation (Line(points={{-78,60},{-52,60}}, color={0,0,127}));
-  connect(mod.y[1], con.mod) annotation (Line(points={{-78,20},{10,20},{10,18},
-          {18,18}},                  color={255,127,0}));
+  connect(mode.y[1], con.mod) annotation (Line(points={{-78,20},{10,20},{10,18},
+          {18,18}}, color={255,127,0}));
   connect(T2Set.y, con.set) annotation (Line(points={{-28,60},{-20,60},{-20,6},
           {18,6}},  color={0,0,127}));
   connect(min.y, rea.u)
@@ -138,14 +136,14 @@ equation
                                                    color={0,127,255}));
   connect(rea.y, pum.y) annotation (Line(points={{-8,-20},{0,-20},{0,-40},{-80,
           -40},{-80,-48}},   color={0,0,127}));
-  connect(mod.y[1], min.u1) annotation (Line(points={{-78,20},{-70,20},{-70,-14},
+  connect(mode.y[1], min.u1) annotation (Line(points={{-78,20},{-70,20},{-70,-14},
           {-62,-14}}, color={255,127,0}));
   connect(one.y, min.u2)
     annotation (Line(points={{-78,-20},{-70,-20},{-70,-26},{-62,-26}},
                                                    color={255,127,0}));
-  connect(mod.y[1], loa.mod) annotation (Line(points={{-78,20},{10,20},{10,74},
+  connect(mode.y[1], loa.mode) annotation (Line(points={{-78,20},{10,20},{10,74},
           {38,74}}, color={255,127,0}));
-  connect(mod.y[1], loa1.mod) annotation (Line(points={{-78,20},{10,20},{10,52},
+  connect(mode.y[1], loa1.mode) annotation (Line(points={{-78,20},{10,20},{10,52},
           {80,52},{80,76},{98,76}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,

@@ -1,0 +1,12 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixing", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="SingleMixing");
+
+createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "con1.T2Sup.T", "con1.T2Ret.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual", "con1.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
+
+createPlot(id=2, position={1210, 14, 1184, 744}, y={"con.pum.m_flow", "con.pum.m_flow_nominal", "con.val.m3_flow", "con1.pum.m_flow", "con1.pum.m_flow_nominal", "con1.val.m3_flow"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
+
+createPlot(id=5, position={1209, 248, 1184, 744}, y={"dp2Set", "dp2.p_rel", "con1.pum.dp_nominal", "con1.pum.dpMachine", "loa1.con.val.dp"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true);

@@ -57,11 +57,6 @@ model PartialLoadValveControl
     "Liquid entering temperature in change-over mode"
     annotation(Dialog(
       enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
-  parameter Modelica.Units.SI.Temperature TLiqLvgChg_nominal=
-    TLiqEnt_nominal-10
-    "Liquid leaving temperature in change-over mode"
-    annotation(Dialog(
-      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
    (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-
@@ -92,8 +87,7 @@ model PartialLoadValveControl
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod
-    "Operating mode"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode "Operating mode"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
@@ -110,7 +104,6 @@ model PartialLoadValveControl
     final TLiqLvg_nominal=TLiqLvg_nominal,
     final TAirEntChg_nominal=TAirEntChg_nominal,
     final TLiqEntChg_nominal=TLiqEntChg_nominal,
-    final TLiqLvgChg_nominal=TLiqLvgChg_nominal,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -159,9 +152,9 @@ equation
           {120,-60}}, color={0,0,127}));
   connect(con.yVal_actual, yVal_actual) annotation (Line(points={{12,10},{70,10},
           {70,80},{120,80}}, color={0,0,127}));
-  connect(mod, loa.mod) annotation (Line(points={{-120,40},{-40,40},{-40,64},{-12,
-          64}}, color={255,127,0}));
-  connect(mod, con.mod) annotation (Line(points={{-120,40},{-40,40},{-40,18},{-12,
+  connect(mode, loa.mode) annotation (Line(points={{-120,40},{-40,40},{-40,64},{
+          -12,64}}, color={255,127,0}));
+  connect(mode, con.mod) annotation (Line(points={{-120,40},{-40,40},{-40,18},{-12,
           18}}, color={255,127,0}));
   annotation (
   defaultComponentName="loa",

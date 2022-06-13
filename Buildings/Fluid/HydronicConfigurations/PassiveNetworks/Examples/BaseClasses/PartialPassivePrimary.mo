@@ -16,12 +16,8 @@ model PartialPassivePrimary
     "Terminal unit mass flow rate at design conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(final min=0)=
-    m2_flow_nominal
-    "Mass flow rate in primary branch at design conditions"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
     nTer * mTer_flow_nominal
-    "Mass flow rate in consumer circuit at design conditions"
+    "Mass flow rate in primary circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")=
     3E4
@@ -35,14 +31,20 @@ model PartialPassivePrimary
   parameter Modelica.Units.SI.Pressure p_min=200000
     "Circuit minimum pressure";
 
-  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=55+273.15
+  parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=7+273.15
     "Liquid entering temperature at design conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal-8
+  parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal+5
     "Liquid leaving temperature at design conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TLiqSup_nominal=60+273.15
+  parameter Modelica.Units.SI.Temperature TLiqSup_nominal=TLiqEnt_nominal
     "Liquid primary supply temperature at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TLiqEntChg_nominal=
+    60+273.15
+    "Liquid entering temperature in change-over mode";
+  parameter Modelica.Units.SI.Temperature TLiqSupChg_nominal=TLiqEntChg_nominal
+    "Liquid primary supply temperature in change-over mode"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -52,7 +54,7 @@ model PartialPassivePrimary
   Sources.Boundary_pT ref(
     redeclare final package Medium = MediumLiq,
     final p=p_min,
-    final T=TLiqSup_nominal,
+    T=TLiqSup_nominal,
     nPorts=2)
     "Pressure and temperature boundary condition"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -62,7 +64,7 @@ model PartialPassivePrimary
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=m1_flow_nominal,
     final tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-         then 0 else 1,
+      then 0 else 1,
     T_start=TLiqSup_nominal)
     "Return temperature sensor"
     annotation (Placement(
@@ -95,8 +97,12 @@ model PartialPassivePrimary
     nPorts=1)
     "Fluid transport delay"
     annotation (Placement(transformation(extent={{10,-80},{30,-100}})));
-
-
+  FixedResistances.PressureDrop res1(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=m1_flow_nominal,
+    dp_nominal=0)
+    "Pipe pressure drop"
+    annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
 equation
   connect(TRet.port_b,ref. ports[1])
     annotation (Line(points={{-50,-80},{-80,-80},{-80,-69}},
@@ -110,5 +116,7 @@ equation
 
   connect(ref.ports[2], TSup.port_a) annotation (Line(points={{-80,-71},{-80,-60},
           {-70,-60}},  color={0,127,255}));
+  connect(TSup.port_b, res1.port_a)
+    annotation (Line(points={{-50,-60},{-30,-60}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-140,-140},{140,140}})));
 end PartialPassivePrimary;

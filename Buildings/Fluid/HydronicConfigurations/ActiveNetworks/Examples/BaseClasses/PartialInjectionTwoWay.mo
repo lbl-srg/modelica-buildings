@@ -21,7 +21,7 @@ partial model PartialInjectionTwoWay
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
     annotation (Placement(transformation(extent={{20,-30},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mod(
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
     table=[0,0; 6,0; 6,1; 22,1; 22,0; 24,0],
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
@@ -83,10 +83,10 @@ equation
                                                    color={0,0,127}));
   connect(dp1.p_rel, ctlPum.u_m) annotation (Line(points={{30,-31},{30,-14},{-90,
           -14},{-90,-18}}, color={0,0,127}));
-  connect(mod.y[1], con.mod) annotation (Line(points={{-118,0},{10,0},{10,18},{
-          18,18}},  color={255,127,0}));
-  connect(mod.y[1], ctlPum.mod) annotation (Line(points={{-118,0},{-96,0},{-96,-18}},
-                                     color={255,127,0}));
+  connect(mode.y[1], con.mod) annotation (Line(points={{-118,0},{10,0},{10,18},
+          {18,18}}, color={255,127,0}));
+  connect(mode.y[1], ctlPum.mod)
+    annotation (Line(points={{-118,0},{-96,0},{-96,-18}}, color={255,127,0}));
   connect(del2.ports[1], con.port_a2) annotation (Line(points={{60,20},{48,20},
           {48,19.8},{36,19.8}},
                             color={0,127,255}));

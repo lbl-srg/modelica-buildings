@@ -158,8 +158,8 @@ equation
   connect(yValMax.y, resT2.u_m) annotation (Line(points={{38,150},{20,150},{20,
           90},{-90,90},{-90,98}},
                               color={0,0,127}));
-  connect(mod.y[1], resT2.mod) annotation (Line(points={{-118,0},{-96,0},{-96,
-          98}}, color={255,127,0}));
+  connect(mode.y[1], resT2.mod)
+    annotation (Line(points={{-118,0},{-96,0},{-96,98}}, color={255,127,0}));
   connect(yValSet.y, resT2.u_s)
     annotation (Line(points={{-118,150},{-106,150},{-106,110},{-102,110}},
                                                    color={0,0,127}));
@@ -184,10 +184,10 @@ equation
                      color={0,0,127}));
   connect(T2Set.y, con.set) annotation (Line(points={{-9,70},{0,70},{0,6},{18,6}},
                  color={0,0,127}));
-  connect(mod.y[1], loa.mod) annotation (Line(points={{-118,0},{10,0},{10,114},{
-          38,114}}, color={255,127,0}));
-  connect(mod.y[1], loa1.mod) annotation (Line(points={{-118,0},{10,0},{10,80},{
-          80,80},{80,114},{98,114}}, color={255,127,0}));
+  connect(mode.y[1], loa.mode) annotation (Line(points={{-118,0},{10,0},{10,114},
+          {38,114}}, color={255,127,0}));
+  connect(mode.y[1], loa1.mode) annotation (Line(points={{-118,0},{10,0},{10,80},
+          {80,80},{80,114},{98,114}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),

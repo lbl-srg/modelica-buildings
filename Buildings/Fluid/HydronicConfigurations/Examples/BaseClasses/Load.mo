@@ -18,7 +18,7 @@ model Load "Model of a load on hydronic circuit"
   parameter Modelica.Units.SI.PressureDifference dpLiq_nominal=0
     "Liquid pressure drop at design conditions";
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    abs(Q_flow_nominal) / 10 / 1015
+    abs(Q_flow_nominal) / 10 / cpAir_nominal
     "Air mass flow rate at design conditions";
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=
     if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
@@ -52,11 +52,6 @@ model Load "Model of a load on hydronic circuit"
     "Liquid entering temperature in change-over mode"
     annotation(Dialog(
       enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
-  parameter Modelica.Units.SI.Temperature TLiqLvgChg_nominal=
-    TLiqEnt_nominal-10
-    "Liquid leaving temperature in change-over mode"
-    annotation(Dialog(
-      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
    (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-
@@ -66,9 +61,9 @@ model Load "Model of a load on hydronic circuit"
     annotation(Evaluate=true);
 
   final parameter Modelica.Units.SI.HeatFlowRate QChg_flow_nominal=
-   (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEntChg_nominal, X=MediumLiq.X_default)-
-    MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqLvgChg_nominal, X=MediumLiq.X_default))*
-    mLiq_flow_nominal
+    eps_nominal
+    * min({mLiq_flow_nominal * cpLiq_nominal, mAir_flow_nominal * cpAirChg_nominal})
+    * (TLiqEntChg_nominal - TAirEntChg_nominal)
     "Transmitted heat flow rate in change-over mode"
     annotation(Evaluate=true);
 
@@ -98,8 +93,7 @@ model Load "Model of a load on hydronic circuit"
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod
-    "Operating mode"
+  .Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode "Operating mode"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   .Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(final unit="1")
@@ -230,7 +224,7 @@ model Load "Model of a load on hydronic circuit"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={20,-52})));
+        origin={20,-50})));
   Sensors.TemperatureTwoPort TLiqEnt(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -259,7 +253,9 @@ model Load "Model of a load on hydronic circuit"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
     "Actual load fraction met" annotation (Placement(transformation(extent={{100,
             10},{140,50}}), iconTransformation(extent={{100,20},{140,60}})));
-  Modelica.Blocks.Sources.RealExpression loaFra(y=Q_flow/coiNom.Q2_flow)
+  Modelica.Blocks.Sources.RealExpression loaFra(
+    y=Q_flow/(if mode == Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating
+      then QChg_flow_nominal else coiNom.Q2_flow))
     "Compute actual load fraction"
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
   Sensors.TemperatureTwoPort TAirLvgNom(
@@ -276,57 +272,68 @@ model Load "Model of a load on hydronic circuit"
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={-30,110})));
+        origin={-30,102})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Compute u * (TAirLvg_nominal - TAirEnt_nominal)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-20,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirEntVal[3](k={
-        TAirEnt_nominal,TAirEnt_nominal,TAirEntChg_nominal})
+        origin={-10,60})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirEntVal[2](k={
+        TAirEnt_nominal,TAirEntChg_nominal})
     "Values of entering air temperature"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirEnt_actual(
+    allowOutOfRange=true,
+    outOfRangeValue=MediumAir.T_default,
     y(unit="K", displayUnit="degC"),
-    final nin=3)
+    final nin=2)
     "Actual value of entering air temperature"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(p=1)
-    "Convert operating mode integer into array index"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,100})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirLvg_actual(
+    allowOutOfRange=true,
+    outOfRangeValue=MediumAir.T_default,
     y(unit="K", displayUnit="degC"),
-    final nin=3)
+    final nin=2)
     "Actual value of leaving air temperature"
     annotation (Placement(transformation(extent={{40,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirLvgVal(k=
         TAirLvgChg_nominal) "Values of leaving air temperature"
     annotation (Placement(transformation(extent={{80,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirLvgVal1(nout=2)
-                            "Values of leaving air temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={50,110})));
+
 protected
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpLiq_nominal=
     MediumLiq.specificHeatCapacityCp(MediumLiq.setState_pTX(
       p=MediumLiq.p_default,
       T=TLiqEnt_nominal))
     "Liquid specific heat capacity at design conditions";
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
+    MediumAir.specificHeatCapacityCp(MediumAir.setState_pTX(
+      p=MediumAir.p_default,
+      T=TLiqEnt_nominal,
+      X={XAirEnt_nominal,1 - XAirEnt_nominal}))
+    "Air specific heat capacity in change-over mode";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpAirChg_nominal=
     MediumAir.specificHeatCapacityCp(MediumAir.setState_pTX(
       p=MediumAir.p_default,
       T=TLiqEntChg_nominal,
       X={XAirEnt_nominal,1 - XAirEnt_nominal}))
     "Air specific heat capacity in change-over mode";
+
+   parameter Real eps_nominal=
+     Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
+       UA=coiNom.UA_nominal,
+       C1_flow=mLiq_flow_nominal * cpLiq_nominal,
+       C2_flow=mAir_flow_nominal * cpAir_nominal,
+       flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow),
+       CMin_flow_nominal=min({mLiq_flow_nominal * cpLiq_nominal, mAir_flow_nominal * cpAir_nominal}),
+       CMax_flow_nominal=max({mLiq_flow_nominal * cpLiq_nominal, mAir_flow_nominal * cpAir_nominal}));
+
 equation
   connect(souAir.ports[1], coi.port_a2) annotation (Line(points={{20,12},{10,12}},
                             color={0,127,255}));
-  connect(outAir.ports[1],TAirLvg. port_b) annotation (Line(points={{-70,19},{-70,
-          12},{-50,12}},          color={0,127,255}));
+  connect(outAir.ports[1],TAirLvg. port_b) annotation (Line(points={{-70,19},{
+          -70,12},{-50,12}},      color={0,127,255}));
   connect(TAirLvg.port_a, coi.port_b2) annotation (Line(points={{-30,12},{-10,12}},
                               color={0,127,255}));
   connect(ctl.y, yVal)
@@ -337,8 +344,8 @@ equation
     annotation (Line(points={{20,-24},{10,-24}}, color={0,127,255}));
   connect(souLiq.ports[1], coiNom.port_a1) annotation (Line(points={{-20,-40},{-20,
           -36},{-10,-36}},           color={0,127,255}));
-  connect(coiNom.port_b1, outLiq.ports[1]) annotation (Line(points={{10,-36},{20,
-          -36},{20,-42}},          color={0,127,255}));
+  connect(coiNom.port_b1, outLiq.ports[1]) annotation (Line(points={{10,-36},{
+          20,-36},{20,-40}},       color={0,127,255}));
   connect(TAirSupSet.y, u_s) annotation (Line(points={{32,60},{40,60},{40,80},{94,
           80},{94,-30},{120,-30}},
                      color={0,0,127}));
@@ -369,40 +376,32 @@ equation
                                                    color={0,127,255}));
   connect(TAirLvgNom.port_b, outAir.ports[2]) annotation (Line(points={{-50,-20},
           {-68,-20},{-68,21},{-70,21}}, color={0,127,255}));
-  connect(mod, ctl.mod) annotation (Line(points={{-120,40},{54,40},{54,48}},
-                    color={255,127,0}));
+  connect(mode, ctl.mod)
+    annotation (Line(points={{-120,40},{54,40},{54,48}}, color={255,127,0}));
   connect(TAirEntVal.y, TAirEnt_actual.u)
     annotation (Line(points={{-68,140},{-62,140}}, color={0,0,127}));
-  connect(TAirEnt_actual.index, addPar.y) annotation (Line(points={{-50,128},{
-          -50,100},{-58,100}},
-                           color={255,127,0}));
-  connect(mod, addPar.u) annotation (Line(points={{-120,40},{-90,40},{-90,100},
-          {-82,100}},
-        color={255,127,0}));
   connect(pro.y, TAirSupSet.u2)
-    annotation (Line(points={{-8,60},{0,60},{0,54},{8,54}}, color={0,0,127}));
+    annotation (Line(points={{2,60},{2,54},{8,54}},         color={0,0,127}));
   connect(TAirEnt_actual.y, TAirSupSet.u1) annotation (Line(points={{-38,140},{4,
           140},{4,66},{8,66}}, color={0,0,127}));
-  connect(TAirLvgVal.y, TAirLvg_actual.u[3]) annotation (Line(points={{58,140},
-          {50,140},{50,140.667},{42,140.667}},color={0,0,127}));
-  connect(addPar.y, TAirLvg_actual.index) annotation (Line(points={{-58,100},{
-          -50,100},{-50,124},{30,124},{30,128}},
-                                             color={255,127,0}));
-  connect(sub.y, pro.u1) annotation (Line(points={{-30,98},{-30,96},{-40,96},{
-          -40,66},{-32,66}},
+  connect(sub.y, pro.u1) annotation (Line(points={{-30,90},{-30,66},{-22,66}},
                          color={0,0,127}));
-  connect(u, pro.u2) annotation (Line(points={{-120,80},{-60,80},{-60,54},{-32,54}},
+  connect(u, pro.u2) annotation (Line(points={{-120,80},{-60,80},{-60,54},{-22,54}},
         color={0,0,127}));
   connect(TAirEnt_actual.y, souAir.T_in) annotation (Line(points={{-38,140},{4,140},
           {4,34},{50,34},{50,8},{42,8}}, color={0,0,127}));
-  connect(TAirLvgNom.T, TAirLvgVal1.u) annotation (Line(points={{-40,-9},{-40,-6},
-          {-34,-6},{-34,90},{50,90},{50,98}}, color={0,0,127}));
-  connect(TAirLvgVal1.y, TAirLvg_actual.u[1:2]) annotation (Line(points={{50,122},
-          {50,138},{42,138},{42,140}}, color={0,0,127}));
-  connect(sub.u1, TAirLvg_actual.y) annotation (Line(points={{-24,122},{-24,132},
+  connect(sub.u1, TAirLvg_actual.y) annotation (Line(points={{-24,114},{-24,132},
           {10,132},{10,140},{18,140}}, color={0,0,127}));
   connect(TAirEnt_actual.y, sub.u2)
-    annotation (Line(points={{-38,140},{-36,140},{-36,122}}, color={0,0,127}));
+    annotation (Line(points={{-38,140},{-36,140},{-36,114}}, color={0,0,127}));
+  connect(mode, TAirEnt_actual.index) annotation (Line(points={{-120,40},{-50,40},
+          {-50,128}}, color={255,127,0}));
+  connect(TAirLvgNom.T, TAirLvg_actual.u[1]) annotation (Line(points={{-40,-9},{
+          -40,-6},{-36,-6},{-36,84},{50,84},{50,139.5},{42,139.5}}, color={0,0,127}));
+  connect(TAirLvgVal.y, TAirLvg_actual.u[2]) annotation (Line(points={{58,140},{
+          50,140},{50,140.5},{42,140.5}}, color={0,0,127}));
+  connect(mode, TAirLvg_actual.index) annotation (Line(points={{-120,40},{-50,40},
+          {-50,120},{30,120},{30,128}}, color={255,127,0}));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -444,5 +443,5 @@ However, for a cooling load with condensation, the relationship between
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-100},{100,160}})));
+    Diagram(coordinateSystem(extent={{-100,-120},{100,160}})));
 end Load;

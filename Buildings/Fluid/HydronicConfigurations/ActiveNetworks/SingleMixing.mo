@@ -73,7 +73,7 @@ model SingleMixing "Single mixing circuit"
     redeclare final package Medium = Medium,
     final typ=typPumMod,
     final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dp2_nominal,
+    final dp_nominal=dp2_nominal + 2 * max(val.dpValve_nominal, val.dp3_nominal),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -194,7 +194,7 @@ equation
 <p>
 Variable primary
 </p>
-    
+Pump sized with dp_nominal=dp2_nominal+val.res3.dp_nominal    
 <p>
 This is a typical configuration for constant flow secondary circuits that
 have a design supply temperature identical to the primary circuit.
@@ -214,14 +214,21 @@ The balancing procedure should ensure that the
 primary pressure differential is compensated for by the primary balancing valve.
 Otherwise, the flow may reverse in the bypass branch and the mixing function of
 the three-way valve cannot be achieved.
-Valve authority = Δp_V / (Δp1 + Δp_Vbyp) (independent of the balancing valve Δp). For good authority Δp_V~Δp1 which must be compensated for by the secondary pump. 
+Valve authority <i>&beta; = Δp_V / (Δp1 + Δp_Vbyp)</i> 
+(independent of the balancing valve pressure drop).
+For good authority <i>Δp_V ~ Δp1</i> which must be compensated for 
+by the secondary pump
+in the case where the primary pressure differential is cancelled by
+the primary balancing valve. 
 </p>
 <h4>
 Parameterization
 </h4>
 <p>
 By default the secondary pump is parameterized with <code>m2_flow_nominal</code> 
-and <code>dp2_nominal</code> at maximum speed.
+and <code>dp2_nominal + 2 * max(val.dpValve_nominal, val.dp3_nominal)</code> 
+(to account for the valve actual pressure drop at partial opening)
+at maximum speed.
 The partner valve <code>bal2</code> is therefore configured with zero
 pressure drop.
 </p>

@@ -61,9 +61,7 @@ model Pump "Container class for circulation pumps"
   Modelica.Units.SI.PressureDifference dpMachine(displayUnit="Pa") = port_b.p - port_a.p
     "Pressure rise";
 
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y_actual(
-    final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y_actual(final unit="1")
     "Actual normalised pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,50},{140,90}}),
         iconTransformation(extent={{100,50},{140,90}})));
@@ -80,7 +78,12 @@ model Pump "Container class for circulation pumps"
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
-    final unit="1")
+    final unit=if typ==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    then "1" elseif typ==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.MassFlowRate
+    then "kg/s" elseif typ==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head
+    then "Pa" elseif typ==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedRotational
+    then "rev/min"
+    else "1")
     "Input control signal"
     annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
@@ -130,11 +133,6 @@ model Pump "Container class for circulation pumps"
     "Pump with ideally controlled normalized speed as input"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulDp(k=dp_nominal)
-    "Input times design pump head" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-60,62})));
   Movers.SpeedControlled_Nrpm pumRot(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -153,16 +151,6 @@ model Pump "Container class for circulation pumps"
     final per=per) if typ == Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedRotational
     "Pump with ideally controlled rotational speed as input"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulNrpm(k=per.speed_rpm_nominal)
-    "Input times design pump speed" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,60})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulY(k=per.speed_nominal)
-    "Input times design pump speed" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,60})));
   Movers.FlowControlled_m_flow pumFlo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -182,12 +170,6 @@ model Pump "Container class for circulation pumps"
     final per=per) if typ == Buildings.Fluid.HydronicConfigurations.Types.PumpModel.MassFlowRate
     "Pump with ideally controlled mass flow rate as input"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulFlo(k=
-        m_flow_nominal) "Input times design pump flow" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={60,60})));
   Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
@@ -216,28 +198,12 @@ equation
           {0,-80},{0,-100}}, color={191,0,0}));
   connect(pumSpe.heatPort, heatPort) annotation (Line(points={{-20,-6.8},{-20,-80},
           {0,-80},{0,-100}}, color={191,0,0}));
-  connect(pumDp.dp_in, mulDp.y)
-    annotation (Line(points={{-60,32},{-60,50}}, color={0,0,127}));
-  connect(mulDp.u, y) annotation (Line(points={{-60,74},{-60,80},{0,80},{0,120}},
-        color={0,0,127}));
-  connect(y, mulNrpm.u) annotation (Line(points={{0,120},{0,80},{20,80},{20,72}},
-        color={0,0,127}));
-  connect(mulNrpm.y, pumRot.Nrpm)
-    annotation (Line(points={{20,48},{20,-8}}, color={0,0,127}));
-  connect(y, mulY.u) annotation (Line(points={{0,120},{0,80},{-20,80},{-20,72}},
-        color={0,0,127}));
-  connect(mulY.y, pumSpe.y)
-    annotation (Line(points={{-20,48},{-20,12}}, color={0,0,127}));
   connect(pumRot.port_b, port_b) annotation (Line(points={{30,-20},{80,-20},{80,
           0},{100,0}}, color={0,127,255}));
   connect(pumRot.heatPort, heatPort) annotation (Line(points={{20,-26.8},{20,-80},
           {0,-80},{0,-100}}, color={191,0,0}));
   connect(pumFlo.heatPort, heatPort) annotation (Line(points={{60,-46.8},{60,-80},
           {0,-80},{0,-100}}, color={191,0,0}));
-  connect(y, mulFlo.u) annotation (Line(points={{0,120},{0,80},{60,80},{60,72}},
-        color={0,0,127}));
-  connect(mulFlo.y, pumFlo.m_flow_in)
-    annotation (Line(points={{60,48},{60,-28}}, color={0,0,127}));
   connect(pumFlo.port_b, port_b) annotation (Line(points={{70,-40},{80,-40},{80,
           0},{100,0}}, color={0,127,255}));
   connect(pumDp.P, P) annotation (Line(points={{-49,29},{86,29},{86,90},{120,90}},
@@ -266,6 +232,14 @@ equation
     annotation (Line(points={{-70,0},{-70,-20},{10,-20}}, color={0,127,255}));
   connect(V_flow.port_b, pumFlo.port_a)
     annotation (Line(points={{-70,0},{-70,-40},{50,-40}}, color={0,127,255}));
+  connect(y, pumDp.dp_in) annotation (Line(points={{0,120},{0,40},{-60,40},{-60,
+          32}}, color={0,0,127}));
+  connect(y, pumSpe.y) annotation (Line(points={{0,120},{0,40},{-20,40},{-20,12}},
+        color={0,0,127}));
+  connect(y, pumRot.Nrpm) annotation (Line(points={{0,120},{0,40},{20,40},{20,-8}},
+        color={0,0,127}));
+  connect(y, pumFlo.m_flow_in) annotation (Line(points={{0,120},{0,40},{60,40},{
+          60,-28}}, color={0,0,127}));
   annotation (
     defaultComponentName="pum",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -101,7 +101,7 @@ model ThrottleOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,-70})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mod(k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=1)
     "Operating mode"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 equation
@@ -155,10 +155,10 @@ equation
           {20,-80}},  color={0,127,255}));
   connect(conPID.y, pum.y) annotation (Line(points={{-48,0},{-40,0},{-40,-40},{
           -80,-40},{-80,-48}},          color={0,0,127}));
-  connect(mod.y, loa.mod) annotation (Line(points={{-78,80},{-24,80},{-24,64},{
-          -2,64}}, color={255,127,0}));
-  connect(mod.y, loa1.mod) annotation (Line(points={{-78,80},{36,80},{36,64},{
-          58,64}}, color={255,127,0}));
+  connect(mode.y, loa.mode) annotation (Line(points={{-78,80},{-24,80},{-24,64},
+          {-2,64}}, color={255,127,0}));
+  connect(mode.y, loa1.mode) annotation (Line(points={{-78,80},{36,80},{36,64},
+          {58,64}}, color={255,127,0}));
    annotation (experiment(
     StopTime=300,
     Tolerance=1e-6),

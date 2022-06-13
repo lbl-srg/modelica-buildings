@@ -82,7 +82,7 @@ equation
   connect(TRetOpe.port_b, refOpe1.ports[1])
     annotation (Line(points={{260,-110},{270,-110}},
                                                color={0,127,255}));
-  connect(modOpe.y, loaOpe.mod) annotation (Line(points={{172,-80},{200,-80},{
+  connect(modOpe.y, loaOpe.mode) annotation (Line(points={{172,-80},{200,-80},{
           200,-106},{208,-106}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,

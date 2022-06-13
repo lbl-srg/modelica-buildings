@@ -89,7 +89,7 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     timeScale=100) "Valve opening signal"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mod(k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=1)
     "Operating mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 equation
@@ -128,10 +128,10 @@ equation
     annotation (Line(points={{-10,-60},{30,-60}},  color={0,127,255}));
   connect(dp1.port_b, del1.ports[3]) annotation (Line(points={{80,-20},{80,-80},
           {20,-80}},  color={0,127,255}));
-  connect(mod.y, loa.mod) annotation (Line(points={{-78,40},{-20,40},{-20,64},{-2,
-          64}}, color={255,127,0}));
-  connect(mod.y, loa1.mod) annotation (Line(points={{-78,40},{40,40},{40,64},{58,
-          64}}, color={255,127,0}));
+  connect(mode.y, loa.mode) annotation (Line(points={{-78,40},{-20,40},{-20,64},
+          {-2,64}}, color={255,127,0}));
+  connect(mode.y, loa1.mode) annotation (Line(points={{-78,40},{40,40},{40,64},
+          {58,64}}, color={255,127,0}));
    annotation (experiment(
     StopTime=300,
     Tolerance=1e-6),
