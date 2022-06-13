@@ -5,13 +5,13 @@ model ControlProcessModel "Test model for ControlProcessModel"
     controlProcessModel(yLow=0.1, deaBan=0.05)
     "Calculates the parameters of the system model for the control process"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Continuous.Sources.TimeTable tOn(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
     table=[0,1; 0.1,1; 0.3,1; 0.7,1; 0.83,1; 0.85,2],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "The length of the On period"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Sources.TimeTable tau(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tau(
     table=[0,0.3; 0.1,0.5; 0.3,0.1; 0.7,0.5; 0.83,0.8; 0.85,0.5],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
@@ -25,23 +25,23 @@ model ControlProcessModel "Test model for ControlProcessModel"
   Modelica.Blocks.Sources.RealExpression referenceL(y=tau.y[1]/(1 - tau.y[1])*
         referenceT.y) "Reference value for the time delay"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  CDL.Continuous.Sources.TimeTable u(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable u(
     table=[0,1; 0.1,0.5; 0.3,0.5; 0.7,0.5; 0.83,1; 0.85,1],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "The response of a relay controller"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  CDL.Continuous.Sources.TimeTable tOff(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOff(
     table=[0,1; 0.1,1; 0.3,1; 0.7,3; 0.83,3; 0.85,3],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "The length of the Off period"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Logical.Sources.TimeTable tuningStart(table=[0,0; 0.1,0; 0.3,1; 0.7,1;
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable tuningStart(table=[0,0; 0.1,0; 0.3,1; 0.7,1;
         0.83,1; 0.85,1], period=2)
     "Mimicking the signal for the tuning period start"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  CDL.Logical.Sources.TimeTable tuningEnd(table=[0,0; 0.1,0; 0.3,0; 0.7,1; 0.83,
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable tuningEnd(table=[0,0; 0.1,0; 0.3,0; 0.7,1; 0.83,
         1; 0.85,1], period=2) "Mimicking the signal for the tuning period end"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 equation

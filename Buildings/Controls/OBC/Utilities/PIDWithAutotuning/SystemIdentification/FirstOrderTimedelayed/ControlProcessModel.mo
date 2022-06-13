@@ -32,44 +32,48 @@ block ControlProcessModel
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput                        L
     "Connector for a output signal of the time constant"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain gain(yHig=yHig, yLow=yLow) "Calculates the gain"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain gain(yHig=yHig, yLow=yLow)
+    "Calculates the gain"
     annotation (Placement(transformation(extent={{-84,-10},{-64,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay timeConstantDelay(yHig=yHig, yLow=yLow,
-    deaBan=deaBan) "Calculates the time constant and the time delay"
+    deaBan=deaBan)
+    "Calculates the time constant and the time delay"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
-  CDL.Interfaces.BooleanInput triggerStart
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triggerStart
     "Relay tuning status, true if the tuning starts" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-120})));
-  CDL.Interfaces.BooleanInput triggerEnd
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triggerEnd
     "Relay tuning status, true if the tuning ends" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-120})));
-  CDL.Discrete.TriggeredSampler samT(y_start=1)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samT(y_start=1)
     "Sampling k when the tuning period ends"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  CDL.Discrete.TriggeredSampler samL(y_start=1)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samL(y_start=1)
     "Sampling L when the tuning period ends"
     annotation (Placement(transformation(extent={{44,-90},{64,-70}})));
-  CDL.Discrete.TriggeredSampler samk(y_start=1)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(y_start=1)
     "Sampling k when the tuning period ends"
     annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
-  CDL.Discrete.TriggeredSampler samtOn(y_start=1)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtOn(y_start=1)
     "Sampling tOn when the tuning period ends"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-  CDL.Discrete.TriggeredSampler samtau(y_start=0.5)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtau(y_start=0.5)
     "Sampling the normalized time delay"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-90}})));
-  CDL.Continuous.MultiplyByParameter gai(k=-1) "Product of tau and -1"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+    "Product of tau and -1"
     annotation (Placement(transformation(extent={{-36,-90},{-16,-70}})));
-  CDL.Continuous.AddParameter addPar(p=1) "1- tau"
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1)
+   "1- tau"
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
-  CDL.Continuous.Divide div "tau/(1- tau)"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
+    "tau/(1- tau)"
     annotation (Placement(transformation(extent={{12,-60},{32,-40}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-86,8},{-88,8},{-88,80},{-120,80}},

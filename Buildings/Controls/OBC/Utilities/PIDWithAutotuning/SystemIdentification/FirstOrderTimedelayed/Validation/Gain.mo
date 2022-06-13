@@ -2,8 +2,9 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.F
 model Gain "Test model for Gain"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain
-    gain "Calculates the gain"
-         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    gain
+    "Calculates the gain"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
     table=[0,0; 0.1,0.1; 0.3,0.1; 0.7,0.1; 0.83,0.1; 0.9,0.07],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
@@ -22,7 +23,7 @@ model Gain "Test model for Gain"
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "The response of a relay controller"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  CDL.Logical.Sources.TimeTable tuningStart(table=[0,0; 0.1,1; 0.3,1; 0.7,1;
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable tuningStart(table=[0,0; 0.1,1; 0.3,1; 0.7,1;
         0.83,1; 0.85,1], period=2)
     "Mimicking the signal for the tuning period start"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));

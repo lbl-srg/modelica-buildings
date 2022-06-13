@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.F
 block TimeConstantDelay
   "Calculates the time constant and the time delay of a first order time delayed model"
   parameter Real yHig(min=1E-6) = 1
-    "Higher value for the output";
+    "Higher value for the output (assuming the reference output is 0)";
   parameter Real yLow(min=1E-6) = 0.5
-    "Lower value for the output";
+    "Lower value for the output (assuming the reference output is 0)";
   parameter Real deaBan(min=0) = 0.5
     "Deadband for holding the output value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
@@ -25,10 +25,11 @@ block TimeConstantDelay
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput L
     "Connector for a output signal of the time constant"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs absk "Absoulte value of the gain"
+  Buildings.Controls.OBC.CDL.Continuous.Abs absk
+    "Absoulte value of the gain"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Exp exp
-    "exponential value of the ratio between time constant and the time delay"
+    "Exponential value of the ratio between time constant and the time delay"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHigSig(k=yHig)
     "Higher value for the output"
@@ -45,7 +46,8 @@ block TimeConstantDelay
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Quotient of dead band Divided by the absolute value of k minus yLow"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Sum of yHig and yLow"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Sum of yHig and yLow"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
     "exp(L/T)(yHig + yLow)"

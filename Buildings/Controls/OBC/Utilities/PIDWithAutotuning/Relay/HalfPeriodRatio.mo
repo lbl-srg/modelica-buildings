@@ -164,16 +164,12 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the half-period ratio of the output from a relay controller, <i>&rho;</i>, by</p>
 <p>&rho; = max(t<sub>on</sub>,t<sub>off</sub>)/ min(t<sub>on</sub>,t<sub>off</sub>) </p>
-<p>where <i>t<sub>on</sub></i> and <i>t<sub>on</sub></i> are the length of the On period and the Off period, respectively.</p>
-<p>During an On period, the relay output is at the higher value;</p>
-<p>During an Off period, the relay output is at the lower value.</p>
+<p>where <i>t<sub>on</i></sub> and <i>t<sub>on</i></sub> are the length of the On period and the Off period, respectively.</p>
+<p>During an On period, the relay switch signal becomes True;</p>
+<p>During an Off period,  the relay switch signal becomes False.</p>
 <p>Note that only the first On period and the first Off period are considered.</p>
 <h4>References</h4>
-<p>
-Josefin Berner (2017).
-\"Automatic Controller Tuning using Relay-based Model Identification.\"
-Department of Automatic Control, Lund Institute of Technology, Lund University.
-</p>
+<p>Josefin Berner (2017). &quot;Automatic Controller Tuning using Relay-based Model Identification.&quot; Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{240,100}})));
 end HalfPeriodRatio;

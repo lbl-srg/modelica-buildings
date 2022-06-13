@@ -5,19 +5,19 @@ model TimeConstantDelay "Test model for TimeConstantDelay"
     timeConstantDelay(yLow=0.1)
     "Calculates the time constant and the time delay"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Continuous.Sources.TimeTable tOn(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
     table=[0,1; 0.1,1; 0.3,1; 0.7,1; 0.83,1; 0.85,2],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "The length of the On period"
+    "Length of the On period"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Sources.TimeTable k(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable k(
     table=[0,1; 0.1,1; 0.3,1; 0.7,1; 0.83,1],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Gain of a first order time delay model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Continuous.Sources.TimeTable ratioLT(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ratioLT(
     table=[0,0.3; 0.1,0.5; 0.3,0.1; 0.7,0.5; 0.83,0.8; 0.85,0.5],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
