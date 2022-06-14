@@ -1,0 +1,6 @@
+simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Examples.HeatPump", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatPump");
+createPlot(id=1, position={0, 0, 564, 547}, y={"hea.P", "hea.mecHea.heaPum.P"}, range={0.0, 4000.0, -5.0, 15.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kW", "kW"});
+createPlot(id=1, position={0, 0, 564, 547}, y={"TSet.y", "senTem.T"}, range={0.0, 4000.0, 286.0, 300.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=2, position={572, 1, 572, 546}, y={"hea.simMot.tau_e"}, range={0.0, 4000.0, 0.0, 50.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"N.m"});
+createPlot(id=2, position={572, 1, 572, 546}, y={"hea.mecHea.spe.w"}, range={0.0, 4000.0, -500.0, 2000.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"rpm"});
+

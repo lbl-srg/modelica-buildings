@@ -18,3 +18,5 @@ Terminal
 VariableVoltageSource
 PartialAcDcParameters
 PartialPluggableUnbalanced
+PartialOnePort
+PartialBaseOnePort
