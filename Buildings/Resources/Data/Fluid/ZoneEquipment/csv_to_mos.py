@@ -10,7 +10,7 @@ def check():
 
 def main():
     args = sys.argv[1:]
-    dat_fil = args[0]
+    dat_fil = args[0].replace(".idf", ".dat")
     output_list =[
     "ZONE1FANCOIL:Fan Coil Heating Rate [W](TimeStep)",
     "ZONE1FANCOIL:Fan Coil Total Cooling Rate [W](TimeStep)",
