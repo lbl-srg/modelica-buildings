@@ -83,12 +83,13 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-30})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor   T2Set1(
-    allowOutOfRange=true,                                   nin=2,
-    outOfRangeValue=20 + 273.15,                            y(final unit="K",
-        displayUnit="degC"))
-    "Consumer circuit temperature set point" annotation (Placement(
-        transformation(
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor T2SetMod(
+    allowOutOfRange=true,
+    nin=2,
+    outOfRangeValue=20 + 273.15,
+    y(final unit="K", displayUnit="degC"))
+    "Select consumer circuit temperature set point based on operating mode"
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-80,0})));
@@ -146,11 +147,11 @@ equation
           {58,38}}, color={0,0,127}));
   connect(mode.y[1], con1.mod) annotation (Line(points={{-98,80},{40,80},{40,34},
           {54,34},{54,-22},{58,-22}}, color={255,127,0}));
-  connect(mode.y[1], T2Set1.index)
+  connect(mode.y[1], T2SetMod.index)
     annotation (Line(points={{-98,80},{-80,80},{-80,12}}, color={255,127,0}));
-  connect(T2SetVal.y, T2Set1.u)
+  connect(T2SetVal.y, T2SetMod.u)
     annotation (Line(points={{-98,0},{-92,0}}, color={0,0,127}));
-  connect(T2Set1.y, T2Set.u1) annotation (Line(points={{-68,0},{-66,0},{-66,-24},
+  connect(T2SetMod.y, T2Set.u1) annotation (Line(points={{-68,0},{-66,0},{-66,-24},
           {-62,-24}}, color={0,0,127}));
   connect(setOff.y[1], T2Set.u2) annotation (Line(points={{-98,-40},{-80,-40},{-80,
           -36},{-62,-36}}, color={0,0,127}));
@@ -161,10 +162,12 @@ equation
           {40,-50},{40,-34},{58,-34}}, color={0,0,127}));
   connect(T1SetVal.y, T2Set2.u) annotation (Line(points={{-98,-120},{-94,-120},{
           -94,-120},{-92,-120}}, color={0,0,127}));
-  connect(T2Set2.y, ref.T_in) annotation (Line(points={{-68,-120},{-66,-120},{-66,
-          -100},{-120,-100},{-120,-74},{-102,-74}}, color={0,0,127}));
-  connect(mode.y[1], T2Set2.index) annotation (Line(points={{-98,80},{-80,80},{-80,
-          60},{-130,60},{-130,-104},{-80,-104},{-80,-108}}, color={255,127,0}));
+  connect(T2Set2.y, ref.T_in) annotation (Line(points={{-68,-120},{-66,-120},{
+          -66,-90},{-120,-90},{-120,-74},{-102,-74}},
+                                                    color={0,0,127}));
+  connect(mode.y[1], T2Set2.index) annotation (Line(points={{-98,80},{-80,80},{
+          -80,60},{-130,60},{-130,-100},{-80,-100},{-80,-108}},
+                                                            color={255,127,0}));
   connect(res1.port_b, con.port_a1) annotation (Line(points={{-10,-60},{0,-60},
           {0,-40},{4,-40}}, color={0,127,255}));
   connect(res1.port_b, con1.port_a1) annotation (Line(points={{-10,-60},{60,-60},
@@ -188,6 +191,5 @@ The pump model for the second circuit is an ideal
 mimic tracking a pressure differential set point at the
 boundaries of the terminal unit. 
 </p>
-TODO: illustrate negative back pressure effect, see p. 207
 </html>"));
 end SingleMixing;

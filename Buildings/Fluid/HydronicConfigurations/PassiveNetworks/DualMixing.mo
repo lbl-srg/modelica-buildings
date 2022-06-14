@@ -2,7 +2,7 @@ within Buildings.Fluid.HydronicConfigurations.PassiveNetworks;
 model DualMixing "Dual mixing circuit"
   extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpValve_nominal=3e3,
-    final m1_flow_nominal=m2_flow_nominal,
+    dpBal3_nominal=dpValve_nominal,
     final dpBal1_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
     final have_pum=true);
@@ -141,10 +141,10 @@ model DualMixing "Dual mixing circuit"
     annotation (Placement(transformation(extent={{50,70},{30,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch on/off"
-    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
+    annotation (Placement(transformation(extent={{0,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero"
-    annotation (Placement(transformation(extent={{50,22},{30,42}})));
+    annotation (Placement(transformation(extent={{40,10},{20,30}})));
   Controls.PIDWithOperatingMode ctl(
     final reverseActing=typFun == Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
@@ -153,7 +153,7 @@ model DualMixing "Dual mixing circuit"
     final k=k,
     final Ti=Ti) if have_ctl
     "Controller"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   FixedResistances.PressureDrop res3(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -188,28 +188,39 @@ equation
     annotation (Line(points={{60,20},{60,10}}, color={0,127,255}));
   connect(mod, isEna.u)
     annotation (Line(points={{-120,80},{-42,80}}, color={255,127,0}));
-  connect(isEna.y, swi.u2) annotation (Line(points={{-18,80},{16,80},{16,40},{12,
-          40}}, color={255,0,255}));
-  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,54},{20,
-          54},{20,48},{12,48}}, color={0,0,127}));
-  connect(One.y, swi.u1) annotation (Line(points={{28,80},{20,80},{20,48},{12,48}},
+  connect(isEna.y, swi.u2) annotation (Line(points={{-18,80},{16,80},{16,30},{2,
+          30}}, color={255,0,255}));
+  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,56},{
+          10,56},{10,38},{2,38}},
+                                color={0,0,127}));
+  connect(One.y, swi.u1) annotation (Line(points={{28,80},{20,80},{20,38},{2,38}},
         color={0,0,127}));
   connect(zer.y, swi.u3)
-    annotation (Line(points={{28,32},{12,32}}, color={0,0,127}));
+    annotation (Line(points={{18,20},{10,20},{10,22},{2,22}},
+                                               color={0,0,127}));
   connect(swi.y, pum.y)
-    annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
-  connect(set, ctl.u_s) annotation (Line(points={{-120,-40},{-90,-40},{-90,-20},
-          {-12,-20}}, color={0,0,127}));
-  connect(T2Sup.T, ctl.u_m) annotation (Line(points={{-49,60},{-40,60},{-40,-36},
-          {0,-36},{0,-32}}, color={0,0,127}));
-  connect(ctl.y, val.y) annotation (Line(points={{12,-20},{20,-20},{20,-60},{
-          -80,-60},{-80,-40},{-72,-40}}, color={0,0,127}));
-  connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-84,80},{-84,-56},{
-          -6,-56},{-6,-32}}, color={255,127,0}));
+    annotation (Line(points={{-22,30},{-30,30},{-30,40},{-48,40}},
+                                                 color={0,0,127}));
+  connect(set, ctl.u_s) annotation (Line(points={{-120,-40},{-86,-40},{-86,-60},
+          {-12,-60}}, color={0,0,127}));
+  connect(T2Sup.T, ctl.u_m) annotation (Line(points={{-49,60},{-40,60},{-40,-80},
+          {0,-80},{0,-72}}, color={0,0,127}));
+  connect(ctl.y, val.y) annotation (Line(points={{12,-60},{20,-60},{20,-20},{
+          -80,-20},{-80,-40},{-72,-40}}, color={0,0,127}));
+  connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-90,80},{-90,-76},{
+          -6,-76},{-6,-72}}, color={255,127,0}));
   connect(junBypSup.port_3, res3.port_b)
     annotation (Line(points={{-50,0},{-10,0}}, color={0,127,255}));
   connect(res3.port_a, junBypRet.port_3)
     annotation (Line(points={{10,0},{50,0}}, color={0,127,255}));
+  connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,-40},{-72,
+          -40}}, color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-51,52},{-51,54},{90,54},{90,
+          60},{120,60}}, color={0,0,127}));
+  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{90,52},
+          {90,40},{120,40}}, color={0,0,127}));
+  connect(val.y_actual, yVal_actual) annotation (Line(points={{-67,-34},{-67,
+          -26},{90,-26},{90,-60},{120,-60}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(graphics={

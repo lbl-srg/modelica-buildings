@@ -99,6 +99,10 @@ model PartialPassivePrimary
     dp_nominal=0)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
+  Sensors.MassFlowRate m1_flow(
+    redeclare final package Medium = MediumLiq)
+    "Mass flow rate in primary circuit"
+    annotation (Placement(transformation(extent={{10,-70},{-10,-90}})));
 equation
   connect(TRet.port_b,ref. ports[1])
     annotation (Line(points={{-50,-80},{-80,-80},{-80,-69}},
@@ -107,12 +111,14 @@ equation
     annotation (Line(points={{-40,-91},{-40,-98},{-44,-98}},color={0,0,127}));
   connect(TSup.T,delT. u2)
     annotation (Line(points={{-60,-71},{-60,-98},{-56,-98}},color={0,0,127}));
-  connect(del1.ports[1], TRet.port_a)
-    annotation (Line(points={{20,-80},{-30,-80}},   color={0,127,255}));
 
   connect(ref.ports[2], TSup.port_a) annotation (Line(points={{-80,-71},{-80,-60},
           {-70,-60}},  color={0,127,255}));
   connect(TSup.port_b, res1.port_a)
     annotation (Line(points={{-50,-60},{-30,-60}}, color={0,127,255}));
+  connect(m1_flow.port_b, TRet.port_a)
+    annotation (Line(points={{-10,-80},{-30,-80}}, color={0,127,255}));
+  connect(m1_flow.port_a, del1.ports[1])
+    annotation (Line(points={{10,-80},{20,-80}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-140,-140},{140,140}})));
 end PartialPassivePrimary;

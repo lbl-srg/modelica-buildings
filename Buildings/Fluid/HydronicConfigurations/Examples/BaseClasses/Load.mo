@@ -139,11 +139,11 @@ model Load "Model of a load on hydronic circuit"
     final dp1_nominal=dpLiq_nominal,
     dp2_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    use_Q_flow_nominal=true,
+    final use_Q_flow_nominal=true,
     final Q_flow_nominal=Q_flow_nominal,
     final T_a1_nominal=TLiqEnt_nominal,
     final T_a2_nominal=TAirEnt_nominal,
-    w_a2_nominal=xAirEnt_nominal)
+    final w_a2_nominal=xAirEnt_nominal)
     "Coil"
     annotation (Placement(
         transformation(
@@ -183,12 +183,12 @@ model Load "Model of a load on hydronic circuit"
     dp1_nominal=0,
     dp2_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    use_Q_flow_nominal=true,
+    final use_Q_flow_nominal=true,
     final Q_flow_nominal=Q_flow_nominal,
     final T_a1_nominal=TLiqEnt_nominal,
     final T_a2_nominal=TAirEnt_nominal,
-    w_a2_nominal=xAirEnt_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    final w_a2_nominal=xAirEnt_nominal,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Coil operating at design conditions (used for model parameterization)"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -312,7 +312,7 @@ protected
       p=MediumAir.p_default,
       T=TLiqEnt_nominal,
       X={XAirEnt_nominal,1 - XAirEnt_nominal}))
-    "Air specific heat capacity in change-over mode";
+    "Air specific heat capacity at design conditions";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpAirChg_nominal=
     MediumAir.specificHeatCapacityCp(MediumAir.setState_pTX(
       p=MediumAir.p_default,
