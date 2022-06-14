@@ -4,31 +4,16 @@
 !-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 
-RunPeriod,
-    Run Period 2,            !- Name
-    12,                      !- Begin Month
-    21,                      !- Begin Day of Month
-    ,                        !- Begin Year
-    12,                      !- End Month
-    21,                      !- End Day of Month
-    ,                        !- End Year
-    Tuesday,                 !- Day of Week for Start Day
-    Yes,                     !- Use Weather File Holidays and Special Days
-    Yes,                     !- Use Weather File Daylight Saving Period
-    No,                      !- Apply Weekend Holiday Rule
-    Yes,                     !- Use Weather File Rain Indicators
-    Yes;                     !- Use Weather File Snow Indicators
-
-Output:Variable,*,Zone Thermostat Heating Setpoint Temperature,Timestep;
-Output:Variable,*,Zone Thermostat Cooling Setpoint Temperature,Timestep;
-Output:Variable,*,Zone Total Internal Total Heating Rate,Timestep;
+Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature,Timestep;
+Output:Variable,West Zone,Zone Thermostat Cooling Setpoint Temperature,Timestep;
+Output:Variable,West Zone,Zone Total Internal Total Heating Rate,Timestep;
 Output:Variable,Zone1FanCoilHWInletNode,System Node Temperature,Timestep;
 Output:Variable,Zone1FanCoilHWInletNode,System Node Mass Flow Rate ,Timestep;
 Output:Variable,Zone1FanCoilChWInletNode,System Node Temperature,Timestep;
 Output:Variable,Zone1FanCoilChWInletNode,System Node Mass Flow Rate ,Timestep;
-Output:Variable,*,Fan Coil Speed Ratio,Timestep;
-Output:Variable,*,Fan Coil Heating Rate ,Timestep;
-Output:Variable,*,Fan Coil Fan Electricity Rate,Timestep;
+Output:Variable,Zone1FanCoil,Fan Coil Speed Ratio,Timestep;
+Output:Variable,Zone1FanCoil,Fan Coil Heating Rate ,Timestep;
+Output:Variable,Zone1FanCoil,Fan Coil Fan Electricity Rate,Timestep;
 
 Fan:VariableVolume,
     Zone1Fan,                !- Name
@@ -90,12 +75,10 @@ Fan:VariableVolume,
     Zone3FanCoilFanOutletNode,  !- Air Outlet Node Name
     General;                 !- End-Use Subcategory
 
-Output:Variable,*,Fan Electricity Rate,Timestep;
-Output:Variable,*,Zone Thermostat Heating Setpoint Temperature ,Timestep;
-Output:Variable,*,Zone Thermostat Cooling Setpoint Temperature ,Timestep;
-Output:Variable,*,Fan Coil Total Cooling Rate ,Timestep;
+Output:Variable,Zone1Fan,Fan Electricity Rate,Timestep;
+Output:Variable,Zone1FanCoil,Fan Coil Total Cooling Rate ,Timestep;
 Output:Variable,*,Pump Mass Flow Rate,Timestep;
-Output:Variable,*,Fan Air Mass Flow Rate,Timestep;
+Output:Variable,Zone1Fan,Fan Air Mass Flow Rate,Timestep;
 ! FanCoilAutosize.idf
 ! Basic file description:  1 story building divided into 3 interior conditioned zones. Roof with no plenum.
 !                          No ground contact with floor. Fan coil units serve each zone.
@@ -207,11 +190,11 @@ SurfaceConvectionAlgorithm:Outside,DOE-2;
 
 RunPeriod,
     Run Period 1,            !- Name
-    7,                       !- Begin Month
-    21,                      !- Begin Day of Month
+    1,                       !- Begin Month
+    1,                       !- Begin Day of Month
     ,                        !- Begin Year
-    7,                       !- End Month
-    21,                      !- End Day of Month
+    12,                      !- End Month
+    31,                      !- End Day of Month
     ,                        !- End Year
     Tuesday,                 !- Day of Week for Start Day
     Yes,                     !- Use Weather File Holidays and Special Days
@@ -1858,7 +1841,7 @@ NodeList,
 ZoneHVAC:FourPipeFanCoil,
     Zone1FanCoil,            !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
-    VariableFanConstantFlow, !- Capacity Control Method
+    ConstantFanVariableFlow, !- Capacity Control Method
     autosize,                !- Maximum Supply Air Flow Rate {m3/s}
     ,                        !- Low Speed Supply Air Flow Ratio
     ,                        !- Medium Speed Supply Air Flow Ratio
@@ -1951,7 +1934,7 @@ NodeList,
 ZoneHVAC:FourPipeFanCoil,
     Zone2FanCoil,            !- Name
     Work Eff Sch,            !- Availability Schedule Name
-    VariableFanConstantFlow, !- Capacity Control Method
+    ConstantFanVariableFlow, !- Capacity Control Method
     autosize,                !- Maximum Supply Air Flow Rate {m3/s}
     ,                        !- Low Speed Supply Air Flow Ratio
     ,                        !- Medium Speed Supply Air Flow Ratio
@@ -2044,7 +2027,7 @@ NodeList,
 ZoneHVAC:FourPipeFanCoil,
     Zone3FanCoil,            !- Name
     Work Eff Sch,            !- Availability Schedule Name
-    VariableFanConstantFlow, !- Capacity Control Method
+    ConstantFanVariableFlow, !- Capacity Control Method
     autosize,                !- Maximum Supply Air Flow Rate {m3/s}
     ,                        !- Low Speed Supply Air Flow Ratio
     ,                        !- Medium Speed Supply Air Flow Ratio
@@ -2108,30 +2091,16 @@ Coil:Heating:Water,
     32.2,                    !- Rated Outlet Air Temperature {C}
     ;                        !- Rated Ratio for Air and Water Convection
 
-Output:Variable,*,Zone Air System Sensible Cooling Rate,Timestep;
-Output:Variable,*,Zone Air System Sensible Heating Rate,Timestep;
-Output:Variable,*,Zone Air Temperature,Timestep;
-Output:Variable,*,Zone Air Humidity Ratio,Timestep;
-Output:Variable,*,Fan Coil Sensible Cooling Rate,Timestep;
-Output:Variable,*,Fan Coil Heating Rate,Timestep;
+Output:Variable,West Zone,Zone Air Temperature,Timestep;
+Output:Variable,West Zone,Zone Air Humidity Ratio,Timestep;
+Output:Variable,Zone1FanCoil,Fan Coil Sensible Cooling Rate,Timestep;
+Output:Variable,Zone1FanCoil,Fan Coil Heating Rate,Timestep;
 Output:Variable,Zone1FanCoilAirOutletNode,System Node Mass Flow Rate,Timestep;
-Output:Variable,Zone2FanCoilAirOutletNode,System Node Mass Flow Rate,Timestep;
-Output:Variable,Zone3FanCoilAirOutletNode,System Node Mass Flow Rate,Timestep;
 Output:Variable,Zone1FanCoilAirOutletNode,System Node Temperature,Timestep;
-Output:Variable,Zone2FanCoilAirOutletNode,System Node Temperature,Timestep;
-Output:Variable,Zone3FanCoilAirOutletNode,System Node Temperature,Timestep;
 Output:Variable,Zone1FanCoilAirOutletNode,System Node Humidity Ratio,Timestep;
-Output:Variable,Zone2FanCoilAirOutletNode,System Node Humidity Ratio,Timestep;
-Output:Variable,Zone3FanCoilAirOutletNode,System Node Humidity Ratio,Timestep;
 Output:Variable,Zone1FanCoilAirInletNode,System Node Mass Flow Rate,Timestep;
-Output:Variable,Zone2FanCoilAirInletNode,System Node Mass Flow Rate,Timestep;
-Output:Variable,Zone3FanCoilAirInletNode,System Node Mass Flow Rate,Timestep;
 Output:Variable,Zone1FanCoilAirInletNode,System Node Temperature,Timestep;
-Output:Variable,Zone2FanCoilAirInletNode,System Node Temperature,Timestep;
-Output:Variable,Zone3FanCoilAirInletNode,System Node Temperature,Timestep;
 Output:Variable,Zone1FanCoilAirInletNode,System Node Humidity Ratio,Timestep;
-Output:Variable,Zone2FanCoilAirInletNode,System Node Humidity Ratio,Timestep;
-Output:Variable,Zone3FanCoilAirInletNode,System Node Humidity Ratio,Timestep;
 Output:VariableDictionary,Regular;
 Output:Meter:MeterFileOnly,Electricity:Facility,monthly;
 Output:Meter:MeterFileOnly,Electricity:Building,monthly;
