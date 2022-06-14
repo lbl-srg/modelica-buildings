@@ -10,6 +10,10 @@ partial model PartialInjectionTwoWay
     mPum_flow_nominal=m1_flow_nominal / 0.9,
     del1(nPorts=3));
 
+  parameter Boolean is_bal=false
+    "Set to true for balanced primary branch"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+
   parameter Modelica.Units.SI.PressureDifference dp1Set(displayUnit="Pa")=1e4
     "Pressure differential set point"
     annotation (Dialog(group="Controls"));

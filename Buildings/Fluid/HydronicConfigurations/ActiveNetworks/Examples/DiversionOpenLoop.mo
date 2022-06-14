@@ -7,6 +7,9 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     pum(inputType=Buildings.Fluid.Types.InputType.Constant),
     del1(nPorts=3));
 
+  parameter Boolean is_bal=false
+    "Set to true for balanced bypass branch"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Control valve characteristic"
@@ -171,7 +174,7 @@ resistance is considered in the bypass branch, only the
 variable flow resistance corresponding to the control valve.
 The parameter <code>fraK</code> of the control valves is
 set at <i>1.0</i> to effectively have an unbalanced bypass branch
-for <code>con.dpBal2_nominal = 0</code>, see
+for <code>con.dpBal3_nominal = 0</code>, see
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
 Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>.
 </li>

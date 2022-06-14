@@ -63,8 +63,8 @@ model DualMixing "Dual mixing circuit"
   Buildings.Fluid.HydronicConfigurations.Components.Pump pum(
     redeclare final package Medium = Medium,
     final typ=typPumMod,
-    final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dp2_nominal + dpBal3_nominal,
+    m_flow_nominal=m2_flow_nominal,
+    dp_nominal=dp2_nominal + dpBal2_nominal + dpBal3_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -81,7 +81,8 @@ model DualMixing "Dual mixing circuit"
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
-         else 1) "Consumer circuit supply temperature sensor"
+      else 1)
+    "Consumer circuit supply temperature sensor"
     annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -97,7 +98,7 @@ model DualMixing "Dual mixing circuit"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final m_flow_nominal=(m2_flow_nominal - m1_flow_nominal) .* {1,-1,1},
-    final dp_nominal={0,0,dpBal3_nominal})
+    final dp_nominal=fill(0, 3))
     "Junction"
     annotation (Placement(
         transformation(
@@ -153,7 +154,15 @@ model DualMixing "Dual mixing circuit"
     final Ti=Ti) if have_ctl
     "Controller"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-
+  FixedResistances.PressureDrop res3(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m2_flow_nominal - m1_flow_nominal,
+    final dp_nominal=dpBal3_nominal)
+    "Bypass balancing valve"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0)));
 equation
   connect(val.port_3, jun.port_3)
     annotation (Line(points={{-50,-40},{50,-40}}, color={0,127,255}));
@@ -171,8 +180,6 @@ equation
     annotation (Line(points={{-60,30},{-60,10}}, color={0,127,255}));
   connect(val.port_2, junBypSup.port_1)
     annotation (Line(points={{-60,-30},{-60,-10}}, color={0,127,255}));
-  connect(junBypSup.port_3, junBypRet.port_3)
-    annotation (Line(points={{-50,0},{50,0}}, color={0,127,255}));
   connect(port_a2, T2Ret.port_a)
     annotation (Line(points={{60,100},{60,70}}, color={0,127,255}));
   connect(T2Ret.port_b, res2.port_a)
@@ -199,6 +206,10 @@ equation
           -80,-60},{-80,-40},{-72,-40}}, color={0,0,127}));
   connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-84,80},{-84,-56},{
           -6,-56},{-6,-32}}, color={255,127,0}));
+  connect(junBypSup.port_3, res3.port_b)
+    annotation (Line(points={{-50,0},{-10,0}}, color={0,127,255}));
+  connect(res3.port_a, junBypRet.port_3)
+    annotation (Line(points={{10,0},{50,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Icon(graphics={
@@ -248,9 +259,7 @@ Improper balancing...
 </p>
 <p>
 By default the secondary pump is parameterized with <code>m2_flow_nominal</code> 
-and <code>dp2_nominal + dpBal3_nominal</code> at maximum speed.
-The partner valve <code>res2</code> is therefore configured with zero
-pressure drop.
+and <code>dp2_nominal + dpBal2_nominal + dpBal3_nominal</code> at maximum speed.
 </p>
 </html>"));
 end DualMixing;

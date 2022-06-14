@@ -168,6 +168,16 @@ the generic definition of the authority can be rewritten as
 (&Delta;p<sub>A-AB</sub>(y=100%) + &Delta;p<sub>coil</sub>)</i>.
 </p>
 <h5>
+Should the bypass branch be balanced?
+</h5>
+<p>
+NO for single miwing configuration with active primary pressure diffenrential.
+When used in a diversion configuration for coil control, not critical, 
+provided that the valve has a good authority.
+Appears only critical to counter back pressure from other circuits.
+is  
+</p>
+<h5>
 Default model parameter
 </h5>
 <p>

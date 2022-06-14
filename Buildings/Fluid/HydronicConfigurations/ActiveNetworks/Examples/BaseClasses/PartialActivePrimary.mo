@@ -6,10 +6,6 @@ model PartialActivePrimary
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Boolean is_bal=false
-    "Set to true for balanced configuration"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-
   parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typ=
     Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
     "Load type"

@@ -7,6 +7,9 @@ model SingleMixing
     dpPum_nominal=10e4,
     del1(nPorts=2));
 
+  parameter Boolean is_bal=false
+    "Set to true for balanced primary branch"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(displayUnit="Pa")=
     dpPum_nominal-dpPip_nominal
     "Control valve pressure drop at design conditions";

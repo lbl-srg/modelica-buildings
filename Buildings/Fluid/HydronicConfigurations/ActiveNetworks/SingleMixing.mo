@@ -1,25 +1,15 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model SingleMixing "Single mixing circuit"
-  extends Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing(
-    final dpBal3_nominal=0)
-    annotation (IconMap(primitivesVisible = false));
+  extends BaseClasses.SingleMixing(
+    final dpBal3_nominal=0);
 
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={
-    Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={175,175,175},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
     Bitmap(
       extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/SingleMixing.svg"),
-        Text(
-          extent={{-149,-114},{151,-154}},
-          textColor={0,0,255},
-          textString="%name")}),
+      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/SingleMixing.svg")}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -63,9 +53,9 @@ the primary balancing valve.
 Parameterization
 </h4>
 <p>
-By default the secondary pump is parameterized with <code>m2_flow_nominal</code> 
-and <code>dp2_nominal + 2 * max(val.dpValve_nominal, val.dp3_nominal)</code> 
-(to account for the actual pressure drop at partial valve opening)
+By default the secondary pump is parameterized with 
+<code>m2_flow_nominal</code> and 
+<code>dp2_nominal + dpBal2_nominal + max({val.dpValve_nominal, val.dp3Valve_nominal})</code> 
 at maximum speed.
 The partner valve <code>bal2</code> is therefore configured with zero
 pressure drop.

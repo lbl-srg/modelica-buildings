@@ -104,8 +104,8 @@ model InjectionThreeWay "Injection circuit with three-way valve"
   Buildings.Fluid.HydronicConfigurations.Components.Pump pum(
     redeclare final package Medium = Medium,
     final typ=typPumMod,
-    final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dp2_nominal,
+    m_flow_nominal=m2_flow_nominal,
+    dp_nominal=dp2_nominal + dpBal2_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,

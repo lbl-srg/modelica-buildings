@@ -2,6 +2,7 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionTwoWayCheckValve
   "Injection circuit with two-way valve and check valve in bypass branch"
   extends Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay(
+    pum(dp_nominal=dp2_nominal + dpBal2_nominal + res3.dpValve_nominal),
     redeclare FixedResistances.CheckValve res3(
       final dpValve_nominal=3.4e3,
       final allowFlowReversal=allowFlowReversal,

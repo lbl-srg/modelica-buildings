@@ -89,8 +89,17 @@ model ThreeWayValve "Container class for three-way valves"
   parameter Real y_start=1 "Initial position of actuator"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
+
+  final parameter Modelica.Units.SI.PressureDifference dp3Valve_nominal(
+    displayUnit="Pa")=dpValve_nominal/fraK^2
+    "Bypass branch valve pressure drop at design conditions"
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.PressureDifference dp3Fixed_nominal(
+    displayUnit="Pa")=dpFixed_nominal[2]
+    "Bypass branch fixed pressure drop at design conditions"
+    annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dp3_nominal(
-    displayUnit="Pa")=dpValve_nominal/fraK^2 + dpFixed_nominal[2]
+    displayUnit="Pa")=dp3Valve_nominal + dp3Fixed_nominal
     "Bypass branch total pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
 

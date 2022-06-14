@@ -23,8 +23,8 @@ model InjectionTwoWay "Injection circuit with two-way valve"
   Components.Pump pum(
     redeclare final package Medium = Medium,
     final typ=typPumMod,
-    final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dp2_nominal,
+    m_flow_nominal=m2_flow_nominal,
+    dp_nominal=dp2_nominal + dpBal2_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -84,7 +84,8 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dpBal2_nominal) "Secondary balancing valve"
+    final dp_nominal=dpBal2_nominal)
+    "Secondary balancing valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -93,7 +94,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
-    final dp_nominal=dpBal1_nominal)
+    final dp_nominal=if use_lumFloRes then 0 else dpBal1_nominal)
     "Primary balancing valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

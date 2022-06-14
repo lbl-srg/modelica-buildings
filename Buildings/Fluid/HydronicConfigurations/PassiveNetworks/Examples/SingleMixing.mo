@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
-model SingleMixing
+model SingleMixing "Model illustrating the operation of single mixing circuits"
   extends BaseClasses.PartialPassivePrimary(del1(nPorts=3), ref(use_T_in=true));
 
   parameter Modelica.Units.SI.PressureDifference dp2Set(
@@ -13,9 +13,8 @@ model SingleMixing
     typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium=MediumLiq,
-    use_lumFloRes=false,
     final energyDynamics=energyDynamics,
-    final m2_flow_nominal=mTer_flow_nominal,
+    final m2_flow_nominal=loa.m_flow_nominal,
     final dp2_nominal=loa.dpTer_nominal + loa.dpValve_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
@@ -35,7 +34,6 @@ model SingleMixing
     typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
     redeclare final package Medium = MediumLiq,
-    use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa1.m_flow_nominal / 0.9,
     final dp2_nominal=dp2Set)
@@ -77,7 +75,7 @@ model SingleMixing
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 10,
         0; 13,-8; 13,0; 18,0; 22,+5; 22,0; 24,0], timeScale=3600)
     "Offset applied to design supply temperature to compute set point"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add          T2Set(y(final unit="K",
         displayUnit="degC"))
     "Consumer circuit temperature set point" annotation (Placement(
@@ -93,11 +91,11 @@ model SingleMixing
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={-80,20})));
+        origin={-80,0})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetVal[2](final k={
         TLiqEnt_nominal,TLiqEntChg_nominal})
     "Consumer circuit temperature set point values"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[2](final k={
         TLiqSup_nominal,TLiqSupChg_nominal})
     "Primary circuit temperature set point values"
@@ -111,8 +109,8 @@ model SingleMixing
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-80,-120})));
-  Modelica.Blocks.Sources.RealExpression dp2Pum(y=(dp2Set + con1.val.dp3)/con1.pum.dp_nominal)
-    "Pump pressure rise set point"
+  Modelica.Blocks.Sources.RealExpression uPum(y=(dp2Set + con1.val.dp3)/con1.pum.dp_nominal)
+    "Pump control signal"
     annotation (Placement(transformation(extent={{30,-36},{50,-16}})));
 equation
   connect(con.port_b2, loa.port_a)
@@ -149,13 +147,12 @@ equation
   connect(mode.y[1], con1.mod) annotation (Line(points={{-98,80},{40,80},{40,34},
           {54,34},{54,-22},{58,-22}}, color={255,127,0}));
   connect(mode.y[1], T2Set1.index)
-    annotation (Line(points={{-98,80},{-80,80},{-80,32}}, color={255,127,0}));
+    annotation (Line(points={{-98,80},{-80,80},{-80,12}}, color={255,127,0}));
   connect(T2SetVal.y, T2Set1.u)
-    annotation (Line(points={{-98,20},{-92,20}},
-                                               color={0,0,127}));
-  connect(T2Set1.y, T2Set.u1) annotation (Line(points={{-68,20},{-66,20},{-66,-24},
+    annotation (Line(points={{-98,0},{-92,0}}, color={0,0,127}));
+  connect(T2Set1.y, T2Set.u1) annotation (Line(points={{-68,0},{-66,0},{-66,-24},
           {-62,-24}}, color={0,0,127}));
-  connect(setOff.y[1], T2Set.u2) annotation (Line(points={{-98,-30},{-80,-30},{-80,
+  connect(setOff.y[1], T2Set.u2) annotation (Line(points={{-98,-40},{-80,-40},{-80,
           -36},{-62,-36}}, color={0,0,127}));
   connect(T2Set.y, con.set) annotation (Line(points={{-38,-30},{-20,-30},{-20,
           -34},{-2,-34}},
@@ -168,12 +165,12 @@ equation
           -100},{-120,-100},{-120,-74},{-102,-74}}, color={0,0,127}));
   connect(mode.y[1], T2Set2.index) annotation (Line(points={{-98,80},{-80,80},{-80,
           60},{-130,60},{-130,-104},{-80,-104},{-80,-108}}, color={255,127,0}));
-  connect(dp2Pum.y, con1.yPum)
-    annotation (Line(points={{51,-26},{58,-26}}, color={0,0,127}));
   connect(res1.port_b, con.port_a1) annotation (Line(points={{-10,-60},{0,-60},
           {0,-40},{4,-40}}, color={0,127,255}));
   connect(res1.port_b, con1.port_a1) annotation (Line(points={{-10,-60},{60,-60},
           {60,-40},{64,-40}}, color={0,127,255}));
+  connect(uPum.y, con1.yPum)
+    annotation (Line(points={{51,-26},{58,-26}}, color={0,0,127}));
 annotation (
 experiment(
     StopTime=86400,

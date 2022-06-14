@@ -7,6 +7,9 @@ model ThrottleOpenLoop
     mPum_flow_nominal=m1_flow_nominal / 0.9,
     del1(nPorts=4));
 
+  parameter Boolean is_bal=false
+    "Set to true for balanced primary branch"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Control valve characteristic"

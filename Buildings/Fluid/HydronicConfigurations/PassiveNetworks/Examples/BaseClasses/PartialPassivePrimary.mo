@@ -6,10 +6,6 @@ model PartialPassivePrimary
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Boolean is_bal=false
-    "Set to true for a primary balancing valve"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-
   parameter Integer nTer = 2
     "Number of terminal units";
   parameter Modelica.Units.SI.MassFlowRate mTer_flow_nominal = 1

@@ -11,6 +11,9 @@ model InjectionThreeWay
     dpPum_nominal=(dpPip_nominal + dpValve_nominal) * kSizPum,
     del1(nPorts=2));
 
+  parameter Boolean is_bal=false
+    "Set to true for balanced primary branch"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa")=0.3E4
     "Control valve pressure drop at design conditions";
