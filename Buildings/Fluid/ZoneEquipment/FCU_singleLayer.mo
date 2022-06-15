@@ -1,5 +1,4 @@
 within Buildings.Fluid.ZoneEquipment;
-
 model FCU_singleLayer
 
   parameter Buildings.Fluid.ZoneEquipment.Types.heatingCoil heatingCoilType=Buildings.Fluid.ZoneEquipment.Types.heatingCoil.heatingHotWater
@@ -155,7 +154,8 @@ model FCU_singleLayer
         extent={{-20,-20},{20,20}},
         origin={-120,20})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupAir "Supply air temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupAir
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{360,100},{400,140}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
@@ -315,8 +315,10 @@ model FCU_singleLayer
         MediumA, m_flow_nominal=mAir_flow_nominal)
     annotation (Placement(transformation(extent={{240,-20},{260,0}})));
 
-  Fluid.Movers.SpeedControlled_y fan(redeclare package Medium = MediumA,
-      redeclare Fluid.Movers.Data.Pumps.customFCUFan per)
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = MediumA,
+    m_flow_nominal=mAir_flow_nominal,
+      redeclare Fluid.Movers.Data.Pumps.customFCUFan per,
+    dp_nominal=dpAirTot_nominal + 1000)
     annotation (Placement(transformation(extent={{200,-20},{220,0}})));
 
   replaceable Fluid.Sensors.VolumeFlowRate VAirSup_flow(redeclare package
@@ -465,9 +467,6 @@ equation
   connect(VAirSup_flow.V_flow, VSupAir_flow)
     annotation (Line(points={{290,1},{290,80},{380,80}},   color={0,0,127}));
 
-  connect(uFan, fan.y) annotation (Line(points={{-380,80},{210,80},{210,2}},
-               color={0,0,127}));
-
   connect(cooCoiCHW.port_b2, totalRes.port_a)
     annotation (Line(points={{140,-4},{156,-4}}, color={0,127,255}));
 
@@ -483,6 +482,8 @@ equation
   connect(TRetSen.port_a, port_return) annotation (Line(points={{-150,40},{-160,
           40},{-160,60},{-60,60},{-60,40},{360,40}}, color={0,127,255}));
 
+  connect(uFan, fan.m_flow_in)
+    annotation (Line(points={{-380,80},{210,80},{210,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
@@ -491,5 +492,4 @@ equation
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-180},{360,
             140}})));
-
 end FCU_singleLayer;
