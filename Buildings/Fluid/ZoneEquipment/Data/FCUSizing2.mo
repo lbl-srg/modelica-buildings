@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.Data;
-record FCUSizing
+record FCUSizing2
 
   extends Modelica.Icons.Record;
 
@@ -64,22 +64,25 @@ record FCUSizing
   parameter Modelica.Units.SI.Power qCooCoi_nominal = mAir_flow_nominal * (hAirIn_nominal[1] - hAirOut_nominal[1])
     "Heat transferred in cooling coil";
 
-  parameter Modelica.Units.SI.SpecificEnthalpy hChiWatIn_nominal = 4200 * TChiWatSup_nominal
+  parameter Modelica.Media.Interfaces.PartialSimpleMedium.ThermodynamicState stateChiWatIn_nominal = Modelica.Media.Water.ConstantPropertyLiquidWater.setState_pTX(pAir, TChiWatSup_nominal)
+    "Thermodynamic state for chilled water at coil inlet";
+
+  parameter Modelica.Units.SI.SpecificEnthalpy hChiWatIn_nominal = Modelica.Media.Water.ConstantPropertyLiquidWater.specificEnthalpy(stateChiWatIn_nominal)
     "Chilled water inlet specific enthalpy";
 
   parameter Modelica.Units.SI.SpecificEnthalpy hChiWatOut_nominal = (mChiWat_flow_nominal * hChiWatIn_nominal + qCooCoi_nominal)/mChiWat_flow_nominal
     "Chilled water outlet specific enthalpy";
 
-  parameter Real delH_lmd = ((hAirIn_nominal[1] - hChiWatOut_nominal) - (hAirOut_nominal[1] - hChiWatIn_nominal)/log((hAirIn_nominal[1] - hChiWatOut_nominal)/(hAirOut_nominal[1] - hChiWatIn_nominal)))
+  parameter Real delH_lmd = -((hAirIn_nominal[1] - hChiWatOut_nominal) - (hAirOut_nominal[1] - hChiWatIn_nominal)/log(((hAirIn_nominal[1] - hChiWatOut_nominal)/(hAirOut_nominal[1] - hChiWatIn_nominal))))
     "Log mean enthalpy difference";
 
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_air = 1000;
 
   parameter Modelica.Units.SI.ThermalConductance UACooCoiExt_nominal = cp_air * qCooCoi_nominal/delH_lmd;
 
-  parameter Modelica.Units.SI.ThermalConductance UACooCoiTot_nominal = 2000*1/(1/UACooCoiExt_nominal + 1/(3.3*UACooCoiExt_nominal));
+  parameter Modelica.Units.SI.ThermalConductance UACooCoiTot_nominal = 2.2*1/(1/UACooCoiExt_nominal + 1/(3.3*UACooCoiExt_nominal));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 
-end FCUSizing;
+end FCUSizing2;
