@@ -127,9 +127,6 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced", group="Control loops"));
-  parameter Real conThr(unit="1")=0.1
-    "Threshold value to check if the controller output is near zero"
-    annotation (Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
     annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
@@ -373,7 +370,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final TiHeaCon=TiHeaCon,
     final timChe=timChe,
     final dTHys=dTHys,
-    final conThr=conThr)
+    final looHys=looHys)
     "Heating and cooling control loop"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Alarms

@@ -58,6 +58,11 @@ block SystemRequests
     final unit="1")
     "Near zero valve position, below which the valve will be seen as closed"
     annotation (Dialog(tab="Advanced", enable=have_hotWatCoi));
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=120
+    "Sample period of component, set to the same value as the trim and respond that process yPreSetReq"
+    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSup
     "After suppression period due to the setpoint change"
@@ -165,7 +170,7 @@ protected
     final t=0.95,
     final h=damPosHys)
     "Check if damper position is greater than 0.95"
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=0.95, final h=looHys)
     "Check if cooling loop signal is greater than 0.95"
@@ -174,7 +179,7 @@ protected
     final t=floHys,
     final h=0.5*floHys)
     "Check if discharge airflow setpoint is greater than 0"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
@@ -184,11 +189,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.5)
     "50% of setpoint"
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.7)
     "70% of setpoint"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,210},{-80,230}})));
@@ -302,6 +307,22 @@ protected
     if have_hotWatCoi
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler1(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler2(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler3(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
 
 equation
   connect(sub2.y, greThr1.u)
@@ -326,21 +347,17 @@ equation
   connect(tim1.y, and2.u2)
     annotation (Line(points={{2,220},{10,220},{10,232},{38,232}},
       color={255,0,255}));
-  connect(greThr4.u, VSet_flow)
-    annotation (Line(points={{-142,80},{-200,80}},   color={0,0,127}));
   connect(greEqu.u1, gai1.y)
-    annotation (Line(points={{-62,50},{-118,50}},  color={0,0,127}));
+    annotation (Line(points={{-62,50},{-78,50}},   color={0,0,127}));
   connect(greEqu.y, and3.u2)
     annotation (Line(points={{-38,50},{0,50},{0,52},{38,52}},
       color={255,0,255}));
   connect(gai2.y, greEqu1.u1)
-    annotation (Line(points={{-118,10},{-62,10}},
+    annotation (Line(points={{-78,10},{-62,10}},
       color={0,0,127}));
   connect(greEqu1.y, and4.u2)
     annotation (Line(points={{-38,10},{0,10},{0,-18},{38,-18}},
       color={255,0,255}));
-  connect(uCoo, greThr.u)
-    annotation (Line(points={{-200,130},{-62,130}}, color={0,0,127}));
   connect(uAftSup, and2.u1) annotation (Line(points={{-200,260},{20,260},{20,240},
           {38,240}},      color={255,0,255}));
   connect(uAftSup, and1.u1) annotation (Line(points={{-200,260},{20,260},{20,180},
@@ -357,27 +374,17 @@ equation
     annotation (Line(points={{-38,130},{38,130}}, color={255,0,255}));
   connect(booToInt.y, intSwi1.u3) annotation (Line(points={{62,130},{80,130},{80,
           172},{98,172}},    color={255,127,0}));
-  connect(uDam_actual, greThr3.u)
-    annotation (Line(points={{-200,-50},{-162,-50}},   color={0,0,127}));
-  connect(VSet_flow, gai1.u) annotation (Line(points={{-200,80},{-160,80},{-160,
-          50},{-142,50}},   color={0,0,127}));
-  connect(VSet_flow, gai2.u) annotation (Line(points={{-200,80},{-160,80},{-160,
-          10},{-142,10}},     color={0,0,127}));
-  connect(VPri_flow, greEqu.u2) annotation (Line(points={{-200,-10},{-100,-10},
-          {-100,42},{-62,42}},   color={0,0,127}));
-  connect(VPri_flow, greEqu1.u2) annotation (Line(points={{-200,-10},{-100,-10},
-          {-100,2},{-62,2}},       color={0,0,127}));
-  connect(greThr3.y, tim3.u) annotation (Line(points={{-138,-50},{-80,-50},{-80,
-          -30},{-62,-30}},   color={255,0,255}));
+  connect(greThr3.y, tim3.u) annotation (Line(points={{-98,-50},{-80,-50},{-80,-30},
+          {-62,-30}},        color={255,0,255}));
   connect(greThr4.y, and5.u1)
-    annotation (Line(points={{-118,80},{-22,80}},   color={255,0,255}));
+    annotation (Line(points={{-78,80},{-22,80}},    color={255,0,255}));
   connect(tim3.y, and5.u2) annotation (Line(points={{-38,-30},{-30,-30},{-30,72},
           {-22,72}},  color={255,0,255}));
   connect(and5.y, and3.u1) annotation (Line(points={{2,80},{20,80},{20,60},{38,
           60}},  color={255,0,255}));
   connect(and5.y, and4.u1) annotation (Line(points={{2,80},{20,80},{20,-10},{38,
           -10}},     color={255,0,255}));
-  connect(greThr3.y, booToInt1.u) annotation (Line(points={{-138,-50},{38,-50}},
+  connect(greThr3.y, booToInt1.u) annotation (Line(points={{-98,-50},{38,-50}},
           color={255,0,255}));
   connect(booToInt1.y, swi5.u3) annotation (Line(points={{62,-50},{80,-50},{80,
           -18},{98,-18}},   color={255,127,0}));
@@ -439,7 +446,28 @@ equation
           {-102,226}}, color={0,0,127}));
   connect(TZon, sub3.u1) annotation (Line(points={{-200,160},{-142,160},{-142,186},
           {-102,186}}, color={0,0,127}));
-
+  connect(uDam_actual, sampler3.u)
+    annotation (Line(points={{-200,-50},{-162,-50}}, color={0,0,127}));
+  connect(sampler3.y, greThr3.u)
+    annotation (Line(points={{-138,-50},{-122,-50}}, color={0,0,127}));
+  connect(uCoo, sampler.u)
+    annotation (Line(points={{-200,130},{-162,130}}, color={0,0,127}));
+  connect(sampler.y, greThr.u)
+    annotation (Line(points={{-138,130},{-62,130}}, color={0,0,127}));
+  connect(VPri_flow, sampler1.u)
+    annotation (Line(points={{-200,-10},{-162,-10}}, color={0,0,127}));
+  connect(sampler1.y, greEqu.u2) annotation (Line(points={{-138,-10},{-70,-10},{
+          -70,42},{-62,42}}, color={0,0,127}));
+  connect(sampler1.y, greEqu1.u2) annotation (Line(points={{-138,-10},{-70,-10},
+          {-70,2},{-62,2}}, color={0,0,127}));
+  connect(greThr4.u, sampler2.y)
+    annotation (Line(points={{-102,80},{-138,80}}, color={0,0,127}));
+  connect(sampler2.u, VSet_flow)
+    annotation (Line(points={{-162,80},{-200,80}}, color={0,0,127}));
+  connect(sampler2.y, gai1.u) annotation (Line(points={{-138,80},{-120,80},{-120,
+          50},{-102,50}}, color={0,0,127}));
+  connect(sampler2.y, gai2.u) annotation (Line(points={{-138,80},{-120,80},{-120,
+          10},{-102,10}}, color={0,0,127}));
 annotation (
   defaultComponentName="sysReq",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-300},{180,320}}),

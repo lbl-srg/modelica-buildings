@@ -19,7 +19,7 @@ block ControlLoops "Heating and cooling control loops"
   parameter Real dTHys(unit="K")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced"));
-  parameter Real conThr(unit="1")=0.1
+  parameter Real looHys(unit="1")=0.01
     "Threshold value to check if the controller output is near zero"
     annotation (Dialog(tab="Advanced"));
 
@@ -106,13 +106,13 @@ protected
     "Heating control loop signal"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon(
-    final t=conThr,
-    final h=0.5*conThr)
+    final t=looHys,
+    final h=0.5*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon1(
-    final t=conThr,
-    final h=0.5*conThr)
+    final t=looHys,
+    final h=0.5*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And disCooCon

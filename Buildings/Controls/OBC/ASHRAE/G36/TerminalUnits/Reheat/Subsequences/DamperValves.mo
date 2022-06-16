@@ -2,44 +2,31 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences;
 block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
-  parameter Real dTDisZonSetMax(
-    final unit="K",
-    final quantity="TemperatureDifference")=11
+  parameter Real dTDisZonSetMax(unit="K")=11
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Real TDisMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=283.15
+    unit="K",
+    displayUnit="degC")=283.15
     "Lowest discharge air temperature";
-  parameter Real VMin_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint";
-  parameter Real VCooMax_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VCooMax_flow(unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VHeaMax_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
+  parameter Real VHeaMax_flow(unit="m3/s")
     "Design zone heating maximum airflow rate";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Valve"));
-  parameter Real kVal(final unit="1/K")=0.5
+  parameter Real kVal(unit="1/K")=0.5
     "Gain of controller for valve control"
     annotation(Dialog(group="Valve"));
-  parameter Real TiVal(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
     annotation(Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real TdVal(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
     annotation (Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -51,32 +38,25 @@ block DamperValves
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Damper", enable=not have_preIndDam));
-  parameter Real kDam(final unit="1")=0.5
+  parameter Real kDam(unit="1")=0.5
     "Gain of controller for damper control"
     annotation(Dialog(group="Damper", enable=not have_preIndDam));
-  parameter Real TiDam(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation(Dialog(group="Damper",
     enable=not have_preIndDam
            and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                 or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdDam(
-    final unit="s",
-    final quantity="Time")=0.1
+  parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(group="Damper",
       enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real dTHys(
-    final unit="K",
-    final quantity="TemperatureDifference")=0.25
+  parameter Real dTHys(unit="K")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real looHys(
-    final unit="1") = 0.05
+  parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
 

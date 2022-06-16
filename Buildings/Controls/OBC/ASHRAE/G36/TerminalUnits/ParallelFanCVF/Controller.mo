@@ -172,9 +172,6 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced", group="Control loops"));
-  parameter Real conThr(unit="1")=0.1
-    "Threshold value to check if the controller output is near zero"
-    annotation (Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
     annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
@@ -421,7 +418,9 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final floHys=floHys,
     final looHys=looHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys) "Specify system requests "
+    final valPosHys=valPosHys,
+    final samplePeriod=samplePeriod)
+                               "Specify system requests "
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo(
     final kCooCon=kCooCon,
@@ -430,7 +429,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final TiHeaCon=TiHeaCon,
     final timChe=timChe,
     final dTHys=dTHys,
-    final conThr=conThr)
+    final looHys=looHys)
     "Heating and cooling control loop"
     annotation (Placement(transformation(extent={{-202,250},{-182,270}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Alarms
