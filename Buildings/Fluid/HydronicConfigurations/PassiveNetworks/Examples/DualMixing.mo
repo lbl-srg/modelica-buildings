@@ -2,18 +2,20 @@ within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
 model DualMixing
   "Model illustrating the operation of a dual mixing circuit"
   extends BaseClasses.PartialPassivePrimary(
-    m1_flow_nominal=m2_flow_nominal*(TLiqEnt_nominal-TLiqLvg_nominal)/(TLiqSup_nominal-TLiqLvg_nominal),
+    m1_flow_nominal=if TLiqSup_nominal <> TLiqEnt_nominal then
+      m2_flow_nominal*(TLiqEnt_nominal-TLiqLvg_nominal)/(TLiqSup_nominal-TLiqLvg_nominal)
+      else 0.95 * m2_flow_nominal,
     TLiqEnt_nominal=16+273.15,
     TLiqLvg_nominal=20+273.15,
-    TLiqSup_nominal=7+273.15,
+    TLiqSup_nominal=16+273.15,
     TLiqEntChg_nominal=35+273.15,
-    TLiqSupChg_nominal=60+273.15,
+    TLiqSupChg_nominal=35+273.15,
     del1(nPorts=2),
     ref(use_T_in=true));
 
-  parameter Boolean is_bal=false
-    "Set to true for balanced bypass branch"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Real kSizBal(final min=0) = 1
+    "Sizing factor for bypass balancing valve (1 means balanced)"
+    annotation(Dialog(group="Configuration"));
 
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(final min=0)=
     nTer * mTer_flow_nominal
@@ -37,7 +39,7 @@ model DualMixing
     final m2_flow_nominal=m2_flow_nominal,
     final m1_flow_nominal=m1_flow_nominal,
     final dp2_nominal=dpPip_nominal + loa1.dpTer_nominal + loa1.dpValve_nominal,
-    final dpBal3_nominal=if is_bal then con.dpValve_nominal + res1.dp_nominal else 0)
+    final dpBal3_nominal=kSizBal * (con.dpValve_nominal + res1.dp_nominal))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl loa(

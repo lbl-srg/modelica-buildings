@@ -3,9 +3,11 @@ model DualMixing "Dual mixing circuit"
   extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpValve_nominal=3e3,
     dpBal3_nominal=dpValve_nominal,
+    set(final unit="K", displayUnit="degC"),
     final dpBal1_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-    final have_pum=true);
+    final have_pum=true,
+    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -146,6 +148,8 @@ model DualMixing "Dual mixing circuit"
     "Zero"
     annotation (Placement(transformation(extent={{40,10},{20,30}})));
   Controls.PIDWithOperatingMode ctl(
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
     final reverseActing=typFun == Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,
@@ -163,6 +167,21 @@ model DualMixing "Dual mixing circuit"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0)));
+
+initial equation
+  assert(
+    m2_flow_nominal > m1_flow_nominal,
+    "In " + getInstanceName() +
+    ": Primary mass flow rate must be strictly lower than consumer circuit mass flow rate " +
+    "at design conditions.");
+
+  if dpBal3_nominal <= dpValve_nominal then
+    Modelica.Utilities.Streams.print(
+      "*** Warning: In " + getInstanceName() +
+      ": The bypass balancing valve should generate a pressure drop higher than " +
+      "the control valve at design conditions to provide sufficient primary flow.");
+  end if;
+
 equation
   connect(val.port_3, jun.port_3)
     annotation (Line(points={{-50,-40},{50,-40}}, color={0,127,255}));
@@ -233,14 +252,18 @@ This configuration is typically used instead of
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
 when the design supply temperature of the consumer circuit differs
-from the primary circuit.    
-    
+from the primary circuit.
+If the design temperatures are equal this configuration may theoritically
+still be used although it loses its main advantage which is that the 
+control valve can be sized for a lower flow rate 
+<i>m&#775;<sub>1, design</sub></i> 
+in the primary branch (see below) and can therefore be smaller.
 The control valve should be sized with a pressure drop at least equal to the
-maximum of <i>&Delta;p<sub>a1-b1</sub></i> and <i>3e3</i>&nbsp;Pa.
+maximum of <i>&Delta;p<sub>a1-b1</sub></i> and <i>3e3</i>&nbsp;Pa
+at <i>m&#775;<sub>1, design</sub></i>.
 Its authority is 
 <i>&beta; = &Delta;p<sub>A-AB</sub> / 
-(&Delta;p<sub>A-AB</sub> + &Delta;p<sub>a1-b1</sub>)</i>
-
+(&Delta;p<sub>A-AB</sub> + &Delta;p<sub>a1-b1</sub>)</i>.
 </p>
 <p>
 The balancing procedure should ensure that the three-way valve is fully
@@ -256,17 +279,43 @@ m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
 </i>
 </p>
 <p>
-Whereas the flow rate in the fixed bypass is given by:
+The flow rate in the fixed bypass is then given by the following equation.
 </p>
 <p>
 <i>
-m&#775;<sub>3, design</sub> = m&#775;<sub>2, design</sub> *
+m&#775;<sub>3, design</sub> = 
+m&#775;<sub>2, design</sub> - m&#775;<sub>1, design</sub> =
+m&#775;<sub>2, design</sub> *
 (T<sub>1, sup, design</sub> - T<sub>2, sup, design</sub>) / 
 (T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
 </i>
 </p>
 <p>
-Improper balancing...
+The model is not configured to support a primary flow rate
+equal to the secondary flow rate at design conditions and an
+error is triggered. This corresponds to the odd use case where
+the primary and secondary design temperatures are equal (see above).
+</p>
+<p>
+The bypass balancing valve works <i>together</i> with
+the secondary pump to generate the pressure differential differential at the 
+boundaries of the control valve.
+So it is paramount for proper operation of the consumer circuit that the 
+bypass balancing valve generates enough pressure drop at its design flow rate
+<i>m&#775;<sub>3, design</sub></i> otherwise the consumer circuit is starved 
+with primary flow rate despite the control valve being fully open.
+So oversizing the bypass balancing valve (yielding a lower pressure drop) 
+is detrimental to the consumer circuit operation.
+Undersizing the bypass balancing valve (yielding a lower pressure drop) 
+does not disturb the secondary circuit operation as the control valve
+then compensates for the elevated pressure differential by 
+working at a lower opening in average. 
+However, the secondary pump head is increased and so is the electricity
+consumption.
+See
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.DualMixing\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.DualMixing</a>
+for a numerical illustration of those effects.
 </p>
 <p>
 By default the secondary pump is parameterized with <code>m2_flow_nominal</code> 

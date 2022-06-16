@@ -2,6 +2,7 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionThreeWay "Injection circuit with three-way valve"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpValve_nominal=0.3e4,
+    set(final unit="K", displayUnit="degC"),
     final dpBal3_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
     final have_pum=true);
@@ -128,6 +129,8 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         rotation=90,
         origin={-60,60})));
   Controls.PIDWithOperatingMode ctl(
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
     final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,
@@ -273,14 +276,22 @@ m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
 </i>
 </p>
 <p>
-Improper balancing is not detrimental to the consumer circuit operation:
-the control valve compensates for the elevated pressure differential
-by working at a lower opening fraction in average.
+For the design flow rate <i>m&#775;<sub>1, design</sub></i> the primary 
+balancing valve should be sized to generate a pressure drop equivalent to 
+the pressure differential at the circuit boundaries <i>&Delta;p<sub>a1-b1</sub></i>.
+Oversizing the valve (yielding a lower pressure drop) is not detrimental 
+to the consumer circuit operation:
+the control valve compensates by working at a lower opening fraction in average.
 However, the primary circuit operation is degraded with a lower <i>&Delta;T</i>
-and a higher mass flow rate. See
+and a higher mass flow rate. 
+Undersizing the valve (yielding a higher pressure drop) is detrimental 
+to the consumer circuit operation that will be starved of primary flow rate
+despite the control valve being fully open. The consumer circuit temperature set point 
+cannot be met.
+See
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve</a>
-for a numerical illustration of improper balancing.
+for a numerical illustration of those effects.
 </p>
 <h4>
 Parameterization

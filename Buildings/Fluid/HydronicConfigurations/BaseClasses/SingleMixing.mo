@@ -1,6 +1,7 @@
 within Buildings.Fluid.HydronicConfigurations.BaseClasses;
 model SingleMixing "Single mixing circuit"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    set(final unit="K", displayUnit="degC"),
     final m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
     final have_pum=true);
@@ -97,6 +98,8 @@ model SingleMixing "Single mixing circuit"
         rotation=90,
         origin={-60,60})));
   Controls.PIDWithOperatingMode ctl(
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
     final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,
@@ -128,7 +131,7 @@ model SingleMixing "Single mixing circuit"
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={60,58})));
+        origin={60,60})));
   FixedResistances.PressureDrop res3(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -187,9 +190,9 @@ equation
   connect(val.y_actual, yVal_actual) annotation (Line(points={{-67,-34},{-67,
           -32},{-78,-32},{-78,-58},{80,-58},{80,-60},{120,-60}}, color={0,0,127}));
   connect(port_a2, T2Ret.port_a)
-    annotation (Line(points={{60,100},{60,68}}, color={0,127,255}));
+    annotation (Line(points={{60,100},{60,70}}, color={0,127,255}));
   connect(T2Ret.port_b,res2. port_a)
-    annotation (Line(points={{60,48},{60,40}}, color={0,127,255}));
+    annotation (Line(points={{60,50},{60,40}}, color={0,127,255}));
   connect(jun.port_3, res3.port_a)
     annotation (Line(points={{50,-40},{10,-40}}, color={0,127,255}));
   connect(res3.port_b, val.port_3)

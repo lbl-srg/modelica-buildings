@@ -1,6 +1,7 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionTwoWay "Injection circuit with two-way valve"
   extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
+    set(final unit="K", displayUnit="degC"),
     final dpBal3_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final have_pum=true);
@@ -112,6 +113,8 @@ model InjectionTwoWay "Injection circuit with two-way valve"
         rotation=90,
         origin={60,60})));
   Controls.PIDWithOperatingMode ctl(
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
     final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     final yMin=0,
     final yMax=1,

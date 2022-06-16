@@ -46,8 +46,8 @@ model PartialHydronicConfiguration
     "Circuit function (in case of built-in controls)"
     annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
 
-  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlVariable typCtl=
-    Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
+  replaceable parameter Buildings.Fluid.HydronicConfigurations.Types.ControlVariable
+    typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
     "Controlled variable (in case of built-in controls)"
     annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
 

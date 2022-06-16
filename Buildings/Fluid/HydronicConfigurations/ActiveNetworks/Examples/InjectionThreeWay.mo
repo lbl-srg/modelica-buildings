@@ -11,9 +11,9 @@ model InjectionThreeWay
     dpPum_nominal=(dpPip_nominal + dpValve_nominal) * kSizPum,
     del1(nPorts=2));
 
-  parameter Boolean is_bal=false
-    "Set to true for balanced primary branch"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Real kSizBal(final min=0) = 1
+    "Sizing factor for primary balancing valve (1 means balanced)"
+    annotation(Dialog(group="Configuration"));
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa")=0.3E4
     "Control valve pressure drop at design conditions";
@@ -28,8 +28,7 @@ model InjectionThreeWay
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
-    final dpBal1_nominal= if is_bal then dpPum_nominal - dpPip_nominal - dpValve_nominal
-      else 0)
+    final dpBal1_nominal= kSizBal * (dpPum_nominal - dpPip_nominal - dpValve_nominal))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
