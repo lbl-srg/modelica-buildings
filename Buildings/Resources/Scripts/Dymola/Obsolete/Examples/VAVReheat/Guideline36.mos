@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.VAVReheat.Guideline36", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36");
+simulateModel("Buildings.Obsolete.Examples.VAVReheat.Guideline36", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36");
 createPlot(id = 1,
  position = {26, 33, 808, 649},
  y = {"flo.sou.air.vol.T", "flo.eas.air.vol.T", "flo.nor.air.vol.T", "flo.wes.air.vol.T", "flo.cor.air.vol.T"},
@@ -39,7 +39,7 @@ createPlot(id = 1,
 createPlot(
     id=2,
     position={851, 35, 588, 648},
-    y={"hvac.conAHU.VEffAirOut_flow_min", "hvac.conAHU.VAirOut_flow"},
+    y={"hvac.conAHU.VEffOutAir_flow", "hvac.conAHU.VOut_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -47,7 +47,7 @@ createPlot(
     color=true);
 createPlot(
     id=2,
-    y={"hvac.conAHU.yOutDam", "hvac.conAHU.ecoCon.modRel.uOutDam_min", "hvac.conAHU.ecoCon.modRel.uOutDam_max", "hvac.conAHU.yRetDam"},
+    y={"hvac.conAHU.yOutDamPos", "hvac.conAHU.eco.mod.uOutDamPosMin", "hvac.conAHU.eco.mod.uOutDamPosMax", "hvac.conAHU.yRetDamPos"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
