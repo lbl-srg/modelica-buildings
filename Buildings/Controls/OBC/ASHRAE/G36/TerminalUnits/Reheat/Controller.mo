@@ -407,7 +407,9 @@ block Controller "Controller for room VAV box with reheat"
     final floHys=floHys,
     final looHys=looHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys) "Specify system requests "
+    final valPosHys=valPosHys,
+    final samplePeriod=samplePeriod)
+    "Specify system requests "
     annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo(
     final kCooCon=kCooCon,
