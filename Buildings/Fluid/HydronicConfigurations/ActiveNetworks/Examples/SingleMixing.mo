@@ -16,10 +16,10 @@ model SingleMixing
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing con(
     have_ctl=true,
-    typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium=MediumLiq,
     use_lumFloRes=false,
+    final typFun=typ,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -44,7 +44,7 @@ model SingleMixing
         22,0,0; 24,0,0],
       timeScale=3600)
     "Load modulating signal"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl
     loa1(
     redeclare final package MediumLiq = MediumLiq,
@@ -70,35 +70,26 @@ model SingleMixing
     table=[0,0; 6,0; 6,1; 22,1; 22,0; 24,0],
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 9,0;
         15,-10; 16,-10; 17,0; 24,0],   timeScale=3600)
     "Offset applied to design supply temperature to compute set point"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter T2Set(final p=
         TLiqEnt_nominal, y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature set point" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-40,60})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal rea
-    "Convert signal into real"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        origin={-50,60})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal modPum
+    "Pump operating mode"
+    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
+    "Returns true if enabled"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-20,-20})));
-  Buildings.Controls.OBC.CDL.Integers.Min min
-    "Min with 1"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-50,-20})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
-    final k=1)
-    "One"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+        origin={-70,-20})));
 equation
   connect(con.port_b1, dp.port_b) annotation (Line(points={{36,0},{36,-20},{40,
           -20},{40,-40}},
@@ -108,19 +99,18 @@ equation
                      color={0,127,255}));
   connect(res2.port_b, loa1.port_a) annotation (Line(points={{90,40},{100,40},{
           100,72}},     color={0,127,255}));
-  connect(fraLoa.y[1], loa.u) annotation (Line(points={{-78,100},{20,100},{20,78},
-          {38,78}}, color={0,0,127}));
-  connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-78,100},{80,100},{80,80},
-          {98,80}}, color={0,0,127}));
+  connect(fraLoa.y[1], loa.u) annotation (Line(points={{-98,100},{20,100},{20,
+          78},{38,78}},
+                    color={0,0,127}));
+  connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-98,100},{80,100},{80,
+          80},{98,80}},
+                    color={0,0,127}));
   connect(setOff.y[1], T2Set.u)
-    annotation (Line(points={{-78,60},{-52,60}}, color={0,0,127}));
-  connect(mode.y[1], con.mod) annotation (Line(points={{-78,20},{10,20},{10,18},
+    annotation (Line(points={{-98,60},{-62,60}}, color={0,0,127}));
+  connect(mode.y[1], con.mod) annotation (Line(points={{-98,20},{10,20},{10,18},
           {18,18}}, color={255,127,0}));
-  connect(T2Set.y, con.set) annotation (Line(points={{-28,60},{-20,60},{-20,6},
+  connect(T2Set.y, con.set) annotation (Line(points={{-38,60},{-20,60},{-20,6},
           {18,6}},  color={0,0,127}));
-  connect(min.y, rea.u)
-    annotation (Line(points={{-38,-20},{-32,-20}},
-                                               color={255,127,0}));
   connect(con.port_b2, loa.port_a) annotation (Line(points={{24,20},{24,40},{40,
           40},{40,70}}, color={0,127,255}));
   connect(loa.port_b, con.port_a2)
@@ -137,17 +127,17 @@ equation
   connect(dp.port_b, del1.ports[2])
     annotation (Line(points={{40,-40},{40,-60},{40,-80},{20,-80}},
                                                    color={0,127,255}));
-  connect(rea.y, pum.y) annotation (Line(points={{-8,-20},{0,-20},{0,-40},{-80,
-          -40},{-80,-48}},   color={0,0,127}));
-  connect(mode.y[1], min.u1) annotation (Line(points={{-78,20},{-70,20},{-70,-14},
-          {-62,-14}}, color={255,127,0}));
-  connect(one.y, min.u2)
-    annotation (Line(points={{-78,-20},{-70,-20},{-70,-26},{-62,-26}},
-                                                   color={255,127,0}));
-  connect(mode.y[1], loa.mode) annotation (Line(points={{-78,20},{10,20},{10,74},
+  connect(mode.y[1], loa.mode) annotation (Line(points={{-98,20},{10,20},{10,74},
           {38,74}}, color={255,127,0}));
-  connect(mode.y[1], loa1.mode) annotation (Line(points={{-78,20},{10,20},{10,52},
-          {80,52},{80,76},{98,76}}, color={255,127,0}));
+  connect(mode.y[1], loa1.mode) annotation (Line(points={{-98,20},{10,20},{10,
+          52},{80,52},{80,76},{98,76}},
+                                    color={255,127,0}));
+  connect(isEna.y, modPum.u)
+    annotation (Line(points={{-58,-20},{-52,-20}}, color={255,0,255}));
+  connect(modPum.y, pum.y) annotation (Line(points={{-28,-20},{-20,-20},{-20,
+          -40},{-80,-40},{-80,-48}}, color={0,0,127}));
+  connect(mode.y[1], isEna.u) annotation (Line(points={{-98,20},{-90,20},{-90,
+          -20},{-82,-20}}, color={255,127,0}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),

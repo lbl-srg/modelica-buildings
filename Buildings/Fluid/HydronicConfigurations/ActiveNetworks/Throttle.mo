@@ -20,7 +20,6 @@ model Throttle "Throttle circuit"
     final flowCharacteristics=flowCharacteristics)
     "Control valve"
     annotation (
-      choicesAllMatching = true,
       Placement(
         transformation(
         extent={{-10,10},{10,-10}},

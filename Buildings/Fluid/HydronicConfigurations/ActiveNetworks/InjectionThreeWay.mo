@@ -28,7 +28,6 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
     annotation (
-      choicesAllMatching = true,
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -113,7 +112,6 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     final per=perPum)
     "Pump"
     annotation (
-      choicesAllMatching = true,
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,

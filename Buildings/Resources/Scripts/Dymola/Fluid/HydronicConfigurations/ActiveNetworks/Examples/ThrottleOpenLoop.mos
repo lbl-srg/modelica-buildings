@@ -27,10 +27,10 @@ q_flow_nom = readTrajectory("ThrottleOpenLoop.mat", {"loa.Q_flow_nominal"}, 1);
 q1_flow_nom = readTrajectory("ThrottleOpenLoop.mat", {"loa1.Q_flow_nominal"}, 1);
 q_flow = readTrajectory("ThrottleOpenLoop.mat", {"loa.Q_flow"}, nPoints);
 q1_flow = readTrajectory("ThrottleOpenLoop.mat", {"loa1.Q_flow"}, nPoints);
-dT = readTrajectory("ThrottleOpenLoop.mat", {"delT.y"}, nPoints);
+dT = readTrajectory("ThrottleOpenLoop.mat", {"dT1.y"}, nPoints);
 ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
 
 createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
-plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="delT.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="dT1.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
 plotArray({1}, {dT[1, 1]}, id=6, erase=false, legend="Design operating point", color={238,46,47});
 plotArray({0,1}, {0,dT[1, 1]}, id=6, erase=false, legend="Linear trend", color={0,140,72}, pattern=LinePattern.Dash);

@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstantReturn", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="InjectionTwoWayConstantReturn");
 
-createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "T1Sup.T", "T1Ret.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
 
 createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "con.res3.m_flow", "mPum_flow_nominal", "con.pum.m_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
@@ -22,7 +22,7 @@ dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
 dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
 q_flow = readTrajectory("InjectionTwoWayConstantReturn.mat", {"loa.Q_flow"}, nPoints);
 q1_flow = readTrajectory("InjectionTwoWayConstantReturn.mat", {"loa1.Q_flow"}, nPoints);
-dT = readTrajectory("InjectionTwoWayConstantReturn.mat", {"delT.y"}, nPoints);
+dT = readTrajectory("InjectionTwoWayConstantReturn.mat", {"dT1.y"}, nPoints);
 ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
 T2Sup = readTrajectory("InjectionTwoWayConstantReturn.mat", {"con.T2Sup.T"}, nPoints);
 T2Ret = readTrajectory("InjectionTwoWayConstantReturn.mat", {"con.T2Ret.T"}, nPoints);

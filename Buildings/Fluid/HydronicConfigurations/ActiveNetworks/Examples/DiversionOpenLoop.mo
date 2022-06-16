@@ -154,12 +154,6 @@ The main assumptions are enumerated below.
 The model is configured in steady-state.
 </li>
 <li>
-Secondary and valve flow resistances are not lumped together
-so that the valve authority can be computed as
-<code>val.res1.dp / val.res2.dp</code> when the valve is
-fully open.
-</li>
-<li>
 The design conditions at <code>time = 0</code> are defined without
 considering any load diversity.
 </li>
@@ -167,11 +161,12 @@ considering any load diversity.
 Each circuit is balanced at design conditions.
 </li>
 <li>
-The bypass branch of the three-way valve is balanced at
+The bypass of the diversion circuit is balanced at
 design conditions if the parameter <code>is_bal</code>
-is set to <code>true</code>. Otherwise no fixed flow
-resistance is considered in the bypass branch, only the
-variable flow resistance corresponding to the control valve.
+is set to <code>true</code>. 
+Otherwise no fixed flow resistance is considered in the bypass branch, 
+only the variable flow resistance corresponding to the bypass
+port of the three-way valve.
 The parameter <code>fraK</code> of the control valves is
 set at <i>1.0</i> to effectively have an unbalanced bypass branch
 for <code>con.dpBal3_nominal = 0</code>, see
@@ -185,26 +180,34 @@ shows the following points.
 </p>
 <ul>
 <li>
-The overflow caused by the unbalanced bypass branch when the valve
-is fully closed (see plot #2 at <code>time = 100</code>)
-creates a concomitant flow shortage in the other circuit with the
+The overflow caused by the unbalanced bypass when the valve
+is fully closed in the first circuit (see plot #2 at <code>time = 100</code>)
+creates a concomitant flow shortage in the second circuit with the
 valve fully open.
-However, the flow shortage (<i>6%</i>) is of a much lower amplitude than
-the overflow (<i>27%</i>).
+However, the flow shortage (<i>4%</i>) is of a much lower amplitude than
+the overflow (<i>30%</i>).
 Indeed the equivalent flow resistance seen by the pump is lower than at
 design conditions, leading a shift of the operating point of the pump
 towards a flow rate value higher than design, which partly compensates
 for the overflow.
 </li>
 <li>
-The impact on the heat flow rate transferred to the load (see plot #4) is of an
-even lower amplitude (<i>2%</i>) due to the emission characteristic of the
-terminal unit.
+The impact on the heat flow rate transferred to the load (see plot #4) is of 
+an even lower amplitude (<i>2%</i>).
+This is dependent on the emission characteristic of the terminal unit 
+that would theoritically be steeper with a higher effectiveness at design 
+conditions, although the order of magnitude would remain the same.
+For reference, the terminal unit in this example represents a recirculating
+air terminal such as a fan coil unit in heating mode with a water 
+<i>&Delta;T</i> of <i>10</i>°C at design conditions, so an effectiveness 
+<i>&epsilon; = &Delta;T<sub>liq</sub> / 
+(T<sub>liq, inl</sub> - T<sub>air, inl</sub>) = 0.25</i>.
 </li>
 <li>
 The equal-percentage / linear characteristic of the control valve yields
 a relationship between the heat flow rate transferred to the load and the
-valve opening that is close to linear (see plot #4).
+valve opening that is close to linear (see plot #4), with a Pearson 
+correlation coefficient equal to <i>0.99</i>.
 </li>
 </ul>
 <h4>
@@ -243,12 +246,12 @@ Direct and bypass mass flow rate
 <p>
 The overflow in the bypass branch when the valve is fully closed increases with
 <i>&psi;</i> and decreases with <i>&beta;</i>.
-It it close to <i>80%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
+It it close to <i>90%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
 However, the concomitant flow shortage in the other terminal unit with a valve
-fully open is limited to about <i>20%</i>.
+fully open (see next plot) is limited to about <i>20%</i>.
 For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage
-is limited to about <i>10%</i>, indicating that selecting the control valve with
-a suitable authority largely dampens the impact of an unbalanced bypass branch.
+is below <i>10%</i>, indicating that selecting the control valve with
+a suitable authority largely dampens the impact of an unbalanced bypass.
 </p>
 <p>
 <img alt=\"Diversion circuit bypass flow rate\"

@@ -48,19 +48,28 @@ model PartialActivePrimary
 
   parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=
     if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
-      then 60+273.15 else 7+273.15
+    then 60+273.15 else 7+273.15
     "Liquid entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal+(
     if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
-      then -10 else +5)
+    then -10 else +5)
     "Liquid leaving temperature at design conditions";
+  parameter Modelica.Units.SI.Temperature TLiqEntChg_nominal=
+    60+273.15
+    "Liquid entering temperature in change-over mode"
+    annotation(Dialog(
+      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
+
   parameter Modelica.Units.SI.Temperature TLiqSup_nominal=TLiqEnt_nominal
-    "Liquid primary supply temperature at design conditions"
-    annotation (Dialog(group="Nominal condition"));
+    "Liquid primary supply temperature at design conditions";
+  parameter Modelica.Units.SI.Temperature TLiqSupChg_nominal=TLiqEntChg_nominal
+    "Liquid primary supply temperature in change-over mode"
+    annotation (Dialog(
+    enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
 
   Sources.Boundary_pT ref(
     redeclare final package Medium = MediumLiq,
@@ -71,49 +80,48 @@ model PartialActivePrimary
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-80,-90})));
-  Movers.SpeedControlled_y pum(
-    redeclare final package Medium = MediumLiq,
-    final energyDynamics=energyDynamics,
-    addPowerToMedium=false,
-    use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(pressure(V_flow={0,1,2}*mPum_flow_nominal/996, dp={1.2,1,0.4}*
-            dpPum_nominal)),
-    inputType=Buildings.Fluid.Types.InputType.Continuous)
+  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum
+    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      redeclare final package Medium = MediumLiq,
+      final energyDynamics=energyDynamics,
+      addPowerToMedium=false,
+      use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+      per(
+        pressure(V_flow={0,1,2}*mPum_flow_nominal/996,
+        dp={1.2,1,0.4}*dpPum_nominal)))
     "Circulation pump"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
   FixedResistances.PressureDrop res1(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
     final dp_nominal=dpPip_nominal) "Pipe pressure drop"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
-  Sensors.TemperatureTwoPort TRet(
+  Sensors.TemperatureTwoPort T1Ret(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
     final tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
          then 0 else 1,
-    T_start=TLiqSup_nominal)
-    "Return temperature sensor"
-    annotation (Placement(
+    T_start=TLiqSup_nominal) "Return temperature sensor" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-40,-80})));
-  Sensors.TemperatureTwoPort TSup(
+  Sensors.TemperatureTwoPort T1Sup(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mPum_flow_nominal,
     final tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
          then 0 else 1,
-    T_start=TLiqSup_nominal)
-    "Supply temperature sensor"
-    annotation (Placement(
+    T_start=TLiqSup_nominal) "Supply temperature sensor" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-60,-60})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract  delT(y(final unit="K"))
-    "Primary delta-T"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dT1(y(final unit="K"))
+    "Primary Delta-T" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,-110})));
   Delays.DelayFirstOrder del1(
@@ -124,21 +132,21 @@ model PartialActivePrimary
     "Fluid transport delay"
     annotation (Placement(transformation(extent={{10,-80},{30,-100}})));
 equation
-  connect(pum.port_b,TSup. port_a)
+  connect(pum.port_b, T1Sup.port_a)
     annotation (Line(points={{-70,-60},{-70,-60}}, color={0,127,255}));
-  connect(TSup.port_b,res1. port_a)
+  connect(T1Sup.port_b, res1.port_a)
     annotation (Line(points={{-50,-60},{-30,-60}}, color={0,127,255}));
-  connect(TRet.T,delT. u1)
-    annotation (Line(points={{-40,-91},{-40,-98},{-44,-98}},color={0,0,127}));
-  connect(TSup.T,delT. u2)
-    annotation (Line(points={{-60,-71},{-60,-98},{-56,-98}},color={0,0,127}));
+  connect(T1Ret.T, dT1.u1)
+    annotation (Line(points={{-40,-91},{-40,-98},{-44,-98}}, color={0,0,127}));
+  connect(T1Sup.T, dT1.u2)
+    annotation (Line(points={{-60,-71},{-60,-98},{-56,-98}}, color={0,0,127}));
 
   connect(ref.ports[1], pum.port_a) annotation (Line(points={{-81,-80},{-100,-80},
           {-100,-60},{-90,-60}},  color={0,127,255}));
-  connect(ref.ports[2], TRet.port_b)
-    annotation (Line(points={{-79,-80},{-50,-80}},   color={0,127,255}));
-  connect(TRet.port_a, del1.ports[1])
-    annotation (Line(points={{-30,-80},{20,-80}},   color={0,127,255}));
+  connect(ref.ports[2], T1Ret.port_b)
+    annotation (Line(points={{-79,-80},{-50,-80}}, color={0,127,255}));
+  connect(T1Ret.port_a, del1.ports[1])
+    annotation (Line(points={{-30,-80},{20,-80}}, color={0,127,255}));
   annotation (
   Diagram(
       coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));

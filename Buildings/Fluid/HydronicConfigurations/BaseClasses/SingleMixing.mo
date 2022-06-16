@@ -27,7 +27,6 @@ model SingleMixing "Single mixing circuit"
     final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
     annotation (
-      choicesAllMatching = true,
       Placement(
         transformation(
         extent={{10,10},{-10,-10}},
@@ -81,7 +80,6 @@ model SingleMixing "Single mixing circuit"
     final per=perPum)
     "Pump"
     annotation (
-      choicesAllMatching = true,
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -187,8 +185,6 @@ equation
           60},{120,60}}, color={0,0,127}));
   connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},
           {80,40},{120,40}}, color={0,0,127}));
-  connect(val.y_actual, yVal_actual) annotation (Line(points={{-67,-34},{-67,
-          -32},{-78,-32},{-78,-58},{80,-58},{80,-60},{120,-60}}, color={0,0,127}));
   connect(port_a2, T2Ret.port_a)
     annotation (Line(points={{60,100},{60,70}}, color={0,127,255}));
   connect(T2Ret.port_b,res2. port_a)
@@ -197,6 +193,8 @@ equation
     annotation (Line(points={{50,-40},{10,-40}}, color={0,127,255}));
   connect(res3.port_b, val.port_3)
     annotation (Line(points={{-10,-40},{-50,-40}}, color={0,127,255}));
+  connect(val.y_actual, yVal_actual) annotation (Line(points={{-67,-34},{-67,
+          -24},{80,-24},{80,-40},{120,-40}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false)),

@@ -2,6 +2,7 @@ within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
 model SingleMixingOpenLoop
   "Model illustrating the operation of single mixing circuits with back pressure"
   extends BaseClasses.PartialPassivePrimary(
+    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     TLiqEnt_nominal=60+273.15,
     TLiqLvg_nominal=TLiqEnt_nominal-10,
     TLiqSup_nominal=TLiqEnt_nominal,
@@ -20,6 +21,7 @@ model SingleMixingOpenLoop
     val(fraK=1.0),
     pum(dp_nominal=con.dp2_nominal + con.dpBal2_nominal +
       max({con.val.dpValve_nominal, con.val.dp3Valve_nominal}) + res1.dp_nominal),
+    final typFun=typ,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa.m_flow_nominal,
     final dp2_nominal=loa.dpLiq_nominal,
@@ -28,7 +30,7 @@ model SingleMixingOpenLoop
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
     redeclare final package MediumLiq = MediumLiq,
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
+    final typ=typ,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final dpLiq_nominal=dpTer_nominal,
@@ -42,6 +44,7 @@ model SingleMixingOpenLoop
     val(fraK=1.0),
     pum(dp_nominal=con1.dp2_nominal + con1.dpBal2_nominal +
       max({con1.val.dpValve_nominal, con1.val.dp3Valve_nominal}) + res1.dp_nominal),
+    final typFun=typ,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa1.m_flow_nominal,
     final dp2_nominal=loa1.dpLiq_nominal,
@@ -50,7 +53,7 @@ model SingleMixingOpenLoop
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
     redeclare final package MediumLiq = MediumLiq,
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
+    final typ=typ,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final dpLiq_nominal=dpTer_nominal,

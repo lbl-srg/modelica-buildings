@@ -32,7 +32,6 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final per=perPum)
     "Pump"
     annotation (
-      choicesAllMatching = true,
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -48,7 +47,6 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final flowCharacteristics=flowCharacteristics)
     "Control valve"
     annotation (
-      choicesAllMatching = true,
       Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -106,8 +104,8 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
-         else 1)
-    "Consumer circuit return temperature sensor" annotation (
+         else 1) "Consumer circuit return temperature sensor"
+                                                 annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -227,7 +225,8 @@ equation
   connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},
           {80,40},{120,40}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual)
-    annotation (Line(points={{53,-46},{53,-60},{120,-60}}, color={0,0,127}));
+    annotation (Line(points={{53,-46},{53,-60},{80,-60},{80,-40},{120,-40}},
+                                                           color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

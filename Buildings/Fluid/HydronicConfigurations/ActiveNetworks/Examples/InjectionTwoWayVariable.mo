@@ -31,8 +31,7 @@ model InjectionTwoWayVariable
         rotation=-90,
         origin={140,40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(
-    final k=dp2Set)
-    "Pressure differential set point"
+    final k=dp2Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Controls.PIDWithOperatingMode ctlPum2(
     k=1,
@@ -72,7 +71,7 @@ This model illustrates the use of an injection circuit with a two-way valve
 that serves as the interface between a variable flow primary circuit at constant
 supply temperature and a constant flow secondary circuit at variable supply
 temperature.
-Two identical terminal units circuits are served by the secondary circuit.
+Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>

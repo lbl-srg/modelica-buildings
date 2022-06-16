@@ -30,7 +30,6 @@ model Diversion "Diversion circuit"
     final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
     annotation (
-      choicesAllMatching = true,
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},

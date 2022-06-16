@@ -190,7 +190,7 @@ The model is configured in steady-state.
 <li>
 Secondary and valve flow resistances are not lumped together
 so that the valve authority can be computed as
-<code>val.res1.dp / val.res2.dp</code> when the valve is
+<code>val.res1.dp/val.res2.dp</code> when the valve is
 fully open.
 </li>
 <li>

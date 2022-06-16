@@ -30,7 +30,6 @@ model DualMixing "Dual mixing circuit"
     final flowCharacteristics3=flowCharacteristics3)
     "Control valve"
     annotation (
-      choicesAllMatching = true,
       Placement(
         transformation(
         extent={{10,10},{-10,-10}},
@@ -73,7 +72,6 @@ model DualMixing "Dual mixing circuit"
     final per=perPum)
     "Pump"
     annotation (
-      choicesAllMatching = true,
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,

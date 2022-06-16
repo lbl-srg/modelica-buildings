@@ -200,7 +200,7 @@ This model illustrates the use of an injection circuit with a two-way valve
 that serves as the interface between a variable flow primary circuit at constant
 supply temperature and a constant flow secondary circuit at variable supply
 temperature.
-Two identical terminal units circuits are served by the secondary circuit.
+Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>

@@ -20,10 +20,10 @@ model InjectionThreeWay
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay con(
     have_ctl=true,
-    typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium = MediumLiq,
     use_lumFloRes=false,
+    final typFun=typ,
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
@@ -164,7 +164,7 @@ This model illustrates the use of an injection circuit with a three-way valve
 that serves as the interface between a constant flow primary circuit at constant
 supply temperature and a constant flow secondary circuit at variable supply
 temperature.
-Two identical terminal units circuits are served by the secondary circuit.
+Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>

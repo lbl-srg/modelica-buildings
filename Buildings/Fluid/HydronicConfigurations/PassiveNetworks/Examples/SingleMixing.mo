@@ -1,6 +1,8 @@
 within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
 model SingleMixing "Model illustrating the operation of single mixing circuits"
-  extends BaseClasses.PartialPassivePrimary(del1(nPorts=3), ref(use_T_in=true));
+  extends BaseClasses.PartialPassivePrimary(
+    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
+    del1(nPorts=3), ref(use_T_in=true));
 
   parameter Modelica.Units.SI.PressureDifference dp2Set(
     final min=0,
@@ -10,29 +12,30 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
 
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con(
     have_ctl=true,
-    typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
+    final typFun=typ,
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa.m_flow_nominal,
     final dp2_nominal=loa.dpTer_nominal + loa.dpValve_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+
   ActiveNetworks.Examples.BaseClasses.LoadThreeWayValveControl loa(
-      redeclare final package MediumLiq = MediumLiq,
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
-      final energyDynamics=energyDynamics,
-      final mLiq_flow_nominal=mTer_flow_nominal,
-      final TLiqEnt_nominal=TLiqEnt_nominal,
-      final TLiqLvg_nominal=TLiqLvg_nominal,
-      final TLiqEntChg_nominal=TLiqEntChg_nominal)
+    redeclare final package MediumLiq = MediumLiq,
+    final typ=typ,
+    final energyDynamics=energyDynamics,
+    final mLiq_flow_nominal=mTer_flow_nominal,
+    final TLiqEnt_nominal=TLiqEnt_nominal,
+    final TLiqLvg_nominal=TLiqLvg_nominal,
+    final TLiqEntChg_nominal=TLiqEntChg_nominal)
     "Load"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con1(
     have_ctl=true,
     typPumMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head,
-    typFun=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
+    final typFun=typ,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa1.m_flow_nominal / 0.9,
@@ -40,13 +43,13 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl loa1(
-      redeclare final package MediumLiq = MediumLiq,
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
-      final energyDynamics=energyDynamics,
-      final mLiq_flow_nominal=mTer_flow_nominal,
-      final TLiqEnt_nominal=TLiqEnt_nominal,
-      final TLiqLvg_nominal=TLiqLvg_nominal,
-      final TLiqEntChg_nominal=TLiqEntChg_nominal)
+    redeclare final package MediumLiq = MediumLiq,
+    final typ=typ,
+    final energyDynamics=energyDynamics,
+    final mLiq_flow_nominal=mTer_flow_nominal,
+    final TLiqEnt_nominal=TLiqEnt_nominal,
+    final TLiqLvg_nominal=TLiqLvg_nominal,
+    final TLiqEntChg_nominal=TLiqEntChg_nominal)
     "Load"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Sensors.RelativePressure dp2(redeclare final package Medium = MediumLiq)
@@ -63,10 +66,9 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
         rotation=0,
         origin={70,60})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
-    table=[0,0,0; 6,0,0; 6,2,1; 13,2,1; 13,1,1; 22,1,1; 22,0,0; 24,0,0],
+    table=[0,0; 6,0; 6,2; 13,2; 13,1; 22,1; 22,0; 24,0],
     timeScale=3600,
-    period=86400)
-    "Operating mode (time schedule): index 1 for change-over switch, index 2 for pump on/off"
+    period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
@@ -101,11 +103,12 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
         TLiqSup_nominal,TLiqSupChg_nominal})
     "Primary circuit temperature set point values"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor   T2Set2(
-    allowOutOfRange=true,                                   nin=2,
-    outOfRangeValue=20 + 273.15,                            y(final unit="K",
-        displayUnit="degC"))
-    "Consumer circuit temperature set point" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor T1Set(
+    allowOutOfRange=true,
+    nin=2,
+    outOfRangeValue=20 + 273.15,
+    y(final unit="K", displayUnit="degC"))
+    "Primary circuit temperature set point" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -160,14 +163,12 @@ equation
                      color={0,0,127}));
   connect(T2Set.y, con1.set) annotation (Line(points={{-38,-30},{-20,-30},{-20,-50},
           {40,-50},{40,-34},{58,-34}}, color={0,0,127}));
-  connect(T1SetVal.y, T2Set2.u) annotation (Line(points={{-98,-120},{-94,-120},{
+  connect(T1SetVal.y, T1Set.u) annotation (Line(points={{-98,-120},{-94,-120},{
           -94,-120},{-92,-120}}, color={0,0,127}));
-  connect(T2Set2.y, ref.T_in) annotation (Line(points={{-68,-120},{-66,-120},{
-          -66,-90},{-120,-90},{-120,-74},{-102,-74}},
-                                                    color={0,0,127}));
-  connect(mode.y[1], T2Set2.index) annotation (Line(points={{-98,80},{-80,80},{
-          -80,60},{-130,60},{-130,-100},{-80,-100},{-80,-108}},
-                                                            color={255,127,0}));
+  connect(T1Set.y, ref.T_in) annotation (Line(points={{-68,-120},{-66,-120},{-66,
+          -90},{-120,-90},{-120,-74},{-102,-74}}, color={0,0,127}));
+  connect(mode.y[1], T1Set.index) annotation (Line(points={{-98,80},{-80,80},{-80,
+          60},{-130,60},{-130,-100},{-80,-100},{-80,-108}}, color={255,127,0}));
   connect(res1.port_b, con.port_a1) annotation (Line(points={{-10,-60},{0,-60},
           {0,-40},{4,-40}}, color={0,127,255}));
   connect(res1.port_b, con1.port_a1) annotation (Line(points={{-10,-60},{60,-60},
@@ -183,7 +184,7 @@ __Dymola_Commands(file=
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Two consumer circuits operating in change-over: 
+Two consumer circuits operated in change-over: 
 first one is constant flow,
 second one is variable flow.
 The pump model for the second circuit is an ideal 

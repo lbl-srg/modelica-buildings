@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.SingleMixing", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="SingleMixing");
 
-createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "TSup.T", "TRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "T1Sup.T", "T1Ret.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
 
 createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.pum.m_flow_nominal", "con.val.m3_flow"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
@@ -22,10 +22,10 @@ dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
 dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
 q_flow = readTrajectory("SingleMixing.mat", {"loa.Q_flow"}, nPoints);
 q1_flow = readTrajectory("SingleMixing.mat", {"loa1.Q_flow"}, nPoints);
-dT = readTrajectory("SingleMixing.mat", {"delT.y"}, nPoints);
+dT = readTrajectory("SingleMixing.mat", {"dT1.y"}, nPoints);
 ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
 
 createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
-plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="delT.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="dT1.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
 plotArray({1}, {dTPri_nom}, id=6, erase=false, legend="Design operating point", color={238,46,47});
 plotArray({0, 1}, {0, dTPri_nom}, id=6, erase=false, legend="Linear trend", color={0,140,72}, pattern=LinePattern.Dash);

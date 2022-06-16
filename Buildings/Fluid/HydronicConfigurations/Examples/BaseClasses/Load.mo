@@ -41,17 +41,17 @@ model Load "Model of a load on hydronic circuit"
     "Air entering humidity ratio at design conditions (kg/kg dry air)";
   parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=
     if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
-      then 60+273.15 else 7+273.15
+    then 60+273.15 else 7+273.15
     "Liquid entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal+(
     if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
-      then -10 else +5)
+    then -10 else +5)
     "Liquid leaving temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqEntChg_nominal=
     60+273.15
     "Liquid entering temperature in change-over mode"
     annotation(Dialog(
-      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
+      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
    (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-
