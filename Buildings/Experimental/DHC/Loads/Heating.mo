@@ -282,6 +282,67 @@ First implementation.
                 fillColor={0,0,0},
                 fillPattern=FillPattern.Solid)}));
       end IdealValve;
+
+      model DirectHeatExchangerWaterHeaterWithAuxHeat
+        "A model for domestic water heating served by district heat exchanger and supplemental electric resistance"
+        replaceable package Medium = Buildings.Media.Water "Water media model";
+        parameter Modelica.Units.SI.Temperature TSetHw = 273.15+60 "Temperature setpoint of hot water supply from heater";
+        parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal "Nominal mass flow rate of hot water supply";
+        parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal "Nominal mass flow rate of district heating water";
+        Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
+          redeclare package Medium = Medium,
+          m_flow_nominal=mHw_flow_nominal,
+          dp_nominal=0) "Supplemental electric resistance domestic hot water heater"
+          annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+        Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw) "Temperature setpoint for domestic hot water supply from heater"
+          annotation (Placement(transformation(extent={{-48,32},{-32,48}})));
+        Modelica.Fluid.Interfaces.FluidPort_b port_hw(redeclare package Medium
+            = Medium) "Hot water supply port"
+          annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+        Modelica.Blocks.Interfaces.RealOutput Q_flow "Thermal energy added to water"
+          annotation (Placement(transformation(extent={{100,30},{120,50}})));
+        Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package
+            Medium =
+              Medium, m_flow_nominal=mHw_flow_nominal)
+          annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+        Modelica.Fluid.Interfaces.FluidPort_a port_cw(redeclare package Medium
+            = Medium) "Port for domestic cold water inlet"
+          annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+        Fluid.HeatExchangers.ConstantEffectiveness hex(
+          redeclare package Medium1 = Medium,
+          redeclare package Medium2 = Medium,
+          m1_flow_nominal=mHw_flow_nominal,
+          m2_flow_nominal=mDH_flow_nominal,
+          dp1_nominal=0,
+          dp2_nominal=0,
+          eps=0.85) "Domestic hot water heater"
+          annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
+        Modelica.Fluid.Interfaces.FluidPort_a port_dhs(redeclare package Medium
+            = Medium) "Port for district heating supply"
+          annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
+        Modelica.Fluid.Interfaces.FluidPort_b port_dhr(redeclare package Medium
+            = Medium) "Port for district heating return"
+          annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
+      equation
+        connect(conTSetHw.y, heaDhw.TSet) annotation (Line(points={{-31.2,40},{-20,40},
+                {-20,8},{-12,8}}, color={0,0,127}));
+        connect(senTem.port_b, port_hw)
+          annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
+        connect(senTem.port_a, heaDhw.port_b)
+          annotation (Line(points={{50,0},{10,0}},  color={0,127,255}));
+        connect(heaDhw.Q_flow, Q_flow) annotation (Line(points={{11,8},{40,8},{40,40},
+                {110,40}}, color={0,0,127}));
+        connect(hex.port_b1, heaDhw.port_a)
+          annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
+        connect(hex.port_a1, port_cw)
+          annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
+        connect(port_dhs, hex.port_a2) annotation (Line(points={{-20,-100},{-20,-12},{
+                -40,-12}}, color={0,127,255}));
+        connect(hex.port_b2, port_dhr) annotation (Line(points={{-60,-12},{-80,-12},{-80,
+                -100}}, color={0,127,255}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end DirectHeatExchangerWaterHeaterWithAuxHeat;
     annotation (Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the classes in
