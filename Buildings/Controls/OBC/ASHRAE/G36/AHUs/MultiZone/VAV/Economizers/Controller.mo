@@ -377,14 +377,6 @@ block Controller
     "Dummy block"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(
-    final delta=aveTimRan)
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
-    "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-220,180},{-200,200}})));
-
 equation
   connect(sepAFMS.VOutMinSet_flow_normalized, VOutMinSet_flow_normalized)
     annotation (Line(points={{-142,149},{-160,149},{-160,230},{-260,230}},
@@ -467,12 +459,6 @@ equation
           -86},{66,-86},{66,30},{98,30}}, color={0,0,127}));
   connect(enaDis.yRetDam_min, modRet.uRetDam_min) annotation (Line(points={{42,
           -96},{72,-96},{72,24},{98,24}}, color={0,0,127}));
-  connect(VOut_flow_normalized, movAve.u)
-    annotation (Line(points={{-260,190},{-222,190}}, color={0,0,127}));
-  connect(movAve.y, sepAFMS.VOut_flow_normalized) annotation (Line(points={{-198,
-          190},{-166,190},{-166,146},{-142,146}},      color={0,0,127}));
-  connect(movAve.y, damLim.VOut_flow_normalized) annotation (Line(points={{-198,
-          190},{-166,190},{-166,34},{-142,34}}, color={0,0,127}));
   connect(modRet.yRetDam, yRetDam) annotation (Line(points={{122,36},{140,36},
           {140,100},{280,100}}, color={0,0,127}));
   connect(modRel.yRetDam, yRetDam) annotation (Line(points={{122,-24},{140,-24},
@@ -523,6 +509,10 @@ equation
           {-142,-110}}, color={0,0,127}));
   connect(addPar.y, enaDis.TOutCut) annotation (Line(points={{-118,-110},{-30,-110},
           {-30,-75},{18,-75}}, color={0,0,127}));
+  connect(VOut_flow_normalized, sepAFMS.VOut_flow_normalized) annotation (Line(
+        points={{-260,190},{-166,190},{-166,146},{-142,146}}, color={0,0,127}));
+  connect(VOut_flow_normalized, damLim.VOut_flow_normalized) annotation (Line(
+        points={{-260,190},{-166,190},{-166,34},{-142,34}}, color={0,0,127}));
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={
