@@ -83,13 +83,13 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     "Uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1) "Add parameter"
-    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sysVenEff
     "Current system ventilation efficiency"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     "Avoid devide by zero"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -97,7 +97,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     final k=VDesTotOutAir_flow)
     "Design total outdoor air rate "
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Division"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min2
     "Uncorrected minimum outdoor airflow rate"
@@ -114,6 +114,12 @@ block AHU "Outdoor airflow related calculations at the AHU level"
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
     "Normalization for outdoor air flow rate"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(
+    final k=1E-3) "Near zero value"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max2
+    "Avoid devide by zero"
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 equation
   connect(VSumAdjPopBreZon_flow, add2.u1) annotation (Line(points={{-240,90},{-200,
           90},{-200,86},{-182,86}}, color={0,0,127}));
@@ -123,27 +129,25 @@ equation
           {-102,66}}, color={0,0,127}));
   connect(uncDesOutAir.y, min1.u2) annotation (Line(points={{-158,10},{-120,10},
           {-120,54},{-102,54}}, color={0,0,127}));
-  connect(min1.y, VUncOutAir_flow) annotation (Line(points={{-78,60},{-40,60},{-40,
+  connect(min1.y, VUncOutAir_flow) annotation (Line(points={{-78,60},{-50,60},{-50,
           90},{240,90}}, color={0,0,127}));
-  connect(min1.y, div1.u1) annotation (Line(points={{-78,60},{-40,60},{-40,-14},
-          {-22,-14}}, color={0,0,127}));
+  connect(min1.y, div1.u1) annotation (Line(points={{-78,60},{-50,60},{-50,-14},
+          {-42,-14}}, color={0,0,127}));
   connect(div1.y, addPar.u)
-    annotation (Line(points={{2,-20},{18,-20}}, color={0,0,127}));
+    annotation (Line(points={{-18,-20},{-2,-20}}, color={0,0,127}));
   connect(uOutAirFra_max, sysVenEff.u2) annotation (Line(points={{-240,-70},{-20,
-          -70},{-20,-46},{78,-46}},  color={0,0,127}));
-  connect(addPar.y, sysVenEff.u1) annotation (Line(points={{42,-20},{60,-20},{60,
-          -34},{78,-34}}, color={0,0,127}));
+          -70},{-20,-46},{38,-46}},  color={0,0,127}));
+  connect(addPar.y, sysVenEff.u1) annotation (Line(points={{22,-20},{30,-20},{30,
+          -34},{38,-34}}, color={0,0,127}));
   connect(uncDesOutAir.y, gaiDivZer.u) annotation (Line(points={{-158,10},{-140,
           10},{-140,-20},{-122,-20}}, color={0,0,127}));
   connect(gaiDivZer.y, max1.u1) annotation (Line(points={{-98,-20},{-90,-20},{-90,
           -34},{-82,-34}}, color={0,0,127}));
   connect(VSumZonPri_flow, max1.u2) annotation (Line(points={{-240,-40},{-160,-40},
           {-160,-46},{-82,-46}}, color={0,0,127}));
-  connect(max1.y, div1.u2) annotation (Line(points={{-58,-40},{-40,-40},{-40,-26},
-          {-22,-26}}, color={0,0,127}));
-  connect(sysVenEff.y, div2.u2) annotation (Line(points={{102,-40},{110,-40},{110,
-          -6},{118,-6}}, color={0,0,127}));
-  connect(min1.y, div2.u1) annotation (Line(points={{-78,60},{-40,60},{-40,6},{118,
+  connect(max1.y, div1.u2) annotation (Line(points={{-58,-40},{-50,-40},{-50,-26},
+          {-42,-26}}, color={0,0,127}));
+  connect(min1.y, div2.u1) annotation (Line(points={{-78,60},{-50,60},{-50,6},{118,
           6}}, color={0,0,127}));
   connect(desOutAir.y, min2.u1) annotation (Line(points={{142,60},{150,60},{150,
           36},{178,36}}, color={0,0,127}));
@@ -163,6 +167,12 @@ equation
           -110},{-160,-94},{158,-94}}, color={0,0,127}));
   connect(desOutAir.y, norVOut.u2) annotation (Line(points={{142,60},{150,60},{150,
           -106},{158,-106}}, color={0,0,127}));
+  connect(sysVenEff.y, max2.u1) annotation (Line(points={{62,-40},{70,-40},{70,-34},
+          {78,-34}}, color={0,0,127}));
+  connect(neaZer.y, max2.u2) annotation (Line(points={{22,-70},{70,-70},{70,-46},
+          {78,-46}}, color={0,0,127}));
+  connect(max2.y, div2.u2) annotation (Line(points={{102,-40},{110,-40},{110,-6},
+          {118,-6}}, color={0,0,127}));
 annotation (
   defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
