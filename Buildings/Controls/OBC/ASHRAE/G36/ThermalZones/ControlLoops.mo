@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones;
 block ControlLoops "Heating and cooling control loops"
 
-  parameter Real kCooCon=1
+  parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
     annotation (Dialog(group="Cooling control"));
-  parameter Real TiCooCon(unit="s")=0.5
+  parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
     annotation (Dialog(group="Cooling control"));
-  parameter Real kHeaCon=1
+  parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
     annotation (Dialog(group="Heating control"));
-  parameter Real TiHeaCon(unit="s")=0.5
+  parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(group="Heating control"));
   parameter Real timChe(unit="s")=30

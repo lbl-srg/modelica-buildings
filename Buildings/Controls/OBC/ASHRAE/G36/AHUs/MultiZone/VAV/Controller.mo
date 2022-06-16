@@ -37,27 +37,19 @@ block Controller "Multizone VAV air handling unit controller"
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="System and building parameters"));
 
-  parameter Real VUncDesOutAir_flow(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")=0
+  parameter Real VUncDesOutAir_flow(unit="m3/s")=0
     "Uncorrected design outdoor air rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Real VDesTotOutAir_flow(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")=0
+  parameter Real VDesTotOutAir_flow(unit="m3/s")=0
     "Design total outdoor air rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Real VAbsOutAir_flow(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")=0
+  parameter Real VAbsOutAir_flow(unit="m3/s")=0
     "Design outdoor air rate when all zones with CO2 sensors or occupancy sensors are unpopulated. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-  parameter Real VDesOutAir_flow(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")=0
+  parameter Real VDesOutAir_flow(unit="m3/s")=0
     "Design minimum outdoor airflow with areas served by the system are occupied at their design population, including diversity where applicable. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
@@ -208,12 +200,12 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper));
-  parameter Real kMinOA(unit="1")=1
+  parameter Real kMinOA(unit="1")=0.03
     "Gain of controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper));
-  parameter Real TiMinOA(unit="s")=0.5
+  parameter Real TiMinOA(unit="s")=120
     "Time constant of integrator block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
@@ -320,10 +312,10 @@ block Controller "Multizone VAV air handling unit controller"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Freeze protection heating coil controller"
     annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller"));
-  parameter Real kFrePro(unit="1")=1
+  parameter Real kFrePro(unit="1")=0.05
     "Gain of coil controller"
     annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller"));
-  parameter Real TiFrePro(unit="s")=0.5
+  parameter Real TiFrePro(unit="s")=120
     "Time constant of integrator block"
     annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller",
       enable=freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI

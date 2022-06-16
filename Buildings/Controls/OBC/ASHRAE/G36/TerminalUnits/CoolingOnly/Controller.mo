@@ -38,16 +38,16 @@ block Controller "Controller for cooling only VAV box"
     "Design zone cooling maximum airflow rate"
     annotation (Dialog(group="Design conditions"));
   // ---------------- Control loop parameters ----------------
-  parameter Real kCooCon=1
+  parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
-  parameter Real TiCooCon(unit="s")=0.5
+  parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
-  parameter Real kHeaCon=1
+  parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
-  parameter Real TiHeaCon(unit="s")=0.5
+  parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper control parameters ----------------
