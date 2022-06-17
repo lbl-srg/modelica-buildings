@@ -247,7 +247,7 @@ block DamperValves
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"))
     "Hot water valve controller"
-    annotation (Placement(transformation(extent={{20,-220},{40,-200}})));
+    annotation (Placement(transformation(extent={{18,-220},{38,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Occupied mode and discharge temperature is low"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
@@ -296,9 +296,9 @@ block DamperValves
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
     final t=looHys,
-    final h=0.5*looHys)
+    final h=0.8*looHys)
     "Check if it is heating state"
-    annotation (Placement(transformation(extent={{-240,-250},{-220,-230}})));
+    annotation (Placement(transformation(extent={{-260,-250},{-240,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHal1(
     final k=0.5)
     "Constant real value"
@@ -416,6 +416,16 @@ block DamperValves
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max2 "Nominal flow"
     annotation (Placement(transformation(extent={{200,120},{220,140}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=600,
+    final falseHoldDuration=0)
+    "Hold true input for certain time"
+    annotation (Placement(transformation(extent={{-220,-250},{-200,-230}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+    final trueHoldDuration=600,
+    final falseHoldDuration=0)
+    "Hold true input for certain time"
+    annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,200},{-162,200}}, color={0,0,127}));
@@ -468,20 +478,12 @@ equation
           {270,100},{210,100},{210,50},{218,50}},   color={0,0,127}));
   connect(gai.y, damPosUno.u3) annotation (Line(points={{242,50},{272,50},{272,-28},
           {278,-28}},    color={0,0,127}));
-  connect(greThr1.y, and4.u1) annotation (Line(points={{-258,170},{-80,170},{-80,
-          150},{-62,150}},     color={255,0,255}));
-  connect(greThr1.y, swi.u2) annotation (Line(points={{-258,170},{-80,170},{-80,
-          190},{118,190}}, color={255,0,255}));
   connect(VActMin_flow, swi5.u1) annotation (Line(points={{-340,80},{-20,80},{-20,
           228},{18,228}}, color={0,0,127}));
   connect(TDis, lowMin.u)
     annotation (Line(points={{-340,-30},{-262,-30}}, color={0,0,127}));
-  connect(greThr1.y, not1.u) annotation (Line(points={{-258,170},{-200,170},{-200,
-          50},{-182,50}},      color={255,0,255}));
-  connect(uHea, greThr2.u) annotation (Line(points={{-340,-240},{-242,-240}},
+  connect(uHea, greThr2.u) annotation (Line(points={{-340,-240},{-262,-240}},
           color={0,0,127}));
-  connect(greThr2.y, not2.u) annotation (Line(points={{-218,-240},{-200,-240},{-200,
-          10},{-182,10}}, color={255,0,255}));
   connect(not1.y, and2.u1)
     annotation (Line(points={{-158,50},{-122,50}},   color={255,0,255}));
   connect(not2.y, and2.u2) annotation (Line(points={{-158,10},{-140,10},{-140,42},
@@ -528,22 +530,18 @@ equation
           -190},{-220,-168},{-102,-168}}, color={0,0,127}));
   connect(uHea, conTDisHeaSet.u) annotation (Line(points={{-340,-240},{-290,-240},
           {-290,-160},{-102,-160}},     color={0,0,127}));
-  connect(greThr2.y, or2.u2) annotation (Line(points={{-218,-240},{-200,-240},{-200,
-          -68},{-62,-68}},      color={255,0,255}));
-  connect(greThr2.y, swi3.u2) annotation (Line(points={{-218,-240},{-200,-240},{
-          -200,-210},{-42,-210}},  color={255,0,255}));
   connect(conTDisHeaSet.y, swi3.u1) annotation (Line(points={{-78,-160},{-60,-160},
           {-60,-202},{-42,-202}}, color={0,0,127}));
   connect(swi3.y, conVal.u_s)
-    annotation (Line(points={{-18,-210},{18,-210}}, color={0,0,127}));
-  connect(TDis, conVal.u_m) annotation (Line(points={{-340,-30},{-280,-30},{-280,
-          -260},{30,-260},{30,-222}},      color={0,0,127}));
-  connect(or2.y, conVal.trigger) annotation (Line(points={{-38,-60},{-10,-60},{-10,
-          -230},{24,-230},{24,-222}},   color={255,0,255}));
+    annotation (Line(points={{-18,-210},{16,-210}}, color={0,0,127}));
+  connect(TDis, conVal.u_m) annotation (Line(points={{-340,-30},{-280,-30},{
+          -280,-260},{28,-260},{28,-222}}, color={0,0,127}));
+  connect(or2.y, conVal.trigger) annotation (Line(points={{-38,-60},{-10,-60},{
+          -10,-230},{22,-230},{22,-222}}, color={255,0,255}));
   connect(or2.y, swi4.u2) annotation (Line(points={{-38,-60},{-10,-60},{-10,-140},
           {98,-140}},color={255,0,255}));
-  connect(conVal.y, swi4.u1) annotation (Line(points={{42,-210},{60,-210},{60,-132},
-          {98,-132}},     color={0,0,127}));
+  connect(conVal.y, swi4.u1) annotation (Line(points={{40,-210},{60,-210},{60,
+          -132},{98,-132}}, color={0,0,127}));
   connect(conZer2.y, swi4.u3) annotation (Line(points={{-18,10},{20,10},{20,-148},
           {98,-148}},color={0,0,127}));
   connect(conZer2.y, watValPosUno.u1) annotation (Line(points={{-18,10},{20,10},
@@ -644,6 +642,22 @@ equation
           {228,144},{238,144}}, color={0,0,127}));
   connect(max2.y, VDis_flowNor.u2) annotation (Line(points={{222,130},{228,130},
           {228,74},{238,74}}, color={0,0,127}));
+  connect(greThr2.y, truFalHol.u)
+    annotation (Line(points={{-238,-240},{-222,-240}}, color={255,0,255}));
+  connect(greThr1.y, truFalHol1.u)
+    annotation (Line(points={{-258,170},{-242,170}}, color={255,0,255}));
+  connect(truFalHol1.y, not1.u) annotation (Line(points={{-218,170},{-200,170},{
+          -200,50},{-182,50}}, color={255,0,255}));
+  connect(truFalHol1.y, and4.u1) annotation (Line(points={{-218,170},{-80,170},{
+          -80,150},{-62,150}}, color={255,0,255}));
+  connect(truFalHol1.y, swi.u2) annotation (Line(points={{-218,170},{-80,170},{-80,
+          190},{118,190}}, color={255,0,255}));
+  connect(truFalHol.y, not2.u) annotation (Line(points={{-198,-240},{-190,-240},
+          {-190,10},{-182,10}}, color={255,0,255}));
+  connect(truFalHol.y, or2.u2) annotation (Line(points={{-198,-240},{-190,-240},
+          {-190,-68},{-62,-68}}, color={255,0,255}));
+  connect(truFalHol.y, swi3.u2) annotation (Line(points={{-198,-240},{-190,-240},
+          {-190,-210},{-42,-210}}, color={255,0,255}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-500},{320,500}}),

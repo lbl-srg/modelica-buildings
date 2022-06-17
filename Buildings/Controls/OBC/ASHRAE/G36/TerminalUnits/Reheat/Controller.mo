@@ -49,13 +49,13 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
-  parameter Real TiCooCon(unit="s")=900
+  parameter Real TiCooCon(unit="s")=120
     "Time constant of integrator block for cooling control loop"
     annotation (Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
-  parameter Real TiHeaCon(unit="s")=900
+  parameter Real TiHeaCon(unit="s")=120
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
@@ -163,7 +163,7 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real looHys(unit="1")=0.01
+  parameter Real looHys(unit="1")=0.05
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
   parameter Real floHys(unit="m3/s")=0.01

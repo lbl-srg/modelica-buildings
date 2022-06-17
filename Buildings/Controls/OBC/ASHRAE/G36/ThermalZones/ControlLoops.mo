@@ -106,13 +106,11 @@ protected
     "Heating control loop signal"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon(
-    final t=looHys,
-    final h=0.5*looHys)
+    final t=looHys, final h=0.8*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon1(
-    final t=looHys,
-    final h=0.5*looHys)
+    final t=looHys, final h=0.8*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And disCooCon
@@ -151,10 +149,6 @@ equation
           -120},{-76,-52}}, color={255,0,255}));
   connect(heaCon.y, heaConSig.u1) annotation (Line(points={{-58,-40},{110,-40},{
           110,-64},{118,-64}}, color={0,0,127}));
-  connect(cooConSig.y, yCoo)
-    annotation (Line(points={{142,70},{180,70}}, color={0,0,127}));
-  connect(heaConSig.y, yHea)
-    annotation (Line(points={{142,-70},{180,-70}}, color={0,0,127}));
   connect(zerCon.y, disCoo.u)
     annotation (Line(points={{-18,60},{-2,60}}, color={255,0,255}));
   connect(cooCon.y, zerCon.u) annotation (Line(points={{-58,100},{-50,100},{-50,
@@ -179,6 +173,10 @@ equation
     annotation (Line(points={{62,-80},{78,-80}}, color={255,0,255}));
   connect(zerHea.y, heaConSig.u2) annotation (Line(points={{102,-80},{110,-80},{
           110,-76},{118,-76}}, color={0,0,127}));
+  connect(cooConSig.y, yCoo)
+    annotation (Line(points={{142,70},{180,70}}, color={0,0,127}));
+  connect(heaConSig.y, yHea)
+    annotation (Line(points={{142,-70},{180,-70}}, color={0,0,127}));
 
 annotation (defaultComponentName="conLoo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

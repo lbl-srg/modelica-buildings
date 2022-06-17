@@ -248,10 +248,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim3(
     final delayTime=durTimFlo) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu(final h=floHys)
+  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu(
+    final h=floHys)
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu1(final h=floHys)
+  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu1(
+    final h=floHys)
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Logical.And and5
