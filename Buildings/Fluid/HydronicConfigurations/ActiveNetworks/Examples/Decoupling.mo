@@ -60,7 +60,7 @@ model Decoupling
     final TLiqLvg_nominal=TLiqLvg_nominal,
     dpBal1_nominal=dp2_nominal - loa.dpTer_nominal - loa.dpValve_nominal)
     "Load"
-    annotation (Placement(transformation(extent={{40,100},{60,120}})));
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
   BaseClasses.LoadTwoWayValveControl loa1(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
@@ -71,16 +71,16 @@ model Decoupling
     final TLiqLvg_nominal=TLiqLvg_nominal,
     dpBal1_nominal=0)
     "Load"
-    annotation (Placement(transformation(extent={{100,100},{120,120}})));
+    annotation (Placement(transformation(extent={{80,100},{100,120}})));
   FixedResistances.PressureDrop res2(
     redeclare final package Medium = MediumLiq,
     m_flow_nominal=con.pum.m_flow_nominal - loa.mLiq_flow_nominal,
     dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+    annotation (Placement(transformation(extent={{50,50},{70,70}})));
   Sensors.RelativePressure dp2(redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{80,70},{100,90}})));
   FixedResistances.PressureDrop resEnd2(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=0.1*m2_flow_nominal,
@@ -90,7 +90,7 @@ model Decoupling
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={140,40})));
+        origin={120,40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(final k=
         dp2Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
@@ -123,7 +123,7 @@ model Decoupling
     final energyDynamics=energyDynamics,
     final m_flow_nominal=m2_flow_nominal,
     nPorts=4) "Fluid transport delay"
-    annotation (Placement(transformation(extent={{70,20},{90,0}})));
+    annotation (Placement(transformation(extent={{30,20},{50,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
     table=[0,0; 6,0; 6,2; 13,2; 13,1; 22,1; 22,0; 24,0],
     timeScale=3600,
@@ -156,16 +156,6 @@ model Decoupling
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-100,-120})));
-  Sensors.TemperatureTwoPort T2Ret(
-    redeclare final package Medium = MediumLiq,
-    final m_flow_nominal=con.m2_flow_nominal,
-    tau=if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then 0
-         else 1) "Consumer circuit return temperature sensor"
-                                                 annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={40,20})));
   Sensors.TemperatureTwoPort T1ConRet(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=con.m2_flow_nominal,
@@ -182,40 +172,37 @@ equation
           -40}},     color={0,127,255}));
   connect(dp.port_b, del1.ports[2])
     annotation (Line(points={{20,-40},{20,-80}},   color={0,127,255}));
-  connect(fraLoa.y[1],loa. u) annotation (Line(points={{-118,140},{30,140},{30,118},
-          {38,118}}, color={0,0,127}));
-  connect(fraLoa.y[2],loa1. u) annotation (Line(points={{-118,140},{90,140},{90,
-          118},{98,118}},
+  connect(fraLoa.y[1],loa. u) annotation (Line(points={{-118,140},{30,140},{30,
+          118},{18,118}},
                      color={0,0,127}));
-  connect(con.port_b2,loa. port_a) annotation (Line(points={{4,20},{4,60},{40,
-          60},{40,110}},
+  connect(fraLoa.y[2],loa1. u) annotation (Line(points={{-118,140},{70,140},{70,
+          118},{78,118}},
+                     color={0,0,127}));
+  connect(con.port_b2,loa. port_a) annotation (Line(points={{4,20},{4,60},{20,
+          60},{20,110}},
                      color={0,127,255}));
   connect(con.port_b2,res2. port_a)
-    annotation (Line(points={{4,20},{4,60},{70,60}},   color={0,127,255}));
+    annotation (Line(points={{4,20},{4,60},{50,60}},   color={0,127,255}));
   connect(res2.port_b,loa1. port_a)
-    annotation (Line(points={{90,60},{100,60},{100,110}}, color={0,127,255}));
+    annotation (Line(points={{70,60},{80,60},{80,110}},   color={0,127,255}));
   connect(mode.y[1],loa. mode) annotation (Line(points={{-118,100},{20,100},{20,
-          114},{38,114}},
+          114},{18,114}},
                      color={255,127,0}));
-  connect(mode.y[1],loa1. mode) annotation (Line(points={{-118,100},{20,100},{
-          20,80},{80,80},{80,114},{98,114}},
+  connect(mode.y[1],loa1. mode) annotation (Line(points={{-118,100},{0,100},{0,
+          80},{60,80},{60,114},{78,114}},
                                       color={255,127,0}));
   connect(dp2.port_a,loa1. port_a)
-    annotation (Line(points={{100,80},{100,110}}, color={0,127,255}));
+    annotation (Line(points={{80,80},{80,110}},   color={0,127,255}));
   connect(dp2.port_b,loa1. port_b)
-    annotation (Line(points={{120,80},{120,110}}, color={0,127,255}));
-  connect(dp2.p_rel,ctlPum2. u_m) annotation (Line(points={{110,71},{110,40},{-50,
+    annotation (Line(points={{100,80},{100,110}}, color={0,127,255}));
+  connect(dp2.p_rel,ctlPum2. u_m) annotation (Line(points={{90,71},{90,40},{-50,
           40},{-50,48}}, color={0,0,127}));
   connect(res2.port_b,resEnd2. port_a)
-    annotation (Line(points={{90,60},{140,60},{140,50}}, color={0,127,255}));
+    annotation (Line(points={{70,60},{120,60},{120,50}}, color={0,127,255}));
   connect(res1.port_b, resEnd1.port_a)
     annotation (Line(points={{-10,-60},{40,-60}}, color={0,127,255}));
   connect(resEnd1.port_b, del1.ports[3])
     annotation (Line(points={{40,-80},{20,-80}}, color={0,127,255}));
-  connect(dp2.port_b, del2.ports[1])
-    annotation (Line(points={{120,80},{120,20},{78.5,20}}, color={0,127,255}));
-  connect(resEnd2.port_b, del2.ports[2])
-    annotation (Line(points={{140,30},{140,20},{79.5,20}}, color={0,127,255}));
   connect(dp2SetVal.y, ctlPum2.u_s)
     annotation (Line(points={{-118,60},{-62,60}}, color={0,0,127}));
   connect(ctlPum2.y, con.yPum) annotation (Line(points={{-38,60},{-20,60},{-20,
@@ -245,16 +232,18 @@ equation
   connect(mode.y[1], T1Set.index) annotation (Line(points={{-118,100},{-100,100},
           {-100,80},{-150,80},{-150,-100},{-100,-100},{-100,-108}}, color={255,127,
           0}));
-  connect(con.port_a2, T2Ret.port_b)
-    annotation (Line(points={{16,19.8},{30,19.8},{30,20}}, color={0,127,255}));
-  connect(T2Ret.port_a, del2.ports[3])
-    annotation (Line(points={{50,20},{80.5,20}}, color={0,127,255}));
   connect(con.port_b1, T1ConRet.port_a)
     annotation (Line(points={{16,0},{20,0},{20,-10}}, color={0,127,255}));
   connect(T1ConRet.port_b, dp.port_b)
     annotation (Line(points={{20,-30},{20,-40}}, color={0,127,255}));
-  connect(loa.port_b, del2.ports[4])
-    annotation (Line(points={{60,110},{60,20},{81.5,20}}, color={0,127,255}));
+  connect(del2.ports[1], con.port_a2) annotation (Line(points={{38.5,20},{28,20},
+          {28,19.8},{16,19.8}}, color={0,127,255}));
+  connect(loa.port_b, del2.ports[2])
+    annotation (Line(points={{40,110},{40,20},{39.5,20}}, color={0,127,255}));
+  connect(dp2.port_b, del2.ports[3])
+    annotation (Line(points={{100,80},{100,20},{40.5,20}}, color={0,127,255}));
+  connect(resEnd2.port_b, del2.ports[4])
+    annotation (Line(points={{120,30},{120,20},{41.5,20}}, color={0,127,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
