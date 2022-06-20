@@ -3,7 +3,8 @@ model DecouplingTemperature
   "Model illustrating the operation of a decoupling circuit with Delta-T control"
   extends
     Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling(
-      con(have_ctl=false, dpBal3_nominal=0));
+      con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
+          dpBal3_nominal=0));
 
   parameter Boolean is_cor = false
     "Set to true to correct Delta-T set point for low load operation"
@@ -15,8 +16,8 @@ model DecouplingTemperature
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSetVal[2](
-    final k={if typ == Types.ControlFunction.Heating then 1 else -1, 1})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSetVal[2](final k={
+        if typ == Types.Control.Heating then 1 else -1,1})
     "Delta-T set point values"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dTSetAct(
@@ -32,7 +33,7 @@ model DecouplingTemperature
     Ti=120,
     u_s(final unit="K", displayUnit="K"),
     u_m(final unit="K", displayUnit="K"),
-    final reverseActing=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating)
+    final reverseActing=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.Heating)
     "Controller"
     annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract dT2SupRet(y(final unit="K"))
@@ -71,7 +72,7 @@ model DecouplingTemperature
     "Delta-T set point uncorrected"
     annotation (Placement(transformation(extent={{170,-40},{190,-20}})));
 equation
-  connect(mode.y[1], dTSetAct.index) annotation (Line(points={{-118,100},{20,100},
+  connect(mode.y[1], dTSetAct.index) annotation (Line(points={{-118,80},{20,80},
           {20,80},{92,80},{92,0},{140,0},{140,-18}}, color={255,127,0}));
 
   connect(T1ConRet.T, dT.u1) annotation (Line(points={{31,-20},{50,-20},{50,-34},
@@ -82,7 +83,7 @@ equation
     annotation (Line(points={{122,-30},{128,-30}}, color={0,0,127}));
   connect(ctl.y, con.yVal) annotation (Line(points={{152,-60},{160,-60},{160,-8},
           {-10,-8},{-10,10},{-2,10}},       color={0,0,127}));
-  connect(mode.y[1], ctl.mod) annotation (Line(points={{-118,100},{20,100},{20,80},
+  connect(mode.y[1], ctl.mod) annotation (Line(points={{-118,80},{20,80},{20,80},
           {92,80},{92,-80},{134,-80},{134,-72}}, color={255,127,0}));
   connect(T2Ret.y, dT.u2)
     annotation (Line(points={{51,-46},{58,-46}}, color={0,0,127}));
@@ -104,7 +105,7 @@ equation
           {126,-110},{128,-110},{128,-110.5}}, color={0,0,127}));
   connect(dTSetCor.y, ctl.u_s) annotation (Line(points={{152,-110},{160,-110},{160,
           -90},{120,-90},{120,-60},{128,-60}}, color={0,0,127}));
-  connect(mode.y[1], dTSetCor.index) annotation (Line(points={{-118,100},{20,100},
+  connect(mode.y[1], dTSetCor.index) annotation (Line(points={{-118,80},{20,80},
           {20,80},{92,80},{92,-80},{140,-80},{140,-98}}, color={255,127,0}));
   connect(dTSetAct.y, dTSetUnc.u)
     annotation (Line(points={{152,-30},{168,-30}}, color={0,0,127}));
@@ -132,14 +133,17 @@ and in the primary branch.
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DecouplingTemperature.png\"/>
 </p>
 <p>
-The logic intends to keep constant the difference between those two
+This control logic intends to keep constant the difference between those two
 measurements. Note that we have:
 <i>T<sub>1, ret</sub> - T<sub>2, ret</sub> = 
 (m&#775;<sub>1</sub> - m&#775;<sub>2</sub>) / m&#775;<sub>1</sub> * 
 (T<sub>1, sup</sub> - T<sub>2, ret</sub>)</i>,
 so the control objective can be expressed based on the  
 set point <i>&Delta;T<sub>set</sub></i> and the consumer circuit 
-temperature differential <i>&Delta;T<sub>2</sub></i> as:
+temperature differential <i>&Delta;T<sub>2</sub></i>
+(<i>&Delta;T<sub>2</sub> = T<sub>2, sup</sub> - T<sub>2, ret</sub> =
+T<sub>1, sup</sub> - T<sub>2, ret</sub></i>) 
+as:
 <i>&Delta;T<sub>set</sub> = 
 (m&#775;<sub>1</sub> - m&#775;<sub>2</sub>) / m&#775;<sub>1</sub> * 
 &Delta;T<sub>2</sub></i>.
@@ -165,7 +169,7 @@ is too low, and open the control valve to try and increase the
 primary flow recirculation.
 This flawed control is showcased in this example when the paramater 
 <code>is_cor</code> is set to <code>false</code> (the default), see
-plot #2 between <i>14</i> and <i>16</i>&nbsp;h.
+plots #1 and #2 between <i>14</i> and <i>16</i>&nbsp;h.
 </p>
 <p>
 Now setting <code>is_cor</code> to <code>true</code>, a correction

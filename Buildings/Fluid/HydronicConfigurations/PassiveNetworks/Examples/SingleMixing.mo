@@ -1,8 +1,9 @@
 within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
 model SingleMixing "Model illustrating the operation of single mixing circuits"
   extends BaseClasses.PartialPassivePrimary(
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
-    del1(nPorts=3), ref(use_T_in=true));
+    typ=Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver,
+    del1(nPorts=3),
+    ref(use_T_in=true));
 
   parameter Modelica.Units.SI.PressureDifference dp2Set(
     final min=0,
@@ -11,9 +12,8 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     annotation (Dialog(group="Controls"));
 
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con(
-    have_ctl=true,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
-    final typFun=typ,
+    final typCtl=typ,
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa.m_flow_nominal,
@@ -32,10 +32,9 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     "Load"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con1(
-    have_ctl=true,
     typPumMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
-    final typFun=typ,
+    final typCtl=typ,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa1.m_flow_nominal / 0.9,
@@ -141,15 +140,14 @@ equation
           {-2,34}}, color={255,127,0}));
   connect(mode.y[1], loa1.mode) annotation (Line(points={{-98,80},{40,80},{40,34},
           {58,34}}, color={255,127,0}));
-  connect(mode.y[1], con.mod) annotation (Line(points={{-98,80},{-20,80},{-20,
-          -22},{-2,-22}},
-                     color={255,127,0}));
+  connect(mode.y[1], con.mode) annotation (Line(points={{-98,80},{-20,80},{-20,
+          -22},{-2,-22}}, color={255,127,0}));
   connect(fraLoa.y[1], loa.u) annotation (Line(points={{-98,120},{-10,120},{-10,
           38},{-2,38}}, color={0,0,127}));
   connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-98,120},{50,120},{50,38},
           {58,38}}, color={0,0,127}));
-  connect(mode.y[1], con1.mod) annotation (Line(points={{-98,80},{40,80},{40,34},
-          {54,34},{54,-22},{58,-22}}, color={255,127,0}));
+  connect(mode.y[1], con1.mode) annotation (Line(points={{-98,80},{40,80},{40,
+          34},{54,34},{54,-22},{58,-22}}, color={255,127,0}));
   connect(mode.y[1], T2SetMod.index)
     annotation (Line(points={{-98,80},{-80,80},{-80,12}}, color={255,127,0}));
   connect(T2SetVal.y, T2SetMod.u)
@@ -184,13 +182,13 @@ __Dymola_Commands(file=
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Two consumer circuits operated in change-over: 
+Two consumer circuits operated in change-over:
 first one is constant flow,
 second one is variable flow.
-The pump model for the second circuit is an ideal 
-&Delta;p-controlled model, its input being computed to 
+The pump model for the second circuit is an ideal
+&Delta;p-controlled model, its input being computed to
 mimic tracking a pressure differential set point at the
-boundaries of the terminal unit. 
+boundaries of the terminal unit.
 </p>
 </html>"));
 end SingleMixing;

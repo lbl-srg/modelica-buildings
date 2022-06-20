@@ -1,14 +1,16 @@
 within Buildings.Fluid.HydronicConfigurations;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type ControlFunction = enumeration(
+  type Control = enumeration(
       ChangeOver
     "Change-over",
       Cooling
     "Cooling",
       Heating
-    "Heating")
-  "Enumeration to specify the circuit function in case of built-in controls";
+    "Heating",
+      None
+    "No built-in controls")
+    "Enumeration to specify the type of built-in controls";
   type ControlVariable = enumeration(
       SupplyTemperature
     "Consumer circuit supply temperature",
@@ -16,6 +18,8 @@ package Types "Package with type definitions"
     "Consumer circuit return temperature")
   "Enumeration to specify the controlled variable";
   type Pump = enumeration(
+      None
+      "No pump",
       SingleConstant
       "Single pump - Constant speed",
       SingleVariable

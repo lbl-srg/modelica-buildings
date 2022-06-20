@@ -32,9 +32,8 @@ partial model PartialInjectionTwoWay
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
   InjectionTwoWay con(
-    have_ctl=true,
     use_lumFloRes=true,
-    final typFun=typ,
+    final typCtl=typ,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
@@ -87,7 +86,7 @@ equation
                                                    color={0,0,127}));
   connect(dp1.p_rel, ctlPum.u_m) annotation (Line(points={{30,-31},{30,-14},{-90,
           -14},{-90,-18}}, color={0,0,127}));
-  connect(mode.y[1], con.mod) annotation (Line(points={{-118,0},{10,0},{10,18},
+  connect(mode.y[1], con.mode) annotation (Line(points={{-118,0},{10,0},{10,18},
           {18,18}}, color={255,127,0}));
   connect(mode.y[1], ctlPum.mod)
     annotation (Line(points={{-118,0},{-96,0},{-96,-18}}, color={255,127,0}));

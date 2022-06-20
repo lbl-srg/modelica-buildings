@@ -3,8 +3,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
   extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     set(final unit="K", displayUnit="degC"),
     final dpBal3_nominal=0,
-    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
-    final have_pum=true);
+    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay);
 
   FixedResistances.Junction junSup(
     redeclare final package Medium = Medium,
@@ -16,14 +15,17 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final m_flow_nominal=m1_flow_nominal .* {1,-1,1},
-    final dp_nominal=fill(0, 3)) "Junction" annotation (Placement(
+    final dp_nominal=fill(0, 3))
+    "Junction"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,0})));
   Components.Pump pum(
     redeclare final package Medium = Medium,
-    final typ=typPumMod,
+    final typ=typPum,
+    final typMod=typPumMod,
     m_flow_nominal=m2_flow_nominal,
     dp_nominal=dp2_nominal + dpBal2_nominal,
     final energyDynamics=energyDynamics,
@@ -33,7 +35,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     "Pump"
     annotation (
       Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,40})));
   Components.TwoWayValve val(
@@ -113,28 +115,18 @@ model InjectionTwoWay "Injection circuit with two-way valve"
   Controls.PIDWithOperatingMode ctl(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
-    final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
+    final reverseActing=typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
     final yMin=0,
     final yMax=1,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti) if have_ctl
+    final Ti=Ti) if typCtl<>Buildings.Fluid.HydronicConfigurations.Types.Control.None
     "Controller"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
+
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    "Switch on/off"
-    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(
-    final k=1)
-    if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
-    "one"
-    annotation (Placement(transformation(extent={{50,70},{30,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) "Zero"
-    annotation (Placement(transformation(extent={{50,22},{30,42}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(final nin=2)
     "Select measured signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -146,7 +138,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     "Fluid pass-through that can be replaced by check valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(
-    final k=Integer(typCtl))
+    final k=Integer(typVar))
     "Controlled variable selector"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
@@ -159,7 +151,7 @@ initial equation
   end if;
 
   if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable and
-    typCtl==Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature then
+    typVar==Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature then
     Modelica.Utilities.Streams.print(
       "*** Warning: In " + getInstanceName() +
       ": Return temperature control is likely not compatible with a variable flow consumer circuit.");
@@ -187,16 +179,7 @@ equation
     annotation (Line(points={{32,-40},{48,-40}}, color={0,0,127}));
   connect(set, ctl.u_s)
     annotation (Line(points={{-120,-40},{8,-40}},  color={0,0,127}));
-  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,56},{
-          20,56},{20,48},{12,48}},
-                                color={0,0,127}));
-  connect(One.y, swi.u1) annotation (Line(points={{28,80},{20,80},{20,48},{12,48}},
-        color={0,0,127}));
-  connect(zer.y, swi.u3)
-    annotation (Line(points={{28,32},{12,32}}, color={0,0,127}));
-  connect(isEna.y, swi.u2) annotation (Line(points={{12,80},{16,80},{16,40},{12,
-          40}}, color={255,0,255}));
-  connect(mod, isEna.u)
+  connect(mode, isEna.u)
     annotation (Line(points={{-120,80},{-12,80}}, color={255,127,0}));
   connect(T2Sup.T, extIndSig.u[1]) annotation (Line(points={{-49,60},{-40,60},{-40,
           -48},{-40.5,-48}},         color={0,0,127}));
@@ -207,26 +190,27 @@ equation
   connect(extIndSig.y, ctl.u_m)
     annotation (Line(points={{-40,-72},{-40,-80},{20,-80},{20,-52}},
                                                           color={0,0,127}));
-  connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-60},{
-          14,-60},{14,-52}},
-                          color={255,127,0}));
+  connect(mode, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-60},
+          {14,-60},{14,-52}}, color={255,127,0}));
   connect(junRet.port_3, res3.port_a)
     annotation (Line(points={{50,0},{10,0}}, color={0,127,255}));
   connect(res3.port_b, junSup.port_3)
     annotation (Line(points={{-10,0},{-50,0}}, color={0,127,255}));
   connect(ctlVar.y, extIndSig.index)
     annotation (Line(points={{-68,-60},{-52,-60}}, color={255,127,0}));
-  connect(swi.y, pum.y)
-    annotation (Line(points={{-12,40},{-48,40}}, color={0,0,127}));
   connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{40,
           -20},{40,-40},{48,-40}}, color={0,0,127}));
-  connect(pum.P, PPum) annotation (Line(points={{-51,52},{-51,54},{80,54},{80,
+  connect(pum.P, PPum) annotation (Line(points={{-69,52},{-69,54},{80,54},{80,
           60},{120,60}}, color={0,0,127}));
-  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},
+  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-67,52},{80,52},
           {80,40},{120,40}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual)
     annotation (Line(points={{53,-46},{53,-60},{80,-60},{80,-40},{120,-40}},
                                                            color={0,0,127}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{12,80},{20,80},{20,20},{
+          -67,20},{-67,34.8}}, color={255,0,255}));
+  connect(yPum, pum.y)
+    annotation (Line(points={{-120,40},{-72,40}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -279,7 +263,7 @@ Return temperature (incompatible with variable secondary)
 </table>
 
 <p>
-Lumped flow resistance includes primary balancing valve 
+Lumped flow resistance includes primary balancing valve
 and control valve only.
 
 </p>

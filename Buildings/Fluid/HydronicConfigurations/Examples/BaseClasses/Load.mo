@@ -9,9 +9,9 @@ model Load "Model of a load on hydronic circuit"
   replaceable package MediumLiq = Buildings.Media.Water
     "Medium model for liquid (CHW or HHW)";
 
-  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typ
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Control typ
     "Load type"
-    annotation(Evaluate=true);
+    annotation (Evaluate=true);
 
   parameter Modelica.Units.SI.MassFlowRate mLiq_flow_nominal = 1
     "Liquid mass flow rate at design conditions";
@@ -21,17 +21,17 @@ model Load "Model of a load on hydronic circuit"
     abs(Q_flow_nominal) / 10 / cpAir_nominal
     "Air mass flow rate at design conditions";
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
       then 20+273.15 else 26+273.15
     "Air entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TAirEntChg_nominal=20+273.15
     "Air entering temperature in change-over mode"
     annotation(Dialog(
-      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
+      enable=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver));
   parameter Modelica.Units.SI.MassFraction phiAirEnt_nominal = 0.5
     "Air entering relative humidity at design conditions"
     annotation(Dialog(
-      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating));
+      enable=typ <> Buildings.Fluid.HydronicConfigurations.Types.Control.Heating));
   final parameter Modelica.Units.SI.MassFraction XAirEnt_nominal=
     Buildings.Utilities.Psychrometrics.Functions.X_pTphi(
       MediumAir.p_default, TAirEnt_nominal, phiAirEnt_nominal)
@@ -40,18 +40,18 @@ model Load "Model of a load on hydronic circuit"
     XAirEnt_nominal / (1 - XAirEnt_nominal)
     "Air entering humidity ratio at design conditions (kg/kg dry air)";
   parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
     then 60+273.15 else 7+273.15
     "Liquid entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal+(
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
     then -10 else +5)
     "Liquid leaving temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqEntChg_nominal=
     60+273.15
     "Liquid entering temperature in change-over mode"
     annotation(Dialog(
-      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
+      enable=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
    (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-
@@ -166,7 +166,7 @@ model Load "Model of a load on hydronic circuit"
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final reverseActing=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating)
+    final reverseActing=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.Heating)
     "Controller for supply air temperature"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
 
@@ -329,6 +329,10 @@ protected
        CMin_flow_nominal=min({mLiq_flow_nominal * cpLiq_nominal, mAir_flow_nominal * cpAir_nominal}),
        CMax_flow_nominal=max({mLiq_flow_nominal * cpLiq_nominal, mAir_flow_nominal * cpAir_nominal}));
 
+initial equation
+  assert(typ<>Buildings.Fluid.HydronicConfigurations.Types.Control.None,
+    "In " + getInstanceName() +
+    ": The type of built-in controls cannot be None: select any other valid option.");
 equation
   connect(souAir.ports[1], coi.port_a2) annotation (Line(points={{20,12},{10,12}},
                             color={0,127,255}));

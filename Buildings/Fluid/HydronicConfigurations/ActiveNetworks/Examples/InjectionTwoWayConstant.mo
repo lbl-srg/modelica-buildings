@@ -5,15 +5,15 @@ model InjectionTwoWayConstant
     Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialInjectionTwoWay(
     del2(nPorts=3),
     dp2_nominal=dpPip_nominal + loa1.dpTer_nominal + loa1.dpValve_nominal,
-    con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature));
+    con(typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature));
 
   parameter Boolean have_resT2 = false
     "Set to true for consumer circuit temperature reset, false for constant set point"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
   parameter Modelica.Units.SI.Temperature T2Set_nominal=
-    if con.typCtl==Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
-      then TLiqEnt_nominal else TLiqLvg_nominal
+    if con.typVar==Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
+    then TLiqEnt_nominal else TLiqLvg_nominal
     "Consumer circuit design temperature set point"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=293.15
@@ -113,9 +113,8 @@ model InjectionTwoWayConstant
         rotation=0,
         origin={-90,150})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetLim0(
-    k=T2Set_nominal + (if con.typFun == Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
-         then -10 else +5),
-    y(final unit="K", displayUnit="degC"))
+    k=T2Set_nominal + (if con.typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
+    then -10 else +5), y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature limiting set point " annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -219,25 +218,25 @@ The pump dissipated heat is not added to the fluid.
 </ul>
 
 <p>
-Without temperature reset (<code>have_resT2 = false</code>), 
+Without temperature reset (<code>have_resT2 = false</code>),
 the primary flow varies marginally with the load (see plot #8).
 The flow reduction is enhanced when using a reset based on the maximum
 valve demand (note the setting of the controller <code>resT2</code> ensuring
-a reset at design value when the control loop is enabled). 
-The flow reduction is further enhanced when using a control based on the 
+a reset at design value when the control loop is enabled).
+The flow reduction is further enhanced when using a control based on the
 return temperature
-(<code>con(typCtl=Types.ControlVariable.ReturnTemperature)</code>).
+(<code>con(typVar=Types.ControlVariable.ReturnTemperature)</code>).
 However, there is additional constraints on the sizing of the terminal unit
 that should account for the load diversity.
-When tracking the return temperature of a constant flow consumer circuit, 
-the supply temperature will vary with the aggregated load. 
-In our example, the actual value of the secondary supply temperature 
+When tracking the return temperature of a constant flow consumer circuit,
+the supply temperature will vary with the aggregated load.
+In our example, the actual value of the secondary supply temperature
 is lower than its design value at partial load, which yields unmet loads
 (see plot #4). The terminal units should be sized accordingly,
 based on the lowest possible &Delta;T when one terminal unit may still be at peak load.
-Additional caveats speak against the use of return temperature control 
+Additional caveats speak against the use of return temperature control
 with this hydronic configuration in the case of variable flow consumer circuits,
-see 
+see
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn</a>.
 </p>

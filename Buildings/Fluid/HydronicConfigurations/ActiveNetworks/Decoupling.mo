@@ -1,15 +1,13 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
-model Decoupling "Diversion circuit"
+model Decoupling "Decoupling circuit"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpBal3_nominal=1e4,
     m1_flow_nominal(min=(1+1e-2)*m2_flow_nominal)=1.05 * m2_flow_nominal,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=5,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
-    final have_pum=true,
     final have_set=false,
-    final have_typFun=false,
-    final have_typCtl=false);
+    final have_typVar=false);
 
   FixedResistances.Junction junBypSup(
     redeclare final package Medium = Medium,
@@ -86,19 +84,11 @@ model Decoupling "Diversion circuit"
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(
     final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    "Switch on/off"
-    annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
-    annotation (Placement(transformation(extent={{20,22},{0,42}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1)
-    if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
-    "one"
-    annotation (Placement(transformation(extent={{20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Components.Pump pum(
     redeclare final package Medium = Medium,
-    final typ=typPumMod,
+    final typ=typPum,
+    final typMod=typPumMod,
     m_flow_nominal=m2_flow_nominal,
     dp_nominal=dp2_nominal + dpBal2_nominal,
     final energyDynamics=energyDynamics,
@@ -108,7 +98,7 @@ model Decoupling "Diversion circuit"
     "Pump"
     annotation (
       Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,40})));
   Sensors.TemperatureTwoPort T2Sup(
@@ -128,7 +118,8 @@ model Decoupling "Diversion circuit"
     final yMax=1,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti) if have_ctl
+    final Ti=Ti)
+    if typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None
     "Controller"
     annotation (Placement(transformation(extent={{-10,-50},{10,-70}})));
   Sensors.TemperatureTwoPort T2Ret(
@@ -173,24 +164,14 @@ equation
     annotation (Line(points={{60,-50},{60,-60}}, color={0,127,255}));
   connect(res1.port_b, port_b1)
     annotation (Line(points={{60,-80},{60,-100}}, color={0,127,255}));
-  connect(mod, isEna.u)
-    annotation (Line(points={{-120,80},{-42,80}}, color={255,127,0}));
+  connect(mode, isEna.u)
+    annotation (Line(points={{-120,80},{-12,80}}, color={255,127,0}));
   connect(junBypSup.port_2, pum.port_a)
     annotation (Line(points={{-60,10},{-60,30}}, color={0,127,255}));
   connect(pum.port_b, T2Sup.port_a)
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(T2Sup.port_b, port_b2)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
-  connect(swi.y, pum.y)
-    annotation (Line(points={{-42,40},{-48,40}}, color={0,0,127}));
-  connect(zer.y, swi.u3)
-    annotation (Line(points={{-2,32},{-18,32}}, color={0,0,127}));
-  connect(isEna.y, swi.u2) annotation (Line(points={{-18,80},{-10,80},{-10,40},{
-          -18,40}}, color={255,0,255}));
-  connect(One.y, swi.u1) annotation (Line(points={{-2,80},{-6,80},{-6,48},{-18,48}},
-        color={0,0,127}));
-  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,56},{-14,
-          56},{-14,48},{-18,48}}, color={0,0,127}));
   connect(ctl.y, val.y)
     annotation (Line(points={{12,-60},{40,-60},{40,-40},{48,-40}},
                                                  color={0,0,127}));
@@ -198,10 +179,11 @@ equation
           {40,-40},{48,-40}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual) annotation (Line(points={{53,-46},{53,-54},
           {80,-54},{80,-40},{120,-40}}, color={0,0,127}));
-  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},{
-          80,40},{120,40}}, color={0,0,127}));
-  connect(pum.P, PPum) annotation (Line(points={{-51,52},{-51,54},{80,54},{80,60},
-          {120,60}}, color={0,0,127}));
+  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-67,52},{80,52},
+          {80,40},{120,40}},color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-69,52},{-69,54},{80,54},{80,
+          60},{120,60}},
+                     color={0,0,127}));
   connect(junBypRet.port_2, val.port_a)
     annotation (Line(points={{60,-10},{60,-30},{60,-30}}, color={0,127,255}));
   connect(res2.port_b, junBypRet.port_1)
@@ -224,8 +206,12 @@ equation
                       color={0,0,127}));
   connect(enaCtl.y, ctl.mod) annotation (Line(points={{-40,-32},{-40,-40},{-6,-40},
           {-6,-48}}, color={255,127,0}));
-  connect(isEna.y, enaCtl.u) annotation (Line(points={{-18,80},{-10,80},{-10,20},
-          {-40,20},{-40,-8}}, color={255,0,255}));
+  connect(isEna.y, enaCtl.u) annotation (Line(points={{12,80},{20,80},{20,20},{
+          -40,20},{-40,-8}},  color={255,0,255}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{12,80},{20,80},{20,20},{
+          -67,20},{-67,34.8}}, color={255,0,255}));
+  connect(yPum, pum.y)
+    annotation (Line(points={{-120,40},{-72,40}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Icon(
@@ -237,11 +223,11 @@ equation
     Documentation(info="<html>
 <p>
 The P-controller mimics a self-acting &Delta;P control valve
-with a proportional band of <i>&plusmn;20%</i> around the 
+with a proportional band of <i>&plusmn;20%</i> around the
 pressure differential set point.
-This set point corresponds to the design pressure drop of the 
+This set point corresponds to the design pressure drop of the
 bypass balancing valve, typically around <i>10</i>&nbsp;Pa.
-Note that this configuration yields a nearly constant 
+Note that this configuration yields a nearly constant
 bypass flow rate, as opposed to a constant percentage
 of the consumer circuit flow rate that a temperature-based
 control could provide.

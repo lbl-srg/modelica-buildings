@@ -2,10 +2,10 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayVariableReturn
   "Model illustrating the operation of an inversion circuit with two-way valve and variable secondary with return temperature control"
   extends InjectionTwoWayVariable(
-    con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
+    con(typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
 
   BaseClasses.LoadTwoWayValveControl loaOpe(
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Cooling,
+    typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Cooling,
     mAir_flow_nominal=mAir_flow_nominal,
     redeclare final package MediumLiq = MediumLiq,
     k=1,
@@ -92,12 +92,12 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates a configuration that is not recommended, 
+This model illustrates a configuration that is not recommended,
 that is an injection circuit with a two-way valve serving
-a variable flow consumer circuit, and controlled based on the 
+a variable flow consumer circuit, and controlled based on the
 return temperature.
-One can notice that the design load is not met (see plot #4 
-between 6h and 8h) despite the return temperature set point 
+One can notice that the design load is not met (see plot #4
+between 6h and 8h) despite the return temperature set point
 being met (see plot #1) and the consumer circuit being operated
 at design flow rate (see plot #2).
 This is because, for the specific sizing of the cooling coil and
@@ -107,9 +107,9 @@ This is illustrated by the simulation of the load model with open loop
 control (see plot #9).
 That simulation shows that for a constant load, an increasing supply
 temperature yields a decreasing return temperature.
-However, the control logic is based on the consideration that a 
+However, the control logic is based on the consideration that a
 decreasing return temperature is the signature of a decreasing load.
-It thus triggers the closing of the control valve, which in turn 
+It thus triggers the closing of the control valve, which in turn
 yields an increasing secondary flow recirculation, so an increasing
 supply temperature that furthers decreases the return temperature.
 The result is that the equilibrium point differs from the control intent,

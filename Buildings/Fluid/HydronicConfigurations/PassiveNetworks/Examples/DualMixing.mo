@@ -2,15 +2,15 @@ within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
 model DualMixing
   "Model illustrating the operation of a dual mixing circuit"
   extends BaseClasses.PartialPassivePrimary(
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver,
-    m1_flow_nominal=if TLiqSup_nominal <> TLiqEnt_nominal then
-      m2_flow_nominal*(TLiqEnt_nominal-TLiqLvg_nominal)/(TLiqSup_nominal-TLiqLvg_nominal)
-      else 0.95 * m2_flow_nominal,
-    TLiqEnt_nominal=16+273.15,
-    TLiqLvg_nominal=20+273.15,
-    TLiqSup_nominal=16+273.15,
-    TLiqEntChg_nominal=35+273.15,
-    TLiqSupChg_nominal=35+273.15,
+    typ=Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver,
+    m1_flow_nominal=if abs(TLiqSup_nominal - TLiqEnt_nominal) > Modelica.Constants.eps
+      then m2_flow_nominal*(TLiqEnt_nominal - TLiqLvg_nominal)/(TLiqSup_nominal - TLiqLvg_nominal)
+      else 0.95*m2_flow_nominal,
+    TLiqEnt_nominal=16 + 273.15,
+    TLiqLvg_nominal=20 + 273.15,
+    TLiqSup_nominal=16 + 273.15,
+    TLiqEntChg_nominal=35 + 273.15,
+    TLiqSupChg_nominal=35 + 273.15,
     del1(nPorts=2),
     ref(use_T_in=true));
 
@@ -32,9 +32,8 @@ model DualMixing
     "Air entering relative humidity at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.DualMixing con(
-    have_ctl=true,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
-    final typFun=typ,
+    final typCtl=typ,
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=m2_flow_nominal,
@@ -138,9 +137,8 @@ equation
     annotation (Line(points={{16,-40},{20,-40},{20,-80}}, color={0,127,255}));
   connect(mode.y[1], loa.mode) annotation (Line(points={{-98,80},{-20,80},{-20,34},
           {18,34}}, color={255,127,0}));
-  connect(mode.y[1], con.mod) annotation (Line(points={{-98,80},{-20,80},{-20,
-          -22},{-2,-22}},
-                     color={255,127,0}));
+  connect(mode.y[1], con.mode) annotation (Line(points={{-98,80},{-20,80},{-20,
+          -22},{-2,-22}}, color={255,127,0}));
   connect(fraLoa.y[1], loa.u) annotation (Line(points={{-98,120},{-10,120},{-10,
           38},{18,38}}, color={0,0,127}));
   connect(mode.y[1], T2SetMod.index)
@@ -188,10 +186,10 @@ __Dymola_Commands(file=
     Documentation(info="<html>
 <p>
 One constant flow consumer circuit operated in change-over.
-The pump model for the second circuit is an ideal 
-&Delta;p-controlled model, its input being computed to 
+The pump model for the second circuit is an ideal
+&Delta;p-controlled model, its input being computed to
 mimic tracking a pressure differential set point at the
-boundaries of the terminal unit. 
+boundaries of the terminal unit.
 </p>
 </html>"));
 end DualMixing;

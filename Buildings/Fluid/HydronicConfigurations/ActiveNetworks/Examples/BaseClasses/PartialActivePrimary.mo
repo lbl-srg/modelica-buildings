@@ -1,15 +1,13 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses;
 model PartialActivePrimary
-  "Partial model of an active primary network"
+  "Partial model of active primary network"
   extends Modelica.Icons.Example;
 
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typ=
-    Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
-    "Load type"
-    annotation(Evaluate=true);
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Control typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
+    "Load type" annotation (Evaluate=true);
 
   parameter Integer nTer=2
     "Number of terminal units";
@@ -47,25 +45,25 @@ model PartialActivePrimary
     "Circuit minimum pressure";
 
   parameter Modelica.Units.SI.Temperature TLiqEnt_nominal=
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
     then 60+273.15 else 7+273.15
     "Liquid entering temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqLvg_nominal=TLiqEnt_nominal+(
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
     then -10 else +5)
     "Liquid leaving temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqEntChg_nominal=
     60+273.15
     "Liquid entering temperature in change-over mode"
     annotation(Dialog(
-      enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
+      enable=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver));
 
   parameter Modelica.Units.SI.Temperature TLiqSup_nominal=TLiqEnt_nominal
     "Liquid primary supply temperature at design conditions";
   parameter Modelica.Units.SI.Temperature TLiqSupChg_nominal=TLiqEntChg_nominal
     "Liquid primary supply temperature in change-over mode"
     annotation (Dialog(
-    enable=typ==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver));
+    enable=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"

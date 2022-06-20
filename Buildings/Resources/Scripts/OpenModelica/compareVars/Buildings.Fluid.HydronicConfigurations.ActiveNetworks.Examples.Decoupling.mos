@@ -1,11 +1,12 @@
 compareVars :=
   {
-    "T2Set.y",
-    "con.T2Sup.T",
-    "con.T2Ret.T",
-    "T1Sup.T",
-    "T1Ret.T",
+    "con.dp3.p_rel",
+    "con.dp3Set.y",
     "con.val.y_actual",
+    "T1Sup.T",
+    "con.T2Sup.T",
+    "T1ConRet.T",
+    "con.T2Ret.T",
     "pum.m_flow",
     "con.pum.m_flow",
     "con.res3.m_flow",
@@ -16,11 +17,5 @@ compareVars :=
     "loa.yLoa_actual",
     "loa1.yLoa_actual",
     "loa.con.val.y_actual",
-    "loa1.con.val.y_actual",
-    "dp1SetVal.y",
-    "dp1.p_rel",
-    "dp2SetVal.y",
-    "dp2.p_rel",
-    "pum.y_actual",
-    "con.pum.y_actual"
+    "loa1.con.val.y_actual"
   };

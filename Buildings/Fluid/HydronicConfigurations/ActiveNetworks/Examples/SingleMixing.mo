@@ -15,11 +15,10 @@ model SingleMixing
     "Control valve pressure drop at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing con(
-    have_ctl=true,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium=MediumLiq,
     use_lumFloRes=false,
-    final typFun=typ,
+    final typCtl=typ,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -107,7 +106,7 @@ equation
                     color={0,0,127}));
   connect(setOff.y[1], T2Set.u)
     annotation (Line(points={{-98,60},{-62,60}}, color={0,0,127}));
-  connect(mode.y[1], con.mod) annotation (Line(points={{-98,20},{10,20},{10,18},
+  connect(mode.y[1], con.mode) annotation (Line(points={{-98,20},{10,20},{10,18},
           {18,18}}, color={255,127,0}));
   connect(T2Set.y, con.set) annotation (Line(points={{-38,60},{-20,60},{-20,6},
           {18,6}},  color={0,0,127}));
@@ -147,9 +146,9 @@ equation
     Documentation(info="<html>
 <p>
 This model illustrates the use of a single mixing circuit
-that serves as the interface between a variable flow primary circuit at constant
-supply temperature and a constant flow secondary circuit at variable supply
-temperature.
+that serves as the interface between a variable flow primary circuit 
+at constant supply temperature and a constant flow secondary circuit 
+at variable supply temperature.
 Two identical terminal units circuits are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.

@@ -3,14 +3,14 @@ model InjectionTwoWayConstantReturn
   extends InjectionTwoWayConstant(
     loa(final mAir_flow_nominal=mAir_flow_nominal),
     loa1(final mAir_flow_nominal=mAir_flow_nominal),
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Cooling,
+    typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Cooling,
     mTer_flow_nominal=2.46,
     TAirEnt_nominal=298.75,
     phiAirEnt_nominal=0.5,
     TLiqEnt_nominal=277.55,
     TLiqLvg_nominal=286.65,
     TLiqSup_nominal=276.15,
-    con(typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
+    con(typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=6.8
     "Air mass flow rate at design conditions"

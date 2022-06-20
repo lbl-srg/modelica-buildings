@@ -19,11 +19,10 @@ model InjectionThreeWay
     "Control valve pressure drop at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay con(
-    have_ctl=true,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium = MediumLiq,
     use_lumFloRes=false,
-    final typFun=typ,
+    typCtl=typ,
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
@@ -117,7 +116,7 @@ equation
           {78,78}}, color={0,0,127}));
   connect(setOff.y[1], T2Set.u)
     annotation (Line(points={{-98,60},{-82,60}}, color={0,0,127}));
-  connect(mode.y[1], con.mod) annotation (Line(points={{-98,20},{-20,20},{-20,
+  connect(mode.y[1], con.mode) annotation (Line(points={{-98,20},{-20,20},{-20,
           18},{-2,18}}, color={255,127,0}));
   connect(T2Set.y, con.set) annotation (Line(points={{-58,60},{-40,60},{-40,6},{
           -2,6}},   color={0,0,127}));

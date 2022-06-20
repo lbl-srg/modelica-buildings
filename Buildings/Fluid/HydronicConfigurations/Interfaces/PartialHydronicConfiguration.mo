@@ -10,10 +10,6 @@ model PartialHydronicConfiguration
           X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
 
-  parameter Boolean have_ctl = false
-    "Set to true in case of built-in valve controls"
-    annotation(Dialog(group="Controls"), Evaluate=true);
-
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
     "Mass flow rate in primary circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
@@ -34,22 +30,27 @@ model PartialHydronicConfiguration
   parameter Buildings.Fluid.HydronicConfigurations.Types.Pump typPum=
     Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
     "Type of secondary pump"
-    annotation(Dialog(group="Pump", enable=have_pum), Evaluate=true);
+    annotation(Dialog(group="Pump"), Evaluate=true);
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typPumMod=
     Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
     "Type of pump model"
-    annotation(Dialog(group="Pump", enable=have_pum), Evaluate=true);
+    annotation(Dialog(group="Pump",
+    enable=typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
+    Evaluate=true);
 
-  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlFunction typFun(
-    start=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating)
-    "Circuit function (in case of built-in controls)"
-    annotation(Dialog(group="Controls", enable=have_typFun), Evaluate=true);
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Control typCtl=
+    Buildings.Fluid.HydronicConfigurations.Types.Control.None
+    "Type of built-in controls"
+    annotation (Dialog(group="Controls"), Evaluate=true);
 
   replaceable parameter Buildings.Fluid.HydronicConfigurations.Types.ControlVariable
-    typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
-    "Controlled variable (in case of built-in controls)"
-    annotation(Dialog(group="Controls", enable=have_typCtl), Evaluate=true);
+    typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
+    "Controlled variable"
+    annotation(Dialog(group="Controls",
+      enable=typCtl<>Buildings.Fluid.HydronicConfigurations.Types.Control.None
+      and have_typVar),
+      Evaluate=true);
 
   parameter Boolean use_lumFloRes = true
     "Set to true to use a lumped flow resistance when possible"
@@ -108,22 +109,27 @@ model PartialHydronicConfiguration
         dp={1.2, 1, 0.4} * dp2_nominal))
     "Pump parameters"
     annotation (
-    Dialog(group="Pump", enable=have_pum),
+    Dialog(group="Pump",
+    enable=typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
     Placement(transformation(extent={{74,74},{94,94}})));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Controls", enable=have_ctl), Evaluate=true);
+    annotation(Dialog(group="Controls",
+      enable=typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+      Evaluate=true);
   parameter Real k(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
     "Gain of controller"
-    annotation (Dialog(group="Controls", enable=have_ctl));
+    annotation (Dialog(group="Controls",
+      enable=typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None));
   parameter Real Ti(unit="s")=120
     "Time constant of integrator block"
     annotation (Dialog(group="Controls",
-    enable=have_ctl and (controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    enable=typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None
+           and (controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // FIXME: DynamicFixedInitial differs from MBL default DynamicFreeInitial
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -184,13 +190,11 @@ model PartialHydronicConfiguration
     annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,
             60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod(
-    final min=0,
-    final max=if typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.ChangeOver
-    then 2 else 1) if have_mod
-    "Operating mode"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-                         iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode(final min=0, final
+      max=if typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver
+         then 2 else 1) if have_mod "Operating mode" annotation (Placement(
+        transformation(extent={{-140,60},{-100,100}}), iconTransformation(
+          extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal_actual(
     final unit="1")
     if typVal <> Buildings.Fluid.HydronicConfigurations.Types.Valve.None
@@ -198,13 +202,13 @@ model PartialHydronicConfiguration
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
                          iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum_actual(
-    final unit="1") if have_pum
+    final unit="1") if typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Actual normalised pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     quantity="Power",
-    final unit="W") if have_pum
+    final unit="W") if typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Pump electrical power"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,60},{140,100}})));
@@ -262,34 +266,34 @@ model PartialHydronicConfiguration
        if show_T "Medium properties in port_b2";
 
 protected
-  parameter Boolean have_pum
-    "Set to true if a secondary pump is used"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Buildings.Fluid.HydronicConfigurations.Types.Valve typVal
     "Type of control valve"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-  final parameter Boolean have_yPum = have_pum and
+  parameter Boolean have_typVar = true
+    "Set to true to enable the choice of the controlled variable"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  final parameter Boolean have_yPum=
+    typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and
     typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
     "Set to true if an analog input is used for pump control"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-  final parameter Boolean have_y1Pum = have_pum and
+  final parameter Boolean have_y1Pum=
+    typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and
     typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
     "Set to true if a digital input is used for pump control"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-  final parameter Boolean have_yVal = not have_ctl and
+  final parameter Boolean have_yVal=
+    typCtl==Buildings.Fluid.HydronicConfigurations.Types.Control.None and
     typVal<>Buildings.Fluid.HydronicConfigurations.Types.Valve.None
     "Set to true if an analog input is used for valve control"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Boolean have_set = have_ctl
+  parameter Boolean have_set=
+    typCtl<>Buildings.Fluid.HydronicConfigurations.Types.Control.None
     "Set to true if an analog input is used as a set point"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Boolean have_typFun = have_ctl
-    "Set to true to enable the choice of the control function"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Boolean have_typCtl = have_ctl
-    "Set to true to enable the choice of the controlled variable"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-  final parameter Boolean have_mod = have_ctl or have_pum
+  final parameter Boolean have_mod=
+    typCtl<>Buildings.Fluid.HydronicConfigurations.Types.Control.None
+    or typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Set to true if an analog input is used as a control mode selector"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 

@@ -2,9 +2,9 @@ within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
 model SingleMixingOpenLoop
   "Model illustrating the operation of single mixing circuits with back pressure"
   extends BaseClasses.PartialPassivePrimary(
-    typ=Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
-    TLiqEnt_nominal=60+273.15,
-    TLiqLvg_nominal=TLiqEnt_nominal-10,
+    typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
+    TLiqEnt_nominal=60 + 273.15,
+    TLiqLvg_nominal=TLiqEnt_nominal - 10,
     TLiqSup_nominal=TLiqEnt_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     del1(nPorts=3),
@@ -15,13 +15,12 @@ model SingleMixingOpenLoop
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con(
-    have_ctl=false,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium=MediumLiq,
     val(fraK=1.0),
     pum(dp_nominal=con.dp2_nominal + con.dpBal2_nominal +
       max({con.val.dpValve_nominal, con.val.dp3Valve_nominal}) + res1.dp_nominal),
-    final typFun=typ,
+    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa.m_flow_nominal,
     final dp2_nominal=loa.dpLiq_nominal,
@@ -44,7 +43,7 @@ model SingleMixingOpenLoop
     val(fraK=1.0),
     pum(dp_nominal=con1.dp2_nominal + con1.dpBal2_nominal +
       max({con1.val.dpValve_nominal, con1.val.dp3Valve_nominal}) + res1.dp_nominal),
-    final typFun=typ,
+    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa1.m_flow_nominal,
     final dp2_nominal=loa1.dpLiq_nominal,
@@ -86,13 +85,13 @@ equation
           {-2,34}}, color={255,127,0}));
   connect(mode.y, loa1.mode) annotation (Line(points={{-98,80},{40,80},{40,34},
           {58,34}}, color={255,127,0}));
-  connect(mode.y, con.mod) annotation (Line(points={{-98,80},{-20,80},{-20,
-          -22},{-2,-22}}, color={255,127,0}));
+  connect(mode.y, con.mode) annotation (Line(points={{-98,80},{-20,80},{-20,-22},
+          {-2,-22}}, color={255,127,0}));
   connect(fraLoa.y, loa.u) annotation (Line(points={{-98,120},{-10,120},{-10,
           38},{-2,38}}, color={0,0,127}));
   connect(fraLoa.y, loa1.u) annotation (Line(points={{-98,120},{50,120},{50,38},
           {58,38}}, color={0,0,127}));
-  connect(mode.y, con1.mod) annotation (Line(points={{-98,80},{40,80},{40,34},
+  connect(mode.y, con1.mode) annotation (Line(points={{-98,80},{40,80},{40,34},
           {54,34},{54,-22},{58,-22}}, color={255,127,0}));
   connect(res1.port_b, con.port_a1) annotation (Line(points={{-10,-60},{0,-60},
           {0,-40},{4,-40}}, color={0,127,255}));
@@ -116,24 +115,24 @@ __Dymola_Commands(file=
     Documentation(info="<html>
 <p>
 This model illustrates the disturbance caused on the three-way valve
-operation by an induced negative pressure diffrential at the 
+operation by an induced negative pressure diffrential at the
 circuit boundaries.
 Two consumer circuits are connected to a primary loop with
 an induced pressure differential (for instance a boiler
 with a high pressure drop and no minimum flow requirement).
-Each consumer circuit is equipped with a circulation pump 
+Each consumer circuit is equipped with a circulation pump
 that is sized to cover the primary pressure diffrential.
 When the parameter <code>is_bal</code> is <code>false</code>
 no bypass balancing valve is considered.
 When this parameter is <code>true</code> a bypass balancing
 valve is considered with the same dseign pressure drop
 as the one in the primary loop.
-The pump design head remains unchanged whatever the value 
+The pump design head remains unchanged whatever the value
 of the parameter <code>is_bal</code>.
 The model is configured in steady-state with open loop control.
 The load on each consumer circuit is constant.
-The control valve of the first circuit is modulated 
-from fully open to fully closed position while the 
+The control valve of the first circuit is modulated
+from fully open to fully closed position while the
 control valve of the remote circuit is kept fully open.
 </p>
 </html>"));

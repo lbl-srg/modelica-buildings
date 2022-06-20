@@ -9,7 +9,7 @@ model InjectionTwoWayVariable
     m2_flow_nominal=2*mTer_flow_nominal/0.9,
     con(
       typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
-      typCtl=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature));
+      typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature));
 
   parameter Modelica.Units.SI.PressureDifference dp2Set(
     final min=0,
@@ -95,20 +95,20 @@ so is the scaling.
 Fractional load mismatch OK in cooling
 </p>
 <p>
-For this circuit to operate as intended, it is critical that the 
-secondary supply temperature set point be different than the primary 
+For this circuit to operate as intended, it is critical that the
+secondary supply temperature set point be different than the primary
 supply temperature.
-Otherwise, the tracking error does not change sign and there is no 
+Otherwise, the tracking error does not change sign and there is no
 overshoot that can desaturate the integral term of the PI controller.
 In other words, the controller output is fixed as soon as the measured
 value equals the set point.
 Threfore, the equilibrium point typically differs from the control
-intent which is a primary flow rate varying with the load. 
+intent which is a primary flow rate varying with the load.
 One can observe that behavior by setting
 <code>TLiqSup_nominal=TLiqEnt_nominal</code> and
 <code>have_resT2=false</code>.
-Such setting yields a fixed valve position with a primary recirculation 
-and a flow reversal in the bypass whereas the control intent would 
+Such setting yields a fixed valve position with a primary recirculation
+and a flow reversal in the bypass whereas the control intent would
 be a slighlty closer position ensuring a positive flow in the bypass.
 Note that this is nearly invisible from an operating standpoint
 since the set point and the loads are met.
@@ -117,7 +117,7 @@ as the primary circuit is operated at a higher flow rate and lower
 &Delta;T than needed.
 The system practically behaves as there was no control valve installed
 on the primary return line.
-This observation holds for both variable and constant consumer circuits, 
+This observation holds for both variable and constant consumer circuits,
 although the detrimental effects are much more tangible in the case
 of variable consumer circuits.
 </p>

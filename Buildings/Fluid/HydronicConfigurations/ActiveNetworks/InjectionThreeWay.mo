@@ -4,8 +4,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     dpValve_nominal=0.3e4,
     set(final unit="K", displayUnit="degC"),
     final dpBal3_nominal=0,
-    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-    final have_pum=true);
+    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -103,7 +102,8 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         origin={60,30})));
   Buildings.Fluid.HydronicConfigurations.Components.Pump pum(
     redeclare final package Medium = Medium,
-    final typ=typPumMod,
+    final typ=typPum,
+    final typMod=typPumMod,
     m_flow_nominal=m2_flow_nominal,
     dp_nominal=dp2_nominal + dpBal2_nominal,
     final energyDynamics=energyDynamics,
@@ -113,7 +113,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     "Pump"
     annotation (
       Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,40})));
   Sensors.TemperatureTwoPort T2Sup(
@@ -129,28 +129,20 @@ model InjectionThreeWay "Injection circuit with three-way valve"
   Controls.PIDWithOperatingMode ctl(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
-    final reverseActing=typFun==Buildings.Fluid.HydronicConfigurations.Types.ControlFunction.Heating,
+    final reverseActing=typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
     final yMin=0,
     final yMax=1,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti) if have_ctl
+    final Ti=Ti)
+    if typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None
     "Controller"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
+
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(
     final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    "Switch on/off"
-    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
-    "Zero"
-    annotation (Placement(transformation(extent={{50,22},{30,42}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1)
-    if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
-    "one"
-    annotation (Placement(transformation(extent={{50,70},{30,90}})));
+    annotation (Placement(transformation(extent={{-12,70},{8,90}})));
   Sensors.TemperatureTwoPort T2Ret(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m2_flow_nominal,
@@ -167,7 +159,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         rotation=-90,
         origin={-40,-80})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(
-    final k=Integer(typCtl))
+    final k=Integer(typVar))
     "Controlled variable selector"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 equation
@@ -193,26 +185,14 @@ equation
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(T2Sup.port_b, port_b2)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
-  connect(mod, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-80},{34,
-          -80},{34,-72}},
-        color={255,127,0}));
+  connect(mode, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-80},
+          {34,-80},{34,-72}}, color={255,127,0}));
   connect(set, ctl.u_s) annotation (Line(points={{-120,-40},{-80,-40},{-80,-60},
           {28,-60}},  color={0,0,127}));
   connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{80,-20},
           {80,-40},{72,-40}}, color={0,0,127}));
-  connect(mod, isEna.u)
-    annotation (Line(points={{-120,80},{-12,80}}, color={255,127,0}));
-  connect(isEna.y, swi.u2) annotation (Line(points={{12,80},{16,80},{16,40},{12,
-          40}}, color={255,0,255}));
-  connect(yPum, swi.u1) annotation (Line(points={{-120,40},{-80,40},{-80,56},{20,
-          56},{20,48},{12,48}}, color={0,0,127}));
-  connect(zer.y, swi.u3)
-    annotation (Line(points={{28,32},{12,32}}, color={0,0,127}));
-  connect(swi.y, pum.y)
-    annotation (Line(points={{-12,40},{-32,40},{-32,40},{-48,40}},
-                                                 color={0,0,127}));
-  connect(One.y, swi.u1) annotation (Line(points={{28,80},{20,80},{20,48},{12,48}},
-        color={0,0,127}));
+  connect(mode, isEna.u)
+    annotation (Line(points={{-120,80},{-14,80}}, color={255,127,0}));
   connect(port_a2, T2Ret.port_a)
     annotation (Line(points={{60,100},{60,70}}, color={0,127,255}));
   connect(T2Ret.port_b,res2. port_a)
@@ -229,11 +209,15 @@ equation
   connect(ctlVar.y, extIndSig.index)
     annotation (Line(points={{-68,-80},{-52,-80}}, color={255,127,0}));
   connect(val.y_actual, yVal_actual) annotation (Line(points={{67,-46},{67,-50},
-          {90,-50},{90,-60},{120,-60}}, color={0,0,127}));
-  connect(pum.P, PPum) annotation (Line(points={{-51,52},{-51,54},{80,54},{80,
+          {90,-50},{90,-40},{120,-40}}, color={0,0,127}));
+  connect(pum.P, PPum) annotation (Line(points={{-69,52},{-69,54},{80,54},{80,
           60},{120,60}}, color={0,0,127}));
-  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-53,52},{80,52},
+  connect(pum.y_actual, yPum_actual) annotation (Line(points={{-67,52},{80,52},
           {80,40},{120,40}}, color={0,0,127}));
+  connect(yPum, pum.y)
+    annotation (Line(points={{-120,40},{-72,40}}, color={0,0,127}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{10,80},{20,80},{20,20},{
+          -67,20},{-67,34.8}}, color={255,0,255}));
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -252,12 +236,12 @@ flow resistance.
 This is a typical configuration for constant flow secondary circuits that
 have a design supply temperature different from the primary circuit
 (for instance underfloor heating systems).
-The reduced flow through the control valve due to the intermediary 
+The reduced flow through the control valve due to the intermediary
 bypass allows selecting a smaller valve for the same design pressure drop.
-The pressure drop through the control valve is compensated by the primary pump, 
+The pressure drop through the control valve is compensated by the primary pump,
 reducing the secondary pump head.
 The control valve authority is close to <i>1</i> (<i>&Delta;p<sub>A-AB</sub> &asymp;
-&Delta;p<sub>J-AB</sub></i>) so the sizing is only based on a 
+&Delta;p<sub>J-AB</sub></i>) so the sizing is only based on a
 minimum pressure drop of <i>3</i> kPa at design flow rate.
 </p>
 <p>
@@ -269,22 +253,22 @@ supply and return temperature and the primary supply temperature.
 <p>
 <i>
 m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
-(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) / 
+(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) /
 (T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
 </i>
 </p>
 <p>
-For the design flow rate <i>m&#775;<sub>1, design</sub></i> the primary 
-balancing valve should be sized to generate a pressure drop equivalent to 
+For the design flow rate <i>m&#775;<sub>1, design</sub></i> the primary
+balancing valve should be sized to generate a pressure drop equivalent to
 the pressure differential at the circuit boundaries <i>&Delta;p<sub>a1-b1</sub></i>.
-Oversizing the valve (yielding a lower pressure drop) is not detrimental 
+Oversizing the valve (yielding a lower pressure drop) is not detrimental
 to the consumer circuit operation:
 the control valve compensates by working at a lower opening fraction in average.
 However, the primary circuit operation is degraded with a lower <i>&Delta;T</i>
-and a higher mass flow rate. 
-Undersizing the valve (yielding a higher pressure drop) is detrimental 
+and a higher mass flow rate.
+Undersizing the valve (yielding a higher pressure drop) is detrimental
 to the consumer circuit operation that will be starved of primary flow rate
-despite the control valve being fully open. The consumer circuit temperature set point 
+despite the control valve being fully open. The consumer circuit temperature set point
 cannot be met.
 See
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve\">
@@ -295,7 +279,7 @@ for a numerical illustration of those effects.
 Parameterization
 </h4>
 <p>
-By default the secondary pump is parameterized with <code>m2_flow_nominal</code> 
+By default the secondary pump is parameterized with <code>m2_flow_nominal</code>
 and <code>dp2_nominal</code> at maximum speed.
 The partner valve <code>bal2</code> is therefore configured with zero
 pressure drop.

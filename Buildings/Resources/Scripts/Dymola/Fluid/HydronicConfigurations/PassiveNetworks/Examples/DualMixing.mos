@@ -10,7 +10,7 @@ createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]"
 
 createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
 
-createPlot(id=5, position={1209, 248, 1184, 847}, y={"con.pum.dp_nominal", "con.pum.dpMachine", "loa.con.val.dp"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=1);
+createPlot(id=5, position={1209, 248, 1184, 847}, y={"con.pum.dp_nominal", "con.pum.dpMachine"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=1);
 createPlot(id=5, y={"con.pum.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
 
 // Delta-T function of the load

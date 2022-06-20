@@ -5,8 +5,8 @@ model Diversion "Diversion circuit"
     final m1_flow_nominal=m2_flow_nominal,
     final dpBal2_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-    final have_pum=false,
-    final have_ctl=false);
+    final typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.None,
+    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -87,7 +87,7 @@ equation
   connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,20},{80,20},
           {80,0},{72,0}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual)
-    annotation (Line(points={{67,-6},{67,-60},{120,-60}}, color={0,0,127}));
+    annotation (Line(points={{67,-6},{67,-40},{120,-40}}, color={0,0,127}));
   connect(jun.port_3, res3.port_a)
     annotation (Line(points={{-50,0},{-10,0}}, color={0,127,255}));
   connect(res3.port_b, val.port_3)
@@ -103,15 +103,15 @@ equation
     Documentation(info="<html>
 
 <p>
-Lumped flow resistance includes consumer circuit 
+Lumped flow resistance includes consumer circuit
 and control valve only.
 Primary balancing valve always modeled as a distinct
 flow resistance.
 </p>
 <p>
-The secondary balancing valve pressure drop 
-<code>dpBal2_nominal</code> 
-stands for the pressure drop of the balancing valve 
+The secondary balancing valve pressure drop
+<code>dpBal2_nominal</code>
+stands for the pressure drop of the balancing valve
 in the bypass.
 </p>
 </html>"));
