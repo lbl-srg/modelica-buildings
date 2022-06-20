@@ -7,25 +7,35 @@ model InjectionTwoWayCheckValve
       final dpValve_nominal=3.4e3,
       final allowFlowReversal=allowFlowReversal,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-      final dpFixed_nominal=0))
-  annotation (IconMap(primitivesVisible=false));
+      final dpFixed_nominal=0));
 
   annotation (
     defaultComponentName="con",
-    Icon(coordinateSystem(preserveAspectRatio=false),
-    graphics={
-      Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={175,175,175},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-      Text(
-          extent={{-149,-114},{151,-154}},
-          textColor={0,0,255},
-          textString="%name"),
-      Bitmap(
-      extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/InjectionTwoWayValveCheckValve.svg")}),
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Polygon(
+          points={{34,34},{40,24},{46,34},{34,34}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          rotation=270,
+          origin={10,70}),
+        Rectangle(
+          extent={{-20,40},{20,20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Line(
+          points={{-20,20},{20,40}},
+          color={0,0,0},
+          thickness=0.5),
+        Ellipse(
+          extent={{18,42},{22,38}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

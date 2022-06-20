@@ -7,7 +7,7 @@ equation
   connect(con.port_b2, jun.port_1)
     annotation (Line(points={{4,20},{4,60},{10,60}}, color={0,127,255}));
   connect(con.port_a2, del2.ports[4])
-    annotation (Line(points={{16,19.8},{16,40},{40,40}}, color={0,127,255}));
+    annotation (Line(points={{16,20},{16,40},{40,40}},   color={0,127,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),

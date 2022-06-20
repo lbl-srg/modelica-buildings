@@ -139,7 +139,7 @@ equation
     annotation (Line(points={{6,0},{100,0}}, color={0,127,255}));
   connect(con.port_b2, loa.port_a) annotation (Line(points={{-6,20},{-6,40},{-10,
           40},{-10,60}}, color={0,127,255}));
-  connect(con.port_a2, loa.port_b) annotation (Line(points={{6,19.8},{6,40},{10,
+  connect(con.port_a2, loa.port_b) annotation (Line(points={{6,20},{6,40},{10,
           40},{10,60}}, color={0,127,255}));
   connect(loa.yVal, con.yVal) annotation (Line(points={{12,68},{20,68},{20,80},{
           -20,80},{-20,10},{-12,10}},  color={0,0,127}));
@@ -195,14 +195,8 @@ equation
           points={{80,0},{100,0}},
           color={0,0,0},
           thickness=0.5),
-        Line(
-          points={{-10,0},{3.74941e-32,-6.12325e-16}},
-          color={0,0,0},
-          thickness=0.5,
-          origin={60,10},
-          rotation=90),
         Rectangle(
-          extent={{50,30},{70,10}},
+          extent={{50,34},{70,14}},
           lineColor={0,0,0},
           lineThickness=0.5),
         Line(
@@ -223,7 +217,7 @@ equation
           lineColor={0,0,0},
           lineThickness=0.5),
         Line(
-          points={{50,72},{60,72},{60,30}},
+          points={{50,72},{60,72},{60,34}},
           color={0,0,0},
           pattern=LinePattern.Dot,
           thickness=0.5),
@@ -238,6 +232,12 @@ equation
         Line(
           points={{-26,76},{-18,76}},
           color={0,0,0},
-          thickness=1)}),                                        Diagram(
+          thickness=1),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={60,0},
+          rotation=270)}),                                       Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialLoadValveControl;

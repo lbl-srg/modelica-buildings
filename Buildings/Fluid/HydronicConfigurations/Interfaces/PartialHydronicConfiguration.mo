@@ -167,7 +167,7 @@ model PartialHydronicConfiguration
     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Secondary return port"
     annotation (Placement(transformation(extent={{50,90},{70,110}}),
-        iconTransformation(extent={{50,88},{70,108}})));
+        iconTransformation(extent={{50,90},{70,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -316,8 +316,8 @@ protected
       graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={175,175,175},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-114},{151,-154}},
           textColor={0,0,255},

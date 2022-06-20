@@ -93,12 +93,7 @@ equation
   connect(res3.port_b, val.port_3)
     annotation (Line(points={{10,0},{50,0}}, color={0,127,255}));
   annotation (
-    defaultComponentName="con",
-    Icon(
-    graphics={
-    Bitmap(
-      extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Diversion.svg")}),                                                                                                       Diagram(
+    defaultComponentName="con",                                                                                                                                                                                            Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 
@@ -114,5 +109,130 @@ The secondary balancing valve pressure drop
 stands for the pressure drop of the balancing valve
 in the bypass.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Line(
+          points={{-60,-90},{-60,90}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{60,-90},{60,90}},
+          color={0,0,0},
+          thickness=0.5),
+        Polygon(
+          points={{-10,10},{-10,-10},{10,0},{-10,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          origin={60,-10},
+          rotation=90,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-10,10},{10,10},{0,-10},{-10,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          origin={60,10},
+          rotation=0,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-10,10},{-10,-10},{10,0},{-10,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          origin={50,0},
+          rotation=0,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{74,10},{94,-10}},
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={60,0},
+          rotation=180),
+        Line(
+          points={{2.29846e-15,-10},{0,90}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={30,0},
+          rotation=90),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          rotation=180),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=270),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=180,
+          origin={-10,14}),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={60,-60},
+          rotation=90),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,-60},
+          rotation=180),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,-70},
+          rotation=270),
+        Polygon(
+          points={{-54,-60},{-60,-50},{-66,-60},{-54,-60}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{34,34},{40,24},{46,34},{34,34}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          rotation=90,
+          origin={-10,-40}),
+        Polygon(
+          points={{54,-26},{60,-36},{66,-26},{54,-26}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-54,46},{-60,56},{-66,46},{-54,46}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{66,54},{60,44},{54,54},{66,54}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-100,0},{-80,0},{-80,24},{84,24},{84,10}},
+          color={0,0,0},
+          thickness=0.5,
+          pattern=LinePattern.Dot,
+          visible=typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.None)}));
 end Diversion;

@@ -7,9 +7,38 @@ model SingleMixing "Single mixing circuit"
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-    Bitmap(
-      extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/PassiveNetworks/SingleMixing.svg")}),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          rotation=180),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=270),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=180,
+          origin={-10,14}),
+        Polygon(
+          points={{34,34},{40,24},{46,34},{34,34}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          rotation=270,
+          origin={10,40}),
+        Polygon(
+          points={{54,-50},{60,-60},{66,-50},{54,-50}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

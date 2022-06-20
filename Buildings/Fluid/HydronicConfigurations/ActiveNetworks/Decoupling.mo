@@ -213,12 +213,7 @@ equation
   connect(yPum, pum.y)
     annotation (Line(points={{-120,40},{-72,40}}, color={0,0,127}));
   annotation (
-    defaultComponentName="con",
-    Icon(
-    graphics={
-      Bitmap(
-      extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Decoupling.svg")}),                                                                                                       Diagram(
+    defaultComponentName="con",                                                                                                                                                                                             Diagram(
     coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
@@ -226,11 +221,185 @@ The P-controller mimics a self-acting &Delta;P control valve
 with a proportional band of <i>&plusmn;20%</i> around the
 pressure differential set point.
 This set point corresponds to the design pressure drop of the
-bypass balancing valve, typically around <i>10</i>&nbsp;Pa.
+bypass balancing valve
+<code>dpBal3_nominal</code>, 
+typically around <i>10</i>&nbsp;Pa for a mass flow rate
+of <code>m1_flow_nominal - m2_flow_nominal</code>.
 Note that this configuration yields a nearly constant
-bypass flow rate, as opposed to a constant percentage
-of the consumer circuit flow rate that a temperature-based
+bypass mass flow rate, as opposed to a constant percentage
+of the consumer circuit mass flow rate that a temperature-based
 control could provide.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Line(
+          points={{-60,-90},{-60,90}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{60,-90},{60,90}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{-14,-8},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,4},
+          rotation=180,
+          visible=typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Polygon(
+          points={{54,-26},{60,-36},{66,-26},{54,-26}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{3.43156e-15,-30},{0,90}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={30,30},
+          rotation=90),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={60,-60},
+          rotation=90),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={60,0},
+          rotation=90),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          rotation=180,
+          origin={0,30}),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=180,
+          origin={-10,44}),
+        Ellipse(
+          extent={{30,16},{46,-14}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          rotation=27,
+          origin={2,0},
+          visible=typCtl<>Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Line(
+          points={{35.5,6.5},{36,-23.5}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=27,
+          origin={4,-8},
+          visible=typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Line(
+          points={{-16,22},{-16,0},{32,0}},
+          color={0,0,0},
+          pattern=LinePattern.Dot,
+          thickness=0.5,
+          visible=typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Line(
+          points={{51.5,17.5},{42,12}},
+          color={0,0,0},
+          pattern=LinePattern.Dot,
+          thickness=0.5,
+          visible=typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Polygon(
+          points={{34,34},{40,24},{46,34},{34,34}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          rotation=90,
+          origin={70,-10}),
+        Ellipse(
+          extent={{-80,80},{-40,40}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
+        Polygon(
+          points={{-60,80},{-42.5,50},{-77.5,50}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
+        Polygon(
+          points={{-54,-60},{-60,-50},{-66,-60},{-54,-60}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,-70},
+          rotation=270),
+        Rectangle(
+          extent={{26,10},{46,-10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          visible=typCtl==Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={60,60},
+          rotation=360),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={40,48},
+          rotation=270),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          rotation=270,
+          origin={60,60}),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,-60},
+          rotation=180),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,0},
+          rotation=180,
+          visible=typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={0,30},
+          rotation=270),
+        Line(
+          points={{26,0},{-100,0}},
+          color={0,0,0},
+          thickness=0.5,
+          pattern=LinePattern.Dot,
+          visible=typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.None)}));
 end Decoupling;
