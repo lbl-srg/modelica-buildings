@@ -113,11 +113,9 @@ equation
   connect(con.port_b2, loa.port_a) annotation (Line(points={{24,20},{24,40},{40,
           40},{40,70}}, color={0,127,255}));
   connect(loa.port_b, con.port_a2)
-    annotation (Line(points={{60,70},{60,19.8},{36,19.8}},
-                                                         color={0,127,255}));
+    annotation (Line(points={{60,70},{60,20},{36,20}},   color={0,127,255}));
   connect(loa1.port_b, con.port_a2)
-    annotation (Line(points={{120,72},{120,19.8},{36,19.8}},
-                                                           color={0,127,255}));
+    annotation (Line(points={{120,72},{120,20},{36,20}},   color={0,127,255}));
   connect(con.port_b2,res2. port_a)
     annotation (Line(points={{24,20},{24,40},{70,40}},
                                                      color={0,127,255}));

@@ -8,24 +8,6 @@ model SingleMixing "Single mixing circuit"
     defaultComponentName="con",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
-          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          rotation=180),
-        Line(
-          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
-          color={0,0,0},
-          thickness=0.5,
-          rotation=270),
-        Line(
-          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
-          color={0,0,0},
-          thickness=0.5,
-          rotation=180,
-          origin={-10,14}),
-        Polygon(
           points={{34,34},{40,24},{46,34},{34,34}},
           lineColor={0,0,0},
           lineThickness=0.5,
@@ -38,7 +20,28 @@ model SingleMixing "Single mixing circuit"
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          rotation=180,
+          visible=dpBal3_nominal > 0),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=180,
+          origin={-10,14},
+          visible=dpBal3_nominal > 0),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          rotation=270,
+          visible=dpBal3_nominal > 0)}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -70,4 +73,5 @@ By default the secondary pump is parameterized with
 at maximum speed.
 </p>
 </html>"));
+
 end SingleMixing;

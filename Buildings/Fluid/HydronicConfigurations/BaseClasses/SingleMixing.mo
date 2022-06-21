@@ -195,26 +195,6 @@ equation
           lineThickness=0.5,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          origin={60,60},
-          rotation=90),
-        Line(
-          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
-          color={0,0,0},
-          thickness=0.5,
-          origin={46,60},
-          rotation=180),
-        Line(
-          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
-          color={0,0,0},
-          thickness=0.5,
-          origin={46,50},
-          rotation=270),
         Ellipse(
           extent={{-80,80},{-40,40}},
           lineColor={0,0,0},
@@ -282,7 +262,30 @@ equation
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={60,60},
+          rotation=360,
+          visible=dpBal2_nominal > 0),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={40,50},
+          rotation=270,
+          visible=dpBal2_nominal > 0),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          rotation=270,
+          origin={60,60},
+          visible=dpBal2_nominal > 0)}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

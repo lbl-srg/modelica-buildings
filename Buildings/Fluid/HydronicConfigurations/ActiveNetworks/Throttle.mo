@@ -61,26 +61,6 @@ equation
           color={0,0,0},
           thickness=0.5),
         Polygon(
-          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          origin={60,-60},
-          rotation=90),
-        Line(
-          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
-          color={0,0,0},
-          thickness=0.5,
-          origin={46,-60},
-          rotation=180),
-        Line(
-          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
-          color={0,0,0},
-          thickness=0.5,
-          origin={46,-70},
-          rotation=270),
-        Polygon(
           points={{-54,-40},{-60,-30},{-66,-40},{-54,-40}},
           lineColor={0,0,0},
           lineThickness=0.5,
@@ -133,7 +113,30 @@ equation
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dot,
-          visible=typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.None)}),
+          visible=typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.None),
+        Line(
+          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,-60},
+          rotation=180,
+          visible=dpBal1_nominal > 0),
+        Polygon(
+          points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={60,-60},
+          rotation=90,
+          visible=dpBal1_nominal > 0),
+        Line(
+          points={{-20,-1.83696e-15},{3.74941e-32,-6.12325e-16}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={46,-70},
+          rotation=270,
+          visible=dpBal1_nominal > 0)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

@@ -103,7 +103,7 @@ equation
   connect(con.port_b2, con1.port_a1)
     annotation (Line(points={{4,20},{4,20}}, color={0,127,255}));
   connect(con.port_a2, con1.port_b1)
-    annotation (Line(points={{16,19.8},{16,20}}, color={0,127,255}));
+    annotation (Line(points={{16,20},{16,20}},   color={0,127,255}));
   connect(loa.yVal_actual, yValMax.u2) annotation (Line(points={{42,108},{50,108},
           {50,164},{22,164}}, color={0,0,127}));
   connect(loa1.yVal_actual, yValMax.u1) annotation (Line(points={{102,108},{110,
@@ -114,7 +114,7 @@ equation
           34},{-2,34}}, color={0,0,127}));
   connect(mode.y[1], resT2.mod) annotation (Line(points={{-118,80},{-100,80},{-100,
           178}}, color={255,127,0}));
-  connect(con1.port_a2, del2.ports[4]) annotation (Line(points={{16,39.8},{28,39.8},
+  connect(con1.port_a2, del2.ports[4]) annotation (Line(points={{16,40},{28,40},
           {28,40},{40,40}}, color={0,127,255}));
   connect(con1.port_b2, jun.port_1)
     annotation (Line(points={{4,40},{4,60},{10,60}}, color={0,127,255}));

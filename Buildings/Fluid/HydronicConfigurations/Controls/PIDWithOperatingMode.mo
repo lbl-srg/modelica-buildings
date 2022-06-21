@@ -74,8 +74,8 @@ block PIDWithOperatingMode "PID controller with operating mode input"
     final yMin=yMin,
     final Ni=Ni,
     final Nd=Nd,
-    final xi_start=y_reset,
-    final yd_start=y_reset,
+    final xi_start=y_neutral,
+    final yd_start=y_neutral,
     final reverseActing=reverseActing,
     final y_reset=y_reset)
     "Controller"
@@ -102,18 +102,14 @@ block PIDWithOperatingMode "PID controller with operating mode input"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-50})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant map_y[2](k={0,0})
-                      "Map output value depending on actual operating mode"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
-    allowOutOfRange=true,
-    final nin=2,
-    outOfRangeValue=y_neutral - y_reset)
-    "Select mapping coefficient based on operating mode"
-    annotation (Placement(transformation(extent={{30,50},{50,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add      add2
-    "Multiply input with mapping coefficient"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold isDis(t=Controls.OperatingModes.disabled)
+    "Returns true if disabled"
+    annotation (Placement(transformation(extent={{10,30},{30,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disVal(k=y_neutral)
+    "Value when disabled"
+    annotation (Placement(transformation(extent={{10,70},{30,90}})));
 equation
   connect(cha.y, conPID.trigger)
     annotation (Line(points={{2,-30},{14,-30},{14,-12}}, color={255,0,255}));
@@ -134,20 +130,19 @@ equation
     annotation (Line(points={{20,-38},{20,-12}}, color={0,0,127}));
   connect(mulSet.y, conPID.u_s)
     annotation (Line(points={{2,0},{8,0}}, color={0,0,127}));
-  connect(map_y.y, extIndSig1.u)
-    annotation (Line(points={{22,60},{28,60}}, color={0,0,127}));
-  connect(add2.y, y)
-    annotation (Line(points={{92,0},{98,0},{98,0},{120,0}}, color={0,0,127}));
-  connect(conPID.y, add2.u2)
-    annotation (Line(points={{32,0},{60,0},{60,-6},{68,-6}}, color={0,0,127}));
-  connect(extIndSig1.y, add2.u1) annotation (Line(points={{52,60},{60,60},{60,6},
-          {68,6}},                color={0,0,127}));
   connect(mod, extIndSig.index) annotation (Line(points={{-60,-120},{-60,40},{
           -28,40},{-28,48}}, color={255,127,0}));
   connect(mod, cha.u) annotation (Line(points={{-60,-120},{-60,-30},{-22,-30}},
         color={255,127,0}));
-  connect(mod, extIndSig1.index) annotation (Line(points={{-60,-120},{-60,40},{
-          40,40},{40,48}}, color={255,127,0}));
+  connect(swi.y, y) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
+  connect(conPID.y, swi.u3)
+    annotation (Line(points={{32,0},{40,0},{40,-8},{58,-8}}, color={0,0,127}));
+  connect(isDis.y, swi.u2) annotation (Line(points={{32,40},{46,40},{46,0},{58,
+          0}}, color={255,0,255}));
+  connect(mod, isDis.u) annotation (Line(points={{-60,-120},{-60,40.1667},{8,
+          40.1667},{8,40}}, color={255,127,0}));
+  connect(disVal.y, swi.u1)
+    annotation (Line(points={{32,80},{52,80},{52,8},{58,8}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -192,12 +187,28 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-To prevent windup, the tracking error is zeroed out 
-when the control mode is equal to \"Disabled\".
-When the control mode switches to \"Enabled\" the controller
-is reset to a neutral value.
-A control loop in neutral shall correspond to a condition that applies 
-the minimum control effect, i.e., valves/dampers closed, VFDs at minimum speed, etc.
+This block adds the following features to 
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
 </p>
+<ul>
+<li>
+Operating mode: Based on the constants defined within  
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes\">
+Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes</a>
+the block allows the controller to be disabled (see below)
+or to switch to a change-over mode (for instance a heating mode if the 
+controller is originally configured for a cooling function).
+</li>
+<li>
+To prevent windup, the tracking error is zeroed out 
+when the control mode is equal to 
+<code>HydronicConfigurations.Controls.OperatingModes.disabled</code>
+and the output is set to <code>y_neutral</code> at disable time.
+Typically this neutral value should correspond to a condition that
+applies the minimum control effect, i.e., valves/dampers closed, 
+VFDs at minimum speed, etc.
+</li>
+</ul>
 </html>"));
 end PIDWithOperatingMode;
