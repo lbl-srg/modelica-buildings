@@ -46,10 +46,9 @@ package Heating "Package of models for district heating loads"
           TSet=TDhwSet,
           mDhw_flow_nominal=mDhw_flow_nominal) "Ideal thermostatic mixing valve"
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-        Modelica.Blocks.Continuous.Integrator watCon "Integrated hot water consumption"
-          annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
-        Modelica.Blocks.Math.Gain neg(k=-1)
-          annotation (Placement(transformation(extent={{52,-50},{72,-30}})));
+        Modelica.Blocks.Continuous.Integrator watCon(k=-1)
+                                                     "Integrated hot water consumption"
+          annotation (Placement(transformation(extent={{84,-50},{104,-30}})));
         Modelica.Blocks.Interfaces.RealOutput TTw "Temperature of the outlet tempered water"
           annotation (Placement(transformation(extent={{180,20},{220,60}})));
         Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"
@@ -67,14 +66,12 @@ package Heating "Package of models for district heating loads"
                 40},{-200,40}},           color={0,127,255}));
         connect(tmv.port_cw, port_dcw) annotation (Line(points={{-110,-6},{-150,-6},{-150,
                 -40},{-200,-40}},         color={0,127,255}));
-        connect(neg.y, watCon.u) annotation (Line(points={{73,-40},{108,-40}},
-                                  color={0,0,127}));
-        connect(gaiDhw.y, neg.u) annotation (Line(points={{51,20},{0,20},{0,-40},{50,-40}},
-                                  color={0,0,127}));
         connect(tmv.TTw, TTw) annotation (Line(points={{-89,8},{-70,8},{-70,40},{200,40}},
               color={0,0,127}));
         connect(watCon.y, mDhw)
-          annotation (Line(points={{131,-40},{200,-40}}, color={0,0,127}));
+          annotation (Line(points={{105,-40},{200,-40}}, color={0,0,127}));
+        connect(watCon.u, gaiDhw.y) annotation (Line(points={{82,-40},{0,-40},{
+                0,20},{51,20}}, color={0,0,127}));
       annotation (Documentation(info="<html>
 <p>
 This is a single zone model based on the envelope of the BESTEST Case 600
