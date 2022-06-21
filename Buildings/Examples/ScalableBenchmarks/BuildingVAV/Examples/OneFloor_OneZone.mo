@@ -37,7 +37,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each constantHead=850,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each m_flow_nominal=10,
+    each m_flow_nominal=0.1,
     each inputType=Buildings.Fluid.Types.InputType.Continuous,
     each nominalValuesDefineDefaultPressureCurve=true)
       "Supply air fan"
@@ -510,6 +510,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2022, by Hongxiang Fu:<br/>
+changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">issue #3067</a>.
+</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for
