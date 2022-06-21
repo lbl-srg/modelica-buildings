@@ -512,7 +512,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 <ul>
 <li>
 June 17, 2022, by Hongxiang Fu:<br/>
-changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
+Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">issue #3067</a>.
 </li>
