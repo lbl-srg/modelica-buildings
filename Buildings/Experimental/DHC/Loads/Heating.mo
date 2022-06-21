@@ -313,30 +313,38 @@ First implementation.
           dp1_nominal=0,
           dp2_nominal=0,
           eps=0.85) "Domestic hot water heater"
-          annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
-        Modelica.Fluid.Interfaces.FluidPort_a port_dhs(redeclare package Medium
-            = Medium) "Port for district heating supply"
-          annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
-        Modelica.Fluid.Interfaces.FluidPort_b port_dhr(redeclare package Medium
-            = Medium) "Port for district heating return"
-          annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
+          annotation (Placement(transformation(extent={{-70,16},{-50,-4}})));
+        Modelica.Fluid.Interfaces.FluidPort_a port_dhs(redeclare package Medium =
+              Medium) "Port for district heating supply"
+          annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
+        Modelica.Fluid.Interfaces.FluidPort_b port_dhr(redeclare package Medium =
+              Medium) "Port for district heating return"
+          annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
+        Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium
+            = Medium, m_flow_nominal=mHw_flow_nominal)
+          annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
       equation
-        connect(conTSetHw.y, heaDhw.TSet) annotation (Line(points={{-31.2,40},{-20,40},
-                {-20,8},{-12,8}}, color={0,0,127}));
-        connect(senTem.port_b, port_hw)
+        connect(conTSetHw.y, heaDhw.TSet) annotation (Line(points={{-13.2,40},{
+                -8,40},{-8,8},{6,8}},
+                                  color={0,0,127}));
+        connect(senTemAuxHeaOut.port_b, port_hw)
           annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
-        connect(senTem.port_a, heaDhw.port_b)
-          annotation (Line(points={{50,0},{10,0}},  color={0,127,255}));
-        connect(heaDhw.Q_flow, Q_flow) annotation (Line(points={{11,8},{40,8},{40,40},
-                {110,40}}, color={0,0,127}));
-        connect(hex.port_b1, heaDhw.port_a)
-          annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
+        connect(senTemAuxHeaOut.port_a, heaDhw.port_b)
+          annotation (Line(points={{50,0},{28,0}}, color={0,127,255}));
+        connect(heaDhw.Q_flow, PEleAuxHea) annotation (Line(points={{29,8},{40,
+                8},{40,40},{106,40}}, color={0,0,127}));
         connect(hex.port_a1, port_cw)
-          annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
-        connect(port_dhs, hex.port_a2) annotation (Line(points={{-20,-100},{-20,-12},{
-                -40,-12}}, color={0,127,255}));
-        connect(hex.port_b2, port_dhr) annotation (Line(points={{-60,-12},{-80,-12},{-80,
-                -100}}, color={0,127,255}));
+          annotation (Line(points={{-70,0},{-100,0}}, color={0,127,255}));
+        connect(port_dhs, hex.port_a2) annotation (Line(points={{-40,100},{-40,
+                12},{-50,12}},
+                           color={0,127,255}));
+        connect(hex.port_b2, port_dhr) annotation (Line(points={{-70,12},{-80,
+                12},{-80,100}},
+                        color={0,127,255}));
+        connect(senTemHXOut.port_a, hex.port_b1)
+          annotation (Line(points={{-36,0},{-50,0}}, color={0,127,255}));
+        connect(senTemHXOut.port_b, heaDhw.port_a)
+          annotation (Line(points={{-16,0},{8,0}}, color={0,127,255}));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
               coordinateSystem(preserveAspectRatio=false)));
       end DirectHeatExchangerWaterHeaterWithAuxHeat;
