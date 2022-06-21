@@ -162,31 +162,31 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-96,-72},{-54,-88}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{34,90},{98,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{50,6},{98,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{34,-70},{98,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{-98,88},{-36,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOccMin_flow")}),
 Documentation(info="<html>

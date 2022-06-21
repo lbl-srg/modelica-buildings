@@ -338,19 +338,19 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-146,194},{-24,170}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cooling SAT reset requests"),
         Text(
           extent={{-134,-176},{10,-204}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Static pressure reset requests")}),
      Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
           graphics={
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -359,49 +359,49 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,70},{-64,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{-100,46},{-72,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,26},{-72,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,-22},{-54,-38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
           extent={{-100,-54},{-58,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-96,-84},{-46,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam_actual"),
         Text(
           extent={{36,68},{98,52}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{40,-50},{98,-66}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{-98,98},{-58,84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uAftSup")}),
   Documentation(info="<html>

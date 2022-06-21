@@ -222,7 +222,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-50,-84},{-94,80}},
@@ -242,27 +242,27 @@ annotation (
           fillPattern=FillPattern.Solid),
                                    Text(
           extent={{-104,116},{-76,110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position"),
                                    Text(
           extent={{18,114},{48,108}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position"),
                                    Text(
           extent={{-104,112},{-66,104}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="supply air temperature"),
                                    Text(
           extent={{-104,106},{-84,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="control loop"),
                                    Text(
           extent={{18,110},{86,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="assignments and heating coil signal")}),
     Documentation(info="<html>

@@ -86,7 +86,7 @@ equation
           -50,-8},{-42,-8}},   color={255,127,0}));
   connect(cooCoiPI.y, switch.u1)
     annotation (Line(points={{12,80},{60,80},{60,8},{70,8}}, color={0,0,127}));
-  annotation (defaultComponentName="cooCoi",
+annotation (defaultComponentName="cooCoi",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -96,7 +96,7 @@ equation
         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        textColor={0,0,255})}),
         Diagram(coordinateSystem(
           preserveAspectRatio=false)),
 Documentation(info="<html>

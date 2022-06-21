@@ -87,7 +87,7 @@ equation
           42,30},{70,30},{70,-6},{98,-6}}, color={0,0,127}));
   connect(VOutMinSetSig1.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{42,70},{80,70},{80,-2},{98,-2}}, color={0,0,127}));
-  annotation (
+annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Limits_FanSpe_VOut_flow.mos"
     "Simulate and plot"),
@@ -104,7 +104,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}}), graphics={
         Text(
           extent={{-126,114},{-2,98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -113,7 +113,7 @@ equation
 constant minimum outdoor airflow setpoint"),
         Text(
           extent={{8,110},{140,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

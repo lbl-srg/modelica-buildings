@@ -299,7 +299,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,180},{100,140}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{0,60},{80,60}},
@@ -311,74 +311,74 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-98,38},{-56,24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-100,18},{-44,4}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uFreProSta"),
         Text(
           extent={{-100,68},{-56,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="hOutCut",
           visible=use_enthalpy),
         Text(
           extent={{-100,86},{-70,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="hOut",
           visible=use_enthalpy),
         Text(
           extent={{-100,116},{-56,102}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOutCut"),
         Text(
           extent={{-100,138},{-72,124}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-96,-100},{-32,-118}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uRetDam_max"),
         Text(
           extent={{-96,-10},{-28,-28}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOutDam_max"),
         Text(
           extent={{-96,-30},{-28,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOutDam_min"),
         Text(
           extent={{-96,-80},{-12,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uRetDamPhy_max"),
         Text(
           extent={{-96,-120},{-32,-138}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uRetDam_min"),
         Text(
           extent={{36,110},{96,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
           extent={{36,12},{96,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDam_max"),
         Text(
           extent={{36,-88},{96,-106}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDam_min")}),
     Diagram(coordinateSystem(
@@ -407,24 +407,24 @@ annotation (
           fillPattern=FillPattern.Solid),
                                      Text(
           extent={{120,158},{204,138}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
 conditions"),                        Text(
           extent={{120,52},{298,18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
 disable if stage1
 and above"),                         Text(
           extent={{120,-198},{288,-246}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 limit assignments
 with delays"),                   Text(
           extent={{120,84},{214,74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
 Documentation(info="<html>

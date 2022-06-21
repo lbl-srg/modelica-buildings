@@ -360,7 +360,7 @@ annotation (defaultComponentName = "conEco",
           thickness=0.5),
         Text(
           extent={{-100,240},{100,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-240},
             {140,240}})),

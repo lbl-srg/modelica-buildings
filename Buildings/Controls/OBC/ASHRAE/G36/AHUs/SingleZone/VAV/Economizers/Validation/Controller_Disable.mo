@@ -145,7 +145,7 @@ equation
           {14,120},{14,39},{18,39}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer.TSupHeaEcoSet) annotation (Line(points={{-58,
           60},{-54,60},{-54,21},{18,21}}, color={0,0,127}));
-  annotation (
+annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Disable.mos"
     "Simulate and plot"),
@@ -163,7 +163,7 @@ equation
         graphics={
         Text(
           extent={{20,148},{166,124}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Disable modulation
 (zone state is heating),
@@ -171,7 +171,7 @@ enable minimal
 outdoor air control"),
         Text(
           extent={{100,148},{212,120}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Disable modulation
 (zone state is heating)

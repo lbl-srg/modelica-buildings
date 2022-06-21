@@ -251,7 +251,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-60,-60},{2,62},{2,62},{64,-60},{-60,-60}},
@@ -259,47 +259,47 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-98,88},{-14,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOutMinSet_flow_normalized"),
         Text(
           extent={{-98,48},{-34,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOut_flow_normalized"),
         Text(
           extent={{-98,8},{-56,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-100,-74},{-50,-88}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{46,90},{98,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_min"),
         Text(
           extent={{46,46},{98,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
           extent={{48,6},{96,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDam_min"),
         Text(
           extent={{48,-32},{96,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDam_max"),
         Text(
           extent={{38,-70},{98,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDamPhy_max")}),
     Diagram(coordinateSystem(extent={{-180,-240},{180,240}}), graphics={
@@ -325,33 +325,33 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{26,230},{132,200}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit
 calculation and
 assignments"),
         Text(
           extent={{-170,160},{-84,142}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Physical damper position
 limits set at commissioning"),
         Text(
           extent={{28,78},{108,46}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Switches to deactivate
 limit modulation"),
         Text(
           extent={{-80,-196},{124,-226}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
 for damper position limits
 control loop"),
         Text(
           extent={{-170,126},{14,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limits
 outdoor air volume flow

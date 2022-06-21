@@ -487,12 +487,12 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-146,294},{-24,270}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cooling SAT reset requests"),
         Text(
           extent={{-134,-56},{10,-84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Static pressure reset requests"),
         Rectangle(
@@ -503,14 +503,14 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{40,-220},{166,-240}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Hot water reset requests")}),
      Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
           graphics={
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -519,79 +519,79 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,78},{-64,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{-102,56},{-74,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-98,38},{-76,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,16},{-68,4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
           extent={{-100,-4},{-66,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
           extent={{-98,-22},{-58,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam_actual"),
         Text(
           extent={{36,88},{98,72}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{40,40},{98,24}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{-98,98},{-64,84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uAftSup"),
         Text(
           visible=have_hotWatCoi,
           extent={{-98,-44},{-70,-56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDisSet"),
         Text(
           visible=have_hotWatCoi,
           extent={{-100,-64},{-82,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           extent={{-98,-82},{-58,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uVal_actual"),
         Text(
           visible=have_hotWatCoi,
           extent={{40,-20},{98,-36}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaValResReq"),
         Text(
           visible=have_hotWatCoi,
           extent={{40,-70},{98,-86}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHotWatPlaReq")}),
@@ -646,7 +646,7 @@ Else if the damper position <code>uDam_actual</code> is less than 95%, send 0 re
 </ol>
 
 <h4>If there is a hot-water coil (<code>have_hotWatCoi=true</code>), hot-water reset requests
-<code>yHeaValResReq</code></h4></h4>
+<code>yHeaValResReq</code></h4>
 <ol>
 <li>
 If the discharging air temperature <code>TDis</code> is 17 &deg;C (30 &deg;F)

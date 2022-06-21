@@ -182,50 +182,50 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,88},{-26,72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumZonAbsMin_flow"),
         Text(
           extent={{-96,38},{-26,22}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumZonDesMin_flow"),
         Text(
           extent={{26,88},{98,72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VEffAbsOutAir_flow"),
         Text(
           extent={{26,10},{98,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VEffDesOutAir_flow"),
         Text(
           extent={{6,52},{96,30}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="effAbsOutAir_normalized"),
         Text(
           extent={{6,-28},{96,-50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="effDesOutAir_normalized"),
         Text(
           extent={{-96,-24},{-46,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           visible=have_CO2Sen,
           textString="uCO2Loo_max"),
         Text(
           extent={{18,-48},{96,-70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="effOutAir_normalized"),
         Text(
           extent={{30,-76},{96,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="outAir_normalized",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
         Text(
           extent={{-98,-74},{-54,-88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
           textString="VAirOut_flow")}),

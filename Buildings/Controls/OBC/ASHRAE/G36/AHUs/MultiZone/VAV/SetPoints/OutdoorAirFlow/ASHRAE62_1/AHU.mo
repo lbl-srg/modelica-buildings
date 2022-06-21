@@ -183,45 +183,45 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,88},{-12,72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumAdjPopBreZon_flow"),
         Text(
           extent={{-96,48},{-10,32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumAdjAreBreZon_flow"),
         Text(
           extent={{-96,8},{-32,-8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumZonPri_flow"),
         Text(
           extent={{-96,-32},{-32,-48}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uOutAirFra_max"),
         Text(
           extent={{38,84},{96,72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VUncOutAir_flow"),
         Text(
           extent={{26,40},{98,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VEffAirOut_flow_min"),
         Text(
           extent={{18,-20},{96,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="effOutAir_normalized"),
         Text(
           extent={{-96,-72},{-50,-88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
           textString="VAirOut_flow"),
         Text(
           extent={{30,-70},{98,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="outAir_normalized",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper))}),

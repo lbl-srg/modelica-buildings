@@ -229,47 +229,47 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{10,50},{96,34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumAdjPopBreZon_flow"),
         Text(
           extent={{10,8},{96,-8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumAdjAreBreZon_flow"),
         Text(
           extent={{-96,-32},{-42,-46}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VZonPri_flow"),
         Text(
           extent={{40,-70},{98,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uOutAirFra_max"),
         Text(
           extent={{-98,8},{-20,-8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VAdjAreBreZon_flow"),
         Text(
           extent={{40,-30},{98,-46}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumZonPri_flow"),
         Text(
           extent={{-98,48},{-20,32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VAdjPopBreZon_flow"),
         Text(
           extent={{-96,-74},{-42,-88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VMinOA_flow"),
         Text(
           extent={{-96,96},{-52,82}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uOpeMod"),
         Text(
           extent={{46,90},{96,76}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yAhuOpeMod")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},{220,200}})),
 Documentation(info="<html>

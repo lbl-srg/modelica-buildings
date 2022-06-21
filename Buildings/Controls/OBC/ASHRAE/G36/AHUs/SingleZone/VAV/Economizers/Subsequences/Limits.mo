@@ -314,7 +314,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-4,-10},{0,-14}},
@@ -329,7 +329,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-114,-172},{96,-210}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
 for damper position limits
@@ -341,7 +341,7 @@ control loop"),
           fillPattern=FillPattern.Solid),
                                    Text(
           extent={{-140,212},{-32,194}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Values set at commissioning"),
         Rectangle(
@@ -351,12 +351,12 @@ control loop"),
           fillPattern=FillPattern.Solid),
                                    Text(
           extent={{44,220},{122,204}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit"),
         Text(
           extent={{46,206},{148,194}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="calculation and assignments")}),
     Documentation(info="<html>
 <p>

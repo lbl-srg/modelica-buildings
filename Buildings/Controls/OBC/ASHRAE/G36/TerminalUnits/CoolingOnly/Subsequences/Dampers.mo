@@ -347,47 +347,47 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,240},{100,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,66},{-52,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-98,6},{-68,-6}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uZonSta"),
         Text(
           extent={{-98,186},{-54,174}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-100,96},{-74,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,-132},{-62,-146}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow",
           visible=not have_preIndDam),
         Text(
           extent={{-100,156},{-76,146}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-100,126},{-78,116}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{68,-84},{96,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yDam"),
@@ -410,7 +410,7 @@ annotation (
       fillPattern=FillPattern.Solid),
         Text(
           extent={{60,98},{98,86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VSet_flow"),
@@ -420,12 +420,12 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-100,-84},{-56,-96}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
           extent={{-96,-172},{-52,-184}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="oveDamPos")}),
 Documentation(info="<html>

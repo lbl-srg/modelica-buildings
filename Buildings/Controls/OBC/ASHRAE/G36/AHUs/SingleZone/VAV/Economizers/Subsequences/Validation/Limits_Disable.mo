@@ -132,7 +132,7 @@ equation
           30},{-20,30},{-20,-6},{0,-6},{0,-6},{18,-6}}, color={0,0,127}));
   connect(SupFanSpeSig.y, damLim3.uSupFanSpe_actual) annotation (Line(points={{-138,
           30},{120,30},{120,-6},{130,-6},{130,-6},{138,-6}}, color={0,0,127}));
-  annotation (
+annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Limits_Disable.mos"
     "Simulate and plot"),
@@ -149,7 +149,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}), graphics={
         Text(
           extent={{-160,110},{-130,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -157,7 +157,7 @@ equation
           textString="Fan status"),
         Text(
           extent={{-40,110},{4,98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -165,7 +165,7 @@ equation
           textString="Operation mode"),
         Text(
           extent={{80,112},{146,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

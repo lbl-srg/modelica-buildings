@@ -111,7 +111,7 @@ annotation (defaultComponentName="actAirSet",
         graphics={
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -120,27 +120,27 @@ annotation (defaultComponentName="actAirSet",
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,-54},{-32,-68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOccMin_flow"),
         Text(
           extent={{-96,8},{-60,-4}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{32,-52},{98,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{32,68},{98,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{48,8},{98,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),

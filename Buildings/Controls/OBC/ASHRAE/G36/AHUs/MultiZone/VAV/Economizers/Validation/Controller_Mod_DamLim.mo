@@ -141,7 +141,7 @@ annotation (
             140,140}}), graphics={
         Text(
           extent={{92,14},{140,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Economizer fully enabled -
 validate damper position
@@ -150,7 +150,7 @@ and damper position limits
 enthalpy measurement)"),
         Text(
           extent={{6,50},{56,28}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Economizer fully enabled -
 validate damper position

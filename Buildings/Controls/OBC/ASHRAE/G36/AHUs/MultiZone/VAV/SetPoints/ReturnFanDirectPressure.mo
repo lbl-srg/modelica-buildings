@@ -253,7 +253,7 @@ annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={
         Text(extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -273,7 +273,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-50,-36},{60,-62}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Building pressure control loop signal")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{120,220}}),
         graphics={
@@ -291,14 +291,14 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-138,210},{-62,192}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Exhaust air damper control"),
         Text(
           extent={{-136,-28},{-12,-50}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -311,7 +311,7 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-136,-176},{-60,-194}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

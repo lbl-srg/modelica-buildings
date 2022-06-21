@@ -205,7 +205,7 @@ equation
           -44,40},{-44,58},{18,58}}, color={0,0,127}));
   connect(conVAV.ySupFan, conVAV.uSupFanSpe_actual) annotation (Line(points={{
           62,46},{70,46},{70,-20},{0,-20},{0,6},{18,6}}, color={0,0,127}));
-  annotation (experiment(StopTime=86400, Tolerance=1e-06),
+annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

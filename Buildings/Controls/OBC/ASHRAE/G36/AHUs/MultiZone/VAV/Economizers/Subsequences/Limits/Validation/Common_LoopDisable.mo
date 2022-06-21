@@ -100,7 +100,7 @@ annotation (
             120}}),     graphics={
         Text(
           extent={{-120,90},{-94,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -108,7 +108,7 @@ annotation (
           textString="Fan is off"),
         Text(
           extent={{20,94},{114,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

@@ -106,29 +106,29 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-96,78},{-50,64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOutDam_min"),
         Text(
           extent={{-98,8},{-60,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOutDam"),
         Text(
           extent={{-100,-62},{-54,-76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="u1SupFan"),
         Text(
           extent={{52,8},{98,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yRelDam")}),
@@ -162,8 +162,6 @@ outdoor air damper is open, and disabled and closed otherwise.
 Relief damper position shall be reset lineary from <code>relDam_min</code> to
 <code>relDam_max</code> as the commanded economizer damper position goes from
 <code>uOutDam_min</code> to 100% open.
-</p>
-
 </p>
 <p align=\"center\">
 <img alt=\"Image of the relief damper control chart for single zone AHU\"

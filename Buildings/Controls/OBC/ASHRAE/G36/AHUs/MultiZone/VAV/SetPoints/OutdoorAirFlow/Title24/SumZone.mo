@@ -156,41 +156,41 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,38},{-26,22}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VZonAbsMin_flow"),
         Text(
           extent={{-96,-22},{-26,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VZonDesMin_flow"),
         Text(
           extent={{-96,86},{-52,72}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uOpeMod"),
         Text(
           extent={{22,40},{94,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumZonAbsMin_flow"),
         Text(
           extent={{26,-20},{98,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSumZonDesMin_flow"),
         Text(
           extent={{-96,-72},{-66,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uCO2",
           visible=have_CO2Sen),
         Text(
           extent={{66,-70},{96,-84}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yMaxCO2",
           visible=have_CO2Sen),
         Text(
           extent={{38,90},{96,76}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yAhuOpeMod")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
 Documentation(info="<html>

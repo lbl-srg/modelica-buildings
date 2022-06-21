@@ -145,7 +145,7 @@ equation
           50},{-50,50},{-50,-19},{98,-19}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe_actual) annotation (Line(
         points={{-18,50},{2,50},{2,-25},{98,-25}}, color={0,0,127}));
-  annotation (
+annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Mod_DamLim.mos"
     "Simulate and plot"),
@@ -168,20 +168,20 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-128,-132},{-22,-154}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Enable both damper limit
 and modulation control loops"),
         Text(
           extent={{100,32},{154,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Validate damper modulation
 (example without
 enthalpy measurement)"),
         Text(
           extent={{20,70},{84,50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Economizer fully enabled -
 validate damper position limits")}),

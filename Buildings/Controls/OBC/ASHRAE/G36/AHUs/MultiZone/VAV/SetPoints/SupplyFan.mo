@@ -300,27 +300,27 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{42,156},{124,134}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Check current operation mode"),
         Text(
           extent={{54,-26},{124,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Reset pressure setpoint"),
         Text(
           extent={{-34,-106},{20,-136}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Control fan speed"),
         Text(
           extent={{42,142},{96,126}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -328,7 +328,7 @@ annotation (
   Icon(graphics={
         Text(
           extent={{-102,140},{96,118}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
                Rectangle(
           extent={{-100,100},{100,-100}},
@@ -337,23 +337,23 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,90},{-54,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uOpeMod"),
         Text(
           extent={{-96,-16},{-44,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uZonPreResReq"),
         Text(
           extent={{-96,-70},{-60,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="dpDuc"),
         Text(
           extent={{52,10},{94,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySupFan"),
         Text(
           extent={{52,80},{94,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y1SupFan")}),
   Documentation(info="<html>
 <p>

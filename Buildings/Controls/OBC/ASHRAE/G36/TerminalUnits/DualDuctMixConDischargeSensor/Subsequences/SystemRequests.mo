@@ -596,12 +596,12 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-166,454},{-44,430}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cooling SAT reset requests"),
         Text(
           extent={{10,-148},{170,-174}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cold duct static pressure reset requests"),
         Rectangle(
@@ -618,12 +618,12 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{66,104},{188,80}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Heating SAT reset requests"),
         Text(
           extent={{18,-348},{178,-374}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Hot duct static pressure reset requests"),
         Rectangle(
@@ -636,7 +636,7 @@ annotation (
           graphics={
         Text(
           extent={{-100,240},{100,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-200},{100,200}},
@@ -645,87 +645,87 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,168},{-64,152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{-100,138},{-72,126}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-98,108},{-74,94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-96,-52},{-40,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow_Set"),
         Text(
           extent={{-96,-132},{-28,-146}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCooDam_actual"),
         Text(
           extent={{20,92},{98,70}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonCooTemResReq"),
         Text(
           extent={{-96,200},{-44,182}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uAftSupCoo"),
         Text(
           extent={{40,-170},{98,-186}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaFanReq"),
         Text(
           extent={{24,42},{98,22}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yColDucPreResReq"),
         Text(
           extent={{24,-66},{98,-86}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHotDucPreResReq"),
         Text(
           extent={{20,-16},{98,-38}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonHeaTemResReq"),
         Text(
           extent={{-100,-82},{-52,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-96,60},{-44,42}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uAftSupHea"),
         Text(
           extent={{-96,30},{-60,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-98,-2},{-74,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-96,-162},{-28,-176}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uHeaDam_actual")}),
   Documentation(info="<html>

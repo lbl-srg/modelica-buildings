@@ -802,7 +802,7 @@ annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
         Text(extent={{-100,240},{100,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-200},{100,200}},
@@ -811,161 +811,161 @@ annotation (defaultComponentName="mulAHUFrePro",
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,200},{-14,182}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uOutDamPosMin"),
         Text(
           extent={{-96,32},{-48,10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           visible=not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
           textString="u1FreSta"),
         Text(
           extent={{-98,178},{-46,162}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uOutDam"),
         Text(
           extent={{-98,150},{-52,134}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uHeaCoi",
           visible=have_hotWatCoi),
         Text(
           extent={{-96,120},{-20,102}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
           textString="uMinOutDam"),
         Text(
           extent={{-98,78},{-46,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uRetDam"),
         Text(
           extent={{-96,60},{-56,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TAirSup"),
         Text(
           extent={{-96,-130},{-46,-148}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="uRelFan"),
         Text(
           extent={{-96,-90},{-46,-108}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
           textString="uRetFan"),
         Text(
           extent={{-98,-40},{-44,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSupFan"),
         Text(
           extent={{-96,-182},{-58,-198}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=have_hotWatCoi,
           textString="TAirMix"),
         Text(
           extent={{-96,-160},{-50,-178}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uCooCoi"),
         Text(
           extent={{36,160},{100,144}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yRetDam"),
         Text(
           extent={{38,140},{102,124}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yOutDam"),
         Text(
           extent={{20,112},{98,94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
           textString="yMinOutDam"),
         Text(
           extent={{50,40},{96,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySupFan"),
         Text(
           extent={{52,-10},{98,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
           textString="yRetFan"),
         Text(
           extent={{58,-58},{98,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="yRelFan"),
         Text(
           extent={{52,-90},{96,-106}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCooCoi"),
         Text(
           extent={{50,-110},{96,-126}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yHeaCoi",
           visible=have_hotWatCoi),
         Text(
           extent={{22,-160},{96,-178}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi),
         Text(
           extent={{-96,12},{-30,-12}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           visible=not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
                        or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC),
           textString="u1SofSwiRes"),
         Text(
           extent={{24,200},{96,180}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="y1EneCHWPum"),
         Text(
           extent={{70,-178},{98,-196}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yAla"),
         Text(
           extent={{42,-140},{96,-156}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yFreProSta"),
         Text(
           extent={{-96,104},{-14,80}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="u1MinOutDamPos",
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
         Text(
           extent={{16,92},{96,72}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
           textString="y1MinOutDam"),
         Text(
           extent={{-96,-16},{-46,-40}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="u1SupFan"),
         Text(
           extent={{-96,-64},{-48,-86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="u1RetFan",
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
         Text(
           extent={{50,64},{98,42}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="y1SupFan"),
         Text(
           extent={{48,16},{96,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="y1RetFan",
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
         Text(
           extent={{50,-34},{98,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="y1RelFan"),
         Text(
           extent={{-94,-110},{-46,-132}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="u1RelFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-440,-640},{440,
@@ -973,21 +973,21 @@ annotation (defaultComponentName="mulAHUFrePro",
           graphics={
         Text(
           extent={{-332,112},{-238,92}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 3"),
         Text(
           extent={{-330,290},{-236,270}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 2"),
         Text(
           extent={{-342,642},{-248,622}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

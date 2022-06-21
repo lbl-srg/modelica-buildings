@@ -155,41 +155,41 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,98},{-50,80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uRetDam_max"),
         Text(
           extent={{-98,58},{-48,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uRetDam_min"),
         Text(
           extent={{-98,-40},{-48,-56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOutDam_max"),
         Text(
           extent={{-98,-80},{-46,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOutDam_min"),
         Text(
           extent={{62,-52},{98,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam"),
         Text(
           extent={{64,68},{98,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDam"),
         Text(
           extent={{-98,8},{-74,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTSup")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{
@@ -206,13 +206,13 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-116,118},{-34,102}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position supply
 air temperature control loop"),
         Text(
           extent={{-24,118},{24,106}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments"),
@@ -223,7 +223,7 @@ assignments"),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{54,118},{120,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Overwrite if the freeze protection
 that tracks TFre at the measured
