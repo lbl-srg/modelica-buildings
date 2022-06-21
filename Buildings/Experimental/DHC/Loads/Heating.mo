@@ -290,20 +290,20 @@ First implementation.
           redeclare package Medium = Medium,
           m_flow_nominal=mHw_flow_nominal,
           dp_nominal=0) "Supplemental electric resistance domestic hot water heater"
-          annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+          annotation (Placement(transformation(extent={{8,-10},{28,10}})));
         Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw) "Temperature setpoint for domestic hot water supply from heater"
-          annotation (Placement(transformation(extent={{-48,32},{-32,48}})));
-        Modelica.Fluid.Interfaces.FluidPort_b port_hw(redeclare package Medium
-            = Medium) "Hot water supply port"
+          annotation (Placement(transformation(extent={{-30,32},{-14,48}})));
+        Modelica.Fluid.Interfaces.FluidPort_b port_hw(redeclare package Medium =
+              Medium) "Hot water supply port"
           annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-        Modelica.Blocks.Interfaces.RealOutput Q_flow "Thermal energy added to water"
-          annotation (Placement(transformation(extent={{100,30},{120,50}})));
-        Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package
-            Medium =
-              Medium, m_flow_nominal=mHw_flow_nominal)
+        Modelica.Blocks.Interfaces.RealOutput PEleAuxHea
+          "Thermal energy added to water with electric resistance"
+          annotation (Placement(transformation(extent={{96,30},{116,50}})));
+        Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare
+            package Medium = Medium, m_flow_nominal=mHw_flow_nominal)
           annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-        Modelica.Fluid.Interfaces.FluidPort_a port_cw(redeclare package Medium
-            = Medium) "Port for domestic cold water inlet"
+        Modelica.Fluid.Interfaces.FluidPort_a port_cw(redeclare package Medium =
+              Medium) "Port for domestic cold water inlet"
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
         Fluid.HeatExchangers.ConstantEffectiveness hex(
           redeclare package Medium1 = Medium,
