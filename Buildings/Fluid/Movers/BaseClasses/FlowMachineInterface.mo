@@ -660,16 +660,14 @@ equation
 
   // Flow work definition
   WFlo = Buildings.Utilities.Math.Functions.smoothMax(
-           x1=dp_internal*V_flow,
-           x2=0,
-           deltaX=deltaP);
+           x1=dp_internal*V_flow, x2=1E-7, deltaX=1E-6);
 
   // Total efficiency eta and consumed electric power PEle
   if per.etaMet==
     Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     eta = Buildings.Utilities.Math.Functions.smoothMax(
             x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                      x1=PEle, x2=10*deltaP, deltaX=deltaP),
+                      x1=PEle, x2=1E-5, deltaX=1E-6),
             x2=1E-2, deltaX=1E-3);
     if homotopyInitialization then
       PEle = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
@@ -711,7 +709,7 @@ equation
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     etaHyd = Buildings.Utilities.Math.Functions.smoothMax(
                x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                         x1=WHyd, x2=10*deltaP, deltaX=deltaP),
+                         x1=WHyd, x2=1E-5, deltaX=1E-6),
                x2=1E-2, deltaX=1E-3);
     if homotopyInitialization then
       WHyd = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
