@@ -172,7 +172,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu

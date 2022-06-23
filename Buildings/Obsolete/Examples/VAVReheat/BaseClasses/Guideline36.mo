@@ -14,7 +14,7 @@ model Guideline36
   parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")=
        40 "Maximum return fan discharge static pressure setpoint";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAV[numZon](
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAV[numZon](
     V_flow_nominal=mCooVAV_flow_nominal/1.2,
     AFlo=AFlo,
     each final samplePeriod=samplePeriod,
@@ -35,7 +35,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{-40,-106},{-20,-86}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     kMinOut=0.03,
     final pMaxSet=410,
     final yFanMin=yFanMin,
@@ -43,7 +43,7 @@ model Guideline36
     final peaSysPop=divP*sum({ratP_A*AFlo[i] for i in 1:numZon}))
     "AHU controller"
     annotation (Placement(transformation(extent={{340,512},{420,640}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
     zonOutAirSet[numZon](
     final AFlo=AFlo,
     final have_occSen=fill(false, numZon),
@@ -52,7 +52,7 @@ model Guideline36
     final minZonPriFlo=minZonPriFlo)
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{220,580},{240,600}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone
     zonToSys(final numZon=numZon) "Sum up zone calculation output"
     annotation (Placement(transformation(extent={{280,570},{300,590}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(final nout=numZon)
@@ -62,16 +62,16 @@ model Guideline36
     "Replicate signal whether the outdoor airflow is required"
     annotation (Placement(transformation(extent={{464,550},{484,570}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta[numZon]
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus zonSta[numZon]
     "Check zone temperature status"
     annotation (Placement(transformation(extent={{-220,268},{-200,296}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta(
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta(
     final numZon=numZon) "Check zone group status according to the zones status"
     annotation (Placement(transformation(extent={{-160,260},{-140,300}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
     opeModSel(final numZon=numZon)
     annotation (Placement(transformation(extent={{-100,284},{-80,316}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
+  Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
     TZonSet[numZon](
     final have_occSen=fill(false, numZon),
     final have_winSen=fill(false, numZon))  "Zone setpoint"

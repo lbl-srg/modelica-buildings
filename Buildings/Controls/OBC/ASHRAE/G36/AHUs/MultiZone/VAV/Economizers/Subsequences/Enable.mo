@@ -192,7 +192,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{20,-108},{40,-88}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage0)
     "Integer constant, stage 0"
     annotation (Placement(transformation(extent={{-118,12},{-98,32}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(
