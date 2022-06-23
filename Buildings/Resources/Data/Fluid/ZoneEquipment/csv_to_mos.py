@@ -25,7 +25,8 @@ def main():
     "ZONE1FANCOILAIROUTLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
     "WEST ZONE:Zone Thermostat Heating Setpoint Temperature [C](TimeStep)",
     "WEST ZONE:Zone Thermostat Cooling Setpoint Temperature [C](TimeStep)",
-    "WEST ZONE:Zone Air Temperature [C](TimeStep)"
+    "WEST ZONE:Zone Air Temperature [C](TimeStep)",
+    "ZONE1FANCOIL:Fan Coil Sensible Cooling Rate [W](TimeStep)"
     ]
 
     e.energyplus_csv_to_mos(
