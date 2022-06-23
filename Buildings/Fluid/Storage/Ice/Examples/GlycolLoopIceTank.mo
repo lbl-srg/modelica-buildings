@@ -72,11 +72,11 @@ model GlycolLoopIceTank
   Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=6000,
+    dpValve_nominal=dpValve_nominal,
     dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for glycol loop" annotation (
+    "Control valve 5 for glycol loop" annotation (
       Placement(transformation(
         extent={{4,-4},{-4,4}},
         rotation=90,
@@ -85,11 +85,11 @@ model GlycolLoopIceTank
   Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=6000,
+    dpValve_nominal=dpValve_nominal,
     dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for glycol loop" annotation (
+    "Control valve 6 for glycol loop" annotation (
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
@@ -98,20 +98,38 @@ model GlycolLoopIceTank
   Actuators.Valves.TwoWayLinear val7(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=6000,
+    dpValve_nominal=dpValve_nominal,
     dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for glycol loop" annotation (
+    "Control valve 7 for glycol loop" annotation (
       Placement(transformation(
         extent={{4,-4},{-4,4}},
         rotation=90,
         origin={106,28})));
 
+  Controls.OBC.CDL.Continuous.Sources.Constant val4On(k=1)
+    "Valve 4 on position"
+    annotation (Placement(transformation(extent={{28,22},{16,34}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal5(realTrue=1, realFalse=
+       0.1) "Valve 5 signal"
+    annotation (Placement(transformation(extent={{-22,-82},{-10,-70}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant val6Off(k=0.1)
+    "Valve 6 off position"
+    annotation (Placement(transformation(extent={{74,22},{62,34}})));
+  Controls.OBC.CDL.Continuous.Switch swiVal7 "Switch for valve 7"
+    annotation (Placement(transformation(extent={{28,56},{40,68}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant val7Off(k=0.1)
+    "Valve 7 off position"
+    annotation (Placement(transformation(extent={{6,44},{18,56}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant val7On(k=1)
+    "Valve 7 on position"
+    annotation (Placement(transformation(extent={{6,80},{18,68}})));
+
   Movers.FlowControlled_m_flow pum1(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mGly_flow_nominal) "Pump" annotation (Placement(
+    m_flow_nominal=mGly_flow_nominal) "Pump 1" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
@@ -120,7 +138,7 @@ model GlycolLoopIceTank
   Movers.FlowControlled_m_flow pum5(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mGly_flow_nominal) "Pump" annotation (Placement(
+    m_flow_nominal=mGly_flow_nominal) "Pump 5" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
@@ -129,11 +147,20 @@ model GlycolLoopIceTank
   Movers.FlowControlled_m_flow pum6(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mGly_flow_nominal) "Pump" annotation (Placement(
+    m_flow_nominal=mGly_flow_nominal) "Pump 6" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={40,-52})));
+
+  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue = mGly_flow_nominal, realFalse = mGly_flow_nominal/10) "Pump 1 signal"
+    annotation (Placement(transformation(extent={{134,-76},{122,-64}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant pum5Flow(k=mGly_flow_nominal)
+    "Pump 5 constant flow rate"
+    annotation (Placement(transformation(extent={{-26,-52},{-14,-40}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum6(realTrue=
+        mGly_flow_nominal, realFalse=mGly_flow_nominal/10) "Pump 6 signal"
+    annotation (Placement(transformation(extent={{54,-82},{42,-70}})));
 
   Sensors.TemperatureTwoPort temSen4(redeclare package Medium = MediumGlycol,
       m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
@@ -156,125 +183,48 @@ model GlycolLoopIceTank
         rotation=90,
         origin={106,-32})));
 
-  Sources.MassFlowSource_T sou2(
-    nPorts=1,
-    redeclare package Medium = MediumAir,
-    m_flow=mCon_flow_nominal) "Weather data"
-    annotation (Placement(transformation(extent={{6,-6},{-6,6}},
-        rotation=0,
-        origin={70,8})));
-
-  Sources.Boundary_pT sin2(redeclare package Medium = MediumAir,
-      nPorts=1) "Pressure source"
-    annotation (Placement(
-        transformation(
-        extent={{5,-5},{-5,5}},
-        origin={53,-43},
-        rotation=180)));
-
-  Sources.Boundary_pT preSou2(redeclare package Medium = MediumGlycol,nPorts=1)
-    "Source for pressure and to account for thermal expansion of glycol"
-    annotation (Placement(transformation(extent={{70,-18},{82,-6}})));
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFlo
-    "Fixed heat flow rate"
-    annotation (Placement(transformation(extent={{142,-2},{122,18}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum6(realTrue=
-        mGly_flow_nominal, realFalse=mGly_flow_nominal/10)
-                           "Pump signal"
-    annotation (Placement(transformation(extent={{54,-82},{42,-70}})));
-  parameter
-    Chillers.Data.ElectricEIR.Generic
-    perChi(
-    QEva_flow_nominal=-100582,
-    COP_nominal=3.1,
-    PLRMax=1.15,
-    PLRMinUnl=0.1,
-    PLRMin=0.1,
-    etaMotor=1.0,
-    mEva_flow_nominal=1000*0.0043,
-    mCon_flow_nominal=1.2*9.4389,
-    TEvaLvg_nominal=273.15 - 8.33,
-    capFunT={-0.2660645697,0.0998714035,-0.0023814154,0.0628316481,-0.0009644649,
-        -0.0011249224},
-    EIRFunT={0.1807017787,0.0271530312,-0.0004553574,0.0188175079,0.0002623276,-0.0012881189},
-    EIRFunPLR={0.0,1.0,0.0},
-    TEvaLvgMin=273.15 - 11,
-    TEvaLvgMax=273.15 - 5,
-    TConEnt_nominal=273.15 + 20,
-    TConEntMin=273.15 + 15,
-    TConEntMax=273.15 + 40)
-           annotation (Placement(transformation(extent={{132,76},{152,96}})));
-
-  Controls.OBC.CDL.Continuous.LessThreshold lesThrT4(t=273.15 - 2)
-    "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{-14,2},{-26,14}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT4(t=273.15 + 1)
-    "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{-14,-16},{-26,-4}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT6(t=273.15 + 3)
-    "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{132,-34},{144,-22}})));
-  Controls.OBC.CDL.Continuous.LessThreshold lesThrT6(t=273.15 + 2)
-    annotation (Placement(transformation(extent={{132,-52},{144,-40}})));
-  Actuators.Motors.IdealMotor motVal7(tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{46,56},{58,68}})));
-  Controls.OBC.CDL.Continuous.Switch swi
-    annotation (Placement(transformation(extent={{28,56},{40,68}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val7Off(k=0.1)
-    "Valve 7 off position"
-    annotation (Placement(transformation(extent={{6,44},{18,56}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val7On(k=1)
-    "Valve 7 on position"
-    annotation (Placement(transformation(extent={{6,80},{18,68}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant pum5Flow(k=mGly_flow_nominal)
-    "Pump 5 flow rate"
-    annotation (Placement(transformation(extent={{-26,-52},{-14,-40}})));
-  Actuators.Motors.IdealMotor motVal5(tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{-2,-82},{10,-70}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal(realTrue=1, realFalse=0.1)
-    "Valve signal"
-    annotation (Placement(transformation(extent={{-22,-82},{-10,-70}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue=
-        mGly_flow_nominal, realFalse=mGly_flow_nominal/10) "Pump signal"
-    annotation (Placement(transformation(extent={{134,-76},{122,-64}})));
-  Modelica.StateGraph.InitialStep ste0(nOut=1, nIn=1) "Initial Step"
-    annotation (Placement(transformation(extent={{-158,-24},{-146,-12}})));
-  Modelica.StateGraph.TransitionWithSignal T2 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-118,-12},{-98,8}})));
-  Modelica.StateGraph.StepWithSignal modSwi(nIn=1, nOut=1) "Mode switch"
-    annotation (Placement(transformation(extent={{-100,4},{-88,-8}})));
-  Modelica.StateGraph.TransitionWithSignal T3 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
-  Modelica.StateGraph.TransitionWithSignal T4 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-82,-46},{-62,-26}})));
-  Modelica.StateGraph.StepWithSignal chillerOn(nIn=1, nOut=1) "Chiller is on"
-    annotation (Placement(transformation(extent={{-100,-42},{-88,-30}})));
-  Modelica.StateGraph.TransitionWithSignal T1 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-126,-46},{-106,-26}})));
-  Modelica.StateGraph.Alternative alternative
-    "Split for alternative execution paths"
-    annotation (Placement(transformation(extent={{-138,-50},{-52,14}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val4On(k=1)
-    "Valve 4 on position"
-    annotation (Placement(transformation(extent={{28,22},{16,34}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val6Off(k=0.1)
-    "Valve 6 off position"
-    annotation (Placement(transformation(extent={{74,22},{62,34}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of the state graph"
     annotation (Placement(transformation(extent={{-98,76},{-84,90}})));
-  Modelica.Blocks.Sources.Sine disCooLoad(
-    amplitude=4500,
-    f=0.00001157,
-    offset=1,
-    startTime=1)
-    annotation (Placement(transformation(extent={{160,2},{148,14}})));
+  Modelica.StateGraph.Alternative alternative
+    "Split for alternative execution paths"
+    annotation (Placement(transformation(extent={{-138,-50},{-52,14}})));
+  Modelica.StateGraph.StepWithSignal chaIceTan(nIn=1, nOut=1)
+    "Charge ice tank with glycol chiller"
+    annotation (Placement(transformation(extent={{-100,-42},{-88,-30}})));
+  Modelica.StateGraph.StepWithSignal disCooCall(nIn=1, nOut=1)
+    "Cooling call from district"
+    annotation (Placement(transformation(extent={{-100,4},{-88,-8}})));
+  Modelica.StateGraph.InitialStep standby(nOut=1, nIn=1)
+    "Initial Step with pump 5 on and valve 4 open"
+    annotation (Placement(transformation(extent={{-152,-24},{-140,-12}})));
+  Modelica.StateGraph.TransitionWithSignal T1 "Transition to turn on pump 6, glycol chiller, and open valve 5"
+    annotation (Placement(transformation(extent={{-126,-46},{-106,-26}})));
+  Modelica.StateGraph.TransitionWithSignal T2 "Transition to turn on pump 1 and open valve 7"
+    annotation (Placement(transformation(extent={{-118,-12},{-98,8}})));
+  Modelica.StateGraph.TransitionWithSignal T3 "Transition to turn off pump 1 and close valve 7"
+    annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
+  Modelica.StateGraph.TransitionWithSignal T4 "Transition to turn off pump 6, glycol chiller, and close valve 5"
+    annotation (Placement(transformation(extent={{-82,-46},{-62,-26}})));
+
+  Controls.OBC.CDL.Continuous.LessThreshold lesThrT4(t=TChaStop)
+    "Threshold for ice tank outlet temperature"
+    annotation (Placement(transformation(extent={{-14,2},{-26,14}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT4(t=TChaStart)
+    "Threshold for ice tank outlet temperature"
+    annotation (Placement(transformation(extent={{-14,-16},{-26,-4}})));
+  Controls.OBC.CDL.Continuous.LessThreshold lesThrT6(t=TDisStandby)
+    "Threshold for district coil outlet temperature"
+    annotation (Placement(transformation(extent={{132,-52},{144,-40}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT6(t=TDisCooCall)
+    "Threshold for district coil outlet temperature"
+    annotation (Placement(transformation(extent={{132,-34},{144,-22}})));
+
 equation
-  connect(pum5.port_b, iceTanUnc1.port_a)
-    annotation (Line(points={{6,-40},{6,-34}},       color={0,127,255}));
-  connect(iceTanUnc1.port_b, temSen4.port_a)
-    annotation (Line(points={{6,-14},{6,-8}},      color={0,127,255}));
+  connect(pum5.port_b, iceTanUnc.port_a)
+    annotation (Line(points={{6,-40},{6,-34}}, color={0,127,255}));
+  connect(iceTanUnc.port_b, temSen4.port_a)
+    annotation (Line(points={{6,-14},{6,-8}}, color={0,127,255}));
   connect(temSen4.port_b, val4.port_a)
     annotation (Line(points={{6,4},{6,24}},        color={0,127,255}));
   connect(val4.port_b, val6.port_b) annotation (Line(points={{6,32},{6,38},{46,38},
@@ -302,12 +252,12 @@ equation
           -64},{40,-58}},            color={0,127,255}));
   connect(val6.port_b, pum6.port_a) annotation (Line(points={{46,32},{46,38},{86,
           38},{86,-64},{40,-64},{40,-58}},         color={0,127,255}));
-  connect(sou2.ports[1], chiGly.port_a1)
-    annotation (Line(points={{64,8},{58,8},{58,-11}},    color={0,127,255}));
-  connect(chiGly.port_b1, sin2.ports[1]) annotation (Line(points={{58,-31},{58,-43}},
-                               color={0,127,255}));
-  connect(preSou2.ports[1], pum6.port_a) annotation (Line(points={{82,-12},{86,-12},
-          {86,-64},{40,-64},{40,-58}},       color={0,127,255}));
+  connect(souAir.ports[1], chiGly.port_a1)
+    annotation (Line(points={{64,8},{58,8},{58,-11}}, color={0,127,255}));
+  connect(chiGly.port_b1, sinAir.ports[1])
+    annotation (Line(points={{58,-31},{58,-43}}, color={0,127,255}));
+  connect(preSouGly.ports[1], pum6.port_a) annotation (Line(points={{82,-12},{86,
+          -12},{86,-64},{40,-64},{40,-58}}, color={0,127,255}));
   connect(chiGly.TSet, chiGlyTSet.y) annotation (Line(points={{49,-9},{49,0},{56,
           0},{56,50},{62.8,50}},        color={0,0,127}));
   connect(val7.port_b, vol.ports[1])
@@ -316,7 +266,7 @@ equation
   connect(vol.ports[2], temSen6.port_a)
     annotation (Line(points={{106,-13},{106,-26}},
                                                color={0,127,255}));
-  connect(fixHeaFlo.port, vol.heatPort)
+  connect(fixHeaFloDis.port, vol.heatPort)
     annotation (Line(points={{122,8},{116,8},{116,-1}}, color={191,0,0}));
   connect(booToReaPum6.y, pum6.m_flow_in) annotation (Line(points={{40.8,-76},{30,
           -76},{30,-52},{32.8,-52}}, color={0,0,127}));
@@ -330,20 +280,12 @@ equation
           {126,-28},{130.8,-28}}, color={0,0,127}));
   connect(temSen6.T, lesThrT6.u) annotation (Line(points={{112.6,-32},{126,-32},
           {126,-46},{130.8,-46}}, color={0,0,127}));
-  connect(swi.y, motVal7.u)
-    annotation (Line(points={{41.2,62},{44.8,62}}, color={0,0,127}));
-  connect(booToReaVal.y, motVal5.u)
-    annotation (Line(points={{-8.8,-76},{-3.2,-76}}, color={0,0,127}));
-  connect(motVal5.y, val5.y) annotation (Line(points={{10.6,-76},{18,-76},{18,10},
-          {21.2,10}}, color={0,0,127}));
-  connect(chillerOn.active, booToReaPum6.u) annotation (Line(points={{-94,-42.6},
+  connect(chaIceTan.active, booToReaPum6.u) annotation (Line(points={{-94,-42.6},
           {-94,-86},{68,-86},{68,-76},{55.2,-76}}, color={255,0,255}));
   connect(lesThrT4.y, T4.condition) annotation (Line(points={{-27.2,8},{-42,8},{
           -42,-52},{-72,-52},{-72,-48}}, color={255,0,255}));
   connect(greThrT4.y, T1.condition) annotation (Line(points={{-27.2,-10},{-38,-10},
           {-38,-56},{-116,-56},{-116,-48}}, color={255,0,255}));
-  connect(motVal7.y, val7.y) annotation (Line(points={{58.6,62},{98,62},{98,28},
-          {101.2,28}}, color={0,0,127}));
   connect(val4On.y, val4.y)
     annotation (Line(points={{14.8,28},{10.8,28}}, color={0,0,127}));
   connect(val6Off.y, val6.y)
@@ -356,26 +298,27 @@ equation
     annotation (Line(points={{-12.8,-46},{-1.2,-46}}, color={0,0,127}));
   connect(booToReaPum1.y, pum1.m_flow_in) annotation (Line(points={{120.8,-70},{
           118,-70},{118,-52},{113.2,-52}}, color={0,0,127}));
-  connect(booToReaPum1.u, swi.u2) annotation (Line(points={{135.2,-70},{138,-70},
-          {138,-82},{92,-82},{92,86},{-4,86},{-4,62},{26.8,62}}, color={255,0,255}));
-  connect(val7Off.y, swi.u3) annotation (Line(points={{19.2,50},{24,50},{24,57.2},
-          {26.8,57.2}}, color={0,0,127}));
-  connect(val7On.y, swi.u1) annotation (Line(points={{19.2,74},{24,74},{24,66.8},
+  connect(booToReaPum1.u, swiVal7.u2) annotation (Line(points={{135.2,-70},{138,
+          -70},{138,-82},{92,-82},{92,86},{-4,86},{-4,62},{26.8,62}}, color={255,
+          0,255}));
+  connect(val7Off.y, swiVal7.u3) annotation (Line(points={{19.2,50},{24,50},{24,
+          57.2},{26.8,57.2}}, color={0,0,127}));
+  connect(val7On.y, swiVal7.u1) annotation (Line(points={{19.2,74},{24,74},{24,66.8},
           {26.8,66.8}}, color={0,0,127}));
-  connect(modSwi.active, swi.u2) annotation (Line(points={{-94,4.6},{-94,62},{26.8,
-          62}}, color={255,0,255}));
-  connect(T2.outPort, modSwi.inPort[1])
+  connect(disCooCall.active, swiVal7.u2) annotation (Line(points={{-94,4.6},{-94,
+          62},{26.8,62}}, color={255,0,255}));
+  connect(T2.outPort, disCooCall.inPort[1])
     annotation (Line(points={{-106.5,-2},{-100.6,-2}}, color={0,0,0}));
-  connect(modSwi.outPort[1], T3.inPort)
+  connect(disCooCall.outPort[1], T3.inPort)
     annotation (Line(points={{-87.7,-2},{-84,-2}}, color={0,0,0}));
-  connect(ste0.outPort[1], alternative.inPort)
-    annotation (Line(points={{-145.7,-18},{-139.29,-18}}, color={0,0,0}));
-  connect(T1.outPort, chillerOn.inPort[1])
+  connect(standby.outPort[1], alternative.inPort) annotation (Line(points={{-139.7,
+          -18},{-140,-18},{-140,-18},{-139.29,-18}}, color={0,0,0}));
+  connect(T1.outPort,chaIceTan. inPort[1])
     annotation (Line(points={{-114.5,-36},{-100.6,-36}}, color={0,0,0}));
-  connect(chillerOn.outPort[1], T4.inPort)
+  connect(chaIceTan.outPort[1], T4.inPort)
     annotation (Line(points={{-87.7,-36},{-76,-36}}, color={0,0,0}));
-  connect(alternative.outPort, ste0.inPort[1]) annotation (Line(points={{-51.14,
-          -18},{-46,-18},{-46,30},{-164,30},{-164,-18},{-158.6,-18}}, color={0,0,
+  connect(alternative.outPort, standby.inPort[1]) annotation (Line(points={{-51.14,
+          -18},{-46,-18},{-46,30},{-160,30},{-160,-18},{-152.6,-18}}, color={0,0,
           0}));
   connect(alternative.split[1], T1.inPort) annotation (Line(points={{-128.97,-18},
           {-126,-18},{-126,-36},{-120,-36}}, color={0,0,0}));
@@ -385,10 +328,14 @@ equation
           {-126,-18},{-126,-2},{-112,-2}}, color={0,0,0}));
   connect(T3.outPort, alternative.join[2]) annotation (Line(points={{-78.5,-2},{
           -64,-2},{-64,-18},{-61.03,-18}}, color={0,0,0}));
-  connect(chillerOn.active, booToReaVal.u) annotation (Line(points={{-94,-42.6},
+  connect(chaIceTan.active, booToReaVal5.u) annotation (Line(points={{-94,-42.6},
           {-94,-86},{-34,-86},{-34,-76},{-23.2,-76}}, color={255,0,255}));
-  connect(disCooLoad.y, fixHeaFlo.Q_flow)
+  connect(disCooLoad.y, fixHeaFloDis.Q_flow)
     annotation (Line(points={{147.4,8},{142,8}}, color={0,0,127}));
+  connect(swiVal7.y, val7.y) annotation (Line(points={{41.2,62},{100,62},{100,28},
+          {101.2,28}}, color={0,0,127}));
+  connect(booToReaVal5.y, val5.y) annotation (Line(points={{-8.8,-76},{20,-76},{
+          20,10},{21.2,10}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=259200,
@@ -416,6 +363,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-100},{160,100}})),
-    Icon(coordinateSystem(extent={{-120,-100},{160,100}})));
+    Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
+    Icon(coordinateSystem(extent={{-160,-100},{160,100}})));
 end GlycolLoopIceTank;
