@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Validation;
 model Alarms "Validate block for generating alarms"
 
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Alarms zonAla(
-    final have_CO2Sen=true)
-    "Block that generates alarms"
+    final have_CO2Sen=true) "Block that generates alarms"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(

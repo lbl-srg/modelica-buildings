@@ -5,8 +5,7 @@ model GroupStatus
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus zonGroSta(
     final numZon=3,
     numZonGro=2,
-    zonGroMsk={true,false,true})
-    "Calculate zone group status"
+    zonGroMsk={true,false,true}) "Calculate zone group status"
     annotation (Placement(transformation(extent={{120,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim[3](
     final k={1800,1700,1900})

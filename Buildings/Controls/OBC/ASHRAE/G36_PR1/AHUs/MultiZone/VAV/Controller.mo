@@ -602,8 +602,7 @@ block Controller
     final Ti=TiFanSpe,
     final Td=TdFanSpe,
     final yFanMax=yFanMax,
-    final yFanMin=yFanMin)
-    "Supply fan controller"
+    final yFanMin=yFanMin) "Supply fan controller"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature

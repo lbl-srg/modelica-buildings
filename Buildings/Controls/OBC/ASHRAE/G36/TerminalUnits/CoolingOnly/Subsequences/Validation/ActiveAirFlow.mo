@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for VAV cooling only unit"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.ActiveAirFlow actAirSet(final
-      VCooMax_flow=0.5)
-    "Output the active airflow setpoint for terminal unit"
+      VCooMax_flow=0.5) "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(
     final amplitude=0.3,

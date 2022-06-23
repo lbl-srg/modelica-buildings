@@ -6,8 +6,7 @@ model SystemRequests
     final have_duaSen=false,
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01)
-    "Block outputs system requests"
+    final damPosHys=0.01) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-20},{80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     final freqHz=1/7200,

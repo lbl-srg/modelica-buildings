@@ -9,8 +9,7 @@ model Controller "Validation controller model"
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final VUncDesOutAir_flow=0.05,
-    final VDesTotOutAir_flow=0.05)
-    "Multizone VAV AHU controller"
+    final VDesTotOutAir_flow=0.05) "Multizone VAV AHU controller"
     annotation (Placement(transformation(extent={{100,-120},{180,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(

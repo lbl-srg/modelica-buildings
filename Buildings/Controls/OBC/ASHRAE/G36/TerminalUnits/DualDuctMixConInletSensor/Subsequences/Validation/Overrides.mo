@@ -4,8 +4,7 @@ model Overrides "Validation of model that overrides control"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Overrides ove(
     final VMin_flow=0.1,
     final VCooMax_flow=0.9,
-    final VHeaMax_flow=0.8)
-    "Block outputs system requests"
+    final VHeaMax_flow=0.8) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
     final height=0.9,

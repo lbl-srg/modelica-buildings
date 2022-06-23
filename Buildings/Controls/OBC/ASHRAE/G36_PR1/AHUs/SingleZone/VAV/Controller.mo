@@ -516,8 +516,7 @@ block Controller
     final decTSetDem_2=decTSetDem_2,
     final decTSetDem_3=decTSetDem_3,
     final uLow=uLow,
-    final uHigh=uHigh)
-    "Zone setpoint and operation mode"
+    final uHigh=uHigh) "Zone setpoint and operation mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
     setPoiVAV(
@@ -575,8 +574,7 @@ block Controller
     final use_enthalpy=use_enthalpy,
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final yFanMin=0,
-    final yFanMax=1)
-    "Economizer control sequence"
+    final yFanMax=1) "Economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
     outAirSetPoi(
@@ -588,10 +586,10 @@ block Controller
     final zonDisEffHea=zonDisEffHea,
     final zonDisEffCoo=zonDisEffCoo,
     final uLow=uLow,
-    final uHigh=uHigh)
-    "Output the minimum outdoor airflow rate setpoint "
+    final uHigh=uHigh) "Output the minimum outdoor airflow rate setpoint "
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta "Zone state"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta
+    "Zone state"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)

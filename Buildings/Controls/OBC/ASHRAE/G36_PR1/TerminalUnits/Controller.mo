@@ -318,8 +318,7 @@ block Controller "Controller for room VAV box"
     final VDisConMin_flow=VDisConMin_flow,
     final VOutPerAre_flow=VOutPerAre_flow,
     final VOutPerPer_flow=VOutPerPer_flow,
-    final CO2Set=CO2Set)
-    "Active airflow rate setpoint"
+    final CO2Set=CO2Set) "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(
     final controllerTypeVal=controllerTypeVal,
@@ -333,7 +332,7 @@ block Controller "Controller for room VAV box"
     final dTDisZonSetMax=dTDisZonSetMax,
     final TDisMin=TDisMin,
     V_flow_nominal=max(VDisCooSetMax_flow, VDisHeaSetMax_flow))
-                           "Damper and valve controller"
+    "Damper and valve controller"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
     final samplePeriod=samplePeriod,
@@ -345,8 +344,7 @@ block Controller "Controller for room VAV box"
     final errTDis_2=errTDis_2,
     final durTimTem=durTimTem,
     final durTimFlo=durTimFlo,
-    final durTimDisAir=durTimDisAir)
-    "Number of system requests"
+    final durTimDisAir=durTimDisAir) "Number of system requests"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conHeaLoo(
     final controllerType=controllerTypeHea,

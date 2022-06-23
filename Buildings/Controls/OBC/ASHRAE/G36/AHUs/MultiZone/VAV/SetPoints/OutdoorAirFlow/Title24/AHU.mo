@@ -69,8 +69,7 @@ block AHU "AHU level setpoint calculation"
     annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput outAir_normalized(
-    final unit="1")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    final unit="1") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
     "Normalized outdoor airflow rate"
     annotation (Placement(transformation(extent={{100,-180},{140,-140}}),
@@ -115,8 +114,8 @@ block AHU "AHU level setpoint calculation"
   Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin2 if have_CO2Sen
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut if (minOADes ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
     "Normalization for outdoor air flow rate"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));

@@ -15,33 +15,29 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
-        or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
+    final quantity="ThermodynamicTemperature") if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+     or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
     "Return air temperature"
     annotation (Placement(transformation(extent={{-580,550},{-540,590}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hRet(
     final unit="J/kg",
-    final quantity="SpecificEnergy")
-    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
-        and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
+    final quantity="SpecificEnergy") if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+     and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Return air enthalpy. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-580,-10},{-540,30}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCut(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    if not eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
+    displayUnit="degC") if not eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
     "Outdoor air temperature high limit cutoff"
     annotation (Placement(transformation(extent={{540,790},{580,830}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput hCut(
     final quantity="SpecificEnergy",
-    final unit="J/kg")
-    if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
-        or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)
+    final unit="J/kg") if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
+     or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)
     "Outdoor air enthalpy high limit cutoff"
     annotation (Placement(transformation(extent={{540,20},{580,60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -63,208 +59,183 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     "Differential enthalpy with fixed dry bulb"
     annotation (Placement(transformation(extent={{-520,840},{-500,860}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash1A(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 1A"
     annotation (Placement(transformation(extent={{-460,1220},{-440,1240}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash1B(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 1B"
     annotation (Placement(transformation(extent={{-380,1220},{-360,1240}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash2A(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_2A)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_2A) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 2A"
     annotation (Placement(transformation(extent={{-300,1220},{-280,1240}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash2B(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_2B)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_2B) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 2B"
     annotation (Placement(transformation(extent={{-220,1220},{-200,1240}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash3A(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 3A"
     annotation (Placement(transformation(extent={{-140,1220},{-120,1240}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash3B(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 3B"
     annotation (Placement(transformation(extent={{-460,1160},{-440,1180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash3C(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3C)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3C) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 3C"
     annotation (Placement(transformation(extent={{-380,1160},{-360,1180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash4A(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4A)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4A) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 4A"
     annotation (Placement(transformation(extent={{-300,1160},{-280,1180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash4B(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 4B"
     annotation (Placement(transformation(extent={{-220,1160},{-200,1180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash4C(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4C)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4C) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 4C"
     annotation (Placement(transformation(extent={{-140,1160},{-120,1180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash5A(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 5A"
     annotation (Placement(transformation(extent={{-460,1100},{-440,1120}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash5B(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5B)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5B) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 5B"
     annotation (Placement(transformation(extent={{-380,1100},{-360,1120}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash5C(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5C)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5C) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 5C"
     annotation (Placement(transformation(extent={{-300,1100},{-280,1120}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash6A(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6A)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6A) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 6A"
     annotation (Placement(transformation(extent={{-220,1100},{-200,1120}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash6B(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6B)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6B) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 6B"
     annotation (Placement(transformation(extent={{-140,1100},{-120,1120}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash7(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_7)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_7) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 7"
     annotation (Placement(transformation(extent={{-460,1040},{-440,1060}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ash8(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_8)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_8) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "ASHRAE zone 8"
     annotation (Placement(transformation(extent={{-380,1040},{-360,1060}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or3 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 1b, 2b or 3b"
     annotation (Placement(transformation(extent={{-40,840},{-20,860}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or1
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or1 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 3c, 4b or 4c"
     annotation (Placement(transformation(extent={{-40,800},{-20,820}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or2
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or2 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 5b, 5c or 6b"
     annotation (Placement(transformation(extent={{-40,760},{-20,780}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or4
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or4 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical or"
     annotation (Placement(transformation(extent={{20,800},{40,820}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or6
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or or6 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 7 or 8"
     annotation (Placement(transformation(extent={{-40,720},{-20,740}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or7
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or or7 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical or"
     annotation (Placement(transformation(extent={{80,800},{100,820}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or5
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or or5 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 5a or 6a"
     annotation (Placement(transformation(extent={{80,660},{100,680}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.And and2 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical and"
     annotation (Placement(transformation(extent={{220,800},{240,820}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.And and1 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical and"
     annotation (Placement(transformation(extent={{220,660},{240,680}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.And and3 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical and"
     annotation (Placement(transformation(extent={{220,400},{240,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{460,800},{480,820}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=273.15 + 24) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{220,840},{240,860}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{420,660},{440,680}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=273.15 + 21) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{220,700},{240,720}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{380,580},{400,600}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
     final k=273.15 + 18) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{220,620},{240,640}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or10
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or10 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 1b, 2b or 3b"
     annotation (Placement(transformation(extent={{-40,540},{-20,560}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or11
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or11 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 3c, 4b or 4c"
     annotation (Placement(transformation(extent={{-40,500},{-20,520}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or12
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or12 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 5a, 5b or 5c"
     annotation (Placement(transformation(extent={{-40,460},{-20,480}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or13
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or13 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 6a, 6b or 7"
     annotation (Placement(transformation(extent={{-40,420},{-20,440}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or14
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or14 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical or"
     annotation (Placement(transformation(extent={{20,500},{40,520}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or15
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or15 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical or"
     annotation (Placement(transformation(extent={{80,400},{100,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{340,420},{360,440}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or8
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or8 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 1a, 2a or 3a"
     annotation (Placement(transformation(extent={{-40,340},{-20,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or9
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Or or9 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Zone 1a, 2a, 3a or 4a"
     annotation (Placement(transformation(extent={{20,360},{40,380}})));
-  Buildings.Controls.OBC.CDL.Logical.And and4
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.And and4 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical and"
     annotation (Placement(transformation(extent={{220,360},{240,380}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(final message="Warning: Differential dry bulb high-limit-control device is not allowed in climate zone 1A, 2A, 3A and 4A!")
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(final message="Warning: Differential dry bulb high-limit-control device is not allowed in climate zone 1A, 2A, 3A and 4A!") if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Warning when the wrong device being used"
     annotation (Placement(transformation(extent={{480,360},{500,380}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical not"
     annotation (Placement(transformation(extent={{440,360},{460,380}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
     final k=273.15 + 24) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off outdoor air enthalpy"
     annotation (Placement(transformation(extent={{380,30},{400,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
@@ -272,182 +243,162 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     "Enthalpy cutoff value, J/kg"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon1(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_1)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_1) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 1"
     annotation (Placement(transformation(extent={{-460,-60},{-440,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon2(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_2)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_2) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 2"
     annotation (Placement(transformation(extent={{-380,-60},{-360,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon3(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 3"
     annotation (Placement(transformation(extent={{-300,-60},{-280,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon4(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_4)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_4) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 4"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon5(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_5)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_5) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 5"
     annotation (Placement(transformation(extent={{-460,-120},{-440,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon6(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_6)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_6) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 6"
     annotation (Placement(transformation(extent={{-380,-120},{-360,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon8(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_8)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_8) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 8"
     annotation (Placement(transformation(extent={{-220,-120},{-200,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon9(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_9)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_9) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 9"
     annotation (Placement(transformation(extent={{-460,-180},{-440,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon10(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_10)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_10) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 10"
     annotation (Placement(transformation(extent={{-380,-180},{-360,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon11(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_11)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_11) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 11"
     annotation (Placement(transformation(extent={{-300,-180},{-280,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon12(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_12)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_12) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 12"
     annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon13(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_13)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_13) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 13"
     annotation (Placement(transformation(extent={{-460,-240},{-440,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon14(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_14)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_14) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 14"
     annotation (Placement(transformation(extent={{-380,-240},{-360,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon15(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_15)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_15) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 15"
     annotation (Placement(transformation(extent={{-300,-240},{-280,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon16(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_16)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_16) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 16"
     annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or16
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or16 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Zone 1, 3 or 5"
     annotation (Placement(transformation(extent={{-40,-300},{-20,-280}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or17
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or17 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Zone 11, 12 or 13"
     annotation (Placement(transformation(extent={{-40,-340},{-20,-320}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or18
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or18 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Zone 14, 15 or 16"
     annotation (Placement(transformation(extent={{-40,-380},{-20,-360}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or20
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or20 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Zone 1, 3, 5, or 11 to 16"
     annotation (Placement(transformation(extent={{20,-340},{40,-320}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and5 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-340},{220,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{480,-340},{500,-320}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(
     final k=273.15 + 24) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{200,-300},{220,-280}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or19
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or19 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Zone 2, 4 or 10"
     annotation (Placement(transformation(extent={{-40,-430},{-20,-410}})));
-  Buildings.Controls.OBC.CDL.Logical.And and6
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and6 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-430},{220,-410}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-430},{460,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(
     final k=273.15 + 23) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{200,-390},{220,-370}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or21
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.Or3 or21 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Zone 6, 8 or 9"
     annotation (Placement(transformation(extent={{-40,-510},{-20,-490}})));
-  Buildings.Controls.OBC.CDL.Logical.And and7
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and7 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-510},{220,-490}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(
     final k=273.15 + 22) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{200,-470},{220,-450}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi7
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi7 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{400,-510},{420,-490}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
     final k=273.15 + 21) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{200,-550},{220,-530}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi8
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi8 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{360,-590},{380,-570}})));
-  Buildings.Controls.OBC.CDL.Logical.And and8
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and8 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-660},{220,-640}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi9
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{480,-640},{500,-620}})));
-  Buildings.Controls.OBC.CDL.Logical.And and9
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and9 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-740},{220,-720}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi10
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi10 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-740},{460,-720}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=-1) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{280,-700},{300,-680}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi11
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi11 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{400,-820},{420,-800}})));
-  Buildings.Controls.OBC.CDL.Logical.And and10
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and10 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-820},{220,-800}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final p=-2) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{280,-780},{300,-760}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi12
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi12 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{360,-900},{380,-880}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
@@ -459,128 +410,103 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     "Cut off temperature"
     annotation (Placement(transformation(extent={{200,-1240},{220,-1220}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    final realTrue=66000)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final realTrue=66000) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{220,-20},{240,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titEngSta(
-    final k=eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016) if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Check if Title 24 energy standard is used"
     annotation (Placement(transformation(extent={{-460,-720},{-440,-700}})));
-  Buildings.Controls.OBC.CDL.Logical.And and11
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and11 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Check if Title 24 energy standard is used and the device type is differential enthalpy with fixed dry bulb"
     annotation (Placement(transformation(extent={{-380,-680},{-360,-660}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="Warning: When Title 24 energy standard is used, the device type cannot be differential enthalpy with fixed dry bulb!")
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final message="Warning: When Title 24 energy standard is used, the device type cannot be differential enthalpy with fixed dry bulb!") if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Warning when the wrong device being used"
     annotation (Placement(transformation(extent={{-280,-680},{-260,-660}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.Not not2 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical not"
     annotation (Placement(transformation(extent={{-320,-680},{-300,-660}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con10(
-    final k=0)
-    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
-        and not ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
+    final k=0) if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+     and not ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Constant 0"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con11(
-    final k=0)
-    if not (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
-            or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
+    final k=0) if not (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+     or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
     "Constant 0"
     annotation (Placement(transformation(extent={{-220,600},{-200,620}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fixDryBulDifDryBul(
     final k=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
     "Fixed dry bulb with differential dry bulb"
     annotation (Placement(transformation(extent={{-520,880},{-500,900}})));
-  Buildings.Controls.OBC.CDL.Logical.And and12
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.And and12 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical and"
     annotation (Placement(transformation(extent={{220,270},{240,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Min min1 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Smaller input"
     annotation (Placement(transformation(extent={{220,310},{240,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi13
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi13 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{300,270},{320,290}})));
-  Buildings.Controls.OBC.CDL.Logical.And and13
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.And and13 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical and"
     annotation (Placement(transformation(extent={{220,180},{240,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min2
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Min min2 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Smaller input"
     annotation (Placement(transformation(extent={{220,220},{240,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
-    final k=273.15 + 21)
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final k=273.15 + 21) if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off temperature"
     annotation (Placement(transformation(extent={{20,250},{40,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi14
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi14 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{260,180},{280,200}})));
-  Buildings.Controls.OBC.CDL.Logical.And and14
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.And and14 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical and"
     annotation (Placement(transformation(extent={{220,120},{240,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  Buildings.Controls.OBC.CDL.Logical.Not not3 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Logical not"
     annotation (Placement(transformation(extent={{300,120},{320,140}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Warning: Fixed dry bulb with differential dry bulb high-limit-control device is not allowed in climate zone 1A, 2A, 3A and 4A!")
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final message="Warning: Fixed dry bulb with differential dry bulb high-limit-control device is not allowed in climate zone 1A, 2A, 3A and 4A!") if
+    eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Warning when the wrong device being used"
     annotation (Placement(transformation(extent={{340,120},{360,140}})));
-  Buildings.Controls.OBC.CDL.Logical.And and15
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and15 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-990},{220,-970}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi15
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi15 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{480,-990},{500,-970}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min3
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Min min3 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-960},{380,-940}})));
-  Buildings.Controls.OBC.CDL.Logical.And and16
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and16 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-1060},{220,-1040}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min4
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Min min4 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-1030},{380,-1010}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi16
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi16 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-1060},{460,-1040}})));
-  Buildings.Controls.OBC.CDL.Logical.And and17
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Logical.And and17 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Logical and"
     annotation (Placement(transformation(extent={{200,-1130},{220,-1110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi17
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi17 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-1130},{460,-1110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min5
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Min min5 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-1100},{380,-1080}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi18
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi18 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-1200},{460,-1180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min6
-    if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+  Buildings.Controls.OBC.CDL.Continuous.Min min6 if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-1170},{380,-1150}})));
 equation

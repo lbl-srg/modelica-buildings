@@ -11,13 +11,12 @@ model ReturnFanDirectPressure
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanPre1(
     final disSpe_min=0.1,
     final disSpe_max=0.9,
-    final k=0.5)
-    "Return fan control with direct building pressure"
+    final k=0.5) "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanPre2(final
       disSpe_min=0.1, final disSpe_max=0.9)
-                         "Return fan control with direct building pressure"
+    "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse yFan(

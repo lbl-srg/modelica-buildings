@@ -9,7 +9,7 @@ model Controller_Mod_DamLim
     final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A)
-                              "Multi zone VAV AHU economizer"
+    "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,-20},{40,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
@@ -20,7 +20,7 @@ model Controller_Mod_DamLim
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B,
     final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016)
-                              "Multi zone VAV AHU economizer"
+    "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-60},{120,-20}})));
 
 protected

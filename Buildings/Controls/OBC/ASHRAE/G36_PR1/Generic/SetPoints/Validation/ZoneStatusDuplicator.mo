@@ -4,8 +4,7 @@ model ZoneStatusDuplicator
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator zonStaDup(
     final nZon=5,
-    final nGro=2)
-    "Zone status duplicator"
+    final nGro=2) "Zone status duplicator"
     annotation (Placement(transformation(extent={{0,-40},{20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant reaInp[6,5](
     final k=fill({1,2,3,4,5}, 6))

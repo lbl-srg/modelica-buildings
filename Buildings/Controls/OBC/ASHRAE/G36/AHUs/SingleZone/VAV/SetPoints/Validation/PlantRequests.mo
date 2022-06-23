@@ -6,8 +6,7 @@ model PlantRequests
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests plaReq1(
-    final  have_hotWatCoi=false)
-    "Calculate plant request"
+    final  have_hotWatCoi=false) "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTem(

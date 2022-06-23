@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validatio
 model ReliefFan "Validate model for calculating relief fan control"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan relFanCon(
-    final k=0.5)
-    "Relief damper control, with staging up fans"
+    final k=0.5) "Relief damper control, with staging up fans"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan relFanCon1
     "Relief damper control, with staging up fans and the fan alarm"

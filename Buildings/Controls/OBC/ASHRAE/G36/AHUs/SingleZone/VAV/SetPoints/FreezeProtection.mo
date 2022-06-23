@@ -72,14 +72,14 @@ block FreezeProtection
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-480,40},{-440,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if not freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Freeze protection stat signal. If the stat is normal open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
     annotation (Placement(transformation(extent={{-480,-180},{-440,-140}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
-    if not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-            or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes if not (freSta
+     == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-480,-220},{-440,-180}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -93,8 +93,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
@@ -103,8 +102,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{-480,-348},{-440,-308}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
@@ -154,8 +152,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
@@ -164,8 +161,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{440,-340},{480,-300}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
@@ -297,14 +293,14 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Continuous.Switch supFan
     "Supply fan speed"
     annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Continuous.Switch retFan if (buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan speed"
     annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch relFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Continuous.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
+    .ReliefFan
     "Relief fan speed"
     annotation (Placement(transformation(extent={{120,-330},{140,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
@@ -410,27 +406,25 @@ block FreezeProtection
     final k=0)
     "Stage 0 freeze protection"
     annotation (Placement(transformation(extent={{140,390},{160,410}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-        or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1 if (freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,-130},{-200,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Freeze protection enabled by the freeze stat"
     annotation (Placement(transformation(extent={{-300,-130},{-280,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant norOpe(
     final k=freSta ==Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-         or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Without_reset_switch_NO)
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+         or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Without_reset_switch_NO) if not
+    freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Check if the freeze stat is normally open"
     annotation (Placement(transformation(extent={{-360,-130},{-340,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norFal
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Logical.Not norFal if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "The output is normally false when the freeze stat is normally open (true)"
     annotation (Placement(transformation(extent={{-360,-90},{-340,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false)
-    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false) if
+    freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Constant false"
     annotation (Placement(transformation(extent={{-300,-180},{-280,-160}})));
 equation

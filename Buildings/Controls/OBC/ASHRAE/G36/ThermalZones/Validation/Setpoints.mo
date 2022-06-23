@@ -3,8 +3,7 @@ model Setpoints "Validate block for zone set point"
 
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints TZonSet(
     final have_occSen=true,
-    final have_winSen=true)
-    "Block that determines the thermal zone setpoints"
+    final have_winSen=true) "Block that determines the thermal zone setpoints"
     annotation (Placement(transformation(extent={{100,40},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(

@@ -15,8 +15,7 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
     V_flow_nominal=(50*3/3600)*6,
     have_occSen=true,
     have_winSen=true,
-    have_CO2Sen=true)
-    "Controller for VAV terminal unit with reheat"
+    have_CO2Sen=true) "Controller for VAV terminal unit with reheat"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(k=273.15 + 24)
     "Room cooling setpoint "

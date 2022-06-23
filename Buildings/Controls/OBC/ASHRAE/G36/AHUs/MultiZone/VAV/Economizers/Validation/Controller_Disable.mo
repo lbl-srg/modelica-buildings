@@ -10,7 +10,7 @@ model Controller_Disable
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
-                             "Multi zone VAV AHU economizer "
+    "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
@@ -21,7 +21,7 @@ model Controller_Disable
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
-                             "Multi zone VAV AHU economizer"
+    "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,0}})));
 
 protected

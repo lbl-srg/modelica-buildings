@@ -9,8 +9,7 @@ model Controller_Mod_DamLim
     final fanSpe_min=fanSpe_min,
     final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
-    final VOutDes_flow=VOutDes_flow)
-    "Single zone VAV AHU economizer"
+    final VOutDes_flow=VOutDes_flow) "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer1(
@@ -20,8 +19,7 @@ model Controller_Mod_DamLim
     final fanSpe_min=fanSpe_min,
     final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
-    final VOutDes_flow=VOutDes_flow)
-    "Single zone VAV AHU economizer"
+    final VOutDes_flow=VOutDes_flow) "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,0}})));
 
 protected

@@ -6,15 +6,13 @@ model Dampers
     final have_preIndDam=true,
     final VMin_flow=0.01,
     final VCooMax_flow=0.09,
-    final kDam=1)
-    "Output signal for controlling damper position"
+    final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,60},{100,100}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers dam1(
     final have_preIndDam=false,
     final VMin_flow=0.01,
     final VCooMax_flow=0.09,
-    final kDam=1)
-    "Output signal for controlling damper position"
+    final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-80},{100,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(

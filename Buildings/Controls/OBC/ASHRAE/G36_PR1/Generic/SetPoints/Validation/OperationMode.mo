@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.Validation;
 model OperationMode "Validate block for selecting operation mode"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
-    opeModSel(final numZon=1)
-    "Operation mode selection"
+    opeModSel(final numZon=1) "Operation mode selection"
     annotation (Placement(transformation(extent={{120,84},{140,116}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(

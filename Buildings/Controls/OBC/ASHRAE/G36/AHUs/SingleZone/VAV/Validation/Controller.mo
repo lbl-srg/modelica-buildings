@@ -23,8 +23,7 @@ model Controller "Validation of the top-level controller"
     final VOutMin_flow=6e-3,
     final VOutDes_flow=0.25,
     final relDam_min=0.1,
-    final relDam_max=0.6)
-    "Validate the cooling case"
+    final relDam_max=0.6) "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,0},{60,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
@@ -120,20 +119,16 @@ model Controller "Validation of the top-level controller"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
 
   CDL.Continuous.Sources.Constant                        THeaSetOcc(final k=
-        293.15)
-    "Occupied heating setpoint"
+        293.15) "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   CDL.Continuous.Sources.Constant                        TCooSetOcc(final k=
-        297.15)
-    "Occupied cooling setpoint"
+        297.15) "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
   CDL.Continuous.Sources.Constant                        THeaSetUno(final k=
-        285.15)
-    "Unoccupied heating setpoint"
+        285.15) "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   CDL.Continuous.Sources.Constant                        TCooSetUno(final k=
-        303.15)
-    "Unoccupied cooling setpoint"
+        303.15) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
 equation
   connect(TZon.y, conVAV.TZon) annotation (Line(points={{-158,120},{-36,120},{

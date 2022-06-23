@@ -6,16 +6,14 @@ model OutdoorAirFlow
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
     final have_CO2Sen=have_CO2Sen,
     final VAbsOutAir_flow=0.5,
-    final VDesOutAir_flow=1)
-    "AHU level minimum outdoor airflow setpoint"
+    final VDesOutAir_flow=1) "AHU level minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.SumZone zonToAhu(
     final nZon=nZon,
     final nZonGro=nZonGro,
     final zonGroMat=zonGroMat,
     final zonGroMatTra=zonGroMatTra,
-    final have_CO2Sen=have_CO2Sen)
-    "From zone level to AHU level"
+    final have_CO2Sen=have_CO2Sen) "From zone level to AHU level"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected

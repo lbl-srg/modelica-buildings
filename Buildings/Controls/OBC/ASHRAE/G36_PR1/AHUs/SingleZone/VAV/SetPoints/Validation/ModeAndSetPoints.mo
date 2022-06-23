@@ -7,28 +7,24 @@ model ModeAndSetPoints
     final have_winSen=false,
     final have_occSen=false,
     final cooAdj=true,
-    final heaAdj=true)
-    "Output resetted zone setpoint remperature"
+    final heaAdj=true) "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,68},{40,88}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
     setPoi1(
     final have_occSen=true,
-    final have_winSen=true)
-    "Output resetted zone setpoint remperature"
+    final have_winSen=true) "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,28},{40,48}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
     setPoi2(
     final have_winSen=false,
     final have_occSen=false,
     final cooAdj=true,
-    final heaAdj=true)
-    "Output resetted zone setpoint remperature"
+    final heaAdj=true) "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,-22},{40,-2}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
     setPoi3(
     final have_occSen=true,
-    final have_winSen=true)
-    "Output resetted zone setpoint remperature"
+    final have_winSen=true) "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,-62},{40,-42}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"

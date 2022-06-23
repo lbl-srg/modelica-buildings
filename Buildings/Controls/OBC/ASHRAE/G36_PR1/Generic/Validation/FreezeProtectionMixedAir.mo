@@ -16,8 +16,7 @@ model FreezeProtectionMixedAir
     amplitude=20,
     freqHz=1/1800,
     startTime=0,
-    offset=TFreSet - 1)
-    "Sine shaped mixed air temperature input signal"
+    offset=TFreSet - 1) "Sine shaped mixed air temperature input signal"
     annotation (Placement(transformation(extent={{-40,2},{-20,20}})));
 
 equation

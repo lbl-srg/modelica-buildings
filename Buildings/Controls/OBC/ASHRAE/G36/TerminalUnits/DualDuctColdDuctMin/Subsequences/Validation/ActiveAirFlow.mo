@@ -4,8 +4,7 @@ model ActiveAirFlow
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.ActiveAirFlow actAirSet(
     final VCooMax_flow=0.5,
     final VHeaMax_flow=0.4,
-    final floHys=0.01)
-    "Output the active airflow setpoint for terminal unit"
+    final floHys=0.01) "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(
     final amplitude=0.3,

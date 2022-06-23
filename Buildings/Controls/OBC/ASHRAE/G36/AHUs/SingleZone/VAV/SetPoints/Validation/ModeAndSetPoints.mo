@@ -74,20 +74,16 @@ model ModeAndSetPoints
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   CDL.Continuous.Sources.Constant                        THeaSetOcc(final k=
-        293.15)
-    "Occupied heating setpoint"
+        293.15) "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   CDL.Continuous.Sources.Constant                        TCooSetOcc(final k=
-        297.15)
-    "Occupied cooling setpoint"
+        297.15) "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   CDL.Continuous.Sources.Constant                        THeaSetUno(final k=
-        285.15)
-    "Unoccupied heating setpoint"
+        285.15) "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   CDL.Continuous.Sources.Constant                        TCooSetUno(final k=
-        303.15)
-    "Unoccupied cooling setpoint"
+        303.15) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 equation
   connect(winSta.y, swi2.u2)
