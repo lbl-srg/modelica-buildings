@@ -7,41 +7,70 @@ model GlycolLoopIceTank
     property_T=293.15, X_a=0.30) "Fluid medium";
   package MediumWater = Buildings.Media.Water "Fluid medium";
   package MediumAir = Buildings.Media.Air "Fluid medium";
-
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=6
+  parameter Modelica.Units.SI.Temperature TSetGlyChi = 273.15 - 6.7 "Glycol chiller setpoint temperature";
+  parameter Modelica.Units.SI.Temperature TChaStart = 273.15 + 1 "Outlet temperature of ice tank to start charging";
+  parameter Modelica.Units.SI.Temperature TChaStop = 273.15 - 2 "Outlet temperature of ice tank to stop charging";
+  parameter Modelica.Units.SI.Temperature TDisCooCall = 273.15 + 3 "Outlet temperature of district to call for cooling";
+  parameter Modelica.Units.SI.Temperature TDisStandby = 273.15 + 2 "Outlet temperature of district in standby operation";
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 10000 "Nominal pressure drop across valve";
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal = 10000 "Nominal pressure drop across heat exchanger";
+  parameter Modelica.Units.SI.Volume volDisCoi = 15 "District cooling coil fluid volume";
+  parameter Modelica.Units.SI.HeatFlowRate QDisCoi = 422000 "District cooling coil cooling load, assumed 120 ton design day peak load";
+  parameter Modelica.Units.SI.Mass mIceTan = 5310 "Mass of ice in single storage tank, assumed 140 ton-hrs (Calmac Model 1190)";
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 28.0
     "Nominal mass flow rate of air through the chiller condenser coil";
-  parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal=2
-    "Nominal mass flow rate of glycol through the glycol circuit";
+  parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal = 11.5
+    "Nominal mass flow rate of glycol through the glycol circuit, 
+    assumed 10K temperature difference to serve design day peak load with 30% propylene glycol water";
 
   parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic perIceTan(
-    mIce_max=1/4*2846.35,
+    mIce_max=3*mIceTan,
     coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha=10,
     coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
     dtDisCha=10) "Tank performance data" annotation (Placement(transformation(extent={{100,76},
             {120,96}})));
 
-  Buildings.Fluid.Storage.Ice.Tank iceTanUnc1(
+  parameter
+    Chillers.Data.ElectricEIR.Generic
+    perChi(
+    QEva_flow_nominal=-0.66*QDisCoi,
+    COP_nominal=3.1,
+    PLRMax=1.15,
+    PLRMinUnl=0.1,
+    PLRMin=0.1,
+    etaMotor=1.0,
+    mEva_flow_nominal=0.66*mGly_flow_nominal,
+    mCon_flow_nominal = mCon_flow_nominal,
+    TEvaLvg_nominal=273.15 - 8.33,
+    capFunT={-0.2660645697,0.0998714035,-0.0023814154,0.0628316481,-0.0009644649,
+        -0.0011249224},
+    EIRFunT={0.1807017787,0.0271530312,-0.0004553574,0.0188175079,0.0002623276,-0.0012881189},
+    EIRFunPLR={0.0,1.0,0.0},
+    TEvaLvgMin=273.15 - 11,
+    TEvaLvgMax=273.15 - 5,
+    TConEnt_nominal=273.15 + 20,
+    TConEntMin=273.15 + 15,
+    TConEntMax=273.15 + 40) "Size chiller at 66% of design day peak load"
+           annotation (Placement(transformation(extent={{132,76},{152,96}})));
+
+  Buildings.Fluid.Storage.Ice.Tank iceTanUnc(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dp_nominal=10000,
+    dp_nominal=dpHex_nominal,
     SOC_start=3/4,
     per=perIceTan) "Uncontrolled ice tank" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={6,-24})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=273.15 - 6.7)
-    "Set point"
-    annotation (Placement(transformation(extent={{76,44},{64,56}})));
-
   Chillers.ElectricEIR chiGly(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumGlycol,
     m1_flow_nominal=mCon_flow_nominal,
     m2_flow_nominal=mGly_flow_nominal,
-    dp2_nominal=0,
-    dp1_nominal=0,
+    dp2_nominal=dpHex_nominal,
+    dp1_nominal=dpHex_nominal,
     per=perChi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(
@@ -49,21 +78,53 @@ model GlycolLoopIceTank
         rotation=-90,
         origin={52,-21})));
 
+  Sources.MassFlowSource_T souAir(
+    nPorts=1,
+    redeclare package Medium = MediumAir,
+    m_flow=mCon_flow_nominal) "Weather data" annotation (Placement(
+        transformation(
+        extent={{6,-6},{-6,6}},
+        rotation=0,
+        origin={70,8})));
+
+  Sources.Boundary_pT sinAir(redeclare package Medium = MediumAir, nPorts=1)
+    "Pressure source" annotation (Placement(transformation(
+        extent={{5,-5},{-5,5}},
+        origin={53,-43},
+        rotation=180)));
+
+  Sources.Boundary_pT preSouGly(redeclare package Medium = MediumGlycol, nPorts=
+       1) "Source for pressure and to account for thermal expansion of glycol"
+    annotation (Placement(transformation(extent={{70,-18},{82,-6}})));
+
+  Modelica.Blocks.Sources.Sine disCooLoad(
+    amplitude=QDisCoi/2,
+    f=1/86400,
+    offset=QDisCoi/2,
+    startTime=0)
+    annotation (Placement(transformation(extent={{160,2},{148,14}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFloDis
+    "Fixed heat flow rate from the district"
+    annotation (Placement(transformation(extent={{142,-2},{122,18}})));
+
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumGlycol,
-    m_flow_nominal=mGly_flow_nominal,
-    V=1,                                   nPorts=2)
-                   "Heat exchanger" annotation (Placement(transformation(extent={{10,10},
-            {-10,-10}},                                                                             rotation=90,origin={116,-11})));
+    m_flow_nominal = mGly_flow_nominal,
+    V=volDisCoi, nPorts=2) "Heat exchanger" annotation (Placement(transformation(extent={{10,10}, {-10,-10}}, rotation=90,origin={116,-11})));
+
+  Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=TSetGlyChi)
+    "Glycol chiller constant set point"
+    annotation (Placement(transformation(extent={{76,44},{64,56}})));
 
   Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
-    dpValve_nominal=6000,
+    dpValve_nominal=dpValve_nominal,
     dpFixed_nominal=0,
     y_start=0,
     use_inputFilter=false)
-    "Control valve for glycol loop" annotation (
+    "Control valve 4 for glycol loop" annotation (
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
