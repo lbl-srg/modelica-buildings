@@ -183,7 +183,7 @@ equation
     annotation (Line(points={{-18,50},{78,50},{78,-33},{99,-33}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Mod_DamLim.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Mod_DamLim.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(lineColor = {75,138,73},

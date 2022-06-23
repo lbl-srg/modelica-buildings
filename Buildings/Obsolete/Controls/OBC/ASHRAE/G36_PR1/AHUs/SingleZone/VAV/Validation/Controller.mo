@@ -260,7 +260,7 @@ equation
                                            color={255,127,0}));
 
 annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
        Polygon(

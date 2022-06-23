@@ -25,7 +25,7 @@ equation
 
 annotation (
   experiment(StopTime=1200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/ExhaustDamper.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/ExhaustDamper.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -49,7 +49,7 @@ equation
 
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/SetPoints/Validation/SupplySignals_Valve.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/SetPoints/Validation/SupplySignals_Valve.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

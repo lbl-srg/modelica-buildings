@@ -15,7 +15,7 @@ equation
   connect(zonSta.uCoo, uHeaCoo.y[2]) annotation (Line(points={{-2,-4},{-38,-4},{
           -38,0},{-58,0}}, color={0,0,127}));
   annotation (experiment(StopTime=3, Interval=300, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/ZoneState.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/ZoneState.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                    Ellipse(

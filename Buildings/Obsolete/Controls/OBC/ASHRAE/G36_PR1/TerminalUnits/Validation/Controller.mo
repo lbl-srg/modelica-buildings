@@ -131,7 +131,7 @@ equation
           110,10},{110,40},{30,40},{30,6},{38,6}}, color={0,0,127}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/Controller.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>

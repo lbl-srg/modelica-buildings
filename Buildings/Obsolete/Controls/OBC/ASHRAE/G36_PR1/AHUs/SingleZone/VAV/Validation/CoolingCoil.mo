@@ -56,7 +56,7 @@ equation
       StopTime=28000,
       Interval=600,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/CoolingCoil.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/CoolingCoil.mos"
     "Simulate and plot"),
 Documentation(info="<html>
 <p>

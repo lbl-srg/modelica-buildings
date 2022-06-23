@@ -121,7 +121,7 @@ equation
     annotation (Line(points={{42,50},{60,50},{60,12},{68,12}}, color={255,127,0}));
 
 annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/SetPoints/Validation/TrimAndRespond.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/ASHRAE/G36_PR1/Generic/SetPoints/Validation/TrimAndRespond.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
