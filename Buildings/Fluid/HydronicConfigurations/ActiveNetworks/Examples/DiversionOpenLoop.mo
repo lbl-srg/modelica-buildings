@@ -99,13 +99,13 @@ equation
   connect(con.port_b2, loa.port_a) annotation (Line(points={{4,30},{0,30},{0,60}},
                         color={0,127,255}));
   connect(loa.port_b, con.port_a2) annotation (Line(points={{20,60},{20,30},{16,
-          30},{16,29.8}}, color={0,127,255}));
+          30},{16,30}},   color={0,127,255}));
   connect(fraLoa.y, loa.u) annotation (Line(points={{-78,80},{0,80},{0,68},{-2,68}},
         color={0,0,127}));
   connect(con1.port_b2, loa1.port_a) annotation (Line(points={{64,30},{60,30},{60,
           60}},         color={0,127,255}));
-  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{76,29.8},{76,30},
-          {80,30},{80,60}}, color={0,127,255}));
+  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{76,30},{76,30},{
+          80,30},{80,60}},  color={0,127,255}));
   connect(fraLoa.y, loa1.u) annotation (Line(points={{-78,80},{40,80},{40,68},{58,
           68}}, color={0,0,127}));
   connect(dp1.port_a, res1b.port_b)
@@ -154,7 +154,7 @@ The main assumptions are enumerated below.
 The model is configured in steady-state.
 </li>
 <li>
-The design conditions at <code>time = 0</code> are defined without
+The design conditions at <code>time=0</code> are defined without
 considering any load diversity.
 </li>
 <li>
@@ -169,7 +169,7 @@ only the variable flow resistance corresponding to the bypass
 port of the three-way valve.
 The parameter <code>fraK</code> of the control valves is
 set at <i>1.0</i> to effectively have an unbalanced bypass branch
-for <code>con.dpBal3_nominal = 0</code>, see
+for <code>con.dpBal3_nominal=0</code>, see
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
 Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>.
 </li>
@@ -248,7 +248,7 @@ The overflow in the bypass branch when the valve is fully closed increases with
 <i>&psi;</i> and decreases with <i>&beta;</i>.
 It it close to <i>90%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
 However, the concomitant flow shortage in the other terminal unit with a valve
-fully open (see next plot) is limited to about <i>20%</i>.
+fully open (see Figure 2) is limited to about <i>20%</i>.
 For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage
 is below <i>10%</i>, indicating that selecting the control valve with
 a suitable authority largely dampens the impact of an unbalanced bypass.
@@ -257,7 +257,7 @@ a suitable authority largely dampens the impact of an unbalanced bypass.
 <img alt=\"Diversion circuit bypass flow rate\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_mBypass.png\"/>
 <br/>
-<i>Bypass mass flow rate (ratio to design value) at fully closed conditions
+<i>Figure 1. Bypass mass flow rate (ratio to design value) at fully closed conditions
 as a function of
 &psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
 for various valve authorities &beta; (color scale),
@@ -268,7 +268,7 @@ and a bypass branch either balanced (right plot) or not (left plot).
 <img alt=\"Diversion circuit direct flow rate\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_mDirect.png\"/>
 <br/>
-<i>Direct mass flow rate (ratio to design value) at fully open conditions
+<i>Figure 2. Direct mass flow rate (ratio to design value) at fully open conditions
 as a function of
 &psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
 for various valve authorities &beta; (color scale),
@@ -279,7 +279,7 @@ and a bypass branch either balanced (right plot) or not (left plot).
 <img alt=\"Diversion circuit pump flow rate\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_mPump.png\"/>
 <br/>
-<i>Pump mass flow rate (ratio to design value) as a function of
+<i>Figure 3. Pump mass flow rate (ratio to design value) as a function of
 &psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
 for various valve authorities &beta; (color scale),
 a bypass branch either balanced (right plots) or not (left plots)
@@ -291,7 +291,7 @@ or a linear / linear valve characteristic (bottom plots).
 <img alt=\"Diversion circuit heat flow rate fully open\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_Q100.png\"/>
 <br/>
-<i>Heat flow rate (ratio to design value) at fully open conditions
+<i>Figure 4. Heat flow rate (ratio to design value) at fully open conditions
 as a function of
 &psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
 for various valve authorities &beta; (color scale),
@@ -302,7 +302,7 @@ and a bypass branch either balanced (right plot) or not (left plot).
 <img alt=\"Diversion circuit heat flow rate 10% open\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_Q10.png\"/>
 <br/>
-<i>Heat flow rate (ratio to design value) at 10% open conditions
+<i>Figure 5. Heat flow rate (ratio to design value) at 10% open conditions
 as a function of
 &psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
 for various valve authorities &beta; (color scale),

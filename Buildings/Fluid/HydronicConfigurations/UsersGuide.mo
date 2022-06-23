@@ -34,7 +34,7 @@ So the pressure differential available at the circuit boundaries shifts
 entirely towards the valve.
 This yields a shift of the \"inherent\" characteristic of the valve towards 
 higher pressure drop values, hence higher flow rate values.
-With respect to the control loop this means an increase of the process gain
+With respect to the control loop this means an increased process gain
 which may be detrimental to the control loop stability.
 </p>
 <p>
@@ -73,7 +73,8 @@ Indeed, even for a perfectly balanced system at design conditions, some
 level of flow imbalance is inevitable at other operating points.
 Some circuits may therefore be exposed to a pressure differential higher 
 than at design conditions. Such high pressure differential affects 
-<i>&Delta;p<sub>min</sub></i> and <i>&Delta;p<sub>max</sub></i> with 
+<i>&Delta;p<sub>min</sub> = &Delta;p(y=100%)</i> and 
+<i>&Delta;p<sub>max</sub> = &Delta;p(y=0%)</i> with 
 the same factor. 
 Therefore, the valve authority <i>&beta;</i> remains the same.
 However, the rate of change of the flow rate with respect to the valve 
@@ -216,13 +217,66 @@ Petitjean, R., 1994. Total hydronic balancing. Tour & Andersson AB, Ljung, Swede
 
     annotation (preferredView="info",
   Documentation(info="<html>
-  </html>"));
+<table summary=\"summary\"  border=\"1\">
+<tr><th>Symbol</th>
+    <th>Description</th></tr>
+<tr>
+<td>
+<img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/BalancingValve.png\"/></td>
+<td>Balancing valve</td>
+</tr>
+<tr>
+<td>
+<img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/CheckValve.png\"/></td>
+<td>Check valve (the arrow indicating the flow direction is not part of the symbol)</td>
+</tr>
+<tr>
+<td>
+<img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/Pump.png\"/></td>
+<td>Circulating pump</td>
+</tr>
+<tr>
+<td>
+<img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/ConsumerCircuit.png\"/></td>
+<td>Consumer circuit (typically a heating or cooling circuit or a terminal unit)</td>
+</tr>
+<tr>
+<td>
+<img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/Controller.png\"/></td>
+<td>Controller (the dotted lines represent the wiring to the sensor and actuator)</td>
+</tr>
+<tr>
+<td><img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/PressureControlValve.png\"/></td>
+<td>Self-acting &Delta;P control valve (the dotted lines represent the capillary pipes for pressure measurement)</td>
+</tr>
+<tr>
+<td><img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/ThreeWayValve.png\"/></td>
+<td>Three-way valve with modulating actuator (the arrow indicating the flow direction is not part of the symbol)</td>
+</tr>
+<tr>
+<td><img alt=\"Symbol\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGuide/TwoWayValve.png\"/></td>
+<td>Two-way valve with modulating actuator</td>
+</tr>
+</table>
+</html>"));
   end NomenclatureSymbols;
 
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-
+By default the secondary pump is parameterized at maximum speed with 
+<code>m2_flow_nominal</code> and <code>dp2_nominal</code> plus
+any additional pressure drop within the hydronic configuration.
+The consumer circuit balancing balve (\"partner valve\") <code>res2</code> 
+is therefore configured by default with zero pressure drop.
 </p>
 </html>"));
 end UsersGuide;

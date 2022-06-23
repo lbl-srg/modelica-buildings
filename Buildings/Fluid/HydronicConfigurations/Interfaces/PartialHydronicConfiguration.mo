@@ -323,5 +323,22 @@ protected
           textColor={0,0,255},
           textString="%name")}),
     Diagram(
-      coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+      coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+This is the interface class for all models of hydronic
+configurations in 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks</a>
+and
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks</a>.
+</p>
+<p>
+This interface class (conditionally) instantiates all possible 
+outside connectors that any derived class may use.
+This provides plug-compatibility across all the models extending this
+class.
+</p>
+</html>"));
 end PartialHydronicConfiguration;

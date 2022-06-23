@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.Components;
-model Pump "Container class for circulation pumps"
+model Pump "Container class for circulating pumps"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final massDynamics=energyDynamics,
     final mSenFac=1);
@@ -408,5 +408,64 @@ equation
           fillPattern=FillPattern.Sphere,
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
           fillColor={0,100,199})}),                              Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a container class for pump models from 
+<a href=\"modelica://Buildings.Fluid.Movers\">
+Buildings.Fluid.Movers</a>.
+</p>
+<p>
+Two parameters allow configuring the model.
+</p>
+<ul>
+<li>
+The parameter <code>typ</code> enables selecting the type of pump
+based on the enumeration 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.Pump\">
+Buildings.Fluid.HydronicConfigurations.Types.Pump</a>.
+If \"No pump\" is selected the model resolves into a simple
+fluid direct pass-through.
+</li>
+<li>
+The parameter <code>typMod</code> enables selecting the type of pump
+model based on the enumeration 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.PumpModel\">
+Buildings.Fluid.HydronicConfigurations.Types.PumpModel</a>.
+</li>
+</ul>
+<p>The model takes the following input variables that are conditional
+to the parameter <code>typ</code>.</p>
+<table summary=\"Input variables\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<!-- ************ -->
+<tr>
+<th>Variable</th>
+<th>Type (unit)</th>
+<th>Condition</th>
+<th>Description</th>
+</tr>
+<!-- ************ -->
+<tr>
+<td><code>y1</code></td>
+<td>Boolean</td>
+<td>Only available if <code>typ&lt;&gt;None</code></td>
+<td>Start signal</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td><code>y</code></td>
+<td>Real (-)</td>
+<td>Only available if <code>typMod==SingleVariable</code></td>
+<td>Analog control signal. Whatever the type of pump model (specified with <code>typMod</code>) the container class takes a non-dimensional input between <i>0</i> and <i>1</i>.</td>
+</tr>
+<!-- ************ -->
+</table>
+</html>", revisions="<html>
+<ul>
+<li>
+June 24, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Pump;

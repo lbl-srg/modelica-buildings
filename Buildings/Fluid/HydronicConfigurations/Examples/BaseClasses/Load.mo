@@ -415,16 +415,54 @@ equation
           lineColor={175,175,175},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{-90,90},{90,-90}},     lineColor={0,0,0},
+        Ellipse(extent={{-70,68},{70,-72}},     lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{-70,70},{70,-70}}, lineColor={0,0,0},
+        Ellipse(extent={{-52,50},{52,-54}}, lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-49.5,-49.5},{49.5,49.5}}, color={0,0,0},
-          thickness=0.5)}),
+        Line(points={{-36,-40},{36,36}},         color={0,0,0},
+          thickness=0.5),
+        Ellipse(
+          extent={{-10,92},{10,72}},
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(
+          points={{-4,86},{4,86}},
+          color={0,0,0},
+          thickness=1),
+        Line(
+          points={{0,78},{0,86}},
+          color={0,0,0},
+          thickness=1),
+        Line(
+          points={{0,68},{0,72}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{40,80},{10,80}},
+          color={0,0,0},
+          thickness=0.5,
+          pattern=LinePattern.Dot),
+        Line(
+          points={{40,90},{60,80},{40,70}},
+          color={0,0,0},
+          thickness=0.5),
+        Rectangle(
+          extent={{40,90},{80,70}},
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(points={{-90,0},{-70,0}},           color={0,0,0},
+          thickness=0.5),
+        Line(points={{70,0},{90,0}},             color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{100,80},{80,80}},
+          color={0,0,0},
+          thickness=0.5,
+          pattern=LinePattern.Dot)}),
     Documentation(info="<html>
 <ul>
 <li>

@@ -140,6 +140,10 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
+<img alt=\"Schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Throttle.png\"/>
+</p>
+<p>
 Lumped flow resistance includes consumer circuit, primary balancing 
 valve and control valve.
 </p>

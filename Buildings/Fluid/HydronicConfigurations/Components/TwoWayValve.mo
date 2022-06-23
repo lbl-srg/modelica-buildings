@@ -264,5 +264,31 @@ equation
           extent={{-74,20},{-36,-24}},
           textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid,
-          textString="%%")}));
+          textString="%%")}), Documentation(revisions="<html>
+<ul>
+<li>
+June 24, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This is a container class for two-way valve models from 
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
+Buildings.Fluid.Actuators.Valves</a>.
+Note that the models 
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPolynomial\">
+Buildings.Fluid.Actuators.Valves.TwoWayPolynomial</a> 
+and
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening\">
+Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening</a> 
+are not represented.
+</p>
+<p>
+The parameter <code>typCha</code> allows configuring the model 
+by selecting the valve characteristic to be used based on the enumeration 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic\">
+Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic</a>.
+</p>
+</html>"));
 end TwoWayValve;

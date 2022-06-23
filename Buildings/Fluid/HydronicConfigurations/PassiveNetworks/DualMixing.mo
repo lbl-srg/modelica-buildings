@@ -225,6 +225,10 @@ equation
     defaultComponentName="con",
     Documentation(info="<html>
 <p>
+<img alt=\"Schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/PassiveNetworks/DualMixing.png\"/>
+</p>
+<p>
 This configuration is typically used instead of
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>

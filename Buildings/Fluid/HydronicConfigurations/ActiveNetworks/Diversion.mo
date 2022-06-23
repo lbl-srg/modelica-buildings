@@ -96,7 +96,103 @@ equation
     defaultComponentName="con",                                                                                                                                                                                            Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<h4>Summary</h4>
+<p>
+This configuration (see schematic below) is used for constant flow 
+primary circuits and variable flow consumer circuits where the 
+consumer circuit has the same supply temperature set point as the 
+primary circuit.
+</p>
+<p>
+<img alt=\"Schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Diversion.png\"/>
+</p>
+<p>
+The following table presents the main characteristics of this configuration.
+</p>
+<table class=\"releaseTable\" summary=\"Main characteristics\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td valign=\"top\">
+Primary circuit
+</td>
+<td valign=\"top\">
+Constant flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Secondary (consumer) circuit
+</td>
+<td valign=\"top\">
+Variable flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Typical applications
+</td>
+<td valign=\"top\">
+Single heating or cooling coil served by a constant flow circuit
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Non-recommended applications
+</td>
+<td valign=\"top\">
 
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Built-in valve control options
+</td>
+<td valign=\"top\">
+No built-in controls
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Control valve selection
+</td>
+<td valign=\"top\">
+<i>&beta; = &Delta;p<sub>A-AB</sub>(y=100%) / 
+&Delta;p<sub>J-AB</sub>(y=0%) =
+&Delta;p<sub>A-AB</sub>(y=100%) / 
+(&Delta;p<sub>b2-a2</sub>(y=100%) + &Delta;p<sub>A-AB</sub>(y=100%)) =
+&Delta;p<sub>A-AB</sub>(y=100%) / 
+(&Delta;p<sub>a1-b1</sub>(y=100%) - &Delta;p<sub>AB-b1</sub>(y=100%))</i><br/>
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Balancing requirement
+</td>
+<td valign=\"top\">
+No primary balancing valve needed in addition to the self-acting 
+&Delta;P control valve.<br/>
+(For an actuated control valve with external controls,
+the same balancing requirements as for 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>
+apply for a primary design flow rate <i>5</i> to <i>10%</i> 
+higher than <code>m2_flow_nominal</code>.)
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Lumped flow resistances include<br/>
+(With the setting <code>use_lumFloRes=true</code>.)
+</td>
+<td valign=\"top\">
+Direct branch: control valve direct branch <code>val.res1</code> 
+and whole consumer circuit between <code>b2</code> and <code>a2</code><br/>
+Bypass branch: control valve bypass branch <code>val.res3</code> 
+and bypass balancing valve <code>res3</code>
+</td>
+</tr>
+</table>
+<h4>Additional comments</h4>
 <p>
 Lumped flow resistance includes consumer circuit
 and control valve only.

@@ -14,7 +14,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m1_flow_nominal .* {1,-1,1},
+    final m_flow_nominal=m2_flow_nominal .* {1,-1,1},
     final dp_nominal=fill(0, 3))
     "Junction"
     annotation (Placement(
@@ -73,7 +73,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final m_flow_nominal=m1_flow_nominal .* {1,-1,-1},
+    final m_flow_nominal=m2_flow_nominal .* {1,-1,-1},
     final dp_nominal=fill(0, 3))
     "Junction"
     annotation (Placement(
@@ -134,7 +134,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
         origin={-40,-60})));
   replaceable FixedResistances.LosslessPipe res3(
     redeclare final package Medium =Medium,
-    final m_flow_nominal=m2_flow_nominal - m1_flow_nominal)
+    m_flow_nominal=m2_flow_nominal)
     "Fluid pass-through that can be replaced by check valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant ctlVar(
@@ -181,10 +181,10 @@ equation
     annotation (Line(points={{-120,-40},{8,-40}},  color={0,0,127}));
   connect(mode, isEna.u)
     annotation (Line(points={{-120,80},{-12,80}}, color={255,127,0}));
-  connect(T2Sup.T, extIndSig.u[1]) annotation (Line(points={{-49,60},{-40,60},{-40,
-          -48},{-40.5,-48}},         color={0,0,127}));
-  connect(T2Ret.T, extIndSig.u[2]) annotation (Line(points={{49,60},{-39.5,60},{
-          -39.5,-48}},     color={0,0,127}));
+  connect(T2Sup.T, extIndSig.u[2]) annotation (Line(points={{-49,60},{-40,60},{
+          -40,-48},{-39.5,-48}},     color={0,0,127}));
+  connect(T2Ret.T, extIndSig.u[1]) annotation (Line(points={{49,60},{-40.5,60},
+          {-40.5,-48}},    color={0,0,127}));
   connect(junRet.port_2, val.port_a)
     annotation (Line(points={{60,-10},{60,-30}}, color={0,127,255}));
   connect(extIndSig.y, ctl.u_m)
@@ -337,53 +337,118 @@ equation
           visible=dpBal1_nominal > 0)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<h4>Summary</h4>
 <p>
-The following table presents the main characteristics of this configuration.<br/>
+This circuit (see schematic hereunder) is used for variable flow
+primary circuits and either constant flow or variable flow 
+consumer circuits.
+It allows a proper operation of the terminal 
+control valves when the primary pressure differential is either 
+too low or too high or varying too much.
+For variable flow consumer circuits, the supply temperature set 
+point must be different from the primary circuit.
 </p>
-<table summary = \"Main characteristics\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\">
-<tr>
-<td><p>Primary circuit</p></td>
-<td><p>Variable flow
-(See caveats in examples.)
-</p></td>
-</tr>
-<tr>
-<td><p>Secondary (consumer) circuit</p></td>
-<td><p>Constant or variable flow</p></td>
-</tr>
-<tr>
-<td><p>Typical applications</p></td>
-<td><p>...</p></td>
-</tr>
-<tr>
-<td><p>Built-in control options</p></td>
-<td><p>
-Supply temperature (must be different from primary)</p>
 <p>
-Return temperature (incompatible with variable secondary)
-</p></td>
+<img alt=\"Schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/InjectionTwoWay.png\"/>
+</p>
+<p>
+The following table presents the main characteristics of this configuration.
+</p>
+<table class=\"releaseTable\" summary=\"Main characteristics\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td valign=\"top\">
+Primary circuit
+</td>
+<td valign=\"top\">
+Variable flow<br/>
+(See caveats in 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>: 
+control options are critical to achieve a truly variable flow.)
+</td>
 </tr>
 <tr>
-<td><p>Control valve authority
-(See the nomenclature in the icon layer.)
-</p></td>
-<td><p>
+<td valign=\"top\">
+Secondary (consumer) circuit
+</td>
+<td valign=\"top\">
+Constant or variable flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Typical applications
+</td>
+<td valign=\"top\">
+Consumer circuit supply temperature set point different from primary circuit<br/>
+(Otherwise use 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>)<br/>
+Primary pressure differential either too low or too high
+or varying too much such as in DHC systems
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Non-recommended applications
+</td>
+<td valign=\"top\">
+Variable flow consumer circuit with same supply temperature set point as primary circuit, see
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariable\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariable</a><br/>
+Variable flow consumer circuit with return temperature control, see
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn</a>
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Built-in valve control options
+</td>
+<td valign=\"top\">
+Supply temperature (must be different from primary)<br/>
+Return temperature (incompatible with variable secondary)
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Control valve authority<br/>
+(See the nomenclature in the schematic.)
+</td>
+<td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i><br/>
 (Does not depend on the primary balancing valve.)
-</p></td>
+</td>
 </tr>
 <tr>
-<td><p>Balancing requirement</p></td>
-<td><p>
-...
-</p></td>
+<td valign=\"top\">
+Balancing requirement
+</td>
+<td valign=\"top\">
+<code>dpBal1_nominal=dp1_nominal-dpValve_nominal</code> 
+for the primary design flow rate
+<i>
+m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
+(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) /
+(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
+</i>
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Lumped flow resistance includes<br/>
+(With the setting <code>use_lumFloRes=true</code>.)
+</td>
+<td valign=\"top\">
+Control valve <code>val</code> and primary balancing valve <code>res1</code>
+</td>
 </tr>
 </table>
-
+<h4>Additional comments</h4>
 <p>
-Lumped flow resistance includes primary balancing valve
-and control valve only.
-
+The pressure drop through the control valve is compensated by the primary pump, 
+reducing the secondary pump head.
 </p>
 </html>"));
 end InjectionTwoWay;

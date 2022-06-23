@@ -2,6 +2,7 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayVariable
   "Model illustrating the operation of an inversion circuit with two-way valve and variable secondary"
   extends InjectionTwoWayConstantReturn(
+    TLiqSup_nominal=TLiqEnt_nominal,
     redeclare BaseClasses.LoadTwoWayValveControl loa,
     redeclare BaseClasses.LoadTwoWayValveControl loa1,
     del2(nPorts=4),
@@ -117,9 +118,6 @@ as the primary circuit is operated at a higher flow rate and lower
 &Delta;T than needed.
 The system practically behaves as there was no control valve installed
 on the primary return line.
-This observation holds for both variable and constant consumer circuits,
-although the detrimental effects are much more tangible in the case
-of variable consumer circuits.
 </p>
 </html>"));
 end InjectionTwoWayVariable;

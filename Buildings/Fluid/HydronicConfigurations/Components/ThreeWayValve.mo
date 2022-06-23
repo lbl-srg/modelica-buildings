@@ -359,5 +359,25 @@ equation
         Text(
           extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p>
+This is a container class for three-way valve models from 
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
+Buildings.Fluid.Actuators.Valves</a>.
+</p>
+<p>
+The parameter <code>typCha</code> allows configuring the model 
+by selecting the valve characteristic to be used based on the enumeration 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic\">
+Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 24, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ThreeWayValve;

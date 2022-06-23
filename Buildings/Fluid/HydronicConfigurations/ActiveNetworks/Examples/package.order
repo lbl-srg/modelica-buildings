@@ -5,6 +5,7 @@ DiversionOpenLoop
 InjectionThreeWay
 InjectionTwoWayConstant
 InjectionTwoWayConstantReturn
+InjectionTwoWayCheckValve
 InjectionTwoWayVariable
 InjectionTwoWayVariableReturn
 SingleMixing

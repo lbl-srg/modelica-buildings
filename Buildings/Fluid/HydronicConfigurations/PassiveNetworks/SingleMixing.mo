@@ -46,6 +46,10 @@ model SingleMixing "Single mixing circuit"
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
+<img alt=\"Schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/PassiveNetworks/SingleMixing.png\"/>
+</p>
+<p>
 Variable primary
 </p>
     

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionThreeWay "Injection circuit with three-way valve"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-    dpValve_nominal=0.3e4,
+    dpValve_nominal=3e3,
     set(final unit="K", displayUnit="degC"),
     final dpBal3_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay);
@@ -199,10 +199,10 @@ equation
     annotation (Line(points={{60,50},{60,40}}, color={0,127,255}));
   connect(extIndSig.y, ctl.u_m) annotation (Line(points={{-40,-92},{-40,-96},{40,
           -96},{40,-72}}, color={0,0,127}));
-  connect(T2Sup.T, extIndSig.u[1]) annotation (Line(points={{-49,60},{-40.5,60},
-          {-40.5,-68}},    color={0,0,127}));
-  connect(T2Ret.T, extIndSig.u[2])
-    annotation (Line(points={{49,60},{-39.5,60},{-39.5,-68}},
+  connect(T2Sup.T, extIndSig.u[2]) annotation (Line(points={{-49,60},{-39.5,60},
+          {-39.5,-68}},    color={0,0,127}));
+  connect(T2Ret.T, extIndSig.u[1])
+    annotation (Line(points={{49,60},{-40.5,60},{-40.5,-68}},
                                                           color={0,0,127}));
   connect(ctl.y, val.y) annotation (Line(points={{52,-60},{80,-60},{80,-40},{72,
           -40}}, color={0,0,127}));
@@ -375,62 +375,129 @@ equation
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<h4>Summary</h4>
 <p>
-Lumped flow resistance includes control valve only.
-Primary balancing valve always modeled as a distinct
-flow resistance.
+This configuration (see schematic below) is typically used
+for constant flow primary and consumer circuits where the 
+consumer circuit has a different supply temperature set point,
+either at design conditions or varying during operation 
+(for instance underfloor heating systems).
+The fixed bypass ensures a consumer circuit operation fully decoupled
+from the primary side and the control valve position.
 </p>
 <p>
-This is a typical configuration for constant flow secondary circuits that
-have a design supply temperature different from the primary circuit
-(for instance underfloor heating systems).
+<img alt=\"Schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/InjectionThreeWay.png\"/>
+</p>
+<p>
+The following table presents the main characteristics of this configuration.
+</p>
+<table class=\"releaseTable\" summary=\"Main characteristics\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td valign=\"top\">
+Primary circuit
+</td>
+<td valign=\"top\">
+Constant flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Secondary (consumer) circuit
+</td>
+<td valign=\"top\">
+Constant flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Typical applications
+</td>
+<td valign=\"top\">
+Consumer circuit supply temperature different than primary circuit<br/>
+(Otherwise use 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>)<br/>
+Primary pressure differential either too low or too high
+or varying too much
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Non-recommended applications
+</td>
+<td valign=\"top\">
+DHC systems due to the significant recirculating primary flow rate at low load<br/>
+Heating systems with condensing boilers for the same reason
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Built-in valve control options
+</td>
+<td valign=\"top\">
+Supply temperature<br/>
+Return temperature
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Control valve selection<br/>
+</td>
+<td valign=\"top\">
+<i>&beta; 
+= &Delta;p<sub>A-AB</sub>(y=100%) / &Delta;p<sub>J-AB</sub>(y=0%)
+&asymp; 1</i><br/>
+Sizing is only based on a minimum pressure drop of 
+<i>3</i>&nbsp;kPa at design flow rate <i>m&#775;<sub>1, design</sub></i>
+(see below).
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Balancing requirement
+</td>
+<td valign=\"top\">
+The three-way valve should be fully open at design conditions.<br/>
+<code>dpBal3_nominal=dp1_nominal-dpValve_nominal</code> 
+for the primary design flow rate
+<i>m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
+(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) /
+(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
+</i>
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Lumped flow resistances include<br/>
+(With the setting <code>use_lumFloRes=true</code>.)
+</td>
+<td valign=\"top\">
+Control valve <code>val</code> only<br/>
+(So the option has no effect here: the balancing valves are 
+always modeled as distinct flow resistances.)
+</td>
+</tr>
+</table>
+<h4>Additional comments</h4>
+<p>
 The reduced flow through the control valve due to the intermediary
 bypass allows selecting a smaller valve for the same design pressure drop.
 The pressure drop through the control valve is compensated by the primary pump,
 reducing the secondary pump head.
-The control valve authority is close to <i>1</i> (<i>&Delta;p<sub>A-AB</sub> &asymp;
-&Delta;p<sub>J-AB</sub></i>) so the sizing is only based on a
-minimum pressure drop of <i>3</i> kPa at design flow rate.
 </p>
 <p>
 The balancing procedure should ensure that the three-way valve is fully
-open at design conditions. This gives the following relationship
-between the primary and secondary mass flow rate, involving the secondary
-supply and return temperature and the primary supply temperature.
-</p>
-<p>
-<i>
-m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
-(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) /
-(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
-</i>
-</p>
-<p>
-For the design flow rate <i>m&#775;<sub>1, design</sub></i> the primary
-balancing valve should be sized to generate a pressure drop equivalent to
-the pressure differential at the circuit boundaries <i>&Delta;p<sub>a1-b1</sub></i>.
-Oversizing the valve (yielding a lower pressure drop) is not detrimental
-to the consumer circuit operation:
+open at design conditions. 
+Oversizing the primary balancing valve (yielding a lower pressure drop) 
+is not detrimental to the consumer circuit operation:
 the control valve compensates by working at a lower opening fraction in average.
-However, the primary circuit operation is degraded with a lower <i>&Delta;T</i>
+However, the primary circuit operation is degraded with a lower &Delta;T
 and a higher mass flow rate.
-Undersizing the valve (yielding a higher pressure drop) is detrimental
-to the consumer circuit operation that will be starved of primary flow rate
-despite the control valve being fully open. The consumer circuit temperature set point
-cannot be met.
 See
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWayValve</a>
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWay\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWay</a>
 for a numerical illustration of those effects.
-</p>
-<h4>
-Parameterization
-</h4>
-<p>
-By default the secondary pump is parameterized with <code>m2_flow_nominal</code>
-and <code>dp2_nominal</code> at maximum speed.
-The partner valve <code>bal2</code> is therefore configured with zero
-pressure drop.
 </p>
 </html>"));
 end InjectionThreeWay;

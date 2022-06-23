@@ -111,15 +111,15 @@ equation
   connect(con.port_b2, loa.port_a) annotation (Line(points={{4,30},{4,44},{0,44},
           {0,60}},      color={0,127,255}));
   connect(loa.port_b, con.port_a2) annotation (Line(points={{20,60},{20,44},{16,
-          44},{16,29.8}}, color={0,127,255}));
+          44},{16,30}},   color={0,127,255}));
   connect(fraLoa.y, loa.u) annotation (Line(points={{-78,120},{-20,120},{-20,68},
           {-2,68}},
         color={0,0,127}));
   connect(con1.port_b2, loa1.port_a) annotation (Line(points={{64,30},{64,40},{
           60,40},{60,60}},
                         color={0,127,255}));
-  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{76,29.8},{76,40},
-          {80,40},{80,60}}, color={0,127,255}));
+  connect(con1.port_a2, loa1.port_b) annotation (Line(points={{76,30},{76,40},{
+          80,40},{80,60}},  color={0,127,255}));
   connect(fraLoa.y, loa1.u) annotation (Line(points={{-78,120},{40,120},{40,68},
           {58,68}},
                 color={0,0,127}));

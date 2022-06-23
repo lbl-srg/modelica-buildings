@@ -11,7 +11,7 @@ model InjectionThreeWay
     dpPum_nominal=(dpPip_nominal + dpValve_nominal) * kSizPum,
     del1(nPorts=2));
 
-  parameter Real kSizBal(final min=0) = 1
+  parameter Real kSizBal(final min=0) = 0.5
     "Sizing factor for primary balancing valve (1 means balanced)"
     annotation(Dialog(group="Configuration"));
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
@@ -27,7 +27,8 @@ model InjectionThreeWay
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
-    final dpBal1_nominal= kSizBal * (dpPum_nominal - dpPip_nominal - dpValve_nominal))
+    final dpBal1_nominal= kSizBal * (dpPum_nominal - dpPip_nominal - dpValve_nominal),
+    pum(addPowerToMedium=false))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
@@ -127,14 +128,12 @@ equation
           {20,40},{20,70}},
                         color={0,127,255}));
   connect(loa.port_b, con.port_a2)
-    annotation (Line(points={{40,70},{40,19.8},{16,19.8}},
-                                                         color={0,127,255}));
+    annotation (Line(points={{40,70},{40,20},{16,20}},   color={0,127,255}));
   connect(con.port_b2,res2. port_a)
     annotation (Line(points={{4,20},{0,20},{0,40},{50,40}},
                                                      color={0,127,255}));
   connect(loa1.port_b, con.port_a2)
-    annotation (Line(points={{100,70},{100,19.8},{16,19.8}},
-                                                           color={0,127,255}));
+    annotation (Line(points={{100,70},{100,20},{16,20}},   color={0,127,255}));
   connect(res1.port_b, dp.port_a) annotation (Line(points={{-10,-60},{0,-60},{0,
           -40}},    color={0,127,255}));
   connect(dp.port_b, del1.ports[2])
@@ -169,13 +168,19 @@ The main assumptions are enumerated below.
 </p>
 <ul>
 <li>
-The design conditions are defined without
-considering any load diversity.
+The design conditions are defined without considering any load diversity.
 </li>
 <li>
-Each circuit is balanced at design conditions.
+The primary side of the injection circuit is balanced at design conditions
+if <code>kSizBal=1</code>.
+Selecting a lower value of the parameter <code>kSizBal</code> illustrates 
+the operation with an oversized primary balancing valve, yielding
+a lower pressure drop.
+One can observe the degraded &Delta;T (plot 6) and elevated mass flow rate 
+(plot 7) in the primary circuit.
+However, the operation of the consumer circuit is not disturbed:
+the set point and the loads are met.
 </li>
 </ul>
-
 </html>"));
 end InjectionThreeWay;

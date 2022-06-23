@@ -193,21 +193,48 @@ Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
 </p>
 <ul>
 <li>
-Operating mode: Based on the constants defined within  
+Based on the constants defined within  
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes\">
 Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes</a>
-the block allows the controller to be disabled (see below)
-or to switch to a change-over mode (for instance a heating mode if the 
-controller is originally configured for a cooling function).
+the block allows the controller to be either disabled or switched 
+to a change-over mode.
 </li>
 <li>
-To prevent windup, the tracking error is zeroed out 
-when the control mode is equal to 
-<code>HydronicConfigurations.Controls.OperatingModes.disabled</code>
-and the output is set to <code>y_neutral</code> at disable time.
+When the controller is disabled, the controller output is forced to 
+<code>y_neutral</code> and the tracking error is zeroed out to prevent windup.
 Typically this neutral value should correspond to a condition that
 applies the minimum control effect, i.e., valves/dampers closed, 
 VFDs at minimum speed, etc.
+</li>
+<li>
+When operated under the mode
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled\">
+Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled</a>
+the controller behaves exactly as
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
+Furthermore, the controller output is reset to <code>y_reset</code> at enable
+time.
+</li>
+<li>
+When operated under the mode
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating\">
+Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating</a>
+the controller behaves as
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
+except that the sign of the measured and set point variables is reversed
+so that the controller may for instance provide a heating function if 
+it was originally configured for a cooling function.
+Furthermore, the controller output is reset to <code>y_reset</code> at 
+the time the operating mode changes.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+June 24, 2021, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -22,5 +22,22 @@ model InjectionTwoWayConstantReturn
     Tolerance=1e-6),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/InjectionTwoWayConstantReturn.mos"
-    "Simulate and plot"));
+    "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model is almost similar to
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>
+except that a cooling system is represented,
+and the base control options uses the return temperature.
+This model serves mostly as a reference to illustrate the
+shortcomings of this control option when used with a variable
+consumer circuit such as in
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn</a>.
+</p>
+<p>
+In this model the load is not met at partial 
+</p>
+</html>"));
 end InjectionTwoWayConstantReturn;

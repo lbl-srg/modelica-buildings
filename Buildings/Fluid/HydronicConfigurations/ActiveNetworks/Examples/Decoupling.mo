@@ -25,8 +25,7 @@ The main assumptions are enumerated below.
 </p>
 <ul>
 <li>
-The design conditions are defined without
-considering any load diversity.
+The design conditions are defined without considering any load diversity.
 </li>
 <li>
 Each circuit is balanced at design conditions: UPDATE

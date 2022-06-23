@@ -20,6 +20,10 @@ partial model PartialInjectionTwoWay
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa")
     "Consumer circuit pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    final min=0,
+    displayUnit="Pa") = 0.5 * dp1Set
+    "Control valve pressure drop at design conditions";
 
   Sensors.RelativePressure dp1(
     redeclare final package Medium = MediumLiq)
@@ -31,16 +35,16 @@ partial model PartialInjectionTwoWay
     period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-  InjectionTwoWay con(
+  replaceable InjectionTwoWay con(
     use_lumFloRes=true,
-    final typCtl=typ,
+    typCtl=typ,
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final dp2_nominal=dp2_nominal,
-    dpValve_nominal=0.5 * dp1Set,
+    final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=if is_bal then dp1Set - con.dpValve_nominal else 0,
     pum(addPowerToMedium=false))
     "Hydronic connection"
@@ -91,8 +95,7 @@ equation
   connect(mode.y[1], ctlPum.mod)
     annotation (Line(points={{-118,0},{-96,0},{-96,-18}}, color={255,127,0}));
   connect(del2.ports[1], con.port_a2) annotation (Line(points={{60,20},{48,20},
-          {48,19.8},{36,19.8}},
-                            color={0,127,255}));
+          {48,20},{36,20}}, color={0,127,255}));
 
   connect(res1.port_b, dp1.port_a) annotation (Line(points={{-10,-60},{20,-60},{
           20,-40}},   color={0,127,255}));

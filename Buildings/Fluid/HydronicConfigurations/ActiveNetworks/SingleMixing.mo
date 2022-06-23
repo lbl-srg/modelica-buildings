@@ -46,9 +46,99 @@ model SingleMixing "Single mixing circuit"
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<h4>Summary</h4>
 <p>
-Variable primary.
-The primary pressure differential tends to decrease the bypass flow rate.
+This configuration (see schematic below) is used for variable 
+flow primary circuits and constant flow secondary circuits that
+have a design supply temperature identical to the primary circuit
+but a varying set point during operation.
+</p>
+Note about control valve sizing requirement that may 
+be too constraining / secondary pump sizing 
+(that must basically cover dp1)
+<p>
+<img alt=\"Schematic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/SingleMixing.png\"/>
+</p>
+<p>
+The following table presents the main characteristics of this configuration.
+</p>
+<table class=\"releaseTable\" summary=\"Main characteristics\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td valign=\"top\">
+Primary circuit
+</td>
+<td valign=\"top\">
+Constant flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Secondary (consumer) circuit
+</td>
+<td valign=\"top\">
+Variable flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Typical applications
+</td>
+<td valign=\"top\">
+Single heating or cooling coil served by a constant flow circuit
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Non-recommended applications
+</td>
+<td valign=\"top\">
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Built-in valve control options
+</td>
+<td valign=\"top\">
+No built-in controls
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Control valve selection
+</td>
+<td valign=\"top\">
+<i>&beta; = &Delta;p<sub>A-AB</sub> / 
+(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>J-AB</sub>)</i><br/>
+The valve is sized with a pressure drop of <i>&Delta;p<sub>a1-b1</sub></i>
+which yields an authority close to <i>0.5</i>.
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Balancing requirement
+</td>
+<td valign=\"top\">
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Lumped flow resistances include<br/>
+(With the setting <code>use_lumFloRes=true</code>.)
+</td>
+<td valign=\"top\">
+Direct branch: control valve direct branch <code>val.res1</code> 
+and whole consumer circuit between <code>b2</code> and <code>a2</code><br/>
+Bypass branch: control valve bypass branch <code>val.res3</code> 
+and bypass balancing valve <code>res3</code>
+</td>
+</tr>
+</table>
+<h4>Additional comments</h4>
+<p>
+The primary pressure differential tends to oppose the bypass flow rate.
 It is possible to reach zero bypass flow at partial valve opening and
 a negative bypass flow for even lower opening values.
 Therefore, a balancing valve in the bypass is not recommended as it 
@@ -56,20 +146,7 @@ would further reduce the bypass flow rate.
 When using that model, one should keep the default setting
 <code>dpBal3_nominal=0</code>&nbsp;Pa.
 </p>
-<p>
-This is a typical configuration for constant flow secondary circuits that
-have a design supply temperature identical to the primary circuit.
 
-The control valve authority is equal to 
-<i>&beta; = &Delta;p<sub>A-AB</sub> / (&Delta;p<sub>a1-b1</sub>
-+ &Delta;p<sub>B-AB</sub></i>).
-The valve is typically sized so that the design pressure drop in 
-the direct branch <i>&Delta;p<sub>A-AB</sub></i> is close 
-to the primary pressure differential <i>&Delta;p<sub>a1-b1</sub></i>,
-which yields an authority close to <i>0.5</i>.
-(Note that the authority does not depend on the primary balancing 
-valve.)
-</p>
 <p>
 The balancing procedure should ensure that the 
 primary pressure differential is compensated for by the primary balancing valve.

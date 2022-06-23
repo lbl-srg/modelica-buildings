@@ -123,7 +123,7 @@ model InjectionTwoWayConstant
   Modelica.Blocks.Routing.RealPassThrough T2SetCst(
    y(final unit="K", displayUnit="degC")) if not have_resT2
     "Consumer circuit temperature set point (constant)"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Modelica.Blocks.Routing.RealPassThrough T2Set(
     y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature set point"
@@ -175,9 +175,11 @@ equation
           110},{-110,126},{-76,126},{-76,114},{-62,114}},
                                                  color={0,0,127}));
   connect(T2SetLim1.y, T2SetCst.u)
-    annotation (Line(points={{-118,70},{-62,70}}, color={0,0,127}));
+    annotation (Line(points={{-118,70},{-68,70},{-68,60},{-62,60}},
+                                                  color={0,0,127}));
   connect(T2SetCst.y, T2Set.u)
-    annotation (Line(points={{-39,70},{-32,70}}, color={0,0,127}));
+    annotation (Line(points={{-39,60},{-36,60},{-36,70},{-32,70}},
+                                                 color={0,0,127}));
   connect(T2SetVar.y, T2Set.u) annotation (Line(points={{-38,110},{-36,110},{
           -36,70},{-32,70}},
                      color={0,0,127}));
@@ -195,18 +197,16 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of an injection circuit with a two-way valve
-that serves as the interface between a variable flow primary circuit at constant
-supply temperature and a constant flow secondary circuit at variable supply
-temperature.
+This model represents a heating system where an injection circuit 
+with a two-way valve serves as the interface between a variable 
+flow primary circuit and a constant flow secondary circuit.
 Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>
 <ul>
 <li>
-The design conditions are defined without
-considering any load diversity.
+The design conditions are defined without considering any load diversity.
 </li>
 <li>
 Each circuit is balanced at design conditions.
@@ -219,15 +219,31 @@ The pump dissipated heat is not added to the fluid.
 
 <p>
 Without temperature reset (<code>have_resT2 = false</code>),
-the primary flow varies marginally with the load (see plot #8).
+the primary flow varies marginally with the load (see plot #8):
+for a load fraction of <i>30%</i> the normalized primary flow rate
+is about <i>60%</i>.
+</p>
+<p>
 The flow reduction is enhanced when using a reset based on the maximum
-valve demand (note the setting of the controller <code>resT2</code> ensuring
+valve demand:
+for a load fraction of <i>30%</i> the normalized primary flow rate
+is now close to <i>30%</i>.
+(Also note the setting of the controller <code>resT2</code> ensuring
 a reset at design value when the control loop is enabled).
+</p>
+<p>
 The flow reduction is further enhanced when using a control based on the
 return temperature
-(<code>con(typVar=Types.ControlVariable.ReturnTemperature)</code>).
-However, there is additional constraints on the sizing of the terminal unit
-that should account for the load diversity.
+(<code>have_resT2 = false</code> and 
+<code>con(typVar=Types.ControlVariable.ReturnTemperature)</code>):
+the normalized primary flow rate varies close to linearily with the
+load fraction.
+This explains why this control strategy is often adopted 
+as it brings a good flow rate variation with the load at a
+first cost lower than the previous reset option based on the valve demand.
+However, it also brings some additional constraints on the sizing of 
+the terminal units.
+The load diversity must indeed be accounted for. 
 When tracking the return temperature of a constant flow consumer circuit,
 the supply temperature will vary with the aggregated load.
 In our example, the actual value of the secondary supply temperature
