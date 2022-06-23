@@ -175,8 +175,8 @@ model WaterLoopDistrictCooling
     annotation (Placement(transformation(extent={{-110,-34},{-98,-22}})));
   Modelica.StateGraph.TransitionWithSignal T3 "Transition to switch pumps on"
     annotation (Placement(transformation(extent={{-128,18},{-108,38}})));
-  Modelica.StateGraph.InitialStep ste0(nOut=1, nIn=1) "Initial Step"
-    annotation (Placement(transformation(extent={{-180,-2},{-168,10}})));
+  Modelica.StateGraph.InitialStep ste0(nOut=2, nIn=1) "Initial Step"
+    annotation (Placement(transformation(extent={{-178,-2},{-166,10}})));
   Controls.OBC.CDL.Continuous.GreaterThreshold greThrT1(t=273.15 + 5)
     "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-4,14},{-16,26}})));
@@ -342,7 +342,8 @@ equation
   connect(val3Off.y, swi.u1) annotation (Line(points={{98.8,56},{98,56},{98,50.8},
           {95.2,50.8}}, color={0,0,127}));
   connect(ste0.outPort[1],T0. inPort)
-    annotation (Line(points={{-167.7,4},{-164,4}}, color={0,0,0}));
+    annotation (Line(points={{-165.7,4.15},{-164,4.15},{-164,4}},
+                                                   color={0,0,0}));
   connect(T0.outPort, parallel.inPort)
     annotation (Line(points={{-158.5,4},{-155.47,4}}, color={0,0,0}));
   connect(ste1.inPort[1], parallel.split[1]) annotation (Line(points={{-138.6,28},
@@ -362,7 +363,7 @@ equation
   connect(mod5.outPort[1], parallel.join[2]) annotation (Line(points={{-97.7,-28},
           {-70,-28},{-70,4},{-67.025,4}}, color={0,0,0}));
   connect(T6.outPort, ste0.inPort[1]) annotation (Line(points={{-135.5,-52},{
-          -186,-52},{-186,4},{-180.6,4}},
+          -180,-52},{-180,4},{-178.6,4}},
                                      color={0,0,0}));
   connect(parallel.outPort,T5. inPort)
     annotation (Line(points={{-55.02,4},{-50,4}}, color={0,0,0}));
@@ -437,6 +438,8 @@ equation
           -32},{128,-36},{134,-36},{134,-40}}, color={0,127,255}));
   connect(bui.ports_aChiWat[1], val8.port_b) annotation (Line(points={{128,-12},
           {128,-8},{134,-8},{134,-4}}, color={0,127,255}));
+  connect(T0.inPort, ste0.outPort[2]) annotation (Line(points={{-164,4},{-164,
+          3.85},{-165.7,3.85}}, color={0,0,0}));
   annotation (
     experiment(
       StopTime=259200,
@@ -464,6 +467,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-200,-120},{180,120}})),
-    Icon(coordinateSystem(extent={{-200,-120},{180,120}})));
+    Diagram(coordinateSystem(extent={{-180,-120},{180,120}})),
+    Icon(coordinateSystem(extent={{-180,-120},{180,120}})));
 end WaterLoopDistrictCooling;

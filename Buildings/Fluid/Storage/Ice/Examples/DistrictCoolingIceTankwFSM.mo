@@ -21,10 +21,10 @@ model DistrictCoolingIceTankwFSM
   parameter
     Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled
     perChiWat
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{24,-180},{44,-160}})));
   Controls.OBC.CDL.Continuous.Sources.Constant chiWatTSet(k=273.15 + 6)
     "Set point"
-    annotation (Placement(transformation(extent={{66,-64},{78,-52}})));
+    annotation (Placement(transformation(extent={{70,-144},{82,-132}})));
   Chillers.ElectricEIR chiWat(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumWater,
@@ -37,13 +37,13 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={134,-9})));
+        origin={138,-89})));
   Modelica.Blocks.Sources.Sine disCooLoad(
     amplitude=1,
     f=0.001157,
     offset=1,
     startTime=1)
-    annotation (Placement(transformation(extent={{234,34},{222,46}})));
+    annotation (Placement(transformation(extent={{238,-46},{226,-34}})));
   HeatExchangers.HeaterCooler_u disCooCoi(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -53,7 +53,7 @@ model DistrictCoolingIceTankwFSM
     "District cooling coil" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={208,0})));
+        origin={212,-80})));
   Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -65,7 +65,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
-        origin={88,40})));
+        origin={92,-40})));
   Actuators.Valves.TwoWayLinear val2(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -77,7 +77,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{4,4},{-4,-4}},
         rotation=90,
-        origin={108,0})));
+        origin={112,-80})));
   Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -89,7 +89,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
-        origin={128,40})));
+        origin={132,-40})));
   Movers.FlowControlled_m_flow pum2(
     redeclare package Medium = MediumWater,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -97,7 +97,7 @@ model DistrictCoolingIceTankwFSM
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={88,-30})));
+        origin={92,-110})));
   Movers.FlowControlled_m_flow pum3(
     redeclare package Medium = MediumWater,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -105,7 +105,7 @@ model DistrictCoolingIceTankwFSM
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={128,-40})));
+        origin={132,-120})));
   Movers.FlowControlled_m_flow pum4(
     redeclare package Medium = MediumWater,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -113,7 +113,7 @@ model DistrictCoolingIceTankwFSM
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=0,
-        origin={200,50})));
+        origin={204,-30})));
   Sensors.TemperatureTwoPort temSen1(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -121,95 +121,95 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={88,20})));
+        origin={92,-60})));
   Sensors.TemperatureTwoPort temSen2(redeclare package Medium = MediumWater,
       m_flow_nominal=mWat_flow_nominal) "Water temperature" annotation (
       Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
-        origin={128,20})));
+        origin={132,-60})));
   Sensors.TemperatureTwoPort temSen3(redeclare package Medium = MediumWater,
       m_flow_nominal=mWat_flow_nominal) "Water temperature" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
-        origin={208,-24})));
+        origin={212,-104})));
   Sources.MassFlowSource_T           sou1(
     nPorts=1,
     redeclare package Medium = MediumAir,
     m_flow=mCon_flow_nominal) "Weather data"
     annotation (Placement(transformation(extent={{6,-6},{-6,6}},
         rotation=0,
-        origin={152,20})));
+        origin={156,-60})));
   Sources.Boundary_pT sin1(redeclare package Medium = MediumAir, nPorts=1)
                 "Pressure source"
     annotation (Placement(
         transformation(
         extent={{5,-5},{-5,5}},
-        origin={153,-31})));
+        origin={157,-111})));
   Sources.Boundary_pT preSou1(redeclare package Medium = MediumWater, nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
-    annotation (Placement(transformation(extent={{184,-6},{172,6}})));
+    annotation (Placement(transformation(extent={{188,-86},{176,-74}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum2(realTrue=
         mWat_flow_nominal, realFalse=mWat_flow_nominal/10)
                            "Pump signal"
-    annotation (Placement(transformation(extent={{64,-36},{76,-24}})));
+    annotation (Placement(transformation(extent={{68,-116},{80,-104}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal1(realTrue=1, realFalse=
        0.1) "Valve signal"
-    annotation (Placement(transformation(extent={{66,64},{78,76}})));
+    annotation (Placement(transformation(extent={{70,-16},{82,-4}})));
   Controls.OBC.CDL.Conversions.BooleanToReal           booToReaPum3(realTrue=
         mWat_flow_nominal, realFalse=mWat_flow_nominal/10)
                            "Pump signal"
-    annotation (Placement(transformation(extent={{152,-68},{140,-56}})));
+    annotation (Placement(transformation(extent={{156,-148},{144,-136}})));
   Controls.OBC.CDL.Continuous.Sources.Constant pum4Flow(k=mWat_flow_nominal)
     "Pump 4 flow rate"
-    annotation (Placement(transformation(extent={{234,58},{222,70}})));
+    annotation (Placement(transformation(extent={{238,-22},{226,-10}})));
   Modelica.StateGraph.StepWithSignal mod2(nIn=1, nOut=1)
     "Serve district loads with borefield"
-    annotation (Placement(transformation(extent={{14,174},{26,162}})));
+    annotation (Placement(transformation(extent={{18,94},{30,82}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of the state graph"
-    annotation (Placement(transformation(extent={{-228,208},{-214,222}})));
+    annotation (Placement(transformation(extent={{-224,128},{-210,142}})));
   Modelica.StateGraph.StepWithSignal mod5(nOut=1, nIn=1)
     "Serve district loads with chiller"
-    annotation (Placement(transformation(extent={{-120,138},{-108,150}})));
+    annotation (Placement(transformation(extent={{-116,58},{-104,70}})));
   Modelica.StateGraph.InitialStep ste0(nOut=1, nIn=1) "Initial Step"
-    annotation (Placement(transformation(extent={{-236,162},{-224,174}})));
+    annotation (Placement(transformation(extent={{-232,82},{-220,94}})));
   Controls.OBC.CDL.Continuous.GreaterThreshold greThrT3(t=273.15 + 11)
     "Threshold for district water temperature"
-    annotation (Placement(transformation(extent={{224,-20},{236,-8}})));
+    annotation (Placement(transformation(extent={{228,-100},{240,-88}})));
   Controls.OBC.CDL.Continuous.LessThreshold lesThrT3(t=273.15 + 7)
     "Threshold for district water temperature"
-    annotation (Placement(transformation(extent={{224,-42},{236,-30}})));
+    annotation (Placement(transformation(extent={{228,-122},{240,-110}})));
   Modelica.StateGraph.TransitionWithSignal T0 "Transition from initial step"
-    annotation (Placement(transformation(extent={{-218,158},{-198,178}})));
+    annotation (Placement(transformation(extent={{-214,78},{-194,98}})));
   Modelica.StateGraph.TransitionWithSignal T6 "Transition from mode 2"
-    annotation (Placement(transformation(extent={{-260,158},{-240,178}})));
+    annotation (Placement(transformation(extent={{-256,78},{-236,98}})));
   Modelica.StateGraph.Parallel parallel
     "Split for alternative execution paths"
-    annotation (Placement(transformation(extent={{-196,100},{-8,236}})));
+    annotation (Placement(transformation(extent={{-192,20},{-4,156}})));
   Modelica.StateGraph.Step ste1(nOut=1, nIn=1) "Step 1"
-    annotation (Placement(transformation(extent={{-164,192},{-152,204}})));
+    annotation (Placement(transformation(extent={{-160,112},{-148,124}})));
   Modelica.StateGraph.Step ste2(nOut=1, nIn=1) "Step 2"
-    annotation (Placement(transformation(extent={{-50,192},{-38,204}})));
+    annotation (Placement(transformation(extent={{-46,112},{-34,124}})));
   Controls.OBC.CDL.Continuous.Switch swiVal3
-    annotation (Placement(transformation(extent={{168,64},{156,76}})));
+    annotation (Placement(transformation(extent={{172,-16},{160,-4}})));
   Controls.OBC.CDL.Continuous.Sources.Constant val3On(k=1)
     "Valve 3 on position"
-    annotation (Placement(transformation(extent={{186,66},{174,54}})));
+    annotation (Placement(transformation(extent={{190,-14},{178,-26}})));
   Controls.OBC.CDL.Continuous.Sources.Constant val3Off(k=0.1)
     "Valve 3 off position"
-    annotation (Placement(transformation(extent={{186,74},{174,86}})));
+    annotation (Placement(transformation(extent={{190,-6},{178,6}})));
   Modelica.StateGraph.TransitionWithSignal
                                  T5 "Transition to mode 2"
-    annotation (Placement(transformation(extent={{-6,158},{14,178}})));
+    annotation (Placement(transformation(extent={{-2,78},{18,98}})));
   parameter Data.Tank.Generic perIceTan(
     mIce_max=1/4*2846.35,
     coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha=10,
     coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
-    dtDisCha=10) "Tank performance data" annotation (Placement(transformation(extent={{-60,
-            -100},{-40,-80}})));
+    dtDisCha=10) "Tank performance data" annotation (Placement(transformation(extent={{-56,
+            -180},{-36,-160}})));
 
   Buildings.Fluid.Storage.Ice.Tank iceTanUnc(
     redeclare package Medium = MediumGlycol,
@@ -219,10 +219,10 @@ model DistrictCoolingIceTankwFSM
     per=perIceTan) "Uncontrolled ice tank" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={-146,-16})));
+        origin={-142,-96})));
   Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=273.15 - 6.7)
     "Set point"
-    annotation (Placement(transformation(extent={{-76,52},{-88,64}})));
+    annotation (Placement(transformation(extent={{-72,-28},{-84,-16}})));
   Chillers.ElectricEIR chiGly(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumGlycol,
@@ -235,7 +235,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-100,-13})));
+        origin={-96,-93})));
   Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
@@ -247,7 +247,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
-        origin={-146,36})));
+        origin={-142,-44})));
   Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
@@ -259,7 +259,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{4,-4},{-4,4}},
         rotation=90,
-        origin={-126,18})));
+        origin={-122,-62})));
   Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
@@ -271,7 +271,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
-        origin={-106,36})));
+        origin={-102,-44})));
   Actuators.Valves.TwoWayLinear val7(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
@@ -283,7 +283,7 @@ model DistrictCoolingIceTankwFSM
       Placement(transformation(
         extent={{4,-4},{-4,4}},
         rotation=90,
-        origin={-46,36})));
+        origin={-42,-44})));
   Movers.FlowControlled_m_flow pum1(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -291,7 +291,7 @@ model DistrictCoolingIceTankwFSM
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
-        origin={-46,-44})));
+        origin={-42,-124})));
   Movers.FlowControlled_m_flow pum5(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -299,7 +299,7 @@ model DistrictCoolingIceTankwFSM
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={-146,-38})));
+        origin={-142,-118})));
   Movers.FlowControlled_m_flow pum6(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -307,46 +307,46 @@ model DistrictCoolingIceTankwFSM
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={-112,-44})));
+        origin={-108,-124})));
   Sensors.TemperatureTwoPort temSen4(redeclare package Medium = MediumGlycol,
       m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={-146,6})));
+        origin={-142,-74})));
   Sensors.TemperatureTwoPort temSen5(redeclare package Medium = MediumGlycol,
       m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
       Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
-        origin={-106,16})));
+        origin={-102,-64})));
   Sensors.TemperatureTwoPort temSen6(redeclare package Medium = MediumGlycol,
       m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
       Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
-        origin={-46,-24})));
+        origin={-42,-104})));
   Sources.MassFlowSource_T sou2(
     nPorts=1,
     redeclare package Medium = MediumAir,
     m_flow=mCon_flow_nominal) "Weather data"
     annotation (Placement(transformation(extent={{6,-6},{-6,6}},
         rotation=0,
-        origin={-82,16})));
+        origin={-78,-64})));
   Sources.Boundary_pT sin2(redeclare package Medium = MediumAir, nPorts=1)
                 "Pressure source"
     annotation (Placement(
         transformation(
         extent={{5,-5},{-5,5}},
-        origin={-99,-35},
+        origin={-95,-115},
         rotation=180)));
   Sources.Boundary_pT preSou2(redeclare package Medium = MediumGlycol, nPorts=1)
     "Source for pressure and to account for thermal expansion of glycol"
-    annotation (Placement(transformation(extent={{-82,-10},{-70,2}})));
+    annotation (Placement(transformation(extent={{-78,-90},{-66,-78}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum6(realTrue=
         mGly_flow_nominal, realFalse=mGly_flow_nominal/10)
                            "Pump signal"
-    annotation (Placement(transformation(extent={{-98,-74},{-110,-62}})));
+    annotation (Placement(transformation(extent={{-94,-154},{-106,-142}})));
   parameter Chillers.Data.ElectricEIR.Generic perChiGly(
     QEva_flow_nominal=-100582,
     COP_nominal=3.1,
@@ -366,53 +366,53 @@ model DistrictCoolingIceTankwFSM
     TConEnt_nominal=273.15 + 20,
     TConEntMin=273.15 + 15,
     TConEntMax=273.15 + 40)
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+    annotation (Placement(transformation(extent={{-16,-180},{4,-160}})));
 
   Controls.OBC.CDL.Continuous.LessThreshold lesThrT4(t=273.15 - 2)
     "Threshold for ice tank temperature"
-    annotation (Placement(transformation(extent={{-166,10},{-178,22}})));
+    annotation (Placement(transformation(extent={{-162,-70},{-174,-58}})));
   Controls.OBC.CDL.Continuous.GreaterThreshold greThrT4(t=273.15 + 1)
     "Threshold for ice tank temperature"
-    annotation (Placement(transformation(extent={{-166,-8},{-178,4}})));
+    annotation (Placement(transformation(extent={{-162,-88},{-174,-76}})));
   Controls.OBC.CDL.Continuous.LessThreshold lesThrT6(t=273.15 + 4)
     "Threshold for hex glycol temperature"
-    annotation (Placement(transformation(extent={{-20,-36},{-8,-24}})));
+    annotation (Placement(transformation(extent={{-16,-116},{-4,-104}})));
   Controls.OBC.CDL.Continuous.GreaterThreshold
                                             greThrT6(t=273.15 + 8)
     "Threshold for hex glycol temperature"
-    annotation (Placement(transformation(extent={{-20,-52},{-8,-40}})));
+    annotation (Placement(transformation(extent={{-16,-132},{-4,-120}})));
   Controls.OBC.CDL.Continuous.Sources.Constant pum5Flow(k=mGly_flow_nominal)
     "Pump 5 flow rate"
-    annotation (Placement(transformation(extent={{-178,-44},{-166,-32}})));
+    annotation (Placement(transformation(extent={{-174,-124},{-162,-112}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal5(realTrue=1, realFalse=
        0.1)
     "Valve signal"
-    annotation (Placement(transformation(extent={{-174,-74},{-162,-62}})));
+    annotation (Placement(transformation(extent={{-170,-154},{-158,-142}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue=
         mGly_flow_nominal, realFalse=mGly_flow_nominal/10) "Pump signal"
-    annotation (Placement(transformation(extent={{-18,-68},{-30,-56}})));
+    annotation (Placement(transformation(extent={{-14,-148},{-26,-136}})));
   Modelica.StateGraph.TransitionWithSignal T3 "Transition to mode 4"
-    annotation (Placement(transformation(extent={{-134,204},{-114,224}})));
+    annotation (Placement(transformation(extent={{-130,124},{-110,144}})));
   Modelica.StateGraph.StepWithSignal mod4(nIn=1, nOut=1)
     "Serve district loads with chiller and borefield"
-    annotation (Placement(transformation(extent={{-114,220},{-102,208}})));
+    annotation (Placement(transformation(extent={{-110,140},{-98,128}})));
   Modelica.StateGraph.TransitionWithSignal T4 "Transition from mode 4"
-    annotation (Placement(transformation(extent={{-100,204},{-80,224}})));
+    annotation (Placement(transformation(extent={{-96,124},{-76,144}})));
   Modelica.StateGraph.TransitionWithSignal T2 "Transition from mode 1"
-    annotation (Placement(transformation(extent={{-82,170},{-62,190}})));
+    annotation (Placement(transformation(extent={{-78,90},{-58,110}})));
   Modelica.StateGraph.StepWithSignal mod1(nIn=1, nOut=1) "Charge borefield"
-    annotation (Placement(transformation(extent={{-110,174},{-98,186}})));
+    annotation (Placement(transformation(extent={{-106,94},{-94,106}})));
   Modelica.StateGraph.TransitionWithSignal T1 "Transition to mode 1"
-    annotation (Placement(transformation(extent={{-138,170},{-118,190}})));
+    annotation (Placement(transformation(extent={{-134,90},{-114,110}})));
   Modelica.StateGraph.Alternative alternative
     "Split for alternative execution paths"
-    annotation (Placement(transformation(extent={{-148,166},{-54,230}})));
+    annotation (Placement(transformation(extent={{-144,86},{-50,150}})));
   Controls.OBC.CDL.Continuous.Sources.Constant val4On(k=1)
     "Valve 4 on position"
-    annotation (Placement(transformation(extent={{-124,30},{-136,42}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-132,-38}})));
   Controls.OBC.CDL.Continuous.Sources.Constant val6Off(k=0.1)
     "Valve 6 off position"
-    annotation (Placement(transformation(extent={{-78,30},{-90,42}})));
+    annotation (Placement(transformation(extent={{-74,-50},{-86,-38}})));
   HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumGlycol,
     redeclare package Medium2 = MediumWater,
@@ -420,295 +420,339 @@ model DistrictCoolingIceTankwFSM
     m2_flow_nominal=mWat_flow_nominal,
     eps=0.8,
     dp2_nominal=0,
-    dp1_nominal=0) "Heat exchanger" annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={20,-7})));
+    dp1_nominal=0) "Heat exchanger" annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={24,-87})));
   Controls.OBC.CDL.Logical.MultiOr mulOrT6(nin=4) annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={-250,138})));
+        origin={-246,58})));
   Controls.OBC.CDL.Logical.MultiOr mulOrT5(nin=3) annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={4,138})));
+        origin={8,58})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal2(realTrue=1, realFalse=
        0.1) "Valve signal"
-    annotation (Placement(transformation(extent={{64,86},{76,98}})));
+    annotation (Placement(transformation(extent={{68,6},{80,18}})));
   Controls.OBC.CDL.Logical.MultiOr   mulOr2(nin=2)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=0,
-        origin={50,-30})));
+        origin={54,-110})));
   Controls.OBC.CDL.Logical.MultiOr   mulOr1(nin=2)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=0,
-        origin={-160,70})));
+        origin={-156,-10})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal7(realTrue=1, realFalse=
        0.1)
     "Valve signal"
-    annotation (Placement(transformation(extent={{-128,64},{-116,76}})));
+    annotation (Placement(transformation(extent={{-124,-16},{-112,-4}})));
 equation
   connect(pum3.port_b,chiWat. port_a2)
-    annotation (Line(points={{128,-34},{128,-19}},
+    annotation (Line(points={{132,-114},{132,-99}},
                                                  color={0,127,255}));
   connect(chiWat.port_b2,temSen2. port_a)
-    annotation (Line(points={{128,1},{128,14}},
+    annotation (Line(points={{132,-79},{132,-66}},
                                               color={0,127,255}));
-  connect(temSen2.port_b,val2. port_a) annotation (Line(points={{128,26},{128,30},
-          {108,30},{108,4}},
+  connect(temSen2.port_b,val2. port_a) annotation (Line(points={{132,-54},{132,
+          -50},{112,-50},{112,-76}},
                            color={0,127,255}));
   connect(temSen2.port_b,val3. port_a)
-    annotation (Line(points={{128,26},{128,36}},
+    annotation (Line(points={{132,-54},{132,-44}},
                                                color={0,127,255}));
   connect(temSen1.port_b,val1. port_a)
-    annotation (Line(points={{88,26},{88,36}}, color={0,127,255}));
-  connect(val1.port_b,val3. port_b) annotation (Line(points={{88,44},{88,50},{128,
-          50},{128,44}},   color={0,127,255}));
+    annotation (Line(points={{92,-54},{92,-44}},
+                                               color={0,127,255}));
+  connect(val1.port_b,val3. port_b) annotation (Line(points={{92,-36},{92,-30},
+          {132,-30},{132,-36}},
+                           color={0,127,255}));
   connect(pum4.port_a,val3. port_b)
-    annotation (Line(points={{194,50},{128,50},{128,44}},
+    annotation (Line(points={{198,-30},{132,-30},{132,-36}},
                                                         color={0,127,255}));
   connect(pum4.port_b,disCooCoi. port_a)
-    annotation (Line(points={{206,50},{208,50},{208,10}}, color={0,127,255}));
+    annotation (Line(points={{210,-30},{212,-30},{212,-70}},
+                                                          color={0,127,255}));
   connect(disCooCoi.port_b,temSen3. port_a)
-    annotation (Line(points={{208,-10},{208,-18}}, color={0,127,255}));
-  connect(temSen3.port_b,pum3. port_a) annotation (Line(points={{208,-30},{208,-52},
-          {128,-52},{128,-46}},    color={0,127,255}));
-  connect(pum2.port_a,pum3. port_a) annotation (Line(points={{88,-36},{88,-52},{
-          128,-52},{128,-46}},color={0,127,255}));
-  connect(val3.port_b,pum3. port_a) annotation (Line(points={{128,44},{128,50},{
-          168,50},{168,-52},{128,-52},{128,-46}},
+    annotation (Line(points={{212,-90},{212,-98}}, color={0,127,255}));
+  connect(temSen3.port_b,pum3. port_a) annotation (Line(points={{212,-110},{212,
+          -132},{132,-132},{132,-126}},
+                                   color={0,127,255}));
+  connect(pum2.port_a,pum3. port_a) annotation (Line(points={{92,-116},{92,-132},
+          {132,-132},{132,-126}},
+                              color={0,127,255}));
+  connect(val3.port_b,pum3. port_a) annotation (Line(points={{132,-36},{132,-30},
+          {172,-30},{172,-132},{132,-132},{132,-126}},
                                                 color={0,127,255}));
-  connect(val2.port_b,pum2. port_a) annotation (Line(points={{108,-4},{108,-42},
-          {88,-42},{88,-36}},color={0,127,255}));
+  connect(val2.port_b,pum2. port_a) annotation (Line(points={{112,-84},{112,
+          -122},{92,-122},{92,-116}},
+                             color={0,127,255}));
   connect(sou1.ports[1],chiWat. port_a1)
-    annotation (Line(points={{146,20},{140,20},{140,1}},
+    annotation (Line(points={{150,-60},{144,-60},{144,-79}},
                                                       color={0,127,255}));
   connect(chiWat.port_b1,sin1. ports[1])
-    annotation (Line(points={{140,-19},{140,-31},{148,-31}},
+    annotation (Line(points={{144,-99},{144,-111},{152,-111}},
                                                           color={0,127,255}));
-  connect(preSou1.ports[1],pum3. port_a) annotation (Line(points={{172,0},{168,0},
-          {168,-52},{128,-52},{128,-46}},  color={0,127,255}));
+  connect(preSou1.ports[1],pum3. port_a) annotation (Line(points={{176,-80},{
+          172,-80},{172,-132},{132,-132},{132,-126}},
+                                           color={0,127,255}));
   connect(disCooCoi.u,disCooLoad. y)
-    annotation (Line(points={{214,12},{214,40},{221.4,40}}, color={0,0,127}));
+    annotation (Line(points={{218,-68},{218,-40},{225.4,-40}},
+                                                            color={0,0,127}));
   connect(booToReaPum2.y,pum2. m_flow_in)
-    annotation (Line(points={{77.2,-30},{80.8,-30}},color={0,0,127}));
-  connect(booToReaPum3.y,pum3. m_flow_in) annotation (Line(points={{138.8,-62},{
-          116,-62},{116,-40},{120.8,-40}},
+    annotation (Line(points={{81.2,-110},{84.8,-110}},
+                                                    color={0,0,127}));
+  connect(booToReaPum3.y,pum3. m_flow_in) annotation (Line(points={{142.8,-142},
+          {120,-142},{120,-120},{124.8,-120}},
                                      color={0,0,127}));
-  connect(pum4Flow.y,pum4. m_flow_in) annotation (Line(points={{220.8,64},{200,64},
-          {200,57.2}}, color={0,0,127}));
-  connect(chiWat.TSet,chiWatTSet. y) annotation (Line(points={{131,3},{131,8},{120,
-          8},{120,-30},{112,-30},{112,-58},{79.2,-58}},   color={0,0,127}));
-  connect(chiWat.on,booToReaPum3. u) annotation (Line(points={{137,3},{137,10},{
-          162,10},{162,-62},{153.2,-62}},color={255,0,255}));
-  connect(temSen3.T,lesThrT3. u) annotation (Line(points={{214.6,-24},{220,-24},
-          {220,-36},{222.8,-36}}, color={0,0,127}));
-  connect(temSen3.T,greThrT3. u) annotation (Line(points={{214.6,-24},{220,-24},
-          {220,-14},{222.8,-14}}, color={0,0,127}));
-  connect(mod5.active, booToReaPum3.u) annotation (Line(points={{-114,137.4},{
-          -114,100},{34,100},{34,-74},{162,-74},{162,-62},{153.2,-62}},
+  connect(pum4Flow.y,pum4. m_flow_in) annotation (Line(points={{224.8,-16},{204,
+          -16},{204,-22.8}},
+                       color={0,0,127}));
+  connect(chiWat.TSet,chiWatTSet. y) annotation (Line(points={{135,-77},{135,
+          -72},{124,-72},{124,-110},{116,-110},{116,-138},{83.2,-138}},
+                                                          color={0,0,127}));
+  connect(chiWat.on,booToReaPum3. u) annotation (Line(points={{141,-77},{141,
+          -70},{166,-70},{166,-142},{157.2,-142}},
+                                         color={255,0,255}));
+  connect(temSen3.T,lesThrT3. u) annotation (Line(points={{218.6,-104},{224,
+          -104},{224,-116},{226.8,-116}},
+                                  color={0,0,127}));
+  connect(temSen3.T,greThrT3. u) annotation (Line(points={{218.6,-104},{224,
+          -104},{224,-94},{226.8,-94}},
+                                  color={0,0,127}));
+  connect(mod5.active, booToReaPum3.u) annotation (Line(points={{-110,57.4},{
+          -110,20},{38,20},{38,-154},{166,-154},{166,-142},{157.2,-142}},
                                                                    color={255,0,
           255}));
-  connect(swiVal3.u3, val3On.y) annotation (Line(points={{169.2,65.2},{172,65.2},
-          {172,60},{172.8,60}}, color={0,0,127}));
-  connect(val3Off.y, swiVal3.u1) annotation (Line(points={{172.8,80},{172,80},{172,
-          74.8},{169.2,74.8}}, color={0,0,127}));
+  connect(swiVal3.u3, val3On.y) annotation (Line(points={{173.2,-14.8},{176,
+          -14.8},{176,-20},{176.8,-20}},
+                                color={0,0,127}));
+  connect(val3Off.y, swiVal3.u1) annotation (Line(points={{176.8,0},{176,0},{
+          176,-5.2},{173.2,-5.2}},
+                               color={0,0,127}));
   connect(pum5.port_b, iceTanUnc.port_a)
-    annotation (Line(points={{-146,-32},{-146,-26}}, color={0,127,255}));
+    annotation (Line(points={{-142,-112},{-142,-106}},
+                                                     color={0,127,255}));
   connect(iceTanUnc.port_b, temSen4.port_a)
-    annotation (Line(points={{-146,-6},{-146,0}}, color={0,127,255}));
+    annotation (Line(points={{-142,-86},{-142,-80}},
+                                                  color={0,127,255}));
   connect(temSen4.port_b,val4. port_a)
-    annotation (Line(points={{-146,12},{-146,32}}, color={0,127,255}));
-  connect(val4.port_b,val6. port_b) annotation (Line(points={{-146,40},{-146,46},
-          {-106,46},{-106,40}},
+    annotation (Line(points={{-142,-68},{-142,-48}},
+                                                   color={0,127,255}));
+  connect(val4.port_b,val6. port_b) annotation (Line(points={{-142,-40},{-142,
+          -34},{-102,-34},{-102,-40}},
                               color={0,127,255}));
-  connect(val7.port_a,val6. port_b) annotation (Line(points={{-46,40},{-46,46},{
-          -106,46},{-106,40}},
+  connect(val7.port_a,val6. port_b) annotation (Line(points={{-42,-40},{-42,-34},
+          {-102,-34},{-102,-40}},
                          color={0,127,255}));
   connect(temSen6.port_b,pum1. port_a)
-    annotation (Line(points={{-46,-30},{-46,-38}},
+    annotation (Line(points={{-42,-110},{-42,-118}},
                                                color={0,127,255}));
   connect(pum6.port_b,chiGly. port_a2)
-    annotation (Line(points={{-112,-38},{-112,-30},{-106,-30},{-106,-23}},
+    annotation (Line(points={{-108,-118},{-108,-110},{-102,-110},{-102,-103}},
                                                    color={0,127,255}));
   connect(chiGly.port_b2,temSen5. port_a)
-    annotation (Line(points={{-106,-3},{-106,10}},
+    annotation (Line(points={{-102,-83},{-102,-70}},
                                                 color={0,127,255}));
-  connect(temSen5.port_b,val5. port_a) annotation (Line(points={{-106,22},{-106,
-          26},{-126,26},{-126,22}},
+  connect(temSen5.port_b,val5. port_a) annotation (Line(points={{-102,-58},{
+          -102,-54},{-122,-54},{-122,-58}},
                                  color={0,127,255}));
   connect(val6.port_a,temSen5. port_b)
-    annotation (Line(points={{-106,32},{-106,22}},
+    annotation (Line(points={{-102,-48},{-102,-58}},
                                                  color={0,127,255}));
-  connect(pum1.port_b,pum6. port_a) annotation (Line(points={{-46,-50},{-46,-56},
-          {-112,-56},{-112,-50}},
+  connect(pum1.port_b,pum6. port_a) annotation (Line(points={{-42,-130},{-42,
+          -136},{-108,-136},{-108,-130}},
                                color={0,127,255}));
-  connect(pum5.port_a,val5. port_b) annotation (Line(points={{-146,-44},{-146,-48},
-          {-126,-48},{-126,14}},    color={0,127,255}));
-  connect(pum5.port_a,pum6. port_a) annotation (Line(points={{-146,-44},{-146,-56},
-          {-112,-56},{-112,-50}},    color={0,127,255}));
-  connect(val6.port_b,pum6. port_a) annotation (Line(points={{-106,40},{-106,46},
-          {-66,46},{-66,-56},{-112,-56},{-112,-50}},
+  connect(pum5.port_a,val5. port_b) annotation (Line(points={{-142,-124},{-142,
+          -128},{-122,-128},{-122,-66}},
+                                    color={0,127,255}));
+  connect(pum5.port_a,pum6. port_a) annotation (Line(points={{-142,-124},{-142,
+          -136},{-108,-136},{-108,-130}},
+                                     color={0,127,255}));
+  connect(val6.port_b,pum6. port_a) annotation (Line(points={{-102,-40},{-102,
+          -34},{-62,-34},{-62,-136},{-108,-136},{-108,-130}},
                                                    color={0,127,255}));
   connect(sou2.ports[1],chiGly. port_a1)
-    annotation (Line(points={{-88,16},{-94,16},{-94,-3}},color={0,127,255}));
-  connect(chiGly.port_b1,sin2. ports[1]) annotation (Line(points={{-94,-23},{-94,
-          -35}},               color={0,127,255}));
-  connect(preSou2.ports[1],pum6. port_a) annotation (Line(points={{-70,-4},{-66,
-          -4},{-66,-56},{-112,-56},{-112,-50}},
+    annotation (Line(points={{-84,-64},{-90,-64},{-90,-83}},
+                                                         color={0,127,255}));
+  connect(chiGly.port_b1,sin2. ports[1]) annotation (Line(points={{-90,-103},{
+          -90,-115}},          color={0,127,255}));
+  connect(preSou2.ports[1],pum6. port_a) annotation (Line(points={{-66,-84},{
+          -62,-84},{-62,-136},{-108,-136},{-108,-130}},
                                              color={0,127,255}));
-  connect(chiGly.TSet,chiGlyTSet. y) annotation (Line(points={{-103,-1},{-103,8},
-          {-96,8},{-96,58},{-89.2,58}}, color={0,0,127}));
-  connect(booToReaPum6.y,pum6. m_flow_in) annotation (Line(points={{-111.2,-68},
-          {-122,-68},{-122,-44},{-119.2,-44}},
+  connect(chiGly.TSet,chiGlyTSet. y) annotation (Line(points={{-99,-81},{-99,
+          -72},{-92,-72},{-92,-22},{-85.2,-22}},
+                                        color={0,0,127}));
+  connect(booToReaPum6.y,pum6. m_flow_in) annotation (Line(points={{-107.2,-148},
+          {-118,-148},{-118,-124},{-115.2,-124}},
                                      color={0,0,127}));
-  connect(chiGly.on,booToReaPum6. u) annotation (Line(points={{-97,-1},{-97,4},{
-          -84,4},{-84,-68},{-96.8,-68}},
+  connect(chiGly.on,booToReaPum6. u) annotation (Line(points={{-93,-81},{-93,
+          -76},{-80,-76},{-80,-148},{-92.8,-148}},
                                     color={255,0,255}));
-  connect(lesThrT4.u,temSen4. T) annotation (Line(points={{-164.8,16},{-158,16},
-          {-158,6},{-152.6,6}},
+  connect(lesThrT4.u,temSen4. T) annotation (Line(points={{-160.8,-64},{-154,
+          -64},{-154,-74},{-148.6,-74}},
                       color={0,0,127}));
-  connect(greThrT4.u,temSen4. T) annotation (Line(points={{-164.8,-2},{-158,-2},
-          {-158,6},{-152.6,6}},
+  connect(greThrT4.u,temSen4. T) annotation (Line(points={{-160.8,-82},{-154,
+          -82},{-154,-74},{-148.6,-74}},
                              color={0,0,127}));
-  connect(temSen6.T, lesThrT6.u) annotation (Line(points={{-39.4,-24},{-26,-24},
-          {-26,-30},{-21.2,-30}}, color={0,0,127}));
-  connect(temSen6.T,greThrT6. u) annotation (Line(points={{-39.4,-24},{-26,-24},
-          {-26,-46},{-21.2,-46}}, color={0,0,127}));
-  connect(mod1.active, booToReaPum6.u) annotation (Line(points={{-104,173.4},{
-          -104,130},{-200,130},{-200,-90},{-84,-90},{-84,-68},{-96.8,-68}},
+  connect(temSen6.T, lesThrT6.u) annotation (Line(points={{-35.4,-104},{-22,
+          -104},{-22,-110},{-17.2,-110}},
+                                  color={0,0,127}));
+  connect(temSen6.T,greThrT6. u) annotation (Line(points={{-35.4,-104},{-22,
+          -104},{-22,-126},{-17.2,-126}},
+                                  color={0,0,127}));
+  connect(mod1.active, booToReaPum6.u) annotation (Line(points={{-100,93.4},{
+          -100,50},{-196,50},{-196,-170},{-80,-170},{-80,-148},{-92.8,-148}},
                                                                        color={255,
           0,255}));
-  connect(greThrT4.y,T1. condition) annotation (Line(points={{-179.2,-2},{-190,
-          -2},{-190,106},{-128,106},{-128,168}},
+  connect(greThrT4.y,T1. condition) annotation (Line(points={{-175.2,-82},{-186,
+          -82},{-186,26},{-124,26},{-124,88}},
                                             color={255,0,255}));
   connect(val4On.y,val4. y)
-    annotation (Line(points={{-137.2,36},{-141.2,36}},
+    annotation (Line(points={{-133.2,-44},{-137.2,-44}},
                                                    color={0,0,127}));
   connect(val6Off.y,val6. y)
-    annotation (Line(points={{-91.2,36},{-101.2,36}},
+    annotation (Line(points={{-87.2,-44},{-97.2,-44}},
                                                    color={0,0,127}));
   connect(pum5Flow.y,pum5. m_flow_in)
-    annotation (Line(points={{-164.8,-38},{-153.2,-38}},
+    annotation (Line(points={{-160.8,-118},{-149.2,-118}},
                                                       color={0,0,127}));
-  connect(booToReaPum1.y,pum1. m_flow_in) annotation (Line(points={{-31.2,-62},{
-          -34,-62},{-34,-44},{-38.8,-44}}, color={0,0,127}));
+  connect(booToReaPum1.y,pum1. m_flow_in) annotation (Line(points={{-27.2,-142},
+          {-30,-142},{-30,-124},{-34.8,-124}},
+                                           color={0,0,127}));
   connect(T3.outPort, mod4.inPort[1])
-    annotation (Line(points={{-122.5,214},{-114.6,214}}, color={0,0,0}));
+    annotation (Line(points={{-118.5,134},{-110.6,134}}, color={0,0,0}));
   connect(mod4.outPort[1], T4.inPort)
-    annotation (Line(points={{-101.7,214},{-94,214}},color={0,0,0}));
+    annotation (Line(points={{-97.7,134},{-90,134}}, color={0,0,0}));
   connect(T1.outPort, mod1.inPort[1])
-    annotation (Line(points={{-126.5,180},{-110.6,180}}, color={0,0,0}));
+    annotation (Line(points={{-122.5,100},{-106.6,100}}, color={0,0,0}));
   connect(mod1.outPort[1], T2.inPort)
-    annotation (Line(points={{-97.7,180},{-76,180}}, color={0,0,0}));
-  connect(alternative.split[1],T1. inPort) annotation (Line(points={{-138.13,
-          198},{-136,198},{-136,180},{-132,180}},
+    annotation (Line(points={{-93.7,100},{-72,100}}, color={0,0,0}));
+  connect(alternative.split[1],T1. inPort) annotation (Line(points={{-134.13,
+          118},{-132,118},{-132,100},{-128,100}},
                                              color={0,0,0}));
-  connect(T2.outPort,alternative. join[1]) annotation (Line(points={{-70.5,180},
-          {-66,180},{-66,198},{-63.87,198}}, color={0,0,0}));
-  connect(alternative.split[2],T3. inPort) annotation (Line(points={{-138.13,
-          198},{-136,198},{-136,214},{-128,214}},
+  connect(T2.outPort,alternative. join[1]) annotation (Line(points={{-66.5,100},
+          {-62,100},{-62,118},{-59.87,118}}, color={0,0,0}));
+  connect(alternative.split[2],T3. inPort) annotation (Line(points={{-134.13,
+          118},{-132,118},{-132,134},{-124,134}},
                                            color={0,0,0}));
-  connect(T4.outPort,alternative. join[2]) annotation (Line(points={{-88.5,214},
-          {-66,214},{-66,198},{-63.87,198}},
+  connect(T4.outPort,alternative. join[2]) annotation (Line(points={{-84.5,134},
+          {-62,134},{-62,118},{-59.87,118}},
                                            color={0,0,0}));
-  connect(mod1.active, booToReaVal5.u) annotation (Line(points={{-104,173.4},{
-          -104,130},{-200,130},{-200,-68},{-175.2,-68}},
+  connect(mod1.active, booToReaVal5.u) annotation (Line(points={{-100,93.4},{
+          -100,50},{-196,50},{-196,-148},{-171.2,-148}},
                                                     color={255,0,255}));
   connect(pum2.port_b, hex.port_a2)
-    annotation (Line(points={{88,-24},{88,-17},{26,-17}}, color={0,127,255}));
+    annotation (Line(points={{92,-104},{92,-97},{30,-97}},color={0,127,255}));
   connect(hex.port_b2, temSen1.port_a)
-    annotation (Line(points={{26,3},{88,3},{88,14}}, color={0,127,255}));
-  connect(hex.port_b1, temSen6.port_a) annotation (Line(points={{14,-17},{-46,-17},
-          {-46,-18}}, color={0,127,255}));
+    annotation (Line(points={{30,-77},{92,-77},{92,-66}},
+                                                     color={0,127,255}));
+  connect(hex.port_b1, temSen6.port_a) annotation (Line(points={{18,-97},{-42,
+          -97},{-42,-98}},
+                      color={0,127,255}));
   connect(val7.port_b, hex.port_a1)
-    annotation (Line(points={{-46,32},{-46,3},{14,3}}, color={0,127,255}));
-  connect(mod5.outPort[1], parallel.join[2]) annotation (Line(points={{-107.7,
-          144},{-36,144},{-36,168},{-29.15,168}},
-                                                color={0,0,0}));
-  connect(mod5.inPort[1], parallel.split[2]) annotation (Line(points={{-120.6,
-          144},{-168,144},{-168,168},{-174.85,168}},
-                                                  color={0,0,0}));
+    annotation (Line(points={{-42,-48},{-42,-77},{18,-77}},
+                                                       color={0,127,255}));
+  connect(mod5.outPort[1], parallel.join[2]) annotation (Line(points={{-103.7,
+          64},{-32,64},{-32,88},{-25.15,88}},   color={0,0,0}));
+  connect(mod5.inPort[1], parallel.split[2]) annotation (Line(points={{-116.6,
+          64},{-164,64},{-164,88},{-170.85,88}},  color={0,0,0}));
   connect(T0.outPort, parallel.inPort)
-    annotation (Line(points={{-206.5,168},{-198.82,168}}, color={0,0,0}));
+    annotation (Line(points={{-202.5,88},{-194.82,88}},   color={0,0,0}));
   connect(ste0.outPort[1], T0.inPort)
-    annotation (Line(points={{-223.7,168},{-212,168}}, color={0,0,0}));
+    annotation (Line(points={{-219.7,88},{-208,88}},   color={0,0,0}));
   connect(parallel.outPort, T5.inPort)
-    annotation (Line(points={{-6.12,168},{0,168}}, color={0,0,0}));
+    annotation (Line(points={{-2.12,88},{4,88}},   color={0,0,0}));
   connect(T6.outPort, ste0.inPort[1])
-    annotation (Line(points={{-248.5,168},{-236.6,168}}, color={0,0,0}));
+    annotation (Line(points={{-244.5,88},{-232.6,88}},   color={0,0,0}));
   connect(T5.outPort, mod2.inPort[1])
-    annotation (Line(points={{5.5,168},{13.4,168}}, color={0,0,0}));
-  connect(mod2.outPort[1], T6.inPort) annotation (Line(points={{26.3,168},{32,168},
-          {32,248},{-260,248},{-260,168},{-254,168}}, color={0,0,0}));
-  connect(T0.condition, greThrT3.y) annotation (Line(points={{-208,156},{-208,106},
-          {242,106},{242,-14},{237.2,-14}}, color={255,0,255}));
+    annotation (Line(points={{9.5,88},{17.4,88}},   color={0,0,0}));
+  connect(mod2.outPort[1], T6.inPort) annotation (Line(points={{30.3,88},{36,88},
+          {36,168},{-256,168},{-256,88},{-250,88}},   color={0,0,0}));
+  connect(T0.condition, greThrT3.y) annotation (Line(points={{-204,76},{-204,26},
+          {246,26},{246,-94},{241.2,-94}},  color={255,0,255}));
   connect(mulOrT6.y, T6.condition)
-    annotation (Line(points={{-250,145.2},{-250,156}}, color={255,0,255}));
-  connect(greThrT3.y, mulOrT6.u[1]) annotation (Line(points={{237.2,-14},{242,-14},
-          {242,106},{-250,106},{-250,130.8},{-253.15,130.8}}, color={255,0,255}));
-  connect(greThrT4.y, mulOrT6.u[2]) annotation (Line(points={{-179.2,-2},{-252,-2},
-          {-252,130.8},{-251.05,130.8}}, color={255,0,255}));
+    annotation (Line(points={{-246,65.2},{-246,76}},   color={255,0,255}));
+  connect(greThrT3.y, mulOrT6.u[1]) annotation (Line(points={{241.2,-94},{246,
+          -94},{246,26},{-246,26},{-246,50.8},{-249.15,50.8}},color={255,0,255}));
+  connect(greThrT4.y, mulOrT6.u[2]) annotation (Line(points={{-175.2,-82},{-248,
+          -82},{-248,50.8},{-247.05,50.8}},
+                                         color={255,0,255}));
   connect(mulOrT5.y, T5.condition)
-    annotation (Line(points={{4,145.2},{4,156}}, color={255,0,255}));
-  connect(lesThrT4.y, mulOrT5.u[1]) annotation (Line(points={{-179.2,16},{-196,16},
-          {-196,118},{1.2,118},{1.2,130.8}}, color={255,0,255}));
-  connect(lesThrT6.y, mulOrT5.u[2]) annotation (Line(points={{-6.8,-30},{4,-30},
-          {4,130.8}},           color={255,0,255}));
-  connect(lesThrT3.y, mulOrT5.u[3]) annotation (Line(points={{237.2,-36},{250,-36},
-          {250,124},{8,124},{8,130.8},{6.8,130.8}}, color={255,0,255}));
-  connect(greThrT6.y, mulOrT6.u[3]) annotation (Line(points={{-6.8,-46},{-4,-46},
-          {-4,112},{-248,112},{-248,130.8},{-248.95,130.8}}, color={255,0,255}));
-  connect(lesThrT3.y, mulOrT6.u[4]) annotation (Line(points={{237.2,-36},{250,-36},
-          {250,124},{-246,124},{-246,130.8},{-246.85,130.8}}, color={255,0,255}));
-  connect(booToReaVal2.u, mod4.active) annotation (Line(points={{62.8,92},{50,
-          92},{50,236},{-108,236},{-108,220.6}},
+    annotation (Line(points={{8,65.2},{8,76}},   color={255,0,255}));
+  connect(lesThrT4.y, mulOrT5.u[1]) annotation (Line(points={{-175.2,-64},{-192,
+          -64},{-192,38},{5.2,38},{5.2,50.8}},
+                                             color={255,0,255}));
+  connect(lesThrT6.y, mulOrT5.u[2]) annotation (Line(points={{-2.8,-110},{8,
+          -110},{8,50.8}},      color={255,0,255}));
+  connect(lesThrT3.y, mulOrT5.u[3]) annotation (Line(points={{241.2,-116},{254,
+          -116},{254,44},{12,44},{12,50.8},{10.8,50.8}},
+                                                    color={255,0,255}));
+  connect(greThrT6.y, mulOrT6.u[3]) annotation (Line(points={{-2.8,-126},{0,
+          -126},{0,32},{-244,32},{-244,50.8},{-244.95,50.8}},color={255,0,255}));
+  connect(lesThrT3.y, mulOrT6.u[4]) annotation (Line(points={{241.2,-116},{254,
+          -116},{254,44},{-242,44},{-242,50.8},{-242.85,50.8}},
+                                                              color={255,0,255}));
+  connect(booToReaVal2.u, mod4.active) annotation (Line(points={{66.8,12},{54,
+          12},{54,156},{-104,156},{-104,140.6}},
                                              color={255,0,255}));
   connect(mulOr2.y, booToReaPum2.u)
-    annotation (Line(points={{57.2,-30},{62.8,-30}}, color={255,0,255}));
-  connect(booToReaPum2.u, booToReaVal1.u) annotation (Line(points={{62.8,-30},{60,
-          -30},{60,70},{64.8,70}}, color={255,0,255}));
-  connect(mulOr2.u[1], mod2.active) annotation (Line(points={{42.8,-27.9},{40,-27.9},
-          {40,186},{20,186},{20,174.6}}, color={255,0,255}));
-  connect(booToReaPum2.u, swiVal3.u2) annotation (Line(points={{62.8,-30},{60,-30},
-          {60,84},{170,84},{170,92},{190,92},{190,70},{169.2,70}}, color={255,0,
+    annotation (Line(points={{61.2,-110},{66.8,-110}},
+                                                     color={255,0,255}));
+  connect(booToReaPum2.u, booToReaVal1.u) annotation (Line(points={{66.8,-110},
+          {64,-110},{64,-10},{68.8,-10}},
+                                   color={255,0,255}));
+  connect(mulOr2.u[1], mod2.active) annotation (Line(points={{46.8,-107.9},{44,
+          -107.9},{44,106},{24,106},{24,94.6}},
+                                         color={255,0,255}));
+  connect(booToReaPum2.u, swiVal3.u2) annotation (Line(points={{66.8,-110},{64,
+          -110},{64,4},{174,4},{174,12},{194,12},{194,-10},{173.2,-10}},
+                                                                   color={255,0,
           255}));
-  connect(mod2.active, mulOr1.u[1]) annotation (Line(points={{20,174.6},{20,240},
-          {-184,240},{-184,72.1},{-167.2,72.1}}, color={255,0,255}));
-  connect(mod4.active, mulOr1.u[2]) annotation (Line(points={{-108,220.6},{-108,
-          240},{-184,240},{-184,67.9},{-167.2,67.9}}, color={255,0,255}));
+  connect(mod2.active, mulOr1.u[1]) annotation (Line(points={{24,94.6},{24,160},
+          {-180,160},{-180,-7.9},{-163.2,-7.9}}, color={255,0,255}));
+  connect(mod4.active, mulOr1.u[2]) annotation (Line(points={{-104,140.6},{-104,
+          160},{-180,160},{-180,-12.1},{-163.2,-12.1}},
+                                                      color={255,0,255}));
   connect(mulOr1.y, booToReaVal7.u)
-    annotation (Line(points={{-152.8,70},{-129.2,70}}, color={255,0,255}));
-  connect(booToReaPum1.u, booToReaVal7.u) annotation (Line(points={{-16.8,-62},{
-          -10,-62},{-10,-72},{-60,-72},{-60,82},{-140,82},{-140,70},{-129.2,70}},
+    annotation (Line(points={{-148.8,-10},{-125.2,-10}},
+                                                       color={255,0,255}));
+  connect(booToReaPum1.u, booToReaVal7.u) annotation (Line(points={{-12.8,-142},
+          {-6,-142},{-6,-152},{-56,-152},{-56,2},{-136,2},{-136,-10},{-125.2,
+          -10}},
         color={255,0,255}));
-  connect(mod4.active, mulOr2.u[2]) annotation (Line(points={{-108,220.6},{-108,
-          232},{40,232},{40,-32.1},{42.8,-32.1}}, color={255,0,255}));
+  connect(mod4.active, mulOr2.u[2]) annotation (Line(points={{-104,140.6},{-104,
+          152},{44,152},{44,-112.1},{46.8,-112.1}},
+                                                  color={255,0,255}));
   connect(ste1.outPort[1], alternative.inPort)
-    annotation (Line(points={{-151.7,198},{-149.41,198}}, color={0,0,0}));
-  connect(parallel.split[1], ste1.inPort[1]) annotation (Line(points={{-174.85,
-          168},{-168,168},{-168,198},{-164.6,198},{-164.6,198}},
-                                                              color={0,0,0}));
-  connect(ste2.outPort[1], parallel.join[1]) annotation (Line(points={{-37.7,
-          198},{-36,198},{-36,168},{-29.15,168}},
-                                                color={0,0,0}));
+    annotation (Line(points={{-147.7,118},{-145.41,118}}, color={0,0,0}));
+  connect(parallel.split[1], ste1.inPort[1]) annotation (Line(points={{-170.85,
+          88},{-164,88},{-164,118},{-160.6,118}},             color={0,0,0}));
+  connect(ste2.outPort[1], parallel.join[1]) annotation (Line(points={{-33.7,
+          118},{-32,118},{-32,88},{-25.15,88}}, color={0,0,0}));
   connect(alternative.outPort, ste2.inPort[1])
-    annotation (Line(points={{-53.06,198},{-50.6,198}}, color={0,0,0}));
-  connect(greThrT6.y, T3.condition) annotation (Line(points={{-6.8,-46},{-4,-46},
-          {-4,112},{-124,112},{-124,202}}, color={255,0,255}));
-  connect(mulOrT5.y, T2.condition) annotation (Line(points={{4,145.2},{4,150},{-72,
-          150},{-72,168}}, color={255,0,255}));
-  connect(mulOrT5.y, T4.condition) annotation (Line(points={{4,145.2},{4,150},{-90,
-          150},{-90,202}}, color={255,0,255}));
-  connect(booToReaVal1.y, val1.y) annotation (Line(points={{79.2,70},{100,70},{
-          100,40},{92.8,40}}, color={0,0,127}));
-  connect(booToReaVal2.y, val2.y) annotation (Line(points={{77.2,92},{114,92},{
-          114,0},{112.8,0},{112.8,-8.88178e-16}}, color={0,0,127}));
-  connect(swiVal3.y, val3.y) annotation (Line(points={{154.8,70},{136,70},{136,
-          40},{132.8,40}}, color={0,0,127}));
-  connect(booToReaVal5.y, val5.y) annotation (Line(points={{-160.8,-68},{-134,
-          -68},{-134,18},{-130.8,18}}, color={0,0,127}));
-  connect(booToReaVal7.y, val7.y) annotation (Line(points={{-114.8,70},{-54,70},
-          {-54,36},{-50.8,36}}, color={0,0,127}));
+    annotation (Line(points={{-49.06,118},{-46.6,118}}, color={0,0,0}));
+  connect(greThrT6.y, T3.condition) annotation (Line(points={{-2.8,-126},{0,
+          -126},{0,32},{-120,32},{-120,122}},
+                                           color={255,0,255}));
+  connect(mulOrT5.y, T2.condition) annotation (Line(points={{8,65.2},{8,70},{
+          -68,70},{-68,88}},
+                           color={255,0,255}));
+  connect(mulOrT5.y, T4.condition) annotation (Line(points={{8,65.2},{8,70},{
+          -86,70},{-86,122}},
+                           color={255,0,255}));
+  connect(booToReaVal1.y, val1.y) annotation (Line(points={{83.2,-10},{104,-10},
+          {104,-40},{96.8,-40}},
+                              color={0,0,127}));
+  connect(booToReaVal2.y, val2.y) annotation (Line(points={{81.2,12},{118,12},{
+          118,-80},{116.8,-80}},                  color={0,0,127}));
+  connect(swiVal3.y, val3.y) annotation (Line(points={{158.8,-10},{140,-10},{
+          140,-40},{136.8,-40}},
+                           color={0,0,127}));
+  connect(booToReaVal5.y, val5.y) annotation (Line(points={{-156.8,-148},{-130,
+          -148},{-130,-62},{-126.8,-62}},
+                                       color={0,0,127}));
+  connect(booToReaVal7.y, val7.y) annotation (Line(points={{-110.8,-10},{-50,
+          -10},{-50,-44},{-46.8,-44}},
+                                color={0,0,127}));
   annotation (
     experiment(
       StopTime=2500,
@@ -736,6 +780,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-220,-120},{260,120}})),
-    Icon(coordinateSystem(extent={{-220,-120},{260,120}})));
+    Diagram(coordinateSystem(extent={{-260,-180},{260,180}})),
+    Icon(coordinateSystem(extent={{-260,-180},{260,180}})));
 end DistrictCoolingIceTankwFSM;
