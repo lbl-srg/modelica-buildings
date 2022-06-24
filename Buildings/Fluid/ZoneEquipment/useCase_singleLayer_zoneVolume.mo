@@ -206,8 +206,6 @@ block useCase_singleLayer_zoneVolume
     ECoo = ECooSen + ECooLat;
 
   end Results;
-  MixingVolumes.MixingVolume vol
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 equation
 
   connect(fCU_singleLayer.port_CCW_outlet, sinCoo.ports[1]) annotation (Line(

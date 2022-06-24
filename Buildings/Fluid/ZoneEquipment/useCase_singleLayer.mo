@@ -71,7 +71,7 @@ block useCase_singleLayer
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
-    columns=2:15,
+    columns=2:16,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
@@ -196,6 +196,23 @@ block useCase_singleLayer
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Modelica.Blocks.Sources.RealExpression PFan(y=datRea.y[3]) "Fan power"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+  Modelica.Blocks.Sources.RealExpression PModCoo(y=-fCU_singleLayer.cooCoiCHW.Q2_flow)
+    "Cooling power consumption in Modelica model"
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  Modelica.Blocks.Sources.RealExpression PModCooSen(y=fCU_singleLayer.cooCoiCHW.QSen2_flow)
+    "Sensible cooling power consumption in Modelica model"
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+  Modelica.Blocks.Sources.RealExpression PModCooLat(y=fCU_singleLayer.cooCoiCHW.QLat2_flow)
+    "Latent cooling power consumption in Modelica model"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  Modelica.Blocks.Sources.RealExpression PModCooCal(y=-1000*4200*
+        fCU_singleLayer.VChiWat_flow.V_flow*(fCU_singleLayer.TChiWatSup.T -
+        fCU_singleLayer.TChiWatRet.T))
+    "Calculated cooling power consumption in Modelica model"
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+  Modelica.Blocks.Sources.RealExpression PCooSen(y=datRea.y[15])
+    "Sensible cooling power"
+    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 equation
 
   connect(fCU_singleLayer.port_CCW_outlet, sinCoo.ports[1]) annotation (Line(
