@@ -38,7 +38,7 @@ the cooling loop signal (from 0 to +1).")
     maxHeaSpe=0.7,
     maxCooSpe=1,
     minSpe=0.3,
-    TSupDew_max=280.15,
+    TSupDew_max=290.15,
     TSup_max=303.15,
     TSup_min=289.15)
     "Block that computes the setpoints for temperature and fan speed"

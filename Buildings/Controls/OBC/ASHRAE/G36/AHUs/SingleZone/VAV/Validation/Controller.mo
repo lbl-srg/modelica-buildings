@@ -117,35 +117,36 @@ model Controller "Validation of the top-level controller"
     final offset=273.15 + 22.5)
     "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-
-  CDL.Continuous.Sources.Constant                        THeaSetOcc(final k=
-        293.15) "Occupied heating setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetOcc(
+    final k=293.15)
+    "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  CDL.Continuous.Sources.Constant                        TCooSetOcc(final k=
-        297.15) "Occupied cooling setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOcc(
+    final k=297.15)
+    "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
-  CDL.Continuous.Sources.Constant                        THeaSetUno(final k=
-        285.15) "Unoccupied heating setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetUno(
+    final k=285.15)
+    "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  CDL.Continuous.Sources.Constant                        TCooSetUno(final k=
-        303.15) "Unoccupied cooling setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetUno(
+    final k=303.15)
+    "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
+
 equation
   connect(TZon.y, conVAV.TZon) annotation (Line(points={{-158,120},{-36,120},{
-          -36,66},{18,66}},
-                          color={0,0,127}));
+          -36,66},{18,66}}, color={0,0,127}));
   connect(TOut.y, conVAV.TOut)
     annotation (Line(points={{-158,200},{-16,200},{-16,79},{18,79}}, color={0,0,127}));
   connect(TSup.y, conVAV.TAirSup) annotation (Line(points={{-118,-100},{-24,-100},
           {-24,36},{18,36}}, color={0,0,127}));
   connect(cooDowTim.y, conVAV.cooDowTim) annotation (Line(points={{-118,180},{
-          -20,180},{-20,76},{18,76}},
-                                  color={0,0,127}));
+          -20,180},{-20,76},{18,76}}, color={0,0,127}));
   connect(warUpTim.y, conVAV.warUpTim) annotation (Line(points={{-158,160},{-24,
           160},{-24,74},{18,74}}, color={0,0,127}));
   connect(occSch.tNexOcc, conVAV.tNexOcc) annotation (Line(points={{-119,146},{
-          -28,146},{-28,69},{18,69}},
-                                  color={0,0,127}));
+          -28,146},{-28,69},{18,69}}, color={0,0,127}));
   connect(occSch.occupied, conVAV.u1Occ) annotation (Line(points={{-119,134},{-32,
           134},{-32,71},{18,71}}, color={255,0,255}));
   connect(winSta.y,swi2. u2)
@@ -157,14 +158,11 @@ equation
   connect(zerAdj.y,swi2. u1)
     annotation (Line(points={{-118,20},{-90,20},{-90,-8},{-82,-8}},  color={0,0,127}));
   connect(zerAdj.y,swi1. u1)
-    annotation (Line(points={{-118,20},{-90,20},{-90,-38},{-82,-38}},
-                                                                   color={0,0,127}));
+    annotation (Line(points={{-118,20},{-90,20},{-90,-38},{-82,-38}}, color={0,0,127}));
   connect(cooSetAdj.y,swi2. u3)
-    annotation (Line(points={{-118,-20},{-110,-20},{-110,-24},{-82,-24}},
-                                                                      color={0,0,127}));
+    annotation (Line(points={{-118,-20},{-110,-20},{-110,-24},{-82,-24}}, color={0,0,127}));
   connect(heaSetAdj.y,swi1. u3)
-    annotation (Line(points={{-158,-40},{-110,-40},{-110,-54},{-82,-54}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{-158,-40},{-110,-40},{-110,-54},{-82,-54}}, color={0,0,127}));
   connect(swi2.y, conVAV.cooSetAdj) annotation (Line(points={{-58,-16},{-40,-16},
           {-40,54},{18,54}},color={0,0,127}));
   connect(swi1.y, conVAV.heaSetAdj) annotation (Line(points={{-58,-46},{-36,-46},
@@ -179,8 +177,8 @@ equation
           33},{18,33}}, color={255,0,255}));
   connect(freRes.y, not1.u)
     annotation (Line(points={{-158,-120},{-82,-120}},  color={255,0,255}));
-  connect(not1.y, conVAV.u1SofSwiRes) annotation (Line(points={{-58,-120},{-20,-120},
-          {-20,19},{18,19}}, color={255,0,255}));
+  connect(not1.y, conVAV.u1SofSwiRes) annotation (Line(points={{-58,-120},{-20,
+          -120},{-20,21},{18,21}}, color={255,0,255}));
   connect(mixTem.y, conVAV.TAirMix) annotation (Line(points={{-118,-140},{-16,-140},
           {-16,13},{18,13}}, color={0,0,127}));
   connect(outDam.y, conVAV.uOutDam) annotation (Line(points={{-158,-160},{-12,-160},
@@ -189,7 +187,6 @@ equation
           {-8,-180},{-8,3},{18,3}}, color={0,0,127}));
   connect(heaCoi.y, conVAV.uHeaCoi_actual) annotation (Line(points={{-158,-200},
           {-4,-200},{-4,1},{18,1}}, color={0,0,127}));
-
   connect(THeaSetOcc.y,conVAV.TOccHeaSet)  annotation (Line(points={{-118,100},
           {-40,100},{-40,64},{18,64}}, color={0,0,127}));
   connect(TCooSetOcc.y,conVAV.TOccCooSet)  annotation (Line(points={{-158,80},{
@@ -198,8 +195,9 @@ equation
           -50,60},{-50,60},{18,60}}, color={0,0,127}));
   connect(TCooSetUno.y,conVAV.TUnoCooSet)  annotation (Line(points={{-158,40},{
           -44,40},{-44,58},{18,58}}, color={0,0,127}));
-  connect(conVAV.ySupFan, conVAV.uSupFanSpe_actual) annotation (Line(points={{
-          62,46},{70,46},{70,-20},{0,-20},{0,6},{18,6}}, color={0,0,127}));
+  connect(conVAV.ySupFan, conVAV.uSupFanSpe_actual) annotation (Line(points={{62,44},
+          {70,44},{70,-20},{0,-20},{0,6},{18,6}},        color={0,0,127}));
+
 annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),

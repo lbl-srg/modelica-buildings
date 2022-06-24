@@ -25,6 +25,10 @@ block ReturnFan "Return fan control for single zone AHU"
     final max=1)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
+    "Return fan command on"
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
@@ -50,7 +54,8 @@ equation
     annotation (Line(points={{62,0},{140,0}}, color={0,0,127}));
   connect(u1SupFan, y1ExhDam) annotation (Line(points={{-140,0},{0,0},{0,80},{140,
           80}}, color={255,0,255}));
-
+  connect(u1SupFan, y1RetFan) annotation (Line(points={{-140,0},{0,0},{0,-60},{
+          120,-60}}, color={255,0,255}));
 annotation (
   defaultComponentName = "retFan",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -77,7 +82,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="u1SupFan"),
         Text(
-          extent={{58,-52},{98,-66}},
+          extent={{58,8},{98,-6}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -87,7 +92,13 @@ annotation (
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="y1ExhDam")}),
+          textString="y1ExhDam"),
+        Text(
+          extent={{52,-52},{98,-66}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="y1RetFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
  Documentation(info="<html>
 <p>

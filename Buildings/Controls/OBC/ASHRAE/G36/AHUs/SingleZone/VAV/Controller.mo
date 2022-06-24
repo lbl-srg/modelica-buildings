@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
+﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
@@ -165,7 +165,8 @@ block Controller
     "Minimum supply air temperature for cooling"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TSupDew_max(unit="K", displayUnit="degC")
-    "Maximum supply air dew-point temperature"
+    "Maximum supply air dew-point temperature. It's typically only needed in humid type “A” climates. A typical value is 17°C. 
+    For mild and dry climates, a high set point (e.g. 24°C) should be entered for maximum efficiency"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TSupDea_min(
     unit="K",
@@ -355,11 +356,11 @@ block Controller
     annotation (Dialog(tab="Freeze protection", group="Heating coil control", enable=have_hotWatCoi));
 
   // ----------- parameters for building pressure control -----------
-  parameter Real relDam_min(unit="1")
+  parameter Real relDam_min(unit="1")=0.1
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is positioned to provide minimum outdoor air while the supply fan is at minimum speed"
     annotation (Dialog(tab="Pressure control", group="Relief damper",
                        enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
-  parameter Real relDam_max(unit="1")
+  parameter Real relDam_max(unit="1")=1
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is fully open and the fan speed is at cooling maximum"
     annotation (Dialog(tab="Pressure control", group="Relief damper",
                        enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
@@ -525,15 +526,21 @@ block Controller
      == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
      or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
     "Freeze protection reset signal from software switch"
-    annotation (Placement(transformation(extent={{-300,-250},{-260,-210}}),
-        iconTransformation(extent={{-240,-230},{-200,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFanSpe(
+    annotation (Placement(transformation(extent={{-300,-220},{-260,-180}}),
+        iconTransformation(extent={{-240,-210},{-200,-170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan
+    if buiPreCon ==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "Relief fan commanded on"
+    annotation (Placement(transformation(extent={{-300,-260},{-260,-220}}),
+        iconTransformation(extent={{-240,-240},{-200,-200}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{-300,-290},{-260,-250}}),
-        iconTransformation(extent={{-240,-260},{-200,-220}})));
+      iconTransformation(extent={{-240,-260},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
     final unit="K",
     displayUnit="degC",
@@ -599,29 +606,40 @@ block Controller
         iconTransformation(extent={{200,170},{240,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
     "Commanded on to energize chilled water pump"
-    annotation (Placement(transformation(extent={{260,80},{300,120}}),
+    annotation (Placement(transformation(extent={{260,160},{300,200}}),
         iconTransformation(extent={{200,130},{240,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam(
     final min=0,
     final max=1,
     final unit="1")
     "Return air damper commanded position"
-    annotation (Placement(transformation(extent={{260,40},{300,80}}),
+    annotation (Placement(transformation(extent={{260,120},{300,160}}),
         iconTransformation(extent={{200,100},{240,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam(
     final min=0,
     final max=1,
     final unit="1")
     "Outdoor air damper commanded position"
-    annotation (Placement(transformation(extent={{260,10},{300,50}}),
+    annotation (Placement(transformation(extent={{260,90},{300,130}}),
         iconTransformation(extent={{200,70},{240,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1SupFan
+    "Supply fan commanded on"
+    annotation (Placement(transformation(extent={{260,50},{300,90}}),
+        iconTransformation(extent={{200,40},{240,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFan(
     final min=0,
     final max=1,
     final unit="1")
     "Supply fan commanded speed"
+    annotation (Placement(transformation(extent={{260,20},{300,60}}),
+        iconTransformation(extent={{200,20},{240,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    "Return fan commanded on"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
-        iconTransformation(extent={{200,40},{240,80}})));
+        iconTransformation(extent={{200,-10},{240,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
@@ -629,64 +647,69 @@ block Controller
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
-    annotation (Placement(transformation(extent={{260,-60},{300,-20}}),
-        iconTransformation(extent={{200,10},{240,50}})));
+    annotation (Placement(transformation(extent={{260,-50},{300,-10}}),
+        iconTransformation(extent={{200,-30},{240,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "Relief fan commanded on"
+    annotation (Placement(transformation(extent={{260,-90},{300,-50}}),
+        iconTransformation(extent={{200,-60},{240,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
     final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan commanded speed"
-    annotation (Placement(transformation(extent={{260,-100},{300,-60}}),
-        iconTransformation(extent={{200,-20},{240,20}})));
+    annotation (Placement(transformation(extent={{260,-120},{300,-80}}),
+        iconTransformation(extent={{200,-80},{240,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
     final unit="1") "Cooling coil valve commanded position"
     annotation (Placement(transformation(extent={{260,-170},{300,-130}}),
-        iconTransformation(extent={{200,-50},{240,-10}})));
+        iconTransformation(extent={{200,-130},{240,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
     final unit="1")
     if have_hotWatCoi "Heating coil valve commanded position"
     annotation (Placement(transformation(extent={{260,-200},{300,-160}}),
-        iconTransformation(extent={{200,-80},{240,-40}})));
+        iconTransformation(extent={{200,-160},{240,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla
     "Alarm level"
     annotation (Placement(transformation(extent={{260,-230},{300,-190}}),
-        iconTransformation(extent={{200,-110},{240,-70}})));
+        iconTransformation(extent={{200,-190},{240,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
     final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Relief damper commanded position"
     annotation (Placement(transformation(extent={{260,-280},{300,-240}}),
-        iconTransformation(extent={{200,-150},{240,-110}})));
+        iconTransformation(extent={{200,-230},{240,-190}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam if (buiPreCon
      == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Exhaust damper command on"
     annotation (Placement(transformation(extent={{260,-320},{300,-280}}),
-        iconTransformation(extent={{200,-180},{240,-140}})));
+        iconTransformation(extent={{200,-260},{240,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{260,-380},{300,-340}}),
-        iconTransformation(extent={{200,-232},{240,-192}})));
+        iconTransformation(extent={{200,-312},{240,-272}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq
     "Chiller plant request"
     annotation (Placement(transformation(extent={{260,-410},{300,-370}}),
-        iconTransformation(extent={{200,-260},{240,-220}})));
+        iconTransformation(extent={{200,-340},{240,-300}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq
     if have_hotWatCoi
     "Hot water reset request"
     annotation (Placement(transformation(extent={{260,-460},{300,-420}}),
-        iconTransformation(extent={{200,-290},{240,-250}})));
+        iconTransformation(extent={{200,-370},{240,-330}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
     if have_hotWatCoi
     "Hot water plant request"
     annotation (Placement(transformation(extent={{260,-500},{300,-460}}),
-        iconTransformation(extent={{200,-320},{240,-280}})));
+        iconTransformation(extent={{200,-400},{240,-360}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply setPoiVAV(
     final TSup_max=TSup_max,
@@ -839,6 +862,7 @@ block Controller
     final speDif=speDif) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    "Return fan control"
     annotation (Placement(transformation(extent={{60,-360},{80,-340}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     if have_hotWatCoi
@@ -957,29 +981,32 @@ equation
   connect(conEco.yHeaCoi, frePro.uHeaCoi) annotation (Line(points={{82,166},{106,
           166},{106,-116},{138,-116}}, color={0,0,127}));
   connect(conEco.yRetDam, frePro.uRetDam) annotation (Line(points={{82,160},{100,
-          160},{100,-122},{138,-122}}, color={0,0,127}));
+          160},{100,-119},{138,-119}}, color={0,0,127}));
   connect(TAirSup, frePro.TAirSup) annotation (Line(points={{-280,-10},{-54,-10},
-          {-54,-125},{138,-125}}, color={0,0,127}));
-  connect(frePro.u1SofSwiRes, u1SofSwiRes) annotation (Line(points={{138,-134},{
-          -26,-134},{-26,-230},{-280,-230}}, color={255,0,255}));
-  connect(frePro.u1FreSta, u1FreSta) annotation (Line(points={{138,-128},{-72,-128},
+          {-54,-122},{138,-122}}, color={0,0,127}));
+  connect(frePro.u1SofSwiRes, u1SofSwiRes) annotation (Line(points={{138,-128},{
+          -26,-128},{-26,-200},{-280,-200}}, color={255,0,255}));
+  connect(frePro.u1FreSta, u1FreSta) annotation (Line(points={{138,-125},{-72,-125},
           {-72,-170},{-280,-170}}, color={255,0,255}));
   connect(setPoiVAV.y, frePro.uSupFan) annotation (Line(points={{2,408},{26,408},
-          {26,-137},{138,-137}}, color={0,0,127}));
-  connect(uRelFanSpe, frePro.uRelFan) annotation (Line(points={{-280,-270},{-20,
-          -270},{-20,-143},{138,-143}}, color={0,0,127}));
+          {26,-133},{138,-133}}, color={0,0,127}));
+  connect(uRelFan, frePro.uRelFan) annotation (Line(points={{-280,-270},{-20,-270},
+          {-20,-143},{138,-143}}, color={0,0,127}));
   connect(cooCoi.yCooCoi, frePro.uCooCoi) annotation (Line(points={{82,50},{94,50},
           {94,-146},{138,-146}}, color={0,0,127}));
   connect(TAirMix, frePro.TAirMix) annotation (Line(points={{-280,-300},{-14,-300},
           {-14,-149},{138,-149}}, color={0,0,127}));
   connect(frePro.y1EneCHWPum, y1EneCHWPum) annotation (Line(points={{162,-111},{
-          180,-111},{180,100},{280,100}}, color={255,0,255}));
-  connect(frePro.yRetDam, yRetDam) annotation (Line(points={{162,-115},{188,-115},
-          {188,60},{280,60}}, color={0,0,127}));
-  connect(frePro.yOutDam, yOutDam) annotation (Line(points={{162,-119},{196,-119},
-          {196,30},{280,30}}, color={0,0,127}));
-  connect(frePro.ySupFan, ySupFan) annotation (Line(points={{162,-127},{204,-127},
-          {204,0},{280,0}}, color={0,0,127}));
+          176,-111},{176,180},{280,180}}, color={255,0,255}));
+  connect(frePro.yRetDam, yRetDam) annotation (Line(points={{162,-115},{184,-115},
+          {184,140},{280,140}},
+                              color={0,0,127}));
+  connect(frePro.yOutDam, yOutDam) annotation (Line(points={{162,-119},{192,-119},
+          {192,110},{280,110}},
+                              color={0,0,127}));
+  connect(frePro.ySupFan, ySupFan) annotation (Line(points={{162,-125.2},{208,-125.2},
+          {208,40},{280,40}},
+                            color={0,0,127}));
   connect(switch.y, relDam.u1SupFan) annotation (Line(points={{-98,-60},{0,-60},
           {0,-267},{58,-267}}, color={255,0,255}));
   connect(switch.y, retFan.u1SupFan) annotation (Line(points={{-98,-60},{0,-60},
@@ -990,16 +1017,17 @@ equation
           {132,-300},{280,-300}}, color={255,0,255}));
   connect(retFan.uSupFanSpe_actual, uSupFanSpe_actual) annotation (Line(points={
           {58,-344},{-50,-344},{-50,-370},{-280,-370}}, color={0,0,127}));
-  connect(frePro.yRetFan, yRetFan) annotation (Line(points={{162,-131},{212,-131},
-          {212,-40},{280,-40}}, color={0,0,127}));
-  connect(frePro.yRelFan, yRelFan) annotation (Line(points={{162,-135},{220,-135},
-          {220,-80},{280,-80}}, color={0,0,127}));
+  connect(frePro.yRetFan, yRetFan) annotation (Line(points={{162,-130},{224,-130},
+          {224,-30},{280,-30}}, color={0,0,127}));
+  connect(frePro.yRelFan, yRelFan) annotation (Line(points={{162,-135},{240,-135},
+          {240,-100},{280,-100}},
+                                color={0,0,127}));
   connect(frePro.yCooCoi, yCooCoi) annotation (Line(points={{162,-139},{204,-139},
           {204,-150},{280,-150}}, color={0,0,127}));
   connect(frePro.yHeaCoi, yHeaCoi) annotation (Line(points={{162,-142},{196,-142},
           {196,-180},{280,-180}}, color={0,0,127}));
-  connect(retFan.yRetFan, frePro.uRetFan) annotation (Line(points={{82,-356},{100,
-          -356},{100,-140},{138,-140}}, color={0,0,127}));
+  connect(retFan.yRetFan, frePro.uRetFan) annotation (Line(points={{82,-350},{100,
+          -350},{100,-138},{138,-138}}, color={0,0,127}));
   connect(frePro.yFreProSta, conEco.uFreProSta) annotation (Line(points={{162,-145},
           {180,-145},{180,-170},{8,-170},{8,141},{58,141}}, color={255,127,0}));
   connect(TAirSup, plaReq.TAirSup) annotation (Line(points={{-280,-10},{-54,-10},
@@ -1076,9 +1104,23 @@ equation
           2,201},{8,201},{8,158},{58,158}}, color={0,0,127}));
   connect(uSupFanSpe_actual, conEco.uSupFanSpe_actual) annotation (Line(points={
           {-280,-370},{-50,-370},{-50,155},{58,155}}, color={0,0,127}));
+  connect(switch.y, frePro.u1SupFan) annotation (Line(points={{-98,-60},{0,-60},
+          {0,-131},{138,-131}}, color={255,0,255}));
+  connect(retFan.y1RetFan, frePro.u1RetFan) annotation (Line(points={{82,-356},{
+          112,-356},{112,-136},{138,-136}}, color={255,0,255}));
+  connect(u1RelFan, frePro.u1RelFan) annotation (Line(points={{-280,-240},{118,-240},
+          {118,-141},{138,-141}}, color={255,0,255}));
+  connect(frePro.y1RetFan, y1RetFan) annotation (Line(points={{162,-128},{216,
+          -128},{216,0},{280,0}},
+                            color={255,0,255}));
+  connect(frePro.y1RelFan, y1RelFan) annotation (Line(points={{162,-133},{232,
+          -133},{232,-70},{280,-70}}, color={255,0,255}));
+  connect(frePro.y1SupFan, y1SupFan) annotation (Line(points={{162,-123.2},{200,
+          -123.2},{200,70},{280,70}}, color={255,0,255}));
 annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
-        graphics={Rectangle(
+        graphics={
+                  Rectangle(
         extent={{-200,-400},{200,400}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -1219,7 +1261,7 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="TSupCooSet"),
         Text(
-          extent={{130,70},{200,54}},
+          extent={{130,50},{200,34}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -1237,14 +1279,14 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="TZonCooSet"),
         Text(
-          extent={{150,-50},{196,-66}},
+          extent={{150,-130},{196,-146}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHeaCoi",
           visible=have_hotWatCoi),
         Text(
-          extent={{152,-20},{194,-38}},
+          extent={{152,-100},{194,-118}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -1278,7 +1320,7 @@ annotation (defaultComponentName="conVAV",
         Text(
           visible=not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
                or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC),
-          extent={{-196,-200},{-124,-222}},
+          extent={{-196,-180},{-124,-202}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -1286,7 +1328,7 @@ annotation (defaultComponentName="conVAV",
         Text(
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
-          extent={{142,-148},{194,-168}},
+          extent={{142,-228},{194,-248}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -1300,11 +1342,11 @@ annotation (defaultComponentName="conVAV",
           textString="y1EneCHWPum"),
         Text(
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
-          extent={{-194,-230},{-114,-250}},
+          extent={{-198,-230},{-134,-252}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uRelFanSpe"),
+          textString="uRelFan"),
         Text(
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
           extent={{-196,-298},{-130,-320}},
@@ -1332,55 +1374,57 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="uHeaCoi_actual"),
         Text(
-          extent={{128,42},{198,26}},
+          extent={{130,-2},{200,-18}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+
           textString="yRetFan"),
         Text(
-          extent={{128,10},{198,-6}},
+          extent={{128,-50},{198,-66}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="yRelFan"),
         Text(
-          extent={{130,-120},{200,-136}},
+          extent={{130,-200},{200,-216}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
           textString="yRelDam"),
         Text(
-          extent={{116,-200},{198,-218}},
+          extent={{116,-280},{198,-298}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yChiWatResReq"),
         Text(
-          extent={{114,-228},{196,-246}},
+          extent={{114,-308},{196,-326}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yChiPlaReq"),
         Text(
-          extent={{116,-260},{198,-278}},
+          extent={{116,-340},{198,-358}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatResReq",
           visible=have_hotWatCoi),
         Text(
-          extent={{116,-288},{198,-306}},
+          extent={{116,-368},{198,-386}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi),
         Text(
-          extent={{166,-76},{194,-96}},
+          extent={{166,-156},{194,-176}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -1415,7 +1459,36 @@ annotation (defaultComponentName="conVAV",
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TUnoHeaSet")}),
+          textString="TUnoHeaSet"),
+        Text(
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
+          extent={{-196,-208},{-144,-228}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="u1RelFan"),
+        Text(
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
+          extent={{144,-30},{196,-50}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="y1RelFan"),
+        Text(
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          extent={{144,22},{196,2}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="y1RetFan"),
+        Text(
+          extent={{144,72},{196,52}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="y1SupFan")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-500},{260,500}})),
 Documentation(info="<html>
 <p>

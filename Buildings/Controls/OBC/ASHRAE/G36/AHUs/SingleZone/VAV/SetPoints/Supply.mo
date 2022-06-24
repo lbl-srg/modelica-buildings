@@ -309,7 +309,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Switch cooFan
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(t=looHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(t=looHys, final h=
+        0.8*looHys)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet
