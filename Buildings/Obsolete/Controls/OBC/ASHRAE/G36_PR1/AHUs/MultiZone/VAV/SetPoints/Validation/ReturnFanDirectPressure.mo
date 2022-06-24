@@ -42,8 +42,8 @@ annotation (
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure</a>
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure</a>
 for exhaust air damper and return fan control with direct building pressure measurement
 for systems with multiple
 zones.

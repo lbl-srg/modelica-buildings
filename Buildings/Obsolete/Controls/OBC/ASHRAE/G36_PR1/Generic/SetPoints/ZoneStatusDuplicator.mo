@@ -394,8 +394,8 @@ output of dimension <code>[nGro, nZon]</code>.
 <p>
 This block prevent the use of <code>for</code> loops in the connectors between
 zones and zone groups by connecting all the zones to each 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>.
 </p>
 </html>"));
 end ZoneStatusDuplicator;

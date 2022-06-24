@@ -41,8 +41,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir</a>
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir</a>
 for mixed air temperature <code>TMix</code> signal.
 </p>
 </html>",

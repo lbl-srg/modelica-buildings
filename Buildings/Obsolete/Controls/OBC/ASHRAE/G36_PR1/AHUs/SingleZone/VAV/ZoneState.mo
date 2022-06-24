@@ -123,8 +123,8 @@ if not, it checks if the zone is in cooling state; otherwise it is in deadband s
 </p>
 <p>
 These states are defined in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a>.
 </p>
 <p>
 The logic of the block is as follows.

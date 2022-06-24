@@ -4,8 +4,8 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

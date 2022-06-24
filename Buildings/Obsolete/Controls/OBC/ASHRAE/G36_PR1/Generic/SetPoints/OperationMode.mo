@@ -863,7 +863,7 @@ computed in a separate block. The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of warm-up mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Warm-upModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Warm-upModeDefinition.png\"/>
 </p>
 <h5>Cooldown Mode</h5>
 <p>
@@ -877,7 +877,7 @@ computed in a separate block.
 </p>
 <p align=\"center\">
 <img alt=\"Image of cool-down mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Cool-downModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Cool-downModeDefinition.png\"/>
 </p>
 <h5>Setback Mode</h5>
 <p>
@@ -890,7 +890,7 @@ unoccupied setpoints (<code>uEndSetBac</code> becomes true).
 </p>
 <p align=\"center\">
 <img alt=\"Image of setback mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetbackModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetbackModeDefinition.png\"/>
 </p>
 <h5>Freeze Protection Setback Mode</h5>
 <p>
@@ -910,7 +910,7 @@ open shall be ignored.
 </p>
 <p align=\"center\">
 <img alt=\"Image of setup mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetupModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetupModeDefinition.png\"/>
 </p>
 <h5>Unoccupied Mode</h5>
 <p>

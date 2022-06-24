@@ -14,24 +14,24 @@ CDL specification</a>.
 <p>
 The G36 library is structured as follows:
 <ul>
-<li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs</a> contains control sequences
+<li><a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs</a> contains control sequences
 for generating controller setpoints such as for the supply air temperature,
 and actuation signals for mechanical elements of an AHU such as for the outdoor air damper
 position.
 </li>
-<li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types</a> is a library of constants
+<li><a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types</a> is a library of constants
 that are used to indicate the operation mode, such as freeze
 protections status and demand response status.
 </li>
-<li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic</a> contains sequences that
+<li><a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic</a> contains sequences that
 are utilized across various parts of an HVAC system,
 such as for AHU and for terminal unit control.
 </li>
-<li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits</a> contains control
+<li><a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits</a> contains control
 sequences for terminal units, such as setpoints for the minimal zone airflow rates and
 actuator signals for the terminal unit dampers.
 </li>

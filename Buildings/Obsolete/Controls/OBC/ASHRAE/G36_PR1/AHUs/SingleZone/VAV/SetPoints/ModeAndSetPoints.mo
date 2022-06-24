@@ -421,16 +421,16 @@ cooldown, setback, freeze protection setback, setup, unoccupied) according
 to current time, the time to next occupied hours <code>tNexOcc</code> and
 current zone temperature <code>TZon</code>.
 See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode</a>.
 </p>
 <h4>Zone setpoint temperature reset</h4>
 <p>
 It sets the zone temperature setpoint according to the globally specified setpoints,
 the local setpoint adjustments, the demand limits adjustment, the window status
 and the occupancy status. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures</a>.
 </p>
 <h4>Usage</h4>
 <p>

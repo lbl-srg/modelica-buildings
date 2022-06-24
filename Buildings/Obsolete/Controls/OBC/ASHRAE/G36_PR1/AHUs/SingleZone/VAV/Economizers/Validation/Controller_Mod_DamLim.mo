@@ -224,8 +224,8 @@ validate damper position limits")}),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller</a> control loops:
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller</a> control loops:
 minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation
 control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals.
 Both control loops are enabled during the validation test.

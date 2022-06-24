@@ -158,6 +158,10 @@ with ASHRAE Guideline 36 control sequence.
 </html>", revisions="<html>
 <ul>
 <li>
+June 24, 2022, by Jianjun Hu:<br/>
+Replaced the AHU controller with the one based official release version.
+</li>
+<li>
 July 27, 2020, by Kun Zhang:<br/>
 Changed parameters of PID and design outdoor airflow and damper parameters.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1608\">issue 1608</a>.

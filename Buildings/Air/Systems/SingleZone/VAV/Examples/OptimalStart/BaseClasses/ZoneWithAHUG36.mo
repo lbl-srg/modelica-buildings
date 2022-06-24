@@ -240,6 +240,10 @@ Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>.
 revisions="<html>
 <ul>
 <li>
+June 24, 2022, by Jianjun Hu:<br/>
+Replaced the AHU controller with the one based official release version.
+</li>
+<li>
 July 29, 2020, by Kun Zhang:<br/>
 First implementation. This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">2126</a>.

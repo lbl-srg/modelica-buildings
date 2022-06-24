@@ -872,7 +872,7 @@ airflow at the active setpoint.
 unit are described in the following figure below.</p>
 <p align=\"center\">
 <img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

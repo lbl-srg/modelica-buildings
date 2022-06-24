@@ -59,8 +59,8 @@ for a description of the building envelope.
 <p>
 The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1</a> for
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
+Buildings.Controls.OBC.ASHRAE.G36</a> for
 multi-zone VAV systems with economizer. The schematic diagram of the HVAC and control
 sequence is shown in the figure below.
 </p>

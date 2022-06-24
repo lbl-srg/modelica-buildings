@@ -608,8 +608,8 @@ temperature <code>TZon</code>, zone setpoints temperatures <code>TZonHeaSet</cod
 This sequence sets the active maximum and minimum airflow according to
 Part 5.E.3-5. Depending on operation modes <code>uOpeMod</code>, it sets the
 airflow rate limits for cooling and heating supply. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow</a>.
 </p>
 <h4>c. Damper and valve control</h4>
 <p>
@@ -619,8 +619,8 @@ control loop signal, it calculates the discharge air temperature setpoint
 <code>TDisHeaSet</code>. Along with the defined maximum and minimum airflow, measured
 zone temperature, the sequence outputs <code>yDam</code>, <code>yVal</code>,
 <code>TDisHeaSet</code> and discharge airflow rate setpoint <code>VDisSet_flow</code>.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
+See <a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
 </p>
 <h4>d. System reset requests generation</h4>
 <p>
@@ -629,8 +629,8 @@ cooling supply air temperature reset requests <code>yZonTemResReq</code>,
 static pressure reset requests <code>yZonPreResReq</code>, hot water reset
 requests <code>yHeaValResReq</code>, and the boiler plant reset requests
 <code>yHeaPlaReq</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </p>
 </html>", revisions="<html>
 <ul>

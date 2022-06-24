@@ -101,7 +101,7 @@ equation
 Documentation(info="<html>
 <p>
 This block outputs the cooling coil control signal if the fan is on and the zone status
-is <code>uZonSta = Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling</code>.
+is <code>uZonSta = Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling</code>.
 Otherwise, the control signal for the coil is set to <code>0</code>.
 </p>
 </html>",revisions="<html>

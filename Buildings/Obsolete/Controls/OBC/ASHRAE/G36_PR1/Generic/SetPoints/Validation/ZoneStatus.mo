@@ -67,8 +67,8 @@ annotation (
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus</a>
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatus</a>
 for checking zone temperature status.
 </p>
 </html>", revisions="<html>

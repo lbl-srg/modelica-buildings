@@ -381,15 +381,15 @@ conditions included in the sequence are:
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> (PART 5.9),
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> (PART 5.9),
 </li>
 <li>
 Supply fan status <code>TSupFan</code> (PART 5.4.d),
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART 5.3.b).
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART 5.3.b).
 </li>
 </ul>
 <p>
@@ -420,7 +420,7 @@ The following state machine chart illustrates the transitions between enabling a
 </p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Enable.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Enable.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

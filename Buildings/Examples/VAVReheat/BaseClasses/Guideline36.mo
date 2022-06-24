@@ -419,8 +419,8 @@ for a description of the HVAC system.
 <p>
 The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1</a> for
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
+Buildings.Controls.OBC.ASHRAE.G36</a> for
 multi-zone VAV systems with economizer. 
 The figures below shows the schematic diagram and controls of an HVAC system that supplies 5 zones:
 </p>

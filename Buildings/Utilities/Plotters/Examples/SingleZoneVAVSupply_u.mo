@@ -131,17 +131,21 @@ for a single zone VAV control logic
 the heating and cooling set point temperatures, and the fan speed,
 all as a function of the heating and cooling control signal.
 The sequence that will be used to plot the sequence diagram is
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply</a>
 and shown below.
 The plot will be generated in the file <code>plots.html</code>.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVSingleZoneTSupSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVSingleZoneTSupSet.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 24, 2022, by Jianjun Hu:<br/>
+Replaced the AHU controller with the one based official release version.
+</li>
 <li>
 March 23, 2018, by Michael Wetter:<br/>
 First implementation.
