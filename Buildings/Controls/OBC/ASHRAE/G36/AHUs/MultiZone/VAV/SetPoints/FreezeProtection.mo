@@ -363,8 +363,8 @@ block FreezeProtection
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan speed"
     annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
-    .ReliefFan
+  Buildings.Controls.OBC.CDL.Continuous.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
+     ReliefFan
     "Relief fan speed"
     annotation (Placement(transformation(extent={{120,-410},{140,-390}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
@@ -502,8 +502,8 @@ block FreezeProtection
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Disable return fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-270},{340,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norSta3 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
-    .ReturnFanCalculatedAir or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Logical.Not norSta3 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
+     ReturnFanCalculatedAir or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Not in stage 3"
     annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
@@ -512,8 +512,8 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Disable supply fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-180},{340,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norSta2 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
-    .ReliefFan
+  Buildings.Controls.OBC.CDL.Logical.Not norSta2 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
+     ReliefFan
     "Not in stage 3"
     annotation (Placement(transformation(extent={{160,-380},{180,-360}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
