@@ -26,7 +26,8 @@ def main():
     "WEST ZONE:Zone Thermostat Heating Setpoint Temperature [C](TimeStep)",
     "WEST ZONE:Zone Thermostat Cooling Setpoint Temperature [C](TimeStep)",
     "WEST ZONE:Zone Air Temperature [C](TimeStep)",
-    "ZONE1FANCOIL:Fan Coil Sensible Cooling Rate [W](TimeStep)"
+    "ZONE1FANCOIL:Fan Coil Sensible Cooling Rate [W](TimeStep)",
+    "ZONE1FANCOILAIRINLETNODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)"
     ]
 
     e.energyplus_csv_to_mos(
