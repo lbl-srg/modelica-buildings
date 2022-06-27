@@ -76,7 +76,7 @@ rm -rf build && mkdir build && cd build && \
 
 To install the EnergyPlus binaries for the Spawn interface for the current operating system, run
 ```
-Buildings/Resources/src/ThermalZones/install.py --binaries-for-os-only
+Buildings\ 9.0.0/Resources/src/ThermalZones/install.py --binaries-for-os-only
 ```
 To install the binaries for all operating systems, omit the flag `--binaries-for-os-only`
 
