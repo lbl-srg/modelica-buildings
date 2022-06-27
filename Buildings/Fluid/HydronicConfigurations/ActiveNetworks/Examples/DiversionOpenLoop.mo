@@ -220,8 +220,11 @@ parameters.
 <ul>
 <li>
 Ratio of the terminal unit pressure drop to the pump head at
-design conditions (see the icon of the diversion circuit component for the
-location of points J and A):
+design conditions 
+(refer to the schematic in the documentation of 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion</a>
+for the nomenclature):
 <i>&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub></i>
 varying from <i>0.1</i> to <i>0.4</i>
 </li>
@@ -246,11 +249,11 @@ Direct and bypass mass flow rate
 <p>
 The overflow in the bypass branch when the valve is fully closed increases with
 <i>&psi;</i> and decreases with <i>&beta;</i>.
-It it close to <i>90%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
+It it close to <i>70%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
 However, the concomitant flow shortage in the other terminal unit with a valve
-fully open (see Figure 2) is limited to about <i>20%</i>.
+fully open (see Figure 2) is limited to <i>12%</i>.
 For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage
-is below <i>10%</i>, indicating that selecting the control valve with
+is below <i>5%</i>, indicating that selecting the control valve with
 a suitable authority largely dampens the impact of an unbalanced bypass.
 </p>
 <p>
@@ -259,8 +262,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveN
 <br/>
 <i>Figure 1. Bypass mass flow rate (ratio to design value) at fully closed conditions
 as a function of
-&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
-for various valve authorities &beta; (color scale),
+&psi; for various valve authorities &beta; (color scale),
 and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>
@@ -270,8 +272,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveN
 <br/>
 <i>Figure 2. Direct mass flow rate (ratio to design value) at fully open conditions
 as a function of
-&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
-for various valve authorities &beta; (color scale),
+&psi; for various valve authorities &beta; (color scale),
 and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>
@@ -280,8 +281,7 @@ and a bypass branch either balanced (right plot) or not (left plot).
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_mPump.png\"/>
 <br/>
 <i>Figure 3. Pump mass flow rate (ratio to design value) as a function of
-&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
-for various valve authorities &beta; (color scale),
+&psi; for various valve authorities &beta; (color scale),
 a bypass branch either balanced (right plots) or not (left plots)
 and either an equal-percentage / linear valve characteristic (top plots)
 or a linear / linear valve characteristic (bottom plots).
@@ -293,8 +293,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveN
 <br/>
 <i>Figure 4. Heat flow rate (ratio to design value) at fully open conditions
 as a function of
-&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
-for various valve authorities &beta; (color scale),
+&psi; for various valve authorities &beta; (color scale),
 and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>
@@ -303,9 +302,7 @@ and a bypass branch either balanced (right plot) or not (left plot).
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_Q10.png\"/>
 <br/>
 <i>Figure 5. Heat flow rate (ratio to design value) at 10% open conditions
-as a function of
-&psi; = &Delta;p<sub>J-A</sub> / &Delta;p<sub>pump</sub>
-for various valve authorities &beta; (color scale),
+as a function of &psi; for various valve authorities &beta; (color scale),
 and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>

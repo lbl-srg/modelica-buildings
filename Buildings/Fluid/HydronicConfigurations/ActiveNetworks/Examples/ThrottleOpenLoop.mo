@@ -3,11 +3,11 @@ model ThrottleOpenLoop
   "Model illustrating the operation of throttle circuits with variable speed pump"
   extends BaseClasses.PartialActivePrimary(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dpPum_nominal=(dpPip_nominal + dpPip1_nominal + dpSetVal.k)*kSizPum,
+    dpPum_nominal=(dpPip_nominal + dpPip1_nominal + dp1Set)*kSizPum,
     mPum_flow_nominal=m1_flow_nominal / 0.9,
     del1(nPorts=4));
 
-  parameter Boolean is_bal=false
+  parameter Boolean is_bal=true
     "Set to true for balanced primary branch"
     annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
@@ -15,13 +15,22 @@ model ThrottleOpenLoop
     "Control valve characteristic"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
+  // Only an approximation: practical authority depends on mass flow rate.
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     final min=0,
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions";
+  parameter Modelica.Units.SI.PressureDifference dpValve1_nominal(
+    final min=0,
+    displayUnit="Pa") = dpTer_nominal
+    "Control valve pressure drop at design conditions";
   parameter Modelica.Units.SI.PressureDifference dpPip1_nominal(
-    displayUnit="Pa")=3E4
+    displayUnit="Pa") = 3E4
     "Pipe section (between two circuits) pressure drop at design conditions";
+  parameter Modelica.Units.SI.PressureDifference dp1Set(displayUnit="Pa")=
+    dpValve1_nominal + dpTer_nominal
+    "Pressure differential set point"
+    annotation (Dialog(group="Controls"));
 
   Throttle con(
     redeclare final package Medium=MediumLiq,
@@ -43,7 +52,8 @@ model ThrottleOpenLoop
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
-    k=10) "Load"
+    k=10)
+    "Load"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
@@ -54,7 +64,7 @@ model ThrottleOpenLoop
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=mTer_flow_nominal,
     final dp2_nominal=dpTer_nominal,
-    final dpValve_nominal=dpValve_nominal,
+    final dpValve_nominal=dpValve1_nominal,
     final dpBal1_nominal=0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
@@ -93,13 +103,15 @@ model ThrottleOpenLoop
     xi_start=1)
     "Pump controller"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpSetVal(final k=
-        dpTer_nominal + dpValve_nominal) "Pressure differential set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpSetVal(
+    final k=dp1Set)
+    "Pressure differential set point"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   FixedResistances.PressureDrop resEnd(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=0.1*mPum_flow_nominal,
-    final dp_nominal=dpSetVal.k) "Pipe pressure drop" annotation (Placement(
+    final dp_nominal=dp1Set)
+    "Pipe pressure drop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -188,12 +200,6 @@ The main assumptions are enumerated below.
 The model is configured in steady-state.
 </li>
 <li>
-Secondary and valve flow resistances are not lumped together
-so that the valve authority can be computed as
-<code>val.res1.dp/val.res2.dp</code> when the valve is
-fully open.
-</li>
-<li>
 The design conditions at <code>time = 0</code> are defined without
 considering any load diversity.
 </li>
@@ -208,21 +214,88 @@ shows the following points.
 </p>
 <ul>
 <li>
-The overflow caused by the unbalanced
-</li>
-<li>
+When the consumer circuits are unbalanced (<code>is_bal=false</code>), 
+the overflow in the circuit 
+that is the closest to the pump is about <i>20%</i> (see plot #2).
+However, the corresponding flow shortage in the remote circuit is limited 
+to about <i>2%</i> due to equivalent flow resistance seen by the pump
+that is lower than design, shifting the operating point towards higher
+flow rates (see plot #5).
 The impact on the heat flow rate transferred to the load (see plot #4) is of an
-even lower amplitude (<i>2%</i>) due to the emission characteristic of the
+even lower amplitude (<i>1%</i>) due to the emission characteristic of the
 terminal unit.
 </li>
 <li>
-The equal-percentage / linear characteristic of the control valve yields
-a relationship between the heat flow rate transferred to the load and the
-valve opening that is close to linear (see plot #4).
+When the consumer circuits are balanced (<code>is_bal=true</code>), 
+the flow shortage in the circuit that is the closest to the pump 
+is more significant, nearing <i>20%</i> when the remote circuit
+has no demand (see plot #2).
+The impact on the heat flow rate transferred to the load (see plot #4) 
+becomes tangible (<i>8%</i>) while still being not critical.
 </li>
 </ul>
 
-
+<h4>
+Sensitivity analysis
+</h4>
+<p>
+Those observations are confirmed by a sensitivity study to the following
+parameters.
+</p>
+<ul>
+<li>
+Ratio of the terminal unit pressure drop to the pump head at
+design conditions 
+(refer to the schematic in the documentation of 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle</a>
+for the nomenclature):
+<i>&psi; = &Delta;p<sub>b2-a2</sub> / &Delta;p<sub>pump</sub></i>
+varying from <i>0.1</i> to <i>0.4</i>
+</li>
+<li>
+Ratio of the control valve authority:
+<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i>
+varying from <i>0.1</i> to <i>0.7</i>
+</li>
+<li>
+Balanced circuit:
+<code>is_bal</code> switched from <code>false</code> to <code>true</code>
+</li>
+</ul>
+<h5>
+Valve mass flow rate
+</h5>
+<p>
+The overflow in the  when the valve is fully closed increases with
+<i>&psi;</i> and decreases with <i>&beta;</i>.
+It it close to <i>90%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
+However, the concomitant flow shortage in the other terminal unit with a valve
+fully open (see Figure 2) is limited to about <i>20%</i>.
+For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage
+is below <i>10%</i>, indicating that selecting the control valve with
+a suitable authority largely dampens the impact of an unbalanced bypass.
+</p>
+<p>
+<img alt=\"Throttle circuit  flow rate\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/ThrottleOpenLoop_m.png\"/>
+<br/>
+<i>Figure 1. Valve mass flow rate (ratio to design value) at fully open conditions
+as a function of
+&psi; for various valve authorities &beta; (color scale),
+and a circuit either balanced (right plot) or not (left plot).
+</i>
+</p>
+<p>
+<img alt=\"Diversion circuit heat flow rate fully open\"
+src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/ThrottleOpenLoop_Q100.png\"/>
+<br/>
+<i>Figure 2. Heat flow rate (ratio to design value) at fully open conditions
+as a function of
+&psi; for various valve authorities &beta; (color scale),
+and a circuit either balanced (right plot) or not (left plot).
+</i>
+</p>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-140},{140,140}})));
 end ThrottleOpenLoop;

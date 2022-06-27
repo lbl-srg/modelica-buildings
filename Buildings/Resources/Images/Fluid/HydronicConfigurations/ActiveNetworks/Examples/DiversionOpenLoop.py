@@ -66,7 +66,7 @@ def main(dirname, asy=True):
         for is_bal in (False, True):
             for psi in psi_rge:
                 for beta in beta_rge:
-                    kSizPum = round(0.4 / psi, 2)  # kSizPum = 1 => psi = 0.4
+                    kSizPum = round(3 / 7 / psi, 2)  # kSizPum = 1 => psi = 3/7
                     dpValve = round(beta * dpTer / (1 - beta))
                     out_dir = os.path.join(dirname, 'results', f'{valve}_{is_bal}_{psi}_{beta}')
                     case_param = pd.concat([
@@ -109,6 +109,7 @@ def main(dirname, asy=True):
 
 if __name__ == '__main__':
     # Configure and run simulations
+    dpTer = 3e4
 
     psi_rge = np.linspace(0.1, 0.4, num=7).round(2)  # dpCoil / dpPump at design
     beta_rge = np.linspace(0.1, 0.7, num=7).round(2)  # valve authority
@@ -119,7 +120,6 @@ if __name__ == '__main__':
     package_path = os.path.abspath(os.path.join(dirname, *[
         os.pardir,
     ] * 7, 'Buildings'))
-    dpTer = 2e4
 
     case_param = main(dirname=dirname, asy=False)
 
@@ -143,7 +143,7 @@ if __name__ == '__main__':
         'con1.m2_flow_nominal',
         'loa1.Q_flow',
         'loa1.Q_flow_nominal',
-        'delT.y',
+        'dT1.y',
         'mPum_flow_nominal',
     ]
 
@@ -247,7 +247,7 @@ if __name__ == '__main__':
                 x='psi',
                 y='val',
                 color='beta',
-                facet_col='is_bypBal',
+                facet_col='is_bal',
                 facet_row='valve',
                 points=False)
     fig.write_image(os.path.join(dirname, 'DiversionOpenLoop_mPump.svg'))

@@ -140,12 +140,109 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
+This configuration (see schematic below) is used for variable flow 
+primary and consumer circuits that have the same supply temperature 
+set point.
+</p>
+<p>
 <img alt=\"Schematic\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Throttle.png\"/>
 </p>
 <p>
-Lumped flow resistance includes consumer circuit, primary balancing 
-valve and control valve.
+The following table presents the main characteristics of this configuration.
+</p>
+<table class=\"releaseTable\" summary=\"Main characteristics\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td valign=\"top\">
+Primary circuit
+</td>
+<td valign=\"top\">
+Constant flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Secondary (consumer) circuit
+</td>
+<td valign=\"top\">
+Variable flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Typical applications
+</td>
+<td valign=\"top\">
+Single heating or cooling coil served by a variable flow circuit<br/>
+DHC system energy transfer station with intermediary heat exchanger
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Non-recommended applications
+</td>
+<td valign=\"top\">
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Built-in valve control options
+</td>
+<td valign=\"top\">
+No built-in controls
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Control valve selection
+</td>
+<td valign=\"top\">
+<i>&beta; = &Delta;p<sub>A-B</sub> / 
+&Delta;p<sub>a1-b1</sub> =
+&Delta;p<sub>A-B</sub> / 
+(&Delta;p<sub>A-B</sub> + &Delta;p<sub>b2-a2</sub> + &Delta;p<sub>B-b1</sub>)</i><br/>
+The valve is sized with a pressure drop equal to the one
+of the consumer circuit and of the primary balancing valve (if any)
+at design flow rate, yielding an authority of <i>0.5</i>.
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Balancing requirement
+</td>
+<td valign=\"top\">
+See additional comments below.
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Lumped flow resistances include<br/>
+(With the setting <code>use_lumFloRes=true</code>.)
+</td>
+<td valign=\"top\">
+Control valve <code>val</code>,
+whole consumer circuit between <code>b2</code> and <code>a2</code><br/>
+and primary balancing valve <code>res1</code>
+</td>
+</tr>
+</table>
+<h4>Additional comments</h4>
+<p>
+Some authors such as Taylor (2006) claim that variable flow circuits with variable 
+speed pumps and terminal units with two-valves should not be balanced.
+The reason is that the balancing is only done at one operating point.
+At partial load, if remote consumers have a low demand while the consumers
+closest to the pump have a high demand, the latter ones will experience
+a flow shortage due to the balancing valve that generates too much pressure
+drop for the lower available pressure differential due to the lower 
+pump speed.
+In addition, there is no clear balancing procedure when a load diversity 
+factor is taken into acount.
+The example 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop</a>
+yields similar conclusions.
 </p>
 </html>"));
 end Throttle;

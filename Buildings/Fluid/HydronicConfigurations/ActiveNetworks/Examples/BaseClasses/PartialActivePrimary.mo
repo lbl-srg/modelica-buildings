@@ -23,7 +23,7 @@ model PartialActivePrimary
     "Mass flow rate in consumer circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")=
-     3E4
+    3E4
     "Terminal unit pressure drop at design conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpPip_nominal(displayUnit="Pa")=
