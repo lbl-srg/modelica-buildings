@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment;
-block useCase_singleLayer
+block useCase_singleLayer_noXInput
 
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases "Medium model for air";
@@ -79,7 +79,7 @@ block useCase_singleLayer
 
   Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
-    use_Xi_in=true,
+    use_Xi_in=false,
     p(displayUnit="Pa") = 101325 + 100,
     use_T_in=true,
     T=279.15,
@@ -282,8 +282,6 @@ equation
           -120},{-100,-120},{-100,-114},{-62,-114}}, color={0,0,127}));
   connect(addPar1.y, div.u2) annotation (Line(points={{-98,-140},{-70,-140},{-70,
           -126},{-62,-126}}, color={0,0,127}));
-  connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
-          {-26,26},{-2,26}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -160},{160,160}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,
@@ -292,6 +290,6 @@ equation
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUsecase.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUsecase_noXInput.mos"
       "Simulate and plot"));
-end useCase_singleLayer;
+end useCase_singleLayer_noXInput;

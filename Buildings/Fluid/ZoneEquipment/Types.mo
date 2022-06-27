@@ -1,5 +1,4 @@
 within Buildings.Fluid.ZoneEquipment;
-
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
