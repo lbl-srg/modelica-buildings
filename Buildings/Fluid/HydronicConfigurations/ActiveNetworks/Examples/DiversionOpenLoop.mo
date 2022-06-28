@@ -276,6 +276,26 @@ as a function of
 and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>
+<h5>
+Primary mass flow rate
+</h5>
+<p>
+The total primary mass flow rate (or pump mass flow rate) is
+plotted on Figure 3.
+This helps assess the actual flow variation in \"constant flow circuits\",
+i.e., constant speed pump distribution systems with terminal units 
+equipped with three-way control valves.
+The total pump flow can vary up to <i>50%</i> when the bypass of the 
+three-way valves is not balanced, whereas the flow variation is limited
+to about <i>20%</i> when the bypass of the three-way valves is balanced.
+If the characteristic of the valves is equal percentage and linear,
+this variation is rather by higher values for an unbalanced bypass and
+by lower values for a balanced bypass.
+If the characteristic of the valves is linear and linear,
+this variation is always by higher values.
+Eventually, when the control valve authority is higher than <i>0.5</i>
+the flow variation is limited to about <i>&plusmn;20%</i> in all cases.
+</p>
 <p>
 <img alt=\"Diversion circuit pump flow rate\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DiversionOpenLoop_mPump.png\"/>
@@ -286,6 +306,12 @@ a bypass branch either balanced (right plots) or not (left plots)
 and either an equal-percentage / linear valve characteristic (top plots)
 or a linear / linear valve characteristic (bottom plots).
 </i>
+</p>
+<h5>
+Heat flow rate transferred to the load
+</h5>
+<p>
+
 </p>
 <p>
 <img alt=\"Diversion circuit heat flow rate fully open\"

@@ -240,7 +240,7 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the concept of the authority for two-way control valves
+This model illustrates the concept of the authority for two-way valves
 controlled with an open loop that modulates the valve from fully
 closed to fully open position.
 The valve authority

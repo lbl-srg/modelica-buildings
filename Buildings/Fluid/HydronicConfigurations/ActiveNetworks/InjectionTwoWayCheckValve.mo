@@ -40,7 +40,7 @@ model InjectionTwoWayCheckValve
     Documentation(info="<html>
 <h4>Summary</h4>
 <p>
-This circuit (see schematic hereunder) is similar to
+This configuration (see schematic hereunder) is nearly similar to
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>
 except for the check valve that is added into the bypass.

@@ -98,9 +98,9 @@ equation
     Documentation(info="<html>
 <h4>Summary</h4>
 <p>
-This configuration (see schematic below) is used for constant flow 
-primary circuits and variable flow consumer circuits where the 
-consumer circuit has the same supply temperature set point as the 
+This configuration (see schematic below) is used for constant flow
+primary circuits and variable flow consumer circuits where the
+consumer circuit has the same supply temperature set point as the
 primary circuit.
 </p>
 <p>
@@ -140,7 +140,8 @@ Single heating or cooling coil served by a constant flow circuit
 Non-recommended applications
 </td>
 <td valign=\"top\">
-
+DHC systems due to the significant recirculating primary flow rate at low load<br/>
+Heating systems with condensing boilers for the same reason 
 </td>
 </tr>
 <tr>
@@ -156,12 +157,12 @@ No built-in controls
 Control valve selection
 </td>
 <td valign=\"top\">
-<i>&beta; = &Delta;p<sub>A-AB</sub>(y=100%) / 
-&Delta;p<sub>J-AB</sub>(y=0%) =
-&Delta;p<sub>A-AB</sub>(y=100%) / 
-(&Delta;p<sub>b2-a2</sub>(y=100%) + &Delta;p<sub>A-AB</sub>(y=100%)) =
-&Delta;p<sub>A-AB</sub>(y=100%) / 
-(&Delta;p<sub>a1-b1</sub>(y=100%) - &Delta;p<sub>AB-b1</sub>(y=100%))</i><br/>
+<i>&beta; = &Delta;p<sub>A-AB</sub> /
+(&Delta;p<sub>b2-a2</sub> + &Delta;p<sub>A-AB</sub>) =
+&Delta;p<sub>A-AB</sub> /
+(&Delta;p<sub>a1-b1</sub> - &Delta;p<sub>AB-b1</sub>)</i><br/>
+The valve is sized with a pressure drop of <i>&Delta;p<sub>b2-a2</sub></i>
+for a mass flow rate equal to the consumer circuit design flow. 
 </td>
 </tr>
 <tr>
@@ -169,14 +170,13 @@ Control valve selection
 Balancing requirement
 </td>
 <td valign=\"top\">
-No primary balancing valve needed in addition to the self-acting 
-&Delta;P control valve.<br/>
-(For an actuated control valve with external controls,
-the same balancing requirements as for 
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>
-apply for a primary design flow rate <i>5</i> to <i>10%</i> 
-higher than <code>m2_flow_nominal</code>.)
+The bypass balancing valve is not needed in most cases.
+If the valve has a low authority and the consumer circuit has a 
+high pressure drop (compared to the primary pump head) then
+a bypass balancing valve should be used and sized so that 
+<i>&Delta;p<sub>J-B</sub> + &Delta;p<sub>B-AB</sub> =
+&Delta;p<sub>b2-a2</sub> + &Delta;p<sub>A-AB</sub></i>
+for a mass flow rate equal to the consumer circuit design flow.  
 </td>
 </tr>
 <tr>
@@ -185,25 +185,19 @@ Lumped flow resistances include<br/>
 (With the setting <code>use_lumFloRes=true</code>.)
 </td>
 <td valign=\"top\">
-Direct branch: control valve direct branch <code>val.res1</code> 
+Direct branch: control valve direct branch <code>val.res1</code>
 and whole consumer circuit between <code>b2</code> and <code>a2</code><br/>
-Bypass branch: control valve bypass branch <code>val.res3</code> 
+Bypass branch: control valve bypass branch <code>val.res3</code>
 and bypass balancing valve <code>res3</code>
 </td>
 </tr>
 </table>
 <h4>Additional comments</h4>
 <p>
-Lumped flow resistance includes consumer circuit
-and control valve only.
-Primary balancing valve always modeled as a distinct
-flow resistance.
-</p>
-<p>
-The secondary balancing valve pressure drop
-<code>dpBal2_nominal</code>
-stands for the pressure drop of the balancing valve
-in the bypass.
+See the example 
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>
+for additional comments regarding the need for a balanced bypass.
 </p>
 </html>"),
     Icon(graphics={

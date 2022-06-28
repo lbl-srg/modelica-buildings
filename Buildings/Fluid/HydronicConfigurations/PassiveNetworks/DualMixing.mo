@@ -224,27 +224,109 @@ equation
   annotation (
     defaultComponentName="con",
     Documentation(info="<html>
+<h4>Summary</h4>
+<p>
+This configuration (see schematic below) is used instead of
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
+when the primary and secondary circuits have a different design supply temperature.
+Contrary to the single mixing circuit, 
+the use of this configuration is restricted to constant flow secondary circuits
+due to the constraint on the fixed bypass pressure differential that must be sufficiently
+high.
+</p>
 <p>
 <img alt=\"Schematic\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/PassiveNetworks/DualMixing.png\"/>
 </p>
 <p>
-This configuration is typically used instead of
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
-Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
-when the design supply temperature of the consumer circuit differs
-from the primary circuit.
-If the design temperatures are equal this configuration may theoritically
-still be used although it loses its main advantage which is that the
+The following table presents the main characteristics of this configuration.
+</p>
+<table class=\"releaseTable\" summary=\"Main characteristics\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td valign=\"top\">
+Primary circuit
+</td>
+<td valign=\"top\">
+Variable flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Secondary (consumer) circuit
+</td>
+<td valign=\"top\">
+Constant flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Typical applications
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Non-recommended applications
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Built-in valve control options
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Control valve selection<br/>
+(See the nomenclature in the schematic.)
+</td>
+<td valign=\"top\">
+<i>&beta; = &Delta;p<sub>A-AB</sub> /
+(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>J-AB</sub>)</i>
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Balancing requirement
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Lumped flow resistance includes<br/>
+(With the setting <code>use_lumFloRes=true</code>.)
+</td>
+<td valign=\"top\">
+Control valve <code>val</code> and primary balancing valve <code>res1</code>
+</td>
+</tr>
+</table>
+<h4>Additional comments</h4>
+<p>
+Although this configuration may theoritically still be used
+if the primary and secondary design temperatures are equal,
+it loses its main advantage which is that the
 control valve can be sized for a lower flow rate
 <i>m&#775;<sub>1, design</sub></i>
 in the primary branch (see below) and can therefore be smaller.
 The control valve should be sized with a pressure drop at least equal to the
 maximum of <i>&Delta;p<sub>a1-b1</sub></i> and <i>3e3</i>&nbsp;Pa
 at <i>m&#775;<sub>1, design</sub></i>.
-Its authority is
-<i>&beta; = &Delta;p<sub>A-AB</sub> /
-(&Delta;p<sub>A-AB</sub> + &Delta;p<sub>a1-b1</sub>)</i>.
 </p>
 <p>
 The balancing procedure should ensure that the three-way valve is fully

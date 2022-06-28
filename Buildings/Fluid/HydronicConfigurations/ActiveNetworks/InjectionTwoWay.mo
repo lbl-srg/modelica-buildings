@@ -343,7 +343,8 @@ This circuit (see schematic hereunder) is used for variable flow
 primary circuits and either constant flow or variable flow 
 consumer circuits.
 It allows a proper operation of the terminal 
-control valves when the primary pressure differential is either 
+control valves on the consumer side 
+when the primary pressure differential is either 
 too low or too high or varying too much.
 For variable flow consumer circuits, the supply temperature set 
 point must be different from the primary circuit.

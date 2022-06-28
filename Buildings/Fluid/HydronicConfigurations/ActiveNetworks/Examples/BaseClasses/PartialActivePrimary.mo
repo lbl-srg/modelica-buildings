@@ -85,8 +85,8 @@ model PartialActivePrimary
       addPowerToMedium=false,
       use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
       per(
-        pressure(V_flow={0,1,2}*mPum_flow_nominal/996,
-        dp={1.2,1,0.4}*dpPum_nominal)))
+        pressure(V_flow={0, 1, 2}*mPum_flow_nominal/996,
+        dp={1.14, 1,  0.42}*dpPum_nominal)))
     "Circulation pump"
     annotation (
       choicesAllMatching=true,

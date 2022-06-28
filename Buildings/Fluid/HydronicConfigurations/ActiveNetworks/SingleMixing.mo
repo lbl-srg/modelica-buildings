@@ -49,13 +49,15 @@ model SingleMixing "Single mixing circuit"
 <h4>Summary</h4>
 <p>
 This configuration (see schematic below) is used for variable 
-flow primary circuits and constant flow secondary circuits that
+flow primary circuits and 
+either constant flow or variable flow secondary circuits that
 have a design supply temperature identical to the primary circuit
 but a varying set point during operation.
-</p>
-Note about control valve sizing requirement that may 
-be too constraining / secondary pump sizing 
-(that must basically cover dp1)
+The control valve should be sized with a pressure drop equal 
+to the primary pressure differential. 
+That pressure drop must be compensated for by the secondary
+pump which excludes the use of this configuration to 
+applications with a high primary pressure differential.
 <p>
 <img alt=\"Schematic\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/SingleMixing.png\"/>
@@ -69,7 +71,7 @@ The following table presents the main characteristics of this configuration.
 Primary circuit
 </td>
 <td valign=\"top\">
-Constant flow
+Variable flow
 </td>
 </tr>
 <tr>
@@ -77,7 +79,7 @@ Constant flow
 Secondary (consumer) circuit
 </td>
 <td valign=\"top\">
-Variable flow
+Constant or variable flow
 </td>
 </tr>
 <tr>
@@ -85,7 +87,7 @@ Variable flow
 Typical applications
 </td>
 <td valign=\"top\">
-Single heating or cooling coil served by a constant flow circuit
+
 </td>
 </tr>
 <tr>
@@ -93,7 +95,8 @@ Single heating or cooling coil served by a constant flow circuit
 Non-recommended applications
 </td>
 <td valign=\"top\">
-
+Applications with a high primary pressure differential such as DHC systems 
+due to the constraints on the control valve and secondary pump selection.
 </td>
 </tr>
 <tr>
@@ -120,7 +123,10 @@ which yields an authority close to <i>0.5</i>.
 Balancing requirement
 </td>
 <td valign=\"top\">
-
+The primary balancing valve should compensate the primary
+pressure differential (see additional comments below).
+<br/>
+Bypass balancing valve not recommended.
 </td>
 </tr>
 <tr>
@@ -146,29 +152,13 @@ would further reduce the bypass flow rate.
 When using that model, one should keep the default setting
 <code>dpBal3_nominal=0</code>&nbsp;Pa.
 </p>
-
 <p>
 The balancing procedure should ensure that the 
 primary pressure differential is compensated for by the primary balancing valve.
 Otherwise, the flow may reverse in the bypass branch and the mixing function of
 the three-way valve cannot be achieved.
-Valve authority <i>&beta; = Δp_V / (Δp1 + Δp_Vbyp)</i> 
-(independent of the balancing valve pressure drop).
-For good authority <i>Δp_V ~ Δp1</i> which must be compensated for 
-by the secondary pump
-in the case where the primary pressure differential is cancelled by
-the primary balancing valve. 
-</p>
-<h4>
-Parameterization
-</h4>
-<p>
-By default the secondary pump is parameterized with 
-<code>m2_flow_nominal</code> and 
-<code>dp2_nominal + dpBal2_nominal + max({val.dpValve_nominal, val.dp3Valve_nominal})</code> 
-at maximum speed.
-The partner valve <code>bal2</code> is therefore configured with zero
-pressure drop.
+The control valve pressure drop must be compensated for 
+by the secondary pump.
 </p>
 </html>"));
 

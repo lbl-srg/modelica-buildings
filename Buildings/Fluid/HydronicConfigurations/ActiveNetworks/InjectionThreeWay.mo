@@ -377,12 +377,11 @@ equation
     Documentation(info="<html>
 <h4>Summary</h4>
 <p>
-This configuration (see schematic below) is typically used
+This configuration (see schematic below) is used
 for constant flow primary and consumer circuits where the 
 consumer circuit has a different supply temperature set point,
-either at design conditions or varying during operation 
-(for instance underfloor heating systems).
-The fixed bypass ensures a consumer circuit operation fully decoupled
+either at design conditions or varying during operation.
+The fixed bypass ensures a consumer circuit operation hydronically decoupled
 from the primary side and the control valve position.
 </p>
 <p>
@@ -414,7 +413,8 @@ Constant flow
 Typical applications
 </td>
 <td valign=\"top\">
-Consumer circuit supply temperature different than primary circuit<br/>
+Consumer circuit supply temperature different than primary circuit such
+as underfloor heating systems<br/>
 (Otherwise use 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>)<br/>
@@ -446,7 +446,7 @@ Control valve selection<br/>
 </td>
 <td valign=\"top\">
 <i>&beta; 
-= &Delta;p<sub>A-AB</sub>(y=100%) / &Delta;p<sub>J-AB</sub>(y=0%)
+= &Delta;p<sub>A-AB</sub> / &Delta;p<sub>J-AB</sub>
 &asymp; 1</i><br/>
 Sizing is only based on a minimum pressure drop of 
 <i>3</i>&nbsp;kPa at design flow rate <i>m&#775;<sub>1, design</sub></i>

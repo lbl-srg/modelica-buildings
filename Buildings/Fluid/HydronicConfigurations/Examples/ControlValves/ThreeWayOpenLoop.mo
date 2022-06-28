@@ -256,7 +256,7 @@ model ThreeWayOpenLoop
     use_inputFilter=false,
     per(pressure(
       V_flow={0, 1, 2} * mLiq_flow_nominal / 996,
-      dp = {1.2, 1, 0.4} * (terMix.dp_nominal+valAut50Mix.dpValve_nominal))),
+      dp = {1.14, 1, 0.42} * (terMix.dp_nominal+valAut50Mix.dpValve_nominal))),
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Secondary pump"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
@@ -426,7 +426,7 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the concept of the authority for three-way control valves
+This model illustrates the concept of the authority for three-way valves
 controlled with an open loop that modulates the valve from fully
 closed (bypass flow) to fully open position.
 

@@ -75,8 +75,8 @@ model SingleMixingOpenLoop
 equation
   connect(con.port_b2, loa.port_a)
     annotation (Line(points={{4,-20},{0,-20},{0,30}}, color={0,127,255}));
-  connect(loa.port_b, con.port_a2) annotation (Line(points={{20,30},{20,-20.2},
-          {16,-20.2}}, color={0,127,255}));
+  connect(loa.port_b, con.port_a2) annotation (Line(points={{20,30},{20,-20},{
+          16,-20}},    color={0,127,255}));
   connect(con.port_b1, del1.ports[2])
     annotation (Line(points={{16,-40},{20,-40},{20,-80}}, color={0,127,255}));
   connect(con1.port_b1, del1.ports[3]) annotation (Line(points={{76,-40},{80,-40},
@@ -99,8 +99,8 @@ equation
           {60,-40},{64,-40}}, color={0,127,255}));
   connect(con1.port_b2, loa1.port_a)
     annotation (Line(points={{64,-20},{60,-20},{60,30}}, color={0,127,255}));
-  connect(loa1.port_b, con1.port_a2) annotation (Line(points={{80,30},{80,-20.2},
-          {76,-20.2}}, color={0,127,255}));
+  connect(loa1.port_b, con1.port_a2) annotation (Line(points={{80,30},{80,-20},
+          {76,-20}},   color={0,127,255}));
   connect(ope.y[1], con.yVal) annotation (Line(points={{-98,0},{-40,0},{-40,-30},
           {-2,-30}}, color={0,0,127}));
   connect(ope.y[2], con1.yVal) annotation (Line(points={{-98,0},{40,0},{40,-30},

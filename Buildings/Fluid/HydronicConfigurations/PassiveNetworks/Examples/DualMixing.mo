@@ -165,8 +165,7 @@ equation
   connect(res2.port_b, loa1.port_a)
     annotation (Line(points={{70,0},{80,0},{80,30}}, color={0,127,255}));
   connect(del2.ports[1], con.port_a2) annotation (Line(points={{38.6667,-20},{
-          28,-20},{28,-20.2},{16,-20.2}},
-                                       color={0,127,255}));
+          28,-20},{28,-20},{16,-20}},  color={0,127,255}));
   connect(loa.port_b, del2.ports[2]) annotation (Line(points={{40,30},{40,6},{40,
           -20},{40,-20}}, color={0,127,255}));
   connect(loa1.port_b, del2.ports[3]) annotation (Line(points={{100,30},{100,
@@ -186,10 +185,6 @@ __Dymola_Commands(file=
     Documentation(info="<html>
 <p>
 One constant flow consumer circuit operated in change-over.
-The pump model for the second circuit is an ideal
-&Delta;p-controlled model, its input being computed to
-mimic tracking a pressure differential set point at the
-boundaries of the terminal unit.
 </p>
 </html>"));
 end DualMixing;

@@ -106,7 +106,7 @@ model PartialHydronicConfiguration
     constrainedby Movers.Data.Generic(
       pressure(
         V_flow={0, 1, 2} * m2_flow_nominal / 996,
-        dp={1.2, 1, 0.4} * dp2_nominal))
+        dp={1.14, 1, 0.42} * dp2_nominal))
     "Pump parameters"
     annotation (
     Dialog(group="Pump",
@@ -327,7 +327,7 @@ protected
     Documentation(info="<html>
 <p>
 This is the interface class for all models of hydronic
-configurations in 
+configurations in
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks</a>
 and
@@ -335,7 +335,7 @@ and
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks</a>.
 </p>
 <p>
-This interface class (conditionally) instantiates all possible 
+This interface class (conditionally) instantiates all possible
 outside connectors that any derived class may use.
 This provides plug-compatibility across all the models extending this
 class.

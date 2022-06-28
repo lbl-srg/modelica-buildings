@@ -45,17 +45,97 @@ model SingleMixing "Single mixing circuit"
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<h4>Summary</h4>
+<p>
+This configuration (see schematic below) is used for variable 
+flow primary circuits and 
+either constant flow or variable flow secondary circuits that
+have a design supply temperature identical to the primary circuit
+but a varying set point during operation.
+</p>
 <p>
 <img alt=\"Schematic\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/PassiveNetworks/SingleMixing.png\"/>
 </p>
 <p>
-Variable primary
+The following table presents the main characteristics of this configuration.
 </p>
-    
+<table class=\"releaseTable\" summary=\"Main characteristics\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td valign=\"top\">
+Primary circuit
+</td>
+<td valign=\"top\">
+Variable flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Secondary (consumer) circuit
+</td>
+<td valign=\"top\">
+Constant or variable flow
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Typical applications
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Non-recommended applications
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Built-in valve control options
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Control valve selection<br/>
+(See the nomenclature in the schematic.)
+</td>
+<td valign=\"top\">
+<i>&beta; = &Delta;p<sub>A-AB</sub> /
+(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>J-AB</sub>)</i>
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Balancing requirement
+</td>
+<td valign=\"top\">
+
+
+</td>
+</tr>
+<tr>
+<td valign=\"top\">
+Lumped flow resistance includes<br/>
+(With the setting <code>use_lumFloRes=true</code>.)
+</td>
+<td valign=\"top\">
+Control valve <code>val</code> and primary balancing valve <code>res1</code>
+</td>
+</tr>
+</table>
+<h4>Additional comments</h4>
 <p>
-This is a typical configuration for constant flow secondary circuits that
-have a design supply temperature identical to the primary circuit.
 The control valve should be sized with a pressure drop at least equal to the
 maximum of <i>&Delta;p<sub>a1-b1</sub></i> and <i>3e3</i>&nbsp;Pa.
 Its authority is 

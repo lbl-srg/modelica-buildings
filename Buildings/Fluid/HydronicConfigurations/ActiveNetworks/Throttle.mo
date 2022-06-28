@@ -212,7 +212,7 @@ at design flow rate, yielding an authority of <i>0.5</i>.
 Balancing requirement
 </td>
 <td valign=\"top\">
-See additional comments below.
+No strict requirements: see additional comments below.
 </td>
 </tr>
 <tr>
@@ -231,7 +231,7 @@ and primary balancing valve <code>res1</code>
 <p>
 Some authors such as Taylor (2006) claim that variable flow circuits with variable 
 speed pumps and terminal units with two-valves should not be balanced.
-The reason is that the balancing is only done at one operating point.
+The reason is that the circuit can only be balanced at one operating point.
 At partial load, if remote consumers have a low demand while the consumers
 closest to the pump have a high demand, the latter ones will experience
 a flow shortage due to the balancing valve that generates too much pressure
@@ -242,7 +242,7 @@ factor is taken into acount.
 The example 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop</a>
-yields similar conclusions.
+allows to draw similar conclusions.
 </p>
 </html>"));
 end Throttle;

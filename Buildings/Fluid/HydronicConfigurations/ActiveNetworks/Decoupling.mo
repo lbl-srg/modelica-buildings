@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
-model Decoupling "Decoupling circuit"
+model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpBal3_nominal=if typCtl<>Buildings.Fluid.HydronicConfigurations.Types.Control.None
       then 1e4 else 0,
@@ -219,15 +219,16 @@ equation
     Documentation(info="<html>
 <h4>Summary</h4>
 <p>
-This configuration (see schematic below) is used for variable flow 
-primary and consumer circuits where the 
-consumer circuit has the same supply temperature set point as the 
+This configuration (see schematic below) is used for variable flow
+primary and consumer circuits where the
+consumer circuit has the same supply temperature set point as the
 primary circuit.
-It allows a proper operation of the terminal 
-control valves when the primary pressure differential is either 
+It allows a proper operation of the terminal
+control valves on the consumer side 
+when the primary pressure differential is either
 too low or too high or varying too much.
-The self-acting &Delta;P control valve maintains a nearly constant
-bypass mass flow rate, set by default to <i>5%</i> of the 
+The self-acting &Delta;p control valve maintains a nearly constant
+bypass mass flow rate, set by default to <i>5%</i> of the
 consumer circuit design mass flow rate.
 </p>
 <p>
@@ -276,7 +277,8 @@ Non-recommended applications
 </td>
 <td valign=\"top\">
 Heating systems with condensing boilers due to the recirculating primary flow rate<br/>
-(Since the recirculating primary flow rate is controlled to a nearly constant value, this configuration is used in DHC systems.)
+(Since the recirculating primary flow rate is controlled to a nearly constant value,
+this configuration is used in DHC systems.)
 </td>
 </tr>
 <tr>
@@ -284,7 +286,7 @@ Heating systems with condensing boilers due to the recirculating primary flow ra
 Built-in valve control options
 </td>
 <td valign=\"top\">
-Self-acting &Delta;P control valve with a proportional band of 
+Self-acting &Delta;p control valve with a proportional band of
 <i>&plusmn;20%</i> around the pressure differential set point
 </td>
 </tr>
@@ -294,7 +296,7 @@ Control valve selection<br/>
 (See the nomenclature in the schematic.)
 </td>
 <td valign=\"top\">
-<i>&beta; = &Delta;p<sub>A-B</sub> / 
+<i>&beta; = &Delta;p<sub>A-B</sub> /
 (&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>A-J</sub>)
 &asymp;  &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i><br/>
 The valve is sized with a pressure drop of <i>&Delta;p<sub>a1-b1</sub> / 2</i>
@@ -307,14 +309,15 @@ Balancing requirement
 </td>
 <td valign=\"top\">
 The design pressure drop of the bypass balancing valve
-<code>dpBal3_nominal</code> is typically around <i>10</i>&nbsp;kPa 
+<code>dpBal3_nominal</code> is typically around <i>10</i>&nbsp;kPa
 for a mass flow rate of <code>m1_flow_nominal-m2_flow_nominal</code>.
 No primary balancing valve is needed in addition to the self-acting
-&Delta;P control valve.<br/>
+&Delta;p control valve.<br/>
 (For an actuated control valve with external controls,
-the same balancing requirements as for 
+the same balancing requirements as for
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>.
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>
+hold.
 No bypass balancing valve is needed.)
 </td>
 </tr>
@@ -330,30 +333,30 @@ Control valve <code>val</code> and primary balancing valve <code>res1</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-The P-controller mimics a self-acting &Delta;P control valve
+The P-controller used in the model mimics a self-acting &Delta;P control valve
 with a proportional band of <i>&plusmn;20%</i> around the
 pressure differential set point.
 This set point corresponds to the design pressure drop of the
 bypass balancing valve.
 Note that this configuration yields a nearly constant
 bypass mass flow rate, as opposed to a constant <i>percentage</i>
-of the consumer circuit mass flow rate provided by a control based on 
-the return temperatures upstream and downstream of the bypass.
+of the consumer circuit mass flow rate provided by a control based on
+the return temperature upstream and downstream of the bypass.
 However, as illustrated in
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingTemperature\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingTemperature</a>
-such control is flawed at low load, and the primary mass flow rate potentially
-maxed out.
+the latter control logic is flawed at low load, and the primary mass
+flow rate potentially maxed out.
 Since there is no standard strategy to counteract that effect,
-the configuration with built-in valve controls based on return
-temperatures is not included in this package.
+the configuration with built-in controls based on return
+temperature is not included in this package.
 </p>
 <p>
-For consumer circuits with a different supply temperature set 
+For consumer circuits with a different supply temperature set
 point, this configuration is sometimes used in conjunction with
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>,
-see the example 
+see the example
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing</a>.
 </p>

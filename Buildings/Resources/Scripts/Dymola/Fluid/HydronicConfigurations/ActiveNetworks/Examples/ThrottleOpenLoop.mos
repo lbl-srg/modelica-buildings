@@ -17,7 +17,7 @@ dp_nom = readTrajectory("ThrottleOpenLoop.mat", {"dpPum_nominal"}, 1);
 m_flow_nom = readTrajectory("ThrottleOpenLoop.mat", {"mPum_flow_nominal"}, 1);
 
 mValues = {0.1 * i for i in 1:40};
-coefValues = {-390.53571429,  -1446.42857143,  -3857.14285714, 120000.} * dp_nom[1,1] * 1e-5 ;
+coefValues = {-460.21953782,  -1386.8697479 ,   -945.37815126, 114000.} * dp_nom[1,1] * 1e-5 ;
 dpValues = {coefValues[1] * mValues[i]^3 for i in 1:40} + {coefValues[2] * mValues[i]^2 for i in 1:40} + coefValues[3] .* mValues + fill(coefValues[4], 40);
 plotArray(mValues, dpValues, id=5, erase=false, legend="Characteristic");
 plotArray({m_flow_nom[1, 1]}, {dp_nom[1, 1]}, id=5, erase=false, legend="Design operating point");

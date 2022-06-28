@@ -37,7 +37,7 @@ model Pump "Container class for circulating pumps"
     constrainedby Buildings.Fluid.Movers.Data.Generic(
       pressure(
         V_flow={0, 1, 2} * m_flow_nominal / rho_default,
-        dp={1.2, 1, 0.4} * dp_nominal))
+        dp={1.14, 1, 0.42} * dp_nominal))
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Dialog(enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
@@ -411,7 +411,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This is a container class for pump models from 
+This is a container class for pump models from
 <a href=\"modelica://Buildings.Fluid.Movers\">
 Buildings.Fluid.Movers</a>.
 </p>
@@ -421,7 +421,7 @@ Two parameters allow configuring the model.
 <ul>
 <li>
 The parameter <code>typ</code> enables selecting the type of pump
-based on the enumeration 
+based on the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.Pump\">
 Buildings.Fluid.HydronicConfigurations.Types.Pump</a>.
 If \"No pump\" is selected the model resolves into a simple
@@ -429,7 +429,7 @@ fluid direct pass-through.
 </li>
 <li>
 The parameter <code>typMod</code> enables selecting the type of pump
-model based on the enumeration 
+model based on the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.PumpModel\">
 Buildings.Fluid.HydronicConfigurations.Types.PumpModel</a>.
 </li>
