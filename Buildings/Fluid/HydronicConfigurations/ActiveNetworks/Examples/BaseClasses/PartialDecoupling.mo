@@ -27,8 +27,8 @@ partial model PartialDecoupling
     "Consumer circuit pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(displayUnit="Pa")=
-    (dpPum_nominal-dpPip_nominal) / 2
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal(displayUnit="Pa")=
+    dpPum_nominal - dpPip_nominal
     "Control valve pressure drop at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling con(
@@ -38,10 +38,10 @@ partial model PartialDecoupling
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final dpValve_nominal=dpValve_nominal,
+    final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal,
     final dpBal1_nominal=if is_bal then
-      dpPum_nominal-dpPip_nominal-dpValve_nominal-con.dpBal3_nominal else 0)
+      dpPum_nominal-dpPip_nominal-con.dpValve_nominal-con.dpBal3_nominal else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 

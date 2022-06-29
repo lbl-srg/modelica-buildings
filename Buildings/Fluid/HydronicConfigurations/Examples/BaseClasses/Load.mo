@@ -89,29 +89,28 @@ model Load "Model of a load on hydronic circuit"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  .Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode "Operating mode"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode "Operating mode"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(final unit="1")
     "Valve demand signal" annotation (Placement(transformation(extent={{100,40},
             {140,80}}), iconTransformation(extent={{100,60},{140,100}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_s(final unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_s(final unit="K",
       displayUnit="degC") "Controller set point" annotation (Placement(
         transformation(extent={{100,-50},{140,-10}}), iconTransformation(extent=
            {{100,-50},{140,-10}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_m(final unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput u_m(final unit="K",
       displayUnit="degC") "Controller measured value" annotation (Placement(
         transformation(extent={{100,-70},{140,-30}}), iconTransformation(extent=
            {{100,-70},{140,-30}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput dTLiq(final unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dTLiq(final unit="K",
       displayUnit="K") "Liquid deltaT" annotation (Placement(transformation(
           extent={{100,-90},{140,-50}}), iconTransformation(extent={{100,-90},{
             140,-50}})));
-
   Sources.Boundary_pT outAir(
     redeclare final package Medium = MediumAir,
     nPorts=2)
@@ -124,8 +123,9 @@ model Load "Model of a load on hydronic circuit"
   Sensors.TemperatureTwoPort TAirLvg(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mAir_flow_nominal,
-    T_start=TAirEnt_nominal) "Leaving air temperature sensor"
-                                                             annotation (
+    T_start=TAirEnt_nominal)
+    "Leaving air temperature sensor"
+    annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -188,7 +188,7 @@ model Load "Model of a load on hydronic circuit"
     final T_a1_nominal=TLiqEnt_nominal,
     final T_a2_nominal=TAirEnt_nominal,
     final w_a2_nominal=xAirEnt_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Coil operating at design conditions (used for model parameterization)"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -228,7 +228,9 @@ model Load "Model of a load on hydronic circuit"
   Sensors.TemperatureTwoPort TLiqEnt(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
-    T_start=TLiqEnt_nominal) "Entering liquid temperature sensor" annotation (
+    T_start=TLiqEnt_nominal)
+    "Entering liquid temperature sensor"
+    annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -236,22 +238,30 @@ model Load "Model of a load on hydronic circuit"
   Sensors.TemperatureTwoPort TLiqLvg(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
-    T_start=TLiqEnt_nominal) "Leaving liquid temperature sensor" annotation (
+    T_start=TLiqEnt_nominal)
+    "Leaving liquid temperature sensor"
+    annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={50,0})));
-  .Buildings.Controls.OBC.CDL.Continuous.Subtract dT "Compute deltaT"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+    "Compute deltaT"
     annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
-  .Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
-    "Total heat flow rate transferred to the load" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(
+    final unit="W")
+    "Total heat flow rate transferred to the load"
+    annotation (Placement(
         transformation(extent={{100,-110},{140,-70}}), iconTransformation(
           extent={{100,-110},{140,-70}})));
-  Modelica.Blocks.Sources.RealExpression heaFlo(y=coi.Q2_flow)
+  Modelica.Blocks.Sources.RealExpression heaFlo(
+    y=coi.Q2_flow)
     "Access coil heat flow rate"
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
-    "Actual load fraction met" annotation (Placement(transformation(extent={{100,
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(
+    final unit="1")
+    "Actual load fraction met"
+    annotation (Placement(transformation(extent={{100,
             10},{140,50}}), iconTransformation(extent={{100,20},{140,60}})));
   Modelica.Blocks.Sources.RealExpression loaFra(
     y=Q_flow/(if mode == Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating
@@ -261,14 +271,16 @@ model Load "Model of a load on hydronic circuit"
   Sensors.TemperatureTwoPort TAirLvgNom(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mAir_flow_nominal,
-    T_start=TAirEnt_nominal) "Leaving air temperature sensor"
+    T_start=TAirEnt_nominal)
+    "Leaving air temperature sensor"
     annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,-20})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract     sub
-    "Compute TAirLvg_nominal - TAirEnt_nominal" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+    "Compute TAirLvg_nominal - TAirEnt_nominal"
+    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -279,26 +291,26 @@ model Load "Model of a load on hydronic circuit"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirEntVal[2](k={
-        TAirEnt_nominal,TAirEntChg_nominal})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirEntVal[2](
+    final k={TAirEnt_nominal,TAirEntChg_nominal})
     "Values of entering air temperature"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirEnt_actual(
     allowOutOfRange=true,
     outOfRangeValue=MediumAir.T_default,
-    y(unit="K", displayUnit="degC"),
+    y(final unit="K", displayUnit="degC"),
     final nin=2)
     "Actual value of entering air temperature"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirLvg_actual(
     allowOutOfRange=true,
     outOfRangeValue=MediumAir.T_default,
-    y(unit="K", displayUnit="degC"),
+    y(final unit="K", displayUnit="degC"),
     final nin=2)
     "Actual value of leaving air temperature"
     annotation (Placement(transformation(extent={{40,130},{20,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirLvgVal(k=
-        TAirLvgChg_nominal) "Values of leaving air temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirLvgVal(
+    final k=TAirLvgChg_nominal) "Values of leaving air temperature"
     annotation (Placement(transformation(extent={{80,130},{60,150}})));
 
 protected
@@ -319,7 +331,6 @@ protected
       T=TLiqEntChg_nominal,
       X={XAirEnt_nominal,1 - XAirEnt_nominal}))
     "Air specific heat capacity in change-over mode";
-
    parameter Real eps_nominal=
      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
        UA=coiNom.UA_nominal,

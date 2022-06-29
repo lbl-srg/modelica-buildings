@@ -48,15 +48,15 @@ model SingleMixing "Single mixing circuit"
     Documentation(info="<html>
 <h4>Summary</h4>
 <p>
-This configuration (see schematic below) is used for variable 
-flow primary circuits and 
+This configuration (see schematic below) is used for variable
+flow primary circuits and
 either constant flow or variable flow secondary circuits that
 have a design supply temperature identical to the primary circuit
 but a varying set point during operation.
-The control valve should be sized with a pressure drop equal 
-to the primary pressure differential. 
+The control valve should be sized with a pressure drop equal
+to the primary pressure differential.
 That pressure drop must be compensated for by the secondary
-pump which excludes the use of this configuration to 
+pump which excludes the use of this configuration to
 applications with a high primary pressure differential.
 <p>
 <img alt=\"Schematic\"
@@ -95,7 +95,7 @@ Typical applications
 Non-recommended applications
 </td>
 <td valign=\"top\">
-Applications with a high primary pressure differential such as DHC systems 
+Applications with a high primary pressure differential such as DHC systems
 due to the constraints on the control valve and secondary pump selection.
 </td>
 </tr>
@@ -112,7 +112,7 @@ No built-in controls
 Control valve selection
 </td>
 <td valign=\"top\">
-<i>&beta; = &Delta;p<sub>A-AB</sub> / 
+<i>&beta; = &Delta;p<sub>A-AB</sub> /
 (&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>J-AB</sub>)</i><br/>
 The valve is sized with a pressure drop of <i>&Delta;p<sub>a1-b1</sub></i>
 which yields an authority close to <i>0.5</i>.
@@ -123,7 +123,7 @@ which yields an authority close to <i>0.5</i>.
 Balancing requirement
 </td>
 <td valign=\"top\">
-The primary balancing valve should compensate the primary
+The primary balancing valve should compensate for the primary
 pressure differential (see additional comments below).
 <br/>
 Bypass balancing valve not recommended.
@@ -135,9 +135,9 @@ Lumped flow resistances include<br/>
 (With the setting <code>use_lumFloRes=true</code>.)
 </td>
 <td valign=\"top\">
-Direct branch: control valve direct branch <code>val.res1</code> 
+Direct branch: control valve direct branch <code>val.res1</code>
 and whole consumer circuit between <code>b2</code> and <code>a2</code><br/>
-Bypass branch: control valve bypass branch <code>val.res3</code> 
+Bypass branch: control valve bypass branch <code>val.res3</code>
 and bypass balancing valve <code>res3</code>
 </td>
 </tr>
@@ -147,17 +147,17 @@ and bypass balancing valve <code>res3</code>
 The primary pressure differential tends to oppose the bypass flow rate.
 It is possible to reach zero bypass flow at partial valve opening and
 a negative bypass flow for even lower opening values.
-Therefore, a balancing valve in the bypass is not recommended as it 
+Therefore, a balancing valve in the bypass is not recommended as it
 would further reduce the bypass flow rate.
 When using that model, one should keep the default setting
 <code>dpBal3_nominal=0</code>&nbsp;Pa.
 </p>
 <p>
-The balancing procedure should ensure that the 
+The balancing procedure should ensure that the
 primary pressure differential is compensated for by the primary balancing valve.
 Otherwise, the flow may reverse in the bypass branch and the mixing function of
 the three-way valve cannot be achieved.
-The control valve pressure drop must be compensated for 
+The control valve pressure drop must be compensated for
 by the secondary pump.
 </p>
 </html>"));

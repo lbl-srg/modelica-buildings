@@ -1,13 +1,15 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model Throttle "Throttle circuit"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-    dpValve_nominal=dp2_nominal,
+    dpValve_nominal=dp2_nominal + dpBal1_nominal,
     final dpBal2_nominal=0,
     final dpBal3_nominal=0,
     final m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.None,
-    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None);
+    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
+    final use_dp1=false,
+    final use_dp2=use_lumFloRes or use_siz);
 
   Buildings.Fluid.HydronicConfigurations.Components.TwoWayValve val(
     redeclare final package Medium=Medium,
@@ -140,8 +142,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This configuration (see schematic below) is used for variable flow 
-primary and consumer circuits that have the same supply temperature 
+This configuration (see schematic below) is used for variable flow
+primary and consumer circuits that have the same supply temperature
 set point.
 </p>
 <p>
@@ -198,9 +200,9 @@ No built-in controls
 Control valve selection
 </td>
 <td valign=\"top\">
-<i>&beta; = &Delta;p<sub>A-B</sub> / 
+<i>&beta; = &Delta;p<sub>A-B</sub> /
 &Delta;p<sub>a1-b1</sub> =
-&Delta;p<sub>A-B</sub> / 
+&Delta;p<sub>A-B</sub> /
 (&Delta;p<sub>A-B</sub> + &Delta;p<sub>b2-a2</sub> + &Delta;p<sub>B-b1</sub>)</i><br/>
 The valve is sized with a pressure drop equal to the one
 of the consumer circuit and of the primary balancing valve (if any)
@@ -229,20 +231,20 @@ and primary balancing valve <code>res1</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-Some authors such as Taylor (2006) claim that variable flow circuits with variable 
+Some authors such as Taylor (2006) claim that variable flow circuits with variable
 speed pumps and terminal units with two-valves should not be balanced.
 The reason is that the circuit can only be balanced at one operating point.
 At partial load, if remote consumers have a low demand while the consumers
 closest to the pump have a high demand, the latter ones will experience
 a flow shortage due to the balancing valve that generates too much pressure
-drop for the lower available pressure differential due to the lower 
+drop for the lower available pressure differential due to the lower
 pump speed.
-In addition, there is no clear balancing procedure when a load diversity 
-factor is taken into acount.
-The example 
+In addition, there is no clear balancing procedure when a load diversity
+factor is taken into account.
+The example
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop</a>
-allows to draw similar conclusions.
+allows drawing similar conclusions.
 </p>
 </html>"));
 end Throttle;

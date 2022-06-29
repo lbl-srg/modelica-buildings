@@ -1,7 +1,8 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model Decoupling
   "Model illustrating the operation of a decoupling circuit"
-  extends BaseClasses.PartialDecoupling(del2(nPorts=4));
+  extends BaseClasses.PartialDecoupling(del2(nPorts=4), mode(table=[0,0; 6,0; 6,
+          2; 15,2; 15,1; 22,1; 22,0; 24,0]));
 
 equation
   connect(con.port_b2, jun.port_1)

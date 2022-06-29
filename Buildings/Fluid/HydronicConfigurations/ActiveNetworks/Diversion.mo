@@ -6,7 +6,9 @@ model Diversion "Diversion circuit"
     final dpBal2_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
     final typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.None,
-    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None);
+    final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
+    final use_dp1=false,
+    final use_dp2=use_lumFloRes or use_siz);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,

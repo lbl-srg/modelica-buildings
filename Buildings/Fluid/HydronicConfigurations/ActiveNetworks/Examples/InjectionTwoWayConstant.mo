@@ -197,8 +197,8 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model represents a heating system where an injection circuit 
-with a two-way valve serves as the interface between a variable 
+This model represents a heating system where an injection circuit
+with a two-way valve serves as the interface between a variable
 flow primary circuit and a constant flow secondary circuit.
 Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
@@ -228,22 +228,22 @@ The flow reduction is enhanced when using a reset based on the maximum
 valve demand:
 for a load fraction of <i>30%</i> the normalized primary flow rate
 is now close to <i>30%</i>.
-(Also note the setting of the controller <code>resT2</code> ensuring
+(Also note the setting of the controller <code>resT2</code> which ensures
 a reset at design value when the control loop is enabled).
 </p>
 <p>
 The flow reduction is further enhanced when using a control based on the
 return temperature
-(<code>have_resT2 = false</code> and 
+(<code>have_resT2 = false</code> and
 <code>con(typVar=Types.ControlVariable.ReturnTemperature)</code>):
-the normalized primary flow rate varies close to linearily with the
+the normalized primary flow rate varies close to linearly with the
 load fraction.
-This explains why this control strategy is often adopted 
+This explains why this control strategy is often adopted
 as it brings a good flow rate variation with the load at a
 first cost lower than the previous reset option based on the valve demand.
-However, it also brings some additional constraints on the sizing of 
+However, it also brings some additional constraints on the sizing of
 the terminal units.
-The load diversity must indeed be accounted for. 
+The load diversity must indeed be accounted for.
 When tracking the return temperature of a constant flow consumer circuit,
 the supply temperature will vary with the aggregated load.
 In our example, the actual value of the secondary supply temperature

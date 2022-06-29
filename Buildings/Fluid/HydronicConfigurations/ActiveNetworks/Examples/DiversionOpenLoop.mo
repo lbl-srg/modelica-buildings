@@ -8,7 +8,7 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     del1(nPorts=3));
 
   parameter Boolean is_bal=false
-    "Set to true for balanced bypass branch"
+    "Set to true for a balanced bypass"
     annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
@@ -25,13 +25,13 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     annotation (Dialog(group="Nominal condition"));
 
   ActiveNetworks.Diversion con(
+    use_siz=false,
     redeclare final package Medium=MediumLiq,
     val(fraK=1),
     final typCha=typCha,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=mTer_flow_nominal,
-    final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal3_nominal=dpBal3_nominal)
@@ -51,13 +51,13 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   ActiveNetworks.Diversion con1(
+    use_siz=false,
     redeclare final package Medium = MediumLiq,
     val(fraK=1),
     final typCha=typCha,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=mTer_flow_nominal,
-    final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpPum_nominal - 2 * dpPip_nominal - dpTer_nominal - dpValve_nominal,
     final dpBal3_nominal=dpBal3_nominal)
@@ -163,8 +163,8 @@ Each circuit is balanced at design conditions.
 <li>
 The bypass of the diversion circuit is balanced at
 design conditions if the parameter <code>is_bal</code>
-is set to <code>true</code>. 
-Otherwise no fixed flow resistance is considered in the bypass branch, 
+is set to <code>true</code>.
+Otherwise no fixed flow resistance is considered in the bypass branch,
 only the variable flow resistance corresponding to the bypass
 port of the three-way valve.
 The parameter <code>fraK</code> of the control valves is
@@ -192,21 +192,21 @@ towards a flow rate value higher than design, which partly compensates
 for the overflow.
 </li>
 <li>
-The impact on the heat flow rate transferred to the load (see plot #4) is of 
+The impact on the heat flow rate transferred to the load (see plot #4) is of
 an even lower amplitude (<i>2%</i>).
-This is dependent on the emission characteristic of the terminal unit 
-that would theoritically be steeper with a higher effectiveness at design 
+This is dependent on the emission characteristic of the terminal unit
+that would theoretically be steeper with a higher effectiveness at design
 conditions, although the order of magnitude would remain the same.
 For reference, the terminal unit in this example represents a recirculating
-air terminal such as a fan coil unit in heating mode with a water 
-<i>&Delta;T</i> of <i>10</i>°C at design conditions, so an effectiveness 
-<i>&epsilon; = &Delta;T<sub>liq</sub> / 
+air terminal such as a fan coil unit in heating mode with a water
+<i>&Delta;T</i> of <i>10</i>°C at design conditions, so an effectiveness
+<i>&epsilon; = &Delta;T<sub>liq</sub> /
 (T<sub>liq, inl</sub> - T<sub>air, inl</sub>) = 0.25</i>.
 </li>
 <li>
 The equal-percentage / linear characteristic of the control valve yields
 a relationship between the heat flow rate transferred to the load and the
-valve opening that is close to linear (see plot #4), with a Pearson 
+valve opening that is close to linear (see plot #4), with a Pearson
 correlation coefficient equal to <i>0.99</i>.
 </li>
 </ul>
@@ -220,8 +220,8 @@ parameters.
 <ul>
 <li>
 Ratio of the terminal unit pressure drop to the pump head at
-design conditions 
-(refer to the schematic in the documentation of 
+design conditions
+(refer to the schematic in the documentation of
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion</a>
 for the nomenclature):
@@ -249,7 +249,7 @@ Direct and bypass mass flow rate
 <p>
 The overflow in the bypass branch when the valve is fully closed increases with
 <i>&psi;</i> and decreases with <i>&beta;</i>.
-It it close to <i>70%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
+It is close to <i>70%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
 However, the concomitant flow shortage in the other terminal unit with a valve
 fully open (see Figure 2) is limited to <i>12%</i>.
 For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage
@@ -283,9 +283,9 @@ Primary mass flow rate
 The total primary mass flow rate (or pump mass flow rate) is
 plotted on Figure 3.
 This helps assess the actual flow variation in \"constant flow circuits\",
-i.e., constant speed pump distribution systems with terminal units 
+i.e., constant speed pump distribution systems with terminal units
 equipped with three-way control valves.
-The total pump flow can vary up to <i>50%</i> when the bypass of the 
+The total pump flow can vary up to <i>50%</i> when the bypass of the
 three-way valves is not balanced, whereas the flow variation is limited
 to about <i>20%</i> when the bypass of the three-way valves is balanced.
 If the characteristic of the valves is equal percentage and linear,

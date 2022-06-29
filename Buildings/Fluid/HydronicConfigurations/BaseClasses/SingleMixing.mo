@@ -2,8 +2,13 @@ within Buildings.Fluid.HydronicConfigurations.BaseClasses;
 model SingleMixing "Single mixing circuit"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     set(final unit="K", displayUnit="degC"),
+    dpValve_nominal=max(dp1_nominal, 3E3),
+    dpPum_nominal=dp2_nominal + dpBal2_nominal +
+      max({val.dpValve_nominal, val.dp3Valve_nominal}) + dpBal3_nominal,
     final m1_flow_nominal=m2_flow_nominal,
-    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay);
+    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
+    final use_dp1=use_siz,
+    final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -71,9 +76,8 @@ model SingleMixing "Single mixing circuit"
     redeclare final package Medium = Medium,
     final typ=typPum,
     final typMod=typPumMod,
-    m_flow_nominal=m2_flow_nominal,
-    dp_nominal=dp2_nominal + dpBal2_nominal +
-      max({val.dpValve_nominal, val.dp3Valve_nominal}) + dpBal3_nominal,
+    final m_flow_nominal=mPum_flow_nominal,
+    final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,

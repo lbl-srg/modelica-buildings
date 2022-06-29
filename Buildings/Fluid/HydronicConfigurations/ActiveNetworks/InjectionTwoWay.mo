@@ -2,8 +2,11 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks;
 model InjectionTwoWay "Injection circuit with two-way valve"
   extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     set(final unit="K", displayUnit="degC"),
+    dpValve_nominal=dp1_nominal / 2,
     final dpBal3_nominal=0,
-    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay);
+    final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
+    final use_dp1=use_siz,
+    final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None);
 
   FixedResistances.Junction junSup(
     redeclare final package Medium = Medium,
@@ -26,8 +29,8 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     redeclare final package Medium = Medium,
     final typ=typPum,
     final typMod=typPumMod,
-    m_flow_nominal=m2_flow_nominal,
-    dp_nominal=dp2_nominal + dpBal2_nominal,
+    final m_flow_nominal=mPum_flow_nominal,
+    final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -342,7 +345,9 @@ equation
 This circuit (see schematic hereunder) is used for variable flow
 primary circuits and either constant flow or variable flow 
 consumer circuits.
-It allows a proper operation of the terminal 
+The fixed bypass prevents the primary pressure differential from being
+transmitted to the consumer circuit.
+This allows a proper operation of the terminal 
 control valves on the consumer side 
 when the primary pressure differential is either 
 too low or too high or varying too much.
@@ -414,12 +419,13 @@ Return temperature (incompatible with variable secondary)
 </tr>
 <tr>
 <td valign=\"top\">
-Control valve authority<br/>
+Control valve selection<br/>
 (See the nomenclature in the schematic.)
 </td>
 <td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i><br/>
-(Does not depend on the primary balancing valve.)
+The valve is sized with a pressure drop of 
+<i>&Delta;p<sub>a1-b1</sub> / 2</i> which yields an authority of <i>0.5</i>. 
 </td>
 </tr>
 <tr>

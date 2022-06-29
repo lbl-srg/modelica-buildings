@@ -10,6 +10,10 @@ model PartialHydronicConfiguration
           X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
 
+  parameter Boolean use_siz = true
+    "Set to true for built-in sizing of control valve and optional pump"
+    annotation (Dialog(group="Configuration"), Evaluate=true);
+
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
     "Mass flow rate in primary circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
@@ -18,9 +22,17 @@ model PartialHydronicConfiguration
     "Mass flow rate in consumer circuit at design conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal(
+    displayUnit="Pa",
+    start=0)
+    "Primary circuit pressure differential at design conditions"
+    annotation (Dialog(group="Nominal condition", enable=use_dp1));
+
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal(
+    displayUnit="Pa",
+    start=0)
     "Consumer circuit pressure differential at design conditions"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable=use_dp2));
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
@@ -59,7 +71,7 @@ model PartialHydronicConfiguration
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa")
     "Control valve pressure drop at design conditions"
-    annotation (Dialog(group="Control valve"));
+    annotation (Dialog(group="Control valve", enable=not use_siz));
 
   parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
     displayUnit="Pa")=0
@@ -102,11 +114,21 @@ model PartialHydronicConfiguration
      and typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table),
     choicesAllMatching=true);
 
+  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal=m2_flow_nominal
+    "Pump head at design conditions"
+    annotation (Dialog(group="Pump",
+      enable=not use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None));
+
+  parameter Modelica.Units.SI.PressureDifference dpPum_nominal=dp2_nominal+dpBal2_nominal
+    "Pump head at design conditions"
+    annotation (Dialog(group="Pump",
+      enable=not use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None));
+
   replaceable parameter Movers.Data.Generic perPum
     constrainedby Movers.Data.Generic(
       pressure(
-        V_flow={0, 1, 2} * m2_flow_nominal / 996,
-        dp={1.14, 1, 0.42} * dp2_nominal))
+        V_flow={0, 1, 2} * mPum_flow_nominal / 996,
+        dp={1.14, 1, 0.42} * dpPum_nominal))
     "Pump parameters"
     annotation (
     Dialog(group="Pump",
@@ -264,8 +286,13 @@ model PartialHydronicConfiguration
                           port_b2.h_outflow,
                           port_b2.Xi_outflow)
        if show_T "Medium properties in port_b2";
-
 protected
+  parameter Boolean use_dp1 = true
+    "Set to true to enable dp1_nominal"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Boolean use_dp2 = true
+    "Set to true to enable dp2_nominal"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Buildings.Fluid.HydronicConfigurations.Types.Valve typVal
     "Type of control valve"
     annotation(Dialog(group="Configuration"), Evaluate=true);

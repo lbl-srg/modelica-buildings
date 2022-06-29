@@ -8,15 +8,12 @@ model InjectionThreeWay
     TLiqEnt_nominal=40+273.15,
     TLiqLvg_nominal=TLiqEnt_nominal-5,
     TLiqSup_nominal=60+273.15,
-    dpPum_nominal=(dpPip_nominal + dpValve_nominal) * kSizPum,
+    dpPum_nominal=(dpPip_nominal + con.dpValve_nominal) * kSizPum,
     del1(nPorts=2));
 
   parameter Real kSizBal(final min=0) = 0.5
     "Sizing factor for primary balancing valve (1 means balanced)"
     annotation(Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-    displayUnit="Pa")=0.3E4
-    "Control valve pressure drop at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay con(
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
@@ -27,7 +24,7 @@ model InjectionThreeWay
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final dp2_nominal=dpTer_nominal + loa.con.dpValve_nominal + dpPip_nominal,
-    final dpBal1_nominal= kSizBal * (dpPum_nominal - dpPip_nominal - dpValve_nominal),
+    final dpBal1_nominal= kSizBal * (dpPum_nominal - dpPip_nominal - con.dpValve_nominal),
     pum(addPowerToMedium=false))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

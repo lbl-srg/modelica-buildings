@@ -102,7 +102,7 @@ being met (see plot #1) and the consumer circuit being operated
 at design flow rate (see plot #2).
 This is because, for the specific sizing of the cooling coil and
 for certain operating conditions the \"process characteristic\" is not
-monotonuously decreasing as expected.
+monotonously decreasing as expected.
 This is illustrated by the simulation of the load model with open loop
 control (see plot #9).
 That simulation shows that for a constant load, an increasing supply
@@ -111,7 +111,7 @@ However, the control logic is based on the consideration that a
 decreasing return temperature is the signature of a decreasing load.
 It thus triggers the closing of the control valve, which in turn
 yields an increasing secondary flow recirculation, so an increasing
-supply temperature that furthers decreases the return temperature.
+supply temperature that further decreases the return temperature.
 The result is that the equilibrium point differs from the control intent,
 here with a supply temperature much higher than the design value
 (<i>6.6</i>&deg;C instead of <i>4.4</i>&deg;C).

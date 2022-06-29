@@ -33,11 +33,11 @@ model ThrottleOpenLoop
     annotation (Dialog(group="Controls"));
 
   Throttle con(
+    use_siz=false,
     redeclare final package Medium=MediumLiq,
     final use_lumFloRes=false,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=mTer_flow_nominal,
-    final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=if is_bal then
       dpPum_nominal - dpPip_nominal - dpTer_nominal - dpValve_nominal
@@ -59,11 +59,11 @@ model ThrottleOpenLoop
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Throttle con1(
+    use_siz=false,
     final use_lumFloRes=false,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=mTer_flow_nominal,
-    final dp2_nominal=dpTer_nominal,
     final dpValve_nominal=dpValve1_nominal,
     final dpBal1_nominal=0)
     "Hydronic connection"
@@ -214,10 +214,10 @@ shows the following points.
 </p>
 <ul>
 <li>
-When the consumer circuits are unbalanced (<code>is_bal=false</code>), 
-the overflow in the circuit 
+When the consumer circuits are unbalanced (<code>is_bal=false</code>),
+the overflow in the circuit
 that is the closest to the pump is about <i>20%</i> (see plot #2).
-However, the corresponding flow shortage in the remote circuit is limited 
+However, the corresponding flow shortage in the remote circuit is limited
 to about <i>2%</i> due to equivalent flow resistance seen by the pump
 that is lower than design, shifting the operating point towards higher
 flow rates (see plot #5).
@@ -226,11 +226,11 @@ even lower amplitude (<i>1%</i>) due to the emission characteristic of the
 terminal unit.
 </li>
 <li>
-When the consumer circuits are balanced (<code>is_bal=true</code>), 
-the flow shortage in the circuit that is the closest to the pump 
+When the consumer circuits are balanced (<code>is_bal=true</code>),
+the flow shortage in the circuit that is the closest to the pump
 is more significant, nearing <i>20%</i> when the remote circuit
 has no demand (see plot #2).
-The impact on the heat flow rate transferred to the load (see plot #4) 
+The impact on the heat flow rate transferred to the load (see plot #4)
 becomes tangible (<i>8%</i>) while still being not critical.
 </li>
 </ul>
@@ -245,8 +245,8 @@ parameters.
 <ul>
 <li>
 Ratio of the terminal unit pressure drop to the pump head at
-design conditions 
-(refer to the schematic in the documentation of 
+design conditions
+(refer to the schematic in the documentation of
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle</a>
 for the nomenclature):
@@ -269,7 +269,7 @@ Valve mass flow rate
 <p>
 The overflow in the  when the valve is fully closed increases with
 <i>&psi;</i> and decreases with <i>&beta;</i>.
-It it close to <i>90%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
+It is close to <i>90%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
 However, the concomitant flow shortage in the other terminal unit with a valve
 fully open (see Figure 2) is limited to about <i>20%</i>.
 For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage

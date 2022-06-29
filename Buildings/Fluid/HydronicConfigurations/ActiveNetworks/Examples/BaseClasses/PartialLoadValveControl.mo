@@ -113,8 +113,9 @@ model PartialLoadValveControl
     constrainedby
     HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     redeclare final package Medium=MediumLiq,
-    final m2_flow_nominal=m_flow_nominal,
+    final use_siz=false,
     final dp2_nominal=dpTer_nominal,
+    final m2_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpBal1_nominal,
     use_lumFloRes=true,

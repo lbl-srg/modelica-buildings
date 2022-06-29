@@ -17,6 +17,7 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa.m_flow_nominal,
+    dp1_nominal=0,
     final dp2_nominal=loa.dpTer_nominal + loa.dpValve_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
@@ -38,6 +39,7 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa1.m_flow_nominal / 0.9,
+    dp1_nominal=0,
     final dp2_nominal=dp2Set)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
@@ -118,8 +120,8 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
 equation
   connect(con.port_b2, loa.port_a)
     annotation (Line(points={{4,-20},{0,-20},{0,30}}, color={0,127,255}));
-  connect(loa.port_b, con.port_a2) annotation (Line(points={{20,30},{20,-20.2},
-          {16,-20.2}},      color={0,127,255}));
+  connect(loa.port_b, con.port_a2) annotation (Line(points={{20,30},{20,-20},{16,
+          -20}},            color={0,127,255}));
   connect(con.port_b1, del1.ports[2])
     annotation (Line(points={{16,-40},{20,-40},{20,-80}}, color={0,127,255}));
   connect(con1.port_b1, del1.ports[3]) annotation (Line(points={{76,-40},{80,-40},
@@ -130,8 +132,8 @@ equation
     annotation (Line(points={{80,30},{80,0}}, color={0,127,255}));
   connect(dp2.port_a, con1.port_b2)
     annotation (Line(points={{60,0},{60,-20},{64,-20}}, color={0,127,255}));
-  connect(dp2.port_b, con1.port_a2) annotation (Line(points={{80,0},{80,-20.2},{
-          76,-20.2}}, color={0,127,255}));
+  connect(dp2.port_b, con1.port_a2) annotation (Line(points={{80,0},{80,-20},{76,
+          -20}},      color={0,127,255}));
   connect(resEnd2.port_b, loa1.port_b)
     annotation (Line(points={{80,60},{80,30}}, color={0,127,255}));
   connect(resEnd2.port_a, loa1.port_a)

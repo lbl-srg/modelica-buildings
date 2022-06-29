@@ -3,12 +3,15 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
   extends Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpBal3_nominal=if typCtl<>Buildings.Fluid.HydronicConfigurations.Types.Control.None
       then 1e4 else 0,
+    dpValve_nominal=dp1_nominal/2,
     m1_flow_nominal(min=(1+1e-2)*m2_flow_nominal)=1.05 * m2_flow_nominal,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=5,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final have_set=false,
-    final have_typVar=false);
+    final have_typVar=false,
+    final use_dp1=use_siz,
+    final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None);
 
   FixedResistances.Junction junBypSup(
     redeclare final package Medium = Medium,
@@ -90,8 +93,8 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
     redeclare final package Medium = Medium,
     final typ=typPum,
     final typMod=typPumMod,
-    m_flow_nominal=m2_flow_nominal,
-    dp_nominal=dp2_nominal + dpBal2_nominal,
+    final m_flow_nominal=mPum_flow_nominal,
+    final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -223,7 +226,9 @@ This configuration (see schematic below) is used for variable flow
 primary and consumer circuits where the
 consumer circuit has the same supply temperature set point as the
 primary circuit.
-It allows a proper operation of the terminal
+The fixed bypass prevents the primary pressure differential from being
+transmitted to the consumer circuit.
+This allows a proper operation of the terminal
 control valves on the consumer side 
 when the primary pressure differential is either
 too low or too high or varying too much.

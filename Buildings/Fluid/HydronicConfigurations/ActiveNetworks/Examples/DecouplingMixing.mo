@@ -5,7 +5,7 @@ model DecouplingMixing
     Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialDecoupling(
     typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Cooling,
     con(typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
-    mode(table=[0,0; 6,0; 6,1; 13,1; 13,1; 22,1; 22,0; 24,0]),
+    mode(table=[0,0; 6,0; 6,1; 15,1; 15,1; 22,1; 22,0; 24,0]),
     del2(nPorts=4));
 
   PassiveNetworks.SingleMixing con1(
@@ -15,7 +15,7 @@ model DecouplingMixing
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=m2_flow_nominal,
     final dp2_nominal=dp2_nominal,
-    dpValve_nominal=con.dpBal3_nominal)
+    dp1_nominal=con.dpBal3_nominal)
     "Single mixing connection"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Controls.PIDWithOperatingMode resT2(
@@ -143,8 +143,11 @@ Each circuit is balanced at design conditions: UPDATE
 </ul>
 <p>
 Note the setting 
-<code>con1.dpValve_nominal = con.dpBal3_nominal</code>
-avoiding a reverse flow in the bypass branch at partial load.
+<code>con1.dp1_nominal=con.dpBal3_nominal</code>
+which is used to size the control valve in the mixing configuration
+with a design pressure drop of 
+<code>con1.dpValve_nominal=con.dpBal3_nominal</code>
+and avoids a reverse flow in the bypass branch at partial load.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-140},{180,260}})));

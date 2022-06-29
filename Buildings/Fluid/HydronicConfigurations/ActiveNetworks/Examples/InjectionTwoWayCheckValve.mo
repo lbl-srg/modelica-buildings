@@ -3,7 +3,7 @@ model InjectionTwoWayCheckValve
   "Model illustrating the operation of an inversion circuit with two-way valve and check valve and variable secondary"
   extends InjectionTwoWayVariable(
     T2Set_nominal=3.2+273.15,
-    redeclare ActiveNetworks.InjectionTwoWayCheckValve con(k=0.1, Ti=1000));
+    redeclare ActiveNetworks.InjectionTwoWayCheckValve con(k=0.1, Ti=500));
 annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -28,7 +28,7 @@ Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>,
 <li>
 the consumer circuit set point is modified, together with the gain
 and the time constant of the PI controller to simulate a loose control 
-and trigger the check valve closing around <i>8</i>&nbsp;h in model
+and trigger the check valve closing at around <i>8</i>&nbsp;h in model
 time.
 </ul>
 </html>"));

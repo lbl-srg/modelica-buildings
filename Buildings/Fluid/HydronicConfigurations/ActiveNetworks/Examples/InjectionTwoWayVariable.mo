@@ -2,7 +2,6 @@ within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples;
 model InjectionTwoWayVariable
   "Model illustrating the operation of an inversion circuit with two-way valve and variable secondary"
   extends InjectionTwoWayConstantReturn(
-    TLiqSup_nominal=TLiqEnt_nominal,
     redeclare BaseClasses.LoadTwoWayValveControl loa,
     redeclare BaseClasses.LoadTwoWayValveControl loa1,
     del2(nPorts=4),
@@ -97,20 +96,20 @@ Fractional load mismatch OK in cooling
 </p>
 <p>
 For this circuit to operate as intended, it is critical that the
-secondary supply temperature set point be different than the primary
+secondary supply temperature set point be different from the primary
 supply temperature.
 Otherwise, the tracking error does not change sign and there is no
 overshoot that can desaturate the integral term of the PI controller.
 In other words, the controller output is fixed as soon as the measured
 value equals the set point.
-Threfore, the equilibrium point typically differs from the control
+Therefore, the equilibrium point typically differs from the control
 intent which is a primary flow rate varying with the load.
 One can observe that behavior by setting
 <code>TLiqSup_nominal=TLiqEnt_nominal</code> and
 <code>have_resT2=false</code>.
 Such setting yields a fixed valve position with a primary recirculation
 and a flow reversal in the bypass whereas the control intent would
-be a slighlty closer position ensuring a positive flow in the bypass.
+be a slightly closer position ensuring a positive flow in the bypass.
 Note that this is nearly invisible from an operating standpoint
 since the set point and the loads are met.
 However, this is definitely detrimental to the overall performance

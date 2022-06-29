@@ -33,11 +33,11 @@ def main(dirname, asy=True):
     for is_bal in (False, True):
         for psi in psi_rge:
             for beta in beta_rge:
-                dpValve1 = round(beta * dpTer / (1 - beta))
+                dpValve1 = round(beta * dpTer / (1 - beta))  # Based on dp2_nominal, no balancing valve
                 dpSet = dpTer / (1 - beta)
                 dpPip1 = round(dpTer / psi - dpPip - dpSet)
                 # Approximation: the practical authority depends on actual flow rate through res1b.
-                dpValve = round(beta * (dpSet + dpPip1))
+                dpValve = round(beta * (dpSet + dpPip1))  # Based on dp1_nominal
                 out_dir = os.path.join(dirname, 'results', f'{is_bal}_{psi}_{beta}')
                 case_param = pd.concat([
                     case_param,

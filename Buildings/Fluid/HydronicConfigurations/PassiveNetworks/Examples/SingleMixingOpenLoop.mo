@@ -115,17 +115,17 @@ __Dymola_Commands(file=
     Documentation(info="<html>
 <p>
 This model illustrates the disturbance caused on the three-way valve
-operation by an induced negative pressure diffrential at the
+operation by an induced negative pressure differential at the
 circuit boundaries.
 Two consumer circuits are connected to a primary loop with
 an induced pressure differential (for instance a boiler
 with a high pressure drop and no minimum flow requirement).
 Each consumer circuit is equipped with a circulation pump
-that is sized to cover the primary pressure diffrential.
+that is sized to cover the primary pressure differential.
 When the parameter <code>is_bal</code> is <code>false</code>
 no bypass balancing valve is considered.
 When this parameter is <code>true</code> a bypass balancing
-valve is considered with the same dseign pressure drop
+valve is considered with the same design pressure drop
 as the one in the primary loop.
 The pump design head remains unchanged whatever the value
 of the parameter <code>is_bal</code>.

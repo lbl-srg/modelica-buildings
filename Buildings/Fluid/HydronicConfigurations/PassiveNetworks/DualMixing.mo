@@ -1,12 +1,15 @@
 within Buildings.Fluid.HydronicConfigurations.PassiveNetworks;
 model DualMixing "Dual mixing circuit"
   extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
-    dpValve_nominal=3e3,
+    dpValve_nominal=max(dp1_nominal, 3e3),
     dpBal3_nominal=dpValve_nominal,
+    dpPum_nominal=dp2_nominal + dpBal2_nominal + dpBal3_nominal,
     set(final unit="K", displayUnit="degC"),
     final dpBal1_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
-    final typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature);
+    final typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature,
+    final use_dp1=use_siz,
+    final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,
@@ -64,8 +67,8 @@ model DualMixing "Dual mixing circuit"
     redeclare final package Medium = Medium,
     final typ=typPum,
     final typMod=typPumMod,
-    m_flow_nominal=m2_flow_nominal,
-    dp_nominal=dp2_nominal + dpBal2_nominal + dpBal3_nominal,
+    final m_flow_nominal=mPum_flow_nominal,
+    final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -230,7 +233,7 @@ This configuration (see schematic below) is used instead of
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
 when the primary and secondary circuits have a different design supply temperature.
-Contrary to the single mixing circuit, 
+Contrary to the single mixing circuit,
 the use of this configuration is restricted to constant flow secondary circuits
 due to the constraint on the fixed bypass pressure differential that must be sufficiently
 high.
@@ -318,7 +321,7 @@ Control valve <code>val</code> and primary balancing valve <code>res1</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-Although this configuration may theoritically still be used
+Although this configuration may theoretically still be used
 if the primary and secondary design temperatures are equal,
 it loses its main advantage which is that the
 control valve can be sized for a lower flow rate
@@ -372,7 +375,7 @@ is detrimental to the consumer circuit operation.
 Undersizing the bypass balancing valve (yielding a lower pressure drop)
 does not disturb the secondary circuit operation as the control valve
 then compensates for the elevated pressure differential by
-working at a lower opening in average.
+working at a lower opening on average.
 However, the secondary pump head is increased and so is the electricity
 consumption.
 See

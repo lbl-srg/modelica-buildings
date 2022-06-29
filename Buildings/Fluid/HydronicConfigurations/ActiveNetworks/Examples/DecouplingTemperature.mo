@@ -121,11 +121,11 @@ equation
             180}})),
     Documentation(info="<html>
 <p>
-This example is similar to 
+This example is similar to
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling</a>
 except that an alternative control logic is implemented,
-based on the measurement of the return temperature in the consumer circuit 
+based on the measurement of the return temperature in the consumer circuit
 and in the primary branch.
 </p>
 <p>
@@ -135,39 +135,39 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveN
 <p>
 This control logic intends to keep constant the difference between those two
 measurements. Note that we have:
-<i>T<sub>1, ret</sub> - T<sub>2, ret</sub> = 
-(m&#775;<sub>1</sub> - m&#775;<sub>2</sub>) / m&#775;<sub>1</sub> * 
+<i>T<sub>1, ret</sub> - T<sub>2, ret</sub> =
+(m&#775;<sub>1</sub> - m&#775;<sub>2</sub>) / m&#775;<sub>1</sub> *
 (T<sub>1, sup</sub> - T<sub>2, ret</sub>)</i>,
-so the control objective can be expressed based on the  
-set point <i>&Delta;T<sub>set</sub></i> and the consumer circuit 
+so the control objective can be expressed based on the
+set point <i>&Delta;T<sub>set</sub></i> and the consumer circuit
 temperature differential <i>&Delta;T<sub>2</sub></i>
 (<i>&Delta;T<sub>2</sub> = T<sub>2, sup</sub> - T<sub>2, ret</sub> =
-T<sub>1, sup</sub> - T<sub>2, ret</sub></i>) 
+T<sub>1, sup</sub> - T<sub>2, ret</sub></i>)
 as:
-<i>&Delta;T<sub>set</sub> = 
-(m&#775;<sub>1</sub> - m&#775;<sub>2</sub>) / m&#775;<sub>1</sub> * 
+<i>&Delta;T<sub>set</sub> =
+(m&#775;<sub>1</sub> - m&#775;<sub>2</sub>) / m&#775;<sub>1</sub> *
 &Delta;T<sub>2</sub></i>.
 For consumer circuits that have a temperature differential
 relatively constant (see for instance
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop</a>), 
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop</a>),
 the control logic will thus maintain a
 nearly constant fraction of primary flow recirculation.
-However, at very low load if <i>&Delta;T<sub>2</sub></i> value 
-drops (due for instance to a secondary flow recirculation 
-ensuring a minimum flow for the secondary pump) the 
+However, at very low load if <i>&Delta;T<sub>2</sub></i> value
+drops (due for instance to a secondary flow recirculation
+ensuring a minimum flow for the secondary pump) the
 control valve will be fully open, and the primary pump speed
 potentially maxed out, trying to compensate for the vanishing
 <i>&Delta;T<sub>2</sub></i>.
-In other words, taking the example of a heating circuit, at low 
+In other words, taking the example of a heating circuit, at low
 load the control logic cannot infer that the low
-value of <i>T<sub>1, ret</sub> - T<sub>2, ret</sub></i> is due 
-to a consumer circuit return temperature that is to high 
+value of <i>T<sub>1, ret</sub> - T<sub>2, ret</sub></i> is due
+to a consumer circuit return temperature that is to high
 (as it tends towards the supply temperature).
-It will work under the assumption that <i>T<sub>1, ret</sub></i> 
-is too low, and open the control valve to try and increase the 
+It will work under the assumption that <i>T<sub>1, ret</sub></i>
+is too low, and open the control valve to try and increase the
 primary flow recirculation.
-This flawed control is showcased in this example when the paramater 
+This flawed control is showcased in this example when the parameter
 <code>is_cor</code> is set to <code>false</code> (the default), see
 plots #1 and #2 between <i>14</i> and <i>16</i>&nbsp;h.
 </p>
@@ -176,7 +176,7 @@ Now setting <code>is_cor</code> to <code>true</code>, a correction
 is used to counteract this low load effect
 by limiting the set point to the consumer circuit temperature differential
 <i>&Delta;T<sub>2</sub></i>.
-Note that the implementation of that correction is specific to 
+Note that the implementation of that correction is specific to
 a change-over operation and needs to be adapted for heating-only
 or cooling-only applications.
 </p>

@@ -230,9 +230,9 @@ differential at the boundaries of each connected consumer circuit
 is primarily driven by the primary circuit circulating pump.
 </p>
 <p>
-The primary circuit is necessarily equipped with a circulating 
+The primary circuit is necessarily equipped with a circulating
 pump.
-The connected consumer circuits may be equipped with 
+The connected consumer circuits may be equipped with
 a circulating pump or not.
 </p>
 
@@ -243,12 +243,12 @@ differential at the boundaries of each connected consumer circuit
 is primarily driven by the consumer circuit circulating pump.
 </p>
 <p>
-The connected consumer circuits are necessarily equipped with 
+The connected consumer circuits are necessarily equipped with
 a circulating pump.
-However, the primary circuit may be equipped with a circulating 
+However, the primary circuit may be equipped with a circulating
 pump or not.
-In the former case, a decoupling device (such as a fixed bypass, 
-a hydraulic separator, or a supply-through loop) is used to 
+In the former case, a decoupling device (such as a fixed bypass,
+a hydraulic separator, or a supply-through loop) is used to
 cancel out the pressure differential created by the primary pump.
 </p>
 
@@ -259,7 +259,7 @@ circuit which distributes heat or cold and connects
 with the central plant.
 </p>
 <p>
-Note that if the central plant already uses a primary-secondary 
+Note that if the central plant already uses a primary-secondary
 arrangement, then what is called the \"primary\" circuit
 is this package is actually the \"secondary circuit\".
 </p>
@@ -269,7 +269,7 @@ The word \"secondary\" or \"consumer\" is used to refer
 to the load-side circuit that integrates the terminal units.
 </p>
 <p>
-Note that if the central plant already uses a primary-secondary 
+Note that if the central plant already uses a primary-secondary
 arrangement, then what is called the \"secondary\" circuit
 is this package is actually the \"tertiary circuit\".
 </p>
@@ -335,8 +335,8 @@ This package contains standard configurations used in hydronic circuits,
 either for heating or cooling applications.
 They have been selected based mainly on the publications from
 Petitjean (1994) and HERZ® (2015).
-The configurations are grouped together depending on the type of 
-primary network they are compatible with 
+The configurations are grouped together depending on the type of
+primary network they are compatible with
 (see
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.NomenclatureSymbols\">
 Buildings.Fluid.HydronicConfigurations.UsersGuide.NomenclatureSymbols</a>
@@ -362,7 +362,7 @@ Application
 <tr>
 <td valign=\"top\">
 Decoupling circuit with self-acting &Delta;p control valve
-</td> 
+</td>
 <td valign=\"top\">
 <img alt=\"Decoupling circuit Delta-p\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Decoupling.png\"/>
@@ -372,7 +372,9 @@ Used for variable flow
 primary and consumer circuits where the
 consumer circuit has the same supply temperature set point as the
 primary circuit.
-It allows a proper operation of the terminal
+The fixed bypass prevents the primary pressure differential from being
+transmitted to the consumer circuit.
+This allows a proper operation of the terminal
 control valves when the primary pressure differential is either
 too low or too high or varying too much.
 The self-acting &Delta;p control valve maintains a nearly constant
@@ -387,19 +389,19 @@ for further details.
 <tr>
 <td valign=\"top\">
 Decoupling circuit with &Delta;T control
-</td> 
+</td>
 <td valign=\"top\">
 <img alt=\"Decoupling circuit Delta-T\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DecouplingTemperature.png\"/>
 </td>
 <td valign=\"top\">
-This configuration is nearly similar to 
+This configuration is nearly similar to
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>
 except that an actuated control valve is used to control the &Delta;T between
-the secondary and primary return, ensuring a nearly constant <i>fraction</i> 
+the secondary and primary return, ensuring a nearly constant <i>fraction</i>
 of flow recirculation in the bypass line.
-This configuration is <i>not included</i> in the package, 
+This configuration is <i>not included</i> in the package,
 see the example
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingTemperature\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingTemperature</a>
@@ -436,11 +438,11 @@ Injection circuit with three-way valve
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/InjectionThreeWay.png\"/>
 </td>
 <td valign=\"top\">
-Used for constant flow primary and consumer circuits where the 
+Used for constant flow primary and consumer circuits where the
 consumer circuit has a different supply temperature set point,
 either at design conditions or varying during operation.
-The fixed bypass ensures a consumer circuit operation 
-hydronically decoupled from the primary side and the control 
+The fixed bypass ensures a consumer circuit operation
+hydronically decoupled from the primary side and the control
 valve position.<br/>
 See
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay\">
@@ -458,9 +460,11 @@ Injection circuit with two-way valve
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/InjectionTwoWay.png\"/>
 </td>
 <td valign=\"top\">
-Used for variable flow primary circuits and either constant flow or variable 
-flow consumer circuits. 
-It allows a proper operation of the terminal control valves on the consumer 
+Used for variable flow primary circuits and either constant flow or variable
+flow consumer circuits.
+The fixed bypass prevents the primary pressure differential from being
+transmitted to the consumer circuit.
+This allows a proper operation of the terminal control valves on the consumer
 side when the primary pressure differential is either too low or too high or varying too much.<br/>
 See
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
@@ -482,10 +486,10 @@ This configuration is nearly similar to
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>
 except for the check valve that is added into the bypass.
-If used in DHC systems and if the control valve is not properly sized 
-to maintain the set point at all loads, the check valve prevents recirculation 
+If used in DHC systems and if the control valve is not properly sized
+to maintain the set point at all loads, the check valve prevents recirculation
 in the service line which degrades the &Delta;T in the distribution system.
-If used to connect a heating coil, the check valve reduces the risk 
+If used to connect a heating coil, the check valve reduces the risk
 of freezing in case of secondary pump failure.<br/>
 See
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWayCheckValve\">
@@ -503,14 +507,14 @@ Single mixing circuit
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/SingleMixing.png\"/>
 </td>
 <td valign=\"top\">
-Used for variable flow primary circuits and 
+Used for variable flow primary circuits and
 either constant flow or variable flow secondary circuits that
 have a design supply temperature identical to the primary circuit
 but a varying set point during operation.
-The control valve should be sized with a pressure drop equal 
-to the primary pressure differential. 
+The control valve should be sized with a pressure drop equal
+to the primary pressure differential.
 That pressure drop must be compensated for by the secondary
-pump which excludes the use of this configuration to 
+pump which excludes the use of this configuration to
 applications with a high primary pressure differential.<br/>
 See
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing\">
@@ -528,7 +532,7 @@ Throttle circuit
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/Throttle.png\"/>
 </td>
 <td valign=\"top\">
-Used for variable flow primary and consumer circuits that have the same supply 
+Used for variable flow primary and consumer circuits that have the same supply
 temperature set point.<br/>
 See
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle\">
@@ -567,9 +571,9 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/Passive
 This configuration (see schematic below) is used instead of
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
-when the primary and secondary circuits 
+when the primary and secondary circuits
 have a different design supply temperature.
-Contrary to the single mixing circuit, 
+Contrary to the single mixing circuit,
 the use of this configuration is restricted to constant flow secondary circuits
 due to the constraint on the fixed bypass pressure differential that must be sufficiently
 high.<br/>
@@ -589,7 +593,7 @@ Single mixing circuit
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/PassiveNetworks/SingleMixing.png\"/>
 </td>
 <td valign=\"top\">
-Used for variable flow primary circuits and 
+Used for variable flow primary circuits and
 either constant flow or variable flow secondary circuits that
 have a design supply temperature identical to the primary circuit
 but a varying set point during operation.<br/>
@@ -607,17 +611,17 @@ for further details.
 By default the secondary pump is parameterized at maximum speed with
 <code>m2_flow_nominal</code> and <code>dp2_nominal</code> plus
 any additional pressure drop within the hydronic configuration.
-The consumer circuit balancing balve (\"partner valve\") <code>res2</code>
+The consumer circuit balancing valve (\"partner valve\") <code>res2</code>
 is therefore configured by default with zero pressure drop
 since there is no pump pressure differential margin to be compensated for.
 </p>
 <p>
-Discrete sizing of control valves not yet implemented 
+Discrete sizing of control valves not yet implemented
 (geometric progression where Kvs 60% greater than previous value).
 Nor flow reducers if valve size smaller than line size.
 </p>
 <p>
-Control valve sizing based on 
+Control valve sizing based on
 authority of 0.5
 and design pressure drop
 &Delta;p >= 3 kPa
@@ -627,7 +631,7 @@ Default pump characteristic
 from least squares polynomial fit of characteristics from
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
 Buildings.Fluid.Movers.Data.Pumps.Wilo</a>
-considering that characteristics span from <i>0</i> to twice 
+considering that characteristics span from <i>0</i> to twice
 the design flow rate.
 
 </p>

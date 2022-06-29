@@ -432,7 +432,7 @@ closed (bypass flow) to fully open position.
 
 Another phenomenon may also be observed with that example, that is
 the overflow when the valve is fully closed.
-However, a more detailed analysis of that phenomenom is needed (and
+However, a more detailed analysis of that phenomenon is needed (and
 provided with the model
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>)

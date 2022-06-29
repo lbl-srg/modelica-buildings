@@ -20,10 +20,6 @@ partial model PartialInjectionTwoWay
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa")
     "Consumer circuit pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-    final min=0,
-    displayUnit="Pa") = 0.5 * dp1Set
-    "Control valve pressure drop at design conditions";
 
   Sensors.RelativePressure dp1(
     redeclare final package Medium = MediumLiq)
@@ -43,8 +39,8 @@ partial model PartialInjectionTwoWay
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
+    final dp1_nominal=dp1Set,
     final dp2_nominal=dp2_nominal,
-    final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=if is_bal then dp1Set - con.dpValve_nominal else 0,
     pum(addPowerToMedium=false))
     "Hydronic connection"

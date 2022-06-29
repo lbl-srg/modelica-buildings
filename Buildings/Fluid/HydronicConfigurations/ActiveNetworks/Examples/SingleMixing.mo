@@ -10,9 +10,6 @@ model SingleMixing
   parameter Boolean is_bal=false
     "Set to true for balanced primary branch"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(displayUnit="Pa")=
-    dpPum_nominal-dpPip_nominal
-    "Control valve pressure drop at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing con(
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
@@ -21,7 +18,7 @@ model SingleMixing
     final typCtl=typ,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=m2_flow_nominal,
-    final dpValve_nominal=dpValve_nominal,
+    final dp1_nominal= dpPum_nominal-dpPip_nominal,
     final dp2_nominal=loa1.dpTer_nominal + loa1.dpValve_nominal + dpPip_nominal,
     final dpBal1_nominal=if is_bal then dpPum_nominal-dpPip_nominal else 0)
     "Hydronic connection"
@@ -31,7 +28,6 @@ model SingleMixing
     loa(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
-    k=0.1,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
@@ -48,7 +44,6 @@ model SingleMixing
     loa1(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
-    k=0.1,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
@@ -84,7 +79,8 @@ model SingleMixing
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal modPum
     "Pump operating mode"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(
+    final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -144,10 +140,10 @@ equation
     Documentation(info="<html>
 <p>
 This model illustrates the use of a single mixing circuit
-that serves as the interface between a variable flow primary circuit 
-at constant supply temperature and a constant flow secondary circuit 
+that serves as the interface between a variable flow primary circuit
+at constant supply temperature and a constant flow secondary circuit
 at variable supply temperature.
-Two identical terminal units circuits are served by the secondary circuit.
+Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>
