@@ -38,6 +38,7 @@ model DualMixing
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=m2_flow_nominal,
     final m1_flow_nominal=m1_flow_nominal,
+    dp1_nominal=0,
     final dp2_nominal=dpPip_nominal + loa1.dpTer_nominal + loa1.dpValve_nominal,
     final dpBal3_nominal=kSizBal * (con.dpValve_nominal + res1.dp_nominal))
     "Hydronic connection"
@@ -56,10 +57,10 @@ model DualMixing
     "Load"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
-    table=[0,0; 6,0; 6,2; 13,2; 13,1; 22,1; 22,0; 24,0],
+    table=[0,0; 6,0; 6,2; 15,2; 15,1; 22,1; 22,0; 24,0],
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-118,70},{-98,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0], timeScale=3600) "Load modulating signal"
@@ -135,14 +136,15 @@ equation
                                                       color={0,127,255}));
   connect(con.port_b1, del1.ports[2])
     annotation (Line(points={{16,-40},{20,-40},{20,-80}}, color={0,127,255}));
-  connect(mode.y[1], loa.mode) annotation (Line(points={{-98,80},{-20,80},{-20,34},
-          {18,34}}, color={255,127,0}));
-  connect(mode.y[1], con.mode) annotation (Line(points={{-98,80},{-20,80},{-20,
+  connect(mode.y[1], loa.mode) annotation (Line(points={{-96,80},{-20,80},{-20,
+          34},{18,34}},
+                    color={255,127,0}));
+  connect(mode.y[1], con.mode) annotation (Line(points={{-96,80},{-20,80},{-20,
           -22},{-2,-22}}, color={255,127,0}));
   connect(fraLoa.y[1], loa.u) annotation (Line(points={{-98,120},{-10,120},{-10,
           38},{18,38}}, color={0,0,127}));
   connect(mode.y[1], T2SetMod.index)
-    annotation (Line(points={{-98,80},{-80,80},{-80,12}}, color={255,127,0}));
+    annotation (Line(points={{-96,80},{-80,80},{-80,12}}, color={255,127,0}));
   connect(T2SetVal.y, T2SetMod.u)
     annotation (Line(points={{-98,0},{-92,0}}, color={0,0,127}));
   connect(T2SetMod.y, T2Set.u1) annotation (Line(points={{-68,0},{-66,0},{-66,-24},
@@ -156,8 +158,9 @@ equation
           -94,-120},{-92,-120}}, color={0,0,127}));
   connect(T1Set.y, ref.T_in) annotation (Line(points={{-68,-120},{-66,-120},{-66,
           -90},{-120,-90},{-120,-74},{-102,-74}}, color={0,0,127}));
-  connect(mode.y[1], T1Set.index) annotation (Line(points={{-98,80},{-80,80},{-80,
-          60},{-130,60},{-130,-100},{-80,-100},{-80,-108}}, color={255,127,0}));
+  connect(mode.y[1], T1Set.index) annotation (Line(points={{-96,80},{-80,80},{
+          -80,60},{-130,60},{-130,-100},{-80,-100},{-80,-108}},
+                                                            color={255,127,0}));
   connect(res1.port_b, con.port_a1) annotation (Line(points={{-10,-60},{0,-60},
           {0,-40},{4,-40}}, color={0,127,255}));
   connect(con.port_b2, res2.port_a)
@@ -171,8 +174,9 @@ equation
   connect(loa1.port_b, del2.ports[3]) annotation (Line(points={{100,30},{100,
           -20},{41.3333,-20}},
                           color={0,127,255}));
-  connect(mode.y[1], loa1.mode) annotation (Line(points={{-98,80},{60,80},{60,34},
-          {78,34}}, color={255,127,0}));
+  connect(mode.y[1], loa1.mode) annotation (Line(points={{-96,80},{60,80},{60,
+          34},{78,34}},
+                    color={255,127,0}));
   connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-98,120},{70,120},{70,38},
           {78,38}}, color={0,0,127}));
 annotation (

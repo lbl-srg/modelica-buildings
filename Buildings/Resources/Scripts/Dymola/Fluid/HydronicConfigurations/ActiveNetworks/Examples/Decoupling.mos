@@ -8,6 +8,6 @@ createPlot(id=7, position={98, 154, 1184, 744}, y={"T1Sup.T", "con.T2Sup.T", "T1
 createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "con.res3.m_flow", "mPum_flow_nominal", "con.pum.m_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
 
 
-createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=4, position={169, 245, 1184, 849}, y={"mode.y[1]", "fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 
 createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);

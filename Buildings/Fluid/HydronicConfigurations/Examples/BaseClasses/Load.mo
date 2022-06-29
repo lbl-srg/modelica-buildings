@@ -188,7 +188,7 @@ model Load "Model of a load on hydronic circuit"
     final T_a1_nominal=TLiqEnt_nominal,
     final T_a2_nominal=TAirEnt_nominal,
     final w_a2_nominal=xAirEnt_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Coil operating at design conditions (used for model parameterization)"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

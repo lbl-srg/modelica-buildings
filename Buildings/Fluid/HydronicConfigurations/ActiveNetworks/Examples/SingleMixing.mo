@@ -7,7 +7,7 @@ model SingleMixing
     dpPum_nominal=10e4,
     del1(nPorts=2));
 
-  parameter Boolean is_bal=false
+  parameter Boolean is_bal=true
     "Set to true for balanced primary branch"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
@@ -20,7 +20,8 @@ model SingleMixing
     final m2_flow_nominal=m2_flow_nominal,
     final dp1_nominal= dpPum_nominal-dpPip_nominal,
     final dp2_nominal=loa1.dpTer_nominal + loa1.dpValve_nominal + dpPip_nominal,
-    final dpBal1_nominal=if is_bal then dpPum_nominal-dpPip_nominal else 0)
+    final dpBal1_nominal=if is_bal then dpPum_nominal-dpPip_nominal else 0,
+    val(fraK=1))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
@@ -155,6 +156,12 @@ considering any load diversity.
 <li>
 Each circuit is balanced at design conditions: UPDATE
 </ul>
+Secondary pump head necessary higher than primary pump head considering
+the sizing requirements.
+
+frak=1 otherwise cavitation when secondary pump start and control valve fully open:
+alternative is to size the pump for dpValve direct but then 
+not enough head at low supply temperature set point with bypass flow.
 
 </html>"));
 end SingleMixing;

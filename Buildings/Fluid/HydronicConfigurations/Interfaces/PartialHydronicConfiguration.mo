@@ -119,7 +119,8 @@ model PartialHydronicConfiguration
     annotation (Dialog(group="Pump",
       enable=not use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None));
 
-  parameter Modelica.Units.SI.PressureDifference dpPum_nominal=dp2_nominal+dpBal2_nominal
+  parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
+    displayUnit="Pa")= dp2_nominal + dpBal2_nominal
     "Pump head at design conditions"
     annotation (Dialog(group="Pump",
       enable=not use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None));

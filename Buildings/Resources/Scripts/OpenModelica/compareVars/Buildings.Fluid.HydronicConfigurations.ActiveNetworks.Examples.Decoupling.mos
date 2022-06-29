@@ -12,6 +12,7 @@ compareVars :=
     "con.res3.m_flow",
     "mPum_flow_nominal",
     "con.pum.m_flow_nominal",
+    "mode.y[1]",
     "fraLoa.y[1]",
     "fraLoa.y[2]",
     "loa.yLoa_actual",

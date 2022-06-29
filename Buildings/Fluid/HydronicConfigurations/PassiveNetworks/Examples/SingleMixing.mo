@@ -67,7 +67,7 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
         rotation=0,
         origin={70,60})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
-    table=[0,0; 6,0; 6,2; 13,2; 13,1; 22,1; 22,0; 24,0],
+    table=[0,0; 6,0; 6,2; 15,2; 15,1; 22,1; 22,0; 24,0],
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));

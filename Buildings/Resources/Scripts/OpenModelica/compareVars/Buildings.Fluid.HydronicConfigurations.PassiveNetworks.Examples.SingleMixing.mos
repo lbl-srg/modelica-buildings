@@ -17,6 +17,7 @@ compareVars :=
     "con1.val.m1_flow",
     "con1.val.m2_flow",
     "con1.val.m3_flow",
+    "mode.y[1]",
     "fraLoa.y[1]",
     "fraLoa.y[2]",
     "loa.yLoa_actual",
