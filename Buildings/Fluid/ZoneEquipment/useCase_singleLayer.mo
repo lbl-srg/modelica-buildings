@@ -78,7 +78,7 @@ block useCase_singleLayer
   Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
     use_Xi_in=true,
-    p(displayUnit="Pa") = 101325 + 100,
+    p(displayUnit="Pa") = 101325 + 75,
     use_T_in=true,
     T=279.15,
     nPorts=1) "Source for air"
@@ -86,7 +86,7 @@ block useCase_singleLayer
 
   Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
-    p(displayUnit="Pa") = 101325 + 100,
+    p(displayUnit="Pa") = 101325 + 75,
     use_T_in=false,
     T=279.15,
     nPorts=1) "Sink for air"
