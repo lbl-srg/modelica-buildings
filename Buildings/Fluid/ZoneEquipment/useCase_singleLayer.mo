@@ -44,22 +44,20 @@ block useCase_singleLayer
     redeclare Fluid.Movers.Data.Pumps.customFCUFan fanPer)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Sources.Boundary_pT       souCoo(
+  Buildings.Fluid.Sources.MassFlowSource_T       souCoo(
     redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 500,
+    use_m_flow_in=true,
     use_T_in=true,
-    T=279.15,
     nPorts=1) "Source for cooling coil loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,-80})));
 
-  Sources.Boundary_pT       souHea(
+  Buildings.Fluid.Sources.MassFlowSource_T       souHea(
     redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 500,
+    use_m_flow_in=true,
     use_T_in=true,
-    T=333.15,
     nPorts=1) "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -218,6 +216,8 @@ block useCase_singleLayer
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar1(p=1)
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant           con1(k=1)
+    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
 equation
 
   connect(fCU_singleLayer.port_CCW_outlet, sinCoo.ports[1]) annotation (Line(
@@ -242,17 +242,12 @@ equation
   connect(con.y, fCU_singleLayer.uOA) annotation (Line(points={{-58,30},{-20,30},
           {-20,6},{-12,6}}, color={0,0,127}));
 
-  connect(gai1.y, fCU_singleLayer.uCoo) annotation (Line(points={{-78,-40},{-70,
-          -40},{-70,-2},{-12,-2}}, color={0,0,127}));
-
-  connect(gai2.y, fCU_singleLayer.uHea) annotation (Line(points={{-78,-80},{-60,
-          -80},{-60,-6},{-12,-6}}, color={0,0,127}));
-
   connect(addPar[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},
           {-16,34},{-2,34}}, color={0,0,127}));
 
   connect(addPar[2].y, souHea.T_in) annotation (Line(points={{-58,70},{-16,70},{
-          -16,-102},{6,-102}}, color={0,0,127}));
+          -16,-120},{6,-120},{6,-102}},
+                               color={0,0,127}));
 
   connect(addPar[3].y, souCoo.T_in) annotation (Line(points={{-58,70},{-16,70},{
           -16,-120},{66,-120},{66,-92}},  color={0,0,127}));
@@ -284,6 +279,16 @@ equation
           -126},{-62,-126}}, color={0,0,127}));
   connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
           {-26,26},{-2,26}}, color={0,0,127}));
+  connect(con1.y, fCU_singleLayer.uCoo) annotation (Line(points={{-48,-20},{-30,
+          -20},{-30,-2},{-12,-2}}, color={0,0,127}));
+  connect(con1.y, fCU_singleLayer.uHea) annotation (Line(points={{-48,-20},{-30,
+          -20},{-30,-6},{-12,-6}}, color={0,0,127}));
+  connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{
+          -110,0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}}, color={
+          0,0,127}));
+  connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{
+          -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-92}}, color=
+          {0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -160},{160,160}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,
