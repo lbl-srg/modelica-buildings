@@ -113,8 +113,8 @@ Control valve selection
 </td>
 <td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-AB</sub> /
-(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>J-AB</sub>)</i><br/>
-The valve is sized with a pressure drop of <i>&Delta;p<sub>a1-b1</sub></i>
+(&Delta;p<sub>1</sub> + &Delta;p<sub>A-AB</sub>)</i><br/>
+The valve is sized with a pressure drop of <i>&Delta;p<sub>1</sub></i>
 which yields an authority close to <i>0.5</i>.
 </td>
 </tr>
@@ -160,6 +160,13 @@ the three-way valve cannot be achieved.
 The control valve pressure drop must be compensated for
 by the secondary pump.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 
 end SingleMixing;

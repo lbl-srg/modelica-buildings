@@ -4,7 +4,7 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dpPum_nominal=
     (2 * dpPip_nominal + dpTer_nominal + dpValve_nominal) * kSizPum,
-    pum(inputType=Buildings.Fluid.Types.InputType.Constant),
+    pum(typ=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput),
     del1(nPorts=3));
 
   parameter Boolean is_bal=false
@@ -95,6 +95,11 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=1)
     "Operating mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
+    "Returns true if enabled"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-60,20})));
 equation
   connect(con.port_b2, loa.port_a) annotation (Line(points={{4,30},{0,30},{0,60}},
                         color={0,127,255}));
@@ -135,6 +140,10 @@ equation
           {-2,64}}, color={255,127,0}));
   connect(mode.y, loa1.mode) annotation (Line(points={{-78,40},{40,40},{40,64},
           {58,64}}, color={255,127,0}));
+  connect(mode.y, isEna.u)
+    annotation (Line(points={{-78,40},{-60,40},{-60,32}}, color={255,127,0}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{-60,8},{-60,-40},{-100,-40},
+          {-100,-53},{-85.2,-53}}, color={255,0,255}));
    annotation (experiment(
     StopTime=300,
     Tolerance=1e-6),
@@ -143,8 +152,10 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of a diversion circuit to modulate
-the heat flow rate transmitted to a constant load.
+This model represents a heating system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion</a>
+is used to modulate the heat flow rate transmitted to a constant load.
 Two identical secondary circuits are connected to a primary circuit
 with a constant speed pump.
 The main assumptions are enumerated below.
@@ -167,11 +178,6 @@ is set to <code>true</code>.
 Otherwise no fixed flow resistance is considered in the bypass branch,
 only the variable flow resistance corresponding to the bypass
 port of the three-way valve.
-The parameter <code>fraK</code> of the control valves is
-set at <i>1.0</i> to effectively have an unbalanced bypass branch
-for <code>con.dpBal3_nominal=0</code>, see
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
-Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>.
 </li>
 </ul>
 <p>
@@ -181,7 +187,7 @@ shows the following points.
 <ul>
 <li>
 The overflow caused by the unbalanced bypass when the valve
-is fully closed in the first circuit (see plot #2 at <code>time = 100</code>)
+is fully closed in the first circuit (see plot #2 at <code>time=100</code>)
 creates a concomitant flow shortage in the second circuit with the
 valve fully open.
 However, the flow shortage (<i>4%</i>) is of a much lower amplitude than
@@ -311,7 +317,28 @@ or a linear / linear valve characteristic (bottom plots).
 Heat flow rate transferred to the load
 </h5>
 <p>
-
+The heat flow rate transferred to the load is presented
+</p>
+<ul>
+<li>
+on Figure 4 at full opening to illustrate the impact on the coil capacity
+of the flow shortage previously discussed,
+</li>
+<li>
+on Figure 5 at <i>10%</i> opening to illustrate the linearity of the 
+relationship between the transmitted heat flow rate and the valve opening
+at low load in the case of an equal percentage valve
+(where values of the heat flow rate close to <i>10%</i> of the coil 
+capacity indicate a good linearity).
+</li>
+</ul>
+<p>
+The impact on the coil capacity of the flow shortage due to an unbalanced
+bypass is limited to about <i>5%</i> and is less than <i>2%</i> for an authority
+higher or equal to <i>0.5</i>.
+A balanced bypass tends to disturb the linearity of the heat flow rate with
+the valve opening. But again, if the valve is selected with an authority
+higher or equal to <i>0.5</i> that disturbance is highly reduced.
 </p>
 <p>
 <img alt=\"Diversion circuit heat flow rate fully open\"
@@ -332,5 +359,12 @@ as a function of &psi; for various valve authorities &beta; (color scale),
 and a bypass branch either balanced (right plot) or not (left plot).
 </i>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end DiversionOpenLoop;

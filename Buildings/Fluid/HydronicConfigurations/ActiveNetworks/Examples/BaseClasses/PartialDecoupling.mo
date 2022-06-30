@@ -8,9 +8,8 @@ partial model PartialDecoupling
     mPum_flow_nominal=m1_flow_nominal/0.9,
     dpPum_nominal=10e4,
     del1(nPorts=3),
-    redeclare Movers.FlowControlled_dp pum(
-      final m_flow_nominal=mPum_flow_nominal,
-      final dp_nominal=dpPum_nominal),
+    pum(typ=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
+        typMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head),
     ref(use_T_in=true));
 
   parameter Boolean is_bal=true
@@ -32,7 +31,7 @@ partial model PartialDecoupling
     "Control valve pressure drop at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling con(
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput,
     typCtl=typ,
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
@@ -48,7 +47,7 @@ partial model PartialDecoupling
   Sensors.RelativePressure dp(
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-50}})));
   BaseClasses.LoadTwoWayValveControl loa(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
@@ -93,11 +92,11 @@ partial model PartialDecoupling
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(final k=
         dp2Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Controls.PIDWithOperatingMode ctlPum2(
-    k=1,
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset ctlPum2(
+    k=0.1,
     Ti=60,
-    r=MediumLiq.p_default,
-    y_reset=1) "Pump controller"
+    r=1e4,
+    y_reset=0) "Secondary pump controller"
     annotation (Placement(transformation(extent={{-50,30},{-30,10}})));
   FixedResistances.PressureDrop resEnd1(
     redeclare final package Medium = MediumLiq,
@@ -109,10 +108,6 @@ partial model PartialDecoupling
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp1SetVal(final k=
-        dpPum_nominal)
-                "Pressure differential set point"
-    annotation (Placement(transformation(extent={{-140,-22},{-120,-2}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0], timeScale=3600) "Load modulating signal"
@@ -133,14 +128,6 @@ partial model PartialDecoupling
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-100,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    "Switch on/off"
-    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
-    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger modPum
-    "Pump operating mode"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[2](
     final k={TLiqSup_nominal, TLiqSupChg_nominal})
     "Primary circuit temperature set point values"
@@ -187,20 +174,12 @@ equation
   connect(fraLoa.y[2],loa1. u) annotation (Line(points={{-118,120},{70,120},{70,
           108},{78,108}},
                      color={0,0,127}));
-  connect(res2.port_b,loa1. port_a)
-    annotation (Line(points={{70,60},{80,60},{80,100}},   color={0,127,255}));
   connect(mode.y[1],loa. mode) annotation (Line(points={{-118,80},{10,80},{10,104},
           {18,104}}, color={255,127,0}));
   connect(mode.y[1],loa1. mode) annotation (Line(points={{-118,80},{70,80},{70,104},
           {78,104}},                  color={255,127,0}));
-  connect(dp2.port_a,loa1. port_a)
-    annotation (Line(points={{80,70},{80,100}},   color={0,127,255}));
-  connect(dp2.port_b,loa1. port_b)
-    annotation (Line(points={{100,70},{100,100}}, color={0,127,255}));
-  connect(dp2.p_rel,ctlPum2. u_m) annotation (Line(points={{90,61},{90,50},{-40,
+  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{90,61},{90,50},{-40,
           50},{-40,32}}, color={0,0,127}));
-  connect(res2.port_b,resEnd2. port_a)
-    annotation (Line(points={{70,60},{120,60}},          color={0,127,255}));
   connect(res1.port_b, resEnd1.port_a)
     annotation (Line(points={{-10,-60},{40,-60}}, color={0,127,255}));
   connect(resEnd1.port_b, del1.ports[3])
@@ -211,18 +190,6 @@ equation
           18},{-2,18}}, color={255,127,0}));
   connect(mode.y[1], isEna.u) annotation (Line(points={{-118,80},{-100,80},{-100,
           72}}, color={255,127,0}));
-  connect(dp1SetVal.y, swi.u1) annotation (Line(points={{-118,-12},{-92,-12}},
-                           color={0,0,127}));
-  connect(zer.y, swi.u3) annotation (Line(points={{-118,-50},{-100,-50},{-100,-28},
-          {-92,-28}}, color={0,0,127}));
-  connect(isEna.y, swi.u2) annotation (Line(points={{-100,48},{-100,-20},{-92,-20}},
-        color={255,0,255}));
-  connect(swi.y, pum.dp_in) annotation (Line(points={{-68,-20},{-60,-20},{-60,-40},
-          {-80,-40},{-80,-48}}, color={0,0,127}));
-  connect(modPum.y, ctlPum2.mod)
-    annotation (Line(points={{-58,40},{-46,40},{-46,32}}, color={255,127,0}));
-  connect(isEna.y, modPum.u) annotation (Line(points={{-100,48},{-100,40},{-82,40}},
-                              color={255,0,255}));
   connect(T1Set.y, ref.T_in) annotation (Line(points={{-88,-120},{-76,-120},{-76,
           -102}}, color={0,0,127}));
   connect(T1SetVal.y, T1Set.u)
@@ -235,17 +202,62 @@ equation
   connect(T1ConRet.port_b, dp.port_b)
     annotation (Line(points={{20,-30},{20,-40}}, color={0,127,255}));
 
-  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-28,20},{-20,20},{-20,14},
-          {-2,14}}, color={0,0,127}));
-  connect(jun.port_2, res2.port_a)
-    annotation (Line(points={{30,60},{50,60}}, color={0,127,255}));
+  connect(ctlPum2.y, con.yPum) annotation (Line(points={{-28,20},{-20,20},{-20,
+          14},{-2,14}}, color={0,0,127}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{-100,48},{-100,-53},{-85.2,
+          -53}}, color={255,0,255}));
   connect(jun.port_3, loa.port_a)
     annotation (Line(points={{20,70},{20,100}}, color={0,127,255}));
-  connect(del2.ports[1], resEnd2.port_b)
-    annotation (Line(points={{38.6667,40},{120,40}}, color={0,127,255}));
-  connect(dp2.port_b, del2.ports[2])
-    annotation (Line(points={{100,70},{100,40},{40,40}}, color={0,127,255}));
+  connect(jun.port_2, res2.port_a)
+    annotation (Line(points={{30,60},{50,60}}, color={0,127,255}));
+  connect(res2.port_b, loa1.port_a)
+    annotation (Line(points={{70,60},{80,60},{80,100}}, color={0,127,255}));
+  connect(loa1.port_b, del2.ports[1]) annotation (Line(points={{100,100},{100,
+          40},{38.6667,40}},
+                         color={0,127,255}));
+  connect(res2.port_b, resEnd2.port_a)
+    annotation (Line(points={{70,60},{120,60}}, color={0,127,255}));
+  connect(resEnd2.port_b, del2.ports[2])
+    annotation (Line(points={{120,40},{40,40}}, color={0,127,255}));
   connect(loa.port_b, del2.ports[3]) annotation (Line(points={{40,100},{40,70},
-          {40,40},{41.3333,40}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-180,-160},{180,160}})));
+          {40,40},{41.3333,40}},color={0,127,255}));
+  connect(loa1.port_a, dp2.port_a)
+    annotation (Line(points={{80,100},{80,70}}, color={0,127,255}));
+  connect(loa1.port_b, dp2.port_b)
+    annotation (Line(points={{100,100},{100,70}}, color={0,127,255}));
+  connect(isEna.y, ctlPum2.trigger) annotation (Line(points={{-100,48},{-100,40},
+          {-46,40},{-46,32}}, color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-180,-160},{180,160}})),
+      Documentation(info="<html>
+<p>
+This is a partial model of a change-over system.
+The variable flow primary loop includes a
+variable speed pump serving a variable flow decoupling circuit
+with a variable speed pump and two-way valves.
+The primary pump model takes an ideally controlled head as input.
+The secondary pump model takes a normalized speed as input.
+The pump speed is modulated to track a constant pressure differential
+at the boundaries of the remote terminal unit.
+</p>
+<p>
+Two identical terminal units are served by the secondary circuit.
+Each terminal unit has its own hourly load profile.
+Each terminal unit is balanced at design conditions.
+</p>
+<p>
+The design conditions are defined without considering any load diversity.
+</p>
+<p>
+That model is used to construct some example models within
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialDecoupling;

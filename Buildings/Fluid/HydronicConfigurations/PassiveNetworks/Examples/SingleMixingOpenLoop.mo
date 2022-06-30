@@ -1,6 +1,6 @@
 within Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples;
 model SingleMixingOpenLoop
-  "Model illustrating the operation of single mixing circuits with back pressure"
+  "Model illustrating the operation of single mixing circuits with primary back pressure"
   extends BaseClasses.PartialPassivePrimary(
     typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
     TLiqEnt_nominal=60 + 273.15,
@@ -13,17 +13,20 @@ model SingleMixingOpenLoop
   parameter Boolean is_bal=false
     "Set to true for balanced bypass branch"
     annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    displayUnit="Pa") = 5e3
+    "Control valve pressure drop at design conditions";
 
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con(
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
     redeclare final package Medium=MediumLiq,
     val(fraK=1.0),
-    pum(dp_nominal=con.dp2_nominal + con.dpBal2_nominal +
-      max({con.val.dpValve_nominal, con.val.dp3Valve_nominal}) + res1.dp_nominal),
     final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa.m_flow_nominal,
+    dp1_nominal=res1.dp_nominal,
     final dp2_nominal=loa.dpLiq_nominal,
+    final dpValve_nominal=dpValve_nominal,
     final dpBal3_nominal=if is_bal then res1.dp_nominal else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
@@ -38,15 +41,15 @@ model SingleMixingOpenLoop
     "Load"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con1(
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
     redeclare final package Medium = MediumLiq,
     val(fraK=1.0),
-    pum(dp_nominal=con1.dp2_nominal + con1.dpBal2_nominal +
-      max({con1.val.dpValve_nominal, con1.val.dp3Valve_nominal}) + res1.dp_nominal),
     final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
     final energyDynamics=energyDynamics,
     final m2_flow_nominal=loa1.m_flow_nominal,
+    dp1_nominal=res1.dp_nominal,
     final dp2_nominal=loa1.dpLiq_nominal,
+    final dpValve_nominal=dpValve_nominal,
     final dpBal3_nominal=if is_bal then res1.dp_nominal else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
@@ -70,7 +73,7 @@ model SingleMixingOpenLoop
     table=[0,1,1; 1,0,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
     timeScale=100) "Valve opening signal"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-122,-10},{-102,10}})));
 
 equation
   connect(con.port_b2, loa.port_a)
@@ -101,9 +104,10 @@ equation
     annotation (Line(points={{64,-20},{60,-20},{60,30}}, color={0,127,255}));
   connect(loa1.port_b, con1.port_a2) annotation (Line(points={{80,30},{80,-20},
           {76,-20}},   color={0,127,255}));
-  connect(ope.y[1], con.yVal) annotation (Line(points={{-98,0},{-40,0},{-40,-30},
-          {-2,-30}}, color={0,0,127}));
-  connect(ope.y[2], con1.yVal) annotation (Line(points={{-98,0},{40,0},{40,-30},
+  connect(ope.y[1], con.yVal) annotation (Line(points={{-100,0},{-40,0},{-40,
+          -30},{-2,-30}},
+                     color={0,0,127}));
+  connect(ope.y[2], con1.yVal) annotation (Line(points={{-100,0},{40,0},{40,-30},
           {58,-30}}, color={0,0,127}));
 annotation (
 experiment(
@@ -117,9 +121,14 @@ __Dymola_Commands(file=
 This model illustrates the disturbance caused on the three-way valve
 operation by an induced negative pressure differential at the
 circuit boundaries.
-Two consumer circuits are connected to a primary loop with
-an induced pressure differential (for instance a boiler
-with a high pressure drop and no minimum flow requirement).
+Two consumer circuits are connected to a primary loop by means of
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\\\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>.
+The primary loop is configured with a flow resistance that
+generates a negative pressure differential at the boundaries of the
+consumer circuits
+(representing for instance a boiler with a high pressure drop
+and no minimum flow requirement).
 Each consumer circuit is equipped with a circulation pump
 that is sized to cover the primary pressure differential.
 When the parameter <code>is_bal</code> is <code>false</code>
@@ -135,5 +144,29 @@ The control valve of the first circuit is modulated
 from fully open to fully closed position while the
 control valve of the remote circuit is kept fully open.
 </p>
+<p>
+When the bypass is not balanced, the flow reverses in the primary
+branch when the valve opening is below <i>20%</i> which means
+that the load cannot be served any more.
+</p>
+<p>
+When the bypass is balanced, no flow reversal occurs and the
+mixing function of the three-way valve is preserved
+over its whole opening range.
+</p>
+<p>
+Note that the setting of this model represents an oversized control
+valve with a low authority <i>&beta; = 0.14</i>.
+Setting a higher valve design pressure drop to reach an authority
+close to <i>0.5</i> alleviates the risk of primary flow reversal
+and reduces the need for a bypass balancing valve.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SingleMixingOpenLoop;

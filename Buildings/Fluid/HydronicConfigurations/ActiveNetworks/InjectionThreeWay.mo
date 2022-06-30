@@ -383,6 +383,11 @@ This configuration (see schematic below) is used
 for constant flow primary and consumer circuits where the
 consumer circuit has a different supply temperature set point,
 either at design conditions or varying during operation.
+Although this configuration may theoretically still be used
+if the primary and secondary design temperatures are equal,
+it loses its main advantage which is that the
+control valve can be sized for a lower flow rate and can therefore
+be smaller.
 The fixed bypass ensures a consumer circuit operation hydronically decoupled
 from the primary side and the control valve position.
 </p>
@@ -501,5 +506,12 @@ See
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWay</a>
 for a numerical illustration of those effects.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end InjectionThreeWay;

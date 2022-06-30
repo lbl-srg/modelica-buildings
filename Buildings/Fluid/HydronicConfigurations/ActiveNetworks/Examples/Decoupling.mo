@@ -17,20 +17,24 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of a decoupling circuit
-that serves as the interface between a variable flow primary circuit
+This model represents a change-over system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>
+serves as the interface between a variable flow primary circuit
 and a variable flow consumer circuit operated in change-over.
-Two identical terminal units are served by the secondary circuit.
-Each terminal unit has its own hourly load profile.
-The main assumptions are enumerated below.
+For a given operating mode, both the primary circuit and the 
+consumer circuit have a constant supply temperature.
 </p>
+<p>
+The model illustrates how the primary flow rate varies with the
+secondary flow rate, yielding a nearly constant bypass mass flow rate.
+</p>
+</html>", revisions="<html>
 <ul>
 <li>
-The design conditions are defined without considering any load diversity.
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
-<li>
-Each circuit is balanced at design conditions: UPDATE
 </ul>
-
 </html>"));
 end Decoupling;

@@ -8,7 +8,7 @@ model InjectionTwoWayVariable
     dp2_nominal=dpPip_nominal + dp2Set,
     m2_flow_nominal=2*mTer_flow_nominal/0.9,
     con(
-      typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
+      typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput,
       typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature));
 
   parameter Modelica.Units.SI.PressureDifference dp2Set(
@@ -34,10 +34,9 @@ model InjectionTwoWayVariable
     final k=dp2Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Controls.PIDWithOperatingMode ctlPum2(
-    k=1,
+    k=0.1,
     Ti=60,
-    r=MediumLiq.p_default,
-    y_reset=1) "Pump controller"
+    r=1e4)     "Pump controller"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 
 
@@ -67,33 +66,15 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of an injection circuit with a two-way valve
-that serves as the interface between a variable flow primary circuit at constant
-supply temperature and a constant flow secondary circuit at variable supply
-temperature.
-Two identical terminal units are served by the secondary circuit.
-Each terminal unit has its own hourly load profile.
-The main assumptions are enumerated below.
-</p>
-<ul>
-<li>
-The design conditions are defined without
-considering any load diversity.
-</li>
-<li>
-Each circuit is balanced at design conditions.
-</li>
-<li>
-No heat is added by the pump to the medium:...
-</li>
-<li>
-Setting of PI for dp set point tracking: reset at max is important,
-so is the scaling.
-</li>
+This model is almost similar to
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>
+except that a cooling system is represented,
+and the consumer circuit is a variable flow circuit with
+a variable speed pump and two-way valves.
+The pump speed is modulated to track a constant pressure differential
+at the boundaries of the remote terminal unit.
 </ul>
-<p>
-Fractional load mismatch OK in cooling
-</p>
 <p>
 For this circuit to operate as intended, it is critical that the
 secondary supply temperature set point be different from the primary
@@ -118,5 +99,19 @@ as the primary circuit is operated at a higher flow rate and lower
 The system practically behaves as there was no control valve installed
 on the primary return line.
 </p>
+<p>
+The fact that the load seems unmet at partial load (see plot #4) is due to the
+load model that does not guarantee a linear variation of the load
+with the input signal in cooling mode, see
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\\\">
+Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end InjectionTwoWayVariable;

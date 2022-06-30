@@ -240,5 +240,24 @@ equation
           thickness=0.5,
           origin={60,0},
           rotation=270)}),                                       Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a partial model of a thermal load on a hydronic circuit that
+is composed of
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
+Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>
+and a replaceable configuration component derived from 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration\">
+Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration</a>
+that is used to modulate the flow rate through the load component.
+<p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialLoadValveControl;

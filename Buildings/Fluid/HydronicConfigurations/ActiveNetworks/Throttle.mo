@@ -201,9 +201,9 @@ Control valve selection
 </td>
 <td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-B</sub> /
-&Delta;p<sub>a1-b1</sub> =
+&Delta;p<sub>1</sub> =
 &Delta;p<sub>A-B</sub> /
-(&Delta;p<sub>A-B</sub> + &Delta;p<sub>b2-a2</sub> + &Delta;p<sub>B-b1</sub>)</i><br/>
+(&Delta;p<sub>A-B</sub> + &Delta;p<sub>2</sub> + &Delta;p<sub>B-b1</sub>)</i><br/>
 The valve is sized with a pressure drop equal to the one
 of the consumer circuit and of the primary balancing valve (if any)
 at design flow rate, yielding an authority of <i>0.5</i>.
@@ -246,5 +246,12 @@ The example
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop</a>
 allows drawing similar conclusions.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Throttle;

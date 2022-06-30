@@ -4,7 +4,7 @@ model SingleMixing "Single mixing circuit"
     set(final unit="K", displayUnit="degC"),
     dpValve_nominal=max(dp1_nominal, 3E3),
     dpPum_nominal=dp2_nominal + dpBal2_nominal +
-      max({val.dpValve_nominal, val.dp3Valve_nominal}) + dpBal3_nominal,
+      max({val.dpValve_nominal, val.dp3Valve_nominal + dpBal3_nominal}),
     final m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
     final use_dp1=use_siz,
@@ -301,10 +301,10 @@ Variable primary
 This is a typical configuration for constant flow secondary circuits that
 have a design supply temperature identical to the primary circuit.
 The control valve should be sized with a pressure drop at least equal to the
-maximum of <i>&Delta;p<sub>a1-b1</sub></i> and <i>3e3</i>&nbsp;Pa.
+maximum of <i>&Delta;p<sub>1</sub></i> and <i>3e3</i>&nbsp;Pa.
 Its authority is
 <i>&beta; = &Delta;p<sub>A-AB</sub> /
-(&Delta;p<sub>A-AB</sub> + &Delta;p<sub>a1-b1</sub>)</i>.
+(&Delta;p<sub>A-AB</sub> + &Delta;p<sub>1</sub>)</i>.
 </p>
 <p>
 In most cases the bypass balancing valve is not needed.

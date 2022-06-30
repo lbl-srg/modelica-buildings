@@ -5,14 +5,16 @@ model SingleMixing
     m1_flow_nominal=
       m2_flow_nominal * (TLiqEnt_nominal - TLiqLvg_nominal) / (TLiqSup_nominal - TLiqLvg_nominal),
     dpPum_nominal=10e4,
-    del1(nPorts=2));
+    del1(nPorts=2),
+    pum(typ=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
+        typMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional));
 
   parameter Boolean is_bal=true
     "Set to true for balanced primary branch"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing con(
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
     redeclare final package Medium=MediumLiq,
     use_lumFloRes=false,
     final typCtl=typ,
@@ -77,15 +79,12 @@ model SingleMixing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,60})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal modPum
-    "Pump operating mode"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(
     final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,-20})));
+        rotation=-90,
+        origin={-80,-20})));
 equation
   connect(con.port_b1, dp.port_b) annotation (Line(points={{36,0},{36,-20},{40,
           -20},{40,-40}},
@@ -126,12 +125,10 @@ equation
   connect(mode.y[1], loa1.mode) annotation (Line(points={{-98,20},{10,20},{10,
           52},{80,52},{80,76},{98,76}},
                                     color={255,127,0}));
-  connect(isEna.y, modPum.u)
-    annotation (Line(points={{-58,-20},{-52,-20}}, color={255,0,255}));
-  connect(modPum.y, pum.y) annotation (Line(points={{-28,-20},{-20,-20},{-20,
-          -40},{-80,-40},{-80,-48}}, color={0,0,127}));
-  connect(mode.y[1], isEna.u) annotation (Line(points={{-98,20},{-90,20},{-90,
-          -20},{-82,-20}}, color={255,127,0}));
+  connect(mode.y[1], isEna.u) annotation (Line(points={{-98,20},{-80,20},{-80,
+          -8}},            color={255,127,0}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{-80,-32},{-80,-40},{-100,
+          -40},{-100,-53},{-85.2,-53}}, color={255,0,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -140,28 +137,36 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of a single mixing circuit
-that serves as the interface between a variable flow primary circuit
+This model represents a heating system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing</a>
+serves as the interface between a variable flow primary circuit
 at constant supply temperature and a constant flow secondary circuit
 at variable supply temperature.
+The primary pump is operated at constant speed so the operating point rides
+the pump chracteristic as the three-way valve closes.
+The secondary supply temperature is reset with an open loop,
+representing for instance a reset logic based on the outdoor air temperature.
 Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 The main assumptions are enumerated below.
 </p>
-<ul>
-<li>
-The design conditions are defined without
-considering any load diversity.
-</li>
-<li>
-Each circuit is balanced at design conditions: UPDATE
-</ul>
-Secondary pump head necessary higher than primary pump head considering
-the sizing requirements.
+<p>
 
 frak=1 otherwise cavitation when secondary pump start and control valve fully open:
-alternative is to size the pump for dpValve direct but then 
+alternative is to size the pump for dpValve direct but then
 not enough head at low supply temperature set point with bypass flow.
 
+<p>
+The fact that the load is unmet for loa1 due to unbalanced bypas and overflow in
+the terminal unit loa closest to the secondary pump.
+<p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SingleMixing;

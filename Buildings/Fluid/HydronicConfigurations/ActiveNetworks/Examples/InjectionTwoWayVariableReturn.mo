@@ -96,7 +96,10 @@ This model illustrates a configuration that is not recommended,
 that is an injection circuit with a two-way valve serving
 a variable flow consumer circuit, and controlled based on the
 return temperature.
-One can notice that the design load is not met (see plot #4
+When comparing this model to
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstantReturn\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstantReturn</a>
+one can notice that the design load is not met (see plot #4
 between 6h and 8h) despite the return temperature set point
 being met (see plot #1) and the consumer circuit being operated
 at design flow rate (see plot #2).
@@ -117,6 +120,13 @@ here with a supply temperature much higher than the design value
 (<i>6.6</i>&deg;C instead of <i>4.4</i>&deg;C).
 </p>
 
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-160,-160},{320,200}}), graphics={
           Rectangle(

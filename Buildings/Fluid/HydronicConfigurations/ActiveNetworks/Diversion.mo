@@ -143,7 +143,7 @@ Non-recommended applications
 </td>
 <td valign=\"top\">
 DHC systems due to the significant recirculating primary flow rate at low load<br/>
-Heating systems with condensing boilers for the same reason 
+Heating systems with condensing boilers for the same reason
 </td>
 </tr>
 <tr>
@@ -160,11 +160,11 @@ Control valve selection
 </td>
 <td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-AB</sub> /
-(&Delta;p<sub>b2-a2</sub> + &Delta;p<sub>A-AB</sub>) =
+(&Delta;p<sub>2</sub> + &Delta;p<sub>A-AB</sub>) =
 &Delta;p<sub>A-AB</sub> /
-(&Delta;p<sub>a1-b1</sub> - &Delta;p<sub>AB-b1</sub>)</i><br/>
-The valve is sized with a pressure drop of <i>&Delta;p<sub>b2-a2</sub></i>
-for a mass flow rate equal to the consumer circuit design flow. 
+(&Delta;p<sub>1</sub> - &Delta;p<sub>AB-b1</sub>)</i><br/>
+The valve is sized with a pressure drop of <i>&Delta;p<sub>2</sub></i>
+for a mass flow rate equal to the consumer circuit design flow.
 </td>
 </tr>
 <tr>
@@ -173,12 +173,12 @@ Balancing requirement
 </td>
 <td valign=\"top\">
 The bypass balancing valve is not needed in most cases.
-If the valve has a low authority and the consumer circuit has a 
+If the valve has a low authority and the consumer circuit has a
 high pressure drop (compared to the primary pump head) then
-a bypass balancing valve should be used and sized so that 
+a bypass balancing valve should be used and sized so that
 <i>&Delta;p<sub>J-B</sub> + &Delta;p<sub>B-AB</sub> =
-&Delta;p<sub>b2-a2</sub> + &Delta;p<sub>A-AB</sub></i>
-for a mass flow rate equal to the consumer circuit design flow.  
+&Delta;p<sub>2</sub> + &Delta;p<sub>A-AB</sub></i>
+for a mass flow rate equal to the consumer circuit design flow.
 </td>
 </tr>
 <tr>
@@ -196,11 +196,18 @@ and bypass balancing valve <code>res3</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-See the example 
+See the example
 <a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\\\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>
 for additional comments regarding the need for a balanced bypass.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(graphics={
         Line(

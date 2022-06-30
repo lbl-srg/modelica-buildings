@@ -3,13 +3,14 @@ model DecouplingMixing
   "Model illustrating the operation of a decoupling circuit serving a single mixing circuit"
   extends
     Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.PartialDecoupling(
+    ctlPum2(k=0.1, r=1e4),
     typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Cooling,
     con(typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
     mode(table=[0,0; 6,0; 6,1; 15,1; 15,1; 22,1; 22,0; 24,0]),
     del2(nPorts=4));
 
   PassiveNetworks.SingleMixing con1(
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput,
     redeclare final package Medium=MediumLiq,
     typCtl=typ,
     final energyDynamics=energyDynamics,
@@ -114,10 +115,10 @@ equation
           34},{-2,34}}, color={0,0,127}));
   connect(mode.y[1], resT2.mod) annotation (Line(points={{-118,80},{-100,80},{-100,
           178}}, color={255,127,0}));
-  connect(con1.port_a2, del2.ports[4]) annotation (Line(points={{16,40},{28,40},
-          {28,40},{40,40}}, color={0,127,255}));
   connect(con1.port_b2, jun.port_1)
     annotation (Line(points={{4,40},{4,60},{10,60}}, color={0,127,255}));
+  connect(con1.port_a2, del2.ports[4])
+    annotation (Line(points={{16,40},{40,40}}, color={0,127,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -126,29 +127,59 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of a decoupling circuit
-that serves as the interface between a variable flow primary circuit
+This model represents a cooling system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>
+is used in conjunction with
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\\\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>.
+The combined configuration serves as the interface between a
+variable flow primary circuit
 and a variable flow consumer circuit.
-Two identical terminal units are served by the secondary circuit.
-Each terminal unit has its own hourly load profile.
-The main assumptions are enumerated below.
+The primary circuit has a constant supply temperature.
+The consumer circuit has a varying supply temperature set point
+that is reset based on the terminal valve opening, with the most
+open valve being kept <i>90%</i> open.
+</p>
+<p>
+Note the following settings.
 </p>
 <ul>
 <li>
-The design conditions are defined without
-considering any load diversity.
+<code>con1.dp1_nominal=con.dpBal3_nominal</code>
+which is used to size the control valve and the pump of
+the mixing configuration,
+and avoids a reverse flow in the bypass at partial load
+due to the opposing differential pressure created by
+the decoupling configuration.
+See
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop\\\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop</a>
+for further details on that behavior.
 </li>
 <li>
-Each circuit is balanced at design conditions: UPDATE
+The controller <code>resT2</code> that is used to reset the secondary
+supply temperature uses <code>y_reset=1</code> which
+yields the design supply temperature at the time when the controller
+is enabled.
+Otherwise there is a significant delay in satisfying the load,
+followed by a large overshoot, and the control loop is hard to tune.
+</li>
 </ul>
 <p>
-Note the setting 
-<code>con1.dp1_nominal=con.dpBal3_nominal</code>
-which is used to size the control valve in the mixing configuration
-with a design pressure drop of 
-<code>con1.dpValve_nominal=con.dpBal3_nominal</code>
-and avoids a reverse flow in the bypass branch at partial load.
+The fact that the load seems unmet at partial load (see plot #4) is due to the
+load model that does not guarantee a linear variation of the load
+with the input signal in cooling mode, see
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\\\">
+Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-140},{180,260}})));
 end DecouplingMixing;

@@ -233,7 +233,7 @@ the time the operating mode changes.
 </html>", revisions="<html>
 <ul>
 <li>
-June 24, 2021, by Antoine Gautier:<br/>
+June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

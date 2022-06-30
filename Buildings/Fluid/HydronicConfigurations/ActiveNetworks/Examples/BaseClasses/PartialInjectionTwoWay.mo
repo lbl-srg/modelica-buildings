@@ -34,7 +34,7 @@ partial model PartialInjectionTwoWay
   replaceable InjectionTwoWay con(
     use_lumFloRes=true,
     typCtl=typ,
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
@@ -56,11 +56,11 @@ partial model PartialInjectionTwoWay
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-70})));
-  Controls.PIDWithOperatingMode ctlPum(
-    k=1,
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset ctlPum1(
+    k=0.1,
     Ti=60,
-    r=MediumLiq.p_default,
-    y_reset=1) "Primary pump controller"
+    r=1e4,
+    y_reset=0) "Primary pump controller"
     annotation (Placement(transformation(extent={{-100,-20},{-80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp1SetVal(final k=
         dp1Set) "Pressure differential set point"
@@ -76,20 +76,22 @@ partial model PartialInjectionTwoWay
 
 
 
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
+    "Returns true if enabled"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,-60})));
 equation
   connect(con.port_b1, dp1.port_b) annotation (Line(points={{36,0},{40,0},{40,-40}},
                           color={0,127,255}));
   connect(con.port_a1, dp1.port_a) annotation (Line(points={{24,0},{20,0},{20,-40}},
                           color={0,127,255}));
-  connect(dp1SetVal.y, ctlPum.u_s)
-    annotation (Line(points={{-118,-30},{-102,-30}},
-                                                   color={0,0,127}));
-  connect(dp1.p_rel, ctlPum.u_m) annotation (Line(points={{30,-31},{30,-14},{-90,
-          -14},{-90,-18}}, color={0,0,127}));
+  connect(dp1SetVal.y, ctlPum1.u_s)
+    annotation (Line(points={{-118,-30},{-102,-30}}, color={0,0,127}));
+  connect(dp1.p_rel, ctlPum1.u_m) annotation (Line(points={{30,-31},{30,-16},{
+          -90,-16},{-90,-18}}, color={0,0,127}));
   connect(mode.y[1], con.mode) annotation (Line(points={{-118,0},{10,0},{10,18},
           {18,18}}, color={255,127,0}));
-  connect(mode.y[1], ctlPum.mod)
-    annotation (Line(points={{-118,0},{-96,0},{-96,-18}}, color={255,127,0}));
   connect(del2.ports[1], con.port_a2) annotation (Line(points={{60,20},{48,20},
           {48,20},{36,20}}, color={0,127,255}));
 
@@ -104,7 +106,33 @@ equation
   connect(resEnd1.port_b, del1.ports[3])
     annotation (Line(points={{80,-80},{60,-80},{60,-80},{20,-80}},
                                                    color={0,127,255}));
-  connect(ctlPum.y, pum.y) annotation (Line(points={{-78,-30},{-70,-30},{-70,-44},
-          {-80,-44},{-80,-48}},   color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,200}})));
+  connect(ctlPum1.y, pum.y) annotation (Line(points={{-78,-30},{-70,-30},{-70,-44},
+          {-80,-44},{-80,-48}}, color={0,0,127}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{-118,-60},{-110,-60},{-110,
+          -53},{-85.2,-53}}, color={255,0,255}));
+  connect(mode.y[1], isEna.u) annotation (Line(points={{-118,0},{-110,0},{-110,
+          -14},{-150,-14},{-150,-60},{-142,-60}}, color={255,127,0}));
+  connect(isEna.y, ctlPum1.trigger) annotation (Line(points={{-118,-60},{-110,
+          -60},{-110,-16},{-96,-16},{-96,-18}}, color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,200}})),
+      Documentation(info="<html>
+<p>
+This is a partial model of a variable flow primary loop with a
+variable speed pump serving an injection circuit
+with a two-way valve.
+The primary pump model takes a normalized speed as input.
+The speed is modulated to track a constant pressure differential
+at the boundaries of the injection unit.
+That model is used to construct some example models within
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialInjectionTwoWay;

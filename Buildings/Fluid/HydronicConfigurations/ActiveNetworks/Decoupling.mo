@@ -229,7 +229,7 @@ primary circuit.
 The fixed bypass prevents the primary pressure differential from being
 transmitted to the consumer circuit.
 This allows a proper operation of the terminal
-control valves on the consumer side 
+control valves on the consumer side
 when the primary pressure differential is either
 too low or too high or varying too much.
 The self-acting &Delta;p control valve maintains a nearly constant
@@ -302,9 +302,9 @@ Control valve selection<br/>
 </td>
 <td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-B</sub> /
-(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>A-J</sub>)
-&asymp;  &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i><br/>
-The valve is sized with a pressure drop of <i>&Delta;p<sub>a1-b1</sub> / 2</i>
+(&Delta;p<sub>1</sub> + &Delta;p<sub>A-J</sub>)
+&asymp;  &Delta;p<sub>A-B</sub> / &Delta;p<sub>1</sub></i><br/>
+The valve is sized with a pressure drop of <i>&Delta;p<sub>1</sub> / 2</i>
 for a mass flow rate <i>5</i> to <i>10%</i> higher than <code>m2_flow_nominal</code>.
 </td>
 </tr>
@@ -365,6 +365,13 @@ see the example
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(graphics={
         Line(

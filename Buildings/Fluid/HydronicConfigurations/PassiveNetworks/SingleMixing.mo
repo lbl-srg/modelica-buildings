@@ -1,6 +1,8 @@
 within Buildings.Fluid.HydronicConfigurations.PassiveNetworks;
 model SingleMixing "Single mixing circuit"
   extends BaseClasses.SingleMixing(
+    dpPum_nominal=dp2_nominal + dpBal2_nominal +
+      max({val.dpValve_nominal + dp1_nominal, val.dp3Valve_nominal + dpBal3_nominal}),
     final dpBal1_nominal=0);
 
   annotation (
@@ -46,8 +48,8 @@ model SingleMixing "Single mixing circuit"
     Documentation(info="<html>
 <h4>Summary</h4>
 <p>
-This configuration (see schematic below) is used for variable 
-flow primary circuits and 
+This configuration (see schematic below) is used for variable
+flow primary circuits and
 either constant flow or variable flow secondary circuits that
 have a design supply temperature identical to the primary circuit
 but a varying set point during operation.
@@ -81,7 +83,7 @@ Constant or variable flow
 Typical applications
 </td>
 <td valign=\"top\">
-
+Widely used in heating applications as it is very simple to achieve.
 
 </td>
 </tr>
@@ -90,7 +92,11 @@ Typical applications
 Non-recommended applications
 </td>
 <td valign=\"top\">
-
+Low-temperature systems that would require the control valve to
+be operated on a limited opening range: use 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.DualMixing\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.DualMixing</a>
+instead.
 
 </td>
 </tr>
@@ -99,7 +105,7 @@ Non-recommended applications
 Built-in valve control options
 </td>
 <td valign=\"top\">
-
+Supply temperature
 
 </td>
 </tr>
@@ -110,8 +116,9 @@ Control valve selection<br/>
 </td>
 <td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-AB</sub> /
-(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>J-AB</sub>)</i>
-
+(&Delta;p<sub>1</sub> + &Delta;p<sub>A-AB</sub>)</i><br/>
+The control valve is sized with a pressure drop equal to the
+maximum of <i>&Delta;p<sub>1</sub></i> and <i>3e3</i>&nbsp;Pa.
 </td>
 </tr>
 <tr>
@@ -119,8 +126,11 @@ Control valve selection<br/>
 Balancing requirement
 </td>
 <td valign=\"top\">
-
-
+In most cases the bypass balancing valve is not needed.
+However, it may be needed to counter negative back pressure
+created by other served circuits, see 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop</a>.
 </td>
 </tr>
 <tr>
@@ -135,26 +145,20 @@ Control valve <code>val</code> and primary balancing valve <code>res1</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-The control valve should be sized with a pressure drop at least equal to the
-maximum of <i>&Delta;p<sub>a1-b1</sub></i> and <i>3e3</i>&nbsp;Pa.
-Its authority is 
-<i>&beta; = &Delta;p<sub>A-AB</sub> / 
-(&Delta;p<sub>A-AB</sub> + &Delta;p<sub>a1-b1</sub>)</i>.
+The parameter <code>dp1_nominal</code> stands for the potential
+primary back pressure and must be provided as an absolute value.
+By default the secondary pump is parameterized with
+a design pressure rise equal to
+<code>dp2_nominal + dpBal2_nominal +
+max({val.dpValve_nominal + dp1_nominal, val.dp3Valve_nominal + dpBal3_nominal}</code>.
 </p>
-<p>
-In most cases the bypass balancing valve is not needed.
-However, it may be needed to counter negative back pressure
-created by other served circuits.
-</p>
-<h4>
-Parameterization
-</h4>
-<p>
-By default the secondary pump is parameterized with 
-<code>m2_flow_nominal</code> and 
-<code>dp2_nominal + dpBal2_nominal + max({val.dpValve_nominal, val.dp3Valve_nominal}) + dpBal3_nominal</code>   
-at maximum speed.
-</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 
 end SingleMixing;

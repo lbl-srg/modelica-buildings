@@ -29,7 +29,7 @@ This model is almost similar to
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>
 except that a cooling system is represented,
-and the base control options uses the return temperature.
+and the valve control logic is based on the consumer return temperature.
 This model serves mostly as a reference to illustrate the
 shortcomings of this control option when used with a variable
 consumer circuit such as in
@@ -37,7 +37,24 @@ consumer circuit such as in
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn</a>.
 </p>
 <p>
-In this model the load is not met at partial 
+In this model the load is not met at partial load due to the 
+sizing of the terminal units that does not take into account
+the load diversity as required when controlling for the return temperature
+(see the explanation provided in
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>).
+In addition, the load model does not guarantee a linear variation of the load
+with the input signal in cooling mode, see
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\\\">
+Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
+This amplifies the effect of the unmet load at partial load.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end InjectionTwoWayConstantReturn;

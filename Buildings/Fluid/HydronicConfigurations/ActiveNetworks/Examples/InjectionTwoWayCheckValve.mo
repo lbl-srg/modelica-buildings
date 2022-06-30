@@ -31,5 +31,12 @@ and the time constant of the PI controller to simulate a loose control
 and trigger the check valve closing at around <i>8</i>&nbsp;h in model
 time.
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end InjectionTwoWayCheckValve;

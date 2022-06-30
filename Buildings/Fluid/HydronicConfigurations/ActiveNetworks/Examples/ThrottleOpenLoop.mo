@@ -97,9 +97,9 @@ model ThrottleOpenLoop
     timeScale=100) "Valve opening signal"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
-    k=10,
+    k=1,
     Ti=1,
-    r=MediumLiq.p_default,
+    r=1e4,
     xi_start=1)
     "Pump controller"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
@@ -119,6 +119,11 @@ model ThrottleOpenLoop
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=1)
     "Operating mode"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
+    "Returns true if enabled"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-60,60})));
 equation
   connect(con.port_b2, loa.port_a) annotation (Line(points={{4,30},{4,44},{0,44},
           {0,60}},      color={0,127,255}));
@@ -174,6 +179,10 @@ equation
           {-2,64}}, color={255,127,0}));
   connect(mode.y, loa1.mode) annotation (Line(points={{-78,80},{36,80},{36,64},
           {58,64}}, color={255,127,0}));
+  connect(mode.y, isEna.u)
+    annotation (Line(points={{-78,80},{-60,80},{-60,72}}, color={255,127,0}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{-60,48},{-60,20},{-120,20},
+          {-120,-53},{-85.2,-53}}, color={255,0,255}));
    annotation (experiment(
     StopTime=300,
     Tolerance=1e-6),
@@ -182,13 +191,10 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-The pipe pressure drop between the two consumer circuits is voluntarily
-high to showcase typical balancing issues encountered in large
-distribution systems.
-</p>
-<p>
-This model illustrates the use of a throttle circuit to modulate
-the heat flow rate transmitted to a constant load.
+This model represents a heating system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle</a>
+is used to modulate the heat flow rate transmitted to a constant load.
 Two identical secondary circuits are connected to a primary circuit
 with a variable speed pump.
 The pump speed is modulated to track a constant pressure differential
@@ -206,6 +212,11 @@ considering any load diversity.
 <li>
 Each consumer circuit is balanced at design conditions if the parameter
 <code>is_bal</code> is set to <code>true</code>.
+</li>
+<li>
+The pipe pressure drop between the two consumer circuits is voluntarily
+high to showcase typical balancing issues encountered in large
+distribution systems.
 </li>
 </ul>
 <p>
@@ -250,12 +261,12 @@ design conditions
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle</a>
 for the nomenclature):
-<i>&psi; = &Delta;p<sub>b2-a2</sub> / &Delta;p<sub>pump</sub></i>
+<i>&psi; = &Delta;p<sub>2</sub> / &Delta;p<sub>pump</sub></i>
 varying from <i>0.1</i> to <i>0.4</i>
 </li>
 <li>
 Ratio of the control valve authority:
-<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i>
+<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>1</sub></i>
 varying from <i>0.1</i> to <i>0.7</i>
 </li>
 <li>
@@ -296,6 +307,13 @@ as a function of
 and a circuit either balanced (right plot) or not (left plot).
 </i>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-140},{140,140}})));
 end ThrottleOpenLoop;

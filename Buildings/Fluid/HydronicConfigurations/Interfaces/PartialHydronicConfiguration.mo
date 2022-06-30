@@ -40,7 +40,7 @@ model PartialHydronicConfiguration
     annotation(Dialog(group="Control valve"), Evaluate=true);
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.Pump typPum=
-    Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
+    Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput
     "Type of secondary pump"
     annotation(Dialog(group="Pump"), Evaluate=true);
 
@@ -128,7 +128,7 @@ model PartialHydronicConfiguration
   replaceable parameter Movers.Data.Generic perPum
     constrainedby Movers.Data.Generic(
       pressure(
-        V_flow={0, 1, 2} * mPum_flow_nominal / 996,
+        V_flow={0, 1, 2} * mPum_flow_nominal / rho_default,
         dp={1.14, 1, 0.42} * dpPum_nominal))
     "Pump parameters"
     annotation (
@@ -288,10 +288,10 @@ model PartialHydronicConfiguration
                           port_b2.Xi_outflow)
        if show_T "Medium properties in port_b2";
 protected
-  parameter Boolean use_dp1 = true
+  parameter Boolean use_dp1
     "Set to true to enable dp1_nominal"
     annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Boolean use_dp2 = true
+  parameter Boolean use_dp2
     "Set to true to enable dp2_nominal"
     annotation(Dialog(group="Configuration"), Evaluate=true);
   parameter Buildings.Fluid.HydronicConfigurations.Types.Valve typVal
@@ -302,12 +302,12 @@ protected
     annotation(Dialog(group="Configuration"), Evaluate=true);
   final parameter Boolean have_yPum=
     typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and
-    typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
+    typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput
     "Set to true if an analog input is used for pump control"
     annotation(Dialog(group="Configuration"), Evaluate=true);
   final parameter Boolean have_y1Pum=
     typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and
-    typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
+    typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput
     "Set to true if a digital input is used for pump control"
     annotation(Dialog(group="Configuration"), Evaluate=true);
   final parameter Boolean have_yVal=
@@ -337,6 +337,11 @@ protected
   Medium.ThermodynamicState state_b2_inflow=
     Medium.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
+
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default) "Default medium density";
 
   annotation (
     Icon(

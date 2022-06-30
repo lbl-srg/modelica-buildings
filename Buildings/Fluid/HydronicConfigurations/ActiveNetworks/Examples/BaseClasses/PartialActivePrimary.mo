@@ -6,8 +6,10 @@ model PartialActivePrimary
   package MediumLiq = Buildings.Media.Water
     "Medium model for hot water";
 
-  parameter Buildings.Fluid.HydronicConfigurations.Types.Control typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
-    "Load type" annotation (Evaluate=true);
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Control
+    typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
+    "Load type"
+    annotation (Evaluate=true);
 
   parameter Integer nTer=2
     "Number of terminal units";
@@ -78,15 +80,13 @@ model PartialActivePrimary
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-80,-90})));
-  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum
-    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-      redeclare final package Medium = MediumLiq,
-      final energyDynamics=energyDynamics,
-      addPowerToMedium=false,
-      use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
-      per(
-        pressure(V_flow={0, 1, 2}*mPum_flow_nominal/996,
-        dp={1.14, 1,  0.42}*dpPum_nominal)))
+  Buildings.Fluid.HydronicConfigurations.Components.Pump pum(
+    redeclare final package Medium = MediumLiq,
+    final energyDynamics=energyDynamics,
+    addPowerToMedium=false,
+    use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    final m_flow_nominal=mPum_flow_nominal,
+    final dp_nominal=dpPum_nominal)
     "Circulation pump"
     annotation (
       choicesAllMatching=true,
@@ -147,5 +147,22 @@ equation
     annotation (Line(points={{-30,-80},{20,-80}}, color={0,127,255}));
   annotation (
   Diagram(
-      coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
+      coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
+      Documentation(info="<html>
+<p>
+This is a partial model of an active primary network
+with a replaceable pump model.
+That model is used to construct the various example models within
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples</a>.
+It can be configured to represent either a heating or a cooling system.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialActivePrimary;

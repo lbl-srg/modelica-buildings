@@ -15,7 +15,7 @@ model Pump "Container class for circulating pumps"
       final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.Pump typ=
-    Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
+    Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput
     "Type of secondary pump"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
@@ -26,9 +26,7 @@ model Pump "Container class for circulating pumps"
     enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
     Evaluate=true);
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    displayUnit="Pa",
-    start=0)
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pump head at design conditions"
     annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None));
@@ -79,7 +77,7 @@ model Pump "Container class for circulating pumps"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
     final unit="1")
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput
     "Analog control signal"
     annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
@@ -245,7 +243,7 @@ model Pump "Container class for circulating pumps"
         rotation=-90,
         origin={0,60})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1)
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant
+    if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput
     "one"
     annotation (Placement(transformation(extent={{60,70},{40,90}})));
   FixedResistances.LosslessPipe noPum(
@@ -455,7 +453,7 @@ to the parameter <code>typ</code>.</p>
 <tr>
 <td><code>y</code></td>
 <td>Real (-)</td>
-<td>Only available if <code>typMod==SingleVariable</code></td>
+<td>Only available if <code>typ==VariableInput</code></td>
 <td>Analog control signal. Whatever the type of pump model (specified with <code>typMod</code>) the container class takes a non-dimensional input between <i>0</i> and <i>1</i>.</td>
 </tr>
 <!-- ************ -->
@@ -463,7 +461,7 @@ to the parameter <code>typ</code>.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 24, 2021, by Antoine Gautier:<br/>
+June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

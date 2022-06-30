@@ -51,11 +51,12 @@ Enumeration that defines the controlled variable in case of built-in valve contr
   type Pump = enumeration(
       None
       "No pump",
-      SingleConstant
-      "Single pump - Constant speed",
-      SingleVariable
-      "Single pump - Variable speed")
-    "Enumeration to specify the type of pump" annotation (Documentation(info="<html>
+      NoVariableInput
+      "Constant input signal",
+      VariableInput
+      "Variable input signal")
+    "Enumeration to specify the type of pump"
+    annotation (Documentation(info="<html>
 <p>
 Enumeration that defines the type of pump.
 </p>
@@ -64,10 +65,10 @@ Enumeration that defines the type of pump.
     <th>Description</th></tr>
 <tr><td>None</td>
     <td>No pump</td></tr>
-<tr><td>SingleConstant</td>
-    <td>Single pump - Constant speed</td></tr>
-<tr><td>SingleVariable</td>
-    <td>Single pump - Variable speed</td></tr>
+<tr><td>NoVariableInput</td>
+<td>No variable input signal (constant set point equal to design value)</td></tr>
+<tr><td>VariableInput</td>
+<td>Variable input signal</td></tr>
 </table>
 </html>"));
   type PumpModel = enumeration(

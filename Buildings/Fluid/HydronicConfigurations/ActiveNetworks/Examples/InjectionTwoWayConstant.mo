@@ -197,8 +197,10 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model represents a heating system where an injection circuit
-with a two-way valve serves as the interface between a variable
+This model represents a heating system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>
+serves as the interface between a variable
 flow primary circuit and a constant flow secondary circuit.
 Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
@@ -213,12 +215,17 @@ Each circuit is balanced at design conditions.
 </li>
 <li>
 The pump dissipated heat is not added to the fluid.
-
+</li>
+<li>
+The consumer circuit has either a constant (supply or return) 
+temperature set point if <code>have_resT2=false</code> 
+or a temperature reset if <code>have_resT2=true</code>.
+The reset logic is based on the terminal valve opening, with the most 
+open valve being kept <i>90%</i> open.
 </li>
 </ul>
-
 <p>
-Without temperature reset (<code>have_resT2 = false</code>),
+Without temperature reset (<code>have_resT2=false</code>),
 the primary flow varies marginally with the load (see plot #8):
 for a load fraction of <i>30%</i> the normalized primary flow rate
 is about <i>60%</i>.
@@ -256,5 +263,12 @@ see
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end InjectionTwoWayConstant;

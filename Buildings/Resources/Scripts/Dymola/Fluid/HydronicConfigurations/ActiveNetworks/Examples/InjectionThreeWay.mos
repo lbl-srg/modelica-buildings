@@ -3,7 +3,7 @@ simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.In
 createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "T1Sup.T", "T1Ret.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
 
-createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.pum.m_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
+createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.mPum_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
 
 createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
 
@@ -16,10 +16,10 @@ q_flow_nom = readTrajectory("InjectionThreeWay.mat", {"loa.Q_flow_nominal"}, 1);
 q1_flow_nom = readTrajectory("InjectionThreeWay.mat", {"loa1.Q_flow_nominal"}, 1);
 TEnt_nom = readTrajectory("InjectionThreeWay.mat", {"loa1.TLiqEnt_nominal"}, 1);
 TLvg_nom = readTrajectory("InjectionThreeWay.mat", {"loa1.TLiqLvg_nominal"}, 1);
-mPri_flow_nom = readTrajectory("InjectionThreeWay.mat", {"con.m1_flow_nominal"}, 1);
-mSec_flow_nom = readTrajectory("InjectionThreeWay.mat", {"con.m2_flow_nominal"}, 1);
+m1_flow_nom = readTrajectory("InjectionThreeWay.mat", {"con.m1_flow_nominal"}, 1);
+m2_flow_nom = readTrajectory("InjectionThreeWay.mat", {"con.m2_flow_nominal"}, 1);
 dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
-dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
+dTPri_nom = dT_nom * m2_flow_nom[1,1] / m1_flow_nom[1,1];
 q_flow = readTrajectory("InjectionThreeWay.mat", {"loa.Q_flow"}, nPoints);
 q1_flow = readTrajectory("InjectionThreeWay.mat", {"loa1.Q_flow"}, nPoints);
 dT = readTrajectory("InjectionThreeWay.mat", {"dT1.y"}, nPoints);
@@ -36,4 +36,4 @@ mPum_flow_nom = readTrajectory("InjectionThreeWay.mat", {"mPum_flow_nominal"}, 1
 m2_flow = readTrajectory("InjectionThreeWay.mat", {"con.pum.m_flow"}, nPoints);
 createPlot(id=7, position={1157, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="m_flow/m_flow_nominal [-]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
 plotArray(ratQTot_flow, mPum_flow[1] / mPum_flow_nom[1,1], id=7, erase=false, legend="Primary circuit", pattern=LinePattern.None, marker=MarkerStyle.Dot);
-plotArray(ratQTot_flow, m2_flow[1] / mSec_flow_nom[1,1], id=7, erase=false, legend="Consumer circuit", pattern=LinePattern.None, marker=MarkerStyle.Dot, color={238,46,47});
+plotArray(ratQTot_flow, m2_flow[1] / m2_flow_nom[1,1], id=7, erase=false, legend="Consumer circuit", pattern=LinePattern.None, marker=MarkerStyle.Dot, color={238,46,47});

@@ -153,7 +153,7 @@ initial equation
       "at design conditions to ensure an actual variable flow in the primary.");
   end if;
 
-  if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable and
+  if typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput and
     typVar==Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.ReturnTemperature then
     Modelica.Utilities.Streams.print(
       "*** Warning: In " + getInstanceName() +
@@ -343,15 +343,15 @@ equation
 <h4>Summary</h4>
 <p>
 This circuit (see schematic hereunder) is used for variable flow
-primary circuits and either constant flow or variable flow 
+primary circuits and either constant flow or variable flow
 consumer circuits.
 The fixed bypass prevents the primary pressure differential from being
 transmitted to the consumer circuit.
-This allows a proper operation of the terminal 
-control valves on the consumer side 
-when the primary pressure differential is either 
+This allows a proper operation of the terminal
+control valves on the consumer side
+when the primary pressure differential is either
 too low or too high or varying too much.
-For variable flow consumer circuits, the supply temperature set 
+For variable flow consumer circuits, the supply temperature set
 point must be different from the primary circuit.
 </p>
 <p>
@@ -368,9 +368,9 @@ Primary circuit
 </td>
 <td valign=\"top\">
 Variable flow<br/>
-(See caveats in 
+(See caveats in
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant\">
-Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>: 
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>:
 control options are critical to achieve a truly variable flow.)
 </td>
 </tr>
@@ -388,7 +388,7 @@ Typical applications
 </td>
 <td valign=\"top\">
 Consumer circuit supply temperature set point different from primary circuit<br/>
-(Otherwise use 
+(Otherwise use
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>)<br/>
 Primary pressure differential either too low or too high
@@ -423,9 +423,9 @@ Control valve selection<br/>
 (See the nomenclature in the schematic.)
 </td>
 <td valign=\"top\">
-<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>a1-b1</sub></i><br/>
-The valve is sized with a pressure drop of 
-<i>&Delta;p<sub>a1-b1</sub> / 2</i> which yields an authority of <i>0.5</i>. 
+<i>&beta; = &Delta;p<sub>A-B</sub> / &Delta;p<sub>1</sub></i><br/>
+The valve is sized with a pressure drop of
+<i>&Delta;p<sub>1</sub> / 2</i> which yields an authority of <i>0.5</i>.
 </td>
 </tr>
 <tr>
@@ -433,7 +433,7 @@ The valve is sized with a pressure drop of
 Balancing requirement
 </td>
 <td valign=\"top\">
-<code>dpBal1_nominal=dp1_nominal-dpValve_nominal</code> 
+<code>dpBal1_nominal=dp1_nominal-dpValve_nominal</code>
 for the primary design flow rate
 <i>
 m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
@@ -454,8 +454,15 @@ Control valve <code>val</code> and primary balancing valve <code>res1</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-The pressure drop through the control valve is compensated by the primary pump, 
+The pressure drop through the control valve is compensated by the primary pump,
 reducing the secondary pump head.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end InjectionTwoWay;

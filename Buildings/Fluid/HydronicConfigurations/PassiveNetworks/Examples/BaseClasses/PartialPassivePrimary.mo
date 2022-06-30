@@ -123,5 +123,21 @@ equation
     annotation (Line(points={{-10,-80},{-30,-80}}, color={0,127,255}));
   connect(m1_flow.port_a, del1.ports[1])
     annotation (Line(points={{10,-80},{20,-80}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-140,-140},{140,140}})));
+  annotation (Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),
+      Documentation(info="<html>
+<p>
+This is a partial model of a passive primary network.
+That model is used to construct the various example models within
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples</a>.
+It can be configured to represent either a heating or a cooling system.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialPassivePrimary;

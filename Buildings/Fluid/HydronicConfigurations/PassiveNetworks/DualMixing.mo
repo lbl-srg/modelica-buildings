@@ -2,7 +2,7 @@ within Buildings.Fluid.HydronicConfigurations.PassiveNetworks;
 model DualMixing "Dual mixing circuit"
   extends HydronicConfigurations.Interfaces.PartialHydronicConfiguration(
     dpValve_nominal=max(dp1_nominal, 3e3),
-    dpBal3_nominal=dpValve_nominal,
+    dpBal3_nominal=dp1_nominal+dpValve_nominal,
     dpPum_nominal=dp2_nominal + dpBal2_nominal + dpBal3_nominal,
     set(final unit="K", displayUnit="degC"),
     final dpBal1_nominal=0,
@@ -235,7 +235,7 @@ Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
 when the primary and secondary circuits have a different design supply temperature.
 Contrary to the single mixing circuit,
 the use of this configuration is restricted to constant flow secondary circuits
-due to the constraint on the fixed bypass pressure differential that must be sufficiently
+due to the constraint on the fixed bypass pressure differential that must remain sufficiently
 high.
 </p>
 <p>
@@ -267,8 +267,8 @@ Constant flow
 Typical applications
 </td>
 <td valign=\"top\">
-
-
+Consumer circuit supply temperature different from primary circuit 
+such as underfloor heating systems
 </td>
 </tr>
 <tr>
@@ -276,8 +276,8 @@ Typical applications
 Non-recommended applications
 </td>
 <td valign=\"top\">
-
-
+Applications where primary and secondary supply temperature must
+be equal as secondary flow recirculation cannot be avoided.
 </td>
 </tr>
 <tr>
@@ -285,8 +285,7 @@ Non-recommended applications
 Built-in valve control options
 </td>
 <td valign=\"top\">
-
-
+Supply temperature
 </td>
 </tr>
 <tr>
@@ -295,9 +294,12 @@ Control valve selection<br/>
 (See the nomenclature in the schematic.)
 </td>
 <td valign=\"top\">
-<i>&beta; = &Delta;p<sub>A-AB</sub> /
-(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>J-AB</sub>)</i>
-
+<i>&beta; = &Delta;p<sub>A-AB</sub> / &Delta;p<sub>K-L</sub> = 
+&Delta;p<sub>A-AB</sub> /
+(&Delta;p<sub>1</sub> + &Delta;p<sub>A-AB</sub>) </i><br/>
+The control valve is sized with a pressure drop equal to the
+maximum of <i>&Delta;p<sub>1</sub></i> and <i>3e3</i>&nbsp;Pa
+at <i>m&#775;<sub>1, design</sub></i> (see below).
 </td>
 </tr>
 <tr>
@@ -305,8 +307,23 @@ Control valve selection<br/>
 Balancing requirement
 </td>
 <td valign=\"top\">
-
-
+<p>
+The three-way valve should be fully open at design conditions.<br/>
+<code>dpBal3_nominal=dpValve_nominal+dp1_nominal</code> for a design
+flow rate in the fixed bypass equal to:
+<i>
+m&#775;<sub>3, design</sub> =
+m&#775;<sub>2, design</sub> - m&#775;<sub>1, design</sub> =
+m&#775;<sub>2, design</sub> *
+(T<sub>1, sup, design</sub> - T<sub>2, sup, design</sub>) /
+(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
+</i><br/>
+The primary design flow rate is:
+<i>
+m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
+(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) /
+(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
+</i>
 </td>
 </tr>
 <tr>
@@ -315,53 +332,12 @@ Lumped flow resistance includes<br/>
 (With the setting <code>use_lumFloRes=true</code>.)
 </td>
 <td valign=\"top\">
-Control valve <code>val</code> and primary balancing valve <code>res1</code>
+Control valve <code>val</code> only<br/>
+(So the option has no effect here: the balancing valves are always modeled as distinct flow resistances.) 
 </td>
 </tr>
 </table>
 <h4>Additional comments</h4>
-<p>
-Although this configuration may theoretically still be used
-if the primary and secondary design temperatures are equal,
-it loses its main advantage which is that the
-control valve can be sized for a lower flow rate
-<i>m&#775;<sub>1, design</sub></i>
-in the primary branch (see below) and can therefore be smaller.
-The control valve should be sized with a pressure drop at least equal to the
-maximum of <i>&Delta;p<sub>a1-b1</sub></i> and <i>3e3</i>&nbsp;Pa
-at <i>m&#775;<sub>1, design</sub></i>.
-</p>
-<p>
-The balancing procedure should ensure that the three-way valve is fully
-open at design conditions. This gives the following relationship
-between the primary and secondary mass flow rate, involving the secondary
-supply and return temperature and the primary supply temperature.
-</p>
-<p>
-<i>
-m&#775;<sub>1, design</sub> = m&#775;<sub>2, design</sub> *
-(T<sub>2, sup, design</sub> - T<sub>2, ret, design</sub>) /
-(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
-</i>
-</p>
-<p>
-The flow rate in the fixed bypass is then given by the following equation.
-</p>
-<p>
-<i>
-m&#775;<sub>3, design</sub> =
-m&#775;<sub>2, design</sub> - m&#775;<sub>1, design</sub> =
-m&#775;<sub>2, design</sub> *
-(T<sub>1, sup, design</sub> - T<sub>2, sup, design</sub>) /
-(T<sub>1, sup, design</sub> - T<sub>2, ret, design</sub>)
-</i>
-</p>
-<p>
-The model is not configured to support a primary flow rate
-equal to the secondary flow rate at design conditions and an
-error is triggered. This corresponds to the odd use case where
-the primary and secondary design temperatures are equal (see above).
-</p>
 <p>
 The bypass balancing valve works <i>together</i> with
 the secondary pump to generate the pressure differential differential at the
@@ -384,9 +360,18 @@ Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.DualMixing</a>
 for a numerical illustration of those effects.
 </p>
 <p>
-By default the secondary pump is parameterized with <code>m2_flow_nominal</code>
-and <code>dp2_nominal + dpBal2_nominal + dpBal3_nominal</code> at maximum speed.
+The parameter <code>dp1_nominal</code> stands for the potential
+primary back pressure and must be provided as an absolute value.
+By default the secondary pump is parameterized with a design pressure rise
+equal to <code>dp2_nominal + dpBal2_nominal + dpBal3_nominal</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(graphics={
         Line(

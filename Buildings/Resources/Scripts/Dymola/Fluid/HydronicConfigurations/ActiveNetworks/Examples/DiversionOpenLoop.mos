@@ -10,9 +10,8 @@ createPlot(id=3, position={1214, 15, 1184, 744}, y={"pum.dpMachine", "dp.p_rel",
 
 createPlot(id=4, position={169, 245, 1184, 744}, y={"ope.y[1]", "ope.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true);
 
-createPlot(id=5, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot});
-
 // Plot pump characteristic and design operating point
+createPlot(id=5, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot});
 nPoints = readTrajectorySize("DiversionOpenLoop.mat");
 
 dp_nom = readTrajectory("DiversionOpenLoop.mat", {"dpPum_nominal"}, 1);

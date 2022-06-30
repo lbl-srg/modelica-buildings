@@ -39,7 +39,7 @@ model ThreeWayValve "Container class for three-way valves"
     annotation(Dialog(
       enable=typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage));
 
-  parameter Real fraK(min=0, max=1) = 0.7
+  parameter Real fraK(min=0, max=1) = 1.0
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
   parameter Real[2] l(each min=0, each max=1) = {0.0001, 0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
@@ -372,10 +372,18 @@ by selecting the valve characteristic to be used based on the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic\">
 Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic</a>.
 </p>
+<p>
+The default setting for the ratio of
+the <i>Kvs</i> coefficient between the bypass branch and the
+direct branch is <code>fraK=1.0</code>, see
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves\">
+Buildings.Fluid.HydronicConfigurations.UsersGuide.ControlValves</a>
+for the justification.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 24, 2021, by Antoine Gautier:<br/>
+June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

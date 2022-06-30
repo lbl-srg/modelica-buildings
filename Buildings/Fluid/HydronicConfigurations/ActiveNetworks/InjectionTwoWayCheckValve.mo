@@ -83,7 +83,7 @@ Control valve authority<br/>
 </td>
 <td valign=\"top\">
 <i>&beta; = &Delta;p<sub>A-B</sub> /
-(&Delta;p<sub>a1-b1</sub> + &Delta;p<sub>A-J</sub>)</i><br/>
+(&Delta;p<sub>1</sub> + &Delta;p<sub>A-J</sub>)</i><br/>
 </td>
 </tr>
 </table>
@@ -111,5 +111,12 @@ The pressure drop through the check valve is compensated by the secondary pump,
 while the pressure drop through the control valve is compensated by the
 primary pump.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end InjectionTwoWayCheckValve;

@@ -134,11 +134,12 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveN
 </p>
 <p>
 This control logic intends to keep constant the difference between those two
-measurements. Note that we have:
+measurements. 
+Considering that we have:
 <i>T<sub>1, ret</sub> - T<sub>2, ret</sub> =
 (m&#775;<sub>1</sub> - m&#775;<sub>2</sub>) / m&#775;<sub>1</sub> *
 (T<sub>1, sup</sub> - T<sub>2, ret</sub>)</i>,
-so the control objective can be expressed based on the
+the control objective can be expressed based on the
 set point <i>&Delta;T<sub>set</sub></i> and the consumer circuit
 temperature differential <i>&Delta;T<sub>2</sub></i>
 (<i>&Delta;T<sub>2</sub> = T<sub>2, sup</sub> - T<sub>2, ret</sub> =
@@ -180,5 +181,12 @@ Note that the implementation of that correction is specific to
 a change-over operation and needs to be adapted for heating-only
 or cooling-only applications.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end DecouplingTemperature;

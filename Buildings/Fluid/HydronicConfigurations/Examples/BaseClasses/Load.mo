@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses;
-model Load "Model of a load on hydronic circuit"
+model Load "Model of a load on a hydronic circuit"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal);
@@ -57,15 +57,13 @@ model Load "Model of a load on hydronic circuit"
    (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-
     MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqLvg_nominal, X=MediumLiq.X_default))*
     mLiq_flow_nominal
-    "Transmitted heat flow rate at design conditions"
-    annotation(Evaluate=true);
+    "Transmitted heat flow rate at design conditions";
 
   final parameter Modelica.Units.SI.HeatFlowRate QChg_flow_nominal=
     eps_nominal
     * min({mLiq_flow_nominal * cpLiq_nominal, mAir_flow_nominal * cpAirChg_nominal})
     * (TLiqEntChg_nominal - TAirEntChg_nominal)
-    "Transmitted heat flow rate in change-over mode"
-    annotation(Evaluate=true);
+    "Transmitted heat flow rate in change-over mode";
 
   final parameter Modelica.Units.SI.Temperature TAirLvgChg_nominal=
     TAirEntChg_nominal + QChg_flow_nominal / cpAirChg_nominal / mAir_flow_nominal
@@ -475,24 +473,41 @@ equation
           thickness=0.5,
           pattern=LinePattern.Dot)}),
     Documentation(info="<html>
-<ul>
-<li>
-Heat exchanger modeled in steady-state by default
-(dynamics may be reintroduced with the parameter 
-<code>energyDynamics</code>)
-</li>
-<li>
-Zero pressure drop on load side and source side
-</li>
-<li>
-Constant flow rate on load side
-</li>
-<li>
-Constant load side inlet conditions: load modulated by set point variation.
-In steady-state conditions, the model provides zero load for <code>u = 0</code>
-and the design load for <code>u = 1</code>.
+<p>
+This model represents a thermal load on a hydronic circuit,
+typically a terminal unit with recirculating air such as
+a fan coil unit.
+It takes the fraction of the design load  <code>u</code> as input 
+and returns the control valve demand signal <code>yVal</code> as output.
+In steady-state conditions, the model provides zero load 
+for <code>u=0</code> and the design load for <code>u=1</code>.
 However, for a cooling load with condensation, the relationship between 
 <code>u</code> and the load is not linear.
+The main modeling assumptions are described below.
+</p>
+<ul>
+<li>
+The heat exchanger is modeled in steady-state by default
+(dynamics may be reintroduced with the parameter 
+<code>energyDynamics</code>).
+</li>
+<li>
+No pressure drop is considered, neither on the load side, nor
+on the source side
+(the design pressure drop on the source side may be 
+reset with the parameter <code>dpLiq_nominal</code>).
+</li>
+<li>
+The mass flow rate and the inlet conditions
+on the load side are constant.
+The load is modulated by varying the supply temperature set point.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

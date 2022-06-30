@@ -12,7 +12,7 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     annotation (Dialog(group="Controls"));
 
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con(
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
     final typCtl=typ,
     redeclare final package Medium=MediumLiq,
     final energyDynamics=energyDynamics,
@@ -34,7 +34,7 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con1(
     typPumMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head,
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleVariable,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput,
     final typCtl=typ,
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
@@ -184,13 +184,26 @@ __Dymola_Commands(file=
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Two consumer circuits operated in change-over:
-first one is constant flow,
-second one is variable flow.
+This model represents a change-over system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\\\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
+serves as the interface between a variable flow primary circuit
+at constant supply temperature and two consumer circuits:
+the first one is a constant flow circuit,
+the second one is a variable flow circuit.
+For each circuit, the secondary supply temperature is reset with an open loop,
+representing for instance a reset logic based on the outdoor air temperature.
 The pump model for the second circuit is an ideal
 &Delta;p-controlled model, its input being computed to
-mimic tracking a pressure differential set point at the
-boundaries of the terminal unit.
+mimic the tracking of a pressure differential at the boundaries 
+of the terminal unit.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SingleMixing;

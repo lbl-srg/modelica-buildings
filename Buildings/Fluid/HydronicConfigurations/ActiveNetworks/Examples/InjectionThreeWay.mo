@@ -9,14 +9,15 @@ model InjectionThreeWay
     TLiqLvg_nominal=TLiqEnt_nominal-5,
     TLiqSup_nominal=60+273.15,
     dpPum_nominal=(dpPip_nominal + con.dpValve_nominal) * kSizPum,
-    del1(nPorts=2));
+    del1(nPorts=2),
+    pum(typ=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput));
 
   parameter Real kSizBal(final min=0) = 0.5
     "Sizing factor for primary balancing valve (1 means balanced)"
     annotation(Dialog(group="Configuration"));
 
   Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay con(
-    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.SingleConstant,
+    typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
     redeclare final package Medium = MediumLiq,
     use_lumFloRes=false,
     typCtl=typ,
@@ -83,23 +84,11 @@ model InjectionThreeWay
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,60})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal rea
-    "Convert signal into real"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-38,-20})));
-  Buildings.Controls.OBC.CDL.Integers.Min min
-    "Min with 1"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,-20})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
-    final k=1)
-    "One"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(final t=Controls.OperatingModes.disabled)
+    "Returns true if enabled"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-80,-20})));
 equation
   connect(con.port_b1, dp.port_b) annotation (Line(points={{16,0},{20,0},{20,
           -40}},     color={0,127,255}));
@@ -118,9 +107,6 @@ equation
           18},{-2,18}}, color={255,127,0}));
   connect(T2Set.y, con.set) annotation (Line(points={{-58,60},{-40,60},{-40,6},{
           -2,6}},   color={0,0,127}));
-  connect(min.y, rea.u)
-    annotation (Line(points={{-58,-20},{-50,-20}},
-                                               color={255,127,0}));
   connect(con.port_b2, loa.port_a) annotation (Line(points={{4,20},{0,20},{0,40},
           {20,40},{20,70}},
                         color={0,127,255}));
@@ -135,18 +121,14 @@ equation
           -40}},    color={0,127,255}));
   connect(dp.port_b, del1.ports[2])
     annotation (Line(points={{20,-40},{20,-80}},  color={0,127,255}));
-  connect(rea.y, pum.y) annotation (Line(points={{-26,-20},{-20,-20},{-20,-40},{
-          -80,-40},{-80,-48}},
-                             color={0,0,127}));
-  connect(mode.y[1], min.u1) annotation (Line(points={{-98,20},{-90,20},{-90,-14},
-          {-82,-14}}, color={255,127,0}));
-  connect(one.y, min.u2)
-    annotation (Line(points={{-98,-20},{-90,-20},{-90,-26},{-82,-26}},
-                                                   color={255,127,0}));
   connect(mode.y[1], loa.mode) annotation (Line(points={{-98,20},{-20,20},{-20,
           74},{18,74}}, color={255,127,0}));
   connect(mode.y[1], loa1.mode) annotation (Line(points={{-98,20},{-20,20},{-20,
           50},{60,50},{60,74},{78,74}}, color={255,127,0}));
+  connect(mode.y[1], isEna.u)
+    annotation (Line(points={{-98,20},{-80,20},{-80,-8}}, color={255,127,0}));
+  connect(isEna.y, pum.y1) annotation (Line(points={{-80,-32},{-80,-40},{-92,
+          -40},{-92,-53},{-85.2,-53}}, color={255,0,255}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
@@ -155,28 +137,33 @@ equation
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates the use of an injection circuit with a three-way valve
-that serves as the interface between a constant flow primary circuit at constant
+This model represents a heating system where the configuration
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay</a>
+serves as the interface between a constant flow primary circuit at constant
 supply temperature and a constant flow secondary circuit at variable supply
 temperature.
+The secondary supply temperature is reset with an open loop,
+representing for instance a reset logic based on the outdoor air temperature.
 Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
-The main assumptions are enumerated below.
 </p>
-<ul>
-<li>
-The design conditions are defined without considering any load diversity.
-</li>
-<li>
+<p>
 The primary side of the injection circuit is balanced at design conditions
 if <code>kSizBal=1</code>.
-Selecting a lower value of the parameter <code>kSizBal</code> illustrates 
-the operation with an oversized primary balancing valve, yielding
+Selecting a lower value of the parameter <code>kSizBal</code> illustrates
+the operation with an oversized balancing valve, yielding
 a lower pressure drop.
-One can observe the degraded &Delta;T (plot 6) and elevated mass flow rate 
-(plot 7) in the primary circuit.
+One can observe the degraded &Delta;T (plot #6) and elevated mass flow rate
+(plot #7) in the primary circuit.
 However, the operation of the consumer circuit is not disturbed:
 the set point and the loads are met.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

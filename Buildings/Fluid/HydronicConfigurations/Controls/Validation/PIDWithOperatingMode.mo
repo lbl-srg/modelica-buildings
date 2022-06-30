@@ -49,11 +49,9 @@ equation
   connect(resVal.y,intWitRes3.y_reset_in)
     annotation (Line(points={{-58,0},{48,0},{48,-48},{58,-48}},color={0,0,127}));
   connect(con.y,intWitRes1.trigger)
-    annotation (Line(points={{-58,40},{-20,40},{-20,-46},{54,-46},{54,14},{70,
-          14},{70,28}},                                                                  color={255,0,255}));
+    annotation (Line(points={{-58,40},{-20,40},{-20,14},{70,14},{70,28}},                color={255,0,255}));
   connect(con.y,intWitRes3.trigger)
-    annotation (Line(points={{-58,40},{-20,40},{-20,-16},{54,-16},{54,-56},{70,
-          -56},{70,-52}},                                                                   color={255,0,255}));
+    annotation (Line(points={{-58,40},{-20,40},{-20,-56},{70,-56},{70,-52}},                color={255,0,255}));
   connect(mode.y[1], limPIDPar.mod) annotation (Line(points={{-58,80},{14,80},
           {14,20},{24,20},{24,28}},
                                 color={255,127,0}));
@@ -73,18 +71,16 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation of the block
+This model validates the block
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.PIDWithOperatingMode\">
-Buildings.Fluid.HydronicConfigurations.Controls.PIDWithOperatingMode</a>.
-</p>
-<p>
-This model validates the controller for different settings of the control output reset.
+Buildings.Fluid.HydronicConfigurations.Controls.PIDWithOperatingMode</a>
+configured either as a PI or as a PID controller.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-June 24, 2021, by Antoine Gautier:<br/>
+June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
