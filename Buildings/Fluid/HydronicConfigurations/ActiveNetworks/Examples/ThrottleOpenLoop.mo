@@ -44,7 +44,8 @@ model ThrottleOpenLoop
       else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load
+    loa(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
     final dpLiq_nominal=dpTer_nominal,
@@ -52,9 +53,7 @@ model ThrottleOpenLoop
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
-    k=10)
-    "Load"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+    k=10) "Load" annotation (Placement(transformation(extent={{0,50},{20,70}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
@@ -68,7 +67,8 @@ model ThrottleOpenLoop
     final dpBal1_nominal=0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load
+    loa1(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
     final dpLiq_nominal=dpTer_nominal,
@@ -278,14 +278,23 @@ Balanced circuit:
 Valve mass flow rate
 </h5>
 <p>
-The overflow in the  when the valve is fully closed increases with
-<i>&psi;</i> and decreases with <i>&beta;</i>.
-It is close to <i>90%</i> for <i>&psi; = 40%</i> and <i>&beta; = 10%</i>.
+When the circuits are not balanced, Figure 1 shows that the overflow 
+through the terminal unit closest to the pump may reach <i>100%</i>
+of the design flow rate for low values of <i>&psi;</i> and <i>&beta;</i>.
 However, the concomitant flow shortage in the other terminal unit with a valve
-fully open (see Figure 2) is limited to about <i>20%</i>.
-For a valve authority of <i>&beta; = 50%</i> one may note that the flow shortage
-is below <i>10%</i>, indicating that selecting the control valve with
-a suitable authority largely dampens the impact of an unbalanced bypass.
+fully open is limited to about <i>40%</i> and the coil capacity
+is reduced by less than <i>20%</i> (see Figure 2).
+A good valve authority (higher than <i>0.5</i>) does not help improving 
+the situation.
+</p>
+<p>
+When the circuits are balanced, 
+the overflow is eliminated but the flow shortage is even higher
+(reaching <i>60%</i>) and becomes critical with respect to the coil 
+capacity that gets reduced by nearly <i>40%</i>.
+A good valve authority (higher than <i>0.5</i>) slightly helps improving 
+the situation, which remains worse than in the case of unbalanced circuits
+though.
 </p>
 <p>
 <img alt=\"Throttle circuit  flow rate\"

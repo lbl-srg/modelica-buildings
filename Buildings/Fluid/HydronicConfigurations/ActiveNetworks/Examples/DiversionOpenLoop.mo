@@ -37,7 +37,8 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final dpBal3_nominal=dpBal3_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load
+    loa(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
     final dpLiq_nominal=dpTer_nominal,
@@ -45,8 +46,7 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final mLiq_flow_nominal=mTer_flow_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
-    k=10) "Load"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+    k=10) "Load" annotation (Placement(transformation(extent={{0,50},{20,70}})));
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -63,7 +63,8 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final dpBal3_nominal=dpBal3_nominal)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load
+    loa1(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
     final dpLiq_nominal=dpTer_nominal,

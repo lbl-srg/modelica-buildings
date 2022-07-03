@@ -231,7 +231,7 @@ and primary balancing valve <code>res1</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-Some authors such as Taylor (2006) claim that variable flow circuits with variable
+Some authors such as Taylor (2002, 2017) claim that variable flow circuits with variable
 speed pumps and terminal units with two-valves should not be balanced.
 The reason is that the circuit can only be balanced at one operating point.
 At partial load, if remote consumers have a low demand while the consumers
@@ -245,6 +245,23 @@ The example
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop</a>
 allows drawing similar conclusions.
+</p>
+<h4>
+References
+</h4>
+<p>
+Taylor, S. T., 2002. 
+Balancing variable flow hydronic systems. 
+ASHRAE Journal. 
+URL: <a href=\"https://tayloreng.egnyte.com/dl/CZVS52ZTVB/ASHRAE_Journal_-_Balancing_Variable_Flow_Hydronic_Systems.pdf_\">
+https://tayloreng.egnyte.com/dl/CZVS52ZTVB/ASHRAE_Journal_-_Balancing_Variable_Flow_Hydronic_Systems.pdf_</a>
+</p>
+<p>
+Taylor, S. T., 2017. 
+Doubling down on not balancing variable flow hydronic systems. 
+ASHRAE Journal. 
+URL: <a href=\"https://tayloreng.egnyte.com/dl/W8sfOOuoni/ASHRAE_Journal_-_Doubling-Down_on_NOT_Balancing_Variable_Flow_Hydronic_Systems.pdf_\">
+https://tayloreng.egnyte.com/dl/W8sfOOuoni/ASHRAE_Journal_-_Doubling-Down_on_NOT_Balancing_Variable_Flow_Hydronic_Systems.pdf_</a>
 </p>
 </html>", revisions="<html>
 <ul>

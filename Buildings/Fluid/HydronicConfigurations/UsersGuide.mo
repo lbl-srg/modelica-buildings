@@ -446,8 +446,8 @@ which may be detrimental to the control loop stability.
 The valve authority <i>&beta;</i> is introduced as a metric of this disturbance of the
 inherent valve characteristic when the valve is integrated into a hydronic circuit.
 See
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.TwoWayValveAuthority\">
-Buildings.Fluid.HydronicConfigurations.Examples.TwoWayValveAuthority</a>
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.TwoWayOpenLoop\">
+Buildings.Fluid.HydronicConfigurations.Examples.TwoWayOpenLoop</a>
 for a numerical illustration.
 The authority is defined as the ratio between the pressure differential at
 the valve boundaries when the valve is fully open and the pressure differential at
@@ -557,13 +557,10 @@ which the pressure drop <i>&Delta;p<sub>A-B</sub>(y=100%)</i> is evaluated.
 There is some additional intricacy for evaluating
 <i>&Delta;p<sub>A-B</sub>(y=0%) = &Delta;p<sub>J-M</sub>(y=0%)</i></i>
 because that pressure drop depends on the flow rate in the bypass branch.
-The example
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop\">
-Buildings.Fluid.HydronicConfigurations.Examples.ControlValves.ThreeWayOpenLoop</a>
-shows that if the bypass branch is not balanced, the authority given by
+If the bypass branch is not balanced, the authority given by
 the above formula can virtually take any value and is no more representative
 of the valve installed characteristic.
-Contrary to the pressure drop <i>p<sub>A-B</sub>(y=100%)</i> that can be corrected
+Contrary to the pressure drop <i>&Delta;p<sub>A-B</sub>(y=100%)</i> that can be corrected
 to account for a given amount of overflow (see the definition of the practical authority)
 there is no straightforward correction term that can be formulated for the pressure drop
 <i>&Delta;p<sub>A-B</sub>(y=0%)</i>.

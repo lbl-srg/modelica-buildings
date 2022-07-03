@@ -32,8 +32,8 @@
     simulate: false
 - model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
   optimica:
-    comment: 'High solver tolerance required to avoid time out.'
-    rtol: 1.0E-8
+    comment: High solver tolerance required to avoid time out.
+    rtol: 1.0e-08
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -161,7 +161,7 @@
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
   openmodelica:
-    comment: 'simulation terminated by an assertion at initialization. (But works outside of docker, likely related with access to .mat file.)'
+    comment: simulation terminated by an assertion at initialization. (But works outside of docker, likely related with access to .mat file.)
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters
   openmodelica:
@@ -211,6 +211,26 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
+  optimica:
+    comment: The rootfinding function failed in an unrecoverable manner. At time 32431.252047.
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
+    translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: loaOpe.mode = loaOpe.loa.ctl.cha.pre_u_start...'
+    translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
+    translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
+    translate: false
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters
   openmodelica:
     comment: returned non-zero exit status 255.
@@ -308,11 +328,11 @@
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
   openmodelica:
-    comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379"
+    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case930
   openmodelica:
-    comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379"
+    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating
   optimica:
@@ -375,7 +395,7 @@
     simulate: false
 - model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
-    comment: "Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)"
+    comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
     simulate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
   optimica:

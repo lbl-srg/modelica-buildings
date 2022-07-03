@@ -23,7 +23,7 @@ model SingleMixing
     final dp1_nominal= dpPum_nominal-dpPip_nominal,
     final dp2_nominal=loa1.dpTer_nominal + loa1.dpValve_nominal + dpPip_nominal,
     final dpBal1_nominal=if is_bal then dpPum_nominal-dpPip_nominal else 0,
-    val(fraK=1))
+    val(fraK=1.0))
     "Hydronic connection"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
@@ -144,22 +144,33 @@ serves as the interface between a variable flow primary circuit
 at constant supply temperature and a constant flow secondary circuit
 at variable supply temperature.
 The primary pump is operated at constant speed so the operating point rides
-the pump chracteristic as the three-way valve closes.
+the pump characteristic as the three-way valve closes.
 The secondary supply temperature is reset with an open loop,
 representing for instance a reset logic based on the outdoor air temperature.
 Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
-The main assumptions are enumerated below.
 </p>
 <p>
-
-frak=1 otherwise cavitation when secondary pump start and control valve fully open:
-alternative is to size the pump for dpValve direct but then
-not enough head at low supply temperature set point with bypass flow.
-
+For this model to simulate properly the ratio of the <i>Kvs</i> coefficient 
+between the bypass branch and the direct branch of the control valve
+(<code>con.val.fraK</code>) must be set to <i>1</i>.
+Otherwise, if <code>con.val.fraK=0.7</code> cavitation occurs when 
+the secondary pump starts and the 
+control valve is fully open, as the secondary pump head 
+exceeds the primary pressure differential augmented by the 
+pressure drop across the direct branch of the control valve.
+Alternatively, if the pump is sized with the pressure drop across 
+the direct branch of the control valve (disregarding the higher 
+pressure drop across the bypass) it cannot provide enough head 
+at low supply temperature set point when the valve is partially closed.
 <p>
-The fact that the load is unmet for loa1 due to unbalanced bypas and overflow in
-the terminal unit loa closest to the secondary pump.
+Note that the load <code>loa1</code> is not fully met at partial load
+(see plot #4 from <i>17</i>&nbsp;h in model time) due to the unbalanced bypass
+of the terminal unit control valves.
+See
+<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\\\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>
+for further details.
 <p>
 </html>", revisions="<html>
 <ul>

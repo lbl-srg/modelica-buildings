@@ -51,7 +51,7 @@ model SingleMixing "Single mixing circuit"
 This configuration (see schematic below) is used for variable
 flow primary circuits and
 either constant flow or variable flow secondary circuits that
-have a design supply temperature identical to the primary circuit
+have a design supply temperature close or identical to the primary circuit
 but a varying set point during operation.
 The control valve should be sized with a pressure drop equal
 to the primary pressure differential.
@@ -87,7 +87,8 @@ Constant or variable flow
 Typical applications
 </td>
 <td valign=\"top\">
-
+Circuits that have a design supply temperature close or identical 
+to the primary circuit but a varying set point during operation.
 </td>
 </tr>
 <tr>
@@ -96,7 +97,16 @@ Non-recommended applications
 </td>
 <td valign=\"top\">
 Applications with a high primary pressure differential such as DHC systems
-due to the constraints on the control valve and secondary pump selection.
+due to the constraints on the control valve and secondary pump selection:
+for those applications use either
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionTwoWay</a>,
+or
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>
+in conjunction with
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>.
 </td>
 </tr>
 <tr>

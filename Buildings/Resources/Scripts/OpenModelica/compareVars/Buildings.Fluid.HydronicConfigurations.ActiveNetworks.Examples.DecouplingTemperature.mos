@@ -12,7 +12,7 @@ compareVars :=
     "con.pum.m_flow",
     "con.res3.m_flow",
     "mPum_flow_nominal",
-    "con.pum.m_flow_nominal",
+    "con.mPum_flow_nominal",
     "pum.dpMachine",
     "dp.p_rel",
     "con.val.dp",

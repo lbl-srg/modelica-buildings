@@ -226,7 +226,7 @@ open valve being kept <i>90%</i> open.
 </ul>
 <p>
 Without temperature reset (<code>have_resT2=false</code>),
-the primary flow varies marginally with the load (see plot #8):
+the primary flow variation with the load is not optimal (see plot #8):
 for a load fraction of <i>30%</i> the normalized primary flow rate
 is about <i>60%</i>.
 </p>

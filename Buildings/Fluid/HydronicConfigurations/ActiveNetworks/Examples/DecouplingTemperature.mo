@@ -163,7 +163,7 @@ potentially maxed out, trying to compensate for the vanishing
 In other words, taking the example of a heating circuit, at low
 load the control logic cannot infer that the low
 value of <i>T<sub>1, ret</sub> - T<sub>2, ret</sub></i> is due
-to a consumer circuit return temperature that is to high
+to a consumer circuit return temperature that is too high
 (as it tends towards the supply temperature).
 It will work under the assumption that <i>T<sub>1, ret</sub></i>
 is too low, and open the control valve to try and increase the

@@ -1,4 +1,4 @@
-within Buildings.Fluid.HydronicConfigurations.Examples.ControlValves;
+within Buildings.Fluid.HydronicConfigurations.Examples;
 model TwoWayOpenLoop
   "Model illustrating the concept of the authority for two-way valves and open loop control"
   extends Modelica.Icons.Example;
@@ -236,7 +236,7 @@ equation
     StopTime=100,
     Tolerance=1e-6),
     __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/Examples/ControlValves/TwoWayOpenLoop.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/Examples/TwoWayOpenLoop.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -245,7 +245,7 @@ controlled with an open loop that modulates the valve from fully
 closed to fully open position.
 The valve authority
 <i>
-&beta; = &Delta;p<sub>min</sub> / &Delta;p<sub>max</sub>
+&beta; = &Delta;p(y=100%) / &Delta;p(y=0%)
 </i>
 can be computed by dividing the pressure drop across the
 valve between those two extreme positions (see plot #2 for
@@ -311,8 +311,8 @@ is expressed as a fraction of the design flow rate, see plot #1) is then explain
 practical authority as
 <i>d(V&#775;(y) / V&#775;<sub>design</sub>) / dy =
 1 / &beta;' <sup>1/2</sup> * d(Kv(y) / Kvs) / dy</i>
-when <i>y</i> tends towards zero and where <i>Kv(y) / Kvs = f(y)</i> is the
-inherent valve characteristic.
+when <i>y</i> tends towards zero and where the function <i>Kv(y) / Kvs</i> 
+is the inherent valve characteristic.
 </li>
 </ul>
 </li>

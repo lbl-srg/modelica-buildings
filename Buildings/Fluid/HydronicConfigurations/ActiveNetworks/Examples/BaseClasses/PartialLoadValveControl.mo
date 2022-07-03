@@ -90,9 +90,10 @@ model PartialLoadValveControl
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
-    redeclare final package MediumAir=MediumAir,
-    redeclare final package MediumLiq=MediumLiq,
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load
+    loa(
+    redeclare final package MediumAir = MediumAir,
+    redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
     final mLiq_flow_nominal=mLiq_flow_nominal,
     final dpLiq_nominal=0,
@@ -106,8 +107,7 @@ model PartialLoadValveControl
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final energyDynamics=energyDynamics)
-    "Load"
+    final energyDynamics=energyDynamics) "Load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   replaceable HydronicConfigurations.Interfaces.PartialHydronicConfiguration con
     constrainedby

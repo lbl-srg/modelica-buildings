@@ -26,7 +26,7 @@ compareVars :=
     "loa1.con.val.y_actual",
     "dp2Set",
     "dp2.p_rel",
-    "con1.pum.dp_nominal",
+    "con1.dpPum_nominal",
     "con1.pum.dpMachine",
     "loa1.con.val.dp",
     "con.pum.y_actual",

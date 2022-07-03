@@ -18,8 +18,8 @@ compareVars :=
     "con1.val.m3_flow",
     "con.pum.dpMachine",
     "con1.pum.dpMachine",
-    "con.pum.dp_nominal",
-    "con1.pum.dp_nominal",
+    "con.dpPum_nominal",
+    "con1.dpPum_nominal",
     "con.pum.y_actual",
     "con1.pum.y_actual"
   };

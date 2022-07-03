@@ -1,4 +1,4 @@
-within Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses;
+within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses;
 model Load "Model of a load on a hydronic circuit"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumLiq,

@@ -30,15 +30,15 @@ model SingleMixingOpenLoop
     final dpBal3_nominal=if is_bal then res1.dp_nominal else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load
+    loa(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final dpLiq_nominal=dpTer_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal)
-    "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing con1(
     typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
@@ -53,15 +53,15 @@ model SingleMixingOpenLoop
     final dpBal3_nominal=if is_bal then res1.dp_nominal else 0)
     "Hydronic connection"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load loa1(
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load
+    loa1(
     redeclare final package MediumLiq = MediumLiq,
     final typ=typ,
     final energyDynamics=energyDynamics,
     final mLiq_flow_nominal=mTer_flow_nominal,
     final dpLiq_nominal=dpTer_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
-    final TLiqLvg_nominal=TLiqLvg_nominal)
-    "Load"
+    final TLiqLvg_nominal=TLiqLvg_nominal) "Load"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=1)
     "Operating mode"
