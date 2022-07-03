@@ -3,9 +3,9 @@ DecouplingMixing
 DecouplingTemperature
 DiversionOpenLoop
 InjectionThreeWay
+InjectionTwoWayCheckValve
 InjectionTwoWayConstant
 InjectionTwoWayConstantReturn
-InjectionTwoWayCheckValve
 InjectionTwoWayVariable
 InjectionTwoWayVariableReturn
 SingleMixing

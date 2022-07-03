@@ -154,7 +154,6 @@ model PartialHydronicConfiguration
            and (controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-  // FIXME: DynamicFixedInitial differs from MBL default DynamicFreeInitial
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
