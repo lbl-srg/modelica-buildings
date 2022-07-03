@@ -138,7 +138,7 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a heating system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.SingleMixing</a>
 serves as the interface between a variable flow primary circuit
 at constant supply temperature and a constant flow secondary circuit
@@ -151,27 +151,28 @@ Two identical terminal units are served by the secondary circuit.
 Each terminal unit has its own hourly load profile.
 </p>
 <p>
-For this model to simulate properly the ratio of the <i>Kvs</i> coefficient 
+For this model to simulate properly the ratio of the <i>Kvs</i> coefficient
 between the bypass branch and the direct branch of the control valve
 (<code>con.val.fraK</code>) must be set to <i>1</i>.
-Otherwise, if <code>con.val.fraK=0.7</code> cavitation occurs when 
-the secondary pump starts and the 
-control valve is fully open, as the secondary pump head 
-exceeds the primary pressure differential augmented by the 
+Otherwise, if <code>con.val.fraK=0.7</code> cavitation occurs when
+the secondary pump starts and the
+control valve is fully open, as the secondary pump head
+exceeds the primary pressure differential augmented by the
 pressure drop across the direct branch of the control valve.
-Alternatively, if the pump is sized with the pressure drop across 
-the direct branch of the control valve (disregarding the higher 
-pressure drop across the bypass) it cannot provide enough head 
+Alternatively, if the pump is sized with the pressure drop across
+the direct branch of the control valve (disregarding the higher
+pressure drop across the bypass) it cannot provide enough head
 at low supply temperature set point when the valve is partially closed.
+</p>
 <p>
 Note that the load <code>loa1</code> is not fully met at partial load
 (see plot #4 from <i>17</i>&nbsp;h in model time) due to the unbalanced bypass
 of the terminal unit control valves.
 See
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>
 for further details.
-<p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

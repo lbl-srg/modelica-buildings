@@ -74,7 +74,7 @@ and the consumer circuit is a variable flow circuit with
 a variable speed pump and two-way valves.
 The pump speed is modulated to track a constant pressure differential
 at the boundaries of the remote terminal unit.
-</ul>
+</p>
 <p>
 For this circuit to operate as intended, it is critical that the
 secondary supply temperature set point be different from the primary
@@ -103,7 +103,7 @@ on the primary return line.
 The fact that the load seems unmet at partial load (see plot #4) is due to the
 load model that does not guarantee a linear variation of the load
 with the input signal in cooling mode, see
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
 Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
 </p>
 </html>", revisions="<html>

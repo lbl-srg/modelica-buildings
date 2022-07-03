@@ -291,14 +291,14 @@ high.<br/>
   Documentation(info="<html>
 <h4>Control valve</h4>
 <p>
-The characteristic of the control valve can be selected 
+The characteristic of the control valve can be selected
 using the parameter <code>typCha</code>.
 The different choices are defined by the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic\">
 Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic</a>.
 </p>
 <p>
-Each model includes an automatic sizing of the control valve 
+Each model includes an automatic sizing of the control valve
 based on the considerations provided in the model documentation
 and considering the two following criteria.
 </p>
@@ -307,16 +307,16 @@ and considering the two following criteria.
 Valve authority of <i>0.5</i>.
 </li>
 <li>
-Valve design pressure drop higher than <i>3</i>&nbsp;kPa, which is 
+Valve design pressure drop higher than <i>3</i>&nbsp;kPa, which is
 considered the limit above which the valve characteristic is
 valid.
 </li>
 </ul>
 <p>
-The sizing of the control valve may be disabled by setting the 
+The sizing of the control valve may be disabled by setting the
 parameter <code>use_siz</code> to <code>false</code>.
 When disabled, the user must assign a value to <code>dpValve_nominal</code>.
-When enabled, the user must assign a value to <code>dp1_nominal</code> 
+When enabled, the user must assign a value to <code>dp1_nominal</code>
 and/or <code>dp2_nominal</code> depending on the configuration,
 respectively the pressure differential on the primary side and the pressure
 drop of the consumer circuit at design conditions.
@@ -324,13 +324,13 @@ drop of the consumer circuit at design conditions.
 <p>
 Note that the sizing rules do not take into account the discrete sizes
 of control valves.
-Those are available with <i>Kvs</i> values which increase in a geometric 
+Those are available with <i>Kvs</i> values which increase in a geometric
 progression, referred to as a Reynard series (Petitjean, 1994):
-<i>Kvs &isin; {1.0, 1.6, 2.5, 4.0, 6.3, 10.0, 16.0, ...}</i>. 
+<i>Kvs &isin; {1.0, 1.6, 2.5, 4.0, 6.3, 10.0, 16.0, ...}</i>.
 The models from this package do not take into account those discrete
-sizes but rather consider that any pressure drop can be achieved at 
+sizes but rather consider that any pressure drop can be achieved at
 design conditions.
-Additionnally, the models neither take into account the additional 
+Additionnally, the models neither take into account the additional
 pressure drop of the reducers that are needed when the valve diameter
 is lower than the pipe diameter.
 </p>
@@ -341,9 +341,9 @@ whether to include the pump in the configuration model or not, using
 the parameter <code>typPum</code> from the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.Pump\">
 Buildings.Fluid.HydronicConfigurations.Types.Pump</a>.
-When included, the user can further select the type of pump using 
+When included, the user can further select the type of pump using
 the same parameter.
-Additionally, the user can select the type of pump model with the 
+Additionally, the user can select the type of pump model with the
 parameter <code>typPumMod</code> from the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.PumpModel\">
 Buildings.Fluid.HydronicConfigurations.Types.PumpModel</a>.
@@ -353,22 +353,22 @@ Each model includes an automatic sizing of the optional distribution pump.
 By default the secondary pump is parameterized at maximum speed with
 <code>m2_flow_nominal</code> and <code>dp2_nominal</code> plus
 any additional pressure drop within the hydronic configuration.
-The sizing of the pump may be disabled by setting the 
+The sizing of the pump may be disabled by setting the
 parameter <code>use_siz</code> to <code>false</code>.
 When disabled, the user must assign a value to <code>mPum_flow_nominal</code>
 and <code>dpPum_nominal</code>,
 respectively the mass flow rate and total pressure rise at design conditions.
-When enabled, the user must assign a value to <code>dp1_nominal</code> 
+When enabled, the user must assign a value to <code>dp1_nominal</code>
 and/or <code>dp2_nominal</code> depending on the configuration,
 respectively the pressure differential on the primary side and the pressure
 drop of the consumer circuit at design conditions.
 </p>
 <p>
 A default pump characteristic is also provided, which goes through
-the design operating point and spans over 
+the design operating point and spans over
 <i>0</i> and twice the design flow rate at maximum speed.
-This default characteristic is based on a least squares 
-polynomial fit of the characteristics from 
+This default characteristic is based on a least squares
+polynomial fit of the characteristics from
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
 Buildings.Fluid.Movers.Data.Pumps.Wilo</a>,
 see Figure 1.
@@ -382,8 +382,8 @@ see Figure 1.
 <h4>Balancing valves</h4>
 <p>
 The balancing valves are configured with zero pressure drop by default.
-The user may refer to the documentation of each configuration model for 
-the specific balancing requirements, and assign the proper values to the 
+The user may refer to the documentation of each configuration model for
+the specific balancing requirements, and assign the proper values to the
 corresponding parameters.
 </p>
 <ul>
@@ -401,7 +401,7 @@ Bypass balancing valve design pressure drop: <code>dpBal3_nominal</code>
 References
 </h4>
 <p>
-Petitjean, R., 1994. Total hydronic balancing. Tour & Andersson AB, Ljung, Sweden.
+Petitjean, R., 1994. Total hydronic balancing. Tour &amp; Andersson AB, Ljung, Sweden.
 </p>
 </html>"));
   end ModelParameters;
@@ -555,7 +555,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/UsersGu
 The same caveat as in the case of two-way valves holds for the flow rate at
 which the pressure drop <i>&Delta;p<sub>A-B</sub>(y=100%)</i> is evaluated.
 There is some additional intricacy for evaluating
-<i>&Delta;p<sub>A-B</sub>(y=0%) = &Delta;p<sub>J-M</sub>(y=0%)</i></i>
+<i>&Delta;p<sub>A-B</sub>(y=0%) = &Delta;p<sub>J-M</sub>(y=0%)</i>
 because that pressure drop depends on the flow rate in the bypass branch.
 If the bypass branch is not balanced, the authority given by
 the above formula can virtually take any value and is no more representative
@@ -667,7 +667,7 @@ within this package is <code>fraK=1.0</code> unless specified otherwise.
 References
 </h4>
 <p>
-Petitjean, R., 1994. Total hydronic balancing. Tour & Andersson AB, Ljung, Sweden.
+Petitjean, R., 1994. Total hydronic balancing. Tour &amp; Andersson AB, Ljung, Sweden.
 </p>
 </html>"));
 
@@ -800,7 +800,7 @@ References
 HERZ®, 2015. Hydraulics in HVAC applications. HERZ® Armaturen GmbH.
 </p>
 <p>
-Petitjean, R., 1994. Total hydronic balancing. Tour & Andersson AB, Ljung, Sweden.
+Petitjean, R., 1994. Total hydronic balancing. Tour &amp; Andersson AB, Ljung, Sweden.
 </p>
 </html>"));
 end UsersGuide;

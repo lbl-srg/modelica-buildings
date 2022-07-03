@@ -138,7 +138,7 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a heating system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.InjectionThreeWay</a>
 serves as the interface between a constant flow primary circuit at constant
 supply temperature and a constant flow secondary circuit at variable supply

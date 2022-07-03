@@ -37,7 +37,7 @@ is composed of
 Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>
 and a diversion circuit with a three-way valve 
 that is used to modulate the flow rate through the load component.
-<p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -18,11 +18,11 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a change-over system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>
 serves as the interface between a variable flow primary circuit
 and a variable flow consumer circuit operated in change-over.
-For a given operating mode, both the primary circuit and the 
+For a given operating mode, both the primary circuit and the
 consumer circuit have a constant supply temperature.
 </p>
 <p>

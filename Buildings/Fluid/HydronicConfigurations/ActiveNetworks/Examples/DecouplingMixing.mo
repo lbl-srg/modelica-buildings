@@ -128,10 +128,10 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a cooling system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Decoupling</a>
 is used in conjunction with
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>.
 The combined configuration serves as the interface between a
 variable flow primary circuit
@@ -153,7 +153,7 @@ and avoids a reverse flow in the bypass at partial load
 due to the opposing differential pressure created by
 the decoupling configuration.
 See
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop</a>
 for further details on that behavior.
 </li>
@@ -170,7 +170,7 @@ followed by a large overshoot, and the control loop is hard to tune.
 The fact that the load seems unmet at partial load (see plot #4) is due to the
 load model that does not guarantee a linear variation of the load
 with the input signal in cooling mode, see
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
 Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
 </p>
 </html>", revisions="<html>

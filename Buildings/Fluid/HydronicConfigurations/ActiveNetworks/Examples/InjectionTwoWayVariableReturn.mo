@@ -97,7 +97,7 @@ that is an injection circuit with a two-way valve serving
 a variable flow consumer circuit, and controlled based on the
 return temperature.
 When comparing this model to
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstantReturn\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstantReturn\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstantReturn</a>
 one can notice that the design load is not met (see plot #4
 between 6h and 8h) despite the return temperature set point

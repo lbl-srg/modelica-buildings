@@ -192,7 +192,7 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a heating system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Throttle</a>
 is used to modulate the heat flow rate transmitted to a constant load.
 Two identical secondary circuits are connected to a primary circuit
@@ -278,21 +278,21 @@ Balanced circuit:
 Valve mass flow rate
 </h5>
 <p>
-When the circuits are not balanced, Figure 1 shows that the overflow 
+When the circuits are not balanced, Figure 1 shows that the overflow
 through the terminal unit closest to the pump may reach <i>100%</i>
 of the design flow rate for low values of <i>&psi;</i> and <i>&beta;</i>.
 However, the concomitant flow shortage in the other terminal unit with a valve
 fully open is limited to about <i>40%</i> and the coil capacity
 is reduced by less than <i>20%</i> (see Figure 2).
-A good valve authority (higher than <i>0.5</i>) does not help improving 
+A good valve authority (higher than <i>0.5</i>) does not help improving
 the situation.
 </p>
 <p>
-When the circuits are balanced, 
+When the circuits are balanced,
 the overflow is eliminated but the flow shortage is even higher
-(reaching <i>60%</i>) and becomes critical with respect to the coil 
+(reaching <i>60%</i>) and becomes critical with respect to the coil
 capacity that gets reduced by nearly <i>40%</i>.
-A good valve authority (higher than <i>0.5</i>) slightly helps improving 
+A good valve authority (higher than <i>0.5</i>) slightly helps improving
 the situation, which remains worse than in the case of unbalanced circuits
 though.
 </p>

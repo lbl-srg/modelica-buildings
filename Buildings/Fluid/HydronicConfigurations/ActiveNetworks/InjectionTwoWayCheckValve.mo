@@ -50,7 +50,6 @@ in the service line which degrades the &Delta;T in the distribution system.
 If used to connect a heating coil, the check valve reduces the risk
 of freezing in case of secondary pump failure.
 </p>
-</p>
 <p>
 <img alt=\"Schematic\"
 src=\"modelica://Buildings/Resources/Images/Fluid/HydronicConfigurations/ActiveNetworks/InjectionTwoWayCheckValve.png\"/>

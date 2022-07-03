@@ -251,7 +251,7 @@ and a replaceable configuration component derived from
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration\">
 Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration</a>
 that is used to modulate the flow rate through the load component.
-<p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

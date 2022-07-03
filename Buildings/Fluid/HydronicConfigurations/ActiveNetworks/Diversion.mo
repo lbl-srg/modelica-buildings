@@ -197,7 +197,7 @@ and bypass balancing valve <code>res3</code>
 <h4>Additional comments</h4>
 <p>
 See the example
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop</a>
 for additional comments regarding the need for a balanced bypass.
 </p>

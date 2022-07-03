@@ -185,7 +185,7 @@ __Dymola_Commands(file=
     Documentation(info="<html>
 <p>
 This model represents a change-over system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>
 serves as the interface between a variable flow primary circuit
 at constant supply temperature and two consumer circuits:
@@ -195,7 +195,7 @@ For each circuit, the secondary supply temperature is reset with an open loop,
 representing for instance a reset logic based on the outdoor air temperature.
 The pump model for the second circuit is an ideal
 &Delta;p-controlled model, its input being computed to
-mimic the tracking of a pressure differential at the boundaries 
+mimic the tracking of a pressure differential at the boundaries
 of the terminal unit.
 </p>
 </html>", revisions="<html>

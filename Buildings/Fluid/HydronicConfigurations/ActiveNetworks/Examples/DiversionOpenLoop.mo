@@ -154,7 +154,7 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a heating system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion\">
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Diversion</a>
 is used to modulate the heat flow rate transmitted to a constant load.
 Two identical secondary circuits are connected to a primary circuit
@@ -326,10 +326,10 @@ on Figure 4 at full opening to illustrate the impact on the coil capacity
 of the flow shortage previously discussed,
 </li>
 <li>
-on Figure 5 at <i>10%</i> opening to illustrate the linearity of the 
+on Figure 5 at <i>10%</i> opening to illustrate the linearity of the
 relationship between the transmitted heat flow rate and the valve opening
 at low load in the case of an equal percentage valve
-(where values of the heat flow rate close to <i>10%</i> of the coil 
+(where values of the heat flow rate close to <i>10%</i> of the coil
 capacity indicate a good linearity).
 </li>
 </ul>

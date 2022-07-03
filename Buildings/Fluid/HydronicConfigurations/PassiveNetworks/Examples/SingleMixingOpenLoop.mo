@@ -111,7 +111,7 @@ equation
           {58,-30}}, color={0,0,127}));
 annotation (
 experiment(
-  StopTime=300,
+  StopTime=100,
   Tolerance=1e-6),
 __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/PassiveNetworks/Examples/SingleMixingOpenLoop.mos"
@@ -122,7 +122,7 @@ This model illustrates the disturbance caused on the three-way valve
 operation by an induced negative pressure differential at the
 circuit boundaries.
 Two consumer circuits are connected to a primary loop by means of
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>.
 The primary loop is configured with a flow resistance that
 generates a negative pressure differential at the boundaries of the

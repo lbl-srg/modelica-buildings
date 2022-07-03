@@ -37,7 +37,7 @@ consumer circuit such as in
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn</a>.
 </p>
 <p>
-In this model the load is not met at partial load due to the 
+In this model the load is not met at partial load due to the
 sizing of the terminal units that does not take into account
 the load diversity as required when controlling for the return temperature
 (see the explanation provided in
@@ -45,7 +45,7 @@ the load diversity as required when controlling for the return temperature
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>).
 In addition, the load model does not guarantee a linear variation of the load
 with the input signal in cooling mode, see
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
 Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
 This amplifies the effect of the unmet load at partial load.
 </p>

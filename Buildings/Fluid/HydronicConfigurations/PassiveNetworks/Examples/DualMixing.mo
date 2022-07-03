@@ -142,7 +142,7 @@ __Dymola_Commands(file=
     Documentation(info="<html>
 <p>
 This model represents a heating system where the configuration
-<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.DualMixing\\\">
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.DualMixing\">
 Buildings.Fluid.HydronicConfigurations.PassiveNetworks.DualMixing</a>
 serves as the interface between a variable flow primary circuit
 and a constant flow secondary circuit.
@@ -155,11 +155,11 @@ if <code>kSizBal=1</code>.
 Selecting a lower value such as <code>kSizBal=0.6</code> illustrates
 the operation with an oversized balancing valve, yielding
 a lower pressure drop.
-One can observe that the secondary supply temperature set point cannot 
+One can observe that the secondary supply temperature set point cannot
 be met despite the control valve being fully open.
 The secondary distribution pump operates with sufficient head
 as the design flow rate is met in the consumer circuit.
-This is the low pressure differential at the boundaries 
+This is the low pressure differential at the boundaries
 of the control valve due to the oversized balancing valve
 that creates the primary flow shortage and prevents from
 serving the load properly.
