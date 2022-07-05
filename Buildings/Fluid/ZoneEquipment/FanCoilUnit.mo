@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment;
-model FCU_singleLayer
+model FanCoilUnit
 
   parameter Buildings.Fluid.ZoneEquipment.Types.heatingCoil heatingCoilType=Buildings.Fluid.ZoneEquipment.Types.heatingCoil.heatingHotWater
     "Type of heating coil used in the FCU";
@@ -35,7 +35,6 @@ model FCU_singleLayer
 
   parameter Modelica.Units.SI.PressureDifference dpCooCoiWat_nominal
     "Pressure difference";
-
 
 //   extends Buildings.ZoneEquipment.Baseclasses.PartialComponent(
 //     redeclare Buildings.ZoneEquipment.Components.coolingCoil coi2(
@@ -117,8 +116,8 @@ model FCU_singleLayer
     annotation (Placement(transformation(extent={{94,-190},{114,-170}}),
         iconTransformation(extent={{10,-110},{30,-90}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_CCW_inlet(redeclare package Medium =
-        MediumW)
+  Modelica.Fluid.Interfaces.FluidPort_a port_CCW_inlet(redeclare package Medium
+      = MediumW)
     annotation (Placement(transformation(extent={{134,-190},{154,-170}}),
         iconTransformation(extent={{50,-110},{70,-90}})));
 
@@ -127,8 +126,8 @@ model FCU_singleLayer
     annotation (Placement(transformation(extent={{-46,-190},{-26,-170}}),
         iconTransformation(extent={{-70,-110},{-50,-90}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_HHW_inlet(redeclare package Medium =
-        MediumW)
+  Modelica.Fluid.Interfaces.FluidPort_a port_HHW_inlet(redeclare package Medium
+      = MediumW)
     annotation (Placement(transformation(extent={{-6,-190},{14,-170}}),
         iconTransformation(extent={{-30,-110},{-10,-90}})));
 
@@ -199,11 +198,13 @@ model FCU_singleLayer
                                         "Outdoor air volume flowrate"
     annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
 
-  replaceable Fluid.Sensors.TemperatureTwoPort TOutSen(redeclare package Medium = MediumA,
+  replaceable Fluid.Sensors.TemperatureTwoPort TOutSen(redeclare package Medium
+      =                                                                           MediumA,
       m_flow_nominal=mAirOut_flow_nominal) "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{-210,-10},{-190,10}})));
 
-  replaceable Fluid.Sensors.TemperatureTwoPort TExhSen(redeclare package Medium = MediumA,
+  replaceable Fluid.Sensors.TemperatureTwoPort TExhSen(redeclare package Medium
+      =                                                                           MediumA,
       m_flow_nominal=mAirOut_flow_nominal) "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-210,-50},{-190,-30}})));
 
@@ -213,7 +214,8 @@ model FCU_singleLayer
                                         "Return air volume flow rate"
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
 
-  replaceable Fluid.Sensors.TemperatureTwoPort TMixSen(redeclare package Medium = MediumA,
+  replaceable Fluid.Sensors.TemperatureTwoPort TMixSen(redeclare package Medium
+      =                                                                           MediumA,
       m_flow_nominal=mAir_flow_nominal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 
@@ -222,8 +224,8 @@ model FCU_singleLayer
       m_flow_nominal=mAir_flow_nominal) "Mixed air volume flow rate"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}})));
 
-  replaceable Fluid.Sensors.TemperatureTwoPort TAirHea(redeclare package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal)
+  replaceable Fluid.Sensors.TemperatureTwoPort TAirHea(redeclare package Medium
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     annotation (Placement(transformation(extent={{30,-20},{50,0}})));
 
   Fluid.HeatExchangers.DryCoilCounterFlow heaCoiHHW(
@@ -311,8 +313,8 @@ model FCU_singleLayer
         rotation=90,
         origin={144,-74})));
 
-  replaceable Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal)
+  replaceable Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     annotation (Placement(transformation(extent={{240,-20},{260,0}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = MediumA,
@@ -492,4 +494,4 @@ equation
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-180},{360,
             140}})));
-end FCU_singleLayer;
+end FanCoilUnit;

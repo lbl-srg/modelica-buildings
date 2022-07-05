@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.ZoneEquipment.useCase_singleLayer", method="Cvode", tolerance=1e-6,startTime=15724800, stopTime=15897600, resultFile="FanCoilUsecase", outputInterval = 60);
+simulateModel("Buildings.Fluid.ZoneEquipment.Validation.FanCoilUnit_openLoop", method="Cvode", tolerance=1e-6,startTime=15724800, stopTime=15897600, resultFile="FanCoilUsecase", outputInterval = 60);
 
 createPlot(id=1, position={0, 0, 740, 451}, y={"TRetAir.y", "fCU_singleLayer.TRetSen.T"}, range={15720000.0, 15900000.0, 0.0, 40.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
 createPlot(id=1, position={0, 0, 740, 109}, y={"mRetAir_flow.y"}, range={15720000.0, 15900000.0, -0.5, 0.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});

@@ -1,5 +1,7 @@
-within Buildings.Fluid.ZoneEquipment;
-block useCase_singleLayer_noXInput
+within Buildings.Fluid.ZoneEquipment.Validation;
+block FanCoilUnit_openLoop
+
+  extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases "Medium model for air";
@@ -24,7 +26,7 @@ block useCase_singleLayer_noXInput
         rotation=90,
         origin={-40,-80})));
 
-  FCU_singleLayer fCU_singleLayer(
+  FanCoilUnit fCU_singleLayer(
     heatingCoilType=Buildings.Fluid.ZoneEquipment.Types.heatingCoil.heatingHotWater,
     capacityControlMethod=Buildings.Fluid.ZoneEquipment.Types.capacityControl.multispeedCyclingFanConstantWater,
     dpAirTot_nominal(displayUnit="Pa") = 100,
@@ -77,8 +79,8 @@ block useCase_singleLayer_noXInput
 
   Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
-    use_Xi_in=false,
-    p(displayUnit="Pa") = 101325 + 100,
+    use_Xi_in=true,
+    p(displayUnit="Pa") = 101325 + 75,
     use_T_in=true,
     T=279.15,
     nPorts=1) "Source for air"
@@ -86,7 +88,7 @@ block useCase_singleLayer_noXInput
 
   Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
-    p(displayUnit="Pa") = 101325 + 100,
+    p(displayUnit="Pa") = 101325 + 75,
     use_T_in=false,
     T=279.15,
     nPorts=1) "Sink for air"
@@ -217,7 +219,7 @@ block useCase_singleLayer_noXInput
   Controls.OBC.CDL.Continuous.AddParameter addPar1(p=1)
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Controls.OBC.CDL.Continuous.Sources.Constant           con1(k=1)
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
 equation
 
   connect(fCU_singleLayer.port_CCW_outlet, sinCoo.ports[1]) annotation (Line(
@@ -245,8 +247,8 @@ equation
   connect(addPar[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},
           {-16,34},{-2,34}}, color={0,0,127}));
 
-  connect(addPar[2].y, souHea.T_in) annotation (Line(points={{-58,70},{-16,70},
-          {-16,-120},{6,-120},{6,-102}},
+  connect(addPar[2].y, souHea.T_in) annotation (Line(points={{-58,70},{-16,70},{
+          -16,-120},{6,-120},{6,-102}},
                                color={0,0,127}));
 
   connect(addPar[3].y, souCoo.T_in) annotation (Line(points={{-58,70},{-16,70},{
@@ -277,24 +279,25 @@ equation
           -120},{-100,-120},{-100,-114},{-62,-114}}, color={0,0,127}));
   connect(addPar1.y, div.u2) annotation (Line(points={{-98,-140},{-70,-140},{-70,
           -126},{-62,-126}}, color={0,0,127}));
-  connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{
-          -110,0},{-110,-100},{-8,-100},{-8,-112},{2,-112},{2,-102}}, color={0,
-          0,127}));
-  connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{
-          -110,0},{-110,-100},{-8,-100},{-8,-112},{62,-112},{62,-92}}, color={0,
-          0,127}));
-  connect(con1.y, fCU_singleLayer.uCoo) annotation (Line(points={{-38,-20},{-30,
+  connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
+          {-26,26},{-2,26}}, color={0,0,127}));
+  connect(con1.y, fCU_singleLayer.uCoo) annotation (Line(points={{-48,-20},{-30,
           -20},{-30,-2},{-12,-2}}, color={0,0,127}));
-  connect(con1.y, fCU_singleLayer.uHea) annotation (Line(points={{-38,-20},{-30,
+  connect(con1.y, fCU_singleLayer.uHea) annotation (Line(points={{-48,-20},{-30,
           -20},{-30,-6},{-12,-6}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
-            -160},{160,160}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,
-            160}})),
+  connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{
+          -110,0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}}, color={
+          0,0,127}));
+  connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{
+          -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-92}}, color=
+          {0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     experiment(
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUsecase_noXInput.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUsecase.mos"
       "Simulate and plot"));
-end useCase_singleLayer_noXInput;
+end FanCoilUnit_openLoop;
