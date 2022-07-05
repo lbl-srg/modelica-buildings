@@ -43,7 +43,7 @@ block FanCoilUnit_openLoop
     mChiWat_flow_nominal=fCUSizing.mChiWat_flow_nominal,
     UACooCoi_nominal=fCUSizing.UACooCoiTot_nominal,
     dpCooCoiWat_nominal=100,
-    redeclare Fluid.Movers.Data.Pumps.customFCUFan fanPer)
+    redeclare Data.customFCUFan fanPer)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T       souCoo(
