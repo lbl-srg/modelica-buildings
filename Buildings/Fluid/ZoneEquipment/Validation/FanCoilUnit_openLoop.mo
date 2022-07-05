@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.Validation;
-block FanCoilUnit_openLoop
+model FanCoilUnit_openLoop
 
   extends Modelica.Icons.Example;
 
@@ -70,7 +70,7 @@ block FanCoilUnit_openLoop
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     columns=2:17,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -111,7 +111,7 @@ block FanCoilUnit_openLoop
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
-        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
   Modelica.Blocks.Sources.RealExpression TSupAir(y=datRea.y[4])
