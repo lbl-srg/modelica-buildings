@@ -65,7 +65,7 @@ block FanCoilUnit_openLoop
         rotation=90,
         origin={10,-90})));
 
-  Buildings.Fluid.ZoneEquipment.Data.FCUSizing3 fCUSizing
+  Buildings.Fluid.ZoneEquipment.Data.FCUSizing fCUSizing
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
