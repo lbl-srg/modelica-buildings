@@ -10,3 +10,6 @@ Buildings/Resources/src/ThermalZones/EnergyPlus*/FMUs/Zones1.fmu filter=lfs diff
 Buildings/Resources/src/ThermalZones/EnergyPlus*/FMUs/Zones3.fmu filter=lfs diff=lfs merge=lfs -text
 Buildings/Resources/bin/spawn-*/linux64/bin/spawn* filter=lfs diff=lfs merge=lfs -text
 Buildings/Resources/bin/spawn-*/win64/bin/spawn* filter=lfs diff=lfs merge=lfs -text
+Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoil.dat filter=lfs diff=lfs merge=lfs -text
+Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat filter=lfs diff=lfs merge=lfs -text
+Buildings/Resources/Data/Fluid/ZoneEquipment/fan_curve_calculations.xlsx filter=lfs diff=lfs merge=lfs -text
