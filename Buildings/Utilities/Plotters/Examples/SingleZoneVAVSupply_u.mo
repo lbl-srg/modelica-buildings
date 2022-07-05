@@ -3,7 +3,7 @@ model SingleZoneVAVSupply_u
   "Scatter plots for control signal of a single zone VAV controller from ASHRAE Guideline 36"
    extends Modelica.Icons.Example;
 
-  inner Configuration plotConfiguration(samplePeriod=0.005) "Plot configuration"
+  inner Configuration plotConfiguration(samplePeriod=1)     "Plot configuration"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract heaCooConSig
@@ -54,14 +54,13 @@ the cooling loop signal (from 0 to +1).")
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
-    duration=0.25,
+    duration=900,
     height=-1,
     offset=1) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
-    duration=0.25,
-    startTime=0.75)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(duration=900,
+      startTime=2700)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
@@ -120,7 +119,7 @@ equation
           -10,-80},{-10,-19},{-2,-19}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{140,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
-    experiment(Tolerance=1e-6, StopTime=1.0),
+    experiment(Tolerance=1e-6, StopTime=3600.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/SingleZoneVAVSupply_u.mos"
         "Simulate and plot"),
     Documentation(
