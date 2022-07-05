@@ -103,7 +103,7 @@ revisions="<html>
 <li>
 July 5, 2022, by Antoine Gautier:<br/>
 Restored the addition of heat to <code>mas.T</code>.<br/>
-This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3065\\\">#3065</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
 </li>
 <li>
 May 26, 2022, by Michael Wetter:<br/>
