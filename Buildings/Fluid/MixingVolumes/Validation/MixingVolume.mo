@@ -34,7 +34,6 @@ model MixingVolume "Test model for mixing volumes"
     V=0.1,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res2(
@@ -57,13 +56,13 @@ model MixingVolume "Test model for mixing volumes"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Fluid.Vessels.ClosedVolume vol(
     redeclare package Medium = Medium,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=0.1,
     nPorts=2,
     h_start=45300.945,
     use_portsData=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-         annotation (Placement(transformation(extent={{0,60},{22,80}})));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+         annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Utilities.Diagnostics.CheckEquality cheEqu1
     "Check for equality of results"
     annotation (Placement(transformation(extent={{156,70},{176,90}})));
@@ -82,7 +81,6 @@ model MixingVolume "Test model for mixing volumes"
     V=0.1,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,-82},{20,-62}})));
   Buildings.Fluid.FixedResistances.PressureDrop res21(
@@ -119,40 +117,40 @@ equation
   connect(zero.y, vol2.mWat_flow) annotation (Line(points={{-19,-20},{-12,-20},
           {-12,-64},{-2,-64}}, color={0,0,127}));
   connect(sou.ports[1], res1.port_a) annotation (Line(
-      points={{-50,60.6667},{-43,60.6667},{-43,60},{-36,60}},
+      points={{-50,56.6667},{-43,56.6667},{-43,60},{-36,60}},
       color={0,127,255}));
   connect(sou.ports[2], res11.port_a) annotation (Line(
       points={{-50,58},{-44,58},{-44,10},{-40,10}},
       color={0,127,255}));
   connect(sou.ports[3], res21.port_a) annotation (Line(
-      points={{-50,55.3333},{-46,55.3333},{-46,-82},{-40,-82}},
+      points={{-50,59.3333},{-46,59.3333},{-46,-82},{-40,-82}},
       color={0,127,255}));
   connect(sin.ports[1], res2.port_b) annotation (Line(
-      points={{110,60.6667},{104,60.6667},{104,60},{100,60}},
+      points={{110,56.6667},{104,56.6667},{104,60},{100,60}},
       color={0,127,255}));
   connect(sin.ports[2], res12.port_b) annotation (Line(
       points={{110,58},{104,58},{104,10},{100,10}},
       color={0,127,255}));
   connect(res22.port_b, sin.ports[3]) annotation (Line(
-      points={{100,-82},{106,-82},{106,55.3333},{110,55.3333}},
+      points={{100,-82},{106,-82},{106,59.3333},{110,59.3333}},
       color={0,127,255}));
   connect(res1.port_b, vol.ports[1]) annotation (Line(
-      points={{-16,60},{8.8,60}},
+      points={{-16,60},{9,60}},
       color={0,127,255}));
   connect(vol.ports[2], entFloRat.port_a) annotation (Line(
-      points={{13.2,60},{40,60}},
+      points={{11,60},{40,60}},
       color={0,127,255}));
   connect(res11.port_b, vol1.ports[1]) annotation (Line(
-      points={{-20,10},{8,10}},
+      points={{-20,10},{9,10}},
       color={0,127,255}));
   connect(vol1.ports[2], entFloRat1.port_a) annotation (Line(
-      points={{12,10},{40,10}},
+      points={{11,10},{40,10}},
       color={0,127,255}));
   connect(res21.port_b, vol2.ports[1]) annotation (Line(
-      points={{-20,-82},{8,-82}},
+      points={{-20,-82},{9,-82}},
       color={0,127,255}));
   connect(vol2.ports[2], entFloRat2.port_a) annotation (Line(
-      points={{12,-82},{40,-82}},
+      points={{11,-82},{40,-82}},
       color={0,127,255}));
   connect(entFloRat2.port_b, res22.port_a) annotation (Line(
       points={{60,-82},{80,-82}},

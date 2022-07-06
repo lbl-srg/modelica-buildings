@@ -47,10 +47,7 @@ model Cooling "Active beam unit for cooling"
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter MediumWat.AbsolutePressure pWatCoo_start = MediumWat.p_default
@@ -160,7 +157,6 @@ protected
     final deltaM=deltaMWat,
     final tau=tau,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=pWatCoo_start,
     final T_start=TWatCoo_start,
     final nBeams=nBeams) "Cooling beam"
@@ -210,7 +206,7 @@ equation
     annotation (Line(points={{10,60},{140,60}}, color={0,127,255}));
   connect(conCoo.Q_flow, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,
           30},{38,30}}, color={0,0,127}));
-  connect(senTemRooAir.T, conCoo.TRoo) annotation (Line(points={{-40,-40},{-50,-40},
+  connect(senTemRooAir.T, conCoo.TRoo) annotation (Line(points={{-41,-40},{-50,-40},
           {-50,54},{-12,54}}, color={0,0,127}));
 
   connect(air_a, res.port_a)
@@ -298,6 +294,12 @@ DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 March 30, 2021, by Michael Wetter:<br/>
 Added annotation <code>HideResult=true</code>.<br/>

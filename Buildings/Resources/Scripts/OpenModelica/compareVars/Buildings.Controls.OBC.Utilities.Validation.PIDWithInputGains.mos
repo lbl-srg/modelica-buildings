@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "PID.k",
+    "PIDWitInpGai.k",
+    "PID.Ti",
+    "PIDWitInpGai.Ti",
+    "PID.Td",
+    "PIDWitInpGai.Td",
+    "PID.y",
+    "PIDWitInpGai.y"
+  };

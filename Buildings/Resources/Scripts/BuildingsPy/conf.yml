@@ -1,22 +1,22 @@
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer
   openmodelica:
-    comment: returned non-zero exit status 1.
+    comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.Guideline36
   openmodelica:
-    comment: returned non-zero exit status 1.
+    comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: 'division by zero at time 6393600, (a=3.874900467232077e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: 'division by zero at time 15984000, (a=2.95791846399214e-05) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: 'division by zero at time 0, (a=2.918588003374964e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
     simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
   openmodelica:
@@ -30,6 +30,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+- model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
+  optimica:
+    comment: 'High solver tolerance required to avoid time out.'
+    rtol: 1.0E-8
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -121,21 +125,9 @@
   openmodelica:
     comment: returned non-zero exit status 1.
     simulate: false
-- model_name: Buildings.Experimental.DHC.Examples.Combined.ParallelConstantFlow
-  openmodelica:
-    comment: Dimension 1 of cooBor, 'borFie.nBor', could not be evaluated due to a cyclic dependency
-    translate: false
-- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
-  openmodelica:
-    comment: Dimension 1 of cooBor, 'borFie.nBor', could not be evaluated due to a cyclic dependency
-    translate: false
-- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
-  openmodelica:
-    comment: Dimension 1 of cooBor, 'borFie.nBor', could not be evaluated due to a cyclic dependency
-    translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
   optimica:
-    comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280)
+    comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
     simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
   openmodelica:
@@ -169,15 +161,15 @@
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
   openmodelica:
-    comment: simulation terminated by an assertion at initialization
+    comment: 'simulation terminated by an assertion at initialization. (But works outside of docker, likely related with access to .mat file.)'
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''. (But works locally)'
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_SmallScaleValidation
   openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''. (But works locally)'
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.Analytic_20Years
   openmodelica:
@@ -223,30 +215,18 @@
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3ClustersBaseCase
   openmodelica:
     comment: returned non-zero exit status 255
     simulate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.Validation.HeatingCoolingHotwaterTimeSeries_dT
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
-  optimica:
-    comment: Failed due to structural parameter, see https://github.com/lbl-srg/modelica-buildings/issues/2816
-    translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
@@ -256,13 +236,16 @@
     translate: false
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    simulate: false
+    translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.SimpleRoom
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
@@ -272,13 +255,17 @@
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   optimica:
-    simulate: false
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
+    translate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
   optimica:
@@ -290,15 +277,15 @@
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyConstructionBoundary
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyExteriorWallNoWindow
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlySurfaceBoundary
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
   openmodelica:
@@ -319,74 +306,76 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
+  openmodelica:
+    comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379"
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case930
+  openmodelica:
+    comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379"
+    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating
   optimica:
     comment: Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Spring
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
   optimica:
     rtol: 1.0e-07
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Summer
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-  optimica:
-    comment: This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635
-    simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Winter
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-  optimica:
-    comment: This causes a timeout on travis, but works locally. See https://travis-ci.com/github/lbl-srg/modelica-buildings/jobs/501193509#L635
-    simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Spring
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
   optimica:
     rtol: 1.0e-07
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Summer
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
   optimica:
     rtol: 1.0e-07
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
   optimica:
     rtol: 1.0e-07
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSpring
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSummer
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSummer
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingWinter
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
   optimica:
     comment: 'Failed with RuntimeError: Process timeout after 300 seconds. Since oct-r26446.'
     simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
   openmodelica:
     comment: returned non-zero exit status 139.
     simulate: false
 - model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
-    comment: returned non-zero exit status 139
+    comment: "Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)"
     simulate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
   optimica:
