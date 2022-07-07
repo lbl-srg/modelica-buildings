@@ -232,7 +232,9 @@ model FanCoilUnit
     m2_flow_nominal=mAir_flow_nominal,
     dp1_nominal=0,
     dp2_nominal=0,
-    UA_nominal=UAHeaCoi_nominal)                 "Hot water heating coil"
+    UA_nominal=UAHeaCoi_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                                                 "Hot water heating coil"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -254,8 +256,8 @@ model FanCoilUnit
         origin={4,-84})));
 
   replaceable Fluid.Sensors.TemperatureTwoPort THotWatRet(redeclare package
-      Medium = MediumW, m_flow_nominal=mHotWat_flow_nominal) if
-                                                         has_heatingCoilHHW
+      Medium = MediumW, m_flow_nominal=mHotWat_flow_nominal)
+                                                      if has_heatingCoilHHW
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -275,7 +277,8 @@ model FanCoilUnit
     m2_flow_nominal=mAir_flow_nominal,
     dp1_nominal=0,
     dp2_nominal=0,
-    UA_nominal=UACooCoi_nominal)
+    UA_nominal=UACooCoi_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -315,6 +318,7 @@ model FanCoilUnit
     annotation (Placement(transformation(extent={{240,-20},{260,0}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mAir_flow_nominal,
     per=fanPer,
     dp_nominal=dpAirTot_nominal + 1000)
@@ -378,8 +382,8 @@ equation
   connect(TOutSen.port_b, eco.port_Out) annotation (Line(points={{-190,0},{-180,
           0},{-180,-4}},            color={0,127,255}));
 
-  connect(out.ports[1], VAirOut_flow.port_a) annotation (Line(points={{-260,-18},
-          {-252,-18},{-252,0},{-240,0}}, color={0,127,255}));
+  connect(out.ports[1], VAirOut_flow.port_a) annotation (Line(points={{-260,-21},
+          {-252,-21},{-252,0},{-240,0}}, color={0,127,255}));
 
   connect(VAirExh_flow.port_b,TExhSen. port_a)
     annotation (Line(points={{-220,-40},{-210,-40}},
@@ -389,7 +393,7 @@ equation
           -40},{-180,-16}}, color={0,127,255}));
 
   connect(VAirExh_flow.port_a, out.ports[2]) annotation (Line(points={{-240,-40},
-          {-252,-40},{-252,-22},{-260,-22}}, color={0,127,255}));
+          {-252,-40},{-252,-19},{-260,-19}}, color={0,127,255}));
 
   connect(TMixSen.port_b,VAirMix_flow. port_a)
     annotation (Line(points={{-120,-10},{-110,-10}},

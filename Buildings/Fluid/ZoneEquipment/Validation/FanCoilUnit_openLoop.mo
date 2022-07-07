@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.Validation;
-block FanCoilUnit_openLoop
+model FanCoilUnit_openLoop
 
   extends Modelica.Icons.Example;
 
@@ -10,7 +10,6 @@ block FanCoilUnit_openLoop
 
   Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
-    p=300000,
     T=279.15,
     nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -19,7 +18,6 @@ block FanCoilUnit_openLoop
 
   Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
-    p=300000,
     T=318.15,
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -70,7 +68,7 @@ block FanCoilUnit_openLoop
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     columns=2:17,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -80,7 +78,6 @@ block FanCoilUnit_openLoop
   Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
     use_Xi_in=true,
-    p(displayUnit="Pa") = 101325 + 75,
     use_T_in=true,
     T=279.15,
     nPorts=1) "Source for air"
@@ -88,8 +85,6 @@ block FanCoilUnit_openLoop
 
   Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
-    p(displayUnit="Pa") = 101325 + 75,
-    use_T_in=false,
     T=279.15,
     nPorts=1) "Sink for air"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
@@ -111,7 +106,7 @@ block FanCoilUnit_openLoop
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
-        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
   Modelica.Blocks.Sources.RealExpression TSupAir(y=datRea.y[4])
