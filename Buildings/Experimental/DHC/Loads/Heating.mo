@@ -14,6 +14,10 @@ package Heating "Package of models for district heating loads"
           "Design domestic hot water supply flow rate of system";
         parameter Modelica.Units.SI.Temperature TDhwSet=273.15 + 40
           "Temperature setpoint of tempered doemstic hot water outlet";
+        parameter Real k(min=0) = 2 "Gain of controller";
+        parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
+                controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                controllerType == Modelica.Blocks.Types.SimpleController.PID));
         Modelica.Fluid.Interfaces.FluidPort_a port_dhw(redeclare package Medium =
               Medium) "Domestic hot water supply port" annotation (
             Placement(transformation(extent={{-210,30},{-190,50}}),
@@ -44,7 +48,9 @@ package Heating "Package of models for district heating loads"
         DomesticWaterMixer tmv(
           redeclare package Medium = Medium,
           TSet=TDhwSet,
-          mDhw_flow_nominal=mDhw_flow_nominal) "Ideal thermostatic mixing valve"
+          mDhw_flow_nominal=mDhw_flow_nominal,
+          k=k,
+          Ti=Ti)                               "Ideal thermostatic mixing valve"
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
         Modelica.Blocks.Continuous.Integrator watCon(k=-1)
                                                      "Integrated hot water consumption"
@@ -103,13 +109,17 @@ First implementation.
         replaceable package Medium = Buildings.Media.Water "Water media model";
         parameter Modelica.Units.SI.Temperature TSet = 273.15+40 "Temperature setpoint of tempered hot water outlet";
         parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal "Nominal doemstic hot water flow rate";
+        parameter Real k(min=0) = 2 "Gain of controller";
+        parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
+                controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                controllerType == Modelica.Blocks.Types.SimpleController.PID));
         Modelica.Fluid.Interfaces.FluidPort_b port_tw(redeclare package Medium =
               Medium) "Port for tempered water outlet"
           annotation (Placement(transformation(extent={{90,-10},{110,10}})));
         Buildings.Controls.Continuous.LimPID conPID(
           controllerType=Modelica.Blocks.Types.SimpleController.PI,
-          k=2,
-          Ti=15,
+          k=k,
+          Ti=Ti,
           reset=Buildings.Types.Reset.Parameter)
           annotation (Placement(transformation(extent={{40,40},{20,60}})));
         Buildings.Fluid.Sensors.TemperatureTwoPort senTemTw(redeclare package Medium =
@@ -371,6 +381,10 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal = 0.1 "Nominal mass flow rate of hot water supply";
         parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal = 1 "Nominal mass flow rate of district heating water";
         parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal = mHw_flow_nominal "Nominal mass flow rate of tempered water";
+        parameter Real k(min=0) = 2 "Gain of controller";
+        parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
+                controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                controllerType == Modelica.Blocks.Types.SimpleController.PID));
         Buildings.Fluid.Sources.Boundary_pT souDcw(
           redeclare package Medium = Medium,
           T(displayUnit = "degC") = TDcw,
@@ -394,7 +408,10 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         BaseClasses.DomesticWaterMixer tmv(
           redeclare package Medium = Medium,
           TSet(displayUnit = "degC") = TSetTw,
-          mDhw_flow_nominal=mDhw_flow_nominal) "Ideal thermostatic mixing valve"
+          mDhw_flow_nominal=mDhw_flow_nominal,
+          k=k,
+          Ti=Ti)
+                "Ideal thermostatic mixing valve"
           annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
         Modelica.Blocks.Sources.Sine sine(f=0.001,
           offset=1)
