@@ -10,7 +10,6 @@ model FanCoilUnit_openLoop
 
   Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
-    p=300000,
     T=279.15,
     nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -19,7 +18,6 @@ model FanCoilUnit_openLoop
 
   Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
-    p=300000,
     T=318.15,
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -80,7 +78,6 @@ model FanCoilUnit_openLoop
   Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
     use_Xi_in=true,
-    p(displayUnit="Pa") = 101325 + 75,
     use_T_in=true,
     T=279.15,
     nPorts=1) "Source for air"
@@ -88,8 +85,6 @@ model FanCoilUnit_openLoop
 
   Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
-    p(displayUnit="Pa") = 101325 + 75,
-    use_T_in=false,
     T=279.15,
     nPorts=1) "Sink for air"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
