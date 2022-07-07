@@ -12,6 +12,7 @@ package Heating "Package of models for district heating loads"
         replaceable package Medium = Buildings.Media.Water "Medium model for water";
         parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal
           "Design domestic hot water supply flow rate of system";
+        parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
         parameter Modelica.Units.SI.Temperature TDhwSet=273.15 + 40
           "Temperature setpoint of tempered doemstic hot water outlet";
         parameter Real k(min=0) = 2 "Gain of controller";
@@ -49,6 +50,7 @@ package Heating "Package of models for district heating loads"
           redeclare package Medium = Medium,
           TSet=TDhwSet,
           mDhw_flow_nominal=mDhw_flow_nominal,
+          dpValve_nominal=dpValve_nominal,
           k=k,
           Ti=Ti)                               "Ideal thermostatic mixing valve"
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -109,6 +111,7 @@ First implementation.
         replaceable package Medium = Buildings.Media.Water "Water media model";
         parameter Modelica.Units.SI.Temperature TSet = 273.15+40 "Temperature setpoint of tempered hot water outlet";
         parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal "Nominal doemstic hot water flow rate";
+        parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
         parameter Real k(min=0) = 2 "Gain of controller";
         parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
                 controllerType == Modelica.Blocks.Types.SimpleController.PI or
@@ -127,11 +130,14 @@ First implementation.
           annotation (Placement(transformation(extent={{20,-10},{40,10}})));
         Modelica.Blocks.Sources.Constant conTSetCon(k=TSet) "Temperature setpoint for domestic tempered water supply to consumer"
           annotation (Placement(transformation(extent={{80,40},{60,60}})));
-        IdealValve ideValHea(redeclare package Medium = Medium, final m_flow_nominal=
-              mDhw_flow_nominal) "Ideal valve" annotation (Placement(transformation(
-              extent={{-10,10},{10,-10}},
-              rotation=-90,
-              origin={0,6})));
+        Fluid.Actuators.Valves.ThreeWayLinear
+                   ideValHea(redeclare package Medium = Medium, final m_flow_nominal=
+              mDhw_flow_nominal,
+          dpValve_nominal=dpValve_nominal)
+                                 "Ideal valve" annotation (Placement(transformation(
+              extent={{10,10},{-10,-10}},
+              rotation=180,
+              origin={0,0})));
         Modelica.Fluid.Interfaces.FluidPort_a port_hw(redeclare package Medium =
               Medium) "Port for hot water supply"
           annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
@@ -156,18 +162,20 @@ First implementation.
           annotation (Line(points={{59,50},{42,50}}, color={0,0,127}));
         connect(senTemTw.T, conPID.u_m)
           annotation (Line(points={{30,11},{30,38}}, color={0,0,127}));
-        connect(ideValHea.port_2, senTemTw.port_a) annotation (Line(points={{9.8,-1.77636e-15},
-                {20,-1.77636e-15},{20,0}}, color={0,127,255}));
-        connect(conPID.y, ideValHea.y) annotation (Line(points={{19,50},{1.9984e-15,50},
-                {1.9984e-15,17}}, color={0,0,127}));
+        connect(ideValHea.port_2, senTemTw.port_a) annotation (Line(points={{10,-6.66134e-16},
+                {20,-6.66134e-16},{20,0}}, color={0,127,255}));
+        connect(conPID.y, ideValHea.y) annotation (Line(points={{19,50},{8.88178e-16,50},
+                {8.88178e-16,12}},color={0,0,127}));
         connect(senTemTw.T, TTw) annotation (Line(points={{30,11},{30,20},{90,20},{90,
                 80},{110,80}}, color={0,0,127}));
         connect(ideValHea.port_1, senTemHw.port_b)
-          annotation (Line(points={{-9.8,0},{-20,0}}, color={0,127,255}));
+          annotation (Line(points={{-10,1.77636e-15},{-10,0},{-20,0}},
+                                                      color={0,127,255}));
         connect(senTemHw.port_a, port_hw) annotation (Line(points={{-40,0},{-54,0},{-54,
                 60},{-100,60}}, color={0,127,255}));
         connect(ideValHea.port_3, senTemCw.port_b)
-          annotation (Line(points={{0,-4},{0,-60},{-20,-60}}, color={0,127,255}));
+          annotation (Line(points={{-1.77636e-15,-10},{-1.77636e-15,-60},{-20,-60}},
+                                                              color={0,127,255}));
         connect(senTemCw.port_a, port_cw)
           annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
         connect(senTemTw.port_b, senFloDhw.port_a)
@@ -381,6 +389,7 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal = 0.1 "Nominal mass flow rate of hot water supply";
         parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal = 1 "Nominal mass flow rate of district heating water";
         parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal = mHw_flow_nominal "Nominal mass flow rate of tempered water";
+        parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
         parameter Real k(min=0) = 2 "Gain of controller";
         parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
                 controllerType == Modelica.Blocks.Types.SimpleController.PI or
@@ -409,6 +418,7 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
           redeclare package Medium = Medium,
           TSet(displayUnit = "degC") = TSetTw,
           mDhw_flow_nominal=mDhw_flow_nominal,
+          dpValve_nominal=dpValve_nominal,
           k=k,
           Ti=Ti)
                 "Ideal thermostatic mixing valve"
