@@ -219,12 +219,19 @@ and it switches to <code>false</code> if <i>u<sub>1</sub> &le; u<sub>2</sub> - h
 Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u<sub>1</sub> &gt; u<sub>2</sub></i>.
 </p>
 <p>
-Enabling hysteresis can avoid frequent switching.
-Adding hysteresis is recommended in real controllers to guard against sensor noise, and
-in simulation to guard against numerical noise. Numerical noise can be present if
-an input depends on a state variable or a quantity that requires an iterative solution, such as
-a temperature or a mass flow rate of an HVAC system.
 To disable hysteresis, set <code>h=0</code>.
+</p>
+<h4>Usage</h4>
+<p>
+Enabling hysteresis can avoid frequent switching.<br/>
+In simulation, adding hysteresis is recommended to guard against numerical noise.
+Otherwise, numerical noise from a nonlinear solver or from an
+implicit time integration algorithm may cause the simulation to stall.
+Numerical noise can be present if an input depends
+on a state variable or a quantity that requires an iterative solution,
+such as a temperature or a mass flow rate of an HVAC system.<br/>
+In real controllers, adding hysteresis is recommended to guard against measurement noise.
+Otherwise, measurement noise may cause the output to change frequently.
 </p>
 </html>",
 revisions="<html>

@@ -36,6 +36,10 @@ void initialize_Spawn_EnergyPlus_9_6_0(
        Hence we cannot construct the FMU in the constructor because we don't know which
        is the last constructor to be called.
     */
+
+    /* Delete old files that were extracted from the FMU, if present */
+    delete_extracted_fmu_files(bui);
+
     loadFMU_setupExperiment_enterInitializationMode(bui, bui->time);
   }
 

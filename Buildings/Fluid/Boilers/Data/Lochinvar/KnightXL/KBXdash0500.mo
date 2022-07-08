@@ -5,7 +5,10 @@ record KBXdash0500 "Specifications for Lochinvar Knight XL KBX-0500 boiler"
     VWat = 0.018548518,
     m_flow_nominal = 3.028329,
     dp_nominal = 41845.72);
-  annotation (Documentation(info="<html>
+    annotation (
+  defaultComponentName = "per",
+  defaultComponentPrefixes = "parameter",
+  Documentation(info="<html>
 <p>
 Performance data for boiler model.
 See the documentation of
