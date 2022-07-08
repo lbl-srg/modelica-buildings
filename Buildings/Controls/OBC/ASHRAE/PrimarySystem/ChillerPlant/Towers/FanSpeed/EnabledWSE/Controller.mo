@@ -156,7 +156,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{-20,80},{20,80},{0,10},{-20,80}},
@@ -190,31 +190,31 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,100},{-50,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="chiLoa"),
         Text(
           extent={{-100,70},{-64,54}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-96,30},{-66,12}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWse"),
         Text(
           extent={{-96,-10},{-52,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uFanSpe"),
         Text(
           extent={{-96,-52},{-40,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSup"),
         Text(
           extent={{-96,-82},{-24,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSupSet"),
         Text(
           extent={{54,12},{98,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySpeSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>

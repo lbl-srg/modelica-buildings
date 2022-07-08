@@ -628,10 +628,10 @@ Icon(graphics={
         coordinateSystem(preserveAspectRatio=false, extent={{-480,-420},{480,420}}),
         graphics={Text(
           extent={{-232,102},{252,40}},
-          lineColor={127,127,127},
+          textColor={127,127,127},
           textString="Stage types: 1 - positive displacement, 2 and 3 - constant speed centrifugal"),
           Text(
           extent={{-256,-372},{308,-446}},
-          lineColor={127,127,127},
+          textColor={127,127,127},
           textString="Stage types: 1 - positive displacement, 2 - variable speed centrifugal, 3 - constant speed centrifugal")}));
 end PartLoadRatios_u_uTyp;

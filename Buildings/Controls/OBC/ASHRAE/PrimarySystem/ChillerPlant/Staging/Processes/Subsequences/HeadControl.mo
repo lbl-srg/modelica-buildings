@@ -150,7 +150,7 @@ equation
     annotation (Line(points={{-98,40},{-70,40},{-70,74},{-62,74}},
       color={255,0,255}));
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{-38,-110},{-10,-110},{-10,-101.8}},
+    annotation (Line(points={{-38,-110},{-10,-110},{-10,-102}},
       color={255,0,255}));
   connect(tim.y, greThr1.u)
     annotation (Line(points={{2,80},{20,80},{20,120},{38,120}}, color={0,0,127}));
@@ -244,36 +244,36 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,-34},{-54,-46}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="nexChaChi"),
         Text(
           extent={{-98,88},{-46,74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-100,46},{-68,36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{-98,-72},{-46,-86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiHeaCon"),
         Text(
           extent={{44,68},{96,54}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEnaHeaCon"),
         Text(
           extent={{44,-50},{96,-64}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yChiHeaCon"),
         Polygon(

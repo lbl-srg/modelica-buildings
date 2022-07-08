@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers;
 block Controller "Cooling tower controller"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -491,115 +491,115 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,248},{100,210}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,-100},{-26,-116}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowStaCha"),
         Text(
           extent={{-100,198},{-62,186}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="chiLoa",
           visible=have_WSE),
         Text(
           extent={{-98,-62},{-50,-78}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiSta"),
         Text(
           extent={{-98,-80},{-32,-98}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiStaSet"),
         Text(
           extent={{-96,-120},{-8,-136}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uLeaConWatPum"),
         Text(
           extent={{-100,-140},{-44,-156}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChaCel"),
         Text(
           extent={{48,-160},{100,-176}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yMakUp"),
         Text(
           extent={{-98,38},{-54,24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowSta"),
         Text(
           extent={{-98,18},{-68,4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uPla"),
         Text(
           extent={{-100,178},{-70,164}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-96,158},{-66,144}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWse",
           visible=have_WSE),
         Text(
           extent={{-100,138},{-50,124}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uFanSpe"),
         Text(
           extent={{-98,118},{-34,102}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSup",
           visible=have_WSE),
         Text(
           extent={{-98,80},{-34,64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
           extent={{-96,98},{-16,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSupSet"),
         Text(
           extent={{-98,60},{-14,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uMaxTowSpeSet"),
         Text(
           extent={{-96,-22},{-12,-40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-100,-2},{-36,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatRet"),
         Text(
           extent={{-98,-42},{-34,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatSup",
           visible=not closeCoupledPlant),
         Text(
           extent={{-100,-182},{-56,-196}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="watLev"),
         Text(
           extent={{-98,-160},{-54,-176}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uIsoVal"),
         Text(
           extent={{54,-100},{98,-116}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySpeSet"),
         Text(
           extent={{46,-40},{98,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yTowSta"),
         Text(
           extent={{54,58},{98,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yIsoVal"),
         Text(
           extent={{48,120},{100,104}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yLeaCel"),
         Text(
           extent={{48,180},{96,164}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yNumCel")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{100,260}})),
 Documentation(info="<html>

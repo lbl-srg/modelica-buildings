@@ -272,8 +272,8 @@ equation
     annotation (Line(points={{-138,-80},{-2,-80}}, color={255,0,255}));
   connect(uPla, booToRea.u) annotation (Line(points={{-460,160},{-400,160},{-400,
           120},{40,120},{40,10},{198,10}},      color={255,0,255}));
-  connect(or3.y, triSam1.trigger) annotation (Line(points={{242,-50},{250,-50},
-          {250,-1.8}}, color={255,0,255}));
+  connect(or3.y, triSam1.trigger) annotation (Line(points={{242,-50},{250,-50},{
+          250,-2}},    color={255,0,255}));
   connect(uPla, falEdg.u) annotation (Line(points={{-460,160},{-420,160},{-420,-20},
           {0,-20},{0,-30},{38,-30}},      color={255,0,255}));
   connect(falEdg.y, or3.u1) annotation (Line(points={{62,-30},{210,-30},{210,
@@ -287,7 +287,7 @@ equation
   connect(or1.y, staChaHol2.u) annotation (Line(points={{142,-50},{152,-50},{152,
           -24},{100,-24},{100,-10},{118,-10}}, color={255,0,255}));
   connect(staChaHol2.y, triSam.trigger) annotation (Line(points={{142,-10},{150,
-          -10},{150,48.2}}, color={255,0,255}));
+          -10},{150,48}},   color={255,0,255}));
   connect(edg1.y, or1.u1) annotation (Line(points={{22,-80},{40,-80},{40,-50},{118,
           -50}}, color={255,0,255}));
   connect(edg1.y, or3.u2) annotation (Line(points={{22,-80},{210,-80},{210,-58},
@@ -328,7 +328,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-112,150},{108,112}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-440,-300},{440,300}})),

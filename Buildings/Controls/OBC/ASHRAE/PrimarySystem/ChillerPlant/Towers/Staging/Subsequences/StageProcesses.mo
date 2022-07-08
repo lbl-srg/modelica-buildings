@@ -320,7 +320,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Check if all enabled isolation valves 
           have been fully open")}),
@@ -332,31 +332,31 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,88},{-54,76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChaCel"),
         Text(
           extent={{-100,6},{-62,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uIsoVal"),
         Text(
           extent={{-100,-74},{-56,-86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowSta"),
         Text(
           extent={{62,66},{100,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yIsoVal"),
         Text(
           extent={{56,8},{100,-4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yTowSta"),
         Text(
           extent={{56,-52},{100,-64}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yEndSta")}),
 Documentation(info="<html>
 <p>

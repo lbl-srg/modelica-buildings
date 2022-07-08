@@ -167,16 +167,19 @@ equation
           20},{-122,20}}, color={255,0,255}));
   connect(staUp.y, loaTwo.u2) annotation (Line(points={{-138,120},{-130,120},{-130,
           -20},{-122,-20}}, color={255,0,255}));
-  connect(upProCon.yChi[1], chiOneSta.u) annotation (Line(points={{42,80},{60,80},
-          {60,70},{78,70}},   color={255,0,255}));
-  connect(upProCon.yChi[2], chiTwoSta.u) annotation (Line(points={{42,82},{58,82},
-          {58,30},{78,30}}, color={255,0,255}));
+  connect(upProCon.yChi[1], chiOneSta.u) annotation (Line(points={{42,80.5},{60,
+          80.5},{60,70},{78,70}},
+                              color={255,0,255}));
+  connect(upProCon.yChi[2], chiTwoSta.u) annotation (Line(points={{42,81.5},{58,
+          81.5},{58,30},{78,30}},
+                            color={255,0,255}));
   connect(chiOneSta.y, chiLoa[1].u2) annotation (Line(points={{102,70},{130,70},
           {130,140},{138,140}},      color={255,0,255}));
   connect(chiTwoSta.y, chiLoa[2].u2) annotation (Line(points={{102,30},{132,30},
           {132,140},{138,140}}, color={255,0,255}));
-  connect(upProCon.yChiDem[2], chiTwoDem.u) annotation (Line(points={{42,116},{60,
-          116},{60,140},{78,140}}, color={0,0,127}));
+  connect(upProCon.yChiDem[2], chiTwoDem.u) annotation (Line(points={{42,115.5},
+          {60,115.5},{60,140},{78,140}},
+                                   color={0,0,127}));
   connect(chiTwoDem.y, chiLoa[2].u1) annotation (Line(points={{102,140},{120,140},
           {120,148},{138,148}},      color={0,0,127}));
   connect(chiLoa3.y, chiLoa[1].u1) annotation (Line(points={{102,170},{120,170},
@@ -190,13 +193,17 @@ equation
   connect(chiTwoDem1.y, loaTwo.u1) annotation (Line(points={{202,140},{210,140},
           {210,0},{-140,0},{-140,-12},{-122,-12}}, color={0,0,127}));
   connect(loaOne.y, upProCon.uChiLoa[1]) annotation (Line(points={{-98,20},{-60,
-          20},{-60,111},{18,111}}, color={0,0,127}));
+          20},{-60,111.5},{18,111.5}},
+                                   color={0,0,127}));
   connect(loaTwo.y, upProCon.uChiLoa[2]) annotation (Line(points={{-98,-20},{-58,
-          -20},{-58,113},{18,113}},color={0,0,127}));
+          -20},{-58,112.5},{18,112.5}},
+                                   color={0,0,127}));
   connect(chiOneSta.y, upProCon.uChi[1]) annotation (Line(points={{102,70},{130,
-          70},{130,50},{-56,50},{-56,109},{18,109}},  color={255,0,255}));
+          70},{130,50},{-56,50},{-56,109.5},{18,109.5}},
+                                                      color={255,0,255}));
   connect(chiTwoSta.y, upProCon.uChi[2]) annotation (Line(points={{102,30},{132,
-          30},{132,10},{-54,10},{-54,111},{18,111}}, color={255,0,255}));
+          30},{132,10},{-54,10},{-54,110.5},{18,110.5}},
+                                                     color={255,0,255}));
   connect(zerOpe.y, IsoValTwo.u3) annotation (Line(points={{-178,-260},{-160,-260},
           {-160,-268},{-122,-268}}, color={0,0,127}));
   connect(fulOpe.y, IsoValOne.u3) annotation (Line(points={{-178,-220},{-160,-220},
@@ -212,13 +219,14 @@ equation
   connect(zerOrdHol[2].y, IsoValTwo.u1) annotation (Line(points={{102,-180},{120,
           -180},{120,-200},{-140,-200},{-140,-252},{-122,-252}}, color={0,0,127}));
   connect(chiOneSta.y, upProCon.uChiConIsoVal[1]) annotation (Line(points={{102,70},
-          {130,70},{130,50},{-50,50},{-50,104},{18,104}},       color={255,0,255}));
+          {130,70},{130,50},{-50,50},{-50,104.5},{18,104.5}},   color={255,0,255}));
   connect(chiTwoSta.y, upProCon.uChiConIsoVal[2]) annotation (Line(points={{102,30},
-          {132,30},{132,10},{-48,10},{-48,106},{18,106}},     color={255,0,255}));
+          {132,30},{132,10},{-48,10},{-48,105.5},{18,105.5}}, color={255,0,255}));
   connect(chiOneSta.y, upProCon.uConWatReq[1]) annotation (Line(points={{102,70},
-          {130,70},{130,50},{-44,50},{-44,97},{18,97}},    color={255,0,255}));
+          {130,70},{130,50},{-44,50},{-44,97.5},{18,97.5}},color={255,0,255}));
   connect(chiTwoSta.y, upProCon.uConWatReq[2]) annotation (Line(points={{102,30},
-          {132,30},{132,10},{-42,10},{-42,99},{18,99}},   color={255,0,255}));
+          {132,30},{132,10},{-42,10},{-42,98.5},{18,98.5}},
+                                                          color={255,0,255}));
   connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-178,-180},{-40,-180},
           {-40,95},{18,95}},   color={255,0,255}));
   connect(upProCon.yDesConWatPumSpe, conPumSpeSet.u) annotation (Line(points={{42,99},
@@ -229,24 +237,29 @@ equation
           {120,-20},{120,-40},{-38,-40},{-38,92},{18,92}},      color={0,0,127}));
   connect(conPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{102,-60},
           {120,-60},{120,-80},{-36,-80},{-36,90},{18,90}},   color={0,0,127}));
-  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,
-          -100},{120,-100},{120,-116},{-32,-116},{-32,84},{18,84}},
+  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,-100},
+          {120,-100},{120,-116},{-32,-116},{-32,84.5},{18,84.5}},
                                                               color={255,0,255}));
-  connect(chiTwoHea.y, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,
-          -140},{120,-140},{120,-124},{-34,-124},{-34,86},{18,86}},
+  connect(chiTwoHea.y, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,-140},
+          {120,-140},{120,-124},{-34,-124},{-34,85.5},{18,85.5}},
                                                               color={255,0,255}));
-  connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90},
-          {50,90},{50,-100},{78,-100}}, color={255,0,255}));
-  connect(upProCon.yChiHeaCon[2], chiTwoHea.u) annotation (Line(points={{42,92},
-          {52,92},{52,-140},{78,-140}}, color={255,0,255}));
+  connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90.5},
+          {50,90.5},{50,-100},{78,-100}},
+                                        color={255,0,255}));
+  connect(upProCon.yChiHeaCon[2], chiTwoHea.u) annotation (Line(points={{42,91.5},
+          {52,91.5},{52,-140},{78,-140}},
+                                        color={255,0,255}));
   connect(IsoValOne.y, upProCon.uChiWatIsoVal[1]) annotation (Line(points={{-98,
-          -220},{-30,-220},{-30,82},{18,82}},   color={0,0,127}));
+          -220},{-30,-220},{-30,82.5},{18,82.5}},
+                                                color={0,0,127}));
   connect(IsoValTwo.y, upProCon.uChiWatIsoVal[2]) annotation (Line(points={{-98,
-          -260},{-28,-260},{-28,84},{18,84}},   color={0,0,127}));
+          -260},{-28,-260},{-28,83.5},{18,83.5}},
+                                                color={0,0,127}));
   connect(chiOneSta.y, upProCon.uChiWatReq[1]) annotation (Line(points={{102,70},
-          {130,70},{130,50},{-26,50},{-26,80},{18,80}},    color={255,0,255}));
+          {130,70},{130,50},{-26,50},{-26,80.5},{18,80.5}},color={255,0,255}));
   connect(chiTwoSta.y, upProCon.uChiWatReq[2]) annotation (Line(points={{102,30},
-          {132,30},{132,10},{-24,10},{-24,82},{18,82}},   color={255,0,255}));
+          {132,30},{132,10},{-24,10},{-24,81.5},{18,81.5}},
+                                                          color={255,0,255}));
   connect(upProCon.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{42,111},
           {48,111},{48,-220},{78,-220}},      color={0,0,127}));
   connect(chiWatFlo.y, chiWatFlo1.u3) annotation (Line(points={{-178,-60},{-160,
@@ -330,14 +343,14 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-208,294},{-160,286}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Stage up:"),
         Text(
           extent={{-196,280},{-50,272}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="from stage 1 which has small chiller one been enabled, "),
         Text(
           extent={{-196,268},{-70,254}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="to stage 2 which has large chiller 2 been enabled.")}));
 end UpWithOnOff;

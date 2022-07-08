@@ -255,14 +255,14 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-144,294},{-96,286}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Stage down:"),
         Text(
           extent={{-134,282},{26,272}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="from stage 2 which has chiller one and two enabled, "),
         Text(
           extent={{-138,270},{-36,256}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="to stage 1 which only has chiller 1.")}));
 end DownWithoutOnOff;

@@ -22,6 +22,6 @@ Central Plants and Hydronic Systems (draft version on March 23, 2020).
           radius=25.0),
       Text(
         extent={{-100,100},{100,-100}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         textString="S")}));
 end SetPoints;

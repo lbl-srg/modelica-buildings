@@ -1911,7 +1911,7 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-100,340},{100,300}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-50,160},{50,-162}},
@@ -1926,211 +1926,211 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,298},{-50,284}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiConIsoVal"),
         Text(
           extent={{-98,276},{-58,264}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiWatReq"),
         Text(
           extent={{-100,236},{-56,226}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiWatPum"),
         Text(
           extent={{-98,256},{-56,244}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uConWatReq"),
         Text(
           extent={{-100,216},{-62,206}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiIsoVal",
           visible=have_heaChiWatPum),
         Text(
           extent={{-98,178},{-50,164}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="dpChiWat_remote"),
         Text(
           extent={{-100,158},{-58,146}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="VChiWat_flow"),
         Text(
           extent={{-98,136},{-80,124}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-100,116},{-68,106}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOutWet",
           visible=have_WSE),
         Text(
           extent={{-98,98},{-50,84}},
-          lineColor={0,0,125},
+          textColor={0,0,125},
           textString="TChiWatRetDow",
           visible=have_WSE),
         Text(
           extent={{-100,76},{-60,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatRet"),
         Text(
           extent={{-100,58},{-60,42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatRet"),
         Text(
           extent={{-98,36},{-58,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSup"),
         Text(
           extent={{-98,18},{-60,4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uHeaPreCon",
           visible=have_heaPreConSig),
         Text(
           extent={{-98,-4},{-66,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uChiLoa",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-100,-24},{-64,-36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiAva"),
         Text(
           extent={{-98,-62},{-50,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uChiWatIsoVal"),
         Text(
           extent={{-98,-82},{-50,-96}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="TChiWatSupResReq"),
         Text(
           extent={{-98,-122},{-50,-136}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-98,-142},{-50,-156}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uConWatPum"),
         Text(
           extent={{-98,-162},{-78,-176}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{-98,-182},{-50,-196}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uChiCooLoa",
           visible=have_WSE),
         Text(
           extent={{-96,-204},{-64,-216}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uFanSpe"),
         Text(
           extent={{-98,-224},{-50,-238}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatSup",
           visible=not closeCoupledPlant),
         Text(
           extent={{-100,-244},{-68,-256}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uIsoVal"),
         Text(
           extent={{-98,-262},{-68,-274}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="watLev"),
         Text(
           extent={{-98,-282},{-62,-296}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowSta"),
         Text(
           extent={{50,258},{98,244}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChiWatPum",
           visible=have_heaChiWatPum),
         Text(
           extent={{76,168},{98,154}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChi"),
         Text(
           extent={{52,8},{100,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yConWatPum"),
         Text(
           extent={{62,-202},{98,-216}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yTowCel"),
         Text(
           extent={{64,-264},{98,-278}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yMakUp"),
         Text(
           extent={{52,228},{100,214}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yChiPumSpe"),
         Text(
           extent={{52,198},{100,184}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yChiDem",
           visible=need_reduceChillerDemand),
         Text(
           extent={{52,98},{100,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yHeaPreConVal"),
         Text(
           extent={{52,68},{100,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yConWatPumSpe"),
         Text(
           extent={{52,40},{100,26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yChiWatMinFloSet"),
         Text(
           extent={{52,-62},{100,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yChiWatIsoVal"),
         Text(
           extent={{52,-92},{100,-106}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yMinValPosSet"),
         Text(
           extent={{52,-172},{100,-186}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yTowCelIsoVal"),
         Text(
           extent={{52,-232},{100,-246}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yTwoFanSpe"),
         Text(
           extent={{56,-142},{98,-156}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yNumCel"),
         Text(
           extent={{52,-30},{100,-44}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yReaChiDemLim",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-98,198},{-50,184}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=have_locSenChiWatPum,
           textString="dpChiWat_local"),
         Text(
           extent={{-98,-44},{-54,-58}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiHeaCon"),
         Text(
           extent={{50,136},{98,122}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           visible=have_heaChiWatPum,
           textString="yHeaPreConValSta"),
         Text(
           extent={{48,290},{96,276}},
-          lineColor={0,0,125},
+          textColor={0,0,125},
           textString="TChiWatSupSet"),
         Text(
           extent={{-98,-104},{-70,-114}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="chiPlaReq")}),
     Diagram(coordinateSystem(extent={{-800,-840},{800,760}}), graphics={Text(
           extent={{-482,-574},{-398,-594}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="might need a pre block")}),
 Documentation(info="<html>
 <p>

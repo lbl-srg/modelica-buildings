@@ -222,12 +222,12 @@ equation
     annotation (Line(points={{2,-80},{20,-80},{20,-38},{98,-38}}, color={0,0,127}));
   connect(CWSTSpd.y, fanSpe.u[1])
     annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,
-          -118.667},{58,-118.667}},
+          -120.667},{58,-120.667}},
                           color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{22,-120},{58,-120}},color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
-    annotation (Line(points={{-200,-180},{40,-180},{40,-121.333},{58,-121.333}},
+    annotation (Line(points={{-200,-180},{40,-180},{40,-119.333},{58,-119.333}},
       color={0,0,127}));
   connect(anyProOn.y, supCon.trigger)
     annotation (Line(points={{-78,-20},{-60,-20},{-60,-50},{-16,-50},{-16,-42}},
@@ -305,7 +305,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{-20,80},{20,80},{0,10},{-20,80}},

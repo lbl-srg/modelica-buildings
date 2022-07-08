@@ -626,7 +626,7 @@ equation
         Icon(graphics={
         Text(
           extent={{-118,204},{102,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -635,7 +635,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,36},{64,-42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="PLR")}), Diagram(

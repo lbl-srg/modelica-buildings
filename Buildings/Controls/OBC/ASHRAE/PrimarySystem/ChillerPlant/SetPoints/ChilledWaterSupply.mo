@@ -140,7 +140,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water pump differential pressure setpoint"),
           Text(
@@ -148,12 +148,12 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water supply temperature setpoint")}),
   Icon(graphics={Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -188,23 +188,23 @@ annotation (
       fillPattern=FillPattern.Solid),
     Text(
       extent={{-20,-66},{22,-82}},
-      lineColor={95,95,95},
+      textColor={95,95,95},
           textString="Plant reset"),
     Text(
       extent={{14,26},{68,6}},
-      lineColor={95,95,95},
+      textColor={95,95,95},
           horizontalAlignment=TextAlignment.Right,
           textString="Temperature
 setpoint"),
     Text(
       extent={{-76,22},{-42,8}},
-      lineColor={95,95,95},
+      textColor={95,95,95},
           horizontalAlignment=TextAlignment.Right,
           textString="DP
 setpoint"),
     Text(
       extent={{-14,-56},{12,-62}},
-      lineColor={95,95,95},
+      textColor={95,95,95},
           textString="0.5")}),
 Documentation(info="<html>
 <p>

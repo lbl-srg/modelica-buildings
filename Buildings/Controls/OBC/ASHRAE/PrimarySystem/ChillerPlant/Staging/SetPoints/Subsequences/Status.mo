@@ -308,7 +308,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-420,-280},{440,280}})),

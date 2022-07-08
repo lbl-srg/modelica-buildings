@@ -194,7 +194,7 @@ annotation (
        graphics={
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -203,36 +203,36 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,-84},{-18,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-96,-54},{-18,-66}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uLeaConWatPum"),
         Text(
           extent={{-98,-12},{-72,-26}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWse",
           visible=have_WSE),
         Text(
           extent={{-98,26},{-40,14}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowStaCha"),
         Text(
           extent={{-98,66},{-44,54}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiStaSet"),
         Text(
           extent={{-100,96},{-56,84}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiSta"),
         Text(
           extent={{54,6},{98,-6}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yNumCel"),
         Text(
           extent={{56,-52},{98,-64}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yLeaCel")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-180},{260,180}}),
         graphics={
@@ -241,7 +241,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Identify total number of operation cells")}),
   Documentation(info="<html>

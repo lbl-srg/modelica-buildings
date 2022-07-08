@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
 block Down
   "Sequence for controlling devices when there is a stage-down command"
 
@@ -685,7 +685,7 @@ annotation (
         borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,240},{120,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-10,140},{10,-120}},
@@ -699,129 +699,129 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,198},{-58,186}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uStaSet"),
         Text(
           extent={{-96,148},{-26,134}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-96,126},{-60,114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiLoa",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-100,96},{-70,84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-98,76},{-44,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-100,-14},{-40,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{-100,-44},{-50,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiWatReq"),
         Text(
           extent={{-98,-62},{-48,-76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uConWatReq"),
         Text(
           extent={{-98,-92},{-44,-108}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiConIsoVal"),
         Text(
           extent={{-104,-124},{-68,-136}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWSE",
           visible=have_WSE),
         Text(
           extent={{-98,-162},{-32,-176}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPumSpe",
           visible=not have_fixSpeConWatPum),
         Text(
           extent={{-98,-140},{-26,-158}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPumSpeSet",
           visible=not have_fixSpeConWatPum),
         Text(
           extent={{60,198},{100,186}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yStaPro"),
         Text(
           extent={{60,158},{96,146}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiDem",
           visible=need_reduceChillerDemand),
         Text(
           extent={{72,126},{96,114}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChi"),
         Text(
           extent={{36,50},{96,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatIsoVal"),
         Text(
           extent={{42,8},{96,-4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yTowStaDow"),
         Text(
           extent={{48,-22},{96,-36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChiHeaCon"),
         Text(
           extent={{58,-62},{96,-74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yLeaPum"),
         Text(
           extent={{18,-104},{98,-114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yDesConWatPumSpe",
           visible=not have_fixSpeConWatPum),
         Text(
           extent={{34,-142},{96,-156}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yConWatPumNum"),
         Text(
           extent={{28,-180},{98,-194}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{40,88},{96,74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yReaDemLim",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-100,178},{-60,166}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiSet"),
         Text(
           extent={{-100,46},{-58,34}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiSta"),
         Text(
           extent={{-98,16},{-44,4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiHeaCon"),
         Text(
           extent={{-98,-182},{-42,-196}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uConWatPum",
           visible=have_fixSpeConWatPum)}),
 Documentation(info="<html>

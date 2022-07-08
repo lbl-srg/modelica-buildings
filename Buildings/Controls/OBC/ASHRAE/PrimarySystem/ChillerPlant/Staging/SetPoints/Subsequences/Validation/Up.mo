@@ -167,7 +167,7 @@ Icon(graphics={
         graphics={
         Text(
           extent={{-138,-108},{-76,-132}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests stage 0 to stage 1 enable
 based on chilled water supply
 temperature.
@@ -176,7 +176,7 @@ Other inputs are kept the same
 as in the example on the right."),
         Text(
           extent={{46,-106},{106,-128}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests stage up enable for any stage above 
 and including stage 1. In this test the plant has a WSE. 
 The same applies for any stage in case the plant does not have a WSE.")}));

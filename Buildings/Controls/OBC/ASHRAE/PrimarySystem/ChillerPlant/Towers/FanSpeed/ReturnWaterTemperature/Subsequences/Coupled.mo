@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
 block Coupled
   "Sequence of defining cooling tower fan speed when the plant is close coupled"
 
@@ -151,12 +151,12 @@ equation
     annotation (Line(points={{-38,-60},{-30,-60},{-30,-60},{-22,-60}},
       color={0,0,127}));
   connect(CWRTSpd.y, fanSpe.u[1])
-    annotation (Line(points={{102,80},{110,80},{110,40},{10,40},{10,-58.6667},{
-          18,-58.6667}},color={0,0,127}));
+    annotation (Line(points={{102,80},{110,80},{110,40},{10,40},{10,-60.6667},{
+          18,-60.6667}},color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{2,-60},{18,-60}}, color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
-    annotation (Line(points={{-140,-100},{10,-100},{10,-61.3333},{18,-61.3333}},
+    annotation (Line(points={{-140,-100},{10,-100},{10,-59.3333},{18,-59.3333}},
       color={0,0,127}));
   connect(anyProOn.y, swi.u2)
     annotation (Line(points={{-38,20},{0,20},{0,-40},{78,-40}}, color={255,0,255}));
@@ -180,7 +180,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{-20,80},{20,80},{0,10},{-20,80}},

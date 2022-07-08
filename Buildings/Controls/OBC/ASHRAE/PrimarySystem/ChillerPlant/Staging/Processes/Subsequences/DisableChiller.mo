@@ -191,7 +191,7 @@ equation
   connect(edg.y,booRep1. u)
     annotation (Line(points={{-78,70},{-62,70}}, color={255,0,255}));
   connect(booRep1.y,triSam. trigger)
-    annotation (Line(points={{-38,70},{-10,70},{-10,88.2}}, color={255,0,255}));
+    annotation (Line(points={{-38,70},{-10,70},{-10,88}},   color={255,0,255}));
   connect(triSam.y,greEquThr. u)
     annotation (Line(points={{2,100},{18,100}}, color={0,0,127}));
   connect(greEquThr.y,logSwi. u3)
@@ -282,7 +282,7 @@ equation
     annotation (Line(points={{122,-90},{140,-90},{140,-112},{158,-112}},
       color={255,0,255}));
   connect(booRep5.y, triSam1.trigger)
-    annotation (Line(points={{-98,-240},{-70,-240},{-70,-221.8}}, color={255,0,255}));
+    annotation (Line(points={{-98,-240},{-70,-240},{-70,-222}},   color={255,0,255}));
   connect(booRep4.y, logSwi6.u2)
     annotation (Line(points={{-138,-160},{0,-160},{0,-240},{98,-240}}, color={255,0,255}));
   connect(logSwi3.y, logSwi6.u1)
@@ -321,7 +321,7 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,0},{60,-80}},
@@ -345,35 +345,35 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,98},{-44,82}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexEnaChi"),
         Text(
           extent={{-98,70},{-52,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uStaDow"),
         Text(
           extent={{-96,30},{-24,10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uEnaChiWatIsoVal"),
         Text(
           extent={{-100,-14},{-78,-24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-98,-82},{-70,-94}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uOnOff"),
         Text(
           extent={{-98,-40},{-44,-56}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexDisChi"),
         Text(
           extent={{74,6},{98,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChi"),
         Text(
           extent={{44,-72},{96,-84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yReaDemLim")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
         graphics={
@@ -392,7 +392,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable small chiller"),
           Text(
@@ -400,7 +400,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable large chiller"),
           Text(
@@ -408,7 +408,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable chiller when the down-process does not require any other chiller being enabled"),
           Text(
@@ -416,7 +416,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable chiller when the down-process requires small chiller being enabled")}),
 Documentation(info="<html>

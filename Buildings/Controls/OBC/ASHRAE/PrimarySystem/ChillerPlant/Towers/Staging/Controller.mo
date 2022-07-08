@@ -137,64 +137,64 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,-44},{-56,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChaCel"),
         Text(
           extent={{-98,-64},{-62,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uIsoVal"),
         Text(
           extent={{-98,76},{-44,64}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiStaSet"),
         Text(
           extent={{-98,96},{-60,84}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiSta"),
         Text(
           extent={{-98,56},{-38,44}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowStaCha"),
         Text(
           extent={{-100,36},{-70,24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWse",
           visible=have_WSE),
         Text(
           extent={{-98,6},{-20,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uLeaConWatPum"),
         Text(
           extent={{-98,-24},{-20,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-98,-82},{-58,-96}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowSta"),
         Text(
           extent={{56,-32},{98,-44}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yTowSta"),
         Text(
           extent={{62,6},{100,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yIsoVal"),
         Text(
           extent={{60,48},{98,36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yLeaCel"),
         Text(
           extent={{56,88},{98,76}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yNumCel"),
         Text(
           extent={{58,-82},{100,-94}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yEndSta")}),
 Documentation(info="<html>
 <p>

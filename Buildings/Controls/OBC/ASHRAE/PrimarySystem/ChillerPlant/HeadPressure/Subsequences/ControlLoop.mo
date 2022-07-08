@@ -90,7 +90,7 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},

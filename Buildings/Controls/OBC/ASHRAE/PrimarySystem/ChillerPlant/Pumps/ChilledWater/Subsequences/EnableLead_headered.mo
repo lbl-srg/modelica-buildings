@@ -47,16 +47,16 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-94,12},{-40,-10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yLeaPum")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),

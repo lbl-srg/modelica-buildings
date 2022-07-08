@@ -117,7 +117,7 @@ First implementation.
         graphics={
         Text(
           extent={{40,90},{106,74}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -125,7 +125,7 @@ First implementation.
 due to inactive schedule"),
         Text(
           extent={{40,0},{98,-12}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -133,7 +133,7 @@ due to inactive schedule"),
 due to zero request"),
         Text(
           extent={{40,-82},{120,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

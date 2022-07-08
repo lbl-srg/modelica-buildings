@@ -16,11 +16,11 @@ model RP1711 "Chiller plant model with RP1711 controller"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput chiPlaReq
     "Number of chiller plant cooling requests"
     annotation (Placement(transformation(extent={{-600,-210},{-560,-170}}),
-        iconTransformation(extent={{-200,-150},{-160,-110}})));
+        iconTransformation(extent={{-200,-190},{-160,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TChiWatSupResReq
     "Chilled water supply temperature setpoint reset request"
     annotation (Placement(transformation(extent={{-600,-180},{-560,-140}}),
-        iconTransformation(extent={{-200,-180},{-160,-140}})));
+        iconTransformation(extent={{-200,-150},{-160,-110}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
     final desCap=2*chiDesCap,

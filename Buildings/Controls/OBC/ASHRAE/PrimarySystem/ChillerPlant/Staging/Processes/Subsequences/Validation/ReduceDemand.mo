@@ -80,7 +80,7 @@ equation
     annotation (Line(points={{-198,100},{-180,100},{-180,119},{-102,119}},
       color={255,0,255}));
   connect(chiDemRed.yChiDem[1], zerOrdHol.u)
-    annotation (Line(points={{-78,113},{-70,113},{-70,100},{-62,100}},
+    annotation (Line(points={{-78,113.5},{-70,113.5},{-70,100},{-62,100}},
       color={0,0,127}));
   connect(limDem.y, swi.u2)
     annotation (Line(points={{-198,100},{-180,100},{-180,60},{-162,60}},
@@ -92,10 +92,10 @@ equation
     annotation (Line(points={{-38,100},{-30,100},{-30,80},{-170,80},{-170,68},
       {-162,68}}, color={0,0,127}));
   connect(swi.y, chiDemRed.uChiLoa[1])
-    annotation (Line(points={{-138,60},{-130,60},{-130,114},{-102,114}},
+    annotation (Line(points={{-138,60},{-130,60},{-130,114.5},{-102,114.5}},
       color={0,0,127}));
   connect(zerLoa.y, chiDemRed.uChiLoa[2])
-    annotation (Line(points={{-238,20},{-126,20},{-126,116},{-102,116}},
+    annotation (Line(points={{-238,20},{-126,20},{-126,115.5},{-102,115.5}},
       color={0,0,127}));
   connect(yOpeParLoaRatMin.y, chiDemRed.yOpeParLoaRatMin)
     annotation (Line(points={{-238,-20},{-122,-20},{-122,111},{-102,111}},
@@ -107,10 +107,10 @@ equation
     annotation (Line(points={{-238,-100},{-114,-100},{-114,105},{-102,105}},
       color={255,0,255}));
   connect(chiOn.y, chiDemRed.uChi[1])
-    annotation (Line(points={{-238,-140},{-110,-140},{-110,100},{-102,100}},
+    annotation (Line(points={{-238,-140},{-110,-140},{-110,100.5},{-102,100.5}},
       color={255,0,255}));
   connect(onOff.y, chiDemRed.uChi[2])
-    annotation (Line(points={{-238,-100},{-106,-100},{-106,102},{-102,102}},
+    annotation (Line(points={{-238,-100},{-106,-100},{-106,101.5},{-102,101.5}},
       color={255,0,255}));
   connect(booPul1.y, limDem1.u)
     annotation (Line(points={{62,100},{78,100}}, color={255,0,255}));
@@ -183,18 +183,18 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-258,152},{-184,142}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage up process,"),
         Text(
           extent={{-258,138},{-166,128}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="enable one more chiller."),
         Text(
           extent={{38,136},{130,126}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="enable enabling chiller."),
         Text(
           extent={{42,152},{244,140}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage down process that requires chiller on and off,")}));
 end ReduceDemand;

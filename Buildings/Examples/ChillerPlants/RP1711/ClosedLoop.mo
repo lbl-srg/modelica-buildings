@@ -47,11 +47,9 @@ model ClosedLoop
     final m_flow_nominal=mWater_flow_nominal,
     final show_T=true,
     final dpValve_nominal=20000,
-    final dpFixed_nominal=60000) "Cooling coil valve" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={80,20})));
+    final dpFixed_nominal=60000) "Cooling coil valve"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},rotation=90,origin={80,20})));
   Buildings.Fluid.FixedResistances.Junction mixAir(
     redeclare package Medium = MediumA,
     final m_flow_nominal={0.7*mAir_flow_nominal,mAir_flow_nominal,0.3*mAir_flow_nominal},
@@ -228,11 +226,14 @@ equation
           -30,-12},{-22,-12}}, color={255,127,0}));
   connect(conInt3.y, chiPlaReq.u3) annotation (Line(points={{-118,-80},{-30,-80},
           {-30,-28},{-22,-28}}, color={255,127,0}));
-  connect(chiWatResReq.y, chiPla.chiPlaReq) annotation (Line(points={{2,120},{
-          20,120},{20,47},{102,47}}, color={255,127,0}));
-  connect(chiPlaReq.y, chiPla.TChiWatSupResReq) annotation (Line(points={{2,-20},
-          {20,-20},{20,44},{102,44}}, color={255,127,0}));
-  annotation (Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})),
-    experiment(__Dymola_Algorithm="Dassl"));
+
+  connect(chiWatResReq.y, chiPla.TChiWatSupResReq) annotation (Line(points={{2,
+          120},{20,120},{20,47},{102,47}}, color={255,127,0}));
+  connect(chiPlaReq.y, chiPla.chiPlaReq) annotation (Line(points={{2,-20},{20,
+          -20},{20,43},{102,43}}, color={255,127,0}));
+annotation (experiment(StartTime=15638400, StopTime=16243200, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/RP1711/ClosedLoop.mos"
+    "Simulate and plot"),
+  Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(
+        coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoop;

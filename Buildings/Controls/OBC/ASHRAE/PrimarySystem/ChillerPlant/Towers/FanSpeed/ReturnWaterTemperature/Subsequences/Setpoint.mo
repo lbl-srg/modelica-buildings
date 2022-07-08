@@ -214,7 +214,7 @@ annotation (
          graphics={
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -223,7 +223,7 @@ annotation (
         fillPattern=FillPattern.Solid),
       Text(
         extent={{-100,100},{100,-100}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         textString="S")}),
 Documentation(info="<html>
 <p>

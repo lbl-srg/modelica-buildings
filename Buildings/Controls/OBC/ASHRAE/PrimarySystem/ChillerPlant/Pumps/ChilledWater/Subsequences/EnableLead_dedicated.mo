@@ -86,31 +86,31 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,42},{-44,20}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uLeaChiEna"),
         Text(
           extent={{62,10},{98,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,-18},{-44,-40}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uLeaChiOn"),
         Text(
           extent={{-98,-68},{-26,-90}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uLeaChiWatReq"),
         Text(
           extent={{-98,90},{-78,74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),

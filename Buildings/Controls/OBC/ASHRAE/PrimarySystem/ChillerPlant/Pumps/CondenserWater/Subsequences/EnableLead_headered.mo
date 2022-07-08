@@ -69,21 +69,21 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,52},{-44,30}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiConIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yLeaPum"),
         Text(
           extent={{-98,-28},{-44,-50}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uWseConIsoVal")}),
    Diagram(coordinateSystem(preserveAspectRatio=false)),

@@ -81,26 +81,26 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,94},{-44,72}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uLeaChiEna"),
         Text(
           extent={{42,12},{96,-10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yLeaPum"),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,12},{-44,-10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uLeaChiOn"),
         Text(
           extent={{-98,-68},{-26,-90}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uLeaConWatReq")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),

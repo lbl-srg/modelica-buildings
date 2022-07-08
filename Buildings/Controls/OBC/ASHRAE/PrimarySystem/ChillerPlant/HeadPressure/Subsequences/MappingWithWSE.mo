@@ -203,7 +203,7 @@ annotation (
         borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(points={{-70,60},{-70,-54},{70,-54},{70,58}}, color={28,108,200}),
         Line(

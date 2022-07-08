@@ -186,19 +186,19 @@ Icon(graphics={
         graphics={
         Text(
           extent={{-172,-74},{-86,-112}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests enable conditions 
 based on the outdoor air 
 wetbulb temperature"),
         Text(
           extent={{-70,-72},{32,-114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests disable conditions 
 based on the chilled water  
 temperature downstream of WSE"),
         Text(
           extent={{74,-88},{126,-102}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Combines conditions from 
 the first two tests")}));
 end Controller;

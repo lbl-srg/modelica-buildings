@@ -282,7 +282,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(extent={{-80,-10},{-20,-22}}, lineColor={0,0,127}),
         Rectangle(extent={{-80,-28},{-20,-40}}, lineColor={0,0,127}),
