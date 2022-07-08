@@ -22,7 +22,7 @@ model VAVMultiZone "Multiple-zone VAV"
       typDamRel=secOutRel.typDamRel,
       typCtl=ctl.typ,
       typSecRel=secOutRel.typSecRel,
-      minOADes=ctl.minOADes,
+      typSecOut=ctl.typSecOut,
       buiPreCon=ctl.buiPreCon),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
@@ -87,7 +87,7 @@ model VAVMultiZone "Multiple-zone VAV"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Blow through"
     annotation (
       choices(
@@ -126,7 +126,7 @@ model VAVMultiZone "Multiple-zone VAV"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Draw through"
     annotation (
       choices(
@@ -198,8 +198,8 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb
-         or ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
+    final have_sen=ctl.typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+         or ctl.typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air temperature sensor"
@@ -208,7 +208,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=ctl.typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
     annotation (Dialog(group="Exhaust/relief/return section"),

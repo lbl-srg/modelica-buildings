@@ -63,7 +63,7 @@ package Data "Records for design and operating parameters"
       redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
       ctl(
         final typSecRel=typSecRel,
-        final minOADes=minOADes,
+        final typSecOut=typSecOut,
         final buiPreCon=buiPreCon),
       final mAirSup_flow_nominal=if typFanSup<>Buildings.Templates.Components.Types.Fan.None
       then fanSup.m_flow_nominal else 0,
@@ -92,8 +92,8 @@ package Data "Records for design and operating parameters"
     parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
       "Type of valve for heating coil in reheat position"
       annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-    parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
-      "Design of minimum outdoor air and economizer function"
+    parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut
+      "Type of outdoor air section"
       annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
     parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
       "Type of building pressure control system"

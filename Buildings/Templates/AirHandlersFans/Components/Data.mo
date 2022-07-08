@@ -91,13 +91,68 @@ package Data "Records for design and operating parameters"
       "Relief/return air section type"
       annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-    parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
-      "Design of minimum outdoor air and economizer function"
+    parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut
+      "Type of outdoor air section"
       annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
     parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
       "Type of building pressure control system"
       annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
+    parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard stdEne
+      "Energy standard, ASHRAE 90.1 or Title 24"
+      annotation(Evaluate=true, Dialog(group="Configuration", enable=false));
+
+    parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
+      "Ventilation standard, ASHRAE 62.1 or Title 24"
+      annotation(Evaluate=true, Dialog(group="Configuration", enable=false));
+
+    parameter Boolean have_CO2Sen
+      "Set to true if there are zones with CO2 sensor"
+      annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
+    parameter Modelica.Units.SI.VolumeFlowRate VOutUnc_flow_nominal(
+      start=0)
+      "Uncorrected design outdoor air flow rate, including diversity where applicable"
+      annotation (Dialog(group="Airflow and pressure",
+        enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+        stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    parameter Modelica.Units.SI.VolumeFlowRate VOutTot_flow_nominal(
+      start=0)
+      "Design total outdoor air flow rate"
+      annotation (Dialog(group="Airflow and pressure",
+        enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+        stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    parameter Modelica.Units.SI.VolumeFlowRate VOutAbsMin_flow_nominal(
+      start=0)
+      "Design outdoor air flow rate when all zones with CO2 sensors or occupancy sensors are unpopulated"
+      annotation (Dialog(group="Airflow and pressure",
+        enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+        stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+    parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow_nominal(
+      start=0)
+      "Design minimum outdoor air flow rate when all zones are occupied at their design population, including diversity"
+      annotation (Dialog(group="Airflow and pressure",
+        enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+        stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+
+    parameter Modelica.Units.SI.PressureDifference dpDamOutMinAbs(
+      final min=2.4,
+      displayUnit="Pa",
+      start=5)
+      "Differential pressure across the minimum outdoor air damper that provides the absolute minimum outdoor airflow"
+      annotation (Dialog(group="Airflow and pressure",
+        enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+          stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+          and typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
+    parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal(
+      final min=5,
+      displayUnit="Pa",
+      start=15)
+      "Differential pressure across the minimum outdoor air damper that provides the design minimum outdoor airflow"
+      annotation (Dialog(group="Airflow and pressure",
+        enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+          typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
 
     parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max(
       final min=0,
@@ -109,7 +164,7 @@ package Data "Records for design and operating parameters"
 
     parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min(
       final min=2.4,
-      displayUnit="Pa") = 10
+      displayUnit="Pa")=10
       "Return fan minimum discharge static pressure set point"
       annotation (Dialog(group="Airflow and pressure",
         enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
@@ -117,7 +172,7 @@ package Data "Records for design and operating parameters"
 
     parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
       final min=10,
-      displayUnit="Pa") = 100
+      displayUnit="Pa")=40
       "Return fan maximum discharge static pressure set point"
       annotation (Dialog(group="Airflow and pressure",
         enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
@@ -150,15 +205,6 @@ package Data "Records for design and operating parameters"
         enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
         typFanRet<>Buildings.Templates.Components.Types.Fan.None));
 
-    parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal(
-      final min=0,
-      displayUnit="Pa",
-      start=15)
-      "Design minimum outdoor air damper differential pressure"
-      annotation (Dialog(group="Airflow and pressure",
-        enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-        minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
-
     parameter Modelica.Units.SI.PressureDifference pBuiSet_rel(
       final min=0,
       displayUnit="Pa")=12
@@ -175,7 +221,8 @@ package Data "Records for design and operating parameters"
       "Airflow differential between supply and return fans to maintain building pressure at set point"
       annotation (Dialog(group="Airflow and pressure",
         enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-        buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir));
+        (buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir or
+        buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir)));
 
     parameter Real nPeaSys_nominal(
       final unit="1",

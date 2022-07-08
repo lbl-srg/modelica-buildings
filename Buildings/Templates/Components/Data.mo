@@ -15,7 +15,7 @@ package Data "Records for design and operating parameters"
       "Set to true for fluid ports on the source side"
       annotation (Dialog(group="Configuration"));
 
-    /* 
+    /*
   For evaporator coils this is also provided by the performance data record.
   The coil model shall generate a warning in case the design value exceeds
   the maximum value from the performance data record.
@@ -82,7 +82,7 @@ package Data "Records for design and operating parameters"
         enable=typ<>Buildings.Templates.Components.Types.Coil.None and
         typ<>Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage and
         typ<>Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed));
-    /* 
+    /*
   For evaporator coils this is also provided by the performance data record.
   The coil model shall generate a warning in case the design value exceeds
   the maximum value from the performance data record.
@@ -194,7 +194,7 @@ package Data "Records for design and operating parameters"
     replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
       pressure(
         V_flow={0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan),
-        dp(displayUnit="Pa")={1.5, 1, 0} * dp_nominal))
+        dp={1.5, 1, 0} * dp_nominal))
       constrainedby Buildings.Fluid.Movers.Data.Generic
       "Performance data"
       annotation (

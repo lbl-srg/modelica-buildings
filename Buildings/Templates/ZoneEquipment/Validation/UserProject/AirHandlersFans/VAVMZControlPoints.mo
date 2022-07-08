@@ -43,7 +43,7 @@ equation
   connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
 
   annotation (
-    defaultComponentName="conPoiDum",
+    defaultComponentName="sigAirHan",
     Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-200,-180},{200,180}})));
 end VAVMZControlPoints;

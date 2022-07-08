@@ -5,7 +5,8 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter AirHandlersFans.Types.OutdoorSection typ "Outdoor air section type"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typ
+    "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
@@ -15,7 +16,7 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
-  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtlEco
+  outer parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
   parameter
@@ -83,7 +84,7 @@ Typical components in that section include
 </p>
 <ul>
 <li>
-shut off OA dampers, 
+shut off OA dampers,
 </li>
 <li>
 the OA side of the heat recovery unit,

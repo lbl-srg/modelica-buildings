@@ -31,7 +31,7 @@ record Fan "Record for fan model"
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
       V_flow={0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan),
-      dp(displayUnit="Pa")={1.5, 1, 0} * dp_nominal))
+      dp={1.5, 1, 0} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation (

@@ -6,8 +6,8 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
-    "Design of minimum outdoor air and economizer function"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut
+    "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
@@ -72,7 +72,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Design minimum outdoor air damper differential pressure"
     annotation (Dialog(group="Airflow and pressure",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_DP));
+      typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SeparateDamper_DP));
 
   parameter Modelica.Units.SI.PressureDifference pBuiSet_rel(
     final min=0,
