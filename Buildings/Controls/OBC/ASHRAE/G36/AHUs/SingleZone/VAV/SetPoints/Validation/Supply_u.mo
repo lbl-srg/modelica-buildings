@@ -6,9 +6,9 @@ model Supply_u "Validation model for temperature and fan speed"
     final maxHeaSpe=0.7,
     final maxCooSpe=1,
     final minSpe=0.3,
-    final TSupSetMax=303.15,
-    final TSupSetMin=289.15,
-    final TDewSupMax=297.15)
+    final TSup_max=303.15,
+    final TSup_min=289.15,
+    final TSupDew_max=297.15)
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
@@ -17,9 +17,9 @@ model Supply_u "Validation model for temperature and fan speed"
     final maxHeaSpe=0.7,
     final maxCooSpe=1,
     final minSpe=0.3,
-    final TSupSetMax=303.15,
-    final TSupSetMin=289.15,
-    final TDewSupMax=297.15)
+    final TSup_max=303.15,
+    final TSup_min=289.15,
+    final TSupDew_max=297.15)
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
@@ -28,9 +28,9 @@ model Supply_u "Validation model for temperature and fan speed"
     final maxHeaSpe=0.7,
     final maxCooSpe=1,
     final minSpe=0.3,
-    final TSupSetMax=303.15,
-    final TSupSetMin=289.15,
-    final TDewSupMax=297.15)
+    final TSup_max=303.15,
+    final TSup_min=289.15,
+    final TSupDew_max=297.15)
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
@@ -102,17 +102,17 @@ equation
           {40,19},{58,19}}, color={255,127,0}));
   connect(opeMod.y, setPoiVAV2.uOpeMod) annotation (Line(points={{22,80},{40,80},
           {40,-21},{58,-21}}, color={255,127,0}));
-  connect(TZonCooSet.y, setPoiVAV.TZonCooSet) annotation (Line(points={{-58,-70},
-          {32,-70},{32,44},{58,44}}, color={0,0,127}));
-  connect(TZonCooSet.y, setPoiVAV1.TZonCooSet) annotation (Line(points={{-58,-70},
-          {32,-70},{32,4},{58,4}}, color={0,0,127}));
-  connect(TZonCooSet.y, setPoiVAV2.TZonCooSet) annotation (Line(points={{-58,-70},
-          {32,-70},{32,-36},{58,-36}}, color={0,0,127}));
-  connect(TZonHeaSet.y, setPoiVAV.TZonHeaSet) annotation (Line(points={{-58,-100},
-          {36,-100},{36,41},{58,41}}, color={0,0,127}));
-  connect(TZonHeaSet.y, setPoiVAV1.TZonHeaSet) annotation (Line(points={{-58,-100},
+  connect(TZonCooSet.y, setPoiVAV.TCooSet) annotation (Line(points={{-58,-70},{32,
+          -70},{32,44},{58,44}}, color={0,0,127}));
+  connect(TZonCooSet.y, setPoiVAV1.TCooSet) annotation (Line(points={{-58,-70},{
+          32,-70},{32,4},{58,4}}, color={0,0,127}));
+  connect(TZonCooSet.y, setPoiVAV2.TCooSet) annotation (Line(points={{-58,-70},{
+          32,-70},{32,-36},{58,-36}}, color={0,0,127}));
+  connect(TZonHeaSet.y, setPoiVAV.THeaSet) annotation (Line(points={{-58,-100},{
+          36,-100},{36,41},{58,41}}, color={0,0,127}));
+  connect(TZonHeaSet.y, setPoiVAV1.THeaSet) annotation (Line(points={{-58,-100},
           {36,-100},{36,1},{58,1}}, color={0,0,127}));
-  connect(TZonHeaSet.y, setPoiVAV2.TZonHeaSet) annotation (Line(points={{-58,-100},
+  connect(TZonHeaSet.y, setPoiVAV2.THeaSet) annotation (Line(points={{-58,-100},
           {36,-100},{36,-39},{58,-39}}, color={0,0,127}));
 
 annotation (

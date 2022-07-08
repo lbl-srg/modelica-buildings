@@ -2,16 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSe
 block ActiveAirFlow
   "Output the active airflow setpoint for dual-duct terminal unit using mixing control with discharge flow sensor"
 
-  parameter Real VCooZonMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
-  parameter Real VHeaZonMax_flow(
+  parameter Real VHeaMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone heating maximum airflow rate";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccZonMin_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Occupied minimum airflow setpoint"
@@ -60,7 +60,7 @@ protected
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VCooMax_flow)
     "Active cooling maximum flow"
     annotation (Placement(transformation(extent={{100,120},{120,140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal occModInd(
@@ -71,7 +71,7 @@ protected
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo(
-    final realTrue=VHeaZonMax_flow)
+    final realTrue=VHeaMax_flow)
     "Heating maximum flow when input is true"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant setBacMod(
@@ -132,8 +132,8 @@ equation
     annotation (Line(points={{62,130},{98,130}}, color={255,0,255}));
   connect(ifOcc.y, occModInd.u) annotation (Line(points={{-38,120},{0,120},{0,90},
           {38,90}},        color={255,0,255}));
-  connect(VOccZonMin_flow, pro.u2) annotation (Line(points={{-160,74},{98,74}},
-          color={0,0,127}));
+  connect(VOccMin_flow, pro.u2)
+    annotation (Line(points={{-160,74},{98,74}}, color={0,0,127}));
   connect(occModInd.y, pro.u1) annotation (Line(points={{62,90},{80,90},{80,86},
           {98,86}},   color={0,0,127}));
   connect(actCooMax.y, VActCooMax_flow)
@@ -162,33 +162,33 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-96,-72},{-54,-88}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{34,90},{98,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{50,6},{98,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{34,-70},{98,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{-98,88},{-36,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VOccZonMin_flow")}),
+          textString="VOccMin_flow")}),
 Documentation(info="<html>
 <p>
 This sequence sets the active cooling and heating maximum and the active minimum setpoints
@@ -199,13 +199,13 @@ The implementation is according to the Section 5.13.4 of ASHRAE Guideline 36, Ma
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooZonMax_flow</code></td>
-<td><code>VCooZonMax_flow</code></td><td><code>VCooZonMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooMax_flow</code></td>
+<td><code>VCooMax_flow</code></td><td><code>VCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td><td>0</td>
+<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccMin_flow</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VHeaZonMax_flow</code></td>
-<td>0</td><td>0</td><td><code>VHeaZonMax_flow</code></td><td><code>VHeaZonMax_flow</code></td>
+<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td><code>VHeaMax_flow</code></td>
+<td>0</td><td>0</td><td><code>VHeaMax_flow</code></td><td><code>VHeaMax_flow</code></td>
 <td>0</td></tr>
 </table>
 <br/>

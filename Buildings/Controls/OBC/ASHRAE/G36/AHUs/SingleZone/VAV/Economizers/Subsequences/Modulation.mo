@@ -41,38 +41,38 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaEco(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaEcoSet(
     final unit="K",
     final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
-    annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
-    annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
+    final quantity="ThermodynamicTemperature")
+    "Supply air temperature heating setpoint" annotation (Placement(
+        transformation(extent={{-160,60},{-120,100}}), iconTransformation(
+          extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan status" annotation (Placement(transformation(extent={{-160,-130},
+            {-120,-90}}), iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam_min(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum economizer damper position limit as returned by the damper position limits sequence"
     annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam_max(
     final min=0,
     final max=1,
-    final unit="1")
-    "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
-    If the economizer is disabled, this value equals uOutDamPosMin"
-    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
+    final unit="1") "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
+    If the economizer is disabled, this value equals uOutDamPosMin" annotation (
+     Placement(transformation(extent={{-160,-60},{-120,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDam_min(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDam_max(
     final min=0,
     final max=1,
     final unit="1")
@@ -82,22 +82,21 @@ block Modulation "Outdoor and return air damper position modulation sequence for
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heaCoi
-    "Heating coil control signal"
+    final unit="1") if have_heaCoi "Heating coil commanded valve position"
     annotation (Placement(transformation(extent={{120,30},{140,50}}),
       iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam(
     final min=0,
     final max=1,
-    final unit="1") "Economizer damper position"
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
+    final unit="1") "Economizer damper commanded position" annotation (
+      Placement(transformation(extent={{120,-50},{140,-30}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam(
     final min=0,
     final max=1,
-    final unit="1") "Return air damper position"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+    final unit="1") "Return air damper commanded position" annotation (
+      Placement(transformation(extent={{120,-10},{140,10}}), iconTransformation(
+          extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset uTSup(
     final controllerType=controllerType,
@@ -168,8 +167,8 @@ equation
     annotation (Line(points={{-38,-78},{-8,-78},{-8,8},{20,8}}, color={0,0,127}));
   connect(HeaCoi.u, retDamPos.u)
     annotation (Line(points={{20,40},{4,40},{4,0},{20,0}},   color={0,0,127}));
-  connect(TSupHeaEco, uTSup.u_s)
-    annotation (Line(points={{-140,80},{-102,80}},color={0,0,127}));
+  connect(TSupHeaEcoSet, uTSup.u_s)
+    annotation (Line(points={{-140,80},{-102,80}}, color={0,0,127}));
   connect(TSup, uTSup.u_m) annotation (Line(points={{-140,110},{-108,110},{-108,
           60},{-90,60},{-90,68}}, color={0,0,127}));
   connect(heaCoiMinLimSig.y, HeaCoi.f1) annotation (Line(points={{-38,20},{-8,
@@ -180,27 +179,27 @@ equation
           -24},{-12,48},{20,48}}, color={0,0,127}));
   connect(uMaxHeaCoi.y, HeaCoi.x2) annotation (Line(points={{-38,100},{10,100},
           {10,36},{20,36}}, color={0,0,127}));
-  connect(uOutDamPosMin, outDamPos.f2) annotation (Line(points={{-140,-70},{-92,
-          -70},{-92,-48},{22,-48}}, color={0,0,127}));
-  connect(uRetDamPosMin, retDamPos.f1)
+  connect(uOutDam_min, outDamPos.f2) annotation (Line(points={{-140,-70},{-92,-70},
+          {-92,-48},{22,-48}}, color={0,0,127}));
+  connect(uRetDam_min, retDamPos.f1)
     annotation (Line(points={{-140,0},{-2,0},{-2,4},{20,4}}, color={0,0,127}));
-  connect(uRetDamPosMax, retDamPos.f2) annotation (Line(points={{-140,40},{-92,
-          40},{-92,-8},{20,-8}}, color={0,0,127}));
+  connect(uRetDam_max, retDamPos.f2) annotation (Line(points={{-140,40},{-92,40},
+          {-92,-8},{20,-8}}, color={0,0,127}));
   connect(Off.y, enaDis.u3) annotation (Line(points={{28,-80},{62,-80},{62,32},
           {74,32}}, color={0,0,127}));
-  connect(uSupFan, enaDis.u2) annotation (Line(points={{-140,-110},{56,-110},{
+  connect(u1SupFan, enaDis.u2) annotation (Line(points={{-140,-110},{56,-110},{
           56,40},{74,40}}, color={255,0,255}));
   connect(HeaCoi.y, enaDis.u1) annotation (Line(points={{44,40},{50,40},{50,48},
           {74,48}}, color={0,0,127}));
   connect(enaDis.y, yHeaCoi)
     annotation (Line(points={{98,40},{130,40}}, color={0,0,127}));
-  connect(uOutDamPosMax, outDamPos.f1) annotation (Line(points={{-140,-40},{-2,
-          -40},{-2,-36},{22,-36}}, color={0,0,127}));
-  connect(retDamPos.y, yRetDamPos)
+  connect(uOutDam_max, outDamPos.f1) annotation (Line(points={{-140,-40},{-2,-40},
+          {-2,-36},{22,-36}}, color={0,0,127}));
+  connect(retDamPos.y, yRetDam)
     annotation (Line(points={{44,0},{130,0}}, color={0,0,127}));
-  connect(outDamPos.y, yOutDamPos)
+  connect(outDamPos.y, yOutDam)
     annotation (Line(points={{46,-40},{130,-40}}, color={0,0,127}));
-  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-96,-110},
+  connect(u1SupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-96,-110},
           {-96,68}}, color={255,0,255}));
 
 annotation (
@@ -223,7 +222,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-50,-84},{-94,80}},
@@ -243,27 +242,27 @@ annotation (
           fillPattern=FillPattern.Solid),
                                    Text(
           extent={{-104,116},{-76,110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position"),
                                    Text(
           extent={{18,114},{48,108}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position"),
                                    Text(
           extent={{-104,112},{-66,104}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="supply air temperature"),
                                    Text(
           extent={{-104,106},{-84,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="control loop"),
                                    Text(
           extent={{18,110},{86,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="assignments and heating coil signal")}),
     Documentation(info="<html>

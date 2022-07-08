@@ -29,17 +29,17 @@ model ReturnFanAirflowTracking
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation
-  connect(yFan.y, retFanAirTra.uSupFan) annotation (Line(points={{-58,70},{-20,
+  connect(yFan.y, retFanAirTra.u1SupFan) annotation (Line(points={{-58,70},{-20,
           70},{-20,64},{18,64}}, color={255,0,255}));
-  connect(yFan.y, retFanAirTra1.uSupFan) annotation (Line(points={{-58,70},{-20,
+  connect(yFan.y, retFanAirTra1.u1SupFan) annotation (Line(points={{-58,70},{-20,
           70},{-20,-36},{18,-36}}, color={255,0,255}));
-  connect(supFlo.y, retFanAirTra.VSup_flow) annotation (Line(points={{-58,20},
+  connect(supFlo.y, retFanAirTra.VAirSup_flow) annotation (Line(points={{-58,20},
           {-10,20},{-10,76},{18,76}}, color={0,0,127}));
-  connect(supFlo.y, retFanAirTra1.VSup_flow) annotation (Line(points={{-58,20},
-          {-10,20},{-10,-24},{18,-24}}, color={0,0,127}));
-  connect(retFlo.y, retFanAirTra.VRet_flow) annotation (Line(points={{-58,-40},
+  connect(supFlo.y, retFanAirTra1.VAirSup_flow) annotation (Line(points={{-58,
+          20},{-10,20},{-10,-24},{18,-24}}, color={0,0,127}));
+  connect(retFlo.y, retFanAirTra.VAirRet_flow) annotation (Line(points={{-58,-40},
           {0,-40},{0,70},{18,70}}, color={0,0,127}));
-  connect(retFlo.y, retFanAirTra1.VRet_flow) annotation (Line(points={{-58,-40},
+  connect(retFlo.y, retFanAirTra1.VAirRet_flow) annotation (Line(points={{-58,-40},
           {0,-40},{0,-30},{18,-30}}, color={0,0,127}));
 
 annotation (

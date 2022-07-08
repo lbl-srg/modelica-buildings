@@ -1,0 +1,15 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="Controller");
+createPlot(id=1, position={10, 15, 390, 650}, subPlot=1, y={"con.TZonHeaSet","con.TZonCooSet","con.TZon"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=1, position={10, 15, 390, 650}, subPlot=2, y={"con.conHeaLoo.y","con.conCooLoo.y"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={410, 15, 390, 650}, subPlot=1, y={"con.damVal.VDisSet_flow"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={410, 15, 390, 650}, subPlot=2, y={"con.damVal.yDam"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={810, 15, 390, 650}, subPlot=1, y={"con.damVal.TDisHeaSet","con.damVal.TDis"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={810, 15, 390, 650}, subPlot=2, y={"con.damVal.yHeaVal"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={1210, 15, 390, 650}, subPlot=1, y={"con.yZonTemResReq","con.yZonPreResReq"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=5, position={20, 35, 390, 650}, subPlot=1, y={"con1.TZonHeaSet","con1.TZonCooSet","con1.TZon"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=5, position={20, 35, 390, 650}, subPlot=2, y={"con1.conHeaLoo.y","con1.conCooLoo.y"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=6, position={420, 35, 390, 650}, subPlot=1, y={"con1.damVal.VDisSet_flow"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=6, position={420, 35, 390, 650}, subPlot=2, y={"con1.damVal.yDam"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=7, position={820, 35, 390, 650}, subPlot=1, y={"con1.damVal.TDisHeaSet","con1.damVal.TDis"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=7, position={820, 35, 390, 650}, subPlot=2, y={"con1.damVal.yHeaVal"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=8, position={1220, 35, 390, 650}, subPlot=1, y={"con1.yZonTemResReq","con1.yZonPreResReq"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});

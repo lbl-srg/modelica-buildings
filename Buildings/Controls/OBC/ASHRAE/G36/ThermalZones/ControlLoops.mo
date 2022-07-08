@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones;
 block ControlLoops "Heating and cooling control loops"
 
-  parameter Real kCooCon=1
+  parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
     annotation (Dialog(group="Cooling control"));
-  parameter Real TiCooCon(unit="s")=0.5
+  parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
     annotation (Dialog(group="Cooling control"));
-  parameter Real kHeaCon=1
+  parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
     annotation (Dialog(group="Heating control"));
-  parameter Real TiHeaCon(unit="s")=0.5
+  parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(group="Heating control"));
   parameter Real timChe(unit="s")=30
@@ -19,11 +19,11 @@ block ControlLoops "Heating and cooling control loops"
   parameter Real dTHys(unit="K")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced"));
-  parameter Real conThr(unit="1")=0.1
+  parameter Real looHys(unit="1")=0.01
     "Threshold value to check if the controller output is near zero"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone cooling setpoint"
@@ -35,7 +35,7 @@ block ControlLoops "Heating and cooling control loops"
     final quantity="ThermodynamicTemperature") "Measured zone temperature"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone heating setpoint"
@@ -106,13 +106,11 @@ protected
     "Heating control loop signal"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon(
-    final t=conThr,
-    final h=0.5*conThr)
+    final t=looHys, final h=0.8*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon1(
-    final t=conThr,
-    final h=0.5*conThr)
+    final t=looHys, final h=0.8*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And disCooCon
@@ -125,14 +123,14 @@ protected
 equation
   connect(TZon, enaHeaLoo.u1) annotation (Line(points={{-180,0},{-140,0},{-140,-120},
           {-122,-120}}, color={0,0,127}));
-  connect(TZonHeaSet, enaHeaLoo.u2) annotation (Line(points={{-180,-80},{-150,-80},
+  connect(THeaSet, enaHeaLoo.u2) annotation (Line(points={{-180,-80},{-150,-80},
           {-150,-128},{-122,-128}}, color={0,0,127}));
   connect(TZon, enaCooLoo.u2) annotation (Line(points={{-180,0},{-140,0},{-140,12},
           {-122,12}}, color={0,0,127}));
-  connect(TZonCooSet, enaCooLoo.u1) annotation (Line(points={{-180,80},{-140,80},
-          {-140,20},{-122,20}}, color={0,0,127}));
-  connect(TZonCooSet, cooCon.u_s) annotation (Line(points={{-180,80},{-140,80},{
-          -140,100},{-82,100}}, color={0,0,127}));
+  connect(TCooSet, enaCooLoo.u1) annotation (Line(points={{-180,80},{-140,80},{-140,
+          20},{-122,20}}, color={0,0,127}));
+  connect(TCooSet, cooCon.u_s) annotation (Line(points={{-180,80},{-140,80},{-140,
+          100},{-82,100}}, color={0,0,127}));
   connect(TZon, cooCon.u_m)
     annotation (Line(points={{-180,0},{-70,0},{-70,88}}, color={0,0,127}));
   connect(enaCooLoo.y, cooCon.trigger)
@@ -141,8 +139,8 @@ equation
     annotation (Line(points={{-98,20},{-42,20}}, color={255,0,255}));
   connect(cooCon.y, cooConSig.u1) annotation (Line(points={{-58,100},{110,100},{
           110,76},{118,76}}, color={0,0,127}));
-  connect(TZonHeaSet, heaCon.u_s) annotation (Line(points={{-180,-80},{-150,-80},
-          {-150,-40},{-82,-40}}, color={0,0,127}));
+  connect(THeaSet, heaCon.u_s) annotation (Line(points={{-180,-80},{-150,-80},{-150,
+          -40},{-82,-40}}, color={0,0,127}));
   connect(TZon, heaCon.u_m) annotation (Line(points={{-180,0},{-140,0},{-140,-60},
           {-70,-60},{-70,-52}}, color={0,0,127}));
   connect(enaHeaLoo.y, holZon.u)
@@ -151,10 +149,6 @@ equation
           -120},{-76,-52}}, color={255,0,255}));
   connect(heaCon.y, heaConSig.u1) annotation (Line(points={{-58,-40},{110,-40},{
           110,-64},{118,-64}}, color={0,0,127}));
-  connect(cooConSig.y, yCoo)
-    annotation (Line(points={{142,70},{180,70}}, color={0,0,127}));
-  connect(heaConSig.y, yHea)
-    annotation (Line(points={{142,-70},{180,-70}}, color={0,0,127}));
   connect(zerCon.y, disCoo.u)
     annotation (Line(points={{-18,60},{-2,60}}, color={255,0,255}));
   connect(cooCon.y, zerCon.u) annotation (Line(points={{-58,100},{-50,100},{-50,
@@ -179,6 +173,10 @@ equation
     annotation (Line(points={{62,-80},{78,-80}}, color={255,0,255}));
   connect(zerHea.y, heaConSig.u2) annotation (Line(points={{102,-80},{110,-80},{
           110,-76},{118,-76}}, color={0,0,127}));
+  connect(cooConSig.y, yCoo)
+    annotation (Line(points={{142,70},{180,70}}, color={0,0,127}));
+  connect(heaConSig.y, yHea)
+    annotation (Line(points={{142,-70},{180,-70}}, color={0,0,127}));
 
 annotation (defaultComponentName="conLoo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -191,30 +189,30 @@ annotation (defaultComponentName="conLoo",
         Text(
         extent={{-100,140},{100,100}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Text(
           extent={{-96,68},{-52,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
           extent={{-96,-52},{-52,-68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSet"),
+          textString="THeaSet"),
         Text(
-          extent={{-98,6},{-74,-4}},
-          lineColor={0,0,127},
+          extent={{-98,6},{-72,-8}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{74,66},{98,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCoo"),
         Text(
           extent={{76,-54},{100,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yHea")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -231,14 +229,14 @@ maintain space temperature at set point.
 <ul>
 <li>
 The heating loop shall be enabled whenever the space temperature <code>TZon</code>
-is below the current zone heating setpoint temperature <code>TZonHeaSet</code> and
+is below the current zone heating setpoint temperature <code>THeaSet</code> and
 disabled when space temperature is above the current zone heating setpoint temperature
 and the loop output is zero for 30 seconds. The loop may remain active at all times
 if provisions are made to minimize integral windup.
 </li>
 <li>
 The cooling loop shall be enabled whenever the space temperature <code>TZon</code>
-is above the current zone cooling setpoint temperature <code>TZonCooSet</code> and
+is above the current zone cooling setpoint temperature <code>TCooSet</code> and
 disabled when space temperature is below the current zone cooling setpoint temperature
 and the loop output is zero for 30 seconds. The loop may remain active at all times
 if provisions are made to minimize integral windup.

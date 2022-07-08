@@ -3,18 +3,18 @@ model DampersSingleSensors
   "Validate model for controlling damper position of dual-duct unit"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersSingleSensors dam(
-    final have_pressureIndependentDamper=true,
+    have_preIndDam=true,
+    final VCooMax_flow=0.08,
+    final VHeaMax_flow=0.06,
     final kDam=1,
-    final V_flow_nominal=0.08,
-    final samplePeriod=120)
-    "Output signal for controlling damper position"
+    final samplePeriod=120) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-10},{100,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersSingleSensors dam1(
-    final have_pressureIndependentDamper=false,
-    final V_flow_nominal=0.08,
+    final have_preIndDam=false,
+    final VCooMax_flow=0.08,
+    final VHeaMax_flow=0.06,
     final kDam=1,
-    final samplePeriod=120)
-    "Output signal for controlling damper position"
+    final samplePeriod=120) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-90},{100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
     final height=-1,
@@ -71,9 +71,9 @@ equation
           {56,90},{56,-54},{78,-54}},   color={0,0,127}));
   connect(uCoo.y, dam1.uCoo) annotation (Line(points={{-78,110},{60,110},{60,-51},
           {78,-51}}, color={0,0,127}));
-  connect(cooAhu.y, dam.uCooAHU) annotation (Line(points={{-38,50},{48,50},{48,-5},
+  connect(cooAhu.y, dam.u1CooAHU) annotation (Line(points={{-38,50},{48,50},{48,-5},
           {78,-5}}, color={255,0,255}));
-  connect(cooAhu.y, dam1.uCooAHU) annotation (Line(points={{-38,50},{48,50},{48,
+  connect(cooAhu.y, dam1.u1CooAHU) annotation (Line(points={{-38,50},{48,50},{48,
           -85},{78,-85}}, color={255,0,255}));
   connect(uHea.y, dam.uHea) annotation (Line(points={{-38,-30},{32,-30},{32,20},
           {78,20}},color={0,0,127}));
@@ -83,9 +83,9 @@ equation
           {28,-50},{28,17},{78,17}},      color={0,0,127}));
   connect(VActHeaMax_flow.y, dam1.VActHeaMax_flow) annotation (Line(points={{-78,-50},
           {28,-50},{28,-63},{78,-63}},      color={0,0,127}));
-  connect(heaAhu.y, dam1.uHeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
+  connect(heaAhu.y, dam1.u1HeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
           -88},{78,-88}}, color={255,0,255}));
-  connect(heaAhu.y, dam.uHeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
+  connect(heaAhu.y, dam.u1HeaAHU) annotation (Line(points={{-38,-70},{24,-70},{24,
           -8},{78,-8}}, color={255,0,255}));
   connect(VDis.y, dam1.VDis_flow) annotation (Line(points={{-78,-100},{60,-100},
           {60,-82},{78,-82}}, color={0,0,127}));

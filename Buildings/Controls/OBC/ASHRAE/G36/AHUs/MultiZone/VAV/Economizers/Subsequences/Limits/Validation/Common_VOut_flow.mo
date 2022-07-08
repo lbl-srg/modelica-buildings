@@ -43,8 +43,8 @@ equation
     annotation (Line(points={{-38,80},{0,80},{0,4},{18,4}}, color={0,0,127}));
   connect(VOutMinSet_flow.y, damLim.VOutMinSet_flow_normalized) annotation (
       Line(points={{-38,40},{-10,40},{-10,8},{18,8}}, color={0,0,127}));
-  connect(fanStatus.y, damLim.uSupFan)
-    annotation (Line(points={{-38,0},{18,0}},  color={255,0,255}));
+  connect(fanStatus.y, damLim.u1SupFan)
+    annotation (Line(points={{-38,0},{18,0}}, color={255,0,255}));
   connect(operationMode.y, damLim.uOpeMod)
     annotation (Line(points={{-38,-40},{-10,-40},{-10,-8},{18,-8}}, color={255,127,0}));
   annotation (

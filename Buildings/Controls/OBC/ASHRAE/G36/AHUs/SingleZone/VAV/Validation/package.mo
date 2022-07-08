@@ -22,8 +22,8 @@ package Validation "Collection of validation models"
 Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

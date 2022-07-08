@@ -3,21 +3,20 @@ model ReturnFanDirectPressure
   "Validate model for calculating return fan control with direct building pressure of multi zone VAV AHU"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanPre(
-    final disMinSpe=0.1,
-    final disMaxSpe=0.9,
+    final disSpe_min=0.1,
+    final disSpe_max=0.9,
     final k=0.1) "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanPre1(
-    final disMinSpe=0.1,
-    final disMaxSpe=0.9,
-    final k=0.5)
-    "Return fan control with direct building pressure"
+    final disSpe_min=0.1,
+    final disSpe_max=0.9,
+    final k=0.5) "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanPre2(
-    final disMinSpe=0.1,
-    final disMaxSpe=0.9) "Return fan control with direct building pressure"
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanPre2(final
+      disSpe_min=0.1, final disSpe_max=0.9)
+    "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse yFan(
@@ -31,24 +30,24 @@ model ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
 equation
-  connect(yFan.y, retFanPre.uSupFan) annotation (Line(points={{-58,70},{-20,70},
+  connect(yFan.y, retFanPre.u1SupFan) annotation (Line(points={{-58,70},{-20,70},
           {-20,64},{18,64}}, color={255,0,255}));
   connect(dpBui.y, retFanPre.dpBui) annotation (Line(points={{-58,20},{0,20},{0,
           76},{18,76}}, color={0,0,127}));
-  connect(yFan.y, retFanPre1.uSupFan) annotation (Line(points={{-58,70},{-20,70},
-          {-20,24},{18,24}}, color={255,0,255}));
-  connect(yFan.y, retFanPre2.uSupFan) annotation (Line(points={{-58,70},{-20,70},
-          {-20,-36},{18,-36}}, color={255,0,255}));
+  connect(yFan.y, retFanPre1.u1SupFan) annotation (Line(points={{-58,70},{-20,
+          70},{-20,24},{18,24}}, color={255,0,255}));
+  connect(yFan.y, retFanPre2.u1SupFan) annotation (Line(points={{-58,70},{-20,
+          70},{-20,-36},{18,-36}}, color={255,0,255}));
   connect(dpBui.y, retFanPre1.dpBui) annotation (Line(points={{-58,20},{0,20},{0,
           36},{18,36}}, color={0,0,127}));
   connect(dpBui.y, retFanPre2.dpBui) annotation (Line(points={{-58,20},{0,20},{0,
           -24},{18,-24}}, color={0,0,127}));
-  connect(yFan.y, retFanPre.uMinOutAirDam)
+  connect(yFan.y, retFanPre.u1MinOutAirDam)
     annotation (Line(points={{-58,70},{18,70}}, color={255,0,255}));
-  connect(yFan.y, retFanPre1.uMinOutAirDam) annotation (Line(points={{-58,70},{-20,
-          70},{-20,30},{18,30}}, color={255,0,255}));
-  connect(yFan.y, retFanPre2.uMinOutAirDam) annotation (Line(points={{-58,70},{-20,
-          70},{-20,-30},{18,-30}}, color={255,0,255}));
+  connect(yFan.y, retFanPre1.u1MinOutAirDam) annotation (Line(points={{-58,70},
+          {-20,70},{-20,30},{18,30}}, color={255,0,255}));
+  connect(yFan.y, retFanPre2.u1MinOutAirDam) annotation (Line(points={{-58,70},
+          {-20,70},{-20,-30},{18,-30}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),

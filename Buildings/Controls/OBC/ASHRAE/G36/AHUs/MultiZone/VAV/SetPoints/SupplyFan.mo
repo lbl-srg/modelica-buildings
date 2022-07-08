@@ -4,12 +4,6 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Boolean have_perZonRehBox = false
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation(Dialog(group="System configuration"));
-  parameter Boolean have_duaDucBox = false
-    "Check if the AHU serves dual duct boxes"
-    annotation(Dialog(group="System configuration"));
-  parameter Boolean have_airFloMeaSta = false
-    "Check if the AHU has AFMS (Airflow measurement station)"
-    annotation(Dialog(group="System configuration"));
   parameter Real iniSet(
     final unit="Pa",
     final quantity="PressureDifference") = 120
@@ -23,7 +17,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Real maxSet(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Maximum setpoint"
+    "Duct design maximum static pressure. It is the Max_DSP shown in Section 3.2.1.1 of Guideline 36"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real delTim(
     final unit="s",
@@ -74,10 +68,10 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real yFanMax(min=0.1, max=1, unit="1") = 1
+  parameter Real maxSpe(min=0.1, max=1, unit="1") = 1
     "Maximum allowed fan speed"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Real yFanMin(min=0.1, max=1, unit="1") = 0.1
+  parameter Real minSpe(min=0.1, max=1, unit="1") = 0.1
     "Lowest allowed fan speed if fan is on"
     annotation (Dialog(group="Fan PID controller"));
 
@@ -85,24 +79,24 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
    "System operation mode"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpDuc(
     final unit="Pa",
-    quantity="PressureDifference")
-    "Measured duct static pressure"
+    final quantity="PressureDifference") "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
-    "Supply fan on status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1SupFan
+    "Supply fan command on"
     annotation (Placement(transformation(extent={{140,50},{180,90}}),
         iconTransformation(extent={{100,50},{140,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFan(
     min=0,
     max=1,
-    final unit="1") "Supply fan speed"
+    final unit="1")
+    "Supply fan commanded speed"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -123,9 +117,9 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    final yMax=yFanMax,
-    final yMin=yFanMin,
-    final y_reset=yFanMin) "Supply fan speed control"
+    final yMax=maxSpe,
+    final yMin=minSpe,
+    final y_reset=minSpe) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 protected
@@ -202,9 +196,8 @@ equation
   connect(or2.y, or1.u2)
     annotation (Line(points={{42,40},{60,40},{60,62},{78,62}},
       color={255,0,255}));
-  connect(or1.y, ySupFan)
-    annotation (Line(points={{102,70},{160,70}},
-      color={255,0,255}));
+  connect(or1.y, y1SupFan)
+    annotation (Line(points={{102,70},{160,70}}, color={255,0,255}));
   connect(or1.y, staPreSetRes.uDevSta)
     annotation (Line(points={{102,70},{120,70},{120,-8},{-150,-8},{-150,-42},{-132,
           -42}},     color={255,0,255}));
@@ -217,9 +210,8 @@ equation
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{42,-80},{60,-80},{60,-92},{78,-92}},
       color={0,0,127}));
-  connect(swi.y, ySupFanSpe)
-    annotation (Line(points={{102,-100},{160,-100}},
-      color={0,0,127}));
+  connect(swi.y, ySupFan)
+    annotation (Line(points={{102,-100},{160,-100}}, color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
     annotation (Line(points={{-180,-60},{-148,-60},{-148,-58},{-132,-58}},
       color={255,127,0}));
@@ -283,8 +275,8 @@ equation
           70},{102,70}},  color={255,0,255}));
   connect(gaiNor.y, norPSet.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
           -76},{-72,-76}}, color={0,0,127}));
-  connect(ducStaPre, norPMea.u1) annotation (Line(points={{-180,-110},{-80,-110},
-          {-80,-104},{-72,-104}}, color={0,0,127}));
+  connect(dpDuc, norPMea.u1) annotation (Line(points={{-180,-110},{-80,-110},{-80,
+          -104},{-72,-104}}, color={0,0,127}));
   connect(gaiNor.y, norPMea.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
           -116},{-72,-116}}, color={0,0,127}));
   connect(firOrdHol.y, norPSet.u1) annotation (Line(points={{-78,-50},{-76,-50},
@@ -308,27 +300,27 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{42,156},{124,134}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Check current operation mode"),
         Text(
           extent={{54,-26},{124,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Reset pressure setpoint"),
         Text(
           extent={{-34,-106},{20,-136}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Control fan speed"),
         Text(
           extent={{42,142},{96,126}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -336,7 +328,7 @@ annotation (
   Icon(graphics={
         Text(
           extent={{-102,140},{96,118}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
                Rectangle(
           extent={{-100,100},{100,-100}},
@@ -345,28 +337,24 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,90},{-54,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uOpeMod"),
         Text(
           extent={{-96,-16},{-44,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uZonPreResReq"),
         Text(
-          extent={{-96,-70},{-54,-90}},
-          lineColor={0,0,127},
-          textString="ducStaPre"),
-        Text(
-          extent={{54,-60},{96,-80}},
-          lineColor={0,0,127},
-          textString="sumVDis_flow"),
+          extent={{-96,-70},{-60,-90}},
+          textColor={0,0,127},
+          textString="dpDuc"),
         Text(
           extent={{52,10},{94,-10}},
-          lineColor={0,0,127},
-          textString="yFanSpe"),
+          textColor={0,0,127},
+          textString="ySupFan"),
         Text(
-          extent={{52,78},{94,58}},
-          lineColor={0,0,127},
-          textString="ySupFan")}),
+          extent={{52,80},{94,60}},
+          textColor={0,0,127},
+          textString="y1SupFan")}),
   Documentation(info="<html>
 <p>
 Supply fan control for a multi zone VAV AHU according to Section 5.16.1 of 
@@ -376,11 +364,7 @@ ASHRAE Guideline G36, May 2020.
 <ul>
 <li>Supply fan shall run when system is in the Cool-down, Setup, or Occupied mode</li>
 <li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also
-run when system is in Setback or Warmup mode;</li>
-<li>If the AHU does not serve dual duct boxes
-that do not have hot-duct inlet airflow sensors (<code>have_duaDucBox=true</code>)
-or the AHU does not have airflow measurement station (<code>have_airFloMeaSta=false</code>),
-sum the current airflow rate from the VAV boxes and output to a software point.</li>
+run when system is in Setback or Warmup mode</li>
 </ul>
 <h4>Static pressure setpoint reset</h4>
 <p>

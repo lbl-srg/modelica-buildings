@@ -21,15 +21,15 @@ model ReturnFan "Validation of return fan control"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
-  connect(fanStatus.y,retFan. uSupFan) annotation (Line(points={{-58,-50},{52,-50},
-          {52,-6},{58,-6}},        color={255,0,255}));
+  connect(fanStatus.y, retFan.u1SupFan) annotation (Line(points={{-58,-50},{52,
+          -50},{52,-6},{58,-6}}, color={255,0,255}));
   connect(fanStatus.y, booToRea.u) annotation (Line(points={{-58,-50},{-40,-50},
           {-40,-30},{-22,-30}}, color={255,0,255}));
   connect(booToRea.y, mul.u2) annotation (Line(points={{2,-30},{10,-30},{10,4},{
           18,4}}, color={0,0,127}));
   connect(supFanSpe.y, mul.u1) annotation (Line(points={{-58,30},{0,30},{0,16},{
           18,16}}, color={0,0,127}));
-  connect(mul.y, retFan.uSupFanSpe)
+  connect(mul.y, retFan.uSupFanSpe_actual)
     annotation (Line(points={{42,10},{50,10},{50,6},{58,6}}, color={0,0,127}));
 
 annotation (

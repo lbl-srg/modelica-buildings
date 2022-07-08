@@ -2,27 +2,27 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block SupplyTemperature
   "Supply air temperature setpoint for multi zone system"
 
-  parameter Real TSupCooMin(
+  parameter Real TSupCoo_min(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
     "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the
     higher value of the reset range and above"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TSupCooMax(
+  parameter Real TSupCoo_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TOutMin(
+  parameter Real TOut_min(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TOutMax(
+  parameter Real TOut_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=294.15
@@ -74,10 +74,10 @@ block SupplyTemperature
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status"
-    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan proven on status" annotation (Placement(transformation(extent={
+            {-180,-20},{-140,20}}), iconTransformation(extent={{-140,-50},{-100,
+            -10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "System operation mode"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
@@ -86,13 +86,13 @@ block SupplyTemperature
     "Zone cooling supply air temperature reset request"
     annotation (Placement( transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSupSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Setpoint for supply air temperature"
-    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    "Supply air temperature setpoint" annotation (Placement(transformation(
+          extent={{140,-20},{180,20}}), iconTransformation(extent={{100,-20},{
+            140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond maxSupTemRes(
     final delTim=delTim,
@@ -115,19 +115,19 @@ protected
   parameter Real iniSet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupCooMax
+    final quantity="ThermodynamicTemperature")=TSupCoo_max
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond logic"));
   parameter Real maxSet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupCooMax
+    final quantity="ThermodynamicTemperature")=TSupCoo_max
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
   parameter Real minSet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=TSupCooMin
+    final quantity="ThermodynamicTemperature")=TSupCoo_min
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
 
@@ -136,15 +136,15 @@ protected
     air temperature, according to outdoor temperature"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutTem(
-    final k=TOutMin)
+    final k=TOut_min)
     "Lower value of the outdoor air temperature reset range"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxOutTem(
-    final k=TOutMax)
+    final k=TOut_max)
     "Higher value of the outdoor air temperature reset range"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSupTem(
-    final k=TSupCooMin)
+    final k=TSupCoo_min)
     "Lowest cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
@@ -220,7 +220,7 @@ equation
   connect(swi2.y, swi1.u3)
     annotation (Line(points={{42,-70},{50,-70},{50,-78},{78,-78}},
       color={0,0,127}));
-  connect(uSupFan, swi3.u2)
+  connect(u1SupFan, swi3.u2)
     annotation (Line(points={{-160,0},{98,0}}, color={255,0,255}));
   connect(swi1.y, swi3.u1)
     annotation (Line(points={{102,-70},{110,-70},{110,-40},{90,-40},{90,8},{98,8}},
@@ -240,14 +240,13 @@ equation
   connect(uZonTemResReq, maxSupTemRes.numOfReq)
     annotation (Line(points={{-160,80},{-120,80},{-120,92},{-102,92}},
       color={255,127,0}));
-  connect(uSupFan, maxSupTemRes.uDevSta)
-    annotation (Line(points={{-160,0},{-130,0},{-130,108},{-102,108}},
-      color={255,0,255}));
+  connect(u1SupFan, maxSupTemRes.uDevSta) annotation (Line(points={{-160,0},{-130,
+          0},{-130,108},{-102,108}}, color={255,0,255}));
   connect(maxSupTemRes.y, lin.f1)
     annotation (Line(points={{-78,100},{-70,100},{-70,124},{-2,124}},
       color={0,0,127}));
-  connect(swi3.y, TSupSet)
-    annotation (Line(points={{122,0},{160,0}},   color={0,0,127}));
+  connect(swi3.y, TAirSupSet)
+    annotation (Line(points={{122,0},{160,0}}, color={0,0,127}));
   connect(cooDowMod.y, intEqu.u2) annotation (Line(points={{-78,-100},{-70,-100},
           {-70,-78},{-62,-78}}, color={255,127,0}));
   connect(uOpeMod, intEqu.u1) annotation (Line(points={{-160,-120},{-120,-120},{
@@ -284,32 +283,32 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,80},{-68,64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-98,40},{-18,20}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uZonTemResReq"),
         Text(
           extent={{-98,-18},{-52,-42}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uSupFan"),
+          textString="u1SupFan"),
         Text(
           extent={{-96,-60},{-52,-80}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
-          extent={{52,8},{96,-8}},
-          lineColor={0,0,127},
+          extent={{44,8},{96,-8}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSupSet"),
+          textString="TAirSupSet"),
         Text(
           extent={{-124,146},{96,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{140,180}})),
   Documentation(info="<html>
@@ -319,43 +318,43 @@ inputs for VAV system with multiple zones, implemented according to Section 5.16
 the ASHRAE Guideline G36, May 2020.
 </p>
 <p>
-The control loop is enabled when the supply air fan <code>uSupFan</code> is proven on,
+The control loop is enabled when the supply air fan <code>u1SupFan</code> is proven on,
 and disabled and the output set to deadband (no heating, minimum economizer) otherwise.
 </p>
 <p> The supply air temperature setpoint is computed as follows.</p>
 
-<h4>Setpoints for <code>TSupCooMin</code>, <code>TSupCooMax</code>,
-<code>TOutMin</code>, <code>TOutMax</code>
+<h4>Setpoints for <code>TSupCoo_min</code>, <code>TSupCoo_max</code>,
+<code>TOut_min</code>, <code>TOut_max</code>
 </h4>
 <p>
 Per Section 3.1.4.1, the setpoints are design information.
 </p>
 <ul>
 <li>
-The <code>TSupCooMin</code> should be set no lower than the design coil leaving air
+The <code>TSupCoo_min</code> should be set no lower than the design coil leaving air
 temperature to prevent excessive chilled water temperature reset requests.
 </li>
 <li>
-The <code>TSupCooMax</code> is typically 18 &deg;C (65 &deg;F) in mild and dry climates
+The <code>TSupCoo_max</code> is typically 18 &deg;C (65 &deg;F) in mild and dry climates
 and 16 &deg;C (60 &deg;F) or lower in humid climates. It should not typically be
 greater than 18 &deg;C (65 &deg;F).
 </li>
 <li>
-The default range of outdoor air temperature (<code>TOutMin=16&deg;C</code>,
-<code>TOutMax=21&deg;C</code>) used to reset the occupied mode <code>TSupSet</code>
+The default range of outdoor air temperature (<code>TOut_min=16&deg;C</code>,
+<code>TOut_max=21&deg;C</code>) used to reset the occupied mode <code>TSupSet</code>
 was chosen to maximize economizer hours. It may be preferable to use a lower
-range of outdoor air temperature (e.g. <code>TOutMin=13&deg;C</code>,
-<code>TOutMax=18&deg;C</code>) to minimize fan energy.
+range of outdoor air temperature (e.g. <code>TOut_min=13&deg;C</code>,
+<code>TOut_max=18&deg;C</code>) to minimize fan energy.
 </li>
 </ul>
 
 <h4>During occupied and Setup modes (<code>uOpeMod=1</code>, <code>uOpeMod=2</code>)</h4>
 <p>
-The <code>TSupSet</code> shall be reset from <code>TSupCooMin</code> when the outdoor
-air temperature is <code>TOutMax</code> and above, proportionally up to
-maximum supply temperature when the outdoor air temperature is <code>TOutMin</code> and
+The <code>TSupSet</code> shall be reset from <code>TSupCoo_min</code> when the outdoor
+air temperature is <code>TOut_max</code> and above, proportionally up to
+maximum supply temperature when the outdoor air temperature is <code>TOut_min</code> and
 below. The maximum supply temperature shall be reset using trim and respond logic between
-<code>TSupCooMin</code> and <code>TSupCooMax</code>. Parameters suggested for the
+<code>TSupCoo_min</code> and <code>TSupCoo_max</code>. Parameters suggested for the
 trim and respond logic are shown in the table below. They require adjustment
 during the commissioning and tuning phase.
 </p>
@@ -364,8 +363,8 @@ during the commissioning and tuning phase.
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
 <tr><td>SP0</td><td><code>iniSet</code></td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td><code>TSupCooMin</code></td><td>Minimum setpoint</td></tr>
-<tr><td>SPmax</td><td><code>TSupCooMax</code></td><td>Maximum setpoint</td></tr>
+<tr><td>SPmin</td><td><code>TSupCoo_min</code></td><td>Minimum setpoint</td></tr>
+<tr><td>SPmax</td><td><code>TSupCoo_max</code></td><td>Maximum setpoint</td></tr>
 <tr><td>Td</td><td><code>delTim</code></td><td>Delay timer</td></tr>
 <tr><td>T</td><td><code>samplePeriod</code></td><td>Time step</td></tr>
 <tr><td>I</td><td><code>numIgnReq</code></td><td>Number of ignored requests</td></tr>
@@ -383,7 +382,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZo
 
 <h4>During Cool-down modes (<code>uOpeMod=3</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupCooMin</code>.
+Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupCoo_min</code>.
 </p>
 <h4>During Setback and Warmup modes (<code>uOpeMod=4</code>, <code>uOpeMod=5</code>)</h4>
 <p>

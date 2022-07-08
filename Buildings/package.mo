@@ -228,6 +228,14 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+      </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36
+      </td>
+      <td valign=\"top\">Package with sequences implemented according to ASHRAE Guideline 36 official release, May 2020.
+      </td>
+  </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

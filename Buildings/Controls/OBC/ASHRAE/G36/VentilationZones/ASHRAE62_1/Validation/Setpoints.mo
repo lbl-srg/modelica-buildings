@@ -5,53 +5,47 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     noSenZon(
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
-    "Setpoints of zone without any sensors"
+    final VMin_flow=0.018) "Setpoints of zone without any sensors"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
     winSenZon(
     final have_winSen=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
-    "Setpoints of a zone with window sensor"
+    final VMin_flow=0.018) "Setpoints of a zone with window sensor"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
     occSenZon(
     final have_occSen=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018)
-    "Setpoints of a zone with occupancy sensor"
+    final VMin_flow=0.018) "Setpoints of a zone with occupancy sensor"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
     co2SenZon(
     final have_CO2Sen=true,
-    final have_typTerUniWitCO2=true,
+    have_typTerUni=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018,
-    final VCooZonMax_flow=0.025)
+    final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and typical terminal unit"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
     co2SenZonParFan(
     final have_CO2Sen=true,
-    final have_parFanPowUniWitCO2=true,
+    have_parFanPowUni=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018,
-    final VCooZonMax_flow=0.025)
+    final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and parallel fan-powered terminal unit"
     annotation (Placement(transformation(extent={{180,120},{200,140}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints
     co2SenSZVAV(
     final have_CO2Sen=true,
-    final have_SZVAVWitCO2=true,
+    have_SZVAV=true,
     final AFlo=30,
     final desZonPop=2,
-    final VZonMin_flow=0.018,
-    final VCooZonMax_flow=0.025)
+    final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and single zone VAV AHU"
     annotation (Placement(transformation(extent={{180,-20},{200,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
@@ -105,7 +99,10 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     final freqHz=1/7200,
     final offset=0.008) "Parallel fan flow rate"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(
+    final k=894)
+    "CO2 concentration setpoint"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 equation
   connect(ram.y, greThr.u)
     annotation (Line(points={{-178,110},{-162,110}}, color={0,0,127}));
@@ -114,29 +111,32 @@ equation
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-98,110},{-82,110}},   color={255,0,255}));
   connect(booToInt.y, noSenZon.uOpeMod) annotation (Line(points={{-58,110},{-40,
-          110},{-40,134},{-2,134}},  color={255,127,0}));
+          110},{-40,135},{-2,135}},  color={255,127,0}));
   connect(zonTem.y, noSenZon.TZon) annotation (Line(points={{-58,70},{-30,70},{-30,
           123},{-2,123}}, color={0,0,127}));
   connect(disTem.y, noSenZon.TDis) annotation (Line(points={{-58,30},{-20,30},{-20,
           121},{-2,121}},  color={0,0,127}));
-  connect(booToInt.y, winSenZon.uOpeMod) annotation (Line(points={{-58,110},{-40,
-          110},{-40,-46},{-2,-46}},color={255,127,0}));
+  connect(booToInt.y, winSenZon.uOpeMod) annotation (Line(points={{-58,110},{
+          -40,110},{-40,-45},{-2,-45}},
+                                   color={255,127,0}));
   connect(zonTem.y, winSenZon.TZon) annotation (Line(points={{-58,70},{-30,70},{
           -30,-57},{-2,-57}},   color={0,0,127}));
   connect(disTem.y, winSenZon.TDis) annotation (Line(points={{-58,30},{-20,30},{
           -20,-59},{-2,-59}},  color={0,0,127}));
   connect(winSta.y, winSenZon.uWin) annotation (Line(points={{-58,-30},{-10,-30},
           {-10,-41},{-2,-41}}, color={255,0,255}));
-  connect(booToInt.y, occSenZon.uOpeMod) annotation (Line(points={{-58,110},{-40,
-          110},{-40,-96},{-2,-96}},  color={255,127,0}));
+  connect(booToInt.y, occSenZon.uOpeMod) annotation (Line(points={{-58,110},{
+          -40,110},{-40,-95},{-2,-95}},
+                                     color={255,127,0}));
   connect(zonTem.y, occSenZon.TZon) annotation (Line(points={{-58,70},{-30,70},{
           -30,-107},{-2,-107}}, color={0,0,127}));
   connect(disTem.y, occSenZon.TDis) annotation (Line(points={{-58,30},{-20,30},{
           -20,-109},{-2,-109}},color={0,0,127}));
   connect(occSta.y, occSenZon.uOcc) annotation (Line(points={{-58,-80},{-10,-80},
           {-10,-93},{-2,-93}},  color={255,0,255}));
-  connect(booToInt.y, co2SenZon.uOpeMod) annotation (Line(points={{-58,110},{-40,
-          110},{-40,-146},{-2,-146}},  color={255,127,0}));
+  connect(booToInt.y, co2SenZon.uOpeMod) annotation (Line(points={{-58,110},{
+          -40,110},{-40,-145},{-2,-145}},
+                                       color={255,127,0}));
   connect(zonTem.y, co2SenZon.TZon) annotation (Line(points={{-58,70},{-30,70},{
           -30,-157},{-2,-157}},   color={0,0,127}));
   connect(disTem.y, co2SenZon.TDis) annotation (Line(points={{-58,30},{-20,30},{
@@ -144,7 +144,7 @@ equation
   connect(co2Con.y, co2SenZon.ppmCO2) annotation (Line(points={{-58,-130},{-10,-130},
           {-10,-149},{-2,-149}},  color={0,0,127}));
   connect(booToInt.y, co2SenZonParFan.uOpeMod) annotation (Line(points={{-58,110},
-          {120,110},{120,134},{178,134}}, color={255,127,0}));
+          {120,110},{120,135},{178,135}}, color={255,127,0}));
   connect(ram1.y, reaToInt.u)
     annotation (Line(points={{62,130},{78,130}}, color={0,0,127}));
   connect(reaToInt.y, co2SenZonParFan.uZonSta) annotation (Line(points={{102,130},
@@ -157,8 +157,9 @@ equation
           70},{150,123},{178,123}},  color={0,0,127}));
   connect(disTem.y, co2SenZonParFan.TDis) annotation (Line(points={{-58,30},{160,
           30},{160,121},{178,121}}, color={0,0,127}));
-  connect(booToInt.y, co2SenSZVAV.uOpeMod) annotation (Line(points={{-58,110},{120,
-          110},{120,-6},{178,-6}}, color={255,127,0}));
+  connect(booToInt.y, co2SenSZVAV.uOpeMod) annotation (Line(points={{-58,110},{
+          120,110},{120,-5},{178,-5}},
+                                   color={255,127,0}));
   connect(co2Con.y, co2SenSZVAV.ppmCO2) annotation (Line(points={{-58,-130},{140,
           -130},{140,-9},{178,-9}},color={0,0,127}));
   connect(zonTem.y, co2SenSZVAV.TZon) annotation (Line(points={{-58,70},{150,70},
@@ -166,6 +167,12 @@ equation
   connect(disTem.y, co2SenSZVAV.TDis) annotation (Line(points={{-58,30},{160,30},
           {160,-19},{178,-19}}, color={0,0,127}));
 
+  connect(CO2Set.y, co2SenZonParFan.ppmCO2Set) annotation (Line(points={{-98,0},
+          {170,0},{170,133},{178,133}}, color={0,0,127}));
+  connect(CO2Set.y, co2SenSZVAV.ppmCO2Set) annotation (Line(points={{-98,0},{
+          170,0},{170,-7},{178,-7}}, color={0,0,127}));
+  connect(CO2Set.y, co2SenZon.ppmCO2Set) annotation (Line(points={{-98,0},{-50,
+          0},{-50,-147},{-2,-147}}, color={0,0,127}));
 annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE62_1/Validation/Setpoints.mos"
     "Simulate and plot"),

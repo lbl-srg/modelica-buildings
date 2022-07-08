@@ -2,25 +2,26 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Validati
 model Controller_Disable
   "Validation model for disabling the multi zone VAV AHU economizer modulation and damper position limit control loops"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller eco(
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper,
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
+    eco(
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final use_enthalpy=false,
-    final retDamPhyPosMax=1,
-    final retDamPhyPosMin=0,
-    final outDamPhyPosMax=1,
-    final outDamPhyPosMin=0)  "Multi zone VAV AHU economizer "
+    final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
+    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+    "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller eco1(
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper,
+
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
+    eco1(
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final use_enthalpy=true,
-    final retDamPhyPosMax=1,
-    final retDamPhyPosMin=0,
-    final outDamPhyPosMax=1,
-    final outDamPhyPosMin=0)  "Multi zone VAV AHU economizer"
+    final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
+    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
+    final minOAConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+    "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,0}})));
 
 protected
@@ -64,15 +65,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 40000) "Outdoor air enthalpy is below the cutoff"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
-    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 30) "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
-    final k=TOutCutoff) "Outdoor air temperature cutoff"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
@@ -87,46 +82,40 @@ protected
     final height=2,
     final offset=-1)
                     "Supply air temperature control signal"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
 equation
-  connect(fanSta.y, eco.uSupFan) annotation (Line(points={{-58,-70},{-12,
-          -70},{-12,7},{18,7}},             color={255,0,255}));
+  connect(fanSta.y, eco.u1SupFan) annotation (Line(points={{-58,-70},{-12,-70},
+          {-12,6},{18,6}}, color={255,0,255}));
   connect(freProSta.y, eco.uFreProSta) annotation (Line(points={{-98,-120},
           {0,-120},{0,1},{18,1}}, color={255,127,0}));
-  connect(TOutBelowCutoff.y, eco.TOut) annotation (Line(points={{-98,100},
-          {-12,100},{-12,18},{18,18}},           color={0,0,127}));
-  connect(TOutCut1.y, eco.TOutCut) annotation (Line(points={{-98,60},{-18,
-          60},{-18,16},{18,16}},                    color={0,0,127}));
+  connect(TOutBelowCutoff.y, eco.TOut) annotation (Line(points={{-98,100},{-12,
+          100},{-12,16},{18,16}},                color={0,0,127}));
   connect(VOut_flow.y, eco.VOut_flow_normalized) annotation (Line(points={{-58,80},
-          {-6,80},{-6,36},{18,36}},                    color={0,0,127}));
+          {-6,80},{-6,37},{18,37}},                    color={0,0,127}));
   connect(VOutMinSet_flow.y, eco.VOutMinSet_flow_normalized) annotation (
      Line(points={{-58,120},{0,120},{0,39},{18,39}},       color={0,0,127}));
-  connect(TOutCut1.y, eco1.TOutCut) annotation (Line(points={{-98,60},{62,
-          60},{62,-24},{98,-24}},              color={0,0,127}));
-  connect(TOutBelowCutoff.y, eco1.TOut) annotation (Line(points={{-98,100},
-          {68,100},{68,-22},{98,-22}},                color={0,0,127}));
+  connect(TOutBelowCutoff.y, eco1.TOut) annotation (Line(points={{-98,100},{68,
+          100},{68,-24},{98,-24}},                    color={0,0,127}));
   connect(VOut_flow.y, eco1.VOut_flow_normalized) annotation (Line(
-        points={{-58,80},{74,80},{74,-4},{98,-4}},           color={0,0,127}));
+        points={{-58,80},{74,80},{74,-3},{98,-3}},           color={0,0,127}));
   connect(VOutMinSet_flow.y, eco1.VOutMinSet_flow_normalized)
     annotation (Line(points={{-58,120},{80,120},{80,-1},{98,-1}},     color={0,
           0,127}));
-  connect(fanSta.y, eco1.uSupFan) annotation (Line(points={{-58,-70},{-12,
-          -70},{-12,-33},{98,-33}},            color={255,0,255}));
-  connect(opeMod.y, eco.uOpeMod) annotation (Line(points={{-58,-100},{-6,
-          -100},{-6,4},{18,4}},            color={255,127,0}));
-  connect(opeMod.y, eco1.uOpeMod) annotation (Line(points={{-58,-100},{-6,
-          -100},{-6,-36},{98,-36}},            color={255,127,0}));
-  connect(uTSup.y, eco.uTSup) annotation (Line(points={{-58,20},{-40,20},
-          {-40,24},{18,24}},            color={0,0,127}));
-  connect(uTSup.y, eco1.uTSup) annotation (Line(points={{-58,20},{-40,20},
-          {-40,-16},{98,-16}},                           color={0,0,127}));
+  connect(fanSta.y, eco1.u1SupFan) annotation (Line(points={{-58,-70},{-12,-70},
+          {-12,-34},{98,-34}}, color={255,0,255}));
+  connect(opeMod.y, eco.uOpeMod) annotation (Line(points={{-58,-100},{-6,-100},
+          {-6,3},{18,3}},                  color={255,127,0}));
+  connect(opeMod.y, eco1.uOpeMod) annotation (Line(points={{-58,-100},{-6,-100},
+          {-6,-37},{98,-37}},                  color={255,127,0}));
+  connect(uTSup.y, eco.uTSup) annotation (Line(points={{-98,40},{-40,40},{-40,
+          19},{18,19}},                 color={0,0,127}));
+  connect(uTSup.y, eco1.uTSup) annotation (Line(points={{-98,40},{-40,40},{-40,
+          -21},{98,-21}},                                color={0,0,127}));
   connect(freProSta2.y, eco1.uFreProSta) annotation (Line(points={{42,-120},
           {60,-120},{60,-39},{98,-39}}, color={255,127,0}));
-  connect(hOutCut.y, eco1.hOutCut) annotation (Line(points={{-98,-40},{-60,
-          -40},{-60,-29},{98,-29}}, color={0,0,127}));
-  connect(hOutBelowCutoff.y, eco1.hOut) annotation (Line(points={{-98,0},
-          {-60,0},{-60,-27},{98,-27}}, color={0,0,127}));
+  connect(hOutBelowCutoff.y, eco1.hAirOut) annotation (Line(points={{-98,0},{-60,
+          0},{-60,-29},{98,-29}}, color={0,0,127}));
 
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),

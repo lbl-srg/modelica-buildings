@@ -2,9 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequenc
 model Alarms "Validation of model that generates alarms"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Alarms ala(
+    final have_hotWatCoi=true,
     final staPreMul=1,
     final hotWatRes=1,
-    final VCooZonMax_flow=1,
+    final VCooMax_flow=1,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
@@ -80,22 +81,22 @@ equation
           {-22,-6}}, color={0,0,127}));
   connect(damSta.y, booToRea.u)
     annotation (Line(points={{-78,10},{-62,10}}, color={255,0,255}));
-  connect(disAir.y, ala.VDis_flow) annotation (Line(points={{-78,120},{48,120},{
+  connect(disAir.y,ala.VPri_flow)  annotation (Line(points={{-78,120},{48,120},{
           48,60},{78,60}}, color={0,0,127}));
-  connect(supFan.y, ala.uFan) annotation (Line(points={{-78,80},{40,80},{40,56},
+  connect(supFan.y, ala.u1Fan) annotation (Line(points={{-78,80},{40,80},{40,56},
           {78,56}}, color={255,0,255}));
-  connect(terFanComOn.y, ala.uFanCom) annotation (Line(points={{-38,60},{36,60},
+  connect(terFanComOn.y, ala.u1FanCom) annotation (Line(points={{-38,60},{36,60},
           {36,54},{78,54}}, color={255,0,255}));
-  connect(terFanOn.y, ala.uTerFan) annotation (Line(points={{-78,40},{36,40},{36,
-          52},{78,52}}, color={255,0,255}));
-  connect(mul.y, ala.uDam)
+  connect(terFanOn.y, ala.u1TerFan) annotation (Line(points={{-78,40},{36,40},{
+          36,52},{78,52}}, color={255,0,255}));
+  connect(mul.y, ala.uDam_actual)
     annotation (Line(points={{2,0},{40,0},{40,50},{78,50}}, color={0,0,127}));
-  connect(valPos.y, ala.uVal) annotation (Line(points={{-38,-40},{44,-40},{44,48},
-          {78,48}}, color={0,0,127}));
+  connect(valPos.y, ala.uVal_actual) annotation (Line(points={{-38,-40},{44,-40},
+          {44,48},{78,48}}, color={0,0,127}));
   connect(TSup.y, ala.TSup) annotation (Line(points={{-78,-60},{48,-60},{48,46},
           {78,46}}, color={0,0,127}));
-  connect(hotPla.y, ala.uHotPla) annotation (Line(points={{-38,-80},{52,-80},{52,
-          44},{78,44}}, color={255,0,255}));
+  connect(hotPla.y, ala.u1HotPla) annotation (Line(points={{-38,-80},{52,-80},{
+          52,44},{78,44}}, color={255,0,255}));
   connect(TDis.y, ala.TDis) annotation (Line(points={{-78,-100},{56,-100},{56,42},
           {78,42}}, color={0,0,127}));
   connect(TDisSet.y, ala.TDisSet) annotation (Line(points={{-38,-120},{60,-120},

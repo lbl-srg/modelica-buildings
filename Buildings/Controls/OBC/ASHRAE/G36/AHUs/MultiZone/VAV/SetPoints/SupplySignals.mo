@@ -22,46 +22,44 @@ block SupplySignals
     "Time constant of derivative block for supply temperature control signal"
     annotation(Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real uHeaMax(
+  parameter Real uHea_max(
     final min=-0.9,
     final unit="1")=-0.25
-    "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
-  parameter Real uCooMin(
+    "Upper limit of controller signal when heating coil is off. Require -1 < uHea_max < uCoo_min < 1.";
+  parameter Real uCoo_min(
     final max=0.9,
     final unit="1")=0.25
-    "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
+    "Lower limit of controller signal when cooling coil is off. Require -1 < uHea_max < uCoo_min < 1.";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
+    "Measured supply air temperature" annotation (Placement(transformation(
+          extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,-80},{
+            -100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSupSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Setpoint for supply air temperature"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
+    "Supply air temperature setpoint" annotation (Placement(transformation(
+          extent={{-140,10},{-100,50}}), iconTransformation(extent={{-140,-20},{
+            -100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan proven on status" annotation (Placement(transformation(extent={{
+            -140,60},{-100,100}}), iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heaCoi
-    "Control signal for heating"
+    final unit="1") if have_heaCoi "Heating coil commanded position"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
-    final unit="1") "Control signal for cooling"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+    final unit="1") "Cooling coil commanded position" annotation (Placement(
+        transformation(extent={{100,-40},{140,0}}), iconTransformation(extent={{
+            100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput uTSup(
     final max=1,
     final unit="1",
@@ -86,7 +84,7 @@ protected
     "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
-    final k=uHeaMax) if have_heaCoi
+    final k=uHea_max) if have_heaCoi
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant negOne(final k=-1)
@@ -94,7 +92,7 @@ protected
     "Negative unity signal"
     annotation (Placement(transformation(extent={{0,18},{20,38}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooMinCon(
-    final k=uCooMin)
+    final k=uCoo_min)
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
@@ -118,7 +116,7 @@ equation
   connect(zer.y,swi. u3)
     annotation (Line(points={{-38,-40},{-20,-40},{-20,52},{-2,52}},
       color={0,0,127}));
-  connect(TSup,conTSup. u_m)
+  connect(TAirSup, conTSup.u_m)
     annotation (Line(points={{-120,-20},{-50,-20},{-50,18}}, color={0,0,127}));
   connect(negOne.y,conSigHea. x1)
     annotation (Line(points={{22,28},{58,28}},
@@ -150,24 +148,21 @@ equation
   connect(one.y,conSigCoo. f2)
     annotation (Line(points={{22,-80},{50,-80},{50,-28},{58,-28}},
       color={0,0,127}));
-  connect(conSigHea.y,yHea)
-    annotation (Line(points={{82,20},{120,20}},  color={0,0,127}));
-  connect(conSigCoo.y,yCoo)
+  connect(conSigHea.y, yHeaCoi)
+    annotation (Line(points={{82,20},{120,20}}, color={0,0,127}));
+  connect(conSigCoo.y, yCooCoi)
     annotation (Line(points={{82,-20},{120,-20}}, color={0,0,127}));
   connect(swi.y,uTSup)
     annotation (Line(points={{22,60},{120,60}},  color={0,0,127}));
-  connect(TSupSet, conTSup.u_s)
-    annotation (Line(points={{-120,30},{-62,30}},
-      color={0,0,127}));
-  connect(uSupFan, swi.u2)
-    annotation (Line(points={{-120,80},{-80,80},{-80,60},{-2,60}},
-      color={255,0,255}));
+  connect(TAirSupSet, conTSup.u_s)
+    annotation (Line(points={{-120,30},{-62,30}}, color={0,0,127}));
+  connect(u1SupFan, swi.u2) annotation (Line(points={{-120,80},{-80,80},{-80,60},
+          {-2,60}}, color={255,0,255}));
   connect(conTSup.y, swi.u1)
     annotation (Line(points={{-38,30},{-28,30},{-28,68},{-2,68}},
       color={0,0,127}));
-  connect(uSupFan, conTSup.trigger)
-    annotation (Line(points={{-120,80},{-80,80},{-80,0},{-56,0},{-56,18}},
-      color={255,0,255}));
+  connect(u1SupFan, conTSup.trigger) annotation (Line(points={{-120,80},{-80,80},
+          {-80,0},{-56,0},{-56,18}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "supSig",
@@ -178,39 +173,39 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,8},{-64,-6}},
-          lineColor={0,0,127},
+          extent={{-96,8},{-50,-8}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSup"),
+          textString="TAirSupSet"),
         Text(
-          extent={{-94,-48},{-48,-72}},
-          lineColor={0,0,127},
+          extent={{-98,-52},{-62,-68}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uSupFan"),
+          textString="TAirSup"),
         Text(
-          extent={{76,8},{96,-2}},
-          lineColor={0,0,127},
+          extent={{62,8},{100,-4}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yHea",
-          visible=have_heaCoi),
+          visible=have_heaCoi,
+          textString="yHeaCoi"),
         Text(
           extent={{74,66},{96,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
-          extent={{76,-54},{96,-64}},
-          lineColor={0,0,127},
+          extent={{62,-50},{96,-64}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yCoo"),
+          textString="yCooCoi"),
         Text(
           extent={{-96,66},{-56,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSupSet"),
+          textString="u1SupFan"),
         Text(
           extent={{-124,146},{96,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
 Block that outputs the supply temperature control loop signal,
@@ -225,12 +220,12 @@ If the fan is off, then <code>uTSup = 0</code>.
 </p>
 <p>
 Heating valve control signal (or modulating electric heating
-coil if applicable) <code>yHea</code> and cooling valve control signal <code>yCoo</code>
+coil if applicable) <code>yHeaCoi</code> and cooling valve control signal <code>yCooCoi</code>
 are sequenced based on the supply air temperature control loop signal <code>uTSup</code>.
-From <code>uTSup = uHeaMax</code> to <code>uTSup = -1</code>,
-<code>yHea</code> increases linearly from <i>0</i> to <i>1</i>.
-Similarly, <code>uTSup = uCooMin</code> to <code>uTSup = +1</code>,
-<code>yCoo</code> increases linearly from <i>0</i> to <i>1</i>.
+From <code>uTSup = uHea_max</code> to <code>uTSup = -1</code>,
+<code>yHeaCoi</code> increases linearly from <i>0</i> to <i>1</i>.
+Similarly, <code>uTSup = uCoo_min</code> to <code>uTSup = +1</code>,
+<code>yCooCoi</code> increases linearly from <i>0</i> to <i>1</i>.
 </p>
 
 <p align=\"center\">

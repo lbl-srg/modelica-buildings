@@ -4,16 +4,16 @@ model Alarms "Validation of model that generates alarms"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Alarms ala(
     final have_duaSen=true,
     final staPreMul=1,
-    final VCooZonMax_flow=1,
-    final VHeaZonMax_flow=0.9,
+    final VCooMax_flow=1,
+    final VHeaMax_flow=0.9,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,40},{100,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Alarms ala1(
     final have_duaSen=false,
     final staPreMul=1,
-    final VCooZonMax_flow=1,
-    final VHeaZonMax_flow=0.9,
+    final VCooMax_flow=1,
+    final VHeaMax_flow=0.9,
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,-60},{100,-20}})));
@@ -88,26 +88,26 @@ equation
           -86},{-22,-86}},color={0,0,127}));
   connect(heaDammSta.y, booToRea1.u)
     annotation (Line(points={{-78,-70},{-62,-70}}, color={255,0,255}));
-  connect(supCooFan.y, ala.uCooFan) annotation (Line(points={{-78,60},{32,60},{32,
+  connect(supCooFan.y, ala.u1CooFan) annotation (Line(points={{-78,60},{32,60},{32,
           65},{78,65}}, color={255,0,255}));
-  connect(mul.y, ala.uCooDam) annotation (Line(points={{2,20},{36,20},{36,62},{78,
-          62}},    color={0,0,127}));
-  connect(supHeaFan.y, ala.uHeaFan) annotation (Line(points={{-78,-40},{44,-40},
+  connect(mul.y, ala.uCooDam_actual) annotation (Line(points={{2,20},{36,20},{
+          36,62},{78,62}}, color={0,0,127}));
+  connect(supHeaFan.y, ala.u1HeaFan) annotation (Line(points={{-78,-40},{44,-40},
           {44,46},{78,46}}, color={255,0,255}));
-  connect(mul1.y, ala.uHeaDam) annotation (Line(points={{2,-80},{48,-80},{48,43},
-          {78,43}}, color={0,0,127}));
+  connect(mul1.y, ala.uHeaDam_actual) annotation (Line(points={{2,-80},{48,-80},
+          {48,43},{78,43}}, color={0,0,127}));
   connect(cooDisAir.y, ala.VColDucDis_flow) annotation (Line(points={{-38,80},{56,
           80},{56,68},{78,68}}, color={0,0,127}));
   connect(heaDisAir.y, ala.VHotDucDis_flow) annotation (Line(points={{-38,-20},{
           40,-20},{40,49},{78,49}}, color={0,0,127}));
-  connect(supCooFan.y, ala1.uCooFan) annotation (Line(points={{-78,60},{32,60},{
+  connect(supCooFan.y, ala1.u1CooFan) annotation (Line(points={{-78,60},{32,60},{
           32,-35},{78,-35}}, color={255,0,255}));
-  connect(mul.y, ala1.uCooDam) annotation (Line(points={{2,20},{36,20},{36,-38},
-          {78,-38}}, color={0,0,127}));
-  connect(supHeaFan.y, ala1.uHeaFan) annotation (Line(points={{-78,-40},{44,-40},
+  connect(mul.y, ala1.uCooDam_actual) annotation (Line(points={{2,20},{36,20},{
+          36,-38},{78,-38}}, color={0,0,127}));
+  connect(supHeaFan.y, ala1.u1HeaFan) annotation (Line(points={{-78,-40},{44,-40},
           {44,-54},{78,-54}}, color={255,0,255}));
-  connect(mul1.y, ala1.uHeaDam) annotation (Line(points={{2,-80},{48,-80},{48,-57},
-          {78,-57}}, color={0,0,127}));
+  connect(mul1.y, ala1.uHeaDam_actual) annotation (Line(points={{2,-80},{48,-80},
+          {48,-57},{78,-57}}, color={0,0,127}));
   connect(disAirSet.y, ala1.VActSet_flow) annotation (Line(points={{-78,100},{60,
           100},{60,-25},{78,-25}}, color={0,0,127}));
   connect(cooDisAir.y, ala1.VDis_flow) annotation (Line(points={{-38,80},{56,80},

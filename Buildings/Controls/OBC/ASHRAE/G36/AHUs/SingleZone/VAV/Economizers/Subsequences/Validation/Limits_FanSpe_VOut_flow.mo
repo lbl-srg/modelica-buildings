@@ -4,25 +4,25 @@ model Limits_FanSpe_VOut_flow
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim(
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
+    final fanSpe_min=fanSpe_min,
+    final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim1(
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
+    final fanSpe_min=fanSpe_min,
+    final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
-  final parameter Real yFanMin=0.1 "Minimum supply fan operation speed";
-  final parameter Real yFanMax=0.9 "Maximum supply fan operation speed";
-  final parameter Real fanSpe = (yFanMax + yFanMin)/2 "Constant supply fan speed";
+  final parameter Real fanSpe_min=0.1 "Minimum supply fan operation speed";
+  final parameter Real fanSpe_max=0.9 "Maximum supply fan operation speed";
+  final parameter Real fanSpe = (fanSpe_max + fanSpe_min)/2 "Constant supply fan speed";
   final parameter Real VOutDes_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.0
@@ -53,8 +53,8 @@ protected
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=yFanMin,
-    final height=yFanMax - yFanMin) "Supply fan speed signal"
+    final offset=fanSpe_min,
+    final height=fanSpe_max - fanSpe_min) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig1(
     final duration=1800,
@@ -68,26 +68,26 @@ protected
 equation
   connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-98,-90},{-60,-90},{-60,-14},{-42,-14}}, color={255,127,0}));
-  connect(damLim.uSupFan, fanStatus.y)
-    annotation (Line(points={{-42,-10},{-70,-10},{-70,-10},{-98,-10}}, color={255,0,255}));
+  connect(damLim.u1SupFan, fanStatus.y) annotation (Line(points={{-42,-10},{-70,
+          -10},{-70,-10},{-98,-10}}, color={255,0,255}));
   connect(operationMode.y, damLim.uOpeMod)
     annotation (Line(points={{-98,-50},{-70,-50},{-70,-18.2},{-42,-18.2}},
     color={255,127,0}));
-  connect(fanStatus.y, damLim1.uSupFan)
-    annotation (Line(points={{-98,-10},{-80,-10},{-80,-30},{60,-30},{60,-10},{98,-10}}, color={255,0,255}));
+  connect(fanStatus.y, damLim1.u1SupFan) annotation (Line(points={{-98,-10},{-80,
+          -10},{-80,-30},{60,-30},{60,-10},{98,-10}}, color={255,0,255}));
   connect(operationMode.y, damLim1.uOpeMod)
     annotation (Line(points={{-98,-50},{70,-50},{70,-18.2},{98,-18.2}}, color={255,127,0}));
   connect(freProSta.y, damLim1.uFreProSta)
     annotation (Line(points={{-98,-90},{80,-90},{80,-14},{98,-14}}, color={255,127,0}));
   connect(VOutMinSetSig.y, damLim.VOutMinSet_flow)
     annotation (Line(points={{-98,70},{-60,70},{-60,-2},{-42,-2}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, damLim.uSupFanSpe)
-    annotation (Line(points={{-98,30},{-70,30},{-70,-6},{-42,-6}},  color={0,0,127}));
-  connect(SupFanSpeSig1.y, damLim1.uSupFanSpe)
-    annotation (Line(points={{42,30},{70,30},{70,-6},{98,-6}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, damLim.uSupFanSpe_actual) annotation (Line(points={{-98,
+          30},{-70,30},{-70,-6},{-42,-6}}, color={0,0,127}));
+  connect(SupFanSpeSig1.y, damLim1.uSupFanSpe_actual) annotation (Line(points={{
+          42,30},{70,30},{70,-6},{98,-6}}, color={0,0,127}));
   connect(VOutMinSetSig1.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{42,70},{80,70},{80,-2},{98,-2}}, color={0,0,127}));
-  annotation (
+annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Limits_FanSpe_VOut_flow.mos"
     "Simulate and plot"),
@@ -104,7 +104,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}}), graphics={
         Text(
           extent={{-126,114},{-2,98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -113,7 +113,7 @@ equation
 constant minimum outdoor airflow setpoint"),
         Text(
           extent={{8,110},{140,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

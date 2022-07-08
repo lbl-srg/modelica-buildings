@@ -3,18 +3,21 @@ model SeparateWithDP
   "Validation model for the minimum outdoor air control - damper position limits for the units with separated outdoor air control"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP disMinCon(
+    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final dpDesOutDam_min=300,
     final minSpe=0.1)
     "Disable the minimum outdoor air control due to that the supply fan is not proven on"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP disMinCon1(
+    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final dpDesOutDam_min=300,
     final minSpe=0.1)
     "Disable the minimum outdoor air control due to that it is not in occupied mode"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP minCon(
+    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final dpDesOutDam_min=300,
     final minSpe=0.1)
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
@@ -114,41 +117,41 @@ protected
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
 equation
   connect(VOutMinSet_flow.y,minCon. VOutMinSet_flow_normalized) annotation (
-      Line(points={{142,60},{160,60},{160,26},{198,26}}, color={0,0,127}));
-  connect(fanStatus.y,minCon. uSupFan)
-    annotation (Line(points={{142,20},{160,20},{160,23},{198,23}}, color={255,0,255}));
+      Line(points={{142,60},{160,60},{160,21},{198,21}}, color={0,0,127}));
+  connect(fanStatus.y, minCon.u1SupFan) annotation (Line(points={{142,20},{160,
+          20},{160,18},{198,18}}, color={255,0,255}));
   connect(operationMode.y,minCon. uOpeMod)
-    annotation (Line(points={{142,-20},{160,-20},{160,17},{198,17}},color={255,127,0}));
+    annotation (Line(points={{142,-20},{160,-20},{160,16},{198,16}},color={255,127,0}));
   connect(VOutMinSet_flow1.y, disMinCon.VOutMinSet_flow_normalized) annotation (
-     Line(points={{-198,60},{-180,60},{-180,26},{-142,26}}, color={0,0,127}));
-  connect(fanSta.y, disMinCon.uSupFan) annotation (Line(points={{-198,20},{-180,
-          20},{-180,23},{-142,23}}, color={255,0,255}));
+     Line(points={{-198,60},{-180,60},{-180,21},{-142,21}}, color={0,0,127}));
+  connect(fanSta.y, disMinCon.u1SupFan) annotation (Line(points={{-198,20},{-180,
+          20},{-180,18},{-142,18}}, color={255,0,255}));
   connect(opeMod.y, disMinCon.uOpeMod) annotation (Line(points={{-198,-20},{-180,
-          -20},{-180,17},{-142,17}}, color={255,127,0}));
-  connect(outDamPos.y, disMinCon.uOutDamPos) annotation (Line(points={{-198,-60},
-          {-170,-60},{-170,14},{-142,14}}, color={0,0,127}));
-  connect(supFanSpe.y, disMinCon.uSupFanSpe) annotation (Line(points={{-198,-100},
-          {-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
+          -20},{-180,16},{-142,16}}, color={255,127,0}));
+  connect(outDamPos.y, disMinCon.uOutDam) annotation (Line(points={{-198,-60},{
+          -170,-60},{-170,13},{-142,13}}, color={0,0,127}));
+  connect(supFanSpe.y, disMinCon.uSupFanSpe_actual) annotation (Line(points={{-198,
+          -100},{-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
   connect(VOutMinSet_flow2.y, disMinCon1.VOutMinSet_flow_normalized)
-    annotation (Line(points={{-38,60},{-20,60},{-20,26},{18,26}}, color={0,0,127}));
-  connect(fanSta1.y, disMinCon1.uSupFan) annotation (Line(points={{-38,20},{-20,
-          20},{-20,23},{18,23}}, color={255,0,255}));
+    annotation (Line(points={{-38,60},{-20,60},{-20,21},{18,21}}, color={0,0,127}));
+  connect(fanSta1.y, disMinCon1.u1SupFan) annotation (Line(points={{-38,20},{-20,
+          20},{-20,18},{18,18}}, color={255,0,255}));
   connect(opeMod1.y, disMinCon1.uOpeMod) annotation (Line(points={{-38,-20},{-20,
-          -20},{-20,17},{18,17}}, color={255,127,0}));
-  connect(outDamPos1.y, disMinCon1.uOutDamPos) annotation (Line(points={{-38,-60},
-          {-10,-60},{-10,14},{18,14}}, color={0,0,127}));
-  connect(supFanSpe1.y, disMinCon1.uSupFanSpe) annotation (Line(points={{-38,-100},
-          {0,-100},{0,11},{18,11}}, color={0,0,127}));
-  connect(outDamPos2.y, minCon.uOutDamPos) annotation (Line(points={{142,-60},{170,
-          -60},{170,14},{198,14}}, color={0,0,127}));
-  connect(supFanSpe2.y, minCon.uSupFanSpe) annotation (Line(points={{142,-100},{
-          180,-100},{180,11},{198,11}}, color={0,0,127}));
+          -20},{-20,16},{18,16}}, color={255,127,0}));
+  connect(outDamPos1.y, disMinCon1.uOutDam) annotation (Line(points={{-38,-60},
+          {-10,-60},{-10,13},{18,13}}, color={0,0,127}));
+  connect(supFanSpe1.y, disMinCon1.uSupFanSpe_actual) annotation (Line(points={
+          {-38,-100},{0,-100},{0,11},{18,11}}, color={0,0,127}));
+  connect(outDamPos2.y, minCon.uOutDam) annotation (Line(points={{142,-60},{170,
+          -60},{170,13},{198,13}}, color={0,0,127}));
+  connect(supFanSpe2.y, minCon.uSupFanSpe_actual) annotation (Line(points={{142,
+          -100},{180,-100},{180,11},{198,11}}, color={0,0,127}));
   connect(dpDam.y, disMinCon.dpMinOutDam) annotation (Line(points={{-198,100},{-160,
-          100},{-160,29},{-142,29}},  color={0,0,127}));
+          100},{-160,23},{-142,23}},  color={0,0,127}));
   connect(dpDam1.y, disMinCon1.dpMinOutDam) annotation (Line(points={{-38,100},{
-          0,100},{0,29},{18,29}}, color={0,0,127}));
+          0,100},{0,23},{18,23}}, color={0,0,127}));
   connect(dpDam2.y, minCon.dpMinOutDam) annotation (Line(points={{142,100},{180,
-          100},{180,29},{198,29}}, color={0,0,127}));
+          100},{180,23},{198,23}}, color={0,0,127}));
 
 annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Limits/Validation/SeparateWithDP.mos"

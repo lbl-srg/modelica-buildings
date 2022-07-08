@@ -43,9 +43,8 @@ model SupplyTemperature
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
-  connect(supFanSta.y, conTSupSet.uSupFan)
-    annotation (Line(points={{-58,30},{30,30},{30,-3},{68,-3}},
-      color={255,0,255}));
+  connect(supFanSta.y, conTSupSet.u1SupFan) annotation (Line(points={{-58,30},{
+          30,30},{30,-3},{68,-3}}, color={255,0,255}));
   connect(outTem.y, conTSupSet.TOut)
     annotation (Line(points={{-58,70},{40,70},{40,7},{68,7}},
       color={0,0,127}));

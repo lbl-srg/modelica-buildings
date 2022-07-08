@@ -4,25 +4,31 @@ block ReturnFan "Return fan control for single zone AHU"
   parameter Real speDif=-0.1
     "Speed difference between supply and return fan to maintain building pressure at desired pressure";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
     final min=0,
     final max=1,
-    final unit="1") "Supply fan speed"
+    final unit="1")
+    "Actual supply fan speed"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan command on"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yExhDam "Exhaust damper"
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam
+    "Exhaust damper commanded on"
     annotation (Placement(transformation(extent={{120,60},{160,100}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final unit="1",
     final min=0,
     final max=1)
-    "Return fan speed"
+    "Return fan commanded speed"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
+    "Return fan command on"
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
@@ -36,19 +42,20 @@ block ReturnFan "Return fan control for single zone AHU"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
 equation
-  connect(uSupFanSpe, addPar.u)
+  connect(uSupFanSpe_actual, addPar.u)
     annotation (Line(points={{-140,60},{-62,60}}, color={0,0,127}));
-  connect(uSupFan, swi.u2)
+  connect(u1SupFan, swi.u2)
     annotation (Line(points={{-140,0},{38,0}}, color={255,0,255}));
   connect(con.y, swi.u3) annotation (Line(points={{-38,-50},{20,-50},{20,-8},{38,
           -8}}, color={0,0,127}));
   connect(addPar.y, swi.u1) annotation (Line(points={{-38,60},{20,60},{20,8},{38,
           8}}, color={0,0,127}));
-  connect(swi.y, yRetFanSpe)
+  connect(swi.y, yRetFan)
     annotation (Line(points={{62,0},{140,0}}, color={0,0,127}));
-  connect(uSupFan, yExhDam) annotation (Line(points={{-140,0},{0,0},{0,80},{140,
+  connect(u1SupFan, y1ExhDam) annotation (Line(points={{-140,0},{0,0},{0,80},{140,
           80}}, color={255,0,255}));
-
+  connect(u1SupFan, y1RetFan) annotation (Line(points={{-140,0},{0,0},{0,-60},{
+          120,-60}}, color={255,0,255}));
 annotation (
   defaultComponentName = "retFan",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -60,36 +67,42 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-96,68},{-50,54}},
-          lineColor={0,0,127},
+          extent={{-96,68},{-22,52}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFanSpe"),
+          textString="uSupFanSpe_actual"),
         Text(
-          extent={{-100,-52},{-54,-66}},
-          lineColor={255,0,255},
+          extent={{-98,-52},{-52,-66}},
+          textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFan"),
+          textString="u1SupFan"),
         Text(
-          extent={{46,-52},{98,-66}},
-          lineColor={0,0,127},
+          extent={{58,8},{98,-6}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetFanSpe"),
+          textString="yRetFan"),
         Text(
           extent={{52,70},{98,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yExhDam")}),
+          textString="y1ExhDam"),
+        Text(
+          extent={{52,-52},{98,-66}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="y1RetFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
  Documentation(info="<html>
 <p>
-Sequence for controlling return fan <code>yRetFanSpe</code> for single AHUs.
+Sequence for controlling return fan <code>yRetFan</code> for single AHUs.
 It is implemented according to Section 5.18.10 of ASHRAE Guideline G36, May 2020.
 </p>
 <ul>

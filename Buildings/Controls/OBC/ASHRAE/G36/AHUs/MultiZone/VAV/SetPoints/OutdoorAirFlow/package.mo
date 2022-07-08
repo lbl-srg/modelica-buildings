@@ -4,43 +4,9 @@ annotation (
 Documentation(info="<html>
 <p>
 This package contains sequences to set the minimum outdoor airflow setpoint for 
-compliance with the ventilation rate procedure of ASHRAE 62.1-2013. The
-implementation is according to ASHRAE Guidline 36 (G36), PART 5.N.3.a, PART 5.B.2.b,
-PART3.1-D.2.a.
+compliance with the ventilation rate procedure of ASHRAE 62.1-2013. It is implemented
+according to Section 5.16.3 of ASHRAE Guideline G36, May 2020.
 </p>
-<ul>
-<li> 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a>
-conducts zone level calculations for specifying minimum outdoor airflow rate,
-</li>
-<li> 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU</a>
-conducts AHU level calculations for specifying minimum outdoor airflow rate,
-</li>
-<li> 
-and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone</a>
-finds the sums, the maximum and the minimum of outputs from zone level calculations.
-They become inputs of AHU level calculation.
-</li>
-</ul>
-</html>", revisions="<html>
-<ul>
-<li>
-March 13, 2020, by Jianjun Hu:<br/>
-Reimplemented sequence of calculating the outdoor airflow setpoint to separated
-vector-valued calculation. This therefore breaks the single sequence to three
-subsequences.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
-</li>
-<li>
-July 23, 2019, by Michael Wetter:<br/>
-Improved documentation.
-</li>
-</ul>
 </html>"), Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

@@ -5,8 +5,7 @@ model SystemRequests
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.SystemRequests sysReq(
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01)
-    "Block outputs system requests"
+    final damPosHys=0.01) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-22},{80,18}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     final freqHz=1/7200,
@@ -83,7 +82,7 @@ model SystemRequests
 equation
   connect(sine.y, TZonCooSet.u)
     annotation (Line(points={{-38,110},{-22,110}}, color={0,0,127}));
-  connect(TZonCooSet.y, sysReq.TZonCooSet) annotation (Line(points={{2,110},{40,
+  connect(TZonCooSet.y, sysReq.TCooSet) annotation (Line(points={{2,110},{40,
           110},{40,14},{58,14}}, color={0,0,127}));
   connect(TZon.y, sysReq.TZon) annotation (Line(points={{-58,80},{36,80},{36,11},
           {58,11}}, color={0,0,127}));
@@ -93,20 +92,20 @@ equation
     annotation (Line(points={{-38,140},{-22,140}}, color={255,0,255}));
   connect(not1.y, sysReq.uAftSupCoo) annotation (Line(points={{2,140},{44,140},{
           44,17},{58,17}}, color={255,0,255}));
-  connect(colDamPos.y, sysReq.uCooDam)
-    annotation (Line(points={{-58,-100},{40,-100},{40,-16},{58,-16}}, color={0,0,127}));
+  connect(colDamPos.y, sysReq.uCooDam_actual) annotation (Line(points={{-58,-100},
+          {40,-100},{40,-16},{58,-16}}, color={0,0,127}));
   connect(sine1.y, TZonHeaSet.u)
     annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
   connect(booPul1.y, not2.u)
     annotation (Line(points={{-58,30},{-42,30}},   color={255,0,255}));
   connect(not2.y, sysReq.uAftSupHea) annotation (Line(points={{-18,30},{28,30},{
           28,3},{58,3}},    color={255,0,255}));
-  connect(TZonHeaSet.y, sysReq.TZonHeaSet) annotation (Line(points={{-18,0},{58,
-          0}},                   color={0,0,127}));
+  connect(TZonHeaSet.y, sysReq.THeaSet)
+    annotation (Line(points={{-18,0},{58,0}}, color={0,0,127}));
   connect(uHea.y, sysReq.uHea) annotation (Line(points={{-18,-30},{28,-30},{28,-3},
           {58,-3}},  color={0,0,127}));
-  connect(hotDamPos.y, sysReq.uHeaDam) annotation (Line(points={{-18,-140},{44,-140},
-          {44,-19},{58,-19}}, color={0,0,127}));
+  connect(hotDamPos.y, sysReq.uHeaDam_actual) annotation (Line(points={{-18,-140},
+          {44,-140},{44,-19},{58,-19}}, color={0,0,127}));
   connect(disAirRate.y, sysReq.VDis_flow) annotation (Line(points={{-18,-70},{36,
           -70},{36,-11},{58,-11}}, color={0,0,127}));
   connect(disAirSet.y, sysReq.VDis_flow_Set) annotation (Line(points={{-58,-50},

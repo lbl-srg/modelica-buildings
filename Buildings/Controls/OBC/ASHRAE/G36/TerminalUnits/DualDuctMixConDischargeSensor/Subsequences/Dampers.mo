@@ -2,41 +2,42 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSe
 block Dampers
   "Output signals for controlling dampers of dual-duct terminal unit using mixing control with discharge flow sensor"
 
-  parameter Boolean have_pressureIndependentDamper = true
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation(Dialog(group="Damper"));
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
+  parameter Boolean have_preIndDam = true
+    "True: the VAV damper is pressure independent (with built-in flow controller)";
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
-    final min=1E-10)
-    "Nominal volume flow rate, used to normalize control error"
-    annotation(Dialog(group="Damper"));
+    final unit="m3/s")
+    "Design zone cooling maximum airflow rate";
+  parameter Real VHeaMax_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    "Design zone heating maximum airflow rate";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Damper", enable=not have_pressureIndependentDamper));
+    annotation(Dialog(enable=not have_preIndDam));
   parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
-    annotation(Dialog(group="Damper", enable=not have_pressureIndependentDamper));
+    annotation(Dialog(enable=not have_preIndDam));
   parameter Real TiDam(
     final unit="s",
     final quantity="Time")=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(group="Damper",
-      enable=not have_pressureIndependentDamper
+    annotation(Dialog(
+      enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(group="Damper",
-      enable=not have_pressureIndependentDamper
+    annotation (Dialog(
+      enable=not have_preIndDam
              and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real kHeaMaxDam(final unit="1")=0.5
     "Gain of controller for heating maximum damper control"
-    annotation(Dialog(group="Damper", enable=not have_pressureIndependentDamper));
+    annotation(Dialog(enable=not have_preIndDam));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
@@ -71,11 +72,11 @@ block Dampers
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
+    final quantity="VolumeFlowRate") if not have_preIndDam
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,120},{-320,160}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooAHU
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooAHU
     "Cooling air handler proven on status"
     annotation (Placement(transformation(extent={{-360,60},{-320,100}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
@@ -114,7 +115,7 @@ block Dampers
     "Active heating maximum airflow rate"
     annotation (Placement(transformation(extent={{-360,-270},{-320,-230}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaAHU
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaAHU
     "Heating air handler proven on status"
     annotation (Placement(transformation(extent={{-360,-340},{-320,-300}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -132,18 +133,16 @@ block Dampers
     "Cold duct discharge airflow setpoint"
     annotation (Placement(transformation(extent={{320,220},{360,260}}),
         iconTransformation(extent={{100,120},{140,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooDam(
     final min=0,
     final max=1,
-    final unit="1")
-    "Cold duct damper position setpoint"
+    final unit="1") "Cold duct damper commanded position"
     annotation (Placement(transformation(extent={{320,10},{360,50}}),
         iconTransformation(extent={{100,70},{140,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDamSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaDam(
     final min=0,
     final max=1,
-    final unit="1")
-    "Hot duct damper position setpoint"
+    final unit="1") "Hot duct damper commanded position"
     annotation (Placement(transformation(extent={{320,-340},{360,-300}}),
         iconTransformation(extent={{100,-160},{140,-120}})));
 
@@ -225,10 +224,6 @@ block Dampers
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
     "Cold duct flow setpoint when in heating state"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
-    final k=V_flow_nominal)
-    "Nominal volume flow rate"
-    annotation (Placement(transformation(extent={{80,170},{100,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
@@ -239,11 +234,11 @@ block Dampers
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final y_reset=0) if not have_pressureIndependentDamper
+    final y_reset=0) if not have_preIndDam
     "Cooling damper position controller"
     annotation (Placement(transformation(extent={{220,190},{240,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
-    if not have_pressureIndependentDamper
+    if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch cooDamPos
@@ -254,13 +249,9 @@ block Dampers
     annotation (Placement(transformation(extent={{180,50},{200,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1)
-    if have_pressureIndependentDamper
+    if have_preIndDam
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow1(
-    final k=V_flow_nominal)
-    "Nominal volume flow rate"
-    annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor1
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
@@ -269,16 +260,16 @@ block Dampers
     final k=kHeaMaxDam,
     final yMax=1,
     final yMin=0,
-    final y_reset=0) if not have_pressureIndependentDamper
+    final y_reset=0) if not have_preIndDam
     "Heating damper position controller"
     annotation (Placement(transformation(extent={{200,-180},{220,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor1
-    if not have_pressureIndependentDamper
+    if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{120,-220},{140,-200}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=1)
-    if have_pressureIndependentDamper
+    if have_preIndDam
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch heaDamPos
@@ -309,7 +300,17 @@ block Dampers
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Total discharge airflow setpoint"
     annotation (Placement(transformation(extent={{280,280},{300,300}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax1(
+    final k=VCooMax_flow)
+    "Cooling maximum flow"
+    annotation (Placement(transformation(extent={{20,190},{40,210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax1(
+    final k=VHeaMax_flow)
+    "Heating maximum flow"
+    annotation (Placement(transformation(extent={{20,150},{40,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max2
+    "Nominal flow"
+    annotation (Placement(transformation(extent={{80,170},{100,190}})));
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,250},{-162,250}}, color={0,0,127}));
@@ -397,19 +398,15 @@ equation
     annotation (Line(points={{102,240},{340,240}}, color={0,0,127}));
   connect(swi.y, VDisSet_flowNor.u1) annotation (Line(points={{102,240},{120,240},
           {120,206},{138,206}}, color={0,0,127}));
-  connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{102,180},{120,
-          180},{120,194},{138,194}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conCooDam.u_s)
     annotation (Line(points={{162,200},{218,200}}, color={0,0,127}));
-  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{102,180},{120,180},
-          {120,144},{138,144}}, color={0,0,127}));
   connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-340,140},{80,140},
           {80,156},{138,156}}, color={0,0,127}));
   connect(VDis_flowNor.y, conCooDam.u_m)
     annotation (Line(points={{162,150},{230,150},{230,188}}, color={0,0,127}));
-  connect(uCooAHU, conCooDam.trigger) annotation (Line(points={{-340,80},{224,80},
-          {224,188}}, color={255,0,255}));
-  connect(uCooAHU, not3.u) annotation (Line(points={{-340,80},{160,80},{160,60},
+  connect(u1CooAHU, conCooDam.trigger) annotation (Line(points={{-340,80},{224,
+          80},{224,188}}, color={255,0,255}));
+  connect(u1CooAHU, not3.u) annotation (Line(points={{-340,80},{160,80},{160,60},
           {178,60}}, color={255,0,255}));
   connect(not3.y, cooDamPos.u2) annotation (Line(points={{202,60},{240,60},{240,
           30},{278,30}}, color={255,0,255}));
@@ -421,23 +418,19 @@ equation
           {260,22},{278,22}}, color={0,0,127}));
   connect(conZer3.y, cooDamPos.u1) annotation (Line(points={{-38,-70},{60,-70},{
           60,38},{278,38}}, color={0,0,127}));
-  connect(cooDamPos.y, yCooDamSet)
+  connect(cooDamPos.y, yCooDam)
     annotation (Line(points={{302,30},{340,30}}, color={0,0,127}));
-  connect(heaDamPos.y, yHeaDamSet)
+  connect(heaDamPos.y, yHeaDam)
     annotation (Line(points={{302,-320},{340,-320}}, color={0,0,127}));
-  connect(uHeaAHU, heaDamPos.u2)
+  connect(u1HeaAHU, heaDamPos.u2)
     annotation (Line(points={{-340,-320},{278,-320}}, color={255,0,255}));
   connect(conZer3.y, heaDamPos.u3) annotation (Line(points={{-38,-70},{60,-70},{
           60,-328},{278,-328}}, color={0,0,127}));
-  connect(nomFlow1.y, VDisSet_flowNor1.u2) annotation (Line(points={{42,-240},{100,
-          -240},{100,-176},{118,-176}}, color={0,0,127}));
   connect(VDisSet_flowNor1.y, conHeaDam.u_s)
     annotation (Line(points={{142,-170},{198,-170}}, color={0,0,127}));
-  connect(nomFlow1.y, VDis_flowNor1.u2) annotation (Line(points={{42,-240},{100,
-          -240},{100,-216},{118,-216}}, color={0,0,127}));
   connect(VDis_flowNor1.y, conHeaDam.u_m) annotation (Line(points={{142,-210},{210,
           -210},{210,-182}}, color={0,0,127}));
-  connect(uHeaAHU, conHeaDam.trigger) annotation (Line(points={{-340,-320},{204,
+  connect(u1HeaAHU, conHeaDam.trigger) annotation (Line(points={{-340,-320},{204,
           -320},{204,-182}}, color={255,0,255}));
   connect(greThr1.y, or1.u1) annotation (Line(points={{-258,220},{-240,220},{-240,
           -300},{-62,-300}}, color={255,0,255}));
@@ -483,20 +476,31 @@ equation
           {278,284}}, color={0,0,127}));
   connect(add2.y, VDis_flow_Set)
     annotation (Line(points={{302,290},{340,290}}, color={0,0,127}));
-
+  connect(cooMax1.y,max2. u1) annotation (Line(points={{42,200},{70,200},{70,186},
+          {78,186}}, color={0,0,127}));
+  connect(heaMax1.y,max2. u2) annotation (Line(points={{42,160},{70,160},{70,174},
+          {78,174}}, color={0,0,127}));
+  connect(max2.y, VDisSet_flowNor.u2) annotation (Line(points={{102,180},{120,180},
+          {120,194},{138,194}}, color={0,0,127}));
+  connect(max2.y, VDis_flowNor.u2) annotation (Line(points={{102,180},{120,180},
+          {120,144},{138,144}}, color={0,0,127}));
+  connect(max2.y, VDisSet_flowNor1.u2) annotation (Line(points={{102,180},{120,180},
+          {120,0},{90,0},{90,-176},{118,-176}}, color={0,0,127}));
+  connect(max2.y, VDis_flowNor1.u2) annotation (Line(points={{102,180},{120,180},
+          {120,0},{90,0},{90,-216},{118,-216}}, color={0,0,127}));
 annotation (
   defaultComponentName="dam",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-340},{320,340}}),
         graphics={
         Rectangle(
-          extent={{-318,296},{138,42}},
+          extent={{-318,318},{138,64}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
           extent={{-166,300},{-8,276}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -509,7 +513,7 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-150,-226},{20,-256}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -523,57 +527,57 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,240},{100,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,170},{-40,152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-98,-118},{-34,-138}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{-98,26},{-52,12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-98,198},{-78,186}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,-90},{-76,-104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-98,136},{-68,124}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TColSup"),
         Text(
           extent={{-98,-12},{-78,-24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          visible=not have_pressureIndependentDamper,
+          visible=not have_preIndDam,
           extent={{-11.5,4.5},{11.5,-4.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={39.5,-85.5},
           rotation=90,
           textString="VDis_flow"),
         Text(
           extent={{46,98},{98,86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="yCooDamSet"),
+          textString="yCooDam"),
         Line(points={{-38,64},{-38,-48},{74,-48}}, color={95,95,95}),
         Line(
           points={{10,-22},{10,-48}},
@@ -593,37 +597,37 @@ annotation (
       fillPattern=FillPattern.Solid),
         Text(
           extent={{22,148},{98,134}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VColDucDis_flow_Set"),
         Text(
           extent={{-98,76},{-66,66}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uCooAHU"),
+          textString="u1CooAHU"),
         Text(
           extent={{-96,110},{-60,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow",
-          visible=not have_pressureIndependentDamper),
+          visible=not have_preIndDam),
         Text(
           extent={{-98,-64},{-68,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THotSup"),
         Text(
           extent={{-98,-184},{-66,-194}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHeaAHU"),
+          textString="u1HeaAHU"),
         Text(
           extent={{44,-132},{96,-144}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="yHeaDamSet"),
+          textString="yHeaDam"),
         Line(
           points={{10,-22},{26,-22},{66,48}},
           color={0,0,255},
@@ -640,7 +644,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{46,186},{98,174}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VDis_flow_Set")}),
@@ -658,7 +662,7 @@ When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop
 cooling maximum setpoint <code>VActCooMax_flow</code>. The cooling damper shall be
 modulated by a control loop to maintain the measured aiflow
 <code>VDis_flow</code> at setpoint. The heating damper shall be closed
-<code>yHeaDamSet=0</code>.
+<code>yHeaDam=0</code>.
 <ul>
 <li>
 If the cold-deck supply air temperature <code>TColSup</code> from the cooling air handler
@@ -694,12 +698,12 @@ damper position rangingfrom 0% to 100%.
 Overriding above controls:
 <ul>
 <li>
-If heating air handler is not proven ON (<code>uHeaAHU=false</code>), the heating
-damper shall be closed (<code>yHeaDamSet=0</code>).
+If heating air handler is not proven ON (<code>u1HeaAHU=false</code>), the heating
+damper shall be closed (<code>yHeaDam=0</code>).
 </li>
 <li>
-If cooling air handler is not proven ON (<code>uCooAHU=false</code>), the cooling
-damper shall be closed (<code>yCooDamSet=0</code>).
+If cooling air handler is not proven ON (<code>u1CooAHU=false</code>), the cooling
+damper shall be closed (<code>yCooDam=0</code>).
 </li>
 </ul>
 </li>
@@ -707,8 +711,8 @@ damper shall be closed (<code>yCooDamSet=0</code>).
 <p>The sequences of controlling dampers position for dual-duct terminal unit
 using mixing control with inlet flow sensor are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper control for dual-duct terminal unit using mixing control with discharge flow sensor\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctMixConDischargeSensor/Subsequences/Dampers.png\"/>
 </p>
 <p>
 Note that when the zone is in heating state, the wordings in Section 5.13.5.1.c does

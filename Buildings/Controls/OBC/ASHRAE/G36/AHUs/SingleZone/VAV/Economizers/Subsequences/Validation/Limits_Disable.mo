@@ -4,32 +4,32 @@ model Limits_Disable
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim1(
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
+    final fanSpe_min=fanSpe_min,
+    final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim2(
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
+    final fanSpe_min=fanSpe_min,
+    final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim3(
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
+    final fanSpe_min=fanSpe_min,
+    final fanSpe_max=fanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
 protected
-  final parameter Real yFanMin=0.1 "Minimum supply fan operation speed";
-  final parameter Real yFanMax=0.9 "Maximum supply fan operation speed";
+  final parameter Real fanSpe_min=0.1 "Minimum supply fan operation speed";
+  final parameter Real fanSpe_max=0.9 "Maximum supply fan operation speed";
   final parameter Real VOutDes_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.0
@@ -53,8 +53,8 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=yFanMin,
-    final height=yFanMax - yFanMin) "Supply fan speed signal"
+    final offset=fanSpe_min,
+    final height=fanSpe_max - fanSpe_min) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig(
     final duration=1800,
@@ -96,31 +96,27 @@ protected
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
 equation
-  connect(SupFanSpeSig.y, damLim1.uSupFanSpe)
-    annotation (Line(points={{-138,30},{-120,30},{-120,-6},{-120,-6.2},{-102,-6.2},
-          {-102,-6}},
-    color={0,0,127}));
+  connect(SupFanSpeSig.y, damLim1.uSupFanSpe_actual) annotation (Line(points={{-138,
+          30},{-120,30},{-120,-6},{-120,-6.2},{-102,-6.2},{-102,-6}}, color={0,0,
+          127}));
   connect(VOutMinSetSig.y, damLim2.VOutMinSet_flow)
     annotation (Line(points={{-138,70},{-10,70},{-10,-2},{18,-2}},  color={0,0,127}));
-  connect(fanStatus1.y, damLim1.uSupFan)
-    annotation (Line(points={{-138,-30},{-130,-30},{-130,-12},{-130,-12},{-102,-12},
-          {-102,-10}},
-    color={255,0,255}));
+  connect(fanStatus1.y, damLim1.u1SupFan) annotation (Line(points={{-138,-30},{-130,
+          -30},{-130,-12},{-130,-12},{-102,-12},{-102,-10}}, color={255,0,255}));
   connect(freProSta1.y, damLim1.uFreProSta)
     annotation (Line(points={{-138,-90},{-110,-90},{-110,-14},{-102,-14}}, color={255,127,0}));
   connect(operationMode1.y, damLim1.uOpeMod)
     annotation (Line(points={{-138,-60},{-120,-60},{-120,-18.2},{-102,-18.2}},
                                                                            color={255,127,0}));
-  connect(fanStatus2.y,damLim2. uSupFan)
-    annotation (Line(points={{-18,-30},{-10,-30},{-10,-10},{18,-10}}, color={255,0,255}));
+  connect(fanStatus2.y, damLim2.u1SupFan) annotation (Line(points={{-18,-30},{-10,
+          -30},{-10,-10},{18,-10}}, color={255,0,255}));
   connect(freProSta2.y,damLim2. uFreProSta)
     annotation (Line(points={{-18,-90},{10,-90},{10,-14},{18,-14}}, color={255,127,0}));
   connect(operationMode2.y,damLim2. uOpeMod)
     annotation (Line(points={{-18,-60},{0,-60},{0,-18.2},{18,-18.2}},
       color={255,127,0}));
-  connect(fanStatus3.y,damLim3. uSupFan)
-    annotation (Line(points={{102,-30},{102,-30},{110,-30},{110,-10},{138,-10}},
-    color={255,0,255}));
+  connect(fanStatus3.y, damLim3.u1SupFan) annotation (Line(points={{102,-30},{102,
+          -30},{110,-30},{110,-10},{138,-10}}, color={255,0,255}));
   connect(freProSta3.y,damLim3. uFreProSta)
     annotation (Line(points={{102,-90},{130,-90},{130,-14},{138,-14}},color={255,127,0}));
   connect(operationMode3.y,damLim3. uOpeMod)
@@ -132,14 +128,11 @@ equation
   connect(VOutMinSetSig.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{-138,70},{-110,70},{-110,-2},{-102,-2}},
     color={0,0,127}));
-  connect(SupFanSpeSig.y, damLim2.uSupFanSpe)
-    annotation (Line(points={{-138,30},{-20,30},{-20,-6},{0,-6},{0,-6},{18,-6}},
-    color={0,0,127}));
-  connect(SupFanSpeSig.y, damLim3.uSupFanSpe)
-    annotation (Line(points={{-138,30},{120,30},{120,-6},{130,-6},{130,-6},{138,
-          -6}},
-    color={0,0,127}));
-  annotation (
+  connect(SupFanSpeSig.y, damLim2.uSupFanSpe_actual) annotation (Line(points={{-138,
+          30},{-20,30},{-20,-6},{0,-6},{0,-6},{18,-6}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, damLim3.uSupFanSpe_actual) annotation (Line(points={{-138,
+          30},{120,30},{120,-6},{130,-6},{130,-6},{138,-6}}, color={0,0,127}));
+annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Limits_Disable.mos"
     "Simulate and plot"),
@@ -156,7 +149,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}), graphics={
         Text(
           extent={{-160,110},{-130,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -164,7 +157,7 @@ equation
           textString="Fan status"),
         Text(
           extent={{-40,110},{4,98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -172,7 +165,7 @@ equation
           textString="Operation mode"),
         Text(
           extent={{80,112},{146,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

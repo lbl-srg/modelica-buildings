@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups;
 block OperationMode "Block that outputs the operation mode"
 
-  parameter Integer numZon(min=1) "Number of zones";
+  parameter Integer nZon(min=1) "Number of zones";
   parameter Real preWarCooTim(
     final unit="s",
     final quantity="Time") = 10800
@@ -94,7 +94,7 @@ block OperationMode "Block that outputs the operation mode"
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode "
     annotation (Placement(transformation(extent={{100,340},{120,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(
@@ -205,27 +205,27 @@ protected
     "Hold the start time true signal"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(
-    final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
+    final realTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.warmUp)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{80,170},{100,190}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
+    final realTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.coolDown)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{80,260},{100,280}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
-    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
     "Convert Boolean to Integer "
     annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea6(
-    final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
+    final realTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.setUp)
     "Convert Boolean to Real "
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4(
-    final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.freezeProtection)
+    final realTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.freezeProtection)
     "Convert Boolean to Real "
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3(
-    final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setBack)
+    final realTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.setBack)
     "Convert Boolean to Real "
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
@@ -299,7 +299,7 @@ protected
     "Get the start of the warm-up time"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
-    final k=numZon) "Total number of zones"
+    final k=nZon) "Total number of zones"
     annotation (Placement(transformation(extent={{-340,-340},{-320,-320}})));
   Buildings.Controls.OBC.CDL.Integers.Equal allCol
     "Check if all zones are cold zone"
@@ -676,43 +676,43 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{236,372},{326,354}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
           extent={{158,10},{242,-12}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setback mode"),
         Text(
           extent={{150,-226},{222,-248}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setup mode"),
         Text(
           extent={{214,-338},{318,-368}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Unoccupied mode"),
         Text(
           extent={{180,-94},{352,-122}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
           extent={{164,174},{252,150}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
           extent={{248,258},{336,230}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Cool-down mode")}),
@@ -725,86 +725,86 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,148},{-44,136}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxCooDowTim"),
         Text(
           extent={{-98,106},{-50,96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxWarUpTim"),
         Text(
           extent={{58,12},{96,-10}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
           extent={{-100,240},{100,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,168},{-68,152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
           extent={{-100,188},{-76,176}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
           extent={{-98,128},{-50,116}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHigOccCoo"),
         Text(
           extent={{-98,86},{-48,74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOccHeaHig"),
         Text(
           extent={{-98,26},{-60,16}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totColZon"),
         Text(
           extent={{-98,-34},{-52,-46}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetBac"),
         Text(
           extent={{-98,-54},{-64,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMax"),
         Text(
           extent={{-98,-74},{-64,-84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
           extent={{-98,-114},{-62,-124}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totHotZon"),
         Text(
           extent={{-98,-174},{-52,-186}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetUp"),
         Text(
           extent={{-98,-14},{-66,-26}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSetBac"),
         Text(
           extent={{-98,-154},{-66,-166}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uSetUp"),
         Text(
           extent={{-100,46},{-62,36}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeWin")}),
    Documentation(info="<html>
@@ -863,7 +863,7 @@ computed in a separate block. The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of warm-up mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Warm-upModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/Warm-upModeDefinition.png\"/>
 </p>
 <h4>Cooldown Mode</h4>
 <p>
@@ -877,7 +877,7 @@ computed in a separate block.
 </p>
 <p align=\"center\">
 <img alt=\"Image of cool-down mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Cool-downModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/Cool-downModeDefinition.png\"/>
 </p>
 <h4>Setback Mode</h4>
 <p>
@@ -890,7 +890,7 @@ unoccupied setpoints (<code>uEndSetBac</code> becomes true).
 </p>
 <p align=\"center\">
 <img alt=\"Image of setback mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetbackModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/SetbackModeDefinition.png\"/>
 </p>
 <h4>Freeze Protection Setback Mode</h4>
 <p>
@@ -910,7 +910,7 @@ open shall be ignored.
 </p>
 <p align=\"center\">
 <img alt=\"Image of setup mode definition\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetupModeDefinition.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/SetupModeDefinition.png\"/>
 </p>
 <h4>Unoccupied Mode</h4>
 <p>

@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Validation;
 model Alarms "Validate block for generating alarms"
 
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Alarms zonAla(
-    final have_CO2Sen=true)
-    "Block that generates alarms"
+    final have_CO2Sen=true) "Block that generates alarms"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
@@ -54,11 +53,11 @@ equation
           {70,25},{98,25}}, color={255,127,0}));
   connect(zonTem.y, zonAla.TZon) annotation (Line(points={{-58,100},{80,100},{80,
           39},{98,39}}, color={0,0,127}));
-  connect(TZonCooSetOcc.y, zonAla.TZonCooSet) annotation (Line(points={{-58,60},
-          {60,60},{60,36},{98,36}}, color={0,0,127}));
-  connect(TZonHeaSetOcc.y, zonAla.TZonHeaSet) annotation (Line(points={{-58,20},
-          {50,20},{50,33},{98,33}}, color={0,0,127}));
-  connect(occSta.y, zonAla.uResSet) annotation (Line(points={{-58,-20},{60,-20},
+  connect(TZonCooSetOcc.y, zonAla.TCooSet) annotation (Line(points={{-58,60},{
+          60,60},{60,36},{98,36}}, color={0,0,127}));
+  connect(TZonHeaSetOcc.y, zonAla.THeaSet) annotation (Line(points={{-58,20},{
+          50,20},{50,33},{98,33}}, color={0,0,127}));
+  connect(occSta.y, zonAla.u1ResSet) annotation (Line(points={{-58,-20},{60,-20},
           {60,28},{98,28}}, color={255,0,255}));
   connect(CO2.y, zonAla.ppmCO2) annotation (Line(points={{-58,-100},{80,-100},{80,
           22},{98,22}}, color={0,0,127}));

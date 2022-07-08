@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequenc
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for unit with variable volume parallel fans"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.ActiveAirFlow actAirSet(
-    final VCooZonMax_flow=0.5)
+    final VCooMax_flow=0.5)
     "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(
@@ -31,7 +31,7 @@ equation
       color={0,0,127}));
   connect(reaToInt2.y, actAirSet.uOpeMod)
     annotation (Line(points={{22,0},{50,0},{50,6},{58,6}},   color={255,127,0}));
-  connect(minFlo.y, actAirSet.VOccZonMin_flow) annotation (Line(points={{-58,-40},
+  connect(minFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-58,-40},
           {40,-40},{40,-6},{58,-6}}, color={0,0,127}));
 
 annotation (

@@ -19,24 +19,26 @@ block CoolingCoil "Controller for cooling coil valve"
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCooSet(
     final unit="K",
     final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
     final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Supply air temperature measurement"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta "Zone state"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan proven on"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi "Cooling coil control signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi
+    "Cooling coil valve commanded position"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -52,7 +54,9 @@ protected
     final controllerType=controllerTypeCooCoi,
     final k=kCooCoi,
     final Ti=TiCooCoi,
-    final Td=TdCooCoi) "Cooling coil control signal"
+    final Td=TdCooCoi,
+    final reverseActing=false)
+                       "Cooling coil control signal"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
@@ -64,18 +68,18 @@ protected
 equation
   connect(const.y, switch.u3) annotation (Line(points={{42,-40},{60,-40},{60,-8},
           {70,-8}}, color={0,0,127}));
-  connect(cooCoiPI.trigger, uSupFan) annotation (Line(points={{-6,68},{-6,-80},
-          {-120,-80}},                     color={255,0,255}));
-  connect(cooCoiPI.u_s, TSupCoo) annotation (Line(points={{-12,80},{-120,80}},
-                      color={0,0,127}));
-  connect(cooCoiPI.u_m, TSup)
-    annotation (Line(points={{0,68},{0,40},{-120,40}},    color={0,0,127}));
+  connect(cooCoiPI.trigger, u1SupFan)
+    annotation (Line(points={{-6,68},{-6,-80},{-120,-80}}, color={255,0,255}));
+  connect(cooCoiPI.u_s, TSupCooSet)
+    annotation (Line(points={{-12,80},{-120,80}}, color={0,0,127}));
+  connect(cooCoiPI.u_m, TAirSup)
+    annotation (Line(points={{0,68},{0,40},{-120,40}}, color={0,0,127}));
   connect(switch.y, yCooCoi)
     annotation (Line(points={{94,0},{120,0}}, color={0,0,127}));
   connect(intEqu.y, and2.u1) annotation (Line(points={{-18,0},{-2,0}},
                     color={255,0,255}));
-  connect(and2.u2, uSupFan) annotation (Line(points={{-2,-8},{-6,-8},{-6,-80},{
-          -120,-80}},  color={255,0,255}));
+  connect(and2.u2, u1SupFan) annotation (Line(points={{-2,-8},{-6,-8},{-6,-80},
+          {-120,-80}}, color={255,0,255}));
   connect(and2.y, switch.u2) annotation (Line(points={{22,0},{70,0}},
                   color={255,0,255}));
   connect(conInt.y, intEqu.u1)
@@ -84,7 +88,7 @@ equation
           -50,-8},{-42,-8}},   color={255,127,0}));
   connect(cooCoiPI.y, switch.u1)
     annotation (Line(points={{12,80},{60,80},{60,8},{70,8}}, color={0,0,127}));
-  annotation (defaultComponentName="cooCoi",
+annotation (defaultComponentName="cooCoi",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -94,7 +98,7 @@ equation
         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        textColor={0,0,255})}),
         Diagram(coordinateSystem(
           preserveAspectRatio=false)),
 Documentation(info="<html>

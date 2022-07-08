@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "retFan.uSupFanSpe_actual",
+    "retFan.yRetFan",
+    "retFan.u1SupFan",
+    "retFan.y1ExhDam"
+  };
