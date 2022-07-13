@@ -310,13 +310,12 @@ equation
           88,26},{88,-76},{54,-76},{54,-70}},   color={0,127,255}));
   connect(val2.port_b, pum2.port_a) annotation (Line(points={{34,-28},{34,-66},{
           14,-66},{14,-60}}, color={0,127,255}));
-  connect(sou1.ports[1], chiWat.port_a1)
-    annotation (Line(points={{72,-4},{66,-4},{66,-23}},
-                                                      color={0,127,255}));
-  connect(chiWat.port_b1, sin1.ports[1])
+  connect(souAir.ports[1], chiWat.port_a1)
+    annotation (Line(points={{72,-4},{66,-4},{66,-23}}, color={0,127,255}));
+  connect(chiWat.port_b1, sinAir.ports[1])
     annotation (Line(points={{66,-43},{66,-55},{74,-55}}, color={0,127,255}));
-  connect(preSou1.ports[1], pum3.port_a) annotation (Line(points={{90,-24},{88,
-          -24},{88,-76},{54,-76},{54,-70}},color={0,127,255}));
+  connect(preSouWat.ports[1], pum3.port_a) annotation (Line(points={{90,-24},{88,
+          -24},{88,-76},{54,-76},{54,-70}}, color={0,127,255}));
   connect(pum2.port_b, vol.ports[1])
     annotation (Line(points={{14,-48},{14,-33}}, color={0,127,255}));
   connect(temSen1.port_a, vol.ports[2])
@@ -335,111 +334,108 @@ equation
           {148,-60},{150.8,-60}}, color={0,0,127}));
   connect(temSen3.T, greThrT3.u) annotation (Line(points={{140.6,-46},{148,-46},
           {148,-38},{150.8,-38}}, color={0,0,127}));
-  connect(mod5.active, booToReaPum3.u) annotation (Line(points={{-104,-34.6},{
-          -104,-94},{86,-94},{86,-86},{79.2,-86}}, color={255,0,255}));
-  connect(swi.u3, val3On.y) annotation (Line(points={{95.2,41.2},{98,41.2},{98,36},
-          {98.8,36}}, color={0,0,127}));
-  connect(val3Off.y, swi.u1) annotation (Line(points={{98.8,56},{98,56},{98,50.8},
-          {95.2,50.8}}, color={0,0,127}));
-  connect(ste0.outPort[1],T0. inPort)
-    annotation (Line(points={{-165.7,4.15},{-164,4.15},{-164,4}},
-                                                   color={0,0,0}));
+  connect(chiOnly.active, booToReaPum3.u) annotation (Line(points={{-104,-34.6},
+          {-104,-94},{86,-94},{86,-86},{79.2,-86}}, color={255,0,255}));
+  connect(swiVal3.u3, val3On.y) annotation (Line(points={{95.2,41.2},{98,41.2},{
+          98,36},{98.8,36}}, color={0,0,127}));
+  connect(val3Off.y, swiVal3.u1) annotation (Line(points={{98.8,56},{98,56},{98,
+          50.8},{95.2,50.8}}, color={0,0,127}));
+  connect(standby.outPort[1], T0.inPort) annotation (Line(points={{-165.7,4},{-164,
+          4},{-164,4}},          color={0,0,0}));
   connect(T0.outPort, parallel.inPort)
     annotation (Line(points={{-158.5,4},{-155.47,4}}, color={0,0,0}));
   connect(ste1.inPort[1], parallel.split[1]) annotation (Line(points={{-138.6,28},
           {-140,28},{-140,4},{-142.975,4}},   color={0,0,0}));
-  connect(ste1.outPort[1],T3. inPort)
+  connect(ste1.outPort[1], T13.inPort)
     annotation (Line(points={{-125.7,28},{-122,28}}, color={0,0,0}));
-  connect(T3.outPort, mod4.inPort[1])
+  connect(T13.outPort, dualCool.inPort[1])
     annotation (Line(points={{-116.5,28},{-110.6,28}}, color={0,0,0}));
-  connect(mod4.outPort[1], T4.inPort)
+  connect(dualCool.outPort[1], T24.inPort)
     annotation (Line(points={{-97.7,28},{-94,28}}, color={0,0,0}));
-  connect(T4.outPort, ste2.inPort[1])
+  connect(T24.outPort, ste2.inPort[1])
     annotation (Line(points={{-88.5,28},{-84.6,28}}, color={0,0,0}));
   connect(ste2.outPort[1], parallel.join[1]) annotation (Line(points={{-71.7,28},
           {-70,28},{-70,4},{-67.025,4}},    color={0,0,0}));
-  connect(parallel.split[2], mod5.inPort[1]) annotation (Line(points={{-142.975,
+  connect(parallel.split[2], chiOnly.inPort[1]) annotation (Line(points={{-142.975,
           4},{-140,4},{-140,-28},{-110.6,-28}}, color={0,0,0}));
-  connect(mod5.outPort[1], parallel.join[2]) annotation (Line(points={{-97.7,-28},
-          {-70,-28},{-70,4},{-67.025,4}}, color={0,0,0}));
-  connect(T6.outPort, ste0.inPort[1]) annotation (Line(points={{-135.5,-52},{
-          -180,-52},{-180,4},{-178.6,4}},
-                                     color={0,0,0}));
+  connect(chiOnly.outPort[1], parallel.join[2]) annotation (Line(points={{-97.7,
+          -28},{-70,-28},{-70,4},{-67.025,4}}, color={0,0,0}));
+  connect(T6.outPort, standby.inPort[1]) annotation (Line(points={{-135.5,-52},{
+          -180,-52},{-180,4},{-178.6,4}}, color={0,0,0}));
   connect(parallel.outPort,T5. inPort)
     annotation (Line(points={{-55.02,4},{-50,4}}, color={0,0,0}));
-  connect(mod2.inPort[1], T5.outPort) annotation (Line(points={{-71.4,-52},{-38,
+  connect(iceOnly.inPort[1], T5.outPort) annotation (Line(points={{-71.4,-52},{-38,
           -52},{-38,4},{-44.5,4}}, color={0,0,0}));
-  connect(mod2.outPort[1], T6.inPort)
+  connect(iceOnly.outPort[1], T6.inPort)
     annotation (Line(points={{-84.3,-52},{-130,-52}}, color={0,0,0}));
-  connect(fixHeaFlo.port, vol.heatPort) annotation (Line(points={{-32,-82},{-24,
+  connect(fixHeaFloIce.port, vol.heatPort) annotation (Line(points={{-32,-82},{-24,
           -82},{-24,-25},{4,-25}}, color={191,0,0}));
-  connect(glyLooCoo.y, fixHeaFlo.Q_flow)
+  connect(iceTanCoo.y, fixHeaFloIce.Q_flow)
     annotation (Line(points={{-69.4,-82},{-52,-82}}, color={0,0,127}));
   connect(lesThrT1.u, temSen1.T) annotation (Line(points={{-2.8,-14},{0,-14},{0,
           -4},{7.4,-4}}, color={0,0,127}));
-  connect(swi.y, val3.y) annotation (Line(points={{80.8,46},{70,46},{70,16},{
-          58.8,16}}, color={0,0,127}));
-  connect(booToReaVal.y, val1.y) annotation (Line(points={{15.2,36},{26,36},{26,
+  connect(swiVal3.y, val3.y) annotation (Line(points={{80.8,46},{70,46},{70,16},
+          {58.8,16}}, color={0,0,127}));
+  connect(booToReaVal1.y, val1.y) annotation (Line(points={{15.2,36},{26,36},{26,
           16},{18.8,16}}, color={0,0,127}));
-  connect(booToReaVal1.y, val2.y) annotation (Line(points={{15.2,54},{42,54},{
+  connect(booToReaVal2.y, val2.y) annotation (Line(points={{15.2,54},{42,54},{
           42,-24},{38.8,-24}}, color={0,0,127}));
-  connect(T3.condition, greThrT1.y) annotation (Line(points={{-118,16},{-118,12},
-          {-52,12},{-52,20},{-17.2,20}}, color={255,0,255}));
-  connect(lesThrT3.y, mulOr.u[1]) annotation (Line(points={{165.2,-60},{166,-60},
-          {166,-100},{-56,-100},{-56,-36},{-48.1,-36},{-48.1,-31.2}}, color={
-          255,0,255}));
-  connect(lesThrT1.y, mulOr.u[2]) annotation (Line(points={{-17.2,-14},{-34,-14},
+  connect(T13.condition, greThrT1.y) annotation (Line(points={{-118,16},{-118,
+          12},{-52,12},{-52,20},{-17.2,20}}, color={255,0,255}));
+  connect(lesThrT3.y, mulOrT5.u[1]) annotation (Line(points={{165.2,-60},{166,-60},
+          {166,-100},{-56,-100},{-56,-36},{-48.1,-36},{-48.1,-31.2}}, color={255,
+          0,255}));
+  connect(lesThrT1.y, mulOrT5.u[2]) annotation (Line(points={{-17.2,-14},{-34,-14},
           {-34,-36},{-44,-36},{-44,-31.2},{-43.9,-31.2}}, color={255,0,255}));
-  connect(mulOr.y, T5.condition)
+  connect(mulOrT5.y, T5.condition)
     annotation (Line(points={{-46,-16.8},{-46,-8}}, color={255,0,255}));
-  connect(mulOr.y, T4.condition) annotation (Line(points={{-46,-16.8},{-90,
-          -16.8},{-90,16}}, color={255,0,255}));
-  connect(mulOr1.y, T6.condition)
+  connect(mulOrT5.y, T24.condition) annotation (Line(points={{-46,-16.8},{-90,-16.8},
+          {-90,16}}, color={255,0,255}));
+  connect(mulOrT6.y, T6.condition)
     annotation (Line(points={{-134,-70.8},{-134,-64}}, color={255,0,255}));
-  connect(greThrT1.y, mulOr1.u[1]) annotation (Line(points={{-17.2,20},{-52,20},
-          {-52,-4},{-118,-4},{-118,-94},{-136.8,-94},{-136.8,-85.2}}, color={
-          255,0,255}));
-  connect(greThrT3.y, mulOr1.u[2]) annotation (Line(points={{165.2,-38},{172,
-          -38},{172,-106},{-134,-106},{-134,-85.2}}, color={255,0,255}));
-  connect(mulOr2.y, booToReaPum2.u) annotation (Line(points={{-34.8,-64},{-30,
+  connect(greThrT1.y, mulOrT6.u[1]) annotation (Line(points={{-17.2,20},{-52,20},
+          {-52,-4},{-118,-4},{-118,-94},{-136.8,-94},{-136.8,-85.2}}, color={255,
+          0,255}));
+  connect(greThrT3.y, mulOrT6.u[2]) annotation (Line(points={{165.2,-38},{172,-38},
+          {172,-106},{-134,-106},{-134,-85.2}}, color={255,0,255}));
+  connect(mulOrPum2.y, booToReaPum2.u) annotation (Line(points={{-34.8,-64},{-30,
           -64},{-30,-54},{-17.2,-54}}, color={255,0,255}));
-  connect(mod4.active, mulOr2.u[1]) annotation (Line(points={{-104,34.6},{-104,
-          54},{-62,54},{-62,-62},{-50,-62},{-50,-61.9},{-49.2,-61.9}}, color={
-          255,0,255}));
-  connect(mod2.active, mulOr2.u[2]) annotation (Line(points={{-78,-58.6},{-78,
-          -66.1},{-49.2,-66.1}}, color={255,0,255}));
+  connect(dualCool.active, mulOrPum2.u[1]) annotation (Line(points={{-104,34.6},
+          {-104,54},{-62,54},{-62,-62},{-50,-62},{-50,-61.9},{-49.2,-61.9}},
+        color={255,0,255}));
+  connect(iceOnly.active, mulOrPum2.u[2]) annotation (Line(points={{-78,-58.6},{
+          -78,-66.1},{-49.2,-66.1}}, color={255,0,255}));
   connect(greThrT3.y, T0.condition) annotation (Line(points={{165.2,-38},{172,
           -38},{172,100},{-150,100},{-150,-20},{-160,-20},{-160,-8}}, color={
           255,0,255}));
-  connect(lesThrT3.y, mulOr1.u[3]) annotation (Line(points={{165.2,-60},{166,
-          -60},{166,-100},{-132,-100},{-132,-85.2},{-131.2,-85.2}}, color={255,
-          0,255}));
-  connect(booToReaVal.u, booToReaPum2.u) annotation (Line(points={{0.8,36},{-30,
+  connect(lesThrT3.y, mulOrT6.u[3]) annotation (Line(points={{165.2,-60},{166,-60},
+          {166,-100},{-132,-100},{-132,-85.2},{-131.2,-85.2}}, color={255,0,255}));
+  connect(booToReaVal1.u, booToReaPum2.u) annotation (Line(points={{0.8,36},{-30,
           36},{-30,-54},{-17.2,-54}}, color={255,0,255}));
-  connect(swi.u2, booToReaPum2.u) annotation (Line(points={{95.2,46},{120,46},{
-          120,72},{-30,72},{-30,-54},{-17.2,-54}}, color={255,0,255}));
-  connect(booToReaVal1.u, mod4.active) annotation (Line(points={{0.8,54},{-104,
+  connect(swiVal3.u2, booToReaPum2.u) annotation (Line(points={{95.2,46},{120,46},
+          {120,72},{-30,72},{-30,-54},{-17.2,-54}}, color={255,0,255}));
+  connect(booToReaVal2.u, dualCool.active) annotation (Line(points={{0.8,54},{-104,
           54},{-104,34.6}}, color={255,0,255}));
-  connect(relPre.p_rel, pum4.dp_in) annotation (Line(points={{106.6,-24},{104,
+  connect(relPrePum4.p_rel, pum4.dp_in) annotation (Line(points={{106.6,-24},{104,
           -24},{104,12},{122,12},{122,18.8}}, color={0,0,127}));
   connect(pum4.port_b, val8.port_a)
     annotation (Line(points={{128,26},{134,26},{134,4}}, color={0,127,255}));
-  connect(temSen3.T, conPI.u_m) annotation (Line(points={{140.6,-46},{148,-46},
+  connect(temSen3.T, conPIVal8.u_m) annotation (Line(points={{140.6,-46},{148,-46},
           {148,14.8}}, color={0,0,127}));
-  connect(TCooSet.y, conPI.u_s)
+  connect(TSetVal8.y, conPIVal8.u_s)
     annotation (Line(points={{156.8,22},{155.2,22}}, color={0,0,127}));
-  connect(conPI.y, val8.y) annotation (Line(points={{140.8,22},{140,22},{140,0},
-          {138.8,0}}, color={0,0,127}));
-  connect(relPre.port_b, temSen3.port_b) annotation (Line(points={{112,-32},{
-          112,-56},{134,-56},{134,-52}}, color={0,127,255}));
-  connect(relPre.port_a, val8.port_a) annotation (Line(points={{112,-16},{112,8},
-          {134,8},{134,4}}, color={0,127,255}));
+  connect(conPIVal8.y, val8.y) annotation (Line(points={{140.8,22},{140,22},{140,
+          0},{138.8,0}}, color={0,0,127}));
+  connect(relPrePum4.port_b, temSen3.port_b) annotation (Line(points={{112,-32},
+          {112,-56},{134,-56},{134,-52}}, color={0,127,255}));
+  connect(relPrePum4.port_a, val8.port_a) annotation (Line(points={{112,-16},{112,
+          8},{134,8},{134,4}}, color={0,127,255}));
   connect(bui.ports_bChiWat[1], temSen3.port_a) annotation (Line(points={{128,
           -32},{128,-36},{134,-36},{134,-40}}, color={0,127,255}));
   connect(bui.ports_aChiWat[1], val8.port_b) annotation (Line(points={{128,-12},
           {128,-8},{134,-8},{134,-4}}, color={0,127,255}));
-  connect(T0.inPort, ste0.outPort[2]) annotation (Line(points={{-164,4},{-164,
-          3.85},{-165.7,3.85}}, color={0,0,0}));
+  connect(T0.inPort, standby.outPort[2]) annotation (Line(points={{-164,4},{-164,
+          4},{-165.7,4}},       color={0,0,0}));
   annotation (
     experiment(
       StopTime=259200,
