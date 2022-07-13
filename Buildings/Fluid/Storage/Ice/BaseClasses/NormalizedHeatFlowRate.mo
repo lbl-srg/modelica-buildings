@@ -42,11 +42,10 @@ protected
     final coeff=coeDisCha,
     final dt=dtDisCha) "q* for discharging mode"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Add qSta(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract qSta
     "Effective normalized heat flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
 equation
   connect(qStaCha.lmtdSta, lmtdSta) annotation (Line(points={{18,-12},{0,-12},{
           0,-60},{-120,-60}},   color={0,0,127}));
@@ -60,16 +59,16 @@ equation
           {-96,80},{-120,80}}, color={255,0,255}));
   connect(qNor, qSta.y)
     annotation (Line(points={{110,0},{82,0}}, color={0,0,127}));
-  connect(qStaCha.qNor, qSta.u2) annotation (Line(points={{41,-6},{58,-6}},
-                    color={0,0,127}));
-  connect(qStaDisCha.qNor, qSta.u1) annotation (Line(points={{41,70},{52,70},{52,
-          6},{58,6}}, color={0,0,127}));
   connect(SOCCom.u2, SOC) annotation (Line(points={{-42,24},{-60,24},{-60,0},{-120,
           0}}, color={0,0,127}));
   connect(const.y, SOCCom.u1) annotation (Line(points={{-59,60},{-50,60},{-50,36},
           {-42,36}}, color={0,0,127}));
   connect(qStaDisCha.x, SOCCom.y) annotation (Line(points={{18,70},{-10,70},{
           -10,30},{-19,30}}, color={0,0,127}));
+  connect(qStaCha.qNor, qSta.u1)
+    annotation (Line(points={{41,-6},{48,-6},{48,6},{58,6}}, color={0,0,127}));
+  connect(qStaDisCha.qNor, qSta.u2) annotation (Line(points={{41,70},{52,70},{52,
+          -6},{58,-6}}, color={0,0,127}));
   annotation (defaultComponentName = "norQSta",
   Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Text(textColor = {0, 0, 88}, extent = {{-32, 62}, {58, -34}}, textString = "q*")}),
@@ -83,7 +82,7 @@ This blocks calculate the normalized heat transfer rate for the ice tank in char
 <ul>
 <li>If <code>canFreeze</code> and <code>canMelt</code> are both <code>false</code>: the heat transfer rate is 0</li>
 <li>If <code>canMelt = true</code>: the heat transfer rate is the discharging rate calculated
-using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging\">Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging</a>
+using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStar\">Buildings.Fluid.Storage.Ice.BaseClasses.QStar</a>
 with coefficients for discharing mode.
 </li>
 <li>If <code>canFreeze = true</code>: the heat transfer rate is the charging rate calculated

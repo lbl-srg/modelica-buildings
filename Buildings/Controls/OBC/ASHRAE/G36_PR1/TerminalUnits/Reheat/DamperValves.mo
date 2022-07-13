@@ -272,12 +272,10 @@ protected
     final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-260,-340},{-240,-320}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=dTDisZonSetMax,
-    final k=1)
+    final p=dTDisZonSetMax)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-70},{-240,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=2.8)
     "Zone temperature pluTZonSets 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-260},{-240,-240}})));
@@ -306,10 +304,10 @@ protected
     final uHigh=0.1)
     "Check if discharge air temperature is greater than room temperature plus 2.8 degC"
     annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate temperature difference between discharge air and room plus 2.8 degC"
     annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2(duration=600)
@@ -356,7 +354,7 @@ protected
     annotation (Placement(transformation(extent={{200,250},{220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4 "Active airflow set point"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
     if not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
@@ -364,11 +362,11 @@ protected
     final k=V_flow_nominal)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDisSet_flowNor
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,220},{260,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=1) if have_pressureIndependentDamper
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1)
+    if have_pressureIndependentDamper
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{240,120},{260,140}})));
 
@@ -466,24 +464,24 @@ equation
       color={0,0,127}));
   connect(hys4.y, not4.u)
     annotation (Line(points={{-218,130},{-204,130}}, color={255,0,255}));
-  connect(TSup, add2.u1)
+  connect(TSup, sub2.u1)
     annotation (Line(points={{-340,-30},{-300,-30},{-300,180},{-176,180},{-176,206},
           {-162,206}},        color={0,0,127}));
-  connect(TZon, add2.u2)
+  connect(TZon, sub2.u2)
     annotation (Line(points={{-340,-250},{-296,-250},{-296,176},{-172,176},{-172,
           194},{-162,194}},   color={0,0,127}));
-  connect(add2.y, hys6.u)
+  connect(sub2.y, hys6.u)
     annotation (Line(points={{-138,200},{-122,200}}, color={0,0,127}));
   connect(hys6.y, and4.u2)
     annotation (Line(points={{-98,200},{-80,200},{-80,202},{-62,202}},
       color={255,0,255}));
-  connect(conTDisHeaSet.y, add1.u1)
+  connect(conTDisHeaSet.y, sub1.u1)
     annotation (Line(points={{-98,-72},{-80,-72},{-80,-220},{-140,-220},{-140,-244},
           {-122,-244}},          color={0,0,127}));
-  connect(addPar1.y, add1.u2)
+  connect(addPar1.y, sub1.u2)
     annotation (Line(points={{-238,-250},{-140,-250},{-140,-256},{-122,-256}},
       color={0,0,127}));
-  connect(add1.y, hys7.u)
+  connect(sub1.y, hys7.u)
     annotation (Line(points={{-98,-250},{-82,-250}},
       color={0,0,127}));
   connect(conTDisHeaSet.y, TDisHeaSet)

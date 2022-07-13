@@ -2,9 +2,11 @@
  *
  * Michael Wetter, LBNL                     2018-05-12
  */
-#include "fileWriterStructure.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "ModelicaUtilities.h"
+
+#include "fileWriterStructure.h"
 
 void prependString(const char* fileName, const char* string){
   char *origString;

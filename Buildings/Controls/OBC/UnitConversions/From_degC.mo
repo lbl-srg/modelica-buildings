@@ -17,16 +17,22 @@ protected
   constant Real k = 1. "Multiplier";
   constant Real p = 273.15 "Adder";
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k = k) "Gain factor"
+    annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));
+
   Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(
-    final p = p,
-    final k = k) "Unit converter"
+    final p = p) "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(u, conv.u)
-    annotation (Line(points={{-120,0},{-12,0}},color={0,0,127}));
   connect(conv.y, y)
-    annotation (Line(points={{12,0},{120,0}},color={0,0,127}));
+    annotation (Line(points={{12,0},{60,0},{60,0},{120,0}},color={0,0,127}));
+  connect(u, gai.u)
+    annotation (Line(points={{-120,0},{-70,0}}, color={0,0,127}));
+  connect(gai.y, conv.u)
+    annotation (Line(points={{-46,0},{-12,0}}, color={0,0,127}));
+
   annotation (
       defaultComponentName = "from_degC",
     Icon(graphics={

@@ -53,10 +53,8 @@ partial model PartialChillerWSE
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
   parameter Modelica.Units.SI.Time tauChi1=30
     "Time constant at nominal flow in chillers" annotation (Dialog(
       tab="Dynamics",
@@ -168,7 +166,6 @@ partial model PartialChillerWSE
     final tau1=tauChi1,
     final tau2=tauChi2,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p1_start=p1_start,
     final T1_start=T1_start,
     final X1_start=X1_start,
@@ -210,7 +207,6 @@ partial model PartialChillerWSE
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p2_start,
     final T_start=T2_start,
     final X_start=X2_start,
@@ -481,6 +477,13 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab,
+added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 April 26, 2021, by Kathryn Hinkelman:<br/>
 Removed <code>kFixed</code> redundancies. See

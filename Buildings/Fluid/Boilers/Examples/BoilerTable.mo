@@ -17,7 +17,6 @@ model BoilerTable
   Buildings.Fluid.Boilers.BoilerTable boi2(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     from_dp=true,
     T_start=293.15,
     per=per) "Boiler with steady-state computation"
@@ -57,14 +56,14 @@ equation
                  color={0,0,127}));
   connect(TAmb.port,boi2. heatPort) annotation (Line(points={{-20,80},{0,80},{0,
           0},{20,0},{20,-26.8}},         color={191,0,0}));
-  connect(sou.ports[1],boi1. port_a) annotation (Line(points={{-40,2},{-20,2},{-20,
-          46},{10,46}},       color={0,127,255}));
-  connect(sou.ports[2],boi2. port_a) annotation (Line(points={{-40,-2},{-20,-2},
-          {-20,-34},{10,-34}},color={0,127,255}));
-  connect(boi1.port_b, sin.ports[1]) annotation (Line(points={{30,46},{54,46},{54,
-          2},{60,2}},         color={0,127,255}));
+  connect(sou.ports[1],boi1. port_a) annotation (Line(points={{-40,-1},{-20,-1},
+          {-20,46},{10,46}},  color={0,127,255}));
+  connect(sou.ports[2],boi2. port_a) annotation (Line(points={{-40,1},{-20,1},{
+          -20,-34},{10,-34}}, color={0,127,255}));
+  connect(boi1.port_b, sin.ports[1]) annotation (Line(points={{30,46},{54,46},{
+          54,-1},{60,-1}},    color={0,127,255}));
   connect(boi2.port_b, sin.ports[2]) annotation (Line(points={{30,-34},{54,-34},
-          {54,-2},{60,-2}},   color={0,127,255}));
+          {54,1},{60,1}},     color={0,127,255}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerTable.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=6000),
