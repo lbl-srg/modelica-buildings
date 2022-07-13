@@ -31,9 +31,7 @@ model GlycolLoopIceTank
     dtDisCha=10) "Tank performance data" annotation (Placement(transformation(extent={{100,76},
             {120,96}})));
 
-  parameter
-    Chillers.Data.ElectricEIR.Generic
-    perChi(
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perGlyChi(
     QEva_flow_nominal=-0.66*QDisCoi,
     COP_nominal=3.1,
     PLRMax=1.15,
@@ -64,40 +62,40 @@ model GlycolLoopIceTank
         rotation=90,
         origin={6,-24})));
 
-  Chillers.ElectricEIR chiGly(
+  Buildings.Fluid.Chillers.ElectricEIR chiGly(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumGlycol,
-    m1_flow_nominal=mCon_flow_nominal,
-    m2_flow_nominal=mGly_flow_nominal,
-    dp2_nominal=dpHex_nominal,
-    dp1_nominal=dpHex_nominal,
-    per=perChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    m1_flow_nominal = mCon_flow_nominal,
+    m2_flow_nominal = mGly_flow_nominal,
+    dp2_nominal = dpHex_nominal,
+    dp1_nominal = dpHex_nominal,
+    per = perGlyChi,
+    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={52,-21})));
 
-  Sources.MassFlowSource_T souAir(
-    nPorts=1,
+  Buildings.Fluid.Sources.MassFlowSource_T souAir(
+    nPorts = 1,
     redeclare package Medium = MediumAir,
-    m_flow=mCon_flow_nominal) "Weather data" annotation (Placement(
+    m_flow = mCon_flow_nominal) "Source of air for the glycol chiller" annotation (Placement(
         transformation(
         extent={{6,-6},{-6,6}},
         rotation=0,
         origin={70,8})));
 
-  Sources.Boundary_pT sinAir(redeclare package Medium = MediumAir, nPorts=1)
-    "Pressure source" annotation (Placement(transformation(
+  Buildings.Fluid.Sources.Boundary_pT sinAir(redeclare package Medium = MediumAir, nPorts = 1)
+    "Sink for air from the glycol chiller" annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         origin={53,-43},
         rotation=180)));
 
-  Sources.Boundary_pT preSouGly(redeclare package Medium = MediumGlycol, nPorts=
-       1) "Source for pressure and to account for thermal expansion of glycol"
+  Buildings.Fluid.Sources.Boundary_pT preSouGly(redeclare package Medium =
+        MediumGlycol,                                                                    nPorts = 1) "Source for pressure and to account for thermal expansion of glycol"
     annotation (Placement(transformation(extent={{70,-18},{82,-6}})));
 
-  Modelica.Blocks.Sources.Sine disCooLoad(
+  Modelica.Blocks.Sources.Sine disCoiLoad(
     amplitude=QDisCoi/2,
     f=1/86400,
     offset=QDisCoi/2,
@@ -105,19 +103,19 @@ model GlycolLoopIceTank
     annotation (Placement(transformation(extent={{160,2},{148,14}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFloDis
-    "Fixed heat flow rate from the district"
+    "Fixed heat flow rate from the district coil"
     annotation (Placement(transformation(extent={{142,-2},{122,18}})));
 
-  MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal = mGly_flow_nominal,
-    V=volDisCoi, nPorts=2) "Heat exchanger" annotation (Placement(transformation(extent={{10,10}, {-10,-10}}, rotation=90,origin={116,-11})));
+    V = volHex, nPorts = 2) "Heat exchanger" annotation (Placement(transformation(extent={{10,10}, {-10,-10}}, rotation=90,origin={116,-11})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=TSetGlyChi)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=TSetGlyChi)
     "Glycol chiller constant set point"
     annotation (Placement(transformation(extent={{76,44},{64,56}})));
 
-  Actuators.Valves.TwoWayLinear val4(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=dpValve_nominal,
@@ -130,7 +128,7 @@ model GlycolLoopIceTank
         rotation=90,
         origin={6,28})));
 
-  Actuators.Valves.TwoWayLinear val5(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=dpValve_nominal,
@@ -143,7 +141,7 @@ model GlycolLoopIceTank
         rotation=90,
         origin={26,10})));
 
-  Actuators.Valves.TwoWayLinear val6(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=dpValve_nominal,
@@ -156,7 +154,7 @@ model GlycolLoopIceTank
         rotation=90,
         origin={46,28})));
 
-  Actuators.Valves.TwoWayLinear val7(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val7(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=dpValve_nominal,
@@ -169,25 +167,25 @@ model GlycolLoopIceTank
         rotation=90,
         origin={106,28})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant val4On(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val4On(k=1)
     "Valve 4 on position"
     annotation (Placement(transformation(extent={{28,22},{16,34}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal5(realTrue=1, realFalse=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal5(realTrue=1, realFalse=
        0.1) "Valve 5 signal"
     annotation (Placement(transformation(extent={{-22,-82},{-10,-70}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val6Off(k=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val6Off(k=0.1)
     "Valve 6 off position"
     annotation (Placement(transformation(extent={{74,22},{62,34}})));
-  Controls.OBC.CDL.Continuous.Switch swiVal7 "Switch for valve 7"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiVal7 "Switch for valve 7"
     annotation (Placement(transformation(extent={{28,56},{40,68}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val7Off(k=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val7Off(k=0.1)
     "Valve 7 off position"
     annotation (Placement(transformation(extent={{6,44},{18,56}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val7On(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val7On(k=1)
     "Valve 7 on position"
     annotation (Placement(transformation(extent={{6,80},{18,68}})));
 
-  Movers.FlowControlled_m_flow pum1(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal) "Pump 1" annotation (Placement(
@@ -196,7 +194,7 @@ model GlycolLoopIceTank
         rotation=270,
         origin={106,-52})));
 
-  Movers.FlowControlled_m_flow pum5(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum5(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal) "Pump 5" annotation (Placement(
@@ -205,7 +203,7 @@ model GlycolLoopIceTank
         rotation=90,
         origin={6,-46})));
 
-  Movers.FlowControlled_m_flow pum6(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum6(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal) "Pump 6" annotation (Placement(
@@ -214,31 +212,34 @@ model GlycolLoopIceTank
         rotation=90,
         origin={40,-52})));
 
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue = mGly_flow_nominal, realFalse = mGly_flow_nominal/10) "Pump 1 signal"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum1(realTrue = mGly_flow_nominal, realFalse = mGly_flow_nominal/10) "Pump 1 signal"
     annotation (Placement(transformation(extent={{134,-76},{122,-64}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant pum5Flow(k=mGly_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pum5Flow(k=mGly_flow_nominal)
     "Pump 5 constant flow rate"
     annotation (Placement(transformation(extent={{-26,-52},{-14,-40}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum6(realTrue=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum6(realTrue=
         mGly_flow_nominal, realFalse=mGly_flow_nominal/10) "Pump 6 signal"
     annotation (Placement(transformation(extent={{54,-82},{42,-70}})));
 
-  Sensors.TemperatureTwoPort temSen4(redeclare package Medium = MediumGlycol,
-      m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen4(redeclare package Medium =
+        MediumGlycol,
+      m_flow_nominal = mGly_flow_nominal) "Glycol temperature sensor 4" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={6,-2})));
 
-  Sensors.TemperatureTwoPort temSen5(redeclare package Medium = MediumGlycol,
-      m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen5(redeclare package Medium =
+        MediumGlycol,
+      m_flow_nominal = mGly_flow_nominal) "Glycol temperature sensor 5" annotation (
       Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={46,8})));
 
-  Sensors.TemperatureTwoPort temSen6(redeclare package Medium = MediumGlycol,
-      m_flow_nominal=mGly_flow_nominal) "Glycol temperature" annotation (
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen6(redeclare package Medium =
+        MediumGlycol,
+      m_flow_nominal = mGly_flow_nominal) "Glycol temperature sensor 6" annotation (
       Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
@@ -268,17 +269,17 @@ model GlycolLoopIceTank
   Modelica.StateGraph.TransitionWithSignal T4 "Transition to turn off pump 6, glycol chiller, and close valve 5"
     annotation (Placement(transformation(extent={{-82,-46},{-62,-26}})));
 
-  Controls.OBC.CDL.Continuous.LessThreshold lesThrT4(t=TChaStop)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrT4(t = TChaStop)
     "Threshold for ice tank outlet temperature"
     annotation (Placement(transformation(extent={{-14,2},{-26,14}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT4(t=TChaStart)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrT4(t = TChaStart)
     "Threshold for ice tank outlet temperature"
     annotation (Placement(transformation(extent={{-14,-16},{-26,-4}})));
-  Controls.OBC.CDL.Continuous.LessThreshold lesThrT6(t=TDisStandby)
-    "Threshold for district coil outlet temperature"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrT6(t = TDisStandby)
+    "Threshold for heat exchanger glycol outlet temperature"
     annotation (Placement(transformation(extent={{132,-52},{144,-40}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT6(t=TDisCooCall)
-    "Threshold for district coil outlet temperature"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrT6(t = TDisCooCall)
+    "Threshold for heat exchanger glycol outlet temperature"
     annotation (Placement(transformation(extent={{132,-34},{144,-22}})));
 
 equation
