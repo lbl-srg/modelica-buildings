@@ -3,25 +3,25 @@ model GlycolLoopIceTank
   "Example that tests the ice tank model for a simplified district cooling application"
   extends Modelica.Icons.Example;
 
-  package MediumGlycol = Buildings.Media.Antifreeze.PropyleneGlycolWater (
-    property_T=293.15, X_a=0.30) "Fluid medium";
-  package MediumWater = Buildings.Media.Water "Fluid medium";
   package MediumAir = Buildings.Media.Air "Fluid medium";
-  parameter Modelica.Units.SI.Temperature TSetGlyChi = 273.15 - 6.7 "Glycol chiller setpoint temperature";
-  parameter Modelica.Units.SI.Temperature TChaStart = 273.15 + 1 "Outlet temperature of ice tank to start charging";
-  parameter Modelica.Units.SI.Temperature TChaStop = 273.15 - 2 "Outlet temperature of ice tank to stop charging";
-  parameter Modelica.Units.SI.Temperature TDisCooCall = 273.15 + 3 "Outlet temperature of district to call for cooling";
-  parameter Modelica.Units.SI.Temperature TDisStandby = 273.15 + 2 "Outlet temperature of district in standby operation";
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 10000 "Nominal pressure drop across valve";
-  parameter Modelica.Units.SI.PressureDifference dpHex_nominal = 10000 "Nominal pressure drop across heat exchanger";
-  parameter Modelica.Units.SI.Volume volDisCoi = 15 "District cooling coil fluid volume";
-  parameter Modelica.Units.SI.HeatFlowRate QDisCoi = 422000 "District cooling coil cooling load, assumed 120 ton design day peak load";
-  parameter Modelica.Units.SI.Mass mIceTan = 5310 "Mass of ice in single storage tank, assumed 140 ton-hrs (Calmac Model 1190)";
+  package MediumGlycol = Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.30) "Fluid medium";
+
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 28.0
     "Nominal mass flow rate of air through the chiller condenser coil";
   parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal = 11.5
     "Nominal mass flow rate of glycol through the glycol circuit, 
     assumed 10K temperature difference to serve design day peak load with 30% propylene glycol water";
+
+  parameter Modelica.Units.SI.Temperature TSetGlyChi = 273.15 - 6.7 "Glycol chiller setpoint temperature";
+  parameter Modelica.Units.SI.Temperature TChaStart = 273.15 + 1 "Outlet temperature of ice tank to start charging";
+  parameter Modelica.Units.SI.Temperature TChaStop = 273.15 - 2 "Outlet temperature of ice tank to stop charging";
+  parameter Modelica.Units.SI.Temperature TDisCooCall = 273.15 + 3 "Outlet glycol temperature of heat exchanger to call for cooling";
+  parameter Modelica.Units.SI.Temperature TDisStandby = 273.15 + 2 "Outlet glycol temperature of heat exchanger in standby operation";
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 6000 "Nominal pressure drop across valve";
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal = 10000 "Nominal pressure drop across heat exchanger";
+  parameter Modelica.Units.SI.Volume volHex = 15 "Equivalent heat exchanger fluid mixing volume";
+  parameter Modelica.Units.SI.HeatFlowRate QDisCoi = 422000 "District cooling coil cooling load, assumed 120 ton design day peak load";
+  parameter Modelica.Units.SI.Mass mIceTan = 5310 "Mass of ice in single storage tank, assumed 140 ton-hrs (Calmac Model 1190)";
 
   parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic perIceTan(
     mIce_max=3*mIceTan,
@@ -50,7 +50,7 @@ model GlycolLoopIceTank
     TConEnt_nominal=273.15 + 20,
     TConEntMin=273.15 + 15,
     TConEntMax=273.15 + 40) "Size chiller at 66% of design day peak load"
-           annotation (Placement(transformation(extent={{132,76},{152,96}})));
+    annotation (Placement(transformation(extent={{132,76},{152,96}})));
 
   Buildings.Fluid.Storage.Ice.Tank iceTanUnc(
     redeclare package Medium = MediumGlycol,
@@ -251,15 +251,15 @@ model GlycolLoopIceTank
   Modelica.StateGraph.Alternative alternative
     "Split for alternative execution paths"
     annotation (Placement(transformation(extent={{-138,-50},{-52,14}})));
+  Modelica.StateGraph.InitialStep standby(nOut=1, nIn=1)
+    "Initial Step with pump 5 on and valve 4 open"
+    annotation (Placement(transformation(extent={{-152,-24},{-140,-12}})));
   Modelica.StateGraph.StepWithSignal chaIceTan(nIn=1, nOut=1)
     "Charge ice tank with glycol chiller"
     annotation (Placement(transformation(extent={{-100,-42},{-88,-30}})));
   Modelica.StateGraph.StepWithSignal disCooCall(nIn=1, nOut=1)
     "Cooling call from district"
     annotation (Placement(transformation(extent={{-100,4},{-88,-8}})));
-  Modelica.StateGraph.InitialStep standby(nOut=1, nIn=1)
-    "Initial Step with pump 5 on and valve 4 open"
-    annotation (Placement(transformation(extent={{-152,-24},{-140,-12}})));
   Modelica.StateGraph.TransitionWithSignal T1 "Transition to turn on pump 6, glycol chiller, and open valve 5"
     annotation (Placement(transformation(extent={{-126,-46},{-106,-26}})));
   Modelica.StateGraph.TransitionWithSignal T2 "Transition to turn on pump 1 and open valve 7"
@@ -392,7 +392,7 @@ equation
           -64,-2},{-64,-18},{-61.03,-18}}, color={0,0,0}));
   connect(chaIceTan.active, booToReaVal5.u) annotation (Line(points={{-94,-42.6},
           {-94,-86},{-34,-86},{-34,-76},{-23.2,-76}}, color={255,0,255}));
-  connect(disCooLoad.y, fixHeaFloDis.Q_flow)
+  connect(disCoiLoad.y, fixHeaFloDis.Q_flow)
     annotation (Line(points={{147.4,8},{142,8}}, color={0,0,127}));
   connect(swiVal7.y, val7.y) annotation (Line(points={{41.2,62},{100,62},{100,28},
           {101.2,28}}, color={0,0,127}));

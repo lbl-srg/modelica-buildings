@@ -3,289 +3,300 @@ model WaterLoopDistrictCooling
   "Example that tests the ice tank model for a simplified district cooling application"
   extends Modelica.Icons.Example;
 
-  package MediumGlycol = Buildings.Media.Antifreeze.PropyleneGlycolWater (
-    property_T=293.15, X_a=0.30) "Fluid medium";
-  package MediumWater = Buildings.Media.Water "Fluid medium";
   package MediumAir = Buildings.Media.Air "Fluid medium";
+  package MediumWater = Buildings.Media.Water "Fluid medium";
 
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=11.3
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 11.3
     "Nominal mass flow rate of air through the chiller condenser coil";
-  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=4.3
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal = 4.3
     "Nominal mass flow rate of water through the water circuit";
 
-  parameter Modelica.Units.SI.Temperature TStaVol = 273.15 + 1
-    "Initial water temperature of volume";
+  parameter Modelica.Units.SI.Temperature TSetWatChi = 273.15 + 6 "Water chiller setpoint temperature";
+  parameter Modelica.Units.SI.Temperature TSetDisCooSup = 273.15 + 7 "Inlet temperature setpoint of district cooling coil supply";
+  parameter Modelica.Units.SI.Temperature TCooStart = 273.15 + 11 "Outlet temperature of district coil to start cooling service";
+  parameter Modelica.Units.SI.Temperature TCooStop = 273.15 + 7 "Outlet temperature of district coil to stop cooling service";
+  parameter Modelica.Units.SI.Temperature THexCooCall = 273.15 + 5 "Outlet water temperature of heat exchanger to call for cooling";
+  parameter Modelica.Units.SI.Temperature THexStandby = 273.15 + 3 "Outlet water temperature of heat exchanger in standby operation";
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 6000 "Nominal pressure drop across valve";
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal = 10000 "Nominal pressure drop across heat exchanger";
+  parameter Modelica.Units.SI.PressureDifference dpPump_nominal = 20000 "Nominal pressure drop across pump";
+  parameter Modelica.Units.SI.Volume volHex = 15 "Equivalent heat exchanger fluid mixing volume";
+  parameter Modelica.Units.SI.HeatFlowRate QDisCoi = 422000 "District cooling coil cooling load, assumed 120 ton design day peak load";
 
-  parameter
-    Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled
-    perChi annotation (Placement(transformation(extent={{134,76},{154,96}})));
+  parameter Real kCon = 1000 "Gain of PI controller";
+  parameter Real TiCon = 10 "Integral time constant of PI controller";
+  parameter Real rCon = 1000 "Typical range of controller error used for scaling";
 
-  MixingVolumes.MixingVolume vol(
-    redeclare package Medium = MediumWater,
-    m_flow_nominal=mWat_flow_nominal,
-    V=1,
-    T_start = TStaVol,
-    nPorts=2)      "Heat exchanger" annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={4,-35})));
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled perWatChi annotation (Placement(transformation(extent={{134,76},{154,96}})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant chiWatTSet(k=273.15 + 6)
-    "Set point"
-    annotation (Placement(transformation(extent={{-8,-88},{4,-76}})));
+  Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
+    have_heaWat = false,
+    redeclare package Medium2 = MediumAir,
+    filNam = "Fluid/Storage/Ice/Examples/SampleDistrictCoolingLoads.txt",
+    QHea_flow_nominal = 1e-15,
+    nPorts_aHeaWat = 1,
+    nPorts_bHeaWat = 1,
+    nPorts_bChiWat = 1,
+    nPorts_aChiWat = 1) "Building model with district loads"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={134,-22})));
 
-  Chillers.ElectricEIR chiWat(
+  Buildings.Fluid.Chillers.ElectricEIR chiWat(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumWater,
-    m1_flow_nominal=mCon_flow_nominal,
-    m2_flow_nominal=mWat_flow_nominal,
-    dp2_nominal=0,
-    dp1_nominal=0,
-    per=perChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    m1_flow_nominal = mCon_flow_nominal,
+    m2_flow_nominal = mWat_flow_nominal,
+    dp2_nominal = dpHex_nominal,
+    dp1_nominal = dpHex_nominal,
+    per = perWatChi,
+    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,-33})));
 
-  Actuators.Valves.TwoWayLinear val1(
+  Buildings.Fluid.Sources.MassFlowSource_T souAir(
+    nPorts=1,
+    redeclare package Medium = MediumAir,
+    m_flow=mCon_flow_nominal) "Source of air for the water chiller" annotation (Placement(
+        transformation(
+        extent={{6,-6},{-6,6}},
+        rotation=0,
+        origin={78,-4})));
+
+  Buildings.Fluid.Sources.Boundary_pT sinAir(redeclare package Medium = MediumAir, nPorts=1)
+    "Sink for air from the water chiller" annotation (Placement(transformation(extent={{5,-5},{-5,5}},
+          origin={79,-55})));
+
+  Buildings.Fluid.Sources.Boundary_pT preSouWat(redeclare package Medium =
+        MediumWater,                                                                    nPorts=1)
+    "Source for pressure and to account for thermal expansion of water"
+    annotation (Placement(transformation(extent={{102,-30},{90,-18}})));
+
+  Modelica.Blocks.Sources.Sine iceTanCoo(
+    amplitude=0.66*QDisCoi/2,
+    f=1/(2*86400),
+    offset=-0.66*QDisCoi/2,
+    startTime=0)
+    annotation (Placement(transformation(extent={{-82,-88},{-70,-76}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFloIce
+    "Fixed heat flow rate to the ice storage"
+    annotation (Placement(transformation(extent={{-52,-92},{-32,-72}})));
+
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumWater,
-    m_flow_nominal=mWat_flow_nominal,
-    dpValve_nominal=6000,
-    dpFixed_nominal=0,
-    y_start=0,
-    use_inputFilter=false)
-    "Control valve for water loop" annotation (
+    m_flow_nominal = mWat_flow_nominal,
+    V = volHex, nPorts = 2) "Heat exchanger" annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={4,-35})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatTSet(k = TSetWatChi) "Water chiller constant set point"
+    annotation (Placement(transformation(extent={{-8,-88},{4,-76}})));
+
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
+    redeclare package Medium = MediumWater,
+    m_flow_nominal = mWat_flow_nominal,
+    dpValve_nominal = dpValve_nominal,
+    dpFixed_nominal = 0,
+    y_start = 0,
+    use_inputFilter = false)
+    "Control valve 1 for water loop" annotation (
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
         origin={14,16})));
 
-  Actuators.Valves.TwoWayLinear val2(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val2(
     redeclare package Medium = MediumWater,
-    m_flow_nominal=mWat_flow_nominal,
-    dpValve_nominal=6000,
-    dpFixed_nominal=0,
-    y_start=0,
-    use_inputFilter=false)
-    "Control valve for water loop" annotation (
+    m_flow_nominal = mWat_flow_nominal,
+    dpValve_nominal = dpValve_nominal,
+    dpFixed_nominal = 0,
+    y_start = 0,
+    use_inputFilter = false)
+    "Control valve 2 for water loop" annotation (
       Placement(transformation(
         extent={{4,4},{-4,-4}},
         rotation=90,
         origin={34,-24})));
 
-  Actuators.Valves.TwoWayLinear val3(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = MediumWater,
-    m_flow_nominal=mWat_flow_nominal,
-    dpValve_nominal=6000,
-    dpFixed_nominal=0,
-    y_start=0,
-    use_inputFilter=false)
-    "Control valve for water loop" annotation (
+    m_flow_nominal = mWat_flow_nominal,
+    dpValve_nominal = dpValve_nominal,
+    dpFixed_nominal = 0,
+    y_start = 0,
+    use_inputFilter = false)
+    "Control valve 3 for water loop" annotation (
       Placement(transformation(
         extent={{-4,4},{4,-4}},
         rotation=90,
         origin={54,16})));
 
-  Movers.FlowControlled_m_flow pum2(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val8(
     redeclare package Medium = MediumWater,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWat_flow_nominal) "Pump" annotation (Placement(
+    m_flow_nominal = mWat_flow_nominal,
+    dpValve_nominal = dpValve_nominal,
+    dpFixed_nominal = 0,
+    y_start = 0,
+    use_inputFilter = false) "Control valve 8 for water loop" annotation (
+      Placement(transformation(
+        extent={{4,4},{-4,-4}},
+        rotation=90,
+        origin={134,0})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal1(realTrue = 1, realFalse = 0.1) "Valve 1 signal"
+    annotation (Placement(transformation(extent={{2,30},{14,42}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal2(realTrue = 1, realFalse = 0.1) "Valve 2 signal"
+    annotation (Placement(transformation(extent={{2,48},{14,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiVal3 "Switch for Valve 3"
+    annotation (Placement(transformation(extent={{94,40},{82,52}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val3On(k = 1) "Valve 3 on position"
+    annotation (Placement(transformation(extent={{112,42},{100,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val3Off(k = 0.1) "Valve 3 off position"
+    annotation (Placement(transformation(extent={{112,50},{100,62}})));
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIVal8(
+    final k(min=0) = kCon,
+    final Ti = TiCon,
+    final r = rCon,
+    final controllerType = Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final yMin = 0.1,
+    final yMax = 1,
+    final reverseActing=false) "Controller for Valve 8"
+    annotation (Placement(transformation(extent={{154,16},{142,28}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetVal8(k=TSetDisCooSup)
+    "District cooling temperature setpoint"
+    annotation (Placement(transformation(extent={{170,16},{158,28}})));
+
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum2(
+    redeclare package Medium = MediumWater,
+    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal = mWat_flow_nominal) "Pump 2" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={14,-54})));
 
-  Movers.FlowControlled_m_flow pum3(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum3(
     redeclare package Medium = MediumWater,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWat_flow_nominal) "Pump" annotation (Placement(
+    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal = mWat_flow_nominal) "Pump 3" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={54,-64})));
 
-  Movers.FlowControlled_dp     pum4(
+  Buildings.Fluid.Movers.FlowControlled_dp pum4(
     redeclare package Medium = MediumWater,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWat_flow_nominal,
-    dp_start=20000,
-    dp_nominal=20000)                 "Pump" annotation (Placement(
+    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal = mWat_flow_nominal,
+    dp_start = dpPump_nominal,
+    dp_nominal = dpPump_nominal) "Pump 4" annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=0,
         origin={122,26})));
 
-  Sensors.TemperatureTwoPort temSen1(redeclare package Medium = MediumWater,
-      m_flow_nominal=mWat_flow_nominal,
-    T_start=TStaVol)                                    "Water temperature" annotation (
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum2(realTrue=
+        mWat_flow_nominal, realFalse = mWat_flow_nominal/10) "Pump 2 signal"
+    annotation (Placement(transformation(extent={{-16,-60},{-4,-48}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum3(realTrue=
+        mWat_flow_nominal, realFalse = mWat_flow_nominal/10) "Pump 3 signal"
+    annotation (Placement(transformation(extent={{78,-92},{66,-80}})));
+  Buildings.Fluid.Sensors.RelativePressure relPrePum4(redeclare package Medium =
+        MediumWater)                                                                          "Pump 4 relative pressure measurement"
+    annotation (Placement(transformation(
+        extent={{-8,-6},{8,6}},
+        origin={112,-24},
+        rotation=-90)));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen1(redeclare package Medium =
+        MediumWater,
+      m_flow_nominal = mWat_flow_nominal) "Water temperature sensor 1" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={14,-4})));
 
-  Sensors.TemperatureTwoPort temSen2(redeclare package Medium = MediumWater,
-      m_flow_nominal=mWat_flow_nominal) "Water temperature" annotation (
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen2(redeclare package Medium =
+        MediumWater,
+      m_flow_nominal = mWat_flow_nominal) "Water temperature sensor 2" annotation (
       Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={54,-4})));
 
-  Sensors.TemperatureTwoPort temSen3(redeclare package Medium = MediumWater,
-      m_flow_nominal=mWat_flow_nominal) "Water temperature" annotation (
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen3(redeclare package Medium =
+        MediumWater,
+      m_flow_nominal = mWat_flow_nominal) "Water temperature sensor 3" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={134,-46})));
 
-  Sources.MassFlowSource_T           sou1(
-    nPorts=1,
-    redeclare package Medium = MediumAir,
-    m_flow=mCon_flow_nominal) "Weather data"
-    annotation (Placement(transformation(extent={{6,-6},{-6,6}},
-        rotation=0,
-        origin={78,-4})));
-
-  Sources.Boundary_pT sin1(redeclare package Medium = MediumAir,
-      nPorts=1) "Pressure source"
-    annotation (Placement(
-        transformation(
-        extent={{5,-5},{-5,5}},
-        origin={79,-55})));
-
-  Sources.Boundary_pT preSou1(redeclare package Medium = MediumWater, nPorts=1)
-    "Source for pressure and to account for thermal expansion of water"
-    annotation (Placement(transformation(extent={{102,-30},{90,-18}})));
-
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum2(realTrue=
-        mWat_flow_nominal, realFalse=mWat_flow_nominal/10)
-                           "Pump signal"
-    annotation (Placement(transformation(extent={{-16,-60},{-4,-48}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal(realTrue=1, realFalse=
-        0.1)
-    "Valve signal"
-    annotation (Placement(transformation(extent={{2,30},{14,42}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal           booToReaPum3(realTrue=
-        mWat_flow_nominal, realFalse=mWat_flow_nominal/10)
-                           "Pump signal"
-    annotation (Placement(transformation(extent={{78,-92},{66,-80}})));
-  Modelica.StateGraph.StepWithSignal mod4(nIn=1, nOut=1) "Mode 4"
-    annotation (Placement(transformation(extent={{-110,34},{-98,22}})));
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    "Root of the state graph"
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "Root of the state graph"
     annotation (Placement(transformation(extent={{-98,76},{-84,90}})));
-  Modelica.StateGraph.StepWithSignal mod5(nIn=1, nOut=1) "Chiller is on"
-    annotation (Placement(transformation(extent={{-110,-34},{-98,-22}})));
-  Modelica.StateGraph.TransitionWithSignal T3 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-128,18},{-108,38}})));
-  Modelica.StateGraph.InitialStep ste0(nOut=2, nIn=1) "Initial Step"
-    annotation (Placement(transformation(extent={{-178,-2},{-166,10}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT1(t=273.15 + 5)
-    "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{-4,14},{-16,26}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThrT3(t=273.15 + 11)
-    "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{152,-44},{164,-32}})));
-  Controls.OBC.CDL.Continuous.LessThreshold lesThrT3(t=273.15 + 7)
-    annotation (Placement(transformation(extent={{152,-66},{164,-54}})));
-  Modelica.StateGraph.TransitionWithSignal T4 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
-  Modelica.StateGraph.TransitionWithSignal T0 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-170,-6},{-150,14}})));
-  Modelica.StateGraph.TransitionWithSignal T6 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-124,-62},{-144,-42}})));
-  Modelica.StateGraph.Parallel parallel
-    "Split for alternative execution paths"
+  Modelica.StateGraph.Parallel parallel "Split for parallel execution paths"
     annotation (Placement(transformation(extent={{-154,-36},{-56,44}})));
-  Modelica.StateGraph.Step ste1(nIn=1, nOut=1) "Step 1"
+  Modelica.StateGraph.InitialStep standby(nOut = 1, nIn = 1) "Initial Step"
+    annotation (Placement(transformation(extent={{-178,-2},{-166,10}})));
+  Modelica.StateGraph.Step ste1(nIn = 1, nOut = 1) "Step 1"
     annotation (Placement(transformation(extent={{-138,22},{-126,34}})));
-  Modelica.StateGraph.Step ste2(nIn=1, nOut=1) "Step 2"
+  Modelica.StateGraph.Step ste2(nIn = 1, nOut = 1) "Step 2"
     annotation (Placement(transformation(extent={{-84,22},{-72,34}})));
-  Controls.OBC.CDL.Continuous.Switch        swi
-    annotation (Placement(transformation(extent={{94,40},{82,52}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val3On(k=1)
-    "Valve 3 on position"
-    annotation (Placement(transformation(extent={{112,42},{100,30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant val3Off(k=0.1)
-    "Valve 3 off position"
-    annotation (Placement(transformation(extent={{112,50},{100,62}})));
-  Modelica.StateGraph.TransitionWithSignal
-                                 T5 "Transition to switch pumps on"
-    annotation (Placement(transformation(extent={{-56,-6},{-36,14}})));
-  Modelica.StateGraph.StepWithSignal mod2(nIn=1, nOut=1) "Pump 2 is on"
+  Modelica.StateGraph.StepWithSignal iceOnly(nIn=1, nOut=1)
+    "Serve district loads with ice only"
     annotation (Placement(transformation(extent={{-72,-58},{-84,-46}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFlo
-    "Fixed heat flow rate"
-    annotation (Placement(transformation(extent={{-52,-92},{-32,-72}})));
-  Modelica.Blocks.Sources.Sine glyLooCoo(
-    amplitude=1000,
-    f=0.000005785,
-    offset=-1500,
-    startTime=0)
-    annotation (Placement(transformation(extent={{-82,-88},{-70,-76}})));
-  Controls.OBC.CDL.Continuous.LessThreshold    lesThrT1(t=273.15 + 3)
-    "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{-4,-20},{-16,-8}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal1(realTrue=1, realFalse=
-       0.1)
-    "Valve signal"
-    annotation (Placement(transformation(extent={{2,48},{14,60}})));
-  Controls.OBC.CDL.Logical.MultiOr mulOr(nin=2) annotation (Placement(
-        transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={-46,-24})));
-  Controls.OBC.CDL.Logical.MultiOr mulOr1(nin=3) annotation (Placement(
-        transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={-134,-78})));
-  Controls.OBC.CDL.Logical.MultiOr mulOr2(nin=2) annotation (Placement(
+  Modelica.StateGraph.StepWithSignal dualCool(nIn=1, nOut=1)
+    "Serve district loads with ice and chiller"
+    annotation (Placement(transformation(extent={{-110,34},{-98,22}})));
+  Modelica.StateGraph.StepWithSignal chiOnly(nIn=1, nOut=1)
+    "Serve district loads with chiller only"
+    annotation (Placement(transformation(extent={{-110,-34},{-98,-22}})));
+  Modelica.StateGraph.TransitionWithSignal T0
+    "Transition to turn on pump 3 and water chiller"
+    annotation (Placement(transformation(extent={{-170,-6},{-150,14}})));
+  Modelica.StateGraph.TransitionWithSignal T13
+    "Transition to turn on pump 2, open valve 1, open valve 2, and close valve 3"
+    annotation (Placement(transformation(extent={{-128,18},{-108,38}})));
+  Modelica.StateGraph.TransitionWithSignal T24
+    "Transition to turn off pump 2, close valve 1, close valve 2, and open valve 3"
+    annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
+  Modelica.StateGraph.TransitionWithSignal T5
+    "Transition to turn on pump 2, turn off pump 3, water chiller, open valve 1, and close valve 3"
+    annotation (Placement(transformation(extent={{-56,-6},{-36,14}})));
+  Modelica.StateGraph.TransitionWithSignal T6
+    "Transition to turn off pump 2, close valve 1, and open valve 3"
+    annotation (Placement(transformation(extent={{-124,-62},{-144,-42}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrPum2(nin=2) annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=0,
         origin={-42,-64})));
-  Sensors.RelativePressure                 relPre(redeclare package Medium =
-        MediumWater)
-                annotation (Placement(transformation(
-        extent={{-8,-6},{8,6}},
-        origin={112,-24},
-        rotation=-90)));
-  Actuators.Valves.TwoWayLinear val8(
-    redeclare package Medium = MediumWater,
-    m_flow_nominal=mWat_flow_nominal,
-    dpValve_nominal=10000,
-    dpFixed_nominal=0,
-    y_start=0,
-    use_inputFilter=false)
-    "Control valve for water loop" annotation (
-      Placement(transformation(
-        extent={{4,4},{-4,-4}},
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrT5(nin=2) annotation (Placement(
+        transformation(
+        extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={134,0})));
-  Controls.OBC.CDL.Continuous.PID conPI(
-    final k(min=0) = 1000,
-    final Ti=10,
-    final Td=0.1,
-    final r=1000,
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final yMin=0.1,
-    final yMax=1,
-    final reverseActing=false)
-    annotation (Placement(transformation(extent={{154,16},{142,28}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TCooSet(k=273.15 + 7)
-    "District cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{170,16},{158,28}})));
-  Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries          bui(
-    have_heaWat=false,
-    redeclare package Medium2 = MediumAir,
-    filNam="Fluid/Storage/Ice/Examples/SampleDistrictCoolingLoads.txt",
-    QHea_flow_nominal=1e-15,
-    nPorts_aHeaWat=1,
-    nPorts_bHeaWat=1,
-    nPorts_bChiWat=1,
-    nPorts_aChiWat=1)
-    "Building"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={134,-22})));
+        origin={-46,-24})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrT6(nin=3) annotation (Placement(
+        transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={-134,-78})));
+
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrT1(t = THexStandby)
+    "Threshold for heat exchanger water outlet temperature"
+    annotation (Placement(transformation(extent={{-4,-20},{-16,-8}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrT1(t = THexCooCall)
+    "Threshold for heeat exchanger water outlet temperature"
+    annotation (Placement(transformation(extent={{-4,14},{-16,26}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrT3(t = TCooStop)
+    "Threshold for district cooling coil outlet temperature"
+    annotation (Placement(transformation(extent={{152,-66},{164,-54}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrT3(t = TCooStart)
+    "Threshold for district cooling coil outlet temperature"
+    annotation (Placement(transformation(extent={{152,-44},{164,-32}})));
+
 equation
   connect(pum3.port_b, chiWat.port_a2)
     annotation (Line(points={{54,-58},{54,-43}}, color={0,127,255}));
