@@ -82,7 +82,7 @@ This blocks calculate the normalized heat transfer rate for the ice tank in char
 <ul>
 <li>If <code>canFreeze</code> and <code>canMelt</code> are both <code>false</code>: the heat transfer rate is 0</li>
 <li>If <code>canMelt = true</code>: the heat transfer rate is the discharging rate calculated
-using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging\">Buildings.Fluid.Storage.Ice.BaseClasses.QStarDischarging</a>
+using <a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.QStar\">Buildings.Fluid.Storage.Ice.BaseClasses.QStar</a>
 with coefficients for discharing mode.
 </li>
 <li>If <code>canFreeze = true</code>: the heat transfer rate is the charging rate calculated

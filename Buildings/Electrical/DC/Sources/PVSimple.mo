@@ -38,6 +38,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+March 23, 2022, by Michael Wetter:<br/>
+Corrected documentation string for parameter <code>A</code>.
+</li>
+<li>
 September 24, 2015 by Michael Wetter:<br/>
 Removed binding of <code>P_nominal</code> as
 this parameter is disabled and assigned a value

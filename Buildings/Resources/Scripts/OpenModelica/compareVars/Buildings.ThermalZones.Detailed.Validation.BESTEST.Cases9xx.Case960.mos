@@ -16,5 +16,9 @@ compareVars :=
     "staRes.annualHea.Max",
     "staRes.annualCoo.Min",
     "staRes.annualCoo.Mean",
-    "staRes.annualCoo.Max"
+    "staRes.annualCoo.Max",
+    "TRooHou.y",
+    "TRooAnn.y",
+    "TSunSpaHou.y",
+    "TSunSpaAnn.y"
   };
