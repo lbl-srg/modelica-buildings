@@ -171,7 +171,7 @@ Else send 0 requests.
 </ol>
 <p>
 When the heat exchanger pump is proven on, the pump speed shall be reset using
-Trim & Respond logic with the following parameters:
+Trim and Respond logic with the following parameters:
 </p>
 
 <table summary=\"summary\" border=\"1\">
