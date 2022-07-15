@@ -27,12 +27,8 @@ record FCUSizing "FCU sizing calculations for component parameters"
     "Nominal hot water supply temperature"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.ThermalConductance UAHeaCoi_nominal = 146.06
+  parameter Modelica.Units.SI.ThermalConductance UAHeaCoi_nominal = 2.25*146.06
     "Thermal conductance at nominal flow, used to compute heating capacity"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal = 146.06
-    "Thermal conductance at nominal flow, used to compute cooling capacity"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Pressure pAir = 101325

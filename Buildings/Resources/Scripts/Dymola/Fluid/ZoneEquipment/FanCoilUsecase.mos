@@ -1,29 +1,34 @@
-simulateModel("Buildings.Fluid.ZoneEquipment.Validation.FanCoilUnit_openLoop", method="Cvode", tolerance=1e-6,startTime=15724800, stopTime=15897600, resultFile="FanCoilUsecase", outputInterval = 60);
+simulateModel("Buildings.Fluid.ZoneEquipment.Validation.FanCoilUnit_openLoop", method="Cvode", tolerance=1e-6,startTime=0, stopTime=864000, resultFile="FanCoilUsecase", outputInterval = 60);
 
-createPlot(id=1, position={0, 0, 740, 451}, y={"TRetAir.y", "fCU_singleLayer.TRetSen.T"}, range={15720000.0, 15900000.0, 0.0, 40.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
-createPlot(id=1, position={0, 0, 740, 109}, y={"mRetAir_flow.y"}, range={15720000.0, 15900000.0, -0.5, 0.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 740, 451}, y={"TRetAir.y", "fCU_singleLayer.TRetSen.T"}, range={0.0, 900000.0, 10.0, 25.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
+createPlot(id=1, position={0, 0, 740, 109}, y={"mRetAir_flow.y"}, range={0.0, 900000.0, -0.2, 0.4000000000000001}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
 plotExpression(apply(FanCoilUsecase[end].fCU_singleLayer.VAirRet_flow.V_flow*1.225), false, "FanCoilUsecase[end].fCU_singleLayer.VAirRet_flow.V_flow * 1.225", 1);
-createPlot(id=1, position={0, 0, 740, 109}, y={"TSupAir.y", "fCU_singleLayer.TAirSup.T"}, range={15720000.0, 15900000.0, 0.0, 40.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
-createPlot(id=1, position={0, 0, 740, 109}, y={"mSupAir_flow.y"}, range={15720000.0, 15900000.0, -0.5, 0.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 740, 109}, y={"TSupAir.y", "fCU_singleLayer.TAirSup.T"}, range={0.0, 900000.0, 0.0, 100.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
+createPlot(id=1, position={0, 0, 740, 109}, y={"mSupAir_flow.y"}, range={0.0, 900000.0, -0.2, 0.4000000000000001}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}});
 plotExpression(apply(FanCoilUsecase[end].fCU_singleLayer.VAirSup_flow.V_flow*1.225), false, "FanCoilUsecase[end].fCU_singleLayer.VAirSup_flow.V_flow * 1.225", 1);
 
-createPlot(id=2, position={756, 490, 739, 449}, y={"PCoo.y", "PModCoo.y", "fCU_singleLayer.cooCoiCHW.Q1_flow"}, range={15720000.0, 15900000.0, -2000.0, 4000.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={756, 490, 739, 108}, y={"PCooSen.y", "PModCooSen.y"}, range={15720000.0, 15900000.0, -2000.0, 4000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={756, 490, 739, 109}, y={"PModCooLat.y"}, range={15720000.0, 15900000.0, -500.0, 500.0}, grid=true, subPlot=3, colors={{238,46,47}});
+createPlot(id=2, position={756, 490, 739, 449}, y={"PCoo.y", "PModCoo.y", "fCU_singleLayer.cooCoiCHW.Q1_flow"}, range={0.0, 900000.0, -2000.0, 2000.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={756, 490, 739, 108}, y={"PCooSen.y", "PModCooSen.y"}, range={0.0, 900000.0, -2000.0, 2000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={756, 490, 739, 109}, y={"PModCooLat.y"}, range={0.0, 900000.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{238,46,47}});
 plotExpression(apply(FanCoilUsecase[end].PCoo.y-FanCoilUsecase[end].PCooSen.y), false, "FanCoilUsecase[end].PCoo.y - FanCoilUsecase[end].PCooSen.y", 2);
-createPlot(id=2, position={756, 490, 739, 108}, y={"PModCooLat.y"}, range={15720000.0, 15900000.0, -5000.0, 5000.0}, grid=true, subPlot=4, colors={{238,46,47}});
+createPlot(id=2, position={756, 490, 739, 108}, y={"PModCooLat.y"}, range={0.0, 900000.0, -2000.0, 2000.0}, grid=true, subPlot=4, colors={{238,46,47}});
 plotExpression(apply(FanCoilUsecase[end].PCooSen.y-FanCoilUsecase[end].PModCooSen.y), false, "FanCoilUsecase[end].PCooSen.y - FanCoilUsecase[end].PModCooSen.y", 2);
 plotExpression(apply(FanCoilUsecase[end].PCoo.y-FanCoilUsecase[end].PModCoo.y), false, "FanCoilUsecase[end].PCoo.y - FanCoilUsecase[end].PModCoo.y", 2);
 
-createPlot(id=3, position={0, 490, 740, 449}, y={"datRea.y[8]"}, range={15720000.0, 15900000.0, -0.2, 0.4000000000000001}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={0, 490, 740, 449}, y={"datRea.y[8]"}, range={0.0, 900000.0, -2.0, 2.0}, grid=true, colors={{28,108,200}});
 plotExpression(apply(FanCoilUsecase[end].fCU_singleLayer.VChiWat_flow.V_flow*1000), false, "FanCoilUsecase[end].fCU_singleLayer.VChiWat_flow.V_flow * 1000", 3);
-createPlot(id=3, position={0, 490, 740, 108}, y={"datRea.y[10]"}, range={15720000.0, 15900000.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=3, position={0, 490, 740, 108}, y={"datRea.y[10]"}, range={0.0, 900000.0, -0.2, 0.4000000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
 plotExpression(apply(FanCoilUsecase[end].fCU_singleLayer.VHotWat_flow.V_flow*1000), false, "FanCoilUsecase[end].fCU_singleLayer.VHotWat_flow.V_flow * 1000", 3);
-createPlot(id=3, position={0, 490, 740, 109}, y={"fCU_singleLayer.TChiWatSup.T", "datRea.y[7]"}, range={15720000.0, 15900000.0, 0.0, 40.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", ""});
-createPlot(id=3, position={0, 490, 740, 108}, y={"datRea.y[9]", "fCU_singleLayer.THotWatSup.T"}, range={15720000.0, 15900000.0, 0.0, 100.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
+createPlot(id=3, position={0, 490, 740, 109}, y={"fCU_singleLayer.TChiWatSup.T", "datRea.y[7]"}, range={0.0, 900000.0, 0.0, 40.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", ""});
+createPlot(id=3, position={0, 490, 740, 108}, y={"datRea.y[9]", "fCU_singleLayer.THotWatSup.T"}, range={0.0, 900000.0, 0.0, 100.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
 
-createPlot(id=4, position={756, 0, 739, 451}, y={"PFan.y", "fCU_singleLayer.fan.P"}, range={15720000.0, 15900000.0, -20.0, 40.0}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=4, position={756, 0, 739, 109}, y={"fCU_singleLayer.fan.dp"}, range={15720000.0, 15900000.0, -100.0, 50.0}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=4, position={756, 0, 739, 109}, y={"fCU_singleLayer.VAirSup_flow.V_flow"}, range={15720000.0, 15900000.0, -0.2, 0.4000000000000001}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=4, position={756, 0, 739, 109}, y={"fCU_singleLayer.fan.P"}, range={15720000.0, 15900000.0, -10.0, 20.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=4, position={756, 0, 739, 451}, y={"PFan.y", "fCU_singleLayer.fan.P"}, range={0.0, 900000.0, -50.0, 50.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={756, 0, 739, 109}, y={"fCU_singleLayer.fan.dp"}, range={0.0, 900000.0, -100.0, 100.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={756, 0, 739, 109}, y={"fCU_singleLayer.VAirSup_flow.V_flow"}, range={0.0, 900000.0, -0.2, 0.4000000000000001}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={756, 0, 739, 109}, y={"fCU_singleLayer.fan.P"}, range={0.0, 900000.0, -20.0, 20.0}, grid=true, subPlot=4, colors={{28,108,200}});
 plotExpression(apply( -FanCoilUsecase[end].fCU_singleLayer.fan.dp*FanCoilUsecase[end].fCU_singleLayer.VAirSup_flow.V_flow), false, "-FanCoilUsecase[end].fCU_singleLayer.fan.dp*FanCoilUsecase[end].fCU_singleLayer.VAirSup_flow.V_flow", 4);
+
+createPlot(id=5, position={0, 0, 1511, 978}, y={"TSupAir.y", "fCU_singleLayer.TAirSup.T"}, range={0.0, 880000.0, 10.0, 90.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
+createPlot(id=5, position={0, 0, 1511, 322}, y={"PHea.y", "fCU_singleLayer.heaCoiHHW.Q2_flow"}, range={0.0, 880000.0, -1000.0, 9000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={0, 0, 1511, 323}, y={"mSupAir_flow.y"}, range={0.0, 880000.0, -0.05, 0.30000000000000004}, grid=true, subPlot=3, colors={{28,108,200}});
+plotExpression(apply(FanCoilUsecase[end].fCU_singleLayer.VAirSup_flow.V_flow*1.225), false, "FanCoilUsecase[end].fCU_singleLayer.VAirSup_flow.V_flow*1.225", 5);
