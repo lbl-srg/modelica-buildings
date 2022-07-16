@@ -4,6 +4,8 @@
 !-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 
+Output:Variable,Zone1FanCoilOAMixerOutletNode,System Node Pressure,Timestep;
+Output:Variable,Zone1FanCoilFanOutletNode,System Node Pressure,Timestep;
 Output:Variable,West Zone,Zone Air Humidity Ratio,Timestep;
 Output:Variable,Zone1FanCoil,Zone Air System Sensible Cooling Rate,Timestep;
 Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature,Timestep;
