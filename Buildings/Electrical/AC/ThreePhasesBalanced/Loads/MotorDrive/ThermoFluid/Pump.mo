@@ -48,11 +48,14 @@ model Pump
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W")
     "Electrical power consumed"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput y_actual(final unit="1")
+  Modelica.Blocks.Interfaces.RealOutput y_actual(
+    final unit="1")
     "Actual normalised pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,60},{120,80}}),
         iconTransformation(extent={{100,60},{120,80}})));

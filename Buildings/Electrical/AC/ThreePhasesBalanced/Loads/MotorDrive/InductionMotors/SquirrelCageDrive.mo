@@ -19,7 +19,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   parameter Modelica.Units.SI.Reactance X_m=26.3
     "Complex component of the magnetizing reactance";
   parameter Boolean use_PID = true
-    "set to true for enableing PID control";
+    "Set to true for enableing PID control";
 
   Real s(min=0,max=1) "Motor slip";
   Real v_rms "RMS voltage";

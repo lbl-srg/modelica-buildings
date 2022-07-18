@@ -104,16 +104,20 @@ model HeatPump "Heat pump with mechanical interface"
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     "Speed normalization"
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+    final quantity="HeatFlowRate",
     final unit="W")
     "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W")
     "Electric power consumed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    final quantity="HeatFlowRate",
     final unit="W")
     "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
