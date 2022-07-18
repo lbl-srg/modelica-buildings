@@ -302,11 +302,16 @@ block SetpointController
     annotation (Placement(transformation(extent={{120,-220},{160,-180}}),
         iconTransformation(extent={{100,10},{140,50}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIni
+    "Initial chiller plant stage"
+    annotation (Placement(transformation(extent={{120,280},{160,320}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
     final max=nSta)
     "Chiller stage integer setpoint"
-    annotation (Placement(transformation(extent={{120,260},{160,300}}),
+    annotation (Placement(transformation(extent={{120,220},{160,260}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
@@ -534,13 +539,14 @@ equation
           {-290,-150},{-44,-150},{-44,-168},{-22,-168}}, color={255,127,0}));
   connect(staUp.y, cha.uUp) annotation (Line(points={{-78,-110},{-50,-110},{-50,
           -172},{-22,-172}}, color={255,0,255}));
-  connect(staDow.y, cha.uDow) annotation (Line(points={{-78,-230},{-50,-230},{-50,
-          -176},{-22,-176}}, color={255,0,255}));
+  connect(staDow.y, cha.uDow) annotation (Line(points={{-78,-230},{-60,-230},{
+          -60,-176},{-22,-176}},
+                             color={255,0,255}));
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{
           -280,-140},{-70,-140},{-70,-180},{-22,-180}},
                                              color={255,0,255}));
-  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,280},
-          {140,280}},color={255,127,0}));
+  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,240},{
+          140,240}}, color={255,127,0}));
   connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{80,-174},{80,
           -140},{140,-140}},     color={255,0,255}));
   connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-200},{80,-200},{
@@ -586,6 +592,8 @@ equation
          {{-420,150},{-150,150},{-150,-115},{-102,-115}}, color={0,0,127}));
   connect(dpChiWatPum_remote, staDow.dpChiWatPum_remote) annotation (Line(
         points={{-420,150},{-150,150},{-150,-229},{-102,-229}}, color={0,0,127}));
+  connect(iniSta.yIni, yIni) annotation (Line(points={{-59,110},{-30,110},{-30,300},
+          {140,300}}, color={255,127,0}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-220},{100,200}}, initialScale=0.2),
         graphics={
@@ -743,8 +751,12 @@ equation
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatPum_remote",
-          visible=(not have_serChi) and (not have_locSen))}),
-                                 Diagram(
+          visible=(not have_serChi) and (not have_locSen)),
+        Text(
+          extent={{62,-98},{94,-82}},
+          textColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="yIni")}),  Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),
 Documentation(info="<html>

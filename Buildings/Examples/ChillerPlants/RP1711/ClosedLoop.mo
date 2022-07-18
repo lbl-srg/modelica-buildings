@@ -231,7 +231,10 @@ equation
           120},{20,120},{20,47},{102,47}}, color={255,127,0}));
   connect(chiPlaReq.y, chiPla.chiPlaReq) annotation (Line(points={{2,-20},{20,
           -20},{20,43},{102,43}}, color={255,127,0}));
-annotation (experiment(StartTime=15638400, StopTime=16243200, Tolerance=1e-06),
+annotation (experiment(
+      StartTime=15638400,
+      StopTime=15897600,
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/RP1711/ClosedLoop.mos"
     "Simulate and plot"),
   Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(
