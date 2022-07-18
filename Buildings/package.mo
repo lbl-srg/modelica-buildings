@@ -216,11 +216,14 @@ Version 9.1.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesBalanced.Loads</b>
+      </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive
+      </td>
+      <td valign=\"top\">Package with models for motor and motor driven devices.
+      </td>
+  </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
