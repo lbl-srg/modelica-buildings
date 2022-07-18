@@ -1,2 +1,0 @@
-simulateModel("Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned", stopTime=172800, method="Radau", tolerance=1e-06, resultFile="OfficeUnconditioned");
-createPlot(id=5, position={55, 50, 1783, 995}, y={"weaDat.weaBus.TDryBul", "flo.att.TAir", "flo.sou.TAir", "flo.eas.TAir", "flo.nor.TAir", "flo.wes.TAir", "flo.cor.TAir"}, range={0.0, 2.0, -15.0, 25.0}, grid=true, colors={{28,108,200}, {244,125,35}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});
