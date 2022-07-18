@@ -141,9 +141,9 @@ equation
   i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
   i[2] = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2);
 
-  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-19,-50},{-16,-50},
-          {-16,-4},{-12,-4}}, color={0,0,127}));
-  connect(setPoi, VFD.u_s) annotation (Line(points={{-120,70},{-92,70},{-92,0},
+  connect(w_r.y, torSpe.omega_r) annotation (Line(points={{-19,-50},{-16,-50},{
+          -16,-4},{-12,-4}},  color={0,0,127}));
+  connect(setPoi, VFD.u_s) annotation (Line(points={{-120,70},{-88,70},{-88,0},
           {-82,0}}, color={0,0,127}));
   connect(fre.y, VFDfre.u1) annotation (Line(points={{-59,-70},{-48,-70},{-48,6},
           {-42,6}}, color={0,0,127}));
@@ -163,8 +163,8 @@ equation
           {-42,56}}, color={0,0,127}));
   connect(VFD.y, VFDvol.u2) annotation (Line(points={{-59,0},{-50,0},{-50,44},
           {-42,44}}, color={0,0,127}));
-  connect(VFDvol.y, torSpe.V_rms) annotation (Line(points={{-19,50},{-16,50},
-          {-16,4},{-12,4}}, color={0,0,127}));
+  connect(VFDvol.y, torSpe.V_rms) annotation (Line(points={{-19,50},{-16,50},{
+          -16,4},{-12,4}},  color={0,0,127}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(

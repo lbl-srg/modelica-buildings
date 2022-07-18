@@ -164,8 +164,8 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
 
 equation
-  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-60,60},
-          {-60,6},{-10,6}}, color={0,127,255}));
+  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-70,60},
+          {-70,6},{-10,6}}, color={0,127,255}));
   connect(port_b2, mecChi.port_b2) annotation (Line(points={{-100,-60},{-60,-60},
           {-60,-6},{-10,-6}}, color={0,127,255}));
   connect(mecChi.port_b1, port_b1) annotation (Line(points={{10,6},{60,6},{60,60},
@@ -182,8 +182,8 @@ equation
           {-60,72},{-42,72}}, color={0,0,127}));
   connect(simMot.P, P) annotation (Line(points={{-18,88},{80,88},{80,30},
           {110,30}}, color={0,0,127}));
-  connect(simMot.Q, Q) annotation (Line(points={{-18,84},{80,84},{80,-30},
-          {110,-30}}, color={0,0,127}));
+  connect(simMot.Q, Q) annotation (Line(points={{-18,84},{76,84},{76,-30},{110,
+          -30}},      color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{-30,90},{-30,100},
           {0,100}}, color={0,120,120}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},

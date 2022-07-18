@@ -29,14 +29,14 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     duration=60,
     offset=273.15 + 20,
     startTime=60) "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-90,24},{-70,44}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = MediumW,
     use_T_in=true,
     m_flow=m2_flow_nominal,
     T=291.15,
     nPorts=1) "Water source 2"
-    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{60,-16},{40,4}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller chi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
@@ -84,15 +84,15 @@ model Chiller "This example shows how to use the motor coupled chiller model"
       extent={{-80,-40},{-60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumW,
       nPorts=1) "Water sink 1" annotation (Placement(transformation(
-      extent={{60,40},{40,60}})));
+      extent={{60,20},{40,40}})));
 
 equation
-  connect(TCon_in.y,sou1. T_in) annotation (Line(points={{-79,30},{-70,30},
-          {-70,34},{-62,34}}, color={0,0,127}, smooth=Smooth.None));
-  connect(sou1.ports[1], chi.port_a1) annotation (Line(points={{-40,30},{-22,30},
-          {-22,6},{-10,6}}, color={0,127,255}));
-  connect(sou2.ports[1], chi.port_a2) annotation (Line(points={{40,-10},{16,-10},
-          {16,-6},{10,-6}}, color={0,127,255}));
+  connect(TCon_in.y,sou1. T_in) annotation (Line(points={{-69,34},{-62,34}},
+                              color={0,0,127}, smooth=Smooth.None));
+  connect(sou1.ports[1], chi.port_a1) annotation (Line(points={{-40,30},{-20,30},
+          {-20,6},{-10,6}}, color={0,127,255}));
+  connect(sou2.ports[1], chi.port_a2) annotation (Line(points={{40,-6},{10,-6}},
+                            color={0,127,255}));
   connect(Sou.terminal, chi.terminal) annotation (Line(points={{10,60},{10,10},
           {0,10}}, color={0,120,120}));
   connect(senTem.port_b, chi.port_b2) annotation (Line(points={{-20,-30},
@@ -101,12 +101,12 @@ equation
           {-11,3}}, color={0,0,127}));
   connect(TSet.y, chi.setPoi) annotation (Line(points={{-39,70},{-11,70},
           {-11,9}}, color={0,0,127}));
-  connect(TEva_in.y, sou2.T_in) annotation (Line(points={{61,-50},{82,-50},
-          {82,-6},{62,-6}}, color={0,0,127}));
+  connect(TEva_in.y, sou2.T_in) annotation (Line(points={{61,-50},{80,-50},{80,
+          -2},{62,-2}},     color={0,0,127}));
   connect(senTem.port_a, sin2.ports[1]) annotation (Line(points={{-40,-30},
           {-60,-30}}, color={0,127,255}));
-  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{34,6},
-          {34,50},{40,50}}, color={0,127,255}));
+  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},{
+          20,30},{40,30}},  color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Chiller.mos"
         "Simulate and plot"),
