@@ -26,17 +26,21 @@ model WaterLoopDistrictCooling
   parameter Modelica.Units.SI.PressureDifference dpPump_nominal = 20000 "Nominal pressure drop across pump";
   parameter Modelica.Units.SI.Volume volHex = 15 "Equivalent heat exchanger fluid mixing volume";
   parameter Modelica.Units.SI.HeatFlowRate QDisCoi = 422000 "District cooling coil cooling load, assumed 120 ton design day peak load";
+  parameter Modelica.Units.SI.HeatFlowRate QWatChi = 0.66*QDisCoi "Water chiller size, assumed 66% of design day peak load";
 
   parameter Real kCon = 1000 "Gain of PI controller";
   parameter Real TiCon = 10 "Integral time constant of PI controller";
   parameter Real rCon = 1000 "Typical range of controller error used for scaling";
 
-  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled perWatChi annotation (Placement(transformation(extent={{134,76},{154,96}})));
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled perWatChi(
+    QEva_flow_nominal = -QWatChi,
+    mEva_flow_nominal = 0.66*mWat_flow_nominal,
+    mCon_flow_nominal = mCon_flow_nominal) annotation (Placement(transformation(extent={{134,76},{154,96}})));
 
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
     have_heaWat = false,
     redeclare package Medium2 = MediumAir,
-    filNam = "Fluid/Storage/Ice/Examples/SampleDistrictCoolingLoads.txt",
+    filNam = "Fluid/Storage/Ice/Examples/SampleDistrictCoolingLoadsScaled.txt",
     QHea_flow_nominal = 1e-15,
     nPorts_aHeaWat = 1,
     nPorts_bHeaWat = 1,

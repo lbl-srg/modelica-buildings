@@ -26,35 +26,27 @@ model GlycolLoopIceTank
   parameter Modelica.Units.SI.PressureDifference dpHex_nominal = 10000 "Nominal pressure drop across heat exchanger";
   parameter Modelica.Units.SI.Volume volHex = 15 "Equivalent heat exchanger fluid mixing volume";
   parameter Modelica.Units.SI.HeatFlowRate QDisCoi = 422000 "District cooling coil cooling load, assumed 120 ton design day peak load";
+  parameter Modelica.Units.SI.HeatFlowRate QGlyChi = 0.66*QDisCoi "Glycol chiller size, assumed 66% of design day peak load";
   parameter Modelica.Units.SI.Mass mIceTan = 5310 "Mass of ice in single storage tank, assumed 140 ton-hrs (Calmac Model 1190)";
 
   parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic perIceTan(
-    mIce_max=3*mIceTan,
-    coeCha={1.76953858E-04,0,0,0,0,0},
-    dtCha=10,
-    coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
-    dtDisCha=10) "Tank performance data" annotation (Placement(transformation(extent={{100,76},
+    mIce_max = 3*mIceTan,
+    coeCha = {1.76953858E-04,0,0,0,0,0},
+    dtCha = dTHex_nominal,
+    coeDisCha = {5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
+    dtDisCha = dTHex_nominal) "Tank performance data" annotation (Placement(transformation(extent={{100,76},
             {120,96}})));
 
-  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perGlyChi(
-    QEva_flow_nominal=-0.66*QDisCoi,
-    COP_nominal=3.1,
-    PLRMax=1.15,
-    PLRMinUnl=0.1,
-    PLRMin=0.1,
-    etaMotor=1.0,
-    mEva_flow_nominal=0.66*mGly_flow_nominal,
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled perGlyChi(
+    QEva_flow_nominal = -QGlyChi,
+    mEva_flow_nominal = 0.66*mGly_flow_nominal,
     mCon_flow_nominal = mCon_flow_nominal,
-    TEvaLvg_nominal=273.15 - 8.33,
-    capFunT={-0.2660645697,0.0998714035,-0.0023814154,0.0628316481,-0.0009644649,
-        -0.0011249224},
-    EIRFunT={0.1807017787,0.0271530312,-0.0004553574,0.0188175079,0.0002623276,-0.0012881189},
-    EIRFunPLR={0.0,1.0,0.0},
-    TEvaLvgMin=273.15 - 11,
-    TEvaLvgMax=273.15 - 5,
-    TConEnt_nominal=273.15 + 20,
-    TConEntMin=273.15 + 15,
-    TConEntMax=273.15 + 40) "Size chiller at 66% of design day peak load"
+    TEvaLvg_nominal = 273.15 - 8.33,
+    TEvaLvgMin = 273.15 - 11,
+    TEvaLvgMax = 273.15 - 5,
+    TConEnt_nominal = 273.15 + 20,
+    TConEntMin = 273.15 + 15,
+    TConEntMax = 273.15 + 40) "Size chiller at 66% of design day peak load"
     annotation (Placement(transformation(extent={{132,76},{152,96}})));
 
   Buildings.Fluid.Storage.Ice.Tank iceTanUnc(
@@ -97,7 +89,8 @@ model GlycolLoopIceTank
         rotation=180)));
 
   Buildings.Fluid.Sources.Boundary_pT preSouGly(redeclare package Medium =
-        MediumGlycol,                                                                    nPorts = 1) "Source for pressure and to account for thermal expansion of glycol"
+        MediumGlycol, nPorts = 1)
+    "Source for pressure and to account for thermal expansion of glycol"
     annotation (Placement(transformation(extent={{70,-18},{82,-6}})));
 
   Modelica.Blocks.Sources.Sine disCoiLoad(
