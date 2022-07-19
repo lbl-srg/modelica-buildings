@@ -70,7 +70,7 @@ model FanCoilUnit_openLoop
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
-    columns=2:17,
+    columns=2:19,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
@@ -216,6 +216,12 @@ model FanCoilUnit_openLoop
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Controls.OBC.CDL.Continuous.Sources.Constant           con1(k=1)
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
+  Modelica.Blocks.Sources.RealExpression dPFanOut(y=datRea.y[18])
+    "Measured fan outlet pressure"
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
+  Modelica.Blocks.Sources.RealExpression dPFanIn(y=datRea.y[17])
+    "Measured fan inlet pressure"
+    annotation (Placement(transformation(extent={{100,120},{120,140}})));
 equation
 
   connect(fCU_singleLayer.port_CCW_outlet, sinCoo.ports[1]) annotation (Line(
