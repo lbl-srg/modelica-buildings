@@ -6,11 +6,16 @@ model GlycolLoopIceTank
   package MediumAir = Buildings.Media.Air "Fluid medium";
   package MediumGlycol = Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.30) "Fluid medium";
 
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 28.0
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = QGlyChi/(dTHex_nominal*cpAir)
     "Nominal mass flow rate of air through the chiller condenser coil";
-  parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal = 11.5
-    "Nominal mass flow rate of glycol through the glycol circuit, 
-    assumed 10K temperature difference to serve design day peak load with 30% propylene glycol water";
+  parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal = QDisCoi/(dTHex_nominal*((XProGly)*cpProGly+(1-XProGly)*cpWater))
+    "Nominal mass flow rate of glycol through the glycol circuit";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpWater = 4184 "Isobaric specific heat at STP";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpProGly = 2507 "Isobaric specific heat at STP";
+  parameter Modelica.Units.SI.MassFraction XProGly = 0.30 "Mass fraction of propylene glycol in working fluid";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir = 1006 "Isobaric specific heat at STP";
+  parameter Modelica.Units.SI.TemperatureDifference dTHex_nominal = 10 "Nominal temperature change across heat exchanger";
 
   parameter Modelica.Units.SI.Temperature TSetGlyChi = 273.15 - 6.7 "Glycol chiller setpoint temperature";
   parameter Modelica.Units.SI.Temperature TChaStart = 273.15 + 1 "Outlet temperature of ice tank to start charging";

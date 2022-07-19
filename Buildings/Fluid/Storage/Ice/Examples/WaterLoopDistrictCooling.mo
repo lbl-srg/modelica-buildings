@@ -6,10 +6,14 @@ model WaterLoopDistrictCooling
   package MediumAir = Buildings.Media.Air "Fluid medium";
   package MediumWater = Buildings.Media.Water "Fluid medium";
 
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 11.3
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = QWatChi/(dTHex_nominal*cpAir)
     "Nominal mass flow rate of air through the chiller condenser coil";
-  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal = 4.3
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal = QDisCoi/(dTHex_nominal*cpWater)
     "Nominal mass flow rate of water through the water circuit";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpWater = 4184 "Isobaric specific heat at STP";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir = 1006 "Isobaric specific heat at STP";
+  parameter Modelica.Units.SI.TemperatureDifference dTHex_nominal = 10 "Nominal temperature change across heat exchanger";
 
   parameter Modelica.Units.SI.Temperature TSetWatChi = 273.15 + 6 "Water chiller setpoint temperature";
   parameter Modelica.Units.SI.Temperature TSetDisCooSup = 273.15 + 7 "Inlet temperature setpoint of district cooling coil supply";
