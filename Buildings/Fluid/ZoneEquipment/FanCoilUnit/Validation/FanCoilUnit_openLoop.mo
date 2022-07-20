@@ -24,7 +24,7 @@ model FanCoilUnit_openLoop
         rotation=90,
         origin={-40,-80})));
 
-  FanCoilUnit fCU_singleLayer(
+  FanCoilUnit fanCoiUni(
     heatingCoilType=Buildings.Fluid.ZoneEquipment.Types.heatingCoil.heatingHotWater,
     capacityControlMethod=Buildings.Fluid.ZoneEquipment.Types.capacityControl.multispeedCyclingFanConstantWater,
     dpAirTot_nominal(displayUnit="Pa") = 100,
@@ -137,10 +137,10 @@ model FanCoilUnit_openLoop
 
   Results res(
     final A=ATot,
-    PFan=fCU_singleLayer.fan.P + 0,
-    PHea=fCU_singleLayer.heaCoiHHW.Q2_flow,
-    PCooSen=fCU_singleLayer.cooCoiCHW.QSen2_flow,
-    PCooLat=fCU_singleLayer.cooCoiCHW.QLat2_flow) "Results of the simulation";
+    PFan=fanCoiUni.fan.P + 0,
+    PHea=fanCoiUni.heaCoiHHW.Q2_flow,
+    PCooSen=fanCoiUni.cooCoiCHW.QSen2_flow,
+    PCooLat=fanCoiUni.cooCoiCHW.QLat2_flow) "Results of the simulation";
 
   Results res_EPlus(
     final A=ATot,
@@ -192,18 +192,17 @@ model FanCoilUnit_openLoop
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Modelica.Blocks.Sources.RealExpression PFan(y=datRea.y[3]) "Fan power"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Modelica.Blocks.Sources.RealExpression PModCoo(y=-fCU_singleLayer.cooCoiCHW.Q2_flow)
+  Modelica.Blocks.Sources.RealExpression PModCoo(y=-fanCoiUni.cooCoiCHW.Q2_flow)
     "Cooling power consumption in Modelica model"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  Modelica.Blocks.Sources.RealExpression PModCooSen(y=-fCU_singleLayer.cooCoiCHW.QSen2_flow)
+  Modelica.Blocks.Sources.RealExpression PModCooSen(y=-fanCoiUni.cooCoiCHW.QSen2_flow)
     "Sensible cooling power consumption in Modelica model"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Modelica.Blocks.Sources.RealExpression PModCooLat(y=-fCU_singleLayer.cooCoiCHW.QLat2_flow)
+  Modelica.Blocks.Sources.RealExpression PModCooLat(y=-fanCoiUni.cooCoiCHW.QLat2_flow)
     "Latent cooling power consumption in Modelica model"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Modelica.Blocks.Sources.RealExpression PModCooCal(y=-1000*4200*
-        fCU_singleLayer.VChiWat_flow.V_flow*(fCU_singleLayer.TChiWatSup.T -
-        fCU_singleLayer.TChiWatRet.T))
+  Modelica.Blocks.Sources.RealExpression PModCooCal(y=-1000*4200*fanCoiUni.VChiWat_flow.V_flow
+        *(fanCoiUni.TChiWatSup.T - fanCoiUni.TChiWatRet.T))
     "Calculated cooling power consumption in Modelica model"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Modelica.Blocks.Sources.RealExpression PCooSen(y=datRea.y[15])
@@ -224,27 +223,26 @@ model FanCoilUnit_openLoop
     annotation (Placement(transformation(extent={{100,120},{120,140}})));
 equation
 
-  connect(fCU_singleLayer.port_CCW_outlet, sinCoo.ports[1]) annotation (Line(
-        points={{2,-10},{2,-70},{40,-70}},        color={0,127,255}));
+  connect(fanCoiUni.port_CCW_outlet, sinCoo.ports[1])
+    annotation (Line(points={{2,-10},{2,-70},{40,-70}}, color={0,127,255}));
 
-  connect(fCU_singleLayer.port_HHW_outlet, sinHea.ports[1]) annotation (Line(
-        points={{-6,-10},{-6,-60},{-40,-60},{-40,-70}},      color={0,127,255}));
+  connect(fanCoiUni.port_HHW_outlet, sinHea.ports[1]) annotation (Line(points={
+          {-6,-10},{-6,-60},{-40,-60},{-40,-70}}, color={0,127,255}));
 
-  connect(souCoo.ports[1], fCU_singleLayer.port_CCW_inlet) annotation (Line(
-        points={{70,-70},{70,-60},{6,-60},{6,-10}}, color={0,127,255}));
+  connect(souCoo.ports[1], fanCoiUni.port_CCW_inlet) annotation (Line(points={{
+          70,-70},{70,-60},{6,-60},{6,-10}}, color={0,127,255}));
 
-  connect(souHea.ports[1], fCU_singleLayer.port_HHW_inlet)
-    annotation (Line(points={{10,-80},{10,-74},{-2,-74},{-2,-10}},
-                                                           color={0,127,255}));
+  connect(souHea.ports[1], fanCoiUni.port_HHW_inlet) annotation (Line(points={{
+          10,-80},{10,-74},{-2,-74},{-2,-10}}, color={0,127,255}));
 
-  connect(souAir.ports[1], fCU_singleLayer.port_return) annotation (Line(points=
-         {{20,30},{50,30},{50,0},{10,0}}, color={0,127,255}));
+  connect(souAir.ports[1], fanCoiUni.port_return) annotation (Line(points={{20,
+          30},{50,30},{50,0},{10,0}}, color={0,127,255}));
 
-  connect(sinAir.ports[1], fCU_singleLayer.port_supply) annotation (Line(points=
-         {{40,-30},{50,-30},{50,-4},{10,-4}}, color={0,127,255}));
+  connect(sinAir.ports[1], fanCoiUni.port_supply) annotation (Line(points={{40,
+          -30},{50,-30},{50,-4},{10,-4}}, color={0,127,255}));
 
-  connect(con.y, fCU_singleLayer.uOA) annotation (Line(points={{-58,30},{-20,30},
-          {-20,6},{-12,6}}, color={0,0,127}));
+  connect(con.y, fanCoiUni.uOA) annotation (Line(points={{-58,30},{-20,30},{-20,
+          6},{-12,6}}, color={0,0,127}));
 
   connect(addPar[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},
           {-16,34},{-2,34}}, color={0,0,127}));
@@ -256,7 +254,7 @@ equation
   connect(addPar[3].y, souCoo.T_in) annotation (Line(points={{-58,70},{-16,70},{
           -16,-120},{66,-120},{66,-92}},  color={0,0,127}));
 
-  connect(weaDat.weaBus, fCU_singleLayer.weaBus) annotation (Line(
+  connect(weaDat.weaBus, fanCoiUni.weaBus) annotation (Line(
       points={{-60,110},{-8,110},{-8,8}},
       color={255,204,51},
       thickness=0.5));
@@ -267,8 +265,8 @@ equation
           -110,70},{-82,70}}, color={0,0,127}));
   connect(datRea.y[9], addPar[2].u) annotation (Line(points={{-119,0},{-110,0},{
           -110,70},{-82,70}}, color={0,0,127}));
-  connect(datRea.y[6], fCU_singleLayer.uFan) annotation (Line(points={{-119,0},{
-          -106,0},{-106,18},{-80,18},{-80,2},{-12,2}}, color={0,0,127}));
+  connect(datRea.y[6], fanCoiUni.uFan) annotation (Line(points={{-119,0},{-106,
+          0},{-106,18},{-80,18},{-80,2},{-12,2}}, color={0,0,127}));
   connect(datRea.y[8], gai1.u) annotation (Line(points={{-119,0},{-110,0},{-110,
           -40},{-102,-40}}, color={0,0,127}));
   connect(datRea.y[6], gai.u)
@@ -283,10 +281,10 @@ equation
           -126},{-62,-126}}, color={0,0,127}));
   connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
           {-26,26},{-2,26}}, color={0,0,127}));
-  connect(con1.y, fCU_singleLayer.uCoo) annotation (Line(points={{-48,-20},{-30,
-          -20},{-30,-2},{-12,-2}}, color={0,0,127}));
-  connect(con1.y, fCU_singleLayer.uHea) annotation (Line(points={{-48,-20},{-30,
-          -20},{-30,-6},{-12,-6}}, color={0,0,127}));
+  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-48,-20},{-30,-20},
+          {-30,-2},{-12,-2}}, color={0,0,127}));
+  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-48,-20},{-30,-20},
+          {-30,-6},{-12,-6}}, color={0,0,127}));
   connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{
           -110,0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}}, color={
           0,0,127}));

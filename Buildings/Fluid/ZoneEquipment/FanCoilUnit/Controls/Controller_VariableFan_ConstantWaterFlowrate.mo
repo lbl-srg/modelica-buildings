@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FCUControls;
+within Buildings.Fluid.ZoneEquipment.Controls;
 block Controller_VariableFan_ConstantWaterFlowrate
 
   parameter Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
