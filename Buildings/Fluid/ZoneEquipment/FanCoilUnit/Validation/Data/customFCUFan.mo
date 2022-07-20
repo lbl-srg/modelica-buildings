@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.Data;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data;
 record customFCUFan "Fan data for the FCU validation model"
   extends Movers.Data.Generic(
     speed_rpm_nominal=2900,

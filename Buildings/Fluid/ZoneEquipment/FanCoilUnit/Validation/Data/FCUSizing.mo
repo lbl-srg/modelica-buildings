@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.Data;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data;
 record FCUSizing "FCU sizing calculations for component parameters"
 
   extends Modelica.Icons.Record;
