@@ -3,7 +3,7 @@ partial model PartialPlant "Partial model of a storage plant validation model"
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom(
+  Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     mTan_flow_nominal=1,
     mChi_flow_nominal=1,
     dp_nominal=300000,

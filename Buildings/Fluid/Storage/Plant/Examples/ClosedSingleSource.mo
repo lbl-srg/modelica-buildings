@@ -9,9 +9,9 @@ model ClosedSingleSource "Simple system model with one source and one user"
   parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.1
     "Nominal cooling load of one consumer";
 
-  Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom(
-    final plaTyp=
-        Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal,
+  Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
+    final plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal,
+
     mTan_flow_nominal=0.5,
     mChi_flow_nominal=0.5,
     dp_nominal=300000,
@@ -99,10 +99,10 @@ model ClosedSingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 equation
-  connect(TRetSet.y, usr.TSet) annotation (Line(points={{41,10},{52,10},{52,-16},
-          {59,-16}}, color={0,0,127}));
+  connect(TRetSet.y, usr.TSet) annotation (Line(points={{41,10},{52,10},{52,-9},
+          {62,-9}},  color={0,0,127}));
   connect(preQCooLoa_flow.y,usr. QCooLoa_flow)
-    annotation (Line(points={{41,50},{54,50},{54,-12},{59,-12}},
+    annotation (Line(points={{41,50},{54,50},{54,-9},{66,-9}},
                                                              color={0,0,127}));
   connect(preDro1.port_b,usr. port_a)
     annotation (Line(points={{30,-20},{60,-20}},
@@ -113,8 +113,8 @@ equation
   connect(set_dpUsr.y, conPI_pumSec.u_s)
     annotation (Line(points={{-10,79},{-10,70.5},{-10,70.5},{-10,62}},
                                                  color={0,0,127}));
-  connect(usr.dpUsr, gaiPumSec.u) annotation (Line(points={{68,-9},{68,90},{42,90}},
-                                  color={0,0,127}));
+  connect(usr.dpUsr, gaiPumSec.u) annotation (Line(points={{78,-9},{78,90},{42,
+          90}},                   color={0,0,127}));
   connect(gaiPumSec.y, conPI_pumSec.u_m)
     annotation (Line(points={{19,90},{8,90},{8,50},{2,50}},
                                                           color={0,0,127}));

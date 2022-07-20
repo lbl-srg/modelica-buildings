@@ -5,7 +5,7 @@ model ChillerBranch
     Modelica.Media.Interfaces.PartialMedium "Medium package";
   package MediumCDW = Buildings.Media.Water "Medium model for CDW";
 
-  parameter Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom
+  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
     "Nominal values";
 
   Modelica.Units.SI.MassFlowRate m_flow=pum.m_flow "Mass flow rate";

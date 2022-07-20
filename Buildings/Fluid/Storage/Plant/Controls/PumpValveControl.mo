@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.BaseClasses;
+within Buildings.Fluid.Storage.Plant.Controls;
 block PumpValveControl
   "Control block for the supply pump and nearby valves that allows remote charging"
   extends Modelica.Blocks.Icons.Block;

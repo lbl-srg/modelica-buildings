@@ -125,9 +125,8 @@ partial model PartialDualSource
         origin={-130,130})));
 
 // Second source: chiller and tank
-  Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nomPla2(
-    plaTyp=
-      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
+  Buildings.Fluid.Storage.Plant.Data.NominalValues nomPla2(
+    plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
     mTan_flow_nominal=0.75*m_flow_nominal,
     mChi_flow_nominal=0.75*m_flow_nominal,
     dp_nominal=dp_nominal,
@@ -169,7 +168,7 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-10})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl conSupPum(final
+  Buildings.Fluid.Storage.Plant.Controls.PumpValveControl conSupPum(final
       plaTyp=nomPla2.plaTyp) "Control block for the secondary pump and valves"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

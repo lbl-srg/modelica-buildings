@@ -15,7 +15,7 @@ partial model RemoteChargingSchedule
         1; 3600/7*2,1; 3600/7*2,2; 3600/7*3,2; 3600/7*3,1; 3600/7*5,1; 3600/7*5,
         0])                         "Chiller flow rate setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl conPumVal
+  Buildings.Fluid.Storage.Plant.Controls.PumpValveControl conPumVal
     "Control block for the secondary pump and near-by valves"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
 equation

@@ -5,7 +5,7 @@ model PartialBranchPorts
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
 
-  parameter Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom
+  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
     "Nominal values";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aFroNet(

@@ -4,7 +4,7 @@ model IdealChillerBranch
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
 
-  parameter Buildings.Fluid.Storage.Plant.BaseClasses.NominalValues nom
+  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
     "Nominal values";
 
   Modelica.Units.SI.MassFlowRate m_flow = mFloSou.m_flow "Mass flow rate";
