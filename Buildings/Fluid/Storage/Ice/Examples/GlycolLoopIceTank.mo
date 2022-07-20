@@ -186,7 +186,9 @@ model GlycolLoopIceTank
   Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mGly_flow_nominal) "Pump 1" annotation (Placement(
+    m_flow_nominal=mGly_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
+                                      "Pump 1" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
@@ -195,7 +197,9 @@ model GlycolLoopIceTank
   Buildings.Fluid.Movers.FlowControlled_m_flow pum5(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mGly_flow_nominal) "Pump 5" annotation (Placement(
+    m_flow_nominal=mGly_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
+                                      "Pump 5" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
@@ -204,7 +208,9 @@ model GlycolLoopIceTank
   Buildings.Fluid.Movers.FlowControlled_m_flow pum6(
     redeclare package Medium = MediumGlycol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mGly_flow_nominal) "Pump 6" annotation (Placement(
+    m_flow_nominal=mGly_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
+                                      "Pump 6" annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
