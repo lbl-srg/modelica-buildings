@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable;
 block PlantEnable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
@@ -196,13 +196,6 @@ annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}})),
   Icon(graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          lineThickness=5,
-          borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
           textColor={0,0,255},

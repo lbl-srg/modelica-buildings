@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Validation;
 model PlantEnable "Validation sequence for enabling and disabling chiller plant"
 
   parameter Real aveTWetBul(
@@ -7,18 +7,18 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
     displayUnit="degC")=288.15
       "Chilled water supply set temperature";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaSch(
-    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.PlantEnable
+    disPlaSch(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
     "Disable plant without waterside economizer, due to schedule"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaReq(
-    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.PlantEnable
+    disPlaReq(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
     "Disable plant without waterside economizer, due to lack of request"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaOutTem(
-    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.PlantEnable
+    disPlaOutTem(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to low outdoor temperature"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 

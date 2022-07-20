@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable;
 package Validation "Collection of validation models"
   annotation ( preferredView="info", Documentation(info="<html>
 <p>
