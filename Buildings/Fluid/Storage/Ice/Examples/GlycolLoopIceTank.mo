@@ -94,9 +94,9 @@ model GlycolLoopIceTank
     annotation (Placement(transformation(extent={{70,-18},{82,-6}})));
 
   Modelica.Blocks.Sources.Sine disCoiLoad(
-    amplitude=QDisCoi/2,
+    amplitude=QDisCoi/4,
     f=1/86400,
-    offset=QDisCoi/2,
+    offset=QDisCoi/4,
     startTime=0)
     annotation (Placement(transformation(extent={{160,2},{148,14}})));
 
@@ -107,7 +107,7 @@ model GlycolLoopIceTank
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal = mGly_flow_nominal,
-    V = volHex, nPorts = 2) "Heat exchanger" annotation (Placement(transformation(extent={{10,10}, {-10,-10}}, rotation=90,origin={116,-11})));
+    V = volHex, nPorts = 2, T_start = (TDisCooCall+TDisStandby)/2) "Heat exchanger" annotation (Placement(transformation(extent={{10,10}, {-10,-10}}, rotation=90,origin={116,-11})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=TSetGlyChi)
     "Glycol chiller constant set point"
