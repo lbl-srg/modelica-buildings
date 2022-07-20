@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Validation;
-model PlantEnable "Validation sequence for enabling and disabling chiller plant"
+model Enable
+  "Validation sequence for enabling and disabling chiller plant"
 
   parameter Real aveTWetBul(
     final unit="K",
@@ -7,17 +8,17 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
     displayUnit="degC")=288.15
       "Chilled water supply set temperature";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.PlantEnable
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable
     disPlaSch(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
     "Disable plant without waterside economizer, due to schedule"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.PlantEnable
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable
     disPlaReq(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
     "Disable plant without waterside economizer, due to lack of request"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.PlantEnable
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable
     disPlaOutTem(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to low outdoor temperature"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
@@ -82,13 +83,13 @@ equation
           110},{20,104},{38,104}}, color={255,127,0}));
 annotation (
   experiment(StopTime=86400.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/Validation/PlantEnable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/PlantEnable/Validation/Enable.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -139,4 +140,4 @@ due to zero request"),
           horizontalAlignment=TextAlignment.Left,
           textString="Disable plant 
 due to low outdoor temperature")}));
-end PlantEnable;
+end Enable;

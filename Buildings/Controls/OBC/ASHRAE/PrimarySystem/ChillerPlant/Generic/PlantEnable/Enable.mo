@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable;
-block PlantEnable "Sequence to enable and disable plant"
+block Enable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
     "Flag to indicate if the plant has waterside economizer";
@@ -289,4 +289,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PlantEnable;
+end Enable;

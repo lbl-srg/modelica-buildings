@@ -6,6 +6,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   parameter Integer nSta = 3
     "Number of chiller stages";
+
   parameter Real holdPeriod(
     final unit="s",
     final quantity="Time")=1200

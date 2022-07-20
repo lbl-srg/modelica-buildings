@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Validation.WithWSE", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="WithWse");
+
+createPlot(id=1, position={55, 55, 1322, 1142}, y={"wseSta.uPla", "wseSta.uWSEConIsoVal", "wseSta.uLeaPriChiPum", "wseSta.uLeaConPum", "wseSta.uLeaTwoCel"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={55, 55, 1322, 1142}, y={"wseSta.yEnaPlaPro", "wseSta.yWSEConIsoVal", "wseSta.yLeaPriChiPum", "wseSta.yLeaTwoCel"}, range={0.0, 3600.0, -0.2, 1.2}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={55, 55, 1322, 1142}, y={"wseSta.uIni", "wseSta.uChiSta"}, range={0.0, 3600.0, -0.2, 1.2}, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");

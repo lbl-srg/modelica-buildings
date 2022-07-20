@@ -1022,7 +1022,7 @@ block Controller "Chiller plant controller"
     "Waterside economizer (WSE) enable/disable status"
     annotation(Placement(transformation(extent={{-600,300},{-560,340}})));
 
-  Generic.PlantEnable.PlantEnable plaEna(
+  Generic.PlantEnable.Enable plaEna(
     final have_WSE=have_WSE,
     final schTab=schTab,
     final TChiLocOut=TChiLocOut,

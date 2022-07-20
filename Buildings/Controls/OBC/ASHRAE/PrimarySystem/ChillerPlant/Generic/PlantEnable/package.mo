@@ -4,9 +4,9 @@ package PlantEnable "Package of sequences for enabling plant and the associated 
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains equipment staging and rotation sequences implemented based on ASHRAE RP1711.
-March 2020 draft, section 5.1.2. The control intent of these sequences is, where the device configuration allows for it, 
-to have the devices be lead/lag or lead/standby rotated to maintain even wear.
+This package contains sequences for enabling plant and the associate devices.
+The sequences are implemented based on ASHRAE RP1711.
+March 2020 draft, section 5.2.2.
 </html>"),
 Icon(graphics={
         Rectangle(

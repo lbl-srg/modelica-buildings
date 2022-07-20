@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "wseSta.uPla",
+    "wseSta.uWSEConIsoVal",
+    "wseSta.uLeaPriChiPum",
+    "wseSta.uLeaConPum",
+    "wseSta.uLeaTwoCel",
+    "wseSta.yEnaPlaPro",
+    "wseSta.yWSEConIsoVal",
+    "wseSta.yLeaPriChiPum",
+    "wseSta.yLeaTwoCel",
+    "wseSta.uIni",
+    "wseSta.uChiSta"
+  };
