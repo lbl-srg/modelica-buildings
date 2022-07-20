@@ -11,10 +11,12 @@ on the same CHW district network. The model is implemented in three parts:
 </p>
 <ul>
 <li>
-The chiller branch is implemented as base class in example and validation models in
+The chiller branch is not directly implemented with the other two parts
+because its configuration is highly up to the user.
+Example chiller branch models are implemented as base class with example models in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch\">
 Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch</a>
-and in
+and validation models in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Validation.BaseClasses.IdealChillerBranch\">
 Buildings.Fluid.Storage.Plant.Validation.BaseClasses.IdealChillerBranch</a>.
 </li>
@@ -34,6 +36,13 @@ See its documentation for details.
 </li>
 </ul>
 <p>
+All branch models except the chiller branch are extended from
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts\">
+Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts</a>.
+Because they share many nominal values, the nominal values are assigned in
+a single data record in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Data.NominalValues\">
+Buildings.Fluid.Storage.Plant.Data.NominalValues</a>.
 The model can be configured to have the following setups using the enumeration
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup\">
 Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup</a>:
