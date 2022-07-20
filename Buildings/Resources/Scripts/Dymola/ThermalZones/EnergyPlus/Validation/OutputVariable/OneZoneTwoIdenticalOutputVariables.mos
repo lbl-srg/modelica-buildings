@@ -1,6 +1,0 @@
-old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
-Hidden.AvoidDoubleComputation=true;
-simulateModel("Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable.OneZoneTwoIdenticalOutputVariables", stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="OneZoneTwoIdenticalOutputVariables");
-Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
-createPlot(id=1, position={88, 209, 809, 632}, y={"zon.TAir"}, range={0.0, 450000.0, 12.0, 22.0}, grid=true, colors={{28,108,200}}, displayUnits={"degC"});
-createPlot(id=1, position={88, 209, 809, 314}, y={"equEle.y", "equEle2.y"}, range={0.0, 450000.0, 0.0, 2000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

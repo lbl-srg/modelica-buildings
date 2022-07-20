@@ -49,6 +49,12 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 April 12, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>

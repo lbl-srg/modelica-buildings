@@ -7,13 +7,12 @@ block HeaterCooler_u
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final Q_flow_nominal=Q_flow_nominal,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
-     = 0 "Pressure";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
+       0 "Pressure";
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=100
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u(min=0, max=1, unit="1")
@@ -42,6 +41,12 @@ for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

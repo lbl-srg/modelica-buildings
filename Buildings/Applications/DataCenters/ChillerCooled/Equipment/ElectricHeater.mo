@@ -16,7 +16,7 @@ model ElectricHeater "Model for electric heater"
    // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   parameter Modelica.Units.SI.Time tau(min=0) = 10 "Time constant at nominal flow rate (used
     if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics"));
