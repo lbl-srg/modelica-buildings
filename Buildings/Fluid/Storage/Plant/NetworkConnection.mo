@@ -269,7 +269,6 @@ It has the following components:
   <tr>
     <th>Component</th>
     <th>Enabled</th>
-    <th>Control Objective</th>
   </tr>
 </thead>
 <tbody>
@@ -277,52 +276,39 @@ It has the following components:
     <td>Supply pump<br/>
         <code>pumSup</code></td>
     <td>Always</td>
-    <td>Outputs CHW from the plant;<br/>
-        tracks a positive flow rate setpoint at tank bottom</td>
   </tr>
   <tr>
     <td>Supply output valve<br/>
         <code>intValSup.valToNet</code></td>
     <td rowspan=\"2\"><code>plaTyp == .ClosedRemote</code>
         or <code>.Open</code></td>
-    <td>Opens when the supply pump is on to allow flow,<br/>
-        otherwise closes to isolate the pump</td>
   </tr>
   <tr>
     <td>Supply charging valve<br/>
         <code>intValSup.valFroNet</code></td>
-    <td>Charges the tank;<br/>
-        tracks a negative flow rate setpoint at tank top;<br/>
-        prevents the water from draining into the open tank</td>
   </tr>
   <tr>
     <td>Auxiliary pump<br/>
         <code>pumRet</code></td>
     <td rowspan=\"3\"><code>plaTyp == .Open</code></td>
-    <td>Pumps water to the pressurised return line<br/>
-        from the open tank when it is being charged remotely</td>
   </tr>
   <tr>
     <td>Return charging valve<br/>
         <code>intValRet.valToNet</code></td>
-    <td>Opens when the auxiliary pump is on to allow flow,<br/>
-        otherwise closes to isolate the pump</td>
   </tr>
   <tr>
     <td>Return output valve<br/>
         <code>intValRet.valFroNet</code></td>
-    <td>Discharges the tank,<br/>
-        tracks the flow rate at tank top,<br/>
-        prevents the water from draining into the open tank</td>
   </tr>
 </tbody>
 </table>
 <p>
 Under configurations where remote charging is allowed
-(<code>plaTyp == .ClosedRemote</code>) or <code>.Open</code>,
+(<code>plaTyp == .ClosedRemote</code> or <code>.Open</code>),
 these components are controlled by
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl\">
 Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl</a>.
+See its documentation for the control objectives.
 </p>
 </html>", revisions="<html>
 <ul>

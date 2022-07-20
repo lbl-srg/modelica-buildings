@@ -276,9 +276,57 @@ First implementation. This is for
 <p>
 This is a control block for the group of supply pump(s) and valves in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
-Buildings.Fluid.Storage.Plant.NetworkConnection</a>
-whose documentation explains this block's control logic.
+Buildings.Fluid.Storage.Plant.NetworkConnection</a>.
 It uses <code>plaTyp</code> to select components used for an open or closed tank.
+This block implements the following control objectives:
 </p>
+<table summary= \"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th>Component</th>
+    <th>Control Objective</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Supply pump<br/>
+        <code>pumSup</code></td>
+    <td>Outputs CHW from the plant;<br/>
+        tracks a positive flow rate setpoint at tank bottom</td>
+  </tr>
+  <tr>
+    <td>Supply output valve<br/>
+        <code>intValSup.valToNet</code></td>
+    <td>Opens when the supply pump is on to allow flow,<br/>
+        otherwise closes to isolate the pump</td>
+  </tr>
+  <tr>
+    <td>Supply charging valve<br/>
+        <code>intValSup.valFroNet</code></td>
+    <td>Charges the tank;<br/>
+        tracks a negative flow rate setpoint at tank top;<br/>
+        prevents the water from draining into the open tank</td>
+  </tr>
+  <tr>
+    <td>Auxiliary pump<br/>
+        <code>pumRet</code></td>
+    <td>Pumps water to the pressurised return line<br/>
+        from the open tank when it is being charged remotely</td>
+  </tr>
+  <tr>
+    <td>Return charging valve<br/>
+        <code>intValRet.valToNet</code></td>
+    <td>Opens when the auxiliary pump is on to allow flow,<br/>
+        otherwise closes to isolate the pump</td>
+  </tr>
+  <tr>
+    <td>Return output valve<br/>
+        <code>intValRet.valFroNet</code></td>
+    <td>Discharges the tank,<br/>
+        tracks the flow rate at tank top,<br/>
+        prevents the water from draining into the open tank</td>
+  </tr>
+</tbody>
+</table>
 </html>"));
 end PumpValveControl;
