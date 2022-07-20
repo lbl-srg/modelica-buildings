@@ -171,7 +171,7 @@ model GlycolLoopIceTank
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaVal5(realTrue=1, realFalse=
        0.1) "Valve 5 signal"
     annotation (Placement(transformation(extent={{-22,-82},{-10,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val6Off(k=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val6Off(k=0)
     "Valve 6 off position"
     annotation (Placement(transformation(extent={{74,22},{62,34}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiVal7 "Switch for valve 7"
