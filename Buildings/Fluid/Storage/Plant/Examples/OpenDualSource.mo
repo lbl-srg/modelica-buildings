@@ -6,11 +6,11 @@ model OpenDualSource
     nomPla2(plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
     tanBra(tankIsOpen=true));
 equation
-  connect(tanBra.mTanTop_flow, conSupPum.mTanTop_flow)
+  connect(tanBra.mTanTop_flow,conRemCha.mTanTop_flow)
     annotation (Line(points={{-96,-39},{-96,-6},{-81,-6}}, color={0,0,127}));
-  connect(conSupPum.yPumRet, netCon.yPumRet)
+  connect(conRemCha.yPumRet, netCon.yPumRet)
     annotation (Line(points={{-64,-21},{-64,-39}}, color={0,0,127}));
-  connect(netCon.yRet, conSupPum.yRet) annotation (Line(points={{-60.2,-39},{-60.2,
+  connect(netCon.yRet,conRemCha.yRet)  annotation (Line(points={{-60.2,-39},{-60.2,
           -30},{-60,-30},{-60,-21}}, color={0,0,127}));
 
     annotation (

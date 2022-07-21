@@ -9,16 +9,16 @@ model ClosedRemote
     tanBra(tankIsOpen=false));
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule(
-      conPumVal(final plaTyp=nom.plaTyp));
+      conRemCha(final plaTyp=nom.plaTyp));
 
 equation
-  connect(tanBra.mTanBot_flow,conPumVal. mTanBot_flow)
+  connect(tanBra.mTanBot_flow,conRemCha.mTanBot_flow)
     annotation (Line(points={{-12,11},{-12,50},{9,50}}, color={0,0,127}));
-  connect(conPumVal.yPumSup,netCon.yPumSup)
+  connect(conRemCha.yPumSup,netCon.yPumSup)
     annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
-  connect(conPumVal.yValSup, netCon.yValSup)
+  connect(conRemCha.yValSup, netCon.yValSup)
     annotation (Line(points={{22,39},{22,11}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),

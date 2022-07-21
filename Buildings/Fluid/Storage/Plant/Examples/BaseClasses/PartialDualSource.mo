@@ -168,7 +168,7 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-10})));
-  Buildings.Fluid.Storage.Plant.Controls.PumpValveControl conSupPum(final
+  Buildings.Fluid.Storage.Plant.Controls.RemoteCharging conRemCha(final
       plaTyp=nomPla2.plaTyp) "Control block for the secondary pump and valves"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -431,19 +431,19 @@ equation
           {-36,-44},{-36,-40},{-30,-40}}, color={0,127,255}));
   connect(netCon.port_bToNet, preDroS2U2.port_a) annotation (Line(points={{-60,-44},
           {-36,-44},{-36,0},{-30,0}}, color={0,127,255}));
-  connect(tanBra.mTanBot_flow, conSupPum.mTanBot_flow)
+  connect(tanBra.mTanBot_flow,conRemCha. mTanBot_flow)
     annotation (Line(points={{-92,-39},{-92,-10},{-81,-10}}, color={0,0,127}));
-  connect(conSupPum.uAva, or2.y) annotation (Line(points={{-58,-6},{-52,-6},{-52,
+  connect(conRemCha.uAva, or2.y) annotation (Line(points={{-58,-6},{-52,-6},{-52,
           -72},{-70,-72},{-70,-78}},
                      color={255,0,255}));
-  connect(mTanSet_flow.y, conSupPum.mTanSet_flow) annotation (Line(points={{-118,
+  connect(mTanSet_flow.y,conRemCha. mTanSet_flow) annotation (Line(points={{-118,
           -10},{-100,-10},{-100,-2},{-81,-2}}, color={0,0,127}));
-  connect(uRemCha.y, conSupPum.uRemCha) annotation (Line(points={{-159,-90},{-156,
+  connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-90},{-156,
           -90},{-156,-116},{-46,-116},{-46,-2},{-58,-2}},
         color={255,0,255}));
-  connect(conSupPum.yPumSup,netCon. yPumSup)
+  connect(conRemCha.yPumSup,netCon. yPumSup)
     annotation (Line(points={{-72,-21},{-72,-39}}, color={0,0,127}));
-  connect(conSupPum.yValSup,netCon. yValSup)
+  connect(conRemCha.yValSup,netCon. yValSup)
     annotation (Line(points={{-68,-21},{-68,-39}}, color={0,0,127}));
   connect(chiBra2.port_b, tanBra.port_aFroChi)
     annotation (Line(points={{-120,-44},{-110,-44}}, color={0,127,255}));

@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Controls;
-block PumpValveControl
+block RemoteCharging
   "Control block for the supply pump and nearby valves that allows remote charging"
   extends Modelica.Blocks.Icons.Block;
 
@@ -261,7 +261,7 @@ equation
   connect(yRet[2], swiValOut.y) annotation (Line(points={{170,-107.5},{170,-94},
           {190,-94},{190,-82}}, color={0,0,127}));
   annotation (
-  defaultComponentName="conPumVal",
+  defaultComponentName="conRemCha",
   Diagram(coordinateSystem(extent={{-100,-100},{220,80}})),  Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
@@ -329,4 +329,4 @@ This block implements the following control objectives:
 </tbody>
 </table>
 </html>"));
-end PumpValveControl;
+end RemoteCharging;

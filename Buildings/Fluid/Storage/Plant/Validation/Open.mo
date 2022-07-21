@@ -14,7 +14,7 @@ model Open "(Draft)"
     tanBra(tankIsOpen=true));
   extends
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule(
-      conPumVal(final plaTyp=nom.plaTyp));
+      conRemCha(final plaTyp=nom.plaTyp));
 
 equation
   connect(tanBra.port_aFroNet, netCon.port_bToChi)
@@ -23,17 +23,17 @@ equation
     annotation (Line(points={{10,6},{-10,6}}, color={0,127,255}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
-  connect(conPumVal.mTanTop_flow, tanBra.mTanTop_flow)
+  connect(conRemCha.mTanTop_flow, tanBra.mTanTop_flow)
     annotation (Line(points={{9,54},{-16,54},{-16,11}}, color={0,0,127}));
-  connect(conPumVal.mTanBot_flow, tanBra.mTanBot_flow)
+  connect(conRemCha.mTanBot_flow, tanBra.mTanBot_flow)
     annotation (Line(points={{9,50},{-12,50},{-12,11}}, color={0,0,127}));
-  connect(conPumVal.yPumSup,netCon.yPumSup)
+  connect(conRemCha.yPumSup,netCon.yPumSup)
     annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
-  connect(netCon.yValSup, conPumVal.yValSup)
+  connect(netCon.yValSup,conRemCha.yValSup)
     annotation (Line(points={{22,11},{22,39}}, color={0,0,127}));
-  connect(conPumVal.yPumRet,netCon.yPumRet)
+  connect(conRemCha.yPumRet,netCon.yPumRet)
     annotation (Line(points={{26,39},{26,11}}, color={0,0,127}));
-  connect(netCon.yRet, conPumVal.yRet) annotation (Line(points={{29.8,11},{29.8,
+  connect(netCon.yRet,conRemCha.yRet)  annotation (Line(points={{29.8,11},{29.8,
           10},{30,10},{30,39}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
