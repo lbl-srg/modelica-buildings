@@ -128,7 +128,17 @@ equation
 defaultComponentName = "intVal",
     Documentation(info="<html>
 <p>
-Documentation pending.
+This model has two valves in parallel that are interlocked with each other.
+For each valve, its control input is overriden with zero if the other valve
+is at least 1% open to prevent a short circuit.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 16, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
 </html>"));
 end InterlockedValves;

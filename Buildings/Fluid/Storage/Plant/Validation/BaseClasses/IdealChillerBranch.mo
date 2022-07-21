@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Validation.BaseClasses;
 model IdealChillerBranch
-  "A branch with an ideal temperature source and an ideal flow rate source"
+  "A branch with an ideal chiller"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
 
@@ -106,7 +106,8 @@ equation
           origin={-58,-2},
           rotation=90)}),
 Documentation(info="<html>
-A branch with an ideal flow source and an ideal property (temperature) source.
+A branch with an ideal flow source and an ideal property (temperature) source
+which act as an ideal chiller.
 </html>", revisions="<html>
 <ul>
 <li>

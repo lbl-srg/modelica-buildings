@@ -274,16 +274,17 @@ First implementation. This is for
 </ul>
 </html>", info="<html>
 <p>
-This is a control block for the group of supply pump(s) and valves in
+This is a control block for the group of pump and valves in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
-Buildings.Fluid.Storage.Plant.NetworkConnection</a>.
+Buildings.Fluid.Storage.Plant.NetworkConnection</a>
+when remote charging of the storage plant is allowed.
 It uses <code>plaTyp</code> to select components used for an open or closed tank.
 This block implements the following control objectives:
 </p>
 <table summary= \"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
   <tr>
-    <th>Component</th>
+    <th>Component in <code>NetworkConnection</code></th>
     <th>Control Objective</th>
   </tr>
 </thead>

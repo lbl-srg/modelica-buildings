@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Examples;
 model ClosedDualSource
-  "(Draft) District system model with two sources and three users"
+  "District system model with two sources and three users"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource;
 

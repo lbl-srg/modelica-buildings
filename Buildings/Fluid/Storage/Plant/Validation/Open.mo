@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model Open "(Draft)"
+model Open "Validation model of a storage plant with an open tank allowing remote charging"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
     netCon(

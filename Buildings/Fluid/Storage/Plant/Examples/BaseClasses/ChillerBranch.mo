@@ -170,5 +170,20 @@ equation
           fillPattern=FillPattern.Solid),
         Polygon(points={{-16,16},{-16,-16},{16,0},{-16,16}},  lineColor={0,0,0},
           origin={0,-24},
-          rotation=90)}));
+          rotation=90)}),
+    Documentation(info="<html>
+<p>
+This is a simple chiller branch model used by example models under
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
+Buildings.Fluid.Storage.Plant.Examples</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 16, 2022 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end ChillerBranch;

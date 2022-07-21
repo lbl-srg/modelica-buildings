@@ -131,7 +131,9 @@ equation
           fillPattern=FillPattern.Sphere)}),
                                  Documentation(info="<html>
 <p>
-(Draft)
+This is a simple ideal user model used by example models under
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
+Buildings.Fluid.Storage.Plant.Examples</a>.
 For simplicity, instead of setting up a heat exchanger to a room model,
 the consumer control valve simply tracks the return CHW temperature.
 </p>

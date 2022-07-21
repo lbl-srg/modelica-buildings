@@ -181,18 +181,19 @@ equation
 This model is part of a storage plant model. This branch has a stratified tank.
 This tank can potentially be charged remotely by a chiller from its district
 CHW network other than its own local chiller. To model an open storage tank, set
-<code>nom.plaTyp = Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open</code>,
-and a volume at atmospheric pressure is added and connected to the top of the tank.
-Otherwise, the tank is closed and pressurised.
+<code>nom.plaTyp = Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open</code>.
+This enables a volume at atmospheric pressure to be connected to the top of
+the tank. Otherwise, the tank is closed and pressurised by other means.
 </p>
 <p>
 Because an open tank exposes the hydraulic loop to the atmospheric pressure,
 the mass flow rate of the water through the top port and bottom port of the tank
-is not conserved. Flow rate sensors are therefore put on both the top and bottom
-sides of the tank to allow the pumps and valves implemented in
+is not automatically conserved. Flow rate sensors are therefore put on both the top
+and bottom sides of the tank to allow the pumps and valves implemented in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>
-to balance the flow, so that the open tank is not flooded or drained.
+to balance the flow in order to ensure that that the open tank is not flooded
+or drained.
 </p>
 </html>", revisions="<html>
 <ul>
