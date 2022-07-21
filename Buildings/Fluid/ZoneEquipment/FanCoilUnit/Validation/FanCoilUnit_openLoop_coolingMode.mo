@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
-model FanCoilUnit_openLoop
+model FanCoilUnit_openLoop_coolingMode
 
   extends Modelica.Icons.Example;
 
@@ -28,9 +28,7 @@ model FanCoilUnit_openLoop
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit fanCoiUni(
     heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater,
-
     capacityControlMethod=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.capacityControl.multispeedCyclingFanConstantWater,
-
     dpAirTot_nominal(displayUnit="Pa") = 100,
     mAirOut_flow_nominal=fCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -81,6 +79,7 @@ model FanCoilUnit_openLoop
   Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
     use_Xi_in=true,
+    p(displayUnit="Pa") = 101325 + 100,
     use_T_in=true,
     T=279.15,
     nPorts=1) "Source for zone air"
@@ -88,6 +87,7 @@ model FanCoilUnit_openLoop
 
   Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
+    p=101325 + 100,
     T=279.15,
     nPorts=1) "Sink for zone air"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
@@ -283,8 +283,8 @@ equation
   connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-20},{-30,
           -20},{-30,-6},{-2,-6}},
                               color={0,0,127}));
-  connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{
-          -110,0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}}, color={
+  connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{-110,
+          0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}},      color={
           0,0,127}));
   connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{
           -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-92}}, color=
@@ -296,6 +296,6 @@ equation
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_openLoop.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_openLoop_coolingMode.mos"
       "Simulate and plot"));
-end FanCoilUnit_openLoop;
+end FanCoilUnit_openLoop_coolingMode;

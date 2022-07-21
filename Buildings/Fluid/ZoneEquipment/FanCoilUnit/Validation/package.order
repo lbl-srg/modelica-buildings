@@ -1,2 +1,3 @@
-FanCoilUnit_openLoop
+FanCoilUnit_openLoop_coolingMode
 Data
+FanCoilUnit_openLoop_heatingMode
