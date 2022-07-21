@@ -660,7 +660,7 @@ equation
 
   // Flow work definition
   WFlo = Buildings.Utilities.Math.Functions.smoothMax(
-           x1=dp_internal*V_flow, x2=1E-7, deltaX=1E-6);
+           x1=dp_internal*V_flow, x2=0, deltaX=1E-6);
 
   // Total efficiency eta and consumed electric power PEle
   if per.etaMet==
