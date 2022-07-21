@@ -196,32 +196,32 @@ partial model PartialDualSource
         origin={-70,-90})));
 
 // Users
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr1(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.3*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal) "Dummy user 1" annotation (Placement(
+    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,60})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr2(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.3*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal) "Dummy usr 2" annotation (Placement(
+    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,0})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr3(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.3*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal) "Dummy user 3" annotation (Placement(
+    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -259,17 +259,17 @@ partial model PartialDualSource
         3600/9*3,QCooLoa_flow_nominal; 3600/9*7,QCooLoa_flow_nominal; 3600/9*7,
         0; 3600,0])                                       "Cooling load"
     annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
-  Modelica.Blocks.Math.Gain gaiUsr1(k=1/usr1.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUsr1(k=1/ideUse1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,50})));
-  Modelica.Blocks.Math.Gain gaiUsr2(k=1/usr2.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUsr2(k=1/ideUse.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,-10})));
-  Modelica.Blocks.Math.Gain gaiUsr3(k=1/usr3.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUsr3(k=1/ideUse3.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -326,57 +326,52 @@ partial model PartialDualSource
     annotation (Placement(transformation(extent={{30,30},{10,50}})));
 
 equation
-  connect(set_TRet.y,usr1. TSet) annotation (Line(points={{81,110},{90,110},{90,
-          68},{71,68}},         color={0,0,127}));
-  connect(set_TRet.y,usr2. TSet) annotation (Line(points={{81,110},{90,110},{90,
-          8},{71,8}},           color={0,0,127}));
-  connect(set_TRet.y,usr3. TSet) annotation (Line(points={{81,110},{90,110},{90,
-          -52},{71,-52}},          color={0,0,127}));
-  connect(usr3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,-64},
-          {86,-64},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color={0,0,
-          127}));
-  connect(usr2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,-4},{
-          86,-4},{86,-110},{62,-110}},
-                                   color={0,0,127}));
+  connect(set_TRet.y, ideUse1.TSet) annotation (Line(points={{81,110},{90,110},
+          {90,68},{71,68}}, color={0,0,127}));
+  connect(set_TRet.y, ideUse.TSet) annotation (Line(points={{81,110},{90,110},{
+          90,8},{71,8}}, color={0,0,127}));
+  connect(set_TRet.y, ideUse3.TSet) annotation (Line(points={{81,110},{90,110},
+          {90,-52},{71,-52}}, color={0,0,127}));
+  connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{71,
+          -64},{86,-64},{86,-110},{74,-110},{74,-110.667},{62,-110.667}}, color
+        ={0,0,127}));
+  connect(ideUse.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{71,-4},
+          {86,-4},{86,-110},{62,-110}}, color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-110},{22,-110}}, color={0,0,127}));
   connect(set_dpUsr.y,conPI_pumChi1. u_s)
     annotation (Line(points={{-39,130},{-10,130},{-10,122}},
                                                    color={0,0,127}));
-  connect(usr1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,56},
-          {86,56},{86,-110},{62,-110},{62,-109.333}},color={0,0,127}));
-  connect(preDroS2U3.port_b,usr3. port_a)
+  connect(ideUse1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{71,
+          56},{86,56},{86,-110},{62,-110},{62,-109.333}}, color={0,0,127}));
+  connect(preDroS2U3.port_b, ideUse3.port_a)
     annotation (Line(points={{-10,-40},{60,-40},{60,-50}}, color={0,127,255}));
-  connect(usr3.port_b,preDroU3S2. port_a)
+  connect(ideUse3.port_b, preDroU3S2.port_a)
     annotation (Line(points={{60,-70},{60,-80},{30,-80}}, color={0,127,255}));
-  connect(preDroS2U2.port_b,usr2. port_a) annotation (Line(points={{-10,0},{-4,
-          0},{-4,20},{60,20},{60,10}},
-                            color={0,127,255}));
-  connect(usr2.port_b,preDroU2S2. port_a)
+  connect(preDroS2U2.port_b, ideUse.port_a) annotation (Line(points={{-10,0},{-4,
+          0},{-4,20},{60,20},{60,10}}, color={0,127,255}));
+  connect(ideUse.port_b, preDroU2S2.port_a)
     annotation (Line(points={{60,-10},{60,-20},{30,-20}}, color={0,127,255}));
-  connect(preDroS1U2.port_b,usr2. port_a) annotation (Line(points={{-10,20},{60,
-          20},{60,10}},         color={0,127,255}));
-  connect(usr2.port_b,preDroU2S1. port_a) annotation (Line(points={{60,-10},{60,
-          -20},{34,-20},{34,0},{30,0}}, color={0,127,255}));
-  connect(preDroS1U1.port_b,usr1. port_a)
+  connect(preDroS1U2.port_b, ideUse.port_a)
+    annotation (Line(points={{-10,20},{60,20},{60,10}}, color={0,127,255}));
+  connect(ideUse.port_b, preDroU2S1.port_a) annotation (Line(points={{60,-10},{
+          60,-20},{34,-20},{34,0},{30,0}}, color={0,127,255}));
+  connect(preDroS1U1.port_b, ideUse1.port_a)
     annotation (Line(points={{-10,80},{60,80},{60,70}}, color={0,127,255}));
-  connect(usr1.port_b,preDroU1S1. port_a)
+  connect(ideUse1.port_b, preDroU1S1.port_a)
     annotation (Line(points={{60,50},{60,40},{30,40}}, color={0,127,255}));
-  connect(set_QCooLoa1_flow.y,usr1. QCooLoa_flow)
-    annotation (Line(points={{99,80},{94,80},{94,64},{71,64}},
-                                                       color={0,0,127}));
-  connect(set_QCooLoa2_flow.y,usr2. QCooLoa_flow)
-    annotation (Line(points={{99,20},{94,20},{94,4},{71,4}},
-                                                       color={0,0,127}));
-  connect(set_QCooLoa3_flow.y,usr3. QCooLoa_flow)
-    annotation (Line(points={{99,-40},{94,-40},{94,-56},{71,-56}},
-                                                          color={0,0,127}));
-  connect(usr1.dpUsr, gaiUsr1.u)
+  connect(set_QCooLoa1_flow.y, ideUse1.QCooLoa_flow) annotation (Line(points={{
+          99,80},{94,80},{94,64},{71,64}}, color={0,0,127}));
+  connect(set_QCooLoa2_flow.y, ideUse.QCooLoa_flow)
+    annotation (Line(points={{99,20},{94,20},{94,4},{71,4}}, color={0,0,127}));
+  connect(set_QCooLoa3_flow.y, ideUse3.QCooLoa_flow) annotation (Line(points={{
+          99,-40},{94,-40},{94,-56},{71,-56}}, color={0,0,127}));
+  connect(ideUse1.dpUsr, gaiUsr1.u)
     annotation (Line(points={{71,52},{71,50},{98,50}}, color={0,0,127}));
-  connect(usr2.dpUsr, gaiUsr2.u) annotation (Line(points={{71,-8},{71,-10},{98,-10}},
-                             color={0,0,127}));
-  connect(usr3.dpUsr, gaiUsr3.u) annotation (Line(points={{71,-68},{71,-70},{98,
-          -70}},          color={0,0,127}));
+  connect(ideUse.dpUsr, gaiUsr2.u)
+    annotation (Line(points={{71,-8},{71,-10},{98,-10}}, color={0,0,127}));
+  connect(ideUse3.dpUsr, gaiUsr3.u)
+    annotation (Line(points={{71,-68},{71,-70},{98,-70}}, color={0,0,127}));
   connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{121,50},{126,
           50},{126,129.333},{42,129.333}},
                                      color={0,0,127}));
