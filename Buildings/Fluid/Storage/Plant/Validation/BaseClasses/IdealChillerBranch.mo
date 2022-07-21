@@ -105,6 +105,7 @@ equation
           textString="ideal",
           origin={-58,-2},
           rotation=90)}),
+    defaultComponentName = "ideChiBra",
 Documentation(info="<html>
 A branch with an ideal flow source and an ideal property (temperature) source
 which act as an ideal chiller.

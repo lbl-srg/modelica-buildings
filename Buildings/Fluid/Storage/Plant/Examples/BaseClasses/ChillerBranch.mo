@@ -171,6 +171,7 @@ equation
         Polygon(points={{-16,16},{-16,-16},{16,0},{-16,16}},  lineColor={0,0,0},
           origin={0,-24},
           rotation=90)}),
+    defaultComponentName = "chiBra",
     Documentation(info="<html>
 <p>
 This is a simple chiller branch model used by example models under

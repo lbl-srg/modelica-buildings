@@ -176,6 +176,7 @@ equation
           color={127,0,0},
           pattern=LinePattern.Dot)}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    defaultComponentName = "tanBra",
     Documentation(info="<html>
 <p>
 This model is part of a storage plant model. This branch has a stratified tank.

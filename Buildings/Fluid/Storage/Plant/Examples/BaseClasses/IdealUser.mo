@@ -129,6 +129,7 @@ equation
           lineColor={28,108,200},
           fillColor={244,125,35},
           fillPattern=FillPattern.Sphere)}),
+    defaultComponentName = "ideUse",
                                  Documentation(info="<html>
 <p>
 This is a simple ideal user model used by example models under
