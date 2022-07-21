@@ -3,29 +3,29 @@ block Controller_ConstantFan_VariableWaterFlowrate
   "Controller for fan coil system with variable water flow rates and fixed speed fan"
 
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller" annotation (Dialog(group="Fan control parameters - Cooling mode"));
+    "Type of controller" annotation (Dialog(group="Cooling mode control"));
   parameter Real kCoo=1 "Gain of controller"
-    annotation(Dialog(group="Fan control parameters - Cooling mode"));
+    annotation(Dialog(group="Cooling mode control"));
   parameter Real TiCoo=0.5 "Time constant of integrator block"
-    annotation(Dialog(group="Fan control parameters - Cooling mode",
+    annotation(Dialog(group="Cooling mode control",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCoo=0.1 "Time constant of derivative block"
-    annotation(Dialog(group="Fan control parameters - Cooling mode",
+    annotation(Dialog(group="Cooling mode control",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller" annotation (Dialog(group="Fan control parameters - Heating mode"));
+    "Type of controller" annotation (Dialog(group="Heating mode control"));
 
   parameter Real kHea=1 "Gain of controller"
-    annotation(Dialog(group="Fan control parameters - Heating mode"));
+    annotation(Dialog(group="Heating mode control"));
   parameter Real TiHea=0.5 "Time constant of integrator block"
-    annotation(Dialog(group="Fan control parameters - Heating mode",
+    annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdHea=0.1 "Time constant of derivative block"
-    annotation(Dialog(group="Fan control parameters - Heating mode",
+    annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
