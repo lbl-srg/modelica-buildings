@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Examples.BaseClasses.Validation.DummyUser",
+simulateModel("Buildings.Fluid.Storage.Plant.Examples.BaseClasses.Validation.IdealUser",
  stopTime=3600,
  tolerance=1e-06,
  method="dassl",
- resultFile="DummyUser");
+ resultFile="IdealUser");
 // Plot commands
 createPlot(id=1,
  position={75, 75, 843, 372},

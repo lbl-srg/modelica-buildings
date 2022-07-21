@@ -42,7 +42,7 @@ model ClosedSingleSource "Simple system model with one source and one user"
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr(
     redeclare package Medium = Medium,
     m_flow_nominal=nom.m_flow_nominal,
     dp_nominal=0.3*nom.dp_nominal,

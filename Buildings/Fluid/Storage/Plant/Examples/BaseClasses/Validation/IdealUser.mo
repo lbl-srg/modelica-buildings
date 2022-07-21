@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Examples.BaseClasses.Validation;
-model DummyUser "Test model for the dummy user"
+model IdealUser "Test model for the dummy user"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
@@ -21,7 +21,7 @@ model DummyUser "Test model for the dummy user"
   parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.9
     "Nominal cooling load of one consumer";
 
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser ideUsr(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUsr(
     redeclare package Medium = Medium,
     final vol(final T_start=15 + 273.15),
     final m_flow_nominal=m_flow_nominal,
@@ -65,7 +65,7 @@ equation
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   connect(preQCooLoa_flow.y,ideUsr. QCooLoa_flow) annotation (Line(points={{-39,90},
           {-4,90},{-4,11}},              color={0,0,127}));
-annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/BaseClasses/Validation/DummyUser.mos"
+annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/BaseClasses/Validation/IdealUser.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>
 <p>
@@ -80,4 +80,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end DummyUser;
+end IdealUser;

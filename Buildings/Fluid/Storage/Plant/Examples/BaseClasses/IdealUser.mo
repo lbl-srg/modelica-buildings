@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
-model DummyUser "Dummy user model"
+model IdealUser "Dummy user model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=1);
 
@@ -146,4 +146,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end DummyUser;
+end IdealUser;

@@ -196,7 +196,7 @@ partial model PartialDualSource
         origin={-70,-90})));
 
 // Users
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr1(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.3*dp_nominal,
@@ -206,7 +206,7 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,60})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr2(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr2(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.3*dp_nominal,
@@ -216,7 +216,7 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,0})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.DummyUser usr3(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.3*dp_nominal,
