@@ -3,7 +3,7 @@ record FCUSizing "FCU sizing calculations for component parameters"
 
   extends Modelica.Icons.Record;
 
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal = 0.205
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal = 0.207
     "Nominal chilled water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -11,7 +11,7 @@ record FCUSizing "FCU sizing calculations for component parameters"
     "Nominal hot water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = 1.225 * 0.419361
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = 1.225 * 0.422684
     "Nominal supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -42,7 +42,7 @@ record FCUSizing "FCU sizing calculations for component parameters"
     "Inlet air humidity ratio"
     annotation (Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.ThermodynamicTemperature TCooCoiAirOut_nominal = 273.15 + 7.22
+  parameter Modelica.Units.SI.ThermodynamicTemperature TCooCoiAirOut_nominal = 273.15 + 14
     "Nominal cooling coil inlet air temperature"
     annotation (Dialog(group="Cooling coil parameters"));
 

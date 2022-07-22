@@ -699,7 +699,7 @@ Zone,
 People,
     West Zone,               !- Name
     West Zone,               !- Zone or ZoneList or Space or SpaceList Name
-    Work Eff Sch,            !- Number of People Schedule Name
+    Office Occupancy,        !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     3.000000,                !- Number of People
     ,                        !- People per Floor Area {person/m2}
@@ -721,7 +721,7 @@ People,
 ElectricEquipment,
     West Zone ElecEq 1,      !- Name
     West Zone,               !- Zone or ZoneList or Space or SpaceList Name
-    Work Eff Sch,            !- Schedule Name
+    Intermittent,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     2928.751,                !- Design Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
@@ -733,7 +733,7 @@ ElectricEquipment,
 People,
     EAST ZONE,               !- Name
     EAST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
-    Work Eff Sch,            !- Number of People Schedule Name
+    Office Occupancy,        !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     3.000000,                !- Number of People
     ,                        !- People per Floor Area {person/m2}
@@ -781,7 +781,7 @@ ElectricEquipment,
 People,
     NORTH ZONE,              !- Name
     NORTH ZONE,              !- Zone or ZoneList or Space or SpaceList Name
-    Work Eff Sch,            !- Number of People Schedule Name
+    Office Occupancy,        !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     4.000000,                !- Number of People
     ,                        !- People per Floor Area {person/m2}
