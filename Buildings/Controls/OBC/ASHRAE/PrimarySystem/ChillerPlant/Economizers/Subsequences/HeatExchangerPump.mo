@@ -4,21 +4,25 @@ block HeatExchangerPump
   parameter Real minSpe = 0.1 "Minimum pump speed";
   parameter Real desSpe = 0.9 "Design pump speed";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enable signal"
+    annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
     "True: waterside economizer is enabled"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
     "True: heat exchanger pump is proven on"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEntWSE(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature upstream of the economizer"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEntHex(
     final unit="K",
     displayUnit="degC",
@@ -85,10 +89,10 @@ block HeatExchangerPump
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul "Pump Speed"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Waterside economizer commanded on"
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 equation
-  connect(uWSE, booToRea.u)
-    annotation (Line(points={{-180,110},{38,110}}, color={255,0,255}));
   connect(booToRea.y, yConWatIsoVal)
     annotation (Line(points={{62,110},{180,110}}, color={0,0,127}));
   connect(TEntWSE, sub.u1) annotation (Line(points={{-180,20},{-150,20},{-150,-4},
@@ -121,9 +125,14 @@ equation
           {118,36}}, color={0,0,127}));
   connect(mul.y, yPumSpe)
     annotation (Line(points={{142,30},{180,30}}, color={0,0,127}));
-  connect(uWSE, yPumOn) annotation (Line(points={{-180,110},{-40,110},{-40,70},{
-          180,70}}, color={255,0,255}));
-
+  connect(uWSE, and1.u1)
+    annotation (Line(points={{-180,110},{-102,110}}, color={255,0,255}));
+  connect(and1.y, booToRea.u)
+    annotation (Line(points={{-78,110},{38,110}}, color={255,0,255}));
+  connect(and1.y, yPumOn) annotation (Line(points={{-78,110},{20,110},{20,70},{180,
+          70}}, color={255,0,255}));
+  connect(uPla, and1.u2) annotation (Line(points={{-180,140},{-120,140},{-120,102},
+          {-102,102}}, color={255,0,255}));
 annotation (defaultComponentName = "wsePum",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={

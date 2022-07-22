@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "disDev.uChi[1]",
+    "disDev.uPla",
+    "disDev.uChiWatReq[1]",
+    "disDev.uConWatReq[1]",
+    "disDev.uChiWatIsoVal[1]",
+    "disDev.uConWatIsoVal[1]",
+    "disDev.uChiWatPumSpe[1]",
+    "disDev.uConWatPumSpe[1]",
+    "disDev.yChi[1]",
+    "disDev.yChiWatIsoVal[1]",
+    "disDev.yConWatIsoVal[1]",
+    "disDev.yChiWatPumSpe[1]",
+    "disDev.yConWatPumSpe[1]"
+  };

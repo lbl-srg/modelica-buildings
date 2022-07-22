@@ -73,6 +73,10 @@ block Controller "Chiller plant controller"
     "Design heat exchanger approach"
     annotation(Evaluate=true, Dialog(tab="General", group="Waterside economizer", enable=have_WSE));
 
+  parameter Boolean have_byPasValCon=true
+    "True: chilled water flow through economizer is controlled using heat exchanger bypass valve"
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+
   // ----- General: Chilled water pump ---
 
   parameter Integer nChiWatPum = 2
@@ -219,6 +223,42 @@ block Controller "Chiller plant controller"
   parameter Real wseOnTimInc(unit="s")=1800
     "Economizer enable time needed to allow increase of the tuning parameter"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
+
+  parameter Real dpDes=6000
+    "Design pressure difference across the chilled water side economizer"
+    annotation (Dialog(tab="Waterside economizer", group="Valve or pump control",
+        enable=have_WSE and have_byPasValCon));
+
+  parameter CDL.Types.SimpleController ecoValCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
+        enable=have_WSE and have_byPasValCon));
+
+  parameter Real kEcoVal=0.1 "Gain of controller"
+    annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
+        enable=have_WSE and have_byPasValCon));
+
+  parameter Real TiEcoVal=0.5
+    "Time constant of integrator block"
+    annotation (Dialog(tab="Waterside economizer", group="Valve or pump control",
+        enable=have_WSE and have_byPasValCon
+               and (ecoValCon == CDL.Types.SimpleController.PI or ecoValCon == CDL.Types.SimpleController.PID)));
+
+  parameter Real TdEcoVal=0.1
+    "Time constant of derivative block"
+    annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
+      enable=have_WSE and have_byPasValCon
+             and (ecoValCon == CDL.Types.SimpleController.PD or ecoValCon == CDL.Types.SimpleController.PID)));
+
+  parameter Real minEcoSpe=0.1
+    "Minimum economizer chilled water pump speed"
+    annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
+      enable=have_WSE and not have_byPasValCon));
+
+  parameter Real desEcoSpe=0.9
+    "Design economizer pump speed"
+    annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
+      enable=have_WSE and not have_byPasValCon));
 
   // ---- Head pressure ----
 
@@ -1007,6 +1047,8 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{100,-290},{140,-250}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller wseSta(
+    final have_byPasValCon=have_byPasValCon,
+    final nSta=nSta,
     final holdPeriod=holdPeriod,
     final delDis=delDis,
     final TOffsetEna=TOffsetEna,
@@ -1018,7 +1060,15 @@ block Controller "Chiller plant controller"
     final hysDt=hysDt,
     final step=step,
     final wseOnTimDec=wseOnTimDec,
-    final wseOnTimInc=wseOnTimInc) if have_WSE
+    final wseOnTimInc=wseOnTimInc,
+    final dpDes=dpDes,
+    final valCon=ecoValCon,
+    final k=kEcoVal,
+    final Ti=TiEcoVal,
+    final Td=TdEcoVal,
+    final minSpe=minEcoSpe,
+    final desSpe=desEcoSpe)
+                       if have_WSE
     "Waterside economizer (WSE) enable/disable status"
     annotation(Placement(transformation(extent={{-600,300},{-560,340}})));
 

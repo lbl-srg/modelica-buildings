@@ -182,7 +182,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
     if not have_byPasValCon
     "True: heat exchanger pump is proven on"
-    annotation (Placement(transformation(extent={{-220,-190},{-180,-150}}),
+    annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEntHex(
@@ -190,7 +190,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not have_byPasValCon
     "Chilled water temperature entering heat exchanger"
-    annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
+    annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TWsePre(
@@ -440,16 +440,19 @@ equation
     annotation (Line(points={{102,-20},{200,-20}}, color={255,0,255}));
   connect(enaEco.y, pre.u) annotation (Line(points={{102,-20},{110,-20},{110,-60},
           {118,-60}}, color={255,0,255}));
-  connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{102,-20},{110,-20},{110,
-          -134},{118,-134}}, color={255,0,255}));
-  connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{102,-20},{110,-20},{110,
-          -172},{118,-172}}, color={255,0,255}));
+  connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{102,-20},{110,-20},{
+          110,-140},{118,-140}},
+                             color={255,0,255}));
+  connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{102,-20},{110,-20},{
+          110,-176},{118,-176}},
+                             color={255,0,255}));
   connect(dpChiWat, wseVal.dpChiWat) annotation (Line(points={{-200,-140},{-60,-140},
           {-60,-146},{118,-146}}, color={0,0,127}));
-  connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-170},{100,-170},{100,
-          -178},{118,-178}}, color={255,0,255}));
-  connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-200},{100,-200},
-          {100,-188},{118,-188}}, color={0,0,127}));
+  connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-180},{118,-180}},
+                             color={255,0,255}));
+  connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-210},{100,
+          -210},{100,-188},{118,-188}},
+                                  color={0,0,127}));
   connect(wseVal.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-134},
           {160,-134},{160,-100},{200,-100}}, color={0,0,127}));
   connect(wseVal.yRetVal, yRetVal)
@@ -461,7 +464,11 @@ equation
   connect(wsePum.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-174},
           {160,-174},{160,-100},{200,-100}}, color={0,0,127}));
   connect(TChiWatRet, wsePum.TEntWSE) annotation (Line(points={{-200,170},{-170,
-          170},{-170,-183},{118,-183}}, color={0,0,127}));
+          170},{-170,-184},{118,-184}}, color={0,0,127}));
+  connect(uPla, wseVal.uPla) annotation (Line(points={{-200,-20},{-154,-20},{
+          -154,-134},{118,-134}}, color={255,0,255}));
+  connect(uPla, wsePum.uPla) annotation (Line(points={{-200,-20},{-154,-20},{
+          -154,-172},{118,-172}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={

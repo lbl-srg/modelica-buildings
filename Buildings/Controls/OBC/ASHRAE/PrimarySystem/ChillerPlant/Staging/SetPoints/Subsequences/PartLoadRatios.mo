@@ -623,13 +623,13 @@ equation
           -260},{150,-260},{150,62},{158,62}},
                          color={0,0,127}));
   annotation (defaultComponentName = "PLRs",
-        Icon(graphics={
+  Icon(coordinateSystem(extent={{-100,-200},{100,200}}), graphics={
         Text(
-          extent={{-118,204},{102,166}},
+          extent={{-100,240},{100,200}},
           textColor={0,0,255},
           textString="%name"),
         Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-200},{100,200}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),

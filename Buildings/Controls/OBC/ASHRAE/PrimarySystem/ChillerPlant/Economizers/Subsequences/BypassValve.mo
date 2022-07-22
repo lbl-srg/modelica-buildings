@@ -23,33 +23,37 @@ block BypassValve
     annotation (Dialog(group="Valve controller",
                        enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enable signal"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
     "True: waterside economizer is enabled"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(
     final unit="Pa",
     final quantity="PressureDifference")
     "Differential static pressure across economizer in the chilled water side"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal(
     final min=0,
     final max=1,
     final unit="1")
     "Economizer condensing water isolation valve position"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetVal(
     final min=0,
     final max=1,
     final unit="1")
     "WSE in-line CHW return line valve position"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
@@ -57,43 +61,48 @@ block BypassValve
     final Td=Td,
     final reverseActing=false,
     final y_reset=1) "Chilled water return line valve controller"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=1) "Constant one"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=dpDes)
     "Design static pressure difference across waterside economizer in chilled water side"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    annotation (Placement(transformation(extent={{-40,-16},{-20,4}})));
+    annotation (Placement(transformation(extent={{-40,-56},{-20,-36}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
-
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Waterside economizer commanded on"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(dpChiWat, div1.u1)
-    annotation (Line(points={{-120,0},{-42,0}}, color={0,0,127}));
-  connect(con1.y, div1.u2) annotation (Line(points={{-58,-40},{-50,-40},{-50,-12},
-          {-42,-12}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-42,-40}}, color={0,0,127}));
+  connect(con1.y, div1.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,-52},
+          {-42,-52}}, color={0,0,127}));
   connect(con.y, conPID.u_s)
-    annotation (Line(points={{-58,40},{-12,40}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-12,0}},   color={0,0,127}));
   connect(div1.y, conPID.u_m)
-    annotation (Line(points={{-18,-6},{0,-6},{0,28}}, color={0,0,127}));
-  connect(uWSE, conPID.trigger) annotation (Line(points={{-120,80},{-40,80},{-40,
-          20},{-6,20},{-6,28}}, color={255,0,255}));
-  connect(uWSE, swi.u2) annotation (Line(points={{-120,80},{-40,80},{-40,20},{58,
-          20}}, color={255,0,255}));
-  connect(conPID.y, swi.u1) annotation (Line(points={{12,40},{20,40},{20,28},{58,
-          28}}, color={0,0,127}));
-  connect(con.y, swi.u3) annotation (Line(points={{-58,40},{-50,40},{-50,12},{58,
-          12}}, color={0,0,127}));
-  connect(uWSE, booToRea.u)
-    annotation (Line(points={{-120,80},{58,80}}, color={255,0,255}));
-  connect(swi.y, yRetVal) annotation (Line(points={{82,20},{92,20},{92,20},{120,
-          20}}, color={0,0,127}));
+    annotation (Line(points={{-18,-46},{0,-46},{0,-12}}, color={0,0,127}));
+  connect(conPID.y, swi.u1) annotation (Line(points={{12,0},{20,0},{20,-12},{58,
+          -12}},color={0,0,127}));
+  connect(con.y, swi.u3) annotation (Line(points={{-58,0},{-50,0},{-50,-28},{58,
+          -28}},color={0,0,127}));
+  connect(swi.y, yRetVal) annotation (Line(points={{82,-20},{120,-20}},
+                color={0,0,127}));
   connect(booToRea.y, yConWatIsoVal)
-    annotation (Line(points={{82,80},{120,80}}, color={0,0,127}));
-
+    annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
+  connect(uWSE, and1.u1)
+    annotation (Line(points={{-120,40},{-82,40}}, color={255,0,255}));
+  connect(uPla, and1.u2) annotation (Line(points={{-120,80},{-90,80},{-90,32},{-82,
+          32}}, color={255,0,255}));
+  connect(and1.y, booToRea.u)
+    annotation (Line(points={{-58,40},{58,40}}, color={255,0,255}));
+  connect(and1.y, conPID.trigger) annotation (Line(points={{-58,40},{-40,40},{-40,
+          -20},{-6,-20},{-6,-12}}, color={255,0,255}));
+  connect(and1.y, swi.u2) annotation (Line(points={{-58,40},{-40,40},{-40,-20},{
+          58,-20}}, color={255,0,255}));
 annotation (defaultComponentName = "wseVal",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

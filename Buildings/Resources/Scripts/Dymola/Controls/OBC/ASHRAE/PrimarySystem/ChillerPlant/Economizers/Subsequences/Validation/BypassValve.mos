@@ -1,5 +1,5 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Validation.BypassValve", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="BypassValve");
-createPlot(id=1, position={17, 7, 1140, 1172}, y={"wseVal.uWSE"}, range={0.0, 240.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={17, 7, 1140, 1172}, y={"wseVal.dpChiWat", "wseVal.dpDes"}, range={0.0, 3600.0, 4000.0, 8000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"Pa", "Pa"});
-createPlot(id=1, position={17, 7, 1140, 1172}, y={"wseVal.yRetVal"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-createPlot(id=1, position={17, 7, 1140, 1172}, y={"wseVal.yConWatIsoVal"}, range={0.0, 3600.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={15, 15, 1140, 1172}, y={"wseVal.uWSE", "wseVal.uPla"}, range={0.0, 3600.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1140, 1172}, y={"wseVal.dpChiWat", "wseVal.dpDes"}, range={0.0, 3600.0, 4000.0, 8000.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"Pa","Pa"});
+createPlot(id=1, position={15, 15, 1140, 1172}, y={"wseVal.yRetVal"}, range={0.0, 3600.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={15, 15, 1140, 1172}, y={"wseVal.yConWatIsoVal"}, range={0.0, 3600.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
