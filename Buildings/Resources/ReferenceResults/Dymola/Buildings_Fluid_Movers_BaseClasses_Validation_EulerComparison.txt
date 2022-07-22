@@ -1,13 +1,8 @@
-last-generated=2022-06-09
-statistics-initialization=
-{
-  "nonlinear": "1",
-  "numerical Jacobians": "0"
-}
+last-generated=2022-07-22
 statistics-simulation=
 {
   "linear": " ",
-  "nonlinear": "1",
+  "nonlinear": " ",
   "numerical Jacobians": "0"
 }
 time=[0e+00, 1e+00]
