@@ -145,7 +145,7 @@ equation
           thickness=1),
         Text(
           extent={{-18,-94},{42,-74}},
-          textColor={28,108,200},
+          textColor={0,0,255},
           textString="m_flow"),
         Line(
           points={{100,-60},{0,-60},{0,28}},

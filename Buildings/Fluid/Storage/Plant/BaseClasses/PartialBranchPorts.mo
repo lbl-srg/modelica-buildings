@@ -39,7 +39,7 @@ equation
             {100,100}}),       graphics={
         Text(
           extent={{-62,-122},{62,-98}},
-          textColor={0,0,127},
+          textColor={0,0,255},
           textString="%name"), Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

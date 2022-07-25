@@ -73,7 +73,7 @@ equation
           thickness=1),
         Text(
           extent={{-18,-94},{42,-74}},
-          textColor={28,108,200},
+          textColor={0,0,255},
           textString="m_flow"),
         Line(
           points={{100,-60},{0,-60},{0,28}},
@@ -101,7 +101,7 @@ equation
           rotation=90),
         Text(
           extent={{-54,-32},{54,32}},
-          textColor={28,108,200},
+          textColor={0,0,255},
           textString="ideal",
           origin={-58,-2},
           rotation=90)}),
