@@ -70,8 +70,8 @@ model ChillerBranch
   Modelica.Blocks.Interfaces.RealInput mPumSet_flow
     "Primary pump mass flow rate setpoint" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,28}), iconTransformation(
+        rotation=90,
+        origin={-20,-110}),iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,-110})));
@@ -120,7 +120,7 @@ equation
   connect(set_TEvaLvg.y, chi.TSet) annotation (Line(points={{41,0},{46,0},{46,27},
           {22,27}},   color={0,0,127}));
   connect(pum.m_flow_in, mPumSet_flow)
-    annotation (Line(points={{-12,-50},{-96,-50},{-96,28},{-110,28}},
+    annotation (Line(points={{-12,-50},{-20,-50},{-20,-110}},
                                                            color={0,0,127}));
   connect(souCDW.ports[1], chi.port_a1)
     annotation (Line(points={{30,60},{30,36},{20,36}}, color={0,127,255}));
