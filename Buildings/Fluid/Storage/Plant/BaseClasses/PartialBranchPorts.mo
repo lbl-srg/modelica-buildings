@@ -38,7 +38,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
         Text(
-          extent={{-62,-122},{62,-98}},
+          extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
           textString="%name"), Rectangle(
           extent={{-100,100},{100,-100}},
