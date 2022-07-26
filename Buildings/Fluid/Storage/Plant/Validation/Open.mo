@@ -4,10 +4,10 @@ model Open "Validation model of a storage plant with an open tank allowing remot
   extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
     netCon(
       plaTyp=nom.plaTyp,
-        pumSup(per(pressure(V_flow=nom.m_flow_nominal*{0,1.6,2},
-                            dp=(sin.p-101325)*{2,1.6,0}))),
-        pumRet(per(pressure(V_flow=nom.mTan_flow_nominal*{0,1.6,2},
-                            dp=(sou.p-101325)*{2,1.6,0})))),
+        perPumSup(pressure(V_flow=nom.m_flow_nominal*{0,1.6,2},
+                            dp=(sin.p-101325)*{2,1.6,0})),
+        perPumRet(pressure(V_flow=nom.mTan_flow_nominal*{0,1.6,2},
+                            dp=(sou.p-101325)*{2,1.6,0}))),
       nom(
         final plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open,
         final dp_nominal=300000),

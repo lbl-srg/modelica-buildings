@@ -10,8 +10,7 @@ model NetworkConnection
 
   Buildings.Fluid.Movers.SpeedControlled_y pumSup(
     redeclare final package Medium = Medium,
-    per(pressure(dp=nom.dp_nominal*{2,1.2,0},
-                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2})),
+    final per=perPumSup,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -21,6 +20,11 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,60})));
+  parameter Buildings.Fluid.Movers.Data.Generic perPumSup(
+    pressure(dp=nom.dp_nominal*{2,1.2,0},
+                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
+    "Performance data for the supply pump"
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasSup(
     redeclare final package Medium = Medium) if plaTyp ==
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
@@ -59,8 +63,7 @@ model NetworkConnection
 
   Buildings.Fluid.Movers.SpeedControlled_y pumRet(
     redeclare final package Medium = Medium,
-    per(pressure(dp=nom.dp_nominal*{2,1.2,0},
-                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2})),
+    final per=perPumRet,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -72,6 +75,12 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-60})));
+  parameter Buildings.Fluid.Movers.Data.Generic perPumRet(
+    pressure(dp=nom.dp_nominal*{2,1.2,0},
+                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
+    "Performance data for the return pump"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})),
+    Dialog(enable=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
   Buildings.Fluid.FixedResistances.CheckValve cheValRet(
     redeclare final package Medium = Medium,
     m_flow_nominal=nom.m_flow_nominal,
@@ -123,6 +132,7 @@ model NetworkConnection
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "A pair of interlocked valves"
     annotation (Placement(transformation(extent={{20,-92},{60,-52}})));
+
 equation
   connect(pumSup.port_b, cheValSup.port_a)
     annotation (Line(points={{-40,60},{-20,60}}, color={0,127,255}));
