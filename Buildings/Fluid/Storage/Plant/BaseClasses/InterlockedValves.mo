@@ -3,9 +3,16 @@ model InterlockedValves
   "Two valves in parallel with opposite nominal flow directions that are interlocked with each other"
   extends PartialBranchPorts;
 
+  parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of valToNet";
+  parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of valFroNet";
+  parameter Real tValToNetClo=0.01 "Threshold that ValToNet is considered closed";
+  parameter Real tValFroNetClo=0.01 "Threshold that ValFroNet is considered closed";
+
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valToNet(
     redeclare final package Medium = Medium,
-    dpValve_nominal=0.1*nom.dp_nominal,
+    final dpValve_nominal=dpValToNet_nominal,
     use_inputFilter=true,
     y_start=0,
     l=1E-5,
@@ -14,14 +21,15 @@ model InterlockedValves
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valFroNet(
     redeclare final package Medium = Medium,
-    dpValve_nominal=0.1*nom.dp_nominal,
+    final dpValve_nominal=dpValFroNet_nominal,
     use_inputFilter=true,
     y_start=0,
     l=1E-5,
     m_flow_nominal=nom.mTan_flow_nominal)
     "Valve whose nominal flow direction is from the district network"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValToNetClo(t=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValToNetClo(
+    final t=tValToNetClo)
     "= true if valve closed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -32,11 +40,12 @@ model InterlockedValves
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,-30})));
-  Modelica.Blocks.Sources.Constant zero(k=0) "Constant 0"
+  Modelica.Blocks.Sources.Constant zero(final k=0) "Constant 0"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValFroNetClo(t=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValFroNetClo(
+    final t=tValFroNetClo)
     "= true if valve closed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

@@ -8,6 +8,75 @@ model NetworkConnection
     nom.plaTyp
     "Type of plant setup";
 
+  //Pump sizing
+  parameter Buildings.Fluid.Movers.Data.Generic perPumSup(
+    pressure(dp=nom.dp_nominal*{2,1.2,0},
+                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
+    "Performance data for the supply pump"
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})),
+    Dialog(group="Pump Sizing"));
+  parameter Buildings.Fluid.Movers.Data.Generic perPumRet(
+    pressure(dp=nom.dp_nominal*{2,1.2,0},
+                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
+    "Performance data for the return pump"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})),
+    Dialog(group="Pump Sizing", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+
+  //Check valve sizing
+  parameter Modelica.Units.SI.PressureDifference dpCheValSupValve_nominal=
+    0.1*nom.dp_nominal "Check valve nominal pressure drop when fully open"
+    annotation (Dialog(group="Check Valve Sizing"));
+  parameter Modelica.Units.SI.PressureDifference dpCheValSupFixed_nominal=
+    0.1*nom.dp_nominal "Nominal fixed resistance in series with the check valve"
+    annotation (Dialog(group="Check Valve Sizing"));
+  parameter Modelica.Units.SI.PressureDifference dpCheValRetValve_nominal=
+    0.1*nom.dp_nominal "Check valve nominal pressure drop when fully open"
+    annotation (Dialog(group="Check Valve Sizing", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Modelica.Units.SI.PressureDifference dpCheValRetFixed_nominal=
+    0.1*nom.dp_nominal "Nominal fixed resistance in series with the check valve"
+    annotation (Dialog(group="Check Valve Sizing", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+
+  //Control valve sizing & interlock
+  parameter Modelica.Units.SI.PressureDifference dpValToNetSup_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of intValSup.valToNet"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Modelica.Units.SI.PressureDifference dpValFroNetSup_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of intValSup.valFroNet"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Real tValToNetSupClo=0.01
+    "Threshold that intValSup.ValToNet is considered closed"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Real tValFroNetSupClo=0.01
+    "Threshold that intValSup.ValFroNet is considered closed"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Modelica.Units.SI.PressureDifference dpValToNetRet_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of intValRet.valToNet"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Modelica.Units.SI.PressureDifference dpValFroNetRet_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of intValRet.valFroNet"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Real tValToNetRetClo=0.01
+    "Threshold that intValRet.ValToNet is considered closed"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Real tValFroNetRetClo=0.01
+    "Threshold that intValRet.ValFroNet is considered closed"
+    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+
   Buildings.Fluid.Movers.SpeedControlled_y pumSup(
     redeclare final package Medium = Medium,
     final per=perPumSup,
@@ -20,11 +89,6 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,60})));
-  parameter Buildings.Fluid.Movers.Data.Generic perPumSup(
-    pressure(dp=nom.dp_nominal*{2,1.2,0},
-                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
-    "Performance data for the supply pump"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasSup(
     redeclare final package Medium = Medium) if plaTyp ==
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
@@ -33,8 +97,9 @@ model NetworkConnection
   Buildings.Fluid.FixedResistances.CheckValve cheValSup(
     redeclare final package Medium = Medium,
     m_flow_nominal=nom.m_flow_nominal,
-    dpValve_nominal=0.1*nom.dp_nominal,
-    dpFixed_nominal=0.1*nom.dp_nominal) "Check valve" annotation (Placement(
+    final dpValve_nominal=dpCheValSupValve_nominal,
+    final dpFixed_nominal=dpCheValSupFixed_nominal)
+                                        "Check valve" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -75,17 +140,11 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-60})));
-  parameter Buildings.Fluid.Movers.Data.Generic perPumRet(
-    pressure(dp=nom.dp_nominal*{2,1.2,0},
-                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
-    "Performance data for the return pump"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})),
-    Dialog(enable=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
   Buildings.Fluid.FixedResistances.CheckValve cheValRet(
     redeclare final package Medium = Medium,
     m_flow_nominal=nom.m_flow_nominal,
-    dpValve_nominal=0.1*nom.dp_nominal,
-    dpFixed_nominal=0.1*nom.dp_nominal)
+    final dpValve_nominal=dpCheValRetValve_nominal,
+    final dpFixed_nominal=dpCheValRetFixed_nominal)
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Check valve" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -121,14 +180,23 @@ model NetworkConnection
         origin={60,110})));
   Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intValSup(
     redeclare final package Medium = Medium,
-    final nom=nom) if plaTyp ==
+    final nom=nom,
+    final dpValToNet_nominal=dpValToNetSup_nominal,
+    final dpValFroNet_nominal=dpValFroNetSup_nominal,
+    final tValToNetClo=tValToNetSupClo,
+    final tValFroNetClo=tValFroNetSupClo)
+    if plaTyp ==
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
      or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "A pair of interlocked valves"
     annotation (Placement(transformation(extent={{20,28},{60,68}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intValRet(
     redeclare final package Medium = Medium,
-    final nom=nom)
+    final nom=nom,
+    final dpValToNet_nominal=dpValToNetRet_nominal,
+    final dpValFroNet_nominal=dpValFroNetRet_nominal,
+    final tValToNetClo=tValToNetRetClo,
+    final tValFroNetClo=tValFroNetRetClo)
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "A pair of interlocked valves"
     annotation (Placement(transformation(extent={{20,-92},{60,-52}})));
