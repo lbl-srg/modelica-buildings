@@ -11,7 +11,6 @@ model ClosedSingleSource "Simple system model with one source and one user"
 
   Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     final plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal,
-
     mTan_flow_nominal=0.5,
     mChi_flow_nominal=0.5,
     dp_nominal=300000,
@@ -42,12 +41,12 @@ model ClosedSingleSource "Simple system model with one source and one user"
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser usr(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse(
     redeclare package Medium = Medium,
     m_flow_nominal=nom.m_flow_nominal,
     dp_nominal=0.3*nom.dp_nominal,
     T_a_nominal=nom.T_CHWS_nominal,
-    T_b_nominal=nom.T_CHWR_nominal) "User"
+    T_b_nominal=nom.T_CHWR_nominal) "Ideal user"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Modelica.Blocks.Sources.Constant TRetSet(k=nom.T_CHWR_nominal)
     "CHW return setpoint"
@@ -89,8 +88,8 @@ model ClosedSingleSource "Simple system model with one source and one user"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-70})));
-  Modelica.Blocks.Math.Gain gaiPumSec(k=1/usr.dp_nominal) "Gain" annotation (
-      Placement(transformation(
+  Modelica.Blocks.Math.Gain gaiPumSec(k=1/ideUse.dp_nominal) "Gain" annotation
+    (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,90})));
@@ -99,22 +98,19 @@ model ClosedSingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 equation
-  connect(TRetSet.y, usr.TSet) annotation (Line(points={{41,10},{52,10},{52,-9},
-          {62,-9}},  color={0,0,127}));
-  connect(preQCooLoa_flow.y,usr. QCooLoa_flow)
-    annotation (Line(points={{41,50},{54,50},{54,-9},{66,-9}},
-                                                             color={0,0,127}));
-  connect(preDro1.port_b,usr. port_a)
-    annotation (Line(points={{30,-20},{60,-20}},
-                                               color={0,127,255}));
-  connect(usr.port_b, preDro2.port_a)
-    annotation (Line(points={{80,-20},{84,-20},{84,-40},{30,-40}},
-                                                        color={0,127,255}));
+  connect(TRetSet.y, ideUse.TSet) annotation (Line(points={{41,10},{52,10},{52,
+          -9},{62,-9}}, color={0,0,127}));
+  connect(preQCooLoa_flow.y, ideUse.QCooLoa_flow) annotation (Line(points={{41,
+          50},{54,50},{54,-9},{66,-9}}, color={0,0,127}));
+  connect(preDro1.port_b, ideUse.port_a)
+    annotation (Line(points={{30,-20},{60,-20}}, color={0,127,255}));
+  connect(ideUse.port_b, preDro2.port_a) annotation (Line(points={{80,-20},{84,
+          -20},{84,-40},{30,-40}}, color={0,127,255}));
   connect(set_dpUsr.y, conPI_pumSec.u_s)
     annotation (Line(points={{-10,79},{-10,70.5},{-10,70.5},{-10,62}},
                                                  color={0,0,127}));
-  connect(usr.dpUsr, gaiPumSec.u) annotation (Line(points={{78,-9},{78,90},{42,
-          90}},                   color={0,0,127}));
+  connect(ideUse.dpUsr, gaiPumSec.u)
+    annotation (Line(points={{78,-9},{78,90},{42,90}}, color={0,0,127}));
   connect(gaiPumSec.y, conPI_pumSec.u_m)
     annotation (Line(points={{19,90},{8,90},{8,50},{2,50}},
                                                           color={0,0,127}));
