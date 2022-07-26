@@ -43,7 +43,7 @@ record FCUSizing "FCU sizing calculations for component parameters"
     annotation (Dialog(group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TCooCoiAirOut_nominal = 273.15 + 14
-    "Nominal cooling coil inlet air temperature"
+    "Nominal cooling coil outlet air temperature"
     annotation (Dialog(group="Cooling coil parameters"));
 
   parameter Real humRatAirOut_nominal = 0.009
@@ -69,7 +69,7 @@ record FCUSizing "FCU sizing calculations for component parameters"
   parameter Modelica.Units.SI.SpecificEnthalpy hChiWatOut_nominal = (mChiWat_flow_nominal * hChiWatIn_nominal + qCooCoi_nominal)/mChiWat_flow_nominal
     "Chilled water outlet specific enthalpy";
 
-  parameter Real delH_lmd = -((hAirIn_nominal - hChiWatOut_nominal) - (hAirOut_nominal - hChiWatIn_nominal)/log(((hAirIn_nominal - hChiWatOut_nominal)/(hAirOut_nominal - hChiWatIn_nominal))))
+  parameter Real delH_lmd = -((hAirIn_nominal - hChiWatOut_nominal) - (hAirOut_nominal - hChiWatIn_nominal)/log(abs((hAirIn_nominal - hChiWatOut_nominal)/(hAirOut_nominal - hChiWatIn_nominal))))
     "Log mean enthalpy difference";
 
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_air = 1000;
