@@ -304,17 +304,20 @@ First implementation.
         parameter Modelica.Units.SI.Temperature TSetHw = 273.15+60 "Temperature setpoint of hot water supply from heater";
         parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal "Nominal mass flow rate of hot water supply";
         parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal "Nominal mass flow rate of district heating water";
+        parameter Boolean haveER "Flag that specifies whether electric resistance booster is present";
         Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
           redeclare package Medium = Medium,
           m_flow_nominal=mHw_flow_nominal,
-          dp_nominal=0) "Supplemental electric resistance domestic hot water heater"
+          dp_nominal=0) if haveER == true
+                        "Supplemental electric resistance domestic hot water heater"
           annotation (Placement(transformation(extent={{8,-10},{28,10}})));
-        Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw) "Temperature setpoint for domestic hot water supply from heater"
+        Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw) if haveER == true
+                                                             "Temperature setpoint for domestic hot water supply from heater"
           annotation (Placement(transformation(extent={{-30,32},{-14,48}})));
         Modelica.Fluid.Interfaces.FluidPort_b port_hw(redeclare package Medium =
               Medium) "Hot water supply port"
           annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-        Modelica.Blocks.Interfaces.RealOutput PEleAuxHea
+        Modelica.Blocks.Interfaces.RealOutput PEleAuxHea if haveER == true
           "Thermal energy added to water with electric resistance"
           annotation (Placement(transformation(extent={{96,30},{116,50}})));
         Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare
@@ -502,6 +505,8 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
                 controllerType == Modelica.Blocks.Types.SimpleController.PI or
                 controllerType == Modelica.Blocks.Types.SimpleController.PID));
+        parameter Boolean haveER = true "Flag that specifies whether electric resistance booster is present";
+
         Buildings.Fluid.Sources.Boundary_pT souDcw(
           redeclare package Medium = Medium,
           T(displayUnit = "degC") = TDcw,
@@ -514,7 +519,8 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
           redeclare package Medium = Medium,
           TSetHw(displayUnit = "degC") = TSetHw,
           mHw_flow_nominal = mHw_flow_nominal,
-          mDH_flow_nominal = mDH_flow_nominal)
+          mDH_flow_nominal = mDH_flow_nominal,
+          haveER=haveER)
           "Direct district heat exchanger with auxiliary electric heating"
           annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
         Buildings.Fluid.Sources.MassFlowSource_T sinDhw(
@@ -537,7 +543,8 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         Modelica.Blocks.Continuous.Integrator watCon(k=-1)
           "Integrated hot water consumption"
           annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-        Modelica.Blocks.Interfaces.RealOutput PEleAuxHea(displayUnit="W")
+        Modelica.Blocks.Interfaces.RealOutput PEleAuxHea(displayUnit="W") if haveER ==
+          true
           "Thermal energy added to water with electric resistance"
           annotation (Placement(transformation(extent={{96,70},{116,90}})));
         Modelica.Blocks.Interfaces.RealOutput TTw(final unit="K",displayUnit = "degC") "Temperature of the outlet tempered water"
