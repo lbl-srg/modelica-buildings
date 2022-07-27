@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.BaseClasses;
-model PartialBranchPorts
+partial model PartialBranchPorts
   "Common port configuration used by plant branches"
 
   replaceable package Medium =
