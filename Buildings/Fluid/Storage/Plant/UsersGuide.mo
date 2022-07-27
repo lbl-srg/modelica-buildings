@@ -5,33 +5,38 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package implements a model of a storage plant with a chiller and a tank.
+This package implements models for a storage plant with a chiller and a tank.
 The tank in this plant can be charged by its local chiller or by a remote chiller
-on the same CHW district network. The model is implemented in three parts:
+on the same CHW district network. The models are implemented in three main parts,
+namely the chiller branch, tank branch, and network connection, 
+which form the full plant model when used together:
 </p>
 <ul>
 <li>
-The chiller branch is not directly implemented with the other two parts
-because its configuration is highly up to the user.
-Example chiller branch models are implemented as base class with example models in
+The <b>chiller branch</b> implementation is up to the user given the high number
+of chiller configurations possible.
+Example chiller branch models are implemented in this package as base classes within the example models in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch\">
 Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch</a>
 and validation models in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Validation.BaseClasses.IdealChillerBranch\">
 Buildings.Fluid.Storage.Plant.Validation.BaseClasses.IdealChillerBranch</a>.
+Users are referred to <a href=\"Modelica://Buildings.Fluid.Chillers\">
+Buildings.Fluid.Chillers</a> for available chiller component models.
 </li>
 <li>
-The tank branch is implemented in
+The <b>tank branch</b> is implemented in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.TankBranch\">
 Buildings.Fluid.Storage.Plant.TankBranch</a>.
 The model conditionally enables a volume for exposure to the atmosperic pressure
-if the model is configured to have an open tank.
+if the model is configured to represent an open tank.
 </li>
 <li>
-The supply pump and valves are implemented in 
+The <b> network connection</b> implements the supply pump and valves for connection
+to a district network in 
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>.
-Some of its pumps and valves are conditionally enabled based on the plant setup.
+Some of the pumps and valves are conditionally enabled based on the plant setup.
 See its documentation for details.
 </li>
 </ul>
@@ -39,10 +44,13 @@ See its documentation for details.
 All branch models except the chiller branch are extended from
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts\">
 Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts</a>.
-Because they share many nominal values, the nominal values are assigned in
+Because they share many nominal values, the nominal values can be assigned
+conveniently in
 a single data record in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Data.NominalValues\">
 Buildings.Fluid.Storage.Plant.Data.NominalValues</a>.
+</p>
+<p>
 The model can be configured to have the following setups using the enumeration
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup\">
 Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup</a>:
@@ -52,14 +60,14 @@ Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup</a>:
 <code>ClosedLocal</code> - A closed tank that only allows local charging.
 </li>
 <li>
-<code>ClosedRemote</code> - A closed tank that allows remote charging.
+<code>ClosedRemote</code> - A closed tank that allows local and remote charging.
 </li>
 <li>
-<code>Open</code> - An open tank. Remote charging is always allowed.
+<code>Open</code> - An open tank. Local and remote charging is always allowed.
 </li>
 </ul>
 <p>
-The schematics belay show the plant model's structure under different setups.
+The schematics below show the plant model's structure under these different setups.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
@@ -90,7 +98,7 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedLocal.png\
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedRemote.png\"/>
 </p>
     </td>
-    <td>A pair of interlocked valves are used to allow reversing the flow
+    <td>A pair of interlocked valves are used to allow for reversing the flow
         to charge the storage tank from a remote source.
         When the storage plant outputs CHW to the district network,
         <code>valToNet</code> is open and <code>valFroNet</code> is closed.
