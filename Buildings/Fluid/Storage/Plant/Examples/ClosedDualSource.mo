@@ -24,7 +24,7 @@ equation
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/ClosedDualSource.mos"
         "Simulate and plot"),
-        experiment(Tolerance=1e-06, StopTime=3600,__Dymola_Algorithm="Dassl"),
+        experiment(Tolerance=1e-06, StopTime=3600),
         Diagram(coordinateSystem(extent={{-180,-120},{140,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
