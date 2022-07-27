@@ -124,11 +124,7 @@ equation
       pattern=LinePattern.Dash));
   connect(conPI.y, val.y)
     annotation (Line(points={{-59,40},{-40,40},{-40,12}}, color={0,0,127}));
-  annotation (Icon(graphics={Ellipse(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={244,125,35},
-          fillPattern=FillPattern.Sphere)}),
+  annotation (
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>
 <p>
@@ -146,5 +142,70 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,40},{40,-40}},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-35,35},{-15,15}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-10,35},{10,15}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{15,35},{35,15}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-35,10},{-15,-10}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-10,10},{10,-10}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{15,10},{35,-10}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-35,-15},{-15,-35}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-10,-15},{10,-35}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{15,-15},{35,-35}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0})}));
 end IdealUser;
