@@ -338,17 +338,21 @@ First implementation.
         Modelica.Fluid.Interfaces.FluidPort_b port_dhr(redeclare package Medium =
               Medium) "Port for district heating return"
           annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
-        Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium
-            = Medium, m_flow_nominal=mHw_flow_nominal)
+        Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
+              Medium, m_flow_nominal=mHw_flow_nominal)
           annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
+      protected
+        Fluid.FixedResistances.LosslessPipe pip(
+          redeclare final package Medium = Medium,
+          final m_flow_nominal=mHw_flow_nominal,
+          final show_T=false) if haveER == false "Pipe without electric resistance"
+          annotation (Placement(transformation(extent={{8,-38},{28,-18}})));
       equation
         connect(conTSetHw.y, heaDhw.TSet) annotation (Line(points={{-13.2,40},{
                 -8,40},{-8,8},{6,8}},
                                   color={0,0,127}));
         connect(senTemAuxHeaOut.port_b, port_hw)
           annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
-        connect(senTemAuxHeaOut.port_a, heaDhw.port_b)
-          annotation (Line(points={{50,0},{28,0}}, color={0,127,255}));
         connect(heaDhw.Q_flow, PEleAuxHea) annotation (Line(points={{29,8},{40,
                 8},{40,40},{106,40}}, color={0,0,127}));
         connect(hex.port_a1, port_cw)
@@ -363,6 +367,12 @@ First implementation.
           annotation (Line(points={{-36,0},{-50,0}}, color={0,127,255}));
         connect(senTemHXOut.port_b, heaDhw.port_a)
           annotation (Line(points={{-16,0},{8,0}}, color={0,127,255}));
+        connect(senTemHXOut.port_b, pip.port_a) annotation (Line(points={{-16,0},{-4,0},
+                {-4,-28},{8,-28}}, color={0,127,255}));
+        connect(heaDhw.port_b, senTemAuxHeaOut.port_a)
+          annotation (Line(points={{28,0},{50,0}}, color={0,127,255}));
+        connect(pip.port_b, senTemAuxHeaOut.port_a) annotation (Line(points={{28,-28},
+                {40,-28},{40,0},{50,0}}, color={0,127,255}));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
               coordinateSystem(preserveAspectRatio=false)));
       end DirectHeatExchangerWaterHeaterWithAuxHeat;
