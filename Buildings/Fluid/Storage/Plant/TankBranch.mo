@@ -187,13 +187,17 @@ This enables a volume at atmospheric pressure to be connected to the top of
 the tank. Otherwise, the tank is closed and pressurised by other means.
 </p>
 <p>
-Because an open tank exposes the hydraulic loop to the atmospheric pressure,
+The charghing and discharging of the tank is controlled by tracking a positive
+(discharging) or negative (charging) flow rate.
+Both the top side and the bottom side of the tank have a flow rate sensor
+in this implementation.
+For a closed tank, the bottom sensor is used for control.
+For an open tank, because it exposes the hydraulic loop to the atmospheric pressure,
 the mass flow rate of the water through the top port and bottom port of the tank
-is not automatically conserved. Flow rate sensors are therefore put on both the top
-and bottom sides of the tank to allow the pumps and valves implemented in
+is not automatically conserved. The pumps and valves implemented in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>
-to balance the flow in order to ensure that that the open tank is not flooded
+have to balance the flow in order to ensure that that the open tank is not flooded
 or drained.
 </p>
 </html>", revisions="<html>

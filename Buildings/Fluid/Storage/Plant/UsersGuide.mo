@@ -88,6 +88,8 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_ClosedLocal.png\
     </td>
     <td>The supply pump <code>pumSup</code>
         tracks a flow rate setpoint of the tank.
+        A positive flow rate means that the tank is discharging
+        while a negative flow rate means that the tank is being charged.
     </td>
   </tr>
   <tr>
