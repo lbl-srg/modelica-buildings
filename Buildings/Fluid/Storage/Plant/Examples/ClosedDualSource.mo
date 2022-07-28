@@ -20,12 +20,12 @@ model ClosedDualSource
 equation
 
   connect(sou_p1.ports[1], pumSup1.port_a) annotation (Line(points={{-160,20},{-54,
-          20},{-54,40},{-60,40}}, color={0,127,255}));
+          20},{-54,80},{-60,80}}, color={0,127,255}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/ClosedDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
-        Diagram(coordinateSystem(extent={{-180,-120},{140,140}})), Icon(
+        Diagram(coordinateSystem(extent={{-180,-220},{160,260}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
