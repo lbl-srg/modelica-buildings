@@ -790,7 +790,7 @@ part load drops below around 40%, (see the documentation of
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
 which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
-to eacher other for motors of this size.<br/>
+to each other for motors of this size.<br/>
 3. All three efficiency items can use <i>V&#775;</i> as the independent variable
 by selecting <code>Efficiency_VolumeFlowRate</code>. <i>&eta;<sub>mot</sub></i>
 can also use the motor part load ratio
