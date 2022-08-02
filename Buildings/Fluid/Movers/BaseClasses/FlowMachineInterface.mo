@@ -687,7 +687,8 @@ equation
   //WHyd = WFlo / etaMot;
   //PEle = WHyd / etaHyd;
   eta = etaHyd * etaMot;
-  PEle = WFlo / eta;
+  PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                  x1=eta, x2=1E-2, deltaX=1E-3);
 
 /*  // Total efficiency eta and consumed electric power PEle
   if per.etaMet==
