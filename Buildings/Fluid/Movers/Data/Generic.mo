@@ -24,7 +24,7 @@ record Generic "Generic data record for movers"
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
 
-  Boolean PowerOrEfficiencyIsHydraulic=true
+  parameter Boolean PowerOrEfficiencyIsHydraulic=true
     "=true if hydraulic power or efficiency is provided, instead of total"
     annotation (Dialog(group="Power computation"));
 
