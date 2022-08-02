@@ -1,6 +1,7 @@
 within Buildings.Fluid.Movers.Data.Fans.Greenheck;
 record BIDW16 "Fan data for Greenheck 16 BIDW fan"
   extends Generic(
+    final PowerOrEfficiencyIsHydraulic=true,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     speed_rpm_nominal=3750,
     power(V_flow={1.88679245283019, 2.83561049663847, 3.77358490566036,
