@@ -42,10 +42,10 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
     annotation (Dialog(group="Dampers and economizers",
     enable=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None));
   parameter Buildings.Templates.Components.Data.Damper damRel(
-   final typ=typDamRel)
-   "Relief damper"
-   annotation (Dialog(group="Dampers and economizers",
-   enable=typDamRel <> Buildings.Templates.Components.Types.Damper.None));
+    final typ=typDamRel)
+    "Relief damper"
+    annotation (Dialog(group="Dampers and economizers",
+    enable=typDamRel <> Buildings.Templates.Components.Types.Damper.None));
   parameter Buildings.Templates.Components.Data.Damper damRet(
     final typ=typDamRet)
     "Return damper"

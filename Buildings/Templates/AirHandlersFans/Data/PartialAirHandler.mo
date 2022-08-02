@@ -25,7 +25,7 @@ record PartialAirHandler "Record for air handler interface class"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter String id
-   "System tag"
+    "System tag"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter String id_souChiWat=""
     "CHW supply system tag"

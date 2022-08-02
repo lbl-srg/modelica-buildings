@@ -82,8 +82,12 @@ equation
 
   connect(cooDowTim.y, sta.cooDowTim);
   connect(warUpTim.y, sta.warUpTim);
-  connect(bus.y1Win, sta.u1Win);
+  connect(bus.u1Win, sta.u1Win);
   connect(bus.TZon, sta.TZon);
+  connect(bus.TZonHeaOccSet, sta.TOccHeaSet);
+  connect(bus.TZonCooOccSet, sta.TOccCooSet);
+  connect(bus.TZonHeaUnoSet, sta.TUnoHeaSet);
+  connect(bus.TZonCooUnoSet, sta.TUnoCooSet);
 
   connect(sta.yCooTim, bus.yCooTim);
   connect(sta.yWarTim, bus.yWarTim);

@@ -15,18 +15,17 @@ block G36VAVMultiZone
     annotation(Evaluate=true,
     Dialog(group="Configuration"));
 
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
     Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=
-    stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+    annotation (Dialog(group="Configuration",
+    enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=
     Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=
-    stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+    annotation (Dialog(group="Configuration",
+    enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
 
   final parameter Integer nGro(final min=1)=
     Buildings.Templates.BaseClasses.countUniqueStrings(namGroZon)
@@ -106,10 +105,6 @@ block G36VAVMultiZone
     dat.yFanSup_min
     "Lowest allowed fan speed if fan is on";
 
-  final parameter Real nPeaSys_nominal=
-    dat.nPeaSys_nominal
-    "Design system population (including diversity)";
-
   final parameter Modelica.Units.SI.Temperature TAirSupSet_min(
     displayUnit="degC")=dat.TAirSupSet_min
     "Lowest supply air temperature set point";
@@ -142,11 +137,13 @@ block G36VAVMultiZone
     dat.dVFanRet_flow
     "Airflow differential between supply and return fans to maintain building pressure at set point";
 
-  /* FIXME:
+  /* FIXME #1913:
   minSpeRelFan=yFanRel_min
   disSpe_min=yFanRet_min
+  maxSpeRetFan=0
   */
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctl(
+    maxSpeRetFan=1,
     final eneSta=stdEne,
     final venSta=stdVen,
     final ashCliZon=ashCliZon,
@@ -220,9 +217,10 @@ block G36VAVMultiZone
     "Operation mode selection for each zone group"
     annotation (Placement(transformation(extent={{-130,104},{-110,136}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSupSet(final nout=
-       nZon) "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{80,50},{100,70}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSupSet(
+    final nout=nZon)
+    "Pass signal to terminal unit bus"
+    annotation (Placement(transformation(extent={{60,46},{80,66}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqZonTemRes(
     final nin=nZon,
     final k=fill(1, nZon))
@@ -277,16 +275,19 @@ block G36VAVMultiZone
     "Replicate vector of group modes nZon times"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxGroCst[nZon](
-    final k=idxGro)
-    "Index of the group that each zone belongs to"
+    final k=idxGro) "Index of the group that each zone belongs to"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
 initial equation
-  // We check the fallback "else" clause.
-  if buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper then
-    assert(secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
-     "In "+ getInstanceName() + ": "+
-     "The system configuration is incompatible with available options for building pressure control.");
+  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016 then
+    assert(ashCliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
+      "In "+ getInstanceName() + ": "+
+      "The ASHRAE climate zone cannot be unspecified.");
+  end if;
+  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016 then
+    assert(tit24CliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified,
+      "In "+ getInstanceName() + ": "+
+      "The Title 24 climate zone cannot be unspecified.");
   end if;
 
 equation
@@ -484,23 +485,14 @@ equation
         points={{-68,-14},{-54,-14},{-54,32.7273},{-44,32.7273}}, color={0,0,127}));
   connect(aggZonVen_A621.uOutAirFra_max, ctl.uOutAirFra_max) annotation (Line(
         points={{-68,-18},{-52,-18},{-52,27.8182},{-44,27.8182}}, color={0,0,127}));
-  connect(opeModSel.yOpeMod, aggZonVen_A621.uOpeMod) annotation (Line(points={{-108,
-          120},{-100,120},{-100,-1},{-92,-1}}, color={255,127,0}));
-  connect(aggZonVen_A621.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,-2},
-          {-66,-2},{-66,70},{-44,70},{-44,70.3636}},     color={255,127,0}));
-  connect(aggZonVen_T24.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,-32},
-          {-66,-32},{-66,70.3636},{-44,70.3636}},      color={255,127,0}));
   connect(aggZonVen_T24.VSumZonAbsMin_flow, ctl.VSumZonAbsMin_flow) annotation (
      Line(points={{-68,-37},{-50,-37},{-50,21.2727},{-44,21.2727}}, color={0,0,127}));
   connect(aggZonVen_T24.VSumZonDesMin_flow, ctl.VSumZonDesMin_flow) annotation (
      Line(points={{-68,-43},{-48,-43},{-48,18},{-44,18}}, color={0,0,127}));
   connect(aggZonVen_T24.yMaxCO2, ctl.uCO2Loo_max) annotation (Line(points={{-68,
           -48},{-46,-48},{-46,-3.27273},{-44,-3.27273}}, color={0,0,127}));
-  connect(opeModSel.yOpeMod, aggZonVen_T24.uOpeMod) annotation (Line(points={{-108,
-          120},{-100,120},{-100,-32},{-92,-32}}, color={255,127,0}));
   connect(ctl.TAirSupSet, TAirSupSet.u) annotation (Line(points={{44,55.6364},{
-          60,55.6364},{60,60},{78,60}},
-                                     color={0,0,127}));
+          58,55.6364},{58,56}},      color={0,0,127}));
   connect(FIXME_TAirMix.y, ctl.TAirMix) annotation (Line(points={{-259,-140},{
           -60,-140},{-60,-45.8182},{-44,-45.8182}},
                                                 color={0,0,127}));
@@ -528,6 +520,14 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(opeModSel.yOpeMod, aggZonVen_A621.uOpeMod) annotation (Line(points={{-108,
+          120},{-100,120},{-100,-1},{-92,-1}}, color={255,127,0}));
+  connect(opeModSel.yOpeMod, aggZonVen_T24.uOpeMod) annotation (Line(points={{-108,
+          120},{-100,120},{-100,-32},{-92,-32}}, color={255,127,0}));
+  connect(aggZonVen_A621.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,-2},
+          {-64,-2},{-64,70.3636},{-44,70.3636}},     color={255,127,0}));
+  connect(aggZonVen_T24.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,-32},
+          {-64,-32},{-64,70.3636},{-44,70.3636}},      color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

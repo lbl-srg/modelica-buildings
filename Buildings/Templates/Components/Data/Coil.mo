@@ -12,12 +12,16 @@ record Coil "Record for coil model"
     "Set to true for fluid ports on the source side"
     annotation (Dialog(group="Configuration"));
 
-  // For evaporator coils this is provided by the performance data record.
+  /*
+For evaporator coils this is also provided by the performance data record.
+The coil model shall generate a warning in case the design value exceeds
+the maximum value from the performance data record.
+*/
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0,
     start=if typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
-     typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
-     datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
+      datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     else 1)
     "Air mass flow rate"
     annotation (
@@ -37,10 +41,10 @@ record Coil "Record for coil model"
   parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(
     final min=0,
     start=if typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating then
-     Q_flow_nominal / 4186 / 10 elseif
-     typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling then
-     -Q_flow_nominal / 4186 / 5 else
-     0)
+      Q_flow_nominal / 4186 / 10 elseif
+      typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling then
+      -Q_flow_nominal / 4186 / 5 else
+      0)
     "Liquid mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
@@ -63,22 +67,26 @@ record Coil "Record for coil model"
     "Liquid pressure drop across fully open valve"
     annotation(Dialog(group="Nominal condition",
       enable=have_sou and typVal<>Buildings.Templates.Components.Types.Valve.None));
-  // For evaporator coils this is provided by the performance data record.
   parameter Modelica.Units.SI.HeatFlowRate cap_nominal(
     final min=0,
     start=if typ==Buildings.Templates.Components.Types.Coil.None then 0
     elseif typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
-     typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
-     abs(datCoi.sta[datCoi.nSta].nomVal.Q_flow_nominal)
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
+      abs(datCoi.sta[datCoi.nSta].nomVal.Q_flow_nominal)
     else 1e4)
     "Coil capacity"
     annotation(Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Coil.None and
       typ<>Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage and
       typ<>Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed));
+  /*
+For evaporator coils this is also provided by the performance data record.
+The coil model shall generate a warning in case the design value exceeds
+the maximum value from the performance data record.
+*/
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
     if typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
-       typ==Buildings.Templates.Components.Types.Coil.ElectricHeating then cap_nominal
+        typ==Buildings.Templates.Components.Types.Coil.ElectricHeating then cap_nominal
     else -1 * cap_nominal
     "Nominal heat flow rate"
     annotation (Dialog(group="Nominal condition"));
@@ -112,7 +120,7 @@ record Coil "Record for coil model"
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed.Carrier_Centurion_50PG06 datCoi
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
-    "Performance record"
+    "Performance data record of evaporator coil"
     annotation(choicesAllMatching=true, Dialog(
       enable=typ==Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage or
       typ==Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed));

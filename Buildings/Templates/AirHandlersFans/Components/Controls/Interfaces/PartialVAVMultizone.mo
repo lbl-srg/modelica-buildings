@@ -90,6 +90,22 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
       typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure and
       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
 
+initial equation
+  if typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone then
+    // We check the fallback "else" clause.
+    if buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper then
+      assert(secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
+       "In "+ getInstanceName() + ": "+
+       "The system configuration is incompatible with available options for building pressure control.");
+    end if;
+    assert(stdVen<>Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
+      "In "+ getInstanceName() + ": "+
+      "The ventilation standard cannot be unspecified.");
+    assert(stdEne<>Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified,
+      "In "+ getInstanceName() + ": "+
+      "The energy standard cannot be unspecified.");
+  end if;
+
   annotation (Documentation(info="<html>
 <p>
 This partial class provides a standard interface for multiple-zone VAV controllers.

@@ -19,18 +19,6 @@ block ZoneControlPoints "Emulation of control points from zone sensors and therm
   Controls.OBC.CDL.Logical.Sources.Constant y1Win(k=true)
     "Window switch status"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaOccSet(k=293.15)
-    "Occupied heating set point"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonCooOccSet(k=297.15)
-     "Occupied cooling set point"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaUnoSet(k=285.15)
-     "Unoccupied heating set point"
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonCooUnoSet(k=303.15)
-    "Unoccupied cooling set point"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TZon(k=303.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
@@ -41,10 +29,6 @@ block ZoneControlPoints "Emulation of control points from zone sensors and therm
 equation
   connect(y1Occ.y, bus.y1Occ);
   connect(y1Win.y, bus.y1Win);
-  connect(TZonHeaOccSet.y, bus.TZonHeaOccSet);
-  connect(TZonCooOccSet.y, bus.TZonCooOccSet);
-  connect(TZonHeaUnoSet.y, bus.TZonHeaUnoSet);
-  connect(TZonCooUnoSet.y, bus.TZonCooUnoSet);
   connect(TZon.y, bus.TZon);
   connect(y1OveOccZon.y, bus.y1OveOccZon);
 

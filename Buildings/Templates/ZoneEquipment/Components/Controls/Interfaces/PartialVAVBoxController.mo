@@ -7,10 +7,10 @@ partial block PartialVAVBoxController "Interface class for VAV terminal unit"
 
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
-    annotation (Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
     "Ventilation standard, ASHRAE 62.1 or Title 24"
     annotation(Evaluate=true,
        Dialog(group="Configuration", enable=
@@ -19,6 +19,15 @@ partial block PartialVAVBoxController "Interface class for VAV terminal unit"
 
   outer replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
     "VAV damper";
+
+initial equation
+  if typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly or
+     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat then
+    assert(stdVen<>Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
+      "In "+ getInstanceName() + ": "+
+      "The ventilation standard cannot be unspecified.");
+  end if;
+
 
   annotation (Documentation(info="<html>
 <p>

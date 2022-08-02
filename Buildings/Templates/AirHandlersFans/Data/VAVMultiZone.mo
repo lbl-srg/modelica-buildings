@@ -34,7 +34,7 @@ record VAVMultiZone "Record for multiple-zone VAV"
     "Type of valve for heating coil in reheat position"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut
-    "Design of minimum outdoor air and economizer function"
+    "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system"

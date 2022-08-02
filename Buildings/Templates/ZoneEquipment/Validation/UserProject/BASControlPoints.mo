@@ -27,11 +27,32 @@ block BASControlPoints "Emulation of control points from the BAS"
   Controls.OBC.CDL.Integers.Sources.Constant yOveDamPos[nZon](each k=0)
     "FIXME #1913: Testing and commissioning overrides should be Booleans"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaOccSet[nZon](
+    each k=293.15)
+    "Occupied heating set point"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TZonCooOccSet[nZon](
+    each k=297.15)
+    "Occupied cooling set point"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaUnoSet[nZon](
+    each k=285.15)
+    "Unoccupied heating set point"
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TZonCooUnoSet[nZon](
+    each k=303.15)
+    "Unoccupied cooling set point"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 equation
   connect(y1OccSch.y, busTer.y1OccSch);
   connect(yOveFloSet.y, busTer.yOveFloSet);
   connect(yOveDamPos.y, busTer.yOveDamPos);
   connect(y1OveHeaOff.y, busTer.y1OveHeaOff);
+
+  connect(TZonHeaOccSet.y, busTer.TZonHeaOccSet);
+  connect(TZonCooOccSet.y, busTer.TZonCooOccSet);
+  connect(TZonHeaUnoSet.y, busTer.TZonHeaUnoSet);
+  connect(TZonCooUnoSet.y, busTer.TZonCooUnoSet);
 
   annotation (
     defaultComponentName="sigBAS",

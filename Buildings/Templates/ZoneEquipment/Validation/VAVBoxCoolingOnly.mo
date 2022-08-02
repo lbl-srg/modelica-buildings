@@ -31,12 +31,12 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     redeclare final package Medium = MediumAir,
     m_flow_nominal=1,
     dp_nominal=100)
-    annotation (Placement(transformation(extent={{-48,-50},{-28,-30}})));
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Fluid.FixedResistances.PressureDrop res1(
     redeclare final package Medium = MediumAir,
     m_flow_nominal=1,
     dp_nominal=100)
-    annotation (Placement(transformation(extent={{32,-50},{52,-30}})));
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Fluid.Sources.Boundary_pT bouBui(redeclare final package Medium = MediumAir,
       nPorts=1) "Boundary conditions for indoor environment"
     annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
@@ -72,15 +72,15 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
   connect(bouPri.ports[1], res.port_a)
-    annotation (Line(points={{-60,-40},{-48,-40}},
+    annotation (Line(points={{-60,-40},{-50,-40}},
                                                color={0,127,255}));
   connect(bouBui.ports[1], res1.port_b)
-    annotation (Line(points={{60,-40},{52,-40}},
+    annotation (Line(points={{60,-40},{50,-40}},
                                              color={0,127,255}));
   connect(res.port_b, VAVBox_1.port_Sup)
-    annotation (Line(points={{-28,-40},{-20,-40}}, color={0,127,255}));
+    annotation (Line(points={{-30,-40},{-20,-40}}, color={0,127,255}));
   connect(VAVBox_1.port_Dis, res1.port_a)
-    annotation (Line(points={{20,-40},{32,-40}}, color={0,127,255}));
+    annotation (Line(points={{20,-40},{30,-40}}, color={0,127,255}));
   connect(VAVBox_1.port_aHeaWat, bouHeaWat.ports[1]) annotation (Line(points={{5,-60},
           {5,-82},{-60,-82},{-60,-81}},      color={0,127,255}));
   connect(VAVBox_1.port_bHeaWat, bouHeaWat.ports[2])

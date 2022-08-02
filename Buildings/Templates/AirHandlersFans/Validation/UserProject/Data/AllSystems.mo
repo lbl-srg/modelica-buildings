@@ -38,9 +38,24 @@ record AllSystems "Top-level (whole building) record for testing purposes"
       TWatEnt_nominal=7 + 273.15,
       wAirEnt_nominal=0.012),
     ctl(
+      VOutUnc_flow_nominal=0.4,
+      VOutTot_flow_nominal=0.5,
+      VOutAbsMin_flow_nominal=0.3,
+      VOutMin_flow_nominal=0.4,
+      dpDamOutMinAbs=10,
+      dpDamOutMin_nominal=15,
+      pAirSupSet_rel_max=500,
+      pAirRetSet_rel_min=10,
+      pAirRetSet_rel_max=40,
+      yFanSup_min=0.1,
+      yFanRel_min=0.1,
+      yFanRet_min=0.1,
+      pBuiSet_rel=12,
       dVFanRet_flow=0.1,
-      nPeaSys_nominal=100,
-      pAirSupSet_rel_max=500))
+      TAirSupSet_min=12+273.15,
+      TAirSupSet_max=18+273.15,
+      TOutRes_min=16+273.15,
+      TOutRes_max=21+273.15))
     "Paramerers for system VAV_1"
     annotation (Dialog(group="Air handlers and fans"),
       Placement(transformation(extent={{-10,-8},{

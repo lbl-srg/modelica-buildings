@@ -88,7 +88,8 @@ model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
     "Boundary conditions for CHW distribution system"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 
-  UserProject.ZoneEquipment.VAVBoxControlPoints sigVAVBox[VAV_1.nZon]
+  UserProject.ZoneEquipment.VAVBoxControlPoints sigVAVBox[VAV_1.nZon](
+    each final stdVen=VAV_1.ctl.stdVen)
     if VAV_1.ctl.typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
     "Control signals from VAV box"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
