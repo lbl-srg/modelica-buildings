@@ -10,9 +10,9 @@ package UsersGuide "Templates user guide"
         info="<html>
 <h4>Control point connections</h4>
 <p>
-Inside a template class, the connect clauses involving control points 
+Inside a template class, the connect clauses involving control points
 typically do not have
-any graphical annotation and are therefore not rendered as 
+any graphical annotation and are therefore not rendered as
 connection lines in the diagram view.
 Those connect clauses are grouped together in a dedicated section of
 the equation section of each class, namely
@@ -22,7 +22,7 @@ the equation section of each class, namely
 <h4>Definitions</h4>
 <h5>System</h5>
 <p>
-We adopt the definition hereafter from ASHRAE (2018).
+We adopt the definition hereafter from ASHRAE (2021).
 </p>
 <p>
 A set of components is a system if they share a load in
@@ -33,12 +33,12 @@ ship serving air handlers).
 <ul>
 <li>
 Each air handler constitutes its own separate system
-because it does not share a load (terminal unit) in common with 
-the other air handlers. 
+because it does not share a load (terminal unit) in common with
+the other air handlers.
 </li>
 <li>
 Each VAV box constitutes its own system because it does
-not share a load (conditioned space) in common with the other VAV boxes. 
+not share a load (conditioned space) in common with the other VAV boxes.
 </li>
 </ul>
 
@@ -67,7 +67,7 @@ The following abbreviations are used in that package.<br/>
 <h4>References</h4>
 <ul>
 <li>
-ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>
@@ -94,38 +94,38 @@ or a terminal unit (refer to
 <a href=\"modelica://Buildings.Templates.UsersGuide.Conventions\">
 Buildings.Templates.UsersGuide.Conventions</a>
 for the definition of a system).
-A template is a self-contained model that can be reconfigured 
-by redeclaring some of its components or modifying some of its 
+A template is a self-contained model that can be reconfigured
+by redeclaring some of its components or modifying some of its
 structural parameters.
 Such configuration does not require any other modification
 of the template.
 Particularly, all connect clauses between
 replaceable components are resolved internally,
 without any need for user intervention.
-The same holds true for sensors required by a specific control 
-option which are conditionally instantiated if that option is 
+The same holds true for sensors required by a specific control
+option which are conditionally instantiated if that option is
 selected.
 </p>
 <h4>Simulation model assembly</h4>
 <p>
 There is currently no template representing a complete HVAC system,
 from the plant to the terminal unit.
-To build a simulation model representing a complete HVAC system, 
-one needs to 
+To build a simulation model representing a complete HVAC system,
+one needs to
 </p>
 <ol>
 <li>
-instantiate the templates (or any derived class representing a specific 
-configuration) of the different subsystems (such as the CHW and HHW plants, 
+instantiate the templates (or any derived class representing a specific
+configuration) of the different subsystems (such as the CHW and HHW plants,
 the air handlers and the terminal units),
 </li>
 <li>
-if needed, configure those instances to represent project-specific 
+if needed, configure those instances to represent project-specific
 system configurations if those configurations differ from the default
-configuration proposed for each template, 
+configuration proposed for each template,
 </li>
 <li>
-connect the fluid connectors of the different instances together, 
+connect the fluid connectors of the different instances together,
 </li>
 <li>
 connect the signal buses of the different instances together,
@@ -138,20 +138,20 @@ proper design and operating parameter values.
 <p>
 When assembling a model for a complete HVAC system,
 it is the user's responsibility to ensure that the control
-sequence selected for one subsystem is compatible 
+sequence selected for one subsystem is compatible
 with the one selected for another subsystem.
-For instance the AHU controller may require reset requests 
+For instance the AHU controller may require reset requests
 yielded by the zone equipment controller.
 If the controller selected for the zone equipment does not
 generate such requests, the simulation model will be singular.
 Selecting controllers from the same reference&mdash;such as
-ASHRAE (2018)&mdash;is the safest way 
-to ensure consistency across the whole HVAC system model. 
+ASHRAE (2021)&mdash;is the safest way
+to ensure consistency across the whole HVAC system model.
 </p>
 <h4>References</h4>
 <ul>
 <li>
-ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

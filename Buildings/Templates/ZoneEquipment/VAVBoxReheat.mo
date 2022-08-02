@@ -13,7 +13,7 @@ This template represents a VAV terminal unit with reheat.
 <p>
 The possible equipment configurations are enumerated in the table below.
 The user may refer to
-<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+<a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
 for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
@@ -45,8 +45,8 @@ ASHRAE Guideline 36 controller
 </table>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2018\">
-ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

@@ -43,6 +43,10 @@ block BASControlPoints "Emulation of control points from the BAS"
     each k=303.15)
     "Unoccupied cooling set point"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant ppmCO2Set[nZon](
+    each k=1000)
+    "Zone CO2 concentration set point"
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation
   connect(y1OccSch.y, busTer.y1OccSch);
   connect(yOveFloSet.y, busTer.yOveFloSet);
@@ -53,7 +57,7 @@ equation
   connect(TZonCooOccSet.y, busTer.TZonCooOccSet);
   connect(TZonHeaUnoSet.y, busTer.TZonHeaUnoSet);
   connect(TZonCooUnoSet.y, busTer.TZonCooUnoSet);
-
+  connect(ppmCO2Set.y, busTer.ppmCO2Set);
   annotation (
     defaultComponentName="sigBAS",
     Diagram(coordinateSystem(preserveAspectRatio=

@@ -20,6 +20,9 @@ partial block PartialVAVBoxController "Interface class for VAV terminal unit"
   outer replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
     "VAV damper";
 
+  outer replaceable Buildings.Templates.Components.Coils.None coiHea
+    "Heating coil";
+
 initial equation
   if typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly or
      typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat then

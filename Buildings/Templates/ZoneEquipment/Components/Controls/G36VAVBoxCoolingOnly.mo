@@ -1,8 +1,9 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls;
-block G36VAVBoxReheat
-  "Guideline 36 controller"
-  extends Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.G36VAVBox(
-    final typ=Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat);
+block G36VAVBoxCoolingOnly
+  "Guideline 36 controller for VAV terminal unit cooling only"
+  extends
+    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.G36VAVBox(
+    final typ=Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly);
 
   annotation (
     defaultComponentName="ctl",
@@ -13,13 +14,13 @@ block G36VAVBoxReheat
 <p>
 This is an implementation of the control sequence specified in
 <a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
-for VAV terminal units with reheat.
+for cooling-only VAV terminal units.
 It contains the following components.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller</a>:
 Main controller for the terminal unit
 </li>
 <li>
@@ -41,4 +42,4 @@ for HVAC Systems. Atlanta, GA.
 </li>
 </ul>
 </html>"));
-end G36VAVBoxReheat;
+end G36VAVBoxCoolingOnly;

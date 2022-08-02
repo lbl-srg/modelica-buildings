@@ -1,8 +1,9 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment;
-model VAVBoxReheatControlG36  "Configuration of VAV terminal unit with reheat"
-  extends Buildings.Templates.ZoneEquipment.VAVBoxReheat(
+model VAVBoxCoolingOnlyControlG36
+  "Configuration of VAV terminal unit cooling only"
+  extends Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly(
     redeclare replaceable
-      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl(
+      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxCoolingOnly ctl(
        stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
 
   annotation (
@@ -21,4 +22,4 @@ except for the following options.<br/>
 <tr><td>Controller</td><td>Guideline 36 controller</td></tr>
 </table>
 </html>"));
-end VAVBoxReheatControlG36;
+end VAVBoxCoolingOnlyControlG36;

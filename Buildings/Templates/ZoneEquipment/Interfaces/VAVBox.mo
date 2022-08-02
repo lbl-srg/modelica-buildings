@@ -68,7 +68,8 @@ model VAVBox "Interface class for VAV terminal unit"
 
   Buildings.Templates.Components.Sensors.Temperature TAirDis(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat,
+    final have_sen=ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
+      ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly,
     final m_flow_nominal=mAir_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard)
     "Discharge air temperature sensor"

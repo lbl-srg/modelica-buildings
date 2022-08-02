@@ -25,6 +25,7 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     annotation (Placement(transformation(extent={{0,52},{20,72}})));
 
   Fluid.Sources.Boundary_pT bouPri(redeclare final package Medium = MediumAir,
+    p=MediumAir.p_default + 200,
       nPorts=1) "Boundary conditions for primary air distribution system"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Fluid.FixedResistances.PressureDrop res(
@@ -86,7 +87,7 @@ equation
   connect(VAVBox_1.port_bHeaWat, bouHeaWat.ports[2])
     annotation (Line(points={{-5,-60},{-5,-79},{-60,-79}}, color={0,127,255}));
   connect(sigZon.bus, VAVBox_1.bus) annotation (Line(
-      points={{-60,0},{-40,0},{-40,-24},{-19.9,-24}},
+      points={{-60,0},{-20,0},{-20,-24},{-19.9,-24}},
       color={255,204,51},
       thickness=0.5));
   connect(sigAirHan.busTer[1], VAVBox_1.bus) annotation (Line(
