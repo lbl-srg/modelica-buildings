@@ -344,9 +344,9 @@ protected
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr  mulOr(final nin=nChi) "Multiple or"
-    annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
+    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nChi) "Multiple or"
-    annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-180,340},{-160,360}})));
@@ -450,7 +450,7 @@ equation
     annotation (Line(points={{82,232},{100,232},{100,-62},{138,-62}},
       color={255,0,255}));
   connect(and5.y, disHeaCon.uUpsDevSta)
-    annotation (Line(points={{82,-120},{160,-120},{160,-92},{198,-92}},
+    annotation (Line(points={{82,-120},{160,-120},{160,-96},{198,-96}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, disHeaCon.nexChaChi)
     annotation (Line(points={{-18,316},{20,316},{20,-104},{198,-104}},
@@ -462,19 +462,19 @@ equation
     annotation (Line(points={{-138,200},{-120,200},{-120,-158},{98,-158}},
       color={255,0,255}));
   connect(disNexCWP.yChiSta, conWatPumCon.uChiSta)
-    annotation (Line(points={{122,-160},{130,-160},{130,-181},{138,-181}},
+    annotation (Line(points={{122,-160},{130,-160},{130,-183},{138,-183}},
       color={255,127,0}));
   connect(mulOr1.y, conWatPumCon.uLeaConWatReq)
-    annotation (Line(points={{-58,-220},{46,-220},{46,-178},{138,-178}},
+    annotation (Line(points={{-18,-220},{46,-220},{46,-178},{138,-178}},
       color={255,0,255}));
   connect(uChi, mulOr.u)
-    annotation (Line(points={{-300,220},{-200,220},{-200,-190},{-82,-190}},
+    annotation (Line(points={{-300,220},{-200,220},{-200,-200},{-82,-200}},
       color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
-    annotation (Line(points={{-300,-120},{-250,-120},{-250,-220},{-82,-220}},
+    annotation (Line(points={{-300,-120},{-250,-120},{-250,-220},{-42,-220}},
       color={255,0,255}));
   connect(conWatPumCon.uWSE, uWSE)
-    annotation (Line(points={{138,-184},{52,-184},{52,-240},{-300,-240}},
+    annotation (Line(points={{138,-185},{52,-185},{52,-240},{-300,-240}},
       color={255,0,255}));
   connect(conWatPumCon.uConWatPumSpe, uConWatPumSpe)
     annotation (Line(points={{138,-189},{64,-189},{64,-340},{-300,-340}},
@@ -519,8 +519,8 @@ equation
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,12},
           {58,12}},       color={255,0,255}));
   connect(lat.y, disHeaCon.chaPro)
-    annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-96},
-          {198,-96}},       color={255,0,255}));
+    annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-100},
+          {198,-100}},      color={255,0,255}));
   connect(lat.y, minChiWatFlo.uStaDow)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-329},
           {98,-329}},         color={255,0,255}));
@@ -536,10 +536,10 @@ equation
     annotation (Line(points={{138,-172},{-140,-172},{-140,-180},{-300,-180}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiEna)
-    annotation (Line(points={{-58,-190},{40,-190},{40,-174},{138,-174}},
+    annotation (Line(points={{-58,-200},{40,-200},{40,-174},{138,-174}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiSta)
-    annotation (Line(points={{-58,-190},{40,-190},{40,-176},{138,-176}},
+    annotation (Line(points={{-58,-200},{40,-200},{40,-176},{138,-176}},
       color={255,0,255}));
   connect(conWatPumCon.yDesConWatPumSpe, yDesConWatPumSpe)
     annotation (Line(points={{162,-179},{240,-179},{240,-180},{300,-180}},
@@ -669,10 +669,13 @@ equation
   connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,224},{-100,
           224},{-100,130},{-300,130}}, color={255,0,255}));
   connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-100,130},
-          {-100,-90},{120,-90},{120,-78},{138,-78}}, color={255,0,255}));
+          {-100,-86},{120,-86},{120,-78},{138,-78}}, color={255,0,255}));
   connect(conWatPumCon.uConWatPum, uConWatPum) annotation (Line(points={{138,-191},
           {70,-191},{70,-380},{-300,-380}}, color={255,0,255}));
-
+  connect(con.y, disHeaCon.uEnaPla) annotation (Line(points={{-138,200},{-120,200},
+          {-120,-92},{198,-92}}, color={255,0,255}));
+  connect(con.y, conWatPumCon.uEnaPla) annotation (Line(points={{-138,200},{
+          -120,200},{-120,-180},{138,-180}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),

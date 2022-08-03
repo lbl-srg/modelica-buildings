@@ -263,9 +263,9 @@ equation
   connect(lesEquThr1.y, and5.u1)
     annotation (Line(points={{-58,-70},{-22,-70}}, color={255,0,255}));
   connect(con2.y, disHeaCon.chaPro)
-    annotation (Line(points={{-58,-40},{10,-40},{10,-66},{38,-66}}, color={255,0,255}));
+    annotation (Line(points={{-58,-40},{10,-40},{10,-70},{38,-70}}, color={255,0,255}));
   connect(and5.y, disHeaCon.uUpsDevSta)
-    annotation (Line(points={{2,-70},{20,-70},{20,-62},{38,-62}},
+    annotation (Line(points={{2,-70},{20,-70},{20,-66},{38,-66}},
       color={255,0,255}));
   connect(nexDisChi, disHeaCon.nexChaChi)
     annotation (Line(points={{-220,70},{-180,70},{-180,-90},{20,-90},{20,-74},
@@ -427,7 +427,9 @@ equation
   connect(edg1.y, lat3.clr)
     annotation (Line(points={{182,-230},{190,-230},{190,-250},{-50,-250},
       {-50,-86},{98,-86}}, color={255,0,255}));
-
+  connect(con3.y, disHeaCon.uEnaPla)
+    annotation (Line(points={{-138,-150},{16,-150},{16,-62},{38,-62}},
+      color={255,0,255}));
 annotation (
   defaultComponentName="endUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,

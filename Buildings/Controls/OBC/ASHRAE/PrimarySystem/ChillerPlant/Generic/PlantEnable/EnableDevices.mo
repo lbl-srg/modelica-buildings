@@ -150,7 +150,7 @@ equation
           0},{0,-120},{18,-120}}, color={255,0,255}));
   connect(and3.y, yLeaChi)
     annotation (Line(points={{42,-120},{180,-120}}, color={255,0,255}));
-annotation (defaultComponentName = "enaWSE",
+annotation (defaultComponentName = "enaDev",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={
         Rectangle(
@@ -189,7 +189,7 @@ tower respectively.
 </li>
 <li>
 If the plant is enabled in chiller mode,
-once the lead pumps are proven on, enable lead chiller
+once the lead pumps are proven on, enable lead chiller.
 </li>
 </ol>
 </html>",

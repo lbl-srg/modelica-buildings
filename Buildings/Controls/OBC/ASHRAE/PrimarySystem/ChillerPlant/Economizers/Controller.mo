@@ -180,8 +180,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
-    if not have_byPasValCon
-    "True: heat exchanger pump is proven on"
+    if not have_byPasValCon "True: heat exchanger pump is proven on"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
@@ -214,8 +213,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal(
     final min=0,
     final max=1,
-    final unit="1")
-    "Economizer condensing water isolation valve position"
+    final unit="1") "Economizer condensing water isolation valve position"
     annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -228,8 +226,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
       iconTransformation(extent={{100,-52},{140,-12}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumOn
-    if not have_byPasValCon
-    "Heat exchanger pump command on"
+    if not have_byPasValCon "Heat exchanger pump command on"
     annotation (Placement(transformation(extent={{180,-200},{220,-160}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 

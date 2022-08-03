@@ -53,60 +53,64 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum] if have_heaPum
     "Index of chilled water pumps in lead-lag order: lead pump, first lag pump, second lag pump, etc."
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if not have_heaPum
     "True: plant is enabled"
     annotation (Placement(transformation(extent={{-320,160},{-280,200}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pumps proven on status"
     annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna if not have_heaPum
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not have_heaPum
     "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-320,60},{-280,100}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq if not have_heaPum
     "Status indicating if lead chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if have_heaPum
     "Chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-320,0},{-280,40}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-30},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla if have_heaPum
+    "True: plant is just enabled"
+    annotation(Placement(transformation(extent={{-320,-30},{-280,10}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final unit="m3/s") if have_heaPum
     "Chilled water flow"
-    annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-320,-70},{-280,-30}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
     final quantity="PressureDifference") if have_locSen
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-220},{-280,-180}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference",nSen))
     "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
+        iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{280,50},{320,90}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum]
- if have_heaPum
+    if have_heaPum
     "Chilled water pump status setpoint"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -374,7 +378,7 @@ equation
   connect(intEqu3.y, lasLagPumSta.u2)
     annotation (Line(points={{82,-90},{118,-90}},    color={255,0,255}));
   connect(enaLagChiPum.VChiWat_flow, VChiWat_flow)
-    annotation (Line(points={{-242,4},{-270,4},{-270,-20},{-300,-20}},
+    annotation (Line(points={{-242,4},{-250,4},{-250,-50},{-300,-50}},
       color={0,0,127}));
   connect(uChiWatPum, enaLagChiPum.uChiWatPum)
     annotation (Line(points={{-300,140},{-260,140},{-260,-3.8},{-242,-3.8}},
@@ -490,9 +494,10 @@ equation
           {210,-100},{210,-120},{218,-120}}, color={255,0,255}));
   connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{260,
           -140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
-
   connect(pumSpeLocDp.dpChiWatPumSet_local, dpChiWatPumSet_local) annotation (
       Line(points={{-38,-206},{200,-206},{200,-240},{300,-240}}, color={0,0,127}));
+  connect(uEnaPla, enaHeaLeaPum.uEnaPla) annotation (Line(points={{-300,-10},{-270,
+          -10},{-270,64},{-202,64}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,

@@ -135,16 +135,17 @@ equation
           {140,70},{140,40},{-24,40},{-24,73},{38,73}}, color={255,0,255}));
   connect(chiStaRet.y, upProCon.uConWatReq) annotation (Line(points={{122,70},{
           140,70},{140,40},{12,40},{12,66},{38,66}}, color={255,0,255}));
-  connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-118,-170},{14,-170},
-          {14,63},{38,63}},   color={255,0,255}));
+  connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-118,-170},{14,
+          -170},{14,64},{38,64}},
+                              color={255,0,255}));
   connect(upProCon.yDesConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{62,67},
           {80,67},{80,-60},{98,-60}},       color={0,0,127}));
   connect(zerOrdHol1.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{122,-60},
-          {140,-60},{140,-140},{16,-140},{16,60},{38,60}},        color={0,0,127}));
+          {140,-60},{140,-140},{16,-140},{16,62},{38,62}},        color={0,0,127}));
   connect(zerOrdHol1.y, zerOrdHol2.u) annotation (Line(points={{122,-60},{140,-60},
           {140,-90},{80,-90},{80,-110},{98,-110}}, color={0,0,127}));
   connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,
-          -110},{130,-110},{130,-134},{18,-134},{18,58},{38,58}},
+          -110},{130,-110},{130,-134},{18,-134},{18,60},{38,60}},
                                                            color={0,0,127}));
   connect(chiStaRet.y, upProCon.uChiHeaCon) annotation (Line(points={{122,70},{
           140,70},{140,40},{20,40},{20,53},{38,53}}, color={255,0,255}));
@@ -186,8 +187,9 @@ equation
           {-100,-118},{-62,-118}}, color={0,0,127}));
   connect(chiSta.y, sta.u)
     annotation (Line(points={{-38,-110},{-22,-110}}, color={0,0,127}));
-  connect(sta.y, upProCon.uChiSta) annotation (Line(points={{2,-110},{8,-110},{8,
-          70},{38,70}}, color={255,127,0}));
+  connect(sta.y, upProCon.uChiSta) annotation (Line(points={{2,-110},{8,-110},{
+          8,71},{38,71}},
+                        color={255,127,0}));
   connect(upProCon.yStaPro, falEdg.u) annotation (Line(points={{62,87},{70,87},{
           70,140},{78,140}}, color={255,0,255}));
   connect(falEdg.y, lat.u)
@@ -197,6 +199,10 @@ equation
   connect(lat.y, chiSta.u2) annotation (Line(points={{142,140},{150,140},{150,0},
           {-80,0},{-80,-110},{-62,-110}}, color={255,0,255}));
 
+  connect(wseSta.y, upProCon.uEnaPlaConPum) annotation (Line(points={{-118,-170},
+          {14,-170},{14,69},{38,69}}, color={255,0,255}));
+  connect(wseSta.y, upProCon.uEnaPlaConIso) annotation (Line(points={{-118,-170},
+          {14,-170},{14,58},{38,58}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Processes/Validation/UpWithoutOnOff.mos"

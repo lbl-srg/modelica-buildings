@@ -47,8 +47,7 @@ protected
     "Upstream device reset status"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOne(
-    final k=true)
-    "Operating chiller one"
+    final k=true) "Operating chiller one"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaChi(final k=2)
     "Enabling chiller index"
@@ -78,32 +77,39 @@ protected
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOne1(final k=true)
     "Operating chiller one"
-    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant disChi1(final k=2)
     "Disabling chiller index"
-    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Pre heaPreConRet2
     "Return value of chiller head pressure control status"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaChi1(
     final k=2) "Enabling small chiller"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{60,-126},{80,-106}})));
   Buildings.Controls.OBC.CDL.Logical.Pre heaPreConRet3
     "Return value of chiller head pressure control status"
     annotation (Placement(transformation(extent={{140,-130},{160,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiTwo1 "Chiller two status"
-    annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-
+    annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaPla(
+    final k=false)
+    "Plant is just enabled"
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaPla1(
+    final k=false)
+    "Plant is just enabled"
+    annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
 equation
   connect(booPul.y, staUp.u)
     annotation (Line(points={{-118,120},{-102,120}}, color={255,0,255}));
   connect(booPul1.y, upStrDev.u)
     annotation (Line(points={{-118,160},{-102,160}}, color={255,0,255}));
   connect(upStrDev.y, enaHeaCon.uUpsDevSta)
-    annotation (Line(points={{-78,160},{-60,160},{-60,148},{-42,148}},
+    annotation (Line(points={{-78,160},{-60,160},{-60,144},{-42,144}},
       color={255,0,255}));
   connect(staUp.y, enaHeaCon.chaPro)
-    annotation (Line(points={{-78,120},{-60,120},{-60,144},{-42,144}},
+    annotation (Line(points={{-78,120},{-60,120},{-60,140},{-42,140}},
       color={255,0,255}));
   connect(enaChi.y, enaHeaCon.nexChaChi)
     annotation (Line(points={{-78,60},{-56,60},{-56,136},{-42,136}},
@@ -112,15 +118,14 @@ equation
     annotation (Line(points={{-78,30},{-52,30},{-52,131.5},{-42,131.5}},
       color={255,0,255}));
   connect(enaHeaCon.yChiHeaCon[2], heaPreConRet.u) annotation (Line(points={{-18,
-          134.5},{-10,134.5},{-10,100},{-2,100}},
-                                              color={255,0,255}));
+          134.5},{-10,134.5},{-10,100},{-2,100}}, color={255,0,255}));
   connect(heaPreConRet.y, enaHeaCon.uChiHeaCon[2]) annotation (Line(points={{22,100},
           {30,100},{30,84},{-48,84},{-48,132.5},{-42,132.5}},  color={255,0,255}));
   connect(upStrDev.y, disHeaCon.uUpsDevSta)
-    annotation (Line(points={{-78,160},{40,160},{40,148},{58,148}},
+    annotation (Line(points={{-78,160},{40,160},{40,144},{58,144}},
       color={255,0,255}));
   connect(staUp.y, disHeaCon.chaPro)
-    annotation (Line(points={{-78,120},{40,120},{40,144},{58,144}},
+    annotation (Line(points={{-78,120},{40,120},{40,140},{58,140}},
       color={255,0,255}));
   connect(disChi.y, disHeaCon.nexChaChi)
     annotation (Line(points={{22,60},{44,60},{44,136},{58,136}},
@@ -129,8 +134,7 @@ equation
     annotation (Line(points={{-78,30},{48,30},{48,131.5},{58,131.5}},
       color={255,0,255}));
   connect(disHeaCon.yChiHeaCon[2], heaPreConRet1.u) annotation (Line(points={{82,
-          134.5},{90,134.5},{90,100},{98,100}},
-                                            color={255,0,255}));
+          134.5},{90,134.5},{90,100},{98,100}}, color={255,0,255}));
   connect(staUp.y, chiTwo.u2)
     annotation (Line(points={{-78,120},{-60,120},{-60,80},{138,80}},
       color={255,0,255}));
@@ -147,51 +151,55 @@ equation
   connect(booPul3.y, upStrDev1.u)
     annotation (Line(points={{-118,-60},{-102,-60}}, color={255,0,255}));
   connect(upStrDev1.y, disHeaCon1.uUpsDevSta)
-    annotation (Line(points={{-78,-60},{-60,-60},{-60,-72},{-42,-72}},
+    annotation (Line(points={{-78,-60},{-60,-60},{-60,-76},{-42,-76}},
       color={255,0,255}));
   connect(staUp1.y, disHeaCon1.chaPro)
-    annotation (Line(points={{-78,-100},{-60,-100},{-60,-76},{-42,-76}},
+    annotation (Line(points={{-78,-100},{-60,-100},{-60,-80},{-42,-80}},
       color={255,0,255}));
   connect(disChi1.y, disHeaCon1.nexChaChi)
-    annotation (Line(points={{-78,-160},{-56,-160},{-56,-84},{-42,-84}},
+    annotation (Line(points={{-78,-150},{-56,-150},{-56,-84},{-42,-84}},
       color={255,127,0}));
   connect(chiOne1.y, disHeaCon1.uChiHeaCon[1])
-    annotation (Line(points={{-78,-190},{-52,-190},{-52,-88.5},{-42,-88.5}},
+    annotation (Line(points={{-78,-180},{-52,-180},{-52,-88.5},{-42,-88.5}},
       color={255,0,255}));
   connect(disHeaCon1.yChiHeaCon[2], heaPreConRet2.u) annotation (Line(points={{-18,
-          -85.5},{-10,-85.5},{-10,-120},{-2,-120}},
-                                                color={255,0,255}));
+          -85.5},{-10,-85.5},{-10,-120},{-2,-120}}, color={255,0,255}));
   connect(enaHeaCon1.yChiHeaCon[2], heaPreConRet3.u) annotation (Line(points={{122,
-          -85.5},{130,-85.5},{130,-120},{138,-120}},
-                                                 color={255,0,255}));
+          -85.5},{130,-85.5},{130,-120},{138,-120}}, color={255,0,255}));
   connect(staUp1.y, chiTwo1.u2)
-    annotation (Line(points={{-78,-100},{-60,-100},{-60,-150},{38,-150}},
+    annotation (Line(points={{-78,-100},{-60,-100},{-60,-140},{38,-140}},
       color={255,0,255}));
   connect(heaPreConRet2.y, chiTwo1.u1) annotation (Line(points={{22,-120},{30,-120},
-          {30,-142},{38,-142}}, color={255,0,255}));
+          {30,-132},{38,-132}}, color={255,0,255}));
   connect(chiOne1.y, chiTwo1.u3)
-    annotation (Line(points={{-78,-190},{-52,-190},{-52,-158},{38,-158}},
+    annotation (Line(points={{-78,-180},{-52,-180},{-52,-148},{38,-148}},
       color={255,0,255}));
   connect(chiTwo1.y, disHeaCon1.uChiHeaCon[2])
-    annotation (Line(points={{62,-150},{70,-150},{70,-170},{-48,-170},{-48,-87.5},
+    annotation (Line(points={{62,-140},{70,-140},{70,-170},{-48,-170},{-48,-87.5},
           {-42,-87.5}},     color={255,0,255}));
   connect(upStrDev1.y, enaHeaCon1.uUpsDevSta)
-    annotation (Line(points={{-78,-60},{80,-60},{80,-72},{98,-72}},
+    annotation (Line(points={{-78,-60},{80,-60},{80,-76},{98,-76}},
       color={255,0,255}));
   connect(staUp1.y, enaHeaCon1.chaPro)
-    annotation (Line(points={{-78,-100},{80,-100},{80,-76},{98,-76}},
+    annotation (Line(points={{-78,-100},{80,-100},{80,-80},{98,-80}},
       color={255,0,255}));
   connect(enaChi1.y, enaHeaCon1.nexChaChi)
-    annotation (Line(points={{82,-120},{84,-120},{84,-84},{98,-84}},
+    annotation (Line(points={{82,-116},{84,-116},{84,-84},{98,-84}},
       color={255,127,0}));
   connect(chiOne1.y, enaHeaCon1.uChiHeaCon[1])
-    annotation (Line(points={{-78,-190},{88,-190},{88,-88.5},{98,-88.5}},
+    annotation (Line(points={{-78,-180},{88,-180},{88,-88.5},{98,-88.5}},
       color={255,0,255}));
   connect(heaPreConRet3.y, enaHeaCon1.uChiHeaCon[2])
     annotation (Line(points={{162,-120},{170,-120},{170,-150},{92,-150},{92,-87.5},
-          {98,-87.5}},
-                 color={255,0,255}));
-
+          {98,-87.5}}, color={255,0,255}));
+  connect(enaPla.y, enaHeaCon.uEnaPla) annotation (Line(points={{-118,10},{-64,10},
+          {-64,148},{-42,148}}, color={255,0,255}));
+  connect(enaPla.y, disHeaCon.uEnaPla) annotation (Line(points={{-118,10},{36,10},
+          {36,148},{58,148}}, color={255,0,255}));
+  connect(enaPla1.y, disHeaCon1.uEnaPla) annotation (Line(points={{-118,-200},{-64,
+          -200},{-64,-72},{-42,-72}}, color={255,0,255}));
+  connect(enaPla1.y, enaHeaCon1.uEnaPla) annotation (Line(points={{-118,-200},{34,
+          -200},{34,-72},{98,-72}}, color={255,0,255}));
 annotation (
  experiment(StopTime=120, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Processes/Subsequences/Validation/HeadControl.mos"
