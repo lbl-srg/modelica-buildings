@@ -42,6 +42,7 @@ model StaticReset
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(
+      PowerOrEfficiencyIsHydraulic=fan1.per.PowerOrEfficiencyIsHydraulic,
       pressure=fan1.per.pressure,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
@@ -58,7 +59,7 @@ model StaticReset
       pressure=fan1.per.pressure,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
-      hydraulicEfficiency(eta={0.7}))) "Fan using constant efficiency"
+      efficiency(eta={0.7}))) "Fan using constant efficiency"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   // Duct pressure drops
