@@ -758,7 +758,8 @@ equation
     else
       P_internal = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
-    eta_internal=WFlo/P_internal;
+    eta_internal = WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                     x1=P_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     if per.PowerOrEfficiencyIsHydraulic then
