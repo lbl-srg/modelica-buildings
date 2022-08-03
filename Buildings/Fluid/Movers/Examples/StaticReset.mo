@@ -56,6 +56,7 @@ model StaticReset
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(
+      PowerOrEfficiencyIsHydraulic=fan1.per.PowerOrEfficiencyIsHydraulic,
       pressure=fan1.per.pressure,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
