@@ -10,8 +10,6 @@ model EulerReducedSpeed
     "Constant density";
 
   parameter Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13 per1(
-    final etaMet=
-            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
     final etaHydMet=
             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaMotMet=

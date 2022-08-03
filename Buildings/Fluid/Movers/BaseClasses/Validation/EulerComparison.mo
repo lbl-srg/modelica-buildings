@@ -19,16 +19,8 @@ model EulerComparison
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Buildings.Fluid.Movers.Data.Generic per2(
-    final etaMet=
-      if per1.etaMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-      then Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      else Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
     final etaHydMet=
-      if per1.etaHydMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-      then Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      else Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaMotMet=
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
     pressure=per1.pressure,
@@ -49,28 +41,24 @@ model EulerComparison
 
   Modelica.Units.SI.VolumeFlowRate V_flow = m_flow.y/rhoCon "Volumetric flow rate";
   Modelica.Units.SI.Power P1(displayUnit="W")=
-    if per1.etaMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-    then eff1.PEle
-    else eff1.WHyd
+    if per1.PowerOrEfficiencyIsHydraulic
+    then eff1.WHyd
+    else eff1.PEle
     "Power from interpolation (total or hydraulic depending on data)";
   Modelica.Units.SI.Power P2(displayUnit="W")=
-    if per1.etaMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-    then eff2.PEle
-    else eff2.WHyd
+    if per1.PowerOrEfficiencyIsHydraulic
+    then eff2.WHyd
+    else eff2.PEle
     "Power from Euler number (total or hydraulic depending on data)";
   Modelica.Units.SI.Efficiency eta1=
-    if per1.etaMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-    then eff1.eta
-    else eff1.etaHyd
+    if per1.PowerOrEfficiencyIsHydraulic
+    then eff1.etaHyd
+    else eff1.eta
     "Efficiency from interpolation (total or hydraulic depending on data)";
   Modelica.Units.SI.Efficiency eta2=
-    if per1.etaMet==
-       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-    then eff2.eta
-    else eff2.etaHyd
+    if per1.PowerOrEfficiencyIsHydraulic
+    then eff2.etaHyd
+    else eff2.eta
     "Efficiency from Euler number (total or hydraulic depending on data)";
 
   Modelica.Blocks.Sources.Ramp m_flow(
