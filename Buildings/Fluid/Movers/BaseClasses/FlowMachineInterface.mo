@@ -687,8 +687,7 @@ equation
   //WHyd = WFlo / etaMot;
   //PEle = WHyd / etaHyd;
   eta = etaHyd * etaMot;
-  PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                  x1=eta, x2=1E-2, deltaX=1E-3);
+
 
 /*  // Total efficiency eta and consumed electric power PEle
   if per.etaMet==
@@ -738,9 +737,13 @@ equation
   if per.PowerOrEfficiencyIsHydraulic then
     P_internal=WHyd;
     eta_internal=etaHyd;
+    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                    x1=eta, x2=1E-2, deltaX=1E-3);
   else
     P_internal=PEle;
     eta_internal=eta;
+    WHyd = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                    x1=etaMot, x2=1E-2, deltaX=1E-3);
   end if;
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
@@ -755,11 +758,7 @@ equation
     else
       P_internal = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
-    if per.PowerOrEfficiencyIsHydraulic then
-      eta_internal=WFlo/P_internal;
-    else
-      eta_internal=P_internal/PEle;
-    end if;
+    eta_internal=WFlo/P_internal;
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     if per.PowerOrEfficiencyIsHydraulic then
