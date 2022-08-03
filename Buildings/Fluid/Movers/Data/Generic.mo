@@ -11,10 +11,6 @@ record Generic "Generic data record for movers"
                Dialog(group="Pressure curve"));
 
   // Efficiency computation choices
-/*  parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-    "Efficiency computation method for the total efficiency eta"
-    annotation (Dialog(group="Power computation"));*/
   parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaHydMet=
     Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
     "Efficiency computation method for the hydraulic efficiency etaHyd"
@@ -30,35 +26,7 @@ record Generic "Generic data record for movers"
     enable=max(power.P)>Modelica.Constants.eps
     or max(efficiency.eta)>Modelica.Constants.eps));
 
-/*  final parameter Boolean use_powerCharacteristic=
-    etaMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-    or etaHydMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-    "The power curve is used for either total efficiency or hydraulic efficiency";
-
-  final parameter Boolean use_eulerNumber=
-    etaMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-    or etaHydMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-    "The Euler number is used for either total efficiency or hydraulic efficiency";*/
-
   // Arrays for efficiency values
-/*  parameter 
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    totalEfficiency(
-      V_flow={0},
-      eta={0.49}) "Total efficiency vs. volumetric flow rate"
-    annotation (Dialog(group="Power computation",
-                       enable=etaMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate));
-  parameter 
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(
-      V_flow={0},
-      eta={0.7}) "Hydraulic efficiency vs. volumetric flow rate"
-    annotation (Dialog(group="Power computation",
-                       enable=etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate));*/
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     efficiency(

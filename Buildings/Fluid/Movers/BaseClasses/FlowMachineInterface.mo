@@ -138,29 +138,6 @@ protected
     "True if pressure head is a prescribed variable of this block";
 
   // Derivatives for cubic spline
-  /*final parameter Real etaDer[size(per.totalEfficiency.V_flow,1)]=
-    if not per.etaMet==Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate
-      then zeros(size(per.totalEfficiency.V_flow,1))
-    elseif (size(per.totalEfficiency.V_flow, 1) == 1)
-      then {0}
-    else 
-      Buildings.Utilities.Math.Functions.splineDerivatives(
-        x=per.totalEfficiency.V_flow,
-        y=per.totalEfficiency.eta,
-        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-          x=per.totalEfficiency.eta,
-          strict=false))
-    "Coefficients for cubic spline of total efficiency vs. volume flow rate";
-  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)]=
-    if not per.etaHydMet==Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate
-      then zeros(size(per.hydraulicEfficiency.V_flow,1))
-    elseif (size(per.hydraulicEfficiency.V_flow, 1) == 1)
-      then {0}
-    else 
-      Buildings.Utilities.Math.Functions.splineDerivatives(
-        x=per.hydraulicEfficiency.V_flow,
-        y=per.hydraulicEfficiency.eta)
-    "Coefficients for cubic spline of hydraulic efficiency vs. volume flow rate";*/
   final parameter Real etaDer[size(per.efficiency.V_flow,1)]=
     if not per.etaHydMet==Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate
       then zeros(size(per.efficiency.V_flow,1))
@@ -224,9 +201,6 @@ protected
 
   parameter Real kRes(min=0, unit="kg/(s.m4)") =  dpMax/V_flow_max*delta^2/10
     "Coefficient for internal pressure drop of the fan or pump";
-
-/*  parameter Modelica.Units.SI.Power deltaP = 1E-4 * V_flow_max * dpMax
-    "Small value used for regularisation of power terms";*/
 
   parameter Integer curve=
      if (haveVMax and haveDPMax) or (nOri == 2) then 1
@@ -462,29 +436,6 @@ the simulation stops.");
       y=pCur3.dp);
   end if;
 
-/*  assert(not (per.etaMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-         and per.etaHydMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate),
-         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet
-         can be set to .Power_VolumeFlowRate.");
-
-  assert(not (per.etaMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-         and per.etaHydMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
-         "In " + getInstanceName() + ": Only one of etaMet and etaHydMet
-         can be set to .EulerNumber.");
-
-  assert(per.etaMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-         or per.etaHydMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-         or per.etaMotMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
-         "In " + getInstanceName() + ": The problem is over-specified. At least one of the three efficiency
-         methods must be set to .NotProvided.");*/
-
   assert(not ((per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
            or  per.etaMotMet==
@@ -510,24 +461,6 @@ initial algorithm
          value. This constant will be removed in future releases.",
          level = AssertionLevel.warning);
 
-/*  assert(not (per.etaMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-         and per.etaHydMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided),
-"*** Warning in "+ getInstanceName()+
-             ": Because eta and etaHyd are both provided,
-             etaMot = eta / etaHyd is now imposed to have an upper limit of 1.",
-         level=AssertionLevel.warning);
-
-  assert(not (per.etaMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-         and per.etaMotMet<>
-           Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
-"*** Warning in "+ getInstanceName()+
-             ": Because eta and etaMot are both provided,
-             etaHyd = eta / etaMot is now imposed to have an upper limit of 1.",
-         level=AssertionLevel.warning);*/
-
 equation
   //assign values of dp and r_N, depending on which variable exists and is prescribed
   connect(dp_internal,dp);
@@ -539,12 +472,6 @@ equation
   connect(V_flow_internal.u1,m_flow);
   connect(V_flow_internal.u2,rho);
   connect(V_flow_internal.y,V_flow);
-
-  //for power computation via EulerNumber
-  connect(effTab.u1, dp_internal);
-  connect(effTab.u2, V_flow_internal.y);
-  connect(powTab.u1, dp_internal);
-  connect(powTab.u2, V_flow);
 
   // Hydraulic equations
   r_V = V_flow/V_flow_max;
@@ -685,52 +612,14 @@ equation
   // Power and efficiency
   WFlo = Buildings.Utilities.Math.Functions.smoothMax(
            x1=dp_internal*V_flow, x2=0, deltaX=1E-6);
-  //WHyd = WFlo / etaMot;
-  //PEle = WHyd / etaHyd;
   eta = etaHyd * etaMot;
 
-
-/*  // Total efficiency eta and consumed electric power PEle
-  if per.etaMet==
-    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
-    eta = Buildings.Utilities.Math.Functions.smoothMax(
-            x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                      x1=PEle, x2=1E-5, deltaX=1E-6),
-            x2=1E-2, deltaX=1E-3);
-    if homotopyInitialization then
-      PEle = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
-                      simplified=V_flow/V_flow_nominal*
-                            cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
-    else
-      PEle = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
-    end if;
-  elseif per.etaMet==
-    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
-    connect(effTab.y,eta);
-    connect(powTab.y,PEle);
-  elseif per.etaMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
-    PEle = WFlo / eta;
-    if homotopyInitialization then
-      eta = homotopy(actual=cha.efficiency(per=per.totalEfficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=per.totalEfficiency, V_flow=V_flow_max,   d=etaDer, r_N=r_N, delta=delta));
-    else
-      eta = cha.efficiency(per=per.totalEfficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
-    end if;
-  else
-  // Total efficiency not provided
-    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=etaHyd * etaMot, x2=1E-2, deltaX=1E-3);
-    if per.etaHydMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided or 
-       per.etaMotMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided then
-    // Either or both of the other two are provided
-      eta = etaHyd * etaMot;
-    else
-    // Neither
-      eta = 0.49;
-    end if;
-  end if;*/
+  // for power computation via EulerNumber
+  //   effTab and powTab are conditionally-enabled blocks.
+  connect(effTab.u1, dp_internal);
+  connect(effTab.u2, V_flow_internal.y);
+  connect(powTab.u1, dp_internal);
+  connect(powTab.u2, V_flow);
 
   // Hydraulic efficiency etaHyd and hydraulic work WHyd
   //   or total efficiency eta and total electric power PEle
@@ -748,10 +637,6 @@ equation
   end if;
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
-    /*eta_internal = Buildings.Utilities.Math.Functions.smoothMax(
-               x1=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                         x1=P_internal, x2=1E-5, deltaX=1E-6),
-               x2=1E-2, deltaX=1E-3);*/
     if homotopyInitialization then
       P_internal = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
@@ -771,7 +656,6 @@ equation
       connect(powTab.y,PEle);
     end if;
   elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
-    /*P_internal = WFlo / eta_internal;*/
     if homotopyInitialization then
       eta_internal = homotopy(actual=cha.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
                         simplified=cha.efficiency(per=per.efficiency, V_flow=V_flow_max,   d=etaDer, r_N=r_N, delta=delta));
@@ -791,17 +675,6 @@ equation
       eta_internal=0.49;
       P_internal=WHyd/eta_internal;
     end if;
-/*  // Hydraulic efficiency not provided
-    P_internal = WFlo / eta_internal;
-    if per.etaMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided then
-    // As long as eta is provided
-      eta_internal = Buildings.Utilities.Math.Functions.smoothMin(
-                 x1=eta / etaMot, x2=1, deltaX=1E-3);
-    else
-    // Only etaMot provided or neither
-      eta_internal = 0.7;
-    end if;*/
   end if;
 
   // Motor efficiency etaMot
@@ -844,18 +717,7 @@ equation
           y=yMot,
           d=motDer_yMot_generic);
       end if;
-  else
-  // Not provided
-    /*if per.etaMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided and 
-       per.etaHydMet<>
-         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided then
-    // If both etaMet and etaHydMet provided
-      etaMot = Buildings.Utilities.Math.Functions.smoothMin(
-                 x1=eta / etaHyd, x2=1, deltaX=1E-3);
-    else
-      etaMot = 0.7;
-    end if;*/
+  else // Not provided
     etaMot = 0.7;
   end if;
 
