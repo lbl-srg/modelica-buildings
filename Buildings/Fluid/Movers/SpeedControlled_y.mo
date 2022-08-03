@@ -14,7 +14,6 @@ model SpeedControlled_y
       y(final unit="1")),
     eff(
       per(final pressure = per.pressure,
-          final etaMet = per.etaMet,
           final etaHydMet = per.etaHydMet,
           final etaMotMet = per.etaMotMet),
           r_N(start=y_start)),

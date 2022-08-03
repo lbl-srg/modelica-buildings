@@ -238,16 +238,16 @@ protected
   // to zero.
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff(
     per(
-      final totalEfficiency =     per.totalEfficiency,
-      final hydraulicEfficiency = per.hydraulicEfficiency,
-      final motorEfficiency =     per.motorEfficiency,
-      final motorEfficiency_yMot= per.motorEfficiency_yMot,
-      final motorCooledByFluid =  per.motorCooledByFluid,
-      final speed_nominal =       0,
-      final constantSpeed =       0,
-      final speeds =              {0},
-      final power =               per.power,
-      final peak =                per.peak),
+      final PowerOrEfficiencyIsHydraulic = per.PowerOrEfficiencyIsHydraulic,
+      final efficiency =           per.efficiency,
+      final motorEfficiency =      per.motorEfficiency,
+      final motorEfficiency_yMot = per.motorEfficiency_yMot,
+      final motorCooledByFluid =   per.motorCooledByFluid,
+      final speed_nominal =        0,
+      final constantSpeed =        0,
+      final speeds =               {0},
+      final power =                per.power,
+      final peak =                 per.peak),
     final nOri = nOri,
     final rho_default=rho_default,
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
@@ -360,15 +360,16 @@ initial algorithm
   // Hence, the speed is computed using default values, which likely are wrong.
   // In addition, the user wants to use (V_flow, P) to compute the power.
   // This can lead to using a power that is less than the flow work. We avoid
-  // this by ignoring the setting of per.use_powerCharacteristics.
+  // this by ignoring the setting of per.etaHydMet.
   // The comment is split into two parts since otherwise the JModelica C-compiler
   // throws warnings.
   assert(nominalValuesDefineDefaultPressureCurve or
          (per.havePressureCurve or
            (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
-         per.use_powerCharacteristic == false,
+         per.etaHydMet<>
+      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
 "*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve with etaMet or etaHydMet set to
+             default pressure curve with per.etaHydMet set to
              Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate.
              Since this can cause wrong power consumption, the model will overwrite
              this setting and use instead
@@ -379,9 +380,10 @@ initial algorithm
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.peak.V_flow > Modelica.Constants.eps or
-          not per.use_eulerNumber,
+          not per.etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
 "*** Warning in "+ getInstanceName()+
-             ": per.etaMet or per.etaHydMet is set to .EulerNumber.
+             ": per.etaHydMet is set to .EulerNumber.
              This requires that per.peak be provided
              or at least per.pressure be provided so that per.peak can
              be estimated. Because neither is provided,

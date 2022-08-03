@@ -20,12 +20,6 @@ model FlowControlled_m_flow
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-        final etaMet=
-          if per.etaMet ==
-               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-            and not per.havePressureCurve then
-              Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-          else per.etaMet,
         final etaHydMet=
           if per.etaHydMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
