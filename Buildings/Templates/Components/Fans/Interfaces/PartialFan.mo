@@ -1,7 +1,8 @@
 within Buildings.Templates.Components.Fans.Interfaces;
 partial model PartialFan "Interface class for fan"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=dat.m_flow_nominal);
+    final m_flow_nominal=dat.m_flow_nominal)
+    annotation(__Linkage(enable=false));
 
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
@@ -9,7 +10,6 @@ partial model PartialFan "Interface class for fan"
   parameter Boolean have_senFlo
     "Set to true for air flow measurement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
 
   parameter Buildings.Templates.Components.Types.FanSingle typSin=
     Buildings.Templates.Components.Types.FanSingle.Housed

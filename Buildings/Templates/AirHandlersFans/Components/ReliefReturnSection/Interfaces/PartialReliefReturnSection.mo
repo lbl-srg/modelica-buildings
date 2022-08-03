@@ -3,7 +3,8 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
 
   parameter AirHandlersFans.Types.ReliefReturnSection typ
     "Relief/return air section type"

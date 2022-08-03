@@ -4,7 +4,8 @@ partial model PartialOutdoorReliefReturnSection
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection typ
     "Outdoor/relief/return air section type"

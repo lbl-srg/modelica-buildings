@@ -108,7 +108,7 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Heating coil leaving air temperature sensor"
-    annotation (Dialog(group="Supply air section"),
+    annotation (
       Placement(transformation(extent={{40,-210},{60,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirCoiCooLvg(

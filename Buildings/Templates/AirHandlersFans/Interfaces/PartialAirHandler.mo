@@ -2,15 +2,18 @@ within Buildings.Templates.AirHandlersFans.Interfaces;
 partial model PartialAirHandler "Interface class for air handler"
   inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
   inner replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
-    annotation(Dialog(enable=have_souChiWat));
+    annotation(Dialog(enable=have_souChiWat),
+      __Linkage(enable=false));
   inner replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HHW medium"
-    annotation(Dialog(enable=have_souHeaWat));
+    annotation(Dialog(enable=have_souHeaWat),
+      __Linkage(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
     "Type of system"

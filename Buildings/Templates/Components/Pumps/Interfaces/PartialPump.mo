@@ -1,6 +1,7 @@
 within Buildings.Templates.Components.Pumps.Interfaces;
 partial model PartialPump "Interface class for pump"
-  extends Fluid.Interfaces.PartialTwoPortInterface;
+  extends Fluid.Interfaces.PartialTwoPortInterface
+    annotation(__Linkage(enable=false));
 
   parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"

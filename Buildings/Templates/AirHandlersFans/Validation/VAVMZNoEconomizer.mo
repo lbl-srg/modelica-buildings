@@ -42,7 +42,7 @@ model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
     constrainedby Buildings.Templates.AirHandlersFans.VAVMultiZone(
     final dat=dat.VAV_1,
     redeclare final package MediumAir = MediumAir,
-    redeclare final package MediumChiWat = MediumChiWat)
+    redeclare final package MediumChiWat = MediumChiWat) "Air handling unit"
     annotation (Placement(transformation(extent={{-20,-50},{20,-10}})));
   Buildings.Fluid.Sources.Boundary_pT bouOut(redeclare final package Medium =
         MediumAir, nPorts=2) "Boundary conditions for outdoor environment"

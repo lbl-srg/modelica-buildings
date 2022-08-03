@@ -3,7 +3,8 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typ
     "Outdoor air section type"

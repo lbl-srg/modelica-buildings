@@ -4,11 +4,12 @@ partial model PartialAirTerminal
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HHW medium"
-    annotation(Dialog(enable=have_souHeaWat));
+    annotation(Dialog(enable=have_souHeaWat), __Linkage(enable=false));
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
     "Type of system"
