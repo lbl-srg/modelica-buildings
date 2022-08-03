@@ -19,6 +19,7 @@ model EulerComparison
     "Flow machine interface using power characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Buildings.Fluid.Movers.Data.Generic per2(
+    final PowerOrEfficiencyIsHydraulic=per1.PowerOrEfficiencyIsHydraulic,
     final etaHydMet=
            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaMotMet=
