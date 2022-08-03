@@ -321,7 +321,8 @@ protected
   Modelica.Units.SI.Power P_internal
     "Either PEle or WHyd";
 
-  Modelica.Blocks.Math.Division divByRho "Divide by density";
+  Modelica.Blocks.Math.Division V_flow_internal
+    "Converts mass flow rate to volumetric flow rate";
   // This block replaces an algebraic equation with connections to allow
   //   the conditional declarations of CombiTable2D blocks used in the Euler number
   //   computations. This avoids the need to provide them with initial table values
@@ -535,13 +536,13 @@ equation
   y_out=r_N;
 
   //density conversion
-  connect(divByRho.u1,m_flow);
-  connect(divByRho.u2,rho);
-  connect(divByRho.y,V_flow);
+  connect(V_flow_internal.u1,m_flow);
+  connect(V_flow_internal.u2,rho);
+  connect(V_flow_internal.y,V_flow);
 
   //for power computation via EulerNumber
   connect(effTab.u1, dp_internal);
-  connect(effTab.u2, divByRho.y);
+  connect(effTab.u2, V_flow_internal.y);
   connect(powTab.u1, dp_internal);
   connect(powTab.u2, V_flow);
 
