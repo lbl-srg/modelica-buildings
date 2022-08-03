@@ -26,7 +26,9 @@ record Generic "Generic data record for movers"
 
   parameter Boolean PowerOrEfficiencyIsHydraulic=true
     "=true if hydraulic power or efficiency is provided, instead of total"
-    annotation (Dialog(group="Power computation"));
+    annotation (Dialog(group="Power computation",
+    enable=max(power.P)>Modelica.Constants.eps
+    or max(efficiency.eta)>Modelica.Constants.eps));
 
 /*  final parameter Boolean use_powerCharacteristic=
     etaMet==
