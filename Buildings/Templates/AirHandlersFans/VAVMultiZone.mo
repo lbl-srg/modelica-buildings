@@ -79,7 +79,7 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Mixed air temperature sensor"
-    annotation (Dialog(group="Supply air section", enable=false), Placement(
+    annotation (Placement(
         transformation(extent={{-110,-210},{-90,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
@@ -118,7 +118,7 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Cooling coil leaving air temperature sensor"
-    annotation (Dialog(group="Supply air section"),
+    annotation (
       Placement(transformation(extent={{100,-210},{120,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
@@ -161,20 +161,21 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Supply air temperature sensor"
-    annotation (Dialog(group="Supply air section"), Placement(
+    annotation (Placement(
         transformation(extent={{210,-210},{230,-190}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=true)
     "Duct static pressure sensor"
-    annotation (Dialog(group="Supply air section"),
+    annotation (
       Placement(transformation(extent={{250,-230},{270,-210}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pBui_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=have_senPreBui,
-    final text_flip=true) "Building static pressure"
+    final text_flip=true)
+    "Building static pressure"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
 
   Buildings.Fluid.Sources.Outside out(
@@ -198,20 +199,24 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctl.typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
-         or ctl.typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
+    final have_sen=
+      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      (ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb or
+       ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air temperature sensor"
-    annotation (Dialog(group="Exhaust/relief/return section"),
+    annotation (
       Placement(transformation(extent={{220,-90},{200,-70}})));
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctl.typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=
+      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
-    annotation (Dialog(group="Exhaust/relief/return section"),
+    annotation (
       Placement(transformation(extent={{250,-90},{230,-70}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
@@ -284,7 +289,8 @@ model VAVMultiZone "Multiple-zone VAV"
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=fill(0, 3)) if have_souHeaWat
-    "HHW return junction" annotation (Placement(transformation(
+    "HHW return junction"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-240})));

@@ -32,8 +32,8 @@ equation
   /* Control point connection - end */
   connect(fanRet.port_b, splEco.port_1)
     annotation (Line(points={{50,0},{10,0}}, color={0,127,255}));
-  connect(hAirRet.port_b, fanRet.port_a)
-    annotation (Line(points={{120,0},{70,0}}, color={0,127,255}));
+  connect(fanRet.port_a, port_a)
+    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
   annotation (Icon(graphics={
               Line(
           points={{0,0},{180,0}},

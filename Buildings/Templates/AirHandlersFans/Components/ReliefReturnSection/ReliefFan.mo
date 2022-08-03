@@ -41,8 +41,8 @@ equation
     annotation (Line(points={{-140,0},{-120,0}}, color={0,127,255}));
   connect(fanRel.port_a, splEco.port_2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(hAirRet.port_b, splEco.port_1)
-    annotation (Line(points={{120,0},{10,0}}, color={0,127,255}));
+  connect(splEco.port_1, port_a)
+    annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This model represents a configuration with an air economizer

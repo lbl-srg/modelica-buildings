@@ -36,10 +36,6 @@ partial model PartialAirHandler "Interface class for air handler"
    "System tag"
     annotation (Dialog(group="Configuration"));
 
-  parameter Boolean is_modCtrSpe = true
-    "Set to true to activate the control specification mode"
-    annotation(Evaluate=true);
-
   parameter Boolean have_porRel=
     typ==Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
     "Set to true for relief (exhaust) fluid port"

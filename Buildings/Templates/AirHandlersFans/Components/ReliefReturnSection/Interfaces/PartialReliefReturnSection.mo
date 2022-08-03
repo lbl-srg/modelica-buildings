@@ -112,23 +112,6 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
       typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure)
     "Return fan discharge static pressure sensor"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  Buildings.Templates.Components.Sensors.Temperature TAirRet(
-    redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final have_sen=
-      typ<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
-      (typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb or
-      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb))
-    "Return air temperature sensor"
-    annotation (Placement(transformation(extent={{170,-10},{150,10}})));
-  Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
-    redeclare final package Medium = MediumAir,
-    final m_flow_nominal=m_flow_nominal,
-    final have_sen=
-      typ<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
-      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
-    "Return air specific enthalpy sensor"
-    annotation (Placement(transformation(extent={{140,-10},{120,10}})));
 equation
   /* Control point connection - start */
   connect(pAirRet_rel.y, bus.pAirRet_rel);
@@ -139,10 +122,6 @@ equation
           {20,0},{10,0}}, color={0,127,255}));
   connect(pAirRet_rel.port_b, port_bPre)
     annotation (Line(points={{70,40},{80,40},{80,-140}}, color={0,127,255}));
-  connect(TAirRet.port_b, hAirRet.port_a)
-    annotation (Line(points={{150,0},{140,0}}, color={0,127,255}));
-  connect(TAirRet.port_a, port_a)
-    annotation (Line(points={{170,0},{180,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},
             {180,140}}), graphics={
         Text(
