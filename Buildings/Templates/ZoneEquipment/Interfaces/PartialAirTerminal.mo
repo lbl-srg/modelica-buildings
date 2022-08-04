@@ -114,7 +114,7 @@ partial model PartialAirTerminal
     extent={{-200,-200},{200,200}}), graphics={
         Text(
           extent={{-155,-218},{145,-258}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"), Rectangle(
           extent={{-200,200},{200,-200}},
           lineColor={0,0,255},

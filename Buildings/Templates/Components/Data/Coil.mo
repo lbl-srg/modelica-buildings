@@ -124,4 +124,12 @@ the maximum value from the performance data record.
     annotation(choicesAllMatching=true, Dialog(
       enable=typ==Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage or
       typ==Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed));
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+the classes within
+<a href=\"modelica://Buildings.Templates.Components.Coils\">
+Buildings.Templates.Components.Coils</a>.
+</p>
+</html>"));
 end Coil;

@@ -25,7 +25,7 @@ partial block PartialController "Interface class for terminal unit controller"
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-151,-114},{149,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
             200}})),

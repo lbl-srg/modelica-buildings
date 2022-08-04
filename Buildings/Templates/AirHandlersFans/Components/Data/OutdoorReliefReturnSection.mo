@@ -61,4 +61,12 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
     "Return fan"
     annotation (Dialog(group="Fans",
     enable=typFanRet <>Buildings.Templates.Components.Types.Fan.None));
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+the classes within 
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection\">
+Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection</a>.
+</p>
+</html>"));
 end OutdoorReliefReturnSection;

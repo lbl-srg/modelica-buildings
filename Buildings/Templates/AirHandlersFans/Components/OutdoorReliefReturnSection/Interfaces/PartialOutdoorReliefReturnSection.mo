@@ -145,7 +145,7 @@ partial model PartialOutdoorReliefReturnSection
     graphics={
       Text(
           extent={{-149,-834},{151,-874}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
       Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.SingleVariable,

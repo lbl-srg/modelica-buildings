@@ -134,4 +134,12 @@ record VAVBoxController "Record for VAV terminal unit controller"
     "Zone minimum heating airflow set point"
     annotation (Dialog(group="Airflow",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+VAV box controllers within 
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.Components.Controls\">
+Buildings.Templates.ZoneEquipment.Components.Controls</a>.
+</p>
+</html>"));
 end VAVBoxController;

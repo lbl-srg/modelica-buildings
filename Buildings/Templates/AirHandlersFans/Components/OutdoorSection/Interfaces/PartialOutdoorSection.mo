@@ -74,7 +74,7 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
             {180,140}}), graphics={
         Text(
           extent={{-149,-150},{151,-190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
     Documentation(info="<html>

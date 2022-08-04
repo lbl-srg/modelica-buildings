@@ -445,20 +445,17 @@ equation
         Text(
           visible=have_senPreBui,
           extent={{18,46},{60,34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontName="sans-serif",
-          textString="REPRESENTATIVE SPACE
-INSIDE BUILDING",
-          fontSize=4),
+          textString="REPRESENTATIVE SPACE INSIDE BUILDING"),
         Text(
           visible=have_senPreBui,
           extent={{-60,46},{-18,34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Right,
           fontName="sans-serif",
-          textString="REFERENCE OUTSIDE
-BUILDING",fontSize=4)}),
+          textString="REFERENCE OUTSIDE BUILDING")}),
     Documentation(info="<html>
 <h4>Description</h4>
 <p>

@@ -108,5 +108,12 @@ equation
     defaultComponentName="conPoiDum",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),       Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-200,-180},{200,180}})));
+            false, extent={{-200,-180},{200,180}})),
+    Documentation(info="<html>
+<p>
+This class generates signals typically provided by the terminal
+unit controller.
+It is aimed for validation purposes only. 
+</p>
+</html>"));
 end VAVBoxControlPoints;

@@ -62,5 +62,12 @@ record AllSystems "Top-level (whole building) record for testing purposes"
             10,12}})));
 annotation (
   defaultComponentPrefixes = "parameter",
-  defaultComponentName = "dat");
+  defaultComponentName = "dat",
+    Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+the whole HVAC system.
+It is aimed for validation purposes only.
+</p>
+</html>"));
 end AllSystems;

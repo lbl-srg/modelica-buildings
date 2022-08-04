@@ -167,4 +167,12 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     annotation (Dialog(group="Supply air temperature",
     enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone));
 
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+multiple-zone VAV controllers within
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.Controls\">
+Buildings.Templates.AirHandlersFans.Components.Controls</a>.
+</p>
+</html>"));
 end VAVMultiZoneController;

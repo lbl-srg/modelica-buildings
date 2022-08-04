@@ -90,5 +90,12 @@ record VAVMultiZone "Record for multiple-zone VAV"
 
 annotation (
   defaultComponentPrefixes = "parameter",
-  defaultComponentName = "dat");
+  defaultComponentName = "dat",
+    Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for the class
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\">
+Buildings.Templates.AirHandlersFans.VAVMultiZone</a>.
+</p>
+</html>"));
 end VAVMultiZone;

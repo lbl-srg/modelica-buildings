@@ -59,7 +59,7 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-110},{151,-150}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}), Documentation(info="<html>
 <p>
 This class provides a standard interface for the 
