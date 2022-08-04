@@ -226,7 +226,7 @@ protected
     "Damper control to regulate measured air flowrate at required air flowrate"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[3]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[3]
     "Product of required volume flow rate for a given mode and the current mode status"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
@@ -256,7 +256,7 @@ protected
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
     "Product to close chilled beam manifold valve due to condensation"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
 
@@ -265,7 +265,7 @@ protected
     "Zone condensation warning"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch to completely open damper when condensation is detected, and regulate its position otherwise"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 

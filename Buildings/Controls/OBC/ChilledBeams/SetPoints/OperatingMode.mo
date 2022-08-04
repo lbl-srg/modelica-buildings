@@ -25,7 +25,7 @@ block OperatingMode
     "Table defining when occupancy is expected"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Pass signal for occupied mode if zone is occupied; Else pass signal for unoccupiedScheduled or unoccupiedUnscheduled"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -39,7 +39,7 @@ protected
     "Constant integer for occupied mode"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Pass signal for unoccupiedScheduled if schedule indicates non-occupancy; Else pass unoccupiedUnscheduled"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 

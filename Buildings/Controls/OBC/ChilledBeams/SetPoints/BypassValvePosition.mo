@@ -74,7 +74,7 @@ block BypassValvePosition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Real switch for regulating bypass valve position once all conditions are satisfied"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -92,7 +92,7 @@ protected
     "Regulate bypass valve position only when pump is enabled and at minimum speed"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Ensure bypass valve is open when no pumps are enabled and close it when any pump is enabled"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
@@ -131,7 +131,7 @@ protected
     "Offset for maximum dp chilled water"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Divide difference by max setpoint to normalize measurement signal"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 

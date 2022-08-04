@@ -99,7 +99,7 @@ block ChilledWaterSupplyReset
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Send zero requests if condensation is detected in the zone. Else send requests generated from valve position"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
 

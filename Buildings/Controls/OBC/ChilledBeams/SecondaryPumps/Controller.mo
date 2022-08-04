@@ -208,7 +208,7 @@ protected
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nPum]
     "Logical switch for enabling and disabling complete pump system with lead pump"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 

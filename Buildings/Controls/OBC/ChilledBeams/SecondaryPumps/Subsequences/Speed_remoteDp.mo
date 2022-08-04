@@ -128,7 +128,7 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
@@ -137,7 +137,7 @@ protected
     "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
