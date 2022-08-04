@@ -117,7 +117,7 @@ yields an increasing secondary flow recirculation, so an increasing
 supply temperature that further decreases the return temperature.
 The result is that the equilibrium point differs from the control intent,
 here with a supply temperature much higher than the design value
-(<i>6.6</i>&deg;C instead of <i>4.4</i>&deg;C).
+(<i>6.6</i>&nbsp;&deg;C instead of <i>4.4</i>&nbsp;&deg;C).
 </p>
 
 </html>", revisions="<html>

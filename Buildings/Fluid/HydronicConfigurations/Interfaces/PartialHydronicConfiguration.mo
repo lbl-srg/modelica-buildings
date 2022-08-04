@@ -56,7 +56,7 @@ model PartialHydronicConfiguration
     "Type of built-in controls"
     annotation (Dialog(group="Controls"), Evaluate=true);
 
-  replaceable parameter Buildings.Fluid.HydronicConfigurations.Types.ControlVariable
+  parameter Buildings.Fluid.HydronicConfigurations.Types.ControlVariable
     typVar=Buildings.Fluid.HydronicConfigurations.Types.ControlVariable.SupplyTemperature
     "Controlled variable"
     annotation(Dialog(group="Controls",
@@ -168,6 +168,26 @@ model PartialHydronicConfiguration
     annotation (
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
+
+  /* Workaround for Dymola 2022x (#SR00922000-01):
+  The parameters below should be located inside the protected section. 
+  However, doing so yields an incorrect interpretation of the enable 
+  annotation attribute.
+  The temporary workaround is to declare them in the public section 
+  and systematically assign them final values in the derived models.
+  */
+  parameter Boolean use_dp1
+    "Set to true to enable dp1_nominal"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Boolean use_dp2
+    "Set to true to enable dp2_nominal"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Buildings.Fluid.HydronicConfigurations.Types.Valve typVal
+    "Type of control valve"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Boolean have_typVar = true
+    "Set to true to enable the choice of the controlled variable"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium,
@@ -287,18 +307,6 @@ model PartialHydronicConfiguration
                           port_b2.Xi_outflow)
        if show_T "Medium properties in port_b2";
 protected
-  parameter Boolean use_dp1
-    "Set to true to enable dp1_nominal"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Boolean use_dp2
-    "Set to true to enable dp2_nominal"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Buildings.Fluid.HydronicConfigurations.Types.Valve typVal
-    "Type of control valve"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Boolean have_typVar = true
-    "Set to true to enable the choice of the controlled variable"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
   final parameter Boolean have_yPum=
     typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and
     typPum==Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput

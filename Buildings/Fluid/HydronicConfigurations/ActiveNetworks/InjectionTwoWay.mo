@@ -5,6 +5,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
     dpValve_nominal=dp1_nominal / 2,
     final dpBal3_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
+    final have_typVar=true,
     final use_dp1=use_siz,
     final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None);
 

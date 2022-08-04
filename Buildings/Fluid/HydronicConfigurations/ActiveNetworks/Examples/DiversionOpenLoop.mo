@@ -206,7 +206,7 @@ that would theoretically be steeper with a higher effectiveness at design
 conditions, although the order of magnitude would remain the same.
 For reference, the terminal unit in this example represents a recirculating
 air terminal such as a fan coil unit in heating mode with a water
-<i>&Delta;T</i> of <i>10</i>°C at design conditions, so an effectiveness
+<i>&Delta;T</i> of <i>10</i>&nbsp;&deg;C at design conditions, so an effectiveness
 <i>&epsilon; = &Delta;T<sub>liq</sub> /
 (T<sub>liq, inl</sub> - T<sub>air, inl</sub>) = 0.25</i>.
 </li>

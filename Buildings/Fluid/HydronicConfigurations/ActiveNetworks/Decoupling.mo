@@ -5,8 +5,8 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
       then 1e4 else 0,
     dpValve_nominal=dp1_nominal/2,
     m1_flow_nominal(min=(1+1e-2)*m2_flow_nominal)=1.05 * m2_flow_nominal,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=5,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final have_set=false,
     final have_typVar=false,
@@ -338,7 +338,7 @@ Control valve <code>val</code> and primary balancing valve <code>res1</code>
 </table>
 <h4>Additional comments</h4>
 <p>
-The P-controller used in the model mimics a self-acting &Delta;P control valve
+The P-controller used in the model mimics a self-acting &Delta;p control valve
 with a proportional band of <i>&plusmn;20%</i> around the
 pressure differential set point.
 This set point corresponds to the design pressure drop of the
@@ -355,6 +355,16 @@ flow rate potentially maxed out.
 Since there is no standard strategy to counteract that effect,
 the configuration with built-in controls based on return
 temperature is not included in this package.
+</p>
+<p>
+The specific built-in control option implemented in this model does not
+depend on the actual function of the consumer circuit 
+(such as cooling, heating, or change-over).
+Therefore, the model remains the same whatever the value
+assigned to the parameter <code>typCtl</code> except if 
+<code>None</code> (no built-in controls) is selected.
+In that latter case only, no built-in controls are included and the user
+must connect a control signal to modulate the valve.
 </p>
 <p>
 For consumer circuits with a different supply temperature set

@@ -5,6 +5,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     set(final unit="K", displayUnit="degC"),
     final dpBal3_nominal=0,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
+    final have_typVar=true,
     final use_dp1=false,
     final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None);
 

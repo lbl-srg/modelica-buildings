@@ -8,7 +8,8 @@ model SingleMixing "Single mixing circuit"
     final m1_flow_nominal=m2_flow_nominal,
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.ThreeWay,
     final use_dp1=use_siz,
-    final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None);
+    final use_dp2=use_siz and typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None,
+    final have_typVar=false);
 
   Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve val(
     redeclare final package Medium=Medium,

@@ -8,6 +8,7 @@ model Throttle "Throttle circuit"
     final typVal=Buildings.Fluid.HydronicConfigurations.Types.Valve.TwoWay,
     final typPum=Buildings.Fluid.HydronicConfigurations.Types.Pump.None,
     final typCtl=Buildings.Fluid.HydronicConfigurations.Types.Control.None,
+    final have_typVar=false,
     final use_dp1=false,
     final use_dp2=use_lumFloRes or use_siz);
 

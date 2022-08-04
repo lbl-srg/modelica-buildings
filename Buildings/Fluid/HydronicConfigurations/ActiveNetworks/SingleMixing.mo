@@ -114,7 +114,7 @@ Buildings.Fluid.HydronicConfigurations.PassiveNetworks.SingleMixing</a>.
 Built-in valve control options
 </td>
 <td valign=\"top\">
-No built-in controls
+Supply temperature 
 </td>
 </tr>
 <tr>
