@@ -116,8 +116,7 @@ protected
     "PID controller for regulating differential pressure at or below max pressure setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add subDpChiWatMax(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract subDpChiWatMax
     "Find error in meaured differential pressure from maximum allowed value"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
