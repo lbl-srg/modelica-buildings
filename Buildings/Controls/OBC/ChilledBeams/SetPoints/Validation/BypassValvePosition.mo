@@ -3,7 +3,9 @@ model BypassValvePosition
   "Validate bypass valve position setpoint controller"
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition
-    bypValPos
+    bypValPos(
+    final k=10,
+    final Ti=0.001)
     "Bypass valve position setpoint controller"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
@@ -31,13 +33,13 @@ protected
 
 equation
   connect(booPul.y, bypValPos.uPumSta) annotation (Line(points={{-58,40},{-20,40},
-          {-20,5},{-2,5}}, color={255,0,255}));
+          {-20,4},{-2,4}}, color={255,0,255}));
 
   connect(pul.y, bypValPos.uPumSpe)
     annotation (Line(points={{-58,0},{-2,0}}, color={0,0,127}));
 
   connect(sin.y, bypValPos.dpChiWatLoo) annotation (Line(points={{-58,-40},{-20,
-          -40},{-20,-5},{-2,-5}}, color={0,0,127}));
+          -40},{-20,-4},{-2,-4}}, color={0,0,127}));
 
 annotation (
   experiment(

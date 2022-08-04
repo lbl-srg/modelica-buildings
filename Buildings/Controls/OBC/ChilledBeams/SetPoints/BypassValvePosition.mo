@@ -23,17 +23,22 @@ block BypassValvePosition
     final min=1e-6) = 50000
     "Maximum allowed differential pressure in the chilled water loop";
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="PID controller parameters"));
+
   parameter Real k(
     final unit="1",
     displayUnit="1") = 1
-    "Gain of controller";
+    "Gain of controller"
+    annotation(Dialog(group="PID controller parameters"));
 
   parameter Real Ti(
     final unit="s",
     displayUnit="s",
     final quantity="Time") = 0.5
     "Time constant of integrator block"
-    annotation(Dialog(enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation(Dialog(group="PID controller parameters", enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real Td(
     final unit="s",
@@ -41,10 +46,7 @@ block BypassValvePosition
     final quantity="Time",
     final min=0)=0.1
     "Time constant of derivative block"
-    annotation(Dialog(enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+    annotation(Dialog(group="PID controller parameters", enable = controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Pump proven On signal"
