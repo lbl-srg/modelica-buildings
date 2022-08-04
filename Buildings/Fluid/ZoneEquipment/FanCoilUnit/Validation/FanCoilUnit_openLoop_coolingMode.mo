@@ -28,7 +28,6 @@ model FanCoilUnit_openLoop_coolingMode
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit fanCoiUni(
     heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater,
-    capacityControlMethod=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.capacityControl.multispeedCyclingFanConstantWater,
     dpAirTot_nominal(displayUnit="Pa") = 100,
     mAirOut_flow_nominal=fCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
