@@ -28,8 +28,8 @@ model Outlet "Adaptor for connecting a fluid outlet to the FMI interface"
         transformation(extent={{-110,-10},{-90,10}}),
           iconTransformation(extent={{-110,
             -10},{-90,10}})));
-  Buildings.Fluid.FMI.Interfaces.PressureInput p if
-       use_p_in "Pressure to be sent to outlet"
+  Buildings.Fluid.FMI.Interfaces.PressureInput p
+    if use_p_in "Pressure to be sent to outlet"
               annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -109,7 +109,7 @@ equation
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{60,0},{100,0}},
           color={0,0,255}),
@@ -120,7 +120,7 @@ equation
           fillColor={0,127,255}),
         Text(
           extent={{66,40},{100,0}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="outlet"),
         Line(
           points={{0,-60},{0,-100}},
@@ -129,7 +129,7 @@ equation
           visible=use_p_in),
         Text(
           extent={{10,-64},{44,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="p",
           visible=use_p_in)}),
     Documentation(info="<html>

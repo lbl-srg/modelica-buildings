@@ -6,13 +6,13 @@ package Fuels "Package with properties of fuels"
       h=50E6,
       d=0.84,
       mCO2=2.23) "Natural gas, lower heating value"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datFue");
 
   record NaturalGasHigherHeatingValue = NaturalGasLowerHeatingValue (
       h=55.5E6) "Natural gas, higher heating value"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datFue");
 
@@ -20,13 +20,13 @@ package Fuels "Package with properties of fuels"
       h=42.6E6,
       d=845,
       mCO2=3.136) "Heating oil, lower heating value"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datFue");
 
   record HeatingOilHigherHeatingValue = HeatingOilLowerHeatingValue (
       h=45.4E6) "Heating oil, higher heating value"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datFue");
 
@@ -34,10 +34,10 @@ package Fuels "Package with properties of fuels"
       h=14.6E6,
       d=700,
       mCO2=0) "Wood, air-dried, lower heating value" annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datFue",
-Documentation(
-info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datFue",
+    Documentation(info=
+     "<html>
 <p>
 The lower heating value is based on Recknagel 2005, Tafel 1.3.6-1.
 </p>
@@ -49,14 +49,15 @@ Hermann Recknagel, Eberhard Sprenger and Ernst-Rudolf Schramek. Taschenbuch fuer
 
   record Generic "Generic record of fuel properties"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.SpecificEnthalpy h
+    parameter Modelica.Units.SI.SpecificEnthalpy h
       "Heating value (lower or upper, depending on fuel)";
-    parameter Modelica.SIunits.Density d "Mass density";
+    parameter Modelica.Units.SI.Density d "Mass density";
     parameter Real mCO2(final min=0) "CO2 emission at combustion, in kg/kg fuel";
     annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datFue",
-Documentation(info="<html>
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datFue",
+      Documentation(info=
+                   "<html>
 <p>
 This is a generic record where the fuel properties need to be specified by the user.
 </p>
@@ -65,7 +66,7 @@ This is a generic record where the fuel properties need to be specified by the u
 <li>
 June 26, 2013 by Michael Wetter:<br/>
 Corrected wrong type for <code>mCO2</code>.
-It was declared as <code>Modelica.SIunits.MassFraction</code>,
+It was declared as <code>Modelica.Units.SI.MassFraction</code>,
 which is incorrect.
 </li>
 <li>

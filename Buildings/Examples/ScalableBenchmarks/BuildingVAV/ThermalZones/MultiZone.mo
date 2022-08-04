@@ -6,7 +6,6 @@ model MultiZone "Multiple thermal zone models"
     annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
   parameter Real ampFactor[nZon]=
     if nZon<=5 then
         {abs(cos(i*3.1415926/(nZon))) for i in 1:nZon}
@@ -42,7 +41,6 @@ model MultiZone "Multiple thermal zone models"
 
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone theZon[nZon,nFlo](
     redeclare each package MediumA = MediumA,
-    each final lat=lat,
     gainFactor={{ampFactor[i] for j in 1:nFlo} for i in 1:nZon})
     "Thermal zone model"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
@@ -136,11 +134,11 @@ annotation (Icon(graphics={
         Line(points={{2,-40},{2,-26}}, color={85,170,255}),
         Text(
           extent={{-100,102},{100,76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Multizone model with: %nZon zones in %nZon floors"),
         Text(
           extent={{-94,134},{106,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>
@@ -151,6 +149,12 @@ of internal heat gain in each zone.
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 10, 2017, by Jianjun Hu:<br/>
 First implementation.

@@ -181,21 +181,21 @@ Implementation is based on <code>Modelica.Fluid</code>.
         Text(
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="p"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="T"),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -205,6 +205,6 @@ Implementation is based on <code>Modelica.Fluid</code>.
             min(1, max(0, ((if use_T_in then T_in else T)-273.15)/50))*{255,0,0})),
         Text(
           extent={{62,28},{-58,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString=DynamicSelect("", String((if use_T_in then T_in else T)-273.15, format=".1f")))}));
 end Boundary_pT;

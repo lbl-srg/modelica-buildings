@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model RelativePressure "Ideal relative pressure sensor"
-  extends Modelica.Icons.TranslationalSensor;
+  extends Modelica.Icons.RectangularSensor;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"
       annotation (choices(
@@ -53,10 +53,10 @@ equation
         Text(
           extent={{-150,40},{150,80}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{130,-70},{4,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p_rel"),
         Line(
           points={{32,3},{-58,3}},
@@ -68,8 +68,8 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-20,-56},{-140,-106}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(p_rel, leftjustified=false, significantDigits=3)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(p_rel, leftJustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The relative pressure <code>port_a.p - port_b.p</code> is determined between

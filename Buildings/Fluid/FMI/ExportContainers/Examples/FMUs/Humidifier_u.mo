@@ -7,16 +7,15 @@ block Humidifier_u
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final mWat_flow_nominal=mWat_flow_nominal,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=0
-    "Pressure";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+     = 0 "Pressure";
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=0.01*0.005
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=0.01*0.005
     "Water mass flow rate at u=1, positive for humidification";
 
   Modelica.Blocks.Interfaces.RealInput u(min=0, max=1, unit="1")
@@ -100,7 +99,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,-12},{56,-72}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Q=%Q_flow_nominal"),
         Rectangle(
           extent={{-100,61},{-68,58}},
@@ -110,6 +109,6 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-104,94},{-60,66}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="u")}));
 end Humidifier_u;

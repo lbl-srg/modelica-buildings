@@ -14,10 +14,10 @@ model PartialConstruction "Partial model for multi-layer constructions"
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
         annotation (Dialog(group="Initialization"), Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_a_start=293.15
+  parameter Modelica.Units.SI.Temperature T_a_start=293.15
     "Initial temperature at port_a, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.SIunits.Temperature T_b_start=293.15
+  parameter Modelica.Units.SI.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
   annotation (    Documentation(info="<html>

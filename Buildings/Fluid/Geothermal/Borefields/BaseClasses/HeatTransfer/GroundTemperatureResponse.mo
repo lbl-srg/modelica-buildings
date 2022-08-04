@@ -1,7 +1,7 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter Modelica.SIunits.Time tLoaAgg(final min = Modelica.Constants.eps)=3600
-    "Time resolution of load aggregation";
+  parameter Modelica.Units.SI.Time tLoaAgg(final min=Modelica.Constants.eps) =
+    3600 "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
@@ -41,9 +41,8 @@ protected
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
-  parameter Modelica.SIunits.Time timFin=
-    (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.aSoi))*ttsMax
-    "Final time for g-function calculation";
+  parameter Modelica.Units.SI.Time timFin=(borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.aSoi))
+      *ttsMax "Final time for g-function calculation";
   parameter Integer i(min=1)=
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.countAggregationCells(
       lvlBas=lvlBas,
@@ -53,28 +52,30 @@ protected
       "Number of aggregation cells";
   final parameter Real[nTimTot,2] timSer(each fixed=false)
     "g-function input from matrix, with the second column as temperature Tstep";
-  final parameter Modelica.SIunits.Time t_start(fixed=false) "Simulation start time";
-  final parameter Modelica.SIunits.Time[i] nu(each fixed=false)
+  final parameter Modelica.Units.SI.Time t_start(fixed=false)
+    "Simulation start time";
+  final parameter Modelica.Units.SI.Time[i] nu(each fixed=false)
     "Time vector for load aggregation";
   final parameter Real[i] kappa(each fixed=false)
     "Weight factor for each aggregation cell";
   final parameter Real[i] rCel(each fixed=false) "Cell widths";
 
-  discrete Modelica.SIunits.HeatFlowRate[i] QAgg_flow
+  discrete Modelica.Units.SI.HeatFlowRate[i] QAgg_flow
     "Vector of aggregated loads";
-  discrete Modelica.SIunits.HeatFlowRate[i] QAggShi_flow
+  discrete Modelica.Units.SI.HeatFlowRate[i] QAggShi_flow
     "Shifted vector of aggregated loads";
   discrete Integer curCel "Current occupied cell";
 
-  discrete Modelica.SIunits.TemperatureDifference delTBor0
+  discrete Modelica.Units.SI.TemperatureDifference delTBor0
     "Previous time step's temperature difference current borehole wall temperature minus initial borehole temperature";
   discrete Real derDelTBor0(unit="K/s")
     "Derivative of wall temperature change from previous time steps";
   final parameter Real dTStepdt(fixed=false)
     "Time derivative of g/(2*pi*H*Nb*ks) within most recent cell";
 
-  Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
-  discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";
+  Modelica.Units.SI.Heat U "Accumulated heat flow from all boreholes";
+  discrete Modelica.Units.SI.Heat U_old
+    "Accumulated heat flow from all boreholes at last aggregation step";
 
 initial equation
   QAgg_flow = zeros(i);
@@ -177,7 +178,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-151,147},{149,107}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
             textString="%name")}),

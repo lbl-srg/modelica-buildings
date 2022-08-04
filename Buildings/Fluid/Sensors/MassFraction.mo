@@ -4,7 +4,7 @@ model MassFraction "Ideal one port mass fraction sensor"
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
 
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
                                           max=1.001,
@@ -25,16 +25,16 @@ annotation (defaultComponentName="senMasFra",
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{160,-30},{60,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="X"),
         Line(points={{70,0},{100,0}}, color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(X, leftjustified=false, significantDigits=3)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(X, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the mass fraction of the fluid connected to its port.

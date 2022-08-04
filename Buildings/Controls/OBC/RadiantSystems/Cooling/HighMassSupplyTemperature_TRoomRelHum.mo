@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.RadiantSystems.Cooling;
 block HighMassSupplyTemperature_TRoomRelHum
-  "Room temperature controller for radiant cooling with constant mass flow and variable supply temperature"
+  "Controller for radiant cooling that controls the room temperature using constant mass flow and variable supply temperature"
 
   parameter Real TSupSet_max(
     final unit="K",
@@ -45,14 +45,14 @@ block HighMassSupplyTemperature_TRoomRelHum
     final unit="K",
     displayUnit="degC") "Measured room air temperature"
     annotation (Placement(transformation(
-          extent={{-140,-20},{-100,20}}),  iconTransformation(extent={{-140,-20},
-            {-100,20}})));
+          extent={{-140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},
+            {-100,-20}})));
 
   Controls.OBC.CDL.Interfaces.RealInput phiRoo(
     final unit="1") "Measured room air relative humidity"
     annotation (Placement(transformation(
-          extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+          extent={{-140,-100},{-100,-60}}),iconTransformation(extent={{-140,
+            -100},{-100,-60}})));
 
   Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
@@ -151,8 +151,8 @@ equation
           {90,30},{120,30}},color={0,0,127}));
   connect(conCoo.u_s, TRooSet) annotation (Line(points={{-82,20},{-92,20},{-92,60},
           {-120,60}}, color={0,0,127}));
-  connect(dewPoi.phi, phiRoo) annotation (Line(points={{18,-16},{-10,-16},{-10,-88},
-          {-92,-88},{-92,-60},{-120,-60}},
+  connect(dewPoi.phi, phiRoo) annotation (Line(points={{18,-16},{-10,-16},{-10,
+          -88},{-92,-88},{-92,-80},{-120,-80}},
                        color={0,0,127}));
   connect(booToRea.y, yPum)
     annotation (Line(points={{82,-80},{120,-80}}, color={0,0,127}));
@@ -170,10 +170,12 @@ equation
     annotation (Line(points={{-58,20},{18,20}}, color={0,0,127}));
   connect(TSupNoDewPoi.y, TSupCoo.u1) annotation (Line(points={{42,20},{52,20},{
           52,30},{58,30}}, color={0,0,127}));
-  connect(TRoo, conCoo.u_m) annotation (Line(points={{-120,0},{-88,0},{-88,4},{-70,
-          4},{-70,8}}, color={0,0,127}));
-  connect(TRoo, dewPoi.TDryBul) annotation (Line(points={{-120,0},{-88,0},{-88,-80},
-          {-16,-80},{-16,-4},{18,-4}}, color={0,0,127}));
+  connect(TRoo, conCoo.u_m) annotation (Line(points={{-120,-40},{-88,-40},{-88,
+          4},{-70,4},{-70,8}},
+                       color={0,0,127}));
+  connect(TRoo, dewPoi.TDryBul) annotation (Line(points={{-120,-40},{-88,-40},{
+          -88,-80},{-16,-80},{-16,-4},{18,-4}},
+                                       color={0,0,127}));
   annotation (
   defaultComponentName="conCoo",
   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
@@ -185,28 +187,28 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{58,94},{94,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSupSet"),
         Text(
           extent={{76,-44},{96,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yPum"),
         Text(
           extent={{76,2},{98,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="on"),
         Text(
           extent={{-92,92},{-48,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooSet"),
         Text(
-          extent={{-94,32},{-74,-14}},
-          lineColor={0,0,127},
+          extent={{-96,-6},{-76,-52}},
+          textColor={0,0,127},
           textString="TRoo"),
         Rectangle(
           extent={{-30,-16},{48,-40}},
@@ -218,7 +220,6 @@ equation
           points={{56,-82},{56,-26},{-24,-26},{-24,-20},{56,-20}},
           color={28,108,200},
           thickness=1),
-        Line(points={{-100,0},{-30,0}},                     color={28,108,200}),
         Rectangle(
           extent={{-30,-16},{48,48}},
           lineColor={28,108,200},
@@ -248,41 +249,48 @@ equation
                                                color={255,0,255}),
         Text(
           extent={{80,32},{98,16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Text(
           extent={{230,108},{110,58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=DynamicSelect("",
             String(TSupSet,
-              leftjustified=false,
+              leftJustified=false,
               significantDigits=3))),
         Text(
           extent={{230,64},{110,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=DynamicSelect("",
             String(y,
-              leftjustified=false,
+              leftJustified=false,
               significantDigits=2))),
-        Line(points={{-30,-8},{-66,-8},{-66,-60},{-100,-60}},
+        Line(points={{-30,-8},{-66,-8},{-66,-80},{-100,-80}},
              color={28,108,200}),
         Text(
-          extent={{-92,-24},{-72,-70}},
-          lineColor={0,0,127},
-          textString="phi")}),
+          extent={{-96,-44},{-76,-90}},
+          textColor={0,0,127},
+          textString="phi"),
+        Line(points={{-30,12},{-72,12},{-72,-40},{-100,-40}},
+             color={28,108,200})}),
     Documentation(info="<html>
 <p>
 Controller for a radiant cooling system.
 </p>
 <p>
-This controller tracks the room temperature set point <code>TRooSet</code> by
+The controller tracks the room temperature set point <code>TRooSet</code> by
 adjusting the supply water temperature set point <code>TSupSet</code>
-based on a proportional controller.
-The calculation of the supply water temperature set point <code>TSupSet</code> is
-such that it is never below the dew point temperature.
+based on the output signal <code>y</code> of the proportional controller.
+The supply water temperature set point <code>TSupSet</code> is
+limited by the dew point temperature that is calculated based on the inputs <code>TRoo</code> and <code>phiRoo</code>.
 The pump is either off or operates at full speed, in which case <code>yPum = 1</code>.
-The pump control is based on a hysteresis that takes as an input the control signal from
-the supply temperature set point controller.
+The pump control is based on a hysteresis that switches the pump on when the output of the
+proportional controller <code>y</code> exceeds <i>0.2</i>, and the pump is commanded off when the output falls
+below <i>0.1</i>. See figure below for the control charts.
+</p>
+<p align=\"center\">
+<img alt=\"Image of control output\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/RadiantSystems/Cooling/HighMassSupplyTemperature_TRoomRelHum.png\"/>
 </p>
 <p>
 For systems with high thermal mass, this controller should be left configured

@@ -156,24 +156,24 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{58,94},{94,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSupSet"),
         Text(
           extent={{76,-44},{96,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yPum"),
         Text(
           extent={{76,2},{98,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="on"),
         Text(
           extent={{-92,92},{-48,44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRooSet"),
         Rectangle(
           extent={{-30,-16},{48,-40}},
@@ -214,38 +214,44 @@ equation
                                                color={255,0,255}),
         Text(
           extent={{80,32},{98,16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Text(
           extent={{230,108},{110,58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=DynamicSelect("",
             String(TSupSet,
-              leftjustified=false,
+              leftJustified=false,
               significantDigits=3))),
         Text(
           extent={{230,64},{110,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString=DynamicSelect("",
             String(y,
-              leftjustified=false,
+              leftJustified=false,
               significantDigits=2))),
         Line(points={{-100,0},{-30,0}},                     color={28,108,200}),
         Text(
           extent={{-92,30},{-72,-16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo")}),
     Documentation(info="<html>
 <p>
 Controller for a radiant heating system.
 </p>
 <p>
-This controller tracks the room temperature set point <code>TRooSet</code> by
-adjusting the supply water temperature set point <code>TSupSet</code>
-based on a proportional controller.
+The controller tracks the room temperature set point <code>TRooSet</code> by
+adjusting the supply water temperature set point <code>TSupSet</code> linearly between
+<code>TSupSetMin</code> and <code>TSupSetMax</code>
+based on the output signal <code>y</code> of the proportional controller.
 The pump is either off or operates at full speed, in which case <code>yPum = 1</code>.
-The pump control is based on a hysteresis that takes as an input the control signal from
-the supply temperature set point controller.
+The pump control is based on a hysteresis that switches the pump on when the output of the
+proportional controller <code>y</code> exceeds <i>0.2</i>, and the pump is commanded off when the output falls
+below <i>0.1</i>. See figure below for the control charts.
+</p>
+<p align=\"center\">
+<img alt=\"Image of control output\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.png\"/>
 </p>
 <p>
 For systems with high thermal mass, this controller should be left configured

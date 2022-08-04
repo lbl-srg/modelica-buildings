@@ -3,19 +3,19 @@ package Glasses "Package with thermophysical properties for window glas"
     extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of window glass"
       extends Modelica.Icons.Record;
-   parameter Modelica.SIunits.Length x=0.003 "Thickness";
-   parameter Modelica.SIunits.ThermalConductivity k=1 "Thermal conductivity";
-   parameter Modelica.SIunits.TransmissionCoefficient tauSol[:] = {0.6}
+    parameter Modelica.Units.SI.Length x=0.003 "Thickness";
+    parameter Modelica.Units.SI.ThermalConductivity k=1 "Thermal conductivity";
+    parameter Modelica.Units.SI.TransmissionCoefficient tauSol[:]={0.6}
       "Solar transmittance";
-   parameter Modelica.SIunits.ReflectionCoefficient rhoSol_a[:] = {0.075}
+    parameter Modelica.Units.SI.ReflectionCoefficient rhoSol_a[:]={0.075}
       "Solar reflectance of surface a (usually outside-facing surface)";
-   parameter Modelica.SIunits.ReflectionCoefficient rhoSol_b[:] = {0.075}
+    parameter Modelica.Units.SI.ReflectionCoefficient rhoSol_b[:]={0.075}
       "Solar reflectance of surface b (usually room-facing surface)";
-   parameter Modelica.SIunits.TransmissionCoefficient tauIR = 0
+    parameter Modelica.Units.SI.TransmissionCoefficient tauIR=0
       "Infrared transmissivity of glass";
-   parameter Modelica.SIunits.Emissivity absIR_a = 0.84
+    parameter Modelica.Units.SI.Emissivity absIR_a=0.84
       "Infrared absorptivity of surface a (usually outside-facing surface)";
-   parameter Modelica.SIunits.Emissivity absIR_b = 0.84
+    parameter Modelica.Units.SI.Emissivity absIR_b=0.84
       "Infrared absorptivity of surface b (usually room-facing surface)";
     annotation (
     defaultComponentPrefixes="parameter",

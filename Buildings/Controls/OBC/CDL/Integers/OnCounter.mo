@@ -18,8 +18,7 @@ initial equation
 
 equation
   when {trigger,reset} then
-    y=
-      if reset then
+    y=if reset then
         y_start
       else
         pre(y)+1;
@@ -40,14 +39,13 @@ equation
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Text(
-          visible=use_reset,
           extent={{-64,-62},{58,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="reset"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>
@@ -67,6 +65,10 @@ simultaneously, then the ouput is <code>y = y_start</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 21, 2021, by Michael Wetter:<br/>
+Removed errorneous <code>visible</code> attribute in icon.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

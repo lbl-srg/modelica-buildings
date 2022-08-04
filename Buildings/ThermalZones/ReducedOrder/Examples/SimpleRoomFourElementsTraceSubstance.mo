@@ -48,8 +48,8 @@ protected
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
 
-  final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
+      state_default) "Density, used to compute fluid mass";
 
 equation
   connect(traSub.y, thermalZoneFourElements.C_flow[1])
@@ -98,6 +98,12 @@ March 2012. Calculation of transient thermal response of rooms
 and buildings - modelling of rooms.</p>
 </html>",   revisions="<html>
 <ul>
+<li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 15, 2020, by Katharina Brinkmann:<br/>
 First implementation.

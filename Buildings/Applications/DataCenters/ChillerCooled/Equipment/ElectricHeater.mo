@@ -7,22 +7,19 @@ model ElectricHeater "Model for electric heater"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Efficiency eta(max=1) = 1
+  parameter Modelica.Units.SI.Efficiency eta(max=1) = 1
     "Effciency of electrical heater";
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
-    "Maximum heat flow rate for heating (positive)"
-    annotation (Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+    "Maximum heat flow rate for heating (positive)" annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature T_start=Medium.T_default
+    "Start value of temperature" annotation (Dialog(tab="Initialization"));
    // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tau(min=0) = 10
-    "Time constant at nominal flow rate (used
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+  parameter Modelica.Units.SI.Time tau(min=0) = 10 "Time constant at nominal flow rate (used
     if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation(Dialog(tab = "Dynamics"));
+    annotation (Dialog(tab="Dynamics"));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
@@ -110,7 +107,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{18,-6},{62,-52}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+"),
         Rectangle(
           extent={{-100,82},{-70,78}},
@@ -126,11 +123,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{26,108},{94,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Text(
           extent={{-110,102},{-74,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Rectangle(
           extent={{-70,60},{-66,82}},

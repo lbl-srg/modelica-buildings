@@ -4,7 +4,7 @@ model EvaporatorCondenser "Test model for the evaporator or condenser model"
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.01
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
 
   Buildings.HeatTransfer.Sources.FixedTemperature ref(T=283.15)
@@ -33,7 +33,6 @@ model EvaporatorCondenser "Test model for the evaporator or condenser model"
     m_flow(start=0.1),
     dp(start=10),
     UA=100,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=0,
     tau=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

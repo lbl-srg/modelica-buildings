@@ -10,7 +10,7 @@ model CFDAirHeatMassBalance
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics massDynamics
     "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   // Initialization
   parameter Medium.AbsolutePressure p_start "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
@@ -21,7 +21,7 @@ model CFDAirHeatMassBalance
     "Set to false to deactivate the CFD interface and use instead yFixed as output"
     annotation (Evaluate=true);
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
+  parameter Modelica.Units.SI.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component" annotation (Dialog(group="Sampling"));
 
   parameter Boolean haveSensor
@@ -63,24 +63,24 @@ model CFDAirHeatMassBalance
         origin={180,-250})));
 
 protected
-   parameter Modelica.SIunits.Time startTime(fixed=false)
+  parameter Modelica.Units.SI.Time startTime(fixed=false)
     "First sample time instant.";
 
   // Values that are used for yFixed
   parameter Real yFixed[kSen + nSen](each fixed=false)
     "Values used for yFixed in CFDExchange";
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou + nSurBou]=
-    fill(0, kSurBou + nSurBou) "Surface heat flow rate used for yFixed"
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_fixed[kSurBou + nSurBou]=fill(
+      0, kSurBou + nSurBou) "Surface heat flow rate used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature TRooAve_fixed=Medium.T_default
+  parameter Modelica.Units.SI.Temperature TRooAve_fixed=Medium.T_default
     "Average room air temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin]=
-    fill(Medium.T_default, NConExtWin) "Shade temperature used for yFixed"
+  parameter Modelica.Units.SI.Temperature TSha_fixed[NConExtWin]=fill(Medium.T_default,
+      NConExtWin) "Shade temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature T_outflow_fixed[nPorts]=
-    fill(Medium.T_default, nPorts)
+  parameter Modelica.Units.SI.Temperature T_outflow_fixed[nPorts]=fill(Medium.T_default,
+      nPorts)
     "Temperature of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
   parameter Real Xi_outflow_fixed[nPorts*Medium.nXi](each fixed=false)
@@ -90,11 +90,11 @@ protected
     "Trace substances of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
 
-   parameter Modelica.SIunits.Density rho_start=Medium.density(
-   Medium.setState_pTX(
-     T=Medium.T_default,
-     p=p_start,
-     X=Medium.X_default)) "Density, used to compute fluid mass";
+  parameter Modelica.Units.SI.Density rho_start=Medium.density(
+      Medium.setState_pTX(
+      T=Medium.T_default,
+      p=p_start,
+      X=Medium.X_default)) "Density, used to compute fluid mass";
 
   final parameter CFDSurfaceIdentifier surIde[kSurBou + nSurBou]=
       assignSurfaceIdentifier(
@@ -136,44 +136,44 @@ protected
   // the Dymola thinks that surIde.bouCon is not fixed at translation time
   // and then refuses to use this parameter to conditionally remove connectors
   // in CFDSurfaceInterface.
-  CFDSurfaceInterface cfdConExt[NConExt](final bouCon=datConExt[:].boundaryCondition) if
-      haveConExt "Interface to heat port of exterior constructions"
+  CFDSurfaceInterface cfdConExt[NConExt](final bouCon=datConExt[:].boundaryCondition)
+   if haveConExt "Interface to heat port of exterior constructions"
     annotation (Placement(transformation(extent={{180,210},{200,230}})));
 
-  CFDSurfaceInterface cfdConExtWin[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
-       haveConExtWin
+  CFDSurfaceInterface cfdConExtWin[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition)
+    if haveConExtWin
     "Interface to heat port of opaque part of exterior constructions with window"
     annotation (Placement(transformation(extent={{180,170},{200,190}})));
 
-  CFDSurfaceInterface cfdGlaUns[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
-       haveConExtWin "Interface to heat port of unshaded part of glass"
+  CFDSurfaceInterface cfdGlaUns[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition)
+    if haveConExtWin "Interface to heat port of unshaded part of glass"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
-  CFDSurfaceInterface cfdGlaSha[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
-       haveShade "Interface to heat port of shaded part of glass"
+  CFDSurfaceInterface cfdGlaSha[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition)
+    if haveShade "Interface to heat port of shaded part of glass"
     annotation (Placement(transformation(extent={{180,70},{200,90}})));
 
-  CFDSurfaceInterface cfdConExtWinFra[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
-       haveConExtWin "Interface to heat port of window frame"
+  CFDSurfaceInterface cfdConExtWinFra[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition)
+    if haveConExtWin "Interface to heat port of window frame"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
-  CFDSurfaceInterface cfdConPar_a[NConPar](final bouCon=datConPar[:].boundaryCondition) if
-       haveConPar
+  CFDSurfaceInterface cfdConPar_a[NConPar](final bouCon=datConPar[:].boundaryCondition)
+    if haveConPar
     "Interface to heat port of surface a of partition constructions"
     annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
 
-  CFDSurfaceInterface cfdConPar_b[NConPar](final bouCon=datConPar[:].boundaryCondition) if
-       haveConPar
+  CFDSurfaceInterface cfdConPar_b[NConPar](final bouCon=datConPar[:].boundaryCondition)
+    if haveConPar
     "Interface to heat port of surface b of partition constructions"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
 
-  CFDSurfaceInterface cfdConBou[NConBou](final bouCon=datConBou[:].boundaryCondition) if
-       haveConBou
+  CFDSurfaceInterface cfdConBou[NConBou](final bouCon=datConBou[:].boundaryCondition)
+    if haveConBou
     "Interface to heat port that connects to room-side surface of constructions that expose their other surface to the outside"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
-  CFDSurfaceInterface cfdSurBou[NSurBou](final bouCon=surBou[:].boundaryCondition) if
-       haveSurBou
+  CFDSurfaceInterface cfdSurBou[NSurBou](final bouCon=surBou[:].boundaryCondition)
+    if haveSurBou
     "Interface to heat port of surfaces of models that compute the heat conduction outside of this room"
     annotation (Placement(transformation(extent={{180,-230},{200,-210}})));
 
@@ -290,34 +290,34 @@ protected
 */
     // Declaration of construction data
     input String nameConExt[nConExt] "Surface name";
-    input Modelica.SIunits.Area AConExt[nConExt] "Surface area";
-    input Modelica.SIunits.Angle tilConExt[nConExt] "Surface tilt";
+    input Modelica.Units.SI.Area AConExt[nConExt] "Surface area";
+    input Modelica.Units.SI.Angle tilConExt[nConExt] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConExt[nConExt]
       "Boundary condition";
 
     input String nameConExtWin[nConExtWin] "Surface name";
-    input Modelica.SIunits.Area AConExtWin[nConExtWin] "Surface area";
-    input Modelica.SIunits.Angle tilConExtWin[nConExtWin] "Surface tilt";
+    input Modelica.Units.SI.Area AConExtWin[nConExtWin] "Surface area";
+    input Modelica.Units.SI.Angle tilConExtWin[nConExtWin] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConExtWin[
       nConExtWin] "Boundary condition";
-    input Modelica.SIunits.Area AGla[nConExtWin] "Surface area";
-    input Modelica.SIunits.Area AFra[nConExtWin] "Surface area";
+    input Modelica.Units.SI.Area AGla[nConExtWin] "Surface area";
+    input Modelica.Units.SI.Area AFra[nConExtWin] "Surface area";
     input Real uSha[nConExtWin] "Shade ratio";
     input String nameConPar[nConPar] "Surface name";
-    input Modelica.SIunits.Area AConPar[nConPar] "Surface area";
-    input Modelica.SIunits.Angle tilConPar[nConPar] "Surface tilt";
+    input Modelica.Units.SI.Area AConPar[nConPar] "Surface area";
+    input Modelica.Units.SI.Angle tilConPar[nConPar] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConPar[nConPar]
       "Boundary condition";
 
     input String nameConBou[nConBou] "Surface name";
-    input Modelica.SIunits.Area AConBou[nConBou] "Surface area";
-    input Modelica.SIunits.Angle tilConBou[nConBou] "Surface tilt";
+    input Modelica.Units.SI.Area AConBou[nConBou] "Surface area";
+    input Modelica.Units.SI.Angle tilConBou[nConBou] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConBou[nConBou]
       "Boundary condition";
 
     input String nameSurBou[nSurBou] "Surface name";
-    input Modelica.SIunits.Area ASurBou[nSurBou] "Surface area";
-    input Modelica.SIunits.Angle tilSurBou[nSurBou] "Surface tilt";
+    input Modelica.Units.SI.Area ASurBou[nSurBou] "Surface area";
+    input Modelica.Units.SI.Angle tilSurBou[nSurBou] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConSurBou[nSurBou]
       "Boundary condition";
 

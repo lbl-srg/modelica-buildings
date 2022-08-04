@@ -49,10 +49,10 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-76,-36},{20,54}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="=")}),
     Documentation(
       info="<html>

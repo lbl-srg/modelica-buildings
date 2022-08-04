@@ -13,11 +13,13 @@ model OperationMode "Validate block for selecting operation mode"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sin sin1
     "Block that outputs the sine of the input"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter zonTem(
-    final k=14.5,
     final p=295.65) "Zone temperarure"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=14.5) "Gain factor"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
     final k=285.15)  "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
@@ -57,8 +59,7 @@ model OperationMode "Validate block for selecting operation mode"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
@@ -66,8 +67,7 @@ model OperationMode "Validate block for selecting operation mode"
     final uHigh=0.5)
     "Hysteresis that outputs if the zone temperature is higher than its unoccupied heating setpoint by a given limit"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
@@ -78,34 +78,32 @@ model OperationMode "Validate block for selecting operation mode"
 
 equation
   connect(ramp1.y, sin1.u)
-    annotation (Line(points={{-118,50},{-102,50}}, color={0,0,127}));
-  connect(sin1.y,zonTem. u)
-    annotation (Line(points={{-78,50},{-62,50}},  color={0,0,127}));
+    annotation (Line(points={{-118,50},{-112,50}}, color={0,0,127}));
   connect(cooDowTim.y, opeModSel.maxCooDowTim) annotation (Line(points={{-118,130},
           {30,130},{30,110},{118,110}}, color={0,0,127}));
   connect(warUpTim.y, opeModSel.maxWarUpTim) annotation (Line(points={{-78,110},
           {-60,110},{-60,106},{118,106}}, color={0,0,127}));
   connect(TZonHeaSetOcc.y, lowThaHeaSet.u1)
     annotation (Line(points={{-118,80},{-2,80}}, color={0,0,127}));
-  connect(zonTem.y, lowThaHeaSet.u2) annotation (Line(points={{-38,50},{-20,50},
+  connect(zonTem.y, lowThaHeaSet.u2) annotation (Line(points={{-28,50},{-20,50},
           {-20,72},{-2,72}}, color={0,0,127}));
-  connect(zonTem.y, higThaCooSet.u1) annotation (Line(points={{-38,50},{-20,50},
+  connect(zonTem.y, higThaCooSet.u1) annotation (Line(points={{-28,50},{-20,50},
           {-20,30},{-2,30}}, color={0,0,127}));
   connect(TZonCooSetOcc.y, higThaCooSet.u2) annotation (Line(points={{-78,20},{-40,
           20},{-40,22},{-2,22}}, color={0,0,127}));
   connect(TZonHeaSetUno.y, greEqu2.u1)
     annotation (Line(points={{-78,-30},{-2,-30}},   color={0,0,127}));
-  connect(zonTem.y, greEqu2.u2) annotation (Line(points={{-38,50},{-20,50},{-20,
+  connect(zonTem.y, greEqu2.u2) annotation (Line(points={{-28,50},{-20,50},{-20,
           -38},{-2,-38}}, color={0,0,127}));
   connect(greEqu2.y, booToInt.u)
     annotation (Line(points={{22,-30},{38,-30}},   color={255,0,255}));
   connect(booToInt.y, opeModSel.totColZon) annotation (Line(points={{62,-30},{76,
           -30},{76,100},{118,100}}, color={255,127,0}));
-  connect(zonTem.y, opeModSel.TZonMax) annotation (Line(points={{-38,50},{58,50},
+  connect(zonTem.y, opeModSel.TZonMax) annotation (Line(points={{-28,50},{58,50},
           {58,94},{118,94}}, color={0,0,127}));
-  connect(zonTem.y, opeModSel.TZonMin) annotation (Line(points={{-38,50},{64,50},
+  connect(zonTem.y, opeModSel.TZonMin) annotation (Line(points={{-28,50},{64,50},
           {64,92},{118,92}}, color={0,0,127}));
-  connect(zonTem.y, greEqu3.u1) annotation (Line(points={{-38,50},{-20,50},{-20,
+  connect(zonTem.y, greEqu3.u1) annotation (Line(points={{-28,50},{-20,50},{-20,
           -100},{-2,-100}}, color={0,0,127}));
   connect(TZonCooSetUno.y, greEqu3.u2) annotation (Line(points={{-78,-100},{-40,
           -100},{-40,-108},{-2,-108}}, color={0,0,127}));
@@ -127,22 +125,30 @@ equation
           {30,-10},{70,-10},{70,98},{118,98}}, color={255,0,255}));
   connect(greEqu3.y, opeModSel.uSetUp) annotation (Line(points={{22,-100},{30,-100},
           {30,-80},{94,-80},{94,88},{118,88}}, color={255,0,255}));
-  connect(zonTem.y, add3.u1) annotation (Line(points={{-38,50},{-20,50},{-20,-54},
+  connect(zonTem.y, sub3.u1) annotation (Line(points={{-28,50},{-20,50},{-20,-54},
           {-2,-54}}, color={0,0,127}));
-  connect(TZonHeaSetUno.y, add3.u2) annotation (Line(points={{-78,-30},{-40,-30},
+  connect(TZonHeaSetUno.y, sub3.u2) annotation (Line(points={{-78,-30},{-40,-30},
           {-40,-66},{-2,-66}}, color={0,0,127}));
-  connect(add3.y, hys3.u)
+  connect(sub3.y, hys3.u)
     annotation (Line(points={{22,-60},{38,-60}}, color={0,0,127}));
   connect(hys3.y, opeModSel.uEndSetBac) annotation (Line(points={{62,-60},{82,-60},
           {82,96},{118,96}}, color={255,0,255}));
-  connect(zonTem.y, add1.u1) annotation (Line(points={{-38,50},{-20,50},{-20,-134},
-          {-2,-134}}, color={0,0,127}));
-  connect(TZonCooSetUno.y, add1.u2) annotation (Line(points={{-78,-100},{-40,-100},
-          {-40,-146},{-2,-146}}, color={0,0,127}));
-  connect(add1.y, hys1.u)
+  connect(sub1.y, hys1.u)
     annotation (Line(points={{22,-140},{38,-140}}, color={0,0,127}));
   connect(hys1.y, opeModSel.uEndSetUp) annotation (Line(points={{62,-140},{100,-140},
           {100,86},{118,86}}, color={255,0,255}));
+  connect(zonTem.y, sub1.u2) annotation (Line(points={{-28,50},{-20,50},{-20,-146},
+          {-2,-146}}, color={0,0,127}));
+  connect(TZonCooSetUno.y, sub1.u1) annotation (Line(points={{-78,-100},{-40,-100},
+          {-40,-134},{-2,-134}}, color={0,0,127}));
+  connect(sin1.y, gai.u)
+    annotation (Line(points={{-88,50},{-82,50}}, color={0,0,127}));
+  connect(gai.y, zonTem.u)
+    annotation (Line(points={{-58,50},{-52,50}}, color={0,0,127}));
+  connect(zonTem.y, sub1.u2) annotation (Line(points={{-38,50},{-20,50},{-20,-146},
+          {-2,-146}}, color={0,0,127}));
+  connect(TZonCooSetUno.y, sub1.u1) annotation (Line(points={{-78,-100},{-40,-100},
+          {-40,-134},{-2,-134}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=172800, Tolerance=1e-06),

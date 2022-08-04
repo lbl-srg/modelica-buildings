@@ -29,12 +29,15 @@ model ZoneStatus
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sin sin2
     "Block that outputs the sine of the input"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=12.5)
+    "Gain factor"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter zonTem(
-    final k=12.5,
     final p=273.15 + 22.5)
     "Current zone temperature"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 equation
   connect(cooDowTim.y, noWinZonSta.cooDowTim) annotation (Line(points={{-58,60},
@@ -42,19 +45,21 @@ equation
   connect(warUpTim.y, noWinZonSta.warUpTim) annotation (Line(points={{-58,20},{-14,
           20},{-14,78},{58,78}}, color={0,0,127}));
   connect(ramp2.y,sin2. u)
-    annotation (Line(points={{-78,-40},{-62,-40}}, color={0,0,127}));
-  connect(sin2.y, zonTem.u)
-    annotation (Line(points={{-38,-40},{-22,-40}},color={0,0,127}));
-  connect(zonTem.y, noWinZonSta.TZon) annotation (Line(points={{2,-40},{20,-40},
+    annotation (Line(points={{-78,-40},{-72,-40}}, color={0,0,127}));
+  connect(zonTem.y, noWinZonSta.TZon) annotation (Line(points={{12,-40},{20,-40},
           {20,66},{58,66}},    color={0,0,127}));
   connect(cooDowTim.y, witWinZonSta.cooDowTim) annotation (Line(points={{-58,60},
           {-20,60},{-20,2},{58,2}},    color={0,0,127}));
   connect(warUpTim.y, witWinZonSta.warUpTim) annotation (Line(points={{-58,20},{
           -14,20},{-14,-2},{58,-2}},    color={0,0,127}));
-  connect(zonTem.y, witWinZonSta.TZon) annotation (Line(points={{2,-40},{20,-40},
+  connect(zonTem.y, witWinZonSta.TZon) annotation (Line(points={{12,-40},{20,-40},
           {20,-14},{58,-14}},color={0,0,127}));
   connect(uWinSta.y, witWinZonSta.uWin) annotation (Line(points={{2,-80},{40,-80},
           {40,-10},{58,-10}}, color={255,0,255}));
+  connect(sin2.y, gai.u)
+    annotation (Line(points={{-48,-40},{-42,-40}}, color={0,0,127}));
+  connect(gai.y, zonTem.u)
+    annotation (Line(points={{-18,-40},{-12,-40}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),

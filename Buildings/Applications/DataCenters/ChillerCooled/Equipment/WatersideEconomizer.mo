@@ -6,6 +6,7 @@ model WatersideEconomizer "Waterside economizer"
     val1(each final dpFixed_nominal=dp1_nominal),
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics,
     final mSenFac=1,
     redeclare final package Medium=Medium2);
   extends
@@ -23,13 +24,16 @@ model WatersideEconomizer "Waterside economizer"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
 
  // Heat exchanger
-  parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
+  parameter Modelica.Units.SI.Efficiency eta(start=0.8)
+    "constant effectiveness";
 
  // Bypass valve parameters
-  parameter Modelica.SIunits.Time tauThrWayVal=10
+  parameter Modelica.Units.SI.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   Modelica.Blocks.Interfaces.RealInput TSet(
     unit="K",
@@ -77,7 +81,6 @@ model WatersideEconomizer "Waterside economizer"
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,

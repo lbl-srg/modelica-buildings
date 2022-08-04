@@ -1,10 +1,9 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block IncidenceAngle "The solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";
-  parameter Modelica.SIunits.Angle til(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt. til=90 degree for walls; til=0 for ceilings; til=180 for roof";
   Modelica.Blocks.Interfaces.RealInput solHouAng(quantity="Angle", unit="rad")
     "Solar hour angle"
@@ -17,6 +16,11 @@ block IncidenceAngle "The solar incidence angle on a tilted surface"
     final unit="rad",
     displayUnit="deg") "Incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput lat(quantity="Angle",
+    unit="rad",
+    displayUnit="deg")
+    "Latitude"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 protected
   Real dec_c=Modelica.Math.cos(decAng) "Cosine of declination angle";
   Real dec_s=Modelica.Math.sin(decAng) "Sine of declination angle";
@@ -36,6 +40,12 @@ This component computes the solar incidence angle on a tilted surface using the 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
@@ -59,13 +69,13 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-98,60},{-56,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="decAng"),
         Text(
           extent={{-98,-42},{-42,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solHouAng")}));
 end IncidenceAngle;

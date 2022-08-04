@@ -21,11 +21,11 @@ model DayType "Block that outputs a signal that indicates week-day or week-end"
             {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Modelica.SIunits.Time samplePeriod=86400
+  parameter Modelica.Units.SI.Time samplePeriod=86400
     "Sample period of the component";
   output Integer iDay(min=1, max=size(days, 1))
     "Pointer to days that determines what day type is sent to the output";
-  parameter Modelica.SIunits.Time firstSample(fixed=false)
+  parameter Modelica.Units.SI.Time firstSample(fixed=false)
     "Time when the sampling starts";
   output Boolean sampleTrigger "True, if sample time instant";
   output Boolean skipIDayIncrement
@@ -54,7 +54,7 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{-68,54},{68,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="day")}),
     Documentation(info="<html>
 <p>

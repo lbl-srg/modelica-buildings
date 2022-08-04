@@ -6,17 +6,16 @@ model PVsimpleOriented
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase1,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase2,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase3);
-  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle lat "Latitude" annotation(Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Angle til "Surface tilt"
+    annotation (Dialog(group="Orientation"));
+  parameter Modelica.Units.SI.Angle azi "Surface Azimith"
+    annotation (Dialog(group="Orientation"));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     final til=til,
-    final lat=lat,
     final azi=azi) "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
-    final lat=lat,
     final azi=azi) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{60,-99},{40,-79}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
@@ -59,6 +58,16 @@ equation
   defaultComponentName="pv",
     Documentation(revisions="<html>
 <ul>
+<li>
+March 23, 2022, by Michael Wetter:<br/>
+Corrected documentation string for parameter <code>A</code>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 7, 2019, by Michael Wetter:<br/>
 Corrected model to include DC/AC conversion in output <code>P</code>.<br/>

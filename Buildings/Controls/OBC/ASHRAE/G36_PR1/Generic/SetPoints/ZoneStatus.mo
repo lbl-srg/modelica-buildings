@@ -119,16 +119,13 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{100,-150},{140,-110}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
-    "Decide if the cool down time of one zone should be ignored: if window is open, 
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Decide if the cool down time of one zone should be ignored: if window is open, 
     then output zero, otherwise, output cool-down time from optimal cool-down block"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
-    "Decide if the warm-up time of one zone should be ignored: if window is open, 
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Decide if the warm-up time of one zone should be ignored: if window is open, 
     then output zero, otherwise, output warm-up time from optimal warm-up block"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Calculate difference between zone temperature and the occupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -136,8 +133,7 @@ protected
     final uHigh=uHigh)
     "Hysteresis that outputs if the system should run in warm-up mode"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate difference between zone temperature and the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
@@ -145,8 +141,7 @@ protected
     final uHigh=uHigh)
     "Hysteresis that outputs if the system should run in cool-down mode"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
@@ -154,8 +149,7 @@ protected
     final uHigh=uHigh)
     "Hysteresis that outputs if the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add5(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub5
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
@@ -187,8 +181,7 @@ protected
     final k=TCooSetUno)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
@@ -196,8 +189,7 @@ protected
     final uHigh=bouLim)
     "Hysteresis that outputs if the zone temperature is higher than its unoccupied heating setpoint by a given limit"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
@@ -233,15 +225,15 @@ equation
           {118,214}},color={0,0,127}));
   connect(booToRea.y, pro1.u2) annotation (Line(points={{82,150},{100,150},{100,
           174},{118,174}}, color={0,0,127}));
-  connect(add.y, hys.u)
+  connect(sub.y, hys.u)
     annotation (Line(points={{-18,90},{-2,90}},color={0,0,127}));
-  connect(add1.y, hys1.u)
+  connect(sub1.y, hys1.u)
     annotation (Line(points={{-18,10},{-2,10}}, color={0,0,127}));
   connect(uWin, not1.u)
     annotation (Line(points={{-180,150},{-42,150}},color={255,0,255}));
-  connect(add2.y, hys2.u)
+  connect(sub2.y, hys2.u)
     annotation (Line(points={{-18,-70},{-2,-70}},  color={0,0,127}));
-  connect(add5.y, hys5.u)
+  connect(sub5.y, hys5.u)
     annotation (Line(points={{-18,-190},{-2,-190}},  color={0,0,127}));
   connect(not1.y, booToRea.u)
     annotation (Line(points={{-18,150},{58,150}}, color={255,0,255}));
@@ -251,9 +243,7 @@ equation
     annotation (Line(points={{142,180},{180,180}}, color={0,0,127}));
   connect(con.y, not1.u) annotation (Line(points={{-118,200},{-80,200},{-80,150},
           {-42,150}},color={255,0,255}));
-  connect(TZon, add1.u2) annotation (Line(points={{-180,-50},{-140,-50},{-140,4},
-          {-42,4}}, color={0,0,127}));
-  connect(TZon, add.u2) annotation (Line(points={{-180,-50},{-140,-50},{-140,84},
+  connect(TZon,sub. u2) annotation (Line(points={{-180,-50},{-140,-50},{-140,84},
           {-42,84}},color={0,0,127}));
   connect(unoCooSet.y, TCooSetOff)
     annotation (Line(points={{-98,-160},{180,-160}}, color={0,0,127}));
@@ -263,30 +253,20 @@ equation
     annotation (Line(points={{-98,130},{180,130}}, color={0,0,127}));
   connect(occCooSet.y, TCooSetOn)
     annotation (Line(points={{-98,50},{180,50}}, color={0,0,127}));
-  connect(unoHeaSet.y, add2.u1) annotation (Line(points={{-98,-40},{-60,-40},{-60,
+  connect(unoHeaSet.y, sub2.u1) annotation (Line(points={{-98,-40},{-60,-40},{-60,
           -64},{-42,-64}},color={0,0,127}));
-  connect(unoCooSet.y, add5.u1) annotation (Line(points={{-98,-160},{-60,-160},{
-          -60,-184},{-42,-184}},color={0,0,127}));
-  connect(unoHeaSet.y, add3.u2) annotation (Line(points={{-98,-40},{-60,-40},{-60,
+  connect(unoHeaSet.y, sub3.u2) annotation (Line(points={{-98,-40},{-60,-40},{-60,
           -116},{-42,-116}},color={0,0,127}));
-  connect(add3.y, hys3.u)
+  connect(sub3.y, hys3.u)
     annotation (Line(points={{-18,-110},{-2,-110}},  color={0,0,127}));
-  connect(unoCooSet.y, add4.u2) annotation (Line(points={{-98,-160},{-60,-160},{
-          -60,-236},{-42,-236}},color={0,0,127}));
-  connect(add4.y, hys4.u)
+  connect(sub4.y, hys4.u)
     annotation (Line(points={{-18,-230},{-2,-230}},  color={0,0,127}));
-  connect(occHeaSet.y, add.u1) annotation (Line(points={{-98,130},{-60,130},{-60,
+  connect(occHeaSet.y,sub. u1) annotation (Line(points={{-98,130},{-60,130},{-60,
           96},{-42,96}}, color={0,0,127}));
-  connect(occCooSet.y, add1.u1) annotation (Line(points={{-98,50},{-60,50},{-60,
-          16},{-42,16}}, color={0,0,127}));
-  connect(TZon, add2.u2) annotation (Line(points={{-180,-50},{-140,-50},{-140,-76},
+  connect(TZon, sub2.u2) annotation (Line(points={{-180,-50},{-140,-50},{-140,-76},
           {-42,-76}}, color={0,0,127}));
-  connect(TZon, add3.u1) annotation (Line(points={{-180,-50},{-140,-50},{-140,-104},
+  connect(TZon, sub3.u1) annotation (Line(points={{-180,-50},{-140,-50},{-140,-104},
           {-42,-104}}, color={0,0,127}));
-  connect(TZon, add5.u2) annotation (Line(points={{-180,-50},{-140,-50},{-140,-196},
-          {-42,-196}}, color={0,0,127}));
-  connect(TZon, add4.u1) annotation (Line(points={{-180,-50},{-140,-50},{-140,-224},
-          {-42,-224}}, color={0,0,127}));
   connect(and2.y, yOccHeaHig)
     annotation (Line(points={{142,90},{180,90}}, color={255,0,255}));
   connect(hys.y, and2.u1)
@@ -327,6 +307,18 @@ equation
           {118,-88}}, color={255,0,255}));
   connect(not1.y, and5.u2) annotation (Line(points={{-18,150},{40,150},{40,-208},
           {118,-208}}, color={255,0,255}));
+  connect(TZon, sub1.u1) annotation (Line(points={{-180,-50},{-140,-50},{-140,16},
+          {-42,16}}, color={0,0,127}));
+  connect(occCooSet.y, sub1.u2) annotation (Line(points={{-98,50},{-60,50},{-60,
+          4},{-42,4}}, color={0,0,127}));
+  connect(TZon, sub5.u1) annotation (Line(points={{-180,-50},{-140,-50},{-140,-184},
+          {-42,-184}}, color={0,0,127}));
+  connect(unoCooSet.y, sub5.u2) annotation (Line(points={{-98,-160},{-60,-160},{
+          -60,-196},{-42,-196}}, color={0,0,127}));
+  connect(unoCooSet.y, sub4.u1) annotation (Line(points={{-98,-160},{-60,-160},{
+          -60,-224},{-42,-224}}, color={0,0,127}));
+  connect(TZon, sub4.u2) annotation (Line(points={{-180,-50},{-140,-50},{-140,-236},
+          {-42,-236}}, color={0,0,127}));
 
 annotation (
   defaultComponentName = "zonSta",
@@ -339,86 +331,86 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,88},{-46,72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="cooDowTim"),
         Text(
           extent={{-98,46},{-50,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="warUpTim"),
         Text(
           extent={{-120,180},{100,140}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,-74},{-74,-84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,-32},{-62,-42}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uWinSta"),
         Text(
           extent={{60,140},{98,124}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCooTim"),
         Text(
           extent={{60,120},{98,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yWarTim"),
         Text(
           extent={{38,70},{96,54}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yOccHeaHig"),
         Text(
           extent={{42,20},{98,2}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yHigOccCoo"),
         Text(
           extent={{40,-30},{96,-46}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yUnoHeaHig"),
         Text(
           extent={{42,-102},{98,-118}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yHigUnoCoo"),
         Text(
           extent={{46,90},{96,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSetOn"),
         Text(
           extent={{46,40},{96,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSetOn"),
         Text(
           extent={{46,-10},{96,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSetOff"),
         Text(
           extent={{46,-80},{96,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSetOff"),
         Text(
           extent={{42,-50},{98,-66}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEndSetBac"),
         Text(
           extent={{46,-124},{98,-138}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEndSetUp")}),
    Documentation(info="<html>

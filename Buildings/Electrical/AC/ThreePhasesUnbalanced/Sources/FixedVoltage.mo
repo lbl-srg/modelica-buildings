@@ -2,16 +2,16 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
 model FixedVoltage "Fixed voltage source"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;
-  parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=480) "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
+  parameter Modelica.Units.SI.Frequency f(start=60) "Frequency of the source";
+  parameter Modelica.Units.SI.Voltage V(start=480) "RMS voltage of the source";
+  parameter Modelica.Units.SI.Angle phiSou=0 "Phase shift of the source";
   parameter Boolean potentialReference = true
     "Serve as potential root for the reference angle theta"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   parameter Boolean definiteReference = false
     "Serve as definite root for the reference angle theta"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
-  constant Modelica.SIunits.Angle angle120 = 2*Modelica.Constants.pi/3
+  constant Modelica.Units.SI.Angle angle120=2*Modelica.Constants.pi/3
     "Phase shift between the phase voltages";
   OnePhase.Sources.FixedVoltage vPhase[3](
     each f=f,
@@ -53,11 +53,11 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-120,100},{120,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-120,-60},{120,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="V = %V")}),
     Documentation(info="<html>
 <p>

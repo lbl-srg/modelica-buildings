@@ -57,8 +57,9 @@ protected
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255})}));
+            textColor={0,0,255})}));
   end LessNoHysteresis;
+
   block LessWithHysteresis
     "Less block without hysteresis"
     parameter Real t=0
@@ -84,7 +85,7 @@ protected
     pre(y)=pre_y_start;
 
   equation
-    y=(not pre(y) and u < t or pre(y) and u <= t+h);
+    y=(not pre(y) and u < t or pre(y) and u < t+h);
     annotation (
       Icon(
         graphics={
@@ -98,10 +99,10 @@ protected
           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255}),
+            textColor={0,0,255}),
           Text(
             extent={{-64,62},{62,92}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="h=%h")}));
   end LessWithHysteresis;
 
@@ -147,42 +148,42 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-64,62},{62,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="h=%h"),
         Text(
           extent={{-88,-18},{-21,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(u,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3))),
         Text(
           extent={{4,-18},{71,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%t",
           visible=h < 1E-10),
         Text(
           extent={{22,20},{89,62}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if y then
               {135,135,135}
             else
               {0,0,0}),
           textString=DynamicSelect("",String(t,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)),
           visible=h >= 1E-10),
         Text(
           extent={{20,-56},{87,-14}},
-          lineColor=DynamicSelect({0,0,0},
+          textColor=DynamicSelect({0,0,0},
             if not y then
               {135,135,135}
             else
               {0,0,0}),
           textString=DynamicSelect("",String(t+h,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)),
           visible=h >= 1E-10)}),
     Documentation(
@@ -193,12 +194,12 @@ is less than a threshold <code>t</code>, optionally within a hysteresis <code>h<
 </p>
 <p>
 The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
-If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u &lt; t</i>,
+For any <i>h &ge; 0</i>, the output switches to <code>true</code> if <i>u &lt; t</i>,
 where <i>t</i> is the threshold,
-and it switches to <code>false</code> if <i>u &gt; t + h</i>.
-If <i>h = 0</i>, the output is <i>y = u &lt; t</i>.
-
+and it switches to <code>false</code> if <i>u &ge; t + h</i>.
+Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u &lt; t</i>.
 </p>
+<h4>Usage</h4>
 <p>
 Enabling hysteresis can avoid frequent switching.
 Adding hysteresis is recommended in real controllers to guard against sensor noise, and
@@ -208,8 +209,13 @@ a temperature or a mass flow rate of an HVAC system.
 To disable hysteresis, set <i>h=0</i>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+April 29, 2022, by Jianjun Hu:<br/>
+Corrected the condition of swiching true back to false.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">issue 2981</a>.
+</li>
 <li>
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>

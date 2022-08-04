@@ -112,26 +112,24 @@ block AHU "Output outdoor airflow related calculations at the AHU level"
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division outAirFra
+  Buildings.Controls.OBC.CDL.Continuous.Divide outAirFra
     "System outdoor air fraction"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1,
-    final k=1)
+    final p=1)
     "System outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add sysVenEff(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sysVenEff
     "Current system ventilation efficiency"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division effMinOutAirInt
+  Buildings.Controls.OBC.CDL.Continuous.Divide effMinOutAirInt
     "Effective minimum outdoor air setpoint"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division occDivFra
+  Buildings.Controls.OBC.CDL.Continuous.Divide occDivFra
     "Occupant diversity fraction"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
@@ -139,22 +137,19 @@ protected
     "Uncorrected outdoor air intake"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
-    "Product of inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product of inputs"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain aveOutAirFra(
-    final k=1/VPriSysMax_flow)
-    "Average outdoor air fraction"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter aveOutAirFra(
+    final k=1/VPriSysMax_flow) "Average outdoor air fraction"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=1,
-    final k=1)
+    final p=1)
     "Average outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division desOutAirInt
+  Buildings.Controls.OBC.CDL.Continuous.Divide desOutAirInt
     "Design system outdoor air intake"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
@@ -183,7 +178,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "Ensuring the system efficiency will not be negative"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
@@ -192,7 +187,7 @@ protected
     "Set system ventilation efficiency to 1"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division norVOutMin
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
 
@@ -306,67 +301,67 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,158},{100,118}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,98},{-34,86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="sumDesZonPop"),
         Text(
           extent={{-96,-62},{-52,-76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uSupFan"),
         Text(
           extent={{-96,-82},{-50,-96}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uOpeMod"),
         Text(
           extent={{-98,78},{-12,62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesPopBreZon_flow"),
         Text(
           extent={{-98,58},{-12,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesAreBreZon_flow"),
         Text(
           extent={{-98,38},{-34,26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="desSysVenEff"),
         Text(
           extent={{-98,18},{-30,4}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VUncOutAir_flow"),
         Text(
           extent={{-98,-2},{-34,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VSysPriAir_flow"),
         Text(
           extent={{-98,-22},{-28,-38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="uOutAirFra_max"),
         Text(
           extent={{42,-74},{102,-86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yReqOutAir"),
         Text(
           extent={{20,88},{96,72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesUncOutAir_flow"),
         Text(
           extent={{30,60},{98,44}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="yAveOutAirFraPlu"),
         Text(
           extent={{34,30},{98,12}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VDesOutAir_flow"),
         Text(
           extent={{38,-10},{98,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="VEffOutAir_flow"),
         Text(
           extent={{18,-40},{98,-56}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="effOutAir_normalized")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{240,240}})),
 Documentation(info="<html>

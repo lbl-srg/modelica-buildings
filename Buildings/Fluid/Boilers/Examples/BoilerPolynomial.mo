@@ -1,13 +1,14 @@
 within Buildings.Fluid.Boilers.Examples;
-model BoilerPolynomial "Test model"
-  extends Modelica.Icons.Example;
+model BoilerPolynomial
+ "Boilers with efficiency specified by polynomial and with open loop control"
+ extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Water "Medium model";
- parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
- parameter Modelica.SIunits.Temperature dT_nominal = 20
+  parameter Modelica.Units.SI.Power Q_flow_nominal=3000 "Nominal power";
+  parameter Modelica.Units.SI.Temperature dT_nominal=20
     "Nominal temperature difference";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
-    "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=Q_flow_nominal/
+      dT_nominal/4200 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=3000
     "Pressure drop at m_flow_nominal";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -47,7 +48,6 @@ model BoilerPolynomial "Test model"
     m_flow_nominal = m_flow_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=dp_nominal,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     from_dp=true,
@@ -68,19 +68,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], boi1.port_a) annotation (Line(
-      points={{-60,-56},{-36,-56},{-36,8},{-10,8}},
+      points={{-60,-59},{-36,-59},{-36,8},{-10,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], boi2.port_a) annotation (Line(
-      points={{-60,-60},{-12,-60}},
+      points={{-60,-57},{-36,-57},{-36,-60},{-12,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi2.port_b, sin.ports[2]) annotation (Line(
-      points={{8,-60},{70,-60}},
+      points={{8,-60},{40,-60},{40,-57},{70,-57}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi1.port_b, sin.ports[1]) annotation (Line(
-      points={{10,8},{40,8},{40,-56},{70,-56}},
+      points={{10,8},{40,8},{40,-59},{70,-59}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, boi1.y) annotation (Line(
@@ -91,7 +91,7 @@ equation
       points={{-59,-20},{-50,-20},{-50,-52},{-14,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>

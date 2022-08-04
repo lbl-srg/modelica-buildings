@@ -6,9 +6,9 @@ model Ideal_T
     final allowFlowReversal = true,
     final dp(start=0));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
+  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa") = 30000
     "Pressure difference at nominal flow rate"
-    annotation(Dialog(group="Design parameter"));
+    annotation (Dialog(group="Design parameter"));
 
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -26,8 +26,8 @@ protected
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(sta_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 
   Buildings.Fluid.HeatExchangers.PrescribedOutlet coo(

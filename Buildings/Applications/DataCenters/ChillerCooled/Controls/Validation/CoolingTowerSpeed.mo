@@ -9,18 +9,16 @@ model CoolingTowerSpeed
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Sine CHWST(
     amplitude=2,
-    freqHz=1/360,
-    offset=273.15 + 5)
-    "Chilled water supply temperature"
+    f=1/360,
+    offset=273.15 + 5) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.Constant CWSTSet(k=273.15 + 20)
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Sine CWST(
     amplitude=5,
-    freqHz=1/360,
-    offset=273.15 + 20)
-    "Condenser water supply temperature"
+    f=1/360,
+    offset=273.15 + 20) "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Constant CHWSTSet(k=273.15 + 6)
     "Chilled water supply temperature setpoint"

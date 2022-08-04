@@ -2,13 +2,13 @@ within Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses;
 model Building
   "Dummy building model for validation purposes"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding;
-  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
     "Design heat flow rate for chilled water production (<0)"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
     "Design heat flow rate for heating water production (>0)"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPHea(
     k=1)
@@ -35,17 +35,17 @@ model Building
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=-QChiWat_flow_nominal,
     final m_flow_nominal=m_flow_nominal,
-    dp_nominal=0) if  have_chiWat
+    dp_nominal=0)  if have_chiWat
     "Cooling load"
     annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "One"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=0, k=-1) if  have_heaWat
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    k=-1)  if have_heaWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    p=0, k=-1) if  have_chiWat
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+    k=-1)  if have_chiWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-250},{50,-230}})));
 equation
@@ -65,13 +65,13 @@ equation
           {260,-260},{260,-260}}, color={0,127,255}));
   connect(mulChiWatInl[1].port_b, loaCoo.port_a) annotation (Line(points={{-260,
           -260},{-136,-260},{-136,-260},{-10,-260}}, color={0,127,255}));
-  connect(loaHea.Q_flow, addPar.u) annotation (Line(points={{11,-54},{20,-54},{20,
+  connect(loaHea.Q_flow, gai.u) annotation (Line(points={{11,-54},{20,-54},{20,
           -40},{28,-40}}, color={0,0,127}));
-  connect(loaCoo.Q_flow, addPar1.u) annotation (Line(points={{11,-254},{20,-254},
+  connect(loaCoo.Q_flow, gai1.u) annotation (Line(points={{11,-254},{20,-254},
           {20,-240},{28,-240}}, color={0,0,127}));
-  connect(addPar.y, mulQHea_flow.u) annotation (Line(points={{52,-40},{80,-40},{
+  connect(gai.y, mulQHea_flow.u) annotation (Line(points={{52,-40},{80,-40},{
           80,280},{268,280}}, color={0,0,127}));
-  connect(addPar1.y, mulQCoo_flow.u) annotation (Line(points={{52,-240},{100,-240},
+  connect(gai1.y, mulQCoo_flow.u) annotation (Line(points={{52,-240},{100,-240},
           {100,240},{268,240}}, color={0,0,127}));
   connect(one.y, loaHea.u) annotation (Line(points={{-58,-160},{-40,-160},{-40,
           -54},{-12,-54}}, color={0,0,127}));

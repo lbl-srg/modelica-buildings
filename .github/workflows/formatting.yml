@@ -24,42 +24,30 @@ jobs:
     # Skip if the commit message contains "ci skip"
     if: "!contains(github.event.head_commit.message, 'ci skip')"
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      # Checks-out repository under $GITHUB_WORKSPACE, so job can access it
+      - name: Checkout code
+        uses: nschloe/action-cached-lfs-checkout@v1
 
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          python-version: '3.8.10' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
       - name: "Install pip"
         run: pip3 install --upgrade pip wheel
 
-      - name: "Install sphinx and its dependencies"
-        run: pip3 install \
-          sphinx==2.1.2 \
-          sphinx-bootstrap-theme==0.7.1 \
-          sphinxcontrib-bibtex==0.4.2 \
-          sphinxcontrib-plantuml==0.17 \
-          alabaster==0.7.12 \
-          MarkupSafe==1.1.1 \
-          Pygments==2.4.2 \
-          snowballstemmer==1.9.0 \
-          docutils==0.15.2 \
-          Babel==2.7.0 \
-          requests==2.22.0 \
-          Jinja2==2.10.1 \
-          latexcodec==1.0.7 \
-          pybtex==0.22.2 \
-          pybtex-docutils==0.2.1 \
-          oset==0.1.3 \
-          PyYAML==5.1.2
-
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v4.0.0
+
+      - name: Check for UTF-8 BOM
+        run : |
+              for ff in `grep -rlI --exclude="ffd.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
+                echo "::error file=${ff}:: Found BOM in ${ff}."
+              done;
+              test -z "${ff}"
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
@@ -94,5 +82,40 @@ jobs:
               python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
               git diff --exit-code Buildings
 
-      - name: Check for UTF-8 BOM
-        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."
+      - name: Check for file permissions
+        run : |
+              set -o noglob
+              LIST="*.mo *.mos *.fmu *.json *.txt *.jar *.c *.h *.def *.cc *.vcxproj \
+                *.so *.exe \
+                *.java package-list element-list \
+                *.csv *.dat *.TMY *.mat \
+                *.cfd *.ffd *.mcr \
+                *.rst *.svg *.png *.gif *.jpg *.tiff *.xcf *.ico *.psd *.pdf *.odp \
+                *.tex *.md *.html *.css \
+                *.bat *.linux *.darwin \
+                *.js *.map *.eot *.ttf *.woff *.woff2 *.inv \
+                *.idd *.idf *.epw \
+                *.dll *.lib \
+                *.zip
+                package.order Makefile makefile RootMakefile"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rw,og=r $ff
+                done
+              done
+
+              LIST="spawn dymola *.sh"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rwx,og=rx $ff
+                done
+              done
+              git diff --exit-code
+
+              # The Windows compiler generates files with u=rw,og=rw permission
+              LIST="*.dll"
+              for tt in ${LIST}; do
+                for ff in `find . -type f -name ${tt}`; do
+                   chmod u=rw,og=rw $ff
+                done
+              done

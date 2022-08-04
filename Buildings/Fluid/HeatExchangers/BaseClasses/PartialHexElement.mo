@@ -9,14 +9,15 @@ model PartialHexElement "Element of a heat exchanger 2"
     "Set to true to initialize the pressure of volume 2"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
-     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Time tau_m(min=0) = 60
-    "Time constant of metal at nominal UA value"
-          annotation(Dialog(tab="General", group="Nominal condition",
-          enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)));
-  parameter Modelica.SIunits.HeatCapacity C=2*UA_nominal*tau_m
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau_m(min=0) = 60
+    "Time constant of metal at nominal UA value" annotation (Dialog(
+      tab="General",
+      group="Nominal condition",
+      enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)));
+  parameter Modelica.Units.SI.HeatCapacity C=2*UA_nominal*tau_m
     "Heat capacity of metal (= cp*m)";
 
   Modelica.Blocks.Interfaces.RealInput Gc_1
@@ -36,8 +37,8 @@ model PartialHexElement "Element of a heat exchanger 2"
     C=C,
     T(stateSelect=StateSelect.always,
       fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
-       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mass of metal"
     annotation (Placement(transformation(
         origin={-82,0},
@@ -212,9 +213,9 @@ First implementation.
 </html>"),    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-84,114},{-62,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h"), Text(
           extent={{58,-92},{84,-120}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h")}));
 end PartialHexElement;

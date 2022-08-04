@@ -1,9 +1,8 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block IncidenceAngle "Solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle til "Surface tilt";
 
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Angle",
@@ -21,7 +20,6 @@ protected
     solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
-    final lat=lat,
     final azi=azi,
     final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -50,6 +48,14 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(weaBus.lat, incAng.lat) annotation (Line(
+      points={{-100,0},{38,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     defaultComponentName="incAng",
     Documentation(info="<html>
@@ -60,6 +66,12 @@ For a definition of the parameters, see the User's Guide
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 November 30, 2011, by Michael Wetter:<br/>
 Removed <code>connect(y, y)</code> statement.
@@ -78,6 +90,6 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}), Bitmap(extent={{-90,-90},{90,90}}, fileName=
+          textColor={0,0,255}), Bitmap(extent={{-90,-90},{90,90}}, fileName=
               "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png")}));
 end IncidenceAngle;

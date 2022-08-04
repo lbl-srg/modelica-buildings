@@ -35,7 +35,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-62,64},{56,-54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="falling"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -53,7 +53,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

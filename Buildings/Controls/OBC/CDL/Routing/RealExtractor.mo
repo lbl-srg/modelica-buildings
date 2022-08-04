@@ -34,8 +34,7 @@ equation
           0;
     end for;
   end when;
-  y=
-    if not allowOutOfRange or index > 0 and index <= nin then
+  y=if not allowOutOfRange or index > 0 and index <= nin then
       k*u
     else
       outOfRangeValue;
@@ -133,7 +132,7 @@ equation
           fillColor={255,128,0},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}),
     Documentation(

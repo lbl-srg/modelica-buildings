@@ -6,8 +6,7 @@ model Network_N "Three phases unbalanced AC network with neutral cable"
     redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N lines(
         commercialCable=grid.cables));
-    Modelica.SIunits.Voltage VAbs[3,grid.nNodes]
-    "RMS voltage of the grid nodes";
+  Modelica.Units.SI.Voltage VAbs[3,grid.nNodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.nLinks loop
     connect(lines[i].terminal_p, terminal[grid.fromTo[i,1]]);

@@ -33,12 +33,12 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{-32,-52},{40,-100}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="mod"),
         Line(
           points={{-8,16}},
@@ -66,9 +66,9 @@ equation
           extent={{-21,12},{-11,22}}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>

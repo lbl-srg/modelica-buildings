@@ -21,7 +21,7 @@ if __name__ == "__main__":
                  'fmiFunctions.o',
                  'CSVWriter.csvWriter.csv', 'test.csv']
     # Directories to be deleted. This will be non-recursive
-    DELETEDIRS=['binaries']
+    DELETEDIRS=['binaries', 'funnel_comp']
 
     # Array in which the names of the files that will be deleted are stored
     matches = []

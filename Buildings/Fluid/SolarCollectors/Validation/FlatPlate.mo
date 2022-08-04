@@ -13,7 +13,6 @@ model FlatPlate "Validation model for FlatPlate"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
     nSeg=30,
-    lat=0.6457718232379,
     til=0.78539816339745)
     "Flat plate solar collector model, has been modified for validation purposes"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -106,6 +105,12 @@ but no mass flow rate, which leads to an increase in temperature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter assignment for <code>lat</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with

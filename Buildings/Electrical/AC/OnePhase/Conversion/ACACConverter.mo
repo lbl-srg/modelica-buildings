@@ -22,12 +22,12 @@ model ACACConverter "AC AC converter single phase systems"
   parameter Boolean ground_2 = true
     "If true, connect side 2 of converter to ground"
     annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
-  Modelica.SIunits.Power LossPower[2] "Loss power";
+  Modelica.Units.SI.Power LossPower[2] "Loss power";
 protected
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
-    "Power transmitted at pin p";
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
-    "Power transmitted at pin n";
+  Modelica.Units.SI.Power P_p[2]=PhaseSystem_p.phasePowers_vi(terminal_p.v,
+      terminal_p.i) "Power transmitted at pin p";
+  Modelica.Units.SI.Power P_n[2]=PhaseSystem_n.phasePowers_vi(terminal_n.v,
+      terminal_n.i) "Power transmitted at pin n";
 equation
 
   // Ideal transformation
@@ -66,31 +66,31 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%conversionFactor"),
         Text(
           extent={{-100,-100},{100,-132}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="%eta"),
         Text(
           extent={{-132,78},{-72,38}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="1"),
         Text(
           extent={{-88,52},{-28,12}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="AC"),
         Text(
           extent={{32,52},{92,12}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{70,78},{130,38}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="2")}),
     Documentation(info="<html>
 <p>
@@ -125,8 +125,8 @@ Furthermore, reactive power on both side are set to zero.
 <h4>Note:</h4>
 <p>
 This model is derived from
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
+<a href=\"modelica://Modelica.Electrical.QuasiStatic.SinglePhase.Utilities.IdealACDCConverter\">
+Modelica.Electrical.QuasiStatic.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>
 </html>", revisions="<html>
 <ul>
