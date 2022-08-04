@@ -663,8 +663,8 @@ is provided. During simulation, the efficiency is interpolated or extrapolated b
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot</a>.
 See
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot\">
-Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot</a>
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
+Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>
 as an example.
 </li>
 <li>
@@ -717,8 +717,8 @@ and the factor <i>1.2</i> also assumes a 20% oversize.
 The model then computes the efficiency the same way as the option of
 <code>Efficiency_MotorPartLoadRatio</code>.
 Also see
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot\">
-Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot</a>
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
+Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>
 as an example.
 </li>
 <li>

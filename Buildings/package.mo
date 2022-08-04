@@ -268,7 +268,7 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot<br/>
         Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot<br/>
         Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve<br/>
-        Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface_yMot
+        Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods
     </td>
     <td valign=\"top\">
     Added functions and data records that allow the motor efficiency to be provided
