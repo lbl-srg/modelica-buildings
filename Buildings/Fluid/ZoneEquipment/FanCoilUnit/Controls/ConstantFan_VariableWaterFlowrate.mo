@@ -2,29 +2,64 @@ within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls;
 block ConstantFan_VariableWaterFlowrate
   "Controller for fan coil system with variable water flow rates and fixed speed fan"
 
-  parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller" annotation (Dialog(group="Cooling mode control"));
-  parameter Real kCoo=1 "Gain of controller"
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Cooling mode control"));
+
+  parameter Real kCoo(
+    final unit="1",
+    displayUnit="1",
+    final min=0)=1
+    "Gain of controller"
     annotation(Dialog(group="Cooling mode control"));
-  parameter Real TiCoo=0.5 "Time constant of integrator block"
+
+  parameter Real TiCoo(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time",
+    final min=0)=0.5
+    "Time constant of integrator block"
     annotation(Dialog(group="Cooling mode control",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real TdCoo=0.1 "Time constant of derivative block"
+
+  parameter Real TdCoo(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time",
+    final min=0)=0.1
+    "Time constant of derivative block"
     annotation(Dialog(group="Cooling mode control",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller" annotation (Dialog(group="Heating mode control"));
-
-  parameter Real kHea=1 "Gain of controller"
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
     annotation(Dialog(group="Heating mode control"));
-  parameter Real TiHea=0.5 "Time constant of integrator block"
+
+  parameter Real kHea(
+    final unit="1",
+    displayUnit="1",
+    final min=0)=1
+    "Gain of controller"
+    annotation(Dialog(group="Heating mode control"));
+
+  parameter Real TiHea(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time",
+    final min=0)=0.5
+    "Time constant of integrator block"
     annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real TdHea=0.1 "Time constant of derivative block"
+
+  parameter Real TdHea(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time",
+    final min=0)=0.1
+    "Time constant of derivative block"
     annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -32,13 +67,15 @@ block ConstantFan_VariableWaterFlowrate
   parameter Real dTHys(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 0.2
+    final quantity="TemperatureDifference",
+    final min=0) = 0.2
     "Temperature difference used for enabling coooling and heating mode"
     annotation(Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon "Measured zone temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon
+    "Measured zone temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet
     "Zone cooling temperature setpoint"
@@ -50,28 +87,30 @@ block ConstantFan_VariableWaterFlowrate
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan "Fan enable signal"
-                                                           annotation (Placement(
-        transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent=
-           {{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
+    "Fan enable signal"
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe "Fan speed signal"
-                                                           annotation (Placement(
-        transformation(extent={{100,-50},{140,-10}}),
-                                                    iconTransformation(extent={
-            {100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe
+    "Fan speed signal"
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
+      iconTransformation(extent={{100,-40},{140,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo "Cooling signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo
+    "Cooling signal"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+      iconTransformation(extent={{100,40},{140,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea "Heating signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea
+    "Heating signal"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
-        iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=-dTHys,
-                                                                   uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable cooling when zone temperature is higher than cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
@@ -83,8 +122,9 @@ protected
     "Find difference between zone temperature and heating setpoint"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(uLow=-dTHys,
-                                                                   uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable heating when zone temperature is lower than heating setpoint"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
@@ -97,22 +137,25 @@ protected
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
-    controllerType=controllerTypeCoo,
-    k=kCoo,
-    Ti=TiCoo,
-    Td=TdCoo,                                      reverseActing=false)
+    final controllerType=controllerTypeCoo,
+    final k=kCoo,
+    final Ti=TiCoo,
+    final Td=TdCoo,
+    final reverseActing=false)
     "PI controller for fan speed in cooling mode"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
-    controllerType=controllerTypeHea,
-    k=kHea,
-    Ti=TiHea,
-    Td=TdHea,                                       reverseActing=false)
+    final controllerType=controllerTypeHea,
+    final k=kHea,
+    final Ti=TiHea,
+    final Td=TdHea,
+    final reverseActing=false)
     "PI controller for fan speed in heating mode"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=0)
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
@@ -166,11 +209,12 @@ equation
   connect(conPID.y, yCoo)
     annotation (Line(points={{42,60},{120,60}}, color={0,0,127}));
   annotation (defaultComponentName="conVarWatConFan",
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false),
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-          preserveAspectRatio=false)));
+          fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ConstantFan_VariableWaterFlowrate;
