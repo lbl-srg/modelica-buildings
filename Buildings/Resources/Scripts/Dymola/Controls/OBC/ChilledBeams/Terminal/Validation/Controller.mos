@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ChilledBeams.Terminal.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="Controller");
+simulateModel("Buildings.Controls.OBC.ChilledBeams.Terminal.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="TerminalController");
 
 createPlot(id=1, position={702, 0, 685, 451}, y={"terCon.uDetOcc"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={702, 0, 685, 60}, y={"terCon.uConSen"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
