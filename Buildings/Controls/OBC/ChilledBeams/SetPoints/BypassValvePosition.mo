@@ -19,7 +19,8 @@ block BypassValvePosition
   parameter Real dPChiWatMax(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") = 50000
+    final quantity="PressureDifference",
+    final min=1e-6) = 50000
     "Maximum allowed differential pressure in the chilled water loop";
 
   parameter Real k(
@@ -48,7 +49,7 @@ block BypassValvePosition
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Pump proven On signal"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatLoo(
     final unit="Pa",
