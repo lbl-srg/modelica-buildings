@@ -290,7 +290,7 @@ model FlowDistribution
       pressure(
         final V_flow = per.pressure.V_flow,
         final dp = per.pressure.dp),
-      final hydraulicEfficiency=per.hydraulicEfficiency,
+      final efficiency=per.efficiency,
       final motorEfficiency=per.motorEfficiency,
       final motorCooledByFluid=per.motorCooledByFluid,
       final speed_nominal=per.speed_nominal,
@@ -312,7 +312,7 @@ model FlowDistribution
       pressure(
         final V_flow=per.pressure.V_flow,
         final dp=per.pressure.dp),
-      final hydraulicEfficiency=per.hydraulicEfficiency,
+      final efficiency=per.efficiency,
       final motorEfficiency=per.motorEfficiency,
       final motorCooledByFluid=per.motorCooledByFluid,
       final speed_nominal=per.speed_nominal,
