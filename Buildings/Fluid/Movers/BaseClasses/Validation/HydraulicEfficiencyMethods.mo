@@ -4,7 +4,7 @@ model HydraulicEfficiencyMethods
   extends Modelica.Icons.Example;
 
   Buildings.Fluid.Movers.Data.Generic per(
-    final PowerOrEfficiencyIsHydraulic=true,
+    PowerOrEfficiencyIsHydraulic=true,
     final pressure(V_flow={0,1}, dp={1000,0}),
     final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided)
     "Performance record";

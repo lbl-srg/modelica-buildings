@@ -5,3 +5,4 @@ FlowMachineInterface
 HydraulicEfficiencyMethods
 MotorEfficiencyMethods
 PowerInterface
+TotalEfficiencyMethods
