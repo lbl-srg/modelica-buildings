@@ -663,9 +663,11 @@ equation
       eta_internal = cha.efficiency(per=per.efficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
     end if;
     if per.PowerOrEfficiencyIsHydraulic then
-      P_internal=WFlo/eta_internal;
+      P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                        x1=eta_internal, x2=1E-5, deltaX=1E-6);
     else
-      P_internal=WHyd/eta_internal;
+      P_internal=WHyd/Buildings.Utilities.Math.Functions.smoothMax(
+                        x1=eta_internal, x2=1E-5, deltaX=1E-6);
     end if;
   else // Not provided
     if per.PowerOrEfficiencyIsHydraulic then
