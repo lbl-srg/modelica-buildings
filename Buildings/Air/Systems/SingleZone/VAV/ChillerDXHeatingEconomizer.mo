@@ -125,17 +125,14 @@ model ChillerDXHeatingEconomizer
     final nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=875,
     final per(
-      final etaMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
-
       final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
-
       final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
-
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=false,
     final use_inputFilter=false,
     redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
+
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dp_nominal,
@@ -192,7 +189,7 @@ model ChillerDXHeatingEconomizer
     final m_flow_nominal=mChiEva_flow_nominal,
     final addPowerToMedium=false,
     final per(
-      hydraulicEfficiency(eta={1}),
+      efficiency(eta={1}),
       motorEfficiency(eta={0.9}),
       motorCooledByFluid=false),
     final dp_nominal=12000,
@@ -398,7 +395,7 @@ equation
   connect(souChiWat.ports[1], chi.port_a1) annotation (Line(points={{128,-174},
           {128,-174},{110,-174}},       color={0,127,255}));
   connect(chi.port_b1, out.ports[1]) annotation (Line(points={{90,-174},{-116,
-          -174},{-116,42.6667},{-120,42.6667}},                  color={0,127,255}));
+          -174},{-116,38.6667},{-120,38.6667}},                  color={0,127,255}));
   connect(weaBus.TDryBul, souChiWat.T_in) annotation (Line(
       points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
       color={255,204,51},
@@ -448,7 +445,7 @@ equation
   connect(ideEco.port_3, senTRetAir.port_b) annotation (Line(points={{-90,36},{
           -90,-40},{-40,-40}}, color={0,127,255}));
   connect(senTRetAir.port_b, out.ports[3]) annotation (Line(points={{-40,-40},{
-          -112,-40},{-112,36},{-120,36},{-120,37.3333}}, color={0,127,255}));
+          -112,-40},{-112,36},{-120,36},{-120,41.3333}}, color={0,127,255}));
   connect(TRet, senTRetAir.T) annotation (Line(points={{212,-80},{174,-80},{174,
           -20},{-30,-20},{-30,-29}},     color={0,0,127}));
   connect(senTRetAir.port_a, senTraSub.port_b)    annotation (Line(points={{-20,-40},{20,-40}}, color={0,127,255}));
