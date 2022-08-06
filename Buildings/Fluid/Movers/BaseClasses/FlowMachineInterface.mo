@@ -295,13 +295,6 @@ protected
   Modelica.Units.SI.Power P_internal
     "Either PEle or WHyd";
 
-  Modelica.Blocks.Math.Division V_flow_internal
-    "Converts mass flow rate to volumetric flow rate";
-  // This block replaces an algebraic equation with connections to allow
-  //   the conditional declarations of CombiTable2D blocks used in the Euler number
-  //   computations. This avoids the need to provide them with initial table values
-  //   to meet their format requirements even when they are not used.
-
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
     Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
       peak=per.peak,
@@ -314,14 +307,10 @@ protected
   Modelica.Blocks.Tables.CombiTable2Ds effTab(
     final table=curEu.eta,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
     "Look-up table for mover efficiency";
   Modelica.Blocks.Tables.CombiTable2Ds powTab(
     final table=curEu.P,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
     "Look-up table for mover power";
 
   Real yMot(final min=0, final start=0.833)=
@@ -468,10 +457,7 @@ equation
   connect(r_N, y_in);
   y_out=r_N;
 
-  //density conversion
-  connect(V_flow_internal.u1,m_flow);
-  connect(V_flow_internal.u2,rho);
-  connect(V_flow_internal.y,V_flow);
+  V_flow = m_flow/rho;
 
   // Hydraulic equations
   r_V = V_flow/V_flow_max;
@@ -615,11 +601,10 @@ equation
   eta = etaHyd * etaMot;
 
   // for power computation via EulerNumber
-  //   effTab and powTab are conditionally-enabled blocks.
   connect(effTab.u1, dp_internal);
-  connect(effTab.u2, V_flow_internal.y);
+  effTab.u2=V_flow;
   connect(powTab.u1, dp_internal);
-  connect(powTab.u2, V_flow);
+  powTab.u2=V_flow;
 
   // Hydraulic efficiency etaHyd and hydraulic work WHyd
   //   or total efficiency eta and total electric power PEle
@@ -649,11 +634,11 @@ equation
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     if per.PowerOrEfficiencyIsHydraulic then
-      connect(effTab.y,etaHyd);
-      connect(powTab.y,WHyd);
+      WHyd=powTab.y;
+      etaHyd=effTab.y;
     else
-      connect(effTab.y,eta);
-      connect(powTab.y,PEle);
+      PEle=powTab.y;
+      eta=effTab.y;
     end if;
   elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
