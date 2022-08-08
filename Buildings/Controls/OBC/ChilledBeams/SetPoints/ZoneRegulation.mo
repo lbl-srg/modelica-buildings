@@ -407,7 +407,7 @@ annotation (defaultComponentName="zonRegCon",
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>
-Zone temperature regulation controller for terminal box of CAV DOAS system with 
+Zone temperature regulation controller for terminal box of CAV DOAS system with
 reheat and chilled beam mainfold valves. It outputs damper position <code>yDam</code>,
 reheat signal <code>yReh</code>, and chilled water manifold control valve position
 <code>yVal</code>.
@@ -419,9 +419,9 @@ Each signal is calculated as follows.
 Reheat signal
 <ul>
 <li>
-The CAV reheat signal <code>yReh</code> is generated using a PI-controller to 
-maintain the measured zone temperature <code>TZon</code> at or above the zone heating 
-setpoint <code>TZonHeaSet</code> from 
+The CAV reheat signal <code>yReh</code> is generated using a PI-controller to
+maintain the measured zone temperature <code>TZon</code> at or above the zone heating
+setpoint <code>TZonHeaSet</code> from
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature</a>.
 </li>
@@ -436,18 +436,18 @@ mode signal <code>uOpeMod</code>.
 </li>
 <li>
 When the operating mode is <code>occupied</code>, <code>yDam</code> is adjusted
-to supply air at volume flow rate <code>Vdes_occ</code>.
+to supply air at volume flow rate <code>VDes_occ</code>.
 </li>
 <li>
 When the operating mode is <code>unoccupiedUnscheduled</code>, <code>yDam</code>
-is adjusted to supply air at volume flow rate <code>Vdes_unoccUnsch</code>.
+is adjusted to supply air at volume flow rate <code>VDes_unoccUnsch</code>.
 </li>
 <li>
 When the operating mode is <code>unoccupiedScheduled</code>, <code>yDam</code>
-is adjusted to supply air at volume flow rate <code>Vdes_unoccSch</code>.
+is adjusted to supply air at volume flow rate <code>VDes_unoccSch</code>.
 </li>
 <li>
-When a continuous signal is received from the condensation sensor in the zone 
+When a continuous signal is received from the condensation sensor in the zone
 <code>uConSen</code> for time <code>conSenOnThr</code>, <code>yDam</code> is set
 to fully open.
 </li>
@@ -457,9 +457,9 @@ to fully open.
 Chilled beam control valve position
 <ul>
 <li>
-The chilled beam control valve position <code>yVal</code> is adjusted using a 
+The chilled beam control valve position <code>yVal</code> is adjusted using a
 PI-controller to regulate <code>TZon</code> at or below the zone cooling setpoint
-<code>TZonCooSet</code> from 
+<code>TZonCooSet</code> from
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature</a>.
 </li>
