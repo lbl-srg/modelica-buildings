@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="PumpController");
+
+createPlot(id=1, position={0, 0, 1403, 978}, y={"pumCon.uPumLeaLag[1]", "pumCon.uPumLeaLag[2]"}, range={0.0, 3600.0, 0.5, 2.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1403, 159}, y={"pumCon.uValPos[1]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1403, 158}, y={"pumCon.yChiWatPum[2]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1403, 159}, y={"pumCon.yPumSpe"}, range={0.0, 3600.0, 0.0, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1403, 159}, y={"pumCon.enaLagSecPum.timPer", "pumCon.enaLagSecPum.timPer1", "pumCon.enaLagSecPum.timPer2", "pumCon.enaLagSecPum.tim1.y", "pumCon.enaLagSecPum.tim.y", "pumCon.enaLagSecPum.tim2.y"}, range={0.0, 3600.0, -50.0, 150.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});
+createPlot(id=1, position={0, 0, 1403, 159}, y={"pumCon.yChiWatPum[1]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=6, colors={{28,108,200}});
+
+createPlot(id=2, position={841, 0, 823, 451}, y={"pumCon.dpChiWat_remote", "pumCon.dpChiWatSet"}, range={0.0, 3600.0, 0.4, 1.6}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={841, 0, 823, 223}, y={"pumCon.yPumSpe"}, range={0.0, 3600.0, 0.0, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});
+
