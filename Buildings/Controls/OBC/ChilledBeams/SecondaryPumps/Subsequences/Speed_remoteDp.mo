@@ -141,14 +141,14 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add addSmaPre
+  Buildings.Controls.OBC.CDL.Continuous.Max guaDivZer
     "Ensure zero setpoint does not cause division by zero"
-    annotation (Placement(transformation(extent={{-72,-100},{-52,-80}})));
+    annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaPre(final k(final
-        unit="Pa") = 1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaPre(
+    final k(final unit="Pa") = 1)
     "Constant for small pressure, used to avoid division by zero. Set to 1 Pa as default as set point is usually in the order of 1 kPa"
-    annotation (Placement(transformation(extent={{-110,-94},{-90,-74}})));
+    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
 
 equation
 
@@ -186,12 +186,10 @@ equation
 
   connect(uChiWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,100},{-90,
           100},{-90,0},{-82,0}},   color={255,0,255}));
-  connect(mulOr.y, swi.u2) annotation (Line(points={{-58,0},{-50,0},{-50,100},{
-          78,100}},
-                 color={255,0,255}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-58,0},{-50,0},{-50,-40},{
-          -42,-40}},
-                 color={255,0,255}));
+  connect(mulOr.y, swi.u2) annotation (Line(points={{-58,0},{-50,0},{-50,100},{78,
+          100}}, color={255,0,255}));
+  connect(mulOr.y, edg.u) annotation (Line(points={{-58,0},{-50,0},{-50,-40},{-42,
+          -40}}, color={255,0,255}));
   connect(edg.y, booRep.u)
     annotation (Line(points={{-18,-40},{-12,-40}}, color={255,0,255}));
   connect(booRep.y, conPID.trigger)
@@ -204,13 +202,13 @@ equation
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
   connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
           {78,92}}, color={0,0,127}));
-  connect(reaRep.y, div.u2) annotation (Line(points={{-18,-90},{-10,-90},{-10,
-          -72},{-2,-72}},  color={0,0,127}));
-  connect(addSmaPre.y, reaRep.u)
-    annotation (Line(points={{-50,-90},{-42,-90}}, color={0,0,127}));
-  connect(addSmaPre.u1, smaPre.y) annotation (Line(points={{-74,-84},{-88,-84}},
-                               color={0,0,127}));
-  connect(addSmaPre.u2, dpChiWatSet) annotation (Line(points={{-74,-96},{-84,-96},
+  connect(reaRep.y, div.u2) annotation (Line(points={{-18,-90},{-10,-90},{-10,-72},
+          {-2,-72}},       color={0,0,127}));
+  connect(guaDivZer.y, reaRep.u)
+    annotation (Line(points={{-48,-90},{-42,-90}}, color={0,0,127}));
+  connect(guaDivZer.u1, smaPre.y) annotation (Line(points={{-72,-84},{-82,-84},{
+          -82,-80},{-88,-80}}, color={0,0,127}));
+  connect(guaDivZer.u2, dpChiWatSet) annotation (Line(points={{-72,-96},{-84,-96},
           {-84,-100},{-140,-100}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
@@ -254,8 +252,8 @@ When any chilled water pump is proven on, <code>uChiWatPum = true</code>,
 pump speed will be controlled by a reverse acting PID loop maintaining the
 differential pressure signal at a setpoint <code>dpChiWatSet</code>. All pumps
 receive the same speed signal. PID loop output shall be mapped from minimum
-pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed
-(<code>maxPumSpe</code>) at 100%.
+pump speed <code>minPumSpe</code> at 0% to maximum pump speed
+<code>maxPumSpe</code> at 100%.
 </li>
 <li>
 Where multiple differential pressure sensors exist, a PID loop shall run for
