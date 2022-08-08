@@ -26,4 +26,4 @@ if __name__ == '__main__':
   if args.binaries_for_os_only:
     proc += ["--binaries-for-os-only"]
 
-  subprocess.run(proc, shell=True)
+  subprocess.run(proc, shell=False)
