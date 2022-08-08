@@ -162,8 +162,11 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the half-period ratio of the output from a relay controller, <i>&rho;</i>, by</p>
-<p>&rho; = max(t<sub>on</sub>,t<sub>off</sub>)/ min(t<sub>on</sub>,t<sub>off</sub>) </p>
+<p>This block calculates the half-period ratio of the output from a relay controller.</p>
+<h4>Main equations</h4>
+<p align=\"center\" style=\"font-style:italic;\">
+&rho; = max(t<sub>on</sub>,t<sub>off</sub>)/ min(t<sub>on</sub>,t<sub>off</sub>),
+</p>
 <p>where <i>t<sub>on</i></sub> and <i>t<sub>on</i></sub> are the length of the On period and the Off period, respectively.</p>
 <p>During an On period, the relay switch signal becomes True;</p>
 <p>During an Off period,  the relay switch signal becomes False.</p>

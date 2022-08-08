@@ -72,9 +72,18 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the normalized time delay of the responses from a relay controller, <i>&tau;</i>, by</p>
-<p>&tau; = (&gamma; - &rho;)/(&gamma; - 1)/(&rho;*0.35+0.65) </p>
+<p>This block calculates the normalized time delay of the responses from a relay controller.</p>
+<h4>Main equations</h4>
+<p align=\"center\" style=\"font-style:italic;\">
+&tau; = (&gamma; - &rho;)/(&gamma; - 1)/(&rho;*0.35+0.65),
+</p>
 <p>where <i>&gamma;</i> and <i>&rho;</i>  are the asymmetry level of the relay controller and the half-period ratio, respectively.</p>
+<h4>Validation</h4>
+<p>
+This block was validated analytically, see
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.NormalizedTimeDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.NormalizedTimeDelay</a>.
+</p>
 <h4>References</h4>
 <p>
 Josefin Berner (2017).

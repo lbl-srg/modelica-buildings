@@ -96,10 +96,19 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the integral time of a PI model, <i>T<sub>i</sub></i>, by</p>
-<p>T<sub>i</sub> = 0.35L + 13LT<sup>2</sup>/(T<sup>2</sup> + 12LT + 7L<sup>2</sup>)</p>
+<p>This block calculates the integral time of a PI model</p>
+<h4>Main equations</h4>
+<p align=\"center\" style=\"font-style:italic;\">
+T<sub>i</sub> = 0.35L + 13LT<sup>2</sup>/(T<sup>2</sup> + 12LT + 7L<sup>2</sup>),
+</p>
 <p>where <i>T</i> is the time constant of the first-order time-delayed model;</p>
 <p><i>L</i> is the time delay of the first-order time-delayed model.</p>
+<h4>Validation</h4>
+<p>
+This block was validated analytically, see
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIIntegralTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIIntegralTime</a>.
+</p>
 <h4>References</h4>
 <p>
 Garpinger, Olof, Tore Hägglund, and Karl Johan Åström (2014) 

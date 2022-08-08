@@ -1,5 +1,5 @@
 simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PID", method="Cvode", tolerance=1e-06, resultFile="PID");
-createPlot(id=1, position={75, 75, 1488, 1095}, y={"pID.k", "referencek.y"}, range={0.0, 1.0, 0.4, 1.2000000000000002}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={75, 75, 1488, 1095}, y={"pID.Ti", "referenceTi.y"}, range={0.0, 1.0, 0.4, 1.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={75, 75, 1488, 1095}, y={"pID.Td", "referenceTd.y"}, range={0.0, 1.0, 0.1, 0.30000000000000004}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={75, 75, 1488, 1095}, y={"pID.k", "ReferenceData.y[4]"}, range={0.0, 1.0, 0.4, 1.2000000000000002}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={75, 75, 1488, 1095}, y={"pID.Ti", "ReferenceData.y[5]"}, range={0.0, 1.0, 0.4, 1.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={75, 75, 1488, 1095}, y={"pID.Td", "ReferenceData.y[6]"}, range={0.0, 1.0, 0.1, 0.30000000000000004}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}});
 

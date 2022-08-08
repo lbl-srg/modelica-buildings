@@ -16,14 +16,14 @@ block TimeConstantDelay
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ratioLT
-    "Connector for the signal of the ratio between the time constant and the time delay of a first order time delay model"
+    "Connector for the signal of the ratio between the time constant and the time delay"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput T
     "Connector for a output signal of the time constant"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput L
-    "Connector for a output signal of the time constant"
+    "Connector for a output signal of the time delay"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs absk
     "Absoulte value of the gain"
@@ -137,15 +137,26 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>This block calculates the time constant and the time delay of a first-order time-delayed model</p>
+<h4>Main equations</h4>
 <P>The time constant, <i>T</i>, is calculated by <p>
-<P> T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub>hig</sub> + y<sub>low</sub>))/(y<sub>hig</sub>-&delta;/|k|)))</p>
+<p align=\"center\" style=\"font-style:italic;\">
+T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub>hig</sub> + y<sub>low</sub>))/(y<sub>hig</sub>-&delta;/|k|))),
+</p>
 <p>where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value and the lower value of the relay control output, respectively,</p>
 <p><i>t<sub>on</sub></i> is the length of the On period,</p>
 <p><i>&delta;</i> is the dead band of a relay controller,</p>
 <p><i>k</i> is the gain of the first-order time-delayed model.</p>
 <p><i>&tau;</i> is the normalized time delay.</p>
 <P>The time delay, <i>L</i>, is calculated by <p>
-<P> L = T &tau;/(1 - &tau;);</p>
+<p align=\"center\" style=\"font-style:italic;\">
+L = T &tau;/(1 - &tau;),
+</p>
+<h4>Validation</h4>
+<p>
+This block was validated analytically, see
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation.TimeConstantDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation.TimeConstantDela</a>.
+</p>
 <h4>References</h4>
 <p>
 Josefin Berner (2015).

@@ -58,10 +58,19 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the derivative time of a PID model, <i>T<sub>d</sub></i>, by</p>
-<p>T<sub>d</sub> = 0.5LT/(0.3L+T) </p>
+<p>This block calculates the derivative time of a PID model.</p>
+<h4>Main equations</h4>
+<p align=\"center\" style=\"font-style:italic;\">
+T<sub>d</sub> = 0.5LT/(0.3L+T),
+</p>
 <p>where <i>T</i> is the time constant of the first-order time-delayed model;</p>
 <p><i>L</i> is the time delay of the first-order time-delayed model.</p>
+<h4>Validation</h4>
+<p>
+This block was validated analytically, see
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDDerivativeTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDDerivativeTime</a>.
+</p>
 <h4>References</h4>
 <p>&Aring;str&ouml;m, Karl Johan, and Tore H&auml;gglund. &quot;Revisiting the Ziegler&ndash;Nichols step response method for PID control.&quot; Journal of process control 14.6 (2004): 635-650.</p>
 </html>"));

@@ -3,7 +3,7 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD
+  .Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD
     PIDWitAutotuning(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     yHig=1,
@@ -19,26 +19,25 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
     Td=0.1)
     "PID controller with constant gains"
      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
+  CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Modelica.Blocks.Continuous.FirstOrder FirstOrderProcess2(T=10, initType=
-        Modelica.Blocks.Types.Init.InitialOutput)
-    "A first-order process for control process 2"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Modelica.Blocks.Continuous.FirstOrder FirstOrderProcess1(
-    k=1,
-    T=10,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    y_start=0) "A first-order process for control process 1"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Blocks.Discrete.UnitDelay unitDelay2(samplePeriod=240)
+  CDL.Discrete.UnitDelay uniDel2(samplePeriod=240)
     "A dealy process for control process 2"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Modelica.Blocks.Discrete.UnitDelay unitDelay1(samplePeriod=240)
+  CDL.Discrete.UnitDelay uniDel1(samplePeriod=240)
     "A dealy process for control process 1"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  CDL.Continuous.FirstOrder firstOrder1(y_start=0)
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  CDL.Continuous.Sources.Constant k(k=1) "Gain of the first order process"
+    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+  CDL.Continuous.Sources.Constant T(k=10)
+    "Time constant of the first order process"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+  CDL.Continuous.FirstOrder firstOrder2(y_start=0)
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 equation
   connect(resSig.y, PID.trigger) annotation (Line(points={{-58,70},{-48,70},{-48,
           12},{-16,12},{-16,18}},
@@ -51,18 +50,26 @@ equation
                             color={0,0,127}));
   connect(SetPoint.y, PID.u_s) annotation (Line(points={{-58,10},{-50,10},{-50,30},
           {-22,30}},               color={0,0,127}));
-  connect(FirstOrderProcess2.y, PIDWitAutotuning.u_m) annotation (Line(points={{
-          81,-20},{86,-20},{86,-38},{-10,-38},{-10,-32}}, color={0,0,127}));
-  connect(PID.u_m, FirstOrderProcess1.y) annotation (Line(points={{-10,18},{-10,
-          12},{86,12},{86,30},{81,30}}, color={0,0,127}));
-  connect(PIDWitAutotuning.y, unitDelay2.u)
+  connect(PIDWitAutotuning.y, uniDel2.u)
     annotation (Line(points={{2,-20},{18,-20}}, color={0,0,127}));
-  connect(unitDelay2.y, FirstOrderProcess2.u)
-    annotation (Line(points={{41,-20},{58,-20}}, color={0,0,127}));
-  connect(FirstOrderProcess1.u, unitDelay1.y)
-    annotation (Line(points={{58,30},{41,30}}, color={0,0,127}));
-  connect(unitDelay1.u, PID.y)
-    annotation (Line(points={{18,30},{2,30}},  color={0,0,127}));
+  connect(uniDel1.u, PID.y)
+    annotation (Line(points={{18,30},{2,30}}, color={0,0,127}));
+  connect(uniDel1.y, firstOrder1.u)
+    annotation (Line(points={{42,30},{58,30}}, color={0,0,127}));
+  connect(firstOrder1.y, PID.u_m) annotation (Line(points={{82,30},{90,30},{90,8},
+          {-10,8},{-10,18}}, color={0,0,127}));
+  connect(firstOrder2.u, uniDel2.y)
+    annotation (Line(points={{58,-20},{42,-20}}, color={0,0,127}));
+  connect(firstOrder2.y, PIDWitAutotuning.u_m) annotation (Line(points={{82,-20},
+          {90,-20},{90,-40},{-10,-40},{-10,-32}}, color={0,0,127}));
+  connect(firstOrder1.k, k.y) annotation (Line(points={{58,38},{48,38},{48,90},{
+          2,90}}, color={0,0,127}));
+  connect(T.y, firstOrder1.T) annotation (Line(points={{22,60},{44,60},{44,34},{
+          58,34}}, color={0,0,127}));
+  connect(firstOrder2.k, k.y) annotation (Line(points={{58,-12},{52,-12},{52,38},
+          {48,38},{48,90},{2,90}}, color={0,0,127}));
+  connect(firstOrder2.T, firstOrder1.T) annotation (Line(points={{58,-16},{44,-16},
+          {44,34},{58,34}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=10000,

@@ -87,14 +87,19 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the gain of a first-order time-delayed model, <i>k</i>, by</p>
-<p>k = I<sub>y</sub>/I<sub>u</sub></p>
+<p>This block calculates the gain of a first-order time-delayed model.</p>
+<h4>Main equations</h4>
+<p align=\"center\" style=\"font-style:italic;\">
+k = I<sub>y</sub>/I<sub>u</sub>,
+</p>
 <p>where <i>I<sub>y</i></sub> and <i>I<sub>u</i></sub> are the integral of the process output and the integral of the relay output, respectively.</p>
 <p><i>I<sub>y</i></sub> is calculated by </p>
 <p>I<sub>y</sub> = &int; u(t) dt;</p>
 <p>where <i>u</i> is the process output.</p>
 <p><i>I<sub>u</i></sub> is calculated by </p>
-<p>I<sub>u</sub> = t<sub>on</sub> (y<sub>hig</sub> - y<sub>ref</sub>)+ t<sub>off</sub>(-y<sub>low</sub> - y<sub>ref</sub>);</p>
+<p align=\"center\" style=\"font-style:italic;\">
+I<sub>u</sub> = t<sub>on</sub> (y<sub>hig</sub> - y<sub>ref</sub>)+ t<sub>off</sub>(-y<sub>low</sub> - y<sub>ref</sub>),
+</p>
 <p>where <i>y<sub>hig</i></sub> and <i>y<sub>low</i></sub> are the higher value and the lower value of the relay control output, respectively.</p>
 <p><i>y<sub>ref</i></sub> is the reference value of the relay output.</p>
 <p><i>t<sub>on</i></sub> and <i>t<sub>off</i></sub> are the length of the On period and the Off period, respectively.</p>

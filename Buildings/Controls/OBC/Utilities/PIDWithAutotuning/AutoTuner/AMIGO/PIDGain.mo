@@ -64,11 +64,20 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain of a PID model, <i>k</i>, by</p>
-<p>k = 1/k<sub>p</sub> + (0.2 + 0.45T/L)</p>
+<p>This block calculates the control gain of a PID model.</p>
+<h4>Main equations</h4>
+<p align=\"center\" style=\"font-style:italic;\">
+k = 1/k<sub>p</sub> + (0.2 + 0.45T/L),
+</p>
 <p>where <i>k<sub>p</i></sub> is the gain of the first-order time-delayed model;</p>
 <p><i>T</i> is the time constant of the first-order time-delayed model;</p>
 <p><i>L</i> is the time delay of the first-order time-delayed model.</p>
+<h4>Validation</h4>
+<p>
+This block was validated analytically, see
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDGain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDGain</a>.
+</p>
 <h4>References</h4>
 <p>&Aring;str&ouml;m, Karl Johan, and Tore H&auml;gglund. &quot;Revisiting the Ziegler&ndash;Nichols step response method for PID control.&quot; Journal of process control 14.6 (2004): 635-650.</p>
 </html>"));

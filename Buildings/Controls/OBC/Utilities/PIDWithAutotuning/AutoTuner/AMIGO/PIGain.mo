@@ -100,11 +100,22 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain of a PI model, <i>k</i>, by</p>
-<p>k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L)</p>
-<p>where <i>k<sub>p</i></sub> is the gain of the first-order time-delayed model;</p>
+<p>This block calculates the control gain of a PI model, <i>k</i></p>
+<h4>Main equations</h4>
+<p align=\"center\" style=\"font-style:italic;\">
+k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
+</p>
+<p>
+where <i>k<sub>p</i></sub> is the gain of the first-order time-delayed model;
+</p>
 <p><i>T</i> is the time constant of the first-order time-delayed model;</p>
 <p><i>L</i> is the time delay of the first-order time-delayed model.</p>
+<h4>Validation</h4>
+<p>
+This block was validated analytically, see
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIGain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIGain</a>.
+</p>
 <h4>References</h4>
 <p>Garpinger, Olof, Tore H&auml;gglund, and Karl Johan &Aring;str&ouml;m (2014) &quot;Performance and robustness trade-offs in PID control.&quot; Journal of Process Control 24.5 (2014): 568-577. </p>
 </html>"));
