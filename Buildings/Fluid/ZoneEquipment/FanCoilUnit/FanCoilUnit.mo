@@ -533,7 +533,8 @@ equation
     </li>
     <li>
     Temperature and flowrate sensors at various points in the airloop, 
-    chilled-water loop and hot-water loop.
+    chilled-water loop and hot-water loop. The sensors are all replaceable instances
+    and can be redeclared as required.
     </li>
     </ul>
     </p>
