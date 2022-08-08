@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences;
 block Speed_remoteDp
   "Pump speed control for chilled beam systems where the remote DP sensor(s) is hardwired to the controller"
 
-  parameter Integer nSen = 2
+  parameter Integer nSen(min=1)
     "Total number of remote differential pressure sensors";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(min=1)
     "Total number of chilled water pumps";
 
   parameter Real minPumSpe = 0.1
@@ -263,6 +263,10 @@ of all DP sensor loops.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+August 8, 2022, by Michael Wetter:<br/>
+Set minimum attribute for parameter, and removed default value.
+</li>
 <li>
 June 9, 2021, by Karthik Devaprasad:<br/>
 First implementation.

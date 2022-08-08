@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ChilledBeams.SecondaryPumps;
 block Controller
   "Controller for chilled water pumps in chilled beam systems"
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(min=1)
     "Total number of chilled water pumps"
     annotation (Dialog(group="System parameters"));
 
-  parameter Integer nVal = 3
+  parameter Integer nVal(min=1)
     "Total number of chilled water control valves on chilled beams"
     annotation (Dialog(group="System parameters"));
 
@@ -376,25 +376,27 @@ equation
     annotation (Line(points={{-178,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
 
   connect(reaToInt.y, chaPumSta1.uNexLagPum) annotation (Line(points={{2,170},{46,
-          170},{46,74},{56,74}},     color={255,127,0}));
+          170},{46,74},{55.8,74}},   color={255,127,0}));
 
   connect(reaToInt.y, chaPumSta1.uLasLagPum) annotation (Line(points={{2,170},{46,
-          170},{46,70},{56,70}},     color={255,127,0}));
+          170},{46,70},{55.8,70}},   color={255,127,0}));
 
-  connect(enaLeaPum.yLea, chaPumSta1.uNexLagPumSta) annotation (Line(points={{-178,
-          80},{-62,80},{-62,86},{56,86}}, color={255,0,255}));
+  connect(enaLeaPum.yLea, chaPumSta1.uNexLagPumSta) annotation (Line(points={{-178,80},
+          {-62,80},{-62,86},{55.8,86}},   color={255,0,255}));
 
-  connect(enaLeaPum.yLea, chaPumSta1.uLasLagPumSta) annotation (Line(points={{-178,
-          80},{36,80},{36,83},{56,83}}, color={255,0,255}));
+  connect(enaLeaPum.yLea, chaPumSta1.uLasLagPumSta) annotation (Line(points={{-178,80},
+          {36,80},{36,82},{55.8,82}},   color={255,0,255}));
 
   connect(uniDel.y, enaLagSecPum.uPumSpe)
     annotation (Line(points={{-178,38},{-122,38}}, color={0,0,127}));
 
   connect(reaToInt1.y, chaPumSta4.uNexLagPum) annotation (Line(points={{14,-50},
-          {32,-50},{32,-4},{120,-4}},color={255,127,0}));
+          {32,-50},{32,-4},{119.8,-4}},
+                                     color={255,127,0}));
 
   connect(reaToInt2.y, chaPumSta4.uLasLagPum) annotation (Line(points={{14,-100},
-          {38,-100},{38,-8},{120,-8}},color={255,127,0}));
+          {38,-100},{38,-8},{119.8,-8}},
+                                      color={255,127,0}));
 
   connect(nexLagPum.y, reaToInt1.u)
     annotation (Line(points={{-58,-50},{-10,-50}}, color={0,0,127}));
@@ -421,19 +423,20 @@ equation
           {-48,2},{-22,2}}, color={255,0,255}));
 
   connect(and1.y, chaPumSta4.uNexLagPumSta) annotation (Line(points={{-8,42},{28,
-          42},{28,8},{120,8}},  color={255,0,255}));
+          42},{28,8},{119.8,8}},color={255,0,255}));
 
   connect(or3.y, chaPumSta4.uLasLagPumSta) annotation (Line(points={{2,2},{20,2},
-          {20,5},{120,5}},  color={255,0,255}));
+          {20,4},{119.8,4}},color={255,0,255}));
 
   connect(uValPos, enaLeaPum.uValPos)
     annotation (Line(points={{-300,80},{-202,80}}, color={0,0,127}));
 
   connect(uChiWatPum, chaPumSta1.uChiWatPum) annotation (Line(points={{-300,130},
-          {-260,130},{-260,100},{42,100},{42,78},{56,78}}, color={255,0,255}));
+          {-260,130},{-260,100},{42,100},{42,78},{55.8,78}},
+                                                           color={255,0,255}));
 
-  connect(chaPumSta1.yChiWatPum, chaPumSta4.uChiWatPum) annotation (Line(points=
-         {{80,78},{100,78},{100,0},{120,0}}, color={255,0,255}));
+  connect(chaPumSta1.yChiWatPum, chaPumSta4.uChiWatPum) annotation (Line(points={{82.2,78},
+          {100,78},{100,0},{119.8,0}},       color={255,0,255}));
 
   connect(uChiWatPum, pumSpeRemDp.uChiWatPum) annotation (Line(points={{-300,130},
           {-260,130},{-260,-182},{-22,-182}}, color={255,0,255}));
@@ -453,8 +456,9 @@ equation
   connect(con.y, logSwi.u3) annotation (Line(points={{144,-30},{162,-30},{162,-8},
           {178,-8}}, color={255,0,255}));
 
-  connect(chaPumSta4.yChiWatPum, logSwi.u1) annotation (Line(points={{144,0},{162,
-          0},{162,8},{178,8}}, color={255,0,255}));
+  connect(chaPumSta4.yChiWatPum, logSwi.u1) annotation (Line(points={{146.2,0},{
+          162,0},{162,8},{178,8}},
+                               color={255,0,255}));
 
   connect(booRep.y, logSwi.u2) annotation (Line(points={{140,96},{170,96},{170,0},
           {178,0}}, color={255,0,255}));

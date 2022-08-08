@@ -5,6 +5,7 @@ model Controller
   Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Controller
     pumCon(
     final nPum=2,
+    nVal=3,
     final minPumSpe=0.1,
     final maxPumSpe=1,
     final k=1,

@@ -270,11 +270,11 @@ annotation (
     </ol>
     </p>
     </html>", revisions="<html>
-    <ul>
-    <li>
-    June 8, 2021, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+<ul>
+<li>
+June 8, 2021, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnableLag_pumpSpeed;

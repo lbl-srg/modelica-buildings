@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences;
 block ChangeStatus
   "Sequence to change pump status"
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(min=1)
     "Total number of pumps";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
@@ -227,11 +227,15 @@ annotation (
   </ol>
   </p>
   </html>", revisions="<html>
-  <ul>
-  <li>
-  August 19, 2020, by Karthik Devaprasad:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<ul>
+<li>
+August 8, 2022, by Michael Wetter:<br/>
+Set minimum attribute for parameter, and removed default value.
+</li>
+<li>
+August 19, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ChangeStatus;
