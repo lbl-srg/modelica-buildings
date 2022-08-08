@@ -817,10 +817,7 @@ A cubic hermite spline with linear extrapolation is used to compute
 the performance at other operating points.
 </p>
 <p>
-The model computes the power and efficiency terms in the list below.
-The options for paths of computation are specified by the enumaration
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+The model computes the power and efficiency items in the list below.
 </p>
 <ul>
 <li>
@@ -844,7 +841,7 @@ Motor efficiency:<br/>
 See
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 Buildings.Fluid.Movers.UsersGuide</a>
-for how the user can provide these items to the model.
+for how the user can provide power and efficiency information to the model.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -869,13 +866,12 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
-March 8, 2022, by Hongxiang Fu:<br/>
+August 8, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
 Modified the power and efficiency computation to allow computing
-the total efficiency <code>eta</code>, the hydraulic efficiency <code>etaHyd</code>,
-and the motor efficiency <code>etaMot</code> and their corresponding power terms
-(when applicable) separately;
+the hydraulic efficiency <code>etaHyd</code> and
+the motor efficiency <code>etaMot</code> separately;
 </li>
 <li>
 Implemented the option to compute the total efficiency <code>eta</code>
@@ -898,9 +894,7 @@ Now it passes <code>WHyd</code> instead of <code>etaHyd</code> to
 Buildings.Fluid.Movers.BaseClasses.PowerInterface</a>.
 </li>
 <li>
-Now the flow work <code>WFlo</code> is bounded positive to prevent negative
-computed power when the mover is not generating enough pressure to overcome
-its own resistance.
+Now the flow work <code>WFlo</code> is bounded to be non-negative.
 </li>
 </ul>
 These are for

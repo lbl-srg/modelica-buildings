@@ -255,7 +255,9 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Euler.peak<br/>
         Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison<br/>
         Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve<br/>
-        Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed
+        Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed<br/>
+        Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods<br/>
+        Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods
     </td>
     <td valign=\"top\">
     Added package that allows certain efficiency and power variables to be computed
@@ -315,11 +317,8 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer
     </td>
-    <td valign=\"top\">Refactored the model by replacing all
-                       <code>use_powerCharacteristic</code>
-                       with the enumeration
-                       <code>Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</code><br/>.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    <td valign=\"top\">Refactored the model for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
@@ -375,11 +374,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.Movers.Validation.PowerSimplified<br/>
                        Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
     </td>
-    <td valign=\"top\">Refactored the models and data recoreds by replacing all
-                       <code>use_powerCharacteristic</code>
-                       with the enumeration
-                       <code>Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</code><br/>.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    <td valign=\"top\">Refactored the models and data recoreds for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
