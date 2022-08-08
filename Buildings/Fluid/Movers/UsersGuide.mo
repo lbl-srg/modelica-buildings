@@ -472,88 +472,15 @@ From the definition one has
 <p align=\"center\" style=\"font-style:italic;\">
 <i>&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i>.
 </p>
+
 <p>
-Two of the three efficiencies need to be defined, while defining all three would
-over-specify the problem. A user may have varying amounts of information about
-mover and/or motor performance. Therefore, the implementation allows a user to
-specify two, one, or none of the efficiencies. In the case of specifying one or
-none of the efficiencies, the implementation defines default values as needed based
-on reasonable assumptions. In such cases, the following default values are used:
-</p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<thead>
-  <tr>
-    <th colspan=\"3\">Is this item provided?</th>
-    <th colspan=\"3\">How will this item be computed?</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td><i>&eta;</i></td>
-    <td><i>&eta;<sub>hyd</sub></i></td>
-    <td><i>&eta;<sub>mot</sub></i></td>
-    <td><i>&eta;</i></td>
-    <td><i>&eta;<sub>hyd</sub></i></td>
-    <td><i>&eta;<sub>mot</sub></i></td>
-  </tr>
-  <tr>
-    <td>&#10003;</td>
-    <td>&#10060;</td>
-    <td>&#10060;</td>
-    <td>&#10003;</td>
-    <td><i>= &eta; &frasl; &eta;<sub>mot</sub></i></td>
-    <td>= 0.7</td>
-  </tr>
-  <tr>
-    <td>&#10060;</td>
-    <td>&#10003;</td>
-    <td>&#10060;</td>
-    <td><i>= &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i></td>
-    <td>&#10003;</td>
-    <td>= 0.7</td>
-  </tr>
-  <tr>
-    <td>&#10060;</td>
-    <td>&#10060;</td>
-    <td>&#10003;</td>
-    <td><i>= &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i></td>
-    <td>= 0.7</td>
-    <td>&#10003;</td>
-  </tr>
-  <tr>
-    <td>&#10060;</td>
-    <td>&#10060;</td>
-    <td>&#10060;</td>
-    <td>= 0.49</td>
-    <td>= 0.7</td>
-    <td>= 0.7</td>
-  </tr>
-</tbody>
-</table>
-<p>
-Constraints
-<i>&eta;<sub>Hyd</sub> &le; 1</i> and
-<i>&eta;<sub>Mot</sub> &le; 1</i>
-are imposed to prevent the division
-<i>&eta;<sub>Hyd</sub> = &eta; &frasl; &eta;<sub>Mot</sub></i> or
-<i>&eta;<sub>Mot</sub> = &eta; &frasl; &eta;<sub>Hyd</sub></i>
-from producing efficiency values larger than one.
-</p>
-<p>
-For the efficiency values that a user does define, there are different methods
-for doing so, depending on the efficiency being defined, as implemented in
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
-The methods are selected by enumeration
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>
-for <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> and by
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>
-for <i>&eta;<sub>mot</sub></i>.
-</p>
-<p>
-<i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> can be computed using the following choices:
+The list below shows the options for the user to specify <i>&eta;<sub>hyd</sub></i>
+which are implemented in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+These options are tested in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
+Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
 </p>
 <ul>
 <li>
@@ -579,7 +506,7 @@ Buildings.Fluid.Movers.Validation.PowerExact</a>
 as an example.
 </li>
 <li>
-<code>EulerNumber</code> - An efficiency, <i>&Delta;p</i>, and
+<b><code>EulerNumber</code> (default)</b> - An efficiency, <i>&Delta;p</i>, and
 <i>V&#775;</i> are provided that correspond to an operating point where the efficiency is at its peak.
 During simulation, the efficiency and power are computed using the package
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
@@ -644,12 +571,42 @@ chapter 16.4 equations 16.209 through 16.218.<br/>
 </p>
 </li>
 <li>
-<code>NotProvided</code> - The information of this efficiency term is not provided.
-During simulation, it will be computed using the other efficiency terms.
+<code>NotProvided</code> - The information of this efficiency item is not provided.
+The model uses a default value <i>&eta;<sub>hyd</sub>=0.7</i>.
 </li>
 </ul>
+
 <p>
-<i>&eta;<sub>mot</sub></i> can be computed using the following choices:
+The user can use the same options to specify the total efficiency <i>&eta;</i>
+instead by setting <code>per.PowerOrEfficiencyIsHydraulic=false</code>.
+This changes the default value to <i>&eta;=0.49</i> and also imposes an additional
+constraint of <i>&eta;<sub>Hyd</sub> &le; 1</i> to prevent the division
+<i>&eta;<sub>Hyd</sub> = &eta; &frasl; &eta;<sub>Mot</sub></i>
+from producing efficiency values larger than one. [TODO]
+This path is tested in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods\">
+Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods</a>.
+</p>
+<p>
+Although the Euler number method is defined for <i>&eta;<sub>hyd</sub></i>,
+this implementation applies it also to <i>&eta;</i> and <i>P<sub>ele</sub></i>
+as an approximation. The basis is that <i>&eta;<sub>mot</sub></i> is mostly
+constant for motors larger than about 3.5 kW or 5 HP except when the motor
+part load drops below around 40%, (see the documentation of
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
+which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
+to each other for motors of this size.
+</p>
+
+<p>
+The list below shows the options for the user to specify <i>&eta;<sub>mot</sub></i>
+which are implemented in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.
+These options are tested in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
+Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
 </p>
 <ul>
 <li>
@@ -716,95 +673,13 @@ and the factor <i>1.2</i> also assumes a 20% oversize.
 </ul>
 The model then computes the efficiency the same way as the option of
 <code>Efficiency_MotorPartLoadRatio</code>.
-Also see
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
-Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>
-as an example.
 </li>
 <li>
-<code>NotProvided</code> - This is same as the option for
-<i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> with the same name.
+<b><code>NotProvided</code> (default></b> -
+The information of this efficiency item is not provided.
+The model uses a default value <i>&eta;<sub>mot</sub>=0.7</i>.
 </li>
 </ul>
-<p>
-The table below shows the options available for computing each of the efficiencies.
-For example usage, see <a href=\"Modelica://Buildings.Fluid.Movers.Examples.StaticReset\">
-Buildings.Fluid.Movers.Examples.StaticReset</a>.
-</p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<thead>
-  <tr>
-    <th></th>
-    <th><code>Power_VolumeFlowRate</code><sup>1</sup></th>
-    <th><code>EulerNumber</code><sup>1</sup></th>
-    <th><code>Efficiency_VolumeFlowRate</code><sup>3</sup></th>
-    <th><code>Efficiency_MotorPartLoadRatio</code><sup>3</sup></th>
-    <th><code>GenericCurve</code><sup>3</sup></th>
-    <th><code>NotProvided</code></th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td><i>&eta;</i></td>
-    <td>&#10003;</td>
-    <td>&#10003;<sup>2</sup></td>
-    <td>&#10003;</td>
-    <td></td>
-    <td></td>
-    <td>&#10003;&#9734;</td>
-  </tr>
-  <tr>
-    <td><i>&eta;<sub>hyd</sub></i></td>
-    <td>&#10003;</td>
-    <td>&#10003;&#9734;</td>
-    <td>&#10003;</td>
-    <td></td>
-    <td></td>
-    <td>&#10003;</td>
-  </tr>
-  <tr>
-    <td><i>&eta;<sub>mot</sub></i></td>
-    <td></td>
-    <td></td>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-    <td>&#10003;&#9734;<sup>4</sup></td>
-    <td>&#10003;&#9734;<sup>4</sup></td>
-  </tr>
-</tbody>
-</table>
-<p>
-Notes:<br/>
-&#10003; - Selectable.<br/>
-&#9734; - Default.<br/>
-1. The <code>Power_VolumeFlowRate</code> and <code>EulerNumber</code> options cannot
-be used for more than one efficiency item.
-For example, if <i>&eta;<sub>hyd</sub></i> uses <code>EulerNumber</code>,
-then <i>&eta;</i> must use <code>Power_VolumeFlowRate</code>,
-<code>Efficiency_VolumeFlowRate</code>, or <code>NotProvided</code>.<br/>
-2. Although the Euler number method is defined using <i>&eta;<sub>hyd</sub></i>,
-this implementation applies it also to <i>&eta;</i> and <i>P<sub>ele</sub></i>
-as an approximation. The basis is that <i>&eta;<sub>mot</sub></i> is mostly
-constant for motors larger than about 3.5 kW or 5 HP except when the motor
-part load drops below around 40%, (see the documentation of
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
-which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
-to each other for motors of this size.<br/>
-3. All three efficiency items can use <i>V&#775;</i> as the independent variable
-by selecting <code>Efficiency_VolumeFlowRate</code>. <i>&eta;<sub>mot</sub></i>
-can also use the motor part load ratio
-<i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
-when selecting <code>Efficiency_MotorPartLoadRatio</code> or <code>GenericCurve</code>.<br/>
-4. <i>&eta;<sub>mot</sub></i> normally uses <code>GenericCurve</code> as default,
-but
-<a href=\"Modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
-Buildings.Fluid.Movers.FlowControlled_dp</a> and
-<a href=\"Modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-Buildings.Fluid.Movers.FlowControlled_m_flow</a>
-may override this with <code>NotProvided</code> when
-the rated motor input power is not provided and cannot be estimated.
-</p>
 
 <h5>Fluid volume of the component</h5>
 <p>
