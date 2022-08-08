@@ -280,7 +280,8 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Pump status from plant"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dPChiWatLoo
     "Measured chilled water loop differential pressure from remote sensors"
@@ -288,11 +289,13 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uValPos[nVal]
     "Measured chilled beam manifold control valve position"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum]
     "Chilled water pump enable signal"
-    annotation (Placement(transformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+        iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe
     "Chilled water pump speed signal"
@@ -300,7 +303,8 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBypValPos
     "Bypass valve position signal"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterStaticPressureSetpointReset chiWatStaPreSetRes(
     final nVal=nVal,
@@ -364,36 +368,38 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nPum](
     final k=pumStaOrd)
     "Chilled water pump staging order"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
 equation
   connect(chiWatStaPreSetRes.yStaPreSetPoi, secPumCon.dpChiWatSet) annotation (
       Line(points={{-18,-60},{-10,-60},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(uPumSta, bypValPos.uPumSta) annotation (Line(points={{-120,40},{-50,40},
-          {-50,-25},{38,-25}},
+  connect(uPumSta, bypValPos.uPumSta) annotation (Line(points={{-120,60},{-50,
+          60},{-50,-26},{38,-26}},
                             color={255,0,255}));
-  connect(uPumSta, secPumCon.uChiWatPum) annotation (Line(points={{-120,40},{-50,
-          40},{-50,34},{-2,34}},     color={255,0,255}));
-  connect(uPumSta, chiWatStaPreSetRes.uPumSta) annotation (Line(points={{-120,40},
-          {-50,40},{-50,-55},{-42,-55}},   color={255,0,255}));
-  connect(conInt.y, secPumCon.uPumLeaLag) annotation (Line(points={{-58,60},{-40,
-          60},{-40,38},{-2,38}},     color={255,127,0}));
+  connect(uPumSta, secPumCon.uChiWatPum) annotation (Line(points={{-120,60},{
+          -50,60},{-50,34},{-2,34}}, color={255,0,255}));
+  connect(uPumSta, chiWatStaPreSetRes.uPumSta) annotation (Line(points={{-120,60},
+          {-50,60},{-50,-55},{-42,-55}},   color={255,0,255}));
+  connect(conInt.y, secPumCon.uPumLeaLag) annotation (Line(points={{-58,80},{
+          -40,80},{-40,38},{-2,38}}, color={255,127,0}));
   connect(secPumCon.yPumSpe, bypValPos.uPumSpe) annotation (Line(points={{22,28},
           {30,28},{30,-30},{38,-30}},
                                     color={0,0,127}));
   connect(dPChiWatLoo, bypValPos.dpChiWatLoo) annotation (Line(points={{-120,0},
-          {-90,0},{-90,-35},{38,-35}},color={0,0,127}));
-  connect(uValPos, secPumCon.uValPos) annotation (Line(points={{-120,-40},{-60,-40},
-          {-60,30},{-2,30}},                   color={0,0,127}));
-  connect(uValPos, chiWatStaPreSetRes.uValPos) annotation (Line(points={{-120,-40},
-          {-60,-40},{-60,-65},{-42,-65}},
+          {-90,0},{-90,-34},{38,-34}},color={0,0,127}));
+  connect(uValPos, secPumCon.uValPos) annotation (Line(points={{-120,-60},{-60,
+          -60},{-60,30},{-2,30}},              color={0,0,127}));
+  connect(uValPos, chiWatStaPreSetRes.uValPos) annotation (Line(points={{-120,
+          -60},{-60,-60},{-60,-65},{-42,-65}},
                                         color={0,0,127}));
-  connect(secPumCon.yChiWatPum, yChiWatPum) annotation (Line(points={{22,32},{30,
-          32},{30,40},{120,40}}, color={255,0,255}));
+  connect(secPumCon.yChiWatPum, yChiWatPum) annotation (Line(points={{22,32},{
+          30,32},{30,60},{120,60}},
+                                 color={255,0,255}));
   connect(secPumCon.yPumSpe, yPumSpe) annotation (Line(points={{22,28},{30,28},{
           30,0},{120,0}}, color={0,0,127}));
-  connect(bypValPos.yBypValPos, yBypValPos) annotation (Line(points={{62,-30},{80,
-          -30},{80,-40},{120,-40}}, color={0,0,127}));
+  connect(bypValPos.yBypValPos, yBypValPos) annotation (Line(points={{62,-30},{
+          80,-30},{80,-60},{120,-60}},
+                                    color={0,0,127}));
   connect(dPChiWatLoo, secPumCon.dpChiWat_remote) annotation (Line(points={{-120,
           0},{-90,0},{-90,26},{-2,26}}, color={0,0,127}));
   annotation (defaultComponentName="sysCon",
