@@ -598,9 +598,14 @@ equation
   // Power and efficiency
   WFlo = Buildings.Utilities.Math.Functions.smoothMax(
            x1=dp_internal*V_flow, x2=0, deltaX=1E-6);
-  eta = etaHyd * etaMot;
+  if per.PowerOrEfficiencyIsHydraulic then
+    eta = etaHyd * etaMot;
+  else
+    etaHyd = Buildings.Utilities.Math.Functions.smoothMin(
+               x1=eta/etaMot, x2=1, deltaX=1E-3);
+  end if;
 
-  // for power computation via EulerNumber
+  // For power computation via EulerNumber
   connect(effTab.u1, dp_internal);
   effTab.u2=V_flow;
   connect(powTab.u1, dp_internal);
@@ -649,10 +654,10 @@ equation
     end if;
     if per.PowerOrEfficiencyIsHydraulic then
       P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-5, deltaX=1E-6);
+                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
     else
       P_internal=WHyd/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-5, deltaX=1E-6);
+                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
     end if;
   else // Not provided
     if per.PowerOrEfficiencyIsHydraulic then

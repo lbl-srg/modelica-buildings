@@ -582,7 +582,7 @@ instead by setting <code>per.PowerOrEfficiencyIsHydraulic=false</code>.
 This changes the default value to <i>&eta;=0.49</i> and also imposes an additional
 constraint of <i>&eta;<sub>Hyd</sub> &le; 1</i> to prevent the division
 <i>&eta;<sub>Hyd</sub> = &eta; &frasl; &eta;<sub>Mot</sub></i>
-from producing efficiency values larger than one. [TODO]
+from producing efficiency values larger than one.
 This path is tested in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods</a>.
