@@ -104,7 +104,15 @@ annotation (
         Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-92,14},{-58,-14}},
+          textColor={0,0,127},
+          textString="uValPos"),
+        Text(
+          extent={{66,12},{90,-12}},
+          textColor={255,85,255},
+          textString="yLea")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
   <p>

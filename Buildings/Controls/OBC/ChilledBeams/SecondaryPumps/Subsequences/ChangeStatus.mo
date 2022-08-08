@@ -15,7 +15,8 @@ block ChangeStatus
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLasLagPumSta
     "Status of last lag pump"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexLagPum
     "Index of next lag pump"
@@ -27,7 +28,8 @@ block ChangeStatus
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum]
     "Chilled water pump status"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
@@ -41,7 +43,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nPum)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nPum]
     "Check next lag pump"
@@ -101,7 +103,7 @@ equation
     annotation (Line(points={{-120,80},{-82,80}}, color={255,0,255}));
 
   connect(uLasLagPumSta, booRep2.u)
-    annotation (Line(points={{-120,50},{-82,50}}, color={255,0,255}));
+    annotation (Line(points={{-120,40},{-62,40}}, color={255,0,255}));
 
   connect(intRep.y, intEqu2.u1)
     annotation (Line(points={{-68,-40},{-62,-40}}, color={255,127,0}));
@@ -115,7 +117,7 @@ equation
   connect(uLasLagPum, intRep1.u)
     annotation (Line(points={{-120,-80},{-92,-80}}, color={255,127,0}));
 
-  connect(booRep2.y, lasLagPumSta.u1) annotation (Line(points={{-58,50},{-36,50},
+  connect(booRep2.y, lasLagPumSta.u1) annotation (Line(points={{-38,40},{-36,40},
           {-36,-72},{-22,-72}}, color={255,0,255}));
 
   connect(booRep1.y, nexLagPumSta.u1) annotation (Line(points={{-58,80},{-24,80},
@@ -149,7 +151,7 @@ equation
   connect(pumSta.y, remPum.u3) annotation (Line(points={{42,-80},{46,-80},{46,-68},
           {48,-68}}, color={255,0,255}));
 
-  connect(booRep2.y, remPum.u2) annotation (Line(points={{-58,50},{-36,50},{-36,
+  connect(booRep2.y, remPum.u2) annotation (Line(points={{-38,40},{-36,40},{-36,
           -60},{48,-60}}, color={255,0,255}));
 
   connect(booRep1.y, addPum.u2) annotation (Line(points={{-58,80},{50,80},{50,0},
@@ -170,7 +172,7 @@ equation
 annotation (
   defaultComponentName="chaSta",
   Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-100,-100},{120,100}}),
+    extent={{-100,-100},{100,100}}),
       graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -180,7 +182,31 @@ annotation (
         Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{42,12},{96,-12}},
+          textColor={255,85,255},
+          textString="yChiWatPum"),
+        Text(
+          extent={{-92,92},{-38,68}},
+          textColor={255,85,255},
+          textString="uNexLagPumSta"),
+        Text(
+          extent={{-90,52},{-36,28}},
+          textColor={255,85,255},
+          textString="uLasLagPumSta"),
+        Text(
+          extent={{-90,12},{-36,-12}},
+          textColor={255,85,255},
+          textString="uChiWatPum"),
+        Text(
+          extent={{-90,-28},{-36,-52}},
+          textColor={244,125,35},
+          textString="uNexLagPum"),
+        Text(
+          extent={{-88,-68},{-34,-92}},
+          textColor={244,125,35},
+          textString="uLasLagPum")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
   <p>
