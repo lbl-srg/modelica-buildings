@@ -21,14 +21,14 @@ connector Inlet "Connector for fluid inlet"
 
   input Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
-  Buildings.Fluid.FMI.Interfaces.PressureInput p if
-     use_p_in "Thermodynamic pressure in the connection point";
+  Buildings.Fluid.FMI.Interfaces.PressureInput p
+  if use_p_in "Thermodynamic pressure in the connection point";
 
   input Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
     redeclare final package Medium = Medium) "Inflowing properties";
   output Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
-    redeclare final package Medium = Medium) if
-       allowFlowReversal "Outflowing properties";
+    redeclare final package Medium = Medium)
+    if allowFlowReversal "Outflowing properties";
 
 annotation (defaultComponentName="inlet",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -40,7 +40,7 @@ annotation (defaultComponentName="inlet",
           fillColor={0,0,255}),
           Text(
           extent={{-58,134},{48,94}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

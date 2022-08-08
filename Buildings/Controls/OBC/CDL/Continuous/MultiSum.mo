@@ -35,25 +35,25 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-200,-110},{200,-140}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="%k"),
         Text(
           extent={{-82,90},{82,-46}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="+"),
         Text(
           extent={{-144,150},{156,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>

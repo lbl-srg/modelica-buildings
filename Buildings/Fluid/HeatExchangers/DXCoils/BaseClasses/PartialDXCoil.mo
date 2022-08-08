@@ -62,11 +62,13 @@ partial model PartialDXCoil "Partial model for DX coil"
 protected
   parameter Integer i_x(fixed=false) "Index of substance";
 
-  Modelica.SIunits.SpecificEnthalpy hEvaIn=
-    inStream(port_a.h_outflow) "Enthalpy of air entering the cooling coil";
-  Modelica.SIunits.Temperature TEvaIn = Medium.temperature_phX(p=port_a.p, h=hEvaIn, X=XEvaIn)
-    "Dry bulb temperature of air entering the cooling coil";
-  Modelica.SIunits.MassFraction XEvaIn[Medium.nXi] = inStream(port_a.Xi_outflow)
+  Modelica.Units.SI.SpecificEnthalpy hEvaIn=inStream(port_a.h_outflow)
+    "Enthalpy of air entering the cooling coil";
+  Modelica.Units.SI.Temperature TEvaIn=Medium.temperature_phX(
+      p=port_a.p,
+      h=hEvaIn,
+      X=XEvaIn) "Dry bulb temperature of air entering the cooling coil";
+  Modelica.Units.SI.MassFraction XEvaIn[Medium.nXi]=inStream(port_a.Xi_outflow)
     "Mass fraction/absolute humidity of air entering the cooling coil";
 
   Modelica.Blocks.Sources.RealExpression p(final y=port_a.p)
@@ -270,15 +272,15 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-138,64},{-80,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConIn"), Text(
           extent={{58,98},{102,78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P"),      Text(
           extent={{54,60},{98,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLat"),   Text(
           extent={{54,80},{98,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QSen")}));
 end PartialDXCoil;

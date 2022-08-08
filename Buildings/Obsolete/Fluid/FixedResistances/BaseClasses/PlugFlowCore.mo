@@ -1,29 +1,29 @@
 within Buildings.Obsolete.Fluid.FixedResistances.BaseClasses;
 model PlugFlowCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
-  extends Modelica.Icons.ObsoleteModel;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Length dh
+  parameter Modelica.Units.SI.Length dh
     "Hydraulic diameter (assuming a round cross section area)";
 
-  parameter Modelica.SIunits.Velocity v_nominal
+  parameter Modelica.Units.SI.Velocity v_nominal
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Length length(min=0) "Pipe length";
+  parameter Modelica.Units.SI.Length length(min=0) "Pipe length";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Height roughness=2.5e-5
+  parameter Modelica.Units.SI.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
@@ -39,22 +39,22 @@ model PlugFlowCore
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Length thickness(min=0) "Pipe wall thickness";
+  parameter Modelica.Units.SI.Length thickness(min=0) "Pipe wall thickness";
 
-  parameter Modelica.SIunits.Temperature T_start_in=Medium.T_default
+  parameter Modelica.Units.SI.Temperature T_start_in=Medium.T_default
     "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start_out=Medium.T_default
+  parameter Modelica.Units.SI.Temperature T_start_out=Medium.T_default
     "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
   parameter Boolean initDelay=false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start=0
+  parameter Modelica.Units.SI.MassFlowRate m_flow_start=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -128,7 +128,7 @@ model PlugFlowCore
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
 protected
-  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+  parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default)

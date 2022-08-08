@@ -32,13 +32,14 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
-  Modelica.SIunits.MassFraction XiDryBul
+  Modelica.Units.SI.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  Modelica.SIunits.MassFraction XiSatRefIn
+  Modelica.Units.SI.MassFraction XiSat
+    "Water vapor mass fraction at saturation";
+  Modelica.Units.SI.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
 equation
@@ -82,24 +83,24 @@ annotation (
             100}}), graphics={
         Text(
           extent={{-92,100},{-62,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-92,14},{-72,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="p"),
         Text(
           extent={{62,22},{92,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWetBul"),
         Line(points={{78,-74},{-48,-74}}),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -113,7 +114,7 @@ annotation (
         Line(points={{-48,84},{-48,-74}}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),

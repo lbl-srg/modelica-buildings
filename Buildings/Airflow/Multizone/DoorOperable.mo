@@ -11,17 +11,17 @@ model DoorOperable
   parameter Real mOpe = 0.5 "Flow exponent for door of open door"
     annotation (Dialog(group="Open door"));
 
-  parameter Modelica.SIunits.Area LClo(min=0)
+  parameter Modelica.Units.SI.Area LClo(min=0)
     "Effective leakage area of closed door"
-      annotation (Dialog(group="Closed door"));
+    annotation (Dialog(group="Closed door"));
 
   parameter Real mClo= 0.65 "Flow exponent for crack of closed door"
     annotation (Dialog(group="Closed door"));
 
-  parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
-                                                         displayUnit="Pa") = 4
-    "Pressure drop at rating condition of closed door"
-      annotation (Dialog(group="Closed door rating conditions"));
+  parameter Modelica.Units.SI.PressureDifference dpCloRat(
+    min=0,
+    displayUnit="Pa") = 4 "Pressure drop at rating condition of closed door"
+    annotation (Dialog(group="Closed door rating conditions"));
 
   parameter Real CDCloRat(min=0, max=1)=1
     "Discharge coefficient at rating conditions of closed door"
@@ -43,35 +43,36 @@ protected
   parameter Real d[2] = {1/8*m^2 - gamma - m + 15.0/8 for m in {mOpe, mClo}}
     "Polynomial coefficient for regularized implementation of flow resistance";
 
-  parameter Modelica.SIunits.Area AClo = LClo * dpCloRat^(0.5-mClo) "Closed area";
-  parameter Real kVal[2]={
-   CDOpe   *AOpe*sqrt(2/rho_default),
-   CDCloRat*AClo*sqrt(2/rho_default)}
-   "Flow coefficient, k = V_flow/ dp^m";
+  parameter Modelica.Units.SI.Area AClo=LClo*dpCloRat^(0.5 - mClo)
+    "Closed area";
+  parameter Real CVal[2]=
+    {CDOpe*AOpe*sqrt(2/rho_default),
+    CDCloRat*AClo*sqrt(2/rho_default)}
+    "Flow coefficient, C = V_flow/ dp^m";
 
   parameter Real kT = rho_default * CDOpe * AOpe/3 *
     sqrt(Modelica.Constants.g_n /(Medium.T_default*conTP) * hOpe)
     "Constant coefficient for buoyancy driven air flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent=
-    kVal[1] * rho_default * sqrt(dp_turbulent)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=CVal[1]*rho_default
+      *sqrt(dp_turbulent)
     "Mass flow rate where regularization to laminar flow occurs for temperature-driven flow";
 
-  Modelica.SIunits.VolumeFlowRate VABpOpeClo_flow[2](each nominal=0.001)
+  Modelica.Units.SI.VolumeFlowRate VABpOpeClo_flow[2](each nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
 
-  Modelica.SIunits.Area A "Current opening area";
+  Modelica.Units.SI.Area A "Current opening area";
 equation
   // Air flow rate due to static pressure difference
   VABpOpeClo_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=kVal,
-      dp=port_a1.p-port_a2.p,
-      m={mOpe, mClo},
-      a=a,
-      b=b,
-      c=c,
-      d=d,
-      dp_turbulent=dp_turbulent);
+    C=CVal,
+    dp=port_a1.p-port_a2.p,
+    m={mOpe, mClo},
+    a=a,
+    b=b,
+    c=c,
+    d=d,
+    dp_turbulent=dp_turbulent);
   VABp_flow = y*VABpOpeClo_flow[1] + (1-y)*VABpOpeClo_flow[2];
   A = y*AOpe + (1-y)*AClo;
   // Air flow rate due to buoyancy
@@ -99,17 +100,17 @@ set to the air flow rate through the crack posed by the open door, <i>V&#775;<su
 The air flow rate for the closed door is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    V&#775;<sub>clo</sub> = k<sub>clo</sub> &Delta;p<sup>mClo</sup>,
+    V&#775;<sub>clo</sub> = C<sub>clo</sub> &Delta;p<sup>mClo</sup>,
 </p>
 <p>
 where
 <i>V&#775;<sub>clo</sub></i> is the volume flow rate,
-<i>k<sub>clo</sub></i> is a flow coefficient and
+<i>C<sub>clo</sub></i> is a flow coefficient and
 <i>mClo</i> is the flow exponent.
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k<sub>clo</sub> = L<sub>clo</sub> C<sub>DCloRat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-mClo</sup>) (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
+C<sub>clo</sub> = L<sub>clo</sub> C<sub>DCloRat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-mClo</sup>) (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where

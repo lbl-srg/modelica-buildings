@@ -15,7 +15,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     "Room air temperature at which supply water temperature is at TSupMax";
 
   parameter Real k=0.1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=120 "Time constant of integrator block";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
@@ -83,24 +83,24 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,82},{-42,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TRoo"),
         Text(
           extent={{40,24},{88,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="yVal"),
         Text(
           extent={{-92,-40},{-44,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TSup"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name"),
     Polygon(

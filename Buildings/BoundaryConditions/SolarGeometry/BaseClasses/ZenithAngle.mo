@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block ZenithAngle "Zenith angle"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput solHouAng(quantity="Angle", unit="rad")
     "Solar hour angle"
     annotation (Placement(transformation(extent={{-140,-68},{-100,-28}})));
@@ -14,6 +13,12 @@ block ZenithAngle "Zenith angle"
     final unit="rad",
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput lat(
+    quantity="Angle",
+    unit="rad",
+    displayUnit="deg") "Latitude"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 equation
   zen =  Modelica.Math.acos(Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
     Modelica.Math.cos(solHouAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
@@ -27,6 +32,12 @@ Input are the solar hour angle and the declination angle.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 January 5, 2015, by Michael Wetter:<br/>
 Updated comment of the input connector as this is used in the weather bus connector.
@@ -50,13 +61,13 @@ First implementation.
                               Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-98,62},{-46,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="decAng"),
         Text(
           extent={{-98,-40},{-22,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="solHouAng")}));
 end ZenithAngle;

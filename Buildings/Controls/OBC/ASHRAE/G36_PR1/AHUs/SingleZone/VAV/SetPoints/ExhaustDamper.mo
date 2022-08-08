@@ -45,7 +45,7 @@ block ExhaustDamper
   Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
     "Linearly map exhaust damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Check if exhaust damper should be open"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis greThr(
@@ -125,19 +125,19 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,78},{-42,40}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOutDamPos"),
         Text(
           extent={{-94,-48},{-62,-72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uSupFan"),
         Text(
           extent={{46,18},{96,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yExhDamPos"),
@@ -156,7 +156,7 @@ annotation (
         Line(points={{-46,-78},{14,62},{80,62}}, color={0,0,127}),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

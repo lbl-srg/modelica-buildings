@@ -1,20 +1,20 @@
 within Buildings.Airflow.Multizone.BaseClasses.Examples;
 model PowerLaw "Test model for power law function"
   extends Modelica.Icons.Example;
-  parameter Real k = 2/10^m "Flow coefficient, k = V_flow/ dp^m";
+  parameter Real C = 2/10^m "Flow coefficient, k = V_flow/ dp^m";
 
   parameter Real m(min=0.5, max=1) = 0.5
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0)=5
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(min=0) = 5
     "Pressure difference where regularization starts";
 
-  Modelica.SIunits.PressureDifference dp "Pressure difference";
-  Modelica.SIunits.VolumeFlowRate V_flow "Volume flow rate";
+  Modelica.Units.SI.PressureDifference dp "Pressure difference";
+  Modelica.Units.SI.VolumeFlowRate V_flow "Volume flow rate";
 equation
   dp = 10*(-1+2*time);
   V_flow = Buildings.Airflow.Multizone.BaseClasses.powerLaw(
     dp=dp,
-    k=k,
+    C=C,
     m=m,
     dp_turbulent=dp_turbulent);
   annotation (

@@ -10,7 +10,7 @@
 #################################################
 set -e
 
-IMG_NAME=travis-ubuntu-1804-optimica
+IMG_NAME=${OPTIMICA_VERSION}
 DOCKER_USERNAME=michaelwetter
 
 NAME=${DOCKER_USERNAME}/${IMG_NAME}
@@ -57,7 +57,7 @@ if [ -z ${MODELICAPATH+x} ]; then
 else
     # Add the current directory to the front of the Modelica path.
     # This will export the directory to the docker, and also set
-    # it in the MODELICAPATH so that JModelica finds it.
+    # it in the MODELICAPATH so that OPTIMICA finds it.
     MODELICAPATH=`pwd`:${MODELICAPATH}
 fi
 
@@ -106,8 +106,10 @@ DOCKER_FLAGS="\
   -w /mnt/shared/${bas_nam} \
   ${NAME}"
 
+# The command below adds various folders in /opt/oct/ThirdParty/MSL to MODELICAPATH
+# to accomodate the change in OCT between oct-r19089 and oct-r26446
 docker run ${DOCKER_FLAGS} /bin/bash -c \
-  "export MODELICAPATH=${DOCKER_MODELICAPATH}:/opt/oct/ThirdParty/MSL && \
+  "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
    export PYTHONPATH=${DOCKER_PYTHONPATH} && \
    export IPYTHONDIR=/mnt/shared &&
    alias ipython=ipython3 && \

@@ -33,17 +33,17 @@ model CoolingAndHeating "Active beam unit for heating and cooling"
   MediumWat.ThermodynamicState staHea_a=
       MediumWat.setState_phX(watHea_a.p,
                           noEvent(actualStream(watHea_a.h_outflow)),
-                          noEvent(actualStream(watHea_a.Xi_outflow))) if
-         show_T "Medium properties in port watHea_a";
+                          noEvent(actualStream(watHea_a.Xi_outflow)))
+      if show_T "Medium properties in port watHea_a";
 
   MediumWat.ThermodynamicState staHea_b=
       MediumWat.setState_phX(watHea_b.p,
                           noEvent(actualStream(watHea_b.h_outflow)),
-                          noEvent(actualStream(watHea_b.Xi_outflow))) if
-          show_T "Medium properties in port watHea_b";
+                          noEvent(actualStream(watHea_b.Xi_outflow)))
+       if show_T "Medium properties in port watHea_b";
 
-  Modelica.SIunits.PressureDifference dpWatHea(displayUnit="Pa") = watHea_a.p - watHea_b.p
-    "Pressure difference between watHea_a and watHea_b";
+  Modelica.Units.SI.PressureDifference dpWatHea(displayUnit="Pa") = watHea_a.p
+     - watHea_b.p "Pressure difference between watHea_a and watHea_b";
 
 protected
   BaseClasses.Convector conHea(
@@ -58,7 +58,6 @@ protected
     final deltaM=deltaMWat,
     final tau=tau,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=pWatHea_start,
     final T_start=TWatHea_start,
     final nBeams=nBeams) "Heating beam"
@@ -72,14 +71,13 @@ initial equation
   assert(perHea.dT.r_dT[1]<=0.000001        and perHea.dT.f[1]<=0.00001,
     "Performance curve perHea.dT must pass through (0,0).");
 
-
 equation
   connect(conHea.port_b, watHea_b)
     annotation (Line(points={{10,0},{140,0}}, color={0,127,255}));
   connect(conHea.Q_flow, sum.u[2])
     annotation (Line(points={{11,7},{20,7},{20,30},{38,30}}, color={0,0,127}));
   connect(conHea.TRoo, senTemRooAir.T) annotation (Line(points={{-12,-6},{-26,-6},
-          {-50,-6},{-50,-40},{-40,-40}}, color={0,0,127}));
+          {-50,-6},{-50,-40},{-41,-40}}, color={0,0,127}));
   connect(watHea_a, conHea.port_a)
     annotation (Line(points={{-140,0},{-76,0},{-10,0}}, color={0,127,255}));
   connect(conHea.mAir_flow, senFloAir.m_flow) annotation (Line(points={{-12,4},

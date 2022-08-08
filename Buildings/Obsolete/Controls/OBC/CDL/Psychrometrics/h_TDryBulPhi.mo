@@ -23,21 +23,21 @@ block h_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Modelica.Units.SI.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
   Real w(final unit="1", nominal=0.01)
     "Water vapor mass fraction in kg per kg dry air";
 
-  // Modelica.SIunits.Temperature T_ref = 273.15
+  // Modelica.Units.SI.Temperature T_ref = 273.15
   //     "Reference temperature for psychrometric calculations"
-  // constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
+  // constant Modelica.Units.SI.SpecificHeatCapacity cpAir=1006
   //   "Specific heat capacity of air";
-  // constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
+  // constant Modelica.Units.SI.SpecificHeatCapacity cpSte=1860
   //   "Specific heat capacity of water vapor";
-  // constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  // constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq = 4184
   //   "Specific heat capacity of liquid water";
-  // constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
+  // constant Modelica.Units.SI.SpecificEnthalpy h_fg = 2501014.5
   //   "Enthalpy of evaporation of water at the reference temperature";
   // constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
 
@@ -74,7 +74,7 @@ First implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -89,7 +89,7 @@ First implementation.
           thickness=0.5),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -100,15 +100,15 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,14},{-72,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{-92,100},{-62,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="p"),
         Line(points={{78,-74},{-48,-74}}),
         Polygon(
@@ -118,13 +118,13 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
         Line(points={{-48,84},{-48,-74}}),
         Text(
           extent={{74,14},{94,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="h")}));
 end h_TDryBulPhi;

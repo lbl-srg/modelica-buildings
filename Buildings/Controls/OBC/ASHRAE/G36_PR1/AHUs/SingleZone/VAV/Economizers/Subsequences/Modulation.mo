@@ -137,7 +137,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaDis "Enable or disable the heating coil"
+  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis "Enable or disable the heating coil"
     annotation (Placement(transformation(extent={{76,30},{96,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(
     final k=0) "Off signal for heating coil"
@@ -218,7 +218,7 @@ equation
           thickness=0.5),
         Text(
           extent={{-108,138},{102,110}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Line(
           points={{-50,-84},{-94,80}},
@@ -238,13 +238,13 @@ equation
           fillPattern=FillPattern.Solid),
                                    Text(
           extent={{-104,128},{-60,88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 supply air temperature
 control loop"),                    Text(
           extent={{32,128},{76,88}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments and heating coil signal")}),

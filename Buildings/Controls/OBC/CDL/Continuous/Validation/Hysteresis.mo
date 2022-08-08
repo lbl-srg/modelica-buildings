@@ -28,8 +28,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gain1(
-    final k=2.5)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gain1(final k=2.5)
     "Block that outputs the product of a gain value with the input signal"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model Density "Ideal one port density sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
                                           min=0) "Density in port medium"
@@ -20,16 +20,16 @@ annotation (defaultComponentName="senDen",
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{154,-31},{56,-61}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="d"),
         Line(points={{70,0},{100,0}}, color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(d, leftjustified=false, significantDigits=3)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(d, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the density of the fluid connected to its port.

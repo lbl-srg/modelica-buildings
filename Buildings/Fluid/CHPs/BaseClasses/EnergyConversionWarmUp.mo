@@ -63,53 +63,54 @@ protected
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaE(
     final a=per.coeEtaE) "Part load electrical efficiency"
     annotation (Placement(transformation(extent={{-20,230},{0,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division QGroMax
+  Buildings.Controls.OBC.CDL.Continuous.Divide QGroMax
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{40,250},{60,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PEleMax(
     final k=per.PEleMax) "Maximum power"
     annotation (Placement(transformation(extent={{-80,290},{-60,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain maxFueFlo(final k=per.rFue)
-    "Maximum fuel mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter maxFueFlo(
+    final k=per.rFue) "Maximum fuel mass flow rate"
     annotation (Placement(transformation(extent={{320,250},{340,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Min fueFlo "Fuel flow"
     annotation (Placement(transformation(extent={{380,130},{400,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division division
+  Buildings.Controls.OBC.CDL.Continuous.Divide division
     "First input divided by second input"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEngNom(
     y(final unit="K", displayUnit="degC"),
     final k=per.TEngNom) "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Difference between nominal engine temperature and room temperature"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=1)
     "Prevent negative value if room temperature exceeds engine nominal temperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gain(final k=per.kF)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gain(final k=per.kF)
     "Gain by factor of warm-up fuel coefficient"
     annotation (Placement(transformation(extent={{200,30},{220,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product unlFueFloWarUp
+  Buildings.Controls.OBC.CDL.Continuous.Multiply unlFueFloWarUp
     "Unlimited fuel mass flow rate during warm-up"
     annotation (Placement(transformation(extent={{320,30},{340,50}})));
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaQ(
     final a=per.coeEtaQ) "Part load thermal efficiency"
     annotation (Placement(transformation(extent={{-20,180},{0,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product heaGen
+  Buildings.Controls.OBC.CDL.Continuous.Multiply heaGen
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{500,150},{520,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division division1
+  Buildings.Controls.OBC.CDL.Continuous.Divide division1
     "First input divided by second input"
     annotation (Placement(transformation(extent={{200,80},{220,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant powCoe(
     final k=per.kP) "Warm-up power coefficient"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product PEleNet1 "Generated electrical power"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply PEleNet1
+    "Generated electrical power"
     annotation (Placement(transformation(extent={{260,330},{280,350}})));
-  Buildings.Utilities.Math.Polynominal masFloAir(final a=per.coeMasAir)
+  Buildings.Utilities.Math.Polynomial masFloAir(final a=per.coeMasAir)
     "Air mass flow rate"
     annotation (Placement(transformation(extent={{500,230},{520,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min2(final k=1)
@@ -119,15 +120,15 @@ protected
     final message="Room temperature is too close to the nominal engine temperature, simulation should be aborted")
     "Assert function for checking room temperature"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add(final k1=-1)
-    "Difference between room temperature and engine temperature"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain masFloFue(final k=1/per.LHVFue)
-    "Fuel mass flow rate computation"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter masFloFue(final k=1
+        /per.LHVFue) "Fuel mass flow rate computation"
     annotation (Placement(transformation(extent={{80,250},{100,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain heaGro(final k=per.LHVFue)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter heaGro(final k=per.LHVFue)
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{440,130},{460,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    "Difference between room temperature and engine temperature"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
   connect(PEleMax.y, etaE.PNet) annotation (Line(points={{-58,300},{-40,300},{-40,
@@ -140,9 +141,9 @@ equation
           {-120,240}}, color={0,0,127}));
   connect(etaE.eta, QGroMax.u2) annotation (Line(points={{2,240},{20,240},{20,254},
           {38,254}}, color={0,0,127}));
-  connect(TEngNom.y, add1.u1) annotation (Line(points={{-58,100},{-40,100},
+  connect(TEngNom.y, sub1.u1) annotation (Line(points={{-58,100},{-40,100},
           {-40,86},{-22,86}}, color={0,0,127}));
-  connect(add1.u2, TRoo) annotation (Line(points={{-22,74},{-40,74},{-40,40},{-120,
+  connect(sub1.u2, TRoo) annotation (Line(points={{-22,74},{-40,74},{-40,40},{-120,
           40}}, color={0,0,127}));
   connect(division.y, gain.u) annotation (Line(points={{162,40},{198,40}},
           color={0,0,127}));
@@ -178,7 +179,7 @@ equation
           color={0,0,127}));
   connect(min1.y, smoothMax.u2) annotation (Line(points={{42,40},{60,40},{60,54},
           {78,54}}, color={0,0,127}));
-  connect(add1.y, smoothMax.u1) annotation (Line(points={{2,80},{20,80},{20,66},
+  connect(sub1.y, smoothMax.u1) annotation (Line(points={{2,80},{20,80},{20,66},
           {78,66}}, color={0,0,127}));
   connect(smoothMax.y, division.u1) annotation (Line(points={{101,60},{120,60},{
           120,46},{138,46}}, color={0,0,127}));
@@ -186,7 +187,7 @@ equation
           -6},{78,-6}}, color={0,0,127}));
   connect(smoothMax2.y, division.u2) annotation (Line(points={{101,0},{120,0},{120,
           34},{138,34}}, color={0,0,127}));
-  connect(temChe.u, add1.y) annotation (Line(points={{38,140},{20,140},{20,80},{
+  connect(temChe.u, sub1.y) annotation (Line(points={{38,140},{20,140},{20,80},{
           2,80}}, color={0,0,127}));
   connect(division1.y, PEleNet1.u2) annotation (Line(points={{222,90},{240,90},{
           240,334},{258,334}},  color={0,0,127}));
@@ -196,13 +197,6 @@ equation
           {258,-6}}, color={0,0,127}));
   connect(fueFlo.y,masFloAir. u) annotation (Line(points={{402,140},{420,140},{420,
           240},{498,240}}, color={0,0,127}));
-  connect(TEng, add.u2) annotation (Line(points={{-120,-40},{-40,-40},{-40,-6},{
-          -22,-6}}, color={0,0,127}));
-  connect(TRoo, add.u1) annotation (Line(points={{-120,40},{-40,40},{-40,6},{-22,
-          6}}, color={0,0,127}));
-  connect(add.y, smoothMax2.u1) annotation (Line(points={{2,0},{60,0},{60,6},
-          {78,6}}, color={0,0,127}));
-
   connect(QGroMax.y, masFloFue.u)
     annotation (Line(points={{62,260},{78,260}}, color={0,0,127}));
   connect(masFloFue.y, maxFueFlo.u)
@@ -213,6 +207,13 @@ equation
           154},{498,154}}, color={0,0,127}));
   connect(fueFlo.y, heaGro.u)
     annotation (Line(points={{402,140},{438,140}}, color={0,0,127}));
+  connect(TRoo, sub2.u2) annotation (Line(points={{-120,40},{-40,40},{-40,-6},{-22,
+          -6}}, color={0,0,127}));
+  connect(TEng, sub2.u1) annotation (Line(points={{-120,-40},{-60,-40},{-60,6},{
+          -22,6}}, color={0,0,127}));
+  connect(sub2.y, smoothMax2.u1)
+    annotation (Line(points={{2,0},{60,0},{60,6},{78,6}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="opeModWarUpEngTem",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),

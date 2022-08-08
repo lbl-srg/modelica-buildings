@@ -13,14 +13,30 @@ model PVSimpleOriented "Simple PV model with orientation"
         Line(points={{-90,0},{-59,0}}, color={0,0,0}),
         Text(
           extent={{-150,61},{-50,11}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="+"),
         Text(
           extent={{-150,-12},{-50,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="-")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 23, 2022, by Michael Wetter:<br/>
+Corrected documentation string for parameter <code>A</code>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
 First implementation.

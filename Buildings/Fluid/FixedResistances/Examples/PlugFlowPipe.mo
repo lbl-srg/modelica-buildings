@@ -3,6 +3,10 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
+
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
+    "Mass flow rate";
+
   Modelica.Blocks.Sources.Ramp Tin(
     height=20,
     duration=0,
@@ -21,11 +25,11 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     length=100,
     dIns=0.05,
     kIns=0.028,
-    m_flow_nominal=1,
+    m_flow_nominal=m_flow_nominal,
     cPip=500,
     thickness=0.0032,
     initDelay=true,
-    m_flow_start=1,
+    m_flow_start=m_flow_nominal,
     rhoPip=8000,
     T_start_in=323.15,
     T_start_out=323.15) "Pipe"
@@ -36,23 +40,26 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=3,
+    m_flow=m_flow_nominal,
     nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=m_flow_nominal,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=m_flow_nominal,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Sensors.TemperatureTwoPort senTemInNoMix(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=m_flow_nominal,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   Buildings.Fluid.FixedResistances.PlugFlowPipe pipNoMix(
@@ -62,24 +69,25 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     length=100,
     dIns=0.05,
     kIns=0.028,
-    m_flow_nominal=1,
+    m_flow_nominal=m_flow_nominal,
     cPip=500,
     thickness=0.0032,
     initDelay=true,
-    m_flow_start=1,
+    m_flow_start=m_flow_nominal,
     rhoPip=8000,
     T_start_in=323.15,
     T_start_out=323.15) "Pipe"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Sensors.TemperatureTwoPort senTemOutNoMix(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
+    m_flow_nominal=m_flow_nominal,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Sources.MassFlowSource_T souNoMix(
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=3,
+    m_flow=m_flow_nominal,
     nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
@@ -114,8 +122,7 @@ equation
           -16},{-62,-16}},
                       color={0,0,127}));
   annotation (
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     Documentation(info="<html>

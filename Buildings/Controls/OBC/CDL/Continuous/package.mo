@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Continuous
-  "Package with blocks for continuous variables"
+package Continuous "Package with blocks for continuous variables"
   annotation (
     Documentation(
       info="<html>
@@ -27,7 +26,7 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
           radius=25.0),
         Text(
           extent={{-52,86},{52,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="R"),

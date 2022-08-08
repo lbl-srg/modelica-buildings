@@ -59,6 +59,12 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 July 28, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
@@ -67,6 +73,6 @@ First implementation.
 </html>"),
     Icon(graphics={Text(
           extent={{-96,96},{-38,78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="speRat")}));
 end VariableSpeed;

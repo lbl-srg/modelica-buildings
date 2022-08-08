@@ -31,10 +31,10 @@ block SensibleHeatRatio "Calculates the sensible heat ratio"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Modelica.SIunits.SpecificEnthalpy h_TEvaIn_XADP
+  Modelica.Units.SI.SpecificEnthalpy h_TEvaIn_XADP
     "Enthalpy at inlet air temperature and humidity mass fraction at ADP";
   Real entRat "Enthalpy ratio";
-  parameter Modelica.SIunits.SpecificEnthalpy epsH = 100
+  parameter Modelica.Units.SI.SpecificEnthalpy epsH=100
     "Small value for enthalpy to avoid division by zero";
 equation
 //===================================Sensible heat ratio calculation===========================================//
@@ -86,7 +86,7 @@ First implementation.
 
 </html>"),Icon(graphics={Text(
           extent={{-100,98},{98,-98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="Qs/Q")}));

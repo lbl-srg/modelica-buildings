@@ -4,13 +4,13 @@ model HeatExchanger
   extends Modelica.Icons.Example;
 
   package MediumW = Buildings.Media.Water "Medium model";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=1000 * 0.01035
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=1000*0.01035
     "Nominal mass flow rate at evaporator";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=1000 * 0.01035
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=1000*0.01035
     "Nominal mass flow rate at condenser";
-  parameter Modelica.SIunits.Pressure dp1_nominal=60000
+  parameter Modelica.Units.SI.Pressure dp1_nominal=60000
     "Nominal pressure difference on medium 1 side";
-  parameter Modelica.SIunits.Pressure dp2_nominal=60000
+  parameter Modelica.Units.SI.Pressure dp2_nominal=60000
     "Nominal pressure difference on medium 2 side";
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet hex1(
     m1_flow_nominal=m1_flow_nominal,

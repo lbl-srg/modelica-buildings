@@ -230,17 +230,17 @@ block DamperValves
     final y_reset=0) if not have_pressureIndependentDamper
     "Damper position controller"
     annotation (Placement(transformation(extent={{280,220},{300,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Output active cooling airflow according to cooling control signal"
     annotation (Placement(transformation(extent={{140,260},{160,280}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Output active airflow when it is in deadband state"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Output active airflow when it is in deadband state"
     annotation (Placement(transformation(extent={{132,40},{152,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Acitive heating airflow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Acitive heating airflow rate"
     annotation (Placement(transformation(extent={{80,-260},{100,-240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
     "Output active heating airflow according to heating control signal"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output active cooling airflow "
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5 "Output active cooling airflow "
     annotation (Placement(transformation(extent={{60,200},{80,220}})));
 
 protected
@@ -272,12 +272,10 @@ protected
     final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-260,-340},{-240,-320}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=dTDisZonSetMax,
-    final k=1)
+    final p=dTDisZonSetMax)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-70},{-240,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=2.8)
     "Zone temperature pluTZonSets 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-260},{-240,-240}})));
@@ -306,10 +304,10 @@ protected
     final uHigh=0.1)
     "Check if discharge air temperature is greater than room temperature plus 2.8 degC"
     annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate temperature difference between discharge air and room plus 2.8 degC"
     annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2(duration=600)
@@ -327,9 +325,9 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{170,-322},{190,-302}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch watValPosUno "Output hot water valve position"
+  Buildings.Controls.OBC.CDL.Continuous.Switch watValPosUno "Output hot water valve position"
     annotation (Placement(transformation(extent={{280,-30},{300,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch damPosUno "Output damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,60},{300,80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Negation of input signal"
     annotation (Placement(transformation(extent={{200,-260},{220,-240}})));
@@ -337,14 +335,14 @@ protected
     final k=TDisMin)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-68,-108},{-48,-88}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical not"
     annotation (Placement(transformation(extent={{-68,-64},{-48,-44}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{104,-82},{124,-62}})));
   Buildings.Controls.OBC.CDL.Logical.Not not6 "Negation of input signal"
@@ -356,19 +354,19 @@ protected
     annotation (Placement(transformation(extent={{200,250},{220,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4 "Active airflow set point"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDis_flowNor if
-       not have_pressureIndependentDamper
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
+    if not have_pressureIndependentDamper
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
     final k=V_flow_nominal)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division VDisSet_flowNor
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,220},{260,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=1) if have_pressureIndependentDamper
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1)
+    if have_pressureIndependentDamper
     "Block that can be disabled so remove the connection"
     annotation (Placement(transformation(extent={{240,120},{260,140}})));
 
@@ -466,24 +464,24 @@ equation
       color={0,0,127}));
   connect(hys4.y, not4.u)
     annotation (Line(points={{-218,130},{-204,130}}, color={255,0,255}));
-  connect(TSup, add2.u1)
+  connect(TSup, sub2.u1)
     annotation (Line(points={{-340,-30},{-300,-30},{-300,180},{-176,180},{-176,206},
           {-162,206}},        color={0,0,127}));
-  connect(TZon, add2.u2)
+  connect(TZon, sub2.u2)
     annotation (Line(points={{-340,-250},{-296,-250},{-296,176},{-172,176},{-172,
           194},{-162,194}},   color={0,0,127}));
-  connect(add2.y, hys6.u)
+  connect(sub2.y, hys6.u)
     annotation (Line(points={{-138,200},{-122,200}}, color={0,0,127}));
   connect(hys6.y, and4.u2)
     annotation (Line(points={{-98,200},{-80,200},{-80,202},{-62,202}},
       color={255,0,255}));
-  connect(conTDisHeaSet.y, add1.u1)
+  connect(conTDisHeaSet.y, sub1.u1)
     annotation (Line(points={{-98,-72},{-80,-72},{-80,-220},{-140,-220},{-140,-244},
           {-122,-244}},          color={0,0,127}));
-  connect(addPar1.y, add1.u2)
+  connect(addPar1.y, sub1.u2)
     annotation (Line(points={{-238,-250},{-140,-250},{-140,-256},{-122,-256}},
       color={0,0,127}));
-  connect(add1.y, hys7.u)
+  connect(sub1.y, hys7.u)
     annotation (Line(points={{-98,-250},{-82,-250}},
       color={0,0,127}));
   connect(conTDisHeaSet.y, TDisHeaSet)
@@ -635,7 +633,7 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-40,318},{154,280}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -643,7 +641,7 @@ annotation (
 in cooling state"),
         Text(
           extent={{32,136},{216,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -651,7 +649,7 @@ in cooling state"),
 (e.g., AHU overcools)"),
         Text(
           extent={{-52,42},{154,0}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -659,14 +657,14 @@ in cooling state"),
 in deadband state"),
         Text(
           extent={{88,-26},{150,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Valve control"),
         Text(
           extent={{-44,-164},{154,-200}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -681,51 +679,51 @@ in heating state")}),
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,68},{-62,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-98,88},{-62,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMin_flow"),
         Text(
           extent={{-98,-76},{-60,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{-98,-54},{-62,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActHeaMin_flow"),
         Text(
           extent={{-98,44},{-70,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-100,102},{-80,96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-100,-18},{-80,-24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-100,2},{-76,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-100,24},{-80,16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
@@ -737,7 +735,7 @@ in heating state")}),
           rotation=90),
         Text(
           extent={{-100,-36},{-80,-42}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
@@ -750,13 +748,13 @@ in heating state")}),
           textString="VDis_flow"),
         Text(
           extent={{72,44},{98,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yDam",
           horizontalAlignment=TextAlignment.Right),
         Text(
           extent={{66,-34},{98,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaVal"),
@@ -795,19 +793,19 @@ in heating state")}),
       fillPattern=FillPattern.Solid),
         Text(
           extent={{60,88},{98,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VDisSet_flow"),
         Text(
           extent={{60,-74},{98,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="TDisHeaSet"),
         Text(
           extent={{-98,-96},{-78,-102}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOpeMod")}),
   Documentation(info="<html>

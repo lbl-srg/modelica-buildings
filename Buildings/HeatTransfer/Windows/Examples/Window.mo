@@ -1,15 +1,14 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model Window "Test model for the window"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Area A=1 "Window surface area";
+  parameter Modelica.Units.SI.Area A=1 "Window surface area";
   parameter Real fFra=0.2
     "Fraction of frame, = frame area divided by total area";
-  final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
-  final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
+  final parameter Modelica.Units.SI.Area AFra=fFra*A "Frame area";
+  final parameter Modelica.Units.SI.Area AGla=A - AFra "Glass area";
   parameter Boolean linearize = false "Set to true to linearize emissive power";
-  parameter Modelica.SIunits.Angle lat=0.34906585039887 "Latitude";
-  parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
-  parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi=0 "Surface azimuth";
+  parameter Modelica.Units.SI.Angle til=1.5707963267949 "Surface tilt";
 
   Buildings.HeatTransfer.Windows.Window window(
     A=A,
@@ -54,11 +53,10 @@ model Window "Test model for the window"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
-    lat=lat,
     azi=azi)
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
-               til=til)
+    til=til)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -90,8 +88,8 @@ model Window "Test model for the window"
     absIR_glass=glaSys.shade.absIR_b,
     tauIR_air=glaSys.shade.tauIR_a,
     tauIR_glass=glaSys.shade.tauIR_b,
-    A=AGla) if
-     glaSys.haveShade "Interior shade radiation model"
+    A=AGla)
+  if glaSys.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{240,106},{220,126}})));
 
   Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig(
@@ -334,6 +332,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

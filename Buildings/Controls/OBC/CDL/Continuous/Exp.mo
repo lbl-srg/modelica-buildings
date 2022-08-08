@@ -32,17 +32,17 @@ equation
           color={192,192,192}),
         Text(
           extent={{-86,50},{-14,2}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="exp"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>

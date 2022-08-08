@@ -2,17 +2,17 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function density_pTX
   "Density of air as a function of pressure, temperature and species concentration"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Absolute pressure of the medium";
-  input Modelica.SIunits.Temperature T "Dry bulb temperature";
-  input Modelica.SIunits.MassFraction X_w
+  input Modelica.Units.SI.Pressure p "Absolute pressure of the medium";
+  input Modelica.Units.SI.Temperature T "Dry bulb temperature";
+  input Modelica.Units.SI.MassFraction X_w
     "Water vapor mass fraction per unit mass total air";
-  output Modelica.SIunits.Density d "Mass density";
+  output Modelica.Units.SI.Density d "Mass density";
 protected
-  Modelica.SIunits.SpecificHeatCapacity R
+  Modelica.Units.SI.SpecificHeatCapacity R
     "Gas constant (of mixture if applicable)";
 algorithm
-  R := Modelica.Media.IdealGases.Common.SingleGasesData.Air.R*(1 - X_w)
-     + Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R*X_w;
+  R :=Modelica.Media.IdealGases.Common.SingleGasesData.Air.R_s*(1 - X_w) +
+    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R_s*X_w;
   d := p/(R*T);
 
   annotation (smoothOrder=99,

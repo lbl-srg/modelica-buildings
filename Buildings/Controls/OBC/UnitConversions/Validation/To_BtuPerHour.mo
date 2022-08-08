@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.UnitConversions.Validation;
 model To_BtuPerHour "Validation model for unit conversion from watt to British thermal units per hour"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Difference between the calculated and expected conversion output"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Difference between the calculated and expected conversion output"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -40,15 +40,15 @@ protected
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
 equation
-  connect(result.y, add.u2)
+  connect(result.y, sub.u2)
     annotation (Line(points={{2,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
-  connect(result1.y, add1.u2)
+  connect(result1.y, sub1.u2)
     annotation (Line(points={{2,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
   connect(value1.y,to_BtuPerHour1.u)
     annotation (Line(points={{-38,-30},{-22,-30}}, color={0,0,127}));
-  connect(to_BtuPerHour1.y, add1.u1)
+  connect(to_BtuPerHour1.y, sub1.u1)
     annotation (Line(points={{2,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
-  connect(to_BtuPerHour.y, add.u1)
+  connect(to_BtuPerHour.y, sub.u1)
     annotation (Line(points={{2,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
   connect(value.y,to_BtuPerHour.u)
     annotation (Line(points={{-38,50}, {-22,50}}, color={0,0,127}));
@@ -74,6 +74,11 @@ This model validates power unit conversion from watt to British thermal units pe
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 29, 2021, by Michael Wetter:<br/>
+Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute
+rather than the deprecated <code>lineColor</code> attribute.
+</li>
 <li>
 July 05, 2018, Milica Grahovac<br/>
 Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>

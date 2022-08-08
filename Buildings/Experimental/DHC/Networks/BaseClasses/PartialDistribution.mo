@@ -98,7 +98,7 @@ First implementation.
       graphics={
         Text(
           extent={{-149,-104},{151,-144}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-200,-100},{200,100}},
