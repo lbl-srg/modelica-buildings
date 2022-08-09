@@ -8,7 +8,7 @@ sha_dir=`dirname ${cur_dir}`
 # replace it with . as the docker may have a different file structure
 arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
 docker run \
-  --user=${UID} \
+  --user=developer \
   --mac-address=${MAC_ADDRESS} \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -e DISPLAY=${DISPLAY} \
