@@ -104,7 +104,7 @@ model FanCoilUnit_openLoop_coolingMode
     "Add 273.15 to temperature values from EPlus to convert it to Kelvin from Celsius"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Fluid.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=ModelicaServices.ExternalReferences.loadResource(
       "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
@@ -214,13 +214,58 @@ equation
   connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{
           -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-92}}, color=
           {0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+      extent={{-100,-100},{100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+      extent={{-160,-160},{160,160}})),
     experiment(
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_openLoop_coolingMode.mos"
-      "Simulate and plot"));
+      "Simulate and plot"),
+    Documentation(info="<html>
+      <p>
+      This is an open-loop validation model for the fan coil unit system model 
+      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit</a>. It consists of:
+      <ul>
+      <li>
+      an instance of the fan coil unit system model <code>fanCoiUni</code>.
+      </li>
+      <li>
+      mixed volume <code>souAir</code> for imposing the boundary conditions of 
+      the zone air.
+      </li>
+      <li>
+      ideal media sources <code>souCoo</code> and <code>souHea</code> for simulating 
+      the supply of chilled water and heating hot-water respectively.
+      </li>
+      <li>
+      data-table reader <code>datRea</code> for reading the simulation results from EnergyPlus.
+      </li>
+      </ul>
+      </p>
+      <p>
+      The simulation model is set-up to replicate an EnergyPlus model <code>FanCoilAutoSize_ConstantFlowVariableFan.idf</code>
+      (available in the <code>/Resources/Data</code> section for this subpackage.)
+      An annual simulation was run on the above EnergyPlus model, and various output 
+      variables were recorded. These were then inserted into a data-file that is 
+      read by <code>datRea</code> in this model.
+      <br>
+      The data values are used to impose the boundary conditions on the simulation 
+      as well as compare the performance of the Modelica model with the equivalent 
+      EnergyPlus model. Once the simulation is complete, the values for the supply
+      air temperature and supply air flowrate, as well as the power consumption 
+      of the various components are compared against their counterparts from the 
+      EnergyPlus model.
+      </p>
+      </html>", revisions="<html>
+      <ul>
+      <li>
+      August 03, 2022 by Karthik Devaprasad:<br/>
+      First implementation.
+      </li>
+      </ul>
+      </html>"));
 end FanCoilUnit_openLoop_coolingMode;
