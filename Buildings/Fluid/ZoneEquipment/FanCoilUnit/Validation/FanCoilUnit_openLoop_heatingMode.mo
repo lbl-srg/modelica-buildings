@@ -28,7 +28,6 @@ model FanCoilUnit_openLoop_heatingMode
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit fanCoiUni(
     heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater,
-    capacityControlMethod=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.capacityControl.multispeedCyclingFanConstantWater,
     dpAirTot_nominal(displayUnit="Pa") = 100,
     mAirOut_flow_nominal=fCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -69,7 +68,7 @@ model FanCoilUnit_openLoop_heatingMode
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+        "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     columns=2:19,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -100,108 +99,10 @@ model FanCoilUnit_openLoop_heatingMode
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  Modelica.Blocks.Sources.RealExpression TSupAir(y=datRea.y[4])
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{20,120},{40,140}})));
-  Modelica.Blocks.Sources.RealExpression mSupAir_flow(y=datRea.y[11])
-    "Supply air mass flowrate"
-    annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  Modelica.Blocks.Sources.RealExpression TRetAir(y=datRea.y[5])
-    "Return air temperature"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  Modelica.Blocks.Sources.RealExpression mRetAir_flow(y=datRea.y[6])
-    "Return air mass flowrate"
-    annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Modelica.Blocks.Sources.RealExpression uFan(y=datRea.y[6]/fCUSizing.mAir_flow_nominal)
-    "Fan control signal"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Modelica.Blocks.Sources.RealExpression uCoo(y=datRea.y[8]/fCUSizing.mChiWat_flow_nominal)
-    "Cooling control signal"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.RealExpression uHea(y=datRea.y[10]/fCUSizing.mHotWat_flow_nominal)
-    "Heating control signal"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
-
-  parameter Real ATot = 37.16
-    "Area of zone";
-
-  Results res(
-    final A=ATot,
-    PFan=fanCoiUni.fan.P + 0,
-    PHea=fanCoiUni.heaCoiHHW.Q2_flow,
-    PCooSen=fanCoiUni.cooCoiCHW.QSen2_flow,
-    PCooLat=fanCoiUni.cooCoiCHW.QLat2_flow) "Results of the simulation";
-
-  Results res_EPlus(
-    final A=ATot,
-    PFan=PFan.y,
-    PHea=PHea.y,
-    PCooSen=-PCoo.y,
-    PCooLat=0);
-
-  model Results "Model to store the results of the simulation"
-    parameter Modelica.Units.SI.Area A "Floor area";
-    input Modelica.Units.SI.Power PFan "Fan energy";
-    input Modelica.Units.SI.Power PHea "Heating energy";
-    input Modelica.Units.SI.Power PCooSen "Sensible cooling energy";
-    input Modelica.Units.SI.Power PCooLat "Latent cooling energy";
-
-    Real EFan(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Fan energy";
-    Real EHea(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Heating energy";
-    Real ECooSen(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Sensible cooling energy";
-    Real ECooLat(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Latent cooling energy";
-    Real ECoo(unit="J/m2") "Total cooling energy";
-  equation
-
-    A*der(EFan) = PFan;
-    A*der(EHea) = PHea;
-    A*der(ECooSen) = -PCooSen;
-    A*der(ECooLat) = -PCooLat;
-    ECoo = ECooSen + ECooLat;
-
-  end Results;
-  Modelica.Blocks.Sources.RealExpression PHea(y=datRea.y[1]) "Heating power"
-    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Modelica.Blocks.Sources.RealExpression PCoo(y=datRea.y[2]) "Cooling power"
-    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Modelica.Blocks.Sources.RealExpression PFan(y=datRea.y[3]) "Fan power"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Modelica.Blocks.Sources.RealExpression PModCoo(y=-fanCoiUni.cooCoiCHW.Q2_flow)
-    "Cooling power consumption in Modelica model"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  Modelica.Blocks.Sources.RealExpression PModCooSen(y=-fanCoiUni.cooCoiCHW.QSen2_flow)
-    "Sensible cooling power consumption in Modelica model"
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Modelica.Blocks.Sources.RealExpression PModCooLat(y=-fanCoiUni.cooCoiCHW.QLat2_flow)
-    "Latent cooling power consumption in Modelica model"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Modelica.Blocks.Sources.RealExpression PModCooCal(y=-1000*4200*fanCoiUni.VChiWat_flow.V_flow
-        *(fanCoiUni.TChiWatSupSen.T - fanCoiUni.TChiWatRetSen.T))
-    "Calculated cooling power consumption in Modelica model"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Modelica.Blocks.Sources.RealExpression PCooSen(y=datRea.y[15])
-    "Sensible cooling power"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   .Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate mass fractions of constituents"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
@@ -211,12 +112,6 @@ model FanCoilUnit_openLoop_heatingMode
   .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=1)
     "Constant real signal of 1 for holding the hot water and chilled water control valves fully open"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Modelica.Blocks.Sources.RealExpression dPFanOut(y=datRea.y[18])
-    "Measured fan outlet pressure"
-    annotation (Placement(transformation(extent={{100,90},{120,110}})));
-  Modelica.Blocks.Sources.RealExpression dPFanIn(y=datRea.y[17])
-    "Measured fan inlet pressure"
-    annotation (Placement(transformation(extent={{100,120},{120,140}})));
 equation
 
   connect(fanCoiUni.port_CCW_outlet, sinCoo.ports[1])
