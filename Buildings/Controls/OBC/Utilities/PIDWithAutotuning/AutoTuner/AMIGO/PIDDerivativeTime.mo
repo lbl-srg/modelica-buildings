@@ -11,15 +11,20 @@ block PIDDerivativeTime "Identifies the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td
     "Connector for time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CDL.Continuous.MultiplyByParameter gai1(k=0.3) "0.3L"
+  CDL.Continuous.MultiplyByParameter gai1(k=0.3)
+    "Calculate the product of 0.3 and the time delay"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Continuous.MultiplyByParameter gai2(k=0.5) "0.5T"
+  CDL.Continuous.MultiplyByParameter gai2(k=0.5)
+    "Calculate the product of 0.5 and the input time constant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  CDL.Continuous.Multiply mul "0.5LT"
+  CDL.Continuous.Multiply mul
+    "Calculate the product of the output of gai2 and the input time constant"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  CDL.Continuous.Add add "0.3L+T"
+  CDL.Continuous.Add add
+    "Calculate the sum of the output of gai1 and the input time constant"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  CDL.Continuous.Divide div "0.5LT/(0.3L+T)"
+  CDL.Continuous.Divide div
+   "Calculate the output of mul divided by the output of add"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(div.y, Td)
@@ -40,7 +45,8 @@ equation
         color={0,0,127}));
   connect(div.u2, add.y) annotation (Line(points={{18,-6},{12,-6},{12,-50},{-18,
           -50}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName = "PIDDerivativeTime",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

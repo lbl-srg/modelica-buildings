@@ -1,44 +1,57 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
 block PIGain "Identifies the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(min=1E-6)
-    "Connector for the signal of the gain of a first order time-delayed model"
+    "Connector of gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=0)
-    "Connector for the signal of the time constant of a first order time-delayed model"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=1E-6)
+    "Connector of time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
-    "Connector for the signal of the time delay of a first order time-delayed model"
+    "Connector of time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Connector for control gain signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CDL.Continuous.Divide div1 "0.15/kp"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CDL.Continuous.Add add2 "0.15/KP+(0.35-LT/(L+T)^2)*(T/kp/L)"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  CDL.Continuous.Add add1 "T^2"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1
+    "Calculates the sum of the time constant and the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Continuous.Multiply mul "T*L"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  CDL.Continuous.Multiply mul1 "(L+T)^2"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  CDL.Continuous.Divide div2 "LT/(L+T)^2"
-    annotation (Placement(transformation(extent={{20,-40},{40,-60}})));
-  CDL.Continuous.Multiply mul2 "kp*L"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  CDL.Continuous.Divide div3 "T/kp/L"
-    annotation (Placement(transformation(extent={{-20,20},{0,0}})));
-  CDL.Continuous.Multiply mul3 "(0.35-LT/(L+T)^2)*(T/kp/L)"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  CDL.Continuous.Sources.Constant const2(k=0.15) "Constant parameter 1"
-    annotation (Placement(transformation(extent={{-82,72},{-62,92}})));
-  CDL.Continuous.Subtract sub "0.35-LT/(L+T)^2"
-    annotation (Placement(transformation(extent={{50,-60},{70,-40}})));
-  CDL.Continuous.Sources.Constant const1(k=0.35) "Constant parameter 1"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Calculates the sume of the output of mul3 and the out put of div1"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(final k=0.35)
+    "Constant parameter 1"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(final k=0.15)
+    "Constant parameter 2"
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+    "Calculate 0.15 divided by the gain"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2
+    "Calculate the output of mul2 divided by the output of mul1"
+    annotation (Placement(transformation(extent={{20,-40},{40,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide div3
+    "Calculate the time constant divided by the output of mul2"
+    annotation (Placement(transformation(extent={{-20,20},{0,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+    "Calculate the square value of the sum of the time constant and the time delay"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
+    "Calculate the product of the gain and the time delay"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
+    "Calculate the product of the output of sub and the output of div3"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul4
+    "Calculate the product of the time constant times the time delay"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+    "Calculate the difference between 0.35 and the output of div2"
+    annotation (Placement(transformation(extent={{50,-60},{70,-40}})));
+
 equation
   connect(div1.u2, kp) annotation (Line(points={{-62,44},{-80,44},{-80,60},{
           -120,60}}, color={0,0,127}));
@@ -48,17 +61,17 @@ equation
           -120,0}}, color={0,0,127}));
   connect(add1.u2, L) annotation (Line(points={{-62,-36},{-80,-36},{-80,-60},{
           -120,-60}}, color={0,0,127}));
-  connect(mul.u1, T) annotation (Line(points={{-62,-64},{-90,-64},{-90,0},{-120,
+  connect(mul4.u1, T) annotation (Line(points={{-62,-64},{-90,-64},{-90,0},{-120,
           0}}, color={0,0,127}));
-  connect(mul.u2, L) annotation (Line(points={{-62,-76},{-94,-76},{-94,-60},{
-          -120,-60}}, color={0,0,127}));
+  connect(mul4.u2, L) annotation (Line(points={{-62,-76},{-94,-76},{-94,-60},{-120,
+          -60}}, color={0,0,127}));
   connect(mul1.u1, add1.y) annotation (Line(points={{-22,-24},{-32,-24},{-32,
           -30},{-38,-30}}, color={0,0,127}));
   connect(mul1.u2, add1.y) annotation (Line(points={{-22,-36},{-32,-36},{-32,
           -30},{-38,-30}}, color={0,0,127}));
   connect(div2.u2, mul1.y) annotation (Line(points={{18,-44},{8,-44},{8,-30},{2,
           -30}}, color={0,0,127}));
-  connect(div2.u1, mul.y) annotation (Line(points={{18,-56},{-20,-56},{-20,-70},
+  connect(div2.u1, mul4.y) annotation (Line(points={{18,-56},{-20,-56},{-20,-70},
           {-38,-70}}, color={0,0,127}));
   connect(mul2.u1, kp) annotation (Line(points={{-62,26},{-72,26},{-72,44},{-80,
           44},{-80,60},{-120,60}}, color={0,0,127}));
@@ -68,21 +81,22 @@ equation
           {-38,20}}, color={0,0,127}));
   connect(div3.u1, T) annotation (Line(points={{-22,4},{-52,4},{-52,0},{-120,0}},
         color={0,0,127}));
-  connect(mul3.u1, div3.y)
-    annotation (Line(points={{18,6},{10,6},{10,10},{2,10}}, color={0,0,127}));
-  connect(const2.y, div1.u1) annotation (Line(points={{-60,82},{-54,82},{-54,64},
-          {-68,64},{-68,56},{-62,56}}, color={0,0,127}));
+  connect(mul3.u1, div3.y) annotation (Line(points={{18,6},{10,6},{10,10},{2,10}}, color={0,0,127}));
+  connect(const2.y, div1.u1) annotation (Line(points={{-78,80},{-68,80},{-68,56},
+          {-62,56}},                   color={0,0,127}));
   connect(add2.u2, mul3.y) annotation (Line(points={{18,24},{10,24},{10,16},{48,
           16},{48,0},{42,0}}, color={0,0,127}));
   connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{110,0}},
         color={0,0,127}));
-  connect(div2.y, sub.u2) annotation (Line(points={{42,-50},{44,-50},{44,-56},{
+  connect(div2.y, sub.u2)
+  annotation (Line(points={{42,-50},{44,-50},{44,-56},{
           48,-56}}, color={0,0,127}));
   connect(const1.y, sub.u1) annotation (Line(points={{12,-80},{46,-80},{46,-44},
           {48,-44}}, color={0,0,127}));
   connect(sub.y, mul3.u2) annotation (Line(points={{72,-50},{80,-50},{80,-22},{
           10,-22},{10,-6},{18,-6}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName = "PIGain",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

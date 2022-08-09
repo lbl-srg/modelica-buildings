@@ -51,7 +51,8 @@ equation
           {-40,50},{-12,50}}, color={0,0,127}));
   connect(L, gain.L) annotation (Line(points={{-120,-60},{-26,-60},{-26,44},{
           -12,44}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName = "PID",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

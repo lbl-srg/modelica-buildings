@@ -1,32 +1,37 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
 block PIDGain "Identifies the control gain of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(min=1E-6)
-    "Connector for the signal of the gain of a first order time-delayed model"
+    "Connector for the gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=0)
-    "Connector for the signal of the time constant of a first order time-delayed model"
+    "Connector for the time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
-    "Connector for the signal of the time delay of a first order time-delayed model"
+    "Connector for the time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Connector for control gain signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CDL.Continuous.Divide div1 "1/kp"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+    "Calculates the inverse of the input gain"
     annotation (Placement(transformation(extent={{-38,40},{-18,60}})));
-  CDL.Continuous.Sources.Constant const(k=1) "Constant parameter"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=1)
+    "Constant parameter"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  CDL.Continuous.Divide div2 "T/L"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Continuous.MultiplyByParameter gai1(k=0.45) "0.45T/L"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  CDL.Continuous.AddParameter
-                          addPar(p=0.2) "0.2+0.45T/L"
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter add(final p=0.2)
+    "Calculate the sum of 0.2 and the output of gai1"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  CDL.Continuous.Multiply mul "1/kp+(0.2+0.45T/L)"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2
+    "Calculate ratio of the time constant to the time delay"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.45)
+    "Calculate the product of 0.45 and the output of div2"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+    "Calcualte the sum of the output of addPar and the output of div1"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(div1.u2, kp) annotation (Line(points={{-40,44},{-94,44},{-94,60},{
@@ -39,14 +44,15 @@ equation
           -120,0}}, color={0,0,127}));
   connect(gai1.u, div2.y)
     annotation (Line(points={{-22,-30},{-38,-30}}, color={0,0,127}));
-  connect(gai1.y, addPar.u)
+  connect(gai1.y, add.u)
     annotation (Line(points={{2,-30},{18,-30}}, color={0,0,127}));
   connect(mul.y, k) annotation (Line(points={{82,0},{110,0}}, color={0,0,127}));
   connect(div1.y, mul.u1) annotation (Line(points={{-16,50},{42,50},{42,6},{58,
           6}}, color={0,0,127}));
-  connect(mul.u2, addPar.y) annotation (Line(points={{58,-6},{48,-6},{48,-30},{
-          42,-30}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  connect(mul.u2, add.y) annotation (Line(points={{58,-6},{48,-6},{48,-30},{42,
+          -30}}, color={0,0,127}));
+  annotation (defaultComponentName = "PIDGain",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

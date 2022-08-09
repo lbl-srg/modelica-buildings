@@ -19,10 +19,11 @@ block PI "Identifies the parameters of a PI controller"
     "Connector for time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIGain gain
-    "Calculates the control gain"
+    "Calculate the control gain"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIIntegralTime
-    integralTime "Calculates the integral time"
+    integralTime
+    "Calculate the integral time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
 equation
@@ -40,7 +41,8 @@ equation
           -12,24}}, color={0,0,127}));
   connect(gain.kp, kp) annotation (Line(points={{-12,36},{-40,36},{-40,60},{
           -120,60}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName = "PI",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
