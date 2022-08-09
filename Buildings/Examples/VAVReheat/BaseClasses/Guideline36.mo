@@ -267,8 +267,6 @@ equation
           {-68,400},{-68,398},{-42,398}}, color={255,0,255}));
   connect(groSta.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{
           -98,398},{-72,398},{-72,396},{-42,396}}, color={255,0,255}));
-  connect(groSta.TZonMax, opeModSel.TZonMax) annotation (Line(points={{-98,387},
-          {-72,387},{-72,394},{-42,394}}, color={0,0,127}));
   connect(groSta.TZonMin, opeModSel.TZonMin) annotation (Line(points={{-98,385},
           {-68,385},{-68,392},{-42,392}}, color={0,0,127}));
   connect(groSta.yHotZon, opeModSel.totHotZon) annotation (Line(points={{-98,

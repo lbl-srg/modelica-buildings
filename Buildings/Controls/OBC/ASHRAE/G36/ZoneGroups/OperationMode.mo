@@ -61,13 +61,6 @@ block OperationMode "Block that outputs the operation mode"
     "True when the setback mode could end"
     annotation (Placement(transformation(extent={{-400,-70},{-360,-30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMax(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Maximum zone temperature"
-    annotation (Placement(transformation(extent={{-400,-100},{-360,-60}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
     final unit="K",
     displayUnit="degC",
@@ -631,9 +624,8 @@ equation
           154},{-162,154}}, color={0,0,127}));
   connect(actFreProTem.y, sub2.u1) annotation (Line(points={{-258,-100},{-250,-100},
           {-250,-84},{-222,-84}}, color={0,0,127}));
-  connect(TZonMax, sub2.u2) annotation (Line(points={{-380,-80},{-240,-80},{-240,
+  connect(TZonMin, sub2.u2) annotation (Line(points={{-380,-120},{-240,-120},{-240,
           -96},{-222,-96}}, color={0,0,127}));
-
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(
@@ -772,11 +764,6 @@ annotation (
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetBac"),
-        Text(
-          extent={{-98,-54},{-64,-64}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="TZonMax"),
         Text(
           extent={{-98,-74},{-64,-84}},
           textColor={0,0,127},

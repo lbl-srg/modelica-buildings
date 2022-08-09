@@ -97,8 +97,6 @@ equation
     annotation (Line(points={{22,-30},{38,-30}},   color={255,0,255}));
   connect(booToInt.y, opeModSel.totColZon) annotation (Line(points={{62,-30},{
           76,-30},{76,102},{118,102}}, color={255,127,0}));
-  connect(zonTem.y, opeModSel.TZonMax) annotation (Line(points={{-26,50},{58,50},
-          {58,94},{118,94}}, color={0,0,127}));
   connect(zonTem.y, opeModSel.TZonMin) annotation (Line(points={{-26,50},{64,50},
           {64,92},{118,92}}, color={0,0,127}));
   connect(zonTem.y, greEqu3.u1) annotation (Line(points={{-26,50},{-20,50},{-20,

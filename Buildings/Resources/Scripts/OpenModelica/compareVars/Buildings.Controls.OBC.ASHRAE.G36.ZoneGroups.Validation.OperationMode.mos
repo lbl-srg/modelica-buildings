@@ -11,5 +11,5 @@ compareVars :=
     "TZonCooSetUno.y",
     "TZonHeaSetOcc.y",
     "TZonCooSetOcc.y",
-    "opeModSel.TZonMax"
+    "opeModSel.TZonMin"
   };
