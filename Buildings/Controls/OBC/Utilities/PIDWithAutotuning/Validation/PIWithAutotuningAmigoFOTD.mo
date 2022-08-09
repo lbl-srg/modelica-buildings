@@ -34,9 +34,11 @@ model PIWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
   CDL.Continuous.Sources.Constant T(k=10)
     "Time constant of the first order process"
     annotation (Placement(transformation(extent={{180,-20},{160,0}})));
-  CDL.Continuous.Add add2
+  CDL.Continuous.Subtract
+                     sub
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  CDL.Continuous.Add add1
+  CDL.Continuous.Subtract
+                     add1
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   CDL.Continuous.Derivative derivative
     annotation (Placement(transformation(extent={{78,26},{58,46}})));
@@ -58,20 +60,18 @@ equation
     annotation (Line(points={{2,-20},{8,-20}},  color={0,0,127}));
   connect(uniDel1.u, PID.y)
     annotation (Line(points={{8,60},{2,60}},  color={0,0,127}));
-  connect(uniDel1.y, add2.u1) annotation (Line(points={{32,60},{40,60},{40,86},
-          {58,86}},color={0,0,127}));
+  connect(uniDel1.y, sub.u1) annotation (Line(points={{32,60},{40,60},{40,86},{
+          58,86}}, color={0,0,127}));
   connect(k.y, derivative.k)
     annotation (Line(points={{158,30},{148,30},{148,44},{80,44}},
                                                             color={0,0,127}));
   connect(derivative.T, T.y)
     annotation (Line(points={{80,40},{112,40},{112,-46},{148,-46},{148,-10},{
           158,-10}},                                         color={0,0,127}));
-  connect(derivative.y, add2.u2) annotation (Line(points={{56,36},{50,36},{50,
-          74},{58,74}},
-                    color={0,0,127}));
-  connect(add2.y, PID.u_m) annotation (Line(points={{82,80},{88,80},{88,54},{46,
-          54},{46,42},{-10,42},{-10,48}},
-                         color={0,0,127}));
+  connect(derivative.y, sub.u2) annotation (Line(points={{56,36},{50,36},{50,74},
+          {58,74}}, color={0,0,127}));
+  connect(sub.y, PID.u_m) annotation (Line(points={{82,80},{88,80},{88,54},{46,
+          54},{46,42},{-10,42},{-10,48}}, color={0,0,127}));
   connect(add1.u1, uniDel2.y) annotation (Line(points={{58,-4},{40,-4},{40,-20},
           {32,-20}}, color={0,0,127}));
   connect(derivative1.y, add1.u2) annotation (Line(points={{58,-50},{52,-50},{
@@ -85,8 +85,8 @@ equation
                           color={0,0,127}));
   connect(derivative1.T, T.y) annotation (Line(points={{82,-46},{148,-46},{148,
           -10},{158,-10}},         color={0,0,127}));
-  connect(derivative.u, add2.u1) annotation (Line(points={{80,36},{88,36},{88,
-          20},{40,20},{40,86},{58,86}}, color={0,0,127}));
+  connect(derivative.u, sub.u1) annotation (Line(points={{80,36},{88,36},{88,20},
+          {40,20},{40,86},{58,86}}, color={0,0,127}));
   connect(derivative1.u, uniDel2.y) annotation (Line(points={{82,-50},{92,-50},
           {92,-66},{40,-66},{40,-20},{32,-20}}, color={0,0,127}));
   annotation (
