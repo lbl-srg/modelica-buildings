@@ -532,11 +532,23 @@ equation
     respective coils.
     </li>
     <li>
+    Mixed air volume <code>out</code> of class <a href=\"modelica://Buildings.Fluid.Sources.Outside\">
+    Buildings.Fluid.Sources.Outside</a> for providing the ventilation through the fan
+    coil unit.
+    </li>
+    <li>
     Temperature and flowrate sensors at various points in the airloop, 
     chilled-water loop and hot-water loop. The sensors are all replaceable instances
     and can be redeclared as required.
     </li>
     </ul>
+    </p>
+    <p>
+    The system model receives input signals for the fan speed <code>uFan</code>, heating and cooling 
+    coil valve positions (<code>uHea</code> and <code>uCoo</code> respectively), 
+    and the outdoor air damper position <code>uOA</code>. The system controls 
+    the flowrate of the chilled water and heating hot-water using the valves, and 
+    assumes pressurized water supply form the hot-water and chilled water loops.
     </p>
     </html>
     ", revisions="<html>

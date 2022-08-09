@@ -259,6 +259,12 @@ equation
       air temperature and supply air flowrate, as well as the power consumption 
       of the various components are compared against their counterparts from the 
       EnergyPlus model.
+      <br>
+      This model validates the cooling mode operation by running the simulation from 07/01
+      through 07/10 with the weather file <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>.
+      It then makes plots for the supply air temperature and flowrate, as well as 
+      the energy consumption of the cooling coil, including sensible and latent components,
+      and the energy consumption of the supply fan.
       </p>
       </html>", revisions="<html>
       <ul>
