@@ -3,7 +3,7 @@ model ControlProcessModel "Test model for ControlProcessModel"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
     controlProcessModel(yLow=0.1, deaBan=0.05)
-    "Calculates the parameters of the system model for the control process"
+    "Calculate the parameters of  of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,1,1,0.3,1,1; 0.002,
         1,1,1,0.3,1,1; 0.004,1,1,1,0.3,1,1; 0.006,1,1,1,0.3,1,1; 0.008,1,1,1,

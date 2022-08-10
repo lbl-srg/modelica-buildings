@@ -95,7 +95,7 @@ equation
           {48,-44}}, color={0,0,127}));
   connect(sub.y, mul3.u2) annotation (Line(points={{72,-50},{80,-50},{80,-22},{
           10,-22},{10,-6},{18,-6}}, color={0,0,127}));
-  annotation (defaultComponentName = "PIGain",
+  annotation (defaultComponentName = "pIGain",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

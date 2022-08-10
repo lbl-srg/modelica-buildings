@@ -22,13 +22,13 @@ block PID "Identifies the parameters of a PID controller"
     "Connector for time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIDGain gain
-    "Calculates the control gain"
+    "Calculate the control gain"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIDIntegralTime
-    integralTime "Calculates the integral time"
+    integralTime "Calculate the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIDDerivativeTime
-    derivativeTime "Calculates the derivative time"
+    derivativeTime "Calculate the derivative time"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(derivativeTime.Td, Td)
@@ -51,7 +51,7 @@ equation
           {-40,50},{-12,50}}, color={0,0,127}));
   connect(L, gain.L) annotation (Line(points={{-120,-60},{-26,-60},{-26,44},{
           -12,44}}, color={0,0,127}));
-  annotation (defaultComponentName = "PID",
+  annotation (defaultComponentName = "pID",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

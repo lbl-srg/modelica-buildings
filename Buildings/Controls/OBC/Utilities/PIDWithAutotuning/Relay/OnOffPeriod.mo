@@ -1,6 +1,10 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block OnOffPeriod
   "Calculates the lengths of the On period and the Off period"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tim
+    "Connector for the input signal of the simulation time"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
     "Connector for relay switch signal" annotation (Placement(transformation(
           extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
@@ -17,33 +21,31 @@ block OnOffPeriod
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOff
     "Simulation time when the input signal becomes Off (False)"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Not Off "Relay switch off"
+  Buildings.Controls.OBC.CDL.Logical.Not Off
+    "Relay switch off"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOffCal
-    "Calculating the horizon length for the Off period"
+    "Calculate the horizon length for the Off period"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOnCal
-    "Calculating the horizon length for the On period"
+    "Calculate the horizon length for the On period"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greTimOff
-    "Triggering the action to record the horizon length for the Off period"
+    "Trigger the action to record the horizon length for the Off period"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greTimOn
-    "Triggering the action to record the horizon length for the On period"
+    "Trigger the action to record the horizon length for the On period"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOffRecord
-    "Recording the horizon length for the Off period"
+    "Record the horizon length for the Off period"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOnRecord
-    "Recording the horizon length for the On period"
+    "Record the horizon length for the On period"
     annotation (Placement(transformation(extent={{60,50},{80,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tim
-    "Connector for the input signal of the simulation time"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+
 
 equation
   connect(Off.u, On) annotation (Line(points={{-82,-70},{-92,-70},{-92,-60},{
@@ -87,7 +89,9 @@ equation
     annotation (Line(points={{82,40},{110,40}}, color={0,0,127}));
   connect(timOffRecord.y, tOff)
     annotation (Line(points={{82,-40},{110,-40}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+        defaultComponentName = "onOffPeriod",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

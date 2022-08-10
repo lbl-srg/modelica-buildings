@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Valida
 model PIGain "Test model for PIGain"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIGain pIGain
-    "Calculates the control gain for a PI controller"
+    "Calculate the control gain for a PI controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,
         1,0.5,0.3,0.343,0.469; 0.002,1.002,0.501,0.301,0.342,0.47; 0.004,1.004,

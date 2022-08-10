@@ -3,7 +3,7 @@ model TimeConstantDelay "Test model for TimeConstantDelay"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay
     timeConstantDelay(yLow=0.1)
-    "Calculates the time constant and the time delay"
+    "Calculate the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,1,0.3,0.754,0.226;
         0.002,1,1,0.3,0.754,0.226; 0.004,1,1,0.3,0.754,0.226; 0.006,1,1,0.3,

@@ -143,6 +143,7 @@ equation
         Diagram(
            coordinateSystem(
            extent={{-100,-100},{100,100}})),
+        defaultComponentName = "halfPeriodRatio",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{80,
             100}}),                                      graphics={
         Rectangle(

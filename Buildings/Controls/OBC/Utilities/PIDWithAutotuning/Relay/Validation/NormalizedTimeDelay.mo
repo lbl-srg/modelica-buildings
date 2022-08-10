@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model NormalizedTimeDelay "Test model for NormalizedTimeDelay"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay
-    normalizedTimeDelay(gamma=4)
-    "calculates the normalized time delay"
+    normalizedTimeDelay(gamma=4) "Calculate the normalized time delay"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,0,2.051; 0.002,0,
         2.051; 0.004,0,2.051; 0.006,0,2.051; 0.008,0,2.051; 0.01,0,2.051; 0.012,

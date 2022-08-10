@@ -10,26 +10,27 @@ block NormalizedTimeDelay
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "Connector for a real signal of the normalized time delay"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant asymmetryLevel(k=gamma)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(final p=-1)
+    "Calculate the difference between gamma and 1"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(final p=0.65)
+    "Calculate the sum of the output of gai and 0.65"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant asymmetryLevel(final k=gamma)
     "Asymmetry level of the relay controller"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract subGammaRho "gamma-rho"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div "Calculate the normalized time delay"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract subGammaRho
+    "Calculate the difference between gamma and rho"
     annotation (Placement(transformation(extent={{0,12},{20,32}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=0.35)
-    "gain for rho"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=0.35)
+    "Gain for the half period ratio"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "(r-1)*(0.35*roh+0.65)"
+    "Calculate the product of the output of addPar1 and that of addPar2"
     annotation (Placement(transformation(extent={{0,-48},{20,-28}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
-    "calculates tau"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(p=0.65)
-    "calculates rho*0.35+0.65"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(p=-1)
-    "calculates gamma-1"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+
 equation
   assert(
     gamma-rho>1E-6,
@@ -54,7 +55,9 @@ equation
           {-52,50},{-58,50}}, color={0,0,127}));
   connect(addPar1.y, mul.u1) annotation (Line(points={{-18,-10},{-10,-10},{-10,-32},
           {-2,-32}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+        defaultComponentName = "normalizedTimeDelay",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

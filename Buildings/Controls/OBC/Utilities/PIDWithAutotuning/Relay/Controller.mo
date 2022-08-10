@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
-block Control
+block Controller
   "Outputs relay signals for tuning PID controllers"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
@@ -25,7 +25,7 @@ block Control
     "Control error signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(bandwidth=deaBan*2, pre_y_start=true)
-    "check if the measured value is larger than the reference, by default the relay control is On"
+    "Check if the measured value is larger than the reference, by default the relay control is On"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a higher value and a lower value"
@@ -34,7 +34,7 @@ block Control
     "Higher value for the output"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(final k=-yLow)
-    "Default temperature slope in case of zero division"
+    "Lower value for the output"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract controlError
     "Control error (set point - measurement)"
@@ -74,7 +74,8 @@ equation
   connect(controlError.u2, u_s)
     annotation (Line(points={{-78,14},{-80,14},{-80,
           0},{-120,0}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName = "controller",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
@@ -103,4 +104,4 @@ First implementation<br/>
 </li>
 </ul>
 </html>"));
-end Control;
+end Controller;

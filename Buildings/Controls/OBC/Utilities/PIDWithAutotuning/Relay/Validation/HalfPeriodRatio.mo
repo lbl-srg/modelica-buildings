@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model HalfPeriodRatio "Test model for HalfPeriodRatio"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio
-    halfPeriodRatio
-    "Calculates the half period ratio"
+    halfPeriodRatio "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
     table=[0,0; 0.1,1; 0.3,1; 0.7,1; 0.83,2; 0.85,6],

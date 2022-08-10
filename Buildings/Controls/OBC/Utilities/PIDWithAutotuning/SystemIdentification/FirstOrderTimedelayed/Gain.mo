@@ -5,15 +5,15 @@ block Gain "Identifies the gain of a first order time delayed model"
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output (assuming the reference output is 0)";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector for a signal of a relay controller output"
+    "Connector for a relay controller output"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
-    "Connector for a signal of the length for the On period"
+    "Connector for the length for the On period"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff
-    "Connector for a signal of the length for the Off period"
+    "Connector for the length for the Off period"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triggerStart
@@ -30,22 +30,21 @@ block Gain "Identifies the gain of a first order time delayed model"
     "Integral of the relay output"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset Iy(
-     k=1,y_start=1E-11)
+     final k=1,y_start=1E-11)
     "Integral of the process output"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant referenceRelayOutpit(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant referenceRelayOutpit(final k=0)
     "Reference value of the relay control output"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide divIyIu
-    "Calculates the gain"
+  Buildings.Controls.OBC.CDL.Continuous.Divide divIyIu "Calculate the gain"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1E-11)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=1E-11)
     "Avoid divide-by-zero errors"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaitOnyHig(k=yHig)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaitOnyHig(final k=yHig)
     "Product of tOn and yHig"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaitOffyLow(k=-yLow)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaitOffyLow(final k=-yLow)
     "Product of tOff and yLow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
@@ -69,7 +68,9 @@ equation
     annotation (Line(points={{-82,-80},{-120,-80}}, color={0,0,127}));
   connect(gaitOffyLow.y, Iu.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,
           -46},{-42,-46}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+        defaultComponentName = "gain",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

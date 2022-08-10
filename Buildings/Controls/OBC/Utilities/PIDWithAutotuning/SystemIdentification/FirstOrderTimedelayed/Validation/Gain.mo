@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.F
 model Gain "Test model for Gain"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain
-    gain
-    "Calculates the gain"
+    gain "Calculate the gain of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
     table=[0,0; 0.1,0.1; 0.3,0.1; 0.7,0.1; 0.83,0.1; 0.9,0.07],

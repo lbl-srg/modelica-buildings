@@ -57,7 +57,7 @@ equation
           20}}, color={0,0,127}));
   connect(div.u1, add2.y) annotation (Line(points={{-2,-6},{-10,-6},{-10,-20},{-18,
           -20}}, color={0,0,127}));
-  annotation (defaultComponentName = "PIDIntegralTime",
+  annotation (defaultComponentName = "pIDIntegralTime",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

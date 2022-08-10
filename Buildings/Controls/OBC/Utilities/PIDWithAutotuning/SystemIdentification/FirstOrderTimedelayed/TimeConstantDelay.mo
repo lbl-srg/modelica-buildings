@@ -118,7 +118,9 @@ equation
           82,-68}}, color={0,0,127}));
   connect(absk.y, div1.u2) annotation (Line(points={{-58,-10},{-20,-10},{-20,
           -26},{-2,-26}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+        defaultComponentName = "timeConstantDelay",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

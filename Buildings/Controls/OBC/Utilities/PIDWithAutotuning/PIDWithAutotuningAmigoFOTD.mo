@@ -39,7 +39,7 @@ block PIDWithAutotuningAmigoFOTD
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Control relay(
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller relay(
     yHig=yHig,
     yLow=yLow,
     deaBan=deaBan)
@@ -82,6 +82,16 @@ block PIDWithAutotuningAmigoFOTD
     "Simulation time"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
 
+  CDL.Interfaces.RealInput                        u_m1
+    "Connector for measurement input signal"
+    annotation (Placement(transformation(origin={0,-220},extent={{20,-20},{-20,20}},rotation=270),iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
+  CDL.Interfaces.RealOutput                        y1
+    "Connector for actuator output signal"
+    annotation (Placement(transformation(extent={{220,-20},{260,20}}),iconTransformation(extent={{100,-20},
+            {140,20}})));
+  CDL.Interfaces.BooleanInput                        trigger1
+    "Resets the controller output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-160,-220}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
 protected
   final parameter Boolean with_I=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable integral action"
@@ -177,14 +187,59 @@ June 1, 2022, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>
-</html>"), Icon(graphics={
+</html>"),
+        defaultComponentName = "pIDWithAutotuningAmigoFOTD",
+        Icon(graphics={
+        Text(
+          extent={{-158,144},{142,104}},
+          textString="%name",
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-6,-20},{66,-66}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-158,144},{142,104}},
-          textString="%name",
-          textColor={0,0,255})}));
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-26,-22},{74,-62}},
+          lineColor={0,0,0},
+          textString="PI",
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175}),
+        Polygon(
+          points={{-80,82},{-88,60},{-72,60},{-80,82}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-80,68},{-80,-100}},
+          color={192,192,192}),
+        Line(
+          points={{-90,-80},{70,-80}},
+          color={192,192,192}),
+        Polygon(
+          points={{74,-80},{52,-72},{52,-88},{74,-80}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-80,-80},{-80,-22}},
+          color={0,0,0}),
+        Line(
+          points={{-80,-22},{6,56}},
+          color={0,0,0}),
+        Line(
+          points={{6,56},{68,56}},
+          color={0,0,0}),
+        Rectangle(
+          extent={{100,-100},{84,-100}},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0})}));
 end PIDWithAutotuningAmigoFOTD;

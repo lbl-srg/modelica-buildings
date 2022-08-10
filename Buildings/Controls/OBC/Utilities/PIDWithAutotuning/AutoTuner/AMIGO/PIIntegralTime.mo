@@ -91,7 +91,7 @@ equation
           -88,24},{-88,16},{-82,16}},  color={0,0,127}));
   connect(mul4.y, div.u1) annotation (Line(points={{-58,10},{-4,10},{-4,76},{18,
           76}}, color={0,0,127}));
-  annotation (defaultComponentName = "PIIntegralTime",
+  annotation (defaultComponentName = "pIIntegralTime",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

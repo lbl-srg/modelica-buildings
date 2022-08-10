@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Valida
 model PIDIntegralTime "Test model for PIDIntergralTime"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIDIntegralTime
-    pIDIntegralTime "Calculates the integral time for a PID controller"
+    pIDIntegralTime "Calculate the integral time for a PID controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,
         0.127; 0.002,1.002,0.501,0.301,0.948,0.447,0.127; 0.004,1.004,0.502,

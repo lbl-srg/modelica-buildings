@@ -64,7 +64,9 @@ equation
           {26,-80},{26,4},{23.3333,4}}, color={255,0,255}));
   connect(triggerStart, halfPeriodRatio.triggerStart) annotation (Line(points={{110,-40},
           {34,-40},{34,10},{23.3333,10}},          color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+        defaultComponentName = "responseProcess",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

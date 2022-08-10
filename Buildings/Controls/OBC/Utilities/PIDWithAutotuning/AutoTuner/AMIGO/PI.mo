@@ -41,7 +41,7 @@ equation
           -12,24}}, color={0,0,127}));
   connect(gain.kp, kp) annotation (Line(points={{-12,36},{-40,36},{-40,60},{
           -120,60}}, color={0,0,127}));
-  annotation (defaultComponentName = "PI",
+  annotation (defaultComponentName = "pI",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
