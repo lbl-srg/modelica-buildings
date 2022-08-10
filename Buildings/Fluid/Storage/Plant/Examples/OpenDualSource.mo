@@ -11,9 +11,9 @@ equation
                                                            color={0,0,127}));
   connect(conRemCha.yPumRet, netCon.yPumRet)
     annotation (Line(points={{-64,-61},{-64,-79}}, color={0,0,127}));
-  connect(netCon.yRet,conRemCha.yRet)  annotation (Line(points={{-60.2,-79},{-60.2,
-          -30},{-60,-30},{-60,-61}}, color={0,0,127}));
 
+  connect(conRemCha.yRet, netCon.yRet)
+    annotation (Line(points={{-60,-61},{-60,-79}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenDualSource.mos"
         "Simulate and plot"),

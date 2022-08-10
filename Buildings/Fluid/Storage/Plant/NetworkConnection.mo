@@ -167,7 +167,7 @@ model NetworkConnection
         origin={50,130}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={98,110})));
+        origin={100,110})));
   Modelica.Blocks.Interfaces.RealInput yPumRet
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Speed input of the auxiliary pump on the return line" annotation (
