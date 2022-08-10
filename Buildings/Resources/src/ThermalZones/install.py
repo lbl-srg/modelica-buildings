@@ -21,9 +21,9 @@ if __name__ == '__main__':
   # Parse the arguments
   args = parser.parse_args()
 
-  proc=[os.path.join(os.path.dirname(os.path.realpath(__file__)),  "EnergyPlus_9_6_0", "install.py")]
+  proc=["python", os.path.join(os.path.dirname(os.path.realpath(__file__)), "EnergyPlus_9_6_0", "install.py")] 
 
-  if args.binaries_for_os_only:
+if args.binaries_for_os_only:
     proc += ["--binaries-for-os-only"]
 
   subprocess.run(proc, shell=False)
