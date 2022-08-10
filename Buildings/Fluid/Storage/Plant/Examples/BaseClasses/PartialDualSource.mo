@@ -206,7 +206,7 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,190})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.3*dp_nominal,
@@ -264,7 +264,7 @@ partial model PartialDualSource
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={130,170})));
-  Modelica.Blocks.Math.Gain gaiUsr2(k=1/ideUse.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUsr2(k=1/ideUse2.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -328,16 +328,15 @@ partial model PartialDualSource
 equation
   connect(set_TRet.y, ideUse1.TSet) annotation (Line(points={{61,230},{80,230},{
           80,198},{61,198}},color={0,0,127}));
-  connect(set_TRet.y, ideUse.TSet) annotation (Line(points={{61,230},{80,230},{80,
-          8},{61,8}},    color={0,0,127}));
+  connect(set_TRet.y, ideUse2.TSet) annotation (Line(points={{61,230},{80,230},
+          {80,8},{61,8}}, color={0,0,127}));
   connect(set_TRet.y, ideUse3.TSet) annotation (Line(points={{61,230},{80,230},{
           80,-162},{61,-162}},color={0,0,127}));
   connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{61,-174},
           {100,-174},{100,-210.667},{62,-210.667}},                       color=
          {0,0,127}));
-  connect(ideUse.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{61,-4},
-          {100,-4},{100,-210},{62,-210}},
-                                        color={0,0,127}));
+  connect(ideUse2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{61,-4},
+          {100,-4},{100,-210},{62,-210}}, color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-210},{-18,-210}},color={0,0,127}));
   connect(set_dpUsr.y,conPI_pumChi1. u_s)
@@ -347,18 +346,16 @@ equation
           {100,186},{100,-209.333},{62,-209.333}},        color={0,0,127}));
   connect(set_QCooLoa1_flow.y, ideUse1.QCooLoa_flow) annotation (Line(points={{119,210},
           {110,210},{110,194},{61,194}},   color={0,0,127}));
-  connect(set_QCooLoa2_flow.y, ideUse.QCooLoa_flow)
-    annotation (Line(points={{119,20},{110,20},{110,4},{61,4}},
-                                                             color={0,0,127}));
+  connect(set_QCooLoa2_flow.y, ideUse2.QCooLoa_flow) annotation (Line(points={{
+          119,20},{110,20},{110,4},{61,4}}, color={0,0,127}));
   connect(set_QCooLoa3_flow.y, ideUse3.QCooLoa_flow) annotation (Line(points={{119,
           -150},{110,-150},{110,-166},{61,-166}},
                                                color={0,0,127}));
   connect(ideUse1.dpUsr, gaiUsr1.u)
     annotation (Line(points={{61,182},{110,182},{110,170},{118,170}},
                                                        color={0,0,127}));
-  connect(ideUse.dpUsr, gaiUsr2.u)
-    annotation (Line(points={{61,-8},{110,-8},{110,-20},{118,-20}},
-                                                         color={0,0,127}));
+  connect(ideUse2.dpUsr, gaiUsr2.u) annotation (Line(points={{61,-8},{110,-8},{
+          110,-20},{118,-20}}, color={0,0,127}));
   connect(ideUse3.dpUsr, gaiUsr3.u)
     annotation (Line(points={{61,-178},{110,-178},{110,-190},{118,-190}},
                                                           color={0,0,127}));
@@ -438,10 +435,10 @@ equation
     annotation (Line(points={{6,60},{6,80},{-60,80}}, color={0,127,255}));
   connect(parPipS1U2.port_b1, chi1.port_b2)
     annotation (Line(points={{-6,60},{-6,120},{-124,120}}, color={0,127,255}));
-  connect(parPipS1U2.port_a1, ideUse.port_a) annotation (Line(points={{-6,40},{-6,
-          20},{50,20},{50,10}}, color={0,127,255}));
-  connect(ideUse.port_b, parPipS2U2.port_a2) annotation (Line(points={{50,-10},{
-          50,-20},{6,-20},{6,-40}}, color={0,127,255}));
+  connect(parPipS1U2.port_a1, ideUse2.port_a) annotation (Line(points={{-6,40},
+          {-6,20},{50,20},{50,10}}, color={0,127,255}));
+  connect(ideUse2.port_b, parPipS2U2.port_a2) annotation (Line(points={{50,-10},
+          {50,-20},{6,-20},{6,-40}}, color={0,127,255}));
   connect(parPipS2U2.port_b1, parPipS1U2.port_a1)
     annotation (Line(points={{-6,-40},{-6,40}}, color={0,127,255}));
   connect(parPipS1U2.port_b2, parPipS2U2.port_a2)
