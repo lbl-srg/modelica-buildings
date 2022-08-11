@@ -360,75 +360,8 @@ robust model.
 However, otherwise <code>m_flow_nominal</code> does not affect the mass flow rate of the mover as
 the mass flow rate is determined by the input signal or the above explained parameters.
 </p>
-<h5>Start-up and shut-down transients</h5>
-<p>
-All models have a parameter <code>use_inputFilter</code>. This
-parameter affects the fan output as follows:
-</p>
-<ol>
-<li>
-If <code>use_inputFilter=false</code>, then the input signal <code>y</code> (or
-<code>Nrpm</code>, <code>m_flow_in</code>, or <code>dp_in</code>)
-is equal to the fan speed (or the mass flow rate or pressure rise).
-Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
-</li>
-<li>
-If <code>use_inputFilter=true</code>, which is the default,
-then the fan speed (or the mass flow rate or the pressure rise)
-is equal to the output of a filter. This filter is implemented
-as a 2nd order differential equation and can be thought of as
-approximating the inertia of the rotor and the fluid.
-Thus, a step change in the fan input signal will cause a gradual change
-in the fan speed.
-The filter has a parameter <code>riseTime</code>, which by default is set to
-<i>30</i> seconds.
-The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
-if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
-</li>
-</ol>
-<p>
-The figure below shows for a fan with <code>use_inputFilter=true</code>
-and <code>riseTime=30</code> seconds the
-speed input signal and the actual speed.</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png\"/>
-</p>
 
-<p>
-Although many simulations do not require such a detailed model
-that approximates the transients of fans or pumps, it turns
-out that using this filter can reduce computing time and
-can lead to fewer convergence problems in large system models.
-With a filter, any sudden change in control signal, such as when
-a fan switches on, is damped before it affects the air flow rate.
-This continuous change in flow rate turns out to be easier, and in
-some cases faster, to simulate compared to a step change.
-For most simulations, we therefore recommend to use the default settings
-of <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
-An exception are situations in which the fan or pump is operated at a fixed speed during
-the whole simulation. In this case, set <code>use_inputFilter=false</code>.
-</p>
-<p>
-Note that if the fan is part of a closed loop control, then the filter affects
-the transient response of the control.
-When changing the value of <code>use_inputFilter</code>, the control gains
-may need to be retuned.
-We now present values control parameters that seem to work in most cases.
-Suppose there is a closed loop control with a PI-controller
-<a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
-Buildings.Controls.Continuous.LimPID</a>
-and a fan or pump, configured with <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
-Assume that the transient response of the other dynamic elements in the control loop is fast
-compared to the rise time of the filter.
-Then, a proportional gain of <code>k=0.5</code> and an integrator time constant of
-<code>Ti=15</code> seconds often yields satisfactory closed loop control performance.
-These values may need to be changed for different applications as they are also a function
-of the loop gain.
-If the control loop shows oscillatory behavior, then reduce <code>k</code> and/or increase <code>Ti</code>.
-If the control loop reacts too slow, do the opposite.
-</p>
-
-<h5>Efficiency and electrical power consumption</h5>
+<h5>Electrical power consumption</h5>
 <p>
 All models compute the motor power draw <i>P<sub>ele</sub></i>,
 the hydraulic power input <i>W&#775;<sub>hyd</sub></i>, the flow work
@@ -473,7 +406,7 @@ From the definition one has
 <i>&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i>.
 </p>
 
-<h6>Hydraulic efficiency</h6>
+<h5>Hydraulic efficiency</h5>
 <p>
 The following options are used to specify how <i>&eta;<sub>hyd</sub></i>
 is computed.
@@ -605,7 +538,7 @@ which shows that <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> are roughly linear
 to each other for motors of this size.
 </p>
 
-<h6>Motor efficiency</h6>
+<h5>Motor efficiency</h5>
 <p>
 The following options are used to specify how <i>&eta;<sub>mot</sub></i>
 is computed.
@@ -684,6 +617,74 @@ The model uses a default value <i>&eta;<sub>mot</sub>=0.7</i>.
 These options are tested in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
+</p>
+
+<h5>Start-up and shut-down transients</h5>
+<p>
+All models have a parameter <code>use_inputFilter</code>. This
+parameter affects the fan output as follows:
+</p>
+<ol>
+<li>
+If <code>use_inputFilter=false</code>, then the input signal <code>y</code> (or
+<code>Nrpm</code>, <code>m_flow_in</code>, or <code>dp_in</code>)
+is equal to the fan speed (or the mass flow rate or pressure rise).
+Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
+</li>
+<li>
+If <code>use_inputFilter=true</code>, which is the default,
+then the fan speed (or the mass flow rate or the pressure rise)
+is equal to the output of a filter. This filter is implemented
+as a 2nd order differential equation and can be thought of as
+approximating the inertia of the rotor and the fluid.
+Thus, a step change in the fan input signal will cause a gradual change
+in the fan speed.
+The filter has a parameter <code>riseTime</code>, which by default is set to
+<i>30</i> seconds.
+The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
+if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
+</li>
+</ol>
+<p>
+The figure below shows for a fan with <code>use_inputFilter=true</code>
+and <code>riseTime=30</code> seconds the
+speed input signal and the actual speed.</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png\"/>
+</p>
+
+<p>
+Although many simulations do not require such a detailed model
+that approximates the transients of fans or pumps, it turns
+out that using this filter can reduce computing time and
+can lead to fewer convergence problems in large system models.
+With a filter, any sudden change in control signal, such as when
+a fan switches on, is damped before it affects the air flow rate.
+This continuous change in flow rate turns out to be easier, and in
+some cases faster, to simulate compared to a step change.
+For most simulations, we therefore recommend to use the default settings
+of <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
+An exception are situations in which the fan or pump is operated at a fixed speed during
+the whole simulation. In this case, set <code>use_inputFilter=false</code>.
+</p>
+<p>
+Note that if the fan is part of a closed loop control, then the filter affects
+the transient response of the control.
+When changing the value of <code>use_inputFilter</code>, the control gains
+may need to be retuned.
+We now present values control parameters that seem to work in most cases.
+Suppose there is a closed loop control with a PI-controller
+<a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
+Buildings.Controls.Continuous.LimPID</a>
+and a fan or pump, configured with <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
+Assume that the transient response of the other dynamic elements in the control loop is fast
+compared to the rise time of the filter.
+Then, a proportional gain of <code>k=0.5</code> and an integrator time constant of
+<code>Ti=15</code> seconds often yields satisfactory closed loop control performance.
+These values may need to be changed for different applications as they are also a function
+of the loop gain.
+If the control loop shows oscillatory behavior, then reduce <code>k</code> and/or increase <code>Ti</code>.
+If the control loop reacts too slow, do the opposite.
 </p>
 
 <h5>Fluid volume of the component</h5>
