@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model ConstantDutyCycle
-  "Validation model for the Boolean Pulse block"
+  "Validation model for producing the constant duty cycle"
 
   Buildings.Controls.OBC.CDL.Logical.ConstantDutyCycle truGo(
     final width=0.5,
