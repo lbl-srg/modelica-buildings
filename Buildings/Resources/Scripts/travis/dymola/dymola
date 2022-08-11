@@ -17,4 +17,4 @@ docker run \
   -v ${sha_dir}:/mnt/shared \
   ${DOCKER_USERNAME}/${DYMOLA_VERSION} /bin/bash -c \
   "cd /mnt/shared/${bas_nam} && \
-   dymola -noopengl ${arg_lis}"
+   dymola ${arg_lis}"
