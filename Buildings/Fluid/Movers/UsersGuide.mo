@@ -433,7 +433,7 @@ If the control loop reacts too slow, do the opposite.
 All models compute the motor power draw <i>P<sub>ele</sub></i>,
 the hydraulic power input <i>W&#775;<sub>hyd</sub></i>, the flow work
 <i>W&#775;<sub>flo</sub></i> and the heat dissipated into the medium
-<i>Q</i>. Based on the first law, the flow work is
+<i>Q&#775;</i>. Based on the first law, the flow work is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   W&#775;<sub>flo</sub> = | V&#775; &Delta;p |,
@@ -446,7 +446,7 @@ If the motor is cooled by the fluid, as indicated by
 <code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q = P<sub>ele</sub> - W&#775;<sub>flo</sub>.
+Q&#775; = P<sub>ele</sub> - W&#775;<sub>flo</sub>.
 </p>
 
 <p>
@@ -455,7 +455,7 @@ and only the shaft, or hydraulic, work <i>W&#775;<sub>hyd</sub></i> enters the t
 control volume. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
+Q&#775; = W&#775;<sub>hyd</sub> - W&#775;<sub>flo</sub>.
 </p>
 <p>The efficiencies are defined as</p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -473,20 +473,18 @@ From the definition one has
 <i>&eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub></i>.
 </p>
 
+<h6>Hydraulic efficiency</h6>
 <p>
-The list below shows the options for the user to specify <i>&eta;<sub>hyd</sub></i>
-which are implemented in
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
-These options are tested in
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
-Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
+The following options are used to specify how <i>&eta;<sub>hyd</sub></i>
+is computed.
 </p>
 <ul>
 <li>
-<code>Efficiency_VolumeFlowRate</code> - An array of efficiency vs. <i>V&#775;</i> is provided.
-During simulation, if the array has only one element, the efficiency is constant. If the array has
-more than one element, the efficiency is interpolated or extrapolated by
+<code>Efficiency_VolumeFlowRate</code> -
+The user provides an array of <i>&eta;<sub>hyd</sub></i> vs. <i>V&#775;</i>.
+If the array has only one element, <i>&eta;<sub>hyd</sub></i> is considered
+constant. If the array has more than one element, the efficiency is interpolated
+or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
 See
@@ -495,30 +493,32 @@ Buildings.Fluid.Movers.Validation.PowerSimplified</a>
 as an example.
 </li>
 <li>
-<code>Power_VolumeFlowRate</code> - An array of power vs. <i>V&#775;</i> is provided.
-During simulation, the power is interpolated or extrapolated by
+<code>Power_VolumeFlowRate</code> -
+The user provides an array of <i>W&#775;<sub>hyd</sub></i> vs. <i>V&#775;</i>.
+The power is interpolated or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
-The efficiency is then computed from the power.
+<i>&eta;<sub>hyd</sub></i> is then computed from <i>W&#775;<sub>hyd</sub></i>.
 See
 <a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
 Buildings.Fluid.Movers.Validation.PowerExact</a>
 as an example.
 </li>
 <li>
-<b><code>EulerNumber</code> (default)</b> - An efficiency, <i>&Delta;p</i>, and
-<i>V&#775;</i> are provided that correspond to an operating point where the efficiency is at its peak.
-During simulation, the efficiency and power are computed using the package
+<b><code>EulerNumber</code> (default)</b> -
+The model uses a triple <i>(&eta;<sub>hyd</sub>, V&#775;, &Delta;p)</i>
+corresponding to the operating point at which the peak efficiency is attained.
+It computes <i>&eta;<sub>hyd</sub></i> and <i>W&#775;<sub>hyd</sub></i>
+using the package
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.
-The model finds the efficiency by evaluating the following correlation:
+The model finds <i>&eta;<sub>hyd</sub></i> by evaluating the following correlation:
 <br/>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
 <br/>
 </p>
-where <i>y=&eta; &frasl; &eta;<sub>p</sub></i>,
-<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>,
+where <i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>,
 with the subscript <i>p</i> denoting the condition where
 the mover is operating at peak efficiency.
 The Euler number is defined as
@@ -528,15 +528,16 @@ Eu=(pressure forces)/(inertial forces)
 </p>
 from which one can derive the ratio of Euler numbers as<br/>
 <p align=\"center\" style=\"font-style:italic;\">
-Eu &frasl; Eu<sub>p</sub>=(&Delta;p&nbsp;V&#775;<sub>p</sub><sup>2</sup>)
-&frasl; (&Delta;p<sub>p</sub>&nbsp;V&#775;<sup>2</sup>).
+Eu &frasl; Eu<sub>p</sub>
+=(&Delta;p &frasl; V&#775;<sup>2</sup>)
+&frasl; (&Delta;p<sub>p</sub> &frasl; V&#775;<sub>p</sub><sup>2</sup>).
 </p>
 <p>
 The peak point can be provided directly by the user or computed by calling
 the function
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>.
-The function finds the peak point when both pressure and power curves are provided.
+This function finds the peak point when both pressure and power curves are provided.
 When only the pressure curve is available, the function makes an estimation at
 <i>V&#775;=V&#775;<sub>max</sub> &frasl; 2</i>.
 Examples:
@@ -577,13 +578,18 @@ The model uses a default value <i>&eta;<sub>hyd</sub>=0.7</i>.
 </ul>
 
 <p>
+These options are tested in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
+Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
+</p>
+<p>
 The user can use the same options to specify the total efficiency <i>&eta;</i>
 instead by setting <code>per.PowerOrEfficiencyIsHydraulic=false</code>.
 This changes the default value to <i>&eta;=0.49</i> and also imposes an additional
-constraint of <i>&eta;<sub>Hyd</sub> &le; 1</i> to prevent the division
-<i>&eta;<sub>Hyd</sub> = &eta; &frasl; &eta;<sub>Mot</sub></i>
+constraint of <i>&eta;<sub>hyd</sub> &le; 1</i> to prevent the division
+<i>&eta;<sub>hyd</sub> = &eta; &frasl; &eta;<sub>mot</sub></i>
 from producing efficiency values larger than one.
-This path is tested in
+This configuration is tested in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods</a>.
 </p>
@@ -595,28 +601,25 @@ constant for motors larger than about 3.5 kW or 5 HP except when the motor
 part load drops below around 40%, (see the documentation of
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
-which makes <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> roughly linear
+which shows that <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> are roughly linear
 to each other for motors of this size.
 </p>
 
+<h6>Motor efficiency</h6>
 <p>
-The list below shows the options for the user to specify <i>&eta;<sub>mot</sub></i>
-which are implemented in
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
-Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.
-These options are tested in
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
-Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
+The following options are used to specify how <i>&eta;<sub>mot</sub></i>
+is computed.
 </p>
 <ul>
 <li>
 <code>Efficiency_VolumeFlowRate</code> - This is same as the option for
-<i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> with the same name.
+<i>&eta;<sub>hyd</sub></i> with the same name.
 </li>
 <li>
-<code>Efficiency_MotorPartLoadRatio</code> - An array of efficiency vs. motor part load ratio
-<i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>
-is provided. During simulation, the efficiency is interpolated or extrapolated by
+<code>Efficiency_MotorPartLoadRatio</code> -
+The user provides an array of <i>&eta;<sub>mot</sub></i> vs. motor part load ratio
+<i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>.
+The efficiency is interpolated or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot</a>.
 See
@@ -625,10 +628,11 @@ Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>
 as an example.
 </li>
 <li>
-<code>GenericCurve</code> - The rated motor power input
-<i>P<sub>ele,nominal</sub></i> and maximum motor efficiency
-<i>&eta;<sub>mot,max</sub></i> are provided. The model then uses a generic motor
-efficiency curve as a function of motor part load ratio generated by
+<code>GenericCurve</code> - 
+The user provides the rated motor power input <i>P<sub>ele,nominal</sub></i>
+and maximum motor efficiency <i>&eta;<sub>mot,max</sub></i>.
+The model then uses a generic motor efficiency curve as a function of motor PLR
+generated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.
 The <i>&eta;<sub>mot,max</sub></i> is assumed to be 0.7 if not specified by user.
@@ -650,9 +654,7 @@ where <i>W&#775;<sub>max</sub></i> is the maximum value on the provided power cu
 If the curve refers to hydraulic power,
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele,nominal</sub>=
-W&#775;<sub>max</sub>
-&frasl; &eta;<sub>mot,max</sub>
-&nbsp; 1.2,
+1.2 &nbsp; W&#775;<sub>max</sub> &frasl; &eta;<sub>mot,max</sub>,
 </p>
 where the factor <i>1.2</i> accounts for a 20% oversize of the motor.
 </li>
@@ -662,24 +664,27 @@ where the factor <i>1.2</i> accounts for a 20% oversize of the motor.
 Otherwise, if only a pressure curve is provided,
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele,nominal</sub>=
-(V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
-&frasl; 0.7
-&frasl; &eta;<sub>mot,max</sub>
-&nbsp; 1.2,
+0.2 &nbsp; (V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
+&frasl; &eta;<sub>hyd,p</sub> &frasl; &eta;<sub>mot,max</sub>,
 </p>
-where the factor <i>1 &frasl; 0.7</i> is the assumption for hydraulic efficiency
-and the factor <i>1.2</i> also assumes a 20% oversize.
+where the factor <i>1.2</i> also assumes a 20% oversize 
+and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>.
 </li>
 </ul>
 The model then computes the efficiency the same way as the option of
 <code>Efficiency_MotorPartLoadRatio</code>.
 </li>
 <li>
-<b><code>NotProvided</code> (default></b> -
+<b><code>NotProvided</code> (default)</b> -
 The information of this efficiency item is not provided.
 The model uses a default value <i>&eta;<sub>mot</sub>=0.7</i>.
 </li>
 </ul>
+<p>
+These options are tested in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
+Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
+</p>
 
 <h5>Fluid volume of the component</h5>
 <p>
