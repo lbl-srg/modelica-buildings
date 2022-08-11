@@ -94,6 +94,17 @@ EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
 Note that the formula is simplified here from the source document.
 </p>
+<h4>Resources</h4>
+<p>
+The svg file for the correlation equation was generated on
+<a href=\"https://viereck.ch/latex-to-svg/\">
+https://viereck.ch/latex-to-svg
+</a>
+using
+<a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.txt\">
+the linked script
+</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>

@@ -1,0 +1,1 @@
+\frac{\eta_{hyd}}{\eta_{hyd,p}}(x) = \frac{e^{(-0.5 \cdot Z^2_1)} \cdot (1+ \frac{Z_2}{|Z_2|}\cdot erf(\frac{|Z_2|}{\sqrt{2}}))}{e^{(-0.5 \cdot Z^2_3)} \cdot (1+ erf(\frac{Z_3}{\sqrt{2}}))}
