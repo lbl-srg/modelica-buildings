@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.ConstantDutyCycle", stopTime=20.0, method="Cvode", tolerance=1e-06, resultFile="ConstantDutyCycle");
+createPlot(id=1, position={10, 10, 900, 1000}, y={"truGo.go", "truGo.y"}, range={0.0, 20.0, -0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 900, 1000}, y={"falGo.go", "falGo.y"}, range={0.0, 20.0, -0.2, 1.2}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1000}, y={"truFalGo.go", "truFalGo.y"}, range={0.0, 20.0, -0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1000}, y={"falTruGo.go", "falTruGo.y"}, range={0.0, 20.0, -0.2, 1.2}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");

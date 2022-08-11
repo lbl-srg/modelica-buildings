@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "truGo.go",
+    "truGo.y",
+    "falGo.go",
+    "falGo.y",
+    "truFalGo.go",
+    "truFalGo.y",
+    "falTruGo.go",
+    "falTruGo.y"
+  };
