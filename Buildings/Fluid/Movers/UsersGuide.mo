@@ -4,11 +4,18 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models for fans and pumps. The same models
-are used for fans or pumps.
+This package contains models for fans and pumps.
+The models do not differentiate fans or pumps.
 </p>
 
 <h4>Model description</h4>
+<p>
+The models consider the pressure rise, flow rate, speed, power consumption, and
+heat dissipation based on the user's specification.
+They can take pressure rise, mass flow rate, or speed (absolute or relative)
+as control signal.
+</p>
+
 <p>A detailed description of the fan and pump models can be
 found in
 <a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>.
