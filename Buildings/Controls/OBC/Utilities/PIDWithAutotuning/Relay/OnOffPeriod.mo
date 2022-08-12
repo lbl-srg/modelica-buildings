@@ -46,7 +46,6 @@ block OnOffPeriod
     "Record the horizon length for the On period"
     annotation (Placement(transformation(extent={{60,50},{80,30}})));
 
-
 equation
   connect(Off.u, On) annotation (Line(points={{-82,-70},{-92,-70},{-92,-60},{
           -120,-60}}, color={255,0,255}));

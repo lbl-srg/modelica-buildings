@@ -33,6 +33,7 @@ block PIDGain "Identifies the control gain of a PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Calcualte the sum of the output of addPar and the output of div1"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+	
 equation
   connect(div1.u2, kp) annotation (Line(points={{-40,44},{-94,44},{-94,60},{
           -120,60}}, color={0,0,127}));

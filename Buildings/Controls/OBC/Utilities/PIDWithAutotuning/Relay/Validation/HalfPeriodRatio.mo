@@ -15,6 +15,7 @@ model HalfPeriodRatio "Test model for HalfPeriodRatio"
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Signal for the length of the Off period"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+	
 equation
   connect(tOn.y[1],halfPeriodRatio. tOn) annotation (Line(points={{-38,30},{-20,
           30},{-20,6},{-10.2222,6}},

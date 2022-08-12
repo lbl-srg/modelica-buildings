@@ -310,6 +310,7 @@ model PIDGain "Test model for PIDGain"
         Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PIDGain block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+	
 equation
   connect(ReferenceData.y[1], pIDGain.kp) annotation (Line(points={{-38,0},{-20,
           0},{-20,6},{-12,6}}, color={0,0,127}));

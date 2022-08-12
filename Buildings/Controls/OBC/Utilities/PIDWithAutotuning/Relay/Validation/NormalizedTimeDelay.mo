@@ -106,6 +106,7 @@ model NormalizedTimeDelay "Test model for NormalizedTimeDelay"
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the normalizedTimeDelay block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+	
 equation
   connect(ReferenceData.y[1], normalizedTimeDelay.rho)
     annotation (Line(points={{-38,0},{-10,0}}, color={0,0,127}));

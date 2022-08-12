@@ -69,6 +69,7 @@ block TimeConstantDelay
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
     "Calculates the time delay"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
+	
 equation
   connect(absk.u, k)
     annotation (Line(points={{-82,-10},{-92,-10},{-92,0},{-120,0}},

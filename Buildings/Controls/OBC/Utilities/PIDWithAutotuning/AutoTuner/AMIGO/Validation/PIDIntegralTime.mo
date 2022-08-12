@@ -310,6 +310,7 @@ model PIDIntegralTime "Test model for PIDIntergralTime"
         Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PIDIntegralTime block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+	
 equation
   connect(ReferenceData.y[2], pIDIntegralTime.T) annotation (Line(points={{-38,
           0},{-20,0},{-20,6},{-12,6}}, color={0,0,127}));

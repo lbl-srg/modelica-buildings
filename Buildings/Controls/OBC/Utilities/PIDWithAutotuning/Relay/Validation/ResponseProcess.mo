@@ -11,6 +11,7 @@ model ResponseProcess "Test model for ResponseProcess"
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+	
 equation
   connect(responseProcess.On, relayResponse.y[1]) annotation (Line(points={{-12,
           -6},{-20,-6},{-20,-10},{-38,-10}}, color={255,0,255}));

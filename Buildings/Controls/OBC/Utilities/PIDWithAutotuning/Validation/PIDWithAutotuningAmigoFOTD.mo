@@ -43,6 +43,7 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
   Buildings.Controls.OBC.CDL.Continuous.Derivative derivative2
     "A derivative block that is used to mimic the first order process 2"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
+	
 equation
   connect(resSig.y, PI.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
           40},{-16,40},{-16,48}}, color={255,0,255}));

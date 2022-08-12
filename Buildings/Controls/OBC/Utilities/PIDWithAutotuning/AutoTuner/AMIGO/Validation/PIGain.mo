@@ -264,10 +264,10 @@ model PIGain "Test model for PIGain"
         0.171,0.938; 1,2,1,0.6,0.171,0.938], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PIgain block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIGain
     pIGain "Calculate the gain for a PI controller"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
+	
 equation
   connect(pIGain.kp, ReferenceData.y[1]) annotation (Line(points={{-10,6},{-26,
           6},{-26,0},{-38,0}}, color={0,0,127}));

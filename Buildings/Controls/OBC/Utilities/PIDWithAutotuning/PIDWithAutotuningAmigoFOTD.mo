@@ -112,8 +112,6 @@ equation
     annotation (Line(points={{60,8},{52,8},{52,36},{43,36}}, color={0,0,127}));
   connect(swi.u1, pid.y) annotation (Line(points={{60,-8},{54,-8},{54,-30},{44,
           -30}}, color={0,0,127}));
-
-
   connect(responseProcess.triggerEnd, swi.u2) annotation (Line(points={{-1,42},{-1,
           10},{48,10},{48,0},{60,0}}, color={255,0,255}));
   connect(samk.trigger, swi.u2) annotation (Line(points={{-30,-8},{-30,10},{48,10},

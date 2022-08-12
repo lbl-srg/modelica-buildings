@@ -267,6 +267,7 @@ model PI "Test model for PI"
         0.171,0.938; 1,2,1,0.6,0.171,0.938], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PI block"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
+	
 equation
   connect(ReferenceData.y[1], pI.kp) annotation (Line(points={{-36,0},{-20,0},{
           -20,6},{-12,6}}, color={0,0,127}));

@@ -75,6 +75,7 @@ block ControlProcessModel
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "tau/(1- tau)"
     annotation (Placement(transformation(extent={{12,-60},{32,-40}})));
+	
 equation
   connect(gain.u, u) annotation (Line(points={{-86,8},{-88,8},{-88,80},{-120,80}},
         color={0,0,127}));

@@ -47,6 +47,7 @@ block Gain "Identifies the gain of a first order time delayed model"
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaitOffyLow(final k=-yLow)
     "Product of tOff and yLow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
 equation
   connect(Iy.u, u) annotation (Line(points={{-42,40},{-90,40},{-90,80},{-120,80}},
         color={0,0,127}));

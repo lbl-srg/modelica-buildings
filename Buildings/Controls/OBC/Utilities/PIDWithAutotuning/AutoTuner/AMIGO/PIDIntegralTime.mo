@@ -32,6 +32,7 @@ block PIDIntegralTime "Identifies the integral time of a PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Calculate the product of the output of div and the time delay"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+	
 equation
   connect(gai1.u, L) annotation (Line(points={{-82,-40},{-90,-40},{-90,-60},{
           -120,-60}}, color={0,0,127}));

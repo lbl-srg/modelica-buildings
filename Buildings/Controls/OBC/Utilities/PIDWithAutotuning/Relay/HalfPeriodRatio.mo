@@ -68,6 +68,7 @@ block HalfPeriodRatio
   Buildings.Controls.OBC.CDL.Logical.Or tChanges
     "Check if tOn or tOff changes"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+	
 equation
   connect(tmin.u1, tOn) annotation (Line(points={{-82,36},{-94,36},{-94,60},{-120,
           60}},      color={0,0,127}));
