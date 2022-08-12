@@ -4,7 +4,7 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models for fans and pumps.
+This package contains models for fans and pumps (movers).
 The models do not differentiate fans or pumps.
 </p>
 
@@ -12,7 +12,7 @@ The models do not differentiate fans or pumps.
 <p>
 The models consider the pressure rise, flow rate, speed, power consumption, and
 heat dissipation based on the user's specification.
-They can take pressure rise, mass flow rate, or speed (absolute or relative)
+They can take pressure rise (head), mass flow rate, or speed (absolute or relative)
 as control signal.
 </p>
 
@@ -64,7 +64,7 @@ pressure</a></td>
 <tr>
 <td>Volume flow rate</td>
 <td>Efficiency<br/>
-    (total, hydraulic, or motor)</td>
+    (hydraulic or motor)</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
 efficiencyParameters</a></td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
@@ -72,7 +72,7 @@ efficiency</a></td>
 </tr>
 <tr>
 <td>Motor part load ratio</td>
-<td>Motor efficiency</td>
+<td>Motor efficiency*</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot\">
 efficiencyParameters_yMot</a></td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
@@ -80,35 +80,43 @@ efficiency_yMot</a></td>
 </tr>
 <tr>
 <td>Volume flow rate</td>
-<td>Power*</td>
+<td>Power**</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters\">
 powerParameters</a></td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 power</a></td>
 </tr>
 </table>
-<p>*Note: This record should not be used
-(i.e. <code>use_powerCharacteristic</code> should be <code>false</code>)
-for the movers that take as a control signal
-the mass flow rate or the head,
-unless also values for the record <code>pressure</code> are provided.
-The reason is that for these movers the record <code>pressure</code>
-is required to be able to compute the mover speed,
-which is required to be able to compute the electrical power
-correctly using similarity laws.
-If a <code>Pressure</code> record is not provided,
-the model will internally override <code>use_powerCharacteristic=false</code>.
-In this case the efficiency records will be used.
-Note that in this case an error is still introduced,
-but it is smaller than when using the power records.
-Compare
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
-Buildings.Fluid.Movers.Validation.PowerSimplified</a>
-with
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
-Buildings.Fluid.Movers.Validation.PowerExact</a>
-for an illustration of this error.
+<p>
+Notes (applicable to
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>):
 </p>
+<ul>
+<li>
+* The models will ignore this record if the nominal motor power is not provided
+and cannot be estimated from the pressure curve. This is because the
+motor part load ratio cannot be found if the nominal power is unknown.
+</li>
+<li>
+** The models will ignore this record if the pressure curve is not provided
+and the speed is unknown. This is because the models wouldn't be able
+to compute the elctrical power correctly using similarity laws without speed.
+In this case the user can mitigate the error by providing other information for
+hydraulic efficiency. Compare validation models
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
+Buildings.Fluid.Movers.Validation.PowerSimplified</a>,
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
+Buildings.Fluid.Movers.Validation.PowerExact</a>,
+and
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
+Buildings.Fluid.Movers.Validation.PowerEuler</a>
+as an example.
+</li>
+</ul>
 <p>
 These performance curves are implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
