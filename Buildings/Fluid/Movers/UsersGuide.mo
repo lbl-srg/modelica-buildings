@@ -584,8 +584,8 @@ generated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.
 The <i>&eta;<sub>mot,max</sub></i> is assumed to be 0.7 if not specified by user.
-If <i>P<sub>ele,nominal</sub></i> is unspecified, the model tries to
-estimate it in the following ways:
+If <i>P<sub>ele,nominal</sub></i> is unspecified, the model estimates it
+in the following ways:
 <ul>
 <li>
 If a power curve is provided,
@@ -612,8 +612,8 @@ where the factor <i>1.2</i> accounts for a 20% oversize of the motor.
 Otherwise, if only a pressure curve is provided,
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>ele,nominal</sub>=
-0.2 &nbsp; (V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
-&frasl; &eta;<sub>hyd,p</sub> &frasl; &eta;<sub>mot,max</sub>,
+1.2 &nbsp; (V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
+&frasl; (&eta;<sub>hyd,p</sub> &nbsp; &eta;<sub>mot,max</sub>),
 </p>
 where the factor <i>1.2</i> also assumes a 20% oversize 
 and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>.
