@@ -5,30 +5,6 @@ model StaticReset
 
   package Medium = Buildings.Media.Air;
 
-  // Define the system curve
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=21.8
-    "Nominal volumetric flow rate of the system";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V_flow_nominal/1.2
-    "Nominal mass flow rate of the system";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
-    "Nominal pressure rise of the system";
-
-  // Boundaries
-  Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = Medium,
-    use_p_in=false,
-    p=101325,
-    T=293.15,
-    nPorts=6) "Boundary"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
-    use_p_in=false,
-    p=101325,
-    T=293.15,
-    nPorts=3) "Boundary"
-    annotation (Placement(transformation(extent={{160,-90},{140,-70}})));
-
   // Fans and their performance records
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
@@ -62,6 +38,30 @@ model StaticReset
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
       efficiency(eta={0.7}))) "Fan using constant efficiency"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+
+  // Define the system curve
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=21.8
+    "Nominal volumetric flow rate of the system";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V_flow_nominal/1.2
+    "Nominal mass flow rate of the system";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
+    "Nominal pressure rise of the system";
+
+  // Boundaries
+  Buildings.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = Medium,
+    use_p_in=false,
+    p=101325,
+    T=293.15,
+    nPorts=6) "Boundary"
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    use_p_in=false,
+    p=101325,
+    T=293.15,
+    nPorts=3) "Boundary"
+    annotation (Placement(transformation(extent={{160,-90},{140,-70}})));
 
   // Duct pressure drops
   Buildings.Fluid.FixedResistances.PressureDrop dp11(
