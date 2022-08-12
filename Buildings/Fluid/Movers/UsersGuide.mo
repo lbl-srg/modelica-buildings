@@ -576,7 +576,7 @@ Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>
 as an example.
 </li>
 <li>
-<code>GenericCurve</code> - 
+<b><code>GenericCurve</code> (default 1)</b> - 
 The user provides the rated motor power <i>P<sub>mot,nominal</sub></i>
 and maximum motor efficiency <i>&eta;<sub>mot,max</sub></i>.
 The model then uses a generic motor efficiency curve as a function of motor PLR
@@ -623,7 +623,7 @@ The model then computes the efficiency the same way as in the option of
 <code>Efficiency_MotorPartLoadRatio</code>.
 </li>
 <li>
-<b><code>NotProvided</code> (default)</b> -
+<b><code>NotProvided</code> (default 2)</b> -
 The information of this efficiency item is not provided.
 The model uses a constant value <i>&eta;<sub>mot</sub>=0.7</i>.
 </li>
@@ -633,6 +633,40 @@ These options are tested in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
 </p>
+<p>
+By default, the model uses the <code>.GenericCurve</code> to obtain more accurate
+results with variable <i>&eta;<sub>mot</sub></i>,
+unless <code>per.PowerOrEfficiencyIsHydraulic=false</code>.
+There are two reasons for this setup:
+</p>
+<ul>
+<li>
+Consider the following two equations:
+<p align=\"center\" style=\"font-style:italic;\">
+&eta;<sub>mot</sub> = f(W&#775;<sub>hyd</sub>), <br/>
+P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>mot</sub>,
+</p>
+where <i>f(&sdot;)</i> refers to the curve of motor efficiency vs. motor PLR.
+When <i>W&#775;<sub>hyd</sub></i> is known
+(i.e. <code>per.PowerOrEfficiencyIsHydraulic=true</code>),
+the unknowns are <i>&eta;<sub>mot</sub></i> and <i>P<sub>ele</sub></i>
+which can be solved sequentially. Otherwise, the unknowns are
+<i>&eta;<sub>mot</sub></i> and <i>W&#775;<sub>hyd</sub></i>.
+An algebraic loop is formed and the simulation may not converge.
+</li>
+<li>
+If the power data provided refer to the total electric power instead of
+the hydraulic power of the mover, it is likely that the mover comes with
+built-in motors. This is often the case for small pumps whose motor is inside
+the fluid stream (such as the pumps whose data are provided in
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
+Buildings.Fluid.Movers.Data.Pumps.Wilo</a>).
+Because the models only use the two efficiencies to differentiate mover heat
+carried away by the fluid and dissipated to the ambient and now only a negligible
+amount of heat dissipates into the ambient, the separation of
+<i>&eta;<sub>hyd</sub></i> and <i>&eta;<sub>mot</sub></i> is then not important.
+</li>
+</ul>
 
 <h5>Start-up and shut-down transients</h5>
 <p>

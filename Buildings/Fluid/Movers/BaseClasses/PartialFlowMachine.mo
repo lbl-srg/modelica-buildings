@@ -404,6 +404,19 @@ initial algorithm
              the model will overwrite this setting and use .NotProvided instead.",
          level=AssertionLevel.warning);
 
+  assert(per.PowerOrEfficiencyIsHydraulic or
+          not (per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
+"*** Warning in "+ getInstanceName()+
+             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
+             or .GenericCurve while information is provided for total electric
+             power instead of hydraulic power. This forms an algebraic loop
+             and may cause the simulation to not converge
+             (see the \"Motor efficiency\" section in usersguide).",
+         level=AssertionLevel.warning);
+
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-34,-94},{-60,-94},{-60,10},{-70,10}},

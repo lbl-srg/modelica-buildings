@@ -16,7 +16,9 @@ record Generic "Generic data record for movers"
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+    if PowerOrEfficiencyIsHydraulic
+      then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    else Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
 
