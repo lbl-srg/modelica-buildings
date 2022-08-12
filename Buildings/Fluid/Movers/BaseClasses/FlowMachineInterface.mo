@@ -324,6 +324,30 @@ protected
         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
     "Look-up table for mover power";
 
+  Modelica.Blocks.Routing.RealPassThrough WHydEu
+    if per.etaHydMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+      and per.PowerOrEfficiencyIsHydraulic
+    "Intermediate block for routing when using the Euler number";
+
+  Modelica.Blocks.Routing.RealPassThrough etaHydEu
+    if per.etaHydMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+      and per.PowerOrEfficiencyIsHydraulic
+    "Intermediate block for routing when using the Euler number";
+
+  Modelica.Blocks.Routing.RealPassThrough PEleEu
+    if per.etaHydMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+      and not per.PowerOrEfficiencyIsHydraulic
+    "Intermediate block for routing when using the Euler number";
+
+  Modelica.Blocks.Routing.RealPassThrough etaEu
+    if per.etaHydMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+      and not per.PowerOrEfficiencyIsHydraulic
+    "Intermediate block for routing when using the Euler number";
+
   Real yMot(final min=0, final start=0.833)=
     if per.havePMot_nominal
       then WHyd/per.PMot_nominal
@@ -653,13 +677,18 @@ equation
                      x1=P_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
-    if per.PowerOrEfficiencyIsHydraulic then
-      connect(effTab.y,etaHyd);
-      connect(powTab.y,WHyd);
-    else
-      connect(effTab.y,eta);
-      connect(powTab.y,PEle);
-    end if;
+    // etaHydEu and WHydEu are routing blocks
+    //   conditionally enabled if per.PowerOrEfficiencyIsHydraulic=true
+      connect(effTab.y,etaHydEu.u);
+      connect(etaHydEu.y,etaHyd);
+      connect(powTab.y,WHydEu.u);
+      connect(WHydEu.y,WHyd);
+    // etaEu and PEleEu are routing blocks
+    //   conditionally enabled if per.PowerOrEfficiencyIsHydraulic=false
+      connect(effTab.y,etaEu.u);
+      connect(etaEu.y,eta);
+      connect(powTab.y,PEleEu.u);
+      connect(PEleEu.y,PEle);
   elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
       eta_internal = homotopy(actual=cha.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
