@@ -521,7 +521,7 @@ chapter 16.4 equations 16.209 through 16.218.<br/>
 </li>
 <li>
 <code>NotProvided</code> - The information of this efficiency item is not provided.
-The model uses a default value <i>&eta;<sub>hyd</sub>=0.7</i>.
+The model uses a constant value <i>&eta;<sub>hyd</sub>=0.7</i>.
 </li>
 </ul>
 
@@ -533,8 +533,8 @@ Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
 <p>
 The user can use the same options to specify the total efficiency <i>&eta;</i>
 instead by setting <code>per.PowerOrEfficiencyIsHydraulic=false</code>.
-This changes the default value to <i>&eta;=0.49</i> and also imposes an additional
-constraint of <i>&eta;<sub>hyd</sub> &le; 1</i> to prevent the division
+This changes the default constant value to <i>&eta;=0.49</i> and also imposes
+an additional constraint of <i>&eta;<sub>hyd</sub> &le; 1</i> to prevent the division
 <i>&eta;<sub>hyd</sub> = &eta; &frasl; &eta;<sub>mot</sub></i>
 from producing efficiency values larger than one.
 This configuration is tested in
@@ -566,7 +566,7 @@ is computed.
 <li>
 <code>Efficiency_MotorPartLoadRatio</code> -
 The user provides an array of <i>&eta;<sub>mot</sub></i> vs. motor part load ratio
-<i>y<sub>mot</sub>=P<sub>ele</sub> &frasl; P<sub>ele,nominal</sub></i>.
+<i>y<sub>mot</sub>=W<sub>hyd</sub> &frasl; P<sub>mot,nominal</sub></i>.
 The efficiency is interpolated or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot</a>.
@@ -577,32 +577,32 @@ as an example.
 </li>
 <li>
 <code>GenericCurve</code> - 
-The user provides the rated motor power input <i>P<sub>ele,nominal</sub></i>
+The user provides the rated motor power <i>P<sub>mot,nominal</sub></i>
 and maximum motor efficiency <i>&eta;<sub>mot,max</sub></i>.
 The model then uses a generic motor efficiency curve as a function of motor PLR
 generated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.
 The <i>&eta;<sub>mot,max</sub></i> is assumed to be 0.7 if not specified by user.
-If <i>P<sub>ele,nominal</sub></i> is unspecified, the model estimates it
+If <i>P<sub>mot,nominal</sub></i> is unspecified, the model estimates it
 in the following ways:
 <ul>
 <li>
 If a power curve is provided,
 <ul>
 <li>
-If the curve refers to total power,
+If the curve refers to total electric power <i>P<sub>ele</sub></i>,
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele,nominal</sub>=
+P<sub>mot,nominal</sub>=
 W&#775;<sub>max</sub>,
 </p>
 where <i>W&#775;<sub>max</sub></i> is the maximum value on the provided power curve.
 </li>
 <li>
-If the curve refers to hydraulic power,
+If the curve refers to hydraulic power <i>W&#775;<sub>hyd</sub></i>,
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele,nominal</sub>=
-1.2 &nbsp; W&#775;<sub>max</sub> &frasl; &eta;<sub>mot,max</sub>,
+P<sub>mot,nominal</sub>=
+1.2 &nbsp; W&#775;<sub>max</sub>,
 </p>
 where the factor <i>1.2</i> accounts for a 20% oversize of the motor.
 </li>
@@ -611,21 +611,21 @@ where the factor <i>1.2</i> accounts for a 20% oversize of the motor.
 <li>
 Otherwise, if only a pressure curve is provided,
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>ele,nominal</sub>=
+P<sub>mot,nominal</sub>=
 1.2 &nbsp; (V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
-&frasl; (&eta;<sub>hyd,p</sub> &nbsp; &eta;<sub>mot,max</sub>),
+&frasl; &eta;<sub>hyd,p</sub>,
 </p>
 where the factor <i>1.2</i> also assumes a 20% oversize 
 and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>.
 </li>
 </ul>
-The model then computes the efficiency the same way as the option of
+The model then computes the efficiency the same way as in the option of
 <code>Efficiency_MotorPartLoadRatio</code>.
 </li>
 <li>
 <b><code>NotProvided</code> (default)</b> -
 The information of this efficiency item is not provided.
-The model uses a default value <i>&eta;<sub>mot</sub>=0.7</i>.
+The model uses a constant value <i>&eta;<sub>mot</sub>=0.7</i>.
 </li>
 </ul>
 <p>

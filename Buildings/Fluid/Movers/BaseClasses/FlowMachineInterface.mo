@@ -183,7 +183,7 @@ protected
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
       or  (per.etaMotMet==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
-           and per.havePEle_nominal)
+           and per.havePMot_nominal)
       then Buildings.Utilities.Math.Functions.splineDerivatives(
              x=per.motorEfficiency_yMot_generic.y,
              y=per.motorEfficiency_yMot_generic.eta,
@@ -314,8 +314,8 @@ protected
     "Look-up table for mover power";
 
   Real yMot(final min=0, final start=0.833)=
-    if per.havePEle_nominal
-      then PEle/per.PEle_nominal
+    if per.havePMot_nominal
+      then WHyd/per.PMot_nominal
     else 1
     "Motor part load ratio";
 
@@ -429,16 +429,16 @@ the simulation stops.");
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
            or  per.etaMotMet==
            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-         and not per.havePEle_nominal),
+         and not per.havePMot_nominal),
          "In " + getInstanceName() + ": etaMotMet is set to
          .Efficiency_MotorPartLoadRatio or .GenericCurve which requires
-         the motor's rated input power, but per.PEle_nominal is not assigned or
+         the motor's rated power, but per.PMot_nominal is not assigned or
          cannot be estimated because no power curve is provided.");
 
-  assert(max(per.power.P)<1E-6 or per.PEle_nominal>max(per.power.P)*0.99,
+  assert(max(per.power.P)<1E-6 or per.PMot_nominal>max(per.power.P)*0.99,
          "In " + getInstanceName() + ": The rated motor power provided in
-         per.PEle_nominal is smaller than the maximum power provided in per.power.
-         Use a larger value for per.PEle_nominal or leave it blank to allow the
+         per.PMot_nominal is smaller than the maximum power provided in per.power.
+         Use a larger value for per.PMot_nominal or leave it blank to allow the
          model to assume a default value.");
 
 initial algorithm

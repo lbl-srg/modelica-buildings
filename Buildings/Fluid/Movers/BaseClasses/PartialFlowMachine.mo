@@ -391,15 +391,15 @@ initial algorithm
              This may lead to inaccurate computation.",
          level=AssertionLevel.warning);
 
-  assert(per.havePressureCurve or per.havePEle_nominal or
+  assert(per.havePressureCurve or per.havePMot_nominal or
           not (per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
 "*** Warning in "+ getInstanceName()+
              ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve. This requires that per.PEle_nominal be provided
-             or at least per.pressure be provided so that per.PEle_nominal can
+             or .GenericCurve. This requires that per.PMot_nominal be provided
+             or at least per.pressure be provided so that per.PMot_nominal can
              be estimated. Because neither is provided,
              the model will overwrite this setting and use .NotProvided instead.",
          level=AssertionLevel.warning);

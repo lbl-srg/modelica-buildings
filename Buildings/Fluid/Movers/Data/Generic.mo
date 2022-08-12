@@ -44,7 +44,8 @@ record Generic "Generic data record for movers"
                        enable=etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
-    motorEfficiency_yMot(y={0}, eta={0.7}) "Motor efficiency eta vs. part load ratio y, with y = PEle/PEle_nominal"
+    motorEfficiency_yMot(y={0}, eta={0.7})
+    "Motor efficiency vs. part load ratio yMot, where yMot = PEle/PMot_nominal"
     annotation (Dialog(group="Power computation", enable=etaMotMet ==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio));
 
@@ -82,12 +83,11 @@ record Generic "Generic data record for movers"
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
-  parameter Modelica.Units.SI.Power PEle_nominal(final displayUnit="W")=
+  parameter Modelica.Units.SI.Power PMot_nominal(final displayUnit="W")=
     if max(power.P)>Modelica.Constants.eps
     then
-      if etaHydMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-        then max(power.P)/etaMot_max*1.2
+      if PowerOrEfficiencyIsHydraulic
+        then max(power.P)*1.2
       else max(power.P)
     else
       if havePressureCurve
@@ -99,16 +99,14 @@ record Generic "Generic data record for movers"
                 -(pressure.dp[1] - pressure.dp[2])
                 /(pressure.V_flow[1] - pressure.V_flow[2])
                 * pressure.V_flow[1])/2
-              /0.7/etaMot_max*1.2
+              /0.7*1.2
       else 0
-    "Rated input power of the motor"
+    "Rated motor power"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==
         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
                         or      etaMotMet==
         Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve));
-      /*or etaMet==
-           Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate*/
   parameter Modelica.Units.SI.Efficiency etaMot_max(max=1)= 0.7
     "Maximum motor efficiency"
     annotation (Dialog(group="Power computation", enable=etaMotMet ==
@@ -117,12 +115,12 @@ record Generic "Generic data record for movers"
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
       motorEfficiency_yMot_generic=
         Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
-          P_nominal=PEle_nominal,
+          P_nominal=PMot_nominal,
           eta_max=etaMot_max)
     "Motor efficiency  vs. part load ratio"
     annotation (Dialog(enable=false));
-  final parameter Boolean havePEle_nominal=PEle_nominal > Modelica.Constants.eps
-    "= true, if the rated power input is provided";
+  final parameter Boolean havePMot_nominal=PMot_nominal > Modelica.Constants.eps
+    "= true, if the rated motor power is provided";
 
   // Speed
   parameter Real speed_nominal(
