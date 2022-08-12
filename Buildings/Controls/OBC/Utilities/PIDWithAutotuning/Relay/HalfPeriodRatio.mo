@@ -33,40 +33,40 @@ block HalfPeriodRatio
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOnSample(y_start=Buildings.Controls.OBC.CDL.Constants.eps)
-    "Sampling tOn when the tuning period ends"
+    "Sample tOn when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOffSample(y_start=Buildings.Controls.OBC.CDL.Constants.eps)
-    "Sampling tOff when the tuning period ends"
+    "Sample tOff when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
-    "Sampling the tmin when tmin is larger than 0"
+    "Sample the tmin when tmin is larger than 0"
     annotation (Placement(transformation(extent={{40,40},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater tIncrease
-    "Checking if either tOn or tOff increases after they both becomes positive"
+    "Check if either tOn or tOff increases after they both becomes positive"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Min mintOntOff
-    "The smaller one between tOn and tOff"
+    "Find the smaller one between tOn and tOff"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxtOntOff
-    "The larger one between tOn and tOff"
+    "Find the larger one between tOn and tOff"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide halfPeriodRatioCal
-    "Calculating the half period ratio"
+    "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add AddtOntOff
-     "The sum of tOn and tOff"
+    "Calculate the sum of tOn and tOff"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Detects if the tOn or tOff changes after both of them are larger than 0"
+    "Detect if the tOn or tOff changes after both of them are larger than 0"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gretmaxtOntOff
     "Check if either tOn or tOff is larger than 0"
     annotation (Placement(transformation(extent={{0,10},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Less tDecrease
-    "Checking if either tOn or tOff decreases after they both becomes positive"
+    "Check if either tOn or tOff decreases after they both becomes positive"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or tChanges
-    "Checks if tOn or tOff changes"
+    "Check if tOn or tOff changes"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 equation
   connect(tmin.u1, tOn) annotation (Line(points={{-82,36},{-94,36},{-94,60},{-120,

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model ResponseProcess "Test model for ResponseProcess"
-  extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess
     responseProcess(yHig=1, yLow=0.2)
     "Calculate the length of the On period and the Off period"
@@ -23,7 +22,22 @@ equation
       Tolerance=1e-06),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Relay/Validation/ResponseProcess.mos" "Simulate and plot"),
-      Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+      Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
+        Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>

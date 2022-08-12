@@ -16,7 +16,7 @@ block PIDGain "Identifies the control gain of a PID controller"
     "Connector for control gain signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    "Calculates the inverse of the input gain"
+    "Calculate the inverse of the input gain"
     annotation (Placement(transformation(extent={{-38,40},{-18,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=1)
     "Constant parameter"

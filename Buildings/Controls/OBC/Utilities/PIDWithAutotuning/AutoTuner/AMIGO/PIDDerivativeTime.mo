@@ -24,7 +24,7 @@ block PIDDerivativeTime "Identifies the derivative time of a PID controller"
     "Calculate the sum of the output of gai1 and the input time constant"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   CDL.Continuous.Divide div
-   "Calculate the output of mul divided by the output of add"
+    "Calculate the output of mul divided by the output of add"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(div.y, Td)

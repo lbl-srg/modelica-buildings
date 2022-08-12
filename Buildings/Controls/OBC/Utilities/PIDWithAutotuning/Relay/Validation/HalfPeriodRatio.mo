@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model HalfPeriodRatio "Test model for HalfPeriodRatio"
-  extends Modelica.Icons.Example;
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio
     halfPeriodRatio "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
@@ -29,7 +28,22 @@ equation
       Tolerance=1e-06),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Relay/Validation/HalfPeriodRatio.mos" "Simulate and plot"),
-      Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+      Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
+        Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>

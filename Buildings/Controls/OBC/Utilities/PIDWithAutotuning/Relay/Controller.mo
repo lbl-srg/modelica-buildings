@@ -24,7 +24,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
     "Control error signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(bandwidth=deaBan*2, pre_y_start=true)
+  Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(final bandwidth=deaBan*2, pre_y_start=true)
     "Check if the measured value is larger than the reference, by default the relay control is On"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi

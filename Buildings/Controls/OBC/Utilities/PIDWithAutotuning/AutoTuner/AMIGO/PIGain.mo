@@ -19,7 +19,7 @@ block PIGain "Identifies the control gain of a PI controller"
     "Calculates the sum of the time constant and the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Calculates the sume of the output of mul3 and the out put of div1"
+    "Calculates the sume of the output of mul3 and the output of div1"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(final k=0.35)
     "Constant parameter 1"

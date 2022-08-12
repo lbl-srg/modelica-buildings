@@ -87,7 +87,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIWithAutotuningAmigoFOTD.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIDWithAutotuningAmigoFOTD.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
