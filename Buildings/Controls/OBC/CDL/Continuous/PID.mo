@@ -151,8 +151,7 @@ protected
 
 equation
   connect(u_s,uS_revAct.u)
-    annotation (Line(points={{-240,0},{-210,0},{-210,42},{-206,42},{-206,40},{
-          -202,40}},                                                color={0,0,127}));
+    annotation (Line(points={{-240,0},{-210,0},{-210,40},{-202,40}},color={0,0,127}));
   connect(u_m,uMea_revAct.u)
     annotation (Line(points={{0,-220},{0,-160},{-210,-160},{-210,-40},{-202,-40}},color={0,0,127}));
   connect(D.u,errD.y)

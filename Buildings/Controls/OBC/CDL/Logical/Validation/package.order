@@ -23,5 +23,6 @@ TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
+VariableDutyCycle
 Xor
 ZeroCrossing

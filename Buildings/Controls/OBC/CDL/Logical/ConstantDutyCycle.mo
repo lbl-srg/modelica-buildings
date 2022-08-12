@@ -106,15 +106,11 @@ annotation (
               {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
-          textColor={0,0,255},
-          extent={{-150,110},{150,150}},
-          textString="%name"),
-        Text(
           extent={{-46,-12},{-14,-30}},
           textColor={135,135,135},
           textString="%period"),
         Polygon(
-          points={{0,-30},{-12,-26},{-12,-34},{0,-30}},
+          points={{0,-30},{-8,-28},{-8,-32},{0,-30}},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
@@ -151,7 +147,11 @@ annotation (
         Text(
           extent={{-58,-44},{-34,-58}},
           textColor={135,135,135},
-          textString="%width")}),
+          textString="%width"),
+        Text(
+          extent={{-100,140},{100,100}},
+          textColor={0,0,255},
+          textString="%name")}),
     Documentation(
       info="<html>
 <p>
