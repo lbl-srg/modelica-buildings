@@ -60,7 +60,6 @@ block PIDWithAutotuningAmigoFOTD
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTd(y_start=Td_start) if with_D
     "Recording the derivative time"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-80}})));
-
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
     controlProcessModel(
     yHig=yHig - setPoint,
@@ -82,16 +81,6 @@ block PIDWithAutotuningAmigoFOTD
     "Simulation time"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
 
-  CDL.Interfaces.RealInput                        u_m1
-    "Connector for measurement input signal"
-    annotation (Placement(transformation(origin={0,-220},extent={{20,-20},{-20,20}},rotation=270),iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
-  CDL.Interfaces.RealOutput                        y1
-    "Connector for actuator output signal"
-    annotation (Placement(transformation(extent={{220,-20},{260,20}}),iconTransformation(extent={{100,-20},
-            {140,20}})));
-  CDL.Interfaces.BooleanInput                        trigger1
-    "Resets the controller output when trigger becomes true"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-160,-220}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
 protected
   final parameter Boolean with_I=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable integral action"

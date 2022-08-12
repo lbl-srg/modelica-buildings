@@ -4,7 +4,7 @@ model TimeConstantDelay "Test model for TimeConstantDelay"
     timeConstantDelay(yLow=0.1)
     "Calculate the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,1,0.3,0.754,0.226;
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,1,0.3,0.754,0.226;
         0.002,1,1,0.3,0.754,0.226; 0.004,1,1,0.3,0.754,0.226; 0.006,1,1,0.3,
         0.754,0.226; 0.008,1,1,0.3,0.754,0.226; 0.01,1,1,0.3,0.754,0.226; 0.012,
         1,1,0.3,0.754,0.226; 0.014,1,1,0.3,0.754,0.226; 0.016,1,1,0.3,0.754,

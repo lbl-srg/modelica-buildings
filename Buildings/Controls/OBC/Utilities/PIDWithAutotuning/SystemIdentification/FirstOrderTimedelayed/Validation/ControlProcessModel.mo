@@ -4,7 +4,7 @@ model ControlProcessModel "Test model for ControlProcessModel"
     controlProcessModel(yLow=0.1, deaBan=0.05)
     "Calculate the parameters of  of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,1,1,0.3,1,1; 0.002,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,1,1,0.3,1,1; 0.002,
         1,1,1,0.3,1,1; 0.004,1,1,1,0.3,1,1; 0.006,1,1,1,0.3,1,1; 0.008,1,1,1,
         0.3,1,1; 0.01,1,1,1,0.3,1,1; 0.012,1,1,1,0.3,1,1; 0.014,1,1,1,0.3,1,1;
         0.016,1,1,1,0.3,1,1; 0.018,1,1,1,0.3,1,1; 0.02,1,1,1,0.3,1,1; 0.022,1,1,
@@ -189,7 +189,7 @@ model ControlProcessModel "Test model for ControlProcessModel"
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the controlProcessModel block"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  CDL.Logical.Sources.TimeTable ReferenceBoolData(table=[0,0,0; 0.002,0,0;
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable ReferenceBoolData(table=[0,0,0; 0.002,0,0;
         0.004,0,0; 0.006,0,0; 0.008,0,0; 0.01,0,0; 0.012,0,0; 0.014,0,0; 0.016,
         0,0; 0.018,0,0; 0.02,0,0; 0.022,0,0; 0.024,0,0; 0.026,0,0; 0.028,0,0;
         0.03,0,0; 0.032,0,0; 0.034,0,0; 0.036,0,0; 0.038,0,0; 0.04,0,0; 0.042,0,

@@ -3,7 +3,7 @@ model PIDIntegralTime "Test model for PIDIntergralTime"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIDIntegralTime
     pIDIntegralTime "Calculate the integral time for a PID controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,
         0.127; 0.002,1.002,0.501,0.301,0.948,0.447,0.127; 0.004,1.004,0.502,
         0.301,0.946,0.447,0.128; 0.006,1.006,0.503,0.302,0.944,0.448,0.128;
         0.008,1.008,0.504,0.302,0.942,0.449,0.128; 0.01,1.01,0.505,0.303,0.941,
@@ -348,8 +348,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntergralTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDIntergralTime</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime</a>.
 </p>
 <p>
 The reference data is imported from a raw data that is generated with a Python implementation of this block.

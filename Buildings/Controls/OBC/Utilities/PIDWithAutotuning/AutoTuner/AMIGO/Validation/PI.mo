@@ -3,7 +3,7 @@ model PI "Test model for PI"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PI pI
     "Calculate the parameters for a PI controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.343,0.469;
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.343,0.469;
         0.002,1.002,0.501,0.301,0.342,0.47; 0.004,1.004,0.502,0.301,0.341,0.471;
         0.006,1.006,0.503,0.302,0.341,0.472; 0.008,1.008,0.504,0.302,0.34,0.473;
         0.01,1.01,0.505,0.303,0.339,0.473; 0.012,1.012,0.506,0.304,0.339,0.474;

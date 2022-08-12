@@ -46,8 +46,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Control\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Control</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
 </p>
 </html>"));
 end Controller;

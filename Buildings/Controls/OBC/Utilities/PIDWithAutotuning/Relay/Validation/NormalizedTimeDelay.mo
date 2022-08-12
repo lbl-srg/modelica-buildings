@@ -3,7 +3,7 @@ model NormalizedTimeDelay "Test model for NormalizedTimeDelay"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay
     normalizedTimeDelay(gamma=4) "Calculate the normalized time delay"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-  CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,0,2.051; 0.002,0,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,0,2.051; 0.002,0,
         2.051; 0.004,0,2.051; 0.006,0,2.051; 0.008,0,2.051; 0.01,0,2.051; 0.012,
         0,2.051; 0.014,0,2.051; 0.016,0,2.051; 0.018,0,2.051; 0.02,0,2.051;
         0.022,0,2.051; 0.024,0,2.051; 0.026,0,2.051; 0.028,0,2.051; 0.03,0,

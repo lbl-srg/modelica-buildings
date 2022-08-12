@@ -11,19 +11,19 @@ block PIDDerivativeTime "Identifies the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td
     "Connector for time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CDL.Continuous.MultiplyByParameter gai1(k=0.3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=0.3)
     "Calculate the product of 0.3 and the time delay"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Continuous.MultiplyByParameter gai2(k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=0.5)
     "Calculate the product of 0.5 and the input time constant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Calculate the product of the output of gai2 and the input time constant"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  CDL.Continuous.Add add
+  Buildings.Controls.OBC.CDL.Continuous.Add add
     "Calculate the sum of the output of gai1 and the input time constant"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of mul divided by the output of add"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation

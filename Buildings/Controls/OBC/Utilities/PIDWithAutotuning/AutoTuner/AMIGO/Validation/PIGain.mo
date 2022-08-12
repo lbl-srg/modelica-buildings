@@ -1,8 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation;
 model PIGain "Test model for PIGain"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIGain pIGain
-    "Calculate the control gain for a PI controller"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,
         1,0.5,0.3,0.343,0.469; 0.002,1.002,0.501,0.301,0.342,0.47; 0.004,1.004,
         0.502,0.301,0.341,0.471; 0.006,1.006,0.503,0.302,0.341,0.472; 0.008,
@@ -268,13 +265,16 @@ model PIGain "Test model for PIGain"
     "Data for validating the PIgain block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIGain
+    pIGain "Calculate the gain for a PI controller"
+    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 equation
-  connect(pIGain.kp, ReferenceData.y[1]) annotation (Line(points={{-12,6},{-22,
-          6},{-22,0},{-38,0}}, color={0,0,127}));
+  connect(pIGain.kp, ReferenceData.y[1]) annotation (Line(points={{-10,6},{-26,
+          6},{-26,0},{-38,0}}, color={0,0,127}));
   connect(pIGain.T, ReferenceData.y[2])
-    annotation (Line(points={{-12,0},{-38,0}}, color={0,0,127}));
-  connect(pIGain.L, ReferenceData.y[3]) annotation (Line(points={{-12,-6},{-22,
-          -6},{-22,0},{-38,0}}, color={0,0,127}));
+    annotation (Line(points={{-10,0},{-38,0}}, color={0,0,127}));
+  connect(pIGain.L, ReferenceData.y[3]) annotation (Line(points={{-10,-6},{-26,
+          -6},{-26,0},{-38,0}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,
