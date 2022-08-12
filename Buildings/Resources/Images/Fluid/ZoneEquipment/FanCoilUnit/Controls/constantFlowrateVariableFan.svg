@@ -577,7 +577,7 @@
            id="rect1827" /></flowRegion><flowPara
          id="flowPara1829">Minimum ai</flowPara></flowRoot>
     <flowRoot
-       transform="matrix(0.13541393,0,0,0.13541393,-26.659012,183.81655)"
+       transform="matrix(0.13541393,0,0,0.13541393,-37.242352,183.81655)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1839"
        xml:space="preserve"><flowRegion
@@ -587,7 +587,7 @@
            height="80"
            width="540"
            id="rect1843" /></flowRegion><flowPara
-         id="flowPara1845">Heating signal</flowPara></flowRoot>
+         id="flowPara1845">Heating valve signal</flowPara></flowRoot>
     <flowRoot
        transform="scale(0.26458333)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -615,7 +615,7 @@
        d="m -76.851991,275.65748 -9.087162,-8.01809"
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5590)" />
     <flowRoot
-       transform="matrix(0.13541393,0,0,0.13541393,93.348587,183.81655)"
+       transform="matrix(0.13541393,0,0,0.13541393,85.411082,183.81655)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1839-2"
        xml:space="preserve"><flowRegion
@@ -625,7 +625,7 @@
            height="80"
            width="540"
            id="rect1843-9" /></flowRegion><flowPara
-         id="flowPara1845-1">Cooling signal</flowPara></flowRoot>
+         id="flowPara1845-1">Cooling valve signal</flowPara></flowRoot>
     <path
        inkscape:original-d="m 62.379663,275.66097 9.087162,-8.01809"
        inkscape:path-effect="#path-effect869"

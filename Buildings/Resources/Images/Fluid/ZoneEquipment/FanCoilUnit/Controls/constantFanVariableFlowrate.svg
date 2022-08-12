@@ -4,7 +4,7 @@
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    inkscape:export-ydpi="80.029999"
    inkscape:export-xdpi="80.029999"
-   inkscape:export-filename="/Users/agautier/Desktop/vav.png"
+   inkscape:export-filename="C:\buildings_library\buildings_library_pnnl\Buildings\Resources\Images\Fluid\ZoneEquipment\FanCoilUnit\Controls\constantFanVariableFlowrate.png"
    id="svg8"
    version="1.1"
    viewBox="0 0 245.80307 129.49258"
@@ -396,7 +396,7 @@
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
      inkscape:cy="265.16504"
-     inkscape:cx="350.01785"
+     inkscape:cx="165.15994"
      inkscape:zoom="0.9899495"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -578,7 +578,7 @@
            id="rect1827" /></flowRegion><flowPara
          id="flowPara1829">Minimum ai</flowPara></flowRoot>
     <flowRoot
-       transform="matrix(0.13541393,0,0,0.13541393,-10.784002,136.72042)"
+       transform="matrix(0.13541393,0,0,0.13541393,-16.075672,136.72042)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1839"
        xml:space="preserve"><flowRegion
@@ -588,7 +588,7 @@
            height="80"
            width="540"
            id="rect1843" /></flowRegion><flowPara
-         id="flowPara1845">Heating signal</flowPara></flowRoot>
+         id="flowPara1845">Heating valve signal</flowPara></flowRoot>
     <flowRoot
        transform="scale(0.26458333)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -617,7 +617,7 @@
        d="m -59.918648,235.13232 -9.087162,8.01809"
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5590)" />
     <flowRoot
-       transform="matrix(0.13541393,0,0,0.13541393,79.061078,136.72042)"
+       transform="matrix(0.13541393,0,0,0.13541393,64.244402,136.72042)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1839-2"
        xml:space="preserve"><flowRegion
@@ -627,7 +627,7 @@
            height="80"
            width="540"
            id="rect1843-9" /></flowRegion><flowPara
-         id="flowPara1845-1">Cooling signal</flowPara></flowRoot>
+         id="flowPara1845-1">Cooling valve signal</flowPara></flowRoot>
     <path
        inkscape:original-d="m 42.800484,236.19065 9.087162,8.01809"
        inkscape:path-effect="#path-effect869"

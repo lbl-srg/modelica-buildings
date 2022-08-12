@@ -302,11 +302,14 @@ equation
       When the zone temperature <code>TZon</code> is between <code>THeaSet</code>
       and <code>TCooSet</code>, the FCU enters deadband mode. If the zone is occupied 
       as per the occupancy schedule (<code>conVarWatConFan.timTabOccSch.y = 1</code>),
-      the fan is enabled (<code>yFan = True</code>) and is run at the maximum speed
+      the fan is enabled (<code>yFan = True</code>) and is run at the minimum speed
       (<code>yFanSpe = 1</code>). <code>yHea</code> and <code>yCoo</code> are set 
       to <code>zero</code>.
       </li>
       </ul>
+      </p>
+      <p align=\"center\">
+      <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFanVariableFlowrate.png\"/>
       </p>
       </html>
       ", revisions="<html>
