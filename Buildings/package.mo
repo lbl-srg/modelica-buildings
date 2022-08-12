@@ -216,11 +216,18 @@ Version 9.1.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
-    <td valign=\"top\">xxx.
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.ConstantDutyCycle<br/>
+                       Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle
     </td>
-    </tr>
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3042\">
+                       issue 3042</a>.
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
