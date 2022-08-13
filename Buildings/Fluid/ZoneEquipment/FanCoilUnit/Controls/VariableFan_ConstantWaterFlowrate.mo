@@ -334,7 +334,7 @@ equation
           -108},{18,-108}}, color={255,0,255}));
   annotation (defaultComponentName="conVarFanConWat",
     Icon(coordinateSystem(preserveAspectRatio=false,
-      extent={{-140,-120},{120,120}}),
+      extent={{-100,-100},{100,100}}),
       graphics={
         Rectangle(
         extent={{-100,100},{100,-100}},
@@ -375,7 +375,7 @@ equation
       the FCU enters deadband mode. If the zone is occupied as per the occupancy schedule 
       (<code>conVarWatConFan.timTabOccSch.y = 1</code>), the fan is enabled (<code>yFan = True</code>) 
       and is run at the minimum speed
-      (<code>yFanSpe = 1</code>). <code>yHea</code> and <code>yCoo</code> are set 
+      (<code>yFanSpe = minFanSpe</code>). <code>yHea</code> and <code>yCoo</code> are set 
       to <code>zero</code>.
       </li>
       </ul>

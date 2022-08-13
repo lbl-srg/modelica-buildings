@@ -8,7 +8,8 @@ model ConstantFan_VariableWaterFlowrate
     conVarWatConFan(
     final nRowOccSch=5,
     final tableOcc=[0,1; 15,0; 30,1; 45,0; 60,0],
-    final timeScaleOcc=1)
+    final timeScaleOcc=1,
+    tDeaModOff=2)
     "Instance of controller with variable fan speed and constant water flowrate"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
