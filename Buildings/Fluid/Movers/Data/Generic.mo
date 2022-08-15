@@ -61,9 +61,6 @@ record Generic "Generic data record for movers"
    annotation (Dialog(group="Power computation",
                       enable =   etaHydMet==
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate));
-                               /*etaMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-                            or */
 
   // Peak condition
   parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
@@ -74,9 +71,6 @@ record Generic "Generic data record for movers"
     annotation (Dialog(group="Power computation",
                        enable =  etaHydMet==
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber));
-                               /*etaMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-                            or */
   final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak_internal=
     Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
     "Internal peak variable";
