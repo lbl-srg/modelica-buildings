@@ -270,8 +270,6 @@ equation
           {-28,90},{-28,18},{58,18}}, color={255,0,255}));
   connect(zonSta.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-58,
           88},{32,88},{32,16},{58,16}}, color={255,0,255}));
-  connect(TZon, opeModSel.TZonMax) annotation (Line(points={{-180,110},{-140,110},
-          {-140,14},{58,14}}, color={0,0,127}));
   connect(TZon, opeModSel.TZonMin) annotation (Line(points={{-180,110},{-140,110},
           {-140,12},{58,12}}, color={0,0,127}));
   connect(zonSta.yHigUnoCoo, opeModSel.uSetUp) annotation (Line(points={{-58,83},
