@@ -90,12 +90,20 @@ block MultispeedFan_ConstantWaterFlowrate
     "Time scale of first table column. Set to 3600 if time in table is in hours"
     annotation(Dialog(group="Occupancy schedule parameters"));
 
-  parameter Real tDeaModOff(
+  parameter Real tFanEnaDel(
     final unit="s",
     displayUnit="s",
     final quantity="Time",
     final min = 0) = 30
     "Time period for delay between switching from deadband mode to heating/cooling mode"
+    annotation(Dialog(group="System parameters"));
+
+  parameter Real tFanEna(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time",
+    final min = 0) = 300
+    "Minimum duration for which fan is enabled"
     annotation(Dialog(group="System parameters"));
 
   parameter Real dTHys(
@@ -111,13 +119,18 @@ block MultispeedFan_ConstantWaterFlowrate
     "Fan speed difference used for cycling fan speed"
     annotation(Dialog(tab="Advanced"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+    "Fan proven on signal"
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
@@ -125,7 +138,7 @@ block MultispeedFan_ConstantWaterFlowrate
     final quantity="ThermodynamicTemperature")
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
@@ -133,7 +146,7 @@ block MultispeedFan_ConstantWaterFlowrate
     final quantity="ThermodynamicTemperature")
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
     "Fan enable signal"
@@ -151,14 +164,14 @@ block MultispeedFan_ConstantWaterFlowrate
     final unit="1",
     displayUnit="1")
     "Cooling signal"
-    annotation (Placement(transformation(extent={{140,40},{180,80}}),
+    annotation (Placement(transformation(extent={{140,60},{180,100}}),
       iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final unit="1",
     displayUnit="1")
     "Heating signal"
-    annotation (Placement(transformation(extent={{140,0},{180,40}}),
+    annotation (Placement(transformation(extent={{140,30},{180,70}}),
       iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabOccSch(
@@ -168,7 +181,15 @@ block MultispeedFan_ConstantWaterFlowrate
     "Table with occupancy schedule for the zone"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-// protected
+protected
+  Buildings.Controls.OBC.CDL.Logical.And andCoo
+    "Enable cooling coil valve only when fan is proven on"
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And andHea
+    "Enable heating coil valve only when fan is proven on"
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if zone is in deadband mode and occupied"
     annotation (Placement(transformation(extent={{80,-124},{100,-104}})));
@@ -178,7 +199,7 @@ block MultispeedFan_ConstantWaterFlowrate
     annotation (Placement(transformation(extent={{52,-140},{72,-120}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer timFan(
-    final t=tDeaModOff)
+    final t=tFanEnaDel)
     "Time delay for switching on fan"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
 
@@ -224,29 +245,29 @@ block MultispeedFan_ConstantWaterFlowrate
     final uLow=-dTHys,
     final uHigh=0)
     "Enable cooling when zone temperature is higher than cooling setpoint"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Find difference between zone temperature and cooling setpoint"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaCoo
     "Boolean to Real conversion"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+    annotation (Placement(transformation(extent={{80,70},{100,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Find difference between zone temperature and heating setpoint"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final uLow=-dTHys,
     final uHigh=0)
     "Enable heating when zone temperature is lower than heating setpoint"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaHea
     "Boolean to Real conversion"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Enable fan in heating mode and cooling mode"
@@ -259,7 +280,7 @@ block MultispeedFan_ConstantWaterFlowrate
     final Td=TdCoo,
     final reverseActing=false)
     "PI controller for fan speed in cooling mode"
-    annotation (Placement(transformation(extent={{-66,-20},{-46,0}})));
+    annotation (Placement(transformation(extent={{-66,-70},{-46,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
     final controllerType=controllerTypeHea,
@@ -268,16 +289,16 @@ block MultispeedFan_ConstantWaterFlowrate
     final Td=TdHea,
     final reverseActing=false)
     "PI controller for fan speed in heating mode"
-    annotation (Placement(transformation(extent={{-66,-60},{-46,-40}})));
+    annotation (Placement(transformation(extent={{-66,-110},{-46,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0)
     "Constant zero signal"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add3
     "Pass sum of fan speed from heating and cooling controllers, one of which is always zero"
-    annotation (Placement(transformation(extent={{-36,-40},{-16,-20}})));
+    annotation (Placement(transformation(extent={{-36,-90},{-16,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Provide fan speed signal only when fan is enabled"
@@ -290,75 +311,76 @@ block MultispeedFan_ConstantWaterFlowrate
 
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Enable fan in heating mode and cooling mode or when zone is occupied"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
+    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Pass non-zero signal only when fan is enabled"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
     "Convert Boolean to Real"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{70,0},{90,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=tFanEna,
+    final falseHoldDuration=0)
+    "Keep fan enabled for minimum duration"
+    annotation (Placement(transformation(extent={{110,-160},{130,-140}})));
+
 equation
-  connect(TZon,sub2. u1) annotation (Line(points={{-160,40},{-130,40},{-130,76},
-          {-102,76}},
+  connect(TZon,sub2. u1) annotation (Line(points={{-160,40},{-130,40},{-130,46},
+          {-102,46}},
                     color={0,0,127}));
 
-  connect(TCooSet,sub2. u2) annotation (Line(points={{-160,0},{-120,0},{-120,64},
-          {-102,64}},color={0,0,127}));
+  connect(TCooSet,sub2. u2) annotation (Line(points={{-160,0},{-120,0},{-120,34},
+          {-102,34}},color={0,0,127}));
 
   connect(sub2.y, hys1.u)
-    annotation (Line(points={{-78,70},{-42,70}}, color={0,0,127}));
+    annotation (Line(points={{-78,40},{-42,40}}, color={0,0,127}));
 
-  connect(hys1.y, booToRea.u)
-    annotation (Line(points={{-18,70},{-2,70}}, color={255,0,255}));
-
-  connect(booToRea.y, yCoo) annotation (Line(points={{22,70},{100,70},{100,60},{
-          160,60}}, color={0,0,127}));
+  connect(booToReaCoo.y, yCoo)
+    annotation (Line(points={{102,80},{160,80}}, color={0,0,127}));
 
   connect(sub1.y, hys2.u)
-    annotation (Line(points={{-78,20},{-74,20},{-74,40},{-42,40}},
+    annotation (Line(points={{-78,-30},{-74,-30},{-74,10},{-42,10}},
                                                  color={0,0,127}));
 
-  connect(hys2.y, booToRea1.u)
-    annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
-
-  connect(TZon,sub1. u2) annotation (Line(points={{-160,40},{-130,40},{-130,14},
-          {-102,14}},
+  connect(TZon,sub1. u2) annotation (Line(points={{-160,40},{-130,40},{-130,-36},
+          {-102,-36}},
                     color={0,0,127}));
 
   connect(THeaSet,sub1. u1) annotation (Line(points={{-160,-40},{-110,-40},{-110,
-          26},{-102,26}},color={0,0,127}));
+          -24},{-102,-24}},
+                         color={0,0,127}));
 
-  connect(booToRea1.y, yHea)
-    annotation (Line(points={{22,40},{92,40},{92,20},{160,20}},
-                                                color={0,0,127}));
+  connect(booToReaHea.y, yHea)
+    annotation (Line(points={{102,50},{160,50}}, color={0,0,127}));
 
-  connect(hys1.y, or2.u1) annotation (Line(points={{-18,70},{-10,70},{-10,-160},
+  connect(hys1.y, or2.u1) annotation (Line(points={{-18,40},{-10,40},{-10,-160},
           {-6,-160}},color={255,0,255}));
 
-  connect(hys2.y, or2.u2) annotation (Line(points={{-18,40},{-14,40},{-14,-168},
+  connect(hys2.y, or2.u2) annotation (Line(points={{-18,10},{-14,10},{-14,-168},
           {-6,-168}},color={255,0,255}));
 
-  connect(sub2.y, conPID.u_m) annotation (Line(points={{-78,70},{-72,70},{-72,
-          -26},{-56,-26},{-56,-22}},
+  connect(sub2.y, conPID.u_m) annotation (Line(points={{-78,40},{-72,40},{-72,-82},
+          {-56,-82},{-56,-72}},    color={0,0,127}));
+
+  connect(sub1.y, conPID1.u_m) annotation (Line(points={{-78,-30},{-74,-30},{-74,
+          -120},{-56,-120},{-56,-112}},
                                    color={0,0,127}));
 
-  connect(sub1.y, conPID1.u_m) annotation (Line(points={{-78,20},{-74,20},{-74,
-          -72},{-56,-72},{-56,-62}},
-                                   color={0,0,127}));
+  connect(con.y, conPID.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,-60},
+          {-68,-60}},     color={0,0,127}));
 
-  connect(con.y, conPID.u_s) annotation (Line(points={{-78,-30},{-76,-30},{-76,
-          -10},{-68,-10}},color={0,0,127}));
+  connect(con.y, conPID1.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,
+          -100},{-68,-100}},
+                          color={0,0,127}));
 
-  connect(con.y, conPID1.u_s) annotation (Line(points={{-78,-30},{-76,-30},{-76,
-          -50},{-68,-50}},color={0,0,127}));
+  connect(conPID.y, add3.u1) annotation (Line(points={{-44,-60},{-40,-60},{-40,-74},
+          {-38,-74}},color={0,0,127}));
 
-  connect(conPID.y, add3.u1) annotation (Line(points={{-44,-10},{-40,-10},{-40,
-          -24},{-38,-24}},
-                     color={0,0,127}));
-
-  connect(conPID1.y, add3.u2) annotation (Line(points={{-44,-50},{-40,-50},{-40,
-          -36},{-38,-36}},color={0,0,127}));
+  connect(conPID1.y, add3.u2) annotation (Line(points={{-44,-100},{-40,-100},{-40,
+          -86},{-38,-86}},color={0,0,127}));
 
   connect(gre.u1, reaScaRep.y)
     annotation (Line(points={{58,-30},{52,-30}}, color={0,0,127}));
@@ -380,10 +402,8 @@ equation
     annotation (Line(points={{132,-80},{160,-80}}, color={0,0,127}));
   connect(timTabOccSch.y, greThr.u)
     annotation (Line(points={{-98,-140},{-52,-140}}, color={0,0,127}));
-  connect(or1.y, yFan) annotation (Line(points={{122,-150},{136,-150},{136,-120},
-          {160,-120}}, color={255,0,255}));
   connect(greThr[1].y, or1.u1) annotation (Line(points={{-28,-140},{24,-140},{24,
-          -150},{98,-150}}, color={255,0,255}));
+          -150},{78,-150}}, color={255,0,255}));
   connect(extIndSig.y, swi.u3) annotation (Line(points={{92,-60},{100,-60},{100,
           -88},{108,-88}}, color={0,0,127}));
   connect(and2.y, swi.u2) annotation (Line(points={{102,-114},{106,-114},{106,-80},
@@ -394,20 +414,36 @@ equation
           {78,-122}}, color={255,0,255}));
   connect(or2.y, timFan.u) annotation (Line(points={{18,-160},{20,-160},{20,-180},
           {38,-180}}, color={255,0,255}));
-  connect(timFan.passed, or1.u2) annotation (Line(points={{62,-188},{90,-188},{90,
-          -158},{98,-158}}, color={255,0,255}));
-  connect(timFan.passed, not1.u) annotation (Line(points={{62,-188},{90,-188},{90,
-          -158},{40,-158},{40,-130},{50,-130}}, color={255,0,255}));
+  connect(timFan.passed, or1.u2) annotation (Line(points={{62,-188},{72,-188},{72,
+          -158},{78,-158}}, color={255,0,255}));
+  connect(timFan.passed, not1.u) annotation (Line(points={{62,-188},{72,-188},{72,
+          -160},{40,-160},{40,-130},{50,-130}}, color={255,0,255}));
   connect(mul.y, reaScaRep.u)
     annotation (Line(points={{22,-30},{28,-30}}, color={0,0,127}));
-  connect(add3.y, mul.u2) annotation (Line(points={{-14,-30},{-6,-30},{-6,-36},
-          {-2,-36}}, color={0,0,127}));
+  connect(add3.y, mul.u2) annotation (Line(points={{-14,-80},{-6,-80},{-6,-36},{
+          -2,-36}},  color={0,0,127}));
   connect(fanSpeVal[2].y, swi.u1) annotation (Line(points={{42,-60},{54,-60},{
           54,-72},{108,-72}}, color={0,0,127}));
-  connect(booToRea2.y, mul.u1) annotation (Line(points={{82,10},{90,10},{90,-10},
-          {-6,-10},{-6,-24},{-2,-24}}, color={0,0,127}));
-  connect(or1.y, booToRea2.u) annotation (Line(points={{122,-150},{136,-150},{
-          136,30},{50,30},{50,10},{58,10}}, color={255,0,255}));
+  connect(booToReaFan.y, mul.u1) annotation (Line(points={{92,10},{100,10},{100,
+          -10},{-6,-10},{-6,-24},{-2,-24}}, color={0,0,127}));
+  connect(or1.y, truFalHol.u)
+    annotation (Line(points={{102,-150},{108,-150}}, color={255,0,255}));
+  connect(truFalHol.y, yFan) annotation (Line(points={{132,-150},{136,-150},{136,
+          -120},{160,-120}}, color={255,0,255}));
+  connect(truFalHol.y, booToReaFan.u) annotation (Line(points={{132,-150},{136,-150},
+          {136,30},{60,30},{60,10},{68,10}}, color={255,0,255}));
+  connect(andCoo.y, booToReaCoo.u)
+    annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
+  connect(andHea.y, booToReaHea.u)
+    annotation (Line(points={{62,50},{78,50}}, color={255,0,255}));
+  connect(uFan, andCoo.u1)
+    annotation (Line(points={{-160,80},{38,80}}, color={255,0,255}));
+  connect(uFan, andHea.u1) annotation (Line(points={{-160,80},{20,80},{20,50},{38,
+          50}}, color={255,0,255}));
+  connect(hys1.y, andCoo.u2) annotation (Line(points={{-18,40},{0,40},{0,72},{38,
+          72}}, color={255,0,255}));
+  connect(hys2.y, andHea.u2) annotation (Line(points={{-18,10},{20,10},{20,42},{
+          38,42}}, color={255,0,255}));
   annotation (defaultComponentName="conMulSpeFanConWat",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                       graphics={
@@ -419,6 +455,51 @@ equation
         Text(
           extent={{-100,100},{100,140}},
           textString="%name",
-          textColor={0,0,255})}),           Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-140,-200},{140,100}})));
+          textColor={0,0,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+      extent={{-140,-200},{140,100}})),
+    Documentation(info="<html>
+      <p>
+      This is a control module for the fan coil unit (FCU) system model designed as an 
+      analogue to the <code>ConstantFanVariableFlow</code> capacity control method 
+      in EnergyPlus. The control logic is as described in the following section 
+      and can also be seen in the logic chart.
+      <br>
+      <ul>
+      <li>
+      When the zone temperature <code>TZon</code> is above the cooling setpoint
+      temperature <code>TCooSet</code>, the FCU enters cooling mode operation.
+      The fan is enabled (<code>yFan = True</code>) and is run at the maximum speed
+      (<code>yFanSpe = 1</code>). The cooling signal <code>yCoo</code> is used to
+      regulate <code>TZon</code> at <code>TCooSet</code>.
+      </li>
+      <li>
+      When <code>TZon</code> is below the heating setpoint
+      temperature <code>THeaSet</code>, the FCU enters heating mode operation.
+      The fan is enabled (<code>yFan = True</code>) and is run at the maximum speed
+      (<code>yFanSpe = 1</code>). The heating signal <code>yHea</code> is used to
+      regulate <code>TZon</code> at <code>THeaSet</code>.
+      </li>
+      <li>
+      When the zone temperature <code>TZon</code> is between <code>THeaSet</code>
+      and <code>TCooSet</code>, the FCU enters deadband mode. If the zone is occupied 
+      as per the occupancy schedule (<code>conVarWatConFan.timTabOccSch.y = 1</code>),
+      the fan is enabled (<code>yFan = True</code>) and is run at the minimum speed
+      (<code>yFanSpe = minFanSpe</code>). <code>yHea</code> and <code>yCoo</code> are set 
+      to <code>zero</code>.
+      </li>
+      </ul>
+      </p>
+      <p align=\"center\">
+      <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateMultispeedFan.png\"/>
+      </p>
+      </html>
+      ", revisions="<html>
+      <ul>
+      <li>
+      August 03, 2022 by Karthik Devaprasad:<br/>
+      First implementation.
+      </li>
+      </ul>
+      </html>"));
 end MultispeedFan_ConstantWaterFlowrate;

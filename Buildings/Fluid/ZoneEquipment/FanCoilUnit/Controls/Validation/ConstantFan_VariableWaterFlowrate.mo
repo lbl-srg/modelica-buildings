@@ -7,9 +7,10 @@ model ConstantFan_VariableWaterFlowrate
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFan_VariableWaterFlowrate
     conVarWatConFan(
     final nRowOccSch=5,
-    final tableOcc=[0,1; 15,0; 30,1; 45,0; 60,0],
+    final tableOcc=[0,0; 15,1; 30,0; 45,1; 60,1],
     final timeScaleOcc=1,
-    tDeaModOff=2)
+    tFanEnaDel=2,
+    final tFanEna=5)
     "Instance of controller with variable fan speed and constant water flowrate"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
@@ -33,11 +34,14 @@ protected
 
 equation
   connect(con.y,conVarWatConFan. TCooSet)
-    annotation (Line(points={{-18,0},{8,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{-6,0},{-6,-2},{8,-2}},
+                                             color={0,0,127}));
   connect(con1.y,conVarWatConFan. THeaSet) annotation (Line(points={{-18,-40},{0,
-          -40},{0,-4},{8,-4}}, color={0,0,127}));
+          -40},{0,-6},{8,-6}}, color={0,0,127}));
   connect(sin.y,conVarWatConFan. TZon)
-    annotation (Line(points={{-18,40},{0,40},{0,4},{8,4}}, color={0,0,127}));
+    annotation (Line(points={{-18,40},{0,40},{0,2},{8,2}}, color={0,0,127}));
+  connect(conVarWatConFan.yFan, conVarWatConFan.uFan) annotation (Line(points={{
+          32,-6},{40,-6},{40,20},{4,20},{4,6},{8,6}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Controls/Validation/ConstantFan_VariableWaterFlowrate.mos"
