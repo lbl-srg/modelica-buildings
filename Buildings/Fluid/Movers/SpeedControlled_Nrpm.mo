@@ -5,7 +5,7 @@ model SpeedControlled_Nrpm
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
-    final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
+    m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
     filter(
