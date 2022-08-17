@@ -39,7 +39,7 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={10,-20})));
+        origin={-10,-20})));
 initial equation
   assert(per.havePressureCurve,
    "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
@@ -50,9 +50,10 @@ equation
   connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
           {-26,50},{-22,50}}, color={0,0,127}));
   connect(eff.dp, gain.u)
-    annotation (Line(points={{-11,-50},{10,-50},{10,-32}}, color={0,0,127}));
+    annotation (Line(points={{-11,-50},{-6,-50},{-6,-42},{-10,-42},{-10,-32}},
+                                                           color={0,0,127}));
   connect(gain.y, preSou.dp_in)
-    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
+    annotation (Line(points={{-10,-9},{-10,14},{56,14},{56,8}},
                                                      color={0,0,127}));
 
   if use_inputFilter then
