@@ -23,10 +23,12 @@ model ControlledFlowMachine
         Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={-10,32})));
+  replaceable
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    constrainedby Buildings.Fluid.Movers.SpeedControlled_y
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
@@ -52,17 +54,21 @@ model ControlledFlowMachine
   Buildings.Fluid.Sensors.MassFlowRate masFloRat3(
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  replaceable
   Buildings.Fluid.Movers.FlowControlled_dp fan3(
     redeclare package Medium = Medium,
     m_flow_nominal=6000/3600*1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    constrainedby Buildings.Fluid.Movers.FlowControlled_dp
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+  replaceable
   Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
     redeclare package Medium = Medium,
     m_flow_nominal=6000/3600*1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    constrainedby Buildings.Fluid.Movers.FlowControlled_m_flow
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   FixedResistances.PressureDrop dp4(
     redeclare package Medium = Medium,
@@ -73,10 +79,12 @@ model ControlledFlowMachine
   Buildings.Fluid.Sensors.MassFlowRate masFloRat4(
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
+  replaceable
   Buildings.Fluid.Movers.SpeedControlled_Nrpm fan4(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    constrainedby Buildings.Fluid.Movers.SpeedControlled_Nrpm
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Math.Gain gain(k=3580) "Converts y to nominal rpm"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
