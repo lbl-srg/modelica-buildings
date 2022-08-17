@@ -92,11 +92,18 @@ model WaterLoopDistrictCooling
     f=1/(2*86400),
     offset=-0.66*QDisCoi/2,
     startTime=0)
-    annotation (Placement(transformation(extent={{-82,-88},{-70,-76}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-88,-58}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFloIce
     "Fixed heat flow rate to the ice storage"
     annotation (Placement(transformation(extent={{-52,-92},{-32,-72}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiHeaFloIce
+    "Switch for ice heat flow"
+    annotation (Placement(transformation(extent={{-72,-88},{-60,-76}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant iceTanOff(k=0) "ice tank off"
+    annotation (Placement(transformation(extent={{-100,-90},{-88,-78}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumWater,
