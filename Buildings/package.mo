@@ -278,6 +278,19 @@ to <b style=\"color:blue\">existing</b> libraries:
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">
+        Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp<br/>
+        Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow<br/>
+        Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
+        Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y<br/>
+        Buildings.Fluid.Movers.Preconfigured.Validation.ControlledFlowMachinePreconfigured
+    </td>
+    <td valign=\"top\">
+    Added preconfigured versions for the mover models that only require the user
+    to provide nominal conditions.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+    </td>
+</tr>    
 </table>
 <!-- Backward compatible changes -->
 <p>

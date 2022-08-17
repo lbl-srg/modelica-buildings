@@ -19,4 +19,23 @@ model SpeedControlled_Nrpm "SpeedControlled_Nrpm with pre-filled parameters"
     "Nominal rotational speed for preconfiguration"
     annotation (Dialog(group="Nominal condition"));
 
+annotation(Documentation(info="<html>
+<p>
+This model is the preconfigured version for
+<a href=\"Modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+It automatically configures a mover model based on
+<code>m_flow_nominal</code>, <code>dp_nominal</code>,
+and <code>speed_rpm_nominal</code>
+provided by the user and no other input is allowed.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 17, 2022, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+</ul>
+</html>"));
 end SpeedControlled_Nrpm;
