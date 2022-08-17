@@ -37,18 +37,23 @@ model WaterLoopDistrictCooling
     mEva_flow_nominal = 0.66*mWat_flow_nominal,
     mCon_flow_nominal = mCon_flow_nominal) annotation (Placement(transformation(extent={{134,76},{154,96}})));
 
-  Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
-    have_heaWat = false,
-    redeclare package Medium2 = MediumAir,
-    filNam = "Fluid/Storage/Ice/Examples/SampleDistrictCoolingLoadsScaled.txt",
-    QHea_flow_nominal = 1e-15,
-    nPorts_aHeaWat = 1,
-    nPorts_bHeaWat = 1,
-    nPorts_bChiWat = 1,
-    nPorts_aChiWat = 1) "Building model with district loads"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u disCooCoi(
+    redeclare package Medium = MediumWater,
+    m_flow_nominal=mWat_flow_nominal,
+    dp_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    Q_flow_nominal=1)
+    "District cooling coil" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
         origin={134,-22})));
+
+  Modelica.Blocks.Sources.Sine disCoiLoad(
+    amplitude=QDisCoi/2,
+    f=1/86400,
+    offset=QDisCoi/2,
+    startTime=0)
+    annotation (Placement(transformation(extent={{164,-10},{152,2}})));
 
   Buildings.Fluid.Chillers.ElectricEIR chiWat(
     redeclare package Medium1 = MediumAir,
