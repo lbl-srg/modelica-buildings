@@ -227,7 +227,8 @@ model GlycolLoopIceTank
 
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen4(redeclare package Medium =
         MediumGlycol,
-      m_flow_nominal = mGly_flow_nominal) "Glycol temperature sensor 4" annotation (
+      m_flow_nominal = mGly_flow_nominal,
+      T_start=(TChaStart+TChaStop)/2) "Glycol temperature sensor 4" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
@@ -243,7 +244,8 @@ model GlycolLoopIceTank
 
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen6(redeclare package Medium =
         MediumGlycol,
-      m_flow_nominal = mGly_flow_nominal) "Glycol temperature sensor 6" annotation (
+      m_flow_nominal = mGly_flow_nominal,
+      T_start=(TDisCooCall+TDisStandby)/2) "Glycol temperature sensor 6" annotation (
       Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
