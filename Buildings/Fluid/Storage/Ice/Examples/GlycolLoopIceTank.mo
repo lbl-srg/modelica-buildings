@@ -98,11 +98,18 @@ model GlycolLoopIceTank
     f=1/86400,
     offset=QDisCoi/4,
     startTime=0)
-    annotation (Placement(transformation(extent={{160,2},{148,14}})));
+    annotation (Placement(transformation(extent={{142,22},{154,34}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFloDis
     "Fixed heat flow rate from the district coil"
-    annotation (Placement(transformation(extent={{142,-2},{122,18}})));
+    annotation (Placement(transformation(extent={{136,-2},{116,18}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiHeaFloDis
+    "Switch for district heat flow"
+    annotation (Placement(transformation(extent={{154,2},{142,14}})));
+
+  Modelica.Blocks.Sources.Constant disCoiOff(k=0)
+    annotation (Placement(transformation(extent={{142,-16},{154,-4}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumGlycol,
@@ -257,7 +264,7 @@ model GlycolLoopIceTank
   Modelica.StateGraph.Alternative alternative
     "Split for alternative execution paths"
     annotation (Placement(transformation(extent={{-138,-50},{-52,14}})));
-  Modelica.StateGraph.InitialStep standby(nOut=1, nIn=1)
+  Modelica.StateGraph.InitialStep standby(nIn=1, nOut=1)
     "Initial Step with pump 5 on and valve 4 open"
     annotation (Placement(transformation(extent={{-152,-24},{-140,-12}})));
   Modelica.StateGraph.StepWithSignal chaIceTan(nIn=1, nOut=1)
@@ -287,6 +294,10 @@ model GlycolLoopIceTank
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrT6(t = TDisCooCall)
     "Threshold for heat exchanger glycol outlet temperature"
     annotation (Placement(transformation(extent={{132,-34},{144,-22}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrSOC(t=3/4)
+    "Threshold for ice tank state of charge"
+    annotation (Placement(transformation(extent={{6,88},{18,100}})));
 
 equation
   connect(pum5.port_b, iceTanUnc.port_a)
