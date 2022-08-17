@@ -277,10 +277,23 @@ model GlycolLoopIceTank
     annotation (Placement(transformation(extent={{-126,-46},{-106,-26}})));
   Modelica.StateGraph.TransitionWithSignal T2 "Transition to turn on pump 1 and open valve 7"
     annotation (Placement(transformation(extent={{-118,-12},{-98,8}})));
-  Modelica.StateGraph.TransitionWithSignal T3 "Transition to turn off pump 1 and close valve 7"
+  Modelica.StateGraph.TransitionWithSignal T3(enableTimer=true, waitTime=10)
+                                              "Transition to turn off pump 1 and close valve 7"
     annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
-  Modelica.StateGraph.TransitionWithSignal T4 "Transition to turn off pump 6, glycol chiller, and close valve 5"
+  Modelica.StateGraph.TransitionWithSignal T4(enableTimer=true, waitTime=10)
+                                              "Transition to turn off pump 6, glycol chiller, and close valve 5"
     annotation (Placement(transformation(extent={{-82,-46},{-62,-26}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrT3(nin=2) annotation (Placement(
+        transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={-80,-66})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAndT2(nin=2) annotation (Placement(
+        transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={-108,-74})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrT4(t = TChaStop)
     "Threshold for ice tank outlet temperature"
@@ -346,7 +359,7 @@ equation
     annotation (Line(points={{106,-13},{106,-26}},
                                                color={0,127,255}));
   connect(fixHeaFloDis.port, vol.heatPort)
-    annotation (Line(points={{122,8},{116,8},{116,-1}}, color={191,0,0}));
+    annotation (Line(points={{116,8},{116,-1}},         color={191,0,0}));
   connect(booToReaPum6.y, pum6.m_flow_in) annotation (Line(points={{40.8,-76},{30,
           -76},{30,-52},{32.8,-52}}, color={0,0,127}));
   connect(chiGly.on, booToReaPum6.u) annotation (Line(points={{55,-9},{55,-4},{68,
@@ -360,19 +373,11 @@ equation
   connect(temSen6.T, lesThrT6.u) annotation (Line(points={{112.6,-32},{126,-32},
           {126,-46},{130.8,-46}}, color={0,0,127}));
   connect(chaIceTan.active, booToReaPum6.u) annotation (Line(points={{-94,-42.6},
-          {-94,-86},{68,-86},{68,-76},{55.2,-76}}, color={255,0,255}));
-  connect(lesThrT4.y, T4.condition) annotation (Line(points={{-27.2,8},{-42,8},{
-          -42,-52},{-72,-52},{-72,-48}}, color={255,0,255}));
-  connect(greThrT4.y, T1.condition) annotation (Line(points={{-27.2,-10},{-38,-10},
-          {-38,-56},{-116,-56},{-116,-48}}, color={255,0,255}));
+          {-94,-84},{68,-84},{68,-76},{55.2,-76}}, color={255,0,255}));
   connect(val4On.y, val4.y)
     annotation (Line(points={{14.8,28},{10.8,28}}, color={0,0,127}));
   connect(val6Off.y, val6.y)
     annotation (Line(points={{60.8,28},{50.8,28}}, color={0,0,127}));
-  connect(greThrT6.y, T2.condition) annotation (Line(points={{145.2,-28},{156,-28},
-          {156,-100},{-108,-100},{-108,-14}}, color={255,0,255}));
-  connect(lesThrT6.y, T3.condition) annotation (Line(points={{145.2,-46},{150,-46},
-          {150,-94},{-80,-94},{-80,-14}}, color={255,0,255}));
   connect(pum5Flow.y, pum5.m_flow_in)
     annotation (Line(points={{-12.8,-46},{-1.2,-46}}, color={0,0,127}));
   connect(booToReaPum1.y, pum1.m_flow_in) annotation (Line(points={{120.8,-70},{
@@ -408,13 +413,39 @@ equation
   connect(T3.outPort, alternative.join[2]) annotation (Line(points={{-78.5,-2},{
           -64,-2},{-64,-18},{-61.03,-18}}, color={0,0,0}));
   connect(chaIceTan.active, booToReaVal5.u) annotation (Line(points={{-94,-42.6},
-          {-94,-86},{-34,-86},{-34,-76},{-23.2,-76}}, color={255,0,255}));
-  connect(disCoiLoad.y, fixHeaFloDis.Q_flow)
-    annotation (Line(points={{147.4,8},{142,8}}, color={0,0,127}));
+          {-94,-84},{-32,-84},{-32,-76},{-23.2,-76}}, color={255,0,255}));
   connect(swiVal7.y, val7.y) annotation (Line(points={{41.2,62},{100,62},{100,28},
           {101.2,28}}, color={0,0,127}));
   connect(booToReaVal5.y, val5.y) annotation (Line(points={{-8.8,-76},{20,-76},{
           20,10},{21.2,10}}, color={0,0,127}));
+  connect(lesThrT6.y, mulOrT3.u[1]) annotation (Line(points={{145.2,-46},{150,-46},
+          {150,-92},{-82,-92},{-82,-82},{-82.1,-82},{-82.1,-73.2}}, color={255,0,
+          255}));
+  connect(mulOrT3.y, T3.condition)
+    annotation (Line(points={{-80,-58.8},{-80,-14}}, color={255,0,255}));
+  connect(greThrT4.y, mulOrT3.u[2]) annotation (Line(points={{-27.2,-10},{-38,-10},
+          {-38,-80},{-77.9,-80},{-77.9,-73.2}}, color={255,0,255}));
+  connect(iceTanUnc.SOC, greThrSOC.u)
+    annotation (Line(points={{2,-13},{2,94},{4.8,94}}, color={0,0,127}));
+  connect(greThrSOC.y, swiHeaFloDis.u2) annotation (Line(points={{19.2,94},{92,94},
+          {92,100},{160,100},{160,8},{155.2,8}}, color={255,0,255}));
+  connect(swiHeaFloDis.y, fixHeaFloDis.Q_flow)
+    annotation (Line(points={{140.8,8},{136,8}}, color={0,0,127}));
+  connect(disCoiOff.y, swiHeaFloDis.u3) annotation (Line(points={{154.6,-10},{155.2,
+          -10},{155.2,3.2}}, color={0,0,127}));
+  connect(greThrT6.y, mulAndT2.u[1]) annotation (Line(points={{145.2,-28},{156,-28},
+          {156,-96},{-110.1,-96},{-110.1,-81.2}}, color={255,0,255}));
+  connect(mulAndT2.y, T2.condition)
+    annotation (Line(points={{-108,-66.8},{-108,-14}}, color={255,0,255}));
+  connect(greThrSOC.y, mulAndT2.u[2]) annotation (Line(points={{19.2,94},{92,94},
+          {92,100},{160,100},{160,-100},{-106,-100},{-106,-82},{-105.9,-82},{-105.9,
+          -81.2}}, color={255,0,255}));
+  connect(greThrT4.y, T1.condition) annotation (Line(points={{-27.2,-10},{-38,-10},
+          {-38,-56},{-116,-56},{-116,-48}}, color={255,0,255}));
+  connect(lesThrT4.y, T4.condition) annotation (Line(points={{-27.2,8},{-42,8},{
+          -42,-52},{-72,-52},{-72,-48}}, color={255,0,255}));
+  connect(disCoiLoad.y, swiHeaFloDis.u1) annotation (Line(points={{154.6,28},{155.2,
+          28},{155.2,12.8}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=259200,
