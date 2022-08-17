@@ -298,7 +298,7 @@ model WaterLoopDistrictCooling
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-46,-24})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrT6(nin=3) annotation (Placement(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrT6(nin=2) annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
@@ -316,7 +316,9 @@ model WaterLoopDistrictCooling
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrT3(t = TCooStart)
     "Threshold for district cooling coil outlet temperature"
     annotation (Placement(transformation(extent={{152,-44},{164,-32}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrDis(t=QDisCoi/2)
+                 "Threshold for district cooling"
+    annotation (Placement(transformation(extent={{-58,-126},{-70,-114}})));
 equation
   connect(pum3.port_b, chiWat.port_a2)
     annotation (Line(points={{54,-58},{54,-43}}, color={0,127,255}));
@@ -401,8 +403,6 @@ equation
     annotation (Line(points={{-84.3,-52},{-130,-52}}, color={0,0,0}));
   connect(fixHeaFloIce.port, vol.heatPort) annotation (Line(points={{-32,-82},{-24,
           -82},{-24,-25},{4,-25}}, color={191,0,0}));
-  connect(iceTanCoo.y, fixHeaFloIce.Q_flow)
-    annotation (Line(points={{-69.4,-82},{-52,-82}}, color={0,0,127}));
   connect(lesThrT1.u, temSen1.T) annotation (Line(points={{-2.8,-14},{0,-14},{0,
           -4},{7.4,-4}}, color={0,0,127}));
   connect(swiVal3.y, val3.y) annotation (Line(points={{80.8,46},{70,46},{70,16},
@@ -425,10 +425,8 @@ equation
   connect(mulOrT6.y, T6.condition)
     annotation (Line(points={{-134,-70.8},{-134,-64}}, color={255,0,255}));
   connect(greThrT1.y, mulOrT6.u[1]) annotation (Line(points={{-17.2,20},{-52,20},
-          {-52,-4},{-118,-4},{-118,-94},{-136.8,-94},{-136.8,-85.2}}, color={255,
+          {-52,-4},{-118,-4},{-118,-94},{-136.1,-94},{-136.1,-85.2}}, color={255,
           0,255}));
-  connect(greThrT3.y, mulOrT6.u[2]) annotation (Line(points={{165.2,-38},{172,-38},
-          {172,-106},{-134,-106},{-134,-85.2}}, color={255,0,255}));
   connect(mulOrPum2.y, booToReaPum2.u) annotation (Line(points={{-34.8,-64},{-30,
           -64},{-30,-54},{-17.2,-54}}, color={255,0,255}));
   connect(dualCool.active, mulOrPum2.u[1]) annotation (Line(points={{-104,34.6},
@@ -439,8 +437,9 @@ equation
   connect(greThrT3.y, T0.condition) annotation (Line(points={{165.2,-38},{172,
           -38},{172,100},{-150,100},{-150,-20},{-160,-20},{-160,-8}}, color={
           255,0,255}));
-  connect(lesThrT3.y, mulOrT6.u[3]) annotation (Line(points={{165.2,-60},{166,-60},
-          {166,-100},{-132,-100},{-132,-85.2},{-131.2,-85.2}}, color={255,0,255}));
+  connect(lesThrT3.y, mulOrT6.u[2]) annotation (Line(points={{165.2,-60},{166,
+          -60},{166,-100},{-132,-100},{-132,-85.2},{-131.9,-85.2}},
+                                                               color={255,0,255}));
   connect(booToReaVal1.u, booToReaPum2.u) annotation (Line(points={{0.8,36},{-30,
           36},{-30,-54},{-17.2,-54}}, color={255,0,255}));
   connect(swiVal3.u2, booToReaPum2.u) annotation (Line(points={{95.2,46},{120,46},
@@ -461,12 +460,24 @@ equation
           {112,-56},{134,-56},{134,-52}}, color={0,127,255}));
   connect(relPrePum4.port_a, val8.port_a) annotation (Line(points={{112,-16},{112,
           8},{134,8},{134,4}}, color={0,127,255}));
-  connect(bui.ports_bChiWat[1], temSen3.port_a) annotation (Line(points={{128,
-          -32},{128,-36},{134,-36},{134,-40}}, color={0,127,255}));
-  connect(bui.ports_aChiWat[1], val8.port_b) annotation (Line(points={{128,-12},
-          {128,-8},{134,-8},{134,-4}}, color={0,127,255}));
   connect(T0.inPort, standby.outPort[2]) annotation (Line(points={{-164,4},{-164,
           4},{-165.7,4}},       color={0,0,0}));
+  connect(val8.port_b, disCooCoi.port_a)
+    annotation (Line(points={{134,-4},{134,-12}}, color={0,127,255}));
+  connect(disCooCoi.port_b, temSen3.port_a)
+    annotation (Line(points={{134,-32},{134,-40}}, color={0,127,255}));
+  connect(disCoiLoad.y, disCooCoi.u)
+    annotation (Line(points={{151.4,-4},{140,-4},{140,-10}}, color={0,0,127}));
+  connect(swiHeaFloIce.y, fixHeaFloIce.Q_flow)
+    annotation (Line(points={{-58.8,-82},{-52,-82}}, color={0,0,127}));
+  connect(iceTanCoo.y, swiHeaFloIce.u1) annotation (Line(points={{-87.4,-64},{-84,
+          -64},{-84,-77.2},{-73.2,-77.2}}, color={0,0,127}));
+  connect(iceTanOff.y, swiHeaFloIce.u3) annotation (Line(points={{-86.8,-84},{-84,
+          -84},{-84,-86.8},{-73.2,-86.8}}, color={0,0,127}));
+  connect(greThrDis.y, swiHeaFloIce.u2) annotation (Line(points={{-71.2,-120},{-78,
+          -120},{-78,-82},{-73.2,-82}}, color={255,0,255}));
+  connect(greThrDis.u, disCoiLoad.y) annotation (Line(points={{-56.8,-120},{144,
+          -120},{144,-4},{151.4,-4}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=259200,
