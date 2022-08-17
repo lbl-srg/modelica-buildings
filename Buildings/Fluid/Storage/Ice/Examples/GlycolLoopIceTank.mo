@@ -19,7 +19,7 @@ model GlycolLoopIceTank
 
   parameter Modelica.Units.SI.Temperature TSetGlyChi = 273.15 - 6.7 "Glycol chiller setpoint temperature";
   parameter Modelica.Units.SI.Temperature TChaStart = 273.15 + 1 "Outlet temperature of ice tank to start charging";
-  parameter Modelica.Units.SI.Temperature TChaStop = 273.15 - 2 "Outlet temperature of ice tank to stop charging";
+  parameter Modelica.Units.SI.Temperature TChaStop = 273.15 "Outlet temperature of ice tank to stop charging";
   parameter Modelica.Units.SI.Temperature TDisCooCall = 273.15 + 3 "Outlet glycol temperature of heat exchanger to call for cooling";
   parameter Modelica.Units.SI.Temperature TDisStandby = 273.15 + 2 "Outlet glycol temperature of heat exchanger in standby operation";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal = 6000 "Nominal pressure drop across valve";
