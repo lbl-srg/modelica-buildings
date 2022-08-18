@@ -19,7 +19,11 @@ model ControlledFlowMachinePreconfigured
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal,
-      speed_rpm_nominal=3580));
+      speed_rpm_nominal=3580),
+    dp1(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal),
+    dp4(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal),
+    dp2(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal),
+    dp3(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=2
     "Nominal mass flow rate for each fan";
@@ -33,10 +37,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
     Documentation(info="<html>
 <p>
 This model validates the preconfigured mover models.
-Although it is based on
+It is based on
 <a href=\"Modelica://Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic\">
-Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic</a>,
-note that it is not intended that they produce the same results.
+Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic</a>.
 </p>
 </html>", revisions="<html>
 <ul>
