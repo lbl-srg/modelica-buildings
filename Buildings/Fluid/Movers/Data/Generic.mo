@@ -47,7 +47,7 @@ record Generic "Generic data record for movers"
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_yMot(y={0}, eta={0.7})
-    "Motor efficiency vs. part load ratio yMot, where yMot = PEle/PMot_nominal"
+    "Motor efficiency vs. part load ratio yMot, where yMot = PEle/WMot_nominal"
     annotation (Dialog(group="Power computation", enable=etaMotMet ==
       Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio));
 
@@ -79,7 +79,7 @@ record Generic "Generic data record for movers"
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
-  parameter Modelica.Units.SI.Power PMot_nominal(final displayUnit="W")=
+  parameter Modelica.Units.SI.Power WMot_nominal(final displayUnit="W")=
     if max(power.P)>Modelica.Constants.eps
     then
       if PowerOrEfficiencyIsHydraulic
@@ -111,11 +111,11 @@ record Generic "Generic data record for movers"
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
       motorEfficiency_yMot_generic=
         Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
-          P_nominal=PMot_nominal,
+          P_nominal=WMot_nominal,
           eta_max=etaMot_max)
     "Motor efficiency  vs. part load ratio"
     annotation (Dialog(enable=false));
-  final parameter Boolean havePMot_nominal=PMot_nominal > Modelica.Constants.eps
+  final parameter Boolean haveWMot_nominal=WMot_nominal > Modelica.Constants.eps
     "= true, if the rated motor power is provided";
 
   // Speed

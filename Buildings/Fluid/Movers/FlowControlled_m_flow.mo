@@ -31,7 +31,7 @@ model FlowControlled_m_flow
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-            and (not per.havePMot_nominal and not per.havePressureCurve) then
+            and (not per.haveWMot_nominal and not per.havePressureCurve) then
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
           else per.etaMotMet),
       r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
