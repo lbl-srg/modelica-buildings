@@ -346,18 +346,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.Data.Generic<br/>
+                       Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
                        Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
                        Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface
     </td>
     <td valign=\"top\">Moved the assignment of <code>V_flow_max</code> and <code>haveVMax</code>
                        from <code>Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</code>
-                       to <code>Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</code>.
-                       The latter is instantiated in the former.
-                       This change is to support the implementation of
-                       <code>Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</code>.
-                       It simplifies the code overall when the said variables are declared
-                       in the lower model.<br/>
+                       to lower-level models.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>

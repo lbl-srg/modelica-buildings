@@ -28,12 +28,8 @@ model FlowMachineInterface
     "Flag, true if user specified data that contain V_flow_max";
 
   final parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=
-    if per.havePressureCurve then
-    (if haveVMax then
-      per.pressure.V_flow[nOri]
-     else
-      per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
-      nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri])
+    if per.V_flow_max>Modelica.Constants.eps
+      then per.V_flow_max
     else
       V_flow_nominal
     "Maximum volume flow rate, used for smoothing";
@@ -191,10 +187,8 @@ protected
     else zeros(9)
     "Coefficients for cubic spline of motor efficiency vs. motor PLR with generic curves";
 
-  parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
-    haveDPMax then per.pressure.dp[1] else per.pressure.dp[1] - ((per.pressure.dp[
-    2] - per.pressure.dp[1])/(per.pressure.V_flow[2] - per.pressure.V_flow[1]))
-    *per.pressure.V_flow[1] "Maximum head";
+  parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa")=
+    per.dpMax "Maximum head";
 
   parameter Real delta = 0.05
     "Small value used to for regularization and to approximate an internal flow resistance of the fan";
@@ -927,8 +921,7 @@ Implemented the option for the user to provide the motor efficiency
 curves to be used.
 </li>
 <li>
-Moved the specification of <code>haveVMax</code> and <code>V_flow_max</code> here
-from
+Moved <code>haveVMax</code> here from
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </li>

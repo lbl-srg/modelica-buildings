@@ -584,10 +584,12 @@ revisions="<html>
 May 6, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
-Moved the specification of <code>haveVMax</code>
-and <code>V_flow_max</code> from here to
+Moved <code>haveVMax</code> from here to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+and <code>V_flow_max</code> from here to
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a>.
 </li>
 <li>
 Added <code>per.peak</code>, <code>per.totalEfficiency,</code>,

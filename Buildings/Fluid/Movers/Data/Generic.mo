@@ -9,6 +9,22 @@ record Generic "Generic data record for movers"
     dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true,
                Dialog(group="Pressure curve"));
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=
+    if havePressureCurve
+      then (pressure.V_flow[end]
+                -(pressure.V_flow[end] - pressure.V_flow[end - 1])
+                /(pressure.dp[end] - pressure.dp[end - 1])
+                * pressure.dp[end])
+    else 0
+      "Volume flow rate on the curve when pressure rise is zero";
+  parameter Modelica.Units.SI.PressureDifference dpMax=
+    if havePressureCurve
+      then (pressure.dp[1]
+                -(pressure.dp[1] - pressure.dp[2])
+                /(pressure.V_flow[1] - pressure.V_flow[2])
+                * pressure.V_flow[1])
+    else 0
+      "Pressure rise on the curve when flow rate is zero";
 
   // Efficiency computation choices
   parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaHydMet=
@@ -87,15 +103,7 @@ record Generic "Generic data record for movers"
       else max(power.P)
     else
       if havePressureCurve
-        then (pressure.V_flow[end]
-                -(pressure.V_flow[end] - pressure.V_flow[end - 1])
-                /(pressure.dp[end] - pressure.dp[end - 1])
-                * pressure.dp[end])/2*
-             (pressure.dp[1]
-                -(pressure.dp[1] - pressure.dp[2])
-                /(pressure.V_flow[1] - pressure.V_flow[2])
-                * pressure.V_flow[1])/2
-              /0.7*1.2
+        then V_flow_max/2 * dpMax/2 /0.7*1.2
       else 0
     "Rated motor power"
       annotation(Dialog(group="Power computation",
@@ -174,6 +182,14 @@ Added parameters for computation using Euler number.
 <li>
 Added parameters for providing the motor efficiency as an array
 vs. motor part load ratio.
+</li>
+<li>
+Moved the computation of <code>V_flow_max</code> here from
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
+Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>
+and <code>dpMax</code> here from
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 </li>
 </ul>
 These are for
