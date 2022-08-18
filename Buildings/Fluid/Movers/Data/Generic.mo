@@ -90,6 +90,8 @@ record Generic "Generic data record for movers"
   final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak_internal=
     Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
     "Internal peak variable";
+  // The getPeak() function automatically handles the estimation of peak point
+  //   when insufficient information is provided from the pressure curve.
 
   // Motor
   parameter Boolean motorCooledByFluid=true

@@ -11,10 +11,29 @@ function getPeak
 
 protected
   parameter Integer n = size(pressure.V_flow, 1) "Number of data points";
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_hal=
+    if max(pressure.V_flow) < 1E-6
+      then 0
+    else (pressure.V_flow[end]
+                -(pressure.V_flow[end] - pressure.V_flow[end - 1])
+                /(pressure.dp[end] - pressure.dp[end - 1])
+                * pressure.dp[end])/2
+    "Half of max flow, max flow is where dp=0";
+  parameter Modelica.Units.SI.PressureDifference dpHalFlo=
+    if max(pressure.V_flow) < 1E-6
+      then 0
+    else Buildings.Utilities.Math.Functions.smoothInterpolation(
+               x=peak.V_flow,
+               xSup=pressure.V_flow,
+               ySup=pressure.dp,
+               ensureMonotonicity=true)
+    "Pressure rise at half flow";
+
   Real eta[n] "Efficiency series";
   Boolean etaLes "Efficiency series has less than four points";
   Boolean etaMon "Efficiency series is monotonic";
 
+  // A b = y
   Real A[n,5] "Design matrix";
   Real b[5] "Parameter vector";
   Real r[3,2] "Roots";
@@ -31,15 +50,8 @@ algorithm
     // If a pressure curve is available, but no power curve,
     //   peak.V_flow = V_flow_max / 2,
     //   peak.dp = dp(V_flow = V_flow_max / 2)
-    peak.V_flow:=(pressure.V_flow[end]
-                -(pressure.V_flow[end] - pressure.V_flow[end - 1])
-                /(pressure.dp[end] - pressure.dp[end - 1])
-                * pressure.dp[end])/2;
-    peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
-               x=peak.V_flow,
-               xSup=pressure.V_flow,
-               ySup=pressure.dp,
-               ensureMonotonicity=true);
+    peak.V_flow:=V_flow_hal;
+    peak.dp:=dpHalFlo;
     peak.eta:=0.7;
 
   else
@@ -49,25 +61,30 @@ algorithm
     etaMon:=Buildings.Utilities.Math.Functions.isMonotonic(
       x=eta,
       strict=false);
-    assert(not etaLes, "In " + getInstanceName() + ": The pressure and power curves
-    have less than 4 data points.
-    The Euler number method will directly use the point with maximum efficiency.
-    This may cause the computed values to be inaccurate.",
-            level = AssertionLevel.warning);
-    assert(not etaMon, "In " + getInstanceName() + ": The efficiency computed from
-    the pressure and power curves provided is monotonic vs. flow rate.
-    The Euler number method will directly use the point with maximum efficiency.
-    This may cause the computed values to be inaccurate.",
-            level = AssertionLevel.warning);
 
     if etaLes or etaMon then
-      peak.eta:=max(eta);
-      for i in 1:n loop
-        if abs(eta[i]-peak.eta)<1E-6 then
-          peak.V_flow:=pressure.V_flow[i];
-          peak.dp:=pressure.dp[i];
-        end if;
-      end for;
+    // If less than four data points are provided or the efficiency curve is
+    //   monotonic, use the one of two which has the higher efficiency:
+    //   1. the interpolated point at half of max flow;
+    //   2. the available point with the highest efficiency.
+      peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
+               x=V_flow_hal,
+               xSup=pressure.V_flow,
+               ySup=eta,
+               ensureMonotonicity=
+                 Buildings.Utilities.Math.Functions.isMonotonic(eta, strict=false));
+      if peak.eta>max(eta) then
+             peak.V_flow:=V_flow_hal;
+             peak.dp:=dpHalFlo;
+      else
+        peak.eta:=max(eta);
+        for i in 1:n loop
+          if abs(eta[i]-peak.eta)<1E-6 then
+            peak.V_flow:=pressure.V_flow[i];
+            peak.dp:=pressure.dp[i];
+          end if;
+        end for;
+      end if;
     else
 
       // Constructs the matrix equation A b = y for quartic regression, where
@@ -108,8 +125,9 @@ algorithm
 <p>
 This function finds or estimates the peak point
 <i>(V&#775;,&Delta;p,&eta;)|&eta;=&eta;<sub>max</sub></i>
-from the provided power curve <i>P(V&#775;)</i>
-and pressure curve <i>&Delta;p(V&#775;)</i>.
+from the input power curve <i>P(V&#775;)</i>
+and pressure curve <i>&Delta;p(V&#775;)</i>
+which may or may not contain non-zero values.
 The results are output as an instance of
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
@@ -118,35 +136,41 @@ to the function:
 </p>
 <ul>
 <li>
-If <i>&Delta;p(V&#775;)</i> is unavailable, the function simply outputs<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-V&#775;=0,<br/>
-&Delta;p=0,<br/>
-&eta;=0.7.
-</p>
+If <i>&Delta;p(V&#775;)</i> is unavailable, the function simply outputs
+<i>(0,0,0.7)</i>.
 </li>
 <li>
 If <i>&Delta;p(V&#775;)</i> is provided but <i>P(V&#775;)</i> is unavailable,
-the function provides an estimation of the peak point at<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-V&#775;=V&#775;<sub>max</sub> &frasl; 2,<br/>
-&Delta;p=&Delta;p(V&#775;=V&#775;<sub>max</sub> &frasl; 2),<br/>
-&eta;=0.7.
-</p>
+the function provides an estimation of the peak point at half of max flow rate
+<i>(V&#775;<sub>max</sub> &frasl; 2,
+&Delta;p(V&#775;=V&#775;<sub>max</sub> &frasl; 2),
+0.7)</i>.
 </li>
 <li>
 If both <i>&Delta;p(V&#775;)</i> and <i>P(V&#775;)</i> are available,
-the function first computes <i>&eta;(V&#775;)</i> using
-<i>&eta;=V&#775;&nbsp;&Delta;p &frasl; P</i>.
+the function first computes
+<i>&eta;(V&#775;)=V&#775;&nbsp;&Delta;p &frasl; P</i>.
 <ul>
 <li>
-If <i>&eta;(V&#775;)</i> has less than four data points or is monotonic, the point
-with the highest efficiency is directly used and the function issues a warning.
+If <i>&eta;(V&#775;)</i> has less than four data points or is monotonic,
+use one of the two which ever produces a higher <i>&eta;</i>:
+<ul>
+<li>
+The interpolated point at half of max flow rate
+<i>(V&#775;<sub>max</sub> &frasl; 2,
+&Delta;p(V&#775;=V&#775;<sub>max</sub> &frasl; 2),
+&eta;(V&#775;=V&#775;<sub>max</sub> &frasl; 2))</i>
+</li>
+<li>
+The available point with the highest computed efficiency.
+</li>
+</ul>
 </li>
 <li>
 Otherwise, the function runs a quartic regression on <i>&eta;(V&#775;)</i>
 then solves its derivative to find an extremum.
-It assumes that there is only one extremum on <i>(0,V&#775;<sub>max</sub>)</i>.
+It assumes that there is only one extremum on the open interval
+<i>(0,V&#775;<sub>max</sub>)</i>.
 </li>
 </ul>
 </li>
@@ -155,7 +179,7 @@ It assumes that there is only one extremum on <i>(0,V&#775;<sub>max</sub>)</i>.
 revisions="<html>
 <ul>
 <li>
-April 28, 2022, by Hongxiang Fu:<br/>
+August 18, 2022, by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
