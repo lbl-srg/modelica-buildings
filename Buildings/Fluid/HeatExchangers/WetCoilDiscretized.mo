@@ -56,6 +56,14 @@ Modelica.Media.Air.MoistAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+May 26, 2022, by Michael Wetter:<br/>
+Removed addition of heat to <code>mas.T</code> in
+<a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>
+to correct latent heat exchange calculation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">#3027</a>.
+</li>
+<li>
 January 12, 2019, by Michael Wetter:<br/>
 Corrected wrong use of <code>each</code>.
 </li>

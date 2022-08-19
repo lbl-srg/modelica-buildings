@@ -61,13 +61,6 @@ block OperationMode "Block that outputs the operation mode"
     "True when the setback mode could end"
     annotation (Placement(transformation(extent={{-400,-70},{-360,-30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMax(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Maximum zone temperature"
-    annotation (Placement(transformation(extent={{-400,-100},{-360,-60}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
     final unit="K",
     displayUnit="degC",
@@ -617,7 +610,6 @@ equation
     annotation (Line(points={{-380,90},{-340,90},{-340,-214},{-332,-214}}, color={255,127,0}));
   connect(addInt7.y, allHot.u1)
     annotation (Line(points={{-308,-220},{-282,-220}}, color={255,127,0}));
-
   connect(maxCooDowTim, sub3.u2) annotation (Line(points={{-380,280},{-338,280},
           {-338,244},{-302,244}}, color={0,0,127}));
   connect(maxWarCooTime.y, sub3.u1) annotation (Line(points={{-318,200},{-310,200},
@@ -632,7 +624,7 @@ equation
           154},{-162,154}}, color={0,0,127}));
   connect(actFreProTem.y, sub.u1) annotation (Line(points={{-258,-100},{-242,-100},
           {-242,-84},{-222,-84}}, color={0,0,127}));
-  connect(TZonMax, sub.u2) annotation (Line(points={{-380,-80},{-232,-80},{-232,
+  connect(TZonMin, sub.u2) annotation (Line(points={{-380,-120},{-230,-120},{-230,
           -96},{-222,-96}}, color={0,0,127}));
 annotation (
   defaultComponentName = "opeModSel",
@@ -748,7 +740,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
-          extent={{-100,144},{-82,136}},
+          extent={{-100,146},{-74,134}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOcc"),
@@ -772,11 +764,6 @@ annotation (
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEndSetBac"),
-        Text(
-          extent={{-98,-54},{-64,-64}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="TZonMax"),
         Text(
           extent={{-98,-74},{-64,-84}},
           textColor={0,0,127},
@@ -918,6 +905,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+August 5, 2022, by Jianjun Hu:<br/>
+Corrected the input for enabling freeze protection setback mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3084\">#3084</a>.
+</li>
 <li>
 June 15, 2020, by Jianjun Hu:<br/>
 Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.

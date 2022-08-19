@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Fluid.Sources.Examples.Outside_CpData", startTime=1.728e+07, stopTime=1.78848e+07, method="CVode", tolerance=1e-6, resultFile="Outside_CpData");
+simulateModel("Buildings.Fluid.Sources.Examples.Outside_CpData", startTime=1.728e+07, stopTime=1.78848e+07, method="CVode", tolerance=1e-6, resultFile="Outside_CpData");
 createPlot(id = 3,
  position = {55, 24, 679, 513},
  y = {"weaDat.weaBus.winDir"},
