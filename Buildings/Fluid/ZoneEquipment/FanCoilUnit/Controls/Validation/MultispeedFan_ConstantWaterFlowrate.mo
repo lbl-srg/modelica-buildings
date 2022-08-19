@@ -44,16 +44,39 @@ equation
                                              color={0,0,127}));
   connect(con1.y, conMulSpeFanConWat.THeaSet) annotation (Line(points={{-18,-40},
           {0,-40},{0,-6},{18,-6}},color={0,0,127}));
-  connect(sin.y, conMulSpeFanConWat.TZon)
-    annotation (Line(points={{-18,40},{0,40},{0,2},{18,2}},color={0,0,127}));
   connect(conMulSpeFanConWat.yFan, conMulSpeFanConWat.uFan) annotation (Line(
         points={{42,-6},{50,-6},{50,20},{10,20},{10,6},{18,6}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-        __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Controls/Validation/MultispeedFan_ConstantWaterFlowrate.mos"
+  connect(ram.y, conMulSpeFanConWat.TZon)
+    annotation (Line(points={{-18,40},{0,40},{0,2},{18,2}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Controls/Validation/MultispeedFan_ConstantWaterFlowrate.mos"
       "Simulate and plot"),
     experiment(
       StopTime=3600,
       Interval=1,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+    Documentation(info="<html>
+      <p>
+      This simulation model is used to validate <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFan_ConstantWaterFlowrate\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFan_ConstantWaterFlowrate</a>.
+      
+      The instance <code>conMulSpeFanConWat</code> is set-up with parameters and a
+      time-varying input signal for measured zone temperature <code>conMulSpeFanConWat.TZon</code> to 
+      replicate the output values for fan enable status <code>yFan</code>, fan speed
+      <code>yFanSpe</code>, cooling coil signal signal <code>yCoo</code> and heating
+      coil signal <code>yHea</code> as seen in the logic chart below.
+      </p>
+      <p align=\"center\">
+      <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateMultispeedFan.png\"/>
+      </p>
+      </html>
+      ", revisions="<html>
+      <ul>
+      <li>
+      August 03, 2022 by Karthik Devaprasad:<br/>
+      First implementation.
+      </li>
+      </ul>
+      </html>"));
 end MultispeedFan_ConstantWaterFlowrate;

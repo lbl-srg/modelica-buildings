@@ -273,22 +273,20 @@ protected
     "Enable fan in heating mode and cooling mode"
     annotation (Placement(transformation(extent={{-4,-170},{16,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDCoo(
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
-    final reverseActing=false)
-    "PI controller for fan speed in cooling mode"
+    final reverseActing=false) "PI controller for fan speed in cooling mode"
     annotation (Placement(transformation(extent={{-66,-70},{-46,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDHea(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea,
-    final reverseActing=false)
-    "PI controller for fan speed in heating mode"
+    final reverseActing=false) "PI controller for fan speed in heating mode"
     annotation (Placement(transformation(extent={{-66,-110},{-46,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -362,25 +360,23 @@ equation
   connect(hys2.y, or2.u2) annotation (Line(points={{-18,10},{-14,10},{-14,-168},
           {-6,-168}},color={255,0,255}));
 
-  connect(sub2.y, conPID.u_m) annotation (Line(points={{-78,40},{-72,40},{-72,-82},
-          {-56,-82},{-56,-72}},    color={0,0,127}));
+  connect(sub2.y, conPIDCoo.u_m) annotation (Line(points={{-78,40},{-72,40},{-72,
+          -82},{-56,-82},{-56,-72}}, color={0,0,127}));
 
-  connect(sub1.y, conPID1.u_m) annotation (Line(points={{-78,-30},{-74,-30},{-74,
-          -120},{-56,-120},{-56,-112}},
-                                   color={0,0,127}));
+  connect(sub1.y, conPIDHea.u_m) annotation (Line(points={{-78,-30},{-74,-30},{-74,
+          -120},{-56,-120},{-56,-112}}, color={0,0,127}));
 
-  connect(con.y, conPID.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,-60},
-          {-68,-60}},     color={0,0,127}));
+  connect(con.y, conPIDCoo.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,
+          -60},{-68,-60}}, color={0,0,127}));
 
-  connect(con.y, conPID1.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,
-          -100},{-68,-100}},
-                          color={0,0,127}));
+  connect(con.y, conPIDHea.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,
+          -100},{-68,-100}}, color={0,0,127}));
 
-  connect(conPID.y, add3.u1) annotation (Line(points={{-44,-60},{-40,-60},{-40,-74},
-          {-38,-74}},color={0,0,127}));
+  connect(conPIDCoo.y, add3.u1) annotation (Line(points={{-44,-60},{-40,-60},{-40,
+          -74},{-38,-74}}, color={0,0,127}));
 
-  connect(conPID1.y, add3.u2) annotation (Line(points={{-44,-100},{-40,-100},{-40,
-          -86},{-38,-86}},color={0,0,127}));
+  connect(conPIDHea.y, add3.u2) annotation (Line(points={{-44,-100},{-40,-100},{
+          -40,-86},{-38,-86}}, color={0,0,127}));
 
   connect(gre.u1, reaScaRep.y)
     annotation (Line(points={{58,-30},{52,-30}}, color={0,0,127}));
@@ -461,7 +457,7 @@ equation
     Documentation(info="<html>
       <p>
       This is a control module for the fan coil unit (FCU) system model designed as an 
-      analogue to the <code>ConstantFanVariableFlow</code> capacity control method 
+      analogue to the <code>MultiSpeedFan</code> capacity control method 
       in EnergyPlus. The control logic is as described in the following section 
       and can also be seen in the logic chart.
       <br>
@@ -469,16 +465,17 @@ equation
       <li>
       When the zone temperature <code>TZon</code> is above the cooling setpoint
       temperature <code>TCooSet</code>, the FCU enters cooling mode operation.
-      The fan is enabled (<code>yFan = True</code>) and is run at the maximum speed
-      (<code>yFanSpe = 1</code>). The cooling signal <code>yCoo</code> is used to
-      regulate <code>TZon</code> at <code>TCooSet</code>.
+      The fan is enabled (<code>yFan = True</code>). The cooling loop signal 
+      <code>conPIDCoo.y</code> is then compared with the speed limits defined in <code>fanSpe</code> 
+      to determine the fan speed <code>yFanSpe</code>. The cooling coil valve signal 
+      <code>yCoo</code> is set to fully open.
       </li>
       <li>
-      When <code>TZon</code> is below the heating setpoint
-      temperature <code>THeaSet</code>, the FCU enters heating mode operation.
-      The fan is enabled (<code>yFan = True</code>) and is run at the maximum speed
-      (<code>yFanSpe = 1</code>). The heating signal <code>yHea</code> is used to
-      regulate <code>TZon</code> at <code>THeaSet</code>.
+      When <code>TZon</code> is below the heating setpoint temperature <code>THeaSet</code>, 
+      the FCU enters heating mode operation. The fan is enabled (<code>yFan = True</code>). 
+      The heating loop signal <code>conPIDHea.y</code> is then compared with <code>fanSpe</code> 
+      to determine <code>yFanSpe</code>. The heating coil valve signal <code>yHea</code> 
+      is set to fully open.
       </li>
       <li>
       When the zone temperature <code>TZon</code> is between <code>THeaSet</code>
