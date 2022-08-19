@@ -163,7 +163,7 @@ Buildings.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 and its inverse function.
