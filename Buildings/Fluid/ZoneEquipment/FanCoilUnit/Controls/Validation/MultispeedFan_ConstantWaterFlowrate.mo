@@ -46,7 +46,7 @@ equation
           {0,-40},{0,-6},{18,-6}},color={0,0,127}));
   connect(conMulSpeFanConWat.yFan, conMulSpeFanConWat.uFan) annotation (Line(
         points={{42,-6},{50,-6},{50,20},{10,20},{10,6},{18,6}}, color={255,0,255}));
-  connect(ram.y, conMulSpeFanConWat.TZon)
+  connect(sin.y, conMulSpeFanConWat.TZon)
     annotation (Line(points={{-18,40},{0,40},{0,2},{18,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
