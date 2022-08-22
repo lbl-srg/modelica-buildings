@@ -25,7 +25,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Economizer high limit control device"
     annotation (Dialog(group="Economizer design"));
   parameter Real aveTimRan(unit="s")=5
-    "Time horizon over which the outdoor air flow measurment is averaged"
+    "Time horizon over which the outdoor air flow measurement is averaged"
     annotation (Dialog(group="Economizer design"));
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has hot water heating coil"
@@ -571,14 +571,15 @@ block Controller "Multizone VAV air handling unit controller"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-400,-170},{-360,-130}}),
         iconTransformation(extent={{-240,-140},{-200,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if (freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO or
+    freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Freeze protection stat signal. If the stat is normal open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
     annotation (Placement(transformation(extent={{-400,-200},{-360,-160}}),
         iconTransformation(extent={{-240,-180},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
-    if not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes if (freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat or freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-400,-240},{-360,-200}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
@@ -1012,17 +1013,14 @@ equation
           {144,-310},{-380,-310}}, color={0,0,127}));
   connect(ashOutAirSet.VEffAirOut_flow_min, VEffAirOut_flow_min) annotation (
       Line(points={{-58,193},{250,193},{250,250},{380,250}}, color={0,0,127}));
-  connect(ecoCon.yRelDam, yRelDam) annotation (Line(points={{84,-46},{260,-46},
-          {260,60},{380,60}}, color={0,0,127}));
-  connect(frePro.yFreProSta, ecoCon.uFreProSta) annotation (Line(points={{202,
-          -215},{220,-215},{220,-80},{46,-80},{46,-59},{60,-59}},
-                                                                color={255,127,0}));
-  connect(ecoCon.yOutDam, frePro.uOutDam) annotation (Line(points={{84,-52},{
-          136,-52},{136,-183},{178,-183}},
-                                       color={0,0,127}));
-  connect(ecoCon.yRetDam, frePro.uRetDam) annotation (Line(points={{84,-34},{
-          144,-34},{144,-193},{178,-193}},
-                                       color={0,0,127}));
+  connect(ecoCon.yRelDam, yRelDam) annotation (Line(points={{84,-46},{200,-46},
+          {200,60},{380,60}}, color={0,0,127}));
+  connect(frePro.yFreProSta, ecoCon.uFreProSta) annotation (Line(points={{202,-215},
+          {220,-215},{220,-80},{46,-80},{46,-59},{60,-59}},     color={255,127,0}));
+  connect(ecoCon.yOutDam, frePro.uOutDam) annotation (Line(points={{84,-52},{136,
+          -52},{136,-183},{178,-183}}, color={0,0,127}));
+  connect(ecoCon.yRetDam, frePro.uRetDam) annotation (Line(points={{84,-34},{144,
+          -34},{144,-193},{178,-193}}, color={0,0,127}));
   connect(supSig.yHeaCoi, frePro.uHeaCoi) annotation (Line(points={{-58,410},{160,
           410},{160,-186},{178,-186}}, color={0,0,127}));
   connect(conSupFan.ySupFan, frePro.uSupFan) annotation (Line(points={{-198,510},
@@ -1058,20 +1056,22 @@ equation
           {340,-190},{380,-190}}, color={0,0,127}));
   connect(relDam.dpBui, dpBui)
     annotation (Line(points={{-162,-344},{-380,-344}}, color={0,0,127}));
-  connect(relDam.yRelDam, yRelDam) annotation (Line(points={{-138,-350},{260,-350},
-          {260,60},{380,60}}, color={0,0,127}));
+  connect(relDam.yRelDam, yRelDam) annotation (Line(points={{-138,-350},{260,
+          -350},{260,60},{380,60}},
+                              color={0,0,127}));
   connect(retFanAirTra.VAirSup_flow, VAirSup_flow) annotation (Line(points={{-162,
           -394},{-320,-394},{-320,-380},{-380,-380}}, color={0,0,127}));
   connect(retFanAirTra.VAirRet_flow, VAirRet_flow) annotation (Line(points={{-162,
           -400},{-320,-400},{-320,-440},{-380,-440}}, color={0,0,127}));
   connect(dpBui, retFanDpCon.dpBui) annotation (Line(points={{-380,-344},{-280,-344},
           {-280,-464},{-162,-464}}, color={0,0,127}));
-  connect(retFanDpCon.yDpBui, yDpBui) annotation (Line(points={{-138,-462},{200,
-          -462},{200,-380},{380,-380}},                color={0,0,127}));
+  connect(retFanDpCon.yDpBui, yDpBui) annotation (Line(points={{-138,-462},{160,
+          -462},{160,-380},{380,-380}},                color={0,0,127}));
   connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-472},{
           310,-472},{310,-420},{380,-420}}, color={0,0,127}));
-  connect(u1SupFan, relDam.u1SupFan) annotation (Line(points={{-380,380},{-300,380},
-          {-300,-356},{-162,-356}}, color={255,0,255}));
+  connect(u1SupFan, relDam.u1SupFan) annotation (Line(points={{-380,380},{-300,
+          380},{-300,-356},{-162,-356}},
+                                    color={255,0,255}));
   connect(u1SupFan, retFanAirTra.u1SupFan) annotation (Line(points={{-380,380},{
           -300,380},{-300,-406},{-162,-406}}, color={255,0,255}));
   connect(u1SupFan, retFanDpCon.u1SupFan) annotation (Line(points={{-380,380},{-300,
@@ -1333,12 +1333,14 @@ annotation (
        Text(extent={{-196,-148},{-142,-168}},
           textColor={255,0,255},
           textString="u1FreSta",
-          visible=not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat),
-       Text(extent={{-196,-188},{-122,-208}},
+          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+                or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)),
+       Text(
+          extent={{-196,-188},{-122,-208}},
           textColor={255,0,255},
           textString="u1SofSwiRes",
-          visible=not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-                       or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)),
+          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)),
        Text(extent={{112,50},{200,32}},
           textColor={255,0,255},
           textString="y1EneCHWPum"),

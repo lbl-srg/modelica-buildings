@@ -45,88 +45,91 @@ block FreezeProtection
     final max=1,
     final unit="1")
     "Minimum economizer damper position limit as returned by the damper position limits  sequence"
-    annotation (Placement(transformation(extent={{-480,490},{-440,530}}),
+    annotation (Placement(transformation(extent={{-480,590},{-440,630}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam(
     final min=0,
     final max=1,
     final unit="1") "Economizer outdoor air damper commanded position"
-    annotation (Placement(transformation(extent={{-480,450},{-440,490}}),
+    annotation (Placement(transformation(extent={{-480,550},{-440,590}}),
         iconTransformation(extent={{-140,150},{-100,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
     final unit="1") if have_hotWatCoi "Heating coil valve commanded position"
-    annotation (Placement(transformation(extent={{-480,370},{-440,410}}),
+    annotation (Placement(transformation(extent={{-480,470},{-440,510}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDam(
     final min=0,
     final max=1,
     final unit="1") "Economizer return air damper commanded position"
-    annotation (Placement(transformation(extent={{-480,170},{-440,210}}),
+    annotation (Placement(transformation(extent={{-480,270},{-440,310}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-480,130},{-440,170}}),
+    annotation (Placement(transformation(extent={{-480,230},{-440,270}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Freeze protection stat signal. If the stat is normal open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
-    annotation (Placement(transformation(extent={{-480,-90},{-440,-50}}),
+    annotation (Placement(transformation(extent={{-480,70},{-440,110}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
-    if not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
     "Freeze protection reset signal from software switch"
-    annotation (Placement(transformation(extent={{-480,-130},{-440,-90}}),
+    annotation (Placement(transformation(extent={{-480,-50},{-440,-10}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
     "Supply fan commanded on"
-    annotation (Placement(transformation(extent={{-480,-160},{-440,-120}}),
+    annotation (Placement(transformation(extent={{-480,-110},{-440,-70}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan(
     final min=0,
     final max=1,
     final unit="1")
     "Supply fan commanded speed"
-    annotation (Placement(transformation(extent={{-480,-198},{-440,-158}}),
+    annotation (Placement(transformation(extent={{-480,-168},{-440,-128}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RetFan if (buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RetFan
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded on"
-    annotation (Placement(transformation(extent={{-480,-240},{-440,-200}}),
+    annotation (Placement(transformation(extent={{-480,-220},{-440,-180}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
-    annotation (Placement(transformation(extent={{-480,-308},{-440,-268}}),
+    annotation (Placement(transformation(extent={{-480,-288},{-440,-248}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan if buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan commanded on"
-    annotation (Placement(transformation(extent={{-480,-350},{-440,-310}}),
+    annotation (Placement(transformation(extent={{-480,-340},{-440,-300}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
     "Relief fan commanded speed"
-    annotation (Placement(transformation(extent={{-480,-418},{-440,-378}}),
+    annotation (Placement(transformation(extent={{-480,-408},{-440,-368}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
     final max=1,
     final unit="1") "Cooling coil valve commanded position"
-    annotation (Placement(transformation(extent={{-480,-458},{-440,-418}}),
+    annotation (Placement(transformation(extent={{-480,-488},{-440,-448}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
     final unit="K",
@@ -134,109 +137,111 @@ block FreezeProtection
     final quantity="ThermodynamicTemperature")
     if have_hotWatCoi
     "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-480,-516},{-440,-476}}),
+    annotation (Placement(transformation(extent={{-480,-576},{-440,-536}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
     "Freeze protection stage index"
-    annotation (Placement(transformation(extent={{440,110},{480,150}}),
+    annotation (Placement(transformation(extent={{440,210},{480,250}}),
         iconTransformation(extent={{100,-170},{140,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
     "Energize chilled water pump"
-    annotation (Placement(transformation(extent={{440,50},{480,90}}),
+    annotation (Placement(transformation(extent={{440,130},{480,170}}),
         iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam(
     final min=0,
     final max=1,
     final unit="1")
     "Return air damper commanded position"
-    annotation (Placement(transformation(extent={{440,-30},{480,10}}),
+    annotation (Placement(transformation(extent={{440,50},{480,90}}),
         iconTransformation(extent={{100,130},{140,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam(
     final min=0,
     final max=1,
     final unit="1")
     "Outdoor air damper commanded position"
-    annotation (Placement(transformation(extent={{440,-80},{480,-40}}),
+    annotation (Placement(transformation(extent={{440,-30},{480,10}}),
         iconTransformation(extent={{100,90},{140,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1SupFan
     "Supply fan commanded on"
-    annotation (Placement(transformation(extent={{440,-160},{480,-120}}),
+    annotation (Placement(transformation(extent={{440,-110},{480,-70}}),
         iconTransformation(extent={{100,48},{140,88}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFan(
     final min=0,
     final max=1,
     final unit="1")
     "Supply fan commanded speed"
-    annotation (Placement(transformation(extent={{440,-190},{480,-150}}),
+    annotation (Placement(transformation(extent={{440,-160},{480,-120}}),
         iconTransformation(extent={{100,28},{140,68}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan if (buiPreCon
-     == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded on"
-    annotation (Placement(transformation(extent={{440,-240},{480,-200}}),
+    annotation (Placement(transformation(extent={{440,-220},{480,-180}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
-    annotation (Placement(transformation(extent={{440,-300},{480,-260}}),
+    annotation (Placement(transformation(extent={{440,-280},{480,-240}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan if buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan commanded on"
-    annotation (Placement(transformation(extent={{440,-350},{480,-310}}),
+    annotation (Placement(transformation(extent={{440,-340},{480,-300}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
     "Relief fan commanded speed"
-    annotation (Placement(transformation(extent={{440,-410},{480,-370}}),
+    annotation (Placement(transformation(extent={{440,-400},{480,-360}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
     final unit="1") "Cooling coil valve commanded position"
-    annotation (Placement(transformation(extent={{440,-450},{480,-410}}),
+    annotation (Placement(transformation(extent={{440,-480},{480,-440}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
     final unit="1") if have_hotWatCoi "Heating coil valve commanded position"
-    annotation (Placement(transformation(extent={{440,-520},{480,-480}}),
+    annotation (Placement(transformation(extent={{440,-580},{480,-540}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
     if have_hotWatCoi
     "Request to heating hot-water plant"
-    annotation (Placement(transformation(extent={{440,-570},{480,-530}}),
+    annotation (Placement(transformation(extent={{440,-660},{480,-620}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla "Alarm level"
-    annotation (Placement(transformation(extent={{440,-620},{480,-580}}),
+    annotation (Placement(transformation(extent={{440,-710},{480,-670}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
     final t=273.15 + 4,
     final h=Thys)
     "Check if supply air temperature is less than threshold"
-    annotation (Placement(transformation(extent={{-360,560},{-340,580}})));
+    annotation (Placement(transformation(extent={{-360,660},{-340,680}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-300,560},{-280,580}})));
+    annotation (Placement(transformation(extent={{-300,660},{-280,680}})));
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq if have_hotWatCoi
     "Hot water plant request in stage 1 mode"
-    annotation (Placement(transformation(extent={{60,552},{80,572}})));
+    annotation (Placement(transformation(extent={{60,652},{80,672}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=minHotWatReq) if have_hotWatCoi
     "Minimum hot-water plant requests"
-    annotation (Placement(transformation(extent={{-20,590},{0,610}})));
+    annotation (Placement(transformation(extent={{-20,690},{0,710}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch minVen
     "Minimum ventilation when in stage 1 mode"
-    annotation (Placement(transformation(extent={{60,480},{80,500}})));
+    annotation (Placement(transformation(extent={{60,580},{80,600}})));
   Buildings.Controls.OBC.CDL.Continuous.PID heaCoiCon1(
     final controllerType=heaCoiCon,
     final k=k,
@@ -245,116 +250,121 @@ block FreezeProtection
     final yMax=yMax,
     final yMin=yMin) if have_hotWatCoi
     "Heating coil control in stage 1 mode"
-    annotation (Placement(transformation(extent={{-320,430},{-300,450}})));
+    annotation (Placement(transformation(extent={{-320,530},{-300,550}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1 if have_hotWatCoi
     "Heating coil position"
-    annotation (Placement(transformation(extent={{120,410},{140,430}})));
+    annotation (Placement(transformation(extent={{120,510},{140,530}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=273.15 + 7,
     final h=Thys)
     "Check if supply air temperature is greater than threshold"
-    annotation (Placement(transformation(extent={{-380,350},{-360,370}})));
+    annotation (Placement(transformation(extent={{-380,450},{-360,470}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Stay in stage 1 freeze protection mode"
-    annotation (Placement(transformation(extent={{-60,552},{-40,572}})));
+    annotation (Placement(transformation(extent={{-60,652},{-40,672}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim1(
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-320,350},{-300,370}})));
+    annotation (Placement(transformation(extent={{-320,450},{-300,470}})));
   Buildings.Controls.OBC.CDL.Logical.Edge endStaOne
     "Clear the latch to end the stage 1 freeze protection"
-    annotation (Placement(transformation(extent={{-260,342},{-240,362}})));
+    annotation (Placement(transformation(extent={{-260,442},{-240,462}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
     final t=273.15 + 3,
     final h=Thys)
     "Check if supply air temperature is less than threshold"
-    annotation (Placement(transformation(extent={{-380,260},{-360,280}})));
+    annotation (Placement(transformation(extent={{-380,360},{-360,380}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-340,260},{-320,280}})));
+    annotation (Placement(transformation(extent={{-340,360},{-320,380}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holSta2(
     final trueHoldDuration=3600,
     final falseHoldDuration=0)
     "Stage in stage 2 freeze protection mode"
-    annotation (Placement(transformation(extent={{-300,252},{-280,272}})));
+    annotation (Placement(transformation(extent={{-300,352},{-280,372}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch outDam2
     "Outdoor air damper position"
-    annotation (Placement(transformation(extent={{120,340},{140,360}})));
+    annotation (Placement(transformation(extent={{120,440},{140,460}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0)
     "Fully closed damper position"
-    annotation (Placement(transformation(extent={{40,360},{60,380}})));
+    annotation (Placement(transformation(extent={{40,460},{60,480}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch retDam2
     "Return air damper position"
-    annotation (Placement(transformation(extent={{120,208},{140,228}})));
+    annotation (Placement(transformation(extent={{120,308},{140,328}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=1)
     "Fully open damper or valve position"
-    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
+    annotation (Placement(transformation(extent={{-80,200},{-60,220}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Alarm when it is in stage 2 mode"
-    annotation (Placement(transformation(extent={{120,120},{140,140}})));
+    annotation (Placement(transformation(extent={{120,200},{140,220}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=3)
     "Level 3 alarm"
-    annotation (Placement(transformation(extent={{40,150},{60,170}})));
+    annotation (Placement(transformation(extent={{40,228},{60,248}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
     final k=0) if have_hotWatCoi
     "Zero request"
-    annotation (Placement(transformation(extent={{-20,530},{0,550}})));
+    annotation (Placement(transformation(extent={{-20,630},{0,650}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
     final t=900)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-300,80},{-280,100}})));
+    annotation (Placement(transformation(extent={{-300,160},{-280,180}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2(
     final t=273.15 + 1,
     final h=Thys)
     "Check if supply air temperature is less than threshold"
-    annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
+    annotation (Placement(transformation(extent={{-360,120},{-340,140}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim4(
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-300,40},{-280,60}})));
+    annotation (Placement(transformation(extent={{-300,120},{-280,140}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Check if it should be in stage 3 mode"
-    annotation (Placement(transformation(extent={{-220,32},{-200,52}})));
+    annotation (Placement(transformation(extent={{-220,112},{-200,132}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Stay in stage 3 freeze protection mode"
-    annotation (Placement(transformation(extent={{-140,32},{-120,52}})));
+    annotation (Placement(transformation(extent={{-140,112},{-120,132}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch supFan
+    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Supply fan speed"
-    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retFan if (buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch retFan
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+     and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Return fan speed"
-    annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
-     ReliefFan
+    annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch relFan
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+     and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Relief fan speed"
-    annotation (Placement(transformation(extent={{120,-400},{140,-380}})));
+    annotation (Placement(transformation(extent={{120,-390},{140,-370}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
     final k=0)
     "Zero constant"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch outDam
+    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Outdoor air damper"
-    annotation (Placement(transformation(extent={{320,-70},{340,-50}})));
+    annotation (Placement(transformation(extent={{320,-20},{340,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi
+    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Cooling coil position"
-    annotation (Placement(transformation(extent={{120,-440},{140,-420}})));
+    annotation (Placement(transformation(extent={{120,-470},{140,-450}})));
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3 if have_hotWatCoi
     "Hot water plant request in stage 3 mode"
-    annotation (Placement(transformation(extent={{320,-560},{340,-540}})));
+    annotation (Placement(transformation(extent={{320,-650},{340,-630}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
     final k=minHotWatReq) if have_hotWatCoi
     "Minimum hot-water plant requests"
-    annotation (Placement(transformation(extent={{-140,-552},{-120,-532}})));
+    annotation (Placement(transformation(extent={{-140,-642},{-120,-622}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1 if have_hotWatCoi
     "Higher of supply air and mixed air temperature"
-    annotation (Placement(transformation(extent={{-300,-500},{-280,-480}})));
+    annotation (Placement(transformation(extent={{-300,-560},{-280,-540}})));
   Buildings.Controls.OBC.CDL.Continuous.PID heaCoiMod(
     final controllerType=heaCoiCon,
     final k=k,
@@ -363,367 +373,473 @@ block FreezeProtection
     final yMax=yMax,
     final yMin=yMin) if have_hotWatCoi
     "Heating coil control when it is in stage 3 mode"
-    annotation (Placement(transformation(extent={{40,-470},{60,-450}})));
+    annotation (Placement(transformation(extent={{40,-530},{60,-510}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
     final k=273.15 + 27) if have_hotWatCoi
     "Setpoint temperature"
-    annotation (Placement(transformation(extent={{-140,-470},{-120,-450}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos if have_hotWatCoi
+    annotation (Placement(transformation(extent={{-140,-530},{-120,-510}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos
+    if have_hotWatCoi and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Heating coil position"
-    annotation (Placement(transformation(extent={{320,-510},{340,-490}})));
+    annotation (Placement(transformation(extent={{320,-570},{340,-550}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Alarm level"
-    annotation (Placement(transformation(extent={{320,-610},{340,-590}})));
+    annotation (Placement(transformation(extent={{320,-700},{340,-680}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=2) "Level 2 alarm"
-    annotation (Placement(transformation(extent={{-140,-602},{-120,-582}})));
+    annotation (Placement(transformation(extent={{-140,-692},{-120,-672}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert shuDowWar(
     final message="Warning: the unit is shut down by freeze protection!")
     "Unit shut down warning"
-    annotation (Placement(transformation(extent={{380,32},{400,52}})));
+    annotation (Placement(transformation(extent={{380,112},{400,132}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
-    annotation (Placement(transformation(extent={{120,32},{140,52}})));
+    annotation (Placement(transformation(extent={{320,112},{340,132}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert disMinVenWar(
     final message="Warning: minimum ventilation was interrupted by freeze protection!")
     "Warning of disabling minimum ventilation "
-    annotation (Placement(transformation(extent={{380,252},{400,272}})));
+    annotation (Placement(transformation(extent={{380,352},{400,372}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical not"
-    annotation (Placement(transformation(extent={{120,252},{140,272}})));
+    annotation (Placement(transformation(extent={{120,352},{140,372}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim5(
     final t=3600)
     "Check if it has been in stage 2 for sufficient long time"
-    annotation (Placement(transformation(extent={{-260,220},{-240,240}})));
+    annotation (Placement(transformation(extent={{-260,320},{-240,340}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
     final k=0)
     "Level 0 alarm"
-    annotation (Placement(transformation(extent={{40,88},{60,108}})));
+    annotation (Placement(transformation(extent={{40,166},{60,186}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Stay in stage 2 freeze protection mode"
-    annotation (Placement(transformation(extent={{-180,252},{-160,272}})));
+    annotation (Placement(transformation(extent={{-180,352},{-160,372}})));
   Buildings.Controls.OBC.CDL.Logical.Edge endStaTwo
     "Clear the latch to end the stage 2 freeze protection"
-    annotation (Placement(transformation(extent={{-220,212},{-200,232}})));
+    annotation (Placement(transformation(extent={{-220,312},{-200,332}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Start stage 1 freeze protection mode"
-    annotation (Placement(transformation(extent={{-100,552},{-80,572}})));
+    annotation (Placement(transformation(extent={{-100,652},{-80,672}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Switch from stage 2 to stage 1"
-    annotation (Placement(transformation(extent={{-140,520},{-120,540}})));
+    annotation (Placement(transformation(extent={{-140,620},{-120,640}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch retDam
+    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Return air damper position"
-    annotation (Placement(transformation(extent={{320,-20},{340,0}})));
+    annotation (Placement(transformation(extent={{320,60},{340,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemSet(
     final k=273.15+ 6) if have_hotWatCoi
     "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-380,430},{-360,450}})));
+    annotation (Placement(transformation(extent={{-380,530},{-360,550}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
     "Alarm level"
-    annotation (Placement(transformation(extent={{380,120},{400,140}})));
+    annotation (Placement(transformation(extent={{380,220},{400,240}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi4
     "Alarm level"
-    annotation (Placement(transformation(extent={{320,320},{340,340}})));
+    annotation (Placement(transformation(extent={{320,420},{340,440}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
     final k=2)
     "Stage 2 freeze protection"
-    annotation (Placement(transformation(extent={{160,370},{180,390}})));
+    annotation (Placement(transformation(extent={{160,470},{180,490}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi5
     "Alarm level"
-    annotation (Placement(transformation(extent={{260,510},{280,530}})));
+    annotation (Placement(transformation(extent={{260,610},{280,630}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
     final k=1)
     "Stage 1 freeze protection"
-    annotation (Placement(transformation(extent={{140,580},{160,600}})));
+    annotation (Placement(transformation(extent={{140,680},{160,700}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
     final k=0)
     "Stage 0 freeze protection"
-    annotation (Placement(transformation(extent={{140,480},{160,500}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1 if (freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
+    annotation (Placement(transformation(extent={{140,580},{160,600}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Reset the freeze protection by the physical reset switch in freeze stat"
-    annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+    annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Freeze protection enabled by the freeze stat"
-    annotation (Placement(transformation(extent={{-300,-40},{-280,-20}})));
+    annotation (Placement(transformation(extent={{-300,40},{-280,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant norOpe(
-    final k=freSta ==Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-         or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Without_reset_switch_NO) if not
-    freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+    final k=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO)
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Check if the freeze stat is normally open"
-    annotation (Placement(transformation(extent={{-360,-40},{-340,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norFal if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+    annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Not norFal
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "The output is normally false when the freeze stat is normally open (true)"
     annotation (Placement(transformation(extent={{-360,0},{-340,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false)
-    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
+    final k=false)
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
     "Constant false"
-    annotation (Placement(transformation(extent={{-300,-90},{-280,-70}})));
+    annotation (Placement(transformation(extent={{-300,-10},{-280,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not norSta1
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Not in stage 3"
-    annotation (Placement(transformation(extent={{120,-360},{140,-340}})));
+    annotation (Placement(transformation(extent={{120,-350},{140,-330}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+     and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Disable relief fan when in stage 3"
-    annotation (Placement(transformation(extent={{320,-340},{340,-320}})));
+    annotation (Placement(transformation(extent={{320,-330},{340,-310}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+     and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Disable return fan when in stage 3"
-    annotation (Placement(transformation(extent={{320,-230},{340,-210}})));
+    annotation (Placement(transformation(extent={{320,-210},{340,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Not norSta2
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Not in stage 3"
-    annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
+    annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Not norSta3 "Not in stage 3"
-    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
+    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Disable supply fan when in stage 3"
-    annotation (Placement(transformation(extent={{320,-150},{340,-130}})));
+    annotation (Placement(transformation(extent={{320,-100},{340,-80}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(final k=1)
+    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{320,30},{340,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=1)
+    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{320,-52},{340,-32}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling conditional connection"
+    annotation (Placement(transformation(extent={{320,-130},{340,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=1)
+    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling conditional connection"
+    annotation (Placement(transformation(extent={{320,-240},{340,-220}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=1)
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{120,-300},{140,-280}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or5
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling conditional connection"
+    annotation (Placement(transformation(extent={{320,-360},{340,-340}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai5(final k=1)
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{120,-420},{140,-400}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai6(final k=1)
+    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{120,-500},{140,-480}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai7(final k=1)
+    if have_hotWatCoi and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{320,-600},{340,-580}})));
 
 equation
   connect(lesThr.y, tim.u)
-    annotation (Line(points={{-338,570},{-302,570}}, color={255,0,255}));
-  connect(TAirSup, lesThr.u) annotation (Line(points={{-460,150},{-420,150},{-420,
-          570},{-362,570}}, color={0,0,127}));
-  connect(conInt.y, hotWatPlaReq.u1) annotation (Line(points={{2,600},{40,600},{
-          40,570},{58,570}}, color={255,127,0}));
-  connect(uOutDamPosMin, minVen.u1) annotation (Line(points={{-460,510},{0,510},
-          {0,498},{58,498}}, color={0,0,127}));
+    annotation (Line(points={{-338,670},{-302,670}}, color={255,0,255}));
+  connect(TAirSup, lesThr.u) annotation (Line(points={{-460,250},{-420,250},{-420,
+          670},{-362,670}}, color={0,0,127}));
+  connect(conInt.y, hotWatPlaReq.u1) annotation (Line(points={{2,700},{40,700},{
+          40,670},{58,670}}, color={255,127,0}));
+  connect(uOutDamPosMin, minVen.u1) annotation (Line(points={{-460,610},{0,610},
+          {0,598},{58,598}}, color={0,0,127}));
   connect(supTemSet.y, heaCoiCon1.u_s)
-    annotation (Line(points={{-358,440},{-322,440}}, color={0,0,127}));
-  connect(TAirSup, heaCoiCon1.u_m) annotation (Line(points={{-460,150},{-420,150},
-          {-420,410},{-310,410},{-310,428}}, color={0,0,127}));
-  connect(heaCoiCon1.y, heaCoi1.u1) annotation (Line(points={{-298,440},{0,440},
-          {0,428},{118,428}}, color={0,0,127}));
-  connect(TAirSup, greThr.u) annotation (Line(points={{-460,150},{-420,150},{-420,
-          360},{-382,360}}, color={0,0,127}));
+    annotation (Line(points={{-358,540},{-322,540}}, color={0,0,127}));
+  connect(TAirSup, heaCoiCon1.u_m) annotation (Line(points={{-460,250},{-420,250},
+          {-420,510},{-310,510},{-310,528}}, color={0,0,127}));
+  connect(heaCoiCon1.y, heaCoi1.u1) annotation (Line(points={{-298,540},{0,540},
+          {0,528},{118,528}}, color={0,0,127}));
+  connect(TAirSup, greThr.u) annotation (Line(points={{-460,250},{-420,250},{-420,
+          460},{-382,460}}, color={0,0,127}));
   connect(greThr.y, tim1.u)
-    annotation (Line(points={{-358,360},{-322,360}}, color={255,0,255}));
+    annotation (Line(points={{-358,460},{-322,460}}, color={255,0,255}));
   connect(tim1.passed, endStaOne.u)
-    annotation (Line(points={{-298,352},{-262,352}}, color={255,0,255}));
-  connect(endStaOne.y, lat.clr) annotation (Line(points={{-238,352},{-70,352},{-70,
-          556},{-62,556}}, color={255,0,255}));
+    annotation (Line(points={{-298,452},{-262,452}}, color={255,0,255}));
+  connect(endStaOne.y, lat.clr) annotation (Line(points={{-238,452},{-70,452},{-70,
+          656},{-62,656}}, color={255,0,255}));
   connect(lat.y, hotWatPlaReq.u2)
-    annotation (Line(points={{-38,562},{58,562}}, color={255,0,255}));
-  connect(lat.y, minVen.u2) annotation (Line(points={{-38,562},{20,562},{20,490},
-          {58,490}}, color={255,0,255}));
-  connect(lat.y, heaCoi1.u2) annotation (Line(points={{-38,562},{20,562},{20,420},
-          {118,420}}, color={255,0,255}));
-  connect(TAirSup, lesThr1.u) annotation (Line(points={{-460,150},{-420,150},{-420,
-          270},{-382,270}}, color={0,0,127}));
+    annotation (Line(points={{-38,662},{58,662}}, color={255,0,255}));
+  connect(lat.y, minVen.u2) annotation (Line(points={{-38,662},{20,662},{20,590},
+          {58,590}}, color={255,0,255}));
+  connect(lat.y, heaCoi1.u2) annotation (Line(points={{-38,662},{20,662},{20,520},
+          {118,520}}, color={255,0,255}));
+  connect(TAirSup, lesThr1.u) annotation (Line(points={{-460,250},{-420,250},{-420,
+          370},{-382,370}}, color={0,0,127}));
   connect(lesThr1.y, tim2.u)
-    annotation (Line(points={{-358,270},{-342,270}}, color={255,0,255}));
+    annotation (Line(points={{-358,370},{-342,370}}, color={255,0,255}));
   connect(tim2.passed, holSta2.u)
-    annotation (Line(points={{-318,262},{-302,262}}, color={255,0,255}));
-  connect(con.y, outDam2.u1) annotation (Line(points={{62,370},{80,370},{80,358},
-          {118,358}}, color={0,0,127}));
-  connect(con1.y, retDam2.u1) annotation (Line(points={{-58,130},{-20,130},{-20,
-          226},{118,226}}, color={0,0,127}));
-  connect(uRetDam, retDam2.u3) annotation (Line(points={{-460,190},{-120,190},{-120,
-          210},{118,210}}, color={0,0,127}));
-  connect(conInt1.y, intSwi1.u1) annotation (Line(points={{62,160},{100,160},{100,
-          138},{118,138}}, color={255,127,0}));
-  connect(lesThr1.y, tim3.u) annotation (Line(points={{-358,270},{-350,270},{-350,
-          90},{-302,90}},   color={255,0,255}));
+    annotation (Line(points={{-318,362},{-302,362}}, color={255,0,255}));
+  connect(con.y, outDam2.u1) annotation (Line(points={{62,470},{80,470},{80,458},
+          {118,458}}, color={0,0,127}));
+  connect(con1.y, retDam2.u1) annotation (Line(points={{-58,210},{-20,210},{-20,
+          326},{118,326}}, color={0,0,127}));
+  connect(uRetDam, retDam2.u3) annotation (Line(points={{-460,290},{-110,290},{-110,
+          310},{118,310}}, color={0,0,127}));
+  connect(conInt1.y, intSwi1.u1) annotation (Line(points={{62,238},{100,238},{100,
+          218},{118,218}}, color={255,127,0}));
+  connect(lesThr1.y, tim3.u) annotation (Line(points={{-358,370},{-350,370},{-350,
+          170},{-302,170}}, color={255,0,255}));
   connect(lesThr2.y, tim4.u)
-    annotation (Line(points={{-338,50},{-302,50}},     color={255,0,255}));
-  connect(TAirSup, lesThr2.u) annotation (Line(points={{-460,150},{-420,150},{-420,
-          50},{-362,50}},   color={0,0,127}));
-  connect(tim3.passed, or3.u1) annotation (Line(points={{-278,82},{-240,82},{-240,
-          50},{-222,50}},     color={255,0,255}));
+    annotation (Line(points={{-338,130},{-302,130}},   color={255,0,255}));
+  connect(TAirSup, lesThr2.u) annotation (Line(points={{-460,250},{-420,250},{-420,
+          130},{-362,130}}, color={0,0,127}));
+  connect(tim3.passed, or3.u1) annotation (Line(points={{-278,162},{-240,162},{-240,
+          130},{-222,130}},   color={255,0,255}));
   connect(tim4.passed, or3.u2)
-    annotation (Line(points={{-278,42},{-222,42}},     color={255,0,255}));
+    annotation (Line(points={{-278,122},{-222,122}},   color={255,0,255}));
   connect(or3.y, lat1.u)
-    annotation (Line(points={{-198,42},{-142,42}},     color={255,0,255}));
-  connect(u1SofSwiRes, lat1.clr) annotation (Line(points={{-460,-110},{-160,-110},
-          {-160,36},{-142,36}},   color={255,0,255}));
-  connect(lat1.y, supFan.u2) annotation (Line(points={{-118,42},{20,42},{20,-170},
-          {118,-170}},       color={255,0,255}));
-  connect(lat1.y, retFan.u2) annotation (Line(points={{-118,42},{20,42},{20,-280},
-          {118,-280}},       color={255,0,255}));
-  connect(lat1.y, relFan.u2) annotation (Line(points={{-118,42},{20,42},{20,-390},
-          {118,-390}},       color={255,0,255}));
-  connect(con3.y, supFan.u1) annotation (Line(points={{-118,-70},{40,-70},{40,-162},
-          {118,-162}},       color={0,0,127}));
-  connect(con3.y, retFan.u1) annotation (Line(points={{-118,-70},{40,-70},{40,-272},
-          {118,-272}},       color={0,0,127}));
-  connect(con3.y, relFan.u1) annotation (Line(points={{-118,-70},{40,-70},{40,-382},
-          {118,-382}},       color={0,0,127}));
+    annotation (Line(points={{-198,122},{-142,122}},   color={255,0,255}));
+  connect(u1SofSwiRes, lat1.clr) annotation (Line(points={{-460,-30},{-160,-30},
+          {-160,116},{-142,116}}, color={255,0,255}));
+  connect(lat1.y, supFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-140},
+          {118,-140}},       color={255,0,255}));
+  connect(lat1.y, retFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-260},
+          {118,-260}},       color={255,0,255}));
+  connect(lat1.y, relFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-380},
+          {118,-380}},       color={255,0,255}));
+  connect(con3.y, supFan.u1) annotation (Line(points={{-118,10},{40,10},{40,-132},
+          {118,-132}},       color={0,0,127}));
+  connect(con3.y, retFan.u1) annotation (Line(points={{-118,10},{40,10},{40,-252},
+          {118,-252}},       color={0,0,127}));
+  connect(con3.y, relFan.u1) annotation (Line(points={{-118,10},{40,10},{40,-372},
+          {118,-372}},       color={0,0,127}));
   connect(uSupFan, supFan.u3)
-    annotation (Line(points={{-460,-178},{118,-178}}, color={0,0,127}));
+    annotation (Line(points={{-460,-148},{118,-148}}, color={0,0,127}));
   connect(uRetFan, retFan.u3)
-    annotation (Line(points={{-460,-288},{118,-288}}, color={0,0,127}));
+    annotation (Line(points={{-460,-268},{118,-268}}, color={0,0,127}));
   connect(uRelFan, relFan.u3)
-    annotation (Line(points={{-460,-398},{118,-398}}, color={0,0,127}));
+    annotation (Line(points={{-460,-388},{118,-388}}, color={0,0,127}));
   connect(supFan.y, ySupFan)
-    annotation (Line(points={{142,-170},{460,-170}}, color={0,0,127}));
+    annotation (Line(points={{142,-140},{460,-140}}, color={0,0,127}));
   connect(relFan.y, yRelFan)
-    annotation (Line(points={{142,-390},{460,-390}}, color={0,0,127}));
+    annotation (Line(points={{142,-380},{460,-380}}, color={0,0,127}));
   connect(retFan.y, yRetFan)
-    annotation (Line(points={{142,-280},{460,-280}}, color={0,0,127}));
-  connect(con3.y, outDam.u1) annotation (Line(points={{-118,-70},{40,-70},{40,-52},
-          {318,-52}},        color={0,0,127}));
-  connect(lat1.y, outDam.u2) annotation (Line(points={{-118,42},{20,42},{20,-60},
-          {318,-60}},        color={255,0,255}));
-  connect(uCooCoi, cooCoi.u3)
-    annotation (Line(points={{-460,-438},{118,-438}}, color={0,0,127}));
-  connect(lat1.y, cooCoi.u2) annotation (Line(points={{-118,42},{20,42},{20,-430},
-          {118,-430}},       color={255,0,255}));
-  connect(con1.y, cooCoi.u1) annotation (Line(points={{-58,130},{-20,130},{-20,-422},
-          {118,-422}}, color={0,0,127}));
-  connect(conInt3.y, hotWatPlaReq3.u1)
-    annotation (Line(points={{-118,-542},{318,-542}}, color={255,127,0}));
-  connect(lat1.y, hotWatPlaReq3.u2) annotation (Line(points={{-118,42},{20,42},{
-          20,-550},{318,-550}},  color={255,0,255}));
-  connect(TAirMix, max1.u2)
-    annotation (Line(points={{-460,-496},{-302,-496}}, color={0,0,127}));
-  connect(TAirSup, max1.u1) annotation (Line(points={{-460,150},{-420,150},{-420,
-          -484},{-302,-484}}, color={0,0,127}));
-  connect(max1.y, heaCoiMod.u_m) annotation (Line(points={{-278,-490},{50,-490},
-          {50,-472}}, color={0,0,127}));
-  connect(con4.y, heaCoiMod.u_s)
-    annotation (Line(points={{-118,-460},{38,-460}}, color={0,0,127}));
-  connect(heaCoiMod.y, heaCoiPos.u1) annotation (Line(points={{62,-460},{100,-460},
-          {100,-492},{318,-492}}, color={0,0,127}));
-  connect(lat1.y, heaCoiPos.u2) annotation (Line(points={{-118,42},{20,42},{20,-500},
-          {318,-500}},          color={255,0,255}));
-  connect(lat1.y, intSwi3.u2) annotation (Line(points={{-118,42},{20,42},{20,-600},
-          {318,-600}},       color={255,0,255}));
-  connect(conInt4.y, intSwi3.u1)
-    annotation (Line(points={{-118,-592},{318,-592}}, color={255,127,0}));
-  connect(lat1.y, not1.u)
-    annotation (Line(points={{-118,42},{118,42}},     color={255,0,255}));
-  connect(not1.y, shuDowWar.u)
-    annotation (Line(points={{142,42},{378,42}},     color={255,0,255}));
-  connect(not2.y, disMinVenWar.u)
-    annotation (Line(points={{142,262},{378,262}}, color={255,0,255}));
-  connect(holSta2.y, tim5.u) annotation (Line(points={{-278,262},{-270,262},{-270,
-          230},{-262,230}}, color={255,0,255}));
-  connect(uOutDam, minVen.u3) annotation (Line(points={{-460,470},{0,470},{0,482},
-          {58,482}}, color={0,0,127}));
-  connect(minVen.y, outDam2.u3) annotation (Line(points={{82,490},{100,490},{100,
-          342},{118,342}}, color={0,0,127}));
-  connect(outDam2.y, outDam.u3) annotation (Line(points={{142,350},{270,350},{270,
-          -68},{318,-68}},   color={0,0,127}));
-  connect(conInt2.y, hotWatPlaReq.u3) annotation (Line(points={{2,540},{40,540},
-          {40,554},{58,554}}, color={255,127,0}));
-  connect(conInt5.y, intSwi1.u3) annotation (Line(points={{62,98},{100,98},{100,
-          122},{118,122}}, color={255,127,0}));
-  connect(intSwi1.y, intSwi3.u3) annotation (Line(points={{142,130},{210,130},{210,
-          -608},{318,-608}}, color={255,127,0}));
-  connect(intSwi3.y, yAla)
-    annotation (Line(points={{342,-600},{460,-600}}, color={255,127,0}));
-  connect(hotWatPlaReq.y, hotWatPlaReq3.u3) annotation (Line(points={{82,562},{230,
-          562},{230,-558},{318,-558}}, color={255,127,0}));
-  connect(hotWatPlaReq3.y, yHotWatPlaReq)
-    annotation (Line(points={{342,-550},{460,-550}}, color={255,127,0}));
-  connect(uHeaCoi, heaCoi1.u3) annotation (Line(points={{-460,390},{0,390},{0,412},
-          {118,412}}, color={0,0,127}));
-  connect(heaCoi1.y, heaCoiPos.u3) annotation (Line(points={{142,420},{280,420},
-          {280,-508},{318,-508}}, color={0,0,127}));
-  connect(heaCoiPos.y, yHeaCoi)
-    annotation (Line(points={{342,-500},{460,-500}}, color={0,0,127}));
-  connect(holSta2.y, lat2.u)
-    annotation (Line(points={{-278,262},{-182,262}}, color={255,0,255}));
-  connect(tim5.passed, endStaTwo.u)
-    annotation (Line(points={{-238,222},{-222,222}}, color={255,0,255}));
-  connect(endStaTwo.y, lat2.clr) annotation (Line(points={{-198,222},{-190,222},
-          {-190,256},{-182,256}}, color={255,0,255}));
-  connect(lat2.y, outDam2.u2) annotation (Line(points={{-158,262},{20,262},{20,350},
-          {118,350}}, color={255,0,255}));
-  connect(lat2.y, not2.u)
-    annotation (Line(points={{-158,262},{118,262}}, color={255,0,255}));
-  connect(lat2.y, retDam2.u2) annotation (Line(points={{-158,262},{20,262},{20,218},
-          {118,218}}, color={255,0,255}));
-  connect(lat2.y, intSwi1.u2) annotation (Line(points={{-158,262},{20,262},{20,130},
-          {118,130}}, color={255,0,255}));
-  connect(tim.passed, or2.u1)
-    annotation (Line(points={{-278,562},{-102,562}}, color={255,0,255}));
-  connect(or2.y, lat.u)
-    annotation (Line(points={{-78,562},{-62,562}}, color={255,0,255}));
-  connect(falEdg.y, or2.u2) annotation (Line(points={{-118,530},{-110,530},{-110,
-          554},{-102,554}}, color={255,0,255}));
-  connect(lat2.y, falEdg.u) annotation (Line(points={{-158,262},{-150,262},{-150,
-          530},{-142,530}}, color={255,0,255}));
-  connect(lat1.y, retDam.u2) annotation (Line(points={{-118,42},{20,42},{20,-10},
-          {318,-10}},        color={255,0,255}));
-  connect(con3.y, retDam.u1) annotation (Line(points={{-118,-70},{40,-70},{40,-2},
+    annotation (Line(points={{142,-260},{460,-260}}, color={0,0,127}));
+  connect(con3.y, outDam.u1) annotation (Line(points={{-118,10},{40,10},{40,-2},
           {318,-2}},         color={0,0,127}));
-  connect(retDam2.y, retDam.u3) annotation (Line(points={{142,218},{260,218},{260,
+  connect(lat1.y, outDam.u2) annotation (Line(points={{-118,122},{20,122},{20,-10},
+          {318,-10}},        color={255,0,255}));
+  connect(uCooCoi, cooCoi.u3)
+    annotation (Line(points={{-460,-468},{118,-468}}, color={0,0,127}));
+  connect(lat1.y, cooCoi.u2) annotation (Line(points={{-118,122},{20,122},{20,-460},
+          {118,-460}},       color={255,0,255}));
+  connect(con1.y, cooCoi.u1) annotation (Line(points={{-58,210},{-20,210},{-20,-452},
+          {118,-452}}, color={0,0,127}));
+  connect(conInt3.y, hotWatPlaReq3.u1)
+    annotation (Line(points={{-118,-632},{318,-632}}, color={255,127,0}));
+  connect(lat1.y, hotWatPlaReq3.u2) annotation (Line(points={{-118,122},{20,122},
+          {20,-640},{318,-640}}, color={255,0,255}));
+  connect(TAirMix, max1.u2)
+    annotation (Line(points={{-460,-556},{-302,-556}}, color={0,0,127}));
+  connect(TAirSup, max1.u1) annotation (Line(points={{-460,250},{-420,250},{-420,
+          -544},{-302,-544}}, color={0,0,127}));
+  connect(max1.y, heaCoiMod.u_m) annotation (Line(points={{-278,-550},{50,-550},
+          {50,-532}}, color={0,0,127}));
+  connect(con4.y, heaCoiMod.u_s)
+    annotation (Line(points={{-118,-520},{38,-520}}, color={0,0,127}));
+  connect(heaCoiMod.y, heaCoiPos.u1) annotation (Line(points={{62,-520},{100,-520},
+          {100,-552},{318,-552}}, color={0,0,127}));
+  connect(lat1.y, heaCoiPos.u2) annotation (Line(points={{-118,122},{20,122},{20,
+          -560},{318,-560}},    color={255,0,255}));
+  connect(lat1.y, intSwi3.u2) annotation (Line(points={{-118,122},{20,122},{20,-690},
+          {318,-690}},       color={255,0,255}));
+  connect(conInt4.y, intSwi3.u1)
+    annotation (Line(points={{-118,-682},{318,-682}}, color={255,127,0}));
+  connect(lat1.y, not1.u)
+    annotation (Line(points={{-118,122},{318,122}},   color={255,0,255}));
+  connect(not1.y, shuDowWar.u)
+    annotation (Line(points={{342,122},{378,122}},   color={255,0,255}));
+  connect(not2.y, disMinVenWar.u)
+    annotation (Line(points={{142,362},{378,362}}, color={255,0,255}));
+  connect(holSta2.y, tim5.u) annotation (Line(points={{-278,362},{-270,362},{-270,
+          330},{-262,330}}, color={255,0,255}));
+  connect(uOutDam, minVen.u3) annotation (Line(points={{-460,570},{-100,570},{-100,
+          582},{58,582}},  color={0,0,127}));
+  connect(minVen.y, outDam2.u3) annotation (Line(points={{82,590},{100,590},{100,
+          442},{118,442}}, color={0,0,127}));
+  connect(outDam2.y, outDam.u3) annotation (Line(points={{142,450},{270,450},{270,
           -18},{318,-18}},   color={0,0,127}));
+  connect(conInt2.y, hotWatPlaReq.u3) annotation (Line(points={{2,640},{40,640},
+          {40,654},{58,654}}, color={255,127,0}));
+  connect(conInt5.y, intSwi1.u3) annotation (Line(points={{62,176},{100,176},{100,
+          202},{118,202}}, color={255,127,0}));
+  connect(intSwi1.y, intSwi3.u3) annotation (Line(points={{142,210},{210,210},{210,
+          -698},{318,-698}}, color={255,127,0}));
+  connect(intSwi3.y, yAla)
+    annotation (Line(points={{342,-690},{460,-690}}, color={255,127,0}));
+  connect(hotWatPlaReq.y, hotWatPlaReq3.u3) annotation (Line(points={{82,662},{230,
+          662},{230,-648},{318,-648}}, color={255,127,0}));
+  connect(hotWatPlaReq3.y, yHotWatPlaReq)
+    annotation (Line(points={{342,-640},{460,-640}}, color={255,127,0}));
+  connect(uHeaCoi, heaCoi1.u3) annotation (Line(points={{-460,490},{0,490},{0,512},
+          {118,512}}, color={0,0,127}));
+  connect(heaCoi1.y, heaCoiPos.u3) annotation (Line(points={{142,520},{280,520},
+          {280,-568},{318,-568}}, color={0,0,127}));
+  connect(heaCoiPos.y, yHeaCoi)
+    annotation (Line(points={{342,-560},{460,-560}}, color={0,0,127}));
+  connect(holSta2.y, lat2.u)
+    annotation (Line(points={{-278,362},{-182,362}}, color={255,0,255}));
+  connect(tim5.passed, endStaTwo.u)
+    annotation (Line(points={{-238,322},{-222,322}}, color={255,0,255}));
+  connect(endStaTwo.y, lat2.clr) annotation (Line(points={{-198,322},{-190,322},
+          {-190,356},{-182,356}}, color={255,0,255}));
+  connect(lat2.y, outDam2.u2) annotation (Line(points={{-158,362},{20,362},{20,450},
+          {118,450}}, color={255,0,255}));
+  connect(lat2.y, not2.u)
+    annotation (Line(points={{-158,362},{118,362}}, color={255,0,255}));
+  connect(lat2.y, retDam2.u2) annotation (Line(points={{-158,362},{20,362},{20,318},
+          {118,318}}, color={255,0,255}));
+  connect(lat2.y, intSwi1.u2) annotation (Line(points={{-158,362},{20,362},{20,210},
+          {118,210}}, color={255,0,255}));
+  connect(tim.passed, or2.u1)
+    annotation (Line(points={{-278,662},{-102,662}}, color={255,0,255}));
+  connect(or2.y, lat.u)
+    annotation (Line(points={{-78,662},{-62,662}}, color={255,0,255}));
+  connect(falEdg.y, or2.u2) annotation (Line(points={{-118,630},{-110,630},{-110,
+          654},{-102,654}}, color={255,0,255}));
+  connect(lat2.y, falEdg.u) annotation (Line(points={{-158,362},{-150,362},{-150,
+          630},{-142,630}}, color={255,0,255}));
+  connect(lat1.y, retDam.u2) annotation (Line(points={{-118,122},{20,122},{20,70},
+          {318,70}},         color={255,0,255}));
+  connect(con3.y, retDam.u1) annotation (Line(points={{-118,10},{40,10},{40,78},
+          {318,78}},         color={0,0,127}));
+  connect(retDam2.y, retDam.u3) annotation (Line(points={{142,318},{260,318},{260,
+          62},{318,62}},     color={0,0,127}));
   connect(retDam.y, yRetDam)
-    annotation (Line(points={{342,-10},{460,-10}},   color={0,0,127}));
-  connect(lat1.y, y1EneCHWPum) annotation (Line(points={{-118,42},{20,42},{20,70},
-          {460,70}},       color={255,0,255}));
+    annotation (Line(points={{342,70},{460,70}},     color={0,0,127}));
+  connect(lat1.y, y1EneCHWPum) annotation (Line(points={{-118,122},{248,122},{248,
+          150},{460,150}}, color={255,0,255}));
   connect(outDam.y, yOutDam)
-    annotation (Line(points={{342,-60},{460,-60}},   color={0,0,127}));
+    annotation (Line(points={{342,-10},{460,-10}},   color={0,0,127}));
   connect(cooCoi.y, yCooCoi)
-    annotation (Line(points={{142,-430},{460,-430}}, color={0,0,127}));
-  connect(conInt1.y, intSwi2.u1) annotation (Line(points={{62,160},{290,160},{290,
-          138},{378,138}}, color={255,127,0}));
-  connect(lat1.y, intSwi2.u2) annotation (Line(points={{-118,42},{20,42},{20,70},
-          {292,70},{292,130},{378,130}},color={255,0,255}));
-  connect(lat2.y, intSwi4.u2) annotation (Line(points={{-158,262},{20,262},{20,330},
-          {318,330}}, color={255,0,255}));
-  connect(conInt6.y, intSwi4.u1) annotation (Line(points={{182,380},{290,380},{290,
-          338},{318,338}}, color={255,127,0}));
-  connect(intSwi4.y, intSwi2.u3) annotation (Line(points={{342,330},{360,330},{360,
-          122},{378,122}}, color={255,127,0}));
-  connect(lat.y, intSwi5.u2) annotation (Line(points={{-38,562},{20,562},{20,520},
-          {258,520}}, color={255,0,255}));
-  connect(intSwi5.y, intSwi4.u3) annotation (Line(points={{282,520},{300,520},{300,
-          322},{318,322}}, color={255,127,0}));
-  connect(conInt7.y, intSwi5.u1) annotation (Line(points={{162,590},{240,590},{240,
-          528},{258,528}}, color={255,127,0}));
+    annotation (Line(points={{142,-460},{460,-460}}, color={0,0,127}));
+  connect(conInt1.y, intSwi2.u1) annotation (Line(points={{62,238},{378,238}},
+                           color={255,127,0}));
+  connect(lat1.y, intSwi2.u2) annotation (Line(points={{-118,122},{248,122},{248,
+          230},{378,230}},              color={255,0,255}));
+  connect(lat2.y, intSwi4.u2) annotation (Line(points={{-158,362},{20,362},{20,430},
+          {318,430}}, color={255,0,255}));
+  connect(conInt6.y, intSwi4.u1) annotation (Line(points={{182,480},{290,480},{290,
+          438},{318,438}}, color={255,127,0}));
+  connect(intSwi4.y, intSwi2.u3) annotation (Line(points={{342,430},{360,430},{360,
+          222},{378,222}}, color={255,127,0}));
+  connect(lat.y, intSwi5.u2) annotation (Line(points={{-38,662},{20,662},{20,620},
+          {258,620}}, color={255,0,255}));
+  connect(intSwi5.y, intSwi4.u3) annotation (Line(points={{282,620},{300,620},{300,
+          422},{318,422}}, color={255,127,0}));
+  connect(conInt7.y, intSwi5.u1) annotation (Line(points={{162,690},{240,690},{240,
+          628},{258,628}}, color={255,127,0}));
   connect(intSwi2.y, yFreProSta)
-    annotation (Line(points={{402,130},{460,130}}, color={255,127,0}));
-  connect(conInt8.y, intSwi5.u3) annotation (Line(points={{162,490},{200,490},{200,
-          512},{258,512}}, color={255,127,0}));
-  connect(u1FreSta, norFal.u) annotation (Line(points={{-460,-70},{-400,-70},{-400,
+    annotation (Line(points={{402,230},{460,230}}, color={255,127,0}));
+  connect(conInt8.y, intSwi5.u3) annotation (Line(points={{162,590},{200,590},{200,
+          612},{258,612}}, color={255,127,0}));
+  connect(u1FreSta, norFal.u) annotation (Line(points={{-460,90},{-380,90},{-380,
           10},{-362,10}},        color={255,0,255}));
   connect(norOpe.y, logSwi.u2)
-    annotation (Line(points={{-338,-30},{-302,-30}},   color={255,0,255}));
-  connect(norFal.y, logSwi.u1) annotation (Line(points={{-338,10},{-320,10},{-320,
-          -22},{-302,-22}},   color={255,0,255}));
-  connect(u1FreSta, logSwi.u3) annotation (Line(points={{-460,-70},{-320,-70},{-320,
-          -38},{-302,-38}},         color={255,0,255}));
-  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,-30},{-240,-30},{-240,
-          34},{-222,34}},   color={255,0,255}));
+    annotation (Line(points={{-338,50},{-302,50}},     color={255,0,255}));
+  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,50},{-240,50},{-240,114},
+          {-222,114}},      color={255,0,255}));
   connect(logSwi.y, falEdg1.u)
-    annotation (Line(points={{-278,-30},{-222,-30}},   color={255,0,255}));
-  connect(falEdg1.y, lat1.clr) annotation (Line(points={{-198,-30},{-180,-30},{-180,
-          36},{-142,36}},         color={255,0,255}));
-  connect(con2.y, or3.u3) annotation (Line(points={{-278,-80},{-240,-80},{-240,34},
-          {-222,34}},       color={255,0,255}));
+    annotation (Line(points={{-278,50},{-222,50}},     color={255,0,255}));
+  connect(falEdg1.y, lat1.clr) annotation (Line(points={{-198,50},{-180,50},{-180,
+          116},{-142,116}},       color={255,0,255}));
+  connect(con2.y, or3.u3) annotation (Line(points={{-278,0},{-240,0},{-240,114},
+          {-222,114}},      color={255,0,255}));
   connect(u1RelFan, and2.u1)
-    annotation (Line(points={{-460,-330},{318,-330}}, color={255,0,255}));
-  connect(lat1.y, norSta1.u) annotation (Line(points={{-118,42},{20,42},{20,-350},
-          {118,-350}}, color={255,0,255}));
-  connect(norSta1.y, and2.u2) annotation (Line(points={{142,-350},{160,-350},{160,
-          -338},{318,-338}}, color={255,0,255}));
+    annotation (Line(points={{-460,-320},{318,-320}}, color={255,0,255}));
+  connect(lat1.y, norSta1.u) annotation (Line(points={{-118,122},{20,122},{20,-340},
+          {118,-340}}, color={255,0,255}));
+  connect(norSta1.y, and2.u2) annotation (Line(points={{142,-340},{160,-340},{160,
+          -328},{318,-328}}, color={255,0,255}));
   connect(u1RetFan, and1.u1)
-    annotation (Line(points={{-460,-220},{318,-220}}, color={255,0,255}));
-  connect(lat1.y, norSta2.u) annotation (Line(points={{-118,42},{20,42},{20,-240},
-          {118,-240}}, color={255,0,255}));
-  connect(norSta2.y, and1.u2) annotation (Line(points={{142,-240},{160,-240},{160,
-          -228},{318,-228}}, color={255,0,255}));
-  connect(lat1.y, norSta3.u) annotation (Line(points={{-118,42},{20,42},{20,-120},
-          {118,-120}}, color={255,0,255}));
+    annotation (Line(points={{-460,-200},{318,-200}}, color={255,0,255}));
+  connect(lat1.y, norSta2.u) annotation (Line(points={{-118,122},{20,122},{20,-220},
+          {118,-220}}, color={255,0,255}));
+  connect(norSta2.y, and1.u2) annotation (Line(points={{142,-220},{160,-220},{160,
+          -208},{318,-208}}, color={255,0,255}));
+  connect(lat1.y, norSta3.u) annotation (Line(points={{-118,122},{20,122},{20,-70},
+          {118,-70}},  color={255,0,255}));
   connect(u1SupFan, and3.u1)
-    annotation (Line(points={{-460,-140},{318,-140}}, color={255,0,255}));
-  connect(norSta3.y, and3.u2) annotation (Line(points={{142,-120},{160,-120},{160,
-          -148},{318,-148}}, color={255,0,255}));
+    annotation (Line(points={{-460,-90},{318,-90}},   color={255,0,255}));
+  connect(norSta3.y, and3.u2) annotation (Line(points={{142,-70},{160,-70},{160,
+          -98},{318,-98}},   color={255,0,255}));
   connect(and2.y, y1RelFan)
-    annotation (Line(points={{342,-330},{460,-330}}, color={255,0,255}));
+    annotation (Line(points={{342,-320},{460,-320}}, color={255,0,255}));
   connect(and1.y, y1RetFan)
-    annotation (Line(points={{342,-220},{460,-220}}, color={255,0,255}));
+    annotation (Line(points={{342,-200},{460,-200}}, color={255,0,255}));
   connect(and3.y, y1SupFan)
-    annotation (Line(points={{342,-140},{460,-140}}, color={255,0,255}));
+    annotation (Line(points={{342,-90},{460,-90}},   color={255,0,255}));
+  connect(uRetDam, gai4.u) annotation (Line(points={{-460,290},{-110,290},{-110,
+          40},{318,40}}, color={0,0,127}));
+  connect(gai4.y, yRetDam) annotation (Line(points={{342,40},{360,40},{360,70},{
+          460,70}}, color={0,0,127}));
+  connect(uOutDam, gai1.u) annotation (Line(points={{-460,570},{-100,570},{-100,
+          -42},{318,-42}}, color={0,0,127}));
+  connect(gai1.y, yOutDam) annotation (Line(points={{342,-42},{360,-42},{360,-10},
+          {460,-10}}, color={0,0,127}));
+  connect(u1SupFan, or1.u1) annotation (Line(points={{-460,-90},{300,-90},{300,-120},
+          {318,-120}}, color={255,0,255}));
+  connect(u1SupFan, or1.u2) annotation (Line(points={{-460,-90},{300,-90},{300,-128},
+          {318,-128}}, color={255,0,255}));
+  connect(or1.y, y1SupFan) annotation (Line(points={{342,-120},{360,-120},{360,-90},
+          {460,-90}}, color={255,0,255}));
+  connect(uSupFan, gai2.u) annotation (Line(points={{-460,-148},{100,-148},{100,
+          -170},{118,-170}}, color={0,0,127}));
+  connect(gai2.y, ySupFan) annotation (Line(points={{142,-170},{160,-170},{160,-140},
+          {460,-140}}, color={0,0,127}));
+  connect(u1RetFan, or4.u1) annotation (Line(points={{-460,-200},{300,-200},{300,
+          -230},{318,-230}}, color={255,0,255}));
+  connect(u1RetFan, or4.u2) annotation (Line(points={{-460,-200},{300,-200},{300,
+          -238},{318,-238}}, color={255,0,255}));
+  connect(or4.y, y1RetFan) annotation (Line(points={{342,-230},{360,-230},{360,-200},
+          {460,-200}}, color={255,0,255}));
+  connect(uRetFan, gai3.u) annotation (Line(points={{-460,-268},{100,-268},{100,
+          -290},{118,-290}}, color={0,0,127}));
+  connect(gai3.y, yRetFan) annotation (Line(points={{142,-290},{160,-290},{160,-260},
+          {460,-260}}, color={0,0,127}));
+  connect(u1RelFan, or5.u1) annotation (Line(points={{-460,-320},{300,-320},{300,
+          -350},{318,-350}}, color={255,0,255}));
+  connect(u1RelFan, or5.u2) annotation (Line(points={{-460,-320},{300,-320},{300,
+          -358},{318,-358}}, color={255,0,255}));
+  connect(or5.y, y1RelFan) annotation (Line(points={{342,-350},{360,-350},{360,-320},
+          {460,-320}}, color={255,0,255}));
+  connect(uRelFan, gai5.u) annotation (Line(points={{-460,-388},{100,-388},{100,
+          -410},{118,-410}}, color={0,0,127}));
+  connect(gai5.y, yRelFan) annotation (Line(points={{142,-410},{160,-410},{160,-380},
+          {460,-380}}, color={0,0,127}));
+  connect(uCooCoi, gai6.u) annotation (Line(points={{-460,-468},{100,-468},{100,
+          -490},{118,-490}}, color={0,0,127}));
+  connect(gai6.y, yCooCoi) annotation (Line(points={{142,-490},{160,-490},{160,-460},
+          {460,-460}}, color={0,0,127}));
+  connect(uHeaCoi, gai7.u) annotation (Line(points={{-460,490},{0,490},{0,-590},
+          {318,-590}}, color={0,0,127}));
+  connect(gai7.y, yHeaCoi) annotation (Line(points={{342,-590},{360,-590},{360,-560},
+          {460,-560}}, color={0,0,127}));
+  connect(u1FreSta, logSwi.u1) annotation (Line(points={{-460,90},{-320,90},{-320,
+          58},{-302,58}}, color={255,0,255}));
+  connect(norFal.y, logSwi.u3) annotation (Line(points={{-338,10},{-320,10},{-320,
+          42},{-302,42}}, color={255,0,255}));
 annotation (defaultComponentName="sinAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -743,7 +859,8 @@ annotation (defaultComponentName="sinAHUFrePro",
           extent={{-96,62},{-54,42}},
           textColor={255,0,255},
           textString="u1FreSta",
-          visible=not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat),
+          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)),
         Text(
           extent={{-102,178},{-46,162}},
           textColor={0,0,127},
@@ -769,8 +886,10 @@ annotation (defaultComponentName="sinAHUFrePro",
         Text(
           extent={{-100,-70},{-50,-86}},
           textColor={0,0,127},
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir or
-                   buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+
           textString="uRetFan"),
         Text(
           extent={{-98,-20},{-50,-36}},
@@ -823,10 +942,11 @@ annotation (defaultComponentName="sinAHUFrePro",
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi),
         Text(
-          extent={{-96,32},{-34,8}},
+          extent={{-94,32},{-32,8}},
           textColor={255,0,255},
-          visible=not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC),
+          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment),
+
           textString="u1SofSwiRes"),
         Text(
           extent={{24,200},{96,180}},
@@ -874,24 +994,24 @@ annotation (defaultComponentName="sinAHUFrePro",
           textColor={255,0,255},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="y1RelFan")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-440,-640},{440,640}}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-440,-720},{440,720}}),
           graphics={
         Text(
-          extent={{-332,132},{-238,112}},
+          extent={{-332,212},{-238,192}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 3"),
         Text(
-          extent={{-330,310},{-236,290}},
+          extent={{-330,410},{-236,390}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 2"),
         Text(
-          extent={{-342,612},{-248,592}},
+          extent={{-342,712},{-248,692}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
@@ -498,14 +498,16 @@ block Controller
         iconTransformation(extent={{-240,-90},{-200,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
-    final quantity="SpecificEnergy") if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
+    final quantity="SpecificEnergy")
+    if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
      or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
         iconTransformation(extent={{-240,-120},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
     final unit="J/kg",
-    final quantity="SpecificEnergy") if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final quantity="SpecificEnergy")
+    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Return air enthalpy"
     annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
@@ -513,18 +515,20 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+    final quantity="ThermodynamicTemperature")
+    if ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-300,-160},{-260,-120}}),
         iconTransformation(extent={{-240,-160},{-200,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if not freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Freeze protection stat signal"
     annotation (Placement(transformation(extent={{-300,-190},{-260,-150}}),
         iconTransformation(extent={{-240,-190},{-200,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes if not (freSta
-     == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-300,-220},{-260,-180}}),
         iconTransformation(extent={{-240,-210},{-200,-170}})));
@@ -643,7 +647,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
@@ -657,7 +662,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{260,-120},{300,-80}}),
         iconTransformation(extent={{200,-80},{240,-40}})));
@@ -681,12 +687,13 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Relief damper commanded position"
     annotation (Placement(transformation(extent={{260,-280},{300,-240}}),
         iconTransformation(extent={{200,-230},{240,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam if (buiPreCon
-     == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Exhaust damper command on"
@@ -1311,15 +1318,16 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           textString="cooSetAdj"),
         Text(
-          visible=not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
+          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC),
           extent={{-196,-158},{-144,-178}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="u1FreSta"),
         Text(
-          visible=not (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NO
-               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.With_reset_switch_NC),
+          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment),
           extent={{-196,-180},{-124,-202}},
           textColor={255,0,255},
           fillColor={0,0,0},
