@@ -1,26 +1,23 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
-model VariableDutyCycle
-  "Validation model for producing cycling output"
+model VariablePulse "Validation model for producing cycling output"
 
-  Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle truGo(
+  Buildings.Controls.OBC.CDL.Logical.VariablePulse truGo(
     final samplePeriod=1.0,
-    final period=4)
-    "Constant duty cycle with go input being constant true"
+    final period=4) "Constant duty cycle with go input being constant true"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle falGo(
+  Buildings.Controls.OBC.CDL.Logical.VariablePulse falGo(
     final samplePeriod=1.0,
-    final period=4)
-    "Constant duty cycle with go input being constant false"
+    final period=4) "Constant duty cycle with go input being constant false"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle truFalGo(
+  Buildings.Controls.OBC.CDL.Logical.VariablePulse truFalGo(
     final samplePeriod=1.0,
     final period=4)
     "Constant duty cycle with go input changing from true to false"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle falTruGo(
+  Buildings.Controls.OBC.CDL.Logical.VariablePulse falTruGo(
     final samplePeriod=1.0,
     final period=4)
     "Constant duty cycle with go input changing from false to true"
@@ -48,22 +45,22 @@ model VariableDutyCycle
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
-  connect(con.y, truGo.uCycOn)
+  connect(con.y, truGo.uWid)
     annotation (Line(points={{-18,70},{18,70}}, color={0,0,127}));
-  connect(con1.y, falGo.uCycOn)
+  connect(con1.y, falGo.uWid)
     annotation (Line(points={{-18,20},{18,20}}, color={0,0,127}));
-  connect(conPul.y, truFalGo.uCycOn)
+  connect(conPul.y, truFalGo.uWid)
     annotation (Line(points={{-18,-30},{18,-30}}, color={0,0,127}));
-  connect(conPul1.y, falTruGo.uCycOn)
+  connect(conPul1.y, falTruGo.uWid)
     annotation (Line(points={{-18,-70},{18,-70}}, color={0,0,127}));
 annotation (experiment(StopTime=20,Tolerance=1e-06),
   __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/VariableDutyCycle.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/VariablePulse.mos" "Simulate and plot"),
   Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle\">
-Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.VariablePulse\">
+Buildings.Controls.OBC.CDL.Logical.VariablePulse</a>.
 </p>
 </html>",
 revisions="<html>
@@ -87,4 +84,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end VariableDutyCycle;
+end VariablePulse;

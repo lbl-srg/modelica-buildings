@@ -1,7 +1,6 @@
 And
 And3
 Change
-ConstantDutyCycle
 Edge
 FallingEdge
 Latch
@@ -22,7 +21,7 @@ TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
-VariableDutyCycle
+VariablePulse
 Xor
 ZeroCrossing
 Sources

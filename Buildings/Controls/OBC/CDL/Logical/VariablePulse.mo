@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block VariableDutyCycle
+block VariablePulse
   "Produce output that cycles on and off according to the specified pulse period and width input"
 
   parameter Real samplePeriod(
@@ -12,7 +12,7 @@ block VariableDutyCycle
     final unit="s",
     final min=Constants.small)
     "Time for one period";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCycOn(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid(
     final min=0,
     final max=1,
     final unit="1")
@@ -47,21 +47,21 @@ block VariableDutyCycle
     "Produce cycling output when the pulse width is greater than zero"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant swi2(
-    final k=true) "Remain true output"
+    final k=false)
+    "Remain false output"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 protected
   Cycle cycOut(final period=period) "Produce cycling output"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
-  block Cycle
-  "Produce output that cycles on and off according to the specified pulse period and width input"
+  block Cycle "Produce output that cycles on and off according to the specified pulse period and width input"
     parameter Real period
       "Time for one period";
     Interfaces.BooleanInput go
       "True: cycle the output"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
           iconTransformation(extent={{-140,-100},{-100,-60}})));
-    Interfaces.RealInput uCycOn
+    Interfaces.RealInput uWid
       "Ratio of the cycle time that the output should be on"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
           iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -95,7 +95,7 @@ protected
 
     t_sta = Buildings.Utilities.Math.Functions.round(
       x=integer((time-t0)/period)*period, n=6)+t0;
-    t_end = t_sta + uCycOn*period;
+    t_end = t_sta + uWid*period;
 
     if (time>=t_sta) and (time<t_end) then
       y = true;
@@ -119,29 +119,26 @@ protected
   end Cycle;
 
 equation
-  connect(uCycOn, sam.u)
-    annotation (Line(points={{-120,0},{-90,0},{-90,80},{-82,80}},   color={0,0,127}));
+  connect(uWid, sam.u) annotation (Line(points={{-120,0},{-90,0},{-90,80},{-82,80}},
+        color={0,0,127}));
   connect(sam.y, sub.u1) annotation (Line(points={{-58,80},{-50,80},{-50,66},{-42,
           66}}, color={0,0,127}));
   connect(greThr.y, swi.u2) annotation (Line(points={{42,60},{50,60},{50,30},{58,
           30}}, color={255,0,255}));
-  connect(uCycOn, sub.u2) annotation (Line(points={{-120,0},{-90,0},{-90,54},{-42,
-          54}},     color={0,0,127}));
+  connect(uWid, sub.u2) annotation (Line(points={{-120,0},{-90,0},{-90,54},{-42,
+          54}}, color={0,0,127}));
   connect(sub.y, abs1.u)
     annotation (Line(points={{-18,60},{-12,60}}, color={0,0,127}));
   connect(abs1.y, greThr.u)
     annotation (Line(points={{12,60},{18,60}}, color={0,0,127}));
   connect(sam.y, swi.u3) annotation (Line(points={{-58,80},{-50,80},{-50,22},{58,
           22}}, color={0,0,127}));
-  connect(uCycOn, swi.u1) annotation (Line(points={{-120,0},{-90,0},{-90,38},{58,
-          38}},    color={0,0,127}));
-  connect(uCycOn, greThr1.u) annotation (Line(points={{-120,0},{-90,0},{-90,-40},
-          {-82,-40}}, color={0,0,127}));
+  connect(uWid, swi.u1) annotation (Line(points={{-120,0},{-90,0},{-90,38},{58,38}},
+        color={0,0,127}));
+  connect(uWid, greThr1.u) annotation (Line(points={{-120,0},{-90,0},{-90,-40},{
+          -82,-40}}, color={0,0,127}));
   connect(greThr1.y, cycOut.go) annotation (Line(points={{-58,-40},{-20,-40},{
-          -20,-18},{-2,-18}},
-                          color={255,0,255}));
-  connect(swi.y, cycOut.uCycOn) annotation (Line(points={{82,30},{88,30},{88,10},
-          {-20,10},{-20,-10},{-2,-10}}, color={0,0,127}));
+          -20,-18},{-2,-18}}, color={255,0,255}));
   connect(cycOut.y, swi1.u1) annotation (Line(points={{22,-10},{40,-10},{40,-32},
           {58,-32}}, color={255,0,255}));
   connect(greThr1.y, swi1.u2)
@@ -150,8 +147,10 @@ equation
           58,-48}}, color={255,0,255}));
   connect(swi1.y, y)
     annotation (Line(points={{82,-40},{120,-40}}, color={255,0,255}));
+  connect(swi.y, cycOut.uWid) annotation (Line(points={{82,30},{90,30},{90,10},{
+          -20,10},{-20,-10},{-2,-10}}, color={0,0,127}));
 annotation (
-    defaultComponentName="varDutCyc",
+    defaultComponentName="varPul",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -215,9 +214,8 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Line(points={{-80,20},{-60,20},{-60,60},{60,60}},
-                                                        color={0,0,127}),
-        Line(points={{-80,-40},{-60,-40}}, color={0,0,0}),
+        Line(points={{-80,20},{-60,20},{-60,60},{60,60}}, color={0,0,127}),
+        Line(points={{-80,-80},{-60,-80}}, color={0,0,0}),
         Line(points={{-60,-40},{-30,-40},{-30,-80}}, color={0,0,0}),
         Line(points={{0,-40},{30,-40},{30,-80}}, color={0,0,0}),
         Line(points={{0,-40},{0,-80}}, color={0,0,0}),
@@ -244,19 +242,35 @@ annotation (
         Text(
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Line(points={{-60,-40},{-60,-80}}, color={0,0,0}),
+        Line(points={{-30,-80},{0,-80}}, color={0,0,0}),
+        Line(points={{30,-80},{60,-80}}, color={0,0,0})}),
     Documentation(
       info="<html>
 <p>
-Block that produces an output that cycles on and off according to the specified
-length of time for the cycle and the value of the input <code>uCycOn</code>,
-which indicates the percentage of the cycle time the output should be on.
-It only cycles the output when the input value is greater than zero.
-If the input is zero, the output remains on.
+Block that produces an output that cycles true and false according to the specified
+length of time (<code>period</code>) for the cycle and the value of the
+input <code>uWid</code>, which indicates the percentage of the cycle time the
+output should be true.
 </p>
+<ul>
+<li>
+If the input <code>uWid</code> is zero, the output <code>y</code> remains false.
+</li>
+<li>
+If the input <code>uWid</code> is greater than zero, the output <code>y</code> will be
+a boolean pulse with the period specified by the parameter <code>period</code> and
+the width specified by the input <code>uWid</code>.
+</li>
+<li>
+At the moment when the input <code>uWid</code> changes to a new value, the output
+will immediately change to a new pulse with the width specified by the new value.
+</li>
+</ul>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/VariableDutyCycle.png\"
-     alt=\"VariableDutyCycle.png\" />
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/VariablePulse.png\"
+     alt=\"VariablePulse.png\" />
 </p>
 </html>",
 revisions="<html>
@@ -267,4 +281,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end VariableDutyCycle;
+end VariablePulse;

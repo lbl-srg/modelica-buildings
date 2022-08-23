@@ -219,8 +219,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.ConstantDutyCycle<br/>
-                       Buildings.Controls.OBC.CDL.Logical.VariableDutyCycle
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.VariablePulse
     </td>
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
                        This is for

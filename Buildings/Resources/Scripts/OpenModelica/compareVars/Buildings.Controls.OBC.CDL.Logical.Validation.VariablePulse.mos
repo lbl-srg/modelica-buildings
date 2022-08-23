@@ -1,11 +1,11 @@
 compareVars :=
   {
-    "truGo.go",
+    "truGo.uWid",
     "truGo.y",
-    "falGo.go",
+    "falGo.uWid",
     "falGo.y",
-    "truFalGo.go",
+    "truFalGo.uWid",
     "truFalGo.y",
-    "falTruGo.go",
+    "falTruGo.uWid",
     "falTruGo.y"
   };
