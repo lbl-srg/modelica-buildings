@@ -12,18 +12,22 @@ block VariablePulse
     final unit="s",
     final min=Constants.small)
     "Time for one period";
+  parameter Real widHys=0.01
+    "Hysteresis for checking if width is greater than zero"
+    annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid(
     final min=0,
     final max=1,
     final unit="1")
-    "Ratio of the cycle time that the output should be on"
+    "Ratio of the cycle time that the output should be true"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Cycling boolean output when input is greater than zero"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(
     final samplePeriod=samplePeriod)
     "Sample the input and use it to check the input value change"
@@ -34,13 +38,15 @@ block VariablePulse
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1
     "Find the absolute value change"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final h=widHys)
     "Check if there is input value change"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "If there is input value change, use the new value"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+    final h=widHys)
     "Check if the input is greater than zero"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
@@ -50,23 +56,27 @@ block VariablePulse
     final k=false)
     "Remain false output"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-protected
-  Cycle cycOut(final period=period) "Produce cycling output"
+  Cycle cycOut(
+    final period=period) "Produce cycling output"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
-  block Cycle "Produce output that cycles on and off according to the specified pulse period and width input"
-    parameter Real period
+  block Cycle
+    "Produce output that cycles true and false according to the specified pulse period and width input"
+    parameter Real period(
+      final quantity="Time",
+      final unit="s",
+      final min=Constants.small)
       "Time for one period";
-    Interfaces.BooleanInput go
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput go
       "True: cycle the output"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
           iconTransformation(extent={{-140,-100},{-100,-60}})));
-    Interfaces.RealInput uWid
-      "Ratio of the cycle time that the output should be on"
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid
+      "Ratio of the cycle time that the output should be true"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
           iconTransformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.BooleanOutput y
-      "Connector of Boolean output signal"
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+      "Cycling boolean output"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
     discrete Real t0(
