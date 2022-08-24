@@ -32,13 +32,13 @@ record Generic "Generic data record for movers"
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-    if PowerOrEfficiencyIsHydraulic
+    if powerOrEfficiencyIsHydraulic
       then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
     else Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
 
-  parameter Boolean PowerOrEfficiencyIsHydraulic=true
+  parameter Boolean powerOrEfficiencyIsHydraulic=true
     "=true if hydraulic power or efficiency is provided, instead of total"
     annotation (Dialog(group="Power computation",
     enable=max(power.P)>Modelica.Constants.eps
@@ -100,7 +100,7 @@ record Generic "Generic data record for movers"
   parameter Modelica.Units.SI.Power WMot_nominal(final displayUnit="W")=
     if max(power.P)>Modelica.Constants.eps
     then
-      if PowerOrEfficiencyIsHydraulic
+      if powerOrEfficiencyIsHydraulic
         then max(power.P)*1.2
       else max(power.P)
     else

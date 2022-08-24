@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record CronolineIL80slash220dash4slash4
   "Pump data for a Wilo Cronoline-IL 80/220-4/4 pump"
   extends Generic(
-    final PowerOrEfficiencyIsHydraulic=false,
+    final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     speed_rpm_nominal=1450,
     power(V_flow={0.00303454715219, 0.00578898225957, 0.00863678804855,

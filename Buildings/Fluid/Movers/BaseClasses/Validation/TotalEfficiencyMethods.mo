@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.BaseClasses.Validation;
 model TotalEfficiencyMethods
   "Validation model for total efficiency specified via hydraulic efficiency options"
   extends HydraulicEfficiencyMethods(
-    per(PowerOrEfficiencyIsHydraulic=false),
+    per(powerOrEfficiencyIsHydraulic=false),
     eff2(per(efficiency(eta={0,0.35,0.49,0.35,0}))),
     eff3(per(power(P={680,771,730,780,1010}))),
     eff4(per(peak(eta=0.49))));
@@ -14,7 +14,7 @@ This model is the same as
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>
 except that the enumeration is used for total efficiency <i>&eta;</i>
-via the switch <code>per.PowerOrEfficiencyIsHydraulic</code>.
+via the switch <code>per.powerOrEfficiencyIsHydraulic</code>.
 </p>
 </html>", revisions="<html>
 <ul>

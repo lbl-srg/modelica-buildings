@@ -5,7 +5,7 @@ model SpeedControlled_Nrpm "SpeedControlled_Nrpm with pre-filled parameters"
             pressure(V_flow=m_flow_nominal/rho_default*{0,1,2},
                      dp=dp_nominal*{2,1,0}),
             speed_rpm_nominal=speed_rpm_nominal,
-            PowerOrEfficiencyIsHydraulic=true,
+            powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
     final addPowerToMedium=false,

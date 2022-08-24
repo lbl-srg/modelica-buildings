@@ -3,7 +3,7 @@ record VeroLine50slash150dash4slash2
   "Pump data for a Wilo Veroline IP-E 50/150-4/2 pump"
   extends Generic(
     speed_rpm_nominal=2900,
-    final PowerOrEfficiencyIsHydraulic=false,
+    final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     power(V_flow={       0.0, 0.00277777, 0.00555555, 0.00833333, 0.01111111,
                   0.01388888, 0.01666666},

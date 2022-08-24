@@ -238,7 +238,7 @@ protected
   // to zero.
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff(
     per(
-      final PowerOrEfficiencyIsHydraulic = per.PowerOrEfficiencyIsHydraulic,
+      final powerOrEfficiencyIsHydraulic = per.powerOrEfficiencyIsHydraulic,
       final efficiency =           per.efficiency,
       final motorEfficiency =      per.motorEfficiency,
       final motorEfficiency_yMot = per.motorEfficiency_yMot,
@@ -404,7 +404,7 @@ initial algorithm
              the model will overwrite this setting and use .NotProvided instead.",
          level=AssertionLevel.warning);
 
-  assert(per.PowerOrEfficiencyIsHydraulic or
+  assert(per.powerOrEfficiencyIsHydraulic or
           not (per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==

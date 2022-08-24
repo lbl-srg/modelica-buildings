@@ -321,25 +321,25 @@ protected
   Modelica.Blocks.Routing.RealPassThrough WHydEu
     if per.etaHydMet==
         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and per.PowerOrEfficiencyIsHydraulic
+      and per.powerOrEfficiencyIsHydraulic
     "Intermediate block for routing when using the Euler number";
 
   Modelica.Blocks.Routing.RealPassThrough etaHydEu
     if per.etaHydMet==
         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and per.PowerOrEfficiencyIsHydraulic
+      and per.powerOrEfficiencyIsHydraulic
     "Intermediate block for routing when using the Euler number";
 
   Modelica.Blocks.Routing.RealPassThrough PEleEu
     if per.etaHydMet==
         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and not per.PowerOrEfficiencyIsHydraulic
+      and not per.powerOrEfficiencyIsHydraulic
     "Intermediate block for routing when using the Euler number";
 
   Modelica.Blocks.Routing.RealPassThrough etaEu
     if per.etaHydMet==
         Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and not per.PowerOrEfficiencyIsHydraulic
+      and not per.powerOrEfficiencyIsHydraulic
     "Intermediate block for routing when using the Euler number";
 
   Real yMot(final min=0, final start=0.833)=
@@ -630,7 +630,7 @@ equation
   // Power and efficiency
   WFlo = Buildings.Utilities.Math.Functions.smoothMax(
            x1=dp_internal*V_flow, x2=0, deltaX=1E-6);
-  if per.PowerOrEfficiencyIsHydraulic then
+  if per.powerOrEfficiencyIsHydraulic then
     eta = etaHyd * etaMot;
   else
     etaHyd = Buildings.Utilities.Math.Functions.smoothMin(
@@ -647,7 +647,7 @@ equation
   // Hydraulic efficiency etaHyd and hydraulic work WHyd
   //   or total efficiency eta and total electric power PEle
   //   depending on the information provided
-  if per.PowerOrEfficiencyIsHydraulic then
+  if per.powerOrEfficiencyIsHydraulic then
     P_internal=WHyd;
     eta_internal=etaHyd;
     PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
@@ -672,13 +672,13 @@ equation
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     // etaHydEu and WHydEu are routing blocks
-    //   conditionally enabled if per.PowerOrEfficiencyIsHydraulic=true
+    //   conditionally enabled if per.powerOrEfficiencyIsHydraulic=true
       connect(effTab.y,etaHydEu.u);
       connect(etaHydEu.y,etaHyd);
       connect(powTab.y,WHydEu.u);
       connect(WHydEu.y,WHyd);
     // etaEu and PEleEu are routing blocks
-    //   conditionally enabled if per.PowerOrEfficiencyIsHydraulic=false
+    //   conditionally enabled if per.powerOrEfficiencyIsHydraulic=false
       connect(effTab.y,etaEu.u);
       connect(etaEu.y,eta);
       connect(powTab.y,PEleEu.u);
@@ -690,7 +690,7 @@ equation
     else
       eta_internal = cha.efficiency(per=per.efficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
     end if;
-    if per.PowerOrEfficiencyIsHydraulic then
+    if per.powerOrEfficiencyIsHydraulic then
       P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
                         x1=eta_internal, x2=1E-2, deltaX=1E-3);
     else
@@ -698,7 +698,7 @@ equation
                         x1=eta_internal, x2=1E-2, deltaX=1E-3);
     end if;
   else // Not provided
-    if per.PowerOrEfficiencyIsHydraulic then
+    if per.powerOrEfficiencyIsHydraulic then
       eta_internal=0.7;
       P_internal=WFlo/eta_internal;
     else

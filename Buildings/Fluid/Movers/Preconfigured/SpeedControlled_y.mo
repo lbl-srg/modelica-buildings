@@ -4,7 +4,7 @@ model SpeedControlled_y "SpeedControlled_y with pre-filled parameters"
     final per(
             pressure(V_flow=m_flow_nominal/rho_default*{0,1,2},
                      dp=dp_nominal*{2,1,0}),
-            PowerOrEfficiencyIsHydraulic=true,
+            powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
     final addPowerToMedium=false,

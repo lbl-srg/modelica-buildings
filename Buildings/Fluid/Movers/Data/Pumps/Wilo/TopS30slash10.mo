@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record TopS30slash10 "Pump data for a staged Wilo-Top-S 30/10 pump"
   extends Generic(
     speed_rpm_nominal=2650,
-    final PowerOrEfficiencyIsHydraulic=false,
+    final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     power(V_flow={3.51617440225e-06, 0.000523909985935, 0.000847398030942,
                    0.00115682137834,  0.00148382559775,  0.00177918424754,

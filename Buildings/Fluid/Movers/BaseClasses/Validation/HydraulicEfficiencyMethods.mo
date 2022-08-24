@@ -4,7 +4,7 @@ model HydraulicEfficiencyMethods
   extends Modelica.Icons.Example;
 
   Buildings.Fluid.Movers.Data.Generic per(
-    PowerOrEfficiencyIsHydraulic=true,
+    powerOrEfficiencyIsHydraulic=true,
     final pressure(V_flow={0,1}, dp={1000,0}),
     final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided)
     "Performance record";
@@ -12,7 +12,7 @@ model HydraulicEfficiencyMethods
 
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff1(
     per(
-      PowerOrEfficiencyIsHydraulic=per.PowerOrEfficiencyIsHydraulic,
+      powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
       pressure=per.pressure,
       etaMotMet=per.etaMotMet,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided),
@@ -24,7 +24,7 @@ model HydraulicEfficiencyMethods
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff2(
     per(
-      PowerOrEfficiencyIsHydraulic=per.PowerOrEfficiencyIsHydraulic,
+      powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
       pressure=per.pressure,
       etaMotMet=per.etaMotMet,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
@@ -37,7 +37,7 @@ model HydraulicEfficiencyMethods
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff3(
     per(
-      PowerOrEfficiencyIsHydraulic=per.PowerOrEfficiencyIsHydraulic,
+      powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
       pressure=per.pressure,
       etaMotMet=per.etaMotMet,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
@@ -50,7 +50,7 @@ model HydraulicEfficiencyMethods
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff4(
     per(
-      PowerOrEfficiencyIsHydraulic=per.PowerOrEfficiencyIsHydraulic,
+      powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
       pressure=per.pressure,
       etaMotMet=per.etaMotMet,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,

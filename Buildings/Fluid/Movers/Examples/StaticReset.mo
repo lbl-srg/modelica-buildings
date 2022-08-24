@@ -18,7 +18,7 @@ model StaticReset
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(
-      PowerOrEfficiencyIsHydraulic=fan1.per.PowerOrEfficiencyIsHydraulic,
+      powerOrEfficiencyIsHydraulic=fan1.per.powerOrEfficiencyIsHydraulic,
       pressure=fan1.per.pressure,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
@@ -32,7 +32,7 @@ model StaticReset
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(
-      PowerOrEfficiencyIsHydraulic=fan1.per.PowerOrEfficiencyIsHydraulic,
+      powerOrEfficiencyIsHydraulic=fan1.per.powerOrEfficiencyIsHydraulic,
       pressure=fan1.per.pressure,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
@@ -312,8 +312,8 @@ zero, which the method with constant efficiency failed.
 </p>
 <h4>References</h4>
 <p>
-Englander, S. L., and L. K. Norford. 
-\"Saving fan energy in VAV systems- part 1: analysis of a variable-speed-drive retrofit.\" 
+Englander, S. L., and L. K. Norford.
+\"Saving fan energy in VAV systems- part 1: analysis of a variable-speed-drive retrofit.\"
 <i>ASHRAE Winter Meeting, Anaheim, CA, USA, 01/25-29/92.</i> 1992.
 </p>
 </html>", revisions="<html>

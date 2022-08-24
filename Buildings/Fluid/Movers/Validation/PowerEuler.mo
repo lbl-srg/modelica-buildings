@@ -6,7 +6,7 @@ model PowerEuler
     pump_m_flow(per=perPea));
 
   parameter Buildings.Fluid.Movers.Data.Generic perPea(
-    final PowerOrEfficiencyIsHydraulic=false,
+    final powerOrEfficiencyIsHydraulic=false,
     final etaHydMet=
             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaMotMet=

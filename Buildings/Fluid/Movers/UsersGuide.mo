@@ -532,7 +532,7 @@ Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
 </p>
 <p>
 The user can use the same options to specify the total efficiency <i>&eta;</i>
-instead by setting <code>per.PowerOrEfficiencyIsHydraulic=false</code>.
+instead by setting <code>per.powerOrEfficiencyIsHydraulic=false</code>.
 This changes the default constant value to <i>&eta;=0.49</i> and also imposes
 an additional constraint of <i>&eta;<sub>hyd</sub> &le; 1</i> to prevent the division
 <i>&eta;<sub>hyd</sub> = &eta; &frasl; &eta;<sub>mot</sub></i>
@@ -576,7 +576,7 @@ Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>
 as an example.
 </li>
 <li>
-<b><code>GenericCurve</code> (default 1)</b> - 
+<b><code>GenericCurve</code> (default 1)</b> -
 The user provides the rated motor power <i>P<sub>mot,nominal</sub></i>
 and maximum motor efficiency <i>&eta;<sub>mot,max</sub></i>.
 The model then uses a generic motor efficiency curve as a function of motor PLR
@@ -615,7 +615,7 @@ P<sub>mot,nominal</sub>=
 1.2 &nbsp; (V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
 &frasl; &eta;<sub>hyd,p</sub>,
 </p>
-where the factor <i>1.2</i> also assumes a 20% oversize 
+where the factor <i>1.2</i> also assumes a 20% oversize
 and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>.
 </li>
 </ul>
@@ -636,7 +636,7 @@ Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
 <p>
 By default, the model uses the <code>.GenericCurve</code> to obtain more accurate
 results with variable <i>&eta;<sub>mot</sub></i>,
-unless <code>per.PowerOrEfficiencyIsHydraulic=false</code>.
+unless <code>per.powerOrEfficiencyIsHydraulic=false</code>.
 There are two reasons for this setup:
 </p>
 <ul>
@@ -648,7 +648,7 @@ P<sub>ele</sub> = W&#775;<sub>hyd</sub> &frasl; &eta;<sub>mot</sub>,
 </p>
 where <i>f(&sdot;)</i> refers to the curve of motor efficiency vs. motor PLR.
 When <i>W&#775;<sub>hyd</sub></i> is known
-(i.e. <code>per.PowerOrEfficiencyIsHydraulic=true</code>),
+(i.e. <code>per.powerOrEfficiencyIsHydraulic=true</code>),
 the unknowns are <i>&eta;<sub>mot</sub></i> and <i>P<sub>ele</sub></i>
 which can be solved sequentially. Otherwise, the unknowns are
 <i>&eta;<sub>mot</sub></i> and <i>W&#775;<sub>hyd</sub></i>.
