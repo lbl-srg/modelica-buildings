@@ -12,6 +12,7 @@ model FlowControlled_m_flow "Fan or pump with ideally controlled mass flow rate 
     final massFlowRates,
     final nominalValuesDefineDefaultPressureCurve=true,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    final init=Modelica.Blocks.Types.Init.InitialOutput,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 annotation(Documentation(info="<html>
 <p>

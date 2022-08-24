@@ -4,7 +4,7 @@ model FlowControlled_dp "Fan or pump with ideally controlled head dp as input si
     final per(
             pressure(
               V_flow=m_flow_nominal/rho_default*{0, 2},
-              dp=dp_nominal*{2 ,0}),
+              dp=dp_nominal*{2, 0}),
             powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
@@ -12,6 +12,8 @@ model FlowControlled_dp "Fan or pump with ideally controlled head dp as input si
     final heads,
     final nominalValuesDefineDefaultPressureCurve=true,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    final prescribeSystemPressure=false,
+    final init=Modelica.Blocks.Types.Init.InitialOutput,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 annotation(Documentation(info="<html>
 <p>
