@@ -9,7 +9,7 @@ model SpeedControlled_y "Fan or pump with ideally controlled normalized speed y 
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure head for preconfiguration"

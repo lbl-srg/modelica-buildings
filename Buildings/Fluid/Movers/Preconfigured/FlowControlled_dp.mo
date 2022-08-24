@@ -12,7 +12,7 @@ model FlowControlled_dp "Fan or pump with ideally controlled head dp as input si
     final heads,
     final nominalValuesDefineDefaultPressureCurve=true,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 annotation(Documentation(info="<html>
 <p>
 This model is the preconfigured version for
