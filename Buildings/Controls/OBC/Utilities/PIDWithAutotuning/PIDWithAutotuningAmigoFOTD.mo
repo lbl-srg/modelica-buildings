@@ -67,10 +67,10 @@ block PIDWithAutotuningAmigoFOTD
     deaBan=deaBan)
     "A block to approximate the control process"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PI piParameters
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI piParameters
     if not with_D "A block to calculates the parameters of a PI controller"
     annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PID pidParameters
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID pidParameters
     if with_D "A block to calculates the parameters of a PID controller"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess responseProcess(yHig=yHig
@@ -138,22 +138,25 @@ equation
     annotation (Line(points={{-58,50},{-41,50}}, color={0,0,127}));
   connect(pidParameters.L, controlProcessModel.L) annotation (Line(points={{-58,
           44},{-44,44},{-44,42},{-41,42}}, color={0,0,127}));
-  connect(pidParameters.k, samk.u) annotation (Line(points={{-81,56},{-94,56},{-94,
-          -20},{-42,-20}}, color={0,0,127}));
-  connect(pidParameters.Ti, samTi.u) annotation (Line(points={{-81,50},{-88,50},
+  connect(pidParameters.k, samk.u) annotation (Line(points={{-82,57},{-94,57},{
+          -94,-20},{-42,-20}},
+                           color={0,0,127}));
+  connect(pidParameters.Ti, samTi.u) annotation (Line(points={{-82,50},{-88,50},
           {-88,-48},{-82,-48}}, color={0,0,127}));
-  connect(samTd.u, pidParameters.Td) annotation (Line(points={{-42,-70},{-48,-70},
-          {-48,34},{-82,34},{-82,44},{-81,44}}, color={0,0,127}));
+  connect(samTd.u, pidParameters.Td) annotation (Line(points={{-42,-70},{-48,
+          -70},{-48,34},{-82,34},{-82,43},{-82,43}},
+                                                color={0,0,127}));
   connect(piParameters.kp, controlProcessModel.k) annotation (Line(points={{-58,
           86},{-50,86},{-50,56},{-41,56}}, color={0,0,127}));
   connect(piParameters.T, controlProcessModel.T) annotation (Line(points={{-58,80},
           {-52,80},{-52,50},{-41,50}}, color={0,0,127}));
   connect(piParameters.L, controlProcessModel.L) annotation (Line(points={{-58,74},
           {-54,74},{-54,44},{-44,44},{-44,42},{-41,42}}, color={0,0,127}));
-  connect(piParameters.k, samk.u) annotation (Line(points={{-81,86},{-94,86},{-94,
-          -20},{-42,-20}}, color={0,0,127}));
-  connect(piParameters.Ti, samTi.u) annotation (Line(points={{-81,76},{-88,76},{
-          -88,-48},{-82,-48}}, color={0,0,127}));
+  connect(piParameters.k, samk.u) annotation (Line(points={{-82,86},{-94,86},{
+          -94,-20},{-42,-20}},
+                           color={0,0,127}));
+  connect(piParameters.Ti, samTi.u) annotation (Line(points={{-82,77},{-88,77},
+          {-88,-48},{-82,-48}},color={0,0,127}));
   connect(responseProcess.triggerEnd, controlProcessModel.triggerEnd)
     annotation (Line(points={{-1,42},{-8,42},{-8,32},{-36,32},{-36,38}}, color={
           255,0,255}));

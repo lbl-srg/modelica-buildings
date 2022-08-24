@@ -1,16 +1,16 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDIntegralTime "Identifies the integral time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=0)
-    "Connector for the time constant of a first order time-delayed model"
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
-    "Connector for the time delay of a first order time-delayed model"
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti
-    "Connector for time constant signal for the integral term"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    "Time constant signal for the integral term"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Calculate the sum of the time delay and the output of gai3"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
@@ -32,7 +32,7 @@ block PIDIntegralTime "Identifies the integral time of a PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Calculate the product of the output of div and the time delay"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-	
+
 equation
   connect(gai1.u, L) annotation (Line(points={{-82,-40},{-90,-40},{-90,-60},{
           -120,-60}}, color={0,0,127}));
@@ -53,12 +53,12 @@ equation
   connect(mul.u2, L) annotation (Line(points={{38,-6},{24,-6},{24,-60},{-120,-60}},
         color={0,0,127}));
   connect(mul.y, Ti)
-    annotation (Line(points={{62,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
   connect(div.u2, add1.y) annotation (Line(points={{-2,6},{-10,6},{-10,20},{-18,
           20}}, color={0,0,127}));
   connect(div.u1, add2.y) annotation (Line(points={{-2,-6},{-10,-6},{-10,-20},{-18,
           -20}}, color={0,0,127}));
-  annotation (defaultComponentName = "pIDIntegralTime",
+  annotation (defaultComponentName = "PIDIntegralTime",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -87,8 +87,8 @@ T<sub>i</sub> = (0.4L + 0.8T)/(L + 0.1T)L,
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDIntegralTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDIntegralTime</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDIntegralTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDIntegralTime</a>.
 </p>
 <h4>References</h4>
 <p>&Aring;str&ouml;m, Karl Johan, and Tore H&auml;gglund. &quot;Revisiting the Ziegler&ndash;Nichols step response method for PID control.&quot; Journal of process control 14.6 (2004): 635-650.</p>

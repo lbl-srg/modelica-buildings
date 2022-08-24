@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
 model PIDDerivativeTime "Test model for PIDDerivativeTime"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIDDerivativeTime
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime
     pIDDerivativeTime "Calculate the integral time for a PI controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,

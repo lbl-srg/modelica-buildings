@@ -1,16 +1,16 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIIntegralTime "Identifies the integral time of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=1E-6)
-    "Connector for time constant of a first order time-delayed model"
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
-    "Connector for time delay of a first order time-delayed model"
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(min=1E-6)
-    "Connector for time constant for the integral term"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    "Time constant for the integral term"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Calculate the sum of the output of mul3 and the output of gai1"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -50,7 +50,7 @@ block PIIntegralTime "Identifies the integral time of a PI controller"
 
 equation
   connect(add2.y, Ti)
-    annotation (Line(points={{82,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(gai4.u, L) annotation (Line(points={{-82,-20},{-88,-20},{-88,-60},{
           -120,-60}}, color={0,0,127}));
   connect(mul3.u1, T) annotation (Line(points={{-62,66},{-90,66},{-90,60},{-120,
@@ -91,7 +91,7 @@ equation
           -88,24},{-88,16},{-82,16}},  color={0,0,127}));
   connect(mul4.y, div.u1) annotation (Line(points={{-58,10},{-4,10},{-4,76},{18,
           76}}, color={0,0,127}));
-  annotation (defaultComponentName = "pIIntegralTime",
+  annotation (defaultComponentName = "PIIntegralTime",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -120,8 +120,8 @@ T<sub>i</sub> = 0.35L + 13LT<sup>2</sup>/(T<sup>2</sup> + 12LT + 7L<sup>2</sup>)
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIIntegralTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIIntegralTime</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIIntegralTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIIntegralTime</a>.
 </p>
 <h4>References</h4>
 <p>

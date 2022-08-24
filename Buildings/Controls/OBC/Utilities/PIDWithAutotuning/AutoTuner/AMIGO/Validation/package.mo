@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 package Validation "Collection of models that validate the blocks in the FirstOrderTimedelayed"
   annotation (
     preferredView="info",

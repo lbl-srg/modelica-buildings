@@ -1,36 +1,37 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
-block PI "Identifies the parameters of a PI controller"
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+block PI "Identify the parameters of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(min=1E-6)
-    "Connector for the signal of the gain of a first order time-delayed model"
+    "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=0)
-    "Connector for the signal of the time constant of a first order time-delayed model"
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
-    "Connector for the signal of the time delay of a first order time-delayed model"
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
-    "Connector for control gain signal"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    "Control gain signal"
+    annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti
-    "Connector for time constant signal for the integral term"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIGain gain
+    "Time constant signal for the integral term"
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}})));
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain gain
     "Calculate the control gain"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.PIIntegralTime
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIIntegralTime
     integralTime
     "Calculate the integral time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
 equation
-  connect(gain.k, k) annotation (Line(points={{11,30},{96,30},{96,60},{110,60}},
+  connect(gain.k, k) annotation (Line(points={{12,30},{80,30},{80,60},{120,60}},
         color={0,0,127}));
-  connect(integralTime.Ti, Ti) annotation (Line(points={{11,-30},{94,-30},{94,-40},
-          {110,-40}}, color={0,0,127}));
+  connect(integralTime.Ti, Ti) annotation (Line(points={{12,-30},{94,-30},{94,
+          -30},{120,-30}},
+                      color={0,0,127}));
   connect(integralTime.T, gain.T) annotation (Line(points={{-12,-24},{-40,-24},
           {-40,30},{-12,30}}, color={0,0,127}));
   connect(integralTime.L, gain.L) annotation (Line(points={{-12,-36},{-20,-36},
@@ -41,7 +42,7 @@ equation
           -12,24}}, color={0,0,127}));
   connect(gain.kp, kp) annotation (Line(points={{-12,36},{-40,36},{-40,60},{
           -120,60}}, color={0,0,127}));
-  annotation (defaultComponentName = "pI",
+  annotation (defaultComponentName = "PI",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

@@ -1,19 +1,19 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
-block PIDDerivativeTime "Identifies the derivative time of a PID controller"
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+block PIDDerivativeTime "Identify the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=0)
-    "Connector for the signal of the time constant of a first order time-delayed model"
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
-    "Connector for the signal of the time delay of a first order time-delayed model"
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td
-    "Connector for time constant signal for the derivative term"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    "Time constant signal for the derivative term"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=0.3)
     "Calculate the product of 0.3 and the time delay"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=0.5)
     "Calculate the product of 0.5 and the input time constant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -26,13 +26,12 @@ block PIDDerivativeTime "Identifies the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of mul divided by the output of add"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-	
+
 equation
-  connect(div.y, Td)
-    annotation (Line(points={{42,0},{110,0}}, color={0,0,127}));
-  connect(gai1.u, L) annotation (Line(points={{-82,-40},{-96,-40},{-96,-60},{
-          -120,-60}}, color={0,0,127}));
-  connect(gai1.y, add.u2) annotation (Line(points={{-58,-40},{-50,-40},{-50,-56},
+  connect(div.y, Td) annotation (Line(points={{42,0},{120,0}}, color={0,0,127}));
+  connect(gai1.u, L) annotation (Line(points={{-82,-60},{-96,-60},{-96,-60},{-120,
+          -60}},      color={0,0,127}));
+  connect(gai1.y, add.u2) annotation (Line(points={{-58,-60},{-50,-60},{-50,-56},
           {-42,-56}}, color={0,0,127}));
   connect(add.u1, T) annotation (Line(points={{-42,-44},{-48,-44},{-48,60},{
           -120,60}}, color={0,0,127}));
@@ -46,7 +45,7 @@ equation
         color={0,0,127}));
   connect(div.u2, add.y) annotation (Line(points={{18,-6},{12,-6},{12,-50},{-18,
           -50}}, color={0,0,127}));
-  annotation (defaultComponentName = "pIDDerivativeTime",
+  annotation (defaultComponentName = "PIDDerivativeTime",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -75,8 +74,8 @@ T<sub>d</sub> = 0.5LT/(0.3L+T),
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDDerivativeTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIDDerivativeTime</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDDerivativeTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDDerivativeTime</a>.
 </p>
 <h4>References</h4>
 <p>&Aring;str&ouml;m, Karl Johan, and Tore H&auml;gglund. &quot;Revisiting the Ziegler&ndash;Nichols step response method for PID control.&quot; Journal of process control 14.6 (2004): 635-650.</p>

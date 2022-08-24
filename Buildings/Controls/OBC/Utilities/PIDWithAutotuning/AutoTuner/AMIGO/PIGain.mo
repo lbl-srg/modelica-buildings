@@ -1,20 +1,20 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIGain "Identifies the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(min=1E-6)
-    "Connector of gain of a first order time-delayed model"
+    "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=1E-6)
-    "Connector of time constant of a first order time-delayed model"
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
-    "Connector of time delay of a first order time-delayed model"
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
-    "Connector for control gain signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    "Control gain signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Calculates the sum of the time constant and the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -86,7 +86,7 @@ equation
           {-62,56}},                   color={0,0,127}));
   connect(add2.u2, mul3.y) annotation (Line(points={{18,24},{10,24},{10,16},{48,
           16},{48,0},{42,0}}, color={0,0,127}));
-  connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{110,0}},
+  connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{120,0}},
         color={0,0,127}));
   connect(div2.y, sub.u2)
   annotation (Line(points={{42,-50},{44,-50},{44,-56},{
@@ -95,7 +95,7 @@ equation
           {48,-44}}, color={0,0,127}));
   connect(sub.y, mul3.u2) annotation (Line(points={{72,-50},{80,-50},{80,-22},{
           10,-22},{10,-6},{18,-6}}, color={0,0,127}));
-  annotation (defaultComponentName = "pIGain",
+  annotation (defaultComponentName = "PIGain",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -127,8 +127,8 @@ where <i>k<sub>p</i></sub> is the gain of the first-order time-delayed model;
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIGain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.Amigo.Validation.PIGain</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIGain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIGain</a>.
 </p>
 <h4>References</h4>
 <p>Garpinger, Olof, Tore H&auml;gglund, and Karl Johan &Aring;str&ouml;m (2014) &quot;Performance and robustness trade-offs in PID control.&quot; Journal of Process Control 24.5 (2014): 568-577. </p>
