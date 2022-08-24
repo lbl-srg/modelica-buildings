@@ -434,13 +434,13 @@ the simulation stops.");
   end if;
 
   // Correction for flow resistance of the fan or pump
-  if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
+  if curve == 1 then  // ----- Curve 1
     // V_flow_max and dpMax are provided by the user, or we only have two data points
     preDer1= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow,
       y=pCur1.dp);
     preDer2= zeros(nOri + 1);
     preDer3= zeros(nOri + 2);
-  elseif haveVMax or haveDPMax then  // ----- Curve 2
+  elseif curve == 2 then  // ----- Curve 2
     // V_flow_max or dpMax is provided by the user, but not both
     preDer1= zeros(nOri);
     preDer2= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow,
