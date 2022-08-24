@@ -49,5 +49,7 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-160,-80},{160,160}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ControlledFlowMachinePreconfigured;
