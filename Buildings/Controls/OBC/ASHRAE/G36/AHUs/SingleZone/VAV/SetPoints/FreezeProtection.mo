@@ -889,7 +889,6 @@ annotation (defaultComponentName="sinAHUFrePro",
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
-
           textString="uRetFan"),
         Text(
           extent={{-98,-20},{-50,-36}},
@@ -946,7 +945,6 @@ annotation (defaultComponentName="sinAHUFrePro",
           textColor={255,0,255},
           visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
                or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment),
-
           textString="u1SofSwiRes"),
         Text(
           extent={{24,200},{96,180}},

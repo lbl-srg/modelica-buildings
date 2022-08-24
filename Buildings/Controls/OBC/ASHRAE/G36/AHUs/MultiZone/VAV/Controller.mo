@@ -1,18 +1,18 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV;
 block Controller "Multizone VAV air handling unit controller"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneSta
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
     "Energy standard, ASHRAE 90.1 or Title 24";
-  parameter Types.VentilationStandard venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+  parameter Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
     Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=
     Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
@@ -40,19 +40,19 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real VUncDesOutAir_flow(unit="m3/s")=0
     "Uncorrected design outdoor air rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
-                       enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                       enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real VDesTotOutAir_flow(unit="m3/s")=0
     "Design total outdoor air rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
-                       enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                       enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real VAbsOutAir_flow(unit="m3/s")=0
     "Design outdoor air rate when all zones with CO2 sensors or occupancy sensors are unpopulated. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
-                       enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+                       enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   parameter Real VDesOutAir_flow(unit="m3/s")=0
     "Design minimum outdoor airflow with areas served by the system are occupied at their design population, including diversity where applicable. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
-                       enable=venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+                       enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ----------- parameters for fan speed control  -----------
   parameter Real pIniSet(
     unit="Pa",
@@ -223,11 +223,11 @@ block Controller "Multizone VAV air handling unit controller"
     "True: there are zones have CO2 sensor"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
-          and venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)));
+          and venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)));
   parameter Real dpAbsOutDam_min=0
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(venSta==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+      enable=(venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
           and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)));
   parameter Real dpDesOutDam_min(unit="Pa")=150
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
@@ -475,7 +475,7 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Sum of the adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{-400,256},{-360,296}}),
         iconTransformation(extent={{-240,230},{-200,270}})));
@@ -483,7 +483,7 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Sum of the adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{-400,226},{-360,266}}),
         iconTransformation(extent={{-240,210},{-200,250}})));
@@ -491,14 +491,14 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Sum of the zone primary airflow rates for all zones in all zone groups that are in occupied mode"
     annotation (Placement(transformation(extent={{-400,196},{-360,236}}),
         iconTransformation(extent={{-240,180},{-200,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutAirFra_max(
     final min=0,
     final unit="1")
-    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Maximum zone outdoor air fraction, equals to the maximum of primary outdoor air fraction of all zones"
     annotation (Placement(transformation(extent={{-400,166},{-360,206}}),
         iconTransformation(extent={{-240,150},{-200,190}})));
@@ -506,7 +506,7 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Sum of the zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-400,138},{-360,178}}),
         iconTransformation(extent={{-240,110},{-200,150}})));
@@ -514,7 +514,7 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Sum of the zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-400,106},{-360,146}}),
         iconTransformation(extent={{-240,90},{-200,130}})));
@@ -537,7 +537,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{-400,-10},{-360,30}}),
         iconTransformation(extent={{-240,-10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(final unit="1")
-    if (have_CO2Sen and venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
+    if (have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
     "Maximum zone CO2 control loop output"
     annotation (Placement(transformation(extent={{-400,-50},{-360,-10}}),
         iconTransformation(extent={{-240,-40},{-200,0}})));
@@ -566,7 +566,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
     final unit="J/kg",
     final quantity="SpecificEnergy")
-    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-400,-170},{-360,-130}}),
@@ -658,7 +658,7 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{360,230},{400,270}}),
         iconTransformation(extent={{200,210},{240,250}})));
@@ -820,7 +820,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller ecoCon(
     final minOADes=minOADes,
     final buiPreCon=buiPreCon,
-    final eneSta=eneSta,
+    final eneStd=eneStd,
     final ecoHigLimCon=ecoHigLimCon,
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon,
@@ -830,7 +830,7 @@ block Controller "Multizone VAV air handling unit controller"
     final kMinOA=kMinOA,
     final TiMinOA=TiMinOA,
     final TdMinOA=TdMinOA,
-    final venSta=venSta,
+    final venStd=venStd,
     final dpDesOutDam_min=dpDesOutDam_min,
     final dpConTyp=dpConTyp,
     final kDp=kDp,
@@ -897,7 +897,7 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.AHU ashOutAirSet(
     final minOADes=minOADes,
     final VUncDesOutAir_flow=VUncDesOutAir_flow,
-    final VDesTotOutAir_flow=VDesTotOutAir_flow) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final VDesTotOutAir_flow=VDesTotOutAir_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Minimum outdoor airflow setpoint, when complying with ASHRAE 62.1 requirements"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper relDam(
@@ -932,7 +932,7 @@ block Controller "Multizone VAV air handling unit controller"
     final minOADes=minOADes,
     final have_CO2Sen=have_CO2Sen,
     final VAbsOutAir_flow=VAbsOutAir_flow,
-    final VDesOutAir_flow=VDesOutAir_flow) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final VDesOutAir_flow=VDesOutAir_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Minimum outdoor airflow setpoint, when complying with Title 24 requirements"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
@@ -1177,7 +1177,7 @@ annotation (
           extent={{-196,242},{-74,218}},
           textColor={0,0,0},
           textString="VSumAdjAreBreZon_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
        Text(extent={{-194,288},{-156,272}},
           textColor={0,0,0},
           textString="TAirSup"),
@@ -1191,22 +1191,22 @@ annotation (
           extent={{-196,208},{-114,192}},
           textColor={0,0,0},
           textString="VSumZonPri_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
        Text(
           extent={{-194,138},{-66,120}},
           textColor={0,0,0},
           textString="VSumZonAbsMin_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
        Text(
           extent={{-194,116},{-64,98}},
           textColor={0,0,0},
           textString="VSumZonDesMin_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
        Text(
           extent={{-196,180},{-114,164}},
           textColor={0,0,0},
           textString="uOutAirFra_max",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
        Text(
           extent={{-194,78},{-124,58}},
           textColor={0,0,0},
@@ -1238,7 +1238,7 @@ annotation (
        Text(
           extent={{-196,-110},{-160,-128}},
           textColor={0,0,0},
-          visible=(eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+          visible=(eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
                and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
           textString="hAirRet"),
        Text(extent={{-196,-238},{-144,-264}},
@@ -1387,11 +1387,11 @@ annotation (
           extent={{-196,262},{-74,238}},
           textColor={0,0,0},
           textString="VSumAdjPopBreZon_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
        Text(
           extent={{-196,-10},{-136,-30}},
           textColor={0,0,0},
-          visible=(have_CO2Sen and venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+          visible=(have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
           textString="uCO2Loo_max"),
        Text(
           extent={{134,-36},{202,-56}},

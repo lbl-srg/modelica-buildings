@@ -118,8 +118,7 @@ model Guideline36
     "All zones in same operation mode"
     annotation (Placement(transformation(extent={{20,300},{40,320}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller conVAV[numZon](
-    final venSta=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-        numZon),
+    final venSta=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016, numZon),
     final have_winSen=fill(false, numZon),
     final have_occSen=fill(false, numZon),
     final have_CO2Sen=fill(false, numZon),
@@ -164,6 +163,9 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Reset back to normal after freeze protection"
     annotation (Placement(transformation(extent={{340,350},{360,370}})));
+  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem ahuMod
+    "AHU operating mode"
+    annotation (Placement(transformation(extent={{240,630},{260,650}})));
 equation
   connect(yFreHeaCoi.y, swiFreStaPum.u1) annotation (Line(points={{-18,-90},{10,
           -90},{10,-102},{18,-102}}, color={0,0,127}));
@@ -340,13 +342,11 @@ equation
           {660,46},{716,46}}, color={0,0,127}));
   connect(conVAV.yDam, VAVBox.yVAV) annotation (Line(points={{642,217},{666,217},
           {666,56},{716,56}}, color={0,0,127}));
-  connect(sumZon.yAhuOpeMod, conAHU.uAhuOpeMod) annotation (Line(points={{262,598},
-          {360,598},{360,634},{456,634}}, color={255,127,0}));
   connect(sumZon.VSumAdjPopBreZon_flow, conAHU.VSumAdjPopBreZon_flow)
-    annotation (Line(points={{262,594},{364,594},{364,598},{456,598}}, color={0,
+    annotation (Line(points={{262,598},{364,598},{364,598},{456,598}}, color={0,
           0,127}));
   connect(sumZon.VSumAdjAreBreZon_flow, conAHU.VSumAdjAreBreZon_flow)
-    annotation (Line(points={{262,590},{368,590},{368,594},{456,594}}, color={0,
+    annotation (Line(points={{262,594},{368,594},{368,594},{456,594}}, color={0,
           0,127}));
   connect(sumZon.VSumZonPri_flow, conAHU.VSumZonPri_flow) annotation (Line(
         points={{262,586},{372,586},{372,588},{456,588}}, color={0,0,127}));
@@ -398,6 +398,10 @@ equation
           360},{396,508},{456,508}}, color={255,0,255}));
   connect(opeModSel.yOpeMod, sumZon.uOpeMod[1]) annotation (Line(points={{-18,
           400},{180,400},{180,599},{238,599}}, color={255,127,0}));
+  connect(opeModSel.yOpeMod, ahuMod.uOpeMod[1]) annotation (Line(points={{-18,400},
+          {180,400},{180,640},{238,640}}, color={255,127,0}));
+  connect(ahuMod.yAhuOpeMod, conAHU.uAhuOpeMod) annotation (Line(points={{262,640},
+          {420,640},{420,634},{456,634}}, color={255,127,0}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1420,

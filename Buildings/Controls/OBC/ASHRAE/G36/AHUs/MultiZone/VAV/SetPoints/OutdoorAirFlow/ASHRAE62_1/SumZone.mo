@@ -42,24 +42,20 @@ block SumZone "Calculate the sum of zone level setpoints"
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-260,-104},{-220,-64}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAhuOpeMod
-    "Operation mode for AHU operation"
-    annotation (Placement(transformation(extent={{220,140},{260,180}}),
-        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumAdjPopBreZon_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{220,100},{260,140}}),
-        iconTransformation(extent={{100,20},{140,60}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumAdjAreBreZon_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{220,40},{260,80}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumZonPri_flow(
     final min=0,
     final unit="m3/s",
@@ -137,16 +133,6 @@ block SumZone "Calculate the sum of zone level setpoints"
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nZonGro]
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nZonGro]
-    "Convert integer to real"
-    annotation (Placement(transformation(extent={{20,150},{40,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
-    final nin=nZonGro)
-    "Find the highest priotity operating mode"
-    annotation (Placement(transformation(extent={{60,150},{80,170}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger ahuMod
-    "Air handling operating mode"
-    annotation (Placement(transformation(extent={{100,150},{120,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nZon](
     final t=fill(0.01, nZon),
     final h=fill(0.005, nZon))
@@ -207,14 +193,6 @@ equation
     annotation (Line(points={{102,-70},{138,-70}},   color={0,0,127}));
   connect(mulMax.y, uOutAirFra_max)
     annotation (Line(points={{162,-70},{240,-70}},   color={0,0,127}));
-  connect(uOpeMod, intToRea.u) annotation (Line(points={{-240,180},{-160,180},{-160,
-          160},{18,160}}, color={255,127,0}));
-  connect(intToRea.y, mulMin.u)
-    annotation (Line(points={{42,160},{58,160}}, color={0,0,127}));
-  connect(mulMin.y, ahuMod.u)
-    annotation (Line(points={{82,160},{98,160}}, color={0,0,127}));
-  connect(ahuMod.y, yAhuOpeMod)
-    annotation (Line(points={{122,160},{240,160}}, color={255,127,0}));
   connect(lesThr.y, swi.u2) annotation (Line(points={{-78,-160},{-60,-160},{-60,
           -130},{-42,-130}}, color={255,0,255}));
   connect(VZonPri_flow, lesThr.u) annotation (Line(points={{-240,-20},{-200,-20},
@@ -232,11 +210,11 @@ annotation (
           textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{10,50},{96,34}},
+          extent={{10,90},{96,74}},
           textColor={0,0,0},
           textString="VSumAdjPopBreZon_flow"),
         Text(
-          extent={{10,8},{96,-8}},
+          extent={{10,48},{96,32}},
           textColor={0,0,0},
           textString="VSumAdjAreBreZon_flow"),
         Text(
@@ -266,11 +244,7 @@ annotation (
         Text(
           extent={{-96,96},{-52,82}},
           textColor={255,127,0},
-          textString="uOpeMod"),
-        Text(
-          extent={{46,90},{96,76}},
-          textColor={255,127,0},
-          textString="yAhuOpeMod")}),
+          textString="uOpeMod")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},{220,200}})),
 Documentation(info="<html>
 <p>

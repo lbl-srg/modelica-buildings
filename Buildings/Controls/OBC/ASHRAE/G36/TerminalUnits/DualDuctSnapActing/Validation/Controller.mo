@@ -3,7 +3,7 @@ model Controller
   "Validation of model that controls dual-duct unit with snap-acting control"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Controller duaDucCon(
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final have_duaSen=true,
     final AFlo=20,
     final desZonPop=2,

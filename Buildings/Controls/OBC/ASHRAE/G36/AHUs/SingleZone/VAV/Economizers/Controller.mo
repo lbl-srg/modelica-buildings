@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers;
 block Controller "Single zone VAV AHU economizer control sequence"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneSta
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
   parameter Boolean have_heaCoi=true
     "True if the air handling unit has heating coil";
   parameter Real uMin(
@@ -157,7 +157,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
     final unit="J/kg",
     final quantity="SpecificEnergy")
-    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Return air enthalpy"
     annotation (Placement(transformation(extent={{-180,90},{-140,130}}),
@@ -271,13 +271,13 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim(
-    final eneSta=eneSta,
+    final eneStd=eneStd,
     final ecoHigLimCon=ecoHigLimCon,
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon) "High limits"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=-1)
-   if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
+   if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
     "Dummy block"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 equation

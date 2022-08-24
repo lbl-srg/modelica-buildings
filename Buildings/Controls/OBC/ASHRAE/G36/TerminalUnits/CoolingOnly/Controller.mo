@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly;
 block Controller "Controller for cooling only VAV box"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venSta
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -11,14 +11,14 @@ block Controller "Controller for cooling only VAV box"
     "True: the zone has CO2 sensor";
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
                               and have_occSen));
   parameter Real VOccMin_flow=0
     "Zone minimum outdoor airflow for occupants"
-    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   parameter Real VAreMin_flow=0
     "Zone minimum outdoor airflow for building area"
-    annotation (Dialog(enable=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ---------------- Design parameters ----------------
   parameter Real AFlo(unit="m2")
     "Zone floor area"
@@ -228,36 +228,36 @@ block Controller "Controller for cooling only VAV box"
         iconTransformation(extent={{100,130},{140,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjPopBreZon_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
         iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjAreBreZon_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{200,130},{240,170}}),
         iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VMinOA_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VZonAbsMin_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,70},{240,110}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VZonDesMin_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCO2(
-    final unit="1") if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final unit="1") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "CO2 control loop signal"
     annotation (Placement(transformation(extent={{200,10},{240,50}}),
         iconTransformation(extent={{100,0},{140,40}})));
@@ -335,7 +335,7 @@ block Controller "Controller for cooling only VAV box"
     final VCooMax_flow=VCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
-    final dTHys=dTHys) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final dTHys=dTHys) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers
@@ -361,7 +361,7 @@ block Controller "Controller for cooling only VAV box"
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
     final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow) if venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 equation
@@ -626,37 +626,37 @@ annotation (defaultComponentName="cooBoxCon",
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VAdjPopBreZon_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
         Text(
           extent={{12,110},{96,92}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VAdjAreBreZon_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
         Text(
           extent={{36,90},{96,70}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VMinOA_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
         Text(
           extent={{18,70},{96,50}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VZonAbsMin_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
         Text(
           extent={{18,48},{96,30}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VZonDesMin_flow",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
         Text(
           extent={{66,26},{96,10}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCO2",
-          visible=venSta == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)}),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{200,280}})),
   Documentation(info="<html>
 <p>

@@ -147,15 +147,15 @@ equation
   connect(zonOcc3.y,not3. u) annotation (Line(points={{-78,40},{-72,40},{-72,20},
           {-62,20}},  color={255,0,255}));
   connect(zonOcc1.y, zonGroSta.uOcc[1]) annotation (Line(points={{-78,160},{98,
-          160},{98,-24.3333},{118,-24.3333}},  color={255,0,255}));
+          160},{98,-23.6667},{118,-23.6667}},  color={255,0,255}));
   connect(zonOcc3.y, zonGroSta.uOcc[3]) annotation (Line(points={{-78,40},{98,
-          40},{98,-38},{118,-38},{118,-21.6667}},
+          40},{98,-38},{118,-38},{118,-22.3333}},
                                                color={255,0,255}));
   connect(addPar1.y, zonGroSta.tNexOcc[1]) annotation (Line(points={{42,140},{
-          94,140},{94,-26.3333},{118,-26.3333}},
+          94,140},{94,-25.6667},{118,-25.6667}},
                                               color={0,0,127}));
   connect(addPar3.y, zonGroSta.tNexOcc[3]) annotation (Line(points={{42,20},{92,
-          20},{92,-23.6667},{118,-23.6667}}, color={0,0,127}));
+          20},{92,-24.3333},{118,-24.3333}}, color={0,0,127}));
   connect(cooDowTim.y, zonGroSta.uCooTim) annotation (Line(points={{-118,0},{90,
           0},{90,-29},{118,-29}},color={0,0,127}));
   connect(warUpTim.y, zonGroSta.uWarTim) annotation (Line(points={{-78,-20},{88,
@@ -183,10 +183,10 @@ equation
   connect(endSetUp.y, zonGroSta.uEndSetUp) annotation (Line(points={{-78,-180},{
           34,-180},{34,-53},{118,-53}},  color={255,0,255}));
   connect(zonTem.y, zonGroSta.TZon[1]) annotation (Line(points={{2,-210},{36,
-          -210},{36,-58.3333},{118,-58.3333}},
+          -210},{36,-57.6667},{118,-57.6667}},
                                          color={0,0,127}));
   connect(zonTem3.y, zonGroSta.TZon[3]) annotation (Line(points={{-58,-270},{
-          104,-270},{104,-60},{118,-60},{118,-55.6667}},
+          104,-270},{104,-60},{118,-60},{118,-56.3333}},
                                                      color={0,0,127}));
   connect(winSta.y, zonGroSta.uWin) annotation (Line(points={{-38,-300},{118,-300},
           {118,-59}},        color={255,0,255}));

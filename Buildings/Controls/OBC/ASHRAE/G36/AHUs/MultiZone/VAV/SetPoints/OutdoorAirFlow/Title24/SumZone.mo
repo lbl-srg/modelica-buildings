@@ -10,7 +10,7 @@ block SumZone "Sum of the zone level setpoints calculation"
   parameter Integer zonGroMatTra[nZon, nZonGro]
     "Transpose of the zone matrix";
   parameter Boolean have_CO2Sen
-    "True: there are zones have CO2 sensor";
+    "True: some zones have CO2 sensor";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nZonGro]
     "AHU operation mode status signal"
@@ -35,30 +35,26 @@ block SumZone "Sum of the zone level setpoints calculation"
     "Zone CO2 control loop"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAhuOpeMod
-    "Operation mode for AHU operation"
-    annotation (Placement(transformation(extent={{120,80},{160,120}}),
-        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumZonAbsMin_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumZonDesMin_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Sum of the zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{120,-50},{160,-10}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMaxCO2(
     final unit="1")
     if have_CO2Sen
     "Maximum CO2 control loop signal"
     annotation (Placement(transformation(extent={{120,-120},{160,-80}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{100,-70},{140,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain groFlo(
     final K=zonGroMat)
@@ -96,16 +92,6 @@ block SumZone "Sum of the zone level setpoints calculation"
     final nin=nZon) if have_CO2Sen
     "Maximum CO2 loop signal"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nZonGro]
-    "Convert integer to real"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
-    final nin=nZonGro)
-    "Find the highest priotity operating mode"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger ahuMod
-    "Air handling operating mode"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
 equation
   connect(uOpeMod, intEqu1.u1)
@@ -138,14 +124,6 @@ equation
     annotation (Line(points={{-140,-100},{38,-100}}, color={0,0,127}));
   connect(mulMax.y, yMaxCO2)
     annotation (Line(points={{62,-100},{140,-100}}, color={0,0,127}));
-  connect(uOpeMod, intToRea.u) annotation (Line(points={{-140,100},{-42,100}},
-                         color={255,127,0}));
-  connect(intToRea.y, mulMin.u)
-    annotation (Line(points={{-18,100},{-2,100}}, color={0,0,127}));
-  connect(mulMin.y, ahuMod.u)
-    annotation (Line(points={{22,100},{38,100}},  color={0,0,127}));
-  connect(ahuMod.y, yAhuOpeMod)
-    annotation (Line(points={{62,100},{140,100}}, color={255,127,0}));
 annotation (
   defaultComponentName="sumZon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -171,11 +149,11 @@ annotation (
           textColor={255,127,0},
           textString="uOpeMod"),
         Text(
-          extent={{22,40},{94,24}},
+          extent={{22,70},{94,54}},
           textColor={0,0,0},
           textString="VSumZonAbsMin_flow"),
         Text(
-          extent={{26,-20},{98,-36}},
+          extent={{26,10},{98,-6}},
           textColor={0,0,0},
           textString="VSumZonDesMin_flow"),
         Text(
@@ -184,14 +162,10 @@ annotation (
           textString="uCO2",
           visible=have_CO2Sen),
         Text(
-          extent={{66,-70},{96,-84}},
+          extent={{66,-40},{96,-54}},
           textColor={0,0,0},
           textString="yMaxCO2",
-          visible=have_CO2Sen),
-        Text(
-          extent={{38,90},{96,76}},
-          textColor={255,127,0},
-          textString="yAhuOpeMod")}),
+          visible=have_CO2Sen)}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
 Documentation(info="<html>
 <p>

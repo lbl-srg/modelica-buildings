@@ -3,7 +3,7 @@ model Controller
   "Validation of model that controls dual-duct unit using mixing control with discharge flow sensor"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Controller duaDucCon(
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final AFlo=20,
     final desZonPop=2,
     final VMin_flow=0.5,
