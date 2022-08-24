@@ -144,6 +144,7 @@ on the efficiency and pressure curves that are defined
 in record <code>per</code>, which is of type
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
 Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+fixme: let's discuss, this is not clear.
 </p>
 <h4>Main equations</h4>
 <p>
