@@ -10,7 +10,6 @@ model FlowControlled_dp "FlowControlled_dp with pre-filled parameters"
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
     final constantHead,
     final heads,
-    final addPowerToMedium=false,
     final nominalValuesDefineDefaultPressureCurve=true,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);

@@ -9,7 +9,6 @@ model SpeedControlled_Nrpm "SpeedControlled_Nrpm with pre-filled parameters"
             powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
-    final addPowerToMedium=false,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 
