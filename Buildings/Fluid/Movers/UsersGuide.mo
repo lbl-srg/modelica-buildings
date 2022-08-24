@@ -5,7 +5,7 @@ package UsersGuide "User's Guide"
   Documentation(info="<html>
 <p>
 This package contains models for fans and pumps (movers).
-The models do not differentiate fans or pumps.
+The same models can be used for fans or pumps.
 </p>
 
 <h4>Model description</h4>
@@ -13,7 +13,22 @@ The models do not differentiate fans or pumps.
 The models consider the pressure rise, flow rate, speed, power consumption, and
 heat dissipation based on the user's specification.
 They can take pressure rise (head), mass flow rate, or speed (absolute or relative)
-as control signal.
+as control signal, and compute resulting quantities based on user-provided
+performance curves.
+</p>
+<p>
+While the models in the package
+<a href=\"modelica://Buildings.Fluid.Movers\">Buildings.Fluid.Movers</a>
+allow full customization,
+preconfigured models that use the same underlying physical equations
+are available in the package
+<a href=\"modelica://Buildings.Fluid.Movers.Preconfigured\">
+Buildings.Fluid.Movers.Preconfigured</a>.
+The models in
+<a href=\"modelica://Buildings.Fluid.Movers\">Buildings.Fluid.Movers</a>
+can also be parameterized with the data records from
+<a href=\"modelica://Buildings.Fluid.Movers.Data\">
+Buildings.Fluid.Movers.Data</a>.
 </p>
 
 <p>A detailed description of the fan and pump models can be
@@ -612,7 +627,7 @@ where the factor <i>1.2</i> accounts for a 20% oversize of the motor.
 Otherwise, if only a pressure curve is provided,
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>mot,nominal</sub>=
-1.2 &nbsp; (V&#775;<sub>max</sub> &frasl; 2 &nbsp;&Delta;p<sub>max</sub> &frasl; 2)
+1.2 &nbsp; (V&#775;<sub>max</sub> &frasl; 2) &nbsp; (&Delta;p<sub>max</sub> &frasl; 2)
 &frasl; &eta;<sub>hyd,p</sub>,
 </p>
 where the factor <i>1.2</i> also assumes a 20% oversize
