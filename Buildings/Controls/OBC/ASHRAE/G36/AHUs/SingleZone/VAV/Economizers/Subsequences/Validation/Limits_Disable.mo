@@ -4,32 +4,32 @@ model Limits_Disable
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim1(
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim2(
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim3(
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
 protected
-  final parameter Real fanSpe_min=0.1 "Minimum supply fan operation speed";
-  final parameter Real fanSpe_max=0.9 "Maximum supply fan operation speed";
+  final parameter Real supFanSpe_min=0.1 "Minimum supply fan operation speed";
+  final parameter Real supFanSpe_max=0.9 "Maximum supply fan operation speed";
   final parameter Real VOutDes_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.0
@@ -53,8 +53,8 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=fanSpe_min,
-    final height=fanSpe_max - fanSpe_min) "Supply fan speed signal"
+    final offset=supFanSpe_min,
+    final height=supFanSpe_max - supFanSpe_min) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig(
     final duration=1800,

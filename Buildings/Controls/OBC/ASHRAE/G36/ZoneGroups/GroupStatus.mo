@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups;
 block GroupStatus "Block that outputs the zone group status"
 
   parameter Integer nZon(
-    final min=1)=5 "Number of zones in building";
+    final min=1)=5 "Total number of zones in building";
   parameter Integer nZonGro(
-    final min=1)=nZon "Number of zones in group";
+    final min=1)=nZon "Number of zones in the group";
   parameter Boolean zonGroMsk[nZon]=fill(true, nZon)
     "Boolean array mask of zones included in group";
   parameter Real uLow(

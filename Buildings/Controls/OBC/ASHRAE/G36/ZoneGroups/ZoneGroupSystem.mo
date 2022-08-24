@@ -2,17 +2,17 @@ within Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups;
 block ZoneGroupSystem
   "Compute the AHU operating mode from the group operating mode"
 
-  parameter Integer nZonGro
+  parameter Integer nGro
     "Total number of zone group";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nZonGro]
-    "AHU operation mode status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nGro]
+    "Groups operation mode"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nZonGro]
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nGro]
     "Convert integer to real"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nZonGro)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nGro)
     "Find the highest priotity operating mode"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger ahuMod

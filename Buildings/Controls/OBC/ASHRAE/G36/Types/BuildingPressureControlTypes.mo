@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type BuildingPressureControlTypes = enumeration(
     BarometricRelief "Nonactuated barometric relief",
-    ReliefDamper "Actulated relief damper, without fan",
-    ReliefFan "Actulated relief damper, with relief fan(s)",
+    ReliefDamper "Actuated relief damper, without fan",
+    ReliefFan "Actuated relief damper, with relief fan(s)",
     ReturnFanMeasuredAir "Return fan, tracking measured supply and return airflow",
     ReturnFanCalculatedAir "Return fan, tracking calculated supply and return airflow",
     ReturnFanDp "Return fan, with direct building pressure control")
@@ -23,11 +23,11 @@ Nonactuated barometric relief.
 </td></tr>
 <tr><td><code>ReliefDamper</code></td>
 <td>
-Actulated relief damper, without fan.
+Actuated relief damper, without fan.
 </td></tr>
 <tr><td><code>RelieFan</code></td>
 <td>
-Actulated relief damper, with relief fan(s).
+Actuated relief damper, with relief fan(s).
 </td></tr>
 <tr><td><code>ReturnFanMeasuredAir</code></td>
 <td>

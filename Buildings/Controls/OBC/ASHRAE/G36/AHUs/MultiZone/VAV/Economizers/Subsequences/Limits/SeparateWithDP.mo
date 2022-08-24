@@ -7,12 +7,14 @@ block SeparateWithDP
   parameter Boolean have_CO2Sen=false
     "True: there are zones have CO2 sensor"
     annotation (Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-  parameter Real dpAbsOutDam_min(
+  parameter Real pAbsMinOutDam(
     unit="Pa",
-    displayUnit="Pa")=0
+    displayUnit="Pa")=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-  parameter Real dpDesOutDam_min(unit="Pa", displayUnit="Pa")
+  parameter Real pDesMinOutDam(
+    unit="Pa",
+    displayUnit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow";
   parameter Real minSpe(unit="1")
      "Minimum supply fan speed";
@@ -140,7 +142,7 @@ block SeparateWithDP
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDesDp(
-    final k=dpDesOutDam_min)
+    final k=pDesMinOutDam)
     "Design minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro
@@ -238,7 +240,7 @@ protected
     "Square of the normalized minimum airflow"
     annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minAbsDp(
-    final k=dpAbsOutDam_min)
+    final k=pAbsMinOutDam)
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Absolute minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-180,330},{-160,350}})));
@@ -286,11 +288,9 @@ equation
   connect(con1.y, moaP.f1) annotation (Line(points={{-178,-60},{-170,-60},{-170,
           -86},{-122,-86}}, color={0,0,127}));
   connect(con.y, moaP.f2) annotation (Line(points={{-138,-120},{-130,-120},{-130,
-          -98},{-122,-98}},
-                      color={0,0,127}));
+          -98},{-122,-98}}, color={0,0,127}));
   connect(one.y, moaP.x2) annotation (Line(points={{-178,-120},{-170,-120},{-170,
-          -94},{-122,-94}},
-                      color={0,0,127}));
+          -94},{-122,-94}}, color={0,0,127}));
   connect(uSupFanSpe_actual, moaP.u)
     annotation (Line(points={{-240,-90},{-122,-90}}, color={0,0,127}));
   connect(uOutDam, les.u1)
@@ -493,9 +493,9 @@ It is implemented according to Section 5.16.4 of the ASHRAE Guideline 36, May 20
 <ul>
 <li>
 Per Section 3.2.1, designer should provide the design minimum pressure difference across
-the minimum outdoor air damper, <code>dpDesOutDam_min</code>. The absolute minimum
-pressure difference should also be provided if complying with California Title 24
-requirements.
+the minimum outdoor air damper, <code>pDesMinOutDam</code>. The absolute minimum
+pressure difference (<code>pAbsMinOutDam</code>) should also be provided if complying
+with California Title 24 requirements.
 </li>
 <li>
 Calculate the outdoor air set point with

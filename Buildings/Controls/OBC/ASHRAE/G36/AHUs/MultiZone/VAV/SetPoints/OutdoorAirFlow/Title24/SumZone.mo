@@ -3,17 +3,15 @@ block SumZone "Sum of the zone level setpoints calculation"
 
   parameter Integer nZon
     "Total number of serving zones";
-  parameter Integer nZonGro
+  parameter Integer nGro
     "Total number of zone group";
-  parameter Integer zonGroMat[nZonGro, nZon]
+  parameter Integer zonGroMat[nGro, nZon]
     "Zone matrix with zone group as row index and zone as column index. It falgs which zone is grouped in which zone group";
-  parameter Integer zonGroMatTra[nZon, nZonGro]
-    "Transpose of the zone matrix";
   parameter Boolean have_CO2Sen
     "True: some zones have CO2 sensor";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nZonGro]
-    "AHU operation mode status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nGro]
+    "Groups operation mode"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VZonAbsMin_flow[nZon](
@@ -64,28 +62,28 @@ block SumZone "Sum of the zone level setpoints calculation"
     final K=zonGroMat)
     "Vector of total zone flow of each group"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nZonGro]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nGro]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nZonGro]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nGro]
     "Find the total flow of zone group"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1[nZonGro]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1[nGro]
     "Find the total flow of zone group"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
-    final nin=nZonGro)
+    final nin=nGro)
     "Sum of the zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(
-    final nin=nZonGro)
+    final nin=nGro)
     "Sum of the zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod[nZonGro](
-    final k=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied,nZonGro))
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod[nGro](
+    final k=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied,nGro))
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nZonGro]
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nGro]
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(

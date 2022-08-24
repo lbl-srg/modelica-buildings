@@ -4,7 +4,7 @@ block FreezeProtection
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes
     "Design of minimum outdoor air and economizer function";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
     "Type of freeze stat";
@@ -64,12 +64,12 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Minimum outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{-480,540},{-440,580}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1MinOutDam
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{-480,500},{-440,540}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
@@ -178,12 +178,12 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Minimum outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{440,-20},{480,20}}),
         iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{440,-90},{480,-50}}),
         iconTransformation(extent={{100,60},{140,100}})));
@@ -317,7 +317,7 @@ block FreezeProtection
     "Fully closed damper position"
     annotation (Placement(transformation(extent={{40,610},{60,630}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam2
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{120,540},{140,560}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch retDam2
@@ -444,7 +444,7 @@ block FreezeProtection
     "Check if it has been in stage 2 for sufficient long time"
     annotation (Placement(transformation(extent={{-260,420},{-240,440}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{320,-10},{340,10}})));
@@ -491,16 +491,16 @@ block FreezeProtection
     "Stage 0 freeze protection"
     annotation (Placement(transformation(extent={{140,730},{160,750}})));
   Buildings.Controls.OBC.CDL.Logical.Switch minOutDam3
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{120,510},{140,530}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(
     final k=false)
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "False"
     annotation (Placement(transformation(extent={{-40,530},{-20,550}})));
   Buildings.Controls.OBC.CDL.Logical.Switch minOutDam1
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
      and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{320,-80},{340,-60}})));
@@ -602,12 +602,12 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{320,40},{340,60}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai6(
     final k=1)
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,-40},{340,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Or or5
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
      and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-110},{340,-90}})));

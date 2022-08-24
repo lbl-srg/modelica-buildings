@@ -2,15 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAir
 model OutdoorAirFlow
   "Validate the sequences of setting AHU level minimum outdoor airflow rate"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.AHU ahu(
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.AHU
+    ahu(
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final have_CO2Sen=have_CO2Sen,
     final VAbsOutAir_flow=0.5,
     final VDesOutAir_flow=1) "AHU level minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.SumZone zonToAhu(
     final nZon=nZon,
-    final nZonGro=nZonGro,
+    final nGro=nGro,
     final zonGroMat=zonGroMat,
     final zonGroMatTra=zonGroMatTra,
     final have_CO2Sen=have_CO2Sen) "From zone level to AHU level"
@@ -21,13 +22,13 @@ protected
     "True: there are zones have CO2 sensor";
   parameter Integer nZon=4
     "Total number of zones";
-  parameter Integer nZonGro=2
+  parameter Integer nGro=2
     "Total number of zone group";
-  parameter Integer zonGroMat[nZonGro,nZon]={{1,1,0,0},{0,0,1,1}}
+  parameter Integer zonGroMat[nGro,nZon]={{1,1,0,0},{0,0,1,1}}
     "Zone matrix with zone group as row index and zone as column index. It falgs which zone is grouped in which zone group";
-  parameter Integer zonGroMatTra[nZon,nZonGro]={{1,0},{1,0},{0,1},{0,1}}
+  parameter Integer zonGroMatTra[nZon,nGro]={{1,0},{1,0},{0,1},{0,1}}
     "Transpose of the zone matrix";
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod[nZonGro](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod[nGro](
     final k={Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied,
              Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied})
     "AHU operation mode is Occupied"
@@ -54,11 +55,11 @@ equation
   connect(co2Loo.y, zonToAhu.uCO2) annotation (Line(points={{-58,-60},{0,-60},{0,
           -8},{18,-8}}, color={0,0,127}));
   connect(zonToAhu.VSumZonAbsMin_flow, ahu.VSumZonAbsMin_flow)
-    annotation (Line(points={{42,3},{50,3},{50,8},{58,8}}, color={0,0,127}));
+    annotation (Line(points={{42,6},{50,6},{50,8},{58,8}}, color={0,0,127}));
   connect(zonToAhu.VSumZonDesMin_flow, ahu.VSumZonDesMin_flow)
-    annotation (Line(points={{42,-3},{50,-3},{50,3},{58,3}}, color={0,0,127}));
-  connect(zonToAhu.yMaxCO2, ahu.uCO2Loo_max) annotation (Line(points={{42,-8},{
-          50,-8},{50,-3},{58,-3}}, color={0,0,127}));
+    annotation (Line(points={{42,0},{50,0},{50,3},{58,3}},   color={0,0,127}));
+  connect(zonToAhu.yMaxCO2, ahu.uCO2Loo_max) annotation (Line(points={{42,-5},{50,
+          -5},{50,-3},{58,-3}},    color={0,0,127}));
   connect(outAirFlo.y, ahu.VAirOut_flow) annotation (Line(points={{42,-50},{54,
           -50},{54,-8},{58,-8}}, color={0,0,127}));
 annotation (

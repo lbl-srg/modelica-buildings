@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
-type OutdoorSection = enumeration(
+type OutdoorAirSection = enumeration(
     DedicatedDampersAirflow   "Separate dedicated OA dampers with AFMS",
     DedicatedDampersPressure   "Separate dedicated OA dampers with differential pressure sensor",
     NoEconomizer   "No economizer",
     SingleDamper   "Single common OA damper with AFMS")
-    "Enumeration to configure the outdoor air section"
+  "Enumeration to configure the outdoor air section"
 annotation (
  Evaluate=true, Documentation(info="<html>
 <p>

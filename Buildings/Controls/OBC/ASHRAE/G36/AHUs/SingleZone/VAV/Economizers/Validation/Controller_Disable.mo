@@ -6,8 +6,8 @@ model Controller_Disable
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow) "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
@@ -16,8 +16,8 @@ model Controller_Disable
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow) "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,0}})));
@@ -37,11 +37,11 @@ protected
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Supply air temperature setpoint";
-  final parameter Real fanSpe_min(
+  final parameter Real supFanSpe_min(
     final min=0,
     final max=1,
     final unit="1")=0.1 "Minimum supply fan operation speed";
-  final parameter Real fanSpe_max(
+  final parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1")=0.9 "Maximum supply fan operation speed";
@@ -97,8 +97,8 @@ protected
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=fanSpe_min,
-    final height=fanSpe_max - fanSpe_min) "Supply fan speed signal"
+    final offset=supFanSpe_min,
+    final height=supFanSpe_max - supFanSpe_min) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation

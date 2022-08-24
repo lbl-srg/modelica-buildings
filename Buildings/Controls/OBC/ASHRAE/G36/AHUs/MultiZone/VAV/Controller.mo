@@ -15,8 +15,8 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
-    "Design of minimum outdoor air and economizer function"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes
+    "Type of outdoor air section"
     annotation (Dialog(group="Economizer design"));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system"
@@ -38,19 +38,19 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(group="System and building parameters"));
 
   parameter Real VUncDesOutAir_flow(unit="m3/s")=0
-    "Uncorrected design outdoor air rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
+    "Uncorrected design outdoor airflow rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real VDesTotOutAir_flow(unit="m3/s")=0
-    "Design total outdoor air rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
+    "Design total outdoor airflow rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real VAbsOutAir_flow(unit="m3/s")=0
-    "Design outdoor air rate when all zones with CO2 sensors or occupancy sensors are unpopulated. Needed when complying with Title 24 requirements"
+    "Design outdoor airflow rate when all zones with CO2 sensors or occupancy sensors are unpopulated. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   parameter Real VDesOutAir_flow(unit="m3/s")=0
-    "Design minimum outdoor airflow with areas served by the system are occupied at their design population, including diversity where applicable. Needed when complying with Title 24 requirements"
+    "Design minimum outdoor airflow rate with the areas served by the system are occupied at their design population, including diversity where applicable. Needed when complying with Title 24 requirements"
     annotation (Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ----------- parameters for fan speed control  -----------
@@ -66,7 +66,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMaxSet(
     unit="Pa",
-    displayUnit="Pa")=250
+    displayUnit="Pa")=1000
     "Duct design maximum static pressure. It is the Max_DSP shown in Section 3.2.1.1 of Guideline 36"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pDelTim(unit="s")=600
@@ -109,11 +109,11 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Fan speed", group="PID controller",
       enable=fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real maxSpeSupFan=1
-    "Maximum allowed fan speed"
+  parameter Real supFanSpe_max=1
+    "Maximum allowed supply fan speed"
     annotation (Dialog(tab="Fan speed", group="PID controller"));
-  parameter Real minSpeSupFan=0.1
-    "Lowest allowed fan speed if fan is on"
+  parameter Real supFanSpe_min=0.1
+    "Lowest allowed supply fan speed if fan is on"
     annotation (Dialog(tab="Fan speed", group="PID controller"));
 
   // ----------- parameters for supply air temperature control  -----------
@@ -198,66 +198,66 @@ block Controller "Multizone VAV air handling unit controller"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of minimum outdoor air controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real kMinOA(unit="1")=0.03
     "Gain of controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real TiMinOA(unit="s")=120
     "Time constant of integrator block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
            and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdMinOA(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+           or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
            and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Boolean have_CO2Sen=false
     "True: there are zones have CO2 sensor"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
-          and venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)));
-  parameter Real dpAbsOutDam_min=0
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+           and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)));
+  parameter Real pAbsMinOutDam=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
-          and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)));
-  parameter Real dpDesOutDam_min(unit="Pa")=150
+      enable=(venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+           and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)));
+  parameter Real pDesMinOutDam(unit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of differential pressure setpoint controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real kDp(unit="1")=1
     "Gain of controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
-      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)
+      enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uRetDam_min(unit="1")=0.5
     "Loop signal value to start decreasing the maximum return air damper position"
     annotation (Dialog(tab="Economizer", group="Limits, Common",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   // Enable
   parameter Real delTOutHis(
     unit="K",
@@ -292,11 +292,11 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real minOutDamPhy_max(unit="1")=1
     "Physically fixed maximum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
   parameter Real minOutDamPhy_min(unit="1")=0
     "Physically fixed minimum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits",
-      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow));
+      enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
   parameter Real uHeaMax(unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
     annotation (Dialog(tab="Economizer", group="Commissioning, modulation"));
@@ -333,7 +333,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller"));
 
   // ----------- Building pressure control parameters -----------
-  parameter Real dpBuiSet(
+  parameter Real p_rel_set(
     unit="Pa",
     displayUnit="Pa")=12
     "Building static pressure difference relative to ambient (positive to pressurize the building)"
@@ -342,11 +342,11 @@ block Controller "Multizone VAV air handling unit controller"
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRelDam(unit="1")=0.5
-    "Gain, applied to building pressure control error normalized with dpBuiSet"
+    "Gain, applied to building pressure control error normalized with p_rel_set"
     annotation (Dialog(tab="Pressure control", group="Relief damper",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
 //   parameter Real kRelFan(unit="1")=1
-//     "Gain, normalized using dpBuiSet"
+//     "Gain, normalized using p_rel_set"
 //     annotation (Dialog(tab="Pressure control", group="Relief fans",
 //       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
 //   parameter Real minSpeRelFan(unit="1")=0.1
@@ -358,14 +358,14 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController retFanCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController retFanCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for return fan"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRetFan(unit="1")=1
-    "Gain, normalized using dpBuiSet"
+    "Gain, normalized using p_rel_set"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
@@ -386,45 +386,37 @@ block Controller "Multizone VAV air handling unit controller"
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
          and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real maxSpeRetFan=0
+  final parameter Real retFanSpe_max=0
     "Maximum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
-  parameter Real minSpeRetFan=1
+  final parameter Real retFanSpe_min=1
     "Minimum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
   parameter Real retFacA = 0.5
-    "Mapping commanded return fan speed to return airflow"
+    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calauted"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
   parameter Real retFacB = 0
-    "Mapping commanded return fan speed to return airflow"
+    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calauted"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
 
-  parameter Real dpDis_min(
+  parameter Real p_rel_min(
     unit="Pa",
     displayUnit="Pa")=2.4
     "Minimum return fan discharge static pressure difference setpoint"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
-  parameter Real dpDis_max(
+  parameter Real p_rel_max(
     unit="Pa",
     displayUnit="Pa")=40
-    "Maximum return fan discharge static pressure setpoint"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-        enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
-  parameter Real disSpe_min(unit="1")=0.1
-    "Return fan speed when providing the minimum return fan discharge static pressure difference"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
-  parameter Real disSpe_max(unit="1")=1
-    "Return fan speed when providing the maximum return fan discharge static pressure difference"
+    "Maximum return fan discharge static pressure difference setpoint"
     annotation (Dialog(tab="Pressure control", group="Return fan",
         enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
@@ -522,8 +514,8 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Measured outdoor air volumetric flow rate"
     annotation (Placement(transformation(extent={{-400,76},{-360,116}}),
         iconTransformation(extent={{-240,50},{-200,90}})));
@@ -531,12 +523,13 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final max=1,
     final unit="1")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure)
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
     "Actual supply fan speed"
     annotation (Placement(transformation(extent={{-400,-10},{-360,30}}),
         iconTransformation(extent={{-240,-10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(
+    final unit="1")
     if (have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
     "Maximum zone CO2 control loop output"
     annotation (Placement(transformation(extent={{-400,-50},{-360,-10}}),
@@ -544,14 +537,16 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+    final quantity="PressureDifference")
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "Measured pressure difference across the minimum outdoor air damper"
     annotation (Placement(transformation(extent={{-400,-80},{-360,-40}}),
         iconTransformation(extent={{-240,-70},{-200,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+    final quantity="ThermodynamicTemperature")
+    if ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-400,-110},{-360,-70}}),
         iconTransformation(extent={{-240,-100},{-200,-60}})));
@@ -571,15 +566,15 @@ block Controller "Multizone VAV air handling unit controller"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-400,-170},{-360,-130}}),
         iconTransformation(extent={{-240,-140},{-200,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if (freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO or
-    freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Freeze protection stat signal. If the stat is normal open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
     annotation (Placement(transformation(extent={{-400,-200},{-360,-160}}),
         iconTransformation(extent={{-240,-180},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes if (freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat or freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
+    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-400,-240},{-360,-200}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
@@ -666,12 +661,12 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final max=1,
     final unit="1")
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Minimum outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{360,140},{400,180}}),
         iconTransformation(extent={{200,170},{240,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam if minOADes
-     == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam
+    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "Minimum outdoor air damper command on"
     annotation (Placement(transformation(extent={{360,110},{400,150}}),
         iconTransformation(extent={{200,140},{240,180}})));
@@ -825,13 +820,13 @@ block Controller "Multizone VAV air handling unit controller"
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon,
     final aveTimRan=aveTimRan,
-    final minSpe=minSpeSupFan,
+    final minSpe=supFanSpe_min,
     final minOAConTyp=minOAConTyp,
     final kMinOA=kMinOA,
     final TiMinOA=TiMinOA,
     final TdMinOA=TdMinOA,
     final venStd=venStd,
-    final dpDesOutDam_min=dpDesOutDam_min,
+    final pDesMinOutDam=pDesMinOutDam,
     final dpConTyp=dpConTyp,
     final kDp=kDp,
     final TiDp=TiDp,
@@ -852,7 +847,7 @@ block Controller "Multizone VAV air handling unit controller"
     final uOutDamMax=(uHeaMax + uCooMin)/2,
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final have_CO2Sen=have_CO2Sen,
-    final dpAbsOutDam_min=dpAbsOutDam_min) "Economizer controller"
+    final pAbsMinOutDam=pAbsMinOutDam) "Economizer controller"
     annotation (Placement(transformation(extent={{62,-60},{82,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan conSupFan(
     final have_perZonRehBox=have_perZonRehBox,
@@ -869,8 +864,8 @@ block Controller "Multizone VAV air handling unit controller"
     final k=kFanSpe,
     final Ti=TiFanSpe,
     final Td=TdFanSpe,
-    final maxSpe=maxSpeSupFan,
-    final minSpe=minSpeSupFan) "Supply fan speed setpoint"
+    final maxSpe=supFanSpe_max,
+    final minSpe=supFanSpe_min) "Supply fan speed setpoint"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
     final have_heaCoi=have_hotWatCoi or have_eleHeaCoi,
@@ -897,24 +892,27 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.AHU ashOutAirSet(
     final minOADes=minOADes,
     final VUncDesOutAir_flow=VUncDesOutAir_flow,
-    final VDesTotOutAir_flow=VDesTotOutAir_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final VDesTotOutAir_flow=VDesTotOutAir_flow)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Minimum outdoor airflow setpoint, when complying with ASHRAE 62.1 requirements"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper relDam(
-    final dpBuiSet=dpBuiSet,
-    final k=kRelDam) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    final p_rel_set=p_rel_set,
+    final k=kRelDam)
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Relief damper control for AHUs using actuated dampers without fan"
     annotation (Placement(transformation(extent={{-160,-360},{-140,-340}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanDpCon(
-    final dpBuiSet=dpBuiSet,
-    final dpDis_min=dpDis_min,
-    final dpDis_max=dpDis_max,
-    final disSpe_min=disSpe_min,
-    final disSpe_max=disSpe_max,
+    final p_rel_set=p_rel_set,
+    final p_rel_min=p_rel_min,
+    final p_rel_max=p_rel_max,
+    final disSpe_min=retFanSpe_min,
+    final disSpe_max=retFanSpe_max,
     final conTyp=retFanCon,
     final k=kRetFan,
     final Ti=TiRetFan,
-    final Td=TdRetFan) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
+    final Td=TdRetFan)
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
     "Return fan control with direct building pressure control"
     annotation (Placement(transformation(extent={{-160,-480},{-140,-460}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking retFanAirTra(
@@ -923,8 +921,9 @@ block Controller "Multizone VAV air handling unit controller"
     final k=kRetFan,
     final Ti=TiRetFan,
     final Td=TdRetFan,
-    final maxSpe=maxSpeRetFan,
-    final minSpe=minSpeRetFan) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final maxSpe=retFanSpe_max,
+    final minSpe=retFanSpe_min)
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
     "Return fan control for AHUs using return fan with airflow tracking"
     annotation (Placement(transformation(extent={{-160,-410},{-140,-390}})));
@@ -932,19 +931,23 @@ block Controller "Multizone VAV air handling unit controller"
     final minOADes=minOADes,
     final have_CO2Sen=have_CO2Sen,
     final VAbsOutAir_flow=VAbsOutAir_flow,
-    final VDesOutAir_flow=VDesOutAir_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final VDesOutAir_flow=VDesOutAir_flow)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Minimum outdoor airflow setpoint, when complying with Title 24 requirements"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=retFacB) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+    final p=retFacB)
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
     "Mapping commanded fan speed to return flow"
     annotation (Placement(transformation(extent={{-20,-440},{0,-420}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=retFacA) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+    final k=retFacA)
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
     "Mapping commanded fan speed to return flow"
     annotation (Placement(transformation(extent={{-60,-440},{-40,-420}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
-    final k=1) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+    final k=1)
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
     "Gain factor"
     annotation (Placement(transformation(extent={{-220,-380},{-200,-360}})));
 equation
@@ -1223,7 +1226,7 @@ annotation (
           extent={{-198,-40},{-116,-58}},
           textColor={0,0,0},
           textString="dpMinOutDam",
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
        Text(
           extent={{-196,-70},{-160,-90}},
           textColor={0,0,0},
@@ -1506,7 +1509,9 @@ serving one common space, which may include multiple air handling units.
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking</a>
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking</a>.
+When the return airflow is not measured but calculated, it assumes that the return
+airflow equals to (<code>retFacB</code> plus the product of <code>retFacA</code> and the commanded return fan speed).
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure\">

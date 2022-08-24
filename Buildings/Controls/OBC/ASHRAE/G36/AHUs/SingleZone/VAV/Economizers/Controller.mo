@@ -62,12 +62,12 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
 
-  parameter Real fanSpe_min(
+  parameter Real supFanSpe_min(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
     annotation(Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real fanSpe_max(
+  parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed"
@@ -185,8 +185,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
-    final min=fanSpe_min,
-    final max=fanSpe_max,
+    final min=supFanSpe_min,
+    final max=supFanSpe_max,
     final unit="1")
     "Actual supply fan speed"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
@@ -246,8 +246,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim(
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final outDamPhy_max=outDamPhy_max,
     final outDamPhy_min=outDamPhy_min,
     final VOutMin_flow=VOutMin_flow,

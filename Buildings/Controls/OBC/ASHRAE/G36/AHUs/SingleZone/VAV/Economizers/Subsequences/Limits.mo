@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences;
 block Limits "Single zone VAV AHU minimum outdoor air control - damper position limits"
 
-  parameter Real fanSpe_min(
+  parameter Real supFanSpe_min(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
     annotation(Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real fanSpe_max(
+  parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 1 "Maximum supply fan operation speed"
@@ -103,7 +103,7 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMinSig(
-    final k=fanSpe_min) "Minimum supply fan speed"
+    final k=supFanSpe_min) "Minimum supply fan speed"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhy_min)
@@ -114,7 +114,7 @@ protected
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
-    final k=fanSpe_max) "Maximum supply fan speed"
+    final k=supFanSpe_max) "Maximum supply fan speed"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_minSpeSig(
     final k=outDamMinFloMinSpe)

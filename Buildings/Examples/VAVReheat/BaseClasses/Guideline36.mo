@@ -72,7 +72,7 @@ model Guideline36
     final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A,
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final have_perZonRehBox=true,
@@ -83,7 +83,7 @@ model Guideline36
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone
     sumZon(
     final nZon=numZon,
-    final nZonGro=1,
+    final nGro=1,
     final zonGroMat=[1,1,1,1,1],
     final zonGroMatTra=[1; 1; 1; 1; 1])
     "Sum up zone ventilation setpoints"
@@ -163,7 +163,8 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Reset back to normal after freeze protection"
     annotation (Placement(transformation(extent={{340,350},{360,370}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem ahuMod
+  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem ahuMod(
+    final nGro=1)
     "AHU operating mode"
     annotation (Placement(transformation(extent={{240,630},{260,650}})));
 equation

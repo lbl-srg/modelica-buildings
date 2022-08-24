@@ -2,18 +2,18 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block ReturnFanDirectPressure
   "Return fan control with direct building pressure control"
 
-  parameter Real dpBuiSet(
+  parameter Real p_rel_set(
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
-  parameter Real dpDis_min(
+  parameter Real p_rel_min(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
     final max=1000) = 2.4
     "Return fan discharge static pressure difference minimum setpoint,no less than 2.4 Pa";
-  parameter Real dpDis_max(
+  parameter Real p_rel_max(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
@@ -34,7 +34,7 @@ block ReturnFanDirectPressure
     "Type of controller"
     annotation (Dialog(group="Pressure controller"));
   parameter Real k(final unit="1") = 1
-    "Gain, normalized using dpBuiSet"
+    "Gain, normalized using p_rel_set"
     annotation (Dialog(group="Pressure controller"));
   parameter Real Ti(
     final unit="s",
@@ -129,13 +129,13 @@ block ReturnFanDirectPressure
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
-    final k=dpBuiSet) "Building pressure setpoint"
+    final k=p_rel_set) "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMin(
-    final k=dpDis_min) "Return fan discharge static pressure minimum setpoint"
+    final k=p_rel_min) "Return fan discharge static pressure minimum setpoint"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMax(
-    final k=dpDis_max) "Return fan discharge static pressure maximum setpoint"
+    final k=p_rel_max) "Return fan discharge static pressure maximum setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero fan control signal"
@@ -328,7 +328,7 @@ off otherwise.</p>
 </li>
 <li>
 <p>Return fan is controlled to maintain return fan discharge static pressure
-at setpoint <code>dpBuiSet</code>.</p>
+at setpoint <code>p_rel_set</code>.</p>
 </li>
 <li>
 <p>Relief damper is only enabled when the associated supply and return
@@ -344,7 +344,7 @@ for control.</p>
 <li>
 <p>When the relief damper is enabled, a control loop modulates the relief damper
 in sequence with the return fan static pressure setpoint as shown in the figure
-below to maintain the building pressure equal to <code>dpBuiSet</code>,
+below to maintain the building pressure equal to <code>p_rel_set</code>,
 which is by default <i>12</i> Pa (<i>0.05</i> inches).
 </p>
 </li>
@@ -359,9 +359,9 @@ dampers from <code>yRelDam = 0</code> (closed) to <code>yRelDam = 1</code> (open
 </li>
 <li>
 From <i>0.5</i> to <i>1</i>, the building pressure control loop resets the return fan
-discharge static pressure setpoint from <code>dpDis_min</code>
-to <code>dpDis_max</code>. The <code>dpDis_min</code> and
-<code>dpDis_max</code> are specified in Section 3.2.1.4.
+discharge static pressure setpoint from <code>p_rel_min</code>
+to <code>p_rel_max</code>. The <code>p_rel_min</code> and
+<code>p_rel_max</code> are specified in Section 3.2.1.4.
 </li>
 </ol>
 <p align=\"center\">

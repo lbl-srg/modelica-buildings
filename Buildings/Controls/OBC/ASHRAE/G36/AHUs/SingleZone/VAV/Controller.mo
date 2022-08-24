@@ -265,10 +265,10 @@ block Controller
     annotation (Dialog(tab="Economizer", group="Modulation",
       enable=ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real fanSpe_min(unit="1")=0.1
+  parameter Real supFanSpe_min(unit="1")=0.1
     "Minimum supply fan operation speed"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real fanSpe_max(unit="1")=0.9
+  parameter Real supFanSpe_max(unit="1")=0.9
     "Maximum supply fan operation speed"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
   parameter Real VOutMin_flow(unit="m3/s")=1.0
@@ -768,8 +768,8 @@ block Controller
     final delTOutHys=delTOutHys,
     final delEntHys=delEntHys,
     final floHys=floHys,
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow,
     final outDamMinFloMinSpe=outDamMinFloMinSpe,

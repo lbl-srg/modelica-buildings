@@ -1,14 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1;
 block AHU "Outdoor airflow related calculations at the AHU level"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection minOADes
-    "Design of minimum outdoor air and economizer function"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes
+    "Type of outdoor air section"
     annotation (Dialog(group="Economizer design"));
   parameter Real VUncDesOutAir_flow(unit="m3/s")
-    "Uncorrected design outdoor air rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
+    "Uncorrected design outdoor airflow rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
     annotation(Dialog(group="Nominal condition"));
   parameter Real VDesTotOutAir_flow(unit="m3/s")
-    "Design total outdoor air rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Mannual"
+    "Design total outdoor airflow rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
     annotation(Dialog(group="Nominal condition"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSumAdjPopBreZon_flow(
@@ -40,8 +40,9 @@ block AHU "Outdoor airflow related calculations at the AHU level"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirOut_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    final quantity="VolumeFlowRate")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Measured outdoor air volumetric flow rate"
     annotation (Placement(transformation(extent={{-260,-130},{-220,-90}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -64,8 +65,9 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     annotation (Placement(transformation(extent={{220,-80},{260,-40}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput outAir_normalized(
-    final unit="1") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Normalized outdoor airflow rate"
     annotation (Placement(transformation(extent={{220,-120},{260,-80}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
@@ -107,9 +109,9 @@ block AHU "Outdoor airflow related calculations at the AHU level"
   Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut if (minOADes ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)
+  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Normalization for outdoor air flow rate"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(

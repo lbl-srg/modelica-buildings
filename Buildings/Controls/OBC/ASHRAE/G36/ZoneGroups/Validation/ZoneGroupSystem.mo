@@ -3,7 +3,7 @@ model ZoneGroupSystem
   "Validate block for calculating AHU mode from the zone group modes"
 
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem ahuMod(
-    final nZonGro=3)
+    final nGro=3)
     "AHU operation mode selection"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -27,8 +27,9 @@ equation
           {0,-0.666667},{18,-0.666667}}, color={255,127,0}));
   connect(groTwo.y, ahuMod.uOpeMod[2])
     annotation (Line(points={{-38,0},{18,0}}, color={255,127,0}));
-  connect(groThr.y, ahuMod.uOpeMod[3]) annotation (Line(points={{-38,-50},{0,-50},
-          {0,0.666667},{18,0.666667}}, color={255,127,0}));
+  connect(groThr.y, ahuMod.uOpeMod[3]) annotation (Line(points={{-38,-50},{0,
+          -50},{0,0.666667},{18,0.666667}},
+                                       color={255,127,0}));
 annotation (
   experiment(StopTime=10, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/ZoneGroups/Validation/ZoneGroupSystem.mos"
