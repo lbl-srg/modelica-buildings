@@ -2,8 +2,9 @@ within Buildings.Fluid.Movers.Preconfigured;
 model FlowControlled_m_flow "FlowControlled_m_flow with pre-filled parameters"
   extends Buildings.Fluid.Movers.FlowControlled_m_flow(
     final per(
-            pressure(V_flow=m_flow_nominal/rho_default*{0,1,2},
-                     dp=dp_nominal*{2,1,0}),
+            pressure(
+              V_flow=m_flow_nominal/rho_default*{0, 2},
+              dp=dp_nominal*{2, 0}),
             powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),

@@ -2,8 +2,9 @@ within Buildings.Fluid.Movers.Preconfigured;
 model SpeedControlled_Nrpm "SpeedControlled_Nrpm with pre-filled parameters"
   extends Buildings.Fluid.Movers.SpeedControlled_Nrpm(
     final per(
-            pressure(V_flow=m_flow_nominal/rho_default*{0,1,2},
-                     dp=dp_nominal*{2,1,0}),
+            pressure(
+              V_flow=m_flow_nominal/rho_default*{0, 2},
+              dp=dp_nominal*{2, 0}),
             speed_rpm_nominal=speed_rpm_nominal,
             powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
