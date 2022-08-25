@@ -65,7 +65,8 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final quantity="VolumeFlowRate") "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-280,240},{-240,280}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
+    "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(

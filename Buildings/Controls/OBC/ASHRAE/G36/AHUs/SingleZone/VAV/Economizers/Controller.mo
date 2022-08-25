@@ -184,7 +184,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=supFanSpe_min,
     final max=supFanSpe_max,
     final unit="1")
@@ -309,8 +309,8 @@ equation
           {60,-76},{60,0},{78,0}}, color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta)
     annotation (Line(points={{-160,-150},{-100,-150},{-100,-75},{18,-75}}, color={255,127,0}));
-  connect(uSupFanSpe_actual, damLim.uSupFanSpe_actual) annotation (Line(points={
-          {-160,-20},{-126,-20},{-126,14},{-102,14}}, color={0,0,127}));
+  connect(uSupFan_actual, damLim.uSupFan_actual) annotation (Line(points={{-160,
+          -20},{-126,-20},{-126,14},{-102,14}}, color={0,0,127}));
   connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
     annotation (Line(points={{-160,10},{-130,10},{-130,18},{-102,18}},color={0,0,127}));
   connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{102,6},{110,6},{110,120},

@@ -129,12 +129,12 @@ equation
     annotation (Line(points={{-58,-70},{0,-70},{0,-37},{98,-37}},   color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-18,100},{4,100},{4,18},{18,18}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer.uSupFanSpe_actual) annotation (Line(points=
-         {{-18,50},{10,50},{10,15},{18,15}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer.uSupFan_actual) annotation (Line(points={{
+          -18,50},{10,50},{10,15},{18,15}}, color={0,0,127}));
   connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
     annotation (Line(points={{-18,100},{82,100},{82,-22},{98,-22}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer1.uSupFanSpe_actual) annotation (Line(
-        points={{-18,50},{88,50},{88,-25},{98,-25}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer1.uSupFan_actual) annotation (Line(points={
+          {-18,50},{88,50},{88,-25},{98,-25}}, color={0,0,127}));
   connect(freProSta.y, economizer.uFreProSta) annotation (Line(points={{-58,-120},
           {6,-120},{6,1},{18,1}}, color={255,127,0}));
   connect(TSupSetSig.y, economizer1.TSupHeaEcoSet) annotation (Line(points={{-58,

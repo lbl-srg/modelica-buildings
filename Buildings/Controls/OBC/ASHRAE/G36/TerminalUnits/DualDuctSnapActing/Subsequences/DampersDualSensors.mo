@@ -80,7 +80,7 @@ block DampersDualSensors
     annotation (Placement(transformation(extent={{-360,110},{-320,150}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooAHU
-    "Cooling air handler proven on status"
+    "Cooling air handler status"
     annotation (Placement(transformation(extent={{-360,60},{-320,100}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin_flow(
@@ -126,7 +126,7 @@ block DampersDualSensors
     annotation (Placement(transformation(extent={{-360,-290},{-320,-250}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaAHU
-    "Heating air handler proven on status"
+    "Heating air handler status"
     annotation (Placement(transformation(extent={{-360,-330},{-320,-290}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDis_flow_Set(

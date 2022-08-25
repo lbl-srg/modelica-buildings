@@ -75,7 +75,7 @@ block SupplyTemperature
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
-    "Supply fan proven on status" annotation (Placement(transformation(extent={
+    "Supply fan status"           annotation (Placement(transformation(extent={
             {-180,-20},{-140,20}}), iconTransformation(extent={{-140,-50},{-100,
             -10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod

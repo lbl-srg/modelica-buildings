@@ -46,7 +46,7 @@ block SupplySignals
           extent={{-140,10},{-100,50}}), iconTransformation(extent={{-140,-20},{
             -100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
-    "Supply fan proven on status" annotation (Placement(transformation(extent={{
+    "Supply fan status"           annotation (Placement(transformation(extent={{
             -140,60},{-100,100}}), iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,

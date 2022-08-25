@@ -361,38 +361,42 @@ block Controller "Controller for cooling only VAV box"
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
     final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final VCooMax_flow=VCooMax_flow)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+    final k=venStd ==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    "No ventilation standard"
+    annotation (Placement(transformation(extent={{80,240},{100,260}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{120,240},{140,260}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    final message="Warning: Ventilation standard is not specified!")
+    "Warning when the ventilation standard is not specified"
+    annotation (Placement(transformation(extent={{160,240},{180,260}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-200,250},{-144,250},{
-          -144,216},{-102,216}},
-                            color={0,0,127}));
+          -144,216},{-102,216}}, color={0,0,127}));
   connect(TCooSet, timSup.TSet) annotation (Line(points={{-200,220},{-150,220},
           {-150,224},{-102,224}},color={0,0,127}));
   connect(TCooSet, conLoo.TCooSet) annotation (Line(points={{-200,220},{-150,
-          220},{-150,186},{-102,186}},
-                                  color={0,0,127}));
+          220},{-150,186},{-102,186}}, color={0,0,127}));
   connect(TZon, conLoo.TZon) annotation (Line(points={{-200,250},{-144,250},{
-          -144,180},{-102,180}},
-                            color={0,0,127}));
+          -144,180},{-102,180}}, color={0,0,127}));
   connect(THeaSet, conLoo.THeaSet) annotation (Line(points={{-200,180},{-156,
-          180},{-156,174},{-102,174}},
-                                  color={0,0,127}));
+          180},{-156,174},{-102,174}}, color={0,0,127}));
   connect(u1Win, setPoi.uWin) annotation (Line(points={{-200,150},{-126,150},{
-          -126,119},{-102,119}},
-                            color={255,0,255}));
+          -126,119},{-102,119}}, color={255,0,255}));
   connect(u1Occ, setPoi.uOcc) annotation (Line(points={{-200,120},{-132,120},{
-          -132,117},{-102,117}},
-                            color={255,0,255}));
+          -132,117},{-102,117}}, color={255,0,255}));
   connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,90},{-138,90},
           {-138,115},{-102,115}}, color={255,127,0}));
   connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-200,30},{-156,30},{
-          -156,111},{-102,111}},
-                            color={0,0,127}));
+          -156,111},{-102,111}}, color={0,0,127}));
   connect(TZon, setPoi.TZon) annotation (Line(points={{-200,250},{-144,250},{
-          -144,103},{-102,103}},
-                            color={0,0,127}));
+          -144,103},{-102,103}}, color={0,0,127}));
   connect(TDis, setPoi.TDis) annotation (Line(points={{-200,0},{-120,0},{-120,
           101},{-102,101}}, color={0,0,127}));
   connect(uOpeMod, actAirSet.uOpeMod) annotation (Line(points={{-200,90},{-138,90},
@@ -400,40 +404,31 @@ equation
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-78,114},{-60,114},{-60,14},{-22,14}}, color={0,0,127}));
   connect(VDis_flow, dam.VDis_flow) annotation (Line(points={{-200,-80},{-138,
-          -80},{-138,-54},{58,-54}},
-                                color={0,0,127}));
+          -80},{-138,-54},{58,-54}}, color={0,0,127}));
   connect(conLoo.yCoo, dam.uCoo) annotation (Line(points={{-78,186},{-50,186},{
-          -50,-31},{58,-31}},
-                          color={0,0,127}));
+          -50,-31},{58,-31}}, color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, dam.VActCooMax_flow) annotation (Line(
         points={{2,26},{28,26},{28,-34},{58,-34}},     color={0,0,127}));
   connect(TSup, dam.TSup)
-    annotation (Line(points={{-200,-40},{22,-40},{22,-25},{58,-25}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-200,-40},{22,-40},{22,-25},{58,-25}}, color={0,0,127}));
   connect(actAirSet.VActMin_flow, dam.VActMin_flow) annotation (Line(points={{2,20},{
-          34,20},{34,-22},{58,-22}},        color={0,0,127}));
+          34,20},{34,-22},{58,-22}}, color={0,0,127}));
   connect(TZon, dam.TZon) annotation (Line(points={{-200,250},{-144,250},{-144,
-          -28},{58,-28}},
-                     color={0,0,127}));
+          -28},{58,-28}}, color={0,0,127}));
   connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-78,220},{
-          100,220},{100,-141},{118,-141}},
-                                       color={255,0,255}));
+          100,220},{100,-141},{118,-141}}, color={255,0,255}));
   connect(TCooSet, sysReq.TCooSet) annotation (Line(points={{-200,220},{-150,
-          220},{-150,-144},{118,-144}},
-                                   color={0,0,127}));
+          220},{-150,-144},{118,-144}}, color={0,0,127}));
   connect(TZon, sysReq.TZon) annotation (Line(points={{-200,250},{-144,250},{
-          -144,-146},{118,-146}},
-                             color={0,0,127}));
+          -144,-146},{118,-146}}, color={0,0,127}));
   connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-78,186},{-50,186},
           {-50,-148},{118,-148}}, color={0,0,127}));
   connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-200,-80},{
-          -138,-80},{-138,-156},{118,-156}},
-                                        color={0,0,127}));
+          -138,-80},{-138,-156},{118,-156}}, color={0,0,127}));
   connect(uDam_actual, sysReq.uDam_actual) annotation (Line(points={{-200,-180},
           {-144,-180},{-144,-159},{118,-159}}, color={0,0,127}));
   connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,-80},{-138,
-          -80},{-138,-202},{118,-202}},
-                                  color={0,0,127}));
+          -80},{-138,-202},{118,-202}}, color={0,0,127}));
   connect(u1Fan, ala.u1Fan) annotation (Line(points={{-200,-240},{100,-240},{100,
           -214},{118,-214}}, color={255,0,255}));
   connect(uDam_actual, ala.uDam_actual) annotation (Line(points={{-200,-180},{-144,
@@ -457,18 +452,15 @@ equation
   connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,60},{-162,
           60},{-162,113},{-102,113}}, color={0,0,127}));
   connect(u1Win, minFlo.uWin) annotation (Line(points={{-200,150},{-126,150},{
-          -126,79},{-102,79}},
-                          color={255,0,255}));
+          -126,79},{-102,79}}, color={255,0,255}));
   connect(u1Occ, minFlo.uOcc) annotation (Line(points={{-200,120},{-132,120},{
-          -132,76},{-102,76}},
-                          color={255,0,255}));
+          -132,76},{-102,76}}, color={255,0,255}));
   connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-200,90},{-138,90},
           {-138,73},{-102,73}}, color={255,127,0}));
   connect(ppmCO2Set, minFlo.ppmCO2Set) annotation (Line(points={{-200,60},{-162,
           60},{-162,70},{-102,70}}, color={0,0,127}));
   connect(ppmCO2, minFlo.ppmCO2) annotation (Line(points={{-200,30},{-156,30},{
-          -156,67},{-102,67}},
-                          color={0,0,127}));
+          -156,67},{-102,67}}, color={0,0,127}));
   connect(minFlo.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-78,67},{-60,67},{-60,14},{-22,14}}, color={0,0,127}));
   connect(dam.VSet_flow, sysReq.VSet_flow) annotation (Line(points={{82,-31},{
@@ -495,6 +487,10 @@ equation
           76},{86,76},{86,60},{220,60}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,64},{80,64},{80,30},{
           220,30}}, color={0,0,127}));
+  connect(noVenSta.y, not1.u)
+    annotation (Line(points={{102,250},{118,250}}, color={255,0,255}));
+  connect(not1.y, assMes1.u)
+    annotation (Line(points={{142,250},{158,250}}, color={255,0,255}));
 annotation (defaultComponentName="cooBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

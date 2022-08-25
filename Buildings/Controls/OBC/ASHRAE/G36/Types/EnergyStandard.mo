@@ -15,6 +15,10 @@ Enumeration to define the energy standard. Possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
+<tr><td><code>Not_specified</code></td>
+<td>
+Not specified.
+</td></tr>
 <tr><td><code>ASHRAE90_1_2016</code></td>
 <td>
 ASHRAE 90.1-2016 energy code.

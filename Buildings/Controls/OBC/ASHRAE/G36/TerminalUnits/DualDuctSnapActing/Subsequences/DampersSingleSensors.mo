@@ -89,11 +89,11 @@ block DampersSingleSensors
     annotation (Placement(transformation(extent={{-360,-40},{-320,0}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooAHU
-    "Cooling air handler proven on status"
+    "Cooling air handler status"
     annotation (Placement(transformation(extent={{-360,-80},{-320,-40}}),
         iconTransformation(extent={{-140,-170},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaAHU
-    "Heating air handler proven on status"
+    "Heating air handler status"
     annotation (Placement(transformation(extent={{-360,-280},{-320,-240}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDis_flow_Set(

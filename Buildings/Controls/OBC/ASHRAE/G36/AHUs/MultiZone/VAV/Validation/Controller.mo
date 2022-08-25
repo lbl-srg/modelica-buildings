@@ -3,17 +3,11 @@ model Controller "Validation controller model"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B,
-
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
-
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
-
     final VUncDesOutAir_flow=0.05,
     final VDesTotOutAir_flow=0.05) "Multizone VAV AHU controller"
     annotation (Placement(transformation(extent={{100,-120},{180,40}})));
@@ -196,8 +190,8 @@ equation
           250,70},{50,70},{50,16.3636},{96,16.3636}}, color={255,0,255}));
   connect(pre.y, booToRea.u) annotation (Line(points={{242,40},{250,40},{250,70},
           {-100,70},{-100,20},{-82,20}}, color={255,0,255}));
-  connect(mul.y, conAHU.uSupFanSpe_actual) annotation (Line(points={{22,-100},{
-          50,-100},{50,-38.1818},{96,-38.1818}}, color={0,0,127}));
+  connect(mul.y, conAHU.uSupFan_actual) annotation (Line(points={{22,-100},{50,
+          -100},{50,-38.1818},{96,-38.1818}}, color={0,0,127}));
 
   connect(sumDesPopBreZon.y, conAHU.VSumAdjPopBreZon_flow) annotation (Line(
         points={{-178,100},{38,100},{38,5.45455},{96,5.45455}}, color={0,0,127}));

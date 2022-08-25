@@ -62,7 +62,7 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
-    "Supply fan proven on status"
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(

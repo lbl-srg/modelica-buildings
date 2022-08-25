@@ -96,9 +96,9 @@ protected
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
 equation
-  connect(SupFanSpeSig.y, damLim1.uSupFanSpe_actual) annotation (Line(points={{-138,
-          30},{-120,30},{-120,-6},{-120,-6.2},{-102,-6.2},{-102,-6}}, color={0,0,
-          127}));
+  connect(SupFanSpeSig.y, damLim1.uSupFan_actual) annotation (Line(points={{-138,
+          30},{-120,30},{-120,-6},{-120,-6.2},{-102,-6.2},{-102,-6}}, color={0,
+          0,127}));
   connect(VOutMinSetSig.y, damLim2.VOutMinSet_flow)
     annotation (Line(points={{-138,70},{-10,70},{-10,-2},{18,-2}},  color={0,0,127}));
   connect(fanStatus1.y, damLim1.u1SupFan) annotation (Line(points={{-138,-30},{-130,
@@ -128,9 +128,9 @@ equation
   connect(VOutMinSetSig.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{-138,70},{-110,70},{-110,-2},{-102,-2}},
     color={0,0,127}));
-  connect(SupFanSpeSig.y, damLim2.uSupFanSpe_actual) annotation (Line(points={{-138,
+  connect(SupFanSpeSig.y, damLim2.uSupFan_actual) annotation (Line(points={{-138,
           30},{-20,30},{-20,-6},{0,-6},{0,-6},{18,-6}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, damLim3.uSupFanSpe_actual) annotation (Line(points={{-138,
+  connect(SupFanSpeSig.y, damLim3.uSupFan_actual) annotation (Line(points={{-138,
           30},{120,30},{120,-6},{130,-6},{130,-6},{138,-6}}, color={0,0,127}));
 annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),

@@ -4,7 +4,7 @@ block ReturnFan "Return fan control for single zone AHU"
   parameter Real speDif=-0.1
     "Speed difference between supply and return fan to maintain building pressure at desired pressure";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
     final max=1,
     final unit="1")
@@ -42,7 +42,7 @@ block ReturnFan "Return fan control for single zone AHU"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
 equation
-  connect(uSupFanSpe_actual, addPar.u)
+  connect(uSupFan_actual, addPar.u)
     annotation (Line(points={{-140,60},{-62,60}}, color={0,0,127}));
   connect(u1SupFan, swi.u2)
     annotation (Line(points={{-140,0},{38,0}}, color={255,0,255}));
@@ -70,11 +70,11 @@ annotation (
           textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-96,68},{-22,52}},
+          extent={{-96,68},{-34,52}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFanSpe_actual"),
+          textString="uSupFan_actual"),
         Text(
           extent={{-98,-52},{-52,-66}},
           textColor={255,0,255},

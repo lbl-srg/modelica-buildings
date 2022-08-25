@@ -205,7 +205,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-280,-30},{-240,10}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooAHU
-    "Cooling air handler proven on status"
+    "Cooling air handler status"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotSup(
@@ -223,7 +223,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaAHU
-    "Heating air handler proven on status"
+    "Heating air handler status"
     annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
@@ -479,6 +479,17 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    "No ventilation standard"
+    annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{-20,290},{0,310}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    final message="Warning: Ventilation standard is not specified!")
+    "Warning when the ventilation standard is not specified"
+    annotation (Placement(transformation(extent={{20,290},{40,310}})));
 equation
   connect(TZon, timSupCoo.TZon) annotation (Line(points={{-260,300},{-220,300},{
           -220,286},{-202,286}}, color={0,0,127}));
@@ -621,14 +632,11 @@ equation
   connect(sysReq.yZonHeaTemResReq, yZonHeaTemResReq) annotation (Line(points={{122,
           -143},{152,-143},{152,-40},{260,-40}}, color={255,127,0}));
   connect(sysReq.yHotDucPreResReq, yHotDucPreResReq) annotation (Line(points={{122,
-          -148},{158,-148},{158,-70},{260,-70}},
-                                               color={255,127,0}));
+          -148},{158,-148},{158,-70},{260,-70}}, color={255,127,0}));
   connect(sysReq.yHeaFanReq, yHeaFanReq) annotation (Line(points={{122,-158},{164,
-          -158},{164,-100},{260,-100}},
-                                    color={255,127,0}));
+          -158},{164,-100},{260,-100}}, color={255,127,0}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{122,-202},{190,-202},
-          {190,-130},{260,-130}},
-                                color={255,127,0}));
+          {190,-130},{260,-130}}, color={255,127,0}));
   connect(ala.yFloSenAla, yFloSenAla) annotation (Line(points={{122,-207},{196,-207},
           {196,-160},{260,-160}}, color={255,127,0}));
   connect(ala.yLeaDamAla, yLeaDamAla) annotation (Line(points={{122,-210},{202,-210},
@@ -681,6 +689,10 @@ equation
           116},{66,116},{66,90},{260,90}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-138,104},{60,104},{60,60},
           {260,60}}, color={0,0,127}));
+  connect(noVenSta.y,not1. u)
+    annotation (Line(points={{-38,300},{-22,300}}, color={255,0,255}));
+  connect(not1.y,assMes1. u)
+    annotation (Line(points={{2,300},{18,300}},    color={255,0,255}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(

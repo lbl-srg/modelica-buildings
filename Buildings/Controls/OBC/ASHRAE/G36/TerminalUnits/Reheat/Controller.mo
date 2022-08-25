@@ -278,7 +278,7 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
-    "Supply fan status"
+    "AHU supply fan status"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
         iconTransformation(extent={{-140,-188},{-100,-148}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla if have_hotWatCoi
@@ -481,7 +481,17 @@ block Controller "Controller for room VAV box with reheat"
     final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    "No ventilation standard"
+    annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{-20,250},{0,270}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    final message="Warning: Ventilation standard is not specified!")
+    "Warning when the ventilation standard is not specified"
+    annotation (Placement(transformation(extent={{20,250},{40,270}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           246},{-142,246}}, color={0,0,127}));
@@ -528,8 +538,7 @@ equation
   connect(THeaSet, damVal.THeaSet) annotation (Line(points={{-200,200},{-160,
           200},{-160,-38},{-2,-38}}, color={0,0,127}));
   connect(conLoo.yHea, damVal.uHea) annotation (Line(points={{-118,204},{-110,
-          204},{-110,-41},{-2,-41}},
-                                color={0,0,127}));
+          204},{-110,-41},{-2,-41}}, color={0,0,127}));
   connect(TZon, damVal.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           -43},{-2,-43}}, color={0,0,127}));
   connect(actAirSet.VActHeaMin_flow, damVal.VActHeaMin_flow) annotation (Line(
@@ -543,8 +552,7 @@ equation
   connect(damVal.yDam, setOve.uDam) annotation (Line(points={{22,-23},{46,-23},
           {46,-86},{58,-86}},      color={0,0,127}));
   connect(uHeaOff, setOve.uHeaOff) annotation (Line(points={{-200,-150},{24,
-          -150},{24,-94},{58,-94}},
-                              color={255,0,255}));
+          -150},{24,-94},{58,-94}}, color={255,0,255}));
   connect(damVal.yVal, setOve.uVal) annotation (Line(points={{22,-41},{42,-41},
           {42,-97},{58,-97}},      color={0,0,127}));
   connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-118,250},{-68,
@@ -588,16 +596,13 @@ equation
   connect(sysReq.yZonTemResReq, yZonTemResReq) annotation (Line(points={{142,-122},
           {146,-122},{146,0},{220,0}},     color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{142,-127},
-          {150,-127},{150,-30},{220,-30}},
-                                         color={255,127,0}));
+          {150,-127},{150,-30},{220,-30}}, color={255,127,0}));
   connect(sysReq.yHeaValResReq, yHeaValResReq) annotation (Line(points={{142,-133},
-          {154,-133},{154,-60},{220,-60}},
-                                         color={255,127,0}));
+          {154,-133},{154,-60},{220,-60}}, color={255,127,0}));
   connect(sysReq.yHotWatPlaReq, yHotWatPlaReq) annotation (Line(points={{142,-138},
           {158,-138},{158,-90},{220,-90}}, color={255,127,0}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{142,-182},{168,-182},
-          {168,-120},{220,-120}},
-                                color={255,127,0}));
+          {168,-120},{220,-120}}, color={255,127,0}));
   connect(ala.yFloSenAla, yFloSenAla) annotation (Line(points={{142,-186},{172,-186},
           {172,-150},{220,-150}}, color={255,127,0}));
   connect(ala.yLeaDamAla, yLeaDamAla) annotation (Line(points={{142,-190},{176,-190},
@@ -640,6 +645,10 @@ equation
           96},{54,96},{54,60},{220,60}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,84},{48,84},{48,30},{
           220,30}}, color={0,0,127}));
+  connect(noVenSta.y,not1. u)
+    annotation (Line(points={{-38,260},{-22,260}}, color={255,0,255}));
+  connect(not1.y,assMes1. u)
+    annotation (Line(points={{2,260},{18,260}},    color={255,0,255}));
 annotation (defaultComponentName="rehBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

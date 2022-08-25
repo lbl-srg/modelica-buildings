@@ -140,8 +140,8 @@ equation
           -120},{-166,1},{-122,1}}, color={255,0,255}));
   connect(con.yOutDam, hvac.uEco) annotation (Line(points={{-78,29},{-62,29},{
           -62,-2},{-42,-2}}, color={0,0,127}));
-  connect(con.ySupFan, con.uSupFanSpe_actual) annotation (Line(points={{-78,24},
-          {-58,24},{-58,-46},{-146,-46},{-146,-14},{-122,-14}}, color={0,0,127}));
+  connect(con.ySupFan, con.uSupFan_actual) annotation (Line(points={{-78,24},{-58,
+          24},{-58,-46},{-146,-46},{-146,-14},{-122,-14}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-220,-200},{120,200}})),
     experiment(
       StopTime=864000,

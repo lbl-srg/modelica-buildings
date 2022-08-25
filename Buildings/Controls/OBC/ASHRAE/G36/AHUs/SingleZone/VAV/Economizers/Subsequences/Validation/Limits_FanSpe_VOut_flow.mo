@@ -81,10 +81,10 @@ equation
     annotation (Line(points={{-98,-90},{80,-90},{80,-14},{98,-14}}, color={255,127,0}));
   connect(VOutMinSetSig.y, damLim.VOutMinSet_flow)
     annotation (Line(points={{-98,70},{-60,70},{-60,-2},{-42,-2}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, damLim.uSupFanSpe_actual) annotation (Line(points={{-98,
+  connect(SupFanSpeSig.y, damLim.uSupFan_actual) annotation (Line(points={{-98,
           30},{-70,30},{-70,-6},{-42,-6}}, color={0,0,127}));
-  connect(SupFanSpeSig1.y, damLim1.uSupFanSpe_actual) annotation (Line(points={{
-          42,30},{70,30},{70,-6},{98,-6}}, color={0,0,127}));
+  connect(SupFanSpeSig1.y, damLim1.uSupFan_actual) annotation (Line(points={{42,
+          30},{70,30},{70,-6},{98,-6}}, color={0,0,127}));
   connect(VOutMinSetSig1.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{42,70},{80,70},{80,-2},{98,-2}}, color={0,0,127}));
 annotation (

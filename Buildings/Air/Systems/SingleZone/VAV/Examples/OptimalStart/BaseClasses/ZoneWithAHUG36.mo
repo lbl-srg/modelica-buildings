@@ -204,8 +204,8 @@ equation
           -61},{0,-98},{-88,-98},{-88,-87},{-82,-87}}, color={0,0,127}));
   connect(con.yHeaCoi, con.uHeaCoi_actual) annotation (Line(points={{-38,-64},{-4,
           -64},{-4,-96},{-84,-96},{-84,-89},{-82,-89}}, color={0,0,127}));
-  connect(con.ySupFan, con.uSupFanSpe_actual) annotation (Line(points={{-38,-46},
-          {-8,-46},{-8,-106},{-90,-106},{-90,-84},{-82,-84}}, color={0,0,127}));
+  connect(con.ySupFan, con.uSupFan_actual) annotation (Line(points={{-38,-46},{
+          -8,-46},{-8,-106},{-90,-106},{-90,-84},{-82,-84}}, color={0,0,127}));
   connect(freRes.y, con.u1SofSwiRes) annotation (Line(points={{-119,-144},{-106,
           -144},{-106,-69},{-82,-69}}, color={255,0,255}));
   annotation (defaultComponentName="zonAHUG36",

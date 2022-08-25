@@ -131,8 +131,8 @@ equation
     annotation (Line(points={{-18,90},{6,90},{6,-22},{98,-22}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut) annotation (Line(points={{-98,120},
           {90,120},{90,-1},{98,-1}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer.uSupFanSpe_actual) annotation (Line(points=
-         {{-18,50},{2,50},{2,15},{18,15}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer.uSupFan_actual) annotation (Line(points={{
+          -18,50},{2,50},{2,15},{18,15}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer.TOut) annotation (Line(points={{-98,120},
           {14,120},{14,39},{18,39}}, color={0,0,127}));
   connect(zonSta.y, economizer.uZonSta) annotation (Line(points={{-98,-60},{-6,-60},
@@ -141,8 +141,8 @@ equation
           {-2,-120},{-2,1},{18,1}}, color={255,127,0}));
   connect(TSupSetSig.y, economizer1.TSupHeaEcoSet) annotation (Line(points={{-58,
           50},{-50,50},{-50,-19},{98,-19}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer1.uSupFanSpe_actual) annotation (Line(
-        points={{-18,50},{2,50},{2,-25},{98,-25}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer1.uSupFan_actual) annotation (Line(points={
+          {-18,50},{2,50},{2,-25},{98,-25}}, color={0,0,127}));
 annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Validation/Controller_Mod_DamLim.mos"

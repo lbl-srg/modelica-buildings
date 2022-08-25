@@ -502,9 +502,21 @@ block Controller
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
     final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final VCooMax_flow=VCooMax_flow)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    "No ventilation standard"
+    annotation (Placement(transformation(extent={{-60,310},{-40,330}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{-20,310},{0,330}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    final message="Warning: Ventilation standard is not specified!")
+    "Warning when the ventilation standard is not specified"
+    annotation (Placement(transformation(extent={{20,310},{40,330}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
           296},{-202,296}}, color={0,0,127}));
@@ -562,8 +574,8 @@ equation
           -170},{12,-69},{78,-69}}, color={255,0,255}));
   connect(damVal.yVal, setOve.uVal) annotation (Line(points={{42,8},{62,8},{62,
           -71},{78,-71}},          color={0,0,127}));
-  connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-178,300},{-68,
-          300},{-68,-141},{138,-141}}, color={255,0,255}));
+  connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-178,300},{-148,
+          300},{-148,-141},{138,-141}},color={255,0,255}));
   connect(TCooSet, sysReq.TCooSet) annotation (Line(points={{-260,290},{-228,
           290},{-228,-143},{138,-143}}, color={0,0,127}));
   connect(TZon, sysReq.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
@@ -601,8 +613,7 @@ equation
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{162,-147},
           {186,-147},{186,-80},{260,-80}}, color={255,127,0}));
   connect(sysReq.yHeaValResReq, yHeaValResReq) annotation (Line(points={{162,-153},
-          {192,-153},{192,-110},{260,-110}},
-                                           color={255,127,0}));
+          {192,-153},{192,-110},{260,-110}}, color={255,127,0}));
   connect(sysReq.yHotWatPlaReq, yHotWatPlaReq) annotation (Line(points={{162,-158},
           {198,-158},{198,-140},{260,-140}}, color={255,127,0}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{162,-241},{180,-241},
@@ -632,13 +643,11 @@ equation
   connect(damVal.THeaDisSet, ala.TDisSet) annotation (Line(points={{42,11},{58,11},
           {58,-260},{138,-260}}, color={0,0,127}));
   connect(damVal.VFan_flow_Set, mul1.u1) annotation (Line(points={{42,3.8},{114,
-          3.8},{114,246},{198,246}},
-                               color={0,0,127}));
+          3.8},{114,246},{198,246}}, color={0,0,127}));
   connect(setOve.y1Fan, booToRea1.u) annotation (Line(points={{102,-77},{140,-77},
           {140,220},{158,220}},    color={255,0,255}));
   connect(booToRea1.y, mul1.u2) annotation (Line(points={{182,220},{190,220},{190,
-          234},{198,234}},
-                         color={0,0,127}));
+          234},{198,234}}, color={0,0,127}));
   connect(mul1.y, VFan_flow_Set)
     annotation (Line(points={{222,240},{260,240}}, color={0,0,127}));
   connect(u1Fan, damVal.u1Fan) annotation (Line(points={{-260,-270},{0,-270},{0,
@@ -683,6 +692,10 @@ equation
           -98,139},{82,139},{82,80},{260,80}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-98,124},{70,124},{70,20},
           {260,20}}, color={0,0,127}));
+  connect(noVenSta.y,not1. u)
+    annotation (Line(points={{-38,320},{-22,320}}, color={255,0,255}));
+  connect(not1.y,assMes1. u)
+    annotation (Line(points={{2,320},{18,320}},    color={255,0,255}));
 annotation (defaultComponentName="serFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

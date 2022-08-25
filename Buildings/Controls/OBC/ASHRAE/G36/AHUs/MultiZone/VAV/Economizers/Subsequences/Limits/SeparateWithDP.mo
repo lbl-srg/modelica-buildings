@@ -93,12 +93,12 @@ block SeparateWithDP
     "Economizer outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{-260,-50},{-220,-10}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
     final max=1,
-    final unit="1") "Actual supply fan speed"
-    annotation (Placement(transformation(extent={{-260,-110},{-220,-70}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+    final unit="1") "Actual supply fan speed" annotation (Placement(
+        transformation(extent={{-260,-110},{-220,-70}}), iconTransformation(
+          extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam
     "Status of minimum outdoor air damper position, true means it's open"
     annotation (Placement(transformation(extent={{220,50},{260,90}}),
@@ -291,7 +291,7 @@ equation
           -98},{-122,-98}}, color={0,0,127}));
   connect(one.y, moaP.x2) annotation (Line(points={{-178,-120},{-170,-120},{-170,
           -94},{-122,-94}}, color={0,0,127}));
-  connect(uSupFanSpe_actual, moaP.u)
+  connect(uSupFan_actual, moaP.u)
     annotation (Line(points={{-240,-90},{-122,-90}}, color={0,0,127}));
   connect(uOutDam, les.u1)
     annotation (Line(points={{-240,-30},{-42,-30}}, color={0,0,127}));
@@ -423,7 +423,7 @@ annotation (
           extent={{-98,-80},{-24,-96}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uSupFanSpe_actual"),
+          textString="uSupFan_actual"),
         Text(
           extent={{44,60},{98,42}},
           textColor={0,0,127},
