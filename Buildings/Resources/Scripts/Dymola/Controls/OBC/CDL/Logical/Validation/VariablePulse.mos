@@ -1,10 +1,12 @@
 simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.VariablePulse", stopTime=20.0, method="Cvode", tolerance=1e-06, resultFile="VariablePulse");
-createPlot(id=1, position={10, 10, 900, 1000}, y={"truGo.uWid"}, range={0.0, 20.0, -2.0, 2.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-createPlot(id=1, position={10, 10, 900, 1000}, y={"truGo.y"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={10, 10, 900, 1000}, y={"falGo.uWid"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-createPlot(id=1, position={10, 10, 900, 1000}, y={"falGo.y"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=2, position={920, 10, 900, 1000}, y={"truFalGo.uWid"}, range={0.0, 20.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-createPlot(id=2, position={920, 10, 900, 1000}, y={"truFalGo.y"}, range={0.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=2, position={920, 10, 900, 1000}, y={"falTruGo.uWid"}, range={0.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-createPlot(id=2, position={920, 10, 900, 1000}, y={"falTruGo.y"}, range={0.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 900, 1400}, y={"fal.uWid"}, range={0.0, 20.0, -2.0, 2.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={10, 10, 900, 1400}, y={"fal.y"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 900, 1400}, y={"tru.uWid"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={10, 10, 900, 1400}, y={"tru.y"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 900, 1400}, y={"conTru.uWid"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=5, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={10, 10, 900, 1400}, y={"conTru.y"}, range={0.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=6, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1000}, y={"truFal.uWid"}, range={0.0, 20.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={920, 10, 900, 1000}, y={"truFal.y"}, range={0.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1000}, y={"falTru.uWid"}, range={0.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={920, 10, 900, 1000}, y={"falTru.y"}, range={0.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
 

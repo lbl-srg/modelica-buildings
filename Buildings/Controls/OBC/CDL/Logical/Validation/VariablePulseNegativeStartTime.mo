@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
-model VariablePulse "Validation model for producing boolean pulse output"
+model VariablePulseNegativeStartTime
+  "Validation model for producing boolean pulse output, with a negative start time"
 
   Buildings.Controls.OBC.CDL.Logical.VariablePulse conTru(
     final samplePeriod=1.0,
@@ -61,11 +62,11 @@ equation
   connect(con2.y, tru.uWid)
     annotation (Line(points={{-18,40},{18,40}}, color={0,0,127}));
 annotation (experiment(
-      StartTime=0,
+      StartTime=-20,
       StopTime=20,
       Tolerance=1e-06),
   __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/VariablePulse.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/VariablePulseNegativeStartTime.mos" "Simulate and plot"),
   Documentation(info="<html>
 <p>
 Validation test for the block
@@ -73,7 +74,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Logical.VariablePulse</a>.
 </p>
 <p>
-This validates the blocks with a start time of <i>0</i>.
+This validates the blocks with a start time of <i>-20</i>.
 </p>
 </html>",
 revisions="<html>
@@ -97,4 +98,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end VariablePulse;
+end VariablePulseNegativeStartTime;

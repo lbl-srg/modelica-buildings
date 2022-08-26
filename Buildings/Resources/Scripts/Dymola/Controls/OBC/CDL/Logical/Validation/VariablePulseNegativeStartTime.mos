@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.VariablePulseNegativeStartTime", startTime=-20.0, stopTime=20.0, method="Cvode", tolerance=1e-06, resultFile="VariablePulseNegativeTime");
+createPlot(id=1, position={10, 10, 900, 1400}, y={"fal.uWid"}, range={-20.0, 20.0, -2.0, 2.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={10, 10, 900, 1400}, y={"fal.y"}, range={-20.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 900, 1400}, y={"tru.uWid"}, range={-20.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={10, 10, 900, 1400}, y={"tru.y"}, range={-20.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 900, 1400}, y={"conTru.uWid"}, range={-20.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=5, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={10, 10, 900, 1400}, y={"conTru.y"}, range={-20.0, 20.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=6, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1000}, y={"truFal.uWid"}, range={-20.0, 20.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={920, 10, 900, 1000}, y={"truFal.y"}, range={-20.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1000}, y={"falTru.uWid"}, range={-20.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={920, 10, 900, 1000}, y={"falTru.y"}, range={-20.0, 20.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+

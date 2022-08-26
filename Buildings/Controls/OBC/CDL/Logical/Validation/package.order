@@ -23,5 +23,7 @@ TrueDelay
 TrueFalseHold
 TrueHoldWithReset
 VariablePulse
+VariablePulseNegativeStartTime
+VariablePulsePositiveStartTime
 Xor
 ZeroCrossing

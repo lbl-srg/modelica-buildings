@@ -1,29 +1,29 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block VariablePulse
-  "Produce output that cycles on and off according to the specified pulse period and width input"
+  "Generate boolean pulse with the width specified by input"
 
   parameter Real samplePeriod(
     final quantity="Time",
     final unit="s",
     min=1E-3)
-    "Sample period of component";
+    "Sample period of the width input";
   parameter Real period(
     final quantity="Time",
     final unit="s",
     final min=Constants.small)
-    "Time for one period";
+    "Time for one pulse period";
   parameter Real widHys=0.01
-    "Hysteresis for checking if width is greater than zero"
+    "Hysteresis for checking if the width input is greater than zero"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid(
     final min=0,
     final max=1,
     final unit="1")
-    "Ratio of the cycle time that the output should be true"
+    "Ratio of the period that the output should be true"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Cycling boolean output when input is greater than zero"
+    "Boolean pulse when the input is greater than zero"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -50,29 +50,29 @@ protected
     "Check if the input is greater than zero"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "Produce cycling output when the pulse width is greater than zero"
+    "Boolean pulse when the width input is greater than zero"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant swi2(
     final k=false)
     "Remain false output"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Cycle cycOut(
-    final period=period) "Produce cycling output"
+    final period=period) "Produce boolean pulse output"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   block Cycle
-    "Produce output that cycles true and false according to the specified pulse period and width input"
+    "Generate boolean pulse with the width specified by input"
     parameter Real period(
       final quantity="Time",
       final unit="s",
       final min=Constants.small)
-      "Time for one period";
+      "Time for one pulse period";
     Buildings.Controls.OBC.CDL.Interfaces.BooleanInput go
       "True: cycle the output"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
           iconTransformation(extent={{-140,-100},{-100,-60}})));
     Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid
-      "Ratio of the cycle time that the output should be true"
+      "Ratio of the period that the output should be true"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
           iconTransformation(extent={{-140,-20},{-100,20}})));
     Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
@@ -259,10 +259,9 @@ annotation (
     Documentation(
       info="<html>
 <p>
-Block that produces an output that cycles true and false according to the specified
-length of time (<code>period</code>) for the cycle and the value of the
-input <code>uWid</code>, which indicates the percentage of the cycle time the
-output should be true.
+Block that produces boolean output according to the specified period of the pulse
+(<code>period</code>) and the value of the input <code>uWid</code>, which indicates
+the percentage of the period that the output should be true.
 </p>
 <ul>
 <li>
