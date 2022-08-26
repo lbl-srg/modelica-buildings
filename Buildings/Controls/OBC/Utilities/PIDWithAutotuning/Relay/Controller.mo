@@ -40,7 +40,7 @@ block Controller
     final k=-yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract controlError
+  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr
     "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-76,10},{-56,30}})));
 
@@ -67,16 +67,14 @@ equation
           {58,-8}}, color={0,0,127}));
   connect(yOn, swi.u2) annotation (Line(points={{120,-60},{52,-60},{52,0},{58,0}},
         color={255,0,255}));
-  connect(controlError.y, yErr) annotation (Line(points={{-54,20},{94,20},{94,0},
-          {120,0}}, color={0,0,127}));
+  connect(conErr.y, yErr) annotation (Line(points={{-54,20},{94,20},{94,0},{120,
+          0}}, color={0,0,127}));
   connect(greMeaSet.y, swi.u2)
     annotation (Line(points={{2,0},{58,0}}, color={255,0,255}));
-  connect(controlError.u1, u_m)
-    annotation (Line(points={{-78,26},{-90,26},{-90,
-          -6},{-64,-6},{-64,-94},{0,-94},{0,-120}}, color={0,0,127}));
-  connect(controlError.u2, u_s)
-    annotation (Line(points={{-78,14},{-80,14},{-80,
-          0},{-120,0}}, color={0,0,127}));
+  connect(conErr.u1, u_m) annotation (Line(points={{-78,26},{-90,26},{-90,-6},{
+          -64,-6},{-64,-94},{0,-94},{0,-120}}, color={0,0,127}));
+  connect(conErr.u2, u_s) annotation (Line(points={{-78,14},{-80,14},{-80,0},{-120,
+          0}}, color={0,0,127}));
   annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -98,9 +96,9 @@ equation
 <p><i>t-&Delta;t</i> is the previous time step.</p>
 <p>Note that this block generates an asymmetric signal, meaning <i>y<sub>hig</sub> &ne; y<sub>low</i></sub> </p>
 <h4>References</h4>
-<p>Josefin Berner (2017),
-Automatic Controller Tuning using Relay-based Model Identification.
-Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
+<p>Josefin Berner (2017)
+\"Automatic Controller Tuning using Relay-based Model Identification.\"
+Department of Automatic Control, Lund Institute of Technology, Lund University.</p>
 </html>", revisions="<html>
 <ul>
 <li>

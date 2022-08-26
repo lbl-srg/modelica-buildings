@@ -25,27 +25,35 @@ block PIDWithAutotuningAmigoFOTD
     "Lower value for the relay output";
   parameter Real deaBan(min=1E-6) = 0.5
     "Deadband for holding the output value";
-  parameter Real yRef = 0.8
+  parameter Real yRef(min=1E-6) = 0.8
     "Reference output for the tuning process";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector for setpoint input signal"
+    "Setpoint"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector for measurement input signal"
     annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},rotation=270),iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Resets the controller output when trigger becomes true"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}), iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput tri
+    "Resets the controller output when trigger becomes true" annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
     final yHig=yHig,
     final yLow=yLow,
-    final deaBan=deaBan) "A relay controller"
+    final deaBan=deaBan)
+    "A relay controller"
     annotation (Placement(transformation(extent={{22,20},{42,40}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
-     controllerType=controllerType) "A PID controller"
+     controllerType=controllerType)
+     "A PID controller"
     annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a PID controller and a relay controller"
@@ -71,8 +79,9 @@ block PIDWithAutotuningAmigoFOTD
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PIDPra
     if with_D "Parameters of a PID controller"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(final
-      yHig=yHig - yRef, final yLow=yRef + yLow)
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
+    final yHig=yHig - yRef,
+    final yLow=yRef + yLow)
     "A block to process the response from the relay controller"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
@@ -97,8 +106,8 @@ equation
         color={0,0,127}));
   connect(rel.u_s, u_s) annotation (Line(points={{20,30},{-80,30},{-80,0},{-120,
           0}}, color={0,0,127}));
-  connect(PID.trigger, trigger) annotation (Line(points={{26,-42},{26,-92},{-60,
-          -92},{-60,-120}}, color={255,0,255}));
+  connect(PID.trigger, tri) annotation (Line(points={{26,-42},{26,-92},{-60,-92},
+          {-60,-120}}, color={255,0,255}));
   connect(swi.y, y) annotation (Line(points={{84,0},{96,0},{96,0},{120,0}},
                                                               color={0,0,127}));
   connect(samk.y,PID. k) annotation (Line(points={{-18,-20},{-16,-20},{-16,-22},

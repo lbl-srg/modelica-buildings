@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block OnOffPeriod
   "Calculate the lengths of the On period and the Off period"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim
-    "Connector for the input signal of the simulation time"
+    "Simulation time"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
@@ -19,7 +19,7 @@ block OnOffPeriod
     "Simulation time when the input signal becomes On (True)"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOff
-    "Simulation time when the input signal becomes Off (False)"
+    "Simulation time when the input signal becomesss Off (False)"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not Off
     "Relay switch off"
@@ -112,7 +112,7 @@ First implementation<br/>
 <p>2) the length of the Off period (when the relay switch signal becomes False).</p>
 <h4>References</h4>
 <p>
-Josefin Berner (2017).
+Josefin Berner (2017)
 \"Automatic Controller Tuning using Relay-based Model Identification.\"
 Department of Automatic Control, Lund Institute of Technology, Lund University.
 </p>

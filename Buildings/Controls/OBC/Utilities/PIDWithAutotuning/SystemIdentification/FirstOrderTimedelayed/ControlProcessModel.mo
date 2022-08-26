@@ -35,13 +35,14 @@ block ControlProcessModel
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain gain(
     final yHig=yHig,
     final yLow=yLow)
-    "Calculates the gain"
+    "Calculate the gain"
     annotation (Placement(transformation(extent={{-84,-10},{-64,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay
     timConDel(
     final yHig=yHig,
     final yLow=yLow,
-    deaBan=deaBan) "Calculate the time constant and the time delay"
+    deaBan=deaBan)
+    "Calculate the time constant and the time delay"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triSta
     "Relay tuning status, true if the tuning starts" annotation (Placement(
@@ -74,7 +75,7 @@ block ControlProcessModel
     "Product of the normalized time delay and -1"
     annotation (Placement(transformation(extent={{-36,-90},{-16,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1)
-   "Difference between 1 and the normalized time delay"
+    "Difference between 1 and the normalized time delay"
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "The output of samtau divided by that of addPar"

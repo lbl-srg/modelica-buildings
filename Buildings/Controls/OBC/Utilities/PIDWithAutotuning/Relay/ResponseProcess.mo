@@ -6,37 +6,37 @@ block ResponseProcess
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
-    "Connector for relay switch signal" annotation (Placement(transformation(
+    "Relay switch signal" annotation (Placement(transformation(
           extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
             {-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim
-    "Connector for the input signal of the simulation time"
+    "Simulation time"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn
-    "Connector for a real signal of the length for the On period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff
-    "Connector for a real output signal of the length for the Off period"
+    "length for the Off period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
-    "Connector for a boolean signal, true if the tuning starts"
+    "A boolean signal, true if the tuning starts"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
-    "Connector for a boolean signal, true if the tuning ends"
+    "A boolean signal, true if the tuning ends"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
-    "Connector for a real signal of the normalized time delay"
+    "A real signal of the normalized time delay"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
-    "Calculates the length of the On period and the Off period"
+    "Calculate the length of the On period and the Off period"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRatio
-    "Calculates the half period ratio"
+    "Calculat the half period ratio"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(final
-      gamma=max(yHig, yLow)/min(yLow, yHig))
-    "calculates the normalized time delay"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(
+     final gamma=max(yHig, yLow)/min(yLow, yHig))
+    "calculate the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 equation

@@ -19,8 +19,8 @@ block HalfPeriodRatio
             {{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
     "A boolean signal, true if the tuning completes" annotation (Placement(
-        transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent
-          ={{100,-70},{120,-50}})));
+        transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent=
+           {{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Min tmin
     "Minimum value of the length for the On period and the length for the off period "
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -176,7 +176,7 @@ First implementation<br/>
 <p>Note that only the first On period and the first Off period are considered.</p>
 <h4>References</h4>
 <p>Josefin Berner (2017)
-Automatic Controller Tuning using Relay-based Model Identification.
+\"Automatic Controller Tuning using Relay-based Model Identification.\"
 Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
 </html>"));
 end HalfPeriodRatio;
