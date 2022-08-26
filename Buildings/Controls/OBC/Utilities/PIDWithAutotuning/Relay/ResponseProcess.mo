@@ -15,57 +15,53 @@ block ResponseProcess
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn
     "Connector for a real signal of the length for the On period"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff
     "Connector for a real output signal of the length for the Off period"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerStart
+    annotation (Placement(transformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
     "Connector for a boolean signal, true if the tuning starts"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerEnd
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
     "Connector for a boolean signal, true if the tuning ends"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "Connector for a real signal of the normalized time delay"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPeriod
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
     "Calculates the length of the On period and the Off period"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halfPeriodRatio
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRatio
     "Calculates the half period ratio"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay normalizedTimeDelay(gamma=max(
-        yHig, yLow)/min(yLow, yHig))
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(final
+      gamma=max(yHig, yLow)/min(yLow, yHig))
     "calculates the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 equation
-  connect(onOffPeriod.On, On) annotation (Line(points={{-62,4},{-94,4},{-94,-60},
-          {-120,-60}}, color={255,0,255}));
-  connect(onOffPeriod.tim, tim) annotation (Line(points={{-62,16},{-94,16},{-94,
-          60},{-120,60}}, color={0,0,127}));
-  connect(onOffPeriod.tOn, halfPeriodRatio.tOn)
-    annotation (Line(points={{-39,14},{-20,14},{-20,16},{-2.22222,16}},
-                                                color={0,0,127}));
-  connect(onOffPeriod.tOff, halfPeriodRatio.tOff)
-    annotation (Line(points={{-39,6},{-8,6},{-8,4},{-2.22222,4}},
-                                                            color={0,0,127}));
-  connect(halfPeriodRatio.rho, normalizedTimeDelay.rho) annotation (Line(points={{23.3333,
-          16},{36,16},{36,10},{38,10}},     color={0,0,127}));
-  connect(tOn, halfPeriodRatio.tOn) annotation (Line(points={{110,80},{-20,80},{
-          -20,16},{-2.22222,16}},
-                            color={0,0,127}));
-  connect(tOff, halfPeriodRatio.tOff) annotation (Line(points={{110,40},{-8,40},
-          {-8,4},{-2.22222,4}},
-                          color={0,0,127}));
-  connect(normalizedTimeDelay.tau, tau) annotation (Line(points={{61,10},{94,10},
-          {94,0},{110,0}},     color={0,0,127}));
-  connect(triggerEnd, halfPeriodRatio.triggerEnd) annotation (Line(points={{110,-80},
-          {26,-80},{26,4},{23.3333,4}}, color={255,0,255}));
-  connect(triggerStart, halfPeriodRatio.triggerStart) annotation (Line(points={{110,-40},
-          {34,-40},{34,10},{23.3333,10}},          color={255,0,255}));
+  connect(onOffPer.On, On) annotation (Line(points={{-62,4},{-94,4},{-94,-60},{
+          -120,-60}}, color={255,0,255}));
+  connect(onOffPer.tim, tim) annotation (Line(points={{-62,16},{-94,16},{-94,60},
+          {-120,60}}, color={0,0,127}));
+  connect(onOffPer.tOn, halPerRatio.tOn) annotation (Line(points={{-38,14},{-20,
+          14},{-20,16},{-2.22222,16}}, color={0,0,127}));
+  connect(onOffPer.tOff, halPerRatio.tOff) annotation (Line(points={{-37.8,6},{
+          -8,6},{-8,4},{-2.22222,4}}, color={0,0,127}));
+  connect(halPerRatio.rho, norTimDel.rho) annotation (Line(points={{23.3333,16},
+          {36,16},{36,10},{38,10}}, color={0,0,127}));
+  connect(tOn, halPerRatio.tOn) annotation (Line(points={{120,80},{-20,80},{-20,
+          16},{-2.22222,16}}, color={0,0,127}));
+  connect(tOff, halPerRatio.tOff) annotation (Line(points={{120,40},{-8,40},{-8,
+          4},{-2.22222,4}}, color={0,0,127}));
+  connect(norTimDel.tau, tau) annotation (Line(points={{62,10},{94,10},{94,0},{
+          120,0}}, color={0,0,127}));
+  connect(triEnd, halPerRatio.triEnd) annotation (Line(points={{120,-80},{26,
+          -80},{26,4},{23.3333,4}}, color={255,0,255}));
+  connect(triSta, halPerRatio.triSta) annotation (Line(points={{120,-40},{34,
+          -40},{34,10},{23.3333,10}}, color={255,0,255}));
   annotation (
-        defaultComponentName = "responseProcess",
+        defaultComponentName = "resPro",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

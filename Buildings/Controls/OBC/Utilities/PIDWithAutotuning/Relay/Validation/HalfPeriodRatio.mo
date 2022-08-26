@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model HalfPeriodRatio "Test model for HalfPeriodRatio"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio
-    halfPeriodRatio "Calculate the half period ratio"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halfPerRat
+    "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
     table=[0,0; 0.1,1; 0.3,1; 0.7,1; 0.83,2; 0.85,6],
@@ -15,14 +15,12 @@ model HalfPeriodRatio "Test model for HalfPeriodRatio"
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Signal for the length of the Off period"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-	
+
 equation
-  connect(tOn.y[1],halfPeriodRatio. tOn) annotation (Line(points={{-38,30},{-20,
-          30},{-20,6},{-10.2222,6}},
-                                color={0,0,127}));
-  connect(tOff.y[1],halfPeriodRatio. tOff) annotation (Line(points={{-38,-30},{
-          -20,-30},{-20,-6},{-10.2222,-6}},
-                                   color={0,0,127}));
+  connect(tOn.y[1], halfPerRat.tOn) annotation (Line(points={{-38,30},{-20,30},
+          {-20,6},{-10.2222,6}}, color={0,0,127}));
+  connect(tOff.y[1], halfPerRat.tOff) annotation (Line(points={{-38,-30},{-20,
+          -30},{-20,-6},{-10.2222,-6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
 model PIDIntegralTime "Test model for PIDIntergralTime"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime
-    pIDIntegralTime "Calculate the integral time for a PID controller"
+    PIDIntegralTime "Calculate the integral time for a PID controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,
         0.127; 0.002,1.002,0.501,0.301,0.948,0.447,0.127; 0.004,1.004,0.502,
@@ -310,11 +310,11 @@ model PIDIntegralTime "Test model for PIDIntergralTime"
         Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PIDIntegralTime block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-	
+
 equation
-  connect(ReferenceData.y[2], pIDIntegralTime.T) annotation (Line(points={{-38,
+  connect(ReferenceData.y[2],PIDIntegralTime. T) annotation (Line(points={{-38,
           0},{-20,0},{-20,6},{-12,6}}, color={0,0,127}));
-  connect(pIDIntegralTime.L, ReferenceData.y[3]) annotation (Line(points={{-12,
+  connect(PIDIntegralTime.L, ReferenceData.y[3]) annotation (Line(points={{-12,
           -6},{-20,-6},{-20,0},{-38,0}}, color={0,0,127}));
   annotation (
       experiment(

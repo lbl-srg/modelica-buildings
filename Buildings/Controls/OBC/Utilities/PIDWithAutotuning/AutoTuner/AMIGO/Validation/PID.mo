@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
 model PID "Test model for PID"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID pID
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PID
     "Calculate the parameters for a PI controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,
@@ -310,13 +310,13 @@ model PID "Test model for PID"
         Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PIDDerivativeTime block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-	
+
 equation
-  connect(pID.kp, ReferenceData.y[1]) annotation (Line(points={{-12,6},{-20,6},
+  connect(PID.kp, ReferenceData.y[1]) annotation (Line(points={{-12,6},{-20,6},
           {-20,0},{-38,0}}, color={0,0,127}));
-  connect(pID.T, ReferenceData.y[2])
+  connect(PID.T, ReferenceData.y[2])
     annotation (Line(points={{-12,0},{-38,0}}, color={0,0,127}));
-  connect(pID.L, ReferenceData.y[3]) annotation (Line(points={{-12,-6},{-20,-6},
+  connect(PID.L, ReferenceData.y[3]) annotation (Line(points={{-12,-6},{-20,-6},
           {-20,0},{-38,0}}, color={0,0,127}));
   annotation (
       experiment(

@@ -2,38 +2,42 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block Controller
   "Outputs relay signals for tuning PID controllers"
   parameter Real yHig(min=1E-6) = 1
-    "Higher value for the output";
+    "Higher value for the relay output";
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   parameter Real deaBan(min=1E-6) = 0.5
     "Deadband for holding the output value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector for the setpoint input signal"
+    "Setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
-    "Connector for the measurement input signal"
+    "Measurement input signal"
     annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},rotation=270),
     iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Control output signal"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput On
-    "Control switch signal"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+    "Control output"
+    annotation (Placement(transformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOn
+    "Control switch output"
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
-    "Control error signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(final bandwidth=deaBan*2, pre_y_start=true)
+    "Control error"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(
+    final bandwidth=deaBan*2,
+    final pre_y_start=true)
     "Check if the measured value is larger than the reference, by default the relay control is On"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a higher value and a lower value"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHigSig(final k=yHig)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHigSig(
+    final k=yHig)
     "Higher value for the output"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(final k=-yLow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(
+    final k=-yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract controlError
@@ -43,11 +47,11 @@ block Controller
 initial equation
   assert(
     yHig-yLow>1E-6,
-    "The absulte values of yHig should be different from that of yLow. Check parameters.");
+    "The absulte values of the higher value for the relay output should be larger than that of the lower value. Check parameters.");
 
 equation
   connect(swi.y, y)
-    annotation (Line(points={{82,0},{88,0},{88,60},{110,60}},
+    annotation (Line(points={{82,0},{88,0},{88,60},{120,60}},
                                                             color={0,0,127}));
   connect(greMeaSet.reference, u_s)
     annotation (Line(points={{-22,6},{-40,6},{-40,0},{-120,0}},
@@ -61,11 +65,10 @@ equation
   connect(yLowSig.y, swi.u3)
     annotation (Line(points={{-18,-40},{50,-40},{50,-8},
           {58,-8}}, color={0,0,127}));
-  connect(On, swi.u2)
-    annotation (Line(points={{110,-80},{52,-80},{52,0},{58,0}},
+  connect(yOn, swi.u2) annotation (Line(points={{120,-60},{52,-60},{52,0},{58,0}},
         color={255,0,255}));
   connect(controlError.y, yErr) annotation (Line(points={{-54,20},{94,20},{94,0},
-          {110,0}}, color={0,0,127}));
+          {120,0}}, color={0,0,127}));
   connect(greMeaSet.y, swi.u2)
     annotation (Line(points={{2,0},{58,0}}, color={255,0,255}));
   connect(controlError.u1, u_m)
@@ -74,7 +77,7 @@ equation
   connect(controlError.u2, u_s)
     annotation (Line(points={{-78,14},{-80,14},{-80,
           0},{-120,0}}, color={0,0,127}));
-  annotation (defaultComponentName = "controller",
+  annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -95,7 +98,9 @@ equation
 <p><i>t-&Delta;t</i> is the previous time step.</p>
 <p>Note that this block generates an asymmetric signal, meaning <i>y<sub>hig</sub> &ne; y<sub>low</i></sub> </p>
 <h4>References</h4>
-<p>Josefin Berner (2017). &quot;Automatic Controller Tuning using Relay-based Model Identification.&quot; Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
+<p>Josefin Berner (2017),
+Automatic Controller Tuning using Relay-based Model Identification.
+Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
 </html>", revisions="<html>
 <ul>
 <li>

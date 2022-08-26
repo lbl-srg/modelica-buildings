@@ -8,22 +8,22 @@ block TimeConstantDelay
   parameter Real deaBan(min=0) = 0.5
     "Deadband for holding the output value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
-    "Connector for a signal of the length for the On period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput k
-    "Connector for the signal of the gain"
+    "Gain"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ratioLT
-    "Connector for the signal of the ratio between the time constant and the time delay"
+    "Ratio between the time constant and the time delay"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput T
-    "Connector for a output signal of the time constant"
+    "Time constant"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput L
-    "Connector for a output signal of the time delay"
+    "Time delay"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs absk
     "Absoulte value of the gain"
@@ -40,36 +40,37 @@ block TimeConstantDelay
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant relayDeaBan(k=deaBan)
     "Dead band of the relay controller"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    "Quotient of dead band Divided by the absolute value of k"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
-    "Quotient of dead band Divided by the absolute value of k minus yLow"
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Sum of yHig and yLow"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
-    "exp(L/T)(yHig + yLow)"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
-    "Calculates the result of h/|k|-yLow+exp(L/T)(yHig + yLow)"
+    "Product of the output of mul1 and that of sub2"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "yHig - deaBan/exp(L/T)"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Sum of the higher value for the output and the lower value for the output"
+    annotation (Placement(transformation(extent={{34,0},{54,20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+    "Quotient of dead band divided by the absolute value of the gain"
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
-    "Calculates the result of (h/|k|-yLow+exp(L/T)(yHig + yLow))/(yHig-h/|k|)"
+    "The output of add1 divided by that of sub1"
     annotation (Placement(transformation(extent={{60,-78},{80,-58}})));
-  Buildings.Controls.OBC.CDL.Continuous.Log log
-    "Natural logarithm of (h/|k|-yLow+exp(L/T)(yHig + yLow))/(yHig-h/|k|)"
-    annotation (Placement(transformation(extent={{-20,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div3
-    "Calculates the time constant"
+    "Calculate the time constant"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+    "Product of the output of exp and that of add2"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
-    "Calculates the time delay"
+    "Calculate time delay"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
-	
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    "The difference between the higher value of the output and the output of div1"
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    "Quotient of dead band divided by the absolute value of gain minus the lower value for the output"
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Log log
+    "Natural logarithm of the output of div2"
+    annotation (Placement(transformation(extent={{-20,-100},{-40,-80}})));
+
 equation
   connect(absk.u, k)
     annotation (Line(points={{-82,-10},{-92,-10},{-92,0},{-120,0}},
@@ -84,10 +85,10 @@ equation
   connect(sub2.u2, yLowSig.y) annotation (Line(points={{28,-46},{-12,-46},{-12,40},
           {-18,40}}, color={0,0,127}));
   connect(yHigSig.y, add2.u1) annotation (Line(points={{-58,40},{-52,40},{-52,16},
-          {38,16}}, color={0,0,127}));
-  connect(add2.u2, yLowSig.y) annotation (Line(points={{38,4},{-12,4},{-12,40},{
+          {32,16}}, color={0,0,127}));
+  connect(add2.u2, yLowSig.y) annotation (Line(points={{32,4},{-12,4},{-12,40},{
           -18,40}}, color={0,0,127}));
-  connect(add2.y, mul1.u2) annotation (Line(points={{62,10},{72,10},{72,24},{54,
+  connect(add2.y, mul1.u2) annotation (Line(points={{56,10},{72,10},{72,24},{54,
           24},{54,34},{58,34}}, color={0,0,127}));
   connect(exp.y, mul1.u1) annotation (Line(points={{-58,-50},{-6,-50},{-6,60},{54,
           60},{54,46},{58,46}},    color={0,0,127}));
@@ -95,8 +96,8 @@ equation
           58,-36}}, color={0,0,127}));
   connect(add1.u1, mul1.y) annotation (Line(points={{58,-24},{52,-24},{52,-6},{86,
           -6},{86,40},{82,40}}, color={0,0,127}));
-  connect(sub1.u1, add2.u1) annotation (Line(points={{18,-64},{-52,-64},{-52,16},
-          {38,16}}, color={0,0,127}));
+  connect(sub1.u1, add2.u1) annotation (Line(points={{18,-64},{-54,-64},{-54,16},
+          {32,16}}, color={0,0,127}));
   connect(sub1.y, div2.u2) annotation (Line(points={{42,-70},{48,-70},{48,-74},
           {58,-74}}, color={0,0,127}));
   connect(div2.u1, add1.y) annotation (Line(points={{58,-62},{54,-62},{54,-48},{
@@ -120,7 +121,7 @@ equation
   connect(absk.y, div1.u2) annotation (Line(points={{-58,-10},{-20,-10},{-20,
           -26},{-2,-26}}, color={0,0,127}));
   annotation (
-        defaultComponentName = "timeConstantDelay",
+        defaultComponentName = "timConDel",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDGain "Identify the control gain of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(min=1E-6)
     "Gain of a first order time-delayed model"
@@ -86,6 +86,10 @@ This block was validated analytically, see
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDGain</a>.
 </p>
 <h4>References</h4>
-<p>&Aring;str&ouml;m, Karl Johan, and Tore H&auml;gglund. &quot;Revisiting the Ziegler&ndash;Nichols step response method for PID control.&quot; Journal of process control 14.6 (2004): 635-650.</p>
+<p>
+Åström, Karl Johan and Tore Hägglund  (2004) 
+\"Revisiting the Ziegler–Nichols step response method for PID control.\"
+Journal of process control 14.6 (2004): 635-650.
+</p>
 </html>"));
 end PIDGain;

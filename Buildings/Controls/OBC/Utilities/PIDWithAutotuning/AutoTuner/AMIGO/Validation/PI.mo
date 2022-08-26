@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
 model PI "Test model for PI"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI pI
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI PI
     "Calculate the parameters for a PI controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.343,0.469;
@@ -267,13 +267,13 @@ model PI "Test model for PI"
         0.171,0.938; 1,2,1,0.6,0.171,0.938], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PI block"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
-	
+
 equation
-  connect(ReferenceData.y[1], pI.kp) annotation (Line(points={{-36,0},{-20,0},{
+  connect(ReferenceData.y[1],PI. kp) annotation (Line(points={{-36,0},{-20,0},{
           -20,6},{-12,6}}, color={0,0,127}));
-  connect(pI.T, ReferenceData.y[2])
+  connect(PI.T, ReferenceData.y[2])
     annotation (Line(points={{-12,0},{-36,0}}, color={0,0,127}));
-  connect(pI.L, ReferenceData.y[3]) annotation (Line(points={{-12,-6},{-20,-6},
+  connect(PI.L, ReferenceData.y[3]) annotation (Line(points={{-12,-6},{-20,-6},
           {-20,0},{-36,0}}, color={0,0,127}));
   annotation (
       experiment(

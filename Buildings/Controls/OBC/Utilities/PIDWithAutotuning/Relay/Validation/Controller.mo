@@ -1,19 +1,19 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model Controller "Test model for Control"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller controller(
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller relCon(
     yHig=1,
     yLow=0.5,
     deaBan=0.4) "A relay controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(freqHz=2) "Measured value"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0) "Setpoint"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-	
+
 equation
-  connect(const.y, controller.u_s)
+  connect(con.y, relCon.u_s)
     annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
-  connect(sin.y, controller.u_m)
+  connect(sin.y, relCon.u_m)
     annotation (Line(points={{-38,-50},{0,-50},{0,-12}}, color={0,0,127}));
   annotation (
       experiment(

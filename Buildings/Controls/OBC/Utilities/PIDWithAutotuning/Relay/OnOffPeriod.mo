@@ -1,20 +1,20 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block OnOffPeriod
-  "Calculates the lengths of the On period and the Off period"
+  "Calculate the lengths of the On period and the Off period"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim
     "Connector for the input signal of the simulation time"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
-    "Connector for relay switch signal" annotation (Placement(transformation(
+    "Relay switch signal" annotation (Placement(transformation(
           extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
             {-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff
-    "Connector for a real output signal of the length for the Off period"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+    "Length for the Off period"
+    annotation (Placement(transformation(extent={{102,-60},{142,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn
-    "Connector for a real output signal of the length for the On period"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    "Length for the On period"
+    annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOn
     "Simulation time when the input signal becomes On (True)"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
@@ -39,10 +39,10 @@ block OnOffPeriod
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOffRecord
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOffRec
     "Record the horizon length for the Off period"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOnRecord
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOnRec
     "Record the horizon length for the On period"
     annotation (Placement(transformation(extent={{60,50},{80,30}})));
 
@@ -71,25 +71,24 @@ equation
           {-52,62},{38,62}}, color={0,0,127}));
   connect(lenOffCal.y, greTimOff.u1) annotation (Line(points={{42,-30},{48,-30},
           {48,-48},{20,-48},{20,-70},{38,-70}}, color={0,0,127}));
-  connect(greTimOff.y, timOffRecord.trigger)
+  connect(greTimOff.y, timOffRec.trigger)
     annotation (Line(points={{62,-70},{70,-70},{70,-52}}, color={255,0,255}));
-  connect(timOffRecord.u, greTimOff.u1) annotation (Line(points={{58,-40},{54,
-          -40},{54,-48},{20,-48},{20,-70},{38,-70}},
-                                                color={0,0,127}));
-  connect(greTimOn.y, timOnRecord.trigger)
+  connect(timOffRec.u, greTimOff.u1) annotation (Line(points={{58,-40},{54,-40},
+          {54,-48},{20,-48},{20,-70},{38,-70}}, color={0,0,127}));
+  connect(greTimOn.y, timOnRec.trigger)
     annotation (Line(points={{62,70},{70,70},{70,52}}, color={255,0,255}));
-  connect(timOnRecord.u, greTimOn.u1) annotation (Line(points={{58,40},{50,40},
-          {50,56},{20,56},{20,70},{38,70}},color={0,0,127}));
+  connect(timOnRec.u, greTimOn.u1) annotation (Line(points={{58,40},{50,40},{50,
+          56},{20,56},{20,70},{38,70}}, color={0,0,127}));
   connect(timOn.u, tim) annotation (Line(points={{-32,40},{-92,40},{-92,60},{
           -120,60}}, color={0,0,127}));
   connect(timOff.u, tim) annotation (Line(points={{-32,-30},{-76,-30},{-76,40},
           {-92,40},{-92,60},{-120,60}}, color={0,0,127}));
-  connect(timOnRecord.y, tOn)
-    annotation (Line(points={{82,40},{110,40}}, color={0,0,127}));
-  connect(timOffRecord.y, tOff)
-    annotation (Line(points={{82,-40},{110,-40}}, color={0,0,127}));
+  connect(timOnRec.y, tOn) annotation (Line(points={{82,40},{102,40},{102,40},{120,
+          40}}, color={0,0,127}));
+  connect(timOffRec.y, tOff) annotation (Line(points={{82,-40},{102,-40},{102,-40},
+          {122,-40}}, color={0,0,127}));
   annotation (
-        defaultComponentName = "onOffPeriod",
+        defaultComponentName = "onOffPer",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

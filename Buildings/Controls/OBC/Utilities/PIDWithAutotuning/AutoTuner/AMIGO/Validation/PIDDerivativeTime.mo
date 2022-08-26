@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
 model PIDDerivativeTime "Test model for PIDDerivativeTime"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime
-    pIDDerivativeTime "Calculate the integral time for a PI controller"
+    PIDDerivativeTime "Calculate the integral time for a PI controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,
         0.127; 0.002,1.002,0.501,0.301,0.948,0.447,0.127; 0.004,1.004,0.502,
@@ -310,11 +310,11 @@ model PIDDerivativeTime "Test model for PIDDerivativeTime"
         Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PIDDerivativeTime block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-	
+
 equation
-  connect(pIDDerivativeTime.T, ReferenceData.y[2]) annotation (Line(points={{
+  connect(PIDDerivativeTime.T, ReferenceData.y[2]) annotation (Line(points={{
           -12,6},{-20,6},{-20,0},{-38,0}}, color={0,0,127}));
-  connect(pIDDerivativeTime.L, ReferenceData.y[3]) annotation (Line(points={{
+  connect(PIDDerivativeTime.L, ReferenceData.y[3]) annotation (Line(points={{
           -12,-6},{-20,-6},{-20,0},{-38,0}}, color={0,0,127}));
   annotation (
       experiment(

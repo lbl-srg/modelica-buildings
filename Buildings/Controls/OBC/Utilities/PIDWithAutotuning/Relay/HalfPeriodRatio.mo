@@ -1,74 +1,75 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block HalfPeriodRatio
-  "Calculates the half period ratio of a response from a relay controller"
+  "Calculate the half period ratio of a response from a relay controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
-    "Connector for a signal of the length for the On period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff
-    "Connector for a signal of the length for the Off period"
+    "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rho
-    "Connector for a real signal of the half period ratio"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+    "Real signal of the half period ratio"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerStart
-    "Connector for a boolean signal, true if the tuning starts"
-    annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={
-            {100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triggerEnd
-    "Connector for a boolean signal, true if the tuning completes"
-    annotation (Placement(
-        transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent=
-           {{100,-70},{120,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
+    "A boolean signal, true if the tuning starts" annotation (Placement(
+        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
+            {{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
+    "A boolean signal, true if the tuning completes" annotation (Placement(
+        transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent
+          ={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Min tmin
-    "The minimum value of tOn and tOff"
+    "Minimum value of the length for the On period and the length for the off period "
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gretOntOff
-    "Check if tOn*tOff*min(tOn*tOff) is larger than 0"
+    "Check if the length for the On period or the length for the off period is larger than 0"
     annotation (Placement(transformation(extent={{0,40},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(
+     final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOnSample(y_start=Buildings.Controls.OBC.CDL.Constants.eps)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOnSample(
+    final y_start=Buildings.Controls.OBC.CDL.Constants.eps)
     "Sample tOn when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOffSample(y_start=Buildings.Controls.OBC.CDL.Constants.eps)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOffSample(
+    final y_start=Buildings.Controls.OBC.CDL.Constants.eps)
     "Sample tOff when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
     "Sample the tmin when tmin is larger than 0"
     annotation (Placement(transformation(extent={{40,40},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater tIncrease
-    "Check if either tOn or tOff increases after they both becomes positive"
+    "Check if either the length for the On period or the length for the off period increases after they both becomes positive"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Min mintOntOff
-    "Find the smaller one between tOn and tOff"
+    "Find the smaller one between the length for the On period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxtOntOff
-    "Find the larger one between tOn and tOff"
+    "Find the larger one between the length for the On period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide halfPeriodRatioCal
+  Buildings.Controls.OBC.CDL.Continuous.Divide halPerRat
     "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add AddtOntOff
-    "Calculate the sum of tOn and tOff"
+    "Calculate the sum of the length for the On period and the length for the off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Detect if the tOn or tOff changes after both of them are larger than 0"
+    "Detect if the the length for the On period or the length for the off period changes after both of them are larger than 0"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gretmaxtOntOff
-    "Check if either tOn or tOff is larger than 0"
+    "Check if either the length for the On period or the length for the off period is larger than 0"
     annotation (Placement(transformation(extent={{0,10},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Less tDecrease
-    "Check if either tOn or tOff decreases after they both becomes positive"
+    "Check if either the length for the On period or the length for the off period decreases after they both becomes positive"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or tChanges
-    "Check if tOn or tOff changes"
+    "Check if the length for the On period or the length for the off period changes"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-	
+
 equation
   connect(tmin.u1, tOn) annotation (Line(points={{-82,36},{-94,36},{-94,60},{-120,
           60}},      color={0,0,127}));
@@ -102,14 +103,14 @@ equation
   connect(mintOntOff.u1, maxtOntOff.u1) annotation (Line(points={{-22,-64},{-54,
           -64},{-54,70},{-30,70},{-30,76},{-22,76}},
                             color={0,0,127}));
-  connect(maxtOntOff.y, halfPeriodRatioCal.u1) annotation (Line(points={{2,70},{
-          52,70},{52,76},{58,76}},                color={0,0,127}));
-  connect(halfPeriodRatioCal.u2, mintOntOff.y) annotation (Line(points={{58,64},
-          {32,64},{32,-34},{24,-34},{24,-70},{2,-70}},  color={0,0,127}));
-  connect(halfPeriodRatioCal.y, rho) annotation (Line(points={{82,70},{94,70},{94,
-          60},{110,60}}, color={0,0,127}));
-  connect(triggerEnd, tOffSample.trigger) annotation (Line(points={{110,-60},{26,
-          -60},{26,-52},{-70,-52},{-70,-58}}, color={255,0,255}));
+  connect(maxtOntOff.y, halPerRat.u1) annotation (Line(points={{2,70},{52,70},{52,
+          76},{58,76}}, color={0,0,127}));
+  connect(halPerRat.u2, mintOntOff.y) annotation (Line(points={{58,64},{32,64},{
+          32,-34},{24,-34},{24,-70},{2,-70}}, color={0,0,127}));
+  connect(halPerRat.y, rho) annotation (Line(points={{82,70},{94,70},{94,60},{120,
+          60}}, color={0,0,127}));
+  connect(triEnd, tOffSample.trigger) annotation (Line(points={{120,-60},{26,-60},
+          {26,-52},{-70,-52},{-70,-58}}, color={255,0,255}));
   connect(AddtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-94,-36},{-94,
           -60},{-120,-60}}, color={0,0,127}));
   connect(samAddtOntOff.u, tIncrease.u1) annotation (Line(points={{38,30},{28,
@@ -124,8 +125,8 @@ equation
           30},{-2,30}}, color={0,0,127}));
   connect(mul.y, tIncrease.u1)
     annotation (Line(points={{-18,-30},{38,-30}}, color={0,0,127}));
-  connect(gretmaxtOntOff.y, triggerStart)
-    annotation (Line(points={{22,0},{110,0}}, color={255,0,255}));
+  connect(gretmaxtOntOff.y, triSta)
+    annotation (Line(points={{22,0},{120,0}}, color={255,0,255}));
   connect(gretmaxtOntOff.u2, gretOntOff.u2) annotation (Line(points={{-2,8},{
           -16,8},{-16,30},{-10,30},{-10,38},{-2,38}}, color={0,0,127}));
   connect(gretmaxtOntOff.u1, mul.u2) annotation (Line(points={{-2,0},{-50,0},{
@@ -144,7 +145,7 @@ equation
         Diagram(
            coordinateSystem(
            extent={{-100,-100},{100,100}})),
-        defaultComponentName = "halfPeriodRatio",
+        defaultComponentName = "halPerRat",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{80,
             100}}),                                      graphics={
         Rectangle(
@@ -174,7 +175,8 @@ First implementation<br/>
 <p>During an Off period,  the relay switch signal becomes False.</p>
 <p>Note that only the first On period and the first Off period are considered.</p>
 <h4>References</h4>
-<p>Josefin Berner (2017). &quot;Automatic Controller Tuning using Relay-based Model Identification.&quot; Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
-</html>"),
-    Diagram(coordinateSystem(extent={{-100,-100},{240,100}})));
+<p>Josefin Berner (2017)
+Automatic Controller Tuning using Relay-based Model Identification.
+Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
+</html>"));
 end HalfPeriodRatio;

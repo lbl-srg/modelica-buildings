@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDDerivativeTime "Identify the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=0)
     "Time constant of a first order time-delayed model"
@@ -78,6 +78,10 @@ This block was validated analytically, see
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDDerivativeTime</a>.
 </p>
 <h4>References</h4>
-<p>&Aring;str&ouml;m, Karl Johan, and Tore H&auml;gglund. &quot;Revisiting the Ziegler&ndash;Nichols step response method for PID control.&quot; Journal of process control 14.6 (2004): 635-650.</p>
+<p>
+Åström, Karl Johan and Tore Hägglund  (2004) 
+\"Revisiting the Ziegler–Nichols step response method for PID control.\"
+Journal of process control 14.6 (2004): 635-650.
+</p>
 </html>"));
 end PIDDerivativeTime;

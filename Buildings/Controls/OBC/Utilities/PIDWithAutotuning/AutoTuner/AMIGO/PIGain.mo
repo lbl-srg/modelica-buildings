@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIGain "Identifies the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(min=1E-6)
     "Gain of a first order time-delayed model"
@@ -13,22 +13,22 @@ block PIGain "Identifies the control gain of a PI controller"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
-    "Control gain signal"
+    "Control gain of a PI controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
-    "Calculates the sum of the time constant and the time delay"
+    "Calculate the sum of the time constant and the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Calculates the sume of the output of mul3 and the output of div1"
+    "Calculate the sume of the output of mul3 and the output of div1"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(final k=0.35)
-    "Constant parameter 1"
+    "Constant parameter 1 (value 0.35)"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(final k=0.15)
-    "Constant parameter 2"
+    "Constant parameter 2 (value 0.15)"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    "Calculate 0.15 divided by the gain"
+    "Calculate 0.15 divided by the control gain"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
     "Calculate the output of mul2 divided by the output of mul1"
@@ -88,8 +88,7 @@ equation
           16},{48,0},{42,0}}, color={0,0,127}));
   connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{120,0}},
         color={0,0,127}));
-  connect(div2.y, sub.u2)
-  annotation (Line(points={{42,-50},{44,-50},{44,-56},{
+  connect(div2.y, sub.u2) annotation (Line(points={{42,-50},{44,-50},{44,-56},{
           48,-56}}, color={0,0,127}));
   connect(const1.y, sub.u1) annotation (Line(points={{12,-80},{46,-80},{46,-44},
           {48,-44}}, color={0,0,127}));
@@ -131,6 +130,10 @@ This block was validated analytically, see
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIGain</a>.
 </p>
 <h4>References</h4>
-<p>Garpinger, Olof, Tore H&auml;gglund, and Karl Johan &Aring;str&ouml;m (2014) &quot;Performance and robustness trade-offs in PID control.&quot; Journal of Process Control 24.5 (2014): 568-577. </p>
+<p>
+Garpinger, Olof, Tore Hägglund, and Karl Johan Åström (2014) 
+\"Performance and robustness trade-offs in PID control.\"
+Journal of Process Control 24.5 (2014): 568-577.
+</p>
 </html>"));
 end PIGain;

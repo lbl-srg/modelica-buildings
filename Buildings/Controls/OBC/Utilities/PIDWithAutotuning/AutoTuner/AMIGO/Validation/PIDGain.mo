@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
 model PIDGain "Test model for PIDGain"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain pIDGain
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain PIDGain
     "Calculate the control gain for a PID controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ReferenceData(table=[0,1,0.5,0.3,0.95,0.446,
@@ -310,13 +310,13 @@ model PIDGain "Test model for PIDGain"
         Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Data for validating the PIDGain block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-	
+
 equation
-  connect(ReferenceData.y[1], pIDGain.kp) annotation (Line(points={{-38,0},{-20,
+  connect(ReferenceData.y[1],PIDGain. kp) annotation (Line(points={{-38,0},{-20,
           0},{-20,6},{-12,6}}, color={0,0,127}));
-  connect(pIDGain.T, ReferenceData.y[2])
+  connect(PIDGain.T, ReferenceData.y[2])
     annotation (Line(points={{-12,0},{-38,0}}, color={0,0,127}));
-  connect(pIDGain.L, ReferenceData.y[3]) annotation (Line(points={{-12,-6},{-20,
+  connect(PIDGain.L, ReferenceData.y[3]) annotation (Line(points={{-12,-6},{-20,
           -6},{-20,0},{-38,0}}, color={0,0,127}));
   annotation (
       experiment(
