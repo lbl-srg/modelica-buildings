@@ -27,7 +27,7 @@ initial equation
   SOC = SOC_start;
 equation
   // Charge balance of battery
-  PAct = if P > 0 then etaCha*P else (2-etaDis)*P;
+  PAct = if P > 0 then etaCha*P else (1/etaDis)*P;
   der(SOC)=PAct/EMax;
 
   // Equations to warn if state of charge exceeds 0 and 1
@@ -60,7 +60,7 @@ and compute the actual power flowing through the battery as
 <td>P &ge; 0</td>
 </tr>
 <tr>
-<td>P<sub>actual</sub> = P (2 - &eta;<sub>DIS</sub>)</td>
+<td>P<sub>actual</sub> = P (1 / &eta;<sub>DIS</sub>)</td>
 <td>P &lt; 0</td>
 </tr>
 </table>
@@ -82,6 +82,12 @@ exceeding the range between 0 and 1.
 
 </html>", revisions="<html>
 <ul>
+<li>
+August 26, 2022, by Jianjun Hu:<br/>
+Corrected calculation of power taken from the battery when it is discharged.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3095\">issue 3095</a>.
+</li>
 <li>
 December 6, 2021, by Michael Wetter:<br/>
 Corrected wrong unit string.<br/>
