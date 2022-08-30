@@ -398,6 +398,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        IBPSA, #1624</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.DualFanDualDuct</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop
+    </td>
+    <td valign=\"top\">Replaced fan components that have two-point pressure curve
+                       assignments with preconfigured models.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Loads</b>
     </td>
 </tr>
@@ -406,7 +417,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Swapped the pump models for preconfigured versions.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>.
     </td>
 </tr>
 </table>
