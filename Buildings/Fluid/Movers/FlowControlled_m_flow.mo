@@ -112,12 +112,6 @@ equation
    info="<html>
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
-The efficiency of the device is computed based
-on the efficiency and pressure curves that are defined
-in record <code>per</code>, which is of type
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
-fixme: let's discuss, this is not clear.
 </p>
 <p>
 See the

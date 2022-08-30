@@ -77,10 +77,6 @@ This model describes a fan or pump with prescribed speed in revolutions per minu
 The head is computed based on the performance curve that take as an argument
 the actual volume flow rate divided by the maximum flow rate and the relative
 speed of the fan.
-The efficiency of the device is computed based
-on the efficiency curves that take as an argument
-the actual volume flow rate divided by the maximum possible volume flow rate, or
-based on the motor performance curves.
 </p>
 <br/>
 <p>

@@ -137,14 +137,7 @@ equation
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
-The input connector provides the difference between
-outlet minus inlet pressure.
-The efficiency of the device is computed based
-on the efficiency and pressure curves that are defined
-in record <code>per</code>, which is of type
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
-fixme: let's discuss, this is not clear.
+The input connector provides the pressure rise from the inlet to the outlet.
 </p>
 <h4>Main equations</h4>
 <p>
