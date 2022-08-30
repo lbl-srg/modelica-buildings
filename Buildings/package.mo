@@ -402,7 +402,8 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
-                       Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+                       Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
     </td>
     <td valign=\"top\">Replaced fan and pump components that have simple two-point
                        pressure curve assignments with preconfigured models.<br/>
