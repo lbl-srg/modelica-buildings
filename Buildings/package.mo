@@ -398,6 +398,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        IBPSA, #1624</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Loads</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution<br/>
+                       Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
+    </td>
+    <td valign=\"top\">Swapped the pump models for preconfigured versions.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>
+    </td>
+</tr>
 </table>
 <!-- Errors that have been fixed -->
 <p>
