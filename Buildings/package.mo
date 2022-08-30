@@ -314,7 +314,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
     </td>
 </tr>
 </table>
@@ -396,16 +396,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1624\">
                        IBPSA, #1624</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
-    </td>
-    <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
     </td>
 </tr>
 </table>
