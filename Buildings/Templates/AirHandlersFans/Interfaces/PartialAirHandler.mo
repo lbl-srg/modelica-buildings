@@ -88,7 +88,8 @@ partial model PartialAirHandler "Interface class for air handler"
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true,
+      __Linkage(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare final package Medium = MediumAir,
