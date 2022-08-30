@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.Examples.Cooling.DirectUncontrolledETS", tolerance=1e-6, startTime=15724800, stopTime=16329600, method="Dassl", numberOfIntervals=500, resultFile="DirectUncontrolledETS");
 // Plot commands
 removePlots(true);

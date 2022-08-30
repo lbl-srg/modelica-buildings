@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples.DirectUncontrolled", tolerance=1e-6, stopTime=86400, numberOfIntervals=500, resultFile="DirectUncontrolled");
 // Plot commands
 removePlots(true);

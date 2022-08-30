@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS", tolerance=1e-6, stopTime=31536000, method="Dassl", numberOfIntervals=500, resultFile="BuildingTimeSeriesWithETS");
 // Plot commands
 removePlots(true);
