@@ -403,9 +403,10 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
                        Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
-                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
+                       Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
     </td>
-    <td valign=\"top\">Replaced fan and pump components that have simple two-point
+    <td valign=\"top\">Replaced fan and pump models that have simple two-point
                        pressure curve assignments with preconfigured models.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
