@@ -9,5 +9,7 @@ compareVars :=
     "truFal.uWid",
     "truFal.y",
     "falTru.uWid",
-    "falTru.y"
+    "falTru.y",
+    "falTru1.uWid",
+    "falTru1.y"
   };
