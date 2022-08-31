@@ -3,8 +3,8 @@ model FlowControlled_dp "Fan or pump with ideally controlled head dp as input si
   extends Buildings.Fluid.Movers.FlowControlled_dp(
     final per(
             pressure(
-              V_flow=m_flow_nominal/rho_default*{0, 2},
-              dp=dp_nominal*{2, 0}),
+              V_flow=m_flow_nominal/rho_default*{0, 1, 2},
+              dp=dp_nominal*{1.14, 1, 0.42}),
             powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
@@ -29,10 +29,13 @@ The configuration is as follows:
 <ul>
 <li>
 Based on the parameters <code>m_flow_nominal</code> and <code>dp_nominal</code>,
-a linear function for the head is constructed that goes through the points
-(<code>0</code>, <code>2 dp_nominal</code>),
-(<code>m_flow_nominal</code>, <code>dp_nominal</code>) and
-(<code>2 m_flow_nominal</code>, <code>0</code>).
+a pressure curve is constructed based on regression results of pump records in
+<a href=\"Modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
+Buildings.Fluid.Movers.Data.Pumps.Wilo</a>.
+For more information, see documentation of
+<code>Buildings.Fluid.HydronicConfiguration.UsersGuide.ModelParameters</code>
+(currently under development branch
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.)
 </li>
 <li>
 The hydraulic efficiency is computed based on the Euler number.
