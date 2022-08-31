@@ -3,22 +3,22 @@ model VariablePulseNegativeStartTime
   "Validation model for producing boolean pulse output"
 
   Buildings.Controls.OBC.CDL.Logical.VariablePulse conTru(
-    final samplePeriod=120.0,
+    final samplePeriod=120,
     final period=900)
     "Variable pulse with zero pulse width"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse fal(
-    final samplePeriod=120.0,
+    final samplePeriod=120,
     final period=900)
     "Variable pulse with the zero width input"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse truFal(
-    final samplePeriod=120.0,
+    final samplePeriod=120,
     final period=900)
     "Variable pulse with width input changing from positive value to zero"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse falTru(
-    final samplePeriod=120.0,
+    final samplePeriod=120,
     final period=900)
     "Variable pulse with width input changing from zero to positive value"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -44,7 +44,7 @@ model VariablePulseNegativeStartTime
     "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse tru(
-    final samplePeriod=120.0,
+    final samplePeriod=120,
     final period=900)
     "Variable pulse with the constant width input"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -53,7 +53,7 @@ model VariablePulseNegativeStartTime
     "Constant value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse falTru1(
-    final samplePeriod=120.0,
+    final samplePeriod=120,
     final period=900)
     "Variable pulse with width input changing from zero to positive value"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
@@ -61,8 +61,8 @@ model VariablePulseNegativeStartTime
     final amplitude=0.5,
     final width=0.5,
     final period=3600,
-    final shift=360,
-    offset=0.3)    "Continuous pulse signal"
+    final shift=300,
+    final offset=0.3)    "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 equation
   connect(con.y, conTru.uWid)

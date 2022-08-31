@@ -2,17 +2,14 @@ within Buildings.Controls.OBC.CDL.Logical;
 block VariablePulse
   "Generate boolean pulse with the width specified by input"
 
-  parameter Real samplePeriod(
-    final quantity="Time",
-    final unit="s",
-    min=1E-3)
+  parameter Real samplePeriod(unit="s")
     "Sample period of the width input";
-  parameter Real period(
-    final quantity="Time",
-    final unit="s",
-    final min=Constants.small)
+  parameter Real period(unit="s")
     "Time for one pulse period";
-  parameter Real widHys=0.01
+  parameter Real chaWidHys=0.05
+    "Hysteresis for checking if the width input is changed. It is the ratio of the value change to the original value"
+    annotation (Dialog(tab="Advanced"));
+  parameter Real zerWidHys=0.01
     "Hysteresis for checking if the width input is greater than zero"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid(
@@ -20,45 +17,65 @@ block VariablePulse
     final max=1,
     final unit="1")
     "Ratio of the period that the output should be true"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean pulse when the input is greater than zero"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+    annotation (Placement(transformation(extent={{140,-130},{180,-90}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(
     final samplePeriod=samplePeriod)
     "Sample the input and use it to check the input value change"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Check the difference before and after sampling"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1
     "Find the absolute value change"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final h=widHys)
+    final t=chaWidHys,
+    final h=0.5*chaWidHys)
     "Check if there is input value change"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "If there is input value change, use the new value"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final h=widHys)
+    final t=zerWidHys,
+    final h=0.5*zerWidHys)
     "Check if the input is greater than zero"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Boolean pulse when the width input is greater than zero"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant swi2(
     final k=false)
     "Remain false output"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if there is width change"
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+    "Relative width change"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=1) "Constant one"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+    "Original width"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "Rising edge when the width becomes positive"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+    "Rising edge when there is width change"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Cycle cycOut(
     final period=period) "Produce boolean pulse output"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
   block Cycle
     "Generate boolean pulse with the width specified by input"
@@ -129,36 +146,55 @@ protected
   end Cycle;
 
 equation
-  connect(uWid, sam.u) annotation (Line(points={{-120,0},{-90,0},{-90,80},{-82,80}},
-        color={0,0,127}));
-  connect(sam.y, sub.u1) annotation (Line(points={{-58,80},{-50,80},{-50,66},{-42,
-          66}}, color={0,0,127}));
-  connect(greThr.y, swi.u2) annotation (Line(points={{42,60},{50,60},{50,30},{58,
-          30}}, color={255,0,255}));
-  connect(uWid, sub.u2) annotation (Line(points={{-120,0},{-90,0},{-90,54},{-42,
-          54}}, color={0,0,127}));
+  connect(uWid, sam.u) annotation (Line(points={{-160,0},{-130,0},{-130,140},{-122,
+          140}}, color={0,0,127}));
+  connect(sam.y, sub.u1) annotation (Line(points={{-98,140},{-90,140},{-90,126},
+          {-62,126}}, color={0,0,127}));
+  connect(uWid, sub.u2) annotation (Line(points={{-160,0},{-130,0},{-130,114},{-62,
+          114}},color={0,0,127}));
   connect(sub.y, abs1.u)
-    annotation (Line(points={{-18,60},{-12,60}}, color={0,0,127}));
-  connect(abs1.y, greThr.u)
-    annotation (Line(points={{12,60},{18,60}}, color={0,0,127}));
-  connect(sam.y, swi.u3) annotation (Line(points={{-58,80},{-50,80},{-50,22},{58,
-          22}}, color={0,0,127}));
-  connect(uWid, swi.u1) annotation (Line(points={{-120,0},{-90,0},{-90,38},{58,38}},
-        color={0,0,127}));
-  connect(uWid, greThr1.u) annotation (Line(points={{-120,0},{-90,0},{-90,-40},{
-          -82,-40}}, color={0,0,127}));
-  connect(greThr1.y, cycOut.go) annotation (Line(points={{-58,-40},{-20,-40},{
-          -20,-18},{-2,-18}}, color={255,0,255}));
-  connect(cycOut.y, swi1.u1) annotation (Line(points={{22,-10},{40,-10},{40,-32},
-          {58,-32}}, color={255,0,255}));
+    annotation (Line(points={{-38,120},{-22,120}}, color={0,0,127}));
+  connect(sam.y, swi.u3) annotation (Line(points={{-98,140},{-90,140},{-90,22},{
+          98,22}}, color={0,0,127}));
+  connect(uWid, swi.u1) annotation (Line(points={{-160,0},{-130,0},{-130,38},{98,
+          38}}, color={0,0,127}));
+  connect(uWid, greThr1.u) annotation (Line(points={{-160,0},{-130,0},{-130,-110},
+          {-122,-110}}, color={0,0,127}));
+  connect(cycOut.y, swi1.u1) annotation (Line(points={{62,-80},{80,-80},{80,-102},
+          {98,-102}},color={255,0,255}));
   connect(greThr1.y, swi1.u2)
-    annotation (Line(points={{-58,-40},{58,-40}}, color={255,0,255}));
-  connect(swi2.y, swi1.u3) annotation (Line(points={{22,-70},{40,-70},{40,-48},{
-          58,-48}}, color={255,0,255}));
+    annotation (Line(points={{-98,-110},{98,-110}}, color={255,0,255}));
+  connect(swi2.y, swi1.u3) annotation (Line(points={{62,-140},{80,-140},{80,-118},
+          {98,-118}}, color={255,0,255}));
   connect(swi1.y, y)
-    annotation (Line(points={{82,-40},{120,-40}}, color={255,0,255}));
-  connect(swi.y, cycOut.uWid) annotation (Line(points={{82,30},{90,30},{90,10},{
-          -20,10},{-20,-10},{-2,-10}}, color={0,0,127}));
+    annotation (Line(points={{122,-110},{160,-110}}, color={255,0,255}));
+  connect(swi.y, cycOut.uWid) annotation (Line(points={{122,30},{130,30},{130,
+          -40},{30,-40},{30,-80},{38,-80}},
+                                       color={0,0,127}));
+  connect(or2.y, cycOut.go)
+    annotation (Line(points={{2,-20},{20,-20},{20,-88},{38,-88}}, color={255,0,255}));
+  connect(abs1.y, div1.u1) annotation (Line(points={{2,120},{10,120},{10,106},{18,
+          106}},color={0,0,127}));
+  connect(swi3.y, div1.u2) annotation (Line(points={{2,80},{10,80},{10,94},{18,94}},
+        color={0,0,127}));
+  connect(uWid, swi3.u1) annotation (Line(points={{-160,0},{-130,0},{-130,88},{-22,
+          88}}, color={0,0,127}));
+  connect(greThr1.y, swi3.u2) annotation (Line(points={{-98,-110},{-80,-110},{-80,
+          80},{-22,80}}, color={255,0,255}));
+  connect(con.y, swi3.u3) annotation (Line(points={{-38,60},{-30,60},{-30,72},{-22,
+          72}}, color={0,0,127}));
+  connect(div1.y, greThr.u)
+    annotation (Line(points={{42,100},{58,100}}, color={0,0,127}));
+  connect(greThr.y, swi.u2) annotation (Line(points={{82,100},{90,100},{90,30},{
+          98,30}}, color={255,0,255}));
+  connect(greThr1.y, edg1.u) annotation (Line(points={{-98,-110},{-80,-110},{-80,
+          -60},{-62,-60}}, color={255,0,255}));
+  connect(edg1.y, or2.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,-28},
+          {-22,-28}}, color={255,0,255}));
+  connect(greThr.y, edg2.u) annotation (Line(points={{82,100},{90,100},{90,30},{
+          -70,30},{-70,-20},{-62,-20}}, color={255,0,255}));
+  connect(edg2.y, or2.u1)
+    annotation (Line(points={{-38,-20},{-22,-20}}, color={255,0,255}));
 annotation (
     defaultComponentName="varPul",
     Icon(
@@ -289,5 +325,6 @@ August 11, 2022, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-140,-160},{140,160}})));
 end VariablePulse;
