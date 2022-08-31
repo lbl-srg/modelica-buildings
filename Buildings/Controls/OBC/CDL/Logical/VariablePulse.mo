@@ -169,8 +169,7 @@ equation
   connect(swi1.y, y)
     annotation (Line(points={{122,-110},{160,-110}}, color={255,0,255}));
   connect(swi.y, cycOut.uWid) annotation (Line(points={{122,30},{130,30},{130,
-          -40},{30,-40},{30,-80},{38,-80}},
-                                       color={0,0,127}));
+          -40},{30,-40},{30,-80},{38,-80}}, color={0,0,127}));
   connect(or2.y, cycOut.go)
     annotation (Line(points={{2,-20},{20,-20},{20,-88},{38,-88}}, color={255,0,255}));
   connect(abs1.y, div1.u1) annotation (Line(points={{2,120},{10,120},{10,106},{18,
