@@ -4,7 +4,9 @@ model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as in
     final per(
             pressure(
               V_flow=m_flow_nominal/rho_default*{0, 1, 2},
-              dp=dp_nominal*{1.14, 1, 0.42}),
+              dp=if rho_default < 500
+                   then dp_nominal*{1.12, 1, 0}
+                   else dp_nominal*{1.14, 1, 0.42}),
             powerOrEfficiencyIsHydraulic=true,
             etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
             etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve,
