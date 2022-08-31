@@ -15,7 +15,7 @@ Enumeration to define the ventilation standard. Possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
-<tr><td><code>Not_specified</code></td>
+<tr><td><code>Not_Specified</code></td>
 <td>
 Not specified.
 </td></tr>

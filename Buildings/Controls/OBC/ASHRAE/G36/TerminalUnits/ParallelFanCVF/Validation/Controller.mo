@@ -4,8 +4,8 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Controller parFanCon(
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final AFlo=20,
-    final desZonPop=2,
+    final VAreBreZon_flow=0.006,
+    final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,

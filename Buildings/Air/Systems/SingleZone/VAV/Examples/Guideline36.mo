@@ -9,15 +9,14 @@ model Guideline36
     "Design value for chiller leaving water temperature";
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller con(
-    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-    venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final VAreBreZon_flow=0.0144,
+    final VPopBreZon_flow=0.0075,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6B,
     freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     have_winSen=true,
     have_CO2Sen=false,
     buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
-    desZonPop=3,
     have_locAdj=false,
     ignDemLim=false,
     kCoo=0.1,
@@ -28,7 +27,6 @@ model Guideline36
     maxCooSpe=1,
     minSpe=0.1,
     kCooCoi=1,
-    AFlo=48,
     VOutMin_flow=0.0144,
     VOutDes_flow=0.025,
     kHea=0.1,

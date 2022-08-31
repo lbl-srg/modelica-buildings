@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF;
 block Controller
   "Controller for variable-volume series fan-powered terminal unit"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -23,17 +23,14 @@ block Controller
     "Zone minimum outdoor airflow for building area"
     annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ---------------- Design parameters ----------------
-  parameter Real AFlo(unit="m2")
-    "Zone floor area"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real desZonPop "Design zone population"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real outAirRat_area=0.0003
-    "Outdoor airflow rate per unit area, m3/s/m2"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real outAirRat_occupant=0.0025
-    "Outdoor airflow rate per occupant, m3/s/p"
-    annotation (Dialog(group="Design conditions"));
+  parameter Real VAreBreZon_flow(unit="m3/s")
+    "Design area component of the breathing zone outdoor airflow"
+    annotation(Dialog(group="Design conditions",
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+  parameter Real VPopBreZon_flow(unit="m3/s")
+    "Design population component of the breathing zone outdoor airflow"
+    annotation(Dialog(group="Design conditions",
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real VMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
@@ -458,10 +455,8 @@ block Controller
     final have_typTerUni=true,
     final have_parFanPowUni=false,
     final permit_occStandby=permit_occStandby,
-    final AFlo=AFlo,
-    final desZonPop=desZonPop,
-    final outAirRat_area=outAirRat_area,
-    final outAirRat_occupant=outAirRat_occupant,
+    final VAreBreZon_flow=VAreBreZon_flow,
+    final VPopBreZon_flow=VPopBreZon_flow,
     final VMin_flow=VMin_flow,
     final VCooMax_flow=VCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
@@ -507,7 +502,7 @@ block Controller
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
-    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{-60,310},{-40,330}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -517,6 +512,11 @@ block Controller
     final message="Warning: Ventilation standard is not specified!")
     "Warning when the ventilation standard is not specified"
     annotation (Placement(transformation(extent={{20,310},{40,330}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(
+    final k=0)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
+    "Zero flow when the ventilation standard is not specified"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
           296},{-202,296}}, color={0,0,127}));
@@ -554,7 +554,7 @@ equation
           28},{18,28}},   color={0,0,127}));
   connect(actAirSet.VActMin_flow, damVal.VActMin_flow) annotation (Line(points={{-18,94},
           {-6,94},{-6,23},{18,23}},              color={0,0,127}));
-  connect(TDis, damVal.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,
+  connect(TDis, damVal.TDis) annotation (Line(points={{-260,70},{-192,70},{-192,
           12},{18,12}},   color={0,0,127}));
   connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-260,-40},{-24,-40},
           {-24,20},{18,20}},   color={0,0,127}));
@@ -586,7 +586,7 @@ equation
           {-36,-151},{138,-151}}, color={0,0,127}));
   connect(uDam_actual, sysReq.uDam_actual) annotation (Line(points={{-260,-200},{-20,-200},{
           -20,-153},{138,-153}}, color={0,0,127}));
-  connect(TDis, sysReq.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,
+  connect(TDis, sysReq.TDis) annotation (Line(points={{-260,70},{-192,70},{-192,
           -157},{138,-157}}, color={0,0,127}));
   connect(uVal_actual, sysReq.uVal_actual) annotation (Line(points={{-260,-230},{24,-230},{24,
           -159},{138,-159}}, color={0,0,127}));
@@ -602,7 +602,7 @@ equation
           {138,-254}}, color={0,0,127}));
   connect(u1HotPla, ala.u1HotPla) annotation (Line(points={{-260,-330},{40,-330},
           {40,-256},{138,-256}}, color={255,0,255}));
-  connect(TDis, ala.TDis) annotation (Line(points={{-260,70},{-196,70},{-196,-258},
+  connect(TDis, ala.TDis) annotation (Line(points={{-260,70},{-192,70},{-192,-258},
           {138,-258}}, color={0,0,127}));
   connect(setOve.yDam, yDam) annotation (Line(points={{102,-63},{126,-63},{126,300},
           {260,300}},           color={0,0,127}));
@@ -696,6 +696,8 @@ equation
     annotation (Line(points={{-38,320},{-22,320}}, color={255,0,255}));
   connect(not1.y,assMes1. u)
     annotation (Line(points={{2,320},{18,320}},    color={255,0,255}));
+  connect(zerFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-98,70},{-56,
+          70},{-56,94},{-42,94}}, color={0,0,127}));
 annotation (defaultComponentName="serFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

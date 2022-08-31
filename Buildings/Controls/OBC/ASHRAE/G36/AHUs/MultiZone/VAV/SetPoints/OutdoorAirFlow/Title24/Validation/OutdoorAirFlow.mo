@@ -13,7 +13,6 @@ model OutdoorAirFlow
     final nZon=nZon,
     final nGro=nGro,
     final zonGroMat=zonGroMat,
-    final zonGroMatTra=zonGroMatTra,
     final have_CO2Sen=have_CO2Sen) "From zone level to AHU level"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -26,8 +25,6 @@ protected
     "Total number of zone group";
   parameter Integer zonGroMat[nGro,nZon]={{1,1,0,0},{0,0,1,1}}
     "Zone matrix with zone group as row index and zone as column index. It falgs which zone is grouped in which zone group";
-  parameter Integer zonGroMatTra[nZon,nGro]={{1,0},{1,0},{0,1},{0,1}}
-    "Transpose of the zone matrix";
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod[nGro](
     final k={Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied,
              Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied})

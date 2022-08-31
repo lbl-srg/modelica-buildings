@@ -1,7 +1,7 @@
 compareVars :=
   {
     "retFanPre.dpBui",
-    "retFanPre.dpBuiSet",
+    "retFanPre.p_rel_set",
     "retFanPre.yRelDam",
     "retFanPre.conP.y",
     "retFanPre.u1SupFan",

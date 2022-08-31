@@ -1,10 +1,10 @@
 compareVars :=
   {
-    "damLim.uSupFanSpe_actual",
+    "damLim.uSupFan_actual",
     "damLim.VOutMinSet_flow",
     "damLim.yOutDam_min",
     "damLim.yOutDam_max",
-    "damLim1.uSupFanSpe_actual",
+    "damLim1.uSupFan_actual",
     "damLim1.VOutMinSet_flow",
     "damLim1.yOutDam_min",
     "damLim1.yOutDam_max"

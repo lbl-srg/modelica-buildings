@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Energy standard, ASHRAE 90.1 or Title 24";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
@@ -29,17 +29,14 @@ block Controller
     "True: the zone has CO2 sensor";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
-  parameter Real AFlo(unit="m2")
-    "Zone floor area"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real desZonPop "Design zone population"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real outAirRat_area=0.0003
-    "Outdoor airflow rate per unit area, m3/s/m2"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real outAirRat_occupant=0.0025
-    "Outdoor airflow rate per occupant, m3/s/p"
-    annotation (Dialog(group="Design conditions"));
+  parameter Real VAreBreZon_flow(unit="m3/s")
+    "Design area component of the breathing zone outdoor airflow"
+    annotation(Dialog(group="Design conditions",
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+  parameter Real VPopBreZon_flow(unit="m3/s")
+    "Design population component of the breathing zone outdoor airflow"
+    annotation(Dialog(group="Design conditions",
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
 
   // ----------- parameters for setpoint adjustment -----------
   parameter Boolean have_locAdj=true
@@ -789,10 +786,8 @@ block Controller
     final have_CO2Sen=have_CO2Sen,
     final have_SZVAV=true,
     final permit_occStandby=permit_occStandby,
-    final AFlo=AFlo,
-    final desZonPop=desZonPop,
-    final outAirRat_area=outAirRat_area,
-    final outAirRat_occupant=outAirRat_occupant,
+    final VAreBreZon_flow=VAreBreZon_flow,
+    final VPopBreZon_flow=VPopBreZon_flow,
     final VMin_flow=0,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
@@ -891,7 +886,7 @@ block Controller
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneSta(
-    final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_specified)
+    final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)
     "No energy standard"
     annotation (Placement(transformation(extent={{140,470},{160,490}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3
@@ -902,7 +897,7 @@ block Controller
     "Warning when the energy standard is not specified"
     annotation (Placement(transformation(extent={{220,470},{240,490}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
-    final k=venStd ==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    final k=venStd ==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{140,440},{160,460}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -930,6 +925,10 @@ block Controller
     final message="Warning: Climate zone is not specified!")
     "Warning when the climate zone is not specified"
     annotation (Placement(transformation(extent={{220,410},{240,430}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(final k=0)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
+    "Zero flow when the ventilation standard is not specified"
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 equation
   connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-202,376},{-280,
           376}}, color={0,0,127}));
@@ -1175,6 +1174,8 @@ equation
     annotation (Line(points={{162,420},{178,420}}, color={255,0,255}));
   connect(not2.y,assMes2. u)
     annotation (Line(points={{202,420},{218,420}}, color={255,0,255}));
+  connect(zerFlo.y, conEco.VOutMinSet_flow) annotation (Line(points={{-18,120},{
+          -10,120},{-10,158},{58,158}}, color={0,0,127}));
 annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
         graphics={

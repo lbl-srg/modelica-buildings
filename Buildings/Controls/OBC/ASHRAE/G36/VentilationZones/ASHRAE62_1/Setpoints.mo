@@ -21,19 +21,15 @@ block Setpoints
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
     annotation(Dialog(enable=have_occSen));
-  parameter Real AFlo(
-    final quantity="Area",
-    final unit="m2")
-    "Zone floor area"
+  parameter Real VAreBreZon_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    "Design area component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions"));
-  parameter Real desZonPop
-    "Design zone population"
-    annotation(Dialog(group="Design conditions"));
-  parameter Real outAirRat_area=0.0003
-    "Outdoor airflow rate per unit area, m3/s/m2"
-    annotation(Dialog(group="Design conditions"));
-  parameter Real outAirRat_occupant=0.0025
-    "Outdoor airflow rate per occupant, m3/s/p"
+  parameter Real VPopBreZon_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    "Design population component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions"));
   parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
@@ -178,27 +174,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Subtract difCooMax if have_CO2Sen and have_parFanPowUni
     "Maximum cooling airflw set point minus parallel fan airflow"
     annotation (Placement(transformation(extent={{-220,-270},{-200,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonAre(
-    final k=AFlo) "Zone area"
-    annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant areAirRat(
-    final k=outAirRat_area)
-    "Outdoor airflow rate per unit area"
-    annotation (Placement(transformation(extent={{-240,300},{-220,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPop(
-    final k=desZonPop)
-    "Design zone population"
-    annotation (Placement(transformation(extent={{-280,270},{-260,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occAirRat(
-    final k=outAirRat_occupant)
-    "Outdoor airflow rate per occupant"
-    annotation (Placement(transformation(extent={{-240,250},{-220,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply desPopAir
-    "Design population component outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-180,260},{-160,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply desAreAir
-    "Area component outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-180,310},{-160,330}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if it is not in occupied mode or the window is open"
     annotation (Placement(transformation(extent={{-20,220},{0,240}})));
@@ -291,7 +266,14 @@ protected
     if have_CO2Sen and not have_SZVAV and not have_parFanPowUni
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desAreAir(
+    final k=VAreBreZon_flow)
+    "Design area component of the breathing zone outdoor airflow"
+    annotation (Placement(transformation(extent={{-180,250},{-160,270}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desPopAir(
+    final k=VPopBreZon_flow)
+    "Design population component of the breathing zone outdoor airflow"
+    annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
 equation
   connect(addPar.y, lin.x1) annotation (Line(points={{-198,-40},{-180,-40},{-180,
           -52},{-162,-52}}, color={0,0,127}));
@@ -337,16 +319,6 @@ equation
           -260},{-190,-228},{-162,-228}},color={0,0,127}));
   connect(maxFloCO2.y, occMinAirSet.f2) annotation (Line(points={{-138,-220},{-60,
           -220},{-60,-128},{-22,-128}},  color={0,0,127}));
-  connect(areAirRat.y, desAreAir.u2) annotation (Line(points={{-218,310},{-200,310},
-          {-200,314},{-182,314}}, color={0,0,127}));
-  connect(zonAre.y, desAreAir.u1) annotation (Line(points={{-258,330},{-200,330},
-          {-200,326},{-182,326}}, color={0,0,127}));
-  connect(zonPop.y, desPopAir.u1) annotation (Line(points={{-258,280},{-200,280},
-          {-200,276},{-182,276}}, color={0,0,127}));
-  connect(occAirRat.y, desPopAir.u2) annotation (Line(points={{-218,260},{-200,260},
-          {-200,264},{-182,264}}, color={0,0,127}));
-  connect(desPopAir.y, popBreOutAir.f2) annotation (Line(points={{-158,270},{-100,
-          270},{-100,-188},{-22,-188}}, color={0,0,127}));
   connect(lin.y, co2Con.u2) annotation (Line(points={{-138,-60},{-120,-60},{-120,
           -46},{-82,-46}}, color={0,0,127}));
   connect(booToRea.y, co2Con.u1) annotation (Line(points={{-138,30},{-120,30},{-120,
@@ -381,8 +353,6 @@ equation
           130},{-160,76},{-82,76}}, color={0,0,127}));
   connect(zonMinFlo.y, unpMinZonFlo.u2) annotation (Line(points={{-258,70},{-250,
           70},{-250,64},{-82,64}}, color={0,0,127}));
-  connect(desAreAir.y, unPopAreBreAir.u1) annotation (Line(points={{-158,320},{-140,
-          320},{-140,116},{-82,116}}, color={0,0,127}));
   connect(notOcc.y, unpPopBreAir.u2)
     annotation (Line(points={{-258,170},{138,170}}, color={255,0,255}));
   connect(zer1.y, unpPopBreAir.u1) annotation (Line(points={{2,280},{30,280},{30,
@@ -411,14 +381,10 @@ equation
           140},{78,140}}, color={255,0,255}));
   connect(con1.y, unpMinZonAir.u2) annotation (Line(points={{-18,190},{0,190},{0,
           110},{18,110}}, color={255,0,255}));
-  connect(desAreAir.y, unpAreBreAir.u3) annotation (Line(points={{-158,320},{-140,
-          320},{-140,132},{78,132}}, color={0,0,127}));
   connect(zonMinFlo.y, gai.u) annotation (Line(points={{-258,70},{-250,70},{-250,
           -10},{-42,-10}}, color={0,0,127}));
   connect(gai.y, unpMinZonAir.u3) annotation (Line(points={{-18,-10},{10,-10},{10,
           102},{18,102}}, color={0,0,127}));
-  connect(desPopAir.y, gai1.u) annotation (Line(points={{-158,270},{-100,270},{-100,
-          90},{78,90}}, color={0,0,127}));
   connect(gai1.y, unpPopBreAir.u3) annotation (Line(points={{102,90},{130,90},{130,
           162},{138,162}}, color={0,0,127}));
   connect(modAreBreAir.y, reqBreAir.u2) annotation (Line(points={{162,260},{212,
@@ -457,6 +423,14 @@ equation
           {212,260},{212,140},{320,140}}, color={0,0,127}));
   connect(modPopBreAir.y, VAdjPopBreZon_flow)
     annotation (Line(points={{202,290},{320,290}}, color={0,0,127}));
+  connect(desAreAir.y, unpAreBreAir.u3) annotation (Line(points={{-158,260},{-140,
+          260},{-140,132},{78,132}}, color={0,0,127}));
+  connect(desAreAir.y, unPopAreBreAir.u1) annotation (Line(points={{-158,260},{-140,
+          260},{-140,116},{-82,116}}, color={0,0,127}));
+  connect(desPopAir.y, gai1.u) annotation (Line(points={{-158,300},{-100,300},{-100,
+          90},{78,90}}, color={0,0,127}));
+  connect(desPopAir.y, popBreOutAir.f2) annotation (Line(points={{-158,300},{-100,
+          300},{-100,-188},{-22,-188}}, color={0,0,127}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -586,16 +560,12 @@ According to Section 3.1.1.2 of Guideline 36,
 </p>
 <ul>
 <li>
-The area component of the breathing zone outdoor airflow is the zone flow area
-<code>AFlo</code> times the outdoor airflow rate per unit area
-<code>outAirRat_area</code>, as given in ASHRAE Standard 62.1-2016, Table 6.2.2.1.
-The default is set to be 0.3 L/s/m2.
+The area component of the breathing zone outdoor airflow
+<code>VAreBreZon_flow</code>..
 </li>
 <li>
-The population component of the breathing zone outdoor airflow is the zone design
-popuation <code>desZonPop</code> times the outdoor airflow rate per occupant
-<code>outAirRat_occupant</code>, as given in ASHRAE Standard 62.1-2016, Table 6.2.2.1.
-The default is set to be 2.5 L/s/person.
+The population component of the breathing zone outdoor airflow
+<code>VPopBreZon_flow</code>.
 </li>
 </ul>
 <h4>Zone air distribution effectiveness</h4>

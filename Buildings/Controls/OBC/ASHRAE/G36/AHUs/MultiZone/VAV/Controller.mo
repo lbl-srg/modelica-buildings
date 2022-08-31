@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV;
 block Controller "Multizone VAV air handling unit controller"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Energy standard, ASHRAE 90.1 or Title 24";
-  parameter Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+  parameter Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
     Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
@@ -593,7 +593,7 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_hotWatCoi
-                                               "Measured mixed air temperature"
+    "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-400,-330},{-360,-290}}),
         iconTransformation(extent={{-240,-300},{-200,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
@@ -950,7 +950,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Gain factor"
     annotation (Placement(transformation(extent={{-220,-380},{-200,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneSta(
-    final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_specified)
+    final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)
     "No energy standard"
     annotation (Placement(transformation(extent={{220,430},{240,450}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3
@@ -961,7 +961,7 @@ block Controller "Multizone VAV air handling unit controller"
     "Warning when the energy standard is not specified"
     annotation (Placement(transformation(extent={{300,430},{320,450}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
-    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{220,380},{240,400}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1

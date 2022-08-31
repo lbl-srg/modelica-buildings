@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF;
 block Controller "Controller for constant-volume parallel fan-powered terminal unit"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
@@ -22,17 +22,14 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     "Zone minimum outdoor airflow for building area"
     annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ---------------- Design parameters ----------------
-  parameter Real AFlo(unit="m2")
-    "Zone floor area"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real desZonPop "Design zone population"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real outAirRat_area=0.0003
-    "Outdoor airflow rate per unit area, m3/s/m2"
-    annotation (Dialog(group="Design conditions"));
-  parameter Real outAirRat_occupant=0.0025
-    "Outdoor airflow rate per occupant, m3/s/p"
-    annotation (Dialog(group="Design conditions"));
+  parameter Real VAreBreZon_flow(unit="m3/s")
+    "Design area component of the breathing zone outdoor airflow"
+    annotation(Dialog(group="Design conditions",
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+  parameter Real VPopBreZon_flow(unit="m3/s")
+    "Design population component of the breathing zone outdoor airflow"
+    annotation(Dialog(group="Design conditions",
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real VMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
@@ -456,10 +453,8 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final have_typTerUni=false,
     final have_parFanPowUni=true,
     final permit_occStandby=permit_occStandby,
-    final AFlo=AFlo,
-    final desZonPop=desZonPop,
-    final outAirRat_area=outAirRat_area,
-    final outAirRat_occupant=outAirRat_occupant,
+    final VAreBreZon_flow=VAreBreZon_flow,
+    final VPopBreZon_flow=VPopBreZon_flow,
     final VMin_flow=VMin_flow,
     final VCooMax_flow=VCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
@@ -502,7 +497,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
-    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_specified)
+    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{-60,310},{-40,330}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -512,6 +507,11 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final message="Warning: Ventilation standard is not specified!")
     "Warning when the ventilation standard is not specified"
     annotation (Placement(transformation(extent={{20,310},{40,330}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(
+    final k=0)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
+    "Zero flow when the ventilation standard is not specified"
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
           296},{-202,296}}, color={0,0,127}));
@@ -691,6 +691,8 @@ equation
     annotation (Line(points={{-38,320},{-22,320}}, color={255,0,255}));
   connect(not1.y,assMes1. u)
     annotation (Line(points={{2,320},{18,320}},    color={255,0,255}));
+  connect(zerFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-78,80},{-56,
+          80},{-56,94},{-42,94}}, color={0,0,127}));
 annotation (defaultComponentName="parFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
