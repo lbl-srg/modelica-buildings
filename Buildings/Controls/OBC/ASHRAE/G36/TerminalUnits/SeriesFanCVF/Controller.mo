@@ -15,10 +15,10 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
     "True: occupied-standby mode is permitted"
     annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
                               and have_occSen));
-  parameter Real VOccMin_flow=0
+  parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
     annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-  parameter Real VAreMin_flow=0
+  parameter Real VAreMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for building area"
     annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   // ---------------- Design parameters ----------------

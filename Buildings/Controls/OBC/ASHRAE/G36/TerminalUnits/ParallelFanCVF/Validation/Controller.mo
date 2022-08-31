@@ -15,7 +15,10 @@ model Controller
     final floHys=0.01,
     final looHys=0.01,
     final damPosHys=0.01,
-    final valPosHys=0.01) "Paralle-fan powered unit controller"
+    final valPosHys=0.01,
+    final VOccMin_flow=0,
+    final VAreMin_flow=0)
+    "Paralle-fan powered unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
