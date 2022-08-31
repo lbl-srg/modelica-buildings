@@ -6,11 +6,11 @@ block VariablePulse
     "Sample period of the width input";
   parameter Real period(unit="s")
     "Time for one pulse period";
-  parameter Real chaWidHys=0.05
-    "Hysteresis for checking if the width input is changed. It is the ratio of the value change to the original value"
+  parameter Real chaWidThr=0.05
+    "Threshold for checking if the width input is changed. It is the ratio of the value change to the original value"
     annotation (Dialog(tab="Advanced"));
-  parameter Real zerWidHys=0.01
-    "Hysteresis for checking if the width input is greater than zero"
+  parameter Real zerWidThr=0.01
+    "Threshold for checking if the width input is greater than zero"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid(
     final min=0,
@@ -36,16 +36,16 @@ protected
     "Find the absolute value change"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=chaWidHys,
-    final h=0.5*chaWidHys)
+    final t=chaWidThr,
+    final h=0.5*chaWidThr)
     "Check if there is input value change"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "If there is input value change, use the new value"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final t=zerWidHys,
-    final h=0.5*zerWidHys)
+    final t=zerWidThr,
+    final h=0.5*zerWidThr)
     "Check if the input is greater than zero"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
