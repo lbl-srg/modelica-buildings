@@ -294,7 +294,7 @@ annotation (
     Documentation(
       info="<html>
 <p>
-Block that produces boolean output according to the specified period of the pulse
+Block that produces boolean pulse output according to the specified period of the pulse
 (<code>period</code>) and the value of the input <code>uWid</code>, which indicates
 the percentage of the period that the output should be true.
 </p>
