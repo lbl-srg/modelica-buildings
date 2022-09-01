@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.CDL.Logical;
 block VariablePulse
   "Generate boolean pulse with the width specified by input"
 
-  parameter Real samplePeriod(unit="s")
+  parameter Real samplePeriod(final unit="s")
     "Sample period of the width input";
-  parameter Real period(unit="s")
+  parameter Real period(final unit="s")
     "Time for one pulse period";
   parameter Real chaWidThr=0.05
     "Threshold for checking if the width input is changed. It is the ratio of the value change to the original value"
@@ -21,7 +21,7 @@ block VariablePulse
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean pulse when the input is greater than zero"
-    annotation (Placement(transformation(extent={{140,-130},{180,-90}}),
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -30,10 +30,10 @@ protected
     "Sample the input and use it to check the input value change"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
-    "Check the difference before and after sampling"
+    "Output the difference before and after sampling"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1
-    "Find the absolute value change"
+    "Output the absolute value change"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=chaWidThr,
@@ -167,7 +167,8 @@ equation
   connect(swi2.y, swi1.u3) annotation (Line(points={{62,-140},{80,-140},{80,-118},
           {98,-118}}, color={255,0,255}));
   connect(swi1.y, y)
-    annotation (Line(points={{122,-110},{160,-110}}, color={255,0,255}));
+    annotation (Line(points={{122,-110},{134,-110},{134,0},{160,0}},
+                                                     color={255,0,255}));
   connect(swi.y, cycOut.uWid) annotation (Line(points={{122,30},{130,30},{130,
           -40},{30,-40},{30,-80},{38,-80}}, color={0,0,127}));
   connect(or2.y, cycOut.go)
