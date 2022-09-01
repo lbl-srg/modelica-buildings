@@ -703,8 +703,8 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Alarms<
 <p>
 According to Section 5.5.7, this sequence allows the override the aiflow setpoints,
 damper position setpoints.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Overrides\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Overrides</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers</a>.
 </p>
 </html>", revisions="<html>
 <ul>

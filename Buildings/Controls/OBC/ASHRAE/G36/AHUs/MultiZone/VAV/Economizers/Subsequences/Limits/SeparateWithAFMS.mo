@@ -433,8 +433,8 @@ It is implemented according to Section 5.16.5 of the ASHRAE Guideline 36, May 20
 <h4>Minimum outdoor air set point</h4>
 <p>
 Calculate the outdoor air set point with
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow</a>.
 </p>
 <h4>Minimum outdoor air control loop</h4>
 <p>

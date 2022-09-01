@@ -293,8 +293,8 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     "Title 24, zone 3"
     annotation (Placement(transformation(extent={{-300,-60},{-280,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon4(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_4) if
-    eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_4)
+ if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016
     "Title 24, zone 4"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant titZon5(
@@ -548,8 +548,8 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     "Logical not"
     annotation (Placement(transformation(extent={{300,120},{320,140}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Warning: Fixed dry bulb with differential dry bulb high-limit-control device is not allowed in climate zone 1A, 2A, 3A and 4A!") if
-    eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    final message="Warning: Fixed dry bulb with differential dry bulb high-limit-control device is not allowed in climate zone 1A, 2A, 3A and 4A!")
+ if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
     "Warning when the wrong device being used"
     annotation (Placement(transformation(extent={{340,120},{360,140}})));
   Buildings.Controls.OBC.CDL.Logical.And and15
