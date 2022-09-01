@@ -6,18 +6,18 @@ model SimpleHouse
   package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Area A_wall = 100 "Wall area";
-  parameter Modelica.SIunits.Area A_win = 5 "Window area";
+  parameter Modelica.Units.SI.Area A_wall=100 "Wall area";
+  parameter Modelica.Units.SI.Area A_win=5 "Window area";
   parameter Real g_win(min=0, max=1, unit="1") = 0.3 "Solar heat gain coefficient of window";
-  parameter Modelica.SIunits.Volume V_zone = A_wall*3 "Wall area";
-  parameter Modelica.SIunits.HeatFlowRate QHea_nominal = 700
+  parameter Modelica.Units.SI.Volume V_zone=A_wall*3 "Wall area";
+  parameter Modelica.Units.SI.HeatFlowRate QHea_nominal=700
     "Nominal capacity of heating system";
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=QHea_nominal/10/4200
-    "Nominal mass flow rate for water loop";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=V_zone*2*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=QHea_nominal/10/
+      4200 "Nominal mass flow rate for water loop";
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=V_zone*2*1.2/3600
     "Nominal mass flow rate for air loop";
 
-  parameter Modelica.SIunits.PressureDifference dpAir_nominal=200
+  parameter Modelica.Units.SI.PressureDifference dpAir_nominal=200
     "Pressure drop at nominal mass flow rate for air loop";
   parameter Boolean allowFlowReversal=false
     "= false because flow will not reverse in these circuits";
@@ -144,7 +144,7 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{-16,-144},{4,-124}})));
   Controls.Continuous.LimPID conDam(
       controllerType=Modelica.Blocks.Types.SimpleController.P,
-      yMin=0.1) "Controller for damper"
+      yMin=0.25) "Controller for damper"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Modelica.Blocks.Sources.Constant TSetRoo(k=273.15 + 24)
     "Room temperature set point for air system"
@@ -257,7 +257,7 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-78,182},{-212,198}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Cooling and ventilation"),
@@ -268,19 +268,19 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{98,20},{32,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Wall"),
         Text(
           extent={{-148,-86},{-214,-68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Heating"),
         Text(
           extent={{-154,20},{-212,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Weather")}),
@@ -288,11 +288,16 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+June 15, 2022, by Hongxiang Fu:<br/>
+Changed <code>conDam.yMin</code> from 0.1 to 0.25.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1624\">IBPSA, #1624</a>.
+</li>
+<li>
 May 8, 2017, by Michael Wetter:<br/>
 Updated heater model.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-Buildings, #763</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
 </li>
 <li>
 November 10, 2016, by Michael Wetter:<br/>

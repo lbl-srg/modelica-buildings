@@ -5,11 +5,9 @@ model Simplified4 "Removed valve dynamics"
     valSouth(use_inputFilter=false),
     pmpNorth(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       use_inputFilter=false),
     pmpSouth(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       use_inputFilter=false),
     valSouth1(each use_inputFilter=false),
     valSouth2(each use_inputFilter=false),
@@ -42,7 +40,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=1000),
-__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified4.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified4.mos"
         "Simulate and plot"));
 end Simplified4;

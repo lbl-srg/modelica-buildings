@@ -5,14 +5,14 @@ model DryCoilCounterFlowPControl
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Air;
 
-  parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
-  parameter Modelica.SIunits.Temperature T_a2_nominal=30 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b2_nominal=15 + 273.15;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=0.1
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=5 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_b1_nominal=10 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=30 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_b2_nominal=15 + 273.15;
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=0.1
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200/
-      1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200
+      /1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
     "Nominal mass flow rate medium 2";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,

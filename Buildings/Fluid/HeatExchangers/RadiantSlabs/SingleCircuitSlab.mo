@@ -19,19 +19,18 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       m_flow_small=m_flow_small),
       preDro(dp(nominal=200*length)));
 
-  parameter Modelica.SIunits.Area A "Surface area of radiant slab"
-    annotation(Dialog(group="Construction"));
+  parameter Modelica.Units.SI.Area A "Surface area of radiant slab"
+    annotation (Dialog(group="Construction"));
 
   parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
     heatTransfer=Types.HeatTransfer.EpsilonNTU
     "Model for heat transfer between fluid and slab";
-  parameter Modelica.SIunits.Temperature T_c_start=
-    (T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
+  parameter Modelica.Units.SI.Temperature T_c_start=(T_a_start*con_b[1].layers.R
+       + T_b_start*con_a[1].layers.R)/layers.R
     "Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false"
-    annotation(Dialog(tab="Initialization", group="Construction"));
-  final parameter Modelica.SIunits.Velocity v_nominal=
-    4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default
-    "Velocity at m_flow_nominal";
+    annotation (Dialog(tab="Initialization", group="Construction"));
+  final parameter Modelica.Units.SI.Velocity v_nominal=4*m_flow_nominal/pipe.dIn
+      ^2/Modelica.Constants.pi/rho_default "Velocity at m_flow_nominal";
 
   Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](
     each final A=A/nSeg,
@@ -86,14 +85,14 @@ protected
         rotation=180,
         origin={40,76})));
 
-  final parameter Modelica.SIunits.ThermalInsulance Rx=
+  final parameter Modelica.Units.SI.ThermalInsulance Rx=
       Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance(
-        disPip=disPip,
-        dPipOut=pipe.dOut,
-        k=layers.material[iLayPip].k,
-        sysTyp=sysTyp,
-        kIns=layers.material[iLayPip+1].k,
-        dIns=layers.material[iLayPip+1].x)
+      disPip=disPip,
+      dPipOut=pipe.dOut,
+      k=layers.material[iLayPip].k,
+      sysTyp=sysTyp,
+      kIns=layers.material[iLayPip + 1].k,
+      dIns=layers.material[iLayPip + 1].x)
     "Thermal insulance for average temperature in plane with pipes";
 
   BaseClasses.PipeToSlabConductance fluSlaCon[nSeg](
@@ -111,9 +110,9 @@ protected
     each final heatTransfer=heatTransfer) "Conductance between fluid and the slab"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
 
-  Modelica.SIunits.MassFraction Xi_in_a[Medium.nXi] = inStream(port_a.Xi_outflow)
+  Modelica.Units.SI.MassFraction Xi_in_a[Medium.nXi]=inStream(port_a.Xi_outflow)
     "Inflowing mass fraction at port_a";
-  Modelica.SIunits.MassFraction Xi_in_b[Medium.nXi] = inStream(port_b.Xi_outflow)
+  Modelica.Units.SI.MassFraction Xi_in_b[Medium.nXi]=inStream(port_b.Xi_outflow)
     "Inflowing mass fraction at port_a";
   Modelica.Blocks.Sources.RealExpression T_a(
     final y=Medium.temperature_phX(p=port_a.p,

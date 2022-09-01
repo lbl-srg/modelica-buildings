@@ -120,7 +120,8 @@ block Enable
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{124,214},{144,234}})));
-  CDL.Logical.Xor xor "Either fixed+differential temperature cutoff or others"
+  Buildings.Controls.OBC.CDL.Logical.Xor xor
+    "Either fixed+differential temperature cutoff or others"
     annotation (Placement(transformation(extent={{74,242},{94,262}})));
 protected
   final parameter Real TOutHigLimCutHig(
@@ -159,10 +160,10 @@ protected
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for fixed or differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-98,150},{-78,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1) if use_enthalpy
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if use_enthalpy
     "Add block that determines the difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,244},{-120,264}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
@@ -193,34 +194,35 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k2=-1) if
-    use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+     if use_fixed_plus_differential_drybulb
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCutTem(final uHigh=
         TOutHigLimCutHig, final uLow=TOutHigLimCutLow) if use_fixed_plus_differential_drybulb
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(final k=false) if
-       not use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(final k=false)
+    if not use_fixed_plus_differential_drybulb
     "Deactivates the option if not using both fixed and differential dry bulb"
     annotation (Placement(transformation(extent={{18,212},{38,232}})));
-  CDL.Logical.Nor nor2 if use_fixed_plus_differential_drybulb "Logical nor"
+  Buildings.Controls.OBC.CDL.Logical.Nor nor2
+    if use_fixed_plus_differential_drybulb "Logical nor"
     annotation (Placement(transformation(extent={{18,244},{38,264}})));
 equation
   connect(outDamSwitch.y, yOutDamPosMax)
     annotation (Line(points={{62,-140},{200,-140}},           color={0,0,127}));
-  connect(TOut, add1.u1)
+  connect(TOut, sub1.u1)
     annotation (Line(points={{-200,270},{-160,270},{-160,260},{-142,260}},color={0,0,127}));
-  connect(TCut, add1.u2) annotation (Line(points={{-200,240},{-160,240},{-160,248},
+  connect(TCut, sub1.u2) annotation (Line(points={{-200,240},{-160,240},{-160,248},
           {-142,248}}, color={0,0,127}));
-  connect(add1.y, hysOutTem.u)
+  connect(sub1.y, hysOutTem.u)
     annotation (Line(points={{-118,254},{-102,254}}, color={0,0,127}));
-  connect(hOut, add2.u1)
+  connect(hOut, sub2.u1)
     annotation (Line(points={{-200,180},{-160,180},{-160,166},{-142,166}},color={0,0,127}));
-  connect(hCut, add2.u2) annotation (Line(points={{-200,150},{-160,150},{-160,154},
+  connect(hCut, sub2.u2) annotation (Line(points={{-200,150},{-160,150},{-160,154},
           {-142,154}}, color={0,0,127}));
-  connect(add2.y, hysOutEnt.u)
+  connect(sub2.y, hysOutEnt.u)
     annotation (Line(points={{-118,160},{-100,160}}, color={0,0,127}));
   connect(hysOutTem.y, nor1.u1)
     annotation (Line(points={{-78,254},{-14,254},{-14,188},{16,188}},
@@ -272,11 +274,11 @@ equation
     annotation (Line(points={{-58,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
   connect(not3.y, andEnaDis.u3)
     annotation (Line(points={{-22,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
-  connect(TRet, add3.u2) annotation (Line(points={{-200,210},{-160,210},{-160,204},
+  connect(TRet, sub3.u2) annotation (Line(points={{-200,210},{-160,210},{-160,204},
           {-142,204}}, color={0,0,127}));
-  connect(TOut, add3.u1) annotation (Line(points={{-200,270},{-160,270},{-160,260},
+  connect(TOut, sub3.u1) annotation (Line(points={{-200,270},{-160,270},{-160,260},
           {-152,260},{-152,216},{-142,216}}, color={0,0,127}));
-  connect(add3.y, hysCutTem.u)
+  connect(sub3.y, hysCutTem.u)
     annotation (Line(points={{-118,210},{-102,210}}, color={0,0,127}));
   connect(hysCutTem.y, nor2.u2) annotation (Line(points={{-78,210},{-38,210},{
           -38,246},{16,246}},
@@ -314,7 +316,7 @@ annotation (
           thickness=0.5),
         Text(
           extent={{-170,142},{158,104}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -346,29 +348,29 @@ annotation (
           fillPattern=FillPattern.Solid),
                                      Text(
           extent={{102,168},{178,156}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
 conditions"),                        Text(
           extent={{100,70},{264,48}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
 disable if stage1
 and above"),                         Text(
           extent={{100,-34},{214,-86}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 limit assignments"),                 Text(
           extent={{102,16},{206,-22}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Zone state -
 disable if
 heating"),                           Text(
           extent={{100,102},{182,92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
     Documentation(info="<html>

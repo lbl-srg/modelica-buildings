@@ -10,8 +10,8 @@ block CheckPressure
     final quantity="Pressure",
     final unit="Pa") "Atmospheric pressure"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  constant Modelica.SIunits.Pressure PMin=3100 "Minimum allowed pressure";
-  constant Modelica.SIunits.Pressure PMax=120000 "Maximum allowed pressure";
+  constant Modelica.Units.SI.Pressure PMin=3100 "Minimum allowed pressure";
+  constant Modelica.Units.SI.Pressure PMax=120000 "Maximum allowed pressure";
 equation
   pAtm = PIn;
   assert(noEvent(PIn > PMin and PIn < PMax), "In " + getInstanceName() +
@@ -43,6 +43,6 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-28,42},{26,-34}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="P")}));
 end CheckPressure;

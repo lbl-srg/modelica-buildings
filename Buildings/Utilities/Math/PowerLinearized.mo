@@ -10,12 +10,12 @@ equation
 
   annotation (Icon(graphics={Text(
           extent={{-90,36},{90,-36}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="powerLinearized()")}), Documentation(info="<html>
 Function that approximates <i>y=x<sup>n</sup></i>
 where <i>0 &lt; n</i> so that
 <ul>
-<li>the function is defined and monotone increasing for all <i>x</i>.</li>
+<li>the function is defined and monotonically increasing for all <i>x</i>.</li>
 <li><i>dy/dx</i> is bounded and continuous everywhere (for <i>n &lt; 1</i>).</li>
 </ul>
 <p>

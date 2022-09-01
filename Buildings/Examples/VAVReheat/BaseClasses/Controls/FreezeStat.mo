@@ -30,7 +30,8 @@ model FreezeStat "Freeze thermostat with timed lockout"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=TSet,
-    final h=0) "Greater comparison"
+    final h=0.5)
+    "Greater comparison"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(locOut.y, freStaSig.u)
@@ -63,7 +64,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-160,140},{140,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
 Diagram(
     coordinateSystem(preserveAspectRatio=false)),
@@ -79,6 +80,12 @@ the set point.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2022, by Michael Wetter:<br/>
+Enabled hysteresis for freeze stat. This is required to avoid simulation to stall.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2975\">#2975</a>.
+</li>
 <li>
 April 23, 2021, by Michael Wetter:<br/>
 First implementation.

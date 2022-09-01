@@ -60,7 +60,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Ellipse(
           lineColor={0,0,127},
           fillColor={255,255,255},
@@ -85,28 +85,9 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Ellipse(
-          extent={{-25,-10},{-45,10}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{45,-10},{25,10}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-100,0},{-45,0}},
-          color={0,0,255}),
-        Line(
-          points={{45,0},{100,0}},
-          color={0,0,255}),
-        Line(
-          points={{-35,0},{30,35}},
-          color={0,0,255}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}),
@@ -120,8 +101,12 @@ via parameter <code>samplePeriod</code>.
       revisions="<html>
 <ul>
 <li>
+March 30, 2022, by Michael Wetter:<br/>
+Removed graphic from diagram view.
+</li>
+<li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

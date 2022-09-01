@@ -6,10 +6,9 @@ block HysteresisWithHold
   parameter Real uLow "if y=true and u<uLow, switch to y=false";
   parameter Real uHigh "if y=false and u>uHigh, switch to y=true";
 
-  parameter Modelica.SIunits.Time trueHoldDuration
-    "true hold duration";
+  parameter Modelica.Units.SI.Time trueHoldDuration "true hold duration";
 
-  parameter Modelica.SIunits.Time falseHoldDuration = trueHoldDuration
+  parameter Modelica.Units.SI.Time falseHoldDuration=trueHoldDuration
     "false hold duration";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Real input signal"
@@ -51,7 +50,7 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-66,-40},{62,-82}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%uLow     %uHigh"),
           Polygon(
             points={{-22,8},{-10,2},{-22,-4},{-22,8}},
@@ -71,7 +70,7 @@ annotation (
         Text(
           extent={{-140,148},{160,108}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Ellipse(
           extent={{71,7},{85,-7}},
           lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}

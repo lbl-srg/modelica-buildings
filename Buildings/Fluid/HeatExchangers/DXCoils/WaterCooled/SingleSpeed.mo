@@ -26,6 +26,12 @@ for an explanation of the model.
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 March 21, 2017, by Michael Wetter:<br/>
 Moved assignment of evaporator data <code>datCoi</code> from the
 <code>constrainedBy</code> declaration in the base class

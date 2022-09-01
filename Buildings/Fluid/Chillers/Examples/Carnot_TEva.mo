@@ -5,16 +5,15 @@ model Carnot_TEva
  package Medium1 = Buildings.Media.Water "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal = -100E3
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal=-100E3
     "Evaporator heat flow rate";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-    QEva_flow_nominal/dTEva_nominal/4200
-    "Nominal mass flow rate at chilled water side";
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=QEva_flow_nominal/
+      dTEva_nominal/4200 "Nominal mass flow rate at chilled water side";
 
   Buildings.Fluid.Chillers.Carnot_TEva chi(
     redeclare package Medium1 = Medium1,
@@ -68,8 +67,8 @@ model Carnot_TEva
   Modelica.Blocks.Math.Add QCon_flow(k2=-1) "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{48,-50},{68,-30}})));
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
-    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+      Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
       Medium1.p_default,
       Medium1.T_default,
       Medium1.X_default))

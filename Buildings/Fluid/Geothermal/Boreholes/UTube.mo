@@ -4,7 +4,8 @@ model UTube "Single U-tube borehole heat exchanger"
     show_T=true);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
       computeFlowResistance=false, final linearizeFlowResistance=false);
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -18,55 +19,55 @@ model UTube "Single U-tube borehole heat exchanger"
     annotation (choicesAllMatching=true, Dialog(group="Borehole"),
     Placement(transformation(extent={{-68,70},{-48,90}})));
 
-  parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
-    annotation(Dialog(group="Tubes"));
-  parameter Modelica.SIunits.ThermalConductivity kTub=0.5
+  parameter Modelica.Units.SI.Radius rTub=0.02 "Radius of the tubes"
+    annotation (Dialog(group="Tubes"));
+  parameter Modelica.Units.SI.ThermalConductivity kTub=0.5
     "Thermal conductivity of the tube" annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.Length eTub=0.002 "Thickness of a tube"
+  parameter Modelica.Units.SI.Length eTub=0.002 "Thickness of a tube"
     annotation (Dialog(group="Tubes"));
 
-  parameter Modelica.SIunits.Height hBor "Total height of the borehole"
-    annotation(Dialog(group="Borehole"));
+  parameter Modelica.Units.SI.Height hBor "Total height of the borehole"
+    annotation (Dialog(group="Borehole"));
   parameter Integer nVer=10
     "Number of segments used for discretization in the vertical direction"
       annotation(Dialog(group="Borehole"));
-  parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
+  parameter Modelica.Units.SI.Radius rBor=0.1 "Radius of the borehole";
 
-  parameter Modelica.SIunits.Radius rExt=3
+  parameter Modelica.Units.SI.Radius rExt=3
     "Radius of the soil used for the external boundary condition"
     annotation (Dialog(group="Soil"));
   parameter Integer nHor(min=1) = 10
     "Number of state variables in each horizontal layer of the soil"
     annotation (Dialog(group="Soil"));
 
-  parameter Modelica.SIunits.Temperature TExt0_start=283.15
+  parameter Modelica.Units.SI.Temperature TExt0_start=283.15
     "Initial far field temperature"
     annotation (Dialog(tab="Initial temperature", group="Soil"));
-  parameter Modelica.SIunits.Temperature TExt_start[nVer]={if z[i] >= z0 then
+  parameter Modelica.Units.SI.Temperature TExt_start[nVer]={if z[i] >= z0 then
       TExt0_start + (z[i] - z0)*dT_dz else TExt0_start for i in 1:nVer}
     "Temperature of the undisturbed ground"
     annotation (Dialog(tab="Initial temperature", group="Soil"));
 
-  parameter Modelica.SIunits.Temperature TFil0_start=TExt0_start
+  parameter Modelica.Units.SI.Temperature TFil0_start=TExt0_start
     "Initial temperature of the filling material for h = 0...z0"
     annotation (Dialog(tab="Initial temperature", group="Filling material"));
-  parameter Modelica.SIunits.Temperature TFil_start[nVer]=TExt_start
+  parameter Modelica.Units.SI.Temperature TFil_start[nVer]=TExt_start
     "Temperature of the undisturbed ground"
     annotation (Dialog(tab="Initial temperature", group="Filling material"));
 
-  parameter Modelica.SIunits.Height z0=10
+  parameter Modelica.Units.SI.Height z0=10
     "Depth below which the temperature gradient starts"
     annotation (Dialog(tab="Initial temperature", group="Temperature profile"));
   parameter Real dT_dz(unit="K/m") = 0.01
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initial temperature", group="Temperature profile"));
 
-  parameter Modelica.SIunits.Time samplePeriod
+  parameter Modelica.Units.SI.Time samplePeriod
     "Sample period for the external boundary condition"
     annotation (Dialog(group="Soil"));
-  parameter Modelica.SIunits.Length xC=0.05
+  parameter Modelica.Units.SI.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
-    annotation(Dialog(group="Borehole"));
+    annotation (Dialog(group="Borehole"));
   parameter Real B0=17.44 "Shape coefficient for grout resistance"
     annotation(Dialog(group="Borehole"));
   parameter Real B1=-0.605 "Shape coefficient for grout resistance"
@@ -106,10 +107,10 @@ model UTube "Single U-tube borehole heat exchanger"
     each allowFlowReversal=allowFlowReversal) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Modelica.SIunits.Temperature Tdown[nVer] "Medium temperature in pipe 1";
-  Modelica.SIunits.Temperature Tup[nVer] "Medium temperature in pipe 2";
+  Modelica.Units.SI.Temperature Tdown[nVer] "Medium temperature in pipe 1";
+  Modelica.Units.SI.Temperature Tup[nVer] "Medium temperature in pipe 2";
 protected
-  parameter Modelica.SIunits.Height z[nVer]={hBor/nVer*(i - 0.5) for i in 1:
+  parameter Modelica.Units.SI.Height z[nVer]={hBor/nVer*(i - 0.5) for i in 1:
       nVer} "Distance from the surface to the considered segment";
 
 initial equation
@@ -294,6 +295,12 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

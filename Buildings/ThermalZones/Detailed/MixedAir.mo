@@ -3,7 +3,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
   extends Buildings.ThermalZones.Detailed.BaseClasses.RoomHeatMassBalance(
   redeclare Buildings.ThermalZones.Detailed.BaseClasses.MixedAirHeatMassBalance air(
     final energyDynamics=energyDynamics,
-    final massDynamics = massDynamics,
+    final massDynamics = energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -45,15 +45,6 @@ model MixedAir "Model of a room in which the air is completely mixed"
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=energyDynamics
-    "Type of independent mass fraction balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
-    "Type of trace substance balance for zone air: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
 
   parameter Real mSenFac(min=1)=1
@@ -139,6 +130,12 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Made <code>massDynamics</code> final.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
@@ -249,11 +246,11 @@ First implementation.
             {200,200}}), graphics={
         Text(
           extent={{-198,198},{-122,166}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha"),
         Text(
           extent={{-190,44},{-128,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="C_flow",
           visible=use_C_flow)}));
 end MixedAir;

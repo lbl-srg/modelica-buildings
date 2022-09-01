@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Conversions
-  "Package with blocks for type conversion"
+package Conversions "Package with blocks for type conversion"
   annotation (
     Documentation(
       info="<html>

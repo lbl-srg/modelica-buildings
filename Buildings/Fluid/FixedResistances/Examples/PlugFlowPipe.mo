@@ -4,7 +4,7 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
     "Mass flow rate";
 
   Modelica.Blocks.Sources.Ramp Tin(
@@ -122,8 +122,7 @@ equation
           -16},{-62,-16}},
                       color={0,0,127}));
   annotation (
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     Documentation(info="<html>

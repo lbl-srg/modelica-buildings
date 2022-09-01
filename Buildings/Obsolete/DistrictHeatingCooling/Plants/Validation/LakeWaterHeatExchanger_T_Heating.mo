@@ -4,10 +4,11 @@ model LakeWaterHeatExchanger_T_Heating
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Fluid in the pipes";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 100
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=100
     "Nominal mass flow rate";
 
-  Obsolete.DistrictHeatingCooling.Plants.LakeWaterHeatExchanger_T hex(redeclare package Medium = Medium,
+  Obsolete.DistrictHeatingCooling.Plants.LakeWaterHeatExchanger_T hex(redeclare
+      package                                                                           Medium = Medium,
     dpHex_nominal=10000,
     m_flow_nominal=m_flow_nominal) "Heat exchanger for free cooling"
     annotation (Placement(transformation(extent={{-30,-20},{-10,20}})));

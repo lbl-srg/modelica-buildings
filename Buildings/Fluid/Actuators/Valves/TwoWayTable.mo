@@ -11,12 +11,13 @@ model TwoWayTable "Two way valve with table-specified flow characteristics"
   // 1/k^2, the flowCharacteristics.phi[1] must not be zero.
   // We therefore set a lower bound.
 protected
-  Modelica.Blocks.Tables.CombiTable1D phiLooUp(
+  Modelica.Blocks.Tables.CombiTable1Dv phiLooUp(
     final tableOnFile=false,
-    final table=[flowCharacteristics.y, cat(
+    final table=[flowCharacteristics.y,cat(
         1,
         {max(flowCharacteristics.phi[1], 1E-8)},
         {flowCharacteristics.phi[i] for i in 2:size(flowCharacteristics.phi, 1)})],
+
     final columns=2:2,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Normalized mass flow rate for the given valve position under the assumption of a constant pressure"
@@ -32,15 +33,15 @@ initial equation
     Modelica.Constants.eps,
     "flowCharateristics.phi[end] must be 1.");
 
-  // Assert that the sequences are strictly monotonic increasing
+  // Assert that the sequences are strictly increasing
   assert(Buildings.Utilities.Math.Functions.isMonotonic(
            x=flowCharacteristics.y,
            strict=true),
-         "The values for y in flowCharacteristics must be strictly monotone increasing.");
+         "The values for y in flowCharacteristics must be strictly increasing.");
   assert(Buildings.Utilities.Math.Functions.isMonotonic(
            x=flowCharacteristics.phi,
            strict=true),
-         "The values for phi in flowCharacteristics must be strictly monotone increasing.");
+         "The values for phi in flowCharacteristics must be strictly increasing.");
 
 equation
   connect(phiLooUp.u[1], y_actual) annotation (Line(
@@ -101,7 +102,7 @@ requirements, otherwise the model stops with an error:
 <li>
 Their arrays
 <code>y</code> and <code>phi</code>
-must be strictly monotonic increasing.
+must be strictly increasing.
 </li>
 <li>
 The first value must satisfy

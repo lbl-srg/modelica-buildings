@@ -19,13 +19,9 @@ model Round
     n=-1)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    k=0.1)
-    "Gain"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=0.1) "Gain"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    k=10)
-    "Gain"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=10) "Gain"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
 equation

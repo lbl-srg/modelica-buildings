@@ -41,9 +41,12 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
     annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.SIunits.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time riseTimeValve=120
     "Rise time of the filter for the water-side valve (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Valve",
+      enable=use_inputFilterValve));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
@@ -56,15 +59,18 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Fan"));
-  parameter Modelica.SIunits.Time tauFan = 1
+  parameter Modelica.Units.SI.Time tauFan=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Fan"));
+    annotation (Dialog(tab="Dynamics", group="Fan"));
   parameter Boolean use_inputFilterFan=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Fan"));
-  parameter Modelica.SIunits.Time riseTimeFan=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
+  parameter Modelica.Units.SI.Time riseTimeFan=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Fan",
+      enable=use_inputFilterFan));
   parameter Modelica.Blocks.Types.Init initFan=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
@@ -126,7 +132,6 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final allowFlowReversal=allowFlowReversal2,
       final show_T=show_T,
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
       final inputType=inputType,
       final tau=tauFan,
       final addPowerToMedium=addPowerToMedium,
@@ -197,9 +202,9 @@ equation
   connect(yVal, watVal.y_actual) annotation (Line(points={{110,40},{92,40},{73,
           40},{73,-5}}, color={0,0,127}));
   annotation (      Diagram(coordinateSystem(preserveAspectRatio=false),
-        graphics={Text(extent={{50,74},{76,68}},lineColor={0,0,255},
+        graphics={Text(extent={{50,74},{76,68}},textColor={0,0,255},
                      textString="Waterside",textStyle={TextStyle.Bold}),
-                 Text(extent={{58,-70},{84,-76}},lineColor={0,0,255},
+                 Text(extent={{58,-70},{84,-76}},textColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>

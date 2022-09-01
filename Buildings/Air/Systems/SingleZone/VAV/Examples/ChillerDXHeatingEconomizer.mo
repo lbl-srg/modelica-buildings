@@ -5,7 +5,7 @@ model ChillerDXHeatingEconomizer
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(
     hvac(QCoo_flow_nominal=-10000));
-  parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
   Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer con(

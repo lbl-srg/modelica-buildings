@@ -1,19 +1,19 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses;
 partial model PartialInternalResistances
   "Partial model to implement borehole segment internal resistance models"
-  parameter Modelica.SIunits.Length hSeg
+  parameter Modelica.Units.SI.Length hSeg
     "Length of the internal heat exchanger";
-  parameter Modelica.SIunits.Temperature T_start
+  parameter Modelica.Units.SI.Temperature T_start
     "Initial temperature of the filling material";
   parameter Data.Borefield.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  parameter Modelica.SIunits.ThermalResistance Rgb_val
+  parameter Modelica.Units.SI.ThermalResistance Rgb_val
     "Thermal resistance between grout zone and borehole wall";
-  parameter Modelica.SIunits.ThermalResistance RCondGro_val
+  parameter Modelica.Units.SI.ThermalResistance RCondGro_val
     "Thermal resistance between: pipe wall to capacity in grout";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   parameter Boolean dynFil=true
       "Set to false to remove the dynamics of the filling material."
       annotation (Dialog(tab="Dynamics"));

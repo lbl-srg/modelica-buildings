@@ -8,12 +8,11 @@ record Generic "Record for scroll water to water heat pump"
     "Built-in volume ratio"
     annotation (Dialog(group="Compressor"));
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=0)
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal(min=0)
     "Refrigerant volume flow rate at suction"
     annotation (Dialog(group="Compressor"));
 
-  parameter Modelica.SIunits.MassFlowRate leaCoe(min = 0)
-    "Leakage coefficient"
+  parameter Modelica.Units.SI.MassFlowRate leaCoe(min=0) "Leakage coefficient"
     annotation (Dialog(group="Compressor"));
 
   annotation (

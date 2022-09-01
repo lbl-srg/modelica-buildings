@@ -2,7 +2,12 @@
  * getTimeSpan.c
  */
 
+#ifndef GETTIMESPAN_C_
+#define GETTIMESPAN_C_
+
 #include <stdio.h>
+#include "ModelicaUtilities.h"
+
 #include "getTimeSpan.h"
 
 /*
@@ -135,3 +140,5 @@ void getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) 
 
   return;
 }
+
+#endif

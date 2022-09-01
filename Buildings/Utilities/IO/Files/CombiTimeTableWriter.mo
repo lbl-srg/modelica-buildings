@@ -72,7 +72,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 </ul>
 </html>"), Icon(graphics={                                                Text(
           extent={{-88,90},{88,48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="CombiTimeTable")}));
 end CombiTimeTableWriter;

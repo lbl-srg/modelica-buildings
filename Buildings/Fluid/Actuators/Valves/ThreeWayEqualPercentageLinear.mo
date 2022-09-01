@@ -25,7 +25,7 @@ equation
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-72,24},{-34,-20}},
-          lineColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
+          textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid,
           textString="%%")}),
 defaultComponentName="val",
@@ -54,6 +54,12 @@ for the implementation of the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter and changed the parameter <code>order</code> to a constant

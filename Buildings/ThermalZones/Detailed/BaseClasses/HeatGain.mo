@@ -2,7 +2,7 @@ within Buildings.ThermalZones.Detailed.BaseClasses;
 model HeatGain "Model to convert internal heat gain signals"
   extends Buildings.BaseClasses.BaseIcon;
 
-  parameter Modelica.SIunits.Area AFlo "Floor area";
+  parameter Modelica.Units.SI.Area AFlo "Floor area";
 
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
     "Radiant, convective sensible and latent heat input into room (positive if heat gain)"
@@ -84,19 +84,19 @@ First implementation.
         Ellipse(extent={{-40,76},{-8,46}},  lineColor={0,0,255}),
         Text(
           extent={{-98,30},{-38,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="q_flow"),
         Text(
           extent={{20,74},{94,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QRad_flow"),
         Text(
           extent={{18,14},{92,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QCon_flow"),
         Text(
           extent={{20,-44},{94,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLat_flow")}),
         Documentation(info = "<html>
 This is a dummy model that is required to implement the room

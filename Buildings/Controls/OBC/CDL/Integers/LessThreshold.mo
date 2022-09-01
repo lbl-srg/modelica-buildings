@@ -41,11 +41,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%t"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-10,20},{-54,0},{-10,-18}},

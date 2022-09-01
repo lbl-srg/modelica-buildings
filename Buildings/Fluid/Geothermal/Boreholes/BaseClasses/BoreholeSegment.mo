@@ -26,35 +26,34 @@ model BoreholeSegment "Vertical segment of a borehole"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
     Placement(transformation(extent={{-68,70},{-48,90}})));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
+  parameter Modelica.Units.SI.Radius rTub=0.02 "Radius of the tubes"
     annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.ThermalConductivity kTub=0.5
+  parameter Modelica.Units.SI.ThermalConductivity kTub=0.5
     "Thermal conductivity of the tubes" annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.Length eTub=0.002 "Thickness of the tubes"
+  parameter Modelica.Units.SI.Length eTub=0.002 "Thickness of the tubes"
     annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.Temperature TFil_start=283.15
+  parameter Modelica.Units.SI.Temperature TFil_start=283.15
     "Initial temperature of the filling material"
     annotation (Dialog(group="Filling material"));
-  parameter Modelica.SIunits.Radius rExt=3
+  parameter Modelica.Units.SI.Radius rExt=3
     "Radius of the soil used for the external boundary condition"
     annotation (Dialog(group="Soil"));
-  parameter Modelica.SIunits.Temperature TExt_start=283.15
+  parameter Modelica.Units.SI.Temperature TExt_start=283.15
     "Initial far field temperature" annotation (Dialog(group="Soil"));
   parameter Integer nSta(min=1) = 10 "Number of state variables in the soil"
     annotation (Dialog(group="Soil"));
-  parameter Modelica.SIunits.Time samplePeriod=604800
+  parameter Modelica.Units.SI.Time samplePeriod=604800
     "Sample period for the external boundary condition"
     annotation (Dialog(group="Soil"));
-  parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
-  parameter Modelica.SIunits.Height hSeg "Height of the element";
-  parameter Modelica.SIunits.Length xC=0.05
+  parameter Modelica.Units.SI.Radius rBor=0.1 "Radius of the borehole";
+  parameter Modelica.Units.SI.Height hSeg "Height of the element";
+  parameter Modelica.Units.SI.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
  parameter Boolean allowFlowReversal = true
@@ -89,7 +88,6 @@ model BoreholeSegment "Vertical segment of a borehole"
     final allowFlowReversal2=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p1_start=p_start,
     T1_start=T_start,
     X1_start=X_start,
@@ -167,7 +165,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaFlo.Q_flow, TBouCon.Q_flow) annotation (Line(
-      points={{-20,-10},{-20,-20},{40,-20},{40,-8},{48,-8}},
+      points={{-20,-11},{-20,-20},{40,-20},{40,-8},{48,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

@@ -4,7 +4,8 @@ model PPM "Test model for the extra property sensor outputting PPM"
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = volDyn.V*senPPMTwoPort.tau*3*rho_default
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=volDyn.V*
+      senPPMTwoPort.tau*3*rho_default
     "Mass flow rate into and out of the volume";
 
   Buildings.Fluid.MixingVolumes.MixingVolume volDyn(
@@ -13,7 +14,6 @@ model PPM "Test model for the extra property sensor outputting PPM"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1,
     use_C_flow=true,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal) "Mixing volume with dynamics"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Fluid.Sources.MassFlowSource_T mSou(
@@ -22,8 +22,9 @@ model PPM "Test model for the extra property sensor outputting PPM"
     m_flow=m_flow_nominal) "Fresh air supply"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Buildings.Fluid.Sensors.PPM senPPMVol(redeclare package Medium = Medium,
-      warnAboutOnePortConnection=false)
+  Buildings.Fluid.Sensors.PPM senPPMVol(
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection=false)
     "PPM sensor for mixing volume"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Sources.Constant CO2In(k=m_flow_nominal/1000)
@@ -69,7 +70,6 @@ model PPM "Test model for the extra property sensor outputting PPM"
     nPorts=3,
     V=1,
     use_C_flow=true,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume without dynamics"
@@ -94,8 +94,8 @@ protected
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
+      state_default) "Density, used to compute fluid mass";
 
 equation
   connect(mSou.ports[1], volDyn.ports[1]) annotation (Line(points={{-20,42},{
@@ -143,7 +143,7 @@ revisions="<html>
 <ul>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

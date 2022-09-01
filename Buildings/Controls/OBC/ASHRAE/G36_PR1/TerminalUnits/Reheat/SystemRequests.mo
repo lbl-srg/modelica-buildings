@@ -208,35 +208,35 @@ protected
     annotation (Placement(transformation(extent={{0,270},{20,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Time of the model"
     annotation (Placement(transformation(extent={{-140,400},{-120,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=540)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=540)
     "Convert change of degC to change of degF and find out suppression time (5 min/degF))"
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=0.5) "50% of setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.5)
+    "50% of setpoint"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(final k=0.7) "70% of setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=0.7)
+    "70% of setpoint"
     annotation (Placement(transformation(extent={{-100,-98},{-80,-78}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Calculate difference of previous and current setpoints"
-    annotation (Placement(transformation(extent={{-20,430},{0,450}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=-1)
+    annotation (Placement(transformation(extent={{-20,424},{0,444}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Calculate difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Calculate difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add6(final k2=-1) if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub6 if have_heaWatCoi
     "Calculate difference of discharge temperature (plus errTDis_1) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add7(final k2=-1) if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub7 if have_heaWatCoi
     "Calculate difference of discharge temperature (plus errTDis_2) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final k=1,
     final p=errTDis_1) if have_heaWatCoi
     "Discharge temperature plus errTDis_1"
     annotation (Placement(transformation(extent={{-140,-272},{-120,-252}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=errTDis_2) if have_heaWatCoi
     "Discharge temperature plus errTDis_2"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
@@ -389,13 +389,15 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Greater greVDis70
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-
-  CDL.Continuous.Less les "Check if the suppression time has not yet passed"
+  Buildings.Controls.OBC.CDL.Continuous.Less les
+    "Check if the suppression time has not yet passed"
     annotation (Placement(transformation(extent={{38,330},{58,350}})));
-  CDL.Logical.Not notLes "Inversion of output signal"
+  Buildings.Controls.OBC.CDL.Logical.Not notLes
+    "Inversion of output signal"
     annotation (Placement(transformation(extent={{76,330},{96,350}})));
+
 equation
-  connect(add2.y, hys.u)
+  connect(sub2.y, hys.u)
     annotation (Line(points={{-78,200},{-62,200}},   color={0,0,127}));
   connect(TZonCooSet, samTZonCooSet.u)
     annotation (Line(points={{-200,440},{-162,440}}, color={0,0,127}));
@@ -421,16 +423,10 @@ equation
   connect(con.y, gre1.u2)
     annotation (Line(points={{-118,380},{-100,380},{-100,402},{-82,402}},
       color={0,0,127}));
-  connect(uniDel.y, add1.u1)
-    annotation (Line(points={{-58,460},{-40,460},{-40,446},{-22,446}},
-      color={0,0,127}));
-  connect(samTZonCooSet.y, add1.u2)
-    annotation (Line(points={{-138,440},{-40,440},{-40,434},{-22,434}},
-      color={0,0,127}));
   connect(gre1.y, swi.u2)
     annotation (Line(points={{-58,410},{38,410}}, color={255,0,255}));
-  connect(add1.y, swi.u1)
-    annotation (Line(points={{2,440},{20,440},{20,418},{38,418}},
+  connect(sub1.y, swi.u1)
+    annotation (Line(points={{2,434},{20,434},{20,418},{38,418}},
       color={0,0,127}));
   connect(conZer.y, swi.u3)
     annotation (Line(points={{2,380},{20,380},{20,402},{38,402}}, color={0,0,127}));
@@ -447,7 +443,7 @@ equation
     annotation (Line(points={{62,200},{98,200}}, color={255,0,255}));
   connect(thrCooResReq.y, swi1.u1)
     annotation (Line(points={{62,230},{80,230},{80,208},{98,208}}, color={0,0,127}));
-  connect(add3.y, hys3.u)
+  connect(sub3.y, hys3.u)
     annotation (Line(points={{-78,140},{-62,140}}, color={0,0,127}));
   connect(twoCooResReq.y, swi2.u1)
     annotation (Line(points={{62,170},{80,170},{80,148},{98,148}},
@@ -505,18 +501,18 @@ equation
   connect(TDis, addPar.u)
     annotation (Line(points={{-200,-290},{-160,-290},{-160,-262},{-142,-262}},
       color={0,0,127}));
-  connect(addPar.y, add6.u2)
+  connect(addPar.y, sub6.u2)
     annotation (Line(points={{-118,-262},{-108,-262},{-108,-246},{-82,-246}},
       color={0,0,127}));
-  connect(TDisHeaSet, add6.u1)
+  connect(TDisHeaSet, sub6.u1)
     annotation (Line(points={{-200,-210},{-100,-210},{-100,-234},{-82,-234}},
       color={0,0,127}));
-  connect(add6.y, hys8.u)
+  connect(sub6.y, hys8.u)
     annotation (Line(points={{-58,-240},{-42,-240}}, color={0,0,127}));
-  connect(addPar1.y, add7.u2)
+  connect(addPar1.y, sub7.u2)
     annotation (Line(points={{-118,-320},{-108,-320},{-108,-306},{-82,-306}},
       color={0,0,127}));
-  connect(add7.y, hys9.u)
+  connect(sub7.y, hys9.u)
     annotation (Line(points={{-58,-300},{-42,-300}}, color={0,0,127}));
   connect(hys9.y, tim5.u)
     annotation (Line(points={{-18,-300},{-2,-300}}, color={255,0,255}));
@@ -533,7 +529,7 @@ equation
   connect(TDis, addPar1.u)
     annotation (Line(points={{-200,-290},{-160,-290},{-160,-320},{-142,-320}},
       color={0,0,127}));
-  connect(TDisHeaSet, add7.u1)
+  connect(TDisHeaSet, sub7.u1)
     annotation (Line(points={{-200,-210},{-100,-210},{-100,-294},{-82,-294}},
       color={0,0,127}));
   connect(uHeaVal, hys10.u)
@@ -636,20 +632,8 @@ equation
     annotation (Line(points={{-200,90},{-162,90}}, color={0,0,127}));
   connect(sampler4.y, hys5.u)
     annotation (Line(points={{-138,90},{-62,90}}, color={0,0,127}));
-  connect(samTZonCooSet.y, add2.u1)
-    annotation (Line(points={{-138,440},{-128,440},{-128,426},{-150,426},{-150,206},
-          {-102,206}},        color={0,0,127}));
-  connect(samTZonCooSet.y, add3.u1)
-    annotation (Line(points={{-138,440},{-128,440},{-128,426},{-150,426},{-150,206},
-          {-112,206},{-112,146},{-102,146}},        color={0,0,127}));
   connect(hys7.u, VDisSet_flow)
     annotation (Line(points={{-62,30},{-200,30}}, color={0,0,127}));
-  connect(add2.u2, TZon)
-    annotation (Line(points={{-102,194},{-150,194},{-150,170},{-200,170}},
-      color={0,0,127}));
-  connect(add3.u2, TZon)
-    annotation (Line(points={{-102,134},{-150,134},{-150,170},{-200,170}},
-      color={0,0,127}));
   connect(greVDis50.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-78,-40}}, color={0,0,127}));
   connect(greVDis50.u2, sampler1.y) annotation (Line(points={{-62,-48},{-72,-48},
@@ -662,7 +646,6 @@ equation
           {-132,-108},{-62,-108}}, color={0,0,127}));
   connect(greVDis70.y, and4.u2) annotation (Line(points={{-38,-100},{0,-100},{0,
           -108},{38,-108}}, color={255,0,255}));
-
   connect(tim.y, les.u1)
     annotation (Line(points={{22,340},{36,340}}, color={0,0,127}));
   connect(supTim.y, les.u2) annotation (Line(points={{22,280},{32,280},{32,332},
@@ -673,6 +656,19 @@ equation
           {108,326},{108,340},{98,340}}, color={255,0,255}));
   connect(les.y, notLes.u)
     annotation (Line(points={{60,340},{74,340}}, color={255,0,255}));
+  connect(samTZonCooSet.y, sub2.u2) annotation (Line(points={{-138,440},{-128,440},
+          {-128,426},{-150,426},{-150,194},{-102,194}}, color={0,0,127}));
+  connect(TZon, sub2.u1) annotation (Line(points={{-200,170},{-140,170},{-140,206},
+          {-102,206}}, color={0,0,127}));
+  connect(TZon, sub3.u1) annotation (Line(points={{-200,170},{-140,170},{-140,146},
+          {-102,146}}, color={0,0,127}));
+  connect(samTZonCooSet.y, sub3.u2) annotation (Line(points={{-138,440},{-128,440},
+          {-128,426},{-150,426},{-150,134},{-102,134}}, color={0,0,127}));
+  connect(samTZonCooSet.y, sub1.u1)
+    annotation (Line(points={{-138,440},{-22,440}}, color={0,0,127}));
+  connect(uniDel.y, sub1.u2) annotation (Line(points={{-58,460},{-50,460},{-50,428},
+          {-22,428}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=
@@ -710,33 +706,33 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{18,480},{140,456}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Time-based suppression"),
         Text(
           extent={{-150,82},{-28,58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Cooling SAT reset requests"),
         Text(
           extent={{-152,-156},{-8,-184}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Static pressure reset requests"),
         Text(
           extent={{-152,-360},{-26,-380}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Hot water reset requests"),
         Text(
           extent={{-150,-440},{-12,-462}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Boiler plant reset requests")}),
      Icon(graphics={
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -745,77 +741,77 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,90},{-62,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
           extent={{-100,66},{-72,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,46},{-72,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,30},{-52,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDisSet_flow"),
         Text(
           extent={{-98,6},{-64,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-98,-14},{-70,-24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-98,-32},{-52,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="TDisHeaSet"),
         Text(
           extent={{-98,-56},{-64,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="TDis"),
         Text(
           extent={{-98,-76},{-64,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
           textString="uHeaVal"),
         Text(
           extent={{42,82},{98,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{42,32},{98,12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{42,-28},{98,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           visible = have_heaWatCoi,
           textString="yHeaValResReq"),
         Text(
           extent={{58,-84},{98,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          visible = (have_heaWatCoi or have_heaPla),
+          visible = (have_heaWatCoi and have_heaPla),
           textString="yHeaPlaReq")}),
   Documentation(info="<html>
 <p>

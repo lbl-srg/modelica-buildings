@@ -4,28 +4,27 @@ model ExpansionVessel "Expansion vessel with fixed pressure"
    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
    final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
    final mSenFac=1);
- parameter Modelica.SIunits.Volume V_start(start=1)
+  parameter Modelica.Units.SI.Volume V_start(start=1)
     "Volume of liquid stored in the vessel at the start of the simulation";
- parameter Modelica.SIunits.Pressure p = Medium.p_default
-    "Constant pressure of the expansion vessel";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium) "Fluid port"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.SIunits.Mass m "Mass of liquid in the vessel";
+  Modelica.Units.SI.Mass m "Mass of liquid in the vessel";
 
 protected
   final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,
       X=X_start[1:Medium.nXi]) "Medium state at start values";
-  final parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values";
+  final parameter Modelica.Units.SI.Density rho_start=Medium.density(state=
+      state_start) "Density, used to compute start and guess values";
 
-  Modelica.SIunits.Energy H "Internal energy of fluid";
-  Modelica.SIunits.Mass[Medium.nXi] mXi
+  Modelica.Units.SI.Energy H "Internal energy of fluid";
+  Modelica.Units.SI.Mass[Medium.nXi] mXi
     "Masses of independent components in the fluid";
-  Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
+  Modelica.Units.SI.Mass[Medium.nC] mC
+    "Masses of trace substances in the fluid";
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
 
@@ -55,7 +54,7 @@ equation
         Text(
           extent={{-148,98},{152,138}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},
@@ -109,6 +108,12 @@ of equations, which may result in faster simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 11, 2022, by Michael Wetter:<br/>
+Removed nonused parameter <code>p</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1614\">IBPSA, #1614</a>.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

@@ -16,9 +16,9 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     redeclare package Medium = Buildings.Media.Water,
     til=0.78539816339745) "Solar heat gain model using ASHRAE 93 calculations"
     annotation (Placement(transformation(extent={{72,0},{92,20}})));
-  Modelica.Blocks.Sources.Sine     HGroDifTil(
+  Modelica.Blocks.Sources.Sine HGroDifTil(
     amplitude=50,
-    freqHz=4/86400,
+    f=4/86400,
     offset=100) "Diffuse radiation from the ground, tilted surface"
     annotation (Placement(transformation(extent={{-64,44},{-44,64}})));
   Modelica.Blocks.Sources.Ramp incAng(duration=86400, height=60*(2*Modelica.Constants.pi
@@ -27,10 +27,10 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   Modelica.Blocks.Sources.Sine HDirTil(
     offset=400,
     amplitude=300,
-    freqHz=2/86400) "Direct beam radiation, tilted surface"
+    f=2/86400) "Direct beam radiation, tilted surface"
     annotation (Placement(transformation(extent={{-90,18},{-70,38}})));
   Modelica.Blocks.Sources.Sine HSkyDifTil(
-    freqHz=1/86400,
+    f=1/86400,
     amplitude=100,
     offset=100) "Diffuse radiation, tilted surface"
     annotation (Placement(transformation(extent={{-38,74},{-18,94}})));
@@ -40,17 +40,17 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     offset=1) "Shading coefficient"
     annotation (Placement(transformation(extent={{-64,-42},{-44,-22}})));
   Modelica.Blocks.Sources.Sine T3(
-    freqHz=2/86400,
+    f=2/86400,
     amplitude=50,
     offset=273.15 + 110)
     annotation (Placement(transformation(extent={{-38,-58},{-18,-38}})));
   Modelica.Blocks.Sources.Sine T2(
-    freqHz=2/86400,
+    f=2/86400,
     amplitude=50,
     offset=273.15 + 100)
     annotation (Placement(transformation(extent={{-14,-74},{6,-54}})));
   Modelica.Blocks.Sources.Sine T1(
-    freqHz=2/86400,
+    f=2/86400,
     amplitude=50,
     offset=273.15 + 90)
     annotation (Placement(transformation(extent={{10,-94},{30,-74}})));

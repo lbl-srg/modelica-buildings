@@ -10,14 +10,14 @@ model CheckValve "Check valve that avoids flow reversal"
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
     rhoStd=Medium.density_pTX(101325, 273.15 + 4, Medium.X_default));
 
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
-    displayUnit="Pa", min=0) = 0
-    "Pressure drop of pipe and other resistances that are in series"
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
+    displayUnit="Pa",
+    min=0) = 0 "Pressure drop of pipe and other resistances that are in series"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference dpValve_closing = dpValve_nominal/2
-    "Pressure drop when the check valve starts to close"
-    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpValve_closing=
+      dpValve_nominal/2 "Pressure drop when the check valve starts to close"
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real l(min=1e-10, max=1)=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)";
 
@@ -110,14 +110,14 @@ Note that the small reverse flows can still occur with this model.
 The basic flow function
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>,
+  m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>,
 </p>
 <p>
 with regularization near the origin, is used to compute the pressure drop.
 The flow coefficient
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 is increased from <code>l*KV_Si</code> to <code>KV_Si</code>,

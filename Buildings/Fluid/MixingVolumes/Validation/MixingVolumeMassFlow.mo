@@ -3,9 +3,9 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=10
     "Nominal pressure drop";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
 
   Modelica.Fluid.Sources.MassFlowSource_T sou(
@@ -30,8 +30,7 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     nPorts=2,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
 equation

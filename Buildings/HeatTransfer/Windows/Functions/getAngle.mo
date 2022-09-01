@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.Functions;
 function getAngle "Generate incident angles"
   input Integer NDIR "Number of incident angles";
-  output Modelica.SIunits.Angle psi[NDIR] "Array of incident angles";
+  output Modelica.Units.SI.Angle psi[NDIR] "Array of incident angles";
 
 protected
   Real deltaX=0.5*Modelica.Constants.pi/(NDIR - 1);

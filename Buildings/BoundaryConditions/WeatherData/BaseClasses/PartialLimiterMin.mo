@@ -37,6 +37,6 @@ First implementation.
       graphics={
         Text(
           extent={{-100,30},{98,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="0 <= u")}));
 end PartialLimiterMin;

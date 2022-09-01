@@ -3,7 +3,7 @@ model GroundCouplingAIT
   "Validation for pipe and ground coupling against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
-  parameter Modelica.SIunits.Length Lcap=1
+  parameter Modelica.Units.SI.Length Lcap=1
     "Length over which transient effects typically take place";
   parameter Real R80(unit="(m.K)/W")=1/(2*0.024*Modelica.Constants.pi)
       *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07) "Thermal resistance per unit length of service pipes";
@@ -12,12 +12,12 @@ model GroundCouplingAIT
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Time tauHeaTra=6500
+  parameter Modelica.Units.SI.Time tauHeaTra=6500
     "Time constant for heat transfer, default 20 minutes";
 
-  parameter Modelica.SIunits.Length thickness=0.0032 "Pipe wall thickness";
+  parameter Modelica.Units.SI.Length thickness=0.0032 "Pipe wall thickness";
 
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
@@ -254,7 +254,7 @@ model GroundCouplingAIT
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={130,30})));
-  BoundaryConditions.GroundTemperature.ClimaticConstants.Generic cliCon(
+  parameter BoundaryConditions.GroundTemperature.ClimaticConstants.Generic cliCon(
     TSurMea=281.53,
     TSurAmp=9.88,
     sinPha=9002880)
@@ -402,8 +402,7 @@ equation
       StopTime=603900,
       Interval=900,
       Tolerance=1e-006),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Validation/GroundCouplingAIT.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Validation/GroundCouplingAIT.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>
@@ -418,6 +417,12 @@ Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a> for mo
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Changed declaration of <code>cliCon</code> to be parameter.
+This is required to avoid a translation error in OpenModelica which
+complained about the variability of the component.
+</li>
 <li>
 June 25, 2021, by Baptiste Ravache:<br/>
 First implementation.

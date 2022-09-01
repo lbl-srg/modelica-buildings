@@ -8,12 +8,12 @@ model HexInternalElement "Internal part of a borehole"
     final tau1=Modelica.Constants.pi*rTub^2*hSeg*rho1_nominal/m1_flow_nominal,
     final tau2=Modelica.Constants.pi*rTub^2*hSeg*rho2_nominal/m2_flow_nominal,
     vol1(final energyDynamics=energyDynamics,
-         final massDynamics=massDynamics,
+         final massDynamics=energyDynamics,
          final prescribedHeatFlowRate=false,
          final V=m2_flow_nominal*tau2/rho2_nominal,
          final m_flow_small=m1_flow_small),
     final vol2(final energyDynamics=energyDynamics,
-         final massDynamics=massDynamics,
+         final massDynamics=energyDynamics,
          final prescribedHeatFlowRate=false,
          final V=m1_flow_nominal*tau1/rho1_nominal,
          final m_flow_small=m2_flow_small));
@@ -30,23 +30,23 @@ model HexInternalElement "Internal part of a borehole"
     annotation (choicesAllMatching=true, Dialog(group="Soil"),
     Placement(transformation(extent={{66,74},{86,94}})));
 
-  parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
+  parameter Modelica.Units.SI.Radius rTub=0.02 "Radius of the tubes"
     annotation (Dialog(group="Pipes"));
-  parameter Modelica.SIunits.ThermalConductivity kTub=0.5
+  parameter Modelica.Units.SI.ThermalConductivity kTub=0.5
     "Thermal conductivity of the tubes" annotation (Dialog(group="Pipes"));
-  parameter Modelica.SIunits.Length eTub=0.002 "Thickness of the tubes"
+  parameter Modelica.Units.SI.Length eTub=0.002 "Thickness of the tubes"
     annotation (Dialog(group="Pipes"));
-  parameter Modelica.SIunits.ThermalConductivity kSoi
+  parameter Modelica.Units.SI.ThermalConductivity kSoi
     "Thermal conductivity of the soil used for the calculation of the internal interference resistance";
 
-  parameter Modelica.SIunits.Temperature TFil_start=283.15
+  parameter Modelica.Units.SI.Temperature TFil_start=283.15
     "Initial temperature of the filling material"
     annotation (Dialog(group="Filling material"));
 
-  parameter Modelica.SIunits.Height hSeg "Height of the element";
-  parameter Modelica.SIunits.Radius rBor "Radius of the borehole";
+  parameter Modelica.Units.SI.Height hSeg "Height of the element";
+  parameter Modelica.Units.SI.Radius rBor "Radius of the borehole";
 
-  parameter Modelica.SIunits.Length xC=0.05
+  parameter Modelica.Units.SI.Length xC=0.05
     "Shank spacing, defined as half the center-to-center distance between the two pipes";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port
@@ -73,35 +73,34 @@ model HexInternalElement "Internal part of a borehole"
         origin={72,8})));
 
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity cpFil=matFil.c
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpFil=matFil.c
     "Specific heat capacity of the filling material";
-  final parameter Modelica.SIunits.ThermalConductivity kFil=matFil.k
+  final parameter Modelica.Units.SI.ThermalConductivity kFil=matFil.k
     "Thermal conductivity of the filling material";
-  final parameter Modelica.SIunits.Density dFil=matFil.d
+  final parameter Modelica.Units.SI.Density dFil=matFil.d
     "Density of the filling material";
-  parameter Modelica.SIunits.HeatCapacity
-    Co_fil=dFil*cpFil*hSeg*Modelica.Constants.pi*(rBor^2 - 2*(rTub + eTub)^2)
-    "Heat capacity of the filling material";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
+  parameter Modelica.Units.SI.HeatCapacity Co_fil=dFil*cpFil*hSeg*Modelica.Constants.pi
+      *(rBor^2 - 2*(rTub + eTub)^2) "Heat capacity of the filling material";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Specific heat capacity of the fluid";
-  parameter Modelica.SIunits.ThermalConductivity kMed=
+  parameter Modelica.Units.SI.ThermalConductivity kMed=
       Medium.thermalConductivity(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity mueMed=Medium.dynamicViscosity(
+  parameter Modelica.Units.SI.DynamicViscosity mueMed=Medium.dynamicViscosity(
       Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Dynamic viscosity of the fluid";
-  parameter Modelica.SIunits.ThermalResistance Rgb_val(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance Rgb_val(fixed=false)
     "Thermal resistance between grout zone and borehole wall";
-  parameter Modelica.SIunits.ThermalResistance Rgg_val(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance Rgg_val(fixed=false)
     "Thermal resistance between the two grout zones";
-  parameter Modelica.SIunits.ThermalResistance RCondGro_val(fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance RCondGro_val(fixed=false)
     "Thermal resistance of the pipe wall";
   parameter Real x(fixed=false) "Capacity location";
 

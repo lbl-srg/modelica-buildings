@@ -12,47 +12,50 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate";
 
-  parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
-  parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor=568.77 "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
+  parameter Modelica.Units.SI.Volume VRooCor=2698 "Room volume corridor";
+  parameter Modelica.Units.SI.Volume VRooSou=568.77 "Room volume south";
+  parameter Modelica.Units.SI.Volume VRooNor=568.77 "Room volume north";
+  parameter Modelica.Units.SI.Volume VRooEas=360.08 "Room volume east";
+  parameter Modelica.Units.SI.Volume VRooWes=360.08 "Room volume west";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3*VRooCor*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_cor=3*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=8*VRooSou*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_sou=8*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=9*VRooEas*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_eas=9*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=11*VRooNor*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_nor=11*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=10*VRooWes*conv
+  parameter Modelica.Units.SI.MassFlowRate m0_flow_wes=10*VRooWes*conv
     "Design mass flow rate perimeter 4";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
     "Nominal air mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mAirOut_flow_nominal = 0.3*m_flow_nominal
-    "Nominal outside air mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mAirHot_flow_nominal = 0.3*m_flow_nominal
-    "Nominal air mass flow rate for hot deck";
-  parameter Modelica.SIunits.MassFlowRate mAirCol_flow_nominal = m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal=0.3*
+      m_flow_nominal "Nominal outside air mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mAirHot_flow_nominal=0.3*
+      m_flow_nominal "Nominal air mass flow rate for hot deck";
+  parameter Modelica.Units.SI.MassFlowRate mAirCol_flow_nominal=m_flow_nominal
     "Nominal air mass flow rate for cold deck";
   ///////////////////////////////////////////////////////////////////////////////////////
   // Water mass flow rates
-  parameter Modelica.SIunits.MassFlowRate mWatPre_flow_nominal = (TMixHea_nominal-273.15-(-20))*1000/15/4200*mAirOut_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatPre_flow_nominal=(
+      TMixHea_nominal - 273.15 - (-20))*1000/15/4200*mAirOut_flow_nominal
     "Nominal water mass flow rate for preheat coil";
-  parameter Modelica.SIunits.MassFlowRate mWatCol_flow_nominal = (28-13)*1000*1.3/4200/15*mAirCol_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatCol_flow_nominal=(28 - 13)*1000*
+      1.3/4200/15*mAirCol_flow_nominal
     "Nominal water mass flow rate for cooling coil of cold deck";
-  parameter Modelica.SIunits.MassFlowRate mWatHot_flow_nominal = (40-(TMixHea_nominal-273.15))*1000/15/4200*mAirHot_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWatHot_flow_nominal=(40 - (
+      TMixHea_nominal - 273.15))*1000/15/4200*mAirHot_flow_nominal
     "Nominal water mass flow rate for heating coil of cold deck";
   // Water temperatures
-  parameter Modelica.SIunits.Temperature TMixHea_nominal = 0.3*(273.15+(-20)) + 0.7 * (273.15+20)
-    "Mixed air temperature at winter design conditions";
-  parameter Modelica.SIunits.Temperature TMixCoo_nominal = 0.3*(273.15+(33)) + 0.7 * (273.15+26)
-    "Mixed air temperature at summer design conditions";
-  parameter Modelica.SIunits.Temperature TSupCol_nominal = 12+273.15
+  parameter Modelica.Units.SI.Temperature TMixHea_nominal=0.3*(273.15 + (-20))
+       + 0.7*(273.15 + 20) "Mixed air temperature at winter design conditions";
+  parameter Modelica.Units.SI.Temperature TMixCoo_nominal=0.3*(273.15 + (33))
+       + 0.7*(273.15 + 26) "Mixed air temperature at summer design conditions";
+  parameter Modelica.Units.SI.Temperature TSupCol_nominal=12 + 273.15
     "Cold deck temperature at nominal condition";
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)
@@ -425,7 +428,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splCol1(
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
@@ -437,7 +439,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splCol2(
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
@@ -460,7 +461,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         origin={380,-50})));
   Buildings.Controls.Continuous.LimPID heaCoiCon(
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     yMax=1,
     yMin=0,
     Ti=120,
@@ -528,7 +529,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.Continuous.LimPID conCooCoi(
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     yMax=1,
     yMin=0,
     Ti=120,
@@ -668,11 +669,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eco.port_Exh, amb.ports[1]) annotation (Line(
-      points={{-40,55.2},{-100,55.2},{-100,24},{-112,24}},
+      points={{-40,55.2},{-100,55.2},{-100,21},{-112,21}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(amb.ports[2], VOut1.port_a) annotation (Line(
-      points={{-112,20},{-96,20},{-96,22},{-80,22}},
+      points={{-112,23},{-96,23},{-96,22},{-80,22}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(
@@ -755,45 +756,45 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
-      points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,
+      points={{582,112},{582,252},{784,252},{784,364},{918.843,364},{918.843,
           401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
       points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,401.262},{
-          929.148,401.262}},
+          925.713,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
-      points={{722,114},{722,228},{915.409,228},{915.409,331.108}},
+      points={{722,114},{722,228},{918.843,228},{918.843,331.108}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{742,170},{742,218},{934,218},{934,331.108},{929.148,331.108}},
+      points={{742,170},{742,218},{934,218},{934,331.108},{925.713,331.108}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_b, flo.portsEas[1]) annotation (Line(
-      points={{858,114},{858,212},{1078,212},{1078,401.262},{1072.03,401.262}},
+      points={{858,114},{858,212},{1078,212},{1078,401.262},{1075.47,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{882,170},{882,210},{1085.77,210},{1085.77,401.262}},
+      points={{882,170},{882,210},{1082.34,210},{1082.34,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.port_b, flo.portsNor[1]) annotation (Line(
-      points={{998,114},{998,412},{915.409,412},{915.409,460.892}},
+      points={{998,114},{998,412},{918.843,412},{918.843,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1022,170},{1022,418},{929.148,418},{929.148,460.892}},
+      points={{1022,170},{1022,418},{925.713,418},{925.713,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1136,114},{1136,248},{830.226,248},{830.226,401.262}},
+      points={{1136,114},{1136,248},{833.661,248},{833.661,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1032,160},{1130,160},{1130,240},{843.965,240},{843.965,401.262}},
+      points={{1032,160},{1130,160},{1130,240},{840.53,240},{840.53,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -863,7 +864,7 @@ equation
       smooth=Smooth.None));
   connect(souHea.ports[1], valPreHea.port_a)
                                           annotation (Line(
-      points={{120,-230},{120,-180}},
+      points={{123,-230},{123,-206},{120,-206},{120,-180}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valPreHea.port_b, splCol1.port_1)
@@ -884,7 +885,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splCol2.port_2, sinHea.ports[1]) annotation (Line(
-      points={{88,-140},{88,-230}},
+      points={{88,-140},{88,-186},{88,-230},{91,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoi.port_a1, valHea.port_b)  annotation (Line(
@@ -892,12 +893,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(valHea.port_a, souHea.ports[2])  annotation (Line(
-      points={{380,-60},{380,-80},{180,-80},{180,-220},{124,-220},{124,-230}},
+      points={{380,-60},{380,-80},{180,-80},{180,-220},{121,-220},{121,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoi.port_b1, sinHea.ports[2]) annotation (Line(
-      points={{350,-12},{340,-12},{340,-28},{220,-28},{220,-74},{174,-74},{174,
-          -212},{92,-212},{92,-230}},
+      points={{350,-12},{340,-12},{340,-28},{220,-28},{220,-74},{174,-74},{174,-212},
+          {89,-212},{89,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TSetHot.y, heaCoiCon.u_s) annotation (Line(
