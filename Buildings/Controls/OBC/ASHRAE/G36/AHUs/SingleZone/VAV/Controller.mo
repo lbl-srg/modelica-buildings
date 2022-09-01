@@ -956,8 +956,8 @@ equation
           372},{-140,430},{-132,430}}, color={0,0,127}));
   connect(modSetPoi.TCooSet, cooPI.u_s) annotation (Line(points={{-178,380},{-100,
           380},{-100,360},{-92,360}}, color={0,0,127}));
-  connect(outAirSetPoi.uWin, u1Win) annotation (Line(points={{-22,259},{-208,259},
-          {-208,-40},{-280,-40}}, color={255,0,255}));
+  connect(outAirSetPoi.u1Win, u1Win) annotation (Line(points={{-22,259},{-208,
+          259},{-208,-40},{-280,-40}}, color={255,0,255}));
   connect(modSetPoi.u1Occ, u1Occ) annotation (Line(points={{-202,378},{-228,378},
           {-228,400},{-280,400}}, color={255,0,255}));
   connect(TZon, modSetPoi.TZon) annotation (Line(points={{-280,340},{-252,340},{
@@ -1014,7 +1014,7 @@ equation
           170},{-224,369},{-202,369}},     color={0,0,127}));
   connect(setAdj, modSetPoi.setAdj) annotation (Line(points={{-280,230},{-232,230},
           {-232,373},{-202,373}},      color={0,0,127}));
-  connect(u1OccSen, outAirSetPoi.uOcc) annotation (Line(points={{-280,140},{-220,
+  connect(u1OccSen, outAirSetPoi.u1Occ) annotation (Line(points={{-280,140},{-220,
           140},{-220,257},{-22,257}}, color={255,0,255}));
   connect(outAirSetPoi.ppmCO2, ppmCO2) annotation (Line(points={{-22,251},{-58,251},
           {-58,20},{-280,20}},   color={0,0,127}));
@@ -1110,9 +1110,9 @@ equation
           {-62,50},{-62,253},{-22,253}},  color={0,0,127}));
   connect(hAirRet, conEco.hAirRet) annotation (Line(points={{-280,-110},{44,-110},
           {44,172},{58,172}}, color={0,0,127}));
-  connect(u1Win, minFlo.uWin) annotation (Line(points={{-280,-40},{-208,-40},{-208,
-          219},{-22,219}}, color={255,0,255}));
-  connect(u1OccSen, minFlo.uOcc) annotation (Line(points={{-280,140},{-220,140},
+  connect(u1Win, minFlo.u1Win) annotation (Line(points={{-280,-40},{-208,-40},{
+          -208,219},{-22,219}}, color={255,0,255}));
+  connect(u1OccSen, minFlo.u1Occ) annotation (Line(points={{-280,140},{-220,140},
           {-220,216},{-22,216}}, color={255,0,255}));
   connect(ppmCO2Set, minFlo.ppmCO2Set) annotation (Line(points={{-280,50},{-62,50},
           {-62,210},{-22,210}}, color={0,0,127}));

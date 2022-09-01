@@ -100,10 +100,10 @@ equation
     annotation (Line(points={{-138,110},{-122,110}}, color={255,0,255}));
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-98,110},{-82,110}},   color={255,0,255}));
-  connect(winSta.y, winSenZon.uWin) annotation (Line(points={{-58,-30},{-10,-30},
+  connect(winSta.y, winSenZon.u1Win) annotation (Line(points={{-58,-30},{-10,-30},
           {-10,-41},{-2,-41}}, color={255,0,255}));
-  connect(occSta.y, occSenZon.uOcc) annotation (Line(points={{-58,-80},{-10,-80},
-          {-10,-94},{-2,-94}},  color={255,0,255}));
+  connect(occSta.y, occSenZon.u1Occ) annotation (Line(points={{-58,-80},{-10,-80},
+          {-10,-94},{-2,-94}}, color={255,0,255}));
   connect(booToInt.y, co2SenZon.uOpeMod) annotation (Line(points={{-58,110},{-40,
           110},{-40,-147},{-2,-147}},  color={255,127,0}));
   connect(co2Con.y, co2SenZon.ppmCO2) annotation (Line(points={{-58,-130},{-10,-130},

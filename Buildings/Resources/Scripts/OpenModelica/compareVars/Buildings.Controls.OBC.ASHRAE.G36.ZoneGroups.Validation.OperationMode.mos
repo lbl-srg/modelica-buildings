@@ -1,9 +1,9 @@
 compareVars :=
   {
     "opeModSel.yOpeMod",
-    "opeModSel.uOcc",
-    "opeModSel.uHigOccCoo",
-    "opeModSel.uOccHeaHig",
+    "opeModSel.u1Occ",
+    "opeModSel.u1HigOccCoo",
+    "opeModSel.u1OccHeaHig",
     "opeModSel.tNexOcc",
     "opeModSel.maxCooDowTim",
     "opeModSel.maxWarUpTim",

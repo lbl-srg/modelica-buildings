@@ -158,7 +158,7 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
-    "Occupancy status, true if it is occupied, false if it is not occupied"
+    "True: the zone is populated"
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -382,9 +382,9 @@ equation
           -144,180},{-102,180}}, color={0,0,127}));
   connect(THeaSet, conLoo.THeaSet) annotation (Line(points={{-200,180},{-156,
           180},{-156,174},{-102,174}}, color={0,0,127}));
-  connect(u1Win, setPoi.uWin) annotation (Line(points={{-200,150},{-126,150},{
+  connect(u1Win, setPoi.u1Win) annotation (Line(points={{-200,150},{-126,150},{
           -126,119},{-102,119}}, color={255,0,255}));
-  connect(u1Occ, setPoi.uOcc) annotation (Line(points={{-200,120},{-132,120},{
+  connect(u1Occ, setPoi.u1Occ) annotation (Line(points={{-200,120},{-132,120},{
           -132,117},{-102,117}}, color={255,0,255}));
   connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-200,90},{-138,90},
           {-138,115},{-102,115}}, color={255,127,0}));
@@ -442,9 +442,9 @@ equation
           {40,-40},{58,-40}},  color={255,127,0}));
   connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-200,60},{-162,
           60},{-162,113},{-102,113}}, color={0,0,127}));
-  connect(u1Win, minFlo.uWin) annotation (Line(points={{-200,150},{-126,150},{
+  connect(u1Win, minFlo.u1Win) annotation (Line(points={{-200,150},{-126,150},{
           -126,79},{-102,79}}, color={255,0,255}));
-  connect(u1Occ, minFlo.uOcc) annotation (Line(points={{-200,120},{-132,120},{
+  connect(u1Occ, minFlo.u1Occ) annotation (Line(points={{-200,120},{-132,120},{
           -132,76},{-102,76}}, color={255,0,255}));
   connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-200,90},{-138,90},
           {-138,73},{-102,73}}, color={255,127,0}));

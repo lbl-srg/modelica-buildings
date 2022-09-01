@@ -53,12 +53,12 @@ block Setpoints
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-340,210},{-300,250}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
-    "Occupancy status, true if it is occupied, false if it is not occupied"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
+    "True: the zone is populated"
     annotation (Placement(transformation(extent={{-340,150},{-300,190}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -323,7 +323,7 @@ equation
           -46},{-82,-46}}, color={0,0,127}));
   connect(booToRea.y, co2Con.u1) annotation (Line(points={{-138,30},{-120,30},{-120,
           -34},{-82,-34}}, color={0,0,127}));
-  connect(uWin, or2.u1)
+  connect(u1Win, or2.u1)
     annotation (Line(points={{-320,230},{-22,230}}, color={255,0,255}));
   connect(inOccMod.y, notOccMod.u) annotation (Line(points={{-198,30},{-180,30},
           {-180,210},{-82,210}}, color={255,0,255}));
@@ -343,7 +343,7 @@ equation
     annotation (Line(points={{2,230},{78,230}}, color={255,0,255}));
   connect(zer1.y, occMinAir.u1) annotation (Line(points={{2,280},{30,280},{30,238},
           {78,238}}, color={0,0,127}));
-  connect(uOcc, notOcc.u)
+  connect(u1Occ, notOcc.u)
     annotation (Line(points={{-320,170},{-282,170}}, color={255,0,255}));
   connect(perOccSta.y, booToRea1.u)
     annotation (Line(points={{-238,130},{-222,130}}, color={255,0,255}));

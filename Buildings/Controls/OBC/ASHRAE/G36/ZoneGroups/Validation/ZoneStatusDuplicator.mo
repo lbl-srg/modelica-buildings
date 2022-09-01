@@ -29,22 +29,22 @@ equation
           30},{-20,-34},{-4,-34}}, color={0,0,127}));
   connect(booInp[1, :].y, zonStaDup.zonOcc) annotation (Line(points={{-58,-30},{
           -40,-30},{-40,38},{-4,38}}, color={255,0,255}));
-  connect(booInp[2, :].y, zonStaDup.uOcc) annotation (Line(points={{-58,-30},{-40,
-          -30},{-40,34},{-4,34}}, color={255,0,255}));
-  connect(booInp[3, :].y, zonStaDup.uOccHeaHig) annotation (Line(points={{-58,-30},
-          {-40,-30},{-40,10},{-4,10}}, color={255,0,255}));
-  connect(booInp[4, :].y, zonStaDup.uHigOccCoo) annotation (Line(points={{-58,-30},
-          {-40,-30},{-40,6},{-4,6}}, color={255,0,255}));
-  connect(booInp[5, :].y, zonStaDup.uUnoHeaHig) annotation (Line(points={{-58,-30},
-          {-40,-30},{-40,-2},{-4,-2}}, color={255,0,255}));
-  connect(booInp[6, :].y, zonStaDup.uEndSetBac) annotation (Line(points={{-58,-30},
-          {-40,-30},{-40,-10},{-4,-10}}, color={255,0,255}));
-  connect(booInp[7, :].y, zonStaDup.uHigUnoCoo) annotation (Line(points={{-58,-30},
-          {-40,-30},{-40,-18},{-4,-18}}, color={255,0,255}));
-  connect(booInp[8, :].y, zonStaDup.uEndSetUp) annotation (Line(points={{-58,-30},
+  connect(booInp[2, :].y, zonStaDup.u1Occ) annotation (Line(points={{-58,-30},{
+          -40,-30},{-40,34},{-4,34}}, color={255,0,255}));
+  connect(booInp[3, :].y, zonStaDup.u1OccHeaHig) annotation (Line(points={{-58,
+          -30},{-40,-30},{-40,10},{-4,10}}, color={255,0,255}));
+  connect(booInp[4, :].y, zonStaDup.u1HigOccCoo) annotation (Line(points={{-58,
+          -30},{-40,-30},{-40,6},{-4,6}}, color={255,0,255}));
+  connect(booInp[5, :].y, zonStaDup.u1UnoHeaHig) annotation (Line(points={{-58,
+          -30},{-40,-30},{-40,-2},{-4,-2}}, color={255,0,255}));
+  connect(booInp[6, :].y, zonStaDup.u1EndSetBac) annotation (Line(points={{-58,
+          -30},{-40,-30},{-40,-10},{-4,-10}}, color={255,0,255}));
+  connect(booInp[7, :].y, zonStaDup.u1HigUnoCoo) annotation (Line(points={{-58,
+          -30},{-40,-30},{-40,-18},{-4,-18}}, color={255,0,255}));
+  connect(booInp[8, :].y, zonStaDup.u1EndSetUp) annotation (Line(points={{-58,-30},
           {-40,-30},{-40,-26},{-4,-26}}, color={255,0,255}));
-  connect(booInp[9, :].y, zonStaDup.uWin) annotation (Line(points={{-58,-30},{-40,
-          -30},{-40,-38},{-4,-38}}, color={255,0,255}));
+  connect(booInp[9, :].y, zonStaDup.u1Win) annotation (Line(points={{-58,-30},{
+          -40,-30},{-40,-38},{-4,-38}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=1, Tolerance=1e-6),

@@ -162,7 +162,7 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
-    "Occupancy status, true if it is occupied, false if it is not occupied"
+    "True: the zone is populated"
     annotation (Placement(transformation(extent={{-280,140},{-240,180}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -440,10 +440,10 @@ equation
           210},{-202,210}}, color={0,0,127}));
   connect(THeaSet, conLoo.THeaSet) annotation (Line(points={{-260,240},{-214,240},
           {-214,204},{-202,204}}, color={0,0,127}));
-  connect(u1Win, setPoi.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
-          159},{-162,159}}, color={255,0,255}));
-  connect(u1Occ, setPoi.uOcc) annotation (Line(points={{-260,160},{-184,160},{-184,
-          157},{-162,157}}, color={255,0,255}));
+  connect(u1Win, setPoi.u1Win) annotation (Line(points={{-260,190},{-180,190},{
+          -180,159},{-162,159}}, color={255,0,255}));
+  connect(u1Occ, setPoi.u1Occ) annotation (Line(points={{-260,160},{-184,160},{
+          -184,157},{-162,157}}, color={255,0,255}));
   connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
           {-200,155},{-162,155}}, color={255,127,0}));
   connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-260,70},{-192,70},{-192,
@@ -548,10 +548,10 @@ equation
          {{22,38},{40,38},{40,-85},{58,-85}}, color={0,0,127}));
   connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-260,100},{-196,
           100},{-196,153},{-162,153}}, color={0,0,127}));
-  connect(u1Win, minFlo.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
-          119},{-162,119}}, color={255,0,255}));
-  connect(u1Occ, minFlo.uOcc) annotation (Line(points={{-260,160},{-184,160},{-184,
-          116},{-162,116}}, color={255,0,255}));
+  connect(u1Win, minFlo.u1Win) annotation (Line(points={{-260,190},{-180,190},{
+          -180,119},{-162,119}}, color={255,0,255}));
+  connect(u1Occ, minFlo.u1Occ) annotation (Line(points={{-260,160},{-184,160},{
+          -184,116},{-162,116}}, color={255,0,255}));
   connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
           {-200,113},{-162,113}}, color={255,127,0}));
   connect(ppmCO2Set, minFlo.ppmCO2Set) annotation (Line(points={{-260,100},{-196,
@@ -633,13 +633,13 @@ annotation (defaultComponentName="duaDucCon",
           extent={{-98,108},{-72,94}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uWin"),
+          textString="u1Win"),
         Text(
           visible=have_occSen,
           extent={{-98,88},{-72,74}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uOcc"),
+          textString="u1Occ"),
         Text(
           extent={{-96,-52},{-56,-68}},
           textColor={255,0,255},

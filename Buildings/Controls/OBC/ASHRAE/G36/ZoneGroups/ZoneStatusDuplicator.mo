@@ -8,10 +8,10 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     "True when the zone is set to be occupied due to the override"
     annotation (Placement(transformation(extent={{-80,60},{-40,100}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ[nZon]
     "True when the zone is occupied according to the occupancy schedule"
     annotation (Placement(transformation(extent={{-80,20},{-40,60}}),
-      iconTransformation(extent={{-140,150},{-100,190}})));
+        iconTransformation(extent={{-140,150},{-100,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc[nZon](
     final unit=fill("s", nZon),
     final quantity=fill("Time", nZon))
@@ -30,18 +30,18 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     "Warm-up time"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccHeaHig[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OccHeaHig[nZon]
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-140},{-40,-100}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigOccCoo[nZon]
+        iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HigOccCoo[nZon]
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-180},{-40,-140}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUnoHeaHig[nZon]
+        iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1UnoHeaHig[nZon]
     "True when the zone temperature is lower than the unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-220},{-40,-180}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+        iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSetOff[nZon](
     final unit=fill("K", nZon),
     displayUnit=fill("degC", nZon),
@@ -49,14 +49,14 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     "Zone unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-260},{-40,-220}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndSetBac[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EndSetBac[nZon]
     "True when the zone could end the setback mode"
     annotation (Placement(transformation(extent={{-80,-300},{-40,-260}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigUnoCoo[nZon]
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HigUnoCoo[nZon]
     "True when the zone temperature is higher than its unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-330},{-40,-290}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSetOff[nZon](
     final unit=fill("K", nZon),
     displayUnit=fill("degC", nZon),
@@ -64,26 +64,26 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     "Zone unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-390},{-40,-350}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndSetUp[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EndSetUp[nZon]
     "True when the zone could end the setup mode"
     annotation (Placement(transformation(extent={{-80,-420},{-40,-380}}),
-      iconTransformation(extent={{-140,-150},{-100,-110}})));
+        iconTransformation(extent={{-140,-150},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
     final unit=fill("K", nZon),
     displayUnit=fill("degC", nZon),
     final quantity=fill("ThermodynamicTemperature", nZon)) "Zone temperature"
     annotation (Placement(transformation(extent={{-80,-460},{-40,-420}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win[nZon]
     "True when the window is open, false when the window is close or the zone does not have window status sensor"
     annotation (Placement(transformation(extent={{-80,-540},{-40,-500}}),
-      iconTransformation(extent={{-140,-210},{-100,-170}})));
+        iconTransformation(extent={{-140,-210},{-100,-170}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yzonOcc[nZonGro, nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ZonOcc[nZonGro,nZon]
     "True when the zone is set to be occupied due to the override"
     annotation (Placement(transformation(extent={{40,60},{80,100}}),
-      iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc[nZonGro,nZon]
+        iconTransformation(extent={{100,170},{140,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Occ[nZonGro,nZon]
     "True when the zone is occupied according to the occupancy schedule"
     annotation (Placement(transformation(extent={{40,20},{80,60}}),
         iconTransformation(extent={{100,150},{140,190}})));
@@ -102,15 +102,15 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     final quantity=fill("Time", nZonGro, nZon)) "Warm-up time"
     annotation (Placement(transformation(extent={{40,-100},{80,-60}}),
       iconTransformation(extent={{100,70},{140,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOccHeaHig[nZonGro,nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1OccHeaHig[nZonGro,nZon]
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-140},{80,-100}}),
         iconTransformation(extent={{100,30},{140,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHigOccCoo[nZonGro,nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HigOccCoo[nZonGro,nZon]
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-180},{80,-140}}),
         iconTransformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUnoHeaHig[nZonGro,nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1UnoHeaHig[nZonGro,nZon]
     "True when the zone temperature is lower than the unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-220},{80,-180}}),
         iconTransformation(extent={{100,-30},{140,10}})));
@@ -121,11 +121,11 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     "Zone unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-260},{80,-220}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetBac[nZonGro,nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EndSetBac[nZonGro,nZon]
     "True when the zone could end the setback mode"
     annotation (Placement(transformation(extent={{40,-300},{80,-260}}),
-      iconTransformation(extent={{100,-70},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHigUnoCoo[nZonGro,nZon]
+        iconTransformation(extent={{100,-70},{140,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HigUnoCoo[nZonGro,nZon]
     "True when the zone temperature is higher than its unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-330},{80,-290}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
@@ -136,17 +136,17 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     "Zone unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,-390},{80,-350}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSetUp[nZonGro,nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EndSetUp[nZonGro,nZon]
     "True when the zone could end the setup mode"
     annotation (Placement(transformation(extent={{40,-420},{80,-380}}),
-      iconTransformation(extent={{100,-150},{140,-110}})));
+        iconTransformation(extent={{100,-150},{140,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTZon[nZonGro, nZon](
     final unit=fill("K", nZonGro, nZon),
     displayUnit=fill("degC", nZonGro, nZon),
     final quantity=fill("ThermodynamicTemperature", nZonGro, nZon)) "Zone temperature"
     annotation (Placement(transformation(extent={{40,-460},{80,-420}}),
       iconTransformation(extent={{100,-190},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yWin[nZonGro,nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Win[nZonGro,nZon]
     "True when the window is open, false when the window is close or the zone does not have window status sensor"
     annotation (Placement(transformation(extent={{40,-540},{80,-500}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
@@ -230,37 +230,37 @@ protected
 equation
   connect(zonOcc, zonOccDup.u)
     annotation (Line(points={{-60,80},{-12,80}}, color={255,0,255}));
-  connect(uOcc,uOccDup. u)
-    annotation (Line(points={{-60,40},{-12,40}},  color={255,0,255}));
+  connect(u1Occ, uOccDup.u)
+    annotation (Line(points={{-60,40},{-12,40}}, color={255,0,255}));
   connect(tNexOcc, tNexOccDup.u)
     annotation (Line(points={{-60,0},{-12,0}}, color={0,0,127}));
   connect(uCooTim, uCooTimDup.u)
     annotation (Line(points={{-60,-40},{-12,-40}}, color={0,0,127}));
   connect(uWarTim, uWarTimDup.u)
     annotation (Line(points={{-60,-80},{-12,-80}}, color={0,0,127}));
-  connect(uOccHeaHig, uOccHeaHigDup.u)
+  connect(u1OccHeaHig, uOccHeaHigDup.u)
     annotation (Line(points={{-60,-120},{-12,-120}}, color={255,0,255}));
-  connect(uHigOccCoo, uHigOccCooDup.u)
+  connect(u1HigOccCoo, uHigOccCooDup.u)
     annotation (Line(points={{-60,-160},{-12,-160}}, color={255,0,255}));
-  connect(uUnoHeaHig, uUnoHeaHigDup.u)
+  connect(u1UnoHeaHig, uUnoHeaHigDup.u)
     annotation (Line(points={{-60,-200},{-12,-200}}, color={255,0,255}));
   connect(THeaSetOff, THeaSetOffDup.u)
     annotation (Line(points={{-60,-240},{-12,-240}}, color={0,0,127}));
-  connect(uEndSetBac, uEndSetBacDup.u)
+  connect(u1EndSetBac, uEndSetBacDup.u)
     annotation (Line(points={{-60,-280},{-12,-280}}, color={255,0,255}));
-  connect(uHigUnoCoo, uHigUnoCooDup.u)
+  connect(u1HigUnoCoo, uHigUnoCooDup.u)
     annotation (Line(points={{-60,-310},{-12,-310}}, color={255,0,255}));
   connect(TCooSetOff, TCooSetOffDup.u)
     annotation (Line(points={{-60,-370},{-12,-370}}, color={0,0,127}));
-  connect(uEndSetUp, uEndSetUpDup.u)
+  connect(u1EndSetUp, uEndSetUpDup.u)
     annotation (Line(points={{-60,-400},{-12,-400}}, color={255,0,255}));
   connect(TZon, TZonDup.u)
     annotation (Line(points={{-60,-440},{-12,-440}}, color={0,0,127}));
-  connect(uWin, uWinDup.u)
+  connect(u1Win, uWinDup.u)
     annotation (Line(points={{-60,-520},{-12,-520}}, color={255,0,255}));
-  connect(zonOccDup.y, yzonOcc)
+  connect(zonOccDup.y, y1ZonOcc)
     annotation (Line(points={{12,80},{60,80}}, color={255,0,255}));
-  connect(uOccDup.y, yOcc)
+  connect(uOccDup.y, y1Occ)
     annotation (Line(points={{12,40},{60,40}}, color={255,0,255}));
   connect(ytNexOcc, tNexOccDup.y)
     annotation (Line(points={{60,0},{12,0}}, color={0,0,127}));
@@ -268,25 +268,25 @@ equation
     annotation (Line(points={{60,-40},{12,-40}}, color={0,0,127}));
   connect(uWarTimDup.y, yWarTim)
     annotation (Line(points={{12,-80},{60,-80}}, color={0,0,127}));
-  connect(uOccHeaHigDup.y, yOccHeaHig)
+  connect(uOccHeaHigDup.y, y1OccHeaHig)
     annotation (Line(points={{12,-120},{60,-120}}, color={255,0,255}));
-  connect(uHigOccCooDup.y, yHigOccCoo)
+  connect(uHigOccCooDup.y, y1HigOccCoo)
     annotation (Line(points={{12,-160},{60,-160}}, color={255,0,255}));
-  connect(uUnoHeaHigDup.y, yUnoHeaHig)
+  connect(uUnoHeaHigDup.y, y1UnoHeaHig)
     annotation (Line(points={{12,-200},{60,-200}}, color={255,0,255}));
   connect(THeaSetOffDup.y, yTHeaSetOff)
     annotation (Line(points={{12,-240},{60,-240}}, color={0,0,127}));
-  connect(uEndSetBacDup.y, yEndSetBac)
+  connect(uEndSetBacDup.y, y1EndSetBac)
     annotation (Line(points={{12,-280},{60,-280}}, color={255,0,255}));
-  connect(uHigUnoCooDup.y, yHigUnoCoo)
+  connect(uHigUnoCooDup.y, y1HigUnoCoo)
     annotation (Line(points={{12,-310},{60,-310}}, color={255,0,255}));
   connect(TCooSetOffDup.y, yTCooSetOff)
     annotation (Line(points={{12,-370},{60,-370}}, color={0,0,127}));
-  connect(uEndSetUpDup.y, yEndSetUp)
+  connect(uEndSetUpDup.y, y1EndSetUp)
     annotation (Line(points={{12,-400},{60,-400}}, color={255,0,255}));
   connect(TZonDup.y, yTZon)
     annotation (Line(points={{12,-440},{60,-440}}, color={0,0,127}));
-  connect(uWinDup.y, yWin)
+  connect(uWinDup.y, y1Win)
     annotation (Line(points={{12,-520},{60,-520}}, color={255,0,255}));
 
   annotation (defaultComponentName="zonStaDup",
@@ -311,32 +311,32 @@ equation
           extent={{-94,60},{-44,44}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uOccHeaHig"),
+          textString="u1OccHeaHig"),
         Text(
           extent={{-94,40},{-44,26}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHigOccCoo"),
+          textString="u1HigOccCoo"),
         Text(
           extent={{-94,-80},{-42,-96}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uHigUnoCoo"),
+          textString="u1HigUnoCoo"),
         Text(
           extent={{-94,-40},{-44,-54}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uEndSetBac"),
+          textString="u1EndSetBac"),
         Text(
           extent={{-94,-122},{-46,-136}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uEndSetUp"),
+          textString="u1EndSetUp"),
         Text(
           extent={{-94,-2},{-44,-16}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uUnoHeaHig"),
+          textString="u1UnoHeaHig"),
         Text(
           extent={{-94,-162},{-72,-174}},
           textColor={0,0,127},
@@ -366,12 +366,12 @@ equation
           extent={{-96,180},{-70,166}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uOcc"),
+          textString="u1Occ"),
         Text(
           extent={{-98,-182},{-68,-194}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uWin"),
+          textString="u1Win"),
         Text(
           extent={{-100,240},{100,200}},
           textColor={0,0,255},

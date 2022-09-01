@@ -167,7 +167,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
-    "Occupancy status, true if it is occupied, false if it is not occupied"
+    "True: the zone is populated"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -493,10 +493,10 @@ equation
           210},{-202,210}}, color={0,0,127}));
   connect(THeaSet, conLoo.THeaSet) annotation (Line(points={{-260,240},{-214,240},
           {-214,204},{-202,204}}, color={0,0,127}));
-  connect(u1Win, setPoi.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
-          169},{-162,169}}, color={255,0,255}));
-  connect(u1Occ, setPoi.uOcc) annotation (Line(points={{-260,170},{-184,170},{-184,
-          167},{-162,167}}, color={255,0,255}));
+  connect(u1Win, setPoi.u1Win) annotation (Line(points={{-260,190},{-180,190},{
+          -180,169},{-162,169}}, color={255,0,255}));
+  connect(u1Occ, setPoi.u1Occ) annotation (Line(points={{-260,170},{-184,170},{
+          -184,167},{-162,167}}, color={255,0,255}));
   connect(uOpeMod, setPoi.uOpeMod) annotation (Line(points={{-260,140},{-200,140},
           {-200,165},{-162,165}}, color={255,127,0}));
   connect(ppmCO2, setPoi.ppmCO2) annotation (Line(points={{-260,80},{-192,80},{-192,
@@ -661,10 +661,10 @@ equation
           110},{-196,163},{-162,163}}, color={0,0,127}));
   connect(minFlo.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-138,107},{-120,107},{-120,88},{-82,88}}, color={0,0,127}));
-  connect(u1Win, minFlo.uWin) annotation (Line(points={{-260,190},{-180,190},{-180,
-          119},{-162,119}}, color={255,0,255}));
-  connect(u1Occ, minFlo.uOcc) annotation (Line(points={{-260,170},{-184,170},{-184,
-          116},{-162,116}}, color={255,0,255}));
+  connect(u1Win, minFlo.u1Win) annotation (Line(points={{-260,190},{-180,190},{
+          -180,119},{-162,119}}, color={255,0,255}));
+  connect(u1Occ, minFlo.u1Occ) annotation (Line(points={{-260,170},{-184,170},{
+          -184,116},{-162,116}}, color={255,0,255}));
   connect(uOpeMod, minFlo.uOpeMod) annotation (Line(points={{-260,140},{-200,140},
           {-200,113},{-162,113}}, color={255,127,0}));
   connect(ppmCO2Set, minFlo.ppmCO2Set)
