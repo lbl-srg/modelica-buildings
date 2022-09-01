@@ -10,10 +10,22 @@ block G36VAVMultiZone
     annotation(Evaluate=true,
     Dialog(group="Configuration"));
 
+  parameter String namGro[:]
+    "Name of zone groups"
+    annotation (
+    Evaluate=true,
+    Dialog(group="Configuration"));
+
   parameter String namGroZon[nZon]
     "Name of group which each zone belongs to"
     annotation(Evaluate=true,
     Dialog(group="Configuration"));
+
+  final parameter Integer nGro(final min=1)=
+    size(namGro, 1)
+    "Number of zone groups"
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
     Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
@@ -27,20 +39,8 @@ block G36VAVMultiZone
     annotation (Dialog(group="Configuration",
     enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
 
-  final parameter Integer nGro(final min=1)=
-    Buildings.Templates.BaseClasses.countUniqueStrings(namGroZon)
-    "Number of zone groups"
-    annotation (
-    Evaluate=true,
-    Dialog(group="Configuration"));
-
-  final parameter String namGro[nGro]=
-    Buildings.Templates.BaseClasses.getUniqueStrings(namGroZon)
-    "Group names"
-    annotation(Evaluate=true);
-
-  final parameter Boolean isZonInGro[nGro, nZon] = {
-    {namGro[i]==namGroZon[j]  for j in 1:nZon} for i in 1:nGro}
+  final parameter Boolean isZonInGro[nGro, nZon]=
+    {{namGro[i]==namGroZon[j]  for j in 1:nZon} for i in 1:nGro}
     "True if zone belongs to group"
     annotation(Evaluate=true);
 
@@ -49,15 +49,13 @@ block G36VAVMultiZone
     "1 if zone belongs to group, 0 otherwise"
     annotation(Evaluate=true);
 
-  final parameter Integer idxGro[nZon]=
-    {Modelica.Math.BooleanVectors.firstTrueIndex({namGroZon[i]==namGro[j] for j in 1:nGro}) for i in 1:nZon}
-    "Index of the group that each zone belongs to"
+  final parameter Integer isZonInGroIntTra[nZon, nGro]=
+    {{isZonInGroInt[i, j] for i in 1:size(isZonInGroInt, 1)} for j in 1:size(isZonInGroInt, 2)}
+    "Transpose of isZonInGroInt: 1 if zone belongs to group, 0 otherwise"
     annotation(Evaluate=true);
 
   final parameter Integer nZonPerGro[nGro](each final min=1) = {
-    Modelica.Math.BooleanVectors.countTrue({
-      namGroZon[j] == namGro[i] for j in 1:nZon})
-    for i in 1:nGro}
+    sum(isZonInGroInt[i]) for i in 1:nGro}
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
@@ -183,7 +181,7 @@ block G36VAVMultiZone
     final nZon=nZon,
     final nZonGro=nGro,
     final zonGroMat=isZonInGroInt,
-    final zonGroMatTra=transpose(isZonInGroInt))
+    final zonGroMatTra=isZonInGroIntTra)
     if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Aggregate zone level ventilation signals - ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
@@ -193,7 +191,7 @@ block G36VAVMultiZone
     final nZon=nZon,
     final nZonGro=nGro,
     final zonGroMat=isZonInGroInt,
-    final zonGroMatTra=transpose(isZonInGroInt),
+    final zonGroMatTra=isZonInGroIntTra,
     final have_CO2Sen=have_CO2Sen)
     if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Aggregate zone level ventilation signals - California Title 24"
@@ -259,25 +257,16 @@ block G36VAVMultiZone
     k=true)
     "FIXME #1913: The commanded position should be used"
     annotation (Placement(transformation(extent={{-280,-90},{-260,-70}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nGro]
-    "Convert to real"
-    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger yOpeModZon[nZon]
-    "Convert back to integer"
-    annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig[nZon](
-    each final nin=nGro)
-    "Assign group operating mode to each zone inside the group"
-    annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
-  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator reaVecRep(
+  Buildings.Controls.OBC.CDL.Routing.IntegerVectorReplicator intVecRep(
     final nin=nGro,
     final nout=nZon)
-    "Replicate vector of group modes nZon times"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxGroCst[nZon](
-    final k=idxGro) "Index of the group that each zone belongs to"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-
+    "Repeat group signal nZon times"
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum asgOpeMod[nZon](
+    each final nin=nGro,
+    final k=isZonInGroIntTra)
+    "Assign group operating mode to each zone belonging to group"
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 initial equation
   if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016 then
     assert(ashCliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
@@ -504,22 +493,6 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(opeModSel.yOpeMod, intToRea.u)
-    annotation (Line(points={{-108,120},{-92,120}}, color={255,127,0}));
-  connect(extIndSig.y, yOpeModZon.u)
-    annotation (Line(points={{-8,120},{-2,120}}, color={0,0,127}));
-  connect(intToRea.y,reaVecRep. u) annotation (Line(points={{-68,120},{-64,120},
-          {-64,120},{-62,120}}, color={0,0,127}));
-  connect(reaVecRep.y, extIndSig.u)
-    annotation (Line(points={{-38,120},{-32,120}}, color={0,0,127}));
-  connect(idxGroCst.y, extIndSig.index)
-    annotation (Line(points={{-38,90},{-20,90},{-20,108}}, color={255,127,0}));
-  connect(yOpeModZon.y, busTer.yOpeMod) annotation (Line(points={{22,120},{200,120},
-          {200,0},{220,0}}, color={255,127,0}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(opeModSel.yOpeMod, aggZonVen_A621.uOpeMod) annotation (Line(points={{-108,
           120},{-100,120},{-100,-1},{-92,-1}}, color={255,127,0}));
   connect(opeModSel.yOpeMod, aggZonVen_T24.uOpeMod) annotation (Line(points={{-108,
@@ -528,6 +501,16 @@ equation
           {-64,-2},{-64,70.3636},{-44,70.3636}},     color={255,127,0}));
   connect(aggZonVen_T24.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,-32},
           {-64,-32},{-64,70.3636},{-44,70.3636}},      color={255,127,0}));
+  connect(opeModSel.yOpeMod, intVecRep.u)
+    annotation (Line(points={{-108,120},{-82,120}}, color={255,127,0}));
+  connect(asgOpeMod.y, busTer.yOpeMod) annotation (Line(points={{-18,120},{200,120},
+          {200,0},{220,0}}, color={255,127,0}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(intVecRep.y, asgOpeMod.u)
+    annotation (Line(points={{-58,120},{-42,120}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

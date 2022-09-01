@@ -19,6 +19,7 @@ model VAVMZControlG36Pressure "Configuration of multiple-zone VAV"
       stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
       ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
       idZon={"Box_1","Box_1"},
+      namGro={"Floor_1"},
       namGroZon={"Floor_1","Floor_1"}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
