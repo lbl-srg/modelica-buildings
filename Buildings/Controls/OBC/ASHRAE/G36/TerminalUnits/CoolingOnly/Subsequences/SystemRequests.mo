@@ -82,11 +82,11 @@ block SystemRequests
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final max=1,
     final unit="1")
-    "Actual damper position"
+    "Damper position setpoint"
     annotation (Placement(transformation(extent={{-220,-190},{-180,-150}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
@@ -302,7 +302,7 @@ equation
     annotation (Line(points={{-200,30},{-162,30}}, color={0,0,127}));
   connect(sampler.y, greThr.u)
     annotation (Line(points={{-138,30},{-62,30}}, color={0,0,127}));
-  connect(uDam_actual, sampler1.u)
+  connect(uDam, sampler1.u)
     annotation (Line(points={{-200,-170},{-162,-170}}, color={0,0,127}));
   connect(sampler1.y, greThr3.u)
     annotation (Line(points={{-138,-170},{-122,-170}}, color={0,0,127}));
@@ -386,7 +386,7 @@ annotation (
           extent={{-96,-84},{-46,-96}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam_actual"),
+          textString="uDam"),
         Text(
           extent={{36,68},{98,52}},
           textColor={255,127,0},

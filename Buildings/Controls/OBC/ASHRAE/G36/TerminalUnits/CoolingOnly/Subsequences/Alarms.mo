@@ -45,10 +45,10 @@ block Alarms "Generate alarms of cooling only terminal unit"
     "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final unit="1")
-    "Actual damper position"
+    "Damper position setpoint"
     annotation (Placement(transformation(extent={{-280,-230},{-240,-190}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
@@ -283,7 +283,7 @@ equation
     annotation (Line(points={{222,150},{260,150}}, color={255,127,0}));
   connect(gre1.y, truDel3.u) annotation (Line(points={{-78,-40},{-60,-40},{-60,-140},
           {-22,-140}}, color={255,0,255}));
-  connect(uDam_actual, cloDam.u)
+  connect(uDam, cloDam.u)
     annotation (Line(points={{-260,-210},{-202,-210}}, color={0,0,127}));
   connect(truDel3.y, leaDamAla.u1) annotation (Line(points={{2,-140},{20,-140},{
           20,-162},{38,-162}}, color={255,0,255}));

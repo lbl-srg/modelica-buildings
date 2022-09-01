@@ -82,13 +82,13 @@ equation
           {28,-39},{58,-39}}, color={0,0,127}));
   connect(disAir.y,sysReq.VPri_flow)  annotation (Line(points={{2,-10},{24,-10},
           {24,-41},{58,-41}}, color={0,0,127}));
-  connect(damPos.y, sysReq.uDam_actual) annotation (Line(points={{-58,-30},{20,
+  connect(damPos.y, sysReq.uDam) annotation (Line(points={{-58,-30},{20,
           -30},{20,-43},{58,-43}}, color={0,0,127}));
   connect(TDisSet.y, sysReq.TDisSet) annotation (Line(points={{-58,-70},{20,-70},
           {20,-45},{58,-45}}, color={0,0,127}));
   connect(TDis.y, sysReq.TDis) annotation (Line(points={{-18,-90},{24,-90},{24,-47},
           {58,-47}}, color={0,0,127}));
-  connect(valPos.y, sysReq.uVal_actual) annotation (Line(points={{-58,-120},{28,
+  connect(valPos.y, sysReq.uVal) annotation (Line(points={{-58,-120},{28,
           -120},{28,-49},{58,-49}}, color={0,0,127}));
   connect(booPul.y, not1.u)
     annotation (Line(points={{-38,120},{-22,120}}, color={255,0,255}));

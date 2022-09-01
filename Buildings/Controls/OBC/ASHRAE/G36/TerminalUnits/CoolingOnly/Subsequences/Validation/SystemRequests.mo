@@ -63,7 +63,7 @@ equation
   connect(disAirSet.y, sysReq.VSet_flow) annotation (Line(points={{-38,-40},{38,
           -40},{38,-3},{58,-3}},
                                color={0,0,127}));
-  connect(damPos.y, sysReq.uDam_actual) annotation (Line(points={{-38,-80},{42,
+  connect(damPos.y, sysReq.uDam) annotation (Line(points={{-38,-80},{42,
           -80},{42,-9},{58,-9}}, color={0,0,127}));
   connect(booPul.y, not1.u)
     annotation (Line(points={{-38,80},{-22,80}},   color={255,0,255}));

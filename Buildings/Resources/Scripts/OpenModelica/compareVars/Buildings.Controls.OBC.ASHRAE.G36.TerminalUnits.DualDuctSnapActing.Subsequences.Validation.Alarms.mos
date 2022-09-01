@@ -12,8 +12,8 @@ compareVars :=
     "ala.VHotDucDis_flow",
     "ala.yColFloSenAla",
     "ala.yHotFloSenAla",
-    "ala.uCooDam_actual",
-    "ala.uHeaDam_actual",
+    "ala.uCooDam",
+    "ala.uHeaDam",
     "ala.yColLeaDamAla",
     "ala.yHotLeaDamAla",
     "ala1.VActSet_flow",
@@ -25,7 +25,7 @@ compareVars :=
     "ala1.VHeaMax_flow",
     "ala1.VDis_flow",
     "ala1.yFloSenAla",
-    "ala1.uCooDam_actual",
-    "ala1.uHeaDam_actual",
+    "ala1.uCooDam",
+    "ala1.uHeaDam",
     "ala1.yLeaDamAla"
   };

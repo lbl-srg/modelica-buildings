@@ -102,11 +102,11 @@ block SystemRequests
     final quantity="VolumeFlowRate") "Measured primary airflow rate"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final max=1,
     final unit="1")
-    "Actual damper position"
+    "Damper position setpoint"
     annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
@@ -123,7 +123,7 @@ block SystemRequests
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final max=1,
     final unit="1") if have_hotWatCoi
@@ -426,13 +426,13 @@ equation
           -110},{80,-172},{98,-172}}, color={255,127,0}));
   connect(intSwi3.y, intSwi2.u3) annotation (Line(points={{122,-180},{130,-180},
           {130,-148},{138,-148}}, color={255,127,0}));
-  connect(uVal_actual, greThr5.u)
+  connect(uVal, greThr5.u)
     annotation (Line(points={{-200,-220},{-142,-220}}, color={0,0,127}));
   connect(greThr5.y, booToInt2.u)
     annotation (Line(points={{-118,-220},{-2,-220}}, color={255,0,255}));
   connect(booToInt2.y, intSwi3.u3) annotation (Line(points={{22,-220},{80,-220},
           {80,-188},{98,-188}}, color={255,127,0}));
-  connect(uVal_actual, greThr6.u) annotation (Line(points={{-200,-220},{-160,-220},
+  connect(uVal, greThr6.u) annotation (Line(points={{-200,-220},{-160,-220},
           {-160,-270},{-142,-270}}, color={0,0,127}));
   connect(greThr6.y, booToInt3.u)
     annotation (Line(points={{-118,-270},{-2,-270}}, color={255,0,255}));
@@ -450,7 +450,7 @@ equation
     annotation (Line(points={{-200,130},{-162,130}}, color={0,0,127}));
   connect(sampler.y, greThr.u)
     annotation (Line(points={{-138,130},{-62,130}}, color={0,0,127}));
-  connect(uDam_actual, sampler3.u)
+  connect(uDam, sampler3.u)
     annotation (Line(points={{-200,-50},{-162,-50}}, color={0,0,127}));
   connect(sampler3.y, greThr3.u)
     annotation (Line(points={{-138,-50},{-122,-50}}, color={0,0,127}));
@@ -546,7 +546,7 @@ annotation (
           extent={{-98,-22},{-58,-36}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam_actual"),
+          textString="uDam"),
         Text(
           extent={{36,88},{98,72}},
           textColor={255,127,0},
@@ -580,7 +580,7 @@ annotation (
           extent={{-98,-82},{-58,-98}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uVal_actual"),
+          textString="uVal"),
         Text(
           visible=have_hotWatCoi,
           extent={{40,-20},{98,-36}},
@@ -628,19 +628,19 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=
 <li>
 If the measured airflow <code>VPri_flow</code> is less than 50% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
-<code>uDam_actual</code> is greater than 95% for 1 minute, send 3 requests (<code>yZonPreResReq=3</code>).
+<code>uDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yZonPreResReq=3</code>).
 </li>
 <li>
 Else if the measured airflow <code>VPri_flow</code> is less than 70% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
-<code>uDam_actual</code> is greater than 95% for 1 minute, send 2 requests (<code>yZonPreResReq=2</code>).
+<code>uDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yZonPreResReq=2</code>).
 </li>
 <li>
-Else if the damper position <code>uDam_actual</code> is greater than 95%, send 1 request
-(<code>yZonPreResReq=1</code>) until <code>uDam_actual</code> is less than 85%.
+Else if the damper position <code>uDam</code> is greater than 95%, send 1 request
+(<code>yZonPreResReq=1</code>) until <code>uDam</code> is less than 85%.
 </li>
 <li>
-Else if the damper position <code>uDam_actual</code> is less than 95%, send 0 request
+Else if the damper position <code>uDam</code> is less than 95%, send 0 request
 (<code>yZonPreResReq=0</code>).
 </li>
 </ol>
@@ -659,11 +659,11 @@ Else ff the discharging air temperature <code>TDis</code> is 8.3 &deg;C (15 &deg
 for 5 minutes, send 2 requests.
 </li>
 <li>
-Else if the hot water valve position <code>uVal_actual</code> is greater than 95%, send 1
+Else if the hot water valve position <code>uVal</code> is greater than 95%, send 1
 request until the hot water valve position is less than 85%.
 </li>
 <li>
-Else if the hot water valve position <code>uVal_actual</code> is less than 95%, send 0 request.
+Else if the hot water valve position <code>uVal</code> is less than 95%, send 0 request.
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
@@ -671,11 +671,11 @@ plant reqeusts. Send the heating hot-water plant that serves the zone a heating
 hot-water plant request as follows:</h4>
 <ol>
 <li>
-If the hot water valve position <code>uVal_actual</code> is greater than 95%, send 1
+If the hot water valve position <code>uVal</code> is greater than 95%, send 1
 request until the hot water valve position is less than 10%.
 </li>
 <li>
-If the hot water valve position <code>uVal_actual</code> is less than 95%, send 0 requests.
+If the hot water valve position <code>uVal</code> is less than 95%, send 0 requests.
 </li>
 </ol>
 </html>", revisions="<html>

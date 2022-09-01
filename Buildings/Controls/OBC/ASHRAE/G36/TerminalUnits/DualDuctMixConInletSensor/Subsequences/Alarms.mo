@@ -50,10 +50,10 @@ block Alarms "Generate alarms of dual-duct terminal unit using mixing control wi
     "Cooling air handler supply fan status"
     annotation (Placement(transformation(extent={{-280,-30},{-240,10}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam(
     final min=0,
     final unit="1")
-    "Actual cold-duct air damper position"
+    "Cooling damper position setpoint"
     annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotDucDis_flow(
@@ -67,10 +67,10 @@ block Alarms "Generate alarms of dual-duct terminal unit using mixing control wi
     "Heating air handler supply fan status"
     annotation (Placement(transformation(extent={{-280,-260},{-240,-220}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam(
     final min=0,
     final unit="1")
-    "Actual hot-duct air damper position"
+    "Heating damper position setpoint"
     annotation (Placement(transformation(extent={{-280,-370},{-240,-330}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
@@ -364,7 +364,7 @@ equation
     annotation (Line(points={{222,260},{260,260}}, color={255,127,0}));
   connect(gre1.y, truDel3.u) annotation (Line(points={{-58,50},{-40,50},{-40,-50},
           {-2,-50}},   color={255,0,255}));
-  connect(uCooDam_actual, cloDam.u)
+  connect(uCooDam, cloDam.u)
     annotation (Line(points={{-260,-120},{-182,-120}}, color={0,0,127}));
   connect(truDel3.y, leaDamAla.u1) annotation (Line(points={{22,-50},{40,-50},{40,
           -72},{58,-72}},      color={255,0,255}));
@@ -404,7 +404,7 @@ equation
     annotation (Line(points={{182,-180},{260,-180}}, color={255,127,0}));
   connect(gre2.y,truDel5. u) annotation (Line(points={{-58,-180},{-40,-180},{-40,
           -280},{-2,-280}},  color={255,0,255}));
-  connect(uHeaDam_actual, cloDam1.u)
+  connect(uHeaDam, cloDam1.u)
     annotation (Line(points={{-260,-350},{-182,-350}}, color={0,0,127}));
   connect(truDel5.y, leaDamAla1.u1) annotation (Line(points={{22,-280},{40,-280},
           {40,-302},{58,-302}}, color={255,0,255}));
@@ -452,7 +452,7 @@ annotation (defaultComponentName="ala",
           extent={{-98,28},{-30,12}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooDam_actual"),
+          textString="uCooDam"),
         Text(
           extent={{-98,48},{-58,34}},
           textColor={255,0,255},
@@ -472,7 +472,7 @@ annotation (defaultComponentName="ala",
           extent={{-96,-48},{-24,-68}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaDam_actual"),
+          textString="uHeaDam"),
         Text(
           extent={{-96,-32},{-56,-46}},
           textColor={255,0,255},
@@ -546,14 +546,14 @@ generate a Level 3 alarm.
 <h4>Leaking damper</h4>
 <ul>
 <li>
-If the cooling damper position (<code>uCooDam_actual</code>) is 0% and airflow sensor reading
+If the cooling damper position (<code>uCooDam</code>) is 0% and airflow sensor reading
 <code>VColDucDis_flow</code> is above 10% of the cooling maximum airflow setpoint
 <code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>u1CooFan=true</code>), generate a Level
 4 alarm.
 </li>
 <li>
-If the heating damper position (<code>uHeaDam_actual</code>) is 0% and airflow sensor reading
+If the heating damper position (<code>uHeaDam</code>) is 0% and airflow sensor reading
 <code>VHotDucDis_flow</code> is above 10% of the heating maximum airflow setpoint
 <code>VHeaMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>u1HeaFan=true</code>), generate a Level

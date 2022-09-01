@@ -12,8 +12,8 @@ compareVars :=
     "ala.VHotDucDis_flow",
     "ala.yColFloSenAla",
     "ala.yHotFloSenAla",
-    "ala.uCooDam_actual",
-    "ala.uHeaDam_actual",
+    "ala.uCooDam",
+    "ala.uHeaDam",
     "ala.yColLeaDamAla",
     "ala.yHotLeaDamAla"
   };

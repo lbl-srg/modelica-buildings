@@ -108,7 +108,7 @@ equation
           40},{28,40},{28,5},{58,5}}, color={0,0,127}));
   connect(colDucAirRate.y, sysReq.VColDucDis_flow)
     annotation (Line(points={{2,20},{24,20},{24,3},{58,3}}, color={0,0,127}));
-  connect(colDamPos.y, sysReq.uCooDam_actual)
+  connect(colDamPos.y, sysReq.uCooDam)
     annotation (Line(points={{-38,0},{58,0}}, color={0,0,127}));
   connect(sine1.y, TZonHeaSet.u)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
@@ -124,7 +124,7 @@ equation
           -110},{32,-110},{32,-14},{58,-14}}, color={0,0,127}));
   connect(hotDucAirRate.y, sysReq.VHotDucDis_flow) annotation (Line(points={{2,-130},
           {36,-130},{36,-16},{58,-16}}, color={0,0,127}));
-  connect(hotDamPos.y, sysReq.uHeaDam_actual) annotation (Line(points={{-38,-150},
+  connect(hotDamPos.y, sysReq.uHeaDam) annotation (Line(points={{-38,-150},
           {40,-150},{40,-19},{58,-19}}, color={0,0,127}));
 
 annotation (

@@ -29,13 +29,6 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800)
-    "Damper position"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
@@ -156,8 +149,6 @@ equation
           52,-80},{52,2},{98,2}}, color={255,127,0}));
   connect(reaToInt3.y, cooBoxCon.oveDamPos) annotation (Line(points={{-18,-110},
           {56,-110},{56,0},{98,0}}, color={255,127,0}));
-  connect(damPos.y, cooBoxCon.uDam_actual) annotation (Line(points={{-98,-140},
-          {60,-140},{60,-4},{98,-4}}, color={0,0,127}));
   connect(supFanSta.y, cooBoxCon.u1Fan) annotation (Line(points={{-58,-160},{64,
           -160},{64,-8},{98,-8}}, color={255,0,255}));
   connect(CO2Set.y, cooBoxCon.ppmCO2Set) annotation (Line(points={{-98,30},{36,30},

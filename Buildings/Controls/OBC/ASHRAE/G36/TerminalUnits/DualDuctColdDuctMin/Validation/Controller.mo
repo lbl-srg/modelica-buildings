@@ -31,12 +31,6 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp colDamPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Cold-duct damper position"
-    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
@@ -129,12 +123,6 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp hotDamPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Hot-duct damper position"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse heaSupFanSta(
     final width=0.9,
     final period=73200,
@@ -193,10 +181,6 @@ equation
     annotation (Line(points={{-58,-170},{-42,-170}}, color={0,0,127}));
   connect(reaToInt4.y, duaDucCon.oveHeaDamPos) annotation (Line(points={{-18,-170},
           {72,-170},{72,45},{98,45}}, color={255,127,0}));
-  connect(colDamPos.y, duaDucCon.uCooDam_actual) annotation (Line(points={{-58,
-          -200},{76,-200},{76,43},{98,43}}, color={0,0,127}));
-  connect(hotDamPos.y, duaDucCon.uHeaDam_actual) annotation (Line(points={{-98,
-          -220},{80,-220},{80,41},{98,41}}, color={0,0,127}));
   connect(disAirTem.y, duaDucCon.TDis) annotation (Line(points={{-98,40},{36,40},
           {36,63},{98,63}}, color={0,0,127}));
   connect(colSupAirTem.y, duaDucCon.TColSup) annotation (Line(points={{-58,20},{

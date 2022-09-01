@@ -175,10 +175,12 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
@@ -202,7 +204,7 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if open, false if closed"
+    "Window status, true if the window is open, false if it is closed"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
@@ -260,20 +262,6 @@ block Controller "Controller for room VAV box with reheat"
     "Override heating valve position, true: close heating valve"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Actual damper position"
-    annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
-        iconTransformation(extent={{-140,-140},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal_actual(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Actual hot water valve position"
-    annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
-        iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "AHU supply fan status"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
@@ -565,22 +553,14 @@ equation
           {-14,-127},{118,-127}}, color={0,0,127}));
   connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-200,0},{-40,0},
           {-40,-131},{118,-131}}, color={0,0,127}));
-  connect(uDam_actual, sysReq.uDam_actual) annotation (Line(points={{-200,-180},
-          {30,-180},{30,-133},{118,-133}}, color={0,0,127}));
   connect(damVal.TDisSet, sysReq.TDisSet) annotation (Line(points={{22,-46},{38,
           -46},{38,-135},{118,-135}}, color={0,0,127}));
   connect(TDis, sysReq.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,
           -137},{118,-137}}, color={0,0,127}));
-  connect(uVal_actual, sysReq.uVal_actual) annotation (Line(points={{-200,-210},
-          {34,-210},{34,-139},{118,-139}}, color={0,0,127}));
   connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,0},{-40,0},{-40,
           -182},{118,-182}},      color={0,0,127}));
   connect(u1Fan, ala.u1Fan) annotation (Line(points={{-200,-240},{90,-240},{90,-186},
           {118,-186}}, color={255,0,255}));
-  connect(uDam_actual, ala.uDam_actual) annotation (Line(points={{-200,-180},{30,
-          -180},{30,-188},{118,-188}}, color={0,0,127}));
-  connect(uVal_actual, ala.uVal_actual) annotation (Line(points={{-200,-210},{34,
-          -210},{34,-190},{118,-190}}, color={0,0,127}));
   connect(TSup, ala.TSup) annotation (Line(points={{-200,-30},{-48,-30},{-48,-192},
           {118,-192}}, color={0,0,127}));
   connect(u1HotPla, ala.u1HotPla) annotation (Line(points={{-200,-270},{94,-270},
@@ -651,6 +631,14 @@ equation
     annotation (Line(points={{2,260},{18,260}},    color={255,0,255}));
   connect(zerFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-78,30},{-72,
           30},{-72,44},{-62,44}}, color={0,0,127}));
+  connect(setOve.yDam, sysReq.uDam) annotation (Line(points={{82,-86},{98,-86},{
+          98,-133},{118,-133}}, color={0,0,127}));
+  connect(setOve.yDam, ala.uDam) annotation (Line(points={{82,-86},{98,-86},
+          {98,-188},{118,-188}}, color={0,0,127}));
+  connect(setOve.yVal, sysReq.uVal) annotation (Line(points={{82,-94},{104,-94},
+          {104,-139},{118,-139}}, color={0,0,127}));
+  connect(setOve.yVal, ala.uVal) annotation (Line(points={{82,-94},{104,-94},
+          {104,-190},{118,-190}}, color={0,0,127}));
 annotation (defaultComponentName="rehBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
@@ -689,16 +677,6 @@ annotation (defaultComponentName="rehBoxCon",
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSupSet"),
-        Text(
-          extent={{-98,-114},{-54,-126}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uDam_actual"),
-        Text(
-          extent={{-98,-134},{-54,-148}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uVal_actual"),
         Text(
           extent={{-98,198},{-72,186}},
           textColor={0,0,127},

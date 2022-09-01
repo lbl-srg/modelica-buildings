@@ -94,16 +94,16 @@ block SystemRequests
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam(
     final min=0,
     final max=1,
-    final unit="1") "Actual cooling damper position" annotation (Placement(
+    final unit="1") "Cooling damper position setpoint" annotation (Placement(
         transformation(extent={{-240,-110},{-200,-70}}), iconTransformation(
           extent={{-140,-160},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam(
     final min=0,
     final max=1,
-    final unit="1") "Actual heating damper position" annotation (Placement(
+    final unit="1") "Heating damper position setpoint" annotation (Placement(
         transformation(extent={{-240,-360},{-200,-320}}), iconTransformation(
           extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonCooTemResReq
@@ -421,7 +421,7 @@ equation
     annotation (Line(points={{-58,290},{18,290}}, color={255,0,255}));
   connect(booToInt.y, intSwi1.u3) annotation (Line(points={{42,290},{60,290},{60,
           332},{78,332}},    color={255,127,0}));
-  connect(uCooDam_actual, greThr3.u)
+  connect(uCooDam, greThr3.u)
     annotation (Line(points={{-220,-90},{-162,-90}}, color={0,0,127}));
   connect(VDis_flow_Set, gai1.u) annotation (Line(points={{-220,40},{-160,40},{-160,
           10},{-142,10}}, color={0,0,127}));
@@ -499,7 +499,7 @@ equation
     annotation (Line(points={{-58,100},{18,100}},   color={255,0,255}));
   connect(booToInt4.y, intSwi5.u3) annotation (Line(points={{42,100},{60,100},{60,
           142},{78,142}},       color={255,127,0}));
-  connect(uHeaDam_actual, greThr9.u)
+  connect(uHeaDam, greThr9.u)
     annotation (Line(points={{-220,-340},{-182,-340}}, color={0,0,127}));
   connect(greThr9.y,tim8. u) annotation (Line(points={{-158,-340},{-150,-340},{-150,
           -320},{-142,-320}},color={255,0,255}));
@@ -667,7 +667,7 @@ annotation (
           extent={{-96,-132},{-28,-146}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooDam_actual"),
+          textString="uCooDam"),
         Text(
           extent={{20,92},{98,70}},
           textColor={255,127,0},
@@ -727,7 +727,7 @@ annotation (
           extent={{-96,-162},{-28,-176}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaDam_actual")}),
+          textString="uHeaDam")}),
   Documentation(info="<html>
 <p>
 This sequence outputs the system reset requests for dual-duct terminal unit using
@@ -764,19 +764,19 @@ When the zone is in cooling or deadband state:
 <li>
 If the measured airflow <code>VDis_flow</code> is less than 50% of setpoint
 <code>VDis_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uCooDam_actual</code> is greater than 95% for 1 minute, send 3 requests (<code>yColDucPreResReq=3</code>).
+<code>uCooDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yColDucPreResReq=3</code>).
 </li>
 <li>
 Else if the measured airflow <code>VDis_flow</code> is less than 70% of setpoint
 <code>VDis_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uCooDam_actual</code> is greater than 95% for 1 minute, send 2 requests (<code>yColDucPreResReq=2</code>).
+<code>uCooDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yColDucPreResReq=2</code>).
 </li>
 <li>
-Else if the damper position <code>uCooDam_actual</code> is greater than 95%, send 1 request
+Else if the damper position <code>uCooDam</code> is greater than 95%, send 1 request
 (<code>yColDucPreResReq=1</code>) until <code>uDam</code> is less than 85%.
 </li>
 <li>
-Else if the damper position <code>uCooDam_actual</code> is less than 95%, send 0 request
+Else if the damper position <code>uCooDam</code> is less than 95%, send 0 request
 (<code>yColDucPreResReq=0</code>).
 </li>
 </ol>
@@ -810,19 +810,19 @@ When the zone is in heating state:
 <li>
 If the measured airflow <code>VDis_flow</code> is less than 50% of setpoint
 <code>VDis_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uHeaDam_actual</code> is greater than 95% for 1 minute, send 3 requests (<code>yHotDucPreResReq=3</code>).
+<code>uHeaDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yHotDucPreResReq=3</code>).
 </li>
 <li>
 Else if the measured airflow <code>VDis_flow</code> is less than 70% of setpoint
 <code>VDis_flow_Set</code> while the setpoint is greater than zero and the damper position
-<code>uHeaDam_actual</code> is greater than 95% for 1 minute, send 2 requests (<code>yHotDucPreResReq=2</code>).
+<code>uHeaDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yHotDucPreResReq=2</code>).
 </li>
 <li>
-Else if the damper position <code>uHeaDam_actual</code> is greater than 95%, send 1 request
+Else if the damper position <code>uHeaDam</code> is greater than 95%, send 1 request
 (<code>yHotDucPreResReq=1</code>) until <code>uHeaDam</code> is less than 85%.
 </li>
 <li>
-Else if the damper position <code>uHeaDam_actual</code> is less than 95%, send 0 request
+Else if the damper position <code>uHeaDam</code> is less than 95%, send 0 request
 (<code>yHotDucPreResReq=0</code>).
 </li>
 </ol>

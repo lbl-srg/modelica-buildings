@@ -89,9 +89,9 @@ equation
           {36,54},{78,54}}, color={255,0,255}));
   connect(terFanOn.y, ala.u1TerFan) annotation (Line(points={{-78,40},{36,40},{
           36,52},{78,52}}, color={255,0,255}));
-  connect(mul.y, ala.uDam_actual)
+  connect(mul.y, ala.uDam)
     annotation (Line(points={{2,0},{40,0},{40,50},{78,50}}, color={0,0,127}));
-  connect(valPos.y, ala.uVal_actual) annotation (Line(points={{-38,-40},{44,-40},
+  connect(valPos.y, ala.uVal) annotation (Line(points={{-38,-40},{44,-40},
           {44,48},{78,48}}, color={0,0,127}));
   connect(TSup.y, ala.TSup) annotation (Line(points={{-78,-60},{48,-60},{48,46},
           {78,46}}, color={0,0,127}));

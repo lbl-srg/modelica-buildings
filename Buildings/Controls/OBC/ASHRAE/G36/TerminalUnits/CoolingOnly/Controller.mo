@@ -125,10 +125,12 @@ block Controller "Controller for cooling only VAV box"
     annotation (Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
   parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
@@ -152,7 +154,7 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if open, false if closed"
+    "Window status, true if the window is open, false if it is closed"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
@@ -200,13 +202,6 @@ block Controller "Controller for cooling only VAV box"
     "Index of overriding damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Actual damper position"
-    annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
-        iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "AHU supply fan status"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
@@ -425,14 +420,10 @@ equation
           {-50,-148},{118,-148}}, color={0,0,127}));
   connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-200,-80},{
           -138,-80},{-138,-156},{118,-156}}, color={0,0,127}));
-  connect(uDam_actual, sysReq.uDam_actual) annotation (Line(points={{-200,-180},
-          {-144,-180},{-144,-159},{118,-159}}, color={0,0,127}));
   connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,-80},{-138,
           -80},{-138,-202},{118,-202}}, color={0,0,127}));
   connect(u1Fan, ala.u1Fan) annotation (Line(points={{-200,-240},{100,-240},{100,
           -214},{118,-214}}, color={255,0,255}));
-  connect(uDam_actual, ala.uDam_actual) annotation (Line(points={{-200,-180},{-144,
-          -180},{-144,-218},{118,-218}}, color={0,0,127}));
   connect(sysReq.yZonTemResReq, yZonTemResReq) annotation (Line(points={{142,-144},
           {160,-144},{160,-80},{220,-80}}, color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{142,-156},
@@ -493,6 +484,10 @@ equation
     annotation (Line(points={{142,250},{158,250}}, color={255,0,255}));
   connect(zerFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-78,0},{-60,
           0},{-60,14},{-22,14}}, color={0,0,127}));
+  connect(dam.yDam, sysReq.uDam) annotation (Line(points={{82,-49},{106,-49},{
+          106,-159},{118,-159}}, color={0,0,127}));
+  connect(dam.yDam, ala.uDam) annotation (Line(points={{82,-49},{106,-49},{106,
+          -218},{118,-218}}, color={0,0,127}));
 annotation (defaultComponentName="cooBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
@@ -527,22 +522,17 @@ annotation (defaultComponentName="cooBoxCon",
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
-          extent={{-96,-132},{-44,-148}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uDam_actual"),
-        Text(
           extent={{-100,190},{-72,176}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-98,168},{-40,154}},
+          extent={{-98,168},{-50,154}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
-          extent={{-98,148},{-40,134}},
+          extent={{-98,148},{-52,134}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSet"),

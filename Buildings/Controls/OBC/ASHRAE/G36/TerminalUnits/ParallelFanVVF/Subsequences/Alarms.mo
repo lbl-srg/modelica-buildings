@@ -81,13 +81,13 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
     "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,0},{-240,40}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final unit="1")
-    "Actual damper position"
+    "Damper position setpoint"
     annotation (Placement(transformation(extent={{-280,-130},{-240,-90}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final unit="1")
     "Actual valve position"
@@ -511,7 +511,7 @@ equation
     annotation (Line(points={{222,350},{260,350}}, color={255,127,0}));
   connect(gre1.y, truDel3.u) annotation (Line(points={{-78,200},{-60,200},{-60,-40},
           {-22,-40}},  color={255,0,255}));
-  connect(uDam_actual, cloDam.u)
+  connect(uDam, cloDam.u)
     annotation (Line(points={{-260,-110},{-202,-110}}, color={0,0,127}));
   connect(truDel3.y, leaDamAla.u1) annotation (Line(points={{2,-40},{20,-40},{20,
           -62},{38,-62}},      color={255,0,255}));
@@ -587,7 +587,7 @@ equation
           -428},{18,-428}}, color={255,0,255}));
   connect(proInt1.y, yLowTemAla)
     annotation (Line(points={{222,-370},{260,-370}}, color={255,127,0}));
-  connect(uVal_actual, cloVal.u)
+  connect(uVal, cloVal.u)
     annotation (Line(points={{-260,-160},{-202,-160}}, color={0,0,127}));
   connect(cloVal.y, truDel6.u)
     annotation (Line(points={{-178,-160},{-142,-160}}, color={255,0,255}));
@@ -676,7 +676,7 @@ annotation (defaultComponentName="ala",
           extent={{-98,6},{-62,-4}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam_actual"),
+          textString="uDam"),
         Text(
           extent={{-98,66},{-80,56}},
           textColor={255,0,255},
@@ -701,7 +701,7 @@ annotation (defaultComponentName="ala",
           extent={{-98,-14},{-64,-24}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uVal_actual"),
+          textString="uVal"),
         Text(
           extent={{-100,-34},{-74,-44}},
           textColor={0,0,127},
@@ -818,7 +818,7 @@ generate a Level 3 alarm.
 </p>
 <h4>Leaking damper</h4>
 <p>
-If the damper position (<code>uDam_actual</code>) is 0% and airflow sensor reading
+If the damper position (<code>uDam</code>) is 0% and airflow sensor reading
 <code>VPri_flow</code> is above 10% of the cooling maximum airflow setpoint
 <code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>u1Fan=true</code>), generate a Level
@@ -826,7 +826,7 @@ fan serving the zone is proven on (<code>u1Fan=true</code>), generate a Level
 </p>
 <h4>Leaking valve</h4>
 <p>
-If the valve position (<code>uVal_actual</code>) is 0% for 15 minutes (<code>valCloTim</code>),
+If the valve position (<code>uVal</code>) is 0% for 15 minutes (<code>valCloTim</code>),
 discharing air temperature <code>TDis</code> is above AHU supply temperature
 <code>TSup</code> by 3 &deg;C (5 &deg;F), and the fan serving the zone is proven
 on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.
