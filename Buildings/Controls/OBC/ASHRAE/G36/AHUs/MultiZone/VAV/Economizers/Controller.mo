@@ -19,7 +19,7 @@ block Controller
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
   parameter Real aveTimRan(unit="s")=5
-    "Time horizon over which the outdoor air flow measurment is averaged";
+    "Time horizon over which the outdoor air flow measurement is averaged";
 
   // Limits
   parameter Real minSpe(unit="1")=0.1
@@ -57,7 +57,7 @@ block Controller
     annotation (Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Boolean have_CO2Sen=false
-    "True: there are zones have CO2 sensor"
+    "True: some zones have CO2 sensor"
     annotation (Dialog(tab="Limits", group="With DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)));
@@ -173,7 +173,7 @@ block Controller
     final unit="1")
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
      and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
-    "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor airflow rate "
     annotation (Placement(transformation(extent={{-280,80},{-240,120}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(
@@ -187,7 +187,7 @@ block Controller
     final unit="1")
     if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
      and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
-    "Effective minimum outdoor airflow setpoint, normalized by the design outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the design outdoor airflow rate "
     annotation (Placement(transformation(extent={{-280,20},{-240,60}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(

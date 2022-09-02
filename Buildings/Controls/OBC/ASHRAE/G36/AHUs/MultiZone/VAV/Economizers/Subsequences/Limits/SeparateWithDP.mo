@@ -5,7 +5,7 @@ block SeparateWithDP
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_CO2Sen=false
-    "True: there are zones have CO2 sensor"
+    "True: some zones have CO2 sensor"
     annotation (Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
   parameter Real pAbsMinOutDam(
     unit="Pa",
@@ -51,7 +51,7 @@ block SeparateWithDP
   Buildings.Controls.OBC.CDL.Interfaces.RealInput effAbsOutAir_normalized(
     final unit="1")
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
-    "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor airflow rate "
     annotation (Placement(transformation(extent={{-260,280},{-220,320}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(final unit="1")
@@ -62,7 +62,7 @@ block SeparateWithDP
   Buildings.Controls.OBC.CDL.Interfaces.RealInput effDesOutAir_normalized(
     final unit="1")
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
-    "Effective minimum outdoor airflow setpoint, normalized by the design outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the design outdoor airflow rate "
     annotation (Placement(transformation(extent={{-260,210},{-220,250}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpMinOutDam(

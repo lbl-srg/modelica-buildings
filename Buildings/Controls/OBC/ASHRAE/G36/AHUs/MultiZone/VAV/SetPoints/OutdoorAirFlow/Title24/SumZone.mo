@@ -4,9 +4,9 @@ block SumZone "Sum of the zone level setpoints calculation"
   parameter Integer nZon
     "Total number of serving zones";
   parameter Integer nGro
-    "Total number of zone group";
+    "Total number of groups";
   parameter Integer zonGroMat[nGro, nZon]
-    "Zone matrix with zone group as row index and zone as column index. It falgs which zone is grouped in which zone group";
+    "Zone matrix with zone group as row index and zone as column index. It flags which zone is grouped in which zone group";
   parameter Boolean have_CO2Sen
     "True: some zones have CO2 sensor";
 

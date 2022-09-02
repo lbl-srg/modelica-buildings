@@ -6,7 +6,7 @@ block Alarms "Zone level alarms"
     final quantity="Time")=600
     "Threshold time to check temperature difference";
   parameter Boolean have_CO2Sen=false
-    "Set to true if the zone has CO2 sensor"
+    "True: the zone has CO2 sensor";
     annotation (Dialog(group="CO2 concentration alarm"));
   parameter Real modChe(
     final unit="s",

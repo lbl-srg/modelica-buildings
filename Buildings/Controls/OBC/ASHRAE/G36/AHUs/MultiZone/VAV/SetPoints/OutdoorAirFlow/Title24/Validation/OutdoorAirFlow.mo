@@ -22,9 +22,9 @@ protected
   parameter Integer nZon=4
     "Total number of zones";
   parameter Integer nGro=2
-    "Total number of zone group";
+    "Total number of groups";
   parameter Integer zonGroMat[nGro,nZon]={{1,1,0,0},{0,0,1,1}}
-    "Zone matrix with zone group as row index and zone as column index. It falgs which zone is grouped in which zone group";
+    "Zone matrix with zone group as row index and zone as column index. It flags which zone is grouped in which zone group";
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod[nGro](
     final k={Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied,
              Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied})

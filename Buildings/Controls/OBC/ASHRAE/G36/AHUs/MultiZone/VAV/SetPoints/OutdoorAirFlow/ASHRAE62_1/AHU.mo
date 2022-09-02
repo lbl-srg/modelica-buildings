@@ -61,7 +61,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effOutAir_normalized(
     final unit="1")
-    "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor airflow rate "
     annotation (Placement(transformation(extent={{220,-80},{260,-40}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput outAir_normalized(
@@ -74,7 +74,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uncDesOutAir(
     final k=VUncDesOutAir_flow)
-    "Uncorrected design outdoor air rate, including diversity where applicable"
+    "Uncorrected design outdoor airflow rate, including diversity where applicable"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Sum of the breathing zone outdoor airflow"
@@ -95,7 +95,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desOutAir(
     final k=VDesTotOutAir_flow)
-    "Design total outdoor air rate "
+    "Design total outdoor airflow rate "
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Division"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
@@ -268,7 +268,7 @@ See Section 3.1.4.2.a of Guideline 36 for setpoints <code>VUncDesOutAir_flow</co
 and <code>VDesTotOutAir_flow</code>.
 </li>
 <li>
-The uncorrected outdoor air rate setpoint <code>VUncOutAir_flow</code> is recalculated
+The uncorrected outdoor airflow rate setpoint <code>VUncOutAir_flow</code> is recalculated
 continuously based on the adjusted population and area component breathing zone flow rate
 of the zones being served determined in accordance with Section 5.2.1.3. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints\">
@@ -286,7 +286,7 @@ Calculate the current system ventilation efficiency as
 <li>
 Calculate the effective minimum outdoor air setpoint <code>VEffOutAir_flow</code> as
 the uncorrected outdoor air intake divided by the system ventilation efficiency,
-but no larger than the design total outdoor air rate <code>VDesTotOutAir_flow</code>:
+but no larger than the design total outdoor airflow rate <code>VDesTotOutAir_flow</code>:
 <pre>
     VEffOutAir_flow = min(VUncOutAir_flow/sysVenEff, VDesTotOutAir_flow)
 </pre>

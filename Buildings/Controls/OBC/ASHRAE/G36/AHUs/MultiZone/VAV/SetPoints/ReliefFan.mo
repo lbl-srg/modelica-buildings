@@ -12,7 +12,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
   parameter Integer staVec[nRelFan] = {2,3,1,4}
     "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up";
   parameter Integer relFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
-    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It falgs which relief fan is associated with which supply fan";
+    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It flags which relief fan is associated with which supply fan";
   parameter Real p_rel_set(
     final unit="Pa",
     final quantity="PressureDifference",

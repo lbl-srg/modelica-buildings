@@ -3,7 +3,7 @@ block ZoneGroupSystem
   "Compute the AHU operating mode from the group operating mode"
 
   parameter Integer nGro
-    "Total number of zone group";
+    "Total number of groups";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nGro]
     "Groups operation mode"

@@ -49,7 +49,7 @@ block AHU "AHU level setpoint calculation"
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effAbsOutAir_normalized(
     final unit="1")
-    "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the absolute outdoor airflow rate "
     annotation (Placement(transformation(extent={{100,100},{140,140}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VEffDesOutAir_flow(
@@ -61,12 +61,12 @@ block AHU "AHU level setpoint calculation"
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effDesOutAir_normalized(
     final unit="1")
-    "Effective minimum outdoor airflow setpoint, normalized by the design outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the design outdoor airflow rate "
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput effOutAir_normalized(
     final unit="1")
-    "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor air rate "
+    "Effective minimum outdoor airflow setpoint, normalized by the design total outdoor airflow rate "
     annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput outAir_normalized(
@@ -79,7 +79,7 @@ block AHU "AHU level setpoint calculation"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant absOutAir(
     final k=VAbsOutAir_flow)
-    "Design outdoor air rate when all zones with CO2 sensors or occupancy sensors are unpopulated"
+    "Design outdoor airflow rate when all zones with CO2 sensors or occupancy sensors are unpopulated"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Effective outdoor air absolute minimum setpoint"
