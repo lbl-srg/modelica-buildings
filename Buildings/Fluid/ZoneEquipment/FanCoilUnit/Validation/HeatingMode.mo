@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
-model FanCoilUnit_openLoop_heatingMode
+model HeatingMode
 
   extends Modelica.Icons.Example;
 
@@ -189,6 +189,6 @@ equation
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_openLoop_heatingMode.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_heatingMode.mos"
       "Simulate and plot"));
-end FanCoilUnit_openLoop_heatingMode;
+end HeatingMode;

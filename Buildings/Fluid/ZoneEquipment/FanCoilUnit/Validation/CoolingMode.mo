@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
-model FanCoilUnit_openLoop_coolingMode
+model CoolingMode
 
   extends Modelica.Icons.Example;
 
@@ -222,7 +222,7 @@ equation
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_openLoop_coolingMode.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_coolingMode.mos"
       "Simulate and plot"),
     Documentation(info="<html>
       <p>
@@ -274,4 +274,4 @@ equation
       </li>
       </ul>
       </html>"));
-end FanCoilUnit_openLoop_coolingMode;
+end CoolingMode;
