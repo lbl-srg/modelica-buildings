@@ -2,8 +2,6 @@ within Buildings.Controls.OBC.CDL.Logical;
 block VariablePulse
   "Generate boolean pulse with the width specified by input"
 
-  parameter Real samplePeriod(final unit="s")
-    "Sample period of the width input";
   parameter Real period(final unit="s")
     "Time for one pulse period";
   parameter Real chaWidThr=0.05
@@ -21,13 +19,12 @@ block VariablePulse
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean pulse when the input is greater than zero"
-    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+    annotation (Placement(transformation(extent={{140,-130},{180,-90}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Discrete.Sampler sam(
-    final samplePeriod=samplePeriod)
-    "Sample the input and use it to check the input value change"
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Sample the input when there is value change"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Output the difference before and after sampling"
@@ -42,7 +39,7 @@ protected
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "If there is input value change, use the new value"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+    annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final t=zerWidThr,
     final h=0.5*zerWidThr)
@@ -57,7 +54,7 @@ protected
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is width change"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Relative width change"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
@@ -69,12 +66,16 @@ protected
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge when the width becomes positive"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
     "Rising edge when there is width change"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre preBre
+    "Break loop"
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
   Cycle cycOut(
-    final period=period) "Produce boolean pulse output"
+    final period=period)
+    "Produce boolean pulse output"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
   block Cycle
@@ -146,17 +147,17 @@ protected
   end Cycle;
 
 equation
-  connect(u, sam.u) annotation (Line(points={{-160,0},{-130,0},{-130,140},{-122,
+  connect(u, triSam.u) annotation (Line(points={{-160,0},{-130,0},{-130,140},{-122,
           140}}, color={0,0,127}));
-  connect(sam.y, sub.u1) annotation (Line(points={{-98,140},{-90,140},{-90,126},
+  connect(triSam.y, sub.u1) annotation (Line(points={{-98,140},{-90,140},{-90,126},
           {-62,126}}, color={0,0,127}));
   connect(u, sub.u2) annotation (Line(points={{-160,0},{-130,0},{-130,114},{-62,
           114}}, color={0,0,127}));
   connect(sub.y, abs1.u)
     annotation (Line(points={{-38,120},{-22,120}}, color={0,0,127}));
-  connect(sam.y, swi.u3) annotation (Line(points={{-98,140},{-90,140},{-90,22},{
-          98,22}}, color={0,0,127}));
-  connect(u, swi.u1) annotation (Line(points={{-160,0},{-130,0},{-130,38},{98,38}},
+  connect(triSam.y, swi.u3) annotation (Line(points={{-98,140},{-90,140},{-90,2},
+          {98,2}}, color={0,0,127}));
+  connect(u, swi.u1) annotation (Line(points={{-160,0},{-130,0},{-130,18},{98,18}},
         color={0,0,127}));
   connect(u, greThr1.u) annotation (Line(points={{-160,0},{-130,0},{-130,-110},{
           -122,-110}}, color={0,0,127}));
@@ -167,11 +168,11 @@ equation
   connect(swi2.y, swi1.u3) annotation (Line(points={{62,-140},{80,-140},{80,-118},
           {98,-118}}, color={255,0,255}));
   connect(swi1.y, y)
-    annotation (Line(points={{122,-110},{134,-110},{134,0},{160,0}}, color={255,0,255}));
-  connect(swi.y, cycOut.u) annotation (Line(points={{122,30},{130,30},{130,-40},
+    annotation (Line(points={{122,-110},{160,-110}},  color={255,0,255}));
+  connect(swi.y, cycOut.u) annotation (Line(points={{122,10},{130,10},{130,-40},
           {30,-40},{30,-80},{38,-80}}, color={0,0,127}));
   connect(or2.y, cycOut.go)
-    annotation (Line(points={{2,-20},{20,-20},{20,-88},{38,-88}}, color={255,0,255}));
+    annotation (Line(points={{2,-40},{20,-40},{20,-88},{38,-88}}, color={255,0,255}));
   connect(abs1.y, div1.u1) annotation (Line(points={{2,120},{10,120},{10,106},{18,
           106}},color={0,0,127}));
   connect(swi3.y, div1.u2) annotation (Line(points={{2,80},{10,80},{10,94},{18,94}},
@@ -184,16 +185,20 @@ equation
           72}}, color={0,0,127}));
   connect(div1.y, greThr.u)
     annotation (Line(points={{42,100},{58,100}}, color={0,0,127}));
-  connect(greThr.y, swi.u2) annotation (Line(points={{82,100},{90,100},{90,30},{
-          98,30}}, color={255,0,255}));
+  connect(greThr.y, swi.u2) annotation (Line(points={{82,100},{90,100},{90,10},{
+          98,10}}, color={255,0,255}));
   connect(greThr1.y, edg1.u) annotation (Line(points={{-98,-110},{-80,-110},{-80,
-          -60},{-62,-60}}, color={255,0,255}));
-  connect(edg1.y, or2.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,-28},
-          {-22,-28}}, color={255,0,255}));
-  connect(greThr.y, edg2.u) annotation (Line(points={{82,100},{90,100},{90,30},{
-          -70,30},{-70,-20},{-62,-20}}, color={255,0,255}));
+          -80},{-62,-80}}, color={255,0,255}));
+  connect(edg1.y, or2.u2) annotation (Line(points={{-38,-80},{-30,-80},{-30,-48},
+          {-22,-48}}, color={255,0,255}));
+  connect(greThr.y, edg2.u) annotation (Line(points={{82,100},{90,100},{90,10},{
+          -70,10},{-70,-40},{-62,-40}}, color={255,0,255}));
   connect(edg2.y, or2.u1)
-    annotation (Line(points={{-38,-20},{-22,-20}}, color={255,0,255}));
+    annotation (Line(points={{-38,-40},{-22,-40}}, color={255,0,255}));
+  connect(greThr.y, preBre.u)
+    annotation (Line(points={{82,100},{98,100}}, color={255,0,255}));
+  connect(preBre.y, triSam.trigger) annotation (Line(points={{122,100},{130,100},
+          {130,40},{-110,40},{-110,128}}, color={255,0,255}));
 annotation (
     defaultComponentName="varPul",
     Icon(
