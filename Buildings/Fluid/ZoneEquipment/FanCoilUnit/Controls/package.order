@@ -1,4 +1,4 @@
-ConstantFan_VariableWaterFlowrate
-MultispeedFan_ConstantWaterFlowrate
-VariableFan_ConstantWaterFlowrate
+ConstantFanVariableWaterFlowrate
+MultispeedFanConstantWaterFlowrate
+VariableFanConstantWaterFlowrate
 Validation

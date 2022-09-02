@@ -1,10 +1,10 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.Validation;
-model ConstantFan_VariableWaterFlowrate
+model ConstantFanVariableWaterFlowrate
   "Validation model for controller with variable water flow rates and constant speed fan"
 
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFan_VariableWaterFlowrate
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate
     conVarWatConFan(
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -46,7 +46,7 @@ equation
     annotation (Line(points={{-18,40},{0,40},{0,2},{8,2}}, color={0,0,127}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Controls/Validation/ConstantFan_VariableWaterFlowrate.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Controls/Validation/ConstantFanVariableWaterFlowrate.mos"
       "Simulate and plot"),
     Documentation(info="<html>
       <p>
@@ -71,4 +71,4 @@ equation
       </li>
       </ul>
       </html>"));
-end ConstantFan_VariableWaterFlowrate;
+end ConstantFanVariableWaterFlowrate;

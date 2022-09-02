@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls;
-block ConstantFan_VariableWaterFlowrate
+block ConstantFanVariableWaterFlowrate
   "Controller for fan coil system with variable water flow rates and fixed speed fan"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -375,4 +375,4 @@ equation
       </li>
       </ul>
       </html>"));
-end ConstantFan_VariableWaterFlowrate;
+end ConstantFanVariableWaterFlowrate;

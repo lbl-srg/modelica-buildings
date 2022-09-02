@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls;
-block MultispeedFan_ConstantWaterFlowrate
+block MultispeedFanConstantWaterFlowrate
   "Controller for fan coil system with constant water flow rates and variable speed fan"
 
   parameter Integer nSpe(
@@ -461,4 +461,4 @@ equation
       </li>
       </ul>
       </html>"));
-end MultispeedFan_ConstantWaterFlowrate;
+end MultispeedFanConstantWaterFlowrate;
