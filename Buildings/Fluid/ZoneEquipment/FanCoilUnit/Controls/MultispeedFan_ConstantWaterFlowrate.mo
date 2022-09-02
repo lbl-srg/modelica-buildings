@@ -17,20 +17,20 @@ block MultispeedFan_ConstantWaterFlowrate
     "Minimum amount of time for which calculated speed exceeds preset value for speed to be changed";
 
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller for cooling mode"
+    "Type of cooling loop controller"
     annotation (Dialog(group="Fan control parameters - Cooling mode"));
 
   parameter Real kCoo(
     final unit="1",
     displayUnit="1")=1
-    "Gain of controller for cooling mode"
+    "Gain of cooling loop controller"
     annotation(Dialog(group="Fan control parameters - Cooling mode"));
 
   parameter Real TiCoo(
     final unit="s",
     displayUnit="s",
     final quantity="Time")=0.5
-    "Time constant of integrator block for cooling mode"
+    "Time constant of cooling loop integrator block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -39,26 +39,26 @@ block MultispeedFan_ConstantWaterFlowrate
     final unit="s",
     displayUnit="s",
     final quantity="Time")=0.1
-    "Time constant of derivative block for cooling mode"
+    "Time constant of cooling loop derivative block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller for heating mode"
+    "Type of heating loop controller"
     annotation (Dialog(group="Fan control parameters - Heating mode"));
 
   parameter Real kHea(
     final unit="1",
     displayUnit="1")=1
-    "Gain of controller for heating mode"
+    "Gain of heating loop controller"
     annotation(Dialog(group="Fan control parameters - Heating mode"));
 
   parameter Real TiHea(
     final unit="s",
     displayUnit="s",
     final quantity="Time")=0.5
-    "Time constant of integrator block for heating mode"
+    "Time constant of heating loop integrator block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -67,12 +67,13 @@ block MultispeedFan_ConstantWaterFlowrate
     final unit="s",
     displayUnit="s",
     final quantity="Time")=0.1
-    "Time constant of derivative block for heating mode"
+    "Time constant of heating loop derivative block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Integer nRowOccSch = 4
+  parameter Integer nRowOccSch(
+    final min = 2) = 4
     "Number of rows in the occupancy schedule table"
     annotation(Dialog(group="Occupancy schedule parameters"));
 
@@ -190,11 +191,11 @@ protected
     "Enable heating coil valve only when fan is proven on"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And andDeaOcc
     "Check if zone is in deadband mode and occupied"
     annotation (Placement(transformation(extent={{80,-124},{100,-104}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1
+  Buildings.Controls.OBC.CDL.Logical.Not notHeaCoo
     "Check if zone is in deadband mode"
     annotation (Placement(transformation(extent={{52,-140},{72,-120}})));
 
@@ -241,13 +242,12 @@ protected
     "Add 1 to calculated stage to switch to next speed signal"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=-dTHys,
-    final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCoo(final uLow=-dTHys,
+      final uHigh=0)
     "Enable cooling when zone temperature is higher than cooling setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Continuous.Subtract subCoo
     "Find difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
@@ -255,13 +255,12 @@ protected
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Continuous.Subtract subHea
     "Find difference between zone temperature and heating setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
-    final uLow=-dTHys,
-    final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(final uLow=-dTHys,
+      final uHigh=0)
     "Enable heating when zone temperature is lower than heating setpoint"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
@@ -269,7 +268,7 @@ protected
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or orHeaCoo
     "Enable fan in heating mode and cooling mode"
     annotation (Placement(transformation(extent={{-4,-170},{16,-150}})));
 
@@ -294,7 +293,7 @@ protected
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add3
+  Buildings.Controls.OBC.CDL.Continuous.Add addFanSpe
     "Pass sum of fan speed from heating and cooling controllers, one of which is always zero"
     annotation (Placement(transformation(extent={{-36,-90},{-16,-70}})));
 
@@ -302,12 +301,11 @@ protected
     "Provide fan speed signal only when fan is enabled"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[1](
-    final t=fill(0.5, 1))
-    "Check if zone is occupied"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrOcc[1](final t=
+        fill(0.5, 1)) "Check if zone is occupied"
     annotation (Placement(transformation(extent={{-50,-150},{-30,-130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or1
+  Buildings.Controls.OBC.CDL.Logical.Or orHeaCooOcc
     "Enable fan in heating mode and cooling mode or when zone is occupied"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
 
@@ -326,45 +324,41 @@ protected
     annotation (Placement(transformation(extent={{110,-160},{130,-140}})));
 
 equation
-  connect(TZon,sub2. u1) annotation (Line(points={{-160,40},{-130,40},{-130,46},
-          {-102,46}},
-                    color={0,0,127}));
+  connect(TZon, subCoo.u1) annotation (Line(points={{-160,40},{-130,40},{-130,46},
+          {-102,46}}, color={0,0,127}));
 
-  connect(TCooSet,sub2. u2) annotation (Line(points={{-160,0},{-120,0},{-120,34},
-          {-102,34}},color={0,0,127}));
+  connect(TCooSet, subCoo.u2) annotation (Line(points={{-160,0},{-120,0},{-120,34},
+          {-102,34}}, color={0,0,127}));
 
-  connect(sub2.y, hys1.u)
+  connect(subCoo.y, hysCoo.u)
     annotation (Line(points={{-78,40},{-42,40}}, color={0,0,127}));
 
   connect(booToReaCoo.y, yCoo)
     annotation (Line(points={{102,80},{160,80}}, color={0,0,127}));
 
-  connect(sub1.y, hys2.u)
-    annotation (Line(points={{-78,-30},{-74,-30},{-74,10},{-42,10}},
-                                                 color={0,0,127}));
+  connect(subHea.y, hysHea.u) annotation (Line(points={{-78,-30},{-74,-30},{-74,
+          10},{-42,10}}, color={0,0,127}));
 
-  connect(TZon,sub1. u2) annotation (Line(points={{-160,40},{-130,40},{-130,-36},
-          {-102,-36}},
-                    color={0,0,127}));
+  connect(TZon, subHea.u2) annotation (Line(points={{-160,40},{-130,40},{-130,-36},
+          {-102,-36}}, color={0,0,127}));
 
-  connect(THeaSet,sub1. u1) annotation (Line(points={{-160,-40},{-110,-40},{-110,
-          -24},{-102,-24}},
-                         color={0,0,127}));
+  connect(THeaSet, subHea.u1) annotation (Line(points={{-160,-40},{-110,-40},{-110,
+          -24},{-102,-24}}, color={0,0,127}));
 
   connect(booToReaHea.y, yHea)
     annotation (Line(points={{102,50},{160,50}}, color={0,0,127}));
 
-  connect(hys1.y, or2.u1) annotation (Line(points={{-18,40},{-10,40},{-10,-160},
-          {-6,-160}},color={255,0,255}));
+  connect(hysCoo.y, orHeaCoo.u1) annotation (Line(points={{-18,40},{-10,40},{-10,
+          -160},{-6,-160}}, color={255,0,255}));
 
-  connect(hys2.y, or2.u2) annotation (Line(points={{-18,10},{-14,10},{-14,-168},
-          {-6,-168}},color={255,0,255}));
+  connect(hysHea.y, orHeaCoo.u2) annotation (Line(points={{-18,10},{-14,10},{-14,
+          -168},{-6,-168}}, color={255,0,255}));
 
-  connect(sub2.y, conPIDCoo.u_m) annotation (Line(points={{-78,40},{-72,40},{-72,
+  connect(subCoo.y, conPIDCoo.u_m) annotation (Line(points={{-78,40},{-72,40},{-72,
           -82},{-56,-82},{-56,-72}}, color={0,0,127}));
 
-  connect(sub1.y, conPIDHea.u_m) annotation (Line(points={{-78,-30},{-74,-30},{-74,
-          -120},{-56,-120},{-56,-112}}, color={0,0,127}));
+  connect(subHea.y, conPIDHea.u_m) annotation (Line(points={{-78,-30},{-74,-30},
+          {-74,-120},{-56,-120},{-56,-112}}, color={0,0,127}));
 
   connect(con.y, conPIDCoo.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,
           -60},{-68,-60}}, color={0,0,127}));
@@ -372,11 +366,11 @@ equation
   connect(con.y, conPIDHea.u_s) annotation (Line(points={{-78,-80},{-76,-80},{-76,
           -100},{-68,-100}}, color={0,0,127}));
 
-  connect(conPIDCoo.y, add3.u1) annotation (Line(points={{-44,-60},{-40,-60},{-40,
-          -74},{-38,-74}}, color={0,0,127}));
+  connect(conPIDCoo.y, addFanSpe.u1) annotation (Line(points={{-44,-60},{-40,-60},
+          {-40,-74},{-38,-74}}, color={0,0,127}));
 
-  connect(conPIDHea.y, add3.u2) annotation (Line(points={{-44,-100},{-40,-100},{
-          -40,-86},{-38,-86}}, color={0,0,127}));
+  connect(conPIDHea.y, addFanSpe.u2) annotation (Line(points={{-44,-100},{-40,-100},
+          {-40,-86},{-38,-86}}, color={0,0,127}));
 
   connect(gre.u1, reaScaRep.y)
     annotation (Line(points={{58,-30},{52,-30}}, color={0,0,127}));
@@ -396,33 +390,33 @@ equation
           {90,-76},{80,-76},{80,-72}},     color={255,127,0}));
   connect(swi.y, yFanSpe)
     annotation (Line(points={{132,-80},{160,-80}}, color={0,0,127}));
-  connect(timTabOccSch.y, greThr.u)
+  connect(timTabOccSch.y, greThrOcc.u)
     annotation (Line(points={{-98,-140},{-52,-140}}, color={0,0,127}));
-  connect(greThr[1].y, or1.u1) annotation (Line(points={{-28,-140},{24,-140},{24,
-          -150},{78,-150}}, color={255,0,255}));
+  connect(greThrOcc[1].y, orHeaCooOcc.u1) annotation (Line(points={{-28,-140},{24,
+          -140},{24,-150},{78,-150}}, color={255,0,255}));
   connect(extIndSig.y, swi.u3) annotation (Line(points={{92,-60},{100,-60},{100,
           -88},{108,-88}}, color={0,0,127}));
-  connect(and2.y, swi.u2) annotation (Line(points={{102,-114},{106,-114},{106,-80},
-          {108,-80}}, color={255,0,255}));
-  connect(greThr[1].y, and2.u1) annotation (Line(points={{-28,-140},{24,-140},{24,
-          -114},{78,-114}}, color={255,0,255}));
-  connect(not1.y, and2.u2) annotation (Line(points={{74,-130},{76,-130},{76,-122},
-          {78,-122}}, color={255,0,255}));
-  connect(or2.y, timFan.u) annotation (Line(points={{18,-160},{20,-160},{20,-180},
-          {38,-180}}, color={255,0,255}));
-  connect(timFan.passed, or1.u2) annotation (Line(points={{62,-188},{72,-188},{72,
-          -158},{78,-158}}, color={255,0,255}));
-  connect(timFan.passed, not1.u) annotation (Line(points={{62,-188},{72,-188},{72,
-          -160},{40,-160},{40,-130},{50,-130}}, color={255,0,255}));
+  connect(andDeaOcc.y, swi.u2) annotation (Line(points={{102,-114},{106,-114},{106,
+          -80},{108,-80}}, color={255,0,255}));
+  connect(greThrOcc[1].y, andDeaOcc.u1) annotation (Line(points={{-28,-140},{24,
+          -140},{24,-114},{78,-114}}, color={255,0,255}));
+  connect(notHeaCoo.y, andDeaOcc.u2) annotation (Line(points={{74,-130},{76,-130},
+          {76,-122},{78,-122}}, color={255,0,255}));
+  connect(orHeaCoo.y, timFan.u) annotation (Line(points={{18,-160},{20,-160},{20,
+          -180},{38,-180}}, color={255,0,255}));
+  connect(timFan.passed, orHeaCooOcc.u2) annotation (Line(points={{62,-188},{72,
+          -188},{72,-158},{78,-158}}, color={255,0,255}));
+  connect(timFan.passed, notHeaCoo.u) annotation (Line(points={{62,-188},{72,-188},
+          {72,-160},{40,-160},{40,-130},{50,-130}}, color={255,0,255}));
   connect(mul.y, reaScaRep.u)
     annotation (Line(points={{22,-30},{28,-30}}, color={0,0,127}));
-  connect(add3.y, mul.u2) annotation (Line(points={{-14,-80},{-6,-80},{-6,-36},{
-          -2,-36}},  color={0,0,127}));
+  connect(addFanSpe.y, mul.u2) annotation (Line(points={{-14,-80},{-6,-80},{-6,-36},
+          {-2,-36}}, color={0,0,127}));
   connect(fanSpeVal[2].y, swi.u1) annotation (Line(points={{42,-60},{54,-60},{
           54,-72},{108,-72}}, color={0,0,127}));
   connect(booToReaFan.y, mul.u1) annotation (Line(points={{92,10},{100,10},{100,
           -10},{-6,-10},{-6,-24},{-2,-24}}, color={0,0,127}));
-  connect(or1.y, truFalHol.u)
+  connect(orHeaCooOcc.y, truFalHol.u)
     annotation (Line(points={{102,-150},{108,-150}}, color={255,0,255}));
   connect(truFalHol.y, yFan) annotation (Line(points={{132,-150},{136,-150},{136,
           -120},{160,-120}}, color={255,0,255}));
@@ -436,10 +430,10 @@ equation
     annotation (Line(points={{-160,80},{38,80}}, color={255,0,255}));
   connect(uFan, andHea.u1) annotation (Line(points={{-160,80},{20,80},{20,50},{38,
           50}}, color={255,0,255}));
-  connect(hys1.y, andCoo.u2) annotation (Line(points={{-18,40},{0,40},{0,72},{38,
-          72}}, color={255,0,255}));
-  connect(hys2.y, andHea.u2) annotation (Line(points={{-18,10},{20,10},{20,42},{
-          38,42}}, color={255,0,255}));
+  connect(hysCoo.y, andCoo.u2) annotation (Line(points={{-18,40},{0,40},{0,72},{
+          38,72}}, color={255,0,255}));
+  connect(hysHea.y, andHea.u2) annotation (Line(points={{-18,10},{20,10},{20,42},
+          {38,42}}, color={255,0,255}));
   annotation (defaultComponentName="conMulSpeFanConWat",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                       graphics={
