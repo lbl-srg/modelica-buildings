@@ -7,10 +7,10 @@ block VariablePulse
   parameter Real period(final unit="s")
     "Time for one pulse period";
   parameter Real chaWidThr=0.05
-    "Threshold for checking if the width input is changed. It is the ratio of the value change to the original value"
+    "Minimum required change in input to re-trigger an update of the output interval. It is the ratio of the value change to the original value"
     annotation (Dialog(tab="Advanced"));
   parameter Real zerWidThr=0.01
-    "Threshold for checking if the width input is greater than zero"
+    "Minimum value of the input below which the output remains always false"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final min=0,

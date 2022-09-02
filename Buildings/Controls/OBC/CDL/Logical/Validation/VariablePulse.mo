@@ -61,7 +61,8 @@ model VariablePulse "Validation model for producing boolean pulse output"
     final width=0.5,
     final period=3600,
     final shift=300,
-    final offset=0.3)    "Continuous pulse signal"
+    final offset=0.3)
+    "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 equation
   connect(con.y, conTru.u)
@@ -89,7 +90,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Logical.VariablePulse</a>.
 </p>
 <p>
-This validates the blocks with a start time of <i>0</i>.
+This validates the blocks with a start time of <i>t=0</i> seconds.
 </p>
 </html>",
 revisions="<html>
