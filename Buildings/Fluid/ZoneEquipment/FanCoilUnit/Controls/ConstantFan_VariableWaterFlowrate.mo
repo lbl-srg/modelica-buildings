@@ -13,21 +13,13 @@ block ConstantFan_VariableWaterFlowrate
     "Gain of cooling loop controller"
     annotation(Dialog(group="Cooling mode control"));
 
-  parameter Real TiCoo(
-    final unit="s",
-    displayUnit="s",
-    final min=0,
-    final quantity="Time")=0.5
+  parameter Modelica.Units.SI.Time TiCoo=0.5
     "Time constant of cooling loop integrator block"
     annotation(Dialog(group="Cooling mode control",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real TdCoo(
-    final unit="s",
-    displayUnit="s",
-    final min=0,
-    final quantity="Time")=0.1
+  parameter Modelica.Units.SI.Time TdCoo=0.1
     "Time constant of cooling loop derivative block"
     annotation(Dialog(group="Cooling mode control",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -44,21 +36,13 @@ block ConstantFan_VariableWaterFlowrate
     "Gain of heating loop controller"
     annotation(Dialog(group="Heating mode control"));
 
-  parameter Real TiHea(
-    final unit="s",
-    displayUnit="s",
-    final min=0,
-    final quantity="Time")=0.5
+  parameter Modelica.Units.SI.Time TiHea=0.5
     "Time constant of heating loop integrator block"
     annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real TdHea(
-    final unit="s",
-    displayUnit="s",
-    final min=0,
-    final quantity="Time")=0.1
+  parameter Modelica.Units.SI.Time TdHea=0.1
     "Time constant of heating loop derivative block"
     annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -69,17 +53,11 @@ block ConstantFan_VariableWaterFlowrate
     "Number of rows in the occupancy schedule table"
     annotation(Dialog(group="Occupancy schedule parameters"));
 
-  parameter Real tableOcc[nRowOccSch,2](
-    final unit=fill("s",nRowOccSch,2),
-    displayUnit=fill("s",nRowOccSch,2),
-    final quantity=fill("Time",nRowOccSch,2)) = [0, 0; 6, 1; 18, 0; 24, 0]
+  parameter Modelica.Units.SI.Time tableOcc[nRowOccSch,2] = [0, 0; 6, 1; 18, 0; 24, 0]
     "Table matrix (time = first column) for the occupancy schedule"
     annotation(Dialog(group="Occupancy schedule parameters"));
 
-  parameter Real timeScaleOcc(
-    final unit="s",
-    displayUnit="s",
-    final quantity="Time") = 3600
+  parameter Modelica.Units.SI.Time timeScaleOcc = 3600
     "Time scale of first table column. Set to 3600 if time in table is in hours"
     annotation(Dialog(group="Occupancy schedule parameters"));
 
@@ -91,26 +69,15 @@ block ConstantFan_VariableWaterFlowrate
     "Minimum allowed fan speed"
     annotation(Dialog(group="System parameters"));
 
-  parameter Real tFanEnaDel(
-    final unit="s",
-    displayUnit="s",
-    final min = 0,
-    final quantity="Time") = 30
+  parameter Modelica.Units.SI.Time tFanEnaDel = 30
     "Time period for delay between switching from deadband mode to heating/cooling mode"
     annotation(Dialog(group="System parameters"));
 
-  parameter Real tFanEna(
-    final unit="s",
-    displayUnit="s",
-    final min = 0) = 300
+  parameter Modelica.Units.SI.Time tFanEna = 300
     "Minimum duration for which fan is enabled"
     annotation(Dialog(group="System parameters"));
 
-  parameter Real dTHys(
-    final unit="K",
-    displayUnit="K",
-    final min=0,
-    final quantity="TemperatureDifference") = 0.2
+  parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
     "Temperature difference used for enabling cooling and heating mode"
     annotation(Dialog(tab="Advanced"));
 
