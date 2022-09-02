@@ -12,7 +12,7 @@ block VariablePulse
   parameter Real zerWidThr=0.01
     "Threshold for checking if the width input is greater than zero"
     annotation (Dialog(tab="Advanced"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final min=0,
     final max=1,
     final unit="1")
@@ -88,7 +88,7 @@ protected
       "True: cycle the output"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
           iconTransformation(extent={{-140,-100},{-100,-60}})));
-    Buildings.Controls.OBC.CDL.Interfaces.RealInput uWid
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u
       "Ratio of the period that the output should be true"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
           iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -122,7 +122,7 @@ protected
 
     t_sta = Buildings.Utilities.Math.Functions.round(
       x=integer((time-t0)/period)*period, n=6)+t0;
-    t_end = t_sta + uWid*period;
+    t_end =t_sta + u*period;
 
     if (time>=t_sta) and (time<t_end) then
       y = true;
@@ -146,20 +146,20 @@ protected
   end Cycle;
 
 equation
-  connect(uWid, sam.u) annotation (Line(points={{-160,0},{-130,0},{-130,140},{-122,
+  connect(u, sam.u) annotation (Line(points={{-160,0},{-130,0},{-130,140},{-122,
           140}}, color={0,0,127}));
   connect(sam.y, sub.u1) annotation (Line(points={{-98,140},{-90,140},{-90,126},
           {-62,126}}, color={0,0,127}));
-  connect(uWid, sub.u2) annotation (Line(points={{-160,0},{-130,0},{-130,114},{-62,
-          114}},color={0,0,127}));
+  connect(u, sub.u2) annotation (Line(points={{-160,0},{-130,0},{-130,114},{-62,
+          114}}, color={0,0,127}));
   connect(sub.y, abs1.u)
     annotation (Line(points={{-38,120},{-22,120}}, color={0,0,127}));
   connect(sam.y, swi.u3) annotation (Line(points={{-98,140},{-90,140},{-90,22},{
           98,22}}, color={0,0,127}));
-  connect(uWid, swi.u1) annotation (Line(points={{-160,0},{-130,0},{-130,38},{98,
-          38}}, color={0,0,127}));
-  connect(uWid, greThr1.u) annotation (Line(points={{-160,0},{-130,0},{-130,-110},
-          {-122,-110}}, color={0,0,127}));
+  connect(u, swi.u1) annotation (Line(points={{-160,0},{-130,0},{-130,38},{98,38}},
+        color={0,0,127}));
+  connect(u, greThr1.u) annotation (Line(points={{-160,0},{-130,0},{-130,-110},{
+          -122,-110}}, color={0,0,127}));
   connect(cycOut.y, swi1.u1) annotation (Line(points={{62,-80},{80,-80},{80,-102},
           {98,-102}},color={255,0,255}));
   connect(greThr1.y, swi1.u2)
@@ -167,17 +167,16 @@ equation
   connect(swi2.y, swi1.u3) annotation (Line(points={{62,-140},{80,-140},{80,-118},
           {98,-118}}, color={255,0,255}));
   connect(swi1.y, y)
-    annotation (Line(points={{122,-110},{134,-110},{134,0},{160,0}},
-                                                     color={255,0,255}));
-  connect(swi.y, cycOut.uWid) annotation (Line(points={{122,30},{130,30},{130,
-          -40},{30,-40},{30,-80},{38,-80}}, color={0,0,127}));
+    annotation (Line(points={{122,-110},{134,-110},{134,0},{160,0}}, color={255,0,255}));
+  connect(swi.y, cycOut.u) annotation (Line(points={{122,30},{130,30},{130,-40},
+          {30,-40},{30,-80},{38,-80}}, color={0,0,127}));
   connect(or2.y, cycOut.go)
     annotation (Line(points={{2,-20},{20,-20},{20,-88},{38,-88}}, color={255,0,255}));
   connect(abs1.y, div1.u1) annotation (Line(points={{2,120},{10,120},{10,106},{18,
           106}},color={0,0,127}));
   connect(swi3.y, div1.u2) annotation (Line(points={{2,80},{10,80},{10,94},{18,94}},
         color={0,0,127}));
-  connect(uWid, swi3.u1) annotation (Line(points={{-160,0},{-130,0},{-130,88},{-22,
+  connect(u, swi3.u1) annotation (Line(points={{-160,0},{-130,0},{-130,88},{-22,
           88}}, color={0,0,127}));
   connect(greThr1.y, swi3.u2) annotation (Line(points={{-98,-110},{-80,-110},{-80,
           80},{-22,80}}, color={255,0,255}));
@@ -296,20 +295,20 @@ annotation (
       info="<html>
 <p>
 Block that produces boolean pulse output according to the specified period of the pulse
-(<code>period</code>) and the value of the input <code>uWid</code>, which indicates
+(<code>period</code>) and the value of the input <code>u</code>, which indicates
 the percentage of the period that the output should be true.
 </p>
 <ul>
 <li>
-If the input <code>uWid</code> is zero, the output <code>y</code> remains false.
+If the input <code>u</code> is zero, the output <code>y</code> remains false.
 </li>
 <li>
-If the input <code>uWid</code> is greater than zero, the output <code>y</code> will be
+If the input <code>u</code> is greater than zero, the output <code>y</code> will be
 a boolean pulse with the period specified by the parameter <code>period</code> and
-the width specified by the input <code>uWid</code>.
+the width specified by the input <code>u</code>.
 </li>
 <li>
-At the moment when the input <code>uWid</code> changes to a new value, the output
+At the moment when the input <code>u</code> changes to a new value, the output
 will immediately change to a new pulse with the width specified by the new value.
 </li>
 </ul>

@@ -64,17 +64,17 @@ model VariablePulse "Validation model for producing boolean pulse output"
     final offset=0.3)    "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 equation
-  connect(con.y, conTru.uWid)
+  connect(con.y, conTru.u)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
-  connect(con1.y, fal.uWid)
-    annotation (Line(points={{-58,60},{-42,60}},color={0,0,127}));
-  connect(conPul.y, truFal.uWid)
-    annotation (Line(points={{42,60},{58,60}},    color={0,0,127}));
-  connect(conPul1.y, falTru.uWid)
-    annotation (Line(points={{42,0},{58,0}},      color={0,0,127}));
-  connect(con2.y, tru.uWid)
-    annotation (Line(points={{-58,0},{-42,0}},  color={0,0,127}));
-  connect(conPul2.y, falTru1.uWid)
+  connect(con1.y, fal.u)
+    annotation (Line(points={{-58,60},{-42,60}}, color={0,0,127}));
+  connect(conPul.y, truFal.u)
+    annotation (Line(points={{42,60},{58,60}}, color={0,0,127}));
+  connect(conPul1.y, falTru.u)
+    annotation (Line(points={{42,0},{58,0}}, color={0,0,127}));
+  connect(con2.y, tru.u)
+    annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
+  connect(conPul2.y, falTru1.u)
     annotation (Line(points={{42,-60},{58,-60}}, color={0,0,127}));
 annotation (experiment(
       StartTime=0,
