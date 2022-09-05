@@ -28,7 +28,7 @@ partial block PartialController "Interface class for AHU controller"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,0})));
-  ZoneEquipment.Interfaces.Bus busTer[nZon]
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus busTer[nZon]
     "Terminal unit control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},

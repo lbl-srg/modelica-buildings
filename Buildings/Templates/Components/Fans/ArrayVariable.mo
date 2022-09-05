@@ -38,7 +38,7 @@ model ArrayVariable "Fan array - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-40})));
-  Fluid.Delays.DelayFirstOrder volInl(
+  Buildings.Fluid.Delays.DelayFirstOrder volInl(
     redeclare final package Medium=Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m_flow_nominal,
@@ -46,7 +46,7 @@ model ArrayVariable "Fan array - Variable speed"
     final nPorts=nFan+1)
     "Fluid volume at inlet"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-  Fluid.Delays.DelayFirstOrder volOut(
+  Buildings.Fluid.Delays.DelayFirstOrder volOut(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m_flow_nominal,
@@ -54,7 +54,7 @@ model ArrayVariable "Fan array - Variable speed"
     final nPorts=nFan+1)
     "Fluid volume at outet"
     annotation (Placement(transformation(extent={{50,0},{70,20}})));
-  Controls.OBC.CDL.Logical.MultiAnd evaStaArr(
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd evaStaArr(
     final nin=nFan)
     "Evaluate fan array status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

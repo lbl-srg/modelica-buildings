@@ -6,7 +6,7 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     "Air medium"
     annotation(__Linkage(enable=false));
 
-  parameter AirHandlersFans.Types.ReliefReturnSection typ
+  parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typ
     "Relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Damper typDamRel

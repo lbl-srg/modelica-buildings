@@ -3,7 +3,7 @@ model ParallelVariable "Parallel pumps (identical) - Variable speed"
   extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
     final typ=Buildings.Templates.Components.Types.Pump.ParallelVariable);
 
-  replaceable Fluid.Movers.SpeedControlled_y pum[nPum](
+  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     constrainedby Fluid.Movers.SpeedControlled_y(
       redeclare each final package Medium=Medium,
@@ -14,7 +14,7 @@ model ParallelVariable "Parallel pumps (identical) - Variable speed"
     annotation (
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.FixedResistances.CheckValve cheVal [nPum](
+  Buildings.Fluid.FixedResistances.CheckValve cheVal [nPum](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -22,26 +22,26 @@ model ParallelVariable "Parallel pumps (identical) - Variable speed"
     each final m_flow_nominal=m_flow_nominal)
     "Check valve"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal sigSta[nPum]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta[nPum]
     "Start/stop signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
-  Controls.OBC.CDL.Continuous.Multiply sigCon[nPum]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon[nPum]
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Controls.OBC.CDL.Routing.RealScalarReplicator repSig(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repSig(
     final nout=nPum)
     "Replicate signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,70})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](
     each t=1E-2,
     each h=0.5E-2)
     "Evaluate pump status"
@@ -49,7 +49,7 @@ model ParallelVariable "Parallel pumps (identical) - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-40})));
-  Fluid.Delays.DelayFirstOrder volInl(
+  Buildings.Fluid.Delays.DelayFirstOrder volInl(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m_flow_nominal,
@@ -57,7 +57,7 @@ model ParallelVariable "Parallel pumps (identical) - Variable speed"
     final nPorts=nPum+1)
     "Fluid volume at inlet"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-  Fluid.Delays.DelayFirstOrder volOut(
+  Buildings.Fluid.Delays.DelayFirstOrder volOut(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m_flow_nominal,

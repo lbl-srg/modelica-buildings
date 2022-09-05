@@ -16,20 +16,20 @@ model ThreeWayTwoPosition "Three-way two-position valve"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Controls.OBC.CDL.Continuous.GreaterThreshold evaOpe(t=0.99, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaOpe(t=0.99, h=0.5E-2)
     "Return true if open (open end switch contact)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-50})));
-  Controls.OBC.CDL.Continuous.LessThreshold evaClo(t=0.01, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold evaClo(t=0.01, h=0.5E-2)
     "Return true if closed (closed end switch contact)"
                             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-50})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=1,
     final realFalse=0)
     "Signal conversion"

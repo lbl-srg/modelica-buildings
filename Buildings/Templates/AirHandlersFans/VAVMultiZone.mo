@@ -54,7 +54,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Economizer secOutRel
     constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
@@ -140,7 +140,7 @@ model VAVMultiZone "Multiple-zone VAV"
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
-  inner replaceable Components.Controls.OpenLoop ctl constrainedby
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final dat=dat.ctl,
       final nZon=nZon)
@@ -274,7 +274,7 @@ model VAVMultiZone "Multiple-zone VAV"
     Dialog(group="Heating coil",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{130,-210},{150,-190}})));
-  Fluid.FixedResistances.Junction junHeaWatSup(
+  Buildings.Fluid.FixedResistances.Junction junHeaWatSup(
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -284,7 +284,7 @@ model VAVMultiZone "Multiple-zone VAV"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-260})));
-  Fluid.FixedResistances.Junction junHeaWatSup1(
+  Buildings.Fluid.FixedResistances.Junction junHeaWatSup1(
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
 partial block PartialController "Interface class for terminal unit controller"
 
-  parameter ZoneEquipment.Types.Controller typ "Type of controller"
+  parameter Buildings.Templates.ZoneEquipment.Types.Controller typ "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   replaceable parameter

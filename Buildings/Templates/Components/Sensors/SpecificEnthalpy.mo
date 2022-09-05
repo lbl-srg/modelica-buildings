@@ -4,13 +4,13 @@ model SpecificEnthalpy "Specific enthalpy sensor"
     y(final unit="J/kg"),
     final isDifPreSen=false);
 
-  Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal) if have_sen
     "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
+  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
     if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

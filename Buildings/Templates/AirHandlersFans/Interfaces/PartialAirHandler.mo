@@ -160,7 +160,7 @@ partial model PartialAirHandler "Interface class for air handler"
       Medium = MediumHeaWat) if have_souHeaWat "HHW supply port" annotation (
       Placement(transformation(extent={{10,-290},{30,-270}}),
         iconTransformation(extent={{-60,-210},{-40,-190}})));
-  Bus bus
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "AHU control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -169,12 +169,12 @@ partial model PartialAirHandler "Interface class for air handler"
         extent={{-20,-19},{20,19}},
         rotation=90,
         origin={-199,160})));
-  BoundaryConditions.WeatherData.Bus busWea
+  Buildings.BoundaryConditions.WeatherData.Bus busWea
     "Weather bus"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  ZoneEquipment.Interfaces.Bus busTer[nZon]
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus busTer[nZon]
     "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,

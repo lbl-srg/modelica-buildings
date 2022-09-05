@@ -4,12 +4,12 @@ model HumidityRatio "Humidity ratio sensor"
     y(final unit="kg/kg"),
     final isDifPreSen=false);
 
-  Fluid.Sensors.MassFractionTwoPort senMasFra(
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal) if have_sen
     "Mass fraction sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Utilities.Psychrometrics.ToDryAir toDryAir if have_sen
+  Buildings.Utilities.Psychrometrics.ToDryAir toDryAir if have_sen
     "Conversion into kg/kg dry air"
     annotation (Placement(
         transformation(
@@ -17,7 +17,7 @@ model HumidityRatio "Humidity ratio sensor"
         rotation=90,
         origin={0,30})));
 
-  BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
+  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
     if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

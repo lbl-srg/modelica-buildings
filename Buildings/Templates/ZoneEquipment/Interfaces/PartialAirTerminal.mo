@@ -98,7 +98,7 @@ partial model PartialAirTerminal
       Placement(transformation(extent={{-30,-290},{-10,-270}}),
         iconTransformation(extent={{-60,-210},{-40,-190}})));
 
-  Interfaces.Bus bus
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
     "Terminal unit control bus"
     annotation (Placement(
         transformation(
