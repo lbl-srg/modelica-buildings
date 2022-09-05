@@ -81,31 +81,17 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     annotation (Dialog(enable=
       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
 
-  final parameter Real VOutPerAre_flow(
-    final unit = "m3/(s.m2)")=
-    dat.VOutPerAre_flow
+  final parameter Real VOutAre_flow(
+    final unit = "m3/s")=
+    dat.VOutAre_flow
     "Outdoor air flow rate per unit area"
     annotation (Dialog(enable=
       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
 
-  final parameter Real VOutPerOcc_flow(
+  final parameter Real VOutOcc_flow(
     final unit = "m3/s")=
-    dat.VOutPerOcc_flow
+    dat.VOutOcc_flow
     "Outdoor air flow rate per occupant"
-    annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-
-  final parameter Modelica.Units.SI.Area AFlo=
-    dat.AFlo
-    "Zone floor area"
-    annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-
-  final parameter Real nOcc_nominal(
-    final unit="1",
-    final min=0,
-    start=0.05*AFlo)=dat.nOcc_nominal
-    "Design zone population"
     annotation (Dialog(enable=
       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
 
@@ -139,7 +125,7 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Zone unoccupied cooling set point";
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctlReh(
-    final venSta=stdVen,
+    final venStd=stdVen,
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
@@ -147,10 +133,8 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     final permit_occStandby=permit_occStandby,
     final VOccMin_flow=VOutMinOcc_flow,
     final VAreMin_flow=VOutMinAre_flow,
-    final AFlo=AFlo,
-    final desZonPop=nOcc_nominal,
-    final outAirRat_area=VOutPerAre_flow,
-    final outAirRat_occupant=VOutPerOcc_flow,
+    final VAreBreZon_flow=VOutAre_flow,
+    final VPopBreZon_flow=VOutOcc_flow,
     final have_preIndDam=have_preIndDam,
     final VMin_flow=VAirSet_flow_min,
     final VCooMax_flow=VAirCooSet_flow_max,
@@ -163,17 +147,15 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     annotation (Placement(transformation(extent={{0,-20},{20,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller ctlCoo(
-    final venSta=stdVen,
+    final venStd=stdVen,
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
     final permit_occStandby=permit_occStandby,
     final VOccMin_flow=VOutMinOcc_flow,
     final VAreMin_flow=VOutMinAre_flow,
-    final AFlo=AFlo,
-    final desZonPop=nOcc_nominal,
-    final outAirRat_area=VOutPerAre_flow,
-    final outAirRat_occupant=VOutPerOcc_flow,
+    final VAreBreZon_flow=VOutAre_flow,
+    final VPopBreZon_flow=VOutOcc_flow,
     final have_preIndDam=have_preIndDam,
     final VMin_flow=VAirSet_flow_min,
     final VCooMax_flow=VAirCooSet_flow_max,
@@ -200,12 +182,7 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_cooDowWarUpTim(k=1800)
     "FIXME #1913: Optimal start using global outdoor air temperature not associated with any AHU"
-    annotation (Placement(transformation(extent={{-240,-150},{-220,-130}})));
-  Modelica.Blocks.Routing.RealPassThrough FIXME_uVal_actual
-    if typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat and
-    coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
-    "FIXME #1913: Not an AI point. Anyway should be conditional, depending on have_hotWatCoi"
-    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
+    annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setAdj(k=0)
     "RFE: Set point adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
@@ -221,9 +198,6 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uHeaDemLimLev(k=0)
     "RFE: Set point adjustment by demand limit is not implemented in the template"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Modelica.Blocks.Routing.RealPassThrough FIXME_uDam_actual
-    "FIXME #1913: Not an AI point"
-    annotation (Placement(transformation(extent={{-238,-50},{-218,-30}})));
 
 equation
   /* Control point connection - start */
@@ -239,8 +213,6 @@ equation
   connect(bus.VAirDis_flow, ctlReh.VDis_flow);
   connect(bus.TAirSup, ctlReh.TSup);
   connect(bus.TAirSupSet, ctlReh.TSupSet);
-  connect(bus.damVAV.y_actual, FIXME_uDam_actual.u);
-  connect(bus.coiHea.y_actual, FIXME_uVal_actual.u);
   connect(bus.y1FanSup_actual, ctlReh.u1Fan);
   connect(bus.y1PlaHeaWat, ctlReh.u1HotPla);
   connect(bus.yOveFloSet, ctlReh.oveFloSet);
@@ -310,14 +282,10 @@ equation
 
   connect(zonSta.yCooTim, bus.yCooTim);
   connect(zonSta.yWarTim, bus.yWarTim);
-  connect(zonSta.THeaSetOn, bus.THeaSetOn);
   connect(zonSta.yOccHeaHig, bus.yOccHeaHig);
-  connect(zonSta.TCooSetOn, bus.TCooSetOn);
   connect(zonSta.yHigOccCoo, bus.yHigOccCoo);
-  connect(zonSta.THeaSetOff, bus.THeaSetOff);
   connect(zonSta.yUnoHeaHig, bus.yUnoHeaHig);
   connect(zonSta.yEndSetBac, bus.yEndSetBac);
-  connect(zonSta.TCooSetOff, bus.TCooSetOff);
   connect(zonSta.yHigUnoCoo, bus.yHigUnoCoo);
   connect(zonSta.yEndSetUp, bus.yEndSetUp);
 
@@ -331,8 +299,6 @@ equation
           8},{-22,17},{-2,17}}, color={0,0,127}));
   connect(TZonSet.THeaSet, ctlReh.THeaSet) annotation (Line(points={{-38,0},{-20,
           0},{-20,15},{-2,15}}, color={0,0,127}));
-  connect(FIXME_uVal_actual.y, ctlReh.uVal_actual) annotation (Line(points={{-219,
-          -80},{-12,-80},{-12,-14},{-2,-14}}, color={0,0,127}));
   connect(uCooDemLimLev.y, TZonSet.uCooDemLimLev) annotation (Line(points={{-98,
           180},{-70,180},{-70,-8},{-62,-8}}, color={255,127,0}));
   connect(uHeaDemLimLev.y, TZonSet.uHeaDemLimLev) annotation (Line(points={{-98,
@@ -343,10 +309,6 @@ equation
           100},{-136,-4},{-62,-4}}, color={0,0,127}));
   connect(setAdj.y, TZonSet.setAdj) annotation (Line(points={{-138,180},{-132,180},
           {-132,0},{-62,0}}, color={0,0,127}));
-  connect(FIXME_uDam_actual.y, ctlReh.uDam_actual) annotation (Line(points={{-217,
-          -40},{-14,-40},{-14,-12},{-2,-12}}, color={0,0,127}));
-  connect(FIXME_uDam_actual.y, ctlCoo.uDam_actual) annotation (Line(points={{-217,
-          -40},{-14,-40},{-14,46},{-2,46}}, color={0,0,127}));
   connect(TZonSet.TCooSet, ctlCoo.TCooSet) annotation (Line(points={{-38,8},{-22,
           8},{-22,76},{-2,76}}, color={0,0,127}));
   connect(TZonSet.THeaSet, ctlCoo.THeaSet) annotation (Line(points={{-38,0},{-20,

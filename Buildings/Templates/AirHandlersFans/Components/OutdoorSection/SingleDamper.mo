@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model SingleDamper "Single common OA damper with AFMS"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
+    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 

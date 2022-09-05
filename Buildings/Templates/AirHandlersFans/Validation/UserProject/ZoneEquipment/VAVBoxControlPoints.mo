@@ -32,7 +32,8 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
     "Discharge temperature"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 
-  Controls.OBC.CDL.Integers.Sources.Constant uOpeMod(k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
+  Controls.OBC.CDL.Integers.Sources.Constant uOpeMod(
+    k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Operating mode"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus sta
@@ -52,8 +53,8 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints setMinOA_62_1(
-    AFlo=10,
-    desZonPop=1,
+    VAreBreZon_flow=3e-3,
+    VPopBreZon_flow=2.5e-3,
     VMin_flow=5.5e-3)  if stdVen==
     Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Zone level calculation of the minimum outdoor airflow setpoint"
@@ -65,7 +66,7 @@ equation
   connect(yReqZonTemRes.y, bus.yReqZonTemRes);
   connect(yReqZonPreRes.y, bus.yReqZonPreRes);
 
-  connect(bus.y1Win, setMinOA_62_1.uWin);
+  connect(bus.y1Win, setMinOA_62_1.u1Win);
   connect(bus.TZon, setMinOA_62_1.TZon);
   connect(bus.TAirDis, setMinOA_62_1.TDis);
 
@@ -91,14 +92,10 @@ equation
 
   connect(sta.yCooTim, bus.yCooTim);
   connect(sta.yWarTim, bus.yWarTim);
-  connect(sta.THeaSetOn, bus.THeaSetOn);
   connect(sta.yOccHeaHig, bus.yOccHeaHig);
-  connect(sta.TCooSetOn, bus.TCooSetOn);
   connect(sta.yHigOccCoo, bus.yHigOccCoo);
-  connect(sta.THeaSetOff, bus.THeaSetOff);
   connect(sta.yUnoHeaHig, bus.yUnoHeaHig);
   connect(sta.yEndSetBac, bus.yEndSetBac);
-  connect(sta.TCooSetOff, bus.TCooSetOff);
   connect(sta.yHigUnoCoo, bus.yHigUnoCoo);
   connect(sta.yEndSetUp, bus.yEndSetUp);
 

@@ -6,7 +6,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
     "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
@@ -59,7 +59,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     annotation (Dialog(group="Airflow and pressure",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
         stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
-        and typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
+        and typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal(
     final min=5,
     displayUnit="Pa",
@@ -67,7 +67,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Differential pressure across the minimum outdoor air damper that provides the design minimum outdoor airflow"
     annotation (Dialog(group="Airflow and pressure",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-        typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure));
+        typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
 
   parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max(
     final min=0,
@@ -169,7 +169,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
 
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 multiple-zone VAV controllers within
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.Controls\">
 Buildings.Templates.AirHandlersFans.Components.Controls</a>.

@@ -33,7 +33,7 @@ record VAVMultiZone "Record for multiple-zone VAV"
   parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
     "Type of valve for heating coil in reheat position"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
     "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon

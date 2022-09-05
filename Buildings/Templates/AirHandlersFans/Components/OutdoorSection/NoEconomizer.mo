@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model NoEconomizer "No air economizer"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.NoEconomizer,
+    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.NoEconomizer,
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 

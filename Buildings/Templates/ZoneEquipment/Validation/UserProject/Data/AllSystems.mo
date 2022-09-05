@@ -17,9 +17,11 @@ record AllSystems "Top-level (whole building) record for testing purposes"
     ctl(
       VAirCooSet_flow_max=0.1,
       VAirHeaSet_flow_max=0.03,
-      VAirSet_flow_min=0.01,
-      AFlo=10,
-      nOcc_nominal=1))
+      VOutMinOcc_flow=2.5e-3,
+      VOutMinAre_flow=3e-3,
+      VOutOcc_flow=2.5e-3,
+      VOutAre_flow=3e-3,
+      VAirSet_flow_min=0.01))
     "Parameters for system VAVBox_1"
     annotation (
       Dialog(group="Zone equipment"),

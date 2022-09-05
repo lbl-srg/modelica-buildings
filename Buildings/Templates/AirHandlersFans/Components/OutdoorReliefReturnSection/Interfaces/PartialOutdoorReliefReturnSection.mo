@@ -10,7 +10,7 @@ partial model PartialOutdoorReliefReturnSection
   parameter Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection typ
     "Outdoor/relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
@@ -270,25 +270,25 @@ partial model PartialOutdoorReliefReturnSection
         visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None and
           typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
       Bitmap(
-        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
         extent={{-680,-142},{-600,-62}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
       Line(
-          visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
+          visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
           points={{-602,-100},{-560,-100},{-560,-340}},
           color={0,0,0},
           thickness=1),
       Line(
-          visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
+          visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
           points={{-680,-100},{-720,-100},{-720,-340}},
           color={0,0,0},
           thickness=1),
       Bitmap(
-        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
         extent={{-202,-240},{-100,-500}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
-        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
         extent={{-194,-240},{-106,-160}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
@@ -344,11 +344,11 @@ partial model PartialOutdoorReliefReturnSection
         extent={{-430,-760},{-410,-560}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
-        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
         extent={{-202,-760},{-100,-500}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
-        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
         extent={{-194,-840},{-106,-760}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(

@@ -3,7 +3,7 @@ model DedicatedDampersAirflow
   "Separate dedicated OA dampers with AFMS"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 

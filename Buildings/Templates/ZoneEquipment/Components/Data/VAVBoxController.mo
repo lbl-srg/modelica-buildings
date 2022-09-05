@@ -18,36 +18,18 @@ record VAVBoxController "Record for VAV terminal unit controller"
       (typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
       typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-
-  parameter Real VOutPerAre_flow(
-    final unit = "m3/(s.m2)",
-    final min=0)=3e-4
-    "Zone outdoor air flow rate per unit area"
-    annotation(Dialog(group="Ventilation",
-    enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
-    typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Real VOutPerOcc_flow(
+  parameter Real VOutAre_flow(
     final unit = "m3/s",
-    final min=0)=2.5e-3
-    "Zone outdoor air flow rate per occupant"
+    final min=0)
+    "Area component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Ventilation",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
     stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Modelica.Units.SI.Area AFlo(
-    final min=0,
-    start=10)
-    "Zone floor area"
-    annotation(Dialog(group="Ventilation",
-    enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
-    typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Real nOcc_nominal(
-    final unit="1",
-    final min=0,
-    start=0.05 * AFlo)
-    "Zone design population (without diversity)"
+  parameter Real VOutOcc_flow(
+    final unit = "m3/s",
+    final min=0)
+    "Population component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Ventilation",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and

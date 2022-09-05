@@ -6,7 +6,7 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
     "Air medium"
     annotation(__Linkage(enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typ
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Damper typDamOut

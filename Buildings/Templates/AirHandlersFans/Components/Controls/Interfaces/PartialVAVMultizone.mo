@@ -46,7 +46,7 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     "Type of freeze stat"
     annotation(Evaluate=true);
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection typSecOut=
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut=
     secOutRel.typSecOut
     "Type of outdoor air section"
     annotation (Dialog(group="Economizer"));
@@ -87,7 +87,7 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     annotation (Dialog(group="Configuration",
       enable=
       typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure and
+      typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure and
       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
 
 initial equation
