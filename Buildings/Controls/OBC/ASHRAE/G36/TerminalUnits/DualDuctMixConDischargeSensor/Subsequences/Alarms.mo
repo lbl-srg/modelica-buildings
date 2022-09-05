@@ -50,16 +50,16 @@ block Alarms
     "Heating air handler supply fan status"
     annotation (Placement(transformation(extent={{-280,-170},{-240,-130}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooDam(
     final min=0,
     final unit="1")
-    "Actual cold-duct air damper position"
+    "Cooling damper position setpoint"
     annotation (Placement(transformation(extent={{-280,-230},{-240,-190}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaDam(
     final min=0,
     final unit="1")
-    "Actual hot-duct air damper position"
+    "Heating damper position setpoint"
     annotation (Placement(transformation(extent={{-280,-270},{-240,-230}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
@@ -280,9 +280,9 @@ equation
     annotation (Line(points={{82,90},{98,90}},   color={255,0,255}));
   connect(proInt.y, yLowFloAla)
     annotation (Line(points={{222,150},{260,150}}, color={255,127,0}));
-  connect(uCooDam_actual, cloDam.u)
+  connect(uCooDam, cloDam.u)
     annotation (Line(points={{-260,-210},{-202,-210}}, color={0,0,127}));
-  connect(uHeaDam_actual, cloDam1.u)
+  connect(uHeaDam, cloDam1.u)
     annotation (Line(points={{-260,-250},{-202,-250}}, color={0,0,127}));
   connect(and7.y,not9. u) annotation (Line(points={{62,-10},{80,-10},{80,-40},{98,
           -40}}, color={255,0,255}));
@@ -357,7 +357,7 @@ annotation (defaultComponentName="ala",
           extent={{-98,-10},{-36,-30}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooDam_actual"),
+          textString="uCooDam"),
         Text(
           extent={{-98,18},{-58,4}},
           textColor={255,0,255},
@@ -382,7 +382,7 @@ annotation (defaultComponentName="ala",
           extent={{-98,-80},{-42,-96}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaDam_actual"),
+          textString="uHeaDam"),
         Text(
           extent={{-98,-52},{-58,-66}},
           textColor={255,0,255},
@@ -425,7 +425,7 @@ generate a Level 3 alarm.
 <h4>Leaking damper</h4>
 <ul>
 <li>
-If the cooling and heating damper position (<code>uCooDam_actual</code> and <code>uHeaDam_actual</code>)
+If the cooling and heating damper position (<code>uCooDam</code> and <code>uHeaDam</code>)
 are 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
 <code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the

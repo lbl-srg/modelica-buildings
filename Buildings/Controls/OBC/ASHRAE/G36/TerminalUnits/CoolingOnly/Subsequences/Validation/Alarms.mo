@@ -47,7 +47,7 @@ equation
           -54},{-2,-54}}, color={0,0,127}));
   connect(damPos.y, mul.u2) annotation (Line(points={{-58,-80},{-20,-80},{-20,-66},
           {-2,-66}}, color={0,0,127}));
-  connect(mul.y, ala.uDam_actual) annotation (Line(points={{22,-60},{40,-60},{
+  connect(mul.y, ala.uDam) annotation (Line(points={{22,-60},{40,-60},{
           40,-8},{58,-8}}, color={0,0,127}));
   connect(damSta.y, booToRea.u)
     annotation (Line(points={{-58,-50},{-42,-50}}, color={255,0,255}));

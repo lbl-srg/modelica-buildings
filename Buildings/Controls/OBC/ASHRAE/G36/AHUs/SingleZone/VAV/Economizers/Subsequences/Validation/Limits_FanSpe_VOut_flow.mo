@@ -4,25 +4,25 @@ model Limits_FanSpe_VOut_flow
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim(
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim1(
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
-  final parameter Real fanSpe_min=0.1 "Minimum supply fan operation speed";
-  final parameter Real fanSpe_max=0.9 "Maximum supply fan operation speed";
-  final parameter Real fanSpe = (fanSpe_max + fanSpe_min)/2 "Constant supply fan speed";
+  final parameter Real supFanSpe_min=0.1 "Minimum supply fan operation speed";
+  final parameter Real supFanSpe_max=0.9 "Maximum supply fan operation speed";
+  final parameter Real fanSpe = (supFanSpe_max + supFanSpe_min)/2 "Constant supply fan speed";
   final parameter Real VOutDes_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.0
@@ -53,8 +53,8 @@ protected
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=fanSpe_min,
-    final height=fanSpe_max - fanSpe_min) "Supply fan speed signal"
+    final offset=supFanSpe_min,
+    final height=supFanSpe_max - supFanSpe_min) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig1(
     final duration=1800,
@@ -81,10 +81,10 @@ equation
     annotation (Line(points={{-98,-90},{80,-90},{80,-14},{98,-14}}, color={255,127,0}));
   connect(VOutMinSetSig.y, damLim.VOutMinSet_flow)
     annotation (Line(points={{-98,70},{-60,70},{-60,-2},{-42,-2}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, damLim.uSupFanSpe_actual) annotation (Line(points={{-98,
+  connect(SupFanSpeSig.y, damLim.uSupFan_actual) annotation (Line(points={{-98,
           30},{-70,30},{-70,-6},{-42,-6}}, color={0,0,127}));
-  connect(SupFanSpeSig1.y, damLim1.uSupFanSpe_actual) annotation (Line(points={{
-          42,30},{70,30},{70,-6},{98,-6}}, color={0,0,127}));
+  connect(SupFanSpeSig1.y, damLim1.uSupFan_actual) annotation (Line(points={{42,
+          30},{70,30},{70,-6},{98,-6}}, color={0,0,127}));
   connect(VOutMinSetSig1.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{42,70},{80,70},{80,-2},{98,-2}}, color={0,0,127}));
 annotation (

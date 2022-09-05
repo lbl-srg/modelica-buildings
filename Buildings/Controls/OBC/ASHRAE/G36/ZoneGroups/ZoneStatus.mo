@@ -76,33 +76,14 @@ block ZoneStatus "Block that outputs zone temperature status"
     final quantity="Time") "Warm-up time"
     annotation (Placement(transformation(extent={{160,160},{200,200}}),
         iconTransformation(extent={{100,90},{140,130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSetOn(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Occupied heating setpoint"
-    annotation (Placement(transformation(extent={{160,110},{200,150}}),
-        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOccHeaHig
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{160,70},{200,110}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSetOn(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Occupied cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{160,30},{200,70}}),
-        iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHigOccCoo
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{160,-10},{200,30}}),
         iconTransformation(extent={{100,-10},{140,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSetOff(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Unoccupied heating setpoint"
-    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUnoHeaHig
     "True when the zone temperature is lower than the unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
@@ -111,12 +92,6 @@ block ZoneStatus "Block that outputs zone temperature status"
     "True when the zone could end setback mode"
     annotation (Placement(transformation(extent={{160,-140},{200,-100}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSetOff(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Unoccupied cooling setpoint"
-    annotation (Placement(transformation(extent={{160,-180},{200,-140}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHigUnoCoo
     "True when the zone temperature is higher than the unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{160,-220},{200,-180}}),
@@ -295,20 +270,12 @@ equation
           {-42,-236}}, color={0,0,127}));
   connect(TOccHeaSet, sub.u1) annotation (Line(points={{-180,70},{-120,70},{-120,
           96},{-42,96}}, color={0,0,127}));
-  connect(TOccHeaSet, THeaSetOn) annotation (Line(points={{-180,70},{-120,70},{-120,
-          130},{180,130}}, color={0,0,127}));
-  connect(TOccCooSet, TCooSetOn) annotation (Line(points={{-180,30},{-120,30},{-120,
-          50},{180,50}}, color={0,0,127}));
   connect(TOccCooSet, sub1.u2) annotation (Line(points={{-180,30},{-120,30},{-120,
           4},{-42,4}}, color={0,0,127}));
-  connect(TUnoHeaSet, THeaSetOff)
-    annotation (Line(points={{-180,-40},{180,-40}}, color={0,0,127}));
   connect(TUnoHeaSet, sub2.u1) annotation (Line(points={{-180,-40},{-120,-40},{-120,
           -64},{-42,-64}}, color={0,0,127}));
   connect(TUnoHeaSet, sub3.u2) annotation (Line(points={{-180,-40},{-120,-40},{-120,
           -116},{-42,-116}}, color={0,0,127}));
-  connect(TUnoCooSet, TCooSetOff)
-    annotation (Line(points={{-180,-160},{180,-160}}, color={0,0,127}));
   connect(TUnoCooSet, sub5.u2) annotation (Line(points={{-180,-160},{-120,-160},
           {-120,-196},{-42,-196}}, color={0,0,127}));
   connect(TUnoCooSet, sub4.u1) annotation (Line(points={{-180,-160},{-120,-160},
@@ -377,26 +344,6 @@ annotation (
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yHigUnoCoo"),
-        Text(
-          extent={{46,90},{96,74}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="THeaSetOn"),
-        Text(
-          extent={{46,40},{96,24}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="TCooSetOn"),
-        Text(
-          extent={{46,-10},{96,-26}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="THeaSetOff"),
-        Text(
-          extent={{46,-80},{96,-96}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="TCooSetOff"),
         Text(
           extent={{42,-50},{98,-66}},
           textColor={255,0,255},

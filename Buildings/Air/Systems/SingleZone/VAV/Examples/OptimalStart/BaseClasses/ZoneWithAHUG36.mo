@@ -46,15 +46,14 @@ block ZoneWithAHUG36
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller con(
-    eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-    venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    VAreBreZon_flow=0.4989,
+    VPopBreZon_flow=0.2075,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6B,
     freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     have_winSen=false,
     have_CO2Sen=false,
     buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
-    desZonPop=83,
     have_locAdj=false,
     TSupDew_max=297.15,
     maxHeaSpe=0.2,
@@ -62,7 +61,6 @@ block ZoneWithAHUG36
     minSpe=0.1,
     kCoo=4,
     kCooCoi=1,
-    AFlo=1663,
     VOutMin_flow=0.5,
     VOutDes_flow=0.71,
     kHea=4,
@@ -204,8 +202,8 @@ equation
           -61},{0,-98},{-88,-98},{-88,-87},{-82,-87}}, color={0,0,127}));
   connect(con.yHeaCoi, con.uHeaCoi_actual) annotation (Line(points={{-38,-64},{-4,
           -64},{-4,-96},{-84,-96},{-84,-89},{-82,-89}}, color={0,0,127}));
-  connect(con.ySupFan, con.uSupFanSpe_actual) annotation (Line(points={{-38,-46},
-          {-8,-46},{-8,-106},{-90,-106},{-90,-84},{-82,-84}}, color={0,0,127}));
+  connect(con.ySupFan, con.uSupFan_actual) annotation (Line(points={{-38,-46},{
+          -8,-46},{-8,-106},{-90,-106},{-90,-84},{-82,-84}}, color={0,0,127}));
   connect(freRes.y, con.u1SofSwiRes) annotation (Line(points={{-119,-144},{-106,
           -144},{-106,-69},{-82,-69}}, color={255,0,255}));
   annotation (defaultComponentName="zonAHUG36",

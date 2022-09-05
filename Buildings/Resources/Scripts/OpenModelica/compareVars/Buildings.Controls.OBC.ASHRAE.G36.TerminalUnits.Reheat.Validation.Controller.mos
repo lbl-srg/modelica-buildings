@@ -14,8 +14,6 @@ compareVars :=
     "rehBoxCon.oveFloSet",
     "rehBoxCon.oveDamPos",
     "rehBoxCon.uHeaOff",
-    "rehBoxCon.uDam_actual",
-    "rehBoxCon.uVal_actual",
     "rehBoxCon.u1Fan",
     "rehBoxCon.u1HotPla",
     "rehBoxCon.VSet_flow",

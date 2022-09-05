@@ -3,7 +3,7 @@ BuildingPressureControlTypes
 ControlEconomizer
 EnergyStandard
 FreezeStat
-OutdoorSection
+OutdoorAirSection
 Title24ClimateZone
 VentilationStandard
 DemandLimitLevels

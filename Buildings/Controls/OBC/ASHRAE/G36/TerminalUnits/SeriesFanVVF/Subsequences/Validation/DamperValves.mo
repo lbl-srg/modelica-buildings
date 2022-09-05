@@ -154,9 +154,9 @@ equation
           {16,-17},{78,-17}}, color={255,0,255}));
   connect(terFan.y, damValFan1.u1Fan) annotation (Line(points={{-78,-140},{16,-140},
           {16,-117},{78,-117}}, color={255,0,255}));
-  connect(damPos.y, damValFan.uDam_actual) annotation (Line(points={{-38,-160},{
+  connect(damPos.y, damValFan.uDam) annotation (Line(points={{-38,-160},{
           12,-160},{12,-19},{78,-19}}, color={0,0,127}));
-  connect(damPos.y, damValFan1.uDam_actual) annotation (Line(points={{-38,-160},
+  connect(damPos.y, damValFan1.uDam) annotation (Line(points={{-38,-160},
           {12,-160},{12,-119},{78,-119}}, color={0,0,127}));
   connect(VMinOut_flow.y, damValFan.VOAMin_flow) annotation (Line(points={{-38,-80},
           {24,-80},{24,-11},{78,-11}}, color={0,0,127}));

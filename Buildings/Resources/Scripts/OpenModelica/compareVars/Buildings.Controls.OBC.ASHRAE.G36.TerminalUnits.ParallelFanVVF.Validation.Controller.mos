@@ -16,8 +16,6 @@ compareVars :=
     "parFanCon.oveDamPos",
     "parFanCon.oveFan",
     "parFanCon.uHeaOff",
-    "parFanCon.uDam_actual",
-    "parFanCon.uVal_actual",
     "parFanCon.u1Fan",
     "parFanCon.u1TerFan",
     "parFanCon.u1HotPla",

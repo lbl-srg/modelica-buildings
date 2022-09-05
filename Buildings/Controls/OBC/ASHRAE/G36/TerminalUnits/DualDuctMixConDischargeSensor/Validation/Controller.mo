@@ -3,9 +3,9 @@ model Controller
   "Validation of model that controls dual-duct unit using mixing control with discharge flow sensor"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Controller duaDucCon(
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final AFlo=20,
-    final desZonPop=2,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final VAreBreZon_flow=0.006,
+    final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final VHeaMax_flow=1.2,
@@ -13,7 +13,10 @@ model Controller
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01) "Dual duct unit controller"
+    final damPosHys=0.01,
+    final VOccMin_flow=0,
+    final VAreMin_flow=0)
+    "Dual duct unit controller"
     annotation (Placement(transformation(extent={{100,40},{120,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
@@ -28,12 +31,6 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp colDamPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Cold-duct damper position"
-    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
@@ -126,12 +123,6 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp hotDamPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Hot-duct damper position"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse heaSupFanSta(
     final width=0.9,
     final period=73200,
@@ -154,18 +145,20 @@ equation
   connect(heaSet.y, duaDucCon.THeaSet) annotation (Line(points={{-98,180},{52,
           180},{52,75},{98,75}}, color={0,0,127}));
   connect(winSta.y, duaDucCon.u1Win) annotation (Line(points={{-58,160},{48,160},
-          {48,72},{98,72}}, color={255,0,255}));
+          {48,70},{98,70}}, color={255,0,255}));
   connect(occ.y, duaDucCon.u1Occ) annotation (Line(points={{-98,140},{44,140},{
-          44,70},{98,70}}, color={255,0,255}));
+          44,68},{98,68}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-98,110},{-82,110}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
     annotation (Line(points={{-58,110},{-42,110}},
       color={0,0,127}));
-  connect(reaToInt2.y,duaDucCon. uOpeMod) annotation (Line(points={{-18,110},{40,
-          110},{40,68},{98,68}},color={255,127,0}));
-  connect(CO2.y,duaDucCon. ppmCO2) annotation (Line(points={{-58,60},{32,60},{32,
-          64},{98,64}}, color={0,0,127}));
+  connect(reaToInt2.y,duaDucCon. uOpeMod) annotation (Line(points={{-18,110},{
+          40,110},{40,66},{98,66}},
+                                color={255,127,0}));
+  connect(CO2.y,duaDucCon. ppmCO2) annotation (Line(points={{-58,60},{32,60},{
+          32,62},{98,62}},
+                        color={0,0,127}));
   connect(oveFlo.y,round1. u)
     annotation (Line(points={{-98,-110},{-82,-110}}, color={0,0,127}));
   connect(round1.y,reaToInt1. u)
@@ -175,33 +168,32 @@ equation
   connect(round3.y,reaToInt3. u)
     annotation (Line(points={{-58,-140},{-42,-140}}, color={0,0,127}));
   connect(reaToInt1.y,duaDucCon. oveFloSet) annotation (Line(points={{-18,-110},
-          {64,-110},{64,49},{98,49}}, color={255,127,0}));
-  connect(reaToInt3.y, duaDucCon.oveCooDamPos) annotation (Line(points={{-18,-140},
-          {68,-140},{68,47},{98,47}}, color={255,127,0}));
+          {64,-110},{64,45},{98,45}}, color={255,127,0}));
+  connect(reaToInt3.y, duaDucCon.oveCooDamPos) annotation (Line(points={{-18,
+          -140},{68,-140},{68,43},{98,43}},
+                                      color={255,127,0}));
   connect(oveHotDam.y, round4.u)
     annotation (Line(points={{-98,-170},{-82,-170}}, color={0,0,127}));
   connect(round4.y,reaToInt4. u)
     annotation (Line(points={{-58,-170},{-42,-170}}, color={0,0,127}));
-  connect(reaToInt4.y, duaDucCon.oveHeaDamPos) annotation (Line(points={{-18,-170},
-          {72,-170},{72,45},{98,45}}, color={255,127,0}));
-  connect(colDamPos.y, duaDucCon.uCooDam_actual) annotation (Line(points={{-58,
-          -200},{76,-200},{76,43},{98,43}}, color={0,0,127}));
-  connect(hotDamPos.y, duaDucCon.uHeaDam_actual) annotation (Line(points={{-98,
-          -220},{80,-220},{80,41},{98,41}}, color={0,0,127}));
+  connect(reaToInt4.y, duaDucCon.oveHeaDamPos) annotation (Line(points={{-18,
+          -170},{72,-170},{72,41},{98,41}},
+                                      color={255,127,0}));
   connect(disAirTem.y, duaDucCon.TDis) annotation (Line(points={{-98,40},{36,40},
-          {36,62},{98,62}}, color={0,0,127}));
-  connect(colSupAirTem.y, duaDucCon.TColSup) annotation (Line(points={{-58,20},{
-          40,20},{40,60},{98,60}}, color={0,0,127}));
+          {36,60},{98,60}}, color={0,0,127}));
+  connect(colSupAirTem.y, duaDucCon.TColSup) annotation (Line(points={{-58,20},
+          {40,20},{40,58},{98,58}},color={0,0,127}));
   connect(cooSupFanSta.y, duaDucCon.u1CooAHU) annotation (Line(points={{-58,-20},
-          {48,-20},{48,56},{98,56}}, color={255,0,255}));
+          {48,-20},{48,54},{98,54}}, color={255,0,255}));
   connect(hotSupAirTem.y, duaDucCon.THotSup) annotation (Line(points={{-98,-40},
-          {52,-40},{52,54},{98,54}}, color={0,0,127}));
+          {52,-40},{52,52},{98,52}}, color={0,0,127}));
   connect(heaSupFanSta.y, duaDucCon.u1HeaAHU) annotation (Line(points={{-98,-80},
-          {60,-80},{60,52},{98,52}}, color={255,0,255}));
-  connect(VDis_flow.y, duaDucCon.VDis_flow) annotation (Line(points={{-98,0},{44,
-          0},{44,58},{98,58}},    color={0,0,127}));
-  connect(CO2Set.y, duaDucCon.ppmCO2Set) annotation (Line(points={{-98,80},{36,80},
-          {36,66},{98,66}}, color={0,0,127}));
+          {60,-80},{60,50},{98,50}}, color={255,0,255}));
+  connect(VDis_flow.y, duaDucCon.VDis_flow) annotation (Line(points={{-98,0},{
+          44,0},{44,56},{98,56}}, color={0,0,127}));
+  connect(CO2Set.y, duaDucCon.ppmCO2Set) annotation (Line(points={{-98,80},{36,
+          80},{36,64},{98,64}},
+                            color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctMixConDischargeSensor/Validation/Controller.mos"

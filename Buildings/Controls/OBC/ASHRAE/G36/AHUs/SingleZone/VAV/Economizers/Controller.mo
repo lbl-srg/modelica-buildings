@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers;
 block Controller "Single zone VAV AHU economizer control sequence"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneSta
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneSta==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
   parameter Boolean have_heaCoi=true
     "True if the air handling unit has heating coil";
   parameter Real uMin(
@@ -62,12 +62,12 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
 
-  parameter Real fanSpe_min(
+  parameter Real supFanSpe_min(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
     annotation(Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real fanSpe_max(
+  parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed"
@@ -157,7 +157,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
     final unit="J/kg",
     final quantity="SpecificEnergy")
-    if (eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Return air enthalpy"
     annotation (Placement(transformation(extent={{-180,90},{-140,130}}),
@@ -184,9 +184,9 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
-    final min=fanSpe_min,
-    final max=fanSpe_max,
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
+    final min=supFanSpe_min,
+    final max=supFanSpe_max,
     final unit="1")
     "Actual supply fan speed"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
@@ -246,8 +246,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
     damLim(
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final outDamPhy_max=outDamPhy_max,
     final outDamPhy_min=outDamPhy_min,
     final VOutMin_flow=VOutMin_flow,
@@ -271,13 +271,13 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim(
-    final eneSta=eneSta,
+    final eneStd=eneStd,
     final ecoHigLimCon=ecoHigLimCon,
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon) "High limits"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=-1)
-   if eneSta == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
+   if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
     "Dummy block"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 equation
@@ -309,8 +309,8 @@ equation
           {60,-76},{60,0},{78,0}}, color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta)
     annotation (Line(points={{-160,-150},{-100,-150},{-100,-75},{18,-75}}, color={255,127,0}));
-  connect(uSupFanSpe_actual, damLim.uSupFanSpe_actual) annotation (Line(points={
-          {-160,-20},{-126,-20},{-126,14},{-102,14}}, color={0,0,127}));
+  connect(uSupFan_actual, damLim.uSupFan_actual) annotation (Line(points={{-160,
+          -20},{-126,-20},{-126,14},{-102,14}}, color={0,0,127}));
   connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
     annotation (Line(points={{-160,10},{-130,10},{-130,18},{-102,18}},color={0,0,127}));
   connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{102,6},{110,6},{110,120},

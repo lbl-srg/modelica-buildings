@@ -75,11 +75,11 @@ equation
     annotation (Line(points={{-58,-70},{-42,-70}}, color={255,0,255}));
   connect(supCooFan.y, ala.u1CooFan) annotation (Line(points={{-58,60},{36,60},
           {36,41},{58,41}}, color={255,0,255}));
-  connect(mul.y, ala.uCooDam_actual) annotation (Line(points={{22,20},{36,20},{
+  connect(mul.y, ala.uCooDam) annotation (Line(points={{22,20},{36,20},{
           36,38},{58,38}}, color={0,0,127}));
   connect(supHeaFan.y, ala.u1HeaFan) annotation (Line(points={{-58,-40},{40,-40},
           {40,34},{58,34}}, color={255,0,255}));
-  connect(mul1.y, ala.uHeaDam_actual) annotation (Line(points={{22,-80},{44,-80},
+  connect(mul1.y, ala.uHeaDam) annotation (Line(points={{22,-80},{44,-80},
           {44,31},{58,31}}, color={0,0,127}));
   connect(disAir.y, ala.VDis_flow) annotation (Line(points={{-58,100},{44,100},{
           44,49},{58,49}}, color={0,0,127}));

@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block ReliefDamper
   "Relief damper control for AHUs using actuated dampers without fan"
-  parameter Real dpBuiSet(
+  parameter Real p_rel_set(
     final unit="Pa",
     final quantity="PressureDifference",
     max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(min=0, unit="1") = 0.5
-    "Gain, applied to building pressure control error normalized with dpBuiSet";
+    "Gain, applied to building pressure control error normalized with p_rel_set";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
@@ -16,9 +16,9 @@ block ReliefDamper
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
-    "Supply fan proven on status" annotation (Placement(transformation(extent={{
-            -140,-50},{-100,-10}}), iconTransformation(extent={{-140,-80},{-100,
-            -40}})));
+    "Supply fan status"
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final unit="1",
     final min=0,
@@ -47,7 +47,7 @@ protected
     "Close damper when disabled"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
-    final k=dpBuiSet) "Building pressure setpoint"
+    final k=p_rel_set) "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0)

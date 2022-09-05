@@ -40,7 +40,7 @@ block Enable
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
+    "OA temperature high limit cutoff. For differential dry bulb temperature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(

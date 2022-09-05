@@ -29,7 +29,7 @@ equation
           18,4}}, color={0,0,127}));
   connect(supFanSpe.y, mul.u1) annotation (Line(points={{-58,30},{0,30},{0,16},{
           18,16}}, color={0,0,127}));
-  connect(mul.y, retFan.uSupFanSpe_actual)
+  connect(mul.y, retFan.uSupFan_actual)
     annotation (Line(points={{42,10},{50,10},{50,6},{58,6}}, color={0,0,127}));
 
 annotation (

@@ -3,9 +3,9 @@ model Controller
   "Validation of model that controls terminal unit with reheat"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller rehBoxCon(
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final AFlo=20,
-    final desZonPop=2,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final VAreBreZon_flow=0.006,
+    final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final VHeaMin_flow=0.5,
@@ -17,7 +17,10 @@ model Controller
     final floHys=0.01,
     final looHys=0.01,
     final damPosHys=0.01,
-    final valPosHys=0.01) "Reheat unit controller"
+    final valPosHys=0.01,
+    final VOccMin_flow=0,
+    final VAreMin_flow=0)
+    "Reheat unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
@@ -32,12 +35,6 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Damper position"
-    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
@@ -106,12 +103,6 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp valPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Valve position"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
     final offset=273.15 + 13,
     final amplitude=1,
@@ -182,18 +173,15 @@ equation
           {40,92},{98,92}}, color={0,0,127}));
   connect(reaToInt3.y,rehBoxCon. oveDamPos) annotation (Line(points={{-18,-100},
           {60,-100},{60,82},{98,82}}, color={255,127,0}));
-  connect(damPos.y, rehBoxCon.uDam_actual) annotation (Line(points={{-58,-160},
-          {68,-160},{68,78},{98,78}}, color={0,0,127}));
-  connect(valPos.y, rehBoxCon.uVal_actual) annotation (Line(points={{-98,-180},
-          {72,-180},{72,76},{98,76}}, color={0,0,127}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-98,-140},{-42,-140}}, color={255,0,255}));
   connect(not1.y,rehBoxCon. uHeaOff) annotation (Line(points={{-18,-140},{64,-140},
           {64,80},{98,80}}, color={255,0,255}));
-  connect(supFan.y, rehBoxCon.u1Fan) annotation (Line(points={{-58,-200},{76,-200},
-          {76,73.2},{98,73.2}}, color={255,0,255}));
-  connect(hotPla.y, rehBoxCon.u1HotPla) annotation (Line(points={{-58,-240},{80,
-          -240},{80,71.2},{98,71.2}}, color={255,0,255}));
+  connect(supFan.y, rehBoxCon.u1Fan) annotation (Line(points={{-58,-200},{68,
+          -200},{68,73.2},{98,73.2}},
+                                color={255,0,255}));
+  connect(hotPla.y, rehBoxCon.u1HotPla) annotation (Line(points={{-58,-240},{72,
+          -240},{72,71.2},{98,71.2}}, color={255,0,255}));
   connect(TSupSet.y,rehBoxCon. TSupSet) annotation (Line(points={{-98,-30},{52,-30},
           {52,86},{98,86}}, color={0,0,127}));
   connect(TSup.y,rehBoxCon. TSup) annotation (Line(points={{-58,-10},{48,-10},{48,

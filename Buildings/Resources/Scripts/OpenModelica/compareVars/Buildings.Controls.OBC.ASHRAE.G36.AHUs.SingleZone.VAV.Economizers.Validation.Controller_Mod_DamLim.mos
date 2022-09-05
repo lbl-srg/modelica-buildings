@@ -1,7 +1,7 @@
 compareVars :=
   {
     "economizer.enaDis.andEnaDis.y",
-    "economizer.uSupFanSpe_actual",
+    "economizer.uSupFan_actual",
     "economizer.VOutMinSet_flow",
     "economizer.yOutDam",
     "economizer.damLim.yOutDam_min",
@@ -10,7 +10,7 @@ compareVars :=
     "economizer.enaDis.yRetDam_min",
     "economizer.enaDis.yRetDam_max",
     "economizer1.enaDis.andEnaDis.y",
-    "economizer1.uSupFanSpe_actual",
+    "economizer1.uSupFan_actual",
     "economizer1.VOutMinSet_flow",
     "economizer1.TAirSup",
     "economizer1.TSupHeaEcoSet",

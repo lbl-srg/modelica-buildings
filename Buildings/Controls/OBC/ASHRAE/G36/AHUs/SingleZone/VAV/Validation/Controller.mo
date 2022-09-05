@@ -1,17 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Validation;
 model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller conVAV(
-    final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     final have_winSen=true,
     final have_CO2Sen=false,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-    final desZonPop=3,
+    final VAreBreZon_flow=0.015,
+    final VPopBreZon_flow=0.0075,
     final kHea=1,
-    final AFlo=50,
     final have_occSen=true,
     final TSup_max=297.15,
     final TSup_min=285.15,
@@ -195,8 +195,8 @@ equation
           -50,60},{-50,60},{18,60}}, color={0,0,127}));
   connect(TCooSetUno.y,conVAV.TUnoCooSet)  annotation (Line(points={{-158,40},{
           -44,40},{-44,58},{18,58}}, color={0,0,127}));
-  connect(conVAV.ySupFan, conVAV.uSupFanSpe_actual) annotation (Line(points={{62,44},
-          {70,44},{70,-20},{0,-20},{0,6},{18,6}},        color={0,0,127}));
+  connect(conVAV.ySupFan, conVAV.uSupFan_actual) annotation (Line(points={{62,
+          44},{70,44},{70,-20},{0,-20},{0,6},{18,6}}, color={0,0,127}));
 
 annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Validation/Controller.mos"

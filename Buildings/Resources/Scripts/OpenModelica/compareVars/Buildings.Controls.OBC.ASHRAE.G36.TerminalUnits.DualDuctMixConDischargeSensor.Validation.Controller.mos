@@ -14,8 +14,6 @@ compareVars :=
     "duaDucCon.oveFloSet",
     "duaDucCon.oveCooDamPos",
     "duaDucCon.oveHeaDamPos",
-    "duaDucCon.uCooDam_actual",
-    "duaDucCon.uHeaDam_actual",
     "duaDucCon.u1CooAHU",
     "duaDucCon.u1HeaAHU",
     "duaDucCon.VSet_flow",

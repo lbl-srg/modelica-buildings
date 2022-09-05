@@ -159,10 +159,10 @@ block DamperValves
     "Terminal fan status"
     annotation (Placement(transformation(extent={{-360,-310},{-320,-270}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final unit="1")
-    "Actual damper position"
+    "Damper position setpoint"
     annotation (Placement(transformation(extent={{-360,-360},{-320,-320}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VPri_flow_Set(
@@ -484,7 +484,7 @@ equation
           {178,60}},  color={255,0,255}));
   connect(not1.y, conDam.trigger) annotation (Line(points={{202,60},{264,60},{264,
           158}},     color={255,0,255}));
-  connect(uDam_actual, cloDam.u)
+  connect(uDam, cloDam.u)
     annotation (Line(points={{-340,-340},{-262,-340}}, color={0,0,127}));
   connect(uOpeMod, isOcc.u1) annotation (Line(points={{-340,-200},{-220,-200},{-220,
           -230},{-202,-230}}, color={255,127,0}));
@@ -630,7 +630,7 @@ annotation (
           extent={{-96,-182},{-46,-198}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam_actual"),
+          textString="uDam"),
         Text(
           extent={{-98,14},{-54,4}},
           textColor={0,0,127},

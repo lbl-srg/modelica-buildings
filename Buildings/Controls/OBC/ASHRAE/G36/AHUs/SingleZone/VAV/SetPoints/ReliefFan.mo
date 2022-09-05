@@ -5,22 +5,22 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Total number of AHU supply fans that are serving the same common space";
   parameter Integer nRelFan = 4
     "Total number of relief fans that are serving the same common space";
-  parameter Real minSpe(
+  parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed";
   parameter Integer staVec[nRelFan] = {2,3,1,4}
     "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up";
-  parameter Integer RelFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
-    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It falgs which relief fan is associated with which supply fan";
-  parameter Real dpBuiSet(
+  parameter Integer relFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
+    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It flags which relief fan is associated with which supply fan";
+  parameter Real p_rel_set(
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(
     final unit="1") = 1
-    "Gain, normalized using dpBuiSet"
+    "Gain, normalized using p_rel_set"
     annotation (Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
@@ -64,7 +64,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain enaRel(
-    final K=RelFanMat)
+    final K=relFanMat)
     "Vector of relief fans with the enabled one denoted by 1"
     annotation (Placement(transformation(extent={{-460,340},{-440,360}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSupFan]
@@ -128,7 +128,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Enable damper"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
-    final t=minSpe + 0.15,
+    final t=relFanSpe_min + 0.15,
     final h=hys)
     "Check if the controller output is greater than minimum speed plus threshold"
     annotation (Placement(transformation(extent={{-320,-110},{-300,-90}})));
@@ -184,7 +184,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Stage up next relief fan"
     annotation (Placement(transformation(extent={{240,-80},{260,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
-    final t=minSpe,
+    final t=relFanSpe_min,
     final h=hys)
     "Check if the controller output is less than minimum speed"
     annotation (Placement(transformation(extent={{-320,-330},{-300,-310}})));
@@ -275,7 +275,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=1,
-    final uMin=minSpe)
+    final uMin=relFanSpe_min)
     "Limit the controller output"
     annotation (Placement(transformation(extent={{80,270},{100,290}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
@@ -289,7 +289,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Vector of relief fan status after staging up"
     annotation (Placement(transformation(extent={{400,130},{420,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
-    final k=dpBuiSet)
+    final k=p_rel_set)
     "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-460,170},{-440,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
@@ -738,7 +738,7 @@ Building static pressure (<code>dpBui</code>) shall be time averaged with a slid
 value shall be that displayed and used for control.
 </li>
 <li>
-A P-only control loop maintains the building pressure at a set point (<code>dpBuiSet</code>)
+A P-only control loop maintains the building pressure at a set point (<code>p_rel_set</code>)
 of 12 Pa (0.05 in. of water) with an output ranging from 0% to 100%. The loop is disabled
 and output set to zero when all fans in the relief system group are disabled.
 </li>
@@ -755,7 +755,7 @@ system group that are enabled; close the dampers when the loop output drops to 0
 5 minutes.
 </li>
 <li>
-Stage Up. When control loop is above minimum speed (<code>minSpe</code>) plus 15%, start
+Stage Up. When control loop is above minimum speed (<code>relFanSpe_min</code>) plus 15%, start
 stage-up timer. Each time the timer reaches 7 minutes, start the next relief fan (and
 open the associated damper) in the relief system group, per staging order, and reset
 the timer to 0. The timer is reset to 0 and frozen if control loop is below minimum
@@ -763,7 +763,7 @@ speed plus 15%. Note, when staging from Stage 0 (no relief fans) to Stage 1 (one
 fan), the discharge dampers of all nonoperating relief fans must be closed.
 </li>
 <li>
-Stage Down. When PID loop is below minimum speed (<code>minSpe</code>), start stage-down
+Stage Down. When PID loop is below minimum speed (<code>relFanSpe_min</code>), start stage-down
 timer. Each time the timer reaches 5 minutes, shut off lag fan per staging order and
 reset the timer to 0. The timer is reset to 0 and frozen if PID loop rises above minimum
 speed or all fans are OFF. If all fans are OFF, go to Stage 0 (all dampers open and all

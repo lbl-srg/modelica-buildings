@@ -97,8 +97,6 @@ equation
     annotation (Line(points={{22,-30},{38,-30}},   color={255,0,255}));
   connect(booToInt.y, opeModSel.totColZon) annotation (Line(points={{62,-30},{
           76,-30},{76,102},{118,102}}, color={255,127,0}));
-  connect(zonTem.y, opeModSel.TZonMax) annotation (Line(points={{-26,50},{58,50},
-          {58,94},{118,94}}, color={0,0,127}));
   connect(zonTem.y, opeModSel.TZonMin) annotation (Line(points={{-26,50},{64,50},
           {64,92},{118,92}}, color={0,0,127}));
   connect(zonTem.y, greEqu3.u1) annotation (Line(points={{-26,50},{-20,50},{-20,
@@ -109,19 +107,19 @@ equation
     annotation (Line(points={{22,-100},{38,-100}}, color={255,0,255}));
   connect(booToInt1.y, opeModSel.totHotZon) annotation (Line(points={{62,-100},
           {88,-100},{88,88},{118,88}}, color={255,127,0}));
-  connect(occSch.occupied, opeModSel.uOcc) annotation (Line(points={{-99,144},{80,
-          144},{80,118},{118,118}},  color={255,0,255}));
+  connect(occSch.occupied, opeModSel.u1Occ) annotation (Line(points={{-99,144},
+          {80,144},{80,118},{118,118}}, color={255,0,255}));
   connect(occSch.tNexOcc, opeModSel.tNexOcc) annotation (Line(points={{-99,156},
           {76,156},{76,116},{118,116}}, color={0,0,127}));
-  connect(higThaCooSet.y, opeModSel.uHigOccCoo) annotation (Line(points={{22,30},
-          {50,30},{50,112},{118,112}}, color={255,0,255}));
-  connect(lowThaHeaSet.y, opeModSel.uOccHeaHig) annotation (Line(points={{22,80},
-          {46,80},{46,108},{118,108}}, color={255,0,255}));
+  connect(higThaCooSet.y, opeModSel.u1HigOccCoo) annotation (Line(points={{22,
+          30},{50,30},{50,112},{118,112}}, color={255,0,255}));
+  connect(lowThaHeaSet.y, opeModSel.u1OccHeaHig) annotation (Line(points={{22,
+          80},{46,80},{46,108},{118,108}}, color={255,0,255}));
   connect(cloWin.y, opeModSel.uOpeWin) annotation (Line(points={{-138,0},{34,0},
           {34,104},{118,104}}, color={255,127,0}));
-  connect(greEqu2.y, opeModSel.uSetBac) annotation (Line(points={{22,-30},{30,
+  connect(greEqu2.y, opeModSel.u1SetBac) annotation (Line(points={{22,-30},{30,
           -30},{30,-10},{70,-10},{70,98},{118,98}}, color={255,0,255}));
-  connect(greEqu3.y, opeModSel.uSetUp) annotation (Line(points={{22,-100},{30,
+  connect(greEqu3.y, opeModSel.u1SetUp) annotation (Line(points={{22,-100},{30,
           -100},{30,-80},{94,-80},{94,84},{118,84}}, color={255,0,255}));
   connect(zonTem.y,dif2. u1) annotation (Line(points={{-26,50},{-20,50},{-20,-54},
           {-2,-54}}, color={0,0,127}));
@@ -129,11 +127,11 @@ equation
           {-60,-66},{-2,-66}}, color={0,0,127}));
   connect(dif2.y, hys3.u)
     annotation (Line(points={{22,-60},{38,-60}}, color={0,0,127}));
-  connect(hys3.y, opeModSel.uEndSetBac) annotation (Line(points={{62,-60},{82,
+  connect(hys3.y, opeModSel.u1EndSetBac) annotation (Line(points={{62,-60},{82,
           -60},{82,96},{118,96}}, color={255,0,255}));
   connect(dif1.y, hys1.u)
     annotation (Line(points={{22,-140},{38,-140}}, color={0,0,127}));
-  connect(hys1.y, opeModSel.uEndSetUp) annotation (Line(points={{62,-140},{100,
+  connect(hys1.y, opeModSel.u1EndSetUp) annotation (Line(points={{62,-140},{100,
           -140},{100,82},{118,82}}, color={255,0,255}));
   connect(sin1.y, gai.u)
     annotation (Line(points={{-98,50},{-82,50}}, color={0,0,127}));

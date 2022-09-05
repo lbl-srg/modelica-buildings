@@ -44,7 +44,7 @@ block Enable "Multi zone VAV AHU economizer enable/disable switch"
     final unit="K",
     final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
-    "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
+    "OA temperature high limit cutoff. For differential dry bulb temperature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-300,192},{-260,232}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(

@@ -30,12 +30,12 @@ block Setpoints
     "Design zone cooling maximum airflow rate"
     annotation(Dialog(enable=have_CO2Sen and (have_parFanPowUni or have_typTerUni), group="Design conditions"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-340,230},{-300,270}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
-    "Occupancy status, true if it is occupied, false if it is not occupied"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
+    "True: the zone is populated"
     annotation (Placement(transformation(extent={{-340,190},{-300,230}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod if have_CO2Sen
@@ -227,11 +227,11 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{200,-90},{220,-70}})));
 equation
-  connect(uWin, zonAbsMin.u2)
+  connect(u1Win, zonAbsMin.u2)
     annotation (Line(points={{-320,250},{38,250}}, color={255,0,255}));
   connect(zer1.y, zonAbsMin.u1) annotation (Line(points={{-78,280},{20,280},{20,
           258},{38,258}}, color={0,0,127}));
-  connect(uOcc, notOcc.u)
+  connect(u1Occ, notOcc.u)
     annotation (Line(points={{-320,210},{-182,210}}, color={255,0,255}));
   connect(notOcc.y, zonAbsMin1.u2)
     annotation (Line(points={{-158,210},{-22,210}}, color={255,0,255}));
@@ -245,7 +245,7 @@ equation
     annotation (Line(points={{-238,170},{-82,170}}, color={255,0,255}));
   connect(zonAbsMin2.y, zonAbsMin1.u3) annotation (Line(points={{-58,170},{-30,170},
           {-30,202},{-22,202}}, color={0,0,127}));
-  connect(uWin, zonDesMin.u2) annotation (Line(points={{-320,250},{-140,250},{-140,
+  connect(u1Win, zonDesMin.u2) annotation (Line(points={{-320,250},{-140,250},{-140,
           130},{38,130}}, color={255,0,255}));
   connect(zer1.y, zonDesMin.u1) annotation (Line(points={{-78,280},{20,280},{20,
           138},{38,138}}, color={0,0,127}));
@@ -271,8 +271,8 @@ equation
           {-120,60},{238,60}}, color={255,0,255}));
   connect(gai.y, zonOccMin.u1) annotation (Line(points={{-78,230},{-40,230},{-40,
           68},{238,68}}, color={0,0,127}));
-  connect(uWin, zonOccMin1.u2) annotation (Line(points={{-320,250},{-140,250},{-140,
-          40},{178,40}}, color={255,0,255}));
+  connect(u1Win, zonOccMin1.u2) annotation (Line(points={{-320,250},{-140,250},{
+          -140,40},{178,40}}, color={255,0,255}));
   connect(zer1.y, zonOccMin1.u1) annotation (Line(points={{-78,280},{20,280},{20,
           48},{178,48}}, color={0,0,127}));
   connect(zonOccMin1.y, zonOccMin.u3) annotation (Line(points={{202,40},{220,40},

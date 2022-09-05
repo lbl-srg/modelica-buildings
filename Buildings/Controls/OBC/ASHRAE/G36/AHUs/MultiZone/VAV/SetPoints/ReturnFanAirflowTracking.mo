@@ -46,7 +46,7 @@ block ReturnFanAirflowTracking
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
-    "Supply fan proven on status"
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(

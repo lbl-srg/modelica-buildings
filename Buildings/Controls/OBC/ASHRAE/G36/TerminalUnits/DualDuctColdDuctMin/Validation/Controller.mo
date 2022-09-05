@@ -3,9 +3,9 @@ model Controller
   "Validation of model that controls dual-duct unit with minimum cold duct control"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Controller duaDucCon(
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final AFlo=20,
-    final desZonPop=2,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final VAreBreZon_flow=0.006,
+    final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final VHeaMax_flow=1.2,
@@ -13,7 +13,10 @@ model Controller
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01) "Dual duct unit controller"
+    final damPosHys=0.01,
+    final VOccMin_flow=0,
+    final VAreMin_flow=0)
+    "Dual duct unit controller"
     annotation (Placement(transformation(extent={{100,40},{120,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
@@ -28,12 +31,6 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp colDamPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Cold-duct damper position"
-    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
@@ -126,12 +123,6 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp hotDamPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Hot-duct damper position"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse heaSupFanSta(
     final width=0.9,
     final period=73200,
@@ -190,10 +181,6 @@ equation
     annotation (Line(points={{-58,-170},{-42,-170}}, color={0,0,127}));
   connect(reaToInt4.y, duaDucCon.oveHeaDamPos) annotation (Line(points={{-18,-170},
           {72,-170},{72,45},{98,45}}, color={255,127,0}));
-  connect(colDamPos.y, duaDucCon.uCooDam_actual) annotation (Line(points={{-58,
-          -200},{76,-200},{76,43},{98,43}}, color={0,0,127}));
-  connect(hotDamPos.y, duaDucCon.uHeaDam_actual) annotation (Line(points={{-98,
-          -220},{80,-220},{80,41},{98,41}}, color={0,0,127}));
   connect(disAirTem.y, duaDucCon.TDis) annotation (Line(points={{-98,40},{36,40},
           {36,63},{98,63}}, color={0,0,127}));
   connect(colSupAirTem.y, duaDucCon.TColSup) annotation (Line(points={{-58,20},{

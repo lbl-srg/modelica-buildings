@@ -71,7 +71,7 @@ block ModeAndSetPoints
     "High limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
   parameter Real preWarCooTim(unit="s")=10800
-                                 "Maximum cool-down or warm-up time"
+    "Maximum cool-down or warm-up time"
     annotation (Dialog(tab="Advanced", group="Operating mode"));
   parameter Real TZonFreProOn(
     unit="K",
@@ -221,7 +221,7 @@ block ModeAndSetPoints
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta(
     final k=false) if not have_winSen
     "Assume window is closed when there is no windows status sensor"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSta(
     final k=true) if not have_occSen
     "Assume the zone is occupied when there is no occupancy sensor"
@@ -243,10 +243,10 @@ equation
           {40,107},{40,31.2},{58,31.2}},  color={0,0,127}));
   connect(zonSta.yWarTim, opeModSel.maxWarUpTim) annotation (Line(points={{-58,105},
           {38,105},{38,28},{58,28}}, color={0,0,127}));
-  connect(zonSta.yHigOccCoo, opeModSel.uHigOccCoo) annotation (Line(points={{-58,95},
-          {34,95},{34,29.6},{58,29.6}}, color={255,0,255}));
-  connect(zonSta.yOccHeaHig, opeModSel.uOccHeaHig) annotation (Line(points={{-58,100},
-          {36,100},{36,26.4},{58,26.4}},  color={255,0,255}));
+  connect(zonSta.yHigOccCoo, opeModSel.u1HigOccCoo) annotation (Line(points={{-58,
+          95},{34,95},{34,29.6},{58,29.6}}, color={255,0,255}));
+  connect(zonSta.yOccHeaHig, opeModSel.u1OccHeaHig) annotation (Line(points={{-58,
+          100},{36,100},{36,26.4},{58,26.4}}, color={255,0,255}));
   connect(zonSta.yUnoHeaHig, colZon.u) annotation (Line(points={{-58,90},{-48,90},
           {-48,-50},{-42,-50}}, color={255,0,255}));
   connect(colZon.y, opeModSel.totColZon) annotation (Line(points={{-18,-50},{26,
@@ -255,30 +255,20 @@ equation
           {-52,-80},{-42,-80}}, color={255,0,255}));
   connect(hotZon.y, opeModSel.totHotZon) annotation (Line(points={{-18,-80},{28,
           -80},{28,10.4},{58,10.4}}, color={255,127,0}));
-  connect(zonSta.yUnoHeaHig, opeModSel.uSetBac) annotation (Line(points={{-58,90},
+  connect(zonSta.yUnoHeaHig, opeModSel.u1SetBac) annotation (Line(points={{-58,90},
           {-28,90},{-28,18.4},{58,18.4}}, color={255,0,255}));
-  connect(zonSta.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-58,88},
-          {32,88},{32,16.8},{58,16.8}}, color={255,0,255}));
-  connect(TZon, opeModSel.TZonMax) annotation (Line(points={{-180,120},{-140,120},
-          {-140,15.2},{58,15.2}}, color={0,0,127}));
+  connect(zonSta.yEndSetBac, opeModSel.u1EndSetBac) annotation (Line(points={{-58,
+          88},{32,88},{32,16.8},{58,16.8}}, color={255,0,255}));
   connect(TZon, opeModSel.TZonMin) annotation (Line(points={{-180,120},{-140,120},
           {-140,13.6},{58,13.6}}, color={0,0,127}));
-  connect(zonSta.yHigUnoCoo, opeModSel.uSetUp) annotation (Line(points={{-58,83},
+  connect(zonSta.yHigUnoCoo, opeModSel.u1SetUp) annotation (Line(points={{-58,83},
           {-32,83},{-32,7.2},{58,7.2}}, color={255,0,255}));
-  connect(zonSta.yEndSetUp, opeModSel.uEndSetUp) annotation (Line(points={{-58,81},
-          {30,81},{30,5.6},{58,5.6}}, color={255,0,255}));
-  connect(opeModSel.uOcc, u1Occ) annotation (Line(points={{58,34.4},{-40,34.4},{
-          -40,0},{-180,0}}, color={255,0,255}));
+  connect(zonSta.yEndSetUp, opeModSel.u1EndSetUp) annotation (Line(points={{-58,
+          81},{30,81},{30,5.6},{58,5.6}}, color={255,0,255}));
+  connect(opeModSel.u1Occ, u1Occ) annotation (Line(points={{58,34.4},{-40,34.4},
+          {-40,0},{-180,0}}, color={255,0,255}));
   connect(opeModSel.tNexOcc, tNexOcc) annotation (Line(points={{58,32.8},{-130,32.8},
           {-130,-30},{-180,-30}}, color={0,0,127}));
-  connect(zonSta.TCooSetOn, TZonSet.TOccCooSet) annotation (Line(points={{-58,97},
-          {14,97},{14,-106},{98,-106}}, color={0,0,127}));
-  connect(zonSta.TCooSetOff, TZonSet.TUnoCooSet) annotation (Line(points={{-58,85},
-          {12,85},{12,-109},{98,-109}}, color={0,0,127}));
-  connect(zonSta.THeaSetOn, TZonSet.TOccHeaSet) annotation (Line(points={{-58,102},
-          {20,102},{20,-114},{98,-114}}, color={0,0,127}));
-  connect(zonSta.THeaSetOff, TZonSet.TUnoHeaSet) annotation (Line(points={{-58,92},
-          {18,92},{18,-117},{98,-117}}, color={0,0,127}));
   connect(opeModSel.yOpeMod, TZonSet.uOpeMod) annotation (Line(points={{82,20},{
           92,20},{92,-102},{98,-102}}, color={255,127,0}));
   connect(TZonSet.uCooDemLimLev, uCooDemLimLev) annotation (Line(points={{98,-128},
@@ -292,7 +282,7 @@ equation
   connect(TZonSet.THeaSet, THeaSet) annotation (Line(points={{122,-120},{140,-120},
           {140,-160},{180,-160}}, color={0,0,127}));
   connect(winSta.y, booToInt.u)
-    annotation (Line(points={{-98,-20},{-42,-20}}, color={255,0,255}));
+    annotation (Line(points={{-78,-20},{-42,-20}}, color={255,0,255}));
   connect(u1Win, booToInt.u) annotation (Line(points={{-180,150},{-130,150},{-130,
           40},{-60,40},{-60,-20},{-42,-20}}, color={255,0,255}));
   connect(booToInt.y, opeModSel.uOpeWin) annotation (Line(points={{-18,-20},{24,
@@ -317,6 +307,14 @@ equation
           50},{-112,86},{-82,86}}, color={0,0,127}));
   connect(TUnoCooSet,zonSta.TUnoCooSet)  annotation (Line(points={{-180,30},{-108,
           30},{-108,83},{-82,83}}, color={0,0,127}));
+  connect(TOccHeaSet, TZonSet.TOccHeaSet) annotation (Line(points={{-180,90},{-120,
+          90},{-120,-114},{98,-114}}, color={0,0,127}));
+  connect(TOccCooSet, TZonSet.TOccCooSet) annotation (Line(points={{-180,70},{-116,
+          70},{-116,-106},{98,-106}}, color={0,0,127}));
+  connect(TUnoHeaSet, TZonSet.TUnoHeaSet) annotation (Line(points={{-180,50},{-112,
+          50},{-112,-117},{98,-117}}, color={0,0,127}));
+  connect(TUnoCooSet, TZonSet.TUnoCooSet) annotation (Line(points={{-180,30},{-108,
+          30},{-108,-109},{98,-109}}, color={0,0,127}));
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

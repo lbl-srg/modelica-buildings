@@ -3,16 +3,18 @@ model Controller
   "Validation of model that controls cooling only unit"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller cooBoxCon(
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final AFlo=20,
-    final desZonPop=2,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final VAreBreZon_flow=0.006,
+    final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final have_preIndDam=true,
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01) "Cooling only unit controller"
+    final damPosHys=0.01,
+    final VOccMin_flow=0,
+    final VAreMin_flow=0) "Cooling only unit controller"
     annotation (Placement(transformation(extent={{100,-10},{120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
@@ -27,13 +29,6 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800)
-    "Damper position"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
@@ -154,8 +149,6 @@ equation
           52,-80},{52,2},{98,2}}, color={255,127,0}));
   connect(reaToInt3.y, cooBoxCon.oveDamPos) annotation (Line(points={{-18,-110},
           {56,-110},{56,0},{98,0}}, color={255,127,0}));
-  connect(damPos.y, cooBoxCon.uDam_actual) annotation (Line(points={{-98,-140},
-          {60,-140},{60,-4},{98,-4}}, color={0,0,127}));
   connect(supFanSta.y, cooBoxCon.u1Fan) annotation (Line(points={{-58,-160},{64,
           -160},{64,-8},{98,-8}}, color={255,0,255}));
   connect(CO2Set.y, cooBoxCon.ppmCO2Set) annotation (Line(points={{-98,30},{36,30},

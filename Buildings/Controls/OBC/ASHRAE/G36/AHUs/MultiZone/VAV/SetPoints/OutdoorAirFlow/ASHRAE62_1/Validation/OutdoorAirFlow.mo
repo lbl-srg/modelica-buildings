@@ -2,14 +2,15 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAir
 model OutdoorAirFlow
   "Validate the sequences of setting AHU level minimum outdoor airflow rate"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.AHU ahu(
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.AHU
+    ahu(
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final VUncDesOutAir_flow=1.2,
     final VDesTotOutAir_flow=1) "AHU level minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone zonToAhu(
     final nZon=nZon,
-    final nZonGro=nZonGro,
+    final nGro=nGro,
     final zonGroMat=zonGroMat,
     final zonGroMatTra=zonGroMatTra) "From zone level to AHU level"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -17,13 +18,13 @@ model OutdoorAirFlow
 protected
   parameter Integer nZon=4
     "Total number of zones";
-  parameter Integer nZonGro=2
-    "Total number of zone group";
-  parameter Integer zonGroMat[nZonGro,nZon]={{1,1,0,0},{0,0,1,1}}
-    "Zone matrix with zone group as row index and zone as column index. It falgs which zone is grouped in which zone group";
-  parameter Integer zonGroMatTra[nZon,nZonGro]={{1,0},{1,0},{0,1},{0,1}}
+  parameter Integer nGro=2
+    "Total number of groups";
+  parameter Integer zonGroMat[nGro,nZon]={{1,1,0,0},{0,0,1,1}}
+    "Zone matrix with zone group as row index and zone as column index. It flags which zone is grouped in which zone group";
+  parameter Integer zonGroMatTra[nZon,nGro]={{1,0},{1,0},{0,1},{0,1}}
     "Transpose of the zone matrix";
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod[nZonGro](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod[nGro](
     final k={Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied,
              Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied})
     "AHU operation mode is Occupied"
@@ -59,9 +60,9 @@ equation
   connect(minOAFlo.y, zonToAhu.VMinOA_flow) annotation (Line(points={{-58,-80},{
           0,-80},{0,-8},{18,-8}}, color={0,0,127}));
   connect(zonToAhu.VSumAdjPopBreZon_flow, ahu.VSumAdjPopBreZon_flow)
-    annotation (Line(points={{42,4},{50,4},{50,8},{58,8}}, color={0,0,127}));
+    annotation (Line(points={{42,8},{50,8},{50,8},{58,8}}, color={0,0,127}));
   connect(zonToAhu.VSumAdjAreBreZon_flow, ahu.VSumAdjAreBreZon_flow)
-    annotation (Line(points={{42,0},{50,0},{50,4},{58,4}}, color={0,0,127}));
+    annotation (Line(points={{42,4},{50,4},{50,4},{58,4}}, color={0,0,127}));
   connect(zonToAhu.VSumZonPri_flow, ahu.VSumZonPri_flow) annotation (Line(
         points={{42,-4},{50,-4},{50,0},{58,0}},   color={0,0,127}));
   connect(zonToAhu.uOutAirFra_max, ahu.uOutAirFra_max)

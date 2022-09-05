@@ -87,13 +87,12 @@ block SeparateWithAFMS
     final unit="1") "Economizer outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{-260,0},{-220,40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
     final max=1,
-    final unit="1")
-    "Actual supply fan speed"
-    annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+    final unit="1") "Actual supply fan speed" annotation (Placement(
+        transformation(extent={{-260,-60},{-220,-20}}), iconTransformation(
+          extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDam(
     final min=0,
     final max=1,
@@ -282,7 +281,7 @@ equation
           -130,-32},{-122,-32}}, color={0,0,127}));
   connect(con2.y, moaP.f1) annotation (Line(points={{-178,-10},{-170,-10},{-170,
           -36},{-122,-36}}, color={0,0,127}));
-  connect(uSupFanSpe_actual, moaP.u)
+  connect(uSupFan_actual, moaP.u)
     annotation (Line(points={{-240,-40},{-122,-40}}, color={0,0,127}));
   connect(con1.y, moaP.f2) annotation (Line(points={{-138,-70},{-130,-70},{-130,
           -48},{-122,-48}}, color={0,0,127}));
@@ -393,7 +392,7 @@ annotation (
           extent={{-96,-82},{-16,-98}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uSupFanSpe_actual"),
+          textString="uSupFan_actual"),
         Text(
           extent={{30,-78},{98,-96}},
           textColor={0,0,127},
@@ -434,8 +433,8 @@ It is implemented according to Section 5.16.5 of the ASHRAE Guideline 36, May 20
 <h4>Minimum outdoor air set point</h4>
 <p>
 Calculate the outdoor air set point with
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow</a>.
 </p>
 <h4>Minimum outdoor air control loop</h4>
 <p>

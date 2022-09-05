@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences;
 block Limits "Single zone VAV AHU minimum outdoor air control - damper position limits"
 
-  parameter Real fanSpe_min(
+  parameter Real supFanSpe_min(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
     annotation(Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real fanSpe_max(
+  parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 1 "Maximum supply fan operation speed"
@@ -62,10 +62,11 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Commissioning", group="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
     final max=1,
-    final unit="1") "Actual supply fan speed"
+    final unit="1")
+    "Actual supply fan speed"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
@@ -103,7 +104,7 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMinSig(
-    final k=fanSpe_min) "Minimum supply fan speed"
+    final k=supFanSpe_min) "Minimum supply fan speed"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhy_min)
@@ -114,7 +115,7 @@ protected
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
-    final k=fanSpe_max) "Maximum supply fan speed"
+    final k=supFanSpe_max) "Maximum supply fan speed"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_minSpeSig(
     final k=outDamMinFloMinSpe)
@@ -205,7 +206,7 @@ equation
     annotation (Line(points={{-118,130},{-90,130},{-90,144},{38,144}}, color={0,0,127}));
   connect(yDam_VOutMin_maxSpeSig.y, yDam_VOutMin_curSpe.f2)
     annotation (Line(points={{-118,160},{-60,160},{-60,132},{38,132}}, color={0,0,127}));
-  connect(uSupFanSpe_actual, yDam_VOutMin_curSpe.u) annotation (Line(points={{-180,
+  connect(uSupFan_actual, yDam_VOutMin_curSpe.u) annotation (Line(points={{-180,
           110},{-80,110},{-80,140},{38,140}}, color={0,0,127}));
   connect(yFanMaxSig.y, yDam_VOutMin_curSpe.x2)
     annotation (Line(points={{-118,90},{30,90},{30,136},{38,136}}, color={0,0,127}));
@@ -217,7 +218,7 @@ equation
     annotation (Line(points={{-118,90},{30,90},{30,46},{38,46}},   color={0,0,127}));
   connect(VOutMinSet_flow, minVOutSetCurFanSpePos.u)
     annotation (Line(points={{-180,180},{-30,180},{-30,120},{98,120}}, color={0,0,127}));
-  connect(uSupFanSpe_actual, yDam_VOutDes_curSpe.u) annotation (Line(points={{-180,
+  connect(uSupFan_actual, yDam_VOutDes_curSpe.u) annotation (Line(points={{-180,
           110},{-80,110},{-80,50},{38,50}}, color={0,0,127}));
   connect(not1.y, enaDis.u2)
     annotation (Line(points={{2,-70},{40,-70},{40,-110},{78,-110}}, color={255,0,255}));

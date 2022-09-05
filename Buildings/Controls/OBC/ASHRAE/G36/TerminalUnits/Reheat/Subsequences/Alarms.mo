@@ -65,16 +65,17 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final quantity="VolumeFlowRate") "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-280,240},{-240,280}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
+    "AHU supply fan status"
     annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final unit="1")
-    "Actual damper position"
+    "Damper position setpoint"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final unit="1")
     "Actual valve position"
@@ -450,7 +451,7 @@ equation
     annotation (Line(points={{222,280},{260,280}}, color={255,127,0}));
   connect(gre1.y, truDel3.u) annotation (Line(points={{-78,130},{-60,130},{-60,30},
           {-22,30}},   color={255,0,255}));
-  connect(uDam_actual, cloDam.u)
+  connect(uDam, cloDam.u)
     annotation (Line(points={{-260,-40},{-202,-40}}, color={0,0,127}));
   connect(truDel3.y, leaDamAla.u1) annotation (Line(points={{2,30},{20,30},{20,8},
           {38,8}},             color={255,0,255}));
@@ -526,7 +527,7 @@ equation
           -358},{18,-358}}, color={255,0,255}));
   connect(proInt1.y, yLowTemAla)
     annotation (Line(points={{222,-300},{260,-300}}, color={255,127,0}));
-  connect(uVal_actual, cloVal.u)
+  connect(uVal, cloVal.u)
     annotation (Line(points={{-260,-90},{-202,-90}}, color={0,0,127}));
   connect(cloVal.y, truDel6.u)
     annotation (Line(points={{-178,-90},{-142,-90}}, color={255,0,255}));
@@ -574,10 +575,10 @@ annotation (defaultComponentName="ala",
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
-          extent={{-98,26},{-56,16}},
+          extent={{-98,26},{-74,16}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uDam_actual"),
+          textString="uDam"),
         Text(
           extent={{-100,46},{-74,36}},
           textColor={255,0,255},
@@ -599,10 +600,10 @@ annotation (defaultComponentName="ala",
           pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
         Text(
-          extent={{-98,6},{-60,-4}},
+          extent={{-98,6},{-80,-4}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uVal_actual"),
+          textString="uVal"),
         Text(
           extent={{-100,-14},{-74,-24}},
           textColor={0,0,127},
@@ -689,7 +690,7 @@ generate a Level 3 alarm.
 </p>
 <h4>Leaking damper</h4>
 <p>
-If the damper position (<code>uDam_actual</code>) is 0% and airflow sensor reading
+If the damper position (<code>uDam</code>) is 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint
 <code>VCooMax_flow</code> for 10 minutes (<code>leaFloTim</code>) while the
 fan serving the zone is proven on (<code>u1Fan=true</code>), generate a Level
@@ -697,7 +698,7 @@ fan serving the zone is proven on (<code>u1Fan=true</code>), generate a Level
 </p>
 <h4>Leaking valve</h4>
 <p>
-If the valve position (<code>uVal_actual</code>) is 0% for 15 minutes (<code>valCloTim</code>),
+If the valve position (<code>uVal</code>) is 0% for 15 minutes (<code>valCloTim</code>),
 discharing air temperature <code>TDis</code> is above AHU supply temperature
 <code>TSup</code> by 3 &deg;C (5 &deg;F), and the fan serving the zone is proven
 on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.

@@ -12,7 +12,6 @@ compareVars :=
     "cooBoxCon.VDis_flow",
     "cooBoxCon.oveFloSet",
     "cooBoxCon.oveDamPos",
-    "cooBoxCon.uDam_actual",
     "cooBoxCon.u1Fan",
     "cooBoxCon.VSet_flow",
     "cooBoxCon.yDam",

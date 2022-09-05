@@ -3,9 +3,9 @@ model Controller
   "Validation of model that controls parallel-fan powered unit with constant volume fan"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Controller parFanCon(
-    final venSta=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final AFlo=20,
-    final desZonPop=2,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final VAreBreZon_flow=0.006,
+    final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -15,7 +15,10 @@ model Controller
     final floHys=0.01,
     final looHys=0.01,
     final damPosHys=0.01,
-    final valPosHys=0.01) "Paralle-fan powered unit controller"
+    final valPosHys=0.01,
+    final VOccMin_flow=0,
+    final VAreMin_flow=0)
+    "Paralle-fan powered unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
@@ -30,12 +33,6 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Damper position"
-    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
@@ -116,12 +113,6 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp valPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800) "Valve position"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
     final offset=273.15 + 13,
     final amplitude=1,
@@ -162,25 +153,26 @@ model Controller
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 equation
-  connect(TZon.y,parFanCon. TZon) annotation (Line(points={{-98,240},{52,240},{52,
-          111},{98,111}}, color={0,0,127}));
+  connect(TZon.y,parFanCon. TZon) annotation (Line(points={{-98,240},{52,240},{
+          52,109},{98,109}},
+                          color={0,0,127}));
   connect(cooSet.y, parFanCon.TCooSet) annotation (Line(points={{-58,220},{48,
-          220},{48,109},{98,109}}, color={0,0,127}));
+          220},{48,107},{98,107}}, color={0,0,127}));
   connect(heaSet.y, parFanCon.THeaSet) annotation (Line(points={{-98,200},{44,
-          200},{44,107},{98,107}}, color={0,0,127}));
+          200},{44,105},{98,105}}, color={0,0,127}));
   connect(winSta.y, parFanCon.u1Win) annotation (Line(points={{-58,180},{40,180},
-          {40,105},{98,105}}, color={255,0,255}));
+          {40,103},{98,103}}, color={255,0,255}));
   connect(occ.y, parFanCon.u1Occ) annotation (Line(points={{-98,160},{36,160},{
-          36,103},{98,103}}, color={255,0,255}));
+          36,101},{98,101}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-98,130},{-82,130}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
     annotation (Line(points={{-58,130},{-42,130}},
       color={0,0,127}));
-  connect(reaToInt2.y,parFanCon. uOpeMod) annotation (Line(points={{-18,130},{32,
-          130},{32,101},{98,101}}, color={255,127,0}));
-  connect(CO2.y,parFanCon. ppmCO2) annotation (Line(points={{-58,80},{32,80},{32,
-          97},{98,97}},    color={0,0,127}));
+  connect(reaToInt2.y,parFanCon. uOpeMod) annotation (Line(points={{-18,130},{
+          32,130},{32,99},{98,99}},color={255,127,0}));
+  connect(CO2.y,parFanCon. ppmCO2) annotation (Line(points={{-58,80},{32,80},{
+          32,95},{98,95}}, color={0,0,127}));
   connect(oveFlo.y,round1. u)
     annotation (Line(points={{-98,-50},{-82,-50}},   color={0,0,127}));
   connect(round1.y,reaToInt1. u)
@@ -189,42 +181,43 @@ equation
     annotation (Line(points={{-98,-80},{-82,-80}}, color={0,0,127}));
   connect(round3.y,reaToInt3. u)
     annotation (Line(points={{-58,-80},{-42,-80}},   color={0,0,127}));
-  connect(reaToInt1.y,parFanCon. oveFloSet) annotation (Line(points={{-18,-50},{
-          56,-50},{56,85},{98,85}},   color={255,127,0}));
+  connect(reaToInt1.y,parFanCon. oveFloSet) annotation (Line(points={{-18,-50},
+          {56,-50},{56,83},{98,83}},  color={255,127,0}));
   connect(oveTerFan.y, round4.u)
     annotation (Line(points={{-98,-110},{-82,-110}}, color={0,0,127}));
   connect(round4.y,reaToInt4. u)
     annotation (Line(points={{-58,-110},{-42,-110}}, color={0,0,127}));
   connect(disAirTem.y,parFanCon. TDis) annotation (Line(points={{-58,40},{40,40},
-          {40,93},{98,93}}, color={0,0,127}));
-  connect(reaToInt3.y, parFanCon.oveDamPos) annotation (Line(points={{-18,-80},{
-          60,-80},{60,83},{98,83}}, color={255,127,0}));
-  connect(reaToInt4.y, parFanCon.oveFan) annotation (Line(points={{-18,-110},{64,
-          -110},{64,81},{98,81}}, color={255,127,0}));
-  connect(damPos.y, parFanCon.uDam_actual) annotation (Line(points={{-58,-160},
-          {72,-160},{72,77},{98,77}}, color={0,0,127}));
-  connect(valPos.y, parFanCon.uVal_actual) annotation (Line(points={{-98,-180},
-          {76,-180},{76,75},{98,75}}, color={0,0,127}));
+          {40,91},{98,91}}, color={0,0,127}));
+  connect(reaToInt3.y, parFanCon.oveDamPos) annotation (Line(points={{-18,-80},
+          {60,-80},{60,81},{98,81}},color={255,127,0}));
+  connect(reaToInt4.y, parFanCon.oveFan) annotation (Line(points={{-18,-110},{
+          64,-110},{64,79},{98,79}},
+                                  color={255,127,0}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-98,-140},{-42,-140}}, color={255,0,255}));
-  connect(not1.y, parFanCon.uHeaOff) annotation (Line(points={{-18,-140},{68,-140},
-          {68,79},{98,79}}, color={255,0,255}));
-  connect(supFan.y, parFanCon.u1Fan) annotation (Line(points={{-58,-200},{80,-200},
-          {80,73},{98,73}}, color={255,0,255}));
-  connect(terFan.y, parFanCon.u1TerFan) annotation (Line(points={{-98,-220},{84,
-          -220},{84,71},{98,71}}, color={255,0,255}));
-  connect(hotPla.y, parFanCon.u1HotPla) annotation (Line(points={{-58,-240},{88,
-          -240},{88,69},{98,69}}, color={255,0,255}));
+  connect(not1.y, parFanCon.uHeaOff) annotation (Line(points={{-18,-140},{68,
+          -140},{68,77},{98,77}},
+                            color={255,0,255}));
+  connect(supFan.y, parFanCon.u1Fan) annotation (Line(points={{-58,-200},{72,
+          -200},{72,75},{98,75}},
+                            color={255,0,255}));
+  connect(terFan.y, parFanCon.u1TerFan) annotation (Line(points={{-98,-220},{76,
+          -220},{76,73},{98,73}}, color={255,0,255}));
+  connect(hotPla.y, parFanCon.u1HotPla) annotation (Line(points={{-58,-240},{80,
+          -240},{80,71},{98,71}}, color={255,0,255}));
   connect(parFanFlo.y, parFanCon.VParFan_flow) annotation (Line(points={{-98,60},
-          {36,60},{36,95},{98,95}}, color={0,0,127}));
-  connect(TSupSet.y, parFanCon.TSupSet) annotation (Line(points={{-98,-20},{52,-20},
-          {52,87},{98,87}}, color={0,0,127}));
-  connect(TSup.y, parFanCon.TSup) annotation (Line(points={{-58,0},{48,0},{48,89},
-          {98,89}},     color={0,0,127}));
-  connect(disFlo.y,parFanCon.VPri_flow)  annotation (Line(points={{-98,20},{44,20},
-          {44,91},{98,91}}, color={0,0,127}));
+          {36,60},{36,93},{98,93}}, color={0,0,127}));
+  connect(TSupSet.y, parFanCon.TSupSet) annotation (Line(points={{-98,-20},{52,
+          -20},{52,85},{98,85}},
+                            color={0,0,127}));
+  connect(TSup.y, parFanCon.TSup) annotation (Line(points={{-58,0},{48,0},{48,
+          87},{98,87}}, color={0,0,127}));
+  connect(disFlo.y,parFanCon.VPri_flow)  annotation (Line(points={{-98,20},{44,
+          20},{44,89},{98,89}},
+                            color={0,0,127}));
   connect(CO2Set.y, parFanCon.ppmCO2Set) annotation (Line(points={{-98,100},{28,
-          100},{28,99},{98,99}}, color={0,0,127}));
+          100},{28,97},{98,97}}, color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/ParallelFanCVF/Validation/Controller.mos"

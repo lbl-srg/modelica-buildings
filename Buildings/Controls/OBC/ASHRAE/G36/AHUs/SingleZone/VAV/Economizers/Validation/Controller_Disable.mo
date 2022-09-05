@@ -3,21 +3,21 @@ model Controller_Disable
   "Validation model for disabling the single zone VAV AHU economizer modulation and damper position limit control loops"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer(
-    final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow) "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Controller economizer1(
-    final eneSta=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
-    final fanSpe_min=fanSpe_min,
-    final fanSpe_max=fanSpe_max,
+    final supFanSpe_min=supFanSpe_min,
+    final supFanSpe_max=supFanSpe_max,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow) "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,0}})));
@@ -37,11 +37,11 @@ protected
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Supply air temperature setpoint";
-  final parameter Real fanSpe_min(
+  final parameter Real supFanSpe_min(
     final min=0,
     final max=1,
     final unit="1")=0.1 "Minimum supply fan operation speed";
-  final parameter Real fanSpe_max(
+  final parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1")=0.9 "Maximum supply fan operation speed";
@@ -97,8 +97,8 @@ protected
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=fanSpe_min,
-    final height=fanSpe_max - fanSpe_min) "Supply fan speed signal"
+    final offset=supFanSpe_min,
+    final height=supFanSpe_max - supFanSpe_min) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
@@ -129,12 +129,12 @@ equation
     annotation (Line(points={{-58,-70},{0,-70},{0,-37},{98,-37}},   color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-18,100},{4,100},{4,18},{18,18}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer.uSupFanSpe_actual) annotation (Line(points=
-         {{-18,50},{10,50},{10,15},{18,15}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer.uSupFan_actual) annotation (Line(points={{
+          -18,50},{10,50},{10,15},{18,15}}, color={0,0,127}));
   connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
     annotation (Line(points={{-18,100},{82,100},{82,-22},{98,-22}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer1.uSupFanSpe_actual) annotation (Line(
-        points={{-18,50},{88,50},{88,-25},{98,-25}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer1.uSupFan_actual) annotation (Line(points={
+          {-18,50},{88,50},{88,-25},{98,-25}}, color={0,0,127}));
   connect(freProSta.y, economizer.uFreProSta) annotation (Line(points={{-58,-120},
           {6,-120},{6,1},{18,1}}, color={255,127,0}));
   connect(TSupSetSig.y, economizer1.TSupHeaEcoSet) annotation (Line(points={{-58,
