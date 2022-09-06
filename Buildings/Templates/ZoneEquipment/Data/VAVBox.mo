@@ -1,9 +1,8 @@
 within Buildings.Templates.ZoneEquipment.Data;
 record VAVBox "Record for VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController
-      ctl(final have_CO2Sen=have_CO2Sen),
-    final mAir_flow_nominal=ctl.VAir_flow_nominal * 1.2);
+    redeclare Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController ctl,
+    final mAir_flow_nominal=max(ctl.VAirHeaSet_flow_max, ctl.VAirCooSet_flow_max) * 1.2);
 
   parameter Buildings.Templates.Components.Types.Damper typDamVAV
     "Type of VAV damper"
@@ -32,4 +31,17 @@ record VAVBox "Record for VAV terminal unit"
     "Reheat coil"
     annotation (Dialog(group="Equipment"));
 
+annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "dat",
+    Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for the classes
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly\">
+Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a> 
+and
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxReheat\">
+Buildings.Templates.ZoneEquipment.VAVBoxReheat</a>.
+</p>
+</html>"));
 end VAVBox;

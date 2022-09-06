@@ -39,4 +39,11 @@ record PartialAirTerminal "Record for air terminal unit interface class"
     "Controller"
     annotation (Dialog(group="Controls"));
 
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for the class
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal\">
+Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal</a>.
+</p>
+</html>"));
 end PartialAirTerminal;

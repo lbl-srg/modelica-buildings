@@ -9,13 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="148.35829mm"
+   width="149.05353mm"
    height="67.84623mm"
-   viewBox="0 0 148.35829 67.84623"
+   viewBox="0 0 149.05353 67.84623"
    version="1.1"
    id="svg151"
-   inkscape:version="0.92.4 (unknown)"
-   sodipodi:docname="drawing.svg">
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="ModulationControlDiagram.svg"
+   inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/ModulationControlDiagram.png"
+   inkscape:export-xdpi="119.286"
+   inkscape:export-ydpi="119.286">
   <defs
      id="defs145">
     <marker
@@ -88,18 +91,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.89263468"
-     inkscape:cx="283.21253"
-     inkscape:cy="-199.38406"
+     inkscape:zoom="2.5247521"
+     inkscape:cx="195.31381"
+     inkscape:cy="56.874786"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-page="false"
      inkscape:snap-grids="true"
-     inkscape:window-width="1875"
-     inkscape:window-height="1176"
-     inkscape:window-x="45"
-     inkscape:window-y="24"
+     inkscape:window-width="3414"
+     inkscape:window-height="2050"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -108,7 +111,7 @@
     <inkscape:grid
        type="xygrid"
        id="grid398"
-       originx="-30.066686"
+       originx="-29.342513"
        originy="-201.2537" />
   </sodipodi:namedview>
   <metadata
@@ -127,20 +130,20 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-30.066686,-27.90007)">
+     transform="translate(-29.342513,-27.90007)">
     <text
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="33.059086"
+       x="29.354916"
        y="63.807022"
        id="text4487-0"><tspan
          sodipodi:role="line"
-         x="33.059086"
+         x="29.354916"
          y="63.807022"
          style="font-size:4.23333311px;line-height:1.25;fill:#000000;stroke-width:0.26458332"
-         id="tspan3465">THeaSupSet</tspan></text>
+         id="tspan3465">TSupHeaEcoSet</tspan></text>
     <path
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
@@ -223,12 +226,12 @@
          id="tspan4485-8-3-8"
          x="103.8624"
          y="65.261009"
-         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332">yOutDamPos</tspan><tspan
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332">yOutDam</tspan><tspan
          sodipodi:role="line"
          x="103.8624"
          y="71.187675"
          style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
-         id="tspan6753-3">yRetDamPos</tspan></text>
+         id="tspan6753-3">yRetDam</tspan></text>
     <path
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
@@ -268,7 +271,7 @@
          x="123.77887"
          y="35.275322"
          style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
-         id="tspan6465-6">uOutDamPosMin</tspan><tspan
+         id="tspan6465-6">uOutDam_min</tspan><tspan
          sodipodi:role="line"
          x="123.77887"
          y="38.996506"
@@ -283,12 +286,12 @@
          x="123.77887"
          y="46.371758"
          style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
-         id="tspan6475-0">uOutDamPosMax</tspan><tspan
+         id="tspan6475-0">uOutDam_max</tspan><tspan
          id="tspan13837-4"
          sodipodi:role="line"
          x="123.77887"
          y="50.092937"
-         style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332">uRetDamPosMin, uRetDamPosMax</tspan></text>
+         style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332">uRetDam_min, uRetDam_max</tspan></text>
     <path
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"

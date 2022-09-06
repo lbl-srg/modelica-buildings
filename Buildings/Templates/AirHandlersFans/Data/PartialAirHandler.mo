@@ -25,7 +25,7 @@ record PartialAirHandler "Record for air handler interface class"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter String id
-   "System tag"
+    "System tag"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter String id_souChiWat=""
     "CHW supply system tag"
@@ -53,4 +53,11 @@ record PartialAirHandler "Record for air handler interface class"
     final typ=typCtl)
     "Controller"
     annotation (Dialog(group="Controls"));
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for the class
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler\">
+Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler</a>.
+</p>
+</html>"));
 end PartialAirHandler;

@@ -43,7 +43,13 @@ equation
   connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
 
   annotation (
-    defaultComponentName="conPoiDum",
+    defaultComponentName="sigAirHan",
     Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-200,-180},{200,180}})));
+            false, extent={{-200,-180},{200,180}})),
+    Documentation(info="<html>
+<p>
+This class generates signals typically provided by the AHU controller.
+It is aimed for validation purposes only. 
+</p>
+</html>"));
 end VAVMZControlPoints;

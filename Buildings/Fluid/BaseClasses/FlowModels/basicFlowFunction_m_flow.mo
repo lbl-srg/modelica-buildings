@@ -44,14 +44,14 @@ Documentation(info="<html>
 Function that computes the pressure drop of flow elements as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p = sign(m) (m &frasl; k)<sup>2</sup>
+  &Delta;p = sign(m&#775;) (m&#775; &frasl; k)<sup>2</sup>
 </p>
 <p>
 with regularization near the origin.
 Therefore, the flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.

@@ -7,12 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="312.16837mm"
-   height="94.499634mm"
-   viewBox="0 0 312.16836 94.499634"
+   width="314.54803mm"
+   height="93.599777mm"
+   viewBox="0 0 314.54803 93.599777"
    version="1.1"
    id="svg8"
-   inkscape:version="1.0 (b51213c273, 2020-08-10)"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="setpoints_reheat.svg"
    inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_reheat.png"
    inkscape:export-xdpi="108.331"
@@ -83,7 +83,8 @@
          transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-         id="path987" />
+         id="path987"
+         inkscape:connector-curvature="0" />
     </marker>
     <inkscape:path-effect
        effect="spiro"
@@ -232,8 +233,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.764161"
-     inkscape:cx="419.4573"
-     inkscape:cy="159.5228"
+     inkscape:cx="325.66571"
+     inkscape:cy="157.25544"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -243,16 +244,16 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="3711"
-     inkscape:window-height="1983"
-     inkscape:window-x="51"
+     inkscape:window-width="3414"
+     inkscape:window-height="2050"
+     inkscape:window-x="72"
      inkscape:window-y="27"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid10"
-       originx="21.405998"
-       originy="-74.557662" />
+       originx="23.811106"
+       originy="-74.557659" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -270,140 +271,228 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(21.405998,-74.557662)">
+     transform="translate(23.811108,-75.45752)">
     <text
        xml:space="preserve"
        id="text855"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.40039206,0,0,0.40039206,7.0629011,89.683441)"><tspan
+       style="font-style:normal;font-weight:normal;font-size:10.58329964px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.40039206,0,0,0.40039206,7.0629011,89.683441)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
          x="34.396484"
-         y="181.34226"><tspan>0%</tspan></tspan></text>
+         y="181.34225"
+         id="tspan44"><tspan
+           id="tspan42">0%</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text855-8"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857-2);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.40039205,0,0,0.40039205,194.85631,88.415913)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329964px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857-2);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.40039205,0,0,0.40039205,194.85631,88.415913)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
          x="34.396484"
-         y="181.34226"><tspan>100%</tspan></tspan></text>
+         y="181.34225"
+         id="tspan49"><tspan
+           id="tspan47">100%</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text855-8-9"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857-2-2);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.40039205,0,0,0.40039205,102.84539,89.645286)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329964px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857-2-2);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.40039205,0,0,0.40039205,102.84539,89.645286)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
          x="34.396484"
-         y="181.34226"><tspan>50%</tspan></tspan></text>
+         y="181.34225"
+         id="tspan54"><tspan
+           id="tspan52">50%</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text954"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect956);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.44345784,0,0,0.44345784,60.704518,88.83616)"><tspan
+       style="font-style:normal;font-weight:normal;font-size:10.58329964px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect956);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.44345784,0,0,0.44345784,60.704518,88.83616)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
          x="31.75"
-         y="178.69772"><tspan>CO</tspan><tspan
-           style="font-size:65%;baseline-shift:sub">2</tspan><tspan> control loop</tspan></tspan></text>
+         y="178.69772"
+         id="tspan63"><tspan
+           id="tspan57">CO</tspan><tspan
+           style="font-size:64.99999762%;baseline-shift:sub"
+           id="tspan59">2</tspan><tspan
+           id="tspan61"> control loop</tspan></tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
        d="m 116.41667,166.6875 h 42.33338"
        id="path962"
        inkscape:path-effect="#path-effect964"
-       inkscape:original-d="m 116.41667,166.6875 h 42.33338" />
+       inkscape:original-d="m 116.41667,166.6875 h 42.33338"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331" />
     <text
        xml:space="preserve"
        id="text855-8-2"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857-2-0);fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.40039205,0,0,0.40039205,202.24856,81.504989)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329964px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect857-2-0);fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.40039205,0,0,0.40039205,202.24856,81.504989)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
          x="34.396484"
-         y="181.34226"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">0</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       id="text1291"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.4475583,0,0,0.4475583,23.463487,90.270527)"><tspan
-         x="5.2910156"
-         y="30.529755"><tspan>occupied 
-</tspan></tspan><tspan
-         x="5.2910156"
-         y="43.758881"><tspan>VZonMin_flow</tspan></tspan></text>
+         y="181.34225"
+         id="tspan69"><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan67">0</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text1291-6"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-7);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.44755829,0,0,0.44755829,-14.313216,130.02793)"><tspan
-         x="5.2910156"
-         y="30.529755"><tspan>VZonMin_flow</tspan></tspan></text>
+       style="font-style:normal;font-weight:normal;font-size:4.73664331px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-7);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11841631px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-4.1147895"
+       y="133.62738"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
+         x="-1.7467514"
+         y="147.29121"
+         id="tspan83"
+         style="stroke-width:0.11841631px"><tspan
+           id="tspan81"
+           style="stroke-width:0.11841631px">VMin_flow</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text1291-6-3"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-7-1);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.44755829,0,0,0.44755829,-23.811041,64.492556)"><tspan
-         x="5.2910156"
-         y="30.529755"><tspan
-           style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">VZonCooMax_flow</tspan></tspan></text>
+       style="font-style:normal;font-weight:normal;font-size:4.73664331px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-7-1);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11841631px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-15.112383"
+       y="65.392418"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
+         x="-12.744345"
+         y="79.056259"
+         id="tspan88"
+         style="stroke-width:0.11841631px"><tspan
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11841631px;stroke-opacity:1"
+           id="tspan86">VCooMax_flow</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text1291-1"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-2);fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.44755829,0,0,0.44755829,119.18789,113.39186)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329964px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-2);fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.44755829,0,0,0.44755829,119.18789,113.39186)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
          x="5.2910156"
-         y="30.529755"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">population component of the </tspan><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">required 
+         y="30.529755"
+         id="tspan95"><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan91">population component of the </tspan><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan93">required 
 </tspan></tspan><tspan
          x="5.2910156"
-         y="43.758881"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">breathing zone outdoor </tspan><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">airflow</tspan></tspan></text>
+         y="43.758881"
+         id="tspan101"><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan97">breathing zone outdoor </tspan><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan99">airflow</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text1291-1-9"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-2-5);fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.44755829,0,0,0.44755829,211.83555,70.474959)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329964px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1293-2-5);fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.26458299px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.44755829,0,0,0.44755829,211.83555,70.474959)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
          x="5.2910156"
-         y="30.529755"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">designed population component
+         y="30.529755"
+         id="tspan106"><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan104">designed population component
 </tspan></tspan><tspan
          x="5.2910156"
-         y="43.758881"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">of the required breathing zone 
+         y="43.758881"
+         id="tspan110"><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan108">of the required breathing zone 
 </tspan></tspan><tspan
          x="5.2910156"
-         y="56.988007"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1">outdoor airflow</tspan></tspan></text>
+         y="56.988007"
+         id="tspan114"><tspan
+           style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan112">outdoor airflow</tspan></tspan></text>
     <path
        style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 212.98958,76.729163 V 156.10417"
        id="path1468"
        inkscape:path-effect="#path-effect1470"
-       inkscape:original-d="M 212.98958,76.729163 V 156.10417" />
+       inkscape:original-d="M 212.98958,76.729163 V 156.10417"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.252102;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.25210199;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 23.8125,156.10416 H 212.98958"
        id="path1472"
        inkscape:path-effect="#path-effect1474"
-       inkscape:original-d="M 23.8125,156.10416 H 212.98958" />
+       inkscape:original-d="M 23.8125,156.10416 H 212.98958"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 23.8125,156.10416 V 76.729166"
        id="path1476"
        inkscape:path-effect="#path-effect1478"
-       inkscape:original-d="M 23.8125,156.10416 V 76.729166" />
+       inkscape:original-d="M 23.8125,156.10416 V 76.729166"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.4, 2.4;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.4, 2.4;stroke-dashoffset:0;stroke-opacity:1"
        d="M 23.8125,156.10417 212.98958,85.989583"
        id="path1498"
        inkscape:path-effect="#path-effect1500"
-       inkscape:original-d="M 23.8125,156.10417 212.98958,85.989583" />
+       inkscape:original-d="M 23.8125,156.10417 212.98958,85.989583"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 23.8125,146.84375 212.98958,76.729167"
        id="path1506"
        inkscape:path-effect="#path-effect1508"
-       inkscape:original-d="M 23.8125,146.84375 212.98958,76.729167" />
+       inkscape:original-d="M 23.8125,146.84375 212.98958,76.729167"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.8, 0.8;stroke-dashoffset:0;stroke-opacity:1"
        d="M 23.8125,76.729167 H 212.98958"
        id="path1510"
        inkscape:path-effect="#path-effect1512"
-       inkscape:original-d="M 23.8125,76.729167 H 212.98958" />
-  </g>
+       inkscape:original-d="M 23.8125,76.729167 H 212.98958"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331" />
+    <text
+       xml:space="preserve"
+       id="text1291-9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.73674726px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;white-space:pre;shape-inside:url(#rect1293);fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11841632px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-23.68049"
+       y="114.05682"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
+         style="stroke-width:0.11841632px"
+         sodipodi:role="line"
+         x="-23.68049"
+         y="114.05682"
+         id="tspan948-4">(VOccZonMin_flow)</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot974"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.13365115,0,0,0.13365115,28.313885,96.249437)"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><flowRegion
+         id="flowRegion976"><rect
+           id="rect978"
+           width="324.23346"
+           height="160.98303"
+           x="-392.25446"
+           y="-5.0478687" /></flowRegion><flowPara
+         id="flowPara980">Occupied minimum flow</flowPara></flowRoot>  </g>
 </svg>

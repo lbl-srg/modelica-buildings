@@ -3,7 +3,7 @@ model DedicatedDampersAirflow
   "Separate dedicated OA dampers with AFMS"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow,
+    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 
@@ -40,8 +40,8 @@ model DedicatedDampersAirflow
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
     final have_sen=
-      typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-      typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));

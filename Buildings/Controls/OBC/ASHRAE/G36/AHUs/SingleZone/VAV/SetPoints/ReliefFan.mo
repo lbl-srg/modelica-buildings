@@ -5,28 +5,28 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Total number of AHU supply fans that are serving the same common space";
   parameter Integer nRelFan = 4
     "Total number of relief fans that are serving the same common space";
-  parameter Real minSpe(
+  parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed";
   parameter Integer staVec[nRelFan] = {2,3,1,4}
     "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up";
-  parameter Integer RelFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
-    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It falgs which relief fan is associated with which supply fan";
-  parameter Real dpBuiSet(
+  parameter Integer relFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
+    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It flags which relief fan is associated with which supply fan";
+  parameter Real p_rel_set(
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(
     final unit="1") = 1
-    "Gain, normalized using dpBuiSet"
+    "Gain, normalized using p_rel_set"
     annotation (Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan[nSupFan]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan[nSupFan]
     "AHU supply fan proven on status"
     annotation (Placement(transformation(extent={{-560,330},{-520,370}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -40,7 +40,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Relief fan current alarm index"
     annotation (Placement(transformation(extent={{-560,50},{-520,90}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRelFan[nRelFan]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan[nRelFan]
     "Relief fan proven on status"
     annotation (Placement(transformation(extent={{-560,-190},{-520,-150}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -50,20 +50,21 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{500,320},{540,360}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFanSpe[nRelFan](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan[nRelFan](
     final unit=fill("1", nRelFan),
-    final max=fill(1,nRelFan)) "Relief fan speed setpoint"
+    final max=fill(1, nRelFan))
+    "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{500,210},{540,250}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam[nRelFan](
     final unit=fill("1",nRelFan),
     final min=fill(0,nRelFan),
-    final max=fill(1,nRelFan)) "Damper position setpoint"
+    final max=fill(1,nRelFan)) "Relief damper commanded position"
     annotation (Placement(transformation(extent={{500,60},{540,100}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain enaRel(
-    final K=RelFanMat)
+    final K=relFanMat)
     "Vector of relief fans with the enabled one denoted by 1"
     annotation (Placement(transformation(extent={{-460,340},{-440,360}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSupFan]
@@ -127,7 +128,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Enable damper"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
-    final t=minSpe + 0.15,
+    final t=relFanSpe_min + 0.15,
     final h=hys)
     "Check if the controller output is greater than minimum speed plus threshold"
     annotation (Placement(transformation(extent={{-320,-110},{-300,-90}})));
@@ -183,7 +184,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Stage up next relief fan"
     annotation (Placement(transformation(extent={{240,-80},{260,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
-    final t=minSpe,
+    final t=relFanSpe_min,
     final h=hys)
     "Check if the controller output is less than minimum speed"
     annotation (Placement(transformation(extent={{-320,-330},{-300,-310}})));
@@ -274,7 +275,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=1,
-    final uMin=minSpe)
+    final uMin=relFanSpe_min)
     "Limit the controller output"
     annotation (Placement(transformation(extent={{80,270},{100,290}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
@@ -288,7 +289,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Vector of relief fan status after staging up"
     annotation (Placement(transformation(extent={{400,130},{420,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
-    final k=dpBuiSet)
+    final k=p_rel_set)
     "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-460,170},{-440,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
@@ -378,7 +379,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     annotation (Placement(transformation(extent={{40,-258},{60,-238}})));
 
 equation
-  connect(uSupFan, booToRea.u)
+  connect(u1SupFan, booToRea.u)
     annotation (Line(points={{-540,350},{-502,350}}, color={255,0,255}));
   connect(enaRel.u, booToRea.y)
     annotation (Line(points={{-462,350},{-478,350}}, color={0,0,127}));
@@ -394,8 +395,8 @@ equation
           {-420,204},{-402,204}}, color={0,0,127}));
   connect(div1.y, conP.u_m) annotation (Line(points={{-378,210},{-370,210},{-370,
           268}}, color={0,0,127}));
-  connect(uSupFan, enaRelGro.u) annotation (Line(points={{-540,350},{-510,350},{
-          -510,310},{-502,310}}, color={255,0,255}));
+  connect(u1SupFan, enaRelGro.u) annotation (Line(points={{-540,350},{-510,350},
+          {-510,310},{-502,310}}, color={255,0,255}));
   connect(booToRea1.y, pro.u1) annotation (Line(points={{-438,310},{138,310}},
                            color={0,0,127}));
   connect(enaRelGro.y, booToRea1.u)
@@ -422,8 +423,8 @@ equation
     annotation (Line(points={{-138,180},{-82,180}},  color={255,0,255}));
   connect(booRep.y, enaDam.u2) annotation (Line(points={{-138,150},{-110,150},{-110,
           172},{-82,172}},     color={255,0,255}));
-  connect(uRelFan, booToRea2.u) annotation (Line(points={{-540,-170},{-480,-170},
-          {-480,-6},{-462,-6}},   color={255,0,255}));
+  connect(u1RelFan, booToRea2.u) annotation (Line(points={{-540,-170},{-480,-170},
+          {-480,-6},{-462,-6}}, color={255,0,255}));
   connect(enaRel.y, sub2.u1) annotation (Line(points={{-438,350},{-430,350},{-430,
           6},{-402,6}},     color={0,0,127}));
   connect(booToRea2.y, sub2.u2)
@@ -510,13 +511,13 @@ equation
     annotation (Line(points={{302,-70},{358,-70}}, color={255,0,255}));
   connect(or2.y, logSwi.u1) annotation (Line(points={{102,20},{340,20},{340,-62},
           {358,-62}}, color={255,0,255}));
-  connect(uRelFan, xor.u2) annotation (Line(points={{-540,-170},{70,-170},{70,-218},
+  connect(u1RelFan, xor.u2) annotation (Line(points={{-540,-170},{70,-170},{70,-218},
           {78,-218}}, color={255,0,255}));
-  connect(uRelFan, logSwi1.u3) annotation (Line(points={{-540,-170},{-480,-170},
+  connect(u1RelFan, logSwi1.u3) annotation (Line(points={{-540,-170},{-480,-170},
           {-480,-300},{310,-300},{310,-288},{318,-288}}, color={255,0,255}));
-  connect(uRelFan, booToInt1.u) annotation (Line(points={{-540,-170},{70,-170},{
-          70,-60},{118,-60}},color={255,0,255}));
-  connect(uRelFan, or2.u2) annotation (Line(points={{-540,-170},{70,-170},{70,12},
+  connect(u1RelFan, booToInt1.u) annotation (Line(points={{-540,-170},{70,-170},
+          {70,-60},{118,-60}}, color={255,0,255}));
+  connect(u1RelFan, or2.u2) annotation (Line(points={{-540,-170},{70,-170},{70,12},
           {78,12}}, color={255,0,255}));
   connect(logSwi.y, booToRea3.u)
     annotation (Line(points={{382,-70},{398,-70}}, color={255,0,255}));
@@ -526,7 +527,7 @@ equation
           {138,298}},color={0,0,127}));
   connect(booToRea3.y, pro3.u2) annotation (Line(points={{422,-70},{440,-70},{440,
           224},{458,224}}, color={0,0,127}));
-  connect(pro3.y, yRelFanSpe)
+  connect(pro3.y, yRelFan)
     annotation (Line(points={{482,230},{520,230}}, color={0,0,127}));
   connect(reaRep2.y, pro3.u1)
     annotation (Line(points={{422,236},{458,236}}, color={0,0,127}));
@@ -554,7 +555,7 @@ equation
     annotation (Line(points={{-540,70},{-402,70}}, color={255,127,0}));
   connect(conInt.y, intEqu2.u2) annotation (Line(points={{-438,40},{-420,40},{-420,
           62},{-402,62}}, color={255,127,0}));
-  connect(uRelFan, not3.u) annotation (Line(points={{-540,-170},{-480,-170},{-480,
+  connect(u1RelFan, not3.u) annotation (Line(points={{-540,-170},{-480,-170},{-480,
           -60},{-462,-60}}, color={255,0,255}));
   connect(intEqu2.y, and4.u1)
     annotation (Line(points={{-378,70},{-322,70}}, color={255,0,255}));
@@ -604,8 +605,8 @@ equation
     annotation (Line(points={{-138,-60},{-122,-60}}, color={0,0,127}));
   connect(pre1.y, and3.u2) annotation (Line(points={{22,-328},{40,-328},{40,-350},
           {-280,-350},{-280,-328},{-262,-328}},       color={255,0,255}));
-  connect(uRelFan, logSwi3.u1) annotation (Line(points={{-540,-170},{70,-170},{70,
-          -152},{358,-152}},      color={255,0,255}));
+  connect(u1RelFan, logSwi3.u1) annotation (Line(points={{-540,-170},{70,-170},{
+          70,-152},{358,-152}}, color={255,0,255}));
   connect(booRep4.y, logSwi3.u2) annotation (Line(points={{-258,-60},{-230,-60},
           {-230,-160},{358,-160}}, color={255,0,255}));
   connect(logSwi1.y, logSwi3.u3) annotation (Line(points={{342,-280},{350,-280},
@@ -639,7 +640,7 @@ annotation (defaultComponentName="relFanCon",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                          graphics={
         Text(extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -648,31 +649,31 @@ annotation (defaultComponentName="relFanCon",
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,92},{-54,72}},
-          lineColor={255,0,255},
-          textString="uSupFan"),
+          textColor={255,0,255},
+          textString="u1SupFan"),
         Text(
           extent={{-96,-70},{-54,-90}},
-          lineColor={255,0,255},
-          textString="uRelFan"),
+          textColor={255,0,255},
+          textString="u1RelFan"),
         Text(
           extent={{-98,42},{-56,22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="dpBui"),
         Text(
           extent={{60,70},{100,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yDpBui"),
         Text(
           extent={{40,12},{98,-8}},
-          lineColor={0,0,127},
-          textString="yRelFanSpe"),
+          textColor={0,0,127},
+          textString="yRelFan"),
         Text(
           extent={{60,-50},{100,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yDam"),
         Text(
           extent={{-98,-20},{-46,-38}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uRelFanAla")}),
  Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-520,-380},{500,380}}), graphics={
@@ -696,21 +697,21 @@ annotation (defaultComponentName="relFanCon",
           pattern=LinePattern.None),
         Text(
           extent={{136,-112},{312,-138}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage-up: turning on a new relief fan"),
         Text(
           extent={{132,-332},{330,-360}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage-down: turning off a lag relief fan"),
         Text(
           extent={{-124,128},{126,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -729,7 +730,7 @@ control loop, even if they are associated with different AHUs.
 </li>
 <li>
 A relief fan shall be enabled when its associated supply fan is proven ON
-(<code>uSupFan=true</code>), and shall be disabled otherwise.
+(<code>u1SupFan=true</code>), and shall be disabled otherwise.
 </li>
 <li>
 Building static pressure (<code>dpBui</code>) shall be time averaged with a sliding
@@ -737,7 +738,7 @@ Building static pressure (<code>dpBui</code>) shall be time averaged with a slid
 value shall be that displayed and used for control.
 </li>
 <li>
-A P-only control loop maintains the building pressure at a set point (<code>dpBuiSet</code>)
+A P-only control loop maintains the building pressure at a set point (<code>p_rel_set</code>)
 of 12 Pa (0.05 in. of water) with an output ranging from 0% to 100%. The loop is disabled
 and output set to zero when all fans in the relief system group are disabled.
 </li>
@@ -754,7 +755,7 @@ system group that are enabled; close the dampers when the loop output drops to 0
 5 minutes.
 </li>
 <li>
-Stage Up. When control loop is above minimum speed (<code>minSpe</code>) plus 15%, start
+Stage Up. When control loop is above minimum speed (<code>relFanSpe_min</code>) plus 15%, start
 stage-up timer. Each time the timer reaches 7 minutes, start the next relief fan (and
 open the associated damper) in the relief system group, per staging order, and reset
 the timer to 0. The timer is reset to 0 and frozen if control loop is below minimum
@@ -762,7 +763,7 @@ speed plus 15%. Note, when staging from Stage 0 (no relief fans) to Stage 1 (one
 fan), the discharge dampers of all nonoperating relief fans must be closed.
 </li>
 <li>
-Stage Down. When PID loop is below minimum speed (<code>minSpe</code>), start stage-down
+Stage Down. When PID loop is below minimum speed (<code>relFanSpe_min</code>), start stage-down
 timer. Each time the timer reaches 5 minutes, shut off lag fan per staging order and
 reset the timer to 0. The timer is reset to 0 and frozen if PID loop rises above minimum
 speed or all fans are OFF. If all fans are OFF, go to Stage 0 (all dampers open and all

@@ -1,31 +1,41 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type BuildingPressureControlTypes = enumeration(
-    ReliefDamper "Relief damper",
-    ReliefFan "Relief fan",
-    ReturnFanAir "Return fan, with airflow tracking",
+    BarometricRelief "Nonactuated barometric relief",
+    ReliefDamper "Actuated relief damper, without fan",
+    ReliefFan "Actuated relief damper, with relief fan(s)",
+    ReturnFanMeasuredAir "Return fan, tracking measured supply and return airflow",
+    ReturnFanCalculatedAir "Return fan, tracking calculated supply and return airflow",
     ReturnFanDp "Return fan, with direct building pressure control")
   "Enumeration defining types of building pressure control system"
 annotation (
  Evaluate=true, Documentation(info="<html>
 <p>
-Enumeration to define types of building pressure control system.
+Enumeration of define types of building pressure control system.
 Possible values are:
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
+<tr><td><code>BarometricRelief</code></td>
+<td>
+Nonactuated barometric relief.
+</td></tr>
 <tr><td><code>ReliefDamper</code></td>
 <td>
-Relief damper.
+Actuated relief damper, without fan.
 </td></tr>
 <tr><td><code>RelieFan</code></td>
 <td>
-Relief fan.
+Actuated relief damper, with relief fan(s).
 </td></tr>
-<tr><td><code>ReturnFanAir</code></td>
+<tr><td><code>ReturnFanMeasuredAir</code></td>
 <td>
-Return fan control with airflow tracking.
+Return fan control, tracking measured supply and return airflow.
+</td></tr>
+<tr><td><code>ReturnFanCalculatedAir</code></td>
+<td>
+Return fan control, tracking calculated supply and return airflow.
 </td></tr>
 <tr><td><code>ReturnFanDp</code></td>
 <td>

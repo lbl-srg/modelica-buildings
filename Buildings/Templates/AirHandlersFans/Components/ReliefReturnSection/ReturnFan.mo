@@ -21,7 +21,7 @@ model ReturnFan "Return fan with modulating relief damper"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanRet,
       final have_senFlo=
-        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
+        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)
     "Return fan"
     annotation (choices(choice(redeclare replaceable
@@ -37,14 +37,14 @@ equation
   connect(fanRet.bus, bus.fanRet);
   connect(damRel.bus, bus.damRel);
   /* Control point connection - end */
-  connect(fanRet.port_a, port_a)
-    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
   connect(port_b, damRel.port_b)
     annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
   connect(fanRet.port_b, splEco.port_1)
     annotation (Line(points={{50,0},{10,0}}, color={0,127,255}));
   connect(damRel.port_a, splEco.port_2)
     annotation (Line(points={{-140,0},{-10,0}}, color={0,127,255}));
+  connect(fanRet.port_a, port_a)
+    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This model represents a configuration with an air economizer

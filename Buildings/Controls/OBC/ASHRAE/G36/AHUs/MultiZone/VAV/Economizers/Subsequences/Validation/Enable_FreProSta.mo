@@ -65,24 +65,21 @@ equation
     annotation (Line(points={{-58,150},{-10,150},{-10,-13},{58,-13}},color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
     annotation (Line(points={{-118,90},{-100,90},{-100,60},{-30,60},{-30,-18},{58,
-          -18}},
-    color={0,0,127}));
+          -18}}, color={0,0,127}));
   connect(hOutCut.y, enaDis.hOutCut)
     annotation (Line(points={{-118,50},{-40,50},{-40,-20},{58,-20}},color={0,0,127}));
-  connect(outDamPosMin.y, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-118,-140},{-30,-140},{-30,-30},{58,-30}},
-    color={0,0,127}));
-  connect(outDamPosMax.y, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-88,-110},{-40,-110},{-40,-28},{58,-28}},color={0,0,127}));
-  connect(retDamPosMin.y, enaDis.uRetDamPosMin)
-    annotation (Line(points={{-88,-80},{48,-80},{48,-39},{58,-39}},color={0,0,127}));
-  connect(retDamPosMax.y, enaDis.uRetDamPosMax)
-    annotation (Line(points={{-88,-50},{-60,-50},{-60,-37},{58,-37}},
-    color={0,0,127}));
-  connect(retDamPhyPosMax.y, enaDis.uRetDamPhyPosMax)
-    annotation (Line(points={{-118,10},{-60,10},{-60,-35},{58,-35}},color={0,0,127}));
-  connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-118,-30},{-70,-30},{-70,-23},{58,-23}},color={255,0,255}));
+  connect(outDamPosMin.y, enaDis.uOutDam_min) annotation (Line(points={{-118,-140},
+          {-30,-140},{-30,-30},{58,-30}}, color={0,0,127}));
+  connect(outDamPosMax.y, enaDis.uOutDam_max) annotation (Line(points={{-88,-110},
+          {-40,-110},{-40,-28},{58,-28}}, color={0,0,127}));
+  connect(retDamPosMin.y, enaDis.uRetDam_min) annotation (Line(points={{-88,-80},
+          {48,-80},{48,-39},{58,-39}}, color={0,0,127}));
+  connect(retDamPosMax.y, enaDis.uRetDam_max) annotation (Line(points={{-88,-50},
+          {-60,-50},{-60,-37},{58,-37}}, color={0,0,127}));
+  connect(retDamPhyPosMax.y, enaDis.uRetDamPhy_max) annotation (Line(points={{-118,
+          10},{-60,10},{-60,-35},{58,-35}}, color={0,0,127}));
+  connect(supFanSta.y, enaDis.u1SupFan) annotation (Line(points={{-118,-30},{-70,
+          -30},{-70,-23},{58,-23}}, color={255,0,255}));
   connect(booPul1.y, freProSta1.u)
     annotation (Line(points={{2,-150},{4,-150},{4,-150},{8,-150},{8,-150},{18,-150}},
     color={255,0,255}));
@@ -108,7 +105,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-180},{180,180}}), graphics={
         Text(
           extent={{58,-38},{176,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Tests freeze protection disable condition")}),
 Documentation(info="<html>

@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
 partial block PartialController "Interface class for terminal unit controller"
 
-  parameter ZoneEquipment.Types.Controller typ "Type of controller"
+  parameter Buildings.Templates.ZoneEquipment.Types.Controller typ "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   replaceable parameter
@@ -25,7 +25,7 @@ partial block PartialController "Interface class for terminal unit controller"
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-151,-114},{149,-154}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
             200}})),

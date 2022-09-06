@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences;
 block ActiveAirFlow
-  "Output the active airflow setpoint for constant-volume parallel fan-powered terminal unit"
+  "Output the active primary airflow setpoint for constant-volume parallel fan-powered terminal unit"
 
-  parameter Real VCooZonMax_flow(
+  parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
@@ -11,7 +11,7 @@ block ActiveAirFlow
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-180,10},{-140,50}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccZonMin_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOccMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Occupied minimum airflow setpoint"
@@ -21,14 +21,13 @@ block ActiveAirFlow
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Active cooling maximum airflow setpoint"
+    "Active primary cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{140,30},{180,70}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActMin_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Active minimum airflow setpoint"
+    final quantity="VolumeFlowRate") "Active primary minimum airflow setpoint"
     annotation (Placement(transformation(extent={{140,-70},{180,-30}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
@@ -49,7 +48,7 @@ protected
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
-    final realTrue=VCooZonMax_flow)
+    final realTrue=VCooMax_flow)
     "Active cooling maximum flow"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal occModInd(
@@ -92,8 +91,8 @@ equation
     annotation (Line(points={{42,50},{78,50}},   color={255,0,255}));
   connect(ifOcc.y, occModInd.u) annotation (Line(points={{-38,70},{0,70},{0,10},
           {18,10}}, color={255,0,255}));
-  connect(VOccZonMin_flow, pro.u2) annotation (Line(points={{-160,-80},{60,-80},
-          {60,-56},{78,-56}}, color={0,0,127}));
+  connect(VOccMin_flow, pro.u2) annotation (Line(points={{-160,-80},{60,-80},{60,
+          -56},{78,-56}}, color={0,0,127}));
   connect(occModInd.y, pro.u1) annotation (Line(points={{42,10},{60,10},{60,-44},
           {78,-44}},  color={0,0,127}));
   connect(actCooMax.y, VActCooMax_flow)
@@ -112,31 +111,31 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-96,68},{-54,52}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{34,70},{98,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{50,-54},{98,-64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-98,-52},{-36,-68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VOccZonMin_flow")}),
+          textString="VOccMin_flow")}),
 Documentation(info="<html>
 <p>
-This sequence sets the active cooling maximum and minimum setpoints
+This sequence sets the active primary cooling maximum and minimum setpoints
 for parallel fan-powered terminal unit with constant volume fan. The implementation
 is according to the Section 5.7.4 of ASHRAE Guideline 36, May 2020.
 </p>
@@ -144,10 +143,10 @@ is according to the Section 5.7.4 of ASHRAE Guideline 36, May 2020.
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cooldown</th>
 <th>Setup</th><th>Warm-up</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooZonMax_flow</code></td>
-<td><code>VCooZonMax_flow</code></td><td><code>VCooZonMax_flow</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VCooMax_flow</code></td>
+<td><code>VCooMax_flow</code></td><td><code>VCooMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccZonMin_flow</code></td><td>0</td>
+<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccMin_flow</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
 <br/>

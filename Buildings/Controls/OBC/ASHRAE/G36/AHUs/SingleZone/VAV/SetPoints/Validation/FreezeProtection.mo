@@ -3,7 +3,8 @@ model FreezeProtection
   "Validate model for implementing freeze protection"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection frePro(
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper)
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper, freSta=
+        Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat)
     "Freeze protection control"
     annotation (Placement(transformation(extent={{80,0},{100,40}})));
 
@@ -25,15 +26,15 @@ model FreezeProtection
     final height=0.2,
     final offset=0.7,
     final duration=3600) "Return air damper position"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse freRes(
     final width=0.95,
     final period=3600)
     "Freeze protection reset"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
     final height=0.2,
     final offset=0.5,
@@ -48,34 +49,42 @@ model FreezeProtection
     final height=-4,
     final offset=273.15 + 6,
     final duration=3600) "Supply air temperature"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp mixTem(
     final height=-5,
     final offset=273.15 + 8,
     final duration=3600) "Mixed air temperature"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=0.05)
+    "Supply fan command on"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
 equation
   connect(freRes.y, not1.u)
-    annotation (Line(points={{-58,-30},{-42,-30}}, color={255,0,255}));
+    annotation (Line(points={{-58,-10},{-42,-10}}, color={255,0,255}));
   connect(outDamPosMin.y,frePro. uOutDamPosMin) annotation (Line(points={{-58,100},
           {64,100},{64,39},{78,39}},    color={0,0,127}));
-  connect(outDamPos.y,frePro. uOutDamPos) annotation (Line(points={{-18,80},{60,
-          80},{60,37},{78,37}},     color={0,0,127}));
+  connect(outDamPos.y, frePro.uOutDam) annotation (Line(points={{-18,80},{60,80},
+          {60,37},{78,37}}, color={0,0,127}));
   connect(heaCoiPos.y,frePro. uHeaCoi) annotation (Line(points={{-58,60},{56,60},
           {56,34},{78,34}},    color={0,0,127}));
-  connect(retDamPos.y,frePro. uRetDamPos) annotation (Line(points={{-58,20},{44,
-          20},{44,28},{78,28}},     color={0,0,127}));
-  connect(supTem.y,frePro. TSup) annotation (Line(points={{-18,0},{48,0},{48,25},
-          {78,25}},        color={0,0,127}));
-  connect(not1.y,frePro. uSofSwiRes) annotation (Line(points={{-18,-30},{52,-30},
-          {52,16},{78,16}},   color={255,0,255}));
-  connect(supFanSpe.y,frePro. uSupFanSpe) annotation (Line(points={{-18,-60},{56,
-          -60},{56,13},{78,13}},   color={0,0,127}));
+  connect(retDamPos.y, frePro.uRetDam) annotation (Line(points={{-18,40},{44,40},
+          {44,31},{78,31}}, color={0,0,127}));
+  connect(supTem.y, frePro.TAirSup) annotation (Line(points={{-58,20},{44,20},{44,
+          28},{78,28}}, color={0,0,127}));
+  connect(not1.y, frePro.u1SofSwiRes) annotation (Line(points={{-18,-10},{48,-10},
+          {48,22},{78,22}}, color={255,0,255}));
+  connect(supFanSpe.y, frePro.uSupFan) annotation (Line(points={{-18,-60},{56,-60},
+          {56,17},{78,17}}, color={0,0,127}));
   connect(cooCoiPos.y,frePro. uCooCoi) annotation (Line(points={{-58,-80},{60,-80},
           {60,4},{78,4}},      color={0,0,127}));
-  connect(mixTem.y,frePro. TMix) annotation (Line(points={{-18,-100},{64,-100},{
-          64,1},{78,1}}, color={0,0,127}));
+  connect(mixTem.y, frePro.TAirMix) annotation (Line(points={{-18,-100},{64,-100},
+          {64,1},{78,1}}, color={0,0,127}));
+  connect(supFanSpe.y, greThr.u) annotation (Line(points={{-18,-60},{-10,-60},{-10,
+          -40},{-2,-40}}, color={0,0,127}));
+  connect(greThr.y, frePro.u1SupFan) annotation (Line(points={{22,-40},{52,-40},
+          {52,19},{78,19}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/SetPoints/Validation/FreezeProtection.mos"

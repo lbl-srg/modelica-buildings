@@ -2,10 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subse
 model Overrides "Validation of model that overrides control"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Overrides ove(
-    final VZonMin_flow=0.1,
-    final VCooZonMax_flow=0.9,
-    final VHeaZonMax_flow=0.8)
-    "Block outputs system requests"
+    final VMin_flow=0.1,
+    final VCooMax_flow=0.9,
+    final VHeaMax_flow=0.8) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
     final height=0.9,
@@ -73,7 +72,7 @@ equation
           {36,5},{58,5}}, color={0,0,127}));
   connect(reaToInt1.y, ove.oveCooDamPos) annotation (Line(points={{22,10},{32,10},
           {32,0},{58,0}}, color={255,127,0}));
-  connect(cooDamPos.y, ove.uCooDamSet) annotation (Line(points={{-18,-20},{32,-20},
+  connect(cooDamPos.y, ove.uCooDam) annotation (Line(points={{-18,-20},{32,-20},
           {32,-3},{58,-3}}, color={0,0,127}));
   connect(oveDam1.y, round3.u)
     annotation (Line(points={{-58,-50},{-42,-50}}, color={0,0,127}));
@@ -81,7 +80,7 @@ equation
     annotation (Line(points={{-18,-50},{-2,-50}}, color={0,0,127}));
   connect(reaToInt3.y, ove.oveHeaDamPos) annotation (Line(points={{22,-50},{36,-50},
           {36,-6},{58,-6}}, color={255,127,0}));
-  connect(heaDamPos.y, ove.uHeaDamSet) annotation (Line(points={{-18,-80},{40,-80},
+  connect(heaDamPos.y, ove.uHeaDam) annotation (Line(points={{-18,-80},{40,-80},
           {40,-9},{58,-9}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),

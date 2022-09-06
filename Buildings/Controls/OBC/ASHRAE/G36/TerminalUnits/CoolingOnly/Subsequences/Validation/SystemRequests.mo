@@ -51,8 +51,8 @@ model SystemRequests
 equation
   connect(sine.y, TZonCooSet.u)
     annotation (Line(points={{-38,40},{-22,40}}, color={0,0,127}));
-  connect(TZonCooSet.y, sysReq.TZonCooSet) annotation (Line(points={{2,40},{38,40},
-          {38,6},{58,6}},   color={0,0,127}));
+  connect(TZonCooSet.y, sysReq.TCooSet)
+    annotation (Line(points={{2,40},{38,40},{38,6},{58,6}}, color={0,0,127}));
   connect(TZon.y, sysReq.TZon) annotation (Line(points={{-38,0},{10,0},{10,4},{58,
           4}},      color={0,0,127}));
   connect(uCoo.y, sysReq.uCoo) annotation (Line(points={{2,-20},{36,-20},{36,2},
@@ -63,9 +63,8 @@ equation
   connect(disAirSet.y, sysReq.VSet_flow) annotation (Line(points={{-38,-40},{38,
           -40},{38,-3},{58,-3}},
                                color={0,0,127}));
-  connect(damPos.y, sysReq.uDam) annotation (Line(points={{-38,-80},{42,-80},{42,
-          -9},{58,-9}},
-                      color={0,0,127}));
+  connect(damPos.y, sysReq.uDam) annotation (Line(points={{-38,-80},{42,
+          -80},{42,-9},{58,-9}}, color={0,0,127}));
   connect(booPul.y, not1.u)
     annotation (Line(points={{-38,80},{-22,80}},   color={255,0,255}));
   connect(not1.y, sysReq.uAftSup) annotation (Line(points={{2,80},{40,80},{40,9},

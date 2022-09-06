@@ -9,12 +9,12 @@ model Temperature "Temperature sensor"
     "Type of temperature sensor"
     annotation(Dialog(enable=false), Evaluate=true);
 
-  Fluid.Sensors.TemperatureTwoPort senTem(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal) if have_sen
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
+  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
     if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

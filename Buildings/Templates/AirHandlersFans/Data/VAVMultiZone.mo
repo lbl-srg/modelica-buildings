@@ -4,7 +4,7 @@ record VAVMultiZone "Record for multiple-zone VAV"
     redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
     ctl(
       final typSecRel=typSecRel,
-      final minOADes=minOADes,
+      final typSecOut=typSecOut,
       final buiPreCon=buiPreCon),
     final mAirSup_flow_nominal=if typFanSup<>Buildings.Templates.Components.Types.Fan.None
     then fanSup.m_flow_nominal else 0,
@@ -33,8 +33,8 @@ record VAVMultiZone "Record for multiple-zone VAV"
   parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
     "Type of valve for heating coil in reheat position"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns minOADes
-    "Design of minimum outdoor air and economizer function"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
+    "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system"
@@ -90,5 +90,12 @@ record VAVMultiZone "Record for multiple-zone VAV"
 
 annotation (
   defaultComponentPrefixes = "parameter",
-  defaultComponentName = "dat");
+  defaultComponentName = "dat",
+    Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for the class
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\">
+Buildings.Templates.AirHandlersFans.VAVMultiZone</a>.
+</p>
+</html>"));
 end VAVMultiZone;

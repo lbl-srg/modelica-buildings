@@ -2,10 +2,10 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx;
 model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   extends Case600FF(
     redeclare Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResults staRes(
-    annualHea(Min=4.296*3.6e9, Max=5.709*3.6e9, Mean=5.090*3.6e9),
-    annualCoo(Min=-6.137*3.6e9, Max=-7.964*3.6e9, Mean=-6.832*3.6e9),
-    peakHea(Min=3.437*1000, Max=4.354*1000, Mean=4.000*1000),
-    peakCoo(Min=-5.965*1000, Max=-6.827*1000, Mean=-6.461*1000)));
+    annualHea(Min=3.993*3.6e9, Max=4.504*3.6e9, Mean=4.213*3.6e9),
+    annualCoo(Min=-5.432*3.6e9, Max=-6.162*3.6e9, Mean=-5.856*3.6e9),
+    peakHea(Min=3.020*1000, Max=3.359*1000, Mean=3.184*1000),
+    peakCoo(Min=-5.422*1000, Max=-6.481*1000, Mean=-6.024*1000)));
   Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     k=0.1,
     Ti=300,
@@ -47,9 +47,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     u(unit="W"),
     y(unit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{-20,6},{-12,14}})));
-  BaseClasses.DaySchedule TSetHea(table=[0.0,273.15 + 20]) "Heating setpoint"
+  replaceable BaseClasses.DaySchedule TSetHea(table=[0.0,273.15 + 20])
+    "Heating setpoint"
     annotation (Placement(transformation(extent={{-92,30},{-84,38}})));
-  BaseClasses.DaySchedule TSetCoo(table=[0.0,273.15 + 27]) "Cooling setpoint"
+  replaceable BaseClasses.DaySchedule TSetCoo(table=[0.0,273.15 + 27])
+    "Cooling setpoint"
     annotation (Placement(transformation(extent={{-92,8},{-84,16}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage PHea(delta=3600)
     "Hourly averaged heating power"
@@ -59,11 +61,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
 equation
   connect(TRooAir.T,conHea. u_m) annotation (Line(
-      points={{2,-15},{-80,-15},{-80,24},{-68,24},{-68,29.2}},
+      points={{1.5,-15},{-80,-15},{-80,24},{-68,24},{-68,29.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conCoo.u_m, TRooAir.T)  annotation (Line(
-      points={{-68,7.2},{-68,-15},{2,-15}},
+      points={{-68,7.2},{-68,-15},{1.5,-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHea.y,gaiHea. u) annotation (Line(

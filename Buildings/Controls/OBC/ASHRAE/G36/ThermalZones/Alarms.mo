@@ -6,7 +6,7 @@ block Alarms "Zone level alarms"
     final quantity="Time")=600
     "Threshold time to check temperature difference";
   parameter Boolean have_CO2Sen=false
-    "Set to true if the zone has CO2 sensor"
+    "True: the zone has CO2 sensor"
     annotation (Dialog(group="CO2 concentration alarm"));
   parameter Real modChe(
     final unit="s",
@@ -32,19 +32,19 @@ block Alarms "Zone level alarms"
     final quantity="ThermodynamicTemperature") "Measured zone temperature"
     annotation (Placement(transformation(extent={{-240,200},{-200,240}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone cooling setpoint"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-240,86},{-200,126}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uResSet
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ResSet
     "True: zone setpoint temperature is being resetted"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -276,9 +276,9 @@ equation
           {-140,180},{-122,180}}, color={0,0,127}));
   connect(TZon, higTem.u1)
     annotation (Line(points={{-220,220},{-180,220},{-180,226},{-172,226}}, color={0,0,127}));
-  connect(TZonCooSet, higTem.u2) annotation (Line(points={{-220,180},{-190,180},
-          {-190,214},{-172,214}}, color={0,0,127}));
-  connect(TZonHeaSet, lowTem.u1)
+  connect(TCooSet, higTem.u2) annotation (Line(points={{-220,180},{-190,180},{-190,
+          214},{-172,214}}, color={0,0,127}));
+  connect(THeaSet, lowTem.u1)
     annotation (Line(points={{-220,106},{-172,106}}, color={0,0,127}));
   connect(cooDowMod.y, intEqu3.u1)
     annotation (Line(points={{-158,-20},{-122,-20}}, color={255,127,0}));
@@ -292,7 +292,7 @@ equation
     annotation (Line(points={{-98,-20},{-82,-20}}, color={255,0,255}));
   connect(intEqu4.y, or2.u2) annotation (Line(points={{-98,-60},{-90,-60},{-90,-28},
           {-82,-28}},color={255,0,255}));
-  connect(uResSet, or1.u1)
+  connect(u1ResSet, or1.u1)
     annotation (Line(points={{-220,20},{-42,20}}, color={255,0,255}));
   connect(or2.y, or1.u2) annotation (Line(points={{-58,-20},{-50,-20},{-50,12},
           {-42,12}},color={255,0,255}));
@@ -434,49 +434,49 @@ annotation (defaultComponentName="zonAla",
         Text(
         extent={{-100,140},{100,100}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Text(
-          extent={{-98,68},{-54,52}},
-          lineColor={0,0,127},
+          extent={{-98,68},{-64,52}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
           extent={{-100,94},{-76,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-98,38},{-54,22}},
-          lineColor={0,0,127},
+          extent={{-98,38},{-64,22}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TZonHeaSet"),
+          textString="THeaSet"),
         Text(
           extent={{62,48},{98,32}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yTemAla"),
         Text(
           visible=have_CO2Sen,
           extent={{62,-32},{98,-48}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yCO2Ala"),
         Text(
           extent={{-98,-40},{-58,-56}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           visible=have_CO2Sen,
           extent={{-98,-72},{-62,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="ppmCO2"),
         Text(
           extent={{-98,-12},{-62,-28}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uResSet")}),
+          textString="u1ResSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{240,260}})),
 Documentation(info="<html>
 <p>
@@ -490,12 +490,12 @@ High-temperature alarm
 <ul>
 <li>
 If the zone temperature <code>TZon</code> is 2 &deg;C (3 &deg;F) above the cooling
-setpoint <code>TZonCooSet</code> for 10 minutes (<code>timChe</code>),
+setpoint <code>TCooSet</code> for 10 minutes (<code>timChe</code>),
 generate Level 3 alarm.
 </li>
 <li>
 If the zone temperature <code>TZon</code> is 3 &deg;C (5 &deg;F) above the cooling
-setpoint <code>TZonCooSet</code> for 10 minutes (<code>timChe</code>),
+setpoint <code>TCooSet</code> for 10 minutes (<code>timChe</code>),
 generate Level 2 alarm.
 </li>
 </ul>
@@ -505,12 +505,12 @@ Low-temperature alarm
 <ul>
 <li>
 If the zone temperature <code>TZon</code> is 2 &deg;C (3 &deg;F) below the heating
-setpoint <code>TZonHeaSet</code> for 10 minutes (<code>timChe</code>),
+setpoint <code>THeaSet</code> for 10 minutes (<code>timChe</code>),
 generate Level 3 alarm.
 </li>
 <li>
 If the zone temperature <code>TZon</code> is 3 &deg;C (5 &deg;F) below the heating
-setpoint <code>TZonHeaSet</code> for 10 minutes (<code>timChe</code>),
+setpoint <code>THeaSet</code> for 10 minutes (<code>timChe</code>),
 generate Level 2 alarm.
 </li>
 </ul>

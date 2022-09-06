@@ -2,33 +2,33 @@ within Buildings.Templates.AirHandlersFans.Interfaces;
 expandable connector Bus "Control bus for air handler"
   extends Modelica.Icons.SignalBus;
 
-    Templates.Components.Interfaces.Bus fanSup
+    Buildings.Templates.Components.Interfaces.Bus fanSup
        "Supply fan points"
        annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus fanRel
+    Buildings.Templates.Components.Interfaces.Bus fanRel
       "Relief fan points"
       annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus fanRet
+    Buildings.Templates.Components.Interfaces.Bus fanRet
       "Return fan points"
       annotation (HideResult=false);
 
-    Templates.Components.Interfaces.Bus coiHea
+    Buildings.Templates.Components.Interfaces.Bus coiHea
       "Heating coil (preheat or reheat position, only one coil allowed) points"
       annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus coiCoo
+    Buildings.Templates.Components.Interfaces.Bus coiCoo
       "Cooling coil points"
       annotation (HideResult=false);
 
-    Templates.Components.Interfaces.Bus damOut
+    Buildings.Templates.Components.Interfaces.Bus damOut
       "OA damper points"
       annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus damOutMin
+    Buildings.Templates.Components.Interfaces.Bus damOutMin
       "Minimum OA damper points"
       annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus damRel
+    Buildings.Templates.Components.Interfaces.Bus damRel
       "Relief damper points"
       annotation (HideResult=false);
-    Templates.Components.Interfaces.Bus damRet
+    Buildings.Templates.Components.Interfaces.Bus damRet
       "Return damper points"
       annotation (HideResult=false);
 

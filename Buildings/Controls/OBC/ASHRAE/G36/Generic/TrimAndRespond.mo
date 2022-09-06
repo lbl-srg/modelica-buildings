@@ -294,11 +294,11 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-114,146},{106,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-88,58},{90,-42}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="Trim & Respond")}),
    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},{220,
             220}}),
@@ -317,12 +317,12 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-214,122},{-124,98}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Check device status,
 Count time"), Text(
           extent={{-216,32},{-110,4}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Reset setpoint based
 on request number")}),

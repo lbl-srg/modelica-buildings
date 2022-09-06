@@ -5,8 +5,7 @@ model SystemRequests
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.SystemRequests sysReq(
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01)
-    "Block outputs system requests"
+    final damPosHys=0.01) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-22},{80,18}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     final freqHz=1/7200,
@@ -95,7 +94,7 @@ model SystemRequests
 equation
   connect(sine.y, TZonCooSet.u)
     annotation (Line(points={{-38,110},{-22,110}}, color={0,0,127}));
-  connect(TZonCooSet.y, sysReq.TZonCooSet) annotation (Line(points={{2,110},{40,
+  connect(TZonCooSet.y, sysReq.TCooSet) annotation (Line(points={{2,110},{40,
           110},{40,14},{58,14}}, color={0,0,127}));
   connect(TZon.y, sysReq.TZon) annotation (Line(points={{-58,80},{36,80},{36,11},
           {58,11}}, color={0,0,127}));
@@ -117,7 +116,7 @@ equation
     annotation (Line(points={{-58,-30},{-42,-30}}, color={255,0,255}));
   connect(not2.y, sysReq.uAftSupHea) annotation (Line(points={{-18,-30},{20,-30},
           {20,-5},{58,-5}}, color={255,0,255}));
-  connect(TZonHeaSet.y, sysReq.TZonHeaSet) annotation (Line(points={{-18,-60},{24,
+  connect(TZonHeaSet.y, sysReq.THeaSet) annotation (Line(points={{-18,-60},{24,
           -60},{24,-8},{58,-8}}, color={0,0,127}));
   connect(uHea.y, sysReq.uHea) annotation (Line(points={{2,-90},{28,-90},{28,-11},
           {58,-11}}, color={0,0,127}));
@@ -125,8 +124,8 @@ equation
           -110},{32,-110},{32,-14},{58,-14}}, color={0,0,127}));
   connect(hotDucAirRate.y, sysReq.VHotDucDis_flow) annotation (Line(points={{2,-130},
           {36,-130},{36,-16},{58,-16}}, color={0,0,127}));
-  connect(hotDamPos.y, sysReq.uHeaDam) annotation (Line(points={{-38,-150},{40,-150},
-          {40,-19},{58,-19}}, color={0,0,127}));
+  connect(hotDamPos.y, sysReq.uHeaDam) annotation (Line(points={{-38,-150},
+          {40,-150},{40,-19},{58,-19}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),

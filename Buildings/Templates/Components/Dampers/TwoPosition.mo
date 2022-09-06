@@ -26,7 +26,7 @@ model TwoPosition "Two-position damper"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-50})));
-  Controls.OBC.CDL.Continuous.LessThreshold evaClo(t=0.01, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold evaClo(t=0.01, h=0.5E-2)
     "Return true if closed (closed end switch contact)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

@@ -1,32 +1,32 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
+﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block Supply "Supply air set point for single zone VAV system"
 
-  parameter Real TSupSetMax(
+  parameter Real TSup_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum supply air temperature for heating"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TSupSetMin(
+  parameter Real TSup_min(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum supply air temperature for cooling"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TDewSupMax(
+  parameter Real TSupDew_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum supply air dew-point temperature. It's typically only needed in humid type “A” climates. A typical value is 17°C. 
     For mild and dry climates, a high set point (e.g. 24°C) should be entered for maximum efficiency"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TMinSupDea(
+  parameter Real TSupDea_min(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=294.15
     "Minimum supply temperature when it is in deadband state"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TMaxSupDea(
+  parameter Real TSupDea_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
@@ -134,14 +134,14 @@ block Supply "Supply air set point for single zone VAV system"
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Cooling setpoints for zone temperature"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
@@ -154,18 +154,18 @@ block Supply "Supply air set point for single zone VAV system"
     final unit="1") "Fan speed"
     annotation (Placement(transformation(extent={{180,320},{220,360}}),
         iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
-    "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1SupFan
+    "Supply fan commanded status"
     annotation (Placement(transformation(extent={{180,280},{220,320}}),
         iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEcoSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Temperature setpoint for heating coil and for economizer"
     annotation (Placement(transformation(extent={{180,-220},{220,-180}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
@@ -186,7 +186,7 @@ protected
     "Prevent changes in fan speed of more than 10% per minute"
     annotation (Placement(transformation(extent={{140,330},{160,350}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxDewPoi(
-    final k=TDewSupMax)
+    final k=TSupDew_max)
     "Maximum supply air dew-point temperature"
     annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
@@ -222,8 +222,8 @@ protected
     "Average of the zone heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
-    final uMax=TMaxSupDea,
-    final uMin=TMinSupDea)
+    final uMax=TSupDea_max,
+    final uMin=TSupDea_min)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
@@ -274,7 +274,7 @@ protected
     "Temperature control point one in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSupTem(
-    final k=TSupSetMax)
+    final k=TSup_max)
     "Highest heating supply air temperature"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temTwoPoi(
@@ -285,7 +285,7 @@ protected
     "Supply air temperature when it is in cooling state"
     annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supCooTem(
-    final k=TSupSetMin)
+    final k=TSup_min)
     "Cooling supply air temperature"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
@@ -304,12 +304,13 @@ protected
     "Temperature control point four in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-370},{-100,-350}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les(final h=looHys)
-    "Check if the cooling loop signal is greater than threshold"
+    "Check if the cooling loop signal is less than threshold"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch cooFan
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(t=looHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(t=looHys, final h=
+        0.8*looHys)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet
@@ -360,10 +361,10 @@ equation
           {60,212},{78,212}}, color={0,0,127}));
   connect(TOut, medFanSpe.u) annotation (Line(points={{-200,160},{-160,160},{-160,
           220},{78,220}},      color={0,0,127}));
-  connect(TZonCooSet, aveZonSet.u1) annotation (Line(points={{-200,-90},{-150,-90},
-          {-150,-104},{-122,-104}},    color={0,0,127}));
-  connect(TZonHeaSet, aveZonSet.u2) annotation (Line(points={{-200,-130},{-150,-130},
-          {-150,-116},{-122,-116}},    color={0,0,127}));
+  connect(TCooSet, aveZonSet.u1) annotation (Line(points={{-200,-90},{-150,-90},
+          {-150,-104},{-122,-104}}, color={0,0,127}));
+  connect(THeaSet, aveZonSet.u2) annotation (Line(points={{-200,-130},{-150,-130},
+          {-150,-116},{-122,-116}}, color={0,0,127}));
   connect(aveZonSet.y, lim.u)
     annotation (Line(points={{-98,-110},{-62,-110}},  color={0,0,127}));
   connect(uHea, heaFanSpe.u) annotation (Line(points={{-200,100},{-160,100},{-160,
@@ -456,9 +457,9 @@ equation
           {80,260},{80,332},{98,332}}, color={0,0,127}));
   connect(ramLim.y, y)
     annotation (Line(points={{162,340},{200,340}}, color={0,0,127}));
-  connect(supTemSet.y, TSupHeaEco)
+  connect(supTemSet.y, TSupHeaEcoSet)
     annotation (Line(points={{142,-200},{200,-200}}, color={0,0,127}));
-  connect(supTemSet1.y, TSupCoo)
+  connect(supTemSet1.y, TSupCooSet)
     annotation (Line(points={{142,-280},{200,-280}}, color={0,0,127}));
   connect(uCoo, cooSupTem.u) annotation (Line(points={{-200,30},{-140,30},{-140,
           -240},{58,-240}}, color={0,0,127}));
@@ -470,7 +471,7 @@ equation
           200},{-102,200}}, color={0,0,127}));
   connect(isUnoMod.y, not1.u) annotation (Line(points={{-98,340},{20,340},{20,300},
           {38,300}}, color={255,0,255}));
-  connect(not1.y, ySupFan)
+  connect(not1.y, y1SupFan)
     annotation (Line(points={{62,300},{200,300}}, color={255,0,255}));
 
 annotation (defaultComponentName = "setPoiVAV",
@@ -484,7 +485,7 @@ annotation (defaultComponentName = "setPoiVAV",
       Text(
         extent={{-100,140},{100,100}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
     Polygon(
       points={{80,-76},{58,-70},{58,-82},{80,-76}},
       lineColor={95,95,95},
@@ -499,11 +500,11 @@ annotation (defaultComponentName = "setPoiVAV",
       fillPattern=FillPattern.Solid),
     Text(
       extent={{-88,-6},{-47,-26}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="T"),
     Text(
       extent={{64,-82},{88,-93}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="u"),
         Line(
           points={{-44,-6},{-30,-6},{-14,-42},{26,-42},{38,-62},{60,-62}},
@@ -521,44 +522,44 @@ annotation (defaultComponentName = "setPoiVAV",
       fillColor={95,95,95},
       fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,14},{-80,6}},
-          lineColor={0,0,127},
+          extent={{-100,16},{-76,6}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uHea"),
         Text(
-          extent={{-100,-18},{-80,-26}},
-          lineColor={0,0,127},
+          extent={{-100,-14},{-80,-24}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uCoo"),
         Text(
-          extent={{62,6},{98,-4}},
-          lineColor={0,0,127},
+          extent={{52,8},{98,-6}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TSupHeaEco"),
+          textString="TSupHeaEcoSet"),
         Text(
-          extent={{72,-54},{98,-64}},
-          lineColor={0,0,127},
+          extent={{62,-54},{98,-66}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TSupCoo"),
+          textString="TSupCooSet"),
         Text(
           extent={{86,86},{100,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="y"),
         Text(
-          extent={{-98,-54},{-64,-66}},
-          lineColor={0,0,127},
+          extent={{-98,-54},{-72,-64}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TZonCooSet"),
+          textString="TCooSet"),
         Text(
-          extent={{-100,44},{-80,36}},
-          lineColor={0,0,127},
+          extent={{-100,46},{-80,36}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOut"),
@@ -570,35 +571,35 @@ annotation (defaultComponentName = "setPoiVAV",
       fillPattern=FillPattern.Solid),
     Text(
       extent={{-88,68},{-47,48}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="y"),
         Line(points={{-46,44},{-28,20},{18,20},{28,36},{38,36},{50,54}}, color={
               0,0,0}),
         Line(points={{18,20},{38,20},{50,54},{28,54},{18,20}}, color={0,0,0}),
         Text(
           extent={{-96,96},{-66,86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOpeMod"),
         Text(
-          extent={{-98,-84},{-62,-96}},
-          lineColor={0,0,127},
+          extent={{-98,-84},{-72,-96}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TZonHeaSet"),
+          textString="THeaSet"),
         Text(
-          extent={{-100,68},{-80,60}},
-          lineColor={0,0,127},
+          extent={{-100,68},{-80,58}},
+          textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
           extent={{70,46},{98,36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="ySupFan")}),
+          textString="y1SupFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-380},{180,380}})),
   Documentation(info="<html>
 <p>
@@ -628,11 +629,11 @@ less than or equal to Endpoint 2.
 <ul>
 <li>
 Endpoint 1: the lesser of zone temperature <code>TZon</code> plus 0.5 &deg;C (1 &deg;F)
-and maximum supply air dew point <code>TDewSupMax</code>.
+and maximum supply air dew point <code>TSupDew_max</code>.
 </li>
 <li>
 Endpoint 2: the lesser of zone temperature <code>TZon</code> minus 6 &deg;C (10 &deg;F)
-and maximum supply air dew point <code>TDewSupMax</code> minus 1 &deg;C (2 &deg;F).
+and maximum supply air dew point <code>TSupDew_max</code> minus 1 &deg;C (2 &deg;F).
 </li>
 </ul>
 </li>
@@ -680,50 +681,50 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZ
 
 <h4>Supply temperature setpoints</h4>
 <p>
-The output <code>TSupCoo</code> is to be used to control the cooling coil,
+The output <code>TSupCooSet</code> is to be used to control the cooling coil,
 and the output
-<code>TSupHeaEco</code> is to be used to control the heating coil and the
+<code>TSupHeaEcoSet</code> is to be used to control the heating coil and the
 economizer dampers.
 </p>
 <p>
-When it is in deadband state, the output <code>TSupCoo</code> and <code>TSupHeaEco</code>
-shall be average of the zone heating setpoint <code>TZonHeaSet</code> and the zone
-cooling setpoint <code>TZonCooSet</code> but shall be no lower than <code>TMinSupDea</code>,
+When it is in deadband state, the output <code>TSupCooSet</code> and <code>TSupHeaEcoSet</code>
+shall be average of the zone heating setpoint <code>THeaSet</code> and the zone
+cooling setpoint <code>TCooSet</code> but shall be no lower than <code>TSupDea_min</code>,
 21 &deg;C (70 &deg;F),
-and no higher than <code>TMaxSupDea</code>, 24 &deg;C (75 &deg;F),
+and no higher than <code>TSupDea_max</code>, 24 &deg;C (75 &deg;F),
 </p>
 <h5>Control mapping</h5>
 <ol>
 <li>
 For a heating-loop signal <code>uHea</code> of 100% to <code>temPoiOne</code> (default 50%), 
-<code>TSupHeaEco</code> should be <code>TSupSetMax</code>.
+<code>TSupHeaEcoSet</code> should be <code>TSup_max</code>.
 </li>
 <li>
 For a heating-loop signal <code>uHea</code> of <code>temPoiOne</code> to 0%, 
-<code>TSupHeaEco</code> is reset from <code>TSupSetMax</code> to the deadband value.
+<code>TSupHeaEcoSet</code> is reset from <code>TSup_max</code> to the deadband value.
 </li>
 <li>
-In deadband (<code>uHea=0</code>, <code>uCoo=0</code>), <code>TSupHeaEco</code> is
+In deadband (<code>uHea=0</code>, <code>uCoo=0</code>), <code>TSupHeaEcoSet</code> is
 the deadband value.
 </li>
 <li>
 For a cooling-loop signal <code>uCoo</code> of 0% to <code>temPoiTwo</code> (default 25%),
-<code>TSupHeaEco</code> is reset from deadband value to <code>TSupSetMin</code> minus
-1 &deg;C (2 &deg;F), while <code>TSupCoo</code> is the deadband value.
+<code>TSupHeaEcoSet</code> is reset from deadband value to <code>TSup_min</code> minus
+1 &deg;C (2 &deg;F), while <code>TSupCooSet</code> is the deadband value.
 </li>
 <li>
 For a cooling-loop signal <code>uCoo</code> of <code>temPoiTwo</code> to <code>temPoiThr</code> (default 50%),
-<code>TSupHeaEco</code> and <code>TSupCoo</code> are unchanged.
+<code>TSupHeaEcoSet</code> and <code>TSupCooSet</code> are unchanged.
 </li>
 <li>
 For a cooling-loop signal <code>uCoo</code> of <code>temPoiThr</code> to <code>temPoiFou</code> (default 75%),
-<code>TSupHeaEco</code> remains at <code>TSupSetMin</code> minus
-1 &deg;C (2 &deg;F), while <code>TSupCoo</code> is reset from the deadband value
-to <code>TSupSetMin</code>.
+<code>TSupHeaEcoSet</code> remains at <code>TSup_min</code> minus
+1 &deg;C (2 &deg;F), while <code>TSupCooSet</code> is reset from the deadband value
+to <code>TSup_min</code>.
 </li>
 <li>
 For a cooling-loop signal <code>uCoo</code> of <code>temPoiFou</code> to 100%,
-<code>TSupHeaEco</code> and <code>TSupCoo</code> are unchanged.
+<code>TSupHeaEcoSet</code> and <code>TSupCooSet</code> are unchanged.
 </li>
 </ol>
 

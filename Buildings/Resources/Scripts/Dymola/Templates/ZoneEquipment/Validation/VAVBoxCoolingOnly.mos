@@ -6,7 +6,7 @@ simulateModel("Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly",
 createPlot(
     id=1,
     position={15, 15, 1192, 772},
-    y={"ahu.port_Sup.m_flow"},
+    y={"VAVBox_1.port_Sup.m_flow"},
     autoscale=true,
     grid=true
 );

@@ -7,8 +7,7 @@ model TimeSuppression
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupAla(
     final chaRat=1080,
-    final maxTim=7200)
-    "Time suppression for temperature alarm"
+    final maxTim=7200) "Time suppression for temperature alarm"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine zonTem(
     final amplitude=2,
@@ -20,8 +19,7 @@ model TimeSuppression
     final height=5,
     final duration=600,
     final offset=295.15,
-    final startTime=900)
-    "Cooling setpoint"
+    final startTime=900) "Cooling setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation

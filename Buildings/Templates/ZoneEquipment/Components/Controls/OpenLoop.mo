@@ -21,7 +21,7 @@ equation
   connect(yCoiHea.y, bus.coiHea.y);
   /* Control point connection - end */
   annotation (
-  defaultComponentName="conTer", Documentation(info="<html>
+  defaultComponentName="ctl", Documentation(info="<html>
 <p>
 This is an open loop controller providing control inputs
 for the templates within 

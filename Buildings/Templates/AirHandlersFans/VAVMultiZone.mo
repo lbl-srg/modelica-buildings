@@ -22,7 +22,7 @@ model VAVMultiZone "Multiple-zone VAV"
       typDamRel=secOutRel.typDamRel,
       typCtl=ctl.typ,
       typSecRel=secOutRel.typSecRel,
-      minOADes=ctl.minOADes,
+      typSecOut=ctl.typSecOut,
       buiPreCon=ctl.buiPreCon),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
@@ -54,7 +54,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner replaceable Components.OutdoorReliefReturnSection.Economizer secOutRel
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Economizer secOutRel
     constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
@@ -79,7 +79,7 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Mixed air temperature sensor"
-    annotation (Dialog(group="Supply air section", enable=false), Placement(
+    annotation (Placement(
         transformation(extent={{-110,-210},{-90,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
@@ -87,7 +87,7 @@ model VAVMultiZone "Multiple-zone VAV"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Blow through"
     annotation (
       choices(
@@ -108,7 +108,7 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Heating coil leaving air temperature sensor"
-    annotation (Dialog(group="Supply air section"),
+    annotation (
       Placement(transformation(extent={{40,-210},{60,-190}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirCoiCooLvg(
@@ -118,7 +118,7 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Cooling coil leaving air temperature sensor"
-    annotation (Dialog(group="Supply air section"),
+    annotation (
       Placement(transformation(extent={{100,-210},{120,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
@@ -126,7 +126,7 @@ model VAVMultiZone "Multiple-zone VAV"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
-        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking)
+        Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
     "Supply fan - Draw through"
     annotation (
       choices(
@@ -140,7 +140,7 @@ model VAVMultiZone "Multiple-zone VAV"
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
-  inner replaceable Components.Controls.OpenLoop ctl constrainedby
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final dat=dat.ctl,
       final nZon=nZon)
@@ -161,20 +161,21 @@ model VAVMultiZone "Multiple-zone VAV"
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirSup_flow_nominal)
     "Supply air temperature sensor"
-    annotation (Dialog(group="Supply air section"), Placement(
+    annotation (Placement(
         transformation(extent={{210,-210},{230,-190}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=true)
     "Duct static pressure sensor"
-    annotation (Dialog(group="Supply air section"),
+    annotation (
       Placement(transformation(extent={{250,-230},{270,-210}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pBui_rel(
     redeclare final package Medium = MediumAir,
     final have_sen=have_senPreBui,
-    final text_flip=true) "Building static pressure"
+    final text_flip=true)
+    "Building static pressure"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
 
   Buildings.Fluid.Sources.Outside out(
@@ -198,20 +199,24 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialDryBulb
-         or ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb,
+    final have_sen=
+      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      (ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb or
+       ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air temperature sensor"
-    annotation (Dialog(group="Exhaust/relief/return section"),
+    annotation (
       Placement(transformation(extent={{220,-90},{200,-70}})));
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
-    final have_sen=ctl.typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=
+      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
-    annotation (Dialog(group="Exhaust/relief/return section"),
+    annotation (
       Placement(transformation(extent={{250,-90},{230,-70}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
@@ -269,7 +274,7 @@ model VAVMultiZone "Multiple-zone VAV"
     Dialog(group="Heating coil",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{130,-210},{150,-190}})));
-  Fluid.FixedResistances.Junction junHeaWatSup(
+  Buildings.Fluid.FixedResistances.Junction junHeaWatSup(
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -279,12 +284,13 @@ model VAVMultiZone "Multiple-zone VAV"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-260})));
-  Fluid.FixedResistances.Junction junHeaWatSup1(
+  Buildings.Fluid.FixedResistances.Junction junHeaWatSup1(
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=fill(0, 3)) if have_souHeaWat
-    "HHW return junction" annotation (Placement(transformation(
+    "HHW return junction"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-240})));
@@ -439,20 +445,17 @@ equation
         Text(
           visible=have_senPreBui,
           extent={{18,46},{60,34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontName="sans-serif",
-          textString="REPRESENTATIVE SPACE
-INSIDE BUILDING",
-          fontSize=4),
+          textString="REPRESENTATIVE SPACE INSIDE BUILDING"),
         Text(
           visible=have_senPreBui,
           extent={{-60,46},{-18,34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Right,
           fontName="sans-serif",
-          textString="REFERENCE OUTSIDE
-BUILDING",fontSize=4)}),
+          textString="REFERENCE OUTSIDE BUILDING")}),
     Documentation(info="<html>
 <h4>Description</h4>
 <p>
@@ -462,7 +465,7 @@ a single duct system serving <b>at least two</b> terminal units.
 <p>
 The possible equipment configurations are enumerated in the table below.
 The user may refer to
-<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+<a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
 for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
@@ -599,8 +602,8 @@ relative building static pressure.
 </p>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2018\">
-ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

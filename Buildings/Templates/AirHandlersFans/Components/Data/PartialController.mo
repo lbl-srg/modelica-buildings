@@ -15,4 +15,12 @@ record PartialController "Record for controller interface class"
     "Type of return fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+the class
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController\">
+Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController</a>.
+</p>
+</html>"));
 end PartialController;

@@ -1,6 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model Line "Model of an electrical line without neutral cable"
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
   extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(
   V_nominal(start = 480),
   commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
@@ -103,6 +105,10 @@ equation
           smooth=Smooth.None)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>
 Revised documentation and model.

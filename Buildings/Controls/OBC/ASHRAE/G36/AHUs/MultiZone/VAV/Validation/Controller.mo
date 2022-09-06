@@ -2,17 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Validation;
 model Controller "Validation controller model"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B,
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-    final VPriSysMax_flow=0.35,
-    final peaSysPop=6,
-    final use_enthalpy=false) "Multizone VAV AHU controller"
+    final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+    final VUncDesOutAir_flow=0.05,
+    final VDesTotOutAir_flow=0.05) "Multizone VAV AHU controller"
     annotation (Placement(transformation(extent={{100,-120},{180,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
-    final k=297.15)
-    "Outdoor temperature high limit cutoff"
-    annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final height=4,
     final duration=3600,
@@ -73,10 +72,6 @@ model Controller "Validation controller model"
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{-200,240},{-180,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sumDesZonPop(
-    final k=5)
-    "Sum of design zone population"
-    annotation (Placement(transformation(extent={{-240,110},{-220,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sumDesPopBreZon(
     final k=0.0125)
     "Sum of the population component design breathing zone flow rate"
@@ -85,25 +80,15 @@ model Controller "Validation controller model"
     final k=0.03)
     "Sum of the area component design breathing zone flow rate"
     annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desSysVenEff(
-    final k=1)
-    "Design system ventilation efficiency"
-    annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uncOutAir(
-    final amplitude=0.01,
-    final width=0.25,
-    final period=3600,
-    final offset=0.0375) "Sum of all zones required uncorrected outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo2(
-    final offset=1,
-    final height=0.5,
+    final offset=0.08,
+    final height=0.02,
     final duration=3600)
     "Ramp signal for generating VAV box flow rate"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo1(
-    final height=1.5,
-    final offset=1,
+    final height=0.05,
+    final offset=0.08,
     final duration=3600)
     "Ramp signal for generating VAV box flow rate"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
@@ -146,11 +131,6 @@ model Controller "Validation controller model"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos(
-    final duration=1800,
-    final height=0.7,
-    final offset=0.1) "Outdoor damper position"
-    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
     final duration=3600,
     final height=0.7,
@@ -160,8 +140,8 @@ model Controller "Validation controller model"
 equation
   connect(TOut.y, conAHU.TOut) annotation (Line(points={{-218,190},{62,190},{62,
           25.4545},{96,25.4545}},  color={0,0,127}));
-  connect(ducStaPre.y, conAHU.ducStaPre) annotation (Line(points={{-178,210},{68,
-          210},{68,29.0909},{96,29.0909}},  color={0,0,127}));
+  connect(ducStaPre.y, conAHU.dpDuc) annotation (Line(points={{-178,210},{68,
+          210},{68,29.0909},{96,29.0909}}, color={0,0,127}));
   connect(sine2.y, abs3.u)
     annotation (Line(points={{-218,230},{-162,230}},   color={0,0,127}));
   connect(abs3.y,round4. u)
@@ -178,65 +158,49 @@ equation
           {56,160},{56,20},{96,20}},  color={255,127,0}));
   connect(ducPreResReq.y, conAHU.uZonPreResReq) annotation (Line(points={{-58,230},
           {74,230},{74,34.5455},{96,34.5455}},  color={255,127,0}));
-  connect(TMixMea.y, conAHU.TMix) annotation (Line(points={{-178,-190},{62,-190},
-          {62,-90.9091},{96,-90.9091}},  color={0,0,127}));
-  connect(VOut_flow.y, conAHU.VOut_flow) annotation (Line(points={{-178,-60},{32,
-          -60},{32,-30.9091},{96,-30.9091}}, color={0,0,127}));
-  connect(TOutCut.y, conAHU.TOutCut) annotation (Line(points={{-218,-130},{50,
-          -130},{50,-54.5455},{96,-54.5455}},
-                                         color={0,0,127}));
-  connect(TSup.y, conAHU.TSup) annotation (Line(points={{-178,140},{44,140},{44,
-          10.9091},{96,10.9091}},  color={0,0,127}));
-  connect(sumDesZonPop.y, conAHU.sumDesZonPop) annotation (Line(points={{-218,120},
-          {38,120},{38,5.45455},{96,5.45455}},    color={0,0,127}));
-  connect(uncOutAir.y, conAHU.VSumUncOutAir_flow) annotation (Line(points={{-218,40},
-          {14,40},{14,-16.3636},{96,-16.3636}},    color={0,0,127}));
+  connect(TMixMea.y, conAHU.TAirMix) annotation (Line(points={{-178,-190},{62,-190},
+          {62,-90.9091},{96,-90.9091}}, color={0,0,127}));
+  connect(VOut_flow.y, conAHU.VAirOut_flow) annotation (Line(points={{-178,-60},
+          {38,-60},{38,-27.2727},{96,-27.2727}}, color={0,0,127}));
+  connect(TSup.y, conAHU.TAirSup) annotation (Line(points={{-178,140},{44,140},
+          {44,10.9091},{96,10.9091}}, color={0,0,127}));
   connect(vavBoxFlo2.y, add2.u1) annotation (Line(points={{-158,20},{-140,20},{-140,
           6},{-122,6}}, color={0,0,127}));
   connect(vavBoxFlo1.y, add2.u2) annotation (Line(points={{-158,-20},{-140,-20},
           {-140,-6},{-122,-6}}, color={0,0,127}));
-  connect(add2.y, conAHU.VSumSysPriAir_flow) annotation (Line(points={{-98,0},{8,
-          0},{8,-20},{96,-20}}, color={0,0,127}));
   connect(uOutAirFra_max.y, conAHU.uOutAirFra_max) annotation (Line(points={{-218,
-          -40},{26,-40},{26,-25.4545},{96,-25.4545}},color={0,0,127}));
-  connect(opeMod.y, conAHU.uOpeMod[1]) annotation (Line(points={{-178,250},{80,
-          250},{80,38.1818},{96,38.1818}},   color={255,127,0}));
-  connect(sumDesPopBreZon.y, conAHU.VSumDesPopBreZon_flow) annotation (Line(
-        points={{-178,100},{32,100},{32,-1.81818},{96,-1.81818}},color={0,0,127}));
-  connect(sumDesAreBreZon.y, conAHU.VSumDesAreBreZon_flow) annotation (Line(
-        points={{-218,80},{26,80},{26,-5.45455},{96,-5.45455}},  color={0,0,127}));
-  connect(desSysVenEff.y, conAHU.uDesSysVenEff) annotation (Line(points={{-178,60},
-          {20,60},{20,-10.9091},{96,-10.9091}}, color={0,0,127}));
-  connect(heaCoi.y, conAHU.uHeaCoi) annotation (Line(points={{-218,-250},{80,
-          -250},{80,-118.182},{96,-118.182}},
-                                        color={0,0,127}));
-  connect(cooCoi.y, conAHU.uCooCoi) annotation (Line(points={{-178,-230},{74,
-          -230},{74,-114.545},{96,-114.545}},
-                                        color={0,0,127}));
+          -40},{32,-40},{32,-9.09091},{96,-9.09091}},color={0,0,127}));
+  connect(heaCoi.y, conAHU.uHeaCoi_actual) annotation (Line(points={{-218,-250},
+          {80,-250},{80,-118.182},{96,-118.182}}, color={0,0,127}));
+  connect(cooCoi.y, conAHU.uCooCoi_actual) annotation (Line(points={{-178,-230},
+          {74,-230},{74,-114.545},{96,-114.545}}, color={0,0,127}));
   connect(dpBui.y, conAHU.dpBui) annotation (Line(points={{-218,-210},{68,-210},
           {68,-96.3636},{96,-96.3636}}, color={0,0,127}));
   connect(freRes.y,not1. u)
     annotation (Line(points={{-218,-160},{-202,-160}}, color={255,0,255}));
-  connect(not1.y, conAHU.uSofSwiRes) annotation (Line(points={{-178,-160},{56,
-          -160},{56,-76.3636},{96,-76.3636}},
-                                        color={255,0,255}));
-  connect(outDamPos.y, conAHU.uOutDamPos) annotation (Line(points={{-218,-80},{
-          38,-80},{38,-36.3636},{96,-36.3636}},
-                                             color={0,0,127}));
+  connect(not1.y, conAHU.u1SofSwiRes) annotation (Line(points={{-178,-160},{56,
+          -160},{56,-76.3636},{96,-76.3636}}, color={255,0,255}));
   connect(supFanSpe.y, mul.u2) annotation (Line(points={{-178,-110},{-120,-110},
           {-120,-106},{-2,-106}}, color={0,0,127}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-58,20},{-20,20},{-20,-94},
           {-2,-94}}, color={0,0,127}));
-  connect(conAHU.ySupFan, pre.u) annotation (Line(points={{184,29.0909},{200,29.0909},
-          {200,40},{218,40}}, color={255,0,255}));
-  connect(pre.y, conAHU.uSupFan) annotation (Line(points={{242,40},{250,40},{
-          250,70},{50,70},{50,16.3636},{96,16.3636}},
-                                                  color={255,0,255}));
+  connect(conAHU.y1SupFan, pre.u) annotation (Line(points={{184,-40},{200,-40},
+          {200,40},{218,40}},          color={255,0,255}));
+  connect(pre.y, conAHU.u1SupFan) annotation (Line(points={{242,40},{250,40},{
+          250,70},{50,70},{50,16.3636},{96,16.3636}}, color={255,0,255}));
   connect(pre.y, booToRea.u) annotation (Line(points={{242,40},{250,40},{250,70},
           {-100,70},{-100,20},{-82,20}}, color={255,0,255}));
-  connect(mul.y, conAHU.uSupFanSpe) annotation (Line(points={{22,-100},{44,-100},
-          {44,-41.8182},{96,-41.8182}}, color={0,0,127}));
+  connect(mul.y, conAHU.uSupFan_actual) annotation (Line(points={{22,-100},{50,
+          -100},{50,-38.1818},{96,-38.1818}}, color={0,0,127}));
 
+  connect(sumDesPopBreZon.y, conAHU.VSumAdjPopBreZon_flow) annotation (Line(
+        points={{-178,100},{38,100},{38,5.45455},{96,5.45455}}, color={0,0,127}));
+  connect(sumDesAreBreZon.y, conAHU.VSumAdjAreBreZon_flow) annotation (Line(
+        points={{-218,80},{32,80},{32,1.81818},{96,1.81818}}, color={0,0,127}));
+  connect(add2.y, conAHU.VSumZonPri_flow) annotation (Line(points={{-98,0},{32,0},
+          {32,-3.63636},{96,-3.63636}}, color={0,0,127}));
+  connect(opeMod.y, conAHU.uAhuOpeMod) annotation (Line(points={{-178,250},{80,
+          250},{80,38.1818},{96,38.1818}}, color={255,127,0}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),

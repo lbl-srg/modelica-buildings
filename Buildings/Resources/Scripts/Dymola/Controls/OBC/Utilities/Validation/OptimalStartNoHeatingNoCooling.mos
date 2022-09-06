@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.Utilities.Validation.OptimalStartNoHeatingNoCooling", stopTime=2419200, method="Cvode", tolerance=1e-06, resultFile="OptimalStartNoHeatingNoCooling");
+simulateModel("Buildings.Controls.OBC.Utilities.Validation.OptimalStartNoHeatingNoCooling", stopTime=2419200, method="Cvode", tolerance=1e-06, resultFile="OptimalStartNoHeatingNoCooling");
 createPlot(id=1, position={10, 9, 1161, 1054},subPlot=1, y={"optSta.tOpt"}, range={0.0, 28.0, -1.5, 1.5}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={10, 9, 1161, 346},subPlot=2, y={"optSta.optOn"}, range={0.0, 2500000.0, -1.5, 1.5}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={10, 9, 1161, 346},subPlot=3, y={"TSetHea.y","TSetCoo.y","optSta.TZon"}, range={0.0, 2500000.0, 10.0, 35.0}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});

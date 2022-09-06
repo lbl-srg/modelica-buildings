@@ -2,10 +2,12 @@ within Buildings.Templates.Components.Coils.Interfaces;
 partial model PartialCoil "Interface class for coil"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumAir,
-    final m_flow_nominal=mAir_flow_nominal);
+    final m_flow_nominal=mAir_flow_nominal)
+    annotation(__Linkage(enable=false));
 
   replaceable package MediumAir=Buildings.Media.Air
-    "Source-side medium";
+    "Source-side medium"
+    annotation(__Linkage(enable=false));
   /*
   The following definition is needed only for Dymola that does not allow
   port_aSou and port_bSou to be instantiated without redeclaring their medium
@@ -13,7 +15,8 @@ partial model PartialCoil "Interface class for coil"
   */
   replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Source-side medium";
+    "Source-side medium"
+    annotation(__Linkage(enable=false));
 
   parameter Buildings.Templates.Components.Types.Coil typ
     "Equipment type"

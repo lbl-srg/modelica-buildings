@@ -19,10 +19,10 @@ model ControlLoops
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-  connect(TZonCooSetOcc.y, conLoo.TZonCooSet) annotation (Line(points={{-38,40},
-          {20,40},{20,6},{38,6}}, color={0,0,127}));
-  connect(TZonHeaSetOcc.y, conLoo.TZonHeaSet) annotation (Line(points={{-38,-40},
-          {20,-40},{20,-6},{38,-6}}, color={0,0,127}));
+  connect(TZonCooSetOcc.y, conLoo.TCooSet) annotation (Line(points={{-38,40},{
+          20,40},{20,6},{38,6}}, color={0,0,127}));
+  connect(TZonHeaSetOcc.y, conLoo.THeaSet) annotation (Line(points={{-38,-40},{
+          20,-40},{20,-6},{38,-6}}, color={0,0,127}));
   connect(zonTem.y, conLoo.TZon)
     annotation (Line(points={{-38,0},{38,0}}, color={0,0,127}));
 

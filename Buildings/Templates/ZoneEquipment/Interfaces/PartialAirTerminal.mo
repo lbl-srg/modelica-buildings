@@ -4,11 +4,12 @@ partial model PartialAirTerminal
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HHW medium"
-    annotation(Dialog(enable=have_souHeaWat));
+    annotation(Dialog(enable=have_souHeaWat), __Linkage(enable=false));
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
     "Type of system"
@@ -97,7 +98,7 @@ partial model PartialAirTerminal
       Placement(transformation(extent={{-30,-290},{-10,-270}}),
         iconTransformation(extent={{-60,-210},{-40,-190}})));
 
-  Interfaces.Bus bus
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
     "Terminal unit control bus"
     annotation (Placement(
         transformation(
@@ -113,7 +114,7 @@ partial model PartialAirTerminal
     extent={{-200,-200},{200,200}}), graphics={
         Text(
           extent={{-155,-218},{145,-258}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"), Rectangle(
           extent={{-200,200},{200,-200}},
           lineColor={0,0,255},

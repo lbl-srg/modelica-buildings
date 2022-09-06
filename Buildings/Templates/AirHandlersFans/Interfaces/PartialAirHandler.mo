@@ -2,15 +2,18 @@ within Buildings.Templates.AirHandlersFans.Interfaces;
 partial model PartialAirHandler "Interface class for air handler"
   inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
   inner replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
-    annotation(Dialog(enable=have_souChiWat));
+    annotation(Dialog(enable=have_souChiWat),
+      __Linkage(enable=false));
   inner replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HHW medium"
-    annotation(Dialog(enable=have_souHeaWat));
+    annotation(Dialog(enable=have_souHeaWat),
+      __Linkage(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
     "Type of system"
@@ -35,10 +38,6 @@ partial model PartialAirHandler "Interface class for air handler"
   final parameter String id=dat.id
    "System tag"
     annotation (Dialog(group="Configuration"));
-
-  parameter Boolean is_modCtrSpe = true
-    "Set to true to activate the control specification mode"
-    annotation(Evaluate=true);
 
   parameter Boolean have_porRel=
     typ==Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
@@ -89,7 +88,8 @@ partial model PartialAirHandler "Interface class for air handler"
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true,
+      __Linkage(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare final package Medium = MediumAir,
@@ -160,7 +160,7 @@ partial model PartialAirHandler "Interface class for air handler"
       Medium = MediumHeaWat) if have_souHeaWat "HHW supply port" annotation (
       Placement(transformation(extent={{10,-290},{30,-270}}),
         iconTransformation(extent={{-60,-210},{-40,-190}})));
-  Bus bus
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "AHU control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -169,12 +169,12 @@ partial model PartialAirHandler "Interface class for air handler"
         extent={{-20,-19},{20,19}},
         rotation=90,
         origin={-199,160})));
-  BoundaryConditions.WeatherData.Bus busWea
+  Buildings.BoundaryConditions.WeatherData.Bus busWea
     "Weather bus"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  ZoneEquipment.Interfaces.Bus busTer[nZon]
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus busTer[nZon]
     "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -188,7 +188,7 @@ annotation (
     extent={{-200,-200},{200,200}}), graphics={
         Text(
           extent={{-155,-218},{145,-258}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"), Rectangle(
           extent={{-200,200},{200,-200}},
           lineColor={0,0,255},

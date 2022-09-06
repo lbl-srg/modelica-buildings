@@ -10,58 +10,82 @@ block G36VAVMultiZone
     annotation(Evaluate=true,
     Dialog(group="Configuration"));
 
+  parameter String namGro[:]
+    "Name of zone groups"
+    annotation (
+    Evaluate=true,
+    Dialog(group="Configuration"));
+
   parameter String namGroZon[nZon]
     "Name of group which each zone belongs to"
     annotation(Evaluate=true,
     Dialog(group="Configuration"));
 
   final parameter Integer nGro(final min=1)=
-    Buildings.Templates.BaseClasses.countUniqueStrings(namGroZon)
+    size(namGro, 1)
     "Number of zone groups"
-    annotation (
-    Evaluate=true,
-    Dialog(group="Configuration"));
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
 
-  final parameter String namGro[nGro]=
-    Buildings.Templates.BaseClasses.getUniqueStrings(namGroZon)
-    "Group names"
-    annotation(Evaluate=true);
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
+    "ASHRAE climate zone"
+    annotation (Dialog(group="Configuration",
+    enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
 
-  final parameter Boolean isZonInGro[nGro, nZon] = {
-    {namGroZon[i] == namGro[j] for i in 1:nZon} for j in 1:nGro}
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
+    "California Title 24 climate zone"
+    annotation (Dialog(group="Configuration",
+    enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+
+  final parameter Boolean isZonInGro[nGro, nZon]=
+    {{namGro[i]==namGroZon[j]  for j in 1:nZon} for i in 1:nGro}
     "True if zone belongs to group"
     annotation(Evaluate=true);
 
-  final parameter Integer nZonGro[nGro](each final min=1) = {
-    Modelica.Math.BooleanVectors.countTrue({
-      namGroZon[j] == namGro[i] for j in 1:nZon})
-    for i in 1:nGro}
+  final parameter Integer isZonInGroInt[nGro, nZon]=
+    {{if isZonInGro[i, j] then 1 else 0 for j in 1:nZon} for i in 1:nGro}
+    "1 if zone belongs to group, 0 otherwise"
+    annotation(Evaluate=true);
+
+  final parameter Integer isZonInGroIntTra[nZon, nGro]=
+    {{isZonInGroInt[i, j] for i in 1:size(isZonInGroInt, 1)} for j in 1:size(isZonInGroInt, 2)}
+    "Transpose of isZonInGroInt: 1 if zone belongs to group, 0 otherwise"
+    annotation(Evaluate=true);
+
+  final parameter Integer nZonPerGro[nGro](each final min=1) = {
+    sum(isZonInGroInt[i]) for i in 1:nGro}
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
   parameter Boolean have_perZonRehBox=false
     "Set to true if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));
+    annotation (Dialog(group="Configuration"));
 
   /*
   *  Parameters for Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller
   */
 
-  parameter Boolean have_duaDucBox=false
-    "Set to true if the AHU serves dual duct boxes"
-    annotation (Dialog(group="System and building parameters"));
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutUnc_flow_nominal=
+    dat.VOutUnc_flow_nominal
+    "Uncorrected design outdoor air flow rate, including diversity where applicable";
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutTot_flow_nominal=
+    dat.VOutTot_flow_nominal
+    "Design total outdoor air flow rate";
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutAbsMin_flow_nominal=
+    dat.VOutAbsMin_flow_nominal
+    "Design outdoor air flow rate when all zones with CO2 sensors or occupancy sensors are unpopulated";
+  final parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow_nominal=
+    dat.VOutMin_flow_nominal
+    "Design minimum outdoor air flow rate when all zones are occupied at their design population, including diversity";
 
-  parameter Boolean have_freSta=false
-    "Set to true if the system is equipped with freeze stat"
-    annotation (Dialog(group="System and building parameters"));
-
-  // FIXME #1913: not used, not clear.
-  /*
-  final parameter Boolean have_airFloMeaSta=
-    typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking
-    "Check if the AHU has supply airflow measuring station"
-    annotation (Dialog(group="System and building parameters"));
-  */
+  final parameter Modelica.Units.SI.PressureDifference dpDamOutMinAbs=
+    dat.dpDamOutMinAbs
+    "Differential pressure across the minimum outdoor air damper that provides the absolute minimum outdoor airflow";
+  final parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
+    dat.dpDamOutMin_nominal
+    "Differential pressure across the minimum outdoor air damper that provides the design minimum outdoor airflow";
 
   final parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
     dat.pAirSupSet_rel_max
@@ -78,15 +102,6 @@ block G36VAVMultiZone
   final parameter Real yFanSup_min=
     dat.yFanSup_min
     "Lowest allowed fan speed if fan is on";
-
-  // FIXME #1913: the definition of that parameter is unclear.
-  final parameter Modelica.Units.SI.VolumeFlowRate VPriSysMax_flow=
-    secOutRel.mAirSup_flow_nominal / 1.2
-    "Maximum expected system primary airflow at design stage";
-
-  final parameter Real nPeaSys_nominal=
-    dat.nPeaSys_nominal
-    "Design system population (including diversity)";
 
   final parameter Modelica.Units.SI.Temperature TAirSupSet_min(
     displayUnit="degC")=dat.TAirSupSet_min
@@ -116,78 +131,90 @@ block G36VAVMultiZone
     dat.yFanRet_min
     "Minimum return fan speed";
 
-  final parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal=
-    dat.dpDamOutMin_nominal
-    "Design minimum outdoor air damper differential pressure";
-
   final parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
     dat.dVFanRet_flow
     "Airflow differential between supply and return fans to maintain building pressure at set point";
 
-  // FIXME #1913: incorrect parameter propagation in controller.
+  /* FIXME #1913:
+  final parameter Real retFanSpe_max=0
+  final parameter Real retFanSpe_min=1
+  */
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctl(
-    retFanDpCon(final disMinSpe=yFanRet_min, disMaxSpe=1),
-    final minOADes=minOADes,
+    final eneStd=stdEne,
+    final venStd=stdVen,
+    final ashCliZon=ashCliZon,
+    final tit24CliZon=tit24CliZon,
+    final freSta=typFreSta,
+    final minOADes=typSecOut,
     final buiPreCon=buiPreCon,
-    final nZonGro=nGro,
+    final ecoHigLimCon=typCtlEco,
     final have_hotWatCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
       coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
+    final have_eleHeaCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
+      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating,
     final have_perZonRehBox=have_perZonRehBox,
-    final have_duaDucBox=have_duaDucBox,
-    final have_freSta=have_freSta,
-    final use_enthalpy=use_enthalpy,
+    final VUncDesOutAir_flow=VOutUnc_flow_nominal,
+    final VDesTotOutAir_flow=VOutTot_flow_nominal,
+    final VAbsOutAir_flow=VOutAbsMin_flow_nominal,
+    final VDesOutAir_flow=VOutAbsMin_flow_nominal,
     final pMaxSet=pAirSupSet_rel_max,
-    final yFanMin=yFanSup_min,
-    final minSpe=yFanSup_min,
-    final minSpeRelFan=yFanRel_min,
-    final VPriSysMax_flow=VPriSysMax_flow,
-    final peaSysPop=nPeaSys_nominal,
-    final TSupCooMin=TAirSupSet_min,
-    final TSupCooMax=TAirSupSet_max,
-    final TOutMin=TOutRes_min,
-    final TOutMax=TOutRes_max,
-    final dpDesOutDam_min=dpDamOutMin_nominal,
-    final dpBuiSet=pBuiSet_rel,
+    final supFanSpe_min=yFanSup_min,
+    final TSupCoo_min=TAirSupSet_min,
+    final TSupCoo_max=TAirSupSet_max,
+    final TOut_min=TOutRes_min,
+    final TOut_max=TOutRes_max,
+    final have_CO2Sen=have_CO2Sen,
+    final pAbsMinOutDam=dpDamOutMinAbs,
+    final pDesMinOutDam=dpDamOutMin_nominal,
+    final p_rel_set=pBuiSet_rel,
     final difFloSet=dVFanRet_flow,
-    final dpDisMin=pAirRetSet_rel_min,
-    final dpDisMax=pAirRetSet_rel_max)
+    final p_rel_min=pAirRetSet_rel_min,
+    final p_rel_max=pAirRetSet_rel_max)
     "AHU controller"
     annotation (Placement(transformation(extent={{-40,-72},{40,72}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone
-    zonToSys(final numZon=nZon)
-    "Sum up zone calculation output"
-    annotation (Placement(transformation(extent={{-140,-32},{-120,-12}})));
-
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.ZoneStatusDuplicator repSigZon(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone
+    aggZonVen_A621(
     final nZon=nZon,
-    final nGro=nGro)
-    "Replicate zone signals"
-    annotation (Placement(transformation(extent={{-160,100},{-152,140}})));
+    final nGro=nGro,
+    final zonGroMat=isZonInGroInt,
+    final zonGroMatTra=isZonInGroIntTra)
+    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    "Aggregate zone level ventilation signals - ASHRAE 62.1"
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus staGro[nGro](
-    final numZon=fill(nZon, nGro),
-    final numZonGro=nZonGro,
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.SumZone
+    aggZonVen_T24(
+    final nZon=nZon,
+    final nGro=nGro,
+    final zonGroMat=isZonInGroInt,
+    final have_CO2Sen=have_CO2Sen)
+    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    "Aggregate zone level ventilation signals - California Title 24"
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatusDuplicator repSigZon(
+    final nZon=nZon,
+    final nZonGro=nGro)
+    "Replicate zone signals"
+    annotation (Placement(transformation(extent={{-190,100},{-182,140}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus staGro[nGro](
+    final nZon=fill(nZon, nGro),
+    final nZonGro=nZonPerGro,
     final zonGroMsk=isZonInGro)
     "Evaluate zone group status"
-    annotation (Placement(transformation(extent={{-140,100},{-120,140}})));
+    annotation (Placement(transformation(extent={{-170,100},{-150,140}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode opeModSel[nGro](
-    final numZon=nZonGro)
+    final nZon=nZonPerGro)
     "Operation mode selection for each zone group"
-    annotation (Placement(transformation(extent={{-100,104},{-80,136}})));
+    annotation (Placement(transformation(extent={{-130,104},{-110,136}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSupSet(final nout=
-       nZon) "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator VDesUncOutAir_flow(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSupSet(
     final nout=nZon)
     "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator yReqOutAir(
-    final nout=nZon)
-    "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+    annotation (Placement(transformation(extent={{60,46},{80,66}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqZonTemRes(
     final nin=nZon,
     final k=fill(1, nZon))
@@ -199,89 +226,75 @@ block G36VAVMultiZone
     "Sum up signals"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TOutCut(k=24 + 273.15)
-    "FIXME #1913: To be determined by the control sequence based on energy standard, climate zone, and economizer high-limit-control type"
-    annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uOutDamPos(k=1)
-    "FIXME #1913: The commanded position or open/close command should be used"
-    annotation (Placement(transformation(extent={{-280,130},{-260,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uSupFanSpe(k=1)
-    "FIXME #1913: The commanded speed should be used"
-    annotation (Placement(transformation(extent={{-280,90},{-260,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uFreSta(k=false)
-    "FIXME #1913: Should we model that?"
-    annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uFreStaRes(k=false)
-    "FIXME #1913: There should be no input point for freeze stat reset"
-    annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uSofSwiRes(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1FreSta(k=false)
     "FIXME #1913: How to deal with that?"
-    annotation (Placement(transformation(extent={{-280,-30},{-260,-10}})));
+    annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1SofSwiRes(k=false)
+    "FIXME #1913: How to deal with that?"
+    annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uRelFanSpe(k=1)
     "FIXME #1913: The commanded speed should be used"
-    annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TAirSupSet(k=288.15)
-    "FIXME #1913: Output should be reintroduced as it is needed by the terminal unit control sequence"
-    annotation (Placement(transformation(extent={{-280,-130},{-260,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yMinOutDamPos(k=false)
-    if secOutRel.typSecOut == Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure
-    "FIXME #1913: If `minOADes==...SeparateDamper_DP` a Boolean output is required"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yRelDamPos(k=false)
-    if secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
-    "FIXME #1913: If `buiPreCon==...ReliefFan` a Boolean output is required"
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRel(
-     t=1e-2, h=0.5e-2)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    "FIXME #1913: On/off command for relief fan is required"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator y1FanSup_actual(final
-      nout=nZon) "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{-10,-190},{10,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSup(final nout=
-        nZon) "Pass signal to terminal unit bus"
-    annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uMinOutAirDam(k=true)
-    "FIXME #1913: Not an input point"
-    annotation (Placement(transformation(extent={{-280,-100},{-260,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yFanRet(
-    t=1e-2, h=0.5e-2)
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir
-        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-    "FIXME #1913: On/off command for return fan is required"
-    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+    annotation (Placement(transformation(extent={{-280,-50},{-260,-30}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator y1FanSup_actual(
+    final nout=nZon)
+    "Pass signal to terminal unit bus"
+    annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TAirSup(
+    final nout=nZon)
+    "Pass signal to terminal unit bus"
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
+  Buildings.Controls.OBC.CDL.Routing.IntegerVectorReplicator intVecRep(
+    final nin=nGro,
+    final nout=nZon)
+    "Repeat group signal nZon times"
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum asgOpeMod[nZon](
+    each final nin=nGro,
+    final k=isZonInGroIntTra)
+    "Assign group operating mode to each zone belonging to group"
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
+  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem ahuMod(
+    final nGro=nGro)
+    "Compute the AHU operating mode"
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1MinOutAirDam(k=true)
+    "FIXME #1913: An AHU with return fan and direct building pressure control may not have a minimum OA damper"
+    annotation (Placement(transformation(extent={{-280,-90},{-260,-70}})));
 initial equation
-  if minOADes==Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.CommonDamper then
-    assert(secOutRel.typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
+  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016 then
+    assert(ashCliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
       "In "+ getInstanceName() + ": "+
-      "The system configuration is incompatible with the options for minimum outdoor air control.");
+      "The ASHRAE climate zone cannot be unspecified.");
   end if;
-  if buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper then
-    assert(secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
-     "In "+ getInstanceName() + ": "+
-     "The system configuration is incompatible with the options for building pressure control.");
+  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016 then
+    assert(tit24CliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified,
+      "In "+ getInstanceName() + ": "+
+      "The Title 24 climate zone cannot be unspecified.");
   end if;
 
 equation
   /* Control point connection - start */
 
   // Inputs from AHU bus
-  connect(bus.pAirSup_rel, ctl.ducStaPre);
+  connect(bus.pAirSup_rel, ctl.dpDuc);
   connect(bus.TOut, ctl.TOut);
-  connect(bus.fanSup.y1_actual, ctl.uSupFan);
-  connect(bus.TAirSup, ctl.TSup);
-  connect(bus.VOut_flow, ctl.VOut_flow);
-  connect(bus.VOutMin_flow, ctl.VOut_flow);
+  connect(bus.TAirSup, ctl.TAirSup);
+  connect(bus.VOut_flow, ctl.VAirOut_flow);
+  connect(bus.VOutMin_flow, ctl.VAirOut_flow);
+
   connect(bus.dpAirOutMin, ctl.dpMinOutDam);
-  connect(bus.hAirOut, ctl.hOut);
-  connect(bus.TAirMix, ctl.TMix);
+  connect(bus.hAirOut, ctl.hAirOut);
+  connect(bus.TAirRet, ctl.TAirRet);
+  connect(bus.hAirRet, ctl.hAirRet);
   connect(bus.pBui_rel, ctl.dpBui);
-  connect(bus.fanSup.V_flow, ctl.VSup_flow);
-  connect(bus.fanRet.V_flow, ctl.VRet_flow);
-  connect(bus.coiCoo.y_actual, ctl.uCooCoi);
-  connect(bus.coiHea.y_actual, ctl.uHeaCoi);
+
+  connect(bus.fanSup.y1_actual, ctl.u1SupFan);
+  connect(bus.fanRel.y1_actual, ctl.u1RelFan);
+
+  connect(bus.fanSup.V_flow, ctl.VAirSup_flow);
+  connect(bus.fanRet.V_flow, ctl.VAirRet_flow);
+  connect(bus.coiCoo.y_actual, ctl.uCooCoi_actual);
+  connect(bus.coiHea.y_actual, ctl.uHeaCoi_actual);
 
   connect(bus.fanSup.y1_actual, y1FanSup_actual.u);
   connect(bus.TAirSup, TAirSup.u);
@@ -290,232 +303,230 @@ equation
   connect(busTer.yReqZonPreRes, reqZonPreRes.u);
   connect(busTer.yReqZonTemRes, reqZonTemRes.u);
 
-  connect(busTer.yDesZonPeaOcc, zonToSys.uDesZonPeaOcc);
-  connect(busTer.VDesPopBreZon_flow, zonToSys.VDesPopBreZon_flow);
-  connect(busTer.VDesAreBreZon_flow, zonToSys.VDesAreBreZon_flow);
-  connect(busTer.yDesPriOutAirFra, zonToSys.uDesPriOutAirFra);
-  connect(busTer.VUncOutAir_flow, zonToSys.VUncOutAir_flow);
-  connect(busTer.yPriOutAirFra, zonToSys.uPriOutAirFra);
-  connect(busTer.VPriAir_flow, zonToSys.VPriAir_flow);
+  connect(busTer.VAdjPopBreZon_flow, aggZonVen_A621.VAdjPopBreZon_flow);
+  connect(busTer.VAdjAreBreZon_flow, aggZonVen_A621.VAdjAreBreZon_flow);
+  connect(busTer.VAirDis_flow, aggZonVen_A621.VZonPri_flow);
+  connect(busTer.VMinOA_flow, aggZonVen_A621.VMinOA_flow);
 
-  connect(busTer.uOveZon, repSigZon.zonOcc);
-  connect(busTer.uOcc, repSigZon.uOcc);
+  connect(busTer.VZonAbsMin_flow, aggZonVen_T24.VZonAbsMin_flow);
+  connect(busTer.VZonDesMin_flow, aggZonVen_T24.VZonDesMin_flow);
+  connect(busTer.yCO2, aggZonVen_T24.uCO2);
+
+  connect(busTer.y1OveOccZon, repSigZon.zonOcc);
+  connect(busTer.y1OccSch, repSigZon.u1Occ);
   connect(busTer.tNexOcc, repSigZon.tNexOcc);
   connect(busTer.yCooTim, repSigZon.uCooTim);
   connect(busTer.yWarTim, repSigZon.uWarTim);
-  connect(busTer.yOccHeaHig, repSigZon.uOccHeaHig);
-  connect(busTer.yHigOccCoo, repSigZon.uHigOccCoo);
-  connect(busTer.yUnoHeaHig, repSigZon.uUnoHeaHig);
-  connect(busTer.THeaSetOff, repSigZon.THeaSetOff);
-  connect(busTer.yEndSetBac, repSigZon.uEndSetBac);
-  connect(busTer.yHigUnoCoo, repSigZon.uHigUnoCoo);
-  connect(busTer.TCooSetOff, repSigZon.TCooSetOff);
-  connect(busTer.yEndSetUp, repSigZon.uEndSetUp);
+  connect(busTer.yOccHeaHig, repSigZon.u1OccHeaHig);
+  connect(busTer.yHigOccCoo, repSigZon.u1HigOccCoo);
+  connect(busTer.yUnoHeaHig, repSigZon.u1UnoHeaHig);
+  connect(busTer.TZonHeaUnoSet, repSigZon.THeaSetOff);
+  connect(busTer.yEndSetBac, repSigZon.u1EndSetBac);
+  connect(busTer.yHigUnoCoo, repSigZon.u1HigUnoCoo);
+  connect(busTer.TZonCooUnoSet, repSigZon.TCooSetOff);
+  connect(busTer.yEndSetUp, repSigZon.u1EndSetUp);
   connect(busTer.TZon, repSigZon.TZon);
-  connect(busTer.uWin, repSigZon.uWin);
+  connect(busTer.y1Win, repSigZon.u1Win);
 
   // Outputs to AHU bus
-  connect(ctl.ySupFan, bus.fanSup.y1);
-  connect(ctl.yMinOutDamPos, bus.damOutMin.y);
-  connect(ctl.yRetDamPos, bus.damRet.y);
-  connect(ctl.yRelDamPos, bus.damRel.y);
-  connect(ctl.yOutDamPos, bus.damOut.y);
-  connect(ctl.yEneChiWatPum, bus.y1PumChiWat);
-  connect(ctl.ySupFanSpe, bus.fanSup.y);
-  connect(ctl.yRetFanSpe, bus.fanRet.y);
-  connect(ctl.yRelFanSpe, bus.fanRel.y);
+  connect(ctl.yMinOutDam, bus.damOutMin.y);
+  connect(ctl.y1MinOutDam, bus.damOutMin.y1);
+  connect(ctl.yRetDam, bus.damRet.y);
+  connect(ctl.yRelDam, bus.damRel.y);
+  connect(ctl.yOutDam, bus.damOut.y);
+  connect(ctl.y1EneCHWPum, bus.y1PumChiWat);
+  connect(ctl.y1SupFan, bus.fanSup.y1);
+  connect(ctl.ySupFan, bus.fanSup.y);
+  connect(ctl.y1RetFan, bus.fanRet.y1);
+  connect(ctl.yRetFan, bus.fanRet.y);
+  connect(ctl.y1RelFan, bus.fanRel.y1);
+  connect(ctl.yRelFan, bus.fanRel.y);
   connect(ctl.yCooCoi, bus.coiCoo.y);
   connect(ctl.yHeaCoi, bus.coiHea.y);
+
   connect(ctl.yAla, bus.ala);
-  connect(ctl.yExhDam, bus.damRel.y);
 
   connect(ctl.yChiWatResReq, bus.reqChiWatRes);
   connect(ctl.yChiPlaReq, bus.reqChiWatPla);
-  connect(ctl.yHotWatResReq, bus.reqHHWRes);
-  connect(ctl.yHotWatPlaReq, bus.reqHHWPla);
+  connect(ctl.yHotWatResReq, bus.reqHeaWatRes);
+  connect(ctl.yHotWatPlaReq, bus.reqHeaWatPla);
 
   // Outputs to terminal unit bus
-  connect(VDesUncOutAir_flow.y, busTer.VDesUncOutAir_flow);
-  connect(yReqOutAir.y, busTer.yReqOutAir);
   connect(TAirSupSet.y, busTer.TAirSupSet);
   connect(TAirSup.y, busTer.TAirSup);
   connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
 
   // FIXME #1913: connect statements to be updated when FIXME tags above are addressed.
-  connect(FIXME_TOutCut.y, ctl.TOutCut);
-  connect(FIXME_TOutCut.y, ctl.hOutCut);
-  connect(FIXME_uOutDamPos.y, ctl.uOutDamPos);
-  connect(FIXME_uSupFanSpe.y, ctl.uSupFanSpe);
-  connect(FIXME_uFreSta.y, ctl.uFreSta);
-  connect(FIXME_uFreStaRes.y, ctl.uFreStaRes);
-  connect(FIXME_uSofSwiRes.y, ctl.uSofSwiRes);
-  connect(FIXME_uRelFanSpe.y, ctl.uRelFanSpe);
-  connect(FIXME_yMinOutDamPos.y, bus.damOutMin.y1);
-  connect(FIXME_yRelDamPos.y, bus.damRel.y1);
-  connect(FIXME_yFanRel.y, bus.fanRel.y1);
-  connect(FIXME_yFanRet.y, bus.fanRet.y1);
-  connect(FIXME_uMinOutAirDam.y, ctl.uMinOutAirDam);
+  connect(FIXME_u1FreSta.y, ctl.u1FreSta);
+  connect(FIXME_u1SofSwiRes.y, ctl.u1SofSwiRes);
+  connect(FIXME_uRelFanSpe.y, ctl.uRelFan);
+  connect(FIXME_u1MinOutAirDam.y, ctl.u1MinOutAirDam);
 
   /* Control point connection - stop */
 
-  connect(zonToSys.ySumDesZonPop,ctl. sumDesZonPop) annotation (Line(points={{-118,
-          -13},{-60,-13},{-60,40.9091},{-44,40.9091}},
-                                               color={0,0,127}));
-  connect(zonToSys.VSumDesPopBreZon_flow,ctl. VSumDesPopBreZon_flow)
-    annotation (Line(points={{-118,-16},{-58,-16},{-58,34.3636},{-44,34.3636}},
-                                                                      color={0,0,
-          27}));
-  connect(zonToSys.VSumDesAreBreZon_flow,ctl. VSumDesAreBreZon_flow)
-    annotation (Line(points={{-118,-19},{-56,-19},{-56,31.0909},{-44,31.0909}},
-                                                                      color={0,0,
-          127}));
-  connect(zonToSys.yDesSysVenEff,ctl. uDesSysVenEff) annotation (Line(points={{-118,
-          -22},{-54,-22},{-54,26.1818},{-44,26.1818}},
-                                               color={0,0,127}));
-  connect(zonToSys.VSumUncOutAir_flow,ctl. VSumUncOutAir_flow) annotation (Line(
-        points={{-118,-25},{-52,-25},{-52,21.2727},{-44,21.2727}},
-                                                       color={0,0,127}));
-  connect(zonToSys.VSumSysPriAir_flow,ctl. VSumSysPriAir_flow) annotation (Line(
-        points={{-118,-31},{-48,-31},{-48,18},{-44,18}},
-                                                       color={0,0,127}));
-  connect(zonToSys.uOutAirFra_max,ctl. uOutAirFra_max) annotation (Line(points={{-118,
-          -28},{-50,-28},{-50,13.0909},{-44,13.0909}},
-                                                 color={0,0,127}));
-  connect(staGro.uGroOcc, opeModSel.uOcc) annotation (Line(points={{-118,139},{-104,
-          139},{-104,134.4},{-102,134.4}},
-                                        color={255,0,255}));
-  connect(staGro.nexOcc, opeModSel.tNexOcc) annotation (Line(points={{-118,137},
-          {-106,137},{-106,132.8},{-102,132.8}},
-                                               color={0,0,127}));
-  connect(staGro.yCooTim, opeModSel.maxCooDowTim) annotation (Line(points={{-118,
-          133},{-108,133},{-108,131.2},{-102,131.2}},color={0,0,127}));
-  connect(staGro.yWarTim, opeModSel.maxWarUpTim) annotation (Line(points={{-118,
-          131},{-110,131},{-110,128},{-102,128}},
-                                               color={0,0,127}));
-  connect(staGro.yOccHeaHig, opeModSel.uOccHeaHig) annotation (Line(points={{-118,
-          127},{-106,127},{-106,126.4},{-102,126.4}},color={255,0,255}));
-  connect(staGro.yHigOccCoo, opeModSel.uHigOccCoo) annotation (Line(points={{-118,
-          125},{-108,125},{-108,129.6},{-102,129.6}},color={255,0,255}));
-  connect(staGro.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-118,
-          118},{-110,118},{-110,116.8},{-102,116.8}},
+  connect(staGro.uGroOcc, opeModSel.u1Occ)
+    annotation (Line(points={{-148,139},{-134,
+          139},{-134,134.4},{-132,134.4}}, color={255,0,255}));
+  connect(staGro.nexOcc, opeModSel.tNexOcc) annotation (Line(points={{-148,137},
+          {-136,137},{-136,132.8},{-132,132.8}}, color={0,0,127}));
+  connect(staGro.yCooTim, opeModSel.maxCooDowTim) annotation (Line(points={{-148,
+          133},{-138,133},{-138,131.2},{-132,131.2}},color={0,0,127}));
+  connect(staGro.yWarTim, opeModSel.maxWarUpTim) annotation (Line(points={{-148,
+          131},{-140,131},{-140,128},{-132,128}}, color={0,0,127}));
+  connect(staGro.yOccHeaHig, opeModSel.u1OccHeaHig) annotation (Line(points={{-148,
+          127},{-136,127},{-136,126.4},{-132,126.4}},color={255,0,255}));
+  connect(staGro.yHigOccCoo, opeModSel.u1HigOccCoo) annotation (Line(points={{-148,
+          125},{-138,125},{-138,129.6},{-132,129.6}},color={255,0,255}));
+  connect(staGro.yEndSetBac, opeModSel.u1EndSetBac) annotation (Line(points={{-148,
+          118},{-140,118},{-140,116.8},{-132,116.8}},
                                                    color={255,0,255}));
-  connect(staGro.TZonMax, opeModSel.TZonMax) annotation (Line(points={{-118,107},
-          {-114,107},{-114,115.2},{-102,115.2}},
-                                             color={0,0,127}));
-  connect(staGro.TZonMin, opeModSel.TZonMin) annotation (Line(points={{-118,105},
-          {-110,105},{-110,113.6},{-102,113.6}},
-                                             color={0,0,127}));
-  connect(staGro.yHotZon, opeModSel.totHotZon) annotation (Line(points={{-118,115},
-          {-112,115},{-112,110.4},{-102,110.4}},
-                                             color={255,127,0}));
-  connect(staGro.ySetUp, opeModSel.uSetUp) annotation (Line(points={{-118,113},{
-          -116,113},{-116,107.2},{-102,107.2}},
-                                            color={255,0,255}));
-  connect(staGro.yEndSetUp, opeModSel.uEndSetUp) annotation (Line(points={{-118,
-          111},{-106,111},{-106,105.6},{-102,105.6}},
-                                             color={255,0,255}));
-  connect(staGro.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-118,101},
-          {-104,101},{-104,123.2},{-102,123.2}},
-                                               color={255,127,0}));
-  connect(ctl.VDesUncOutAir_flow, VDesUncOutAir_flow.u)
-    annotation (Line(points={{44,47.4545},{70,47.4545},{70,60},{78,60}},
-                                                  color={0,0,127}));
-  connect(ctl.yReqOutAir, yReqOutAir.u)
-    annotation (Line(points={{44,32.7273},{70,32.7273},{70,30},{78,30}},
-                                                color={255,0,255}));
+  connect(staGro.TZonMin, opeModSel.TZonMin) annotation (Line(points={{-148,105},
+          {-140,105},{-140,113.6},{-132,113.6}}, color={0,0,127}));
+  connect(staGro.yHotZon, opeModSel.totHotZon) annotation (Line(points={{-148,115},
+          {-142,115},{-142,110.4},{-132,110.4}}, color={255,127,0}));
+  connect(staGro.ySetUp, opeModSel.u1SetUp) annotation (Line(points={{-148,113},{
+          -146,113},{-146,107.2},{-132,107.2}}, color={255,0,255}));
+  connect(staGro.yEndSetUp, opeModSel.u1EndSetUp) annotation (Line(points={{-148,
+          111},{-136,111},{-136,105.6},{-132,105.6}}, color={255,0,255}));
+  connect(staGro.yOpeWin, opeModSel.uOpeWin) annotation (Line(points={{-148,101},
+          {-134,101},{-134,123.2},{-132,123.2}}, color={255,127,0}));
   connect(reqZonTemRes.y,ctl. uZonTemResReq) annotation (Line(points={{-118,20},
-          {-62,20},{-62,54},{-44,54}},   color={255,127,0}));
+          {-60,20},{-60,54},{-44,54}}, color={255,127,0}));
   connect(reqZonPreRes.y,ctl. uZonPreResReq)
     annotation (Line(points={{-118,60},{-60,60},{-60,67.0909},{-44,67.0909}},
-                                                  color={255,127,0}));
+      color={255,127,0}));
 
-  connect(repSigZon.yzonOcc, staGro.zonOcc)
-    annotation (Line(points={{-150,139},{-142,139}}, color={255,0,255}));
-  connect(repSigZon.yOcc, staGro.uOcc)
-    annotation (Line(points={{-150,137},{-142,137}}, color={255,0,255}));
+  connect(repSigZon.y1ZonOcc, staGro.zonOcc)
+    annotation (Line(points={{-181.2,139},{-172,139}},
+                                                     color={255,0,255}));
+  connect(repSigZon.y1Occ, staGro.uOcc)
+    annotation (Line(points={{-181.2,137},{-172,137}},
+                                                     color={255,0,255}));
   connect(repSigZon.ytNexOcc, staGro.tNexOcc)
-    annotation (Line(points={{-150,135},{-142,135}}, color={0,0,127}));
+    annotation (Line(points={{-181.2,135},{-172,135}},
+                                                     color={0,0,127}));
   connect(repSigZon.yCooTim, staGro.uCooTim)
-    annotation (Line(points={{-150,131},{-142,131}}, color={0,0,127}));
+    annotation (Line(points={{-181.2,131},{-172,131}},
+                                                     color={0,0,127}));
   connect(repSigZon.yWarTim, staGro.uWarTim)
-    annotation (Line(points={{-150,129},{-142,129}}, color={0,0,127}));
-  connect(repSigZon.yOccHeaHig, staGro.uOccHeaHig)
-    annotation (Line(points={{-150,125},{-142,125}}, color={255,0,255}));
-  connect(repSigZon.yHigOccCoo, staGro.uHigOccCoo) annotation (Line(points={{-150,
-          123},{-142,123}},                        color={255,0,255}));
-  connect(repSigZon.yUnoHeaHig, staGro.uUnoHeaHig)
-    annotation (Line(points={{-150,119},{-142,119}}, color={255,0,255}));
+    annotation (Line(points={{-181.2,129},{-172,129}},
+                                                     color={0,0,127}));
+  connect(repSigZon.y1OccHeaHig, staGro.uOccHeaHig)
+    annotation (Line(points={{-181.2,125},{-172,125}},
+                                                     color={255,0,255}));
+  connect(repSigZon.y1HigOccCoo, staGro.uHigOccCoo) annotation (Line(points={{-181.2,
+          123},{-172,123}},                        color={255,0,255}));
+  connect(repSigZon.y1UnoHeaHig, staGro.uUnoHeaHig)
+    annotation (Line(points={{-181.2,119},{-172,119}},
+                                                     color={255,0,255}));
   connect(repSigZon.yTHeaSetOff, staGro.THeaSetOff)
-    annotation (Line(points={{-150,117},{-142,117}}, color={0,0,127}));
-  connect(repSigZon.yEndSetBac, staGro.uEndSetBac)
-    annotation (Line(points={{-150,115},{-142,115}}, color={255,0,255}));
-  connect(repSigZon.yHigUnoCoo, staGro.uHigUnoCoo)
-    annotation (Line(points={{-150,111},{-142,111}}, color={255,0,255}));
+    annotation (Line(points={{-181.2,117},{-172,117}},
+                                                     color={0,0,127}));
+  connect(repSigZon.y1EndSetBac, staGro.uEndSetBac)
+    annotation (Line(points={{-181.2,115},{-172,115}},
+                                                     color={255,0,255}));
+  connect(repSigZon.y1HigUnoCoo, staGro.uHigUnoCoo)
+    annotation (Line(points={{-181.2,111},{-172,111}},
+                                                     color={255,0,255}));
   connect(repSigZon.yTCooSetOff, staGro.TCooSetOff)
-    annotation (Line(points={{-150,109},{-142,109}}, color={0,0,127}));
-  connect(repSigZon.yEndSetUp, staGro.uEndSetUp)
-    annotation (Line(points={{-150,107},{-142,107}}, color={255,0,255}));
+    annotation (Line(points={{-181.2,109},{-172,109}},
+                                                     color={0,0,127}));
+  connect(repSigZon.y1EndSetUp, staGro.uEndSetUp)
+    annotation (Line(points={{-181.2,107},{-172,107}},
+                                                     color={255,0,255}));
   connect(repSigZon.yTZon, staGro.TZon)
-    annotation (Line(points={{-150,103},{-142,103}}, color={0,0,127}));
-  connect(repSigZon.yWin, staGro.uWin)
-    annotation (Line(points={{-150,101},{-142,101}}, color={255,0,255}));
-  connect(ctl.yAveOutAirFraPlu, zonToSys.yAveOutAirFraPlu) annotation (Line(
-        points={{44,42.5455},{60,42.5455},{60,-80},{-160,-80},{-160,-20},{-142,
-          -20}},
-        color={0,0,127}));
-  connect(opeModSel.yOpeMod, ctl.uOpeMod) annotation (Line(points={{-78,120},{
-          -60,120},{-60,70.3636},{-44,70.3636}},
+    annotation (Line(points={{-181.2,103},{-172,103}},
+                                                     color={0,0,127}));
+  connect(repSigZon.y1Win, staGro.uWin)
+    annotation (Line(points={{-181.2,101},{-172,101}},
+                                                     color={255,0,255}));
+  connect(staGro.yColZon, opeModSel.totColZon) annotation (Line(points={{-148,122},
+          {-136,122},{-136,121.6},{-132,121.6}},
                                              color={255,127,0}));
-  connect(staGro.yColZon, opeModSel.totColZon) annotation (Line(points={{-118,122},
-          {-106,122},{-106,121.6},{-102,121.6}},
-                                             color={255,127,0}));
-  connect(staGro.ySetBac, opeModSel.uSetBac) annotation (Line(points={{-118,120},
-          {-108,120},{-108,118.4},{-102,118.4}},
+  connect(staGro.ySetBac, opeModSel.u1SetBac) annotation (Line(points={{-148,120},
+          {-138,120},{-138,118.4},{-132,118.4}},
                                              color={255,0,255}));
-  connect(FIXME_TAirSupSet.y, TAirSupSet.u)
-    annotation (Line(points={{-258,-120},{-12,-120}},color={0,0,127}));
-  connect(ctl.yRelFanSpe,FIXME_yFanRel. u) annotation (Line(points={{44,-13.0909},
-          {52,-13.0909},{52,-30},{78,-30}}, color={0,0,127}));
-  connect(ctl.yRetFanSpe, FIXME_yFanRet.u) annotation (Line(points={{44,-8.18182},
-          {68,-8.18182},{68,-60},{78,-60}}, color={0,0,127}));
+  connect(aggZonVen_A621.VSumAdjPopBreZon_flow, ctl.VSumAdjPopBreZon_flow)
+    annotation (Line(points={{-68,8},{-58,8},{-58,40.9091},{-44,40.9091}},
+        color={0,0,127}));
+  connect(aggZonVen_A621.VSumAdjAreBreZon_flow, ctl.VSumAdjAreBreZon_flow)
+    annotation (Line(points={{-68,4},{-56,4},{-56,37.6364},{-44,37.6364}},
+        color={0,0,127}));
+  connect(aggZonVen_A621.VSumZonPri_flow, ctl.VSumZonPri_flow) annotation (Line(
+        points={{-68,-4},{-54,-4},{-54,32.7273},{-44,32.7273}},   color={0,0,127}));
+  connect(aggZonVen_A621.uOutAirFra_max, ctl.uOutAirFra_max) annotation (Line(
+        points={{-68,-8},{-52,-8},{-52,27.8182},{-44,27.8182}},   color={0,0,127}));
+  connect(aggZonVen_T24.VSumZonAbsMin_flow, ctl.VSumZonAbsMin_flow) annotation (
+     Line(points={{-68,-24},{-50,-24},{-50,21.2727},{-44,21.2727}}, color={0,0,127}));
+  connect(aggZonVen_T24.VSumZonDesMin_flow, ctl.VSumZonDesMin_flow) annotation (
+     Line(points={{-68,-30},{-48,-30},{-48,18},{-44,18}}, color={0,0,127}));
+  connect(aggZonVen_T24.yMaxCO2, ctl.uCO2Loo_max) annotation (Line(points={{-68,-35},
+          {-46,-35},{-46,-3.27273},{-44,-3.27273}},      color={0,0,127}));
+  connect(ctl.TAirSupSet, TAirSupSet.u) annotation (Line(points={{44,55.6364},{
+          58,55.6364},{58,56}},      color={0,0,127}));
+  connect(opeModSel.yOpeMod, aggZonVen_A621.uOpeMod) annotation (Line(points={{-108,
+          120},{-100,120},{-100,9},{-92,9}},   color={255,127,0}));
+  connect(opeModSel.yOpeMod, aggZonVen_T24.uOpeMod) annotation (Line(points={{-108,
+          120},{-100,120},{-100,-22},{-92,-22}}, color={255,127,0}));
+  connect(opeModSel.yOpeMod, intVecRep.u)
+    annotation (Line(points={{-108,120},{-82,120}}, color={255,127,0}));
+  connect(asgOpeMod.y, busTer.yOpeMod) annotation (Line(points={{-18,120},{200,120},
+          {200,0},{220,0}}, color={255,127,0}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(intVecRep.y, asgOpeMod.u)
+    annotation (Line(points={{-58,120},{-42,120}}, color={255,127,0}));
+  connect(opeModSel.yOpeMod, ahuMod.uOpeMod) annotation (Line(points={{-108,120},
+          {-100,120},{-100,80},{-92,80}}, color={255,127,0}));
+  connect(ahuMod.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,80},
+          {-60,80},{-60,70.3636},{-44,70.3636}},color={255,127,0}));
+  connect(ctl.TAirMix, bus.TAirMix) annotation (Line(points={{-44,-45.8182},{
+          -180,-45.8182},{-180,0},{-200,0}},
+                                        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <h4>Description</h4>
 <p>
-This is an implementation of the control sequence specified in 
-<a href=\"#ASHRAE2018\">ASHRAE (2018)</a>
+This is an implementation of the control sequence specified in
+<a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
 for multiple-zone VAV air handlers.
 It contains the following components.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller</a>:
 Main controller for the air handler
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus\">
+Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus</a>
 and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode\">
 Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode</a>:
-Computation of the zone group operating mode out of zone-level signals 
+Computation of the zone group operating mode out of zone-level signals
 </li>
 </ul>
 <h4>Details</h4>
 <p>
-The AI point for the measured outdoor air flow rate <code>ctl.VOut_flow</code> 
-used for minimum outdoor airflow control is connected to both <code>bus.VOutMin_flow</code> 
-(dedicated minimum OA damper) or <code>bus.VOut_flow</code> (single common OA damper).
+The AI point for the measured outdoor air flow rate <code>ctl.VOut_flow</code>
+used for minimum outdoor airflow control is connected to both <code>bus.VOutMin_flow</code>
+(dedicated minimum OA damper) and <code>bus.VOut_flow</code> (single common OA damper).
 Those two variables are exclusive from one another.
-In case of dedicated OA dampers, the total outdoor airflow is not measured, 
+In case of dedicated OA dampers, the total outdoor airflow is not measured,
 hence no <code>bus.VOut_flow</code> signal is available for that configuration.
 </p>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2018\">
-ASHRAE, 2018. Guideline 36-2018, High-Performance Sequences of Operation 
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

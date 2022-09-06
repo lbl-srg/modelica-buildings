@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block ReliefDamper
   "Relief damper control for AHUs using actuated dampers without fan"
-  parameter Real dpBuiSet(
+  parameter Real p_rel_set(
     final unit="Pa",
     final quantity="PressureDifference",
     max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(min=0, unit="1") = 0.5
-    "Gain, applied to building pressure control error normalized with dpBuiSet";
+    "Gain, applied to building pressure control error normalized with p_rel_set";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
@@ -15,14 +15,14 @@ block ReliefDamper
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final unit="1",
     final min=0,
-    final max=1)
-    "Relief damper position setpoint"
+    final max=1) "Relief damper commanded position"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -47,7 +47,7 @@ protected
     "Close damper when disabled"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
-    final k=dpBuiSet) "Building pressure setpoint"
+    final k=p_rel_set) "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0)
@@ -55,7 +55,7 @@ protected
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
 
 equation
-  connect(uSupFan, swi.u2)
+  connect(u1SupFan, swi.u2)
     annotation (Line(points={{-120,-30},{58,-30}}, color={255,0,255}));
   connect(dpBuiSetPoi.y, conErr.u2)
     annotation (Line(points={{-58,0},{-40,0},{-40,24},{-22,24}}, color={0,0,127}));
@@ -83,7 +83,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
  Documentation(info="<html>
@@ -95,7 +95,7 @@ It is implemented according to Section 5.16.8 of ASHRAE Guideline G36, May 2020.
 <ul>
 <li>
 Relief dampers shall be enabled when the associated supply fan is proven on
-(<code>uSupFan = true</code>), and disabled otherwise.
+(<code>u1SupFan = true</code>), and disabled otherwise.
 </li>
 <li>
 When enabled, use a P-only control loop to modulate relief dampers to maintain building

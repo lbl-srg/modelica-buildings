@@ -183,9 +183,9 @@ equation
   connect(triSam.y, temDif.u1)
     annotation (Line(points={{-98,30},{-80,30},{-80,36},{-62,36}}, color={0,0,127}));
   connect(edg.y, triSam1.trigger) annotation (Line(points={{-18,-120},{40,-120},
-          {40,-86},{-80,-86},{-80,-40},{-110,-40},{-110,-31.8}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-18,-120},{40,-120},{
-          40,-86},{-80,-86},{-80,10},{-110,10},{-110,18.2}}, color={255,0,255}));
+          {40,-86},{-80,-86},{-80,-40},{-110,-40},{-110,-32}},   color={255,0,255}));
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-18,-120},{40,-120},
+          {40,-86},{-80,-86},{-80,10},{-110,10},{-110,18}},  color={255,0,255}));
   connect(temDif.y, abs2.u)
     annotation (Line(points={{-38,30},{-22,30}}, color={0,0,127}));
   connect(abs2.y, gai.u)
@@ -209,21 +209,21 @@ annotation (defaultComponentName="timSup",
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,140},{100,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,48},{-62,30}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSet"),
         Text(
           extent={{52,12},{96,-8}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yAftSup"),
         Text(
           extent={{-100,-30},{-62,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-180,-200},{180,200}}),
@@ -236,7 +236,7 @@ annotation (defaultComponentName="timSup",
           pattern=LinePattern.None),
         Text(
           extent={{74,196},{174,176}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Find change of the setpoint"),
         Rectangle(
@@ -253,12 +253,12 @@ annotation (defaultComponentName="timSup",
           pattern=LinePattern.None),
         Text(
           extent={{100,40},{168,22}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Suppression time"),
         Text(
           extent={{16,-174},{158,-200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Check if it has passed suppression time")}),
 Documentation(info="<html>

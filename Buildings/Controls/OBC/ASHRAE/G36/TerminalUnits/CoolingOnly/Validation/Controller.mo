@@ -3,22 +3,25 @@ model Controller
   "Validation of model that controls cooling only unit"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller cooBoxCon(
-    final AFlo=20,
-    final desZonPop=2,
-    final VZonMin_flow=0.5,
-    final VCooZonMax_flow=1.5,
-    final V_flow_nominal=1.5,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final VAreBreZon_flow=0.006,
+    final VPopBreZon_flow=0.005,
+    final VMin_flow=0.5,
+    final VCooMax_flow=1.5,
+    final have_preIndDam=true,
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
-    final damPosHys=0.01) "Cooling only unit controller"
+    final damPosHys=0.01,
+    final VOccMin_flow=0,
+    final VAreMin_flow=0) "Cooling only unit controller"
     annotation (Placement(transformation(extent={{100,-10},{120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final freqHz=1/86400,
     final amplitude=4,
     final offset=299.15)
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
+    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirTem(
     final height=2,
     final duration=43200,
@@ -26,46 +29,39 @@ model Controller
     final startTime=28800)
     "Discharge airflow temperture"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
-    final duration=43200,
-    final height=0.7,
-    final offset=0.3,
-    final startTime=28800)
-    "Damper position"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,
     final period=43200,
     final shift=43200)
     "Window opening status"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSet(
     final k=273.15 + 24)
     "Zone cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
+    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSet(
     final k=273.15 + 20)
     "Zone heating setpoint temperature"
-    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occ(
     final width=0.75,
     final period=43200,
     final shift=28800) "Occupancy status"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
     final offset=1,
     final height=2,
     final duration=28800,
     final startTime=28800)
     "Operation mode"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round2(
     final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
     final amplitude=400,
     final freqHz=1/28800,
@@ -112,27 +108,29 @@ model Controller
     final period=73200,
     final shift=18800) "Supply fan status"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(final k=894)
+    "CO2 concentration setpoint"
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 equation
-  connect(TZon.y, cooBoxCon.TZon) annotation (Line(points={{-98,150},{60,150},{60,
+  connect(TZon.y, cooBoxCon.TZon) annotation (Line(points={{-98,160},{60,160},{60,
           28},{98,28}}, color={0,0,127}));
-  connect(cooSet.y, cooBoxCon.TZonCooSet) annotation (Line(points={{-58,130},{56,
-          130},{56,26},{98,26}}, color={0,0,127}));
-  connect(heaSet.y, cooBoxCon.TZonHeaSet) annotation (Line(points={{-98,110},{52,
-          110},{52,24},{98,24}}, color={0,0,127}));
-  connect(winSta.y, cooBoxCon.uWin) annotation (Line(points={{-58,90},{48,90},{48,
-          21},{98,21}}, color={255,0,255}));
-  connect(occ.y, cooBoxCon.uOcc) annotation (Line(points={{-98,70},{44,70},{44,19},
-          {98,19}}, color={255,0,255}));
+  connect(cooSet.y, cooBoxCon.TCooSet) annotation (Line(points={{-58,140},{56,
+          140},{56,26},{98,26}}, color={0,0,127}));
+  connect(heaSet.y, cooBoxCon.THeaSet) annotation (Line(points={{-98,120},{52,
+          120},{52,24},{98,24}}, color={0,0,127}));
+  connect(winSta.y, cooBoxCon.u1Win) annotation (Line(points={{-58,100},{48,100},
+          {48,21},{98,21}}, color={255,0,255}));
+  connect(occ.y, cooBoxCon.u1Occ) annotation (Line(points={{-98,80},{44,80},{44,
+          19},{98,19}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
-    annotation (Line(points={{-98,40},{-82,40}}, color={0,0,127}));
+    annotation (Line(points={{-58,60},{-42,60}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
-    annotation (Line(points={{-58,40},{-42,40}},
+    annotation (Line(points={{-18,60},{-2,60}},
       color={0,0,127}));
-  connect(reaToInt2.y, cooBoxCon.uOpeMod) annotation (Line(points={{-18,40},{40,
-          40},{40,17},{98,17}}, color={255,127,0}));
+  connect(reaToInt2.y, cooBoxCon.uOpeMod) annotation (Line(points={{22,60},{40,60},
+          {40,17},{98,17}},     color={255,127,0}));
   connect(CO2.y, cooBoxCon.ppmCO2) annotation (Line(points={{-58,10},{36,10},{36,
-          15},{98,15}}, color={0,0,127}));
+          13},{98,13}}, color={0,0,127}));
   connect(disAirTem.y, cooBoxCon.TDis) annotation (Line(points={{-98,-10},{40,-10},
           {40,11},{98,11}}, color={0,0,127}));
   connect(supAirTem.y, cooBoxCon.TSup) annotation (Line(points={{-58,-30},{44,-30},
@@ -151,10 +149,10 @@ equation
           52,-80},{52,2},{98,2}}, color={255,127,0}));
   connect(reaToInt3.y, cooBoxCon.oveDamPos) annotation (Line(points={{-18,-110},
           {56,-110},{56,0},{98,0}}, color={255,127,0}));
-  connect(damPos.y, cooBoxCon.uDam) annotation (Line(points={{-98,-140},{60,-140},
-          {60,-4},{98,-4}}, color={0,0,127}));
-  connect(supFanSta.y, cooBoxCon.uFan) annotation (Line(points={{-58,-160},{64,-160},
-          {64,-8},{98,-8}}, color={255,0,255}));
+  connect(supFanSta.y, cooBoxCon.u1Fan) annotation (Line(points={{-58,-160},{64,
+          -160},{64,-8},{98,-8}}, color={255,0,255}));
+  connect(CO2Set.y, cooBoxCon.ppmCO2Set) annotation (Line(points={{-98,30},{36,30},
+          {36,15},{98,15}}, color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Validation/Controller.mos"
@@ -163,8 +161,7 @@ annotation (
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller</a>
-for generating system requests.
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>

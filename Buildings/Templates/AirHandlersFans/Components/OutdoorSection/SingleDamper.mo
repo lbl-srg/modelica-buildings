@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model SingleDamper "Single common OA damper with AFMS"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
+    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 
@@ -26,12 +26,13 @@ model SingleDamper "Single common OA damper with AFMS"
   Buildings.Templates.Components.Sensors.Temperature TOut(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
-    final m_flow_nominal=m_flow_nominal) "Outdoor air temperature sensor"
+    final m_flow_nominal=m_flow_nominal)
+    "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
-    final have_sen=typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
-         or typCtlEco == Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
+      or typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=m_flow_nominal) "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -63,8 +64,8 @@ equation
           color={28,108,200},
           thickness=1)}), Documentation(info="<html>
 <p>
-This model represents a configuration with an air economizer 
-and minimum OA control with a single common damper 
+This model represents a configuration with an air economizer
+and minimum OA control with a single common damper
 and airflow measurement
 </p>
 </html>"));

@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Validation;
 model VAVBoxReheatControlG36 "Validation model for VAV terminal unit with reheat"
-  extends VAVBoxCoolingOnly(redeclare
-      UserProject.ZoneEquipment.VAVBoxReheatControlG36 ter);
+  extends VAVBoxCoolingOnly(
+    redeclare UserProject.ZoneEquipment.VAVBoxReheatControlG36 VAVBox_1);
   annotation (
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
 <p>

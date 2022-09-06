@@ -12,7 +12,7 @@ model NoRelief "No relief branch"
       redeclare final package Medium = MediumAir,
       final dat=dat.fanRet,
       final have_senFlo=
-        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
+        typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)
     "Return fan"
     annotation (
@@ -30,10 +30,10 @@ equation
   /* Control point connection - start */
   connect(fanRet.bus, bus.fanRet);
   /* Control point connection - end */
-  connect(port_a, fanRet.port_a)
-    annotation (Line(points={{180,0},{70,0}},  color={0,127,255}));
   connect(fanRet.port_b, splEco.port_1)
     annotation (Line(points={{50,0},{10,0}}, color={0,127,255}));
+  connect(fanRet.port_a, port_a)
+    annotation (Line(points={{70,0},{180,0}}, color={0,127,255}));
   annotation (Icon(graphics={
               Line(
           points={{0,0},{180,0}},

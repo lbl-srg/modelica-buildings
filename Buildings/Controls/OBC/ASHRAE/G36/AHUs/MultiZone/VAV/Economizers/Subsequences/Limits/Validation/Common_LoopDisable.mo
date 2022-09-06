@@ -68,14 +68,14 @@ equation
           {-60,50},{-60,-26},{-42,-26}},      color={0,0,127}));
   connect(VOutMinSet_flow.y, damLim.VOutMinSet_flow_normalized) annotation (
       Line(points={{-98,10},{-70,10},{-70,-22},{-42,-22}},   color={0,0,127}));
-  connect(fanSta.y, damLim.uSupFan)
-    annotation (Line(points={{-98,-30},{-42,-30}},              color={255,0,255}));
+  connect(fanSta.y, damLim.u1SupFan)
+    annotation (Line(points={{-98,-30},{-42,-30}}, color={255,0,255}));
   connect(VOut1_flow.y, damLim1.VOut_flow_normalized) annotation (Line(points={{42,50},
           {80,50},{80,-26},{98,-26}},      color={0,0,127}));
   connect(VOutMinSet1_flow.y, damLim1.VOutMinSet_flow_normalized) annotation (
       Line(points={{42,10},{70,10},{70,-22},{98,-22}},  color={0,0,127}));
-  connect(fanStatus1.y, damLim1.uSupFan)
-    annotation (Line(points={{42,-30},{98,-30}},  color={255,0,255}));
+  connect(fanStatus1.y, damLim1.u1SupFan)
+    annotation (Line(points={{42,-30},{98,-30}}, color={255,0,255}));
   connect(opeMod.y, damLim.uOpeMod)
     annotation (Line(points={{-98,-70},{-70,-70},{-70,-38},{-42,-38}},     color={255,127,0}));
   connect(opeMod1.y, damLim1.uOpeMod)
@@ -100,7 +100,7 @@ annotation (
             120}}),     graphics={
         Text(
           extent={{-120,90},{-94,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -108,7 +108,7 @@ annotation (
           textString="Fan is off"),
         Text(
           extent={{20,94},{114,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -119,7 +119,7 @@ Documentation(info="<html>
 This example validates enable/disable conditions for
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common</a>
-for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOpeMod</code>.
+for the following input signals: <code>u1SupFan</code>, <code>uFreProSta</code>, <code>uOpeMod</code>.
 </p>
 </html>", revisions="<html>
 <ul>

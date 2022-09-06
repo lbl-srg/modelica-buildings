@@ -4,12 +4,13 @@ partial model PartialOutdoorReliefReturnSection
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection typ
     "Outdoor/relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.AirHandlersFans.Types.OutdoorSection typSecOut
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
@@ -39,14 +40,14 @@ partial model PartialOutdoorReliefReturnSection
       Dialog(group="Configuration",
         enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief));
   inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
-    Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking
+    Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
     "Return fan control type"
     annotation (Evaluate=true,
       Dialog(
         group="Configuration",
         enable=typFanRet<>Buildings.Templates.Components.Types.Fan.None));
-  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlEconomizer typCtlEco=
-    Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedDryBulb
+  inner parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
     "Economizer control type"
     annotation (Evaluate=true,
       Dialog(
@@ -144,7 +145,7 @@ partial model PartialOutdoorReliefReturnSection
     graphics={
       Text(
           extent={{-149,-834},{151,-874}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
       Bitmap(
         visible=typFanRet==Buildings.Templates.Components.Types.Fan.SingleVariable,
@@ -269,35 +270,35 @@ partial model PartialOutdoorReliefReturnSection
         visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None and
           typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
         extent={{-680,-142},{-600,-62}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
       Line(
-          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,
+          visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
           points={{-602,-100},{-560,-100},{-560,-340}},
           color={0,0,0},
           thickness=1),
       Line(
-          visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersPressure,
+          visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
           points={{-680,-100},{-720,-100},{-720,-340}},
           color={0,0,0},
           thickness=1),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
         extent={{-202,-240},{-100,-500}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.DedicatedDampersAirflow,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
         extent={{-194,-240},{-106,-160}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
         extent={{580,360},{660,440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Line(
           visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None and
-          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowTracking,
+          typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
           points={{490,600},{620,600},{620,440}},
           color={0,0,0},
           thickness=1),
@@ -312,14 +313,14 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None and
-          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-460,-160},{-380,-240}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg"),
       Bitmap(
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None and
-          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-430,-240},{-410,-440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
@@ -332,22 +333,22 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
         visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.None and
-          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-460,-840},{-380,-760}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/SpecificEnthalpy.svg"),
       Bitmap(
         visible=typDamOutMin==Buildings.Templates.Components.Types.Damper.None and
-          (typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-          typCtlEco==Buildings.Templates.AirHandlersFans.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
+          (typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+          typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
         extent={{-430,-760},{-410,-560}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
         extent={{-202,-760},{-100,-500}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
-        visible=typSecOut==Buildings.Templates.AirHandlersFans.Types.OutdoorSection.SingleDamper,
+        visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
         extent={{-194,-840},{-106,-760}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
       Bitmap(
@@ -377,7 +378,7 @@ Typical components in that section include
 </p>
 <ul>
 <li>
-shut off dampers, 
+shut off dampers,
 </li>
 <li>
 the heat recovery unit,

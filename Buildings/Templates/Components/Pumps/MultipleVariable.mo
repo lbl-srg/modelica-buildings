@@ -4,7 +4,7 @@ model MultipleVariable
   extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
     final typ=Buildings.Templates.Components.Types.Pump.Variable);
 
-  replaceable Fluid.Movers.SpeedControlled_y pum[nPum](
+  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     constrainedby Fluid.Movers.SpeedControlled_y(
       redeclare each final package Medium=Medium,
@@ -23,13 +23,13 @@ model MultipleVariable
     final m_flow_nominal=dat.m_flow_nominal)
     "Check valve"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal sigSta[nPum]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta[nPum]
     "Start/stop signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
-  Controls.OBC.CDL.Continuous.Multiply sigCon[nPum]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon[nPum]
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -124,14 +124,14 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This is a model for a parallel arrangement of identical variable
-speed pumps (with dedicated VFDs). 
+speed pumps (with dedicated VFDs).
 </p>
 <ul>
 <li>
 Each pump is commanded On with a dedicated Boolean signal <code>y1</code> (VFD Run).
 </li>
 <li>
-The speed of all pumps is modulated with the same 
+The speed of all pumps is modulated with the same
 fractional speed signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to 0 Hz.
 <code>y = 1</code> corresponds to the maximum speed set in the VFD.

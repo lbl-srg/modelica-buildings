@@ -3,9 +3,10 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+    "Air medium"
+    annotation(__Linkage(enable=false));
 
-  parameter AirHandlersFans.Types.ReliefReturnSection typ
+  parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typ
     "Relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Damper typDamRel
@@ -22,6 +23,8 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     "Return fan control type";
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
+  outer parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
+    "Economizer control type";
 
   parameter
     Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
@@ -124,7 +127,7 @@ equation
             {180,140}}), graphics={
         Text(
           extent={{-149,-150},{151,-190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})),
     Documentation(info="<html>

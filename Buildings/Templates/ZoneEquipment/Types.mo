@@ -8,8 +8,10 @@ package Types "Package with type definitions"
       "Fan-powered system",
       Induction
       "Induction system",
-      VAVBox
-      "VAV box")
+      VAVBoxCoolingOnly
+      "VAV terminal unit cooling only",
+      VAVBoxReheat
+      "VAV terminal unit with reheat")
     "Enumeration to configure the terminal unit";
   type Controller = enumeration(
       G36VAVBoxCoolingOnly

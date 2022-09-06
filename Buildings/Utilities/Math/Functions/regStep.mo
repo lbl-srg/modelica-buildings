@@ -20,12 +20,12 @@ algorithm
     by Marcus Fuchs:<br/>
     Add function with <code>Inline = true</code> in annotations to package for better performance,
     as suggested in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/300\">#300</a> .</li>
-<li><i>April 29, 2008</i>
-    by <a href=\"mailto:Martin.Otter@DLR.de\">Martin Otter</a>:<br/>
-    Designed and implemented.</li>
 <li><i>August 12, 2008</i>
     by <a href=\"mailto:Michael.Sielemann@dlr.de\">Michael Sielemann</a>:<br/>
     Minor modification to cover the limit case <code>x_small -> 0</code> without division by zero.</li>
+<li><i>April 29, 2008</i>
+    by <a href=\"mailto:Martin.Otter@DLR.de\">Martin Otter</a>:<br/>
+    Designed and implemented.</li>
 </ul>
 </html>", info="<html>
 <p>

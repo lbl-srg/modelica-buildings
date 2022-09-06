@@ -2,9 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation
 model FreezeProtection
   "Validate model for implementing freeze protection"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection
+    frePro(
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.MultizoneAHUMinOADesigns.SeparateDamper_AFMS)
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
+    final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat)
     "Freeze protection control"
     annotation (Placement(transformation(extent={{80,0},{100,40}})));
 
@@ -59,30 +61,37 @@ model FreezeProtection
     final offset=273.15 + 8,
     final duration=3600) "Mixed air temperature"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final h=0.01)
+    "Check if the supply fan is proven on"
+    annotation (Placement(transformation(extent={{0,-56},{20,-36}})));
 equation
   connect(freRes.y, not1.u)
     annotation (Line(points={{-58,-30},{-42,-30}}, color={255,0,255}));
   connect(outDamPosMin.y,frePro. uOutDamPosMin) annotation (Line(points={{-58,100},
           {64,100},{64,39},{78,39}},    color={0,0,127}));
-  connect(outDamPos.y,frePro. uOutDamPos) annotation (Line(points={{-18,80},{60,
-          80},{60,37},{78,37}},     color={0,0,127}));
+  connect(outDamPos.y, frePro.uOutDam) annotation (Line(points={{-18,80},{60,80},
+          {60,37},{78,37}}, color={0,0,127}));
   connect(heaCoiPos.y,frePro. uHeaCoi) annotation (Line(points={{-58,60},{56,60},
           {56,34},{78,34}},    color={0,0,127}));
-  connect(minOutDamPos.y,frePro. uMinOutDamPos) annotation (Line(points={{-18,40},
-          {52,40},{52,31},{78,31}},     color={0,0,127}));
-  connect(retDamPos.y,frePro. uRetDamPos) annotation (Line(points={{-58,20},{44,
-          20},{44,28},{78,28}},     color={0,0,127}));
-  connect(supTem.y,frePro. TSup) annotation (Line(points={{-18,0},{48,0},{48,25},
-          {78,25}},        color={0,0,127}));
-  connect(not1.y,frePro. uSofSwiRes) annotation (Line(points={{-18,-30},{52,-30},
-          {52,16},{78,16}},   color={255,0,255}));
-  connect(supFanSpe.y,frePro. uSupFanSpe) annotation (Line(points={{-18,-60},{56,
-          -60},{56,13},{78,13}},   color={0,0,127}));
+  connect(minOutDamPos.y, frePro.uMinOutDam) annotation (Line(points={{-18,40},
+          {52,40},{52,31},{78,31}}, color={0,0,127}));
+  connect(retDamPos.y, frePro.uRetDam) annotation (Line(points={{-58,20},{40,20},
+          {40,27},{78,27}}, color={0,0,127}));
+  connect(supTem.y, frePro.TAirSup) annotation (Line(points={{-18,0},{44,0},{44,
+          25},{78,25}}, color={0,0,127}));
+  connect(not1.y, frePro.u1SofSwiRes) annotation (Line(points={{-18,-30},{48,-30},
+          {48,20},{78,20}}, color={255,0,255}));
+  connect(supFanSpe.y, frePro.uSupFan) annotation (Line(points={{-18,-60},{56,-60},
+          {56,15},{78,15}}, color={0,0,127}));
   connect(cooCoiPos.y,frePro. uCooCoi) annotation (Line(points={{-58,-80},{60,-80},
-          {60,4},{78,4}},      color={0,0,127}));
-  connect(mixTem.y,frePro. TMix) annotation (Line(points={{-18,-100},{64,-100},{
-          64,1},{78,1}}, color={0,0,127}));
+          {60,3},{78,3}},      color={0,0,127}));
+  connect(mixTem.y, frePro.TAirMix) annotation (Line(points={{-18,-100},{64,-100},
+          {64,1},{78,1}}, color={0,0,127}));
+  connect(supFanSpe.y, greThr.u) annotation (Line(points={{-18,-60},{-10,-60},{-10,
+          -46},{-2,-46}}, color={0,0,127}));
+  connect(greThr.y, frePro.u1SupFan) annotation (Line(points={{22,-46},{52,-46},
+          {52,17},{78,17}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/Validation/FreezeProtection.mos"

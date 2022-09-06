@@ -2,10 +2,8 @@ within Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment;
 model VAVBoxReheatControlG36  "Configuration of VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.VAVBoxReheat(
     redeclare replaceable
-      Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(redeclare replaceable
-                    Buildings.Templates.Components.Valves.TwoWayModulating val),
-    redeclare replaceable
-      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl);
+      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl(
+       stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
 
   annotation (
     defaultComponentName="ter",
