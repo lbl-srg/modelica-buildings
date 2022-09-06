@@ -12,7 +12,7 @@ partial model PartialPump "Interface class for pump"
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_none = typ == Buildings.Templates.Components.Types.Pump.None
-    "= true if pump is none"
+    "Set to true if pump is none"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nPum(final min=0) = 1
     "Number of pumps"
@@ -21,17 +21,17 @@ partial model PartialPump "Interface class for pump"
 
   // Record
 
-  parameter Buildings.Templates.Components.Pumps.Interfaces.Data dat[nPum](
-    each final typ=typ) "Pump data";
+  parameter Buildings.Templates.Components.Data.Pump dat[nPum](each final typ=
+        typ) "Pump data";
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Boolean have_singlePort_a = true
-    "= true if single fluid connector a, = false if vectorized fluid connector a";
+    "Set to true if single fluid connector a, = false if vectorized fluid connector a";
   parameter Boolean have_singlePort_b = true
-    "= true if single fluid connector a, = false if vectorized fluid connector a";
+    "Set to true if single fluid connector a, = false if vectorized fluid connector a";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,

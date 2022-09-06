@@ -185,7 +185,8 @@ partial model PartialAirHandler "Interface class for air handler"
 
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-200,-200},{200,200}}), graphics={
+    extent={{-200,-200},{200,200}}),
+    graphics={
         Text(
           extent={{-155,-218},{145,-258}},
           textColor={0,0,255},
@@ -195,8 +196,9 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
     Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,
-            280}}), graphics={
+        coordinateSystem(preserveAspectRatio=false,
+        extent={{-300,-280},{300,280}}),
+      graphics={
         Rectangle(
           extent={{-300,40},{300,-40}},
           lineColor={0,0,0},

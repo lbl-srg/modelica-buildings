@@ -8,7 +8,7 @@ partial model PartialValve "Interface class for valve"
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean is_none = typ == Buildings.Templates.Components.Types.Valve.None
-    "= true if valve is none"
+    "Set to true if valve is none"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Integer text_rotation = 0
