@@ -32,7 +32,11 @@ block CellsNumber
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_WSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-300,-60},{-260,-20}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-30},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
+    "True: plant is just enabled"
+    annotation(Placement(transformation(extent={{-300,-110},{-260,-70}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatPum
     "Enabling status of lead condenser water pump"
     annotation (Placement(transformation(extent={{-300,-140},{-260,-100}}),
@@ -47,7 +51,7 @@ block CellsNumber
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaCel
     "Lead tower cell status"
-    annotation (Placement(transformation(extent={{260,-140},{300,-100}}),
+    annotation (Placement(transformation(extent={{260,-110},{300,-70}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -119,6 +123,9 @@ protected
     final nin=nConWatPum)
     "Check if any condenser water pump is running"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Logical not"
+    annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
 
 equation
   connect(uWse, booToRea1.u)
@@ -181,20 +188,23 @@ equation
           {-82,-14}}, color={0,0,127}));
   connect(reaToInt.y, yNumCel)
     annotation (Line(points={{242,0},{280,0}}, color={255,127,0}));
-  connect(leaCel.y, yLeaCel)
-    annotation (Line(points={{162,-120},{280,-120}}, color={255,0,255}));
   connect(proOn.y, mulOr.u) annotation (Line(points={{-198,-160},{-170,-160},{-170,
           -160},{-142,-160}},           color={255,0,255}));
   connect(mulOr.y, conPumOff.u)
     annotation (Line(points={{-118,-160},{78,-160}}, color={255,0,255}));
-
+  connect(uEnaPla, or2.u1)
+    annotation (Line(points={{-280,-90},{198,-90}}, color={255,0,255}));
+  connect(leaCel.y, or2.u2) annotation (Line(points={{162,-120},{180,-120},{180,
+          -98},{198,-98}}, color={255,0,255}));
+  connect(or2.y, yLeaCel)
+    annotation (Line(points={{222,-90},{280,-90}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -203,37 +213,41 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,-84},{-18,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-96,-54},{-18,-66}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uLeaConWatPum"),
         Text(
-          extent={{-98,-12},{-72,-26}},
-          lineColor={255,0,255},
+          extent={{-98,-2},{-72,-16}},
+          textColor={255,0,255},
           textString="uWse",
           visible=have_WSE),
         Text(
           extent={{-98,26},{-40,14}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowStaCha"),
         Text(
           extent={{-98,66},{-44,54}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiStaSet"),
         Text(
           extent={{-100,96},{-56,84}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiSta"),
         Text(
           extent={{54,6},{98,-6}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yNumCel"),
         Text(
           extent={{56,-52},{98,-64}},
-          lineColor={255,0,255},
-          textString="yLeaCel")}),
+          textColor={255,0,255},
+          textString="yLeaCel"),
+        Text(
+          extent={{-98,-22},{-60,-36}},
+          textColor={255,0,255},
+          textString="uEnaPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-180},{260,180}}),
         graphics={
           Text(
@@ -241,7 +255,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Identify total number of operation cells")}),
   Documentation(info="<html>

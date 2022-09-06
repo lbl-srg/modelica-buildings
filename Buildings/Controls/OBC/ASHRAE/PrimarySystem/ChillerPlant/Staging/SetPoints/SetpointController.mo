@@ -294,7 +294,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
     "Chiller stage up change edge signal"
-    annotation (Placement(transformation(extent={{120,-90},{160,-50}}),
+    annotation (Placement(transformation(extent={{120,-120},{160,-80}}),
         iconTransformation(extent={{100,70},{140,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
@@ -302,11 +302,16 @@ block SetpointController
     annotation (Placement(transformation(extent={{120,-220},{160,-180}}),
         iconTransformation(extent={{100,10},{140,50}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIni
+    "Initial chiller plant stage"
+    annotation (Placement(transformation(extent={{120,280},{160,320}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
     final max=nSta)
     "Chiller stage integer setpoint"
-    annotation (Placement(transformation(extent={{120,260},{160,300}}),
+    annotation (Placement(transformation(extent={{120,220},{160,260}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
@@ -402,7 +407,7 @@ protected
     final anyOutOfScoMult=anyOutOfScoMult,
     final varSpeStaMin=varSpeStaMin,
     final varSpeStaMax=varSpeStaMax) "Operative and staging part load ratios"
-    annotation (Placement(transformation(extent={{-182,-200},{-162,-180}})));
+    annotation (Placement(transformation(extent={{-182,-200},{-162,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Change cha(
     final nSta=nSta,
@@ -413,7 +418,7 @@ protected
     nSta=nSta,
     nChi=nChi,
     staMat=staMat) "Calculates chiller status setpoint vector"
-    annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
+    annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract lift if anyVsdCen
     "Calculates chiller lift for variable speed centrifugal chiller containing configurations"
@@ -425,9 +430,8 @@ equation
           color={255,0,255}));
   connect(conf.yAva, sta.uAva) annotation (Line(points={{-338,-178},{-332,-178},
           {-332,-216},{-322,-216}},color={255,0,255}));
-  connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-422,
-          370},{-370,370},{-370,319},{-322,319}},
-                                             color={0,0,127}));
+  connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-422,370},
+          {-360,370},{-360,319},{-322,319}}, color={0,0,127}));
   connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-420,300},{-374,
           300},{-374,314},{-322,314}}, color={0,0,127}));
   connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-420,270},
@@ -443,57 +447,59 @@ equation
   connect(sta.yHig, cap.uHig) annotation (Line(points={{-298,-211},{-280,-211},
           {-280,-176},{-272,-176}},color={255,0,255}));
   connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-298,310},{-194,310},
-          {-194,-176},{-184,-176}},
+          {-194,-166},{-184,-166}},
                                   color={0,0,127}));
   connect(cap.yDes, PLRs.uCapDes) annotation (Line(points={{-248,-162},{-234,
-          -162},{-234,-178},{-184,-178}},
+          -162},{-234,-168},{-184,-168}},
                                   color={0,0,127}));
   connect(cap.yUpDes, PLRs.uUpCapDes) annotation (Line(points={{-248,-166},{
-          -236,-166},{-236,-180},{-184,-180}},
+          -236,-166},{-236,-170},{-184,-170}},
                                   color={0,0,127}));
   connect(cap.yDowDes, PLRs.uDowCapDes) annotation (Line(points={{-248,-170},{
-          -238,-170},{-238,-182},{-184,-182}},
+          -238,-170},{-238,-172},{-184,-172}},
                                        color={0,0,127}));
   connect(cap.yMin, PLRs.uCapMin) annotation (Line(points={{-248,-174},{-240,
-          -174},{-240,-185},{-184,-185}},
+          -174},{-240,-175},{-184,-175}},
                                   color={0,0,127}));
   connect(cap.yUpMin, PLRs.uUpCapMin) annotation (Line(points={{-248,-178},{
-          -242,-178},{-242,-187},{-184,-187}},
+          -242,-178},{-242,-177},{-184,-177}},
                                        color={0,0,127}));
-  connect(uLifMax, PLRs.uLifMax) annotation (Line(points={{-420,20},{-212,20},{-212,
-          -192},{-184,-192}},    color={0,0,127}));
+  connect(uLifMax, PLRs.uLifMax) annotation (Line(points={{-420,20},{-212,20},{
+          -212,-182},{-184,-182}},
+                                 color={0,0,127}));
   connect(uLifMin, PLRs.uLifMin) annotation (Line(points={{-420,-10},{-222,-10},
-          {-222,-194},{-184,-194}},
+          {-222,-184},{-184,-184}},
                                  color={0,0,127}));
   connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-338,-174},{-302,-174},
-          {-302,-198},{-184,-198}},                    color={255,127,0}));
+          {-302,-188},{-184,-188}},                    color={255,127,0}));
   connect(sta.yAvaUp, PLRs.uUp) annotation (Line(points={{-298,-203},{-242,-203},
-          {-242,-204},{-184,-204}}, color={255,127,0}));
+          {-242,-194},{-184,-194}}, color={255,127,0}));
   connect(sta.yAvaDow, PLRs.uDown)
-    annotation (Line(points={{-298,-206},{-184,-206}}, color={255,127,0}));
+    annotation (Line(points={{-298,-206},{-242,-206},{-242,-196},{-184,-196}},
+                                                       color={255,127,0}));
   connect(sta.yLow, cap.uLow) annotation (Line(points={{-298,-214},{-278,-214},
           {-278,-179},{-272,-179}},color={255,0,255}));
-  connect(PLRs.yOpe, staUp.uOpe) annotation (Line(points={{-160,-182},{-136,-182},
-          {-136,-100},{-102,-100}},
+  connect(PLRs.yOpe, staUp.uOpe) annotation (Line(points={{-160,-172},{-136,
+          -172},{-136,-99},{-102,-99}},
                              color={0,0,127}));
-  connect(PLRs.yStaUp, staUp.uStaUp) annotation (Line(points={{-160,-191},{-134,
-          -191},{-134,-102},{-102,-102}},
+  connect(PLRs.yStaUp, staUp.uStaUp) annotation (Line(points={{-160,-181},{-134,
+          -181},{-134,-101},{-102,-101}},
                                 color={0,0,127}));
-  connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-422,370},
-          {-162,370},{-162,-104},{-102,-104}},
+  connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-422,
+          370},{-162,370},{-162,-103},{-102,-103}},
                                        color={0,0,127}));
-  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{-386,
-          340},{-386,284},{-164,284},{-164,-106},{-102,-106}},
+  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{
+          -386,340},{-386,284},{-164,284},{-164,-105},{-102,-105}},
                                                          color={0,0,127}));
   connect(dpChiWatPumSet_local, staUp.dpChiWatPumSet_local) annotation (Line(
-        points={{-420,240},{-144,240},{-144,-109},{-102,-109}}, color={0,0,127}));
-  connect(dpChiWatPum_local, staUp.dpChiWatPum_local) annotation (Line(points={{
-          -420,210},{-146,210},{-146,-111},{-102,-111}}, color={0,0,127}));
-  connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{-160,-186},{-142,
-          -186},{-142,-219},{-102,-219}},
+        points={{-420,240},{-144,240},{-144,-107},{-102,-107}}, color={0,0,127}));
+  connect(dpChiWatPum_local, staUp.dpChiWatPum_local) annotation (Line(points={{-420,
+          210},{-146,210},{-146,-109},{-102,-109}},      color={0,0,127}));
+  connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{-160,-176},{
+          -142,-176},{-142,-219},{-102,-219}},
                                 color={0,0,127}));
-  connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{-102,-221},{-144,
-          -221},{-144,-193},{-160,-193}},
+  connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{-102,-221},{
+          -144,-221},{-144,-183},{-160,-183}},
                                color={0,0,127}));
   connect(dpChiWatPumSet_local, staDow.dpChiWatPumSet_local) annotation (Line(
         points={{-420,240},{-144,240},{-144,-223},{-102,-223}}, color={0,0,127}));
@@ -515,15 +521,17 @@ equation
           {-340,-260},{-422,-260}}, color={255,0,255}));
   connect(uSta, sta.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-204},
           {-322,-204}}, color={255,127,0}));
-  connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-298,-217},{-242,
-          -217},{-242,-210},{-122,-210},{-122,-120},{-102,-120}},
+  connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-298,-217},{
+          -242,-217},{-242,-210},{-122,-210},{-122,-117},{-102,-117}},
                                                            color={255,0,255}));
   connect(uSta, cap.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-167},
           {-272,-167}}, color={255,127,0}));
-  connect(uSta, PLRs.u) annotation (Line(points={{-420,-60},{-232,-60},{-232,-202},
-          {-184,-202}}, color={255,127,0}));
-  connect(uSta, staUp.u) annotation (Line(points={{-420,-60},{-112,-60},{-112,-118},
-          {-102,-118}}, color={255,127,0}));
+  connect(uSta, PLRs.u) annotation (Line(points={{-420,-60},{-232,-60},{-232,
+          -192},{-184,-192}},
+                        color={255,127,0}));
+  connect(uSta, staUp.u) annotation (Line(points={{-420,-60},{-112,-60},{-112,
+          -115},{-102,-115}},
+                        color={255,127,0}));
   connect(uSta, staDow.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-239},
           {-102,-239}}, color={255,127,0}));
   connect(chaPro, capReq.chaPro) annotation (Line(points={{-420,-140},{-350,
@@ -534,19 +542,20 @@ equation
           {-290,-150},{-44,-150},{-44,-168},{-22,-168}}, color={255,127,0}));
   connect(staUp.y, cha.uUp) annotation (Line(points={{-78,-110},{-50,-110},{-50,
           -172},{-22,-172}}, color={255,0,255}));
-  connect(staDow.y, cha.uDow) annotation (Line(points={{-78,-230},{-50,-230},{-50,
-          -176},{-22,-176}}, color={255,0,255}));
+  connect(staDow.y, cha.uDow) annotation (Line(points={{-78,-230},{-60,-230},{
+          -60,-176},{-22,-176}},
+                             color={255,0,255}));
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{
           -280,-140},{-70,-140},{-70,-180},{-22,-180}},
                                              color={255,0,255}));
-  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,280},
-          {140,280}},color={255,127,0}));
+  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,240},{
+          140,240}}, color={255,127,0}));
   connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{80,-174},{80,
           -140},{140,-140}},     color={255,0,255}));
-  connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-200},{80,-200},{
+  connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-230},{80,-230},{
           80,-260},{140,-260}}, color={255,0,255}));
-  connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{20,-166},{20,-200},
-          {38,-200}},        color={255,127,0}));
+  connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{20,-166},{20,
+          -230},{38,-230}},  color={255,127,0}));
   connect(TChiWatSupSet, iniSta.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-100,370},{-100,113},{-82,113}}, color={0,0,127}));
   connect(uTunPar, iniSta.uTunPar) annotation (Line(points={{-420,120},{-104,120},
@@ -560,11 +569,13 @@ equation
   connect(uPla, iniSta.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
           104},{-82,104}}, color={255,0,255}));
   connect(cha.yChaUpEdg, yChaUpEdg) annotation (Line(points={{2,-170},{60,-170},
-          {60,-70},{140,-70}}, color={255,0,255}));
-  connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-178},{100,-178},
-          {100,-200},{140,-200}}, color={255,0,255}));
-  connect(PLRs.yOpeMin, yOpeParLoaRatMin) annotation (Line(points={{-160,-197},
-          {-130,-197},{-130,340},{140,340}},
+          {60,-100},{140,-100}},
+                               color={255,0,255}));
+  connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-178},{60,
+          -178},{60,-200},{140,-200}},
+                                  color={255,0,255}));
+  connect(PLRs.yOpeMin, yOpeParLoaRatMin) annotation (Line(points={{-160,-187},
+          {-130,-187},{-130,340},{140,340}},
                                color={0,0,127}));
   connect(staUp.y, yUp) annotation (Line(points={{-78,-110},{-50,-110},{-50,80},
           {140,80}}, color={255,0,255}));
@@ -574,18 +585,23 @@ equation
           46},{-262,46}}, color={0,0,127}));
   connect(TChiWatSupSet, lift.u2) annotation (Line(points={{-422,370},{-360,370},
           {-360,34},{-262,34}}, color={0,0,127}));
-  connect(PLRs.uLif, lift.y) annotation (Line(points={{-184,-190},{-202,-190},{-202,
-          40},{-238,40}}, color={0,0,127}));
-  connect(capReq.y, yCapReq) annotation (Line(points={{-298,310},{-80,310},{-80,
+  connect(PLRs.uLif, lift.y) annotation (Line(points={{-184,-180},{-202,-180},{
+          -202,40},{-238,40}},
+                          color={0,0,127}));
+  connect(capReq.y, yCapReq) annotation (Line(points={{-298,310},{-194,310},{-194,
           390},{140,390}}, color={0,0,127}));
   connect(dpChiWatPumSet_remote, staUp.dpChiWatPumSet_remote) annotation (Line(
-        points={{-420,180},{-148,180},{-148,-113},{-102,-113}}, color={0,0,127}));
+        points={{-420,180},{-148,180},{-148,-111},{-102,-111}}, color={0,0,127}));
   connect(dpChiWatPumSet_remote, staDow.dpChiWatPumSet_remote) annotation (Line(
         points={{-420,180},{-148,180},{-148,-227},{-102,-227}}, color={0,0,127}));
-  connect(dpChiWatPum_remote, staUp.dpChiWatPum_remote) annotation (Line(points=
-         {{-420,150},{-150,150},{-150,-115},{-102,-115}}, color={0,0,127}));
+  connect(dpChiWatPum_remote, staUp.dpChiWatPum_remote) annotation (Line(points={{-420,
+          150},{-150,150},{-150,-113},{-102,-113}},       color={0,0,127}));
   connect(dpChiWatPum_remote, staDow.dpChiWatPum_remote) annotation (Line(
         points={{-420,150},{-150,150},{-150,-229},{-102,-229}}, color={0,0,127}));
+  connect(iniSta.yIni, yIni) annotation (Line(points={{-59,110},{-30,110},{-30,300},
+          {140,300}}, color={255,127,0}));
+  connect(uPla, staUp.uPla) annotation (Line(points={{-420,-100},{-280,-100},{
+          -280,-119},{-102,-119}}, color={255,0,255}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-220},{100,200}}, initialScale=0.2),
         graphics={
@@ -596,155 +612,159 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-112,244},{108,206}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-96,88},{-8,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TChiWatSupSet"),
         Text(
           extent={{-96,66},{-24,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TChiWatSup"),
         Text(
           extent={{-96,-182},{-40,-198}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TWsePre"),
         Text(
           extent={{-98,-160},{-24,-178}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TChiWatRet"),
         Text(
           extent={{-98,-196},{-14,-222}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-96,-128},{8,-152}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTowFanSpeMax"),
         Text(
           extent={{-94,-10},{0,-32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatPumSet_local",
           visible=(not have_serChi) and have_locSen),
         Text(
           extent={{-96,-28},{-10,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatPum_local",
           visible=(not have_serChi) and have_locSen),
         Text(
           extent={{-96,8},{-48,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uLifMin",
           visible=anyVsdCen),
         Text(
           extent={{-96,32},{-46,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uLifMax",
           visible=anyVsdCen),
         Text(
           extent={{-98,112},{-68,92}},
-          lineColor={244,125,35},
+          textColor={244,125,35},
           pattern=LinePattern.Dash,
           textString="uSta"),
         Text(
           extent={{-98,200},{-46,180}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="uWseSta"),
         Text(
           extent={{-100,180},{-50,164}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{-96,142},{-68,120}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="uPla"),
         Text(
           extent={{-96,160},{-44,142}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="uChiAva"),
         Text(
           extent={{62,-116},{94,-100}},
-          lineColor={244,125,35},
+          textColor={244,125,35},
           pattern=LinePattern.Dash,
           textString="ySta"),
         Text(
           extent={{42,74},{94,50}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yChaEdg"),
         Text(
           extent={{40,-24},{92,-52}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yChiSet[]"),
         Text(
           extent={{-98,-110},{-48,-126}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTunPar"),
         Text(
           extent={{-98,-90},{-46,-108}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOutWet"),
         Text(
           extent={{28,112},{94,70}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yChaUpEdg"),
         Text(
           extent={{16,50},{94,14}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yChaDowEdg"),
         Text(
           extent={{-12,-154},{96,-200}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin"),
         Text(
           extent={{54,194},{98,170}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{52,164},{100,140}},
-          lineColor={217,67,180},
+          textColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="yDow"),
         Text(
           extent={{42,-198},{94,-220}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCapReq"),
         Text(
           extent={{-96,-48},{8,-72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatPumSet_remote",
           visible=(not have_serChi) and (not have_locSen)),
         Text(
           extent={{-96,-68},{8,-92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatPum_remote",
-          visible=(not have_serChi) and (not have_locSen))}),
-                                 Diagram(
+          visible=(not have_serChi) and (not have_locSen)),
+        Text(
+          extent={{62,-98},{94,-82}},
+          textColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="yIni")}),  Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),
 Documentation(info="<html>

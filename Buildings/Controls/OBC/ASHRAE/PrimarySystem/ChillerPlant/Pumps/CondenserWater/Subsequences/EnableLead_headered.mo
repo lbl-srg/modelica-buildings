@@ -7,57 +7,67 @@ block EnableLead_headered
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal
     if have_WSE "WSE condenser water isolation valve commanded status"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-28},{-100,12}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chiller condenser water isolation valve commanded status"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
+    "True: plant is just enabled"
+    annotation(Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta "Lead pump status"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false) "Logical false"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) "Logical true"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=false) if not have_WSE
     "Logical false"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-80,-48},{-60,-28}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nChi)
     "Check if there is any chiller enabled"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1 "Logical or"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
   connect(con1.y, leaPumSta.u3)
-    annotation (Line(points={{2,-60},{20,-60},{20,-8},{38,-8}},
+    annotation (Line(points={{2,-80},{40,-80},{40,-8},{58,-8}},
       color={255,0,255}));
   connect(con.y, leaPumSta.u1)
-    annotation (Line(points={{2,40},{20,40},{20,8},{38,8}}, color={255,0,255}));
+    annotation (Line(points={{2,80},{40,80},{40,8},{58,8}}, color={255,0,255}));
   connect(leaPumSta.y, yLea)
-    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
-  connect(or2.y, leaPumSta.u2)
-    annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{82,0},{120,0}}, color={255,0,255}));
   connect(uWseConIsoVal, or2.u2)
-    annotation (Line(points={{-120,-20},{-40,-20},{-40,-8},{-22,-8}},
+    annotation (Line(points={{-120,-8},{-42,-8}},
       color={255,0,255}));
   connect(con2.y, or2.u2)
-    annotation (Line(points={{-58,-60},{-40,-60},{-40,-8},{-22,-8}},
+    annotation (Line(points={{-58,-38},{-50,-38},{-50,-8},{-42,-8}},
       color={255,0,255}));
   connect(uChiConIsoVal, mulOr.u)
-    annotation (Line(points={{-120,20},{-102,20},{-102,20},{-82,20}}, color={255,0,255}));
+    annotation (Line(points={{-120,50},{-82,50}}, color={255,0,255}));
   connect(mulOr.y, or2.u1)
-    annotation (Line(points={{-58,20},{-40,20},{-40,0},{-22,0}},
+    annotation (Line(points={{-58,50},{-50,50},{-50,0},{-42,0}},
       color={255,0,255}));
+  connect(or2.y, or1.u1) annotation (Line(points={{-18,0},{-2,0}},
+               color={255,0,255}));
+  connect(uEnaPla, or1.u2) annotation (Line(points={{-120,-60},{-10,-60},{-10,-8},
+          {-2,-8}}, color={255,0,255}));
+  connect(or1.y, leaPumSta.u2)
+    annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLeaConPum",
@@ -69,23 +79,28 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,52},{-44,30}},
-          lineColor={255,0,255},
+          extent={{-98,72},{-44,50}},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiConIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yLeaPum"),
         Text(
-          extent={{-98,-28},{-44,-50}},
-          lineColor={255,0,255},
+          extent={{-98,12},{-44,-10}},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uWseConIsoVal")}),
+          textString="uWseConIsoVal"),
+        Text(
+          extent={{-98,-50},{-58,-68}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uEnaPla")}),
    Diagram(coordinateSystem(preserveAspectRatio=false)),
    Documentation(info="<html>
 <p>

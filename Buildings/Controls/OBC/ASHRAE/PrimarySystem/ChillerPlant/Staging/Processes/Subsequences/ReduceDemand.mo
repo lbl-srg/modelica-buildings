@@ -122,7 +122,7 @@ protected
 
 equation
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{-38,160},{-20,160},{-20,110},{10,110},{10,118.2}},
+    annotation (Line(points={{-38,160},{-20,160},{-20,110},{10,110},{10,118}},
       color={255,0,255}));
   connect(uChiLoa, triSam.u)
     annotation (Line(points={{-180,130},{-2,130}}, color={0,0,127}));
@@ -221,7 +221,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,60},{60,20}},
@@ -245,46 +245,46 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-15,9.5},{15,-9.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={-83,49.5},
           rotation=0,
           textString="uChiLoa"),
         Text(
           extent={{-98,98},{-66,86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uDemLim"),
         Text(
           extent={{-18,6.5},{18,-6.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={78,42.5},
           rotation=0,
           textString="yChiDem"),
         Text(
           extent={{46,-34},{96,-46}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yChiDemRed"),
         Text(
           extent={{-100,-84},{-76,-94}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,-42},{-74,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{-98,-12},{-64,-28}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaDow"),
         Text(
           extent={{-17,9.5},{17,-9.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={-81,11.5},
           rotation=0,

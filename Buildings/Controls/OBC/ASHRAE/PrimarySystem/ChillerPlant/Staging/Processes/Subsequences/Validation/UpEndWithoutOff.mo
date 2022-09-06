@@ -75,10 +75,10 @@ equation
   connect(booPul1.y, upStrDev.u)
     annotation (Line(points={{-118,40},{-102,40}}, color={255,0,255}));
   connect(endUp.yChi[1], chiOneSta.u)
-    annotation (Line(points={{122,158},{130,158},{130,120},{138,120}},
+    annotation (Line(points={{122,158.5},{130,158.5},{130,120},{138,120}},
       color={255,0,255}));
   connect(endUp.yChi[2], chiTwoSta.u)
-    annotation (Line(points={{122,160},{130,160},{130,80},{138,80}},
+    annotation (Line(points={{122,159.5},{130,159.5},{130,80},{138,80}},
       color={255,0,255}));
   connect(reaToInt.y, endUp.nexEnaChi)
     annotation (Line(points={{2,150},{20,150},{20,162},{98,162}},
@@ -90,10 +90,11 @@ equation
     annotation (Line(points={{-78,40},{28,40},{28,158},{98,158}},
       color={255,0,255}));
   connect(chiOneSta.y, endUp.uChi[1])
-    annotation (Line(points={{162,120},{174,120},{174,100},{32,100},{32,155},
-      {98,155}}, color={255,0,255}));
+    annotation (Line(points={{162,120},{174,120},{174,100},{32,100},{32,155.5},{
+          98,155.5}},
+                 color={255,0,255}));
   connect(chiTwoSta.y, endUp.uChi[2])
-    annotation (Line(points={{162,80},{170,80},{170,60},{36,60},{36,157},{98,157}},
+    annotation (Line(points={{162,80},{170,80},{170,60},{36,60},{36,156.5},{98,156.5}},
       color={255,0,255}));
   connect(onOff.y, endUp.uOnOff)
     annotation (Line(points={{-118,0},{40,0},{40,154},{98,154}},
@@ -102,16 +103,18 @@ equation
     annotation (Line(points={{-118,-40},{44,-40},{44,152},{98,152}},
       color={255,127,0}));
   connect(chiOneSta.y, endUp.uChiWatReq[1])
-    annotation (Line(points={{162,120},{174,120},{174,100},{48,100},{48,149},
-      {98,149}},  color={255,0,255}));
+    annotation (Line(points={{162,120},{174,120},{174,100},{48,100},{48,149.5},{
+          98,149.5}},
+                  color={255,0,255}));
   connect(chiTwoSta.y, endUp.uChiWatReq[2])
-    annotation (Line(points={{162,80},{170,80},{170,60},{52,60},{52,151},{98,151}},
+    annotation (Line(points={{162,80},{170,80},{170,60},{52,60},{52,150.5},{98,150.5}},
       color={255,0,255}));
   connect(chiOneSta.y, endUp.uConWatReq[1])
-    annotation (Line(points={{162,120},{174,120},{174,100},{60,100},{60,145},
-      {98,145}}, color={255,0,255}));
+    annotation (Line(points={{162,120},{174,120},{174,100},{60,100},{60,145.5},{
+          98,145.5}},
+                 color={255,0,255}));
   connect(chiTwoSta.y, endUp.uConWatReq[2])
-    annotation (Line(points={{162,80},{170,80},{170,60},{64,60},{64,147},{98,147}},
+    annotation (Line(points={{162,80},{170,80},{170,60},{64,60},{64,146.5},{98,146.5}},
       color={255,0,255}));
   connect(chiWatFlo.y, endUp.VChiWat_flow)
     annotation (Line(points={{-118,-240},{72,-240},{72,142},{98,142}},
@@ -159,14 +162,14 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-142,240},{-110,232}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Stage up:"),
         Text(
           extent={{-138,226},{22,216}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="from stage 1 which has only chiller 1 being enabled, "),
         Text(
           extent={{-138,214},{16,200}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="to stage 2 which has chiller 1 and 2 being enabled.")}));
 end UpEndWithoutOff;

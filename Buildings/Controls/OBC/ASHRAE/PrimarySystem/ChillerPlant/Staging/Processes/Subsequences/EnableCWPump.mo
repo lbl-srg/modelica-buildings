@@ -111,31 +111,31 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-96,-82},{-62,-94}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uStaSet"),
         Text(
           extent={{-98,88},{-50,72}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-98,28},{-64,16}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{68,8},{98,-8}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yChiSta"),
         Text(
           extent={{-98,-12},{-60,-24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaDow"),
         Ellipse(
@@ -150,7 +150,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,-46},{-62,-58}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uChiSta")}),
   Documentation(info="<html>

@@ -31,41 +31,45 @@ block Controller "Condenser water pump controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chiller condenser water isolation valve status"
-    annotation (Placement(transformation(extent={{-160,120},{-120,160}}),
+    annotation (Placement(transformation(extent={{-160,130},{-120,170}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status: true=lead chiller is enabled"
-    annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
+    annotation (Placement(transformation(extent={{-160,100},{-120,140}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta
     "Lead chiller status: true=lead chiller proven on"
-    annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
+    annotation (Placement(transformation(extent={{-162,70},{-122,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatReq
     "Status indicating if chiller is requesting condenser water"
-    annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
+    annotation (Placement(transformation(extent={{-162,40},{-122,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
+    "True: plant is just enabled"
+    annotation(Placement(transformation(extent={{-160,10},{-120,50}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage that does not include WSE"
-    annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-160,-26},{-120,14}}),
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
     "Water side economizer status: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
     final min=0,
     final max=1,
     final unit="1") if not fixSpe
     "Condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
+    annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe(
     final min=0,
     final max=1,
     final unit="1") if not fixSpe
     "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
+    annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum] if fixSpe
     "Status indicating if condenser water pump is running"
@@ -112,10 +116,10 @@ protected
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract speDif if not fixSpe
     "Calculate difference between speed setpoint and operating speed"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs if not fixSpe
     "Absolute difference"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=pumSpeChe,
       final uHigh=2*pumSpeChe)    if not fixSpe
     "Check if operating speed equals to setpoint"
@@ -154,25 +158,25 @@ protected
 
 equation
   connect(uWSE, enaLeaHeaPum.uWseConIsoVal)
-    annotation (Line(points={{-140,-20},{0,-20},{0,126},{18,126}},
+    annotation (Line(points={{-140,-40},{0,-40},{0,130},{18,130}},
       color={255,0,255}));
   connect(enaLeaDedPum.uLeaChiSta, uLeaChiSta)
-    annotation (Line(points={{18,80},{-140,80}}, color={255,0,255}));
+    annotation (Line(points={{18,76},{-90,76},{-90,90},{-142,90}}, color={255,0,255}));
   connect(enaLeaDedPum.uLeaConWatReq, uLeaConWatReq)
-    annotation (Line(points={{18,72},{-80,72},{-80,50},{-140,50}},
+    annotation (Line(points={{18,72},{-80,72},{-80,60},{-142,60}},
       color={255,0,255}));
   connect(uWSE, pumSpe.uWSE)
-    annotation (Line(points={{-140,-20},{0,-20},{0,-14},{18,-14}}, color={255,0,255}));
+    annotation (Line(points={{-140,-40},{0,-40},{0,-14},{18,-14}}, color={255,0,255}));
   connect(enaLeaHeaPum.yLea, yLeaPum)
     annotation (Line(points={{42,130},{140,130}}, color={255,0,255}));
   connect(enaLeaDedPum.yLea, yLeaPum)
     annotation (Line(points={{42,80},{50,80},{50,130},{140,130}}, color={255,0,255}));
   connect(speDif.y, abs.u)
-    annotation (Line(points={{-78,-50},{-62,-50}},   color={0,0,127}));
+    annotation (Line(points={{-58,-90},{-42,-90}},   color={0,0,127}));
   connect(hys.y, not1.u)
     annotation (Line(points={{22,-90},{38,-90}},   color={255,0,255}));
   connect(uChiSta, pumSpe.uChiSta)
-    annotation (Line(points={{-140,10},{-100,10},{-100,-6},{18,-6}},
+    annotation (Line(points={{-140,-6},{18,-6}},
       color={255,127,0}));
   connect(swi.y,yDesConWatPumSpe)
     annotation (Line(points={{102,60},{140,60}}, color={0,0,127}));
@@ -204,16 +208,16 @@ equation
   connect(pumSpe.yDesConWatPumSpe, swi.u1)
     annotation (Line(points={{42,-4},{60,-4},{60,68},{78,68}},   color={0,0,127}));
   connect(con.y, enaLeaHeaPum.uWseConIsoVal)
-    annotation (Line(points={{-38,110},{-20,110},{-20,126},{18,126}},
+    annotation (Line(points={{-38,110},{-20,110},{-20,130},{18,130}},
       color={255,0,255}));
   connect(con.y, pumSpe.uWSE)
     annotation (Line(points={{-38,110},{-20,110},{-20,-14},{18,-14}},
       color={255,0,255}));
   connect(uLeaChiEna, enaLeaDedPum.uLeaChiEna)
-    annotation (Line(points={{-140,110},{-80,110},{-80,88},{18,88}},
+    annotation (Line(points={{-140,120},{-80,120},{-80,84},{18,84}},
       color={255,0,255}));
-  connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal) annotation (Line(points={{
-          18,134},{-40,134},{-40,140},{-140,140}}, color={255,0,255}));
+  connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal) annotation (Line(points={{18,136},
+          {-40,136},{-40,150},{-140,150}},         color={255,0,255}));
   connect(uConWatPum, booToInt.u)
     annotation (Line(points={{-140,-140},{-102,-140}}, color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)
@@ -224,12 +228,16 @@ equation
           {30,-30},{30,-120},{38,-120}}, color={255,127,0}));
   connect(intEqu.y, and2.u2) annotation (Line(points={{62,-120},{70,-120},{70,-58},
           {78,-58}}, color={255,0,255}));
-  connect(abs.y, hys.u) annotation (Line(points={{-38,-50},{-20,-50},{-20,-90},{
-          -2,-90}}, color={0,0,127}));
-  connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-50},{-110,
-          -50},{-110,-44},{-102,-44}}, color={0,0,127}));
-  connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-80},{-110,-80},
-          {-110,-56},{-102,-56}}, color={0,0,127}));
+  connect(abs.y, hys.u) annotation (Line(points={{-18,-90},{-2,-90}},
+                    color={0,0,127}));
+  connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-70},{-100,
+          -70},{-100,-84},{-82,-84}}, color={0,0,127}));
+  connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-110},{-100,-110},
+          {-100,-96},{-82,-96}}, color={0,0,127}));
+  connect(uEnaPla, enaLeaHeaPum.uEnaPla) annotation (Line(points={{-140,30},{10,
+          30},{10,124},{18,124}}, color={255,0,255}));
+  connect(uEnaPla, enaLeaDedPum.uEnaPla) annotation (Line(points={{-140,30},{10,
+          30},{10,88},{18,88}}, color={255,0,255}));
 
 annotation (Dialog(tab="Advanced"),
   defaultComponentName="conWatPumCon",
@@ -241,7 +249,7 @@ annotation (Dialog(tab="Advanced"),
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-100,-100},{100,100}},

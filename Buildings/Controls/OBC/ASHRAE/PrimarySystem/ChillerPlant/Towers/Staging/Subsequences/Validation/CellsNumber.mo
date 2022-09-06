@@ -37,7 +37,10 @@ model CellsNumber
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not leaConPum "Lead condenser water pump status"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
+    "Constant false"
+    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 equation
   connect(chiStaGen.y, chiStaSet.u)
     annotation (Line(points={{-78,50},{-62,50}}, color={0,0,127}));
@@ -50,14 +53,15 @@ equation
   connect(StaTow.y, enaTowCel.uTowStaCha)
     annotation (Line(points={{-38,10},{28,10},{28,2},{58,2}}, color={255,0,255}));
   connect(wseSta.y, enaTowCel.uWse)
-    annotation (Line(points={{-38,-30},{-8,-30},{-8,-2},{58,-2}}, color={255,0,255}));
+    annotation (Line(points={{-38,-30},{-8,-30},{-8,-1},{58,-1}}, color={255,0,255}));
   connect(conWatPumSpe.y, enaTowCel.uConWatPumSpe)
     annotation (Line(points={{-38,-100},{8,-100},{8,-9},{58,-9}}, color={0,0,127}));
   connect(pul.y, leaConPum.u)
     annotation (Line(points={{-78,-60},{-62,-60}}, color={255,0,255}));
   connect(leaConPum.y, enaTowCel.uLeaConWatPum)
     annotation (Line(points={{-38,-60},{0,-60},{0,-6},{58,-6}}, color={255,0,255}));
-
+  connect(con.y, enaTowCel.uEnaPla) annotation (Line(points={{42,-100},{50,-100},
+          {50,-3},{58,-3}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/Staging/Subsequences/Validation/CellsNumber.mos"
     "Simulate and plot"),

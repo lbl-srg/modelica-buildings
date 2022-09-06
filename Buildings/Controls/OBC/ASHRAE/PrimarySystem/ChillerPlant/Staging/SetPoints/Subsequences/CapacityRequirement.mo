@@ -130,8 +130,8 @@ equation
           {-60,20},{-60,130},{-42,130}}, color={0,0,127}));
   connect(chaPro, edg.u)
     annotation (Line(points={{-160,110},{-102,110}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,110},{-30,110},{
-          -30,118.2}}, color={255,0,255}));
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,110},{-30,110},{-30,
+          118}},       color={255,0,255}));
   connect(triSam.y, swi.u1) annotation (Line(points={{-18,130},{10,130},{10,138},
           {78,138}}, color={0,0,127}));
   connect(max.y, swi.u3) annotation (Line(points={{122,-70},{130,-70},{130,60},{
@@ -156,11 +156,11 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-62,88},{60,-76}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Load")}), Diagram(

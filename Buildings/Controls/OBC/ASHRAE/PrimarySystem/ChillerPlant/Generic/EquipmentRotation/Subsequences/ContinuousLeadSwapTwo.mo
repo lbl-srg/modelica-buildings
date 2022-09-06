@@ -50,7 +50,7 @@ equation
     lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0} else {235,235,235}),
     fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0} else {235,235,235}),
     fillPattern=FillPattern.Solid), Text( extent={{-120,146},{100,108}},
-    lineColor={0,0,255}, textString="%name")}),
+    textColor={0,0,255}, textString="%name")}),
   Documentation(info="<html>
 <p>
 This block ensures that the new lead device is started and proven on before the old 

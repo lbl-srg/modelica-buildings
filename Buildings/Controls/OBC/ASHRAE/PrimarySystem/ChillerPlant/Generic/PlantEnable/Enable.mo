@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
-block PlantEnable "Sequence to enable and disable plant"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable;
+block Enable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
     "Flag to indicate if the plant has waterside economizer";
@@ -140,13 +140,13 @@ equation
   connect(chiPlaReq, hasReq.u)
     annotation (Line(points={{-220,90},{-142,90}}, color={255,127,0}));
   connect(disTim.passed,enaPla. u[1])
-    annotation (Line(points={{-78,112},{20,112},{20,85.25},{38,85.25}},
+    annotation (Line(points={{-78,112},{20,112},{20,77.375},{38,77.375}},
       color={255,0,255}));
   connect(hasReq.y,enaPla. u[2])
-    annotation (Line(points={{-118,90},{-20,90},{-20,81.75},{38,81.75}},
+    annotation (Line(points={{-118,90},{-20,90},{-20,79.125},{38,79.125}},
       color={255,0,255}));
   connect(schOn.y,enaPla. u[3])
-    annotation (Line(points={{-78,50},{0,50},{0,78.25},{38,78.25}},
+    annotation (Line(points={{-78,50},{0,50},{0,80.875},{38,80.875}},
       color={255,0,255}));
   connect(schOn.y, not2.u)
     annotation (Line(points={{-78,50},{-40,50},{-40,-50},{-22,-50}},
@@ -183,9 +183,8 @@ equation
           -78},{38,-78}}, color={255,0,255}));
   connect(hys.y, notLoc.u) annotation (Line(points={{-78,-130},{-60,-130},{-60,10},
           {-22,10}}, color={255,0,255}));
-  connect(notLoc.y, enaPla.u[4]) annotation (Line(points={{2,10},{20,10},{20,
-          74.75},{38,74.75}},
-                       color={255,0,255}));
+  connect(notLoc.y, enaPla.u[4]) annotation (Line(points={{2,10},{20,10},{20,82.625},
+          {38,82.625}},color={255,0,255}));
   connect(disPla.y, plaSta.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},
           {98,74}}, color={255,0,255}));
   connect(enaTim1.passed, disPlaCon.u2) annotation (Line(points={{-78,-78},{-20,
@@ -197,16 +196,9 @@ annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}})),
   Icon(graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          lineThickness=5,
-          borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(extent={{-80,80},{80,-80}}, lineColor={28,108,200},fillColor={170,255,213},
           fillPattern=FillPattern.Solid),
@@ -216,11 +208,11 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-66,46},{76,10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="START"),
         Text(
           extent={{-66,-8},{76,-44}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="STOP")}),
  Documentation(info="<html>
 <p>
@@ -297,4 +289,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PlantEnable;
+end Enable;

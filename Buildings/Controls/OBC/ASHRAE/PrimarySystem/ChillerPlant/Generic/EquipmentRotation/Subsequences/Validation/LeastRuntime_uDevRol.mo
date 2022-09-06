@@ -147,7 +147,7 @@ Icon(graphics={
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}}),
         graphics={Text(
           extent={{-52,-104},{46,-114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="For simplicity this test assumes 
 the device ON/OFF status equals its setpoint 
 (there is no delay in starting or stopping devices).")}));

@@ -16,7 +16,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{72,34},{106,16}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yFanSpe")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end YorkCalc;

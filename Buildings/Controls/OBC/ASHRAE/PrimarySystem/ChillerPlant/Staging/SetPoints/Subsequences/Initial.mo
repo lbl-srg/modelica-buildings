@@ -158,7 +158,7 @@ equation
   connect(uPla, edg.u)
     annotation (Line(points={{-260,-90},{-62,-90}}, color={255,0,255}));
   connect(edg.y, triSam.trigger)
-    annotation (Line(points={{-38,-90},{0,-90},{0,-11.8}}, color={255,0,255}));
+    annotation (Line(points={{-38,-90},{0,-90},{0,-12}},   color={255,0,255}));
 annotation (defaultComponentName = "iniSta",
         Icon(graphics={
         Rectangle(
@@ -168,7 +168,7 @@ annotation (defaultComponentName = "iniSta",
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(
           points={{-54,-50},{-2,-50},{-2,54},{50,54}},
@@ -176,7 +176,7 @@ annotation (defaultComponentName = "iniSta",
           thickness=0.5),
         Text(
           extent={{-68,-44},{58,-114}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           textString="At Enable")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,

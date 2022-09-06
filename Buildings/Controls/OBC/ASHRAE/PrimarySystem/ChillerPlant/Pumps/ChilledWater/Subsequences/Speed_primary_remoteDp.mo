@@ -148,26 +148,26 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,92},{-44,70}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
           extent={{-98,10},{-26,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWat_remote"),
         Text(
           extent={{22,12},{98,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatPumSpe"),
         Text(
           extent={{-98,-68},{-10,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatSet_remote")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),

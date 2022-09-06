@@ -343,34 +343,34 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-258,292},{-146,280}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage up process (stage 1 to 2),"),
         Text(
           extent={{-254,278},{-94,266}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="requires small chiller (1) off and large chiller (2) on."),
         Text(
           extent={{64,278},{228,268}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="add one more chiller (1) on top of current chiller (2)."),
         Text(
           extent={{62,292},{174,280}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage up process (stage 2 to 3),"),
         Text(
           extent={{-256,-40},{-96,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="requires large chiller (2) off and small chiller (1) on."),
         Text(
           extent={{-260,-26},{-140,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage down process (stage 2 to 1),"),
         Text(
           extent={{58,-42},{130,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="disable chiller (2)."),
         Text(
           extent={{62,-28},{182,-38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage down process (stage 2 to 1),")}));
 end NextChiller;

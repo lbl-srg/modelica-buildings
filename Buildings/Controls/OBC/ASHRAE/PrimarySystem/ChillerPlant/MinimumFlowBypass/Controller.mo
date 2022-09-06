@@ -128,7 +128,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,40},{80,-40}},
@@ -143,21 +143,21 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,88},{-54,74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiWatPum"),
         Text(
           extent={{-98,6},{-54,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{68,6},{102,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yValPos"),
         Text(
           extent={{-98,-74},{-42,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWatSet_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,

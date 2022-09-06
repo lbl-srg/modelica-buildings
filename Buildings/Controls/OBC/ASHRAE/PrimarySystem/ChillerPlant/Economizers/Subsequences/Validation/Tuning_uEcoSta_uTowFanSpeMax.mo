@@ -179,19 +179,19 @@ Icon(graphics={
         graphics={
         Text(
           extent={{-126,6},{-20,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests tuning parameter decrease
 based on WSE enable duration
 prior to disable"),
         Text(
           extent={{-10,14},{154,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests tuning parameter increase
 based on WSE enable duration
 prior to disable and cooling tower
 fan speed during WSE enable."),
         Text(
           extent={{-46,-208},{48,-214}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests anti-windup")}));
 end Tuning_uEcoSta_uTowFanSpeMax;

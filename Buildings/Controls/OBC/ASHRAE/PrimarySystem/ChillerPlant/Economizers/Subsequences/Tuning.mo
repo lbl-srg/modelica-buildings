@@ -193,7 +193,7 @@ equation
   connect(hys.y, booToRea.u)
     annotation (Line(points={{-258,-80},{-102,-80}},color={255,0,255}));
   connect(and4.y, triSam2.trigger) annotation (Line(points={{-58,-110},{-50,-110},
-          {-50,-91.8}}, color={255,0,255}));
+          {-50,-92}},   color={255,0,255}));
   connect(uWseSta, not1.u) annotation (Line(points={{-340,120},{-280,120},{-280,
           -20},{-262,-20}},color={255,0,255}));
   connect(hys.y, and6.u1) annotation (Line(points={{-258,-80},{-244,-80},{-244,-110},
@@ -247,11 +247,11 @@ equation
   connect(disCou1.y, maxInt.u2) annotation (Line(points={{-78,10},{-60,10},{-60,
           74},{-42,74}}, color={255,127,0}));
   connect(intToRea.y, mulSum.u[1]) annotation (Line(points={{82,150},{100,150},
-          {100,71.3333},{118,71.3333}},color={0,0,127}));
+          {100,69.3333},{118,69.3333}},color={0,0,127}));
   connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{82,10},{100,10},{100,
           70},{118,70}}, color={0,0,127}));
   connect(intWitRes.y, mulSum.u[3]) annotation (Line(points={{262,10},{280,10},
-          {280,-40},{100,-40},{100,68.6667},{118,68.6667}},color={0,0,127}));
+          {280,-40},{100,-40},{100,70.6667},{118,70.6667}},color={0,0,127}));
   connect(intGreEquThr1.y, preRes.u)
     annotation (Line(points={{12,80},{18,80}}, color={255,0,255}));
   connect(preRes.y, disCou.reset) annotation (Line(points={{42,80},{50,80},{50,
@@ -273,7 +273,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-320,-200},{320,200}})),
