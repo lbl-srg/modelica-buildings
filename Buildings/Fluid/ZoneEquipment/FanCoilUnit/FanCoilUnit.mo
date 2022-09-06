@@ -1,17 +1,19 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
-model FanCoilUnit "System model for fan coil unit"
+model FanCoilUnit
+  "System model for fan coil unit"
 
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil
     heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater
     "Type of heating coil used in the FCU"
     annotation (Dialog(group="System parameters"));
 
-  parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal
-    "Heat flow rate at u=1, positive for heating"
+  parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
+    final min = 0)
+    "Heat flow rate of electric heating coil at full power"
     annotation(Dialog(enable=not has_heatingCoilHHW, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal
-    "Nominal mass flow rate of water"
+    "Nominal mass flow rate of heating hot water"
     annotation(Dialog(enable=has_heatingCoilHHW, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpAirTot_nominal
@@ -23,7 +25,7 @@ model FanCoilUnit "System model for fan coil unit"
     annotation(Dialog(enable=has_heatingCoilHHW, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
-    "Nominal mass flow rate of water"
+    "Nominal mass flow rate of chilled water"
     annotation(Dialog(group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal
@@ -35,7 +37,7 @@ model FanCoilUnit "System model for fan coil unit"
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
-    "Nominal mass flow rate, used for regularization near zero flow"
+    "Nominal mass flow rate of supply air"
     annotation(Dialog(group="System parameters"));
 
   parameter Boolean has_heatingCoilHHW=(heatingCoilType == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater)
@@ -268,7 +270,7 @@ model FanCoilUnit "System model for fan coil unit"
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChiWat_flow_nominal,
     final dpValve_nominal=50)
-    "Chilled water flow control valve"
+    "Chilled-water flow control valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={104,-34})));
@@ -276,7 +278,7 @@ model FanCoilUnit "System model for fan coil unit"
   replaceable Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatRetSen(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChiWat_flow_nominal)
-    "Chilled water return temperature sensor"
+    "Chilled-water return temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
       origin={104,-64})));
@@ -284,7 +286,7 @@ model FanCoilUnit "System model for fan coil unit"
   replaceable Buildings.Fluid.Sensors.VolumeFlowRate VChiWat_flow(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChiWat_flow_nominal)
-    "Chilled water volume flowrate sensor"
+    "Chilled-water volume flowrate sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={144,-44})));
@@ -292,7 +294,7 @@ model FanCoilUnit "System model for fan coil unit"
   replaceable Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatSupSen(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChiWat_flow_nominal)
-    "Chilled water supply temperature sensor"
+    "Chilled-water supply temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={144,-74})));
@@ -300,7 +302,7 @@ model FanCoilUnit "System model for fan coil unit"
   replaceable Buildings.Fluid.Sensors.TemperatureTwoPort TAirSupSen(
     redeclare package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal)
-    "Discharge air temperature sensor"
+    "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{240,-20},{260,0}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
@@ -315,7 +317,7 @@ model FanCoilUnit "System model for fan coil unit"
   replaceable Buildings.Fluid.Sensors.VolumeFlowRate VAirSup_flow(
     redeclare package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal)
-    "Discharge air volume flow rate"
+    "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{280,-20},{300,0}})));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer
@@ -547,8 +549,8 @@ equation
     The system model receives input signals for the fan speed <code>uFan</code>, heating and cooling 
     coil valve positions (<code>uHea</code> and <code>uCoo</code> respectively), 
     and the outdoor air damper position <code>uOA</code>. The system controls 
-    the flowrate of the chilled water and heating hot-water using the valves, and 
-    assumes pressurized water supply form the hot-water and chilled water loops.
+    the flowrate of the chilled-water and heating hot-water using the valves, and 
+    assumes pressurized water supply from the hot-water and chilled-water loops.
     </p>
     </html>
     ", revisions="<html>

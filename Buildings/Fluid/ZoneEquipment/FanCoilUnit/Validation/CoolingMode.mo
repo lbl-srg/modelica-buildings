@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
 model CoolingMode
+  "Validation model for cooling mode operation of fan coil unit system"
 
   extends Modelica.Icons.Example;
 
@@ -38,7 +39,7 @@ model CoolingMode
     final UAHeaCoi_nominal=fCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=fCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=fCUSizing.UACooCoiTot_nominal,
-    redeclare Data.customFCUFan fanPer)
+    redeclare Data.CustomFCUFan fanPer)
     "Fan coil system model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
@@ -222,7 +223,7 @@ equation
       StopTime=86400,
       Interval=60,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/FanCoilUnit_coolingMode.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/CoolingMode.mos"
       "Simulate and plot"),
     Documentation(info="<html>
       <p>

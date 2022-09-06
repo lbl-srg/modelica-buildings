@@ -1,8 +1,6 @@
 within Buildings.Fluid.ZoneEquipment;
 package FanCoilUnit "Package with fan coil unit system models"
 
-
-
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -36,5 +34,8 @@ package FanCoilUnit "Package with fan coil unit system models"
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+  Documentation(info="<html>
+  This package contains models for the four-pipe fan coil unit.
+    </html>"));
 end FanCoilUnit;

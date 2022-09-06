@@ -34,5 +34,8 @@ package Controls "Package with FCU control modules"
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+    Documentation(info="<html>
+      This package contains control modules for the four-pipe fan coil unit.
+      </html>"));
 end Controls;

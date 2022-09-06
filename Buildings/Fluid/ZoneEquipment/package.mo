@@ -34,5 +34,8 @@ annotation (Icon(graphics={
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+  Documentation(info="<html>
+    This package contains zone HVAC equipment models.
+    </html>"));
 end ZoneEquipment;
