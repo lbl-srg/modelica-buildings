@@ -13,14 +13,14 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up";
   parameter Integer relFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
     "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It flags which relief fan is associated with which supply fan";
-  parameter Real p_rel_set(
+  parameter Real dpBuiSet(
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(
     final unit="1") = 1
-    "Gain, normalized using p_rel_set"
+    "Gain, normalized using dpBuiSet"
     annotation (Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
@@ -289,7 +289,7 @@ block ReliefFan "Sequence for relief fan control for AHUs using actuated relief 
     "Vector of relief fan status after staging up"
     annotation (Placement(transformation(extent={{400,130},{420,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
-    final k=p_rel_set)
+    final k=dpBuiSet)
     "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-460,170},{-440,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
@@ -738,7 +738,7 @@ Building static pressure (<code>dpBui</code>) shall be time averaged with a slid
 value shall be that displayed and used for control.
 </li>
 <li>
-A P-only control loop maintains the building pressure at a set point (<code>p_rel_set</code>)
+A P-only control loop maintains the building pressure at a set point (<code>dpBuiSet</code>)
 of 12 Pa (0.05 in. of water) with an output ranging from 0% to 100%. The loop is disabled
 and output set to zero when all fans in the relief system group are disabled.
 </li>

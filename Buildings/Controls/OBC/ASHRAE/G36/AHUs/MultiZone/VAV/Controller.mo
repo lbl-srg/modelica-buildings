@@ -109,7 +109,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Fan speed", group="PID controller",
       enable=fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real supFanSpe_max=1
+  final parameter Real supFanSpe_max=1
     "Maximum allowed supply fan speed"
     annotation (Dialog(tab="Fan speed", group="PID controller"));
   parameter Real supFanSpe_min=0.1
@@ -333,7 +333,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller"));
 
   // ----------- Building pressure control parameters -----------
-  parameter Real p_rel_set(
+  parameter Real dpBuiSet(
     unit="Pa",
     displayUnit="Pa")=12
     "Building static pressure difference relative to ambient (positive to pressurize the building)"
@@ -342,11 +342,11 @@ block Controller "Multizone VAV air handling unit controller"
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRelDam(unit="1")=0.5
-    "Gain, applied to building pressure control error normalized with p_rel_set"
+    "Gain, applied to building pressure control error normalized with dpBuiSet"
     annotation (Dialog(tab="Pressure control", group="Relief damper",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
 //   parameter Real kRelFan(unit="1")=1
-//     "Gain, normalized using p_rel_set"
+//     "Gain, normalized using dpBuiSet"
 //     annotation (Dialog(tab="Pressure control", group="Relief fans",
 //       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
 //   parameter Real minSpeRelFan(unit="1")=0.1
@@ -365,7 +365,7 @@ block Controller "Multizone VAV air handling unit controller"
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRetFan(unit="1")=1
-    "Gain, normalized using p_rel_set"
+    "Gain, normalized using dpBuiSet"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
@@ -386,34 +386,34 @@ block Controller "Multizone VAV air handling unit controller"
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
          and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  final parameter Real retFanSpe_max=0
+  final parameter Real retFanSpe_max=1
     "Maximum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
-  final parameter Real retFanSpe_min=1
+  parameter Real retFanSpe_min=0
     "Minimum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
   parameter Real retFacA = 0.5
-    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calauted"
+    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calculated"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
   parameter Real retFacB = 0
-    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calauted"
+    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calculated"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
 
-  parameter Real p_rel_min(
+  parameter Real dpRetFan_min(
     unit="Pa",
     displayUnit="Pa")=2.4
     "Minimum return fan discharge static pressure difference setpoint"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
-  parameter Real p_rel_max(
+  parameter Real dpRetFan_max(
     unit="Pa",
     displayUnit="Pa")=40
     "Maximum return fan discharge static pressure difference setpoint"
@@ -522,10 +522,12 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
     final max=1,
-    final unit="1") if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+    final unit="1")
+    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
-    "Actual supply fan speed" annotation (Placement(transformation(extent={{-400,
-            -10},{-360,30}}), iconTransformation(extent={{-240,-10},{-200,30}})));
+    "Actual supply fan speed"
+    annotation (Placement(transformation(extent={{-400,-10},{-360,30}}),
+        iconTransformation(extent={{-240,-10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(
     final unit="1")
     if (have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
@@ -896,15 +898,15 @@ block Controller "Multizone VAV air handling unit controller"
     "Minimum outdoor airflow setpoint, when complying with ASHRAE 62.1 requirements"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper relDam(
-    final p_rel_set=p_rel_set,
+    final dpBuiSet=dpBuiSet,
     final k=kRelDam)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Relief damper control for AHUs using actuated dampers without fan"
     annotation (Placement(transformation(extent={{-160,-360},{-140,-340}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanDpCon(
-    final p_rel_set=p_rel_set,
-    final p_rel_min=p_rel_min,
-    final p_rel_max=p_rel_max,
+    final dpBuiSet=dpBuiSet,
+    final dpRetFan_min=dpRetFan_min,
+    final dpRetFan_max=dpRetFan_max,
     final disSpe_min=retFanSpe_min,
     final disSpe_max=retFanSpe_max,
     final conTyp=retFanCon,
@@ -912,7 +914,7 @@ block Controller "Multizone VAV air handling unit controller"
     final Ti=TiRetFan,
     final Td=TdRetFan)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    "Return fan control with direct building pressure control"
+    "Return fan control with direct building pressure control, using the minimum outdoor air damper"
     annotation (Placement(transformation(extent={{-160,-480},{-140,-460}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking retFanAirTra(
     final difFloSet=difFloSet,
@@ -949,7 +951,7 @@ block Controller "Multizone VAV air handling unit controller"
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
     "Gain factor"
     annotation (Placement(transformation(extent={{-220,-380},{-200,-360}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneStd(
     final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)
     "No energy standard"
     annotation (Placement(transformation(extent={{220,430},{240,450}})));
@@ -960,7 +962,7 @@ block Controller "Multizone VAV air handling unit controller"
     final message="Warning: Energy standard is not specified!")
     "Warning when the energy standard is not specified"
     annotation (Placement(transformation(extent={{300,430},{320,450}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
     final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{220,380},{240,400}})));
@@ -1194,11 +1196,11 @@ equation
           {290,-40},{380,-40}}, color={255,0,255}));
   connect(frePro.y1RetFan, y1RetFan) annotation (Line(points={{202,-200},{310,-200},
           {310,-100},{380,-100}}, color={255,0,255}));
-  connect(noEneSta.y, not3.u)
+  connect(noEneStd.y, not3.u)
     annotation (Line(points={{242,440},{258,440}}, color={255,0,255}));
   connect(not3.y, assMes.u)
     annotation (Line(points={{282,440},{298,440}}, color={255,0,255}));
-  connect(noVenSta.y, not1.u)
+  connect(noVenStd.y, not1.u)
     annotation (Line(points={{242,390},{258,390}}, color={255,0,255}));
   connect(not1.y, assMes1.u)
     annotation (Line(points={{282,390},{298,390}}, color={255,0,255}));

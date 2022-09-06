@@ -441,7 +441,7 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
     final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{120,290},{140,310}})));
@@ -631,7 +631,7 @@ equation
           116},{68,116},{68,50},{260,50}},      color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-138,104},{62,104},{62,20},
           {260,20}},     color={0,0,127}));
-  connect(noVenSta.y,not1. u)
+  connect(noVenStd.y,not1. u)
     annotation (Line(points={{142,300},{158,300}}, color={255,0,255}));
   connect(not1.y,assMes1. u)
     annotation (Line(points={{182,300},{198,300}}, color={255,0,255}));

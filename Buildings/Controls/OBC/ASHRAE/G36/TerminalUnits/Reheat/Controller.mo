@@ -464,7 +464,7 @@ block Controller "Controller for room VAV box with reheat"
     final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
     final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
@@ -625,7 +625,7 @@ equation
           96},{54,96},{54,60},{220,60}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,84},{48,84},{48,30},{
           220,30}}, color={0,0,127}));
-  connect(noVenSta.y,not1. u)
+  connect(noVenStd.y,not1. u)
     annotation (Line(points={{-38,260},{-22,260}}, color={255,0,255}));
   connect(not1.y,assMes1. u)
     annotation (Line(points={{2,260},{18,260}},    color={255,0,255}));
