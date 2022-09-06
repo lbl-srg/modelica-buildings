@@ -111,26 +111,6 @@ model CoolingMode
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  Modelica.Blocks.Sources.RealExpression PModCoo(
-    final y=-fanCoiUni.cooCoiCHW.Q2_flow)
-    "Cooling power consumption in Modelica model"
-    annotation (Placement(transformation(extent={{20,130},{40,150}})));
-
-  Modelica.Blocks.Sources.RealExpression PModCooSen(
-    final y=-fanCoiUni.cooCoiCHW.QSen2_flow)
-    "Sensible cooling power consumption in Modelica model"
-    annotation (Placement(transformation(extent={{60,130},{80,150}})));
-
-  Modelica.Blocks.Sources.RealExpression PModCooLat(
-    final y=-fanCoiUni.cooCoiCHW.QLat2_flow)
-    "Latent cooling power consumption in Modelica model"
-    annotation (Placement(transformation(extent={{100,130},{120,150}})));
-
-  Modelica.Blocks.Sources.RealExpression PModCooCal(
-    final y=-1000*4200*fanCoiUni.VChiWat_flow.V_flow*(fanCoiUni.TChiWatSupSen.T - fanCoiUni.TChiWatRetSen.T))
-    "Cooling power consumption in Modelica model calculated from measured temperatures and flowrate in chillled water loop"
-    annotation (Placement(transformation(extent={{20,110},{40,130}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate mass fractions of constituents"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
