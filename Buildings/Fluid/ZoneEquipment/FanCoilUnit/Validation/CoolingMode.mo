@@ -27,7 +27,7 @@ model CoolingMode
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={-40,-80})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit fanCoiUni(
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem fanCoiUni(
     final heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater,
     final dpAirTot_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=fCUSizing.mAirOut_flow_nominal,
@@ -39,8 +39,7 @@ model CoolingMode
     final UAHeaCoi_nominal=fCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=fCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=fCUSizing.UACooCoiTot_nominal,
-    redeclare Data.CustomFCUFan fanPer)
-    "Fan coil system model"
+    redeclare Data.CustomFCUFan fanPer) "Fan coil system model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souCoo(
@@ -213,8 +212,8 @@ equation
     Documentation(info="<html>
       <p>
       This is an open-loop validation model for the fan coil unit system model 
-      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit\">
-      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnit</a>. It consists of:
+      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem</a>. It consists of:
       <ul>
       <li>
       an instance of the fan coil unit system model <code>fanCoiUni</code>.

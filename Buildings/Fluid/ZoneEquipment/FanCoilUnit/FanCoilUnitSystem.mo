@@ -1,6 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
-model FanCoilUnit
-  "System model for fan coil unit"
+model FanCoilUnitSystem "System model for fan coil unit"
 
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil
     heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater
@@ -568,4 +567,4 @@ equation
     </li>
     </ul>
     </html>"));
-end FanCoilUnit;
+end FanCoilUnitSystem;
