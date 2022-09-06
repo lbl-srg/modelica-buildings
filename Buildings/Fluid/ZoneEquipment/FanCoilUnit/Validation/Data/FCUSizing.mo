@@ -40,7 +40,9 @@ record FCUSizing
     "Nominal cooling coil inlet air temperature"
     annotation (Dialog(group="Cooling coil parameters"));
 
-  parameter Real humRatAirIn_nominal = 0.009379
+  parameter Real humRatAirIn_nominal(
+    final unit="1",
+    displayUnit="1") = 0.009379
     "Inlet air humidity ratio"
     annotation (Dialog(group="Cooling coil parameters"));
 
@@ -48,8 +50,10 @@ record FCUSizing
     "Nominal cooling coil outlet air temperature"
     annotation (Dialog(group="Cooling coil parameters"));
 
-  parameter Real humRatAirOut_nominal = 0.009
-    "Inlet air humidity ratio"
+  parameter Real humRatAirOut_nominal(
+    final unit="1",
+    displayUnit="1") = 0.009
+    "Outlet air humidity ratio"
     annotation (Dialog(group="Cooling coil parameters"));
 
 // protected
@@ -89,7 +93,9 @@ record FCUSizing
     "Calculated value of external UA for the cooling coil"
     annotation(Dialog(enable=false, tab="Calculated parameters"));
 
-  parameter Real UACorrectionFactor = 3.5
+  parameter Real UACorrectionFactor(
+    final unit="1",
+    displayUnit="1") = 3.5
     "Correction factor for cooling-coil UA value to make the coil outlet temperature
     and energy consumption match"
     annotation(Dialog(enable=false, tab="Calculated parameters"));
@@ -107,6 +113,16 @@ record FCUSizing
       (modelica-buildings/Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf).
       The calculations for the UA values are derived from the EnergyPlus 
       Engineering Reference document.
+      <br>
+      The record is currently being used as an example for the UA calculations 
+      required to translate the EnergyPlus cooling coil parameters to the Modelica 
+      parameters. The exposed parameters for the cooling coil are the inputs used 
+      for the EnergyPlus component and <code>UACooCoiTot_nominal</code> is the parameter
+      being used on the Modelica component.
+      <br>
+      A correction factor <code>UACorrectionFactor</code> is currently being used
+      to make the cooling coil outlet temperature and energy consumption match 
+      with the reference value form Modelica.
       </p>
       </html>",   revisions="<html>
       <ul>

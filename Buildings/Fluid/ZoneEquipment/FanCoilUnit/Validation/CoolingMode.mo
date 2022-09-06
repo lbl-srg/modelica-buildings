@@ -143,7 +143,12 @@ model CoolingMode
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=1)
     "Constant real signal of 1 for holding the hot water and chilled water control valves fully open"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=1/(fCUSizing.mAir_flow_nominal))
+    "Calculate normalized fan speed signal"
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
 equation
 
@@ -192,8 +197,6 @@ equation
           -110,70},{-82,70}}, color={0,0,127}));
   connect(datRea.y[9], addPar[2].u) annotation (Line(points={{-119,0},{-110,0},{
           -110,70},{-82,70}}, color={0,0,127}));
-  connect(datRea.y[6], fanCoiUni.uFan) annotation (Line(points={{-119,0},{
-          -40,0},{-40,2},{-2,2}},                 color={0,0,127}));
   connect(datRea.y[16], addPar1.u) annotation (Line(points={{-119,0},{-110,0},{-110,
           -120},{-130,-120},{-130,-140},{-122,-140}}, color={0,0,127}));
   connect(datRea.y[16], div.u1) annotation (Line(points={{-119,0},{-110,0},{-110,
@@ -203,18 +206,20 @@ equation
   connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,
           -120},{-26,26},{18,26}},
                              color={0,0,127}));
-  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-20},{-30,
-          -20},{-30,-2},{-2,-2}},
-                              color={0,0,127}));
-  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-20},{-30,
-          -20},{-30,-6},{-2,-6}},
-                              color={0,0,127}));
+  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},{
+          -30,-2},{-2,-2}},   color={0,0,127}));
+  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},{
+          -30,-6},{-2,-6}},   color={0,0,127}));
   connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{-110,
           0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}},      color={
           0,0,127}));
   connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{
           -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-92}}, color=
           {0,0,127}));
+  connect(datRea.y[6], gai.u)
+    annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
+  connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,2},
+          {-2,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,

@@ -355,6 +355,11 @@ model FanCoilUnit
     "Electric heating coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=mAir_flow_nominal)
+    "Find mass flowrate value by multiplying nominal flowrate by normalized fan speed signal"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+
 equation
   connect(uOA, eco.y) annotation (Line(points={{-380,120},{-170,120},{-170,2}},
                       color={0,0,127}));
@@ -474,14 +479,16 @@ equation
   connect(TAirRetSen.port_a, port_return) annotation (Line(points={{-150,40},{-160,
           40},{-160,60},{-60,60},{-60,40},{360,40}}, color={0,127,255}));
 
-  connect(uFan, fan.m_flow_in)
-    annotation (Line(points={{-380,80},{210,80},{210,2}}, color={0,0,127}));
   connect(VAirMix_flow.port_b, heaCoiEle.port_a) annotation (Line(points={{-90,-10},
           {-40,-10},{-40,10},{-20,10}}, color={0,127,255}));
   connect(heaCoiEle.port_b, TAirHeaSen.port_a) annotation (Line(points={{0,10},{
           20,10},{20,-10},{30,-10}}, color={0,127,255}));
   connect(uHea, heaCoiEle.u) annotation (Line(points={{-380,-120},{-60,-120},{-60,
           16},{-22,16}}, color={0,0,127}));
+  connect(uFan, gai.u)
+    annotation (Line(points={{-380,80},{-22,80}}, color={0,0,127}));
+  connect(gai.y, fan.m_flow_in)
+    annotation (Line(points={{2,80},{210,80},{210,2}}, color={0,0,127}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(

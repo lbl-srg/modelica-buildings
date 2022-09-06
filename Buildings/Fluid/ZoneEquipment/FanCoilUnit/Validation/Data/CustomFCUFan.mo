@@ -1,6 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data;
 record CustomFCUFan "Fan data for the FCU validation model"
-  extends Movers.Data.Generic(
+  extends Buildings.Fluid.Movers.Data.Generic(
     speed_rpm_nominal=2900,
     use_powerCharacteristic=true,
     power(V_flow={0,0.041936,0.083872,0.125808,0.167744,0.209681,0.251617,
@@ -14,8 +14,13 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-Fan performance data record based on EnergyPlus example file available in the Buildings library
+Fan performance data record based on EnergyPlus example file available in the 
+Buildings library
 (modelica-buildings/Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf).
+<br>
+The volume flowrate values are derived by splitting the nominal flowrate from the 
+EnergyPlus sizing report into ten datapoints. The power values are calculated for 
+each flowrate datapoint with the power curve coefficients from EnergyPlus. 
 </p>
 </html>",   revisions="<html>
 <ul>
