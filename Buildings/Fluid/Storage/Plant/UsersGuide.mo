@@ -121,18 +121,8 @@ src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant_Open.png\"/>
     </td>
     <td>Similar to <code>.ClosedRemote</code>, the reversible flow is managed
         by pairs of interlocked valves. However, because the open tank is exposed
-        to the atmospheric pressure, it cannot be charged by the pressure
-        difference of the CHW network. The pressurised CHW from the network would
-        simply drain into the open tank. An auxiliary pump is therefore used
-        to pressurise CHW to the return line.<br/>
-        Also due to the tank being open, the mass flow through the tank is not
-        automatically balanced. In order to avoid draining or flooding the open
-        tank, separate pump and valve groups are used to balance the flow.<br/>
-        For example, when the plant is outputting CHW to the district network,
-        <code>pumSup</code> tracks a flow rate setpoint at the tank bottom.
-        At the same time, <code>intValRet.valFroNet</code> tracks the same
-        flow rate setpoint but at the tank top so that the flow rate through
-        the open tank is balanced.
+        to the atmospheric pressure, an auxiliary pump is used
+        to pressurise CHW to the return line.
     </td>
   </tr>
 </tbody>
