@@ -158,7 +158,7 @@ model NetworkConnection
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
     "Replaces the pump and valves on the return branch when the tank is closed"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
-  Modelica.Blocks.Interfaces.RealInput yRet[2]
+  Modelica.Blocks.Interfaces.RealInput yValRet[2]
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "Control signals for the valves on the return line" annotation (Placement(
         transformation(
@@ -242,8 +242,8 @@ equation
           {70,-84},{70,-60},{100,-60}}, color={0,127,255}));
   connect(intValRet.port_bToChi, port_bToChi) annotation (Line(points={{20,-84},
           {-70,-84},{-70,-60},{-100,-60}}, color={0,127,255}));
-  connect(intValRet.yVal, yRet) annotation (Line(points={{40,-50},{76,-50},{76,114},
-          {50,114},{50,130}}, color={0,0,127}));
+  connect(intValRet.yVal, yValRet) annotation (Line(points={{40,-50},{76,-50},{
+          76,114},{50,114},{50,130}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
