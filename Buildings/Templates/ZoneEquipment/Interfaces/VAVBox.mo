@@ -58,11 +58,6 @@ model VAVBox "Interface class for VAV terminal unit"
       final dat=dat.ctl)
     "Terminal unit controller"
     annotation (
-    choices(
-      choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl
-        "Guideline 36 controller for VAV terminal unit with reheat"),
-      choice(redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
-        "Open loop control")),
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,-10},{10,10}})));
 

@@ -1,6 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMZFanRelief "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
+      "Open loop controller",
     secOutRel(redeclare replaceable
         Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan
         secRel "Relief fan with two-position relief damper"),

@@ -484,7 +484,7 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
     final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{-60,310},{-40,330}})));
@@ -688,7 +688,7 @@ equation
           136},{34,136},{34,80},{260,80}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,124},{28,124},{28,50},
           {260,50}}, color={0,0,127}));
-  connect(noVenSta.y,not1. u)
+  connect(noVenStd.y,not1. u)
     annotation (Line(points={{-38,320},{-22,320}}, color={255,0,255}));
   connect(not1.y,assMes1. u)
     annotation (Line(points={{2,320},{18,320}},    color={255,0,255}));

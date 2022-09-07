@@ -13,7 +13,7 @@ model VAVMZControlG36Pressure "Configuration of multiple-zone VAV"
       redeclare replaceable
         Buildings.Templates.Components.Valves.TwoWayModulating val)
       "Chilled water coil",
-    redeclare replaceable  Components.Controls.G36VAVMultiZone ctl(
+    redeclare replaceable  Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl(
       typCtlFanRet=Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure,
       stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
       stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,

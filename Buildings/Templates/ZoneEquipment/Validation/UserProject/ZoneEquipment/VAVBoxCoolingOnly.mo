@@ -1,6 +1,8 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment;
 model VAVBoxCoolingOnly "Configuration of VAV terminal unit cooling only"
-  extends Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly;
+  extends Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly(
+    redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
+      "Open loop control");
   annotation (
     defaultComponentName="ter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

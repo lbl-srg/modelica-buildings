@@ -1,6 +1,8 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment;
 model VAVBoxReheat "Configuration of VAV terminal unit with reheat"
-  extends Buildings.Templates.ZoneEquipment.VAVBoxReheat;
+  extends Buildings.Templates.ZoneEquipment.VAVBoxReheat(
+    redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
+      "Open loop control");
   annotation (
     defaultComponentName="ter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

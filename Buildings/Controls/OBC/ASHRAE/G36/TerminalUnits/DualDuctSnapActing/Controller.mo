@@ -462,7 +462,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
     final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
@@ -687,7 +687,7 @@ equation
           116},{66,116},{66,90},{260,90}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-138,104},{60,104},{60,60},
           {260,60}}, color={0,0,127}));
-  connect(noVenSta.y,not1. u)
+  connect(noVenStd.y,not1. u)
     annotation (Line(points={{-38,300},{-22,300}}, color={255,0,255}));
   connect(not1.y,assMes1. u)
     annotation (Line(points={{2,300},{18,300}},    color={255,0,255}));

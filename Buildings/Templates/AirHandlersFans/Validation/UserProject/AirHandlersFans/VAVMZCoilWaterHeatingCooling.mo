@@ -2,6 +2,8 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFan
 model VAVMZCoilWaterHeatingCooling "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     nZon=2,
+    redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
+      "Open loop controller",
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
         redeclare final package MediumHeaWat = MediumHeaWat,

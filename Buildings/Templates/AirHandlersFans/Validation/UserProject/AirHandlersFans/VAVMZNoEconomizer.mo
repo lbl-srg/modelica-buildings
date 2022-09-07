@@ -4,6 +4,8 @@ model VAVMZNoEconomizer "Configuration of multiple-zone VAV"
     redeclare replaceable
       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.NoEconomizer
       secOutRel "No air economizer",
+    redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
+      "Open loop controller",
     nZon=2);
 
   annotation (
