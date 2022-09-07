@@ -5,7 +5,7 @@ model Centralized "Centralized secondary pumping"
       final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.SecondaryPump.Centralized);
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
-    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPumps(
     redeclare final package Medium = Medium,
     final nPum=nPum,
     final have_singlePort_a=true,

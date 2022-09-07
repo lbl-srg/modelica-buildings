@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Pumps;
 model MultipleVariable
   "Multiple pumps (identical) - Variable speed"
-  extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+  extends Buildings.Templates.Components.Pumps.Interfaces.PartialPumps(
     final typ=Buildings.Templates.Components.Types.Pump.Variable);
 
   replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](

@@ -41,7 +41,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Set to true if plant has secondary pumping"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   inner parameter Boolean have_eco
-    "=true if plant has waterside economizer"
+    "Set to true if plant has waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   inner parameter Boolean have_parChi
     "Set to true if plant chillers are in parallel"
@@ -82,7 +82,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
         iconTransformation(extent={{192,90},{212,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "CHW return"
-    annotation (Placement(transformation(extent={{290,-190},{310,-170}}),
+    annotation (Placement(transformation(extent={{290,-250},{310,-230}}),
         iconTransformation(extent={{192,-112},{212,-92}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea "Weather bus"
     annotation (Placement(transformation(

@@ -46,8 +46,8 @@ model WaterCooled "Water-cooled plants"
     pumCon constrainedby
     Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Interfaces.PartialCondenserPump(
       redeclare final package Medium = MediumConWat, final dat=dat.pumCon)
-    "Condenser water pumps" annotation (Placement(transformation(extent={{-100,
-            -110},{-80,-90}})),
+    "Condenser water pumps" annotation (Placement(transformation(extent={{-120,
+            -110},{-100,-90}})),
                          choices(choice(redeclare
           Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Headered
           pumCon "Headered condenser water pumps"), choice(redeclare
@@ -63,7 +63,7 @@ model WaterCooled "Water-cooled plants"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-28,-150})),
+        origin={-70,-162})),
                           choices(choice(redeclare
           Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.None
           eco "No economizer"), choice(redeclare
@@ -125,31 +125,28 @@ equation
   connect(cooTowSec.port_b, TConWatSup.port_a)
     annotation (Line(points={{-210,0},{-190,0}},     color={0,127,255}));
   connect(TConWatSup.port_b,pumCon. port_a)
-    annotation (Line(points={{-170,0},{-160,0},{-160,-100},{-100,-100}},
+    annotation (Line(points={{-170,0},{-160,0},{-160,-100},{-120,-100}},
                                                      color={0,127,255}));
   connect(pumCon.port_wse, eco.port_a1)
-    annotation (Line(points={{-80,-106},{-80,-140},{-34,-140}},
+    annotation (Line(points={{-100,-106},{-100,-152},{-76,-152}},
       color={0,127,255}));
   connect(chiSec.port_b1, mixConWat.port_3)
-    annotation (Line(points={{-36,-110},{-36,-120},{-140,-120},{-140,-170}},
+    annotation (Line(points={{-78,-130},{-78,-140},{-140,-140},{-140,-170}},
       color={0,127,255}));
   connect(pumCon.ports_b, chiSec.ports_a1)
-    annotation (Line(points={{-80,-100},{-36,-100},{-36,-90}},
+    annotation (Line(points={{-100,-100},{-78,-100},{-78,-110}},
       color={0,127,255}));
   connect(bouConWat.ports[1], pumCon.port_a)
-    annotation (Line(points={{-141,-3.55271e-15},{-141,-100},{-100,-100}},
+    annotation (Line(points={{-141,-3.55271e-15},{-141,-100},{-120,-100}},
       color={0,127,255}));
   connect(mixConWat.port_2, TConWatRet.port_b)
     annotation (Line(points={{-150,-180},{-170,-180}},
                                                      color={0,127,255}));
   connect(mixConWat.port_1, eco.port_b1)
-    annotation (Line(points={{-130,-180},{-40,-180},{-40,-160},{-34,-160}},
+    annotation (Line(points={{-130,-180},{-40,-180},{-40,-172},{-76,-172}},
       color={0,127,255}));
-  connect(VSecRet_flow.port_a,eco. port_a2)
-    annotation (Line(points={{60,-180},{-20,-180},{-20,-160},{-22,-160}},
-                                                        color={0,127,255}));
   connect(eco.port_b2, chiSec.port_a2)
-    annotation (Line(points={{-22,-140},{-20,-140},{-20,-110},{-24,-110}},
+    annotation (Line(points={{-64,-152},{-20,-152},{-20,-130},{-66,-130}},
                                                                color={0,127,255}));
   connect(TConWatSup.port_b, bouConWat.ports[2]) annotation (Line(points={{-170,0},
           {-145,0},{-145,-3.55271e-15},{-139,-3.55271e-15}},    color={0,127,

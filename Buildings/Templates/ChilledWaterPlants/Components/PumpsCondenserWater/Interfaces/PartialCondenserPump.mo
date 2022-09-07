@@ -34,7 +34,7 @@ partial model PartialCondenserPump "Partial condenser pump model"
     pum(final typ=pum.typ)) "Condenser pumps data";
 
   inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
-    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPumps(
       redeclare final package Medium = Medium,
       final nPum=nPum,
       final have_singlePort_a=true,
