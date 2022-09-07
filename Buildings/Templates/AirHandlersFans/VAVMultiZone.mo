@@ -140,20 +140,15 @@ model VAVMultiZone "Multiple-zone VAV"
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
-  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl constrainedby
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
+    constrainedby
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final dat=dat.ctl,
       final nZon=nZon)
     "AHU controller"
     annotation (
-      choices(
-        choice(redeclare replaceable
-          Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
-          "Guideline 36 controller"),
-        choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
-          "Open loop controller")),
-    Dialog(group="Controls"),
-    Placement(transformation(extent={{-220,-10},{-200,10}})));
+      Dialog(group="Controls"),
+      Placement(transformation(extent={{-220,-10},{-200,10}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirSup(
     redeclare final package Medium = MediumAir,

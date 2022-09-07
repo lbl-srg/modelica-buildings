@@ -1,6 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMZCoilElectricHeating  "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
+      "Open loop controller",
     redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating
       coiHeaPre "Modulating electric heating coil",
     nZon=2);

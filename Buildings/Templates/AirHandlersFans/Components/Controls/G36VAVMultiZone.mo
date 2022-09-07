@@ -135,10 +135,6 @@ block G36VAVMultiZone
     dat.dVFanRet_flow
     "Airflow differential between supply and return fans to maintain building pressure at set point";
 
-  /* FIXME #1913:
-  final parameter Real retFanSpe_max=0
-  final parameter Real retFanSpe_min=1
-  */
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctl(
     final eneStd=stdEne,
     final venStd=stdVen,
@@ -159,6 +155,7 @@ block G36VAVMultiZone
     final VDesOutAir_flow=VOutAbsMin_flow_nominal,
     final pMaxSet=pAirSupSet_rel_max,
     final supFanSpe_min=yFanSup_min,
+    final retFanSpe_min=yFanRet_min,
     final TSupCoo_min=TAirSupSet_min,
     final TSupCoo_max=TAirSupSet_max,
     final TOut_min=TOutRes_min,
@@ -166,10 +163,10 @@ block G36VAVMultiZone
     final have_CO2Sen=have_CO2Sen,
     final pAbsMinOutDam=dpDamOutMinAbs,
     final pDesMinOutDam=dpDamOutMin_nominal,
-    final p_rel_set=pBuiSet_rel,
+    final dpBuiSet=pBuiSet_rel,
     final difFloSet=dVFanRet_flow,
-    final p_rel_min=pAirRetSet_rel_min,
-    final p_rel_max=pAirRetSet_rel_max)
+    final dpRetFan_min=pAirRetSet_rel_min,
+    final dpRetFan_max=pAirRetSet_rel_max)
     "AHU controller"
     annotation (Placement(transformation(extent={{-40,-72},{40,72}})));
 
@@ -200,8 +197,8 @@ block G36VAVMultiZone
     annotation (Placement(transformation(extent={{-190,100},{-182,140}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus staGro[nGro](
-    final nZon=fill(nZon, nGro),
-    final nZonGro=nZonPerGro,
+    final nBuiZon=fill(nZon, nGro),
+    final nGroZon=nZonPerGro,
     final zonGroMsk=isZonInGro)
     "Evaluate zone group status"
     annotation (Placement(transformation(extent={{-170,100},{-150,140}})));
@@ -399,7 +396,7 @@ equation
   connect(repSigZon.y1ZonOcc, staGro.zonOcc)
     annotation (Line(points={{-181.2,139},{-172,139}},
                                                      color={255,0,255}));
-  connect(repSigZon.y1Occ, staGro.uOcc)
+  connect(repSigZon.y1Occ, staGro.u1Occ)
     annotation (Line(points={{-181.2,137},{-172,137}},
                                                      color={255,0,255}));
   connect(repSigZon.ytNexOcc, staGro.tNexOcc)
@@ -411,33 +408,33 @@ equation
   connect(repSigZon.yWarTim, staGro.uWarTim)
     annotation (Line(points={{-181.2,129},{-172,129}},
                                                      color={0,0,127}));
-  connect(repSigZon.y1OccHeaHig, staGro.uOccHeaHig)
+  connect(repSigZon.y1OccHeaHig, staGro.u1OccHeaHig)
     annotation (Line(points={{-181.2,125},{-172,125}},
                                                      color={255,0,255}));
-  connect(repSigZon.y1HigOccCoo, staGro.uHigOccCoo) annotation (Line(points={{-181.2,
+  connect(repSigZon.y1HigOccCoo, staGro.u1HigOccCoo) annotation (Line(points={{-181.2,
           123},{-172,123}},                        color={255,0,255}));
-  connect(repSigZon.y1UnoHeaHig, staGro.uUnoHeaHig)
+  connect(repSigZon.y1UnoHeaHig, staGro.u1UnoHeaHig)
     annotation (Line(points={{-181.2,119},{-172,119}},
                                                      color={255,0,255}));
   connect(repSigZon.yTHeaSetOff, staGro.THeaSetOff)
     annotation (Line(points={{-181.2,117},{-172,117}},
                                                      color={0,0,127}));
-  connect(repSigZon.y1EndSetBac, staGro.uEndSetBac)
+  connect(repSigZon.y1EndSetBac, staGro.u1EndSetBac)
     annotation (Line(points={{-181.2,115},{-172,115}},
                                                      color={255,0,255}));
-  connect(repSigZon.y1HigUnoCoo, staGro.uHigUnoCoo)
+  connect(repSigZon.y1HigUnoCoo, staGro.u1HigUnoCoo)
     annotation (Line(points={{-181.2,111},{-172,111}},
                                                      color={255,0,255}));
   connect(repSigZon.yTCooSetOff, staGro.TCooSetOff)
     annotation (Line(points={{-181.2,109},{-172,109}},
                                                      color={0,0,127}));
-  connect(repSigZon.y1EndSetUp, staGro.uEndSetUp)
+  connect(repSigZon.y1EndSetUp, staGro.u1EndSetUp)
     annotation (Line(points={{-181.2,107},{-172,107}},
                                                      color={255,0,255}));
   connect(repSigZon.yTZon, staGro.TZon)
     annotation (Line(points={{-181.2,103},{-172,103}},
                                                      color={0,0,127}));
-  connect(repSigZon.y1Win, staGro.uWin)
+  connect(repSigZon.y1Win, staGro.u1Win)
     annotation (Line(points={{-181.2,101},{-172,101}},
                                                      color={255,0,255}));
   connect(staGro.yColZon, opeModSel.totColZon) annotation (Line(points={{-148,122},

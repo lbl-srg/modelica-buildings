@@ -1,6 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMZFanSupplyArrayVariable "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
+      "Open loop controller",
     nZon=2,
     redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable
       fanSupDra);
