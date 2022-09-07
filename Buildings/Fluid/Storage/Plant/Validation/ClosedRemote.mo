@@ -12,14 +12,14 @@ model ClosedRemote
       conRemCha(final plaTyp=nom.plaTyp));
 
 equation
-  connect(tanBra.mTanBot_flow,conRemCha.mTanBot_flow)
-    annotation (Line(points={{-12,11},{-12,50},{9,50}}, color={0,0,127}));
   connect(conRemCha.yPumSup,netCon.yPumSup)
     annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
   connect(conRemCha.yValSup, netCon.yValSup)
     annotation (Line(points={{22,39},{22,11}}, color={0,0,127}));
+  connect(tanBra.mTan_flow, conRemCha.mTan_flow)
+    annotation (Line(points={{-16,11},{-16,54},{9,54}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

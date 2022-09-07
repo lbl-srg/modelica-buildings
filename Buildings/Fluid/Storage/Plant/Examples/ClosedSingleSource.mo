@@ -88,8 +88,8 @@ model ClosedSingleSource "Simple system model with one source and one user"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-70})));
-  Modelica.Blocks.Math.Gain gaiPumSec(k=1/ideUse.dp_nominal) "Gain" annotation
-    (Placement(transformation(
+  Modelica.Blocks.Math.Gain gaiPumSec(k=1/ideUse.dp_nominal) "Gain" annotation (
+     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,90})));
@@ -98,10 +98,10 @@ model ClosedSingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 equation
-  connect(TRetSet.y, ideUse.TSet) annotation (Line(points={{41,10},{52,10},{52,
-          -9},{62,-9}}, color={0,0,127}));
-  connect(preQCooLoa_flow.y, ideUse.QCooLoa_flow) annotation (Line(points={{41,
-          50},{54,50},{54,-9},{66,-9}}, color={0,0,127}));
+  connect(TRetSet.y, ideUse.TSet) annotation (Line(points={{41,10},{62,10},{62,
+          -9}},         color={0,0,127}));
+  connect(preQCooLoa_flow.y, ideUse.QCooLoa_flow) annotation (Line(points={{41,50},
+          {66,50},{66,-9}},             color={0,0,127}));
   connect(preDro1.port_b, ideUse.port_a)
     annotation (Line(points={{30,-20},{60,-20}}, color={0,127,255}));
   connect(ideUse.port_b, preDro2.port_a) annotation (Line(points={{80,-20},{84,

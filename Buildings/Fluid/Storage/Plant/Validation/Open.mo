@@ -23,18 +23,16 @@ equation
     annotation (Line(points={{10,6},{-10,6}}, color={0,127,255}));
   connect(set_mChi_flow.y, ideChiBra.mPumSet_flow)
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
-  connect(conRemCha.mTanTop_flow, tanBra.mTanTop_flow)
+  connect(conRemCha.mTan_flow, tanBra.mTan_flow)
     annotation (Line(points={{9,54},{-16,54},{-16,11}}, color={0,0,127}));
-  connect(conRemCha.mTanBot_flow, tanBra.mTanBot_flow)
-    annotation (Line(points={{9,50},{-12,50},{-12,11}}, color={0,0,127}));
   connect(conRemCha.yPumSup,netCon.yPumSup)
     annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
   connect(netCon.yValSup,conRemCha.yValSup)
     annotation (Line(points={{22,11},{22,39}}, color={0,0,127}));
   connect(conRemCha.yPumRet,netCon.yPumRet)
     annotation (Line(points={{26,39},{26,11}}, color={0,0,127}));
-  connect(netCon.yRet,conRemCha.yRet)  annotation (Line(points={{29.8,11},{29.8,
-          10},{30,10},{30,39}}, color={0,0,127}));
+  connect(netCon.yValRet, conRemCha.yValRet) annotation (Line(points={{30,11},{
+          30,10},{30,10},{30,39}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

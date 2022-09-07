@@ -6,13 +6,12 @@ model OpenDualSource
     nomPla2(plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
     tanBra(tankIsOpen=true));
 equation
-  connect(tanBra.mTanTop_flow,conRemCha.mTanTop_flow)
-    annotation (Line(points={{-96,-79},{-96,-46},{-81,-46}},
-                                                           color={0,0,127}));
+  connect(tanBra.mTan_flow, conRemCha.mTan_flow)
+    annotation (Line(points={{-96,-79},{-96,-46},{-81,-46}}, color={0,0,127}));
   connect(conRemCha.yPumRet, netCon.yPumRet)
     annotation (Line(points={{-64,-61},{-64,-79}}, color={0,0,127}));
 
-  connect(conRemCha.yRet, netCon.yValRet)
+  connect(conRemCha.yValRet, netCon.yValRet)
     annotation (Line(points={{-60,-61},{-60,-79}}, color={0,0,127}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenDualSource.mos"

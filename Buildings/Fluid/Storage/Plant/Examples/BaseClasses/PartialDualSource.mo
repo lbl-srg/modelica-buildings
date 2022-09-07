@@ -398,8 +398,6 @@ equation
   connect(hysCat.y, or2.u2) annotation (Line(points={{-42,-210},{-62,-210},{-62,
           -142}},
         color={255,0,255}));
-  connect(tanBra.mTanBot_flow,conRemCha. mTanBot_flow)
-    annotation (Line(points={{-92,-79},{-92,-50},{-81,-50}}, color={0,0,127}));
   connect(conRemCha.uAva, or2.y) annotation (Line(points={{-58,-46},{-50,-46},{-50,
           -110},{-70,-110},{-70,-118}},
                      color={255,0,255}));
@@ -455,6 +453,8 @@ equation
           {-6,-150},{50,-150},{50,-160}}, color={0,127,255}));
   connect(parPipS2U3.port_b2, ideUse3.port_b) annotation (Line(points={{6,-140},
           {4,-140},{4,-190},{50,-190},{50,-180}}, color={0,127,255}));
+  connect(tanBra.mTan_flow, conRemCha.mTan_flow)
+    annotation (Line(points={{-96,-79},{-96,-46},{-81,-46}}, color={0,0,127}));
     annotation (
         Diagram(coordinateSystem(extent={{-180,-220},{160,280}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
