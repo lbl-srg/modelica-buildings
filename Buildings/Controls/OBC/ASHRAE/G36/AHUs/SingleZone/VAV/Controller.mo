@@ -885,7 +885,7 @@ block Controller
     final VMin_flow=VZonMin_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneStd(
     final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)
     "No energy standard"
     annotation (Placement(transformation(extent={{140,470},{160,490}})));
@@ -896,7 +896,7 @@ block Controller
     final message="Warning: Energy standard is not specified!")
     "Warning when the energy standard is not specified"
     annotation (Placement(transformation(extent={{220,470},{240,490}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
     final k=venStd ==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
     "No ventilation standard"
     annotation (Placement(transformation(extent={{140,440},{160,460}})));
@@ -1158,11 +1158,11 @@ equation
           -133},{232,-70},{280,-70}}, color={255,0,255}));
   connect(frePro.y1SupFan, y1SupFan) annotation (Line(points={{162,-123.2},{200,
           -123.2},{200,70},{280,70}}, color={255,0,255}));
-  connect(noEneSta.y,not3. u)
+  connect(noEneStd.y,not3. u)
     annotation (Line(points={{162,480},{178,480}}, color={255,0,255}));
   connect(not3.y,assMes. u)
     annotation (Line(points={{202,480},{218,480}}, color={255,0,255}));
-  connect(noVenSta.y,not1. u)
+  connect(noVenStd.y,not1. u)
     annotation (Line(points={{162,450},{178,450}}, color={255,0,255}));
   connect(not1.y,assMes1. u)
     annotation (Line(points={{202,450},{218,450}}, color={255,0,255}));
