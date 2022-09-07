@@ -273,7 +273,7 @@ This block implements the following control objectives:
     <td>Supply pump<br/>
         <code>pumSup</code></td>
     <td>Outputs CHW from the plant;<br/>
-        tracks a positive flow rate setpoint at tank bottom</td>
+        tracks a positive flow rate setpoint at tank</td>
   </tr>
   <tr>
     <td>Supply output valve<br/>
@@ -284,9 +284,10 @@ This block implements the following control objectives:
   <tr>
     <td>Supply charging valve<br/>
         <code>intValSup.valFroNet</code></td>
-    <td>Charges the tank;<br/>
-        tracks a negative flow rate setpoint at tank top;<br/>
-        prevents the water from draining into the open tank</td>
+    <td>For a closed tank, when charging,
+        tracks a negative flow rate, otherwise closed;<br/>
+        For an open tank, opens when the tank is charging
+        and closes otherwise</td>
   </tr>
   <tr>
     <td>Auxiliary pump<br/>
@@ -303,9 +304,7 @@ This block implements the following control objectives:
   <tr>
     <td>Return output valve<br/>
         <code>intValRet.valFroNet</code></td>
-    <td>Discharges the tank,<br/>
-        tracks the flow rate at tank top,<br/>
-        prevents the water from draining into the open tank</td>
+    <td>Opens when the tank discharges and closes otherwise</td>
   </tr>
 </tbody>
 </table>
