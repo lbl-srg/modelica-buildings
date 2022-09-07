@@ -1,7 +1,9 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.VAVBox(
-    final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxReheat);
+    final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxReheat,
+    redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl
+      "Guideline 36 controller for VAV terminal unit with reheat");
 
   annotation (
    defaultComponentName="VAVBox",
