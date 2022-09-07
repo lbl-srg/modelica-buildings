@@ -7,12 +7,12 @@ block SeparateWithDP
   parameter Boolean have_CO2Sen=false
     "True: some zones have CO2 sensor"
     annotation (Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-  parameter Real pAbsMinOutDam(
+  parameter Real dpAbsMinOutDam(
     unit="Pa",
     displayUnit="Pa")=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
-  parameter Real pDesMinOutDam(
+  parameter Real dpDesMinOutDam(
     unit="Pa",
     displayUnit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow";
@@ -142,7 +142,7 @@ block SeparateWithDP
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDesDp(
-    final k=pDesMinOutDam)
+    final k=dpDesMinOutDam)
     "Design minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro
@@ -240,7 +240,7 @@ protected
     "Square of the normalized minimum airflow"
     annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minAbsDp(
-    final k=pAbsMinOutDam)
+    final k=dpAbsMinOutDam)
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Absolute minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-180,330},{-160,350}})));
@@ -493,8 +493,8 @@ It is implemented according to Section 5.16.4 of the ASHRAE Guideline 36, May 20
 <ul>
 <li>
 Per Section 3.2.1, designer should provide the design minimum pressure difference across
-the minimum outdoor air damper, <code>pDesMinOutDam</code>. The absolute minimum
-pressure difference (<code>pAbsMinOutDam</code>) should also be provided if complying
+the minimum outdoor air damper, <code>dpDesMinOutDam</code>. The absolute minimum
+pressure difference (<code>dpAbsMinOutDam</code>) should also be provided if complying
 with California Title 24 requirements.
 </li>
 <li>

@@ -61,12 +61,12 @@ block Controller
     annotation (Dialog(tab="Limits", group="With DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)));
-  parameter Real pAbsMinOutDam=5
+  parameter Real dpAbsMinOutDam=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (Dialog(tab="Limits", group="With DP",
       enable=(venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
            and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)));
-  parameter Real pDesMinOutDam(unit="Pa")=20
+  parameter Real dpDesMinOutDam(unit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
     annotation (Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
@@ -308,8 +308,8 @@ block Controller
     sepDp(
     final venStd=venStd,
     final have_CO2Sen=have_CO2Sen,
-    final pAbsMinOutDam=pAbsMinOutDam,
-    final pDesMinOutDam=pDesMinOutDam,
+    final dpAbsMinOutDam=dpAbsMinOutDam,
+    final dpDesMinOutDam=dpDesMinOutDam,
     final minSpe=minSpe,
     final dpCon=dpConTyp,
     final kDp=kDp,

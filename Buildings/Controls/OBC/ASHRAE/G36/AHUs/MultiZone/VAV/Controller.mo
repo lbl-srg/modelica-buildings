@@ -224,12 +224,12 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)));
-  parameter Real pAbsMinOutDam=5
+  parameter Real dpAbsMinOutDam=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
            and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)));
-  parameter Real pDesMinOutDam(unit="Pa")=20
+  parameter Real dpDesMinOutDam(unit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
     annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
@@ -392,7 +392,7 @@ block Controller "Multizone VAV air handling unit controller"
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
-  parameter Real retFanSpe_min=0
+  parameter Real retFanSpe_min=0.1
     "Minimum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
@@ -407,13 +407,13 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
 
-  parameter Real dpRetFan_min(
+  parameter Real p_rel_RetFan_min(
     unit="Pa",
     displayUnit="Pa")=2.4
     "Minimum return fan discharge static pressure difference setpoint"
     annotation (Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
-  parameter Real dpRetFan_max(
+  parameter Real p_rel_RetFan_max(
     unit="Pa",
     displayUnit="Pa")=40
     "Maximum return fan discharge static pressure difference setpoint"
@@ -827,7 +827,7 @@ block Controller "Multizone VAV air handling unit controller"
     final TiMinOA=TiMinOA,
     final TdMinOA=TdMinOA,
     final venStd=venStd,
-    final pDesMinOutDam=pDesMinOutDam,
+    final dpDesMinOutDam=dpDesMinOutDam,
     final dpConTyp=dpConTyp,
     final kDp=kDp,
     final TiDp=TiDp,
@@ -848,7 +848,7 @@ block Controller "Multizone VAV air handling unit controller"
     final uOutDamMax=(uHeaMax + uCooMin)/2,
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final have_CO2Sen=have_CO2Sen,
-    final pAbsMinOutDam=pAbsMinOutDam) "Economizer controller"
+    final dpAbsMinOutDam=dpAbsMinOutDam) "Economizer controller"
     annotation (Placement(transformation(extent={{62,-60},{82,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan conSupFan(
     final have_perZonRehBox=have_perZonRehBox,
@@ -905,8 +905,8 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{-160,-360},{-140,-340}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanDpCon(
     final dpBuiSet=dpBuiSet,
-    final dpRetFan_min=dpRetFan_min,
-    final dpRetFan_max=dpRetFan_max,
+    final p_rel_RetFan_min=p_rel_RetFan_min,
+    final p_rel_RetFan_max=p_rel_RetFan_max,
     final disSpe_min=retFanSpe_min,
     final disSpe_max=retFanSpe_max,
     final conTyp=retFanCon,
