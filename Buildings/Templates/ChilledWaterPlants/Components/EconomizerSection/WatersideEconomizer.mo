@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection;
 model WatersideEconomizer "Waterside economizer"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.Interfaces.PartialEconomizer(
-     final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.Economizer.WatersideEconomizer);
+      final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl.WatersideEconomizer);
 
   Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = MediumConWat,
@@ -58,10 +58,10 @@ model WatersideEconomizer "Waterside economizer"
     "Waterside economizer chilled water differential pressure"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=180)));
-  Buildings.Templates.BaseClasses.PassThroughFluid pasHex(
-    redeclare final package Medium = MediumChiWat) if have_valChiWatEcoByp
-    "Heat exchanger passthrough"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+  Buildings.Templates.Components.Routing.PassThroughFluid pasHex(redeclare
+      final package Medium = MediumChiWat) if have_valChiWatEcoByp
+    "Heat exchanger passthrough" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=90,
         origin={40,-40})));
 
@@ -89,11 +89,11 @@ model WatersideEconomizer "Waterside economizer"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,10})));
-  Buildings.Templates.BaseClasses.PassThroughFluid pasChiWatEcoByp(
-    redeclare each final package Medium = MediumChiWat)
-    if not have_valChiWatEcoByp
-    "Bypass passthrough"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+  Buildings.Templates.Components.Routing.PassThroughFluid pasChiWatEcoByp(
+      redeclare each final package Medium = MediumChiWat)
+    if not have_valChiWatEcoByp "Bypass passthrough" annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
         rotation=180,
         origin={0,-80})));
 
@@ -116,14 +116,14 @@ model WatersideEconomizer "Waterside economizer"
 
 equation
   /* Control point connection - start */
-  connect(TChiWatEcoLvg.y, busCon.TChiWatEcoLvg);
-  connect(TChiWatEcoEnt.y, busCon.TChiWatEcoEnt);
-  connect(TChiWatHexEnt.y, busCon.TChiWatHexEnt);
-  connect(TConWatEcoRet.y, busCon.TConWatEcoRet);
-  connect(dpChiWatHex.y, busCon.dpChiWatHex);
+  connect(TChiWatEcoLvg.y, bus.TChiWatEcoLvg);
+  connect(TChiWatEcoEnt.y, bus.TChiWatEcoEnt);
+  connect(TChiWatHexEnt.y, bus.TChiWatHexEnt);
+  connect(TConWatEcoRet.y, bus.TConWatEcoRet);
+  connect(dpChiWatHex.y, bus.dpChiWatHex);
   /* Control point connection - stop */
 
-  connect(busCon.valConWatEco, valConWatEco.bus) annotation (Line(
+  connect(bus.valConWatEco, valConWatEco.bus) annotation (Line(
       points={{0,100},{0,90},{80,90},{80,70}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -131,7 +131,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.valChiWatEcoByp, valChiWatEcoByp.bus) annotation (Line(
+  connect(bus.valChiWatEcoByp, valChiWatEcoByp.bus) annotation (Line(
       points={{0.1,100.1},{0.1,90},{-30,90},{-30,-32},{0,-32},{0,-50}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -139,7 +139,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busCon.pumEco,pumEco. bus) annotation (Line(
+  connect(bus.pumEco, pumEco.bus) annotation (Line(
       points={{0.1,100.1},{0.1,90},{30,90},{30,-20},{50,-20}},
       color={255,204,51},
       thickness=0.5), Text(

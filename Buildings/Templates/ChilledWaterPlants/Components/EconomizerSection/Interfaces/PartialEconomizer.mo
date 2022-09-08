@@ -16,15 +16,16 @@ partial model PartialEconomizer "Partial waterside economizer model"
 
   // Structure parameters
 
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Types.Economizer typ
-    "Type of waterside economizer"
+  parameter
+    Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl
+    typ "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
 
   final parameter Boolean have_eco=
-    dat.typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.Economizer.WatersideEconomizer;
+    typ==Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl.WatersideEconomizer;
 
   parameter Boolean have_valChiWatEcoByp=false
     "Set to true if CHW flowrate is controlled by a modulating bypass valve"
@@ -37,7 +38,7 @@ partial model PartialEconomizer "Partial waterside economizer model"
     dat(final typ=typ, final have_valChiWatEcoByp=have_valChiWatEcoByp)
     "Waterside economizer data";
 
-  Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busCon(final nChi=nChi,
+  Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus(final nChi=nChi,
       final nCooTow=nCooTow) if have_eco "Control bus" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},

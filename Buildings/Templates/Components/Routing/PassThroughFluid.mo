@@ -1,6 +1,5 @@
-within Buildings.Templates.BaseClasses;
-model PassThroughFluid
-  "Direct fluid pass-through"
+within Buildings.Templates.Components.Routing;
+model PassThroughFluid "Direct fluid pass-through"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
 equation

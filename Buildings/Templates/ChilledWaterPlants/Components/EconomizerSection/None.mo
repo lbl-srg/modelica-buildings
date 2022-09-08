@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection;
 model None "No economizer"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.Interfaces.PartialEconomizer(
-     final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.Economizer.NoEconomizer);
+      final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl.NoEconomizer);
 
 equation
   connect(port_b2, port_a2)

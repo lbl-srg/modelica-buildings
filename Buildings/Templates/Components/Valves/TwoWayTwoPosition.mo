@@ -65,7 +65,9 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(booToRea.y, val.y) annotation (Line(points={{-2.22045e-15,38},{-2.22045e-15,
           25},{0,25},{0,12}}, color={0,0,127}));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="val",
+  Documentation(info="<html>
 <p>
 This is a model for a two-way two-position (isolation) valve.
 </p>

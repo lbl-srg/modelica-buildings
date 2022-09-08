@@ -116,7 +116,7 @@ equation
   connect(cooTowSec.weaBus,busWea);
   connect(cooTowSec.busCon, bus);
   connect(pumCon.bus, bus);
-  connect(eco.busCon, bus);
+  connect(eco.bus, bus);
 
   // Mechanical
   connect(TConWatRet.port_a, cooTowSec.port_a)

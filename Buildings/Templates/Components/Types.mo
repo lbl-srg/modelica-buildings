@@ -59,12 +59,6 @@ package Types "Package with type definitions"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
-  type HydronicArrangement = enumeration(
-      Dedicated
-      "Dedicated arrangement",
-      Headered
-      "Headered arrangement")
-    "Enumeration to specify the type of hydronic arrangement";
   type Pump = enumeration(
       None
       "No pump",

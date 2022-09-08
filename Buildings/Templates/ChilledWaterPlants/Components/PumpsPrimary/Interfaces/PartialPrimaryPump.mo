@@ -107,11 +107,9 @@ partial model PartialPrimaryPump "Partial primary pump model"
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Primary chilled water supply volume flow rate"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(
-    redeclare each final package Medium = Medium) if have_decoupler
-    "Decoupler passthrough"
-    annotation (Placement(
-        transformation(
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare each
+      final package Medium = Medium) if have_decoupler "Decoupler passthrough"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={70,-60})));

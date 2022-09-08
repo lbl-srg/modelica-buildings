@@ -27,15 +27,10 @@ package Types
   type CoolingTowerSection = enumeration(
       CoolingTowerParallel
       "Cooling towers in parallel");
-  type Economizer = enumeration(
-      NoEconomizer "No waterside economizer",
-      WatersideEconomizer
-      "Waterisde economizer");
-  type HydronicArrangement = enumeration(
-      NoEconomizer "No waterside economizer",
-      WatersideEconomizer
-      "Waterisde economizer")
-      "Enumeration to configure the hydronic arrangement";
+  type EconomizerFlowControl = enumeration(
+      Pump "Heat exchanger pump",
+      Valve "Modulating bypass valve")
+      "Enumeration to specify the equipment for CHW flow control through WSE";
   type PrimaryPump = enumeration(
       Dedicated "Dedicated primary pumps (Chillers in Series)",
       HeaderedParallel "Headered primary pumps (Chillers in Parallel)",

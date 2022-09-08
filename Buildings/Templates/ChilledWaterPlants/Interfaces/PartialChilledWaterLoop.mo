@@ -148,12 +148,11 @@ model PartialChilledWaterLoop "Interface class for CHW plant - Including CHW sid
     final m_flow_nominal=dat.mSec_flow_nominal)
     "Secondary chilled water return temperature"
     annotation (Placement(transformation(extent={{218,-250},{198,-230}})));
-  Buildings.Templates.Components.HydronicArrangements.SingleToMultiple
-    manPumSecInl(
-    redeclare final package Medium=MediumChiWat,
-    final nPorts=nPumSec) "CHW secondary pumps inlet manifold"
+  Buildings.Templates.Components.Routing.SingleToMultiple manPumSecInl(
+      redeclare final package Medium = MediumChiWat, final nPorts=nPumSec)
+    "CHW secondary pumps inlet manifold"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Templates.Components.HydronicArrangements.MultipleToSingle manPumSecOut(
+  Buildings.Templates.Components.Routing.MultipleToSingle manPumSecOut(
       redeclare final package Medium = MediumChiWat, final nPorts=nPumSec)
     "CHW secondary pumps outlet manifold"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));

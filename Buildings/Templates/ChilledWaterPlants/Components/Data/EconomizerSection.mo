@@ -4,14 +4,15 @@ record EconomizerSection "Data for waterside economizer"
 
   // Structure parameters
 
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Types.Economizer typ
-    "Type of waterside economizer"
+  parameter
+    Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl
+    typ "Type of waterside economizer"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_valChiWatEcoByp
     "Set to true if CHW flowrate is controlled by a modulating bypass valve"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_eco));
   final parameter Boolean have_eco=
-    typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.Economizer.WatersideEconomizer
+    typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl.WatersideEconomizer
     "Set to true if plant has a waterside economizer";
 
   // Equipment characteristics

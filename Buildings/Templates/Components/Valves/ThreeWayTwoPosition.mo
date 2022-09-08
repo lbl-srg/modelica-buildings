@@ -68,7 +68,9 @@ equation
           25},{0,25},{0,12}}, color={0,0,127}));
   connect(val.port_3, portByp_a)
     annotation (Line(points={{0,-10},{0,-100}}, color={0,127,255}));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="val",
+  Documentation(info="<html>
 <p>
 This is a model for a three-way two-position (directional) valve.
 </p>

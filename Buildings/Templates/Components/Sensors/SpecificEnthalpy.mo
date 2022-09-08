@@ -10,8 +10,8 @@ model SpecificEnthalpy "Specific enthalpy sensor"
     "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
-    if not have_sen "Pass through"
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
+      package Medium = Medium) if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(port_a,senSpeEnt. port_a)

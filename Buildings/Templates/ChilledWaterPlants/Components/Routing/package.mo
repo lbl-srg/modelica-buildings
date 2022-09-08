@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components;
-package HydronicArrangements "Models of hydronic arrangements"
+package Routing "Models of hydronic connections"
   extends Modelica.Icons.VariantsPackage;
 
-end HydronicArrangements;
+end Routing;
