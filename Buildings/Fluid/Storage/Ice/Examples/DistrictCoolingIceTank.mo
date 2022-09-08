@@ -37,13 +37,6 @@ model DistrictCoolingIceTank
         rotation=90,
         origin={-240,10})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=273.15 - 6.7)
-    "Set point"
-    annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-
-  Controls.OBC.CDL.Logical.Sources.Constant chiGlyOn(k=true) "On signal"
-    annotation (Placement(transformation(extent={{-360,220},{-340,240}})));
-
   Chillers.ElectricEIR chiGly(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumGlycol,
@@ -69,13 +62,6 @@ model DistrictCoolingIceTank
                    "Heat exchanger" annotation (Placement(transformation(extent={{10,-10},
             {-10,10}},                                                                              rotation=90,origin={60,10})));
 
-
-  Controls.OBC.CDL.Continuous.Sources.Constant chiWatTSet(k=273.15 + 15.2)
-    "Set point"
-    annotation (Placement(transformation(extent={{120,200},{140,220}})));
-
-  Controls.OBC.CDL.Logical.Sources.Constant ChiWatOn(k=true) "On signal"
-    annotation (Placement(transformation(extent={{-360,260},{-340,280}})));
 
   Chillers.ElectricEIR chiWat(
     redeclare package Medium1 = MediumAir,
@@ -109,31 +95,29 @@ model DistrictCoolingIceTank
         rotation=90,
         origin={320,10})));
 
-  Actuators.Valves.TwoWayLinear val4(
+  Actuators.Valves.TwoWayLinear valStoDis(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=6000,
     dpFixed_nominal=0,
     y_start=0,
-    use_inputFilter=false)
-    "Control valve for glycol loop" annotation (
+    use_inputFilter=false) "Control valve for glycol loop" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-240,-90})));
+        origin={-240,-112})));
 
-  Actuators.Valves.TwoWayLinear val5(
+  Actuators.Valves.TwoWayLinear valStoCha(
     redeclare package Medium = MediumGlycol,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=6000,
     dpFixed_nominal=0,
     y_start=0,
-    use_inputFilter=false)
-    "Control valve for glycol loop" annotation (
+    use_inputFilter=false) "Control valve for glycol loop" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-190,-70})));
+        origin={-190,-92})));
 
   Movers.FlowControlled_m_flow pumHexPri(
     redeclare package Medium = MediumGlycol,
@@ -286,24 +270,22 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={100,50})));
-  Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Outputs one"
-    annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Outputs zero"
-    annotation (Placement(transformation(extent={{-300,-100},{-280,-80}})));
   Controls.OBC.CDL.Conversions.BooleanToReal           booToReaPum6(realTrue=
-        mGly_flow_nominal, realFalse=0)                    "Pump 6 signal"
+        mGly_flow_nominal, realFalse=0) "Pump 6 signal"
     annotation (Placement(transformation(extent={{-300,-20},{-280,0}})));
   Controls.OBC.CDL.Conversions.BooleanToReal           booToReaPum1(realTrue=
         mWat_flow_nominal, realFalse=0)                    "Pump 6 signal"
     annotation (Placement(transformation(extent={{40,158},{60,178}})));
+  BaseClasses.ControlOpenLoop con "Controller"
+    annotation (Placement(transformation(extent={{-386,218},{-370,246}})));
 equation
   connect(pumSto.port_b, iceTan.port_a)
     annotation (Line(points={{-240,-40},{-240,0}}, color={0,127,255}));
   connect(pumChiGly.port_b, chiGly.port_a2) annotation (Line(points={{-100,-40},
           {-100,-6},{-76,-6},{-76,-1.77636e-15}},
                                 color={0,127,255}));
-  connect(pumSto.port_a, val5.port_b) annotation (Line(points={{-240,-60},{-240,
-          -70},{-200,-70}}, color={0,127,255}));
+  connect(pumSto.port_a, valStoCha.port_b) annotation (Line(points={{-240,-60},
+          {-240,-92},{-200,-92}}, color={0,127,255}));
   connect(pumChiWat.port_b, chiWat.port_a2)
     annotation (Line(points={{160,-40},{160,-20},{186,-20},{186,-1.77636e-15}},
                                                  color={0,127,255}));
@@ -328,10 +310,6 @@ equation
       points={{-120,150},{219.8,150},{219.8,60}},
       color={255,204,51},
       thickness=0.5));
-  connect(chiGly.TSet, chiGlyTSet.y) annotation (Line(points={{-73,22},{-73,210},
-          {-98,210}},                   color={0,0,127}));
-  connect(chiGly.on, chiGlyOn.y) annotation (Line(points={{-67,22},{-66,22},{-66,
-          230},{-338,230}},         color={255,0,255}));
   connect(disCooCoi.u, disCooLoad.y)
     annotation (Line(points={{326,22},{326,40},{301,40}},   color={0,0,127}));
   connect(disCooCoi.port_b, pumLoa.port_a)
@@ -340,16 +318,16 @@ equation
           {54,-12},{54,0}},      color={0,127,255}));
   connect(iceTan.port_b, jun.port_1) annotation (Line(points={{-240,20},{-240,100},
           {-110,100}}, color={0,127,255}));
-  connect(val4.port_b, pumSto.port_a)
-    annotation (Line(points={{-240,-80},{-240,-60}}, color={0,127,255}));
+  connect(valStoDis.port_b, pumSto.port_a)
+    annotation (Line(points={{-240,-102},{-240,-60}}, color={0,127,255}));
   connect(jun8.port_2, chiGly.port_b2) annotation (Line(points={{-100,40},{-100,
           32},{-76,32},{-76,20}}, color={0,127,255}));
   connect(jun8.port_1, jun.port_3)
     annotation (Line(points={{-100,60},{-100,90}}, color={0,127,255}));
-  connect(jun8.port_3, val5.port_a) annotation (Line(points={{-110,50},{-160,50},
-          {-160,-70},{-180,-70}}, color={0,127,255}));
-  connect(val4.port_a, jun3.port_1) annotation (Line(points={{-240,-100},{-240,-180},
-          {-110,-180}},       color={0,127,255}));
+  connect(jun8.port_3, valStoCha.port_a) annotation (Line(points={{-110,50},{
+          -160,50},{-160,-92},{-180,-92}}, color={0,127,255}));
+  connect(valStoDis.port_a, jun3.port_1) annotation (Line(points={{-240,-122},{
+          -240,-180},{-110,-180}}, color={0,127,255}));
   connect(jun3.port_3, pumChiGly.port_a)
     annotation (Line(points={{-100,-170},{-100,-60}}, color={0,127,255}));
   connect(jun3.port_2, jun2.port_1)
@@ -386,14 +364,6 @@ equation
           24},{100,24},{100,40}}, color={0,127,255}));
   connect(senTemHexWat.port_b, jun6.port_1) annotation (Line(points={{100,60},{100,
           100},{150,100}}, color={0,127,255}));
-  connect(chiWat.on, ChiWatOn.y) annotation (Line(points={{195,22},{195,270},{-338,
-          270}}, color={255,0,255}));
-  connect(chiWatTSet.y, chiWat.TSet)
-    annotation (Line(points={{142,210},{189,210},{189,22}}, color={0,0,127}));
-  connect(zer.y, val4.y)
-    annotation (Line(points={{-278,-90},{-252,-90}}, color={0,0,127}));
-  connect(one.y, val5.y) annotation (Line(points={{-198,-30},{-190,-30},{-190,-58}},
-        color={0,0,127}));
   connect(booToReaPum6.y, pumSto.m_flow_in) annotation (Line(points={{-278,-10},
           {-266,-10},{-266,-50},{-252,-50}}, color={0,0,127}));
   connect(booToReaPum6.y, pumChiGly.m_flow_in) annotation (Line(points={{-278,-10},
@@ -406,10 +376,24 @@ equation
           {132,168},{132,-50},{148,-50}}, color={0,0,127}));
   connect(booToReaPum1.y, pumLoa.m_flow_in) annotation (Line(points={{62,168},{370,
           168},{370,-50},{332,-50}}, color={0,0,127}));
-  connect(chiGlyOn.y, booToReaPum6.u) annotation (Line(points={{-338,230},{-320,
-          230},{-320,-10},{-302,-10}}, color={255,0,255}));
-  connect(ChiWatOn.y, booToReaPum1.u) annotation (Line(points={{-338,270},{20,270},
-          {20,168},{38,168}}, color={255,0,255}));
+  connect(con.TChiWatSet, chiWat.TSet) annotation (Line(points={{-368.4,243.667},
+          {189,243.667},{189,22}}, color={0,0,127}));
+  connect(con.yTru, chiWat.on) annotation (Line(points={{-368.4,225},{195,225},
+          {195,22}}, color={255,0,255}));
+  connect(con.TChiGlySet, chiGly.TSet) annotation (Line(points={{-368.4,239},{
+          -73,239},{-73,22}}, color={0,0,127}));
+  connect(con.yTru, chiGly.on) annotation (Line(points={{-368.4,225},{-67,225},
+          {-67,22}}, color={255,0,255}));
+  connect(con.yTru, booToReaPum6.u) annotation (Line(points={{-368.4,225},{-308,
+          225},{-308,-10},{-302,-10}}, color={255,0,255}));
+  connect(con.yTru, booToReaPum1.u) annotation (Line(points={{-368.4,225},{20,
+          225},{20,168},{38,168}}, color={255,0,255}));
+  connect(con.yStoOn, valStoDis.y) annotation (Line(points={{-368.4,234.333},{
+          -362,234.333},{-362,234},{-340,234},{-340,-112},{-252,-112}}, color={
+          0,0,127}));
+  connect(con.yStoByp, valStoCha.y) annotation (Line(points={{-368.4,229.667},{
+          -364,229.667},{-364,230},{-346,230},{-346,-68},{-190,-68},{-190,-80}},
+        color={0,0,127}));
   annotation (
     experiment(
       StartTime=0,
