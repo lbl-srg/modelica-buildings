@@ -30,16 +30,17 @@ model CoolingMode
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem fanCoiUni(
     final heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater,
     final dpAirTot_nominal(displayUnit="Pa") = 100,
-    final mAirOut_flow_nominal=fCUSizing.mAirOut_flow_nominal,
+    final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
-    final mAir_flow_nominal=fCUSizing.mAir_flow_nominal,
+    final mAir_flow_nominal=FCUSizing.mAir_flow_nominal,
     final QHeaCoi_flow_nominal=13866,
-    final mHotWat_flow_nominal=fCUSizing.mHotWat_flow_nominal,
-    final UAHeaCoi_nominal=fCUSizing.UAHeaCoi_nominal,
-    final mChiWat_flow_nominal=fCUSizing.mChiWat_flow_nominal,
-    final UACooCoi_nominal=fCUSizing.UACooCoiTot_nominal,
-    redeclare Data.CustomFCUFan fanPer) "Fan coil system model"
+    final mHotWat_flow_nominal=FCUSizing.mHotWat_flow_nominal,
+    final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
+    final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
+    final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
+    redeclare Data.FanData fanPer)
+    "Fan coil system model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souCoo(
@@ -62,14 +63,14 @@ model CoolingMode
       rotation=90,
       origin={10,-90})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.FCUSizing fCUSizing
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
     final fileName=ModelicaServices.ExternalReferences.loadResource(
-      "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+      "modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     final columns=2:19,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -106,7 +107,7 @@ model CoolingMode
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=ModelicaServices.ExternalReferences.loadResource(
-      "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
@@ -125,7 +126,7 @@ model CoolingMode
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=1/(fCUSizing.mAir_flow_nominal))
+    final k=1/(FCUSizing.mAir_flow_nominal))
     "Calculate normalized fan speed signal"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 

@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data;
-record CustomFCUFan "Fan data for the FCU validation model"
+record FanData "Fan data for the validation model"
   extends Buildings.Fluid.Movers.Data.Generic(
     speed_rpm_nominal=2900,
     use_powerCharacteristic=true,
@@ -31,4 +31,4 @@ Initial version
 </li>
 </ul>
 </html>"));
-end CustomFCUFan;
+end FanData;
