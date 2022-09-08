@@ -6,7 +6,7 @@ simulateModel("Buildings.Fluid.Storage.Plant.Examples.BaseClasses.Validation.Ide
 // Plot commands
 createPlot(id=1,
  position={75, 75, 843, 372},
- y={"ideUsr.yVal_actual"},
+ y={"ideUse.yVal_actual"},
  range={0.0, 3600.0, -0.2, 1.2},
  grid=true,
  colors={{28,108,200}},

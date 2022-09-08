@@ -8,5 +8,9 @@ compareVars :=
     "tanBra.tan.sta_b.T",
     "ideUse1.yVal_actual",
     "ideUse2.yVal_actual",
-    "ideUse3.yVal_actual"
+    "ideUse3.yVal_actual",
+    "netCon.port_aFroNet.p",
+    "netCon.port_bToNet.p",
+    "netCon.port_bToChi.p",
+    "netCon.port_aFroChi.p"
   };
