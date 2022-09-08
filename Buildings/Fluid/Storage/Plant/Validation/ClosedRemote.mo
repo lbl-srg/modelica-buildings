@@ -11,6 +11,14 @@ model ClosedRemote
     Buildings.Fluid.Storage.Plant.Validation.BaseClasses.RemoteChargingSchedule(
       conRemCha(final plaTyp=nom.plaTyp));
 
+  Buildings.Fluid.Sources.Boundary_pT sou_p(
+    redeclare final package Medium = Medium,
+    final p=300000,
+    final T=nom.T_CHWR_nominal,
+    nPorts=1) "Pressurisation point" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-30,-50})));
 equation
   connect(conRemCha.yPumSup,netCon.yPumSup)
     annotation (Line(points={{18,39},{18,11}}, color={0,0,127}));
@@ -20,6 +28,8 @@ equation
     annotation (Line(points={{22,39},{22,11}}, color={0,0,127}));
   connect(tanBra.mTan_flow, conRemCha.mTan_flow)
     annotation (Line(points={{-16,11},{-16,54},{9,54}}, color={0,0,127}));
+  connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-20,
+          -50},{0,-50},{0,-6},{-10,-6}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

@@ -5,9 +5,9 @@ model Open "Validation model of a storage plant with an open tank allowing remot
     netCon(
       plaTyp=nom.plaTyp,
         perPumSup(pressure(V_flow=nom.m_flow_nominal*{0,1.6,2},
-                            dp=(sin.p-101325)*{2,1.6,0})),
+                            dp=nom.dp_nominal*{2,1.6,0})),
         perPumRet(pressure(V_flow=nom.mTan_flow_nominal*{0,1.6,2},
-                            dp=(sou.p-101325)*{2,1.6,0}))),
+                            dp=nom.dp_nominal/2*{2,1.6,0}))),
       nom(
         final plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open,
         final dp_nominal=300000),

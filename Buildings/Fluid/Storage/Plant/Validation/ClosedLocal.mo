@@ -28,6 +28,14 @@ model ClosedLocal
   Modelica.Blocks.Sources.Constant mSet_flow(k=nom.mChi_flow_nominal)
     "Chiller branch flow rate setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sou_p(
+    redeclare final package Medium = Medium,
+    final p=300000,
+    final T=nom.T_CHWR_nominal,
+    nPorts=1) "Pressurisation point" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-30,-50})));
 equation
   connect(gai.y, conPID_PumSec.u_m)
     annotation (Line(points={{-10,41},{-10,58}},  color={0,0,127}));
@@ -39,6 +47,8 @@ equation
     annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
   connect(tanBra.mTan_flow, gai.u)
     annotation (Line(points={{-16,11},{-10,11},{-10,18}}, color={0,0,127}));
+  connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-20,
+          -50},{0,-50},{0,-6},{-10,-6}}, color={0,127,255}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedLocal.mos"
         "Simulate and plot"),
   experiment(Tolerance=1e-06, StopTime=3600),
