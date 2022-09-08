@@ -30,7 +30,7 @@ model HeatingMode
       origin={-40,-80})));
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem fanCoiUni(
-    final heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater,
+    final heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeatingCoil.heatingHotWater,
     final dpAirTot_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,

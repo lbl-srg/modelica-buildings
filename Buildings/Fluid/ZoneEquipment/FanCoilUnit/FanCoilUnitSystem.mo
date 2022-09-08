@@ -1,8 +1,8 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
 model FanCoilUnitSystem "System model for fan coil unit"
 
-  parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil
-    heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater
+  parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeatingCoil
+    heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeatingCoil.heatingHotWater
     "Type of heating coil used in the FCU"
     annotation (Dialog(group="System parameters"));
 
@@ -39,7 +39,7 @@ model FanCoilUnitSystem "System model for fan coil unit"
     "Nominal mass flow rate of supply air"
     annotation(Dialog(group="System parameters"));
 
-  parameter Boolean has_heatingCoilHHW=(heatingCoilType == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.heatingCoil.heatingHotWater)
+  parameter Boolean has_heatingCoilHHW=(heatingCoilType ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeatingCoil.heatingHotWater)
     "Does the zone equipment have a hot water heating coil?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
