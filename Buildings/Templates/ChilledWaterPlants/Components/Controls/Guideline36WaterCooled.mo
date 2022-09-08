@@ -1,8 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Controls;
 block Guideline36WaterCooled
   "Guideline 36 controller for Chilled Water plant with water-cooled chillers"
-  extends Interfaces.PartialController(
-    final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.Controller.Guideline36);
+  extends Interfaces.PartialController(final typ=Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36);
 
   parameter Boolean closeCoupledPlant=false
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"

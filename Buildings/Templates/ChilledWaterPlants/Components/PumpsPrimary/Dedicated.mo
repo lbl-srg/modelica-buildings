@@ -2,9 +2,11 @@ within Buildings.Templates.ChilledWaterPlants.Components.PumpsPrimary;
 model Dedicated "Dedicated primary pumps"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.PumpsPrimary.Interfaces.PartialPrimaryPump(
-    final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.PrimaryPump.Dedicated,
+    final typ=Buildings.Templates.ChilledWaterPlants.Types.PrimaryPump.Dedicated,
+
     final nPum=nChi,
     final have_conSpePum=pum.typ == Buildings.Templates.Components.Types.Pump.Constant,
+
     final have_singlePort_a=false,
     final typValChiWatChiIso=fill(Buildings.Templates.Components.Types.Valve.None,
         nChi),

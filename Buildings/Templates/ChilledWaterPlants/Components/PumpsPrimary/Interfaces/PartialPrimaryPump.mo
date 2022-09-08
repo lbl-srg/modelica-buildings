@@ -5,11 +5,11 @@ partial model PartialPrimaryPump "Partial primary pump model"
 
   // Structure parameters
 
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Types.PrimaryPump
-    typ "Type of primary pumping"
+  parameter Buildings.Templates.ChilledWaterPlants.Types.PrimaryPump typ
+    "Type of primary pumping"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_dedicated=
-    typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.PrimaryPump.Dedicated
+    typ ==Buildings.Templates.ChilledWaterPlants.Types.PrimaryPump.Dedicated
     "Set to true if primary pumps are dedicated";
 
   parameter Integer nPum "Number of pumps"
@@ -70,17 +70,15 @@ partial model PartialPrimaryPump "Partial primary pump model"
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
-    constrainedby Buildings.Templates.Components.Pumps.MultipleVariable(
-      redeclare final package Medium = Medium,
-      final nPum=nPum,
-      final have_singlePort_b=true,
-      final dat=dat.pum)
-    "Primary pumps"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})),
-      choices(
-        choice(redeclare Buildings.Templates.Components.Pumps.MultipleVariable
-          pum "Variable speed pumps in parallel")));
+  inner replaceable Buildings.Templates.Components.Pumps.Multiple pum
+    constrainedby Buildings.Templates.Components.Pumps.Multiple(
+    redeclare final package Medium = Medium,
+    final nPum=nPum,
+    final have_singlePort_b=true,
+    final dat=dat.pum) "Primary pumps" annotation (Placement(transformation(
+          extent={{-50,-10},{-30,10}})), choices(choice(redeclare
+          Buildings.Templates.Components.Pumps.Multiple pum
+          "Variable speed pumps in parallel")));
 
   Fluid.FixedResistances.Junction splByp(
     redeclare package Medium = Medium,

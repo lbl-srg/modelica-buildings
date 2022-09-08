@@ -1,5 +1,5 @@
 within Buildings.Templates.AirHandlersFans;
-package Validation
+package Validation "Package with validation models"
   extends Modelica.Icons.ExamplesPackage;
 
   annotation (

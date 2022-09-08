@@ -4,7 +4,7 @@ record Controller "Data for plant controller"
 
   // Structure parameters
 
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Types.Controller typ
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nSenDpChiWatRem = 0

@@ -6,8 +6,7 @@ partial model PartialCoolingTowerSection "Partial cooling tower section model"
 
   // Structure parameters
 
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Types.CoolingTowerSection
+  parameter Buildings.Templates.ChilledWaterPlants.Types.CoolingTowerSection
     typ "Type of cooling tower arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 

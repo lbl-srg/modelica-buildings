@@ -5,12 +5,11 @@ partial model PartialCondenserPump "Partial condenser pump model"
 
   // Structure parameters
 
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Types.CondenserPump typ
+  parameter Buildings.Templates.ChilledWaterPlants.Types.CondenserPump typ
     "Type of pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_dedicated=
-    typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.CondenserPump.Dedicated
+    typ ==Buildings.Templates.ChilledWaterPlants.Types.CondenserPump.Dedicated
     "Set to true if condenser pumps are dedicated";
 
   parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso[nChi]
@@ -33,17 +32,16 @@ partial model PartialCondenserPump "Partial condenser pump model"
     final nPum=nPum,
     pum(final typ=pum.typ)) "Condenser pumps data";
 
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
-    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPumps(
-      redeclare final package Medium = Medium,
-      final nPum=nPum,
-      final have_singlePort_a=true,
-      final dat=dat.pum)
-    "Condenser pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
-      choices(
-        choice(redeclare Buildings.Templates.Components.Pumps.MultipleVariable
-          pum "Variable speed pumps in parallel")));
+  inner replaceable Buildings.Templates.Components.Pumps.Multiple pum
+    constrainedby
+    Buildings.Templates.Components.Pumps.Interfaces.PartialMultiple(
+    redeclare final package Medium = Medium,
+    final nPum=nPum,
+    final have_singlePort_a=true,
+    final dat=dat.pum) "Condenser pumps" annotation (Placement(transformation(
+          extent={{-10,-10},{10,10}})), choices(choice(redeclare
+          Buildings.Templates.Components.Pumps.Multiple pum
+          "Variable speed pumps in parallel")));
 
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus(final nChi=nChi,
       final nCooTow=nCooTow) "Control bus" annotation (Placement(transformation(

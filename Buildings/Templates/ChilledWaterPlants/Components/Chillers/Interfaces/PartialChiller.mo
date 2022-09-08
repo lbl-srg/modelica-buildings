@@ -15,11 +15,12 @@ partial model PartialChiller "Partial chiller model"
 
   // Structure parameters
 
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Types.Chiller typ
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Chiller typ
     "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Types.Compressor typCom=Buildings.Templates.ChilledWaterPlants.Components.Types.
-       Compressor.ConstantSpeed "Type of compressor"
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Compressor typCom=
+      Buildings.Templates.ChilledWaterPlants.Types.Compressor.ConstantSpeed
+    "Type of compressor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter Boolean isAirCoo
     "= true, chillers are air cooled,
@@ -40,8 +41,7 @@ partial model PartialChiller "Partial chiller model"
 
   // Record
 
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Chillers.Interfaces.Data dat(
+  parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Chillers dat(
     final typ=typ,
     final isAirCoo=isAirCoo,
     final is_heaPreCon=is_heaPreCon,

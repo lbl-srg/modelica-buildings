@@ -2,7 +2,8 @@ within Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater;
 model Headered "Headered condenser pumps"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Interfaces.PartialCondenserPump(
-    final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.CondenserPump.Headered,
+    final typ=Buildings.Templates.ChilledWaterPlants.Types.CondenserPump.Headered,
+
     final typValConWatChiIso=valConWatChiIso.typ,
     pum(final have_singlePort_b=true));
 

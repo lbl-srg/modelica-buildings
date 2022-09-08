@@ -1,27 +1,22 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Data;
-record EconomizerSection "Data for waterside economizer"
+record Economizer "Data for waterside economizer"
   extends Modelica.Icons.Record;
 
-  // Structure parameters
-
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl
-    typ "Type of waterside economizer"
+  parameter Buildings.Templates.ChilledWaterPlants.Types.EconomizerFlowControl typ
+    "Type of CHW flow control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_valChiWatEcoByp
     "Set to true if CHW flowrate is controlled by a modulating bypass valve"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_eco));
-  final parameter Boolean have_eco=
-    typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl.WatersideEconomizer
-    "Set to true if plant has a waterside economizer";
 
   // Equipment characteristics
-
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)=0
-    "Condenser water side nominal mass flow rate"
-    annotation(Dialog(group="Nominal condition", enable=have_eco));
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal(min=0)
-    "Chilled water side nominal mass flow rate"
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
+    final min=0)
+    "Design CHW water mass flow rate"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal(
+    final min=0)
+    "Design CW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.PressureDifference dpConWatHex_nominal
@@ -62,4 +57,4 @@ record EconomizerSection "Data for waterside economizer"
     annotation (Dialog(group="Pumps",
       enable=have_eco and not have_valChiWatEcoByp));
 
-end EconomizerSection;
+end Economizer;

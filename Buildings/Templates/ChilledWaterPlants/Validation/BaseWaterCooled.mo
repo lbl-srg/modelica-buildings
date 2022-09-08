@@ -88,7 +88,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(chw.bus, bus) annotation (Line(
-      points={{-40,4},{-80,4},{-80,40}},
+      points={{-40,0},{-80,0},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(chw.port_a, bou.ports[3]) annotation (Line(points={{0.2,-20.2},{60,

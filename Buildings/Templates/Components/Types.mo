@@ -62,11 +62,17 @@ package Types "Package with type definitions"
   type Pump = enumeration(
       None
       "No pump",
-      Constant
-      "Constant speed",
-      Variable
-      "Variable speed")
+      Single
+      "Single pump",
+      Multiple
+      "Multiple pumps in parallel")
     "Enumeration to configure the pump";
+  type PumpMotor = enumeration(
+      ConstantSpeed
+      "Constant speed",
+      VariableSpeed
+      "Variable speed")
+    "Enumeration to configure the pump motor";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

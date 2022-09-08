@@ -3,7 +3,8 @@ model WaterCooled "Water-cooled plants"
   extends
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     bus(final nCooTow=nCooTow),
-    final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.Configuration.WaterCooled,
+    final typ=Buildings.Templates.ChilledWaterPlants.Types.Configuration.WaterCooled,
+
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Parallel
       chiSec constrainedby
@@ -54,20 +55,19 @@ model WaterCooled "Water-cooled plants"
           Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Dedicated
           pumCon "Dedicated condenser water pumps")));
   inner replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.None
-    eco constrainedby
-    Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.Interfaces.PartialEconomizer(
+    Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
+    constrainedby
+    Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces.PartialEconomizer(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumConWat = MediumConWat,
     final dat=dat.eco) "Waterside economizer" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-70,-162})),
-                          choices(choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.None
+        origin={-70,-162})), choices(choice(redeclare
+          Buildings.Templates.ChilledWaterPlants.Components.Economizers.None
           eco "No economizer"), choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.WatersideEconomizer
+          Buildings.Templates.ChilledWaterPlants.Components.Economizers.WatersideEconomizer
           eco "Waterside economizer")));
 
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(

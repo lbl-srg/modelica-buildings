@@ -17,8 +17,7 @@ model RP1711_6_2
       Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Dedicated
       pumCon,
     redeclare
-      Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.None
-      eco);
+      Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco);
 
   annotation (
     defaultComponentName="chw");

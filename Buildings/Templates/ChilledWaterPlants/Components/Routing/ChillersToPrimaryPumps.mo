@@ -12,14 +12,16 @@ model ChillersToPrimaryPumps
     "Set to true if parallel chillers are connected to dedicated pumps on chilled water side";
   outer parameter Boolean have_eco
     "Set to true if plant has waterside economizer";
-  outer Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl typEcoFloCtr
-    "Equipment for CHW flow control through WSE";
+  outer Buildings.Templates.ChilledWaterPlants.Types.EconomizerFlowControl
+    typEcoFloCtr "Equipment for CHW flow control through WSE";
   outer parameter Boolean have_parChi
     "Set to true if plant chillers are in parallel";
-
   final parameter Integer nPorts = nChi + (if have_eco then 1 else 0)
     "Size of vectorized fluid connectors"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+
+
 
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -48,6 +50,14 @@ model ChillersToPrimaryPumps
     annotation (Placement(
         transformation(extent={{190,80},{210,160}}),iconTransformation(extent={{188,260},
             {208,340}})));
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiBypSer[nChi](
+    redeclare each final package Medium = Medium)
+    if not have_parChi
+    "Series chillers CHW bypass valve" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=270,
+        origin={-160,0})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aByp(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -93,23 +103,6 @@ model ChillersToPrimaryPumps
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270)));
-  Buildings.Templates.Components.Valves.TwoWayModulating valEcoByp(
-    redeclare final package Medium = Medium)
-    if have_eco and
-      typEcoFloCtr==Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl.Valve
-    "WSE CHW bypass valve" annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=270,
-        origin={-180,2})));
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiBypSer[nChi](
-    redeclare each final package Medium = Medium)
-    if not have_parChi
-    "Series chillers CHW bypass valve" annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=270,
-        origin={-140,0})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatEcoBef(
     redeclare final package Medium = Medium,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
@@ -131,7 +124,7 @@ model ChillersToPrimaryPumps
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiEnt(
     redeclare final package Medium = Medium,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "CHW return temperature entering chillers (after bypass or common leg)"
+    "Chillers entering CHW return temperature (after bypass or common leg)"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -148,13 +141,9 @@ equation
     annotation (Line(points={{1.77636e-15,10},{0,10},{0,120}},
                                                          color={0,127,255}));
   connect(ports_bRet[1:nChi], valChiBypSer[1:nChi].port_a) annotation (Line(
-        points={{-200,-100},{-200,-80},{-140,-80},{-140,-10}}, color={0,127,255}));
+        points={{-200,-100},{-200,-80},{-160,-80},{-160,-10}}, color={0,127,255}));
   connect(valChiBypSer[1:nChi].port_b, ports_aSup[1:nChi]) annotation (Line(
-        points={{-140,10},{-140,120},{-200,120}}, color={0,127,255}));
-  connect(ports_bRet[nChi + 1],valEcoByp. port_a) annotation (Line(points={{-200,
-          -100},{-200,-80},{-180,-80},{-180,-8}},              color={0,127,255}));
-  connect(valEcoByp.port_b, ports_aSup[nChi + 1]) annotation (Line(points={{-180,12},
-          {-180,120},{-200,120}},     color={0,127,255}));
+        points={{-160,10},{-160,120},{-200,120}}, color={0,127,255}));
   connect(rouRetPar.ports_b[1:nChi], ports_bRet[1:nChi])
     annotation (Line(points={{-10,-100},{-200,-100}}, color={0,127,255}));
   connect(TChiWatEcoBef.port_b, ports_bRet[nChi + 1]) annotation (Line(points={{-150,

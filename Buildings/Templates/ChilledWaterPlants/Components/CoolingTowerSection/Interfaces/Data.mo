@@ -4,8 +4,7 @@ record Data "Data for cooling tower section"
 
   // Structure parameters
 
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Types.CoolingTowerSection
+  parameter Buildings.Templates.ChilledWaterPlants.Types.CoolingTowerSection
     typ "Type of cooling tower arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nCooTow

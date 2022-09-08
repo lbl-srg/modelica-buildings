@@ -1,7 +1,6 @@
 within Buildings.Templates.Components.Pumps;
-model MultipleVariable
-  "Multiple pumps (identical) - Variable speed"
-  extends Buildings.Templates.Components.Pumps.Interfaces.PartialPumps(
+model Multiple "Multiple pumps in parallel"
+  extends Buildings.Templates.Components.Pumps.Interfaces.PartialMultiple(
     final typ=Buildings.Templates.Components.Types.Pump.Variable);
 
   replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
@@ -43,49 +42,17 @@ model MultipleVariable
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-50})));
-  Fluid.Delays.DelayFirstOrder volInl(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=m_flow_nominal,
-    tau=1,
-    final nPorts=nPum+1) if have_singlePort_a
-    "Fluid volume at inlet"
-    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-  Fluid.Delays.DelayFirstOrder volOut(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final m_flow_nominal=m_flow_nominal,
-    tau=1,
-    final nPorts=nPum+1) if have_singlePort_b
-    "Fluid volume at outet"
-    annotation (Placement(transformation(extent={{70,40},{90,60}})));
 equation
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{10,0},{30,0}},  color={0,127,255}));
 
   // Single port_a
-  connect(volInl.ports[1:nPum], pum.port_a)
-    annotation (Line(points={{-80,40},{-80,0},{-10,0}},
-      color={0,127,255}));
-  connect(volInl.ports[nPum+1], port_a)
-    annotation (Line(points={{-80,40},{-80,0},{-100,0}},
-      color={0,127,255}));
 
   // Multiple port_a
-  connect(ports_a, pum.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
 
   // Single port_b
-  connect(volOut.ports[1:nPum], cheVal.port_b)
-    annotation (Line(points={{80,40},{80,0},{50,0}},
-      color={0,127,255}));
-  connect(volOut.ports[nPum+1], port_b)
-    annotation (Line(points={{80,40},{80,0},{100,0}},
-      color={0,127,255}));
 
   // Multiple port_b
-  connect(ports_b, cheVal.port_b)
-    annotation (Line(points={{100,0},{50,0}}, color={0,127,255}));
 
   // Controls
 
@@ -121,6 +88,10 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
 
+  connect(cheVal.port_b, ports_b)
+    annotation (Line(points={{50,0},{100,0}}, color={0,127,255}));
+  connect(ports_a, pum.port_a)
+    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This is a model for a parallel arrangement of identical variable
@@ -142,4 +113,4 @@ Each pump returns a dedicated status signal <code>y1_actual</code> (Boolean).<br
 </li>
 </ul>
 </html>"));
-end MultipleVariable;
+end Multiple;

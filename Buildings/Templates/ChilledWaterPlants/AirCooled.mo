@@ -2,11 +2,12 @@ within Buildings.Templates.ChilledWaterPlants;
 model AirCooled "Air-cooled plants"
   extends
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
-    final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.Configuration.AirCooled,
+    final typ=Buildings.Templates.ChilledWaterPlants.Types.Configuration.AirCooled,
+
     final have_eco=eco.have_eco,
     dat(eco(typ=eco.typ, have_valChiWatEcoByp=eco.have_valChiWatEcoByp)));
 
-  Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.None eco(
+  Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco(
       redeclare final package MediumChiWat = MediumChiWat, final dat=dat.eco)
     "Waterside economizer" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

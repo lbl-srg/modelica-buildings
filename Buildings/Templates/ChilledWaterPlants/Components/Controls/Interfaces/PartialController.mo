@@ -3,7 +3,7 @@ block PartialController "Partial controller for chilled water plant"
 
   // Structure parameters
 
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Types.Controller typ
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nSenDpChiWatRem = 0
@@ -53,7 +53,7 @@ block PartialController "Partial controller for chilled water plant"
     final have_ctrHeaPre=have_ctrHeaPre) "Controller data";
 
   outer replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.Interfaces.PartialEconomizer
+    Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces.PartialEconomizer
     eco "Waterside economizer";
   outer replaceable
     Buildings.Templates.ChilledWaterPlants.Components.CoolingTowerSection.Interfaces.PartialCoolingTowerSection

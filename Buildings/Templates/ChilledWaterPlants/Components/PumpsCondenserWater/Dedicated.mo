@@ -2,7 +2,8 @@ within Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater;
 model Dedicated "Dedicated condenser pumps"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Interfaces.PartialCondenserPump(
-    final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.CondenserPump.Dedicated,
+    final typ=Buildings.Templates.ChilledWaterPlants.Types.CondenserPump.Dedicated,
+
     final nPum=nChi,
     final typValConWatChiIso=fill(Buildings.Templates.Components.Types.Valve.None,
         nChi),

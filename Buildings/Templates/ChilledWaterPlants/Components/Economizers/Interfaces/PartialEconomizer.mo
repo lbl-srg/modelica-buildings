@@ -1,4 +1,4 @@
-within Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.Interfaces;
+within Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces;
 partial model PartialEconomizer "Partial waterside economizer model"
   extends Fluid.Interfaces.PartialOptionalFourPortInterface(
     redeclare final package Medium1=MediumConWat,
@@ -8,35 +8,30 @@ partial model PartialEconomizer "Partial waterside economizer model"
     final haveMedium1=have_eco,
     final haveMedium2=true);
 
-  replaceable package MediumConWat = Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (Dialog(enable=have_eco));
   replaceable package MediumChiWat = Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component";
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "CHW medium";
+  replaceable package MediumConWat = Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "CW medium"
+      annotation (Dialog(enable=have_eco));
 
-  // Structure parameters
-
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl
-    typ "Type of waterside economizer"
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typ
+    "Type of equipment"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   outer parameter Integer nChi "Number of chillers";
   outer parameter Integer nCooTow "Number of cooling towers";
 
   final parameter Boolean have_eco=
-    typ==Buildings.Templates.ChilledWaterPlants.Components.Types.EconomizerFlowControl.WatersideEconomizer;
-
-  parameter Boolean have_valChiWatEcoByp=false
-    "Set to true if CHW flowrate is controlled by a modulating bypass valve"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_eco));
+    typ==Buildings.Templates.ChilledWaterPlants.Types.EconomizerFlowControl.WatersideEconomizer;
 
   // Record
-
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Data.EconomizerSection
-    dat(final typ=typ, final have_valChiWatEcoByp=have_valChiWatEcoByp)
-    "Waterside economizer data";
+  parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Economizer
+    dat(
+    final typ=typ,
+    final have_valChiWatEcoByp=have_valChiWatEcoByp)
+    "Design and operating parameters";
 
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus(final nChi=nChi,
       final nCooTow=nCooTow) if have_eco "Control bus" annotation (Placement(

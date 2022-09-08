@@ -2,20 +2,19 @@ within Buildings.Templates.ChilledWaterPlants.Components.PumpsSecondary;
 model Centralized "Centralized secondary pumping"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.PumpsSecondary.Interfaces.PartialSecondaryPump(
-      final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.SecondaryPump.Centralized);
+      final typ=Buildings.Templates.ChilledWaterPlants.Types.SecondaryPump.Centralized);
 
-  inner replaceable Buildings.Templates.Components.Pumps.MultipleVariable pum
-    constrainedby Buildings.Templates.Components.Pumps.Interfaces.PartialPumps(
+  inner replaceable Buildings.Templates.Components.Pumps.Multiple pum
+    constrainedby
+    Buildings.Templates.Components.Pumps.Interfaces.PartialMultiple(
     redeclare final package Medium = Medium,
     final nPum=nPum,
     final have_singlePort_a=true,
     final have_singlePort_b=true,
-    final dat=dat.pum)
-    "Secondary pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
-      choices(
-        choice(redeclare Buildings.Templates.Components.Pumps.MultipleVariable
-          pum "Variable speed pumps in parallel")));
+    final dat=dat.pum) "Secondary pumps" annotation (Placement(transformation(
+          extent={{-10,-10},{10,10}})), choices(choice(redeclare
+          Buildings.Templates.Components.Pumps.Multiple pum
+          "Variable speed pumps in parallel")));
 
 equation
   connect(port_a, pum.port_a)

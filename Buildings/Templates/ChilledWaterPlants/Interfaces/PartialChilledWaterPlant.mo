@@ -5,13 +5,12 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
 
   // Structure parameters
 
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Types.Configuration typ
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Configuration typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   final inner parameter Boolean isAirCoo=
-    typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.Configuration.AirCooled
+    typ ==Buildings.Templates.ChilledWaterPlants.Types.Configuration.AirCooled
     "= true, chillers are air cooled,
     = false, chillers are water cooled"
     annotation (Evaluate=true, Dialog(group="Configuration"));

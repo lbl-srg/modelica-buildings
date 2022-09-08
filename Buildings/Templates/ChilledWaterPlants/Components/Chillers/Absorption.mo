@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlants.Components.Chillers;
 model Absorption "Absorption chiller"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.Chillers.Interfaces.PartialChiller(
-      final typ=Buildings.Templates.ChilledWaterPlants.Components.Types.Chiller.AbsorptionChiller);
+      final typ=Buildings.Templates.ChilledWaterPlants.Types.Chiller.AbsorptionChiller);
 
   // TODO : Fill in that component
 

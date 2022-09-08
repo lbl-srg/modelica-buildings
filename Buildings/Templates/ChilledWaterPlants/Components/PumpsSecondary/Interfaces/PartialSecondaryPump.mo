@@ -5,11 +5,11 @@ partial model PartialSecondaryPump "Partial secondary pump model"
 
   // Structure parameters
 
-  parameter  Buildings.Templates.ChilledWaterPlants.Components.Types.SecondaryPump typ
+  parameter Buildings.Templates.ChilledWaterPlants.Types.SecondaryPump typ
     "Type of secondary pumping"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   final parameter Boolean is_none=
-    typ ==Buildings.Templates.ChilledWaterPlants.Components.Types.SecondaryPump.None
+    typ ==Buildings.Templates.ChilledWaterPlants.Types.SecondaryPump.None
     "Set to true if there is no secondary pumping";
 
   parameter Integer nPum "Number of pumps"

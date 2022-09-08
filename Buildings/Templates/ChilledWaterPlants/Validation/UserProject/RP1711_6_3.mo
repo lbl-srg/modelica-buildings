@@ -17,7 +17,7 @@ model RP1711_6_3
       Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Headered
       pumCon(final nPum=2),
     redeclare
-      Buildings.Templates.ChilledWaterPlants.Components.EconomizerSection.WatersideEconomizer
+      Buildings.Templates.ChilledWaterPlants.Components.Economizers.EconomizerWithPump
       eco(final have_valChiWatEcoByp=true),
     final have_chiWatChiByp=true);
 
