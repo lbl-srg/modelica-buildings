@@ -39,10 +39,6 @@ model FanCoilUnitSystem "System model for fan coil unit"
     "Nominal mass flow rate of supply air"
     annotation(Dialog(group="System parameters"));
 
-  parameter Boolean has_heatingCoilHHW=(heatingCoilType ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeatingCoil.heatingHotWater)
-    "Does the zone equipment have a hot water heating coil?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
-
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
     "Medium model for air"
@@ -358,6 +354,11 @@ model FanCoilUnitSystem "System model for fan coil unit"
     final k=mAir_flow_nominal)
     "Find mass flowrate value by multiplying nominal flowrate by normalized fan speed signal"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+
+protected
+  final parameter Boolean has_heatingCoilHHW=(heatingCoilType ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeatingCoil.heatingHotWater)
+    "Does the zone equipment have a hot water heating coil?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
 
 equation
   connect(uOA, eco.y) annotation (Line(points={{-380,120},{-170,120},{-170,2}},
