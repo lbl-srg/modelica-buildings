@@ -14,10 +14,10 @@ model CoolingMode
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     final T=279.15,
-    final nPorts=1)
+    nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90,origin={40,-80})));
+      rotation=90,origin={40,-90})));
 
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
@@ -47,7 +47,7 @@ model CoolingMode
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
     final use_T_in=true,
-    final nPorts=1)
+    nPorts=1)
     "Source for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -132,15 +132,8 @@ model CoolingMode
 
 equation
 
-  connect(fanCoiUni.port_CCW_outlet, sinCoo.ports[1])
-    annotation (Line(points={{12,-10},{12,-70},{40,-70}},
-                                                        color={0,127,255}));
-
   connect(fanCoiUni.port_HHW_outlet, sinHea.ports[1]) annotation (Line(points={{4,-10},
           {4,-60},{-40,-60},{-40,-70}},           color={0,127,255}));
-
-  connect(souCoo.ports[1], fanCoiUni.port_CCW_inlet) annotation (Line(points={{70,-70},
-          {70,-60},{16,-60},{16,-10}},       color={0,127,255}));
 
   connect(souHea.ports[1], fanCoiUni.port_HHW_inlet) annotation (Line(points={{10,-80},
           {10,-10},{8,-10}},                   color={0,127,255}));
@@ -200,6 +193,10 @@ equation
     annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
   connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,2},
           {-2,2}}, color={0,0,127}));
+  connect(sinCoo.ports[1], fanCoiUni.port_CHW_outlet) annotation (Line(points={{
+          40,-80},{40,-66},{12,-66},{12,-10}}, color={0,127,255}));
+  connect(souCoo.ports[1], fanCoiUni.port_CHW_inlet) annotation (Line(points={{70,
+          -70},{70,-60},{16,-60},{16,-10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
