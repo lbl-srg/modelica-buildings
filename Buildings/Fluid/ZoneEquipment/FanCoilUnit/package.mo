@@ -1,7 +1,7 @@
-within Buildings.Fluid;
-package ZoneEquipment "Package with zone equipment models"
+within Buildings.Fluid.ZoneEquipment;
+package FanCoilUnit "Package with fan coil unit system models"
 
-annotation (Icon(graphics={
+  annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -36,6 +36,6 @@ annotation (Icon(graphics={
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
   Documentation(info="<html>
-    This package contains zone HVAC equipment models.
+  This package contains models for the four-pipe fan coil unit.
     </html>"));
-end ZoneEquipment;
+end FanCoilUnit;
