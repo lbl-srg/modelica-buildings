@@ -4,21 +4,21 @@ model SeparateWithDP
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP disMinCon(
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final pDesMinOutDam=300,
+    final dpDesMinOutDam=300,
     final minSpe=0.1)
     "Disable the minimum outdoor air control due to that the supply fan is not proven on"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP disMinCon1(
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final pDesMinOutDam=300,
+    final dpDesMinOutDam=300,
     final minSpe=0.1)
     "Disable the minimum outdoor air control due to that it is not in occupied mode"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP minCon(
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-    final pDesMinOutDam=300,
+    final dpDesMinOutDam=300,
     final minSpe=0.1)
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{200,10},{220,30}})));
