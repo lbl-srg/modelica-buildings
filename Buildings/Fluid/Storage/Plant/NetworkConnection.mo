@@ -23,22 +23,6 @@ model NetworkConnection
     Dialog(group="Pump Sizing", enable=
     plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
 
-  //Check valve sizing
-  parameter Modelica.Units.SI.PressureDifference dpCheValSupValve_nominal=
-    0.1*nom.dp_nominal "Check valve nominal pressure drop when fully open"
-    annotation (Dialog(group="Check Valve Sizing"));
-  parameter Modelica.Units.SI.PressureDifference dpCheValSupFixed_nominal=
-    0.1*nom.dp_nominal "Nominal fixed resistance in series with the check valve"
-    annotation (Dialog(group="Check Valve Sizing"));
-  parameter Modelica.Units.SI.PressureDifference dpCheValRetValve_nominal=
-    0.1*nom.dp_nominal "Check valve nominal pressure drop when fully open"
-    annotation (Dialog(group="Check Valve Sizing", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Modelica.Units.SI.PressureDifference dpCheValRetFixed_nominal=
-    0.1*nom.dp_nominal "Nominal fixed resistance in series with the check valve"
-    annotation (Dialog(group="Check Valve Sizing", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-
   //Control valve sizing & interlock
   parameter Modelica.Units.SI.PressureDifference dpValToNetSup_nominal=
     0.1*nom.dp_nominal "Nominal flow rate of intValSup.valToNet"
@@ -94,16 +78,6 @@ model NetworkConnection
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
     "Replaces the valve on the supply branch when the tank is closed"
     annotation (Placement(transformation(extent={{30,90},{50,110}})));
-  Buildings.Fluid.FixedResistances.CheckValve cheValSup(
-    redeclare final package Medium = Medium,
-    m_flow_nominal=nom.m_flow_nominal,
-    final dpValve_nominal=dpCheValSupValve_nominal,
-    final dpFixed_nominal=dpCheValSupFixed_nominal)
-                                        "Check valve" annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-10,60})));
   Modelica.Blocks.Interfaces.RealInput yValSup[2]
     if plaTyp ==
       Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
@@ -140,16 +114,6 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-60})));
-  Buildings.Fluid.FixedResistances.CheckValve cheValRet(
-    redeclare final package Medium = Medium,
-    m_flow_nominal=nom.m_flow_nominal,
-    final dpValve_nominal=dpCheValRetValve_nominal,
-    final dpFixed_nominal=dpCheValRetFixed_nominal)
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Check valve" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-10,-60})));
   Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasRet(
     redeclare final package Medium = Medium)
     if plaTyp ==
@@ -202,10 +166,6 @@ model NetworkConnection
     annotation (Placement(transformation(extent={{20,-92},{60,-52}})));
 
 equation
-  connect(pumSup.port_b, cheValSup.port_a)
-    annotation (Line(points={{-40,60},{-20,60}}, color={0,127,255}));
-  connect(pasSup.port_a, cheValSup.port_b) annotation (Line(points={{30,100},{
-          10,100},{10,60},{1.77636e-15,60}}, color={0,127,255}));
   connect(pumSup.y, yPumSup) annotation (Line(points={{-50,72},{-50,110},{-10,
           110},{-10,130}},
                      color={0,0,127}));
@@ -215,8 +175,6 @@ equation
           {68,60},{100,60}}, color={0,127,255}));
   connect(port_bToChi, pumRet.port_a)
     annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
-  connect(pumRet.port_b, cheValRet.port_a)
-    annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
   connect(port_aFroNet, pasRet.port_a) annotation (Line(points={{100,-60},{90,-60},
           {90,-30},{40,-30}}, color={0,127,255}));
   connect(pasRet.port_b, port_bToChi) annotation (Line(points={{20,-30},{-80,-30},
@@ -224,8 +182,6 @@ equation
   connect(pumRet.y, yPumRet) annotation (Line(points={{-50,-48},{-50,-20},{72,
           -20},{72,110},{30,110},{30,130}},
                                      color={0,0,127}));
-  connect(intValSup.port_aFroChi, cheValSup.port_b)
-    annotation (Line(points={{20,60},{1.77636e-15,60}}, color={0,127,255}));
   connect(intValSup.port_bToNet, port_bToNet)
     annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
   connect(intValSup.port_bToChi, port_aFroChi) annotation (Line(points={{20,36},
@@ -234,8 +190,6 @@ equation
           {68,36},{68,60},{100,60}}, color={0,127,255}));
   connect(intValSup.yVal, yValSup) annotation (Line(points={{40,70},{20,70},{20,
           110},{10,110},{10,130}}, color={0,0,127}));
-  connect(cheValRet.port_b, intValRet.port_aFroChi)
-    annotation (Line(points={{1.77636e-15,-60},{20,-60}}, color={0,127,255}));
   connect(intValRet.port_bToNet, port_aFroNet)
     annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(intValRet.port_aFroNet, port_aFroNet) annotation (Line(points={{60,-84},
@@ -244,6 +198,12 @@ equation
           {-70,-84},{-70,-60},{-100,-60}}, color={0,127,255}));
   connect(intValRet.yVal, yValRet) annotation (Line(points={{40,-50},{76,-50},{
           76,114},{50,114},{50,130}}, color={0,0,127}));
+  connect(pumSup.port_b, intValSup.port_aFroChi)
+    annotation (Line(points={{-40,60},{20,60}}, color={0,127,255}));
+  connect(pumSup.port_b, pasSup.port_a) annotation (Line(points={{-40,60},{10,60},
+          {10,100},{30,100}}, color={0,127,255}));
+  connect(pumRet.port_b, intValRet.port_aFroChi)
+    annotation (Line(points={{-40,-60},{20,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
