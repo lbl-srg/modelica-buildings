@@ -123,7 +123,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract sysVenEff
     "Current system ventilation efficiency"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Divide effMinOutAirInt
     "Effective minimum outdoor air setpoint"
@@ -178,24 +178,17 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
-    "Ensuring the system efficiency will not be negative"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
-    final k=1)
-    "Set system ventilation efficiency to 1"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaSysEff(final k=1E-4)
+    "Set system ventilation efficiency to small value to avoid division by zero"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=1E-4,
-    final uHigh=1E-3)
-    "Check if system ventilation efficiency is greater than 0 (using 1E-4 tolerance)"
-    annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
+  CDL.Continuous.Max sysVenEffNonZero
+    "Current system ventilation efficiency, bounded away from zero"
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
 equation
   connect(peaSysPopulation.y, occDivFra.u1)
@@ -233,19 +226,10 @@ equation
   connect(intEqu1.y, and1.u2)
     annotation (Line(points={{-78,-180},{20,-180},{20,-148},{118,-148}},
       color={255,0,255}));
-  connect(sysVenEff.y, swi4.u1)
-    annotation (Line(points={{-18,-30},{0,-30},{0,-52},{58,-52}},
-      color={0,0,127}));
-  connect(swi4.y, effMinOutAirInt.u2)
-    annotation (Line(points={{82,-60},{90,-60},{90,14},{98,14}},
-      color={0,0,127}));
   connect(outAirFra.y, addPar.u)
     annotation (Line(points={{-98,-10},{-82,-10}}, color={0,0,127}));
   connect(addPar.y, sysVenEff.u1)
-    annotation (Line(points={{-58,-10},{-50,-10},{-50,-24},{-42,-24}},
-      color={0,0,127}));
-  connect(conOne.y, swi4.u3)
-    annotation (Line(points={{42,-70},{50,-70},{50,-68},{58,-68}},
+    annotation (Line(points={{-58,-10},{-50,-10},{-50,-4},{-42,-4}},
       color={0,0,127}));
   connect(VEffOutAir_flow, min.y)
     annotation (Line(points={{260,30},{202,30}}, color={0,0,127}));
@@ -263,11 +247,6 @@ equation
   connect(uSupFan, and1.u1)
     annotation (Line(points={{-240,-140},{118,-140}},
       color={255,0,255}));
-  connect(sysVenEff.y, hys1.u)
-    annotation (Line(points={{-18,-30},{20,-30}}, color={0,0,127}));
-  connect(hys1.y, swi4.u2)
-    annotation (Line(points={{44,-30},{50,-30},{50,-60},{58,-60}},
-      color={255,0,255}));
   connect(addPar1.y, yAveOutAirFraPlu)
     annotation (Line(points={{142,130},{260,130}},color={0,0,127}));
   connect(occDivFra.u2, sumDesZonPop)
@@ -284,13 +263,19 @@ equation
   connect(outAirFra.u2, VSumSysPriAir_flow) annotation (Line(points={{-122,-16},
           {-140,-16},{-140,-60},{-240,-60}}, color={0,0,127}));
   connect(sysVenEff.u2, uOutAirFra_max)
-    annotation (Line(points={{-42,-36},{-60,-36},{-60,-100},{-240,-100}},
+    annotation (Line(points={{-42,-16},{-50,-16},{-50,-100},{-240,-100}},
       color={0,0,127}));
 
   connect(and1.y, yReqOutAir)
     annotation (Line(points={{142,-140},{260,-140}}, color={255,0,255}));
   connect(aveOutAirFra.u, unCorOutAirInk.y) annotation (Line(points={{58,130},{40,
           130},{40,150},{22,150}}, color={0,0,127}));
+  connect(sysVenEff.y, sysVenEffNonZero.u1) annotation (Line(points={{-18,-10},{
+          -10,-10},{-10,-4},{-2,-4}}, color={0,0,127}));
+  connect(smaSysEff.y, sysVenEffNonZero.u2) annotation (Line(points={{-18,-50},
+          {-8,-50},{-8,-16},{-2,-16}}, color={0,0,127}));
+  connect(sysVenEffNonZero.y, effMinOutAirInt.u2) annotation (Line(points={{22,-10},
+          {92,-10},{92,14},{98,14}}, color={0,0,127}));
 annotation (
   defaultComponentName="ahuOutAirSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -488,6 +473,12 @@ where the design outdoor air rate <code>desOutAirInt</code> is
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+September 9, 2022, by Michael Wetter:<br/>
+Replaced hysteresis with <code>max</code> function to avoid chattering when the fan switches on.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
+</li>
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
 Separated from original sequence of finding the system minimum outdoor air setpoint.<br/>
