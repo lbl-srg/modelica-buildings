@@ -223,7 +223,7 @@ protected
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or1
+  Buildings.Controls.OBC.CDL.Logical.Or orHeaCooOcc
     "Enable fan when zone is occupied or when setpoints are exceeded"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
@@ -277,8 +277,8 @@ equation
 
   connect(timTabOccSch.y, greThr.u) annotation (Line(points={{-58,-90},{-12,-90}},
                                color={0,0,127}));
-  connect(greThr[1].y, or1.u1) annotation (Line(points={{12,-90},{26,-90},{26,-80},
-          {58,-80}}, color={255,0,255}));
+  connect(greThr[1].y, orHeaCooOcc.u1) annotation (Line(points={{12,-90},{26,-90},
+          {26,-80},{58,-80}}, color={255,0,255}));
   connect(booToReaFanSpe.y, swi.u3) annotation (Line(points={{122,-60},{128,-60},
           {128,-44},{106,-44},{106,-38},{108,-38}}, color={0,0,127}));
   connect(andDeaOcc.y, swi.u2)
@@ -293,12 +293,12 @@ equation
           {160,-30}}, color={0,0,127}));
   connect(conMinFanSpe.y, swi.u1) annotation (Line(points={{78,-10},{106,-10},{106,
           -22},{108,-22}}, color={0,0,127}));
-  connect(or1.y, booToReaFanSpe.u) annotation (Line(points={{82,-80},{90,-80},{90,
-          -60},{98,-60}}, color={255,0,255}));
+  connect(orHeaCooOcc.y, booToReaFanSpe.u) annotation (Line(points={{82,-80},{
+          90,-80},{90,-60},{98,-60}}, color={255,0,255}));
   connect(orHeaCoo.y, timFan.u) annotation (Line(points={{12,-40},{20,-40},{20,-100},
           {28,-100}}, color={255,0,255}));
-  connect(timFan.passed, or1.u2) annotation (Line(points={{52,-108},{54,-108},{54,
-          -88},{58,-88}}, color={255,0,255}));
+  connect(timFan.passed, orHeaCooOcc.u2) annotation (Line(points={{52,-108},{54,
+          -108},{54,-88},{58,-88}}, color={255,0,255}));
   connect(uFan, booToRea.u) annotation (Line(points={{-140,60},{-100,60},{-100,80},
           {-82,80}}, color={255,0,255}));
   connect(conPIDCoo.y, mulCoo.u2) annotation (Line(points={{42,60},{50,60},{50,54},
@@ -313,8 +313,8 @@ equation
           {58,14}}, color={0,0,127}));
   connect(booToRea.y, mulHea.u1) annotation (Line(points={{-58,80},{52,80},{52,26},
           {58,26}}, color={0,0,127}));
-  connect(or1.y, truFalHol.u) annotation (Line(points={{82,-80},{90,-80},{90,-100},
-          {98,-100}}, color={255,0,255}));
+  connect(orHeaCooOcc.y, truFalHol.u) annotation (Line(points={{82,-80},{90,-80},
+          {90,-100},{98,-100}}, color={255,0,255}));
   connect(truFalHol.y, yFan) annotation (Line(points={{122,-100},{130,-100},{130,
           -80},{160,-80}}, color={255,0,255}));
   annotation (defaultComponentName="conVarWatConFan",
