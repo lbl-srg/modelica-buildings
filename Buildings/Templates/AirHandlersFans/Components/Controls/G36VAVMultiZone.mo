@@ -161,12 +161,12 @@ block G36VAVMultiZone
     final TOut_min=TOutRes_min,
     final TOut_max=TOutRes_max,
     final have_CO2Sen=have_CO2Sen,
-    final pAbsMinOutDam=dpDamOutMinAbs,
-    final pDesMinOutDam=dpDamOutMin_nominal,
+    final dpAbsMinOutDam=dpDamOutMinAbs,
+    final dpDesMinOutDam=dpDamOutMin_nominal,
     final dpBuiSet=pBuiSet_rel,
     final difFloSet=dVFanRet_flow,
-    final dpRetFan_min=pAirRetSet_rel_min,
-    final dpRetFan_max=pAirRetSet_rel_max)
+    final p_rel_RetFan_min=pAirRetSet_rel_min,
+    final p_rel_RetFan_max=pAirRetSet_rel_max)
     "AHU controller"
     annotation (Placement(transformation(extent={{-40,-72},{40,72}})));
 

@@ -7,13 +7,13 @@ block ReturnFanDirectPressure
     final quantity="PressureDifference",
     final max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
-  parameter Real dpRetFan_min(
+  parameter Real p_rel_RetFan_min(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
     final max=1000) = 2.4
     "Return fan discharge static pressure difference minimum setpoint,no less than 2.4 Pa";
-  parameter Real dpRetFan_max(
+  parameter Real p_rel_RetFan_max(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
@@ -132,10 +132,10 @@ protected
     final k=dpBuiSet) "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMin(
-    final k=dpRetFan_min) "Return fan discharge static pressure minimum setpoint"
+    final k=p_rel_RetFan_min) "Return fan discharge static pressure minimum setpoint"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMax(
-    final k=dpRetFan_max) "Return fan discharge static pressure maximum setpoint"
+    final k=p_rel_RetFan_max) "Return fan discharge static pressure maximum setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero fan control signal"
@@ -363,9 +363,9 @@ dampers from <code>yRelDam = 0</code> (closed) to <code>yRelDam = 1</code> (open
 </li>
 <li>
 From <i>0.5</i> to <i>1</i>, the building pressure control loop resets the return fan
-discharge static pressure setpoint from <code>dpRetFan_min</code>
-to <code>dpRetFan_max</code>. The <code>dpRetFan_min</code> and
-<code>dpRetFan_max</code> are specified in Section 3.2.1.4.
+discharge static pressure setpoint from <code>p_rel_RetFan_min</code>
+to <code>p_rel_RetFan_max</code>. The <code>p_rel_RetFan_min</code> and
+<code>p_rel_RetFan_max</code> are specified in Section 3.2.1.4.
 </li>
 </ol>
 <p align=\"center\">
