@@ -35,13 +35,11 @@ record ChilledWaterPlant "Record for chilled water plant model"
     pumSec(m_flow_nominal=mSec_flow_nominal)
     "Secondary CHW pumps"
     annotation (Dialog(group="Equipment", enable=not pumSec.is_none));
-  parameter
-    Buildings.Templates.Components.Data.Pump
-    pumCon(final nChi=chiSec.nChi, m_flow_nominal=mCon_flow_nominal)
-    "CW pumps"
+  parameter Buildings.Templates.Components.Data.PumpMultiple pumCon(final nChi=
+        chiSec.nChi, m_flow_nominal=mCon_flow_nominal) "CW pumps"
     annotation (Dialog(group="Equipment", enable=not isAirCoo));
   parameter
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowerSection.Interfaces.Data
+    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.Data
     cooTowSec(m_flow_nominal=mCon_flow_nominal) "Cooling tower section"
     annotation (Dialog(group="Equipment", enable=not isAirCoo));
 

@@ -13,8 +13,8 @@ record Chillers "Data for chillers"
       Buildings.Templates.ChilledWaterPlants.Types.Compressor.VariableSpeed
     "Type of compressor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.LiftControl
-    typCtrHeaPre=Buildings.Templates.ChilledWaterPlants.Types.LiftControl.BuiltIn
+  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl
+    typCtrHeaPre=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn
     "Type of head pressure control"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // Equipment characteristics

@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components;
-package Routing "Connection models for hydronic routing"
+package CoolingTowers "Models for cooling towers"
   extends Modelica.Icons.VariantsPackage;
 
-end Routing;
+end CoolingTowers;

@@ -4,7 +4,6 @@ model WaterCooled "Water-cooled plants"
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     bus(final nCooTow=nCooTow),
     final typ=Buildings.Templates.ChilledWaterPlants.Types.Configuration.WaterCooled,
-
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Parallel
       chiSec constrainedby
@@ -32,15 +31,15 @@ model WaterCooled "Water-cooled plants"
     "Condenser water medium";
 
   inner replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowerSection.Parallel
+    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Parallel
     cooTowSec constrainedby
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowerSection.Interfaces.PartialCoolingTowerSection(
-     redeclare final package Medium = MediumConWat, final dat=dat.cooTowSec)
+    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.PartialCoolingTowerSection(
+      redeclare final package Medium = MediumConWat, final dat=dat.cooTowSec)
     "Cooling tower section" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-220,0})),   choices(choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.CoolingTowerSection.Parallel
+        origin={-220,0})), choices(choice(redeclare
+          Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Parallel
           cooTowSec "Cooling towers in parallel")));
   inner replaceable
     Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Headered

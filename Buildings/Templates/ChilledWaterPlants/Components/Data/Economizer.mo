@@ -50,11 +50,10 @@ record Economizer "Data for waterside economizer"
     "Waterside economizer chilled water bypass valve"
     annotation(Dialog(group = "Valves", enable=have_eco and have_valChiWatEcoByp));
 
-  parameter Buildings.Templates.Components.Data.Pump pumEco(
-    final typ=Buildings.Templates.Components.Types.Pump.Variable,
-    final m_flow_nominal=m2_flow_nominal)
-    "Waterside economizer heat exchanger pump"
-    annotation (Dialog(group="Pumps",
-      enable=have_eco and not have_valChiWatEcoByp));
+  parameter Buildings.Templates.Components.Data.PumpMultiple pumEco(final typ=
+        Buildings.Templates.Components.Types.Pump.Variable, final
+      m_flow_nominal=m2_flow_nominal)
+    "Waterside economizer heat exchanger pump" annotation (Dialog(group="Pumps",
+        enable=have_eco and not have_valChiWatEcoByp));
 
 end Economizer;

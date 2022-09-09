@@ -2,5 +2,6 @@ Coil
 CoolingTower
 Damper
 Fan
-Pump
+PumpMultiple
+PumpSingle
 Valve

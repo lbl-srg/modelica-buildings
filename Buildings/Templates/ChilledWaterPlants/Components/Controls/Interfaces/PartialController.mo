@@ -56,7 +56,7 @@ block PartialController "Partial controller for chilled water plant"
     Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces.PartialEconomizer
     eco "Waterside economizer";
   outer replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowerSection.Interfaces.PartialCoolingTowerSection
+    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.PartialCoolingTowerSection
     cooTowSec if isAirCoo "Cooling towers";
   outer replaceable
     Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Interfaces.PartialCondenserPump

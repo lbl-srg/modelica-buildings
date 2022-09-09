@@ -1,10 +1,8 @@
 Chillers
 Controls
-CoolingTowerSection
+CoolingTowers
 Economizers
-PumpsCondenserWater
 PumpsPrimary
-PumpsSecondary
 Routing
 Data
 Validation

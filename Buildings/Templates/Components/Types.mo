@@ -67,12 +67,20 @@ package Types "Package with type definitions"
       Multiple
       "Multiple pumps in parallel")
     "Enumeration to configure the pump";
-  type PumpMotor = enumeration(
-      ConstantSpeed
+  type PumpSingleSpeedControl = enumeration(
+      Constant
       "Constant speed",
-      VariableSpeed
+      Variable
       "Variable speed")
-    "Enumeration to configure the pump motor";
+    "Enumeration to configure the speed control for single pump";
+  type PumpMultipleSpeedControl = enumeration(
+      Constant
+      "Constant speed",
+      VariableCommon
+      "Variable speed with common unique signal",
+      VariableDedicated
+      "Variable speed with dedicated signal")
+    "Enumeration to configure the speed control for multiple pumps";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",
@@ -111,10 +119,6 @@ package Types "Package with type definitions"
   type Valve = enumeration(
       None
       "No valve",
-      PumpedCoilThreeWay
-      "Pumped coil with three-way valve",
-      PumpedCoilTwoWay
-      "Pumped coil with two-way valve",
       ThreeWayModulating
       "Three-way modulating valve",
       ThreeWayTwoPosition

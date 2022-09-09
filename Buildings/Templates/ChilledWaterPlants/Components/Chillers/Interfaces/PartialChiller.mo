@@ -13,8 +13,6 @@ partial model PartialChiller "Partial chiller model"
     final dp1_nominal=dat.dp1_nominal,
     final dp2_nominal=dat.dp2_nominal);
 
-  // Structure parameters
-
   parameter Buildings.Templates.ChilledWaterPlants.Types.Chiller typ
     "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -39,15 +37,14 @@ partial model PartialChiller "Partial chiller model"
     "Set to true if chiller condenser water supply temperature is measured"
     annotation(Dialog(enable=not is_heaPreCon or have_heaPreSig));
 
-  // Record
-
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Chillers dat(
     final typ=typ,
     final isAirCoo=isAirCoo,
     final is_heaPreCon=is_heaPreCon,
     final have_heaPreSig=have_heaPreSig,
     final have_TChiWatChiSup=have_TChiWatChiSup,
-    final have_TConWatChiRet=have_TConWatChiRet) "Chiller data";
+    final have_TConWatChiRet=have_TConWatChiRet)
+    "Chiller data";
 
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiRet(
     redeclare final package Medium = Medium2,
@@ -77,8 +74,9 @@ partial model PartialChiller "Partial chiller model"
     final m_flow_nominal=m1_flow_nominal)
     "Chiller condenser water return temperature"
     annotation (Placement(transformation(extent={{58,50},{78,70}})));
-
-  Buildings.Templates.Components.Interfaces.Bus bus "Control bus" annotation (
+  Buildings.Templates.Components.Interfaces.Bus bus
+    "Control bus"
+    annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -86,11 +84,7 @@ partial model PartialChiller "Partial chiller model"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
-
 equation
-
-  // Sensors
-
   connect(bus.TConWatChiSup, TConWatChiSup.y)
     annotation (Line(points={{0,100},{0,80},{-70,80},{-70,72}},
       color={0,0,127}));
@@ -104,9 +98,6 @@ equation
     annotation (Line(
       points={{0,100},{0,80},{88,80},{88,-20},{70,-20},{70,-48}},
       color={0,0,127}));
-
-  // Hydraulics
-
   connect(port_a1, TConWatChiSup.port_a)
     annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
   connect(port_b1, TConWatChiRet.port_b)
@@ -115,7 +106,6 @@ equation
     annotation (Line(points={{100,-60},{80,-60}}, color={0,127,255}));
   connect(port_b2, TChiWatChiSup.port_a)
     annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{-100,100},{100,-100}},

@@ -4,9 +4,7 @@ model HeaderedParallel
   extends
     Buildings.Templates.ChilledWaterPlants.Components.PumpsPrimary.Interfaces.PartialPrimaryPump(
     final typ=Buildings.Templates.ChilledWaterPlants.Types.PrimaryPump.HeaderedParallel,
-
     final have_conSpePum=pum.typ == Buildings.Templates.Components.Types.Pump.Constant,
-
     final have_singlePort_a=false,
     final typValChiWatChiIso=valChiWatChiIso.typ,
     pum(final have_singlePort_a=true));

@@ -3,7 +3,7 @@ model A14_G36Control
   "Parallel chillers, variable primary, constant speed CW pumps, headered pumps"
   extends Buildings.Templates.ChilledWaterPlants.Validation.BaseWaterCooled(
       redeclare
-      Buildings.Templates.ChilledWaterPlants.Validation.UserProject.RP1711_6_1_G36Control
+      Buildings.Templates.ChilledWaterPlants.Validation.UserProject.A14_G36Control
       chw);
 
   Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatRem[chw.ctr.nSenDpChiWatRem](

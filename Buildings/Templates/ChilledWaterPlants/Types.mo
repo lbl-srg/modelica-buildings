@@ -7,11 +7,22 @@ package Types
       WaterCooled
       "Water-cooled compression chiller")
       "Enumeration to specify the type of chiller";
-  type Compressor = enumeration(
+  type ChillerArrangement = enumeration(
+      Parallel
+      "Parallel chillers",
+      Series
+      "Series chillers")
+      "Enumeration to configure the chiller arrangement";
+  type ChillerCompressor = enumeration(
       ConstantSpeed "Constant speed centrifugal",
       VariableSpeed "Variable speed centrifugal",
       PositiveDisplacement "Positive displacement (screw or scroll)")
       "Enumeration to specify the type of compressor";
+  type ChillerLiftControl = enumeration(
+      None "No head pressure control (e.g. magnetic bearing chiller)",
+      BuiltIn "Head pressure control built into chiller’s controller (AO available)",
+      External "Head pressure control by BAS")
+    "Enumeration to specify the type of head pressure control";
   type Controller = enumeration(
       Guideline36 "Guideline 36 control sequence",
       OpenLoop "Open loop")
@@ -25,14 +36,9 @@ package Types
       "Enumeration to specify the type of CHW distribution system";
   type Economizer = enumeration(
       None "No waterside economizer",
-      HeatExchangerWithPump "Heat exchanger with pump for CHW flow control",
-      HeatExchangerWithValve "Heat exchanger with bypass valve for CHW flow control")
+      EconomizerWithPump "Heat exchanger with pump for CHW flow control",
+      EconomizerWithValve "Heat exchanger with bypass valve for CHW flow control")
       "Enumeration to configure the WSE";
-  type LiftControl = enumeration(
-      None "No head pressure control (e.g. magnetic bearing chiller)",
-      BuiltIn "Head pressure control built into chiller’s controller (AO available)",
-      External "Head pressure control by BAS")
-      "Enumeration to specify the type of head pressure control";
   type PumpArrangement = enumeration(
       Dedicated "Dedicated pumps",
       Headered "Headered pumps")
