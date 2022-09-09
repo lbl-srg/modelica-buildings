@@ -54,12 +54,10 @@ model WaterBasedHeating "Hot water coil"
     "Heat exchanger"
     annotation (Placement(transformation(extent={{10,4},{-10,-16}})));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium=MediumHeaWat)
-    if typVal<>Buildings.Templates.Components.Types.Valve.ThreeWayModulating
-    "Direct pass through"
-    annotation (Placement(
-        transformation(
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
+      package Medium = MediumHeaWat)
+    if typVal <> Buildings.Templates.Components.Types.Valve.ThreeWayModulating
+    "Direct pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,-60})));

@@ -17,8 +17,8 @@ model HumidityRatio "Humidity ratio sensor"
         rotation=90,
         origin={0,30})));
 
-  Buildings.Templates.BaseClasses.PassThroughFluid pas(redeclare final package Medium = Medium)
-    if not have_sen "Pass through"
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
+      package Medium = Medium) if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(port_a, senMasFra.port_a)
