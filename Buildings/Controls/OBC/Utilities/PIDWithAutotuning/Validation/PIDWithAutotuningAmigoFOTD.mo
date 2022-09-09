@@ -4,12 +4,12 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD
-    PIdWitAutotuning(
+    PIDWitTun(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     yHig=1,
     yLow=0.1,
     deaBan=0.1,
-    setPoint=0.8) "PI controller with an autotuning feature"
+    yRef=0.8) "PID controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
@@ -26,7 +26,8 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(samplePeriod=240)
     "A delay process for control process 1"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant k(k=1) "Gain of the first order process"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant k(k=1)
+    "Gain of the first order process"
     annotation (Placement(transformation(extent={{180,20},{160,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T(k=10)
     "Time constant of the first order process"
@@ -43,7 +44,7 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
   Buildings.Controls.OBC.CDL.Continuous.Derivative derivative2
     "A derivative block that is used to mimic the first order process 2"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
-	
+
 equation
   connect(resSig.y, PI.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
           40},{-16,40},{-16,48}}, color={255,0,255}));

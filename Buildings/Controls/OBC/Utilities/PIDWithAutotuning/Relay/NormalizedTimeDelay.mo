@@ -93,7 +93,7 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.NormalizedTi
 </p>
 <h4>References</h4>
 <p>
-Josefin Berner (2017).
+Josefin Berner (2017)
 \"Automatic Controller Tuning using Relay-based Model Identification.\"
 Department of Automatic Control, Lund Institute of Technology, Lund University.
 </p>

@@ -13,7 +13,7 @@ block Gain "Identifies the gain of a first order time delayed model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff
-    "length for the Off period"
+    "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triSta
@@ -32,7 +32,7 @@ block Gain "Identifies the gain of a first order time delayed model"
      final k=1,y_start=1E-11)
     "Integral of the process output"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant refeRelOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant refRelOut(
     final k=0)
     "Reference value of the relay control output"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
@@ -42,19 +42,17 @@ block Gain "Identifies the gain of a first order time delayed model"
     final p=1E-11)
     "Avoid divide-by-zero errors"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaitOnyHig(
-    final k=yHig)
-    "Product of tOn and yHig"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiOnyHig(
+    final k=yHig) "Product of tOn and yHig"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaitOffyLow(
-     final k=-yLow)
-    "Product of tOff and yLow"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiOffyLow(
+    final k=-yLow) "Product of tOff and yLow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
 equation
   connect(Iy.u, u) annotation (Line(points={{-42,40},{-90,40},{-90,80},{-120,80}},
         color={0,0,127}));
-  connect(refeRelOut.y, Iy.y_reset_in) annotation (Line(points={{-58,20},{-50,20},
+  connect(refRelOut.y, Iy.y_reset_in) annotation (Line(points={{-58,20},{-50,20},
           {-50,32},{-42,32}}, color={0,0,127}));
   connect(Iy.trigger, triSta) annotation (Line(points={{-30,28},{-30,-20},{-10,-20},
           {-10,-96},{0,-96},{0,-120}}, color={255,0,255}));
@@ -64,16 +62,16 @@ equation
   connect(addPar.y, divIyIu.u2) annotation (Line(points={{22,-40},{26,-40},{26,-6},
           {30,-6}},                  color={0,0,127}));
   connect(divIyIu.y, k) annotation (Line(points={{54,0},{120,0}}, color={0,0,127}));
-  connect(gaitOnyHig.u, tOn) annotation (Line(points={{-82,-20},{-90,-20},{-90,0},
+  connect(gaiOnyHig.u, tOn) annotation (Line(points={{-82,-20},{-90,-20},{-90,0},
           {-120,0}}, color={0,0,127}));
-  connect(gaitOnyHig.y, Iu.u1) annotation (Line(points={{-58,-20},{-50,-20},{-50,
+  connect(gaiOnyHig.y, Iu.u1) annotation (Line(points={{-58,-20},{-50,-20},{-50,
           -34},{-42,-34}}, color={0,0,127}));
-  connect(gaitOffyLow.u, tOff)
+  connect(gaiOffyLow.u, tOff)
     annotation (Line(points={{-82,-80},{-120,-80}}, color={0,0,127}));
-  connect(gaitOffyLow.y, Iu.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,
+  connect(gaiOffyLow.y, Iu.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,
           -46},{-42,-46}}, color={0,0,127}));
   annotation (
-        defaultComponentName = "gain",
+        defaultComponentName = "gai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -114,6 +112,5 @@ I<sub>u</sub> = t<sub>on</sub> (y<sub>hig</sub> - y<sub>ref</sub>)+ t<sub>off</s
 <p>Josefin Berner (2017).
 \"Automatic Controller Tuning using Relay-based Model Identification\".
 Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
-</html>"),
-    __Dymola_Commands(file="../../123.mos" "123"));
+</html>"));
 end Gain;

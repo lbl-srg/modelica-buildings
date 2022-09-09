@@ -37,7 +37,7 @@ block TimeConstantDelay
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(k=yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant relayDeaBan(k=deaBan)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant relDeaBan(k=deaBan)
     "Dead band of the relay controller"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
@@ -78,8 +78,8 @@ equation
   connect(ratioLT, exp.u)
     annotation (Line(points={{-120,-60},{-90,-60},{-90,-50},{-82,-50}},
                                                     color={0,0,127}));
-  connect(relayDeaBan.y, div1.u1) annotation (Line(points={{22,40},{28,40},{28,2},
-          {-4,2},{-4,-14},{-2,-14}},   color={0,0,127}));
+  connect(relDeaBan.y, div1.u1) annotation (Line(points={{22,40},{28,40},{28,2},
+          {-4,2},{-4,-14},{-2,-14}}, color={0,0,127}));
   connect(sub2.u1, div1.y) annotation (Line(points={{28,-34},{26,-34},{26,-20},{
           22,-20}}, color={0,0,127}));
   connect(sub2.u2, yLowSig.y) annotation (Line(points={{28,-46},{-12,-46},{-12,40},

@@ -21,38 +21,37 @@ block PID "Identifies the parameters of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td
     "Connector for time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain gain
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain gai
     "Calculate the control gain"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime
-    integralTime "Calculate the integral time"
+    intTim "Calculate the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime
-    derivativeTime "Calculate the derivative time"
+    derTim "Calculate the derivative time"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 equation
-  connect(derivativeTime.Td, Td)
-    annotation (Line(points={{12,-60},{60,-60},{60,-70},{120,-70}},
-                                                  color={0,0,127}));
-  connect(integralTime.Ti, Ti)
+  connect(derTim.Td, Td) annotation (Line(points={{12,-60},{60,-60},{60,-70},{
+          120,-70}}, color={0,0,127}));
+  connect(intTim.Ti, Ti)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
-  connect(gain.k, k) annotation (Line(points={{12,50},{94,50},{94,70},{120,70}},
+  connect(gai.k, k) annotation (Line(points={{12,50},{94,50},{94,70},{120,70}},
         color={0,0,127}));
-  connect(integralTime.T, gain.T) annotation (Line(points={{-12,6},{-40,6},{-40,
-          50},{-12,50}}, color={0,0,127}));
-  connect(derivativeTime.T, gain.T) annotation (Line(points={{-12,-54},{-40,-54},
-          {-40,50},{-12,50}}, color={0,0,127}));
-  connect(integralTime.L, gain.L) annotation (Line(points={{-12,-6},{-26,-6},{
-          -26,44},{-12,44}}, color={0,0,127}));
-  connect(derivativeTime.L, gain.L) annotation (Line(points={{-12,-66},{-26,-66},
-          {-26,44},{-12,44}}, color={0,0,127}));
-  connect(kp, gain.kp) annotation (Line(points={{-120,60},{-20,60},{-20,56},{
-          -12,56}}, color={0,0,127}));
-  connect(T, gain.T) annotation (Line(points={{-120,0},{-80,0},{-80,6},{-40,6},
-          {-40,50},{-12,50}}, color={0,0,127}));
-  connect(L, gain.L) annotation (Line(points={{-120,-60},{-26,-60},{-26,44},{
-          -12,44}}, color={0,0,127}));
+  connect(intTim.T, gai.T) annotation (Line(points={{-12,6},{-40,6},{-40,50},{-12,
+          50}}, color={0,0,127}));
+  connect(derTim.T, gai.T) annotation (Line(points={{-12,-54},{-40,-54},{-40,50},
+          {-12,50}}, color={0,0,127}));
+  connect(intTim.L, gai.L) annotation (Line(points={{-12,-6},{-26,-6},{-26,44},
+          {-12,44}}, color={0,0,127}));
+  connect(derTim.L, gai.L) annotation (Line(points={{-12,-66},{-26,-66},{-26,44},
+          {-12,44}}, color={0,0,127}));
+  connect(kp, gai.kp) annotation (Line(points={{-120,60},{-20,60},{-20,56},{-12,
+          56}}, color={0,0,127}));
+  connect(T, gai.T) annotation (Line(points={{-120,0},{-80,0},{-80,6},{-40,6},{
+          -40,50},{-12,50}}, color={0,0,127}));
+  connect(L, gai.L) annotation (Line(points={{-120,-60},{-26,-60},{-26,44},{-12,
+          44}}, color={0,0,127}));
   annotation (defaultComponentName = "PID",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

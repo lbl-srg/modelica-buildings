@@ -45,7 +45,7 @@ equation
         color={0,0,127}));
   connect(div.u2, add.y) annotation (Line(points={{18,-6},{12,-6},{12,-50},{-18,
           -50}}, color={0,0,127}));
-  annotation (defaultComponentName = "PIDDerivativeTime",
+  annotation (defaultComponentName = "PIDDerTim",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

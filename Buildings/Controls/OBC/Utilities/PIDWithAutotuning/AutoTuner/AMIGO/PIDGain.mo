@@ -52,7 +52,7 @@ equation
                color={0,0,127}));
   connect(mul.u2, add.y) annotation (Line(points={{58,-6},{48,-6},{48,-30},{42,
           -30}}, color={0,0,127}));
-  annotation (defaultComponentName = "PIDGain",
+  annotation (defaultComponentName = "PIDGai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
