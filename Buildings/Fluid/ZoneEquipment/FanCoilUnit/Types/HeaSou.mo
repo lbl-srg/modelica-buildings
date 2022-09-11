@@ -1,7 +1,8 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types;
-type HeatingCoil = enumeration(
-    electric "Electric resistance heating coil",
-    heatingHotWater "Hot-water heating coil")
+type HeaSou = enumeration(
+    ele
+       "Electric resistance heating coil",
+    hotWat "Hot-water heating coil")
     "Enumeration for the heating coil types"
     annotation (Documentation(info="<html>
 <p>

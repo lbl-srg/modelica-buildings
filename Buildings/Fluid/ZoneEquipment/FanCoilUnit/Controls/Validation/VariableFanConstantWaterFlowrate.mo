@@ -16,32 +16,28 @@ model VariableFanConstantWaterFlowrate
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=273.15+25)
-    "Zone cooling setpoint signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(final k=
+        273.15 + 25) "Cooling setpoint signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=273.15+23)
-    "Zone heating setpoint signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(final k=
+        273.15 + 23) "Heating setpoint signal"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final height=6,
     final duration=60,
-    final offset=273.15 + 21)
-    "Input signal for measured zone temperature"
+    final offset=273.15 + 21) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
-  connect(con.y, conVarFanConWat.TCooSet)
-    annotation (Line(points={{-18,0},{-6,0},{-6,-2},{8,-2}},
-                                             color={0,0,127}));
-  connect(con1.y, conVarFanConWat.THeaSet) annotation (Line(points={{-18,-40},{0,
-          -40},{0,-6},{8,-6}},   color={0,0,127}));
+  connect(cooSetPoi.y, conVarFanConWat.TCooSet)
+    annotation (Line(points={{-18,0},{-6,0},{-6,-2},{8,-2}}, color={0,0,127}));
+  connect(heaSetPoi.y, conVarFanConWat.THeaSet) annotation (Line(points={{-18,
+          -40},{0,-40},{0,-6},{8,-6}}, color={0,0,127}));
   connect(conVarFanConWat.yFan, conVarFanConWat.uFan) annotation (Line(points={{
           32,-6},{40,-6},{40,30},{4,30},{4,6},{8,6}}, color={255,0,255}));
-  connect(ram.y, conVarFanConWat.TZon)
+  connect(TZon.y, conVarFanConWat.TZon)
     annotation (Line(points={{-18,40},{0,40},{0,2},{8,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
