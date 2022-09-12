@@ -3,10 +3,10 @@ block PlantRequests
   "Output plant requests for fan coil unit"
 
   parameter Boolean have_hotWatCoi = true
-    "True: the fan coil unit has hot water heating coil";
+    "Does the fan coil unit have a hot-water heating coil? True: Yes, False: No";
 
   parameter Boolean have_chiWatCoi = true
-    "True: the fan coil unit has chilled water cooling coil";
+    "Does the fan coil unit have a chilled-water cooling coil? True: Yes, False: No";
 
   parameter Real cooSpeMax(
     final unit="1",

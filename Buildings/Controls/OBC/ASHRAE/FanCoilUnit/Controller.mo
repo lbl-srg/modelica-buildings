@@ -3,13 +3,13 @@ block Controller
   "Fan coil unit controller that comprises subsequences for controlling fan speed and supply air temperature"
 
   parameter Boolean have_cooCoi
-    "Does the fan coil unit have a cooling coil?";
+    "Does the fan coil unit have a cooling coil? True: Yes, False: No";
 
   parameter Boolean have_hotWatCoi
-    "Does the fan coil unit have a hot-water heating coil?";
+    "Does the fan coil unit have a hot-water heating coil? True: Yes, False: No";
 
   parameter Boolean have_eleHeaCoi
-    "Does the fan coil unit have an electric heating coil?";
+    "Does the fan coil unit have an electric heating coil? True: Yes, False: No";
 
   parameter Boolean have_winSen
     "Check if the zone has window status sensor";
@@ -57,7 +57,7 @@ block Controller
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
+    "Type of cooling loop signal controller"
     annotation (Dialog(tab="PID parameters", group="Cooling loop control"));
 
   parameter Real kCoo(final unit="1/K") = 0.1
@@ -82,7 +82,7 @@ block Controller
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
+    "Type of heating loop signal controller"
     annotation(Dialog(tab="PID parameters", group="Heating loop control"));
 
   parameter Real kHea(final unit="1/K")=0.1
@@ -107,7 +107,7 @@ block Controller
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
+    "Type of cooling coil controller"
     annotation(Dialog(tab="PID parameters", group="Cooling coil control"));
 
   parameter Real kCooCoi(final unit="1/K")=0.1
@@ -132,7 +132,7 @@ block Controller
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
+    "Type of heating coil controller"
     annotation(Dialog(tab="PID parameters", group="Heating coil control"));
 
   parameter Real kHeaCoi(
@@ -160,16 +160,14 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")=0.5
-    "Cooling loop signal limit at which supply air temperature is at minimum and
-    fan speed starts to be modified"
+    "Cooling loop signal limit at which supply air temperature is at minimum and fan speed starts to be modified"
     annotation (Dialog(tab="Supply air setpoints"));
 
   parameter Real heaPerMin(
     final min=0,
     final max=1,
     final unit="1")=0.5
-    "Heating loop signal limit at which supply air temperature is at maximum and
-    fan speed starts to be modified"
+    "Heating loop signal limit at which supply air temperature is at maximum and fan speed starts to be modified"
     annotation (Dialog(tab="Supply air setpoints"));
 
   parameter Real TSupSetMax(

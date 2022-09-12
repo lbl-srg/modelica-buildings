@@ -3,10 +3,10 @@ block FanSpeed
   "Fan speed setpoint subsequence"
 
   parameter Boolean have_cooCoi
-    "Does the fan coil unit have a cooling coil?";
+    "Does the fan coil unit have a cooling coil? True: Yes, False: No";
 
   parameter Boolean have_heaCoi
-    "Does the fan coil unit have a heating coil?";
+    "Does the fan coil unit have a heating coil? True: Yes, False: No";
 
   parameter Real deaSpe(
     final unit="1",

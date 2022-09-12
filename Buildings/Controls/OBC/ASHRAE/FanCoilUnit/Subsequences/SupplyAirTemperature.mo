@@ -3,10 +3,10 @@ block SupplyAirTemperature
   "Subsequence for calculating supply air temperature setpoint"
 
   parameter Boolean have_cooCoi
-    "Does the fan coil unit have a cooling coil?";
+    "Does the fan coil unit have a cooling coil? True: Yes, False: No";
 
   parameter Boolean have_heaCoi
-    "Does the fan coil unit have a heating coil?";
+    "Does the fan coil unit have a heating coil? True: Yes, False: No";
 
   parameter Real heaPerMin(
     final unit="1",
@@ -65,7 +65,7 @@ block SupplyAirTemperature
       enable = have_cooCoi));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Controller type"
+    "Type of cooling coil controller"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil"));
 
   parameter Real kCooCoi(
@@ -93,7 +93,7 @@ block SupplyAirTemperature
       controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Controller type"
+    "Type of heating coil controller"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil"));
 
   parameter Real kHeaCoi(
