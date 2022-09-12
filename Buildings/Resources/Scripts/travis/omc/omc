@@ -83,7 +83,7 @@ done
 #LIB_VERSION=`grep -Po ^version=\".+\" Buildings/package.mo | \
 #  sed -s 's/version=\"//g' | \
 #  sed -s 's/\",//g'`
-LIB_VERSION=9.0.1
+LIB_VERSION=9.1.0
 
 # --user=${UID} \
 
@@ -97,6 +97,7 @@ docker run \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ln -s /mnt/modelica_lib/Buildings /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} && \
+  ls -l /home/developer/.openmodelica/libraries >> ls_output.log && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?
