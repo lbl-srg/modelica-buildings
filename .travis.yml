@@ -134,8 +134,8 @@ before_install:
 # the html output may have small formatting differences which causes
 # the test to fail
 install:
-  - git lfs pull
-  - pip3 install --upgrade pip wheel
+##  - git lfs pull
+##  - pip3 install --upgrade pip wheel
 ##  - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.21.4 scipy==1.7.3 matplotlib==3.5.1
 ##  - pip3 install git+https://github.com/lbl-srg/${BUILDINGSPY_VERSION}
 ##  - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
@@ -149,7 +149,7 @@ install:
 
 # Execute tests
 script:
-  - echo "loadModel(Modelica, {\"4.0.0\"});\nloadModel(Buildings);\nsimulate(Buildings.Controls.Continuous.Examples.LimPID);\ngetErrorString();" > test.mos; && omc test.mos
+  - echo "loadModel(Modelica, {\"4.0.0\"});\nloadModel(Buildings);\nsimulate(Buildings.Controls.Continuous.Examples.LimPID);\ngetErrorString();\n" > test.mos && omc test.mos
 ##  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
 
 after_failure:
