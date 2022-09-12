@@ -92,18 +92,18 @@ echo "LIB VERSION is ---${LIB_VERSION}---"
 
 
 #  -v ${sha_dir}:/mnt/shared \
+#  ${MOD_MOUNT} \
 docker run \
   --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  ${MOD_MOUNT} \
   -v ${sha_dir}/Buildings:/home/developer/.openmodelica/libraries/someTestString:z \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
-  file /home/developer/.openmodelica/libraries/someTestString && \
-  ls -l /home/developer/.openmodelica/libraries/someTestString && \
-  cd \"/mnt/shared/${bas_nam}\" &&
-  omc ${arg_lis}"
+   ls -l /home/developer/.openmodelica/libraries/someTestString && \
+   pwd"
+#  cd \"/mnt/shared/${bas_nam}\" &&
+#  omc ${arg_lis}"
 exit $?
