@@ -88,6 +88,9 @@ LIB_VERSION=`\
 
 echo "LIB VERSION is ---${LIB_VERSION}---"
 
+echo "Content of Buildings: "
+ls /home/travis/build/lbl-srg/modelica-buildings/Buildings
+echo "-----------------"
 #Buildings\ ${LIB_VERSION}
 
 
@@ -98,7 +101,7 @@ docker run \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  -v ${sha_dir}/Buildings:/home/developer/.openmodelica/libraries/someTestString:z \
+  -v /home/travis/build/lbl-srg/modelica-buildings/Buildings:/home/developer/.openmodelica/libraries/someTestString:z \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
