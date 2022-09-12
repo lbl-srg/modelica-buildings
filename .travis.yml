@@ -149,7 +149,7 @@ install:
 
 # Execute tests
 script:
-  - echo "loadModel(Modelica, {\"4.0.0\"}); loadModel(Buildings); getErrorString(); simulate(Buildings.Controls.Continuous.Examples.LimPID); getErrorString();" > test.mos && omc test.mos
+  - echo "loadModel(Modelica, {\"4.0.0\"}); loadModel(BuildingsAAAFixme); getErrorString(); simulate(Buildings.Controls.Continuous.Examples.LimPID); getErrorString();" > test.mos && omc test.mos
 ##  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
 
 after_failure:
