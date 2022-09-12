@@ -88,6 +88,8 @@ LIB_VERSION=`\
 
 echo "LIB VERSION is ---${LIB_VERSION}---"
 
+#Buildings\ ${LIB_VERSION}
+
 docker run \
   --user=developer \
   -i \
@@ -95,11 +97,11 @@ docker run \
   --detach=false \
   ${MOD_MOUNT} \
   -v ${sha_dir}:/mnt/shared \
-  -v ${sha_dir}/Buildings:/home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} \
+  -v ${sha_dir}/Buildings:/home/developer/.openmodelica/libraries/someTestString \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
-  ls -l /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION}/ && \
+  ls -l /home/developer/.openmodelica/libraries/someTestString && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?
