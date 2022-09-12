@@ -80,6 +80,10 @@ do
     shift
 done
 
+LIB_VERSION=`grep -Po ^version=\".+\" Buildings/package.mo | \
+  sed -s 's/version=\"//g' | \
+  sed -s 's/\",//g'`
+
 # --user=${UID} \
 
 docker run \
@@ -91,7 +95,7 @@ docker run \
   -v ${sha_dir}:/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
-  "export OPENMODELICALIBRARY=${DOCKER_MODELICAPATH}:/usr/lib/omlibrary && \
+  "ln -s /mnt/modelica_lib/Buildings /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?
