@@ -50,9 +50,15 @@ model IdealChillerBranch
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,30})));
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
+    f=5/(2*Modelica.Constants.pi*60),
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-20,-70})));
 equation
-  connect(mPumSet_flow, mFloSou.m_flow_in)
-    annotation (Line(points={{-20,-110},{-20,-36},{-8,-36}}, color={0,0,127}));
   connect(port_a, mFloSou.port_a) annotation (Line(points={{100,-60},{-5.55112e-16,
           -60},{-5.55112e-16,-40}}, color={0,127,255}));
   connect(mFloSou.port_b, temSou.port_a) annotation (Line(points={{6.10623e-16,-20},
@@ -61,6 +67,10 @@ equation
           60},{100,60}}, color={0,127,255}));
   connect(set_TLvg.y, temSou.T_in) annotation (Line(points={{-39,30},{-20,30},{-20,
           26},{-12,26}}, color={0,0,127}));
+  connect(mPumSet_flow, fil.u)
+    annotation (Line(points={{-20,-110},{-20,-82}}, color={0,0,127}));
+  connect(fil.y, mFloSou.m_flow_in)
+    annotation (Line(points={{-20,-59},{-20,-36},{-8,-36}}, color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
