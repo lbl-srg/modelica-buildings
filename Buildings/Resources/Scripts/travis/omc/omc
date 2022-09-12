@@ -97,7 +97,7 @@ docker run \
   -v ${sha_dir}:/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
-  "ln -s /mnt/modelica_lib/Buildings /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} && \
+  "ln -s /mnt/shared/Buildings /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} && \
   ls -l /home/developer/.openmodelica/libraries/ && \
   ls -l /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION}/ && \
   cd \"/mnt/shared/${bas_nam}\" && \
