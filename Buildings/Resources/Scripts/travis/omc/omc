@@ -91,13 +91,13 @@ echo "LIB VERSION is ---${LIB_VERSION}---"
 #Buildings\ ${LIB_VERSION}
 
 
+#  -v ${sha_dir}:/mnt/shared \
 docker run \
   --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
   ${MOD_MOUNT} \
-#  -v ${sha_dir}:/mnt/shared \
   -v ${sha_dir}/Buildings:/home/developer/.openmodelica/libraries/someTestString \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
