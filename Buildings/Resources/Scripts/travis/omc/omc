@@ -80,9 +80,10 @@ do
     shift
 done
 
-LIB_VERSION=`grep -Po ^version=\".+\" Buildings/package.mo | \
-  sed -s 's/version=\"//g' | \
-  sed -s 's/\",//g'`
+#LIB_VERSION=`grep -Po ^version=\".+\" Buildings/package.mo | \
+#  sed -s 's/version=\"//g' | \
+#  sed -s 's/\",//g'`
+LIB_VERSION=9.0.1
 
 # --user=${UID} \
 
