@@ -88,7 +88,7 @@ LIB_VERSION=9.1.0
 # --user=${UID} \
 
 docker run \
-  --user=${UID} \
+  --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
