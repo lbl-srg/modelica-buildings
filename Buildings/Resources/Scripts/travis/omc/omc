@@ -80,7 +80,11 @@ do
     shift
 done
 
-LIB_VERSION=`grep -Po ^version=\".+\" ${TRAVIS_BUILD_DIR}/Buildings/package.mo | sed -s 's/version=\"//g' | sed -s 's/\",//g'`
+# Get library version number which is needed for OpenModelica to load the library.
+LIB_VERSION=`\
+  grep -Po ^version=\".+\" ${TRAVIS_BUILD_DIR}/Buildings/package.mo | && \
+  sed -s 's/version=\"//g' | && \
+  sed -s 's/\"//g'`
 
 echo "LIB VERSION is ---${LIB_VERSION}---"
 
