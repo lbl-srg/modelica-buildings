@@ -102,6 +102,7 @@ docker run \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
+  file /home/developer/.openmodelica/libraries/someTestString && \
   ls -l /home/developer/.openmodelica/libraries/someTestString && \
   cd \"/mnt/shared/${bas_nam}\" &&
   omc ${arg_lis}"
