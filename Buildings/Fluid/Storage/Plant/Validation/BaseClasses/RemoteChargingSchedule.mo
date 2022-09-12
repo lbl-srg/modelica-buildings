@@ -36,73 +36,96 @@ that allows remote charging.
 <table summary= \"operation modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
   <tr>
-    <th></th>
-    <th>Plant</th>
-    <th>Chiller</th>
-    <th>Tank</th>
-    <th>Flow direction</th>
-    <th>Tank flow rate setpoint</th>
+    <th>Time slot</th>
+    <th>Plant flow</th>
+    <th>Chiller flow</th>
+    <th>Tank flow</th>
+    <th>Plant flow direction</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td>1.</td>
-    <td>unavailable</td>
-    <td>off</td>
-    <td>off</td>
-    <td>N/A</td>
     <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>No flow</td>
   </tr>
   <tr>
     <td>2.</td>
-    <td>unavailable</td>
-    <td>on</td>
-    <td>charging</td>
-    <td>N/A</td>
+    <td>0</td>
+    <td>1</td>
     <td>-1</td>
+    <td>No flow</td>
   </tr>
   <tr>
     <td>3.</td>
-    <td>available</td>
-    <td>on</td>
-    <td>charging</td>
-    <td>normal</td>
+    <td>1</td>
+    <td>2</td>
     <td>-1</td>
+    <td>Normal</td>
   </tr>
   <tr>
     <td>4.</td>
-    <td>available</td>
-    <td>on</td>
-    <td>off</td>
-    <td>normal</td>
+    <td>1</td>
+    <td>1</td>
     <td>0</td>
+    <td>Normal</td>
   </tr>
   <tr>
     <td>5.</td>
-    <td>available</td>
-    <td>on</td>
-    <td>discharging</td>
-    <td>normal</td>
+    <td>2</td>
     <td>1</td>
+    <td>1</td>
+    <td>Normal</td>
   </tr>
   <tr>
     <td>6.</td>
-    <td>available</td>
-    <td>off</td>
-    <td>discharging</td>
-    <td>normal</td>
     <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>Normal</td>
   </tr>
   <tr>
     <td>7.</td>
-    <td>available</td>
-    <td>off</td>
-    <td>charging</td>
-    <td>reverse</td>
     <td>-1</td>
+    <td>0</td>
+    <td>-1</td>
+    <td>Reverse</td>
   </tr>
 </tbody>
 </table>
+<p>
+Notes:
+</p>
+<ul>
+<li>
+Mass balance: Plant flow = Chiller flow + Tank flow.
+</li>
+<li>
+For the overall storage plant,
+<ul>
+<li>
+A positive flow indicates that it is outputting CHW to the network;
+</li>
+<li>
+And a negative flow indicates that its tank is being charged by the network,
+i.e. the storage plant is functioning like a consumer.
+</li>
+</ul>
+</li>
+<li>
+For the storage tank,
+<ul>
+<li>
+A positive flow indicates it is discharging;
+</li>
+<li>
+And a negative flow indicates it is being charged.
+</li>
+</ul>
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
