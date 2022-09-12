@@ -19,7 +19,7 @@ function create_mount_command()
    # Each entry in pat will be a mounted read-only volume
    local mnt_cmd=""
    for ele in ${pat//:/ }; do
-      mnt_cmd="${mnt_cmd} -v ${ele}:/mnt${ele}:ro"
+      mnt_cmd="${mnt_cmd} -v ${ele}:/mnt${ele}:Z"
    done
 
    # On Darwin, the exported temporary folder needs to be /private/var/folders, not /var/folders
@@ -94,7 +94,7 @@ docker run \
   $DOCKER_INTERACTIVE \
   --detach=false \
   ${MOD_MOUNT} \
-  -v ${sha_dir}:/mnt/shared \
+  -v ${sha_dir}:/mnt/shared:Z \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ln -s /mnt/shared/Buildings /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} && \
