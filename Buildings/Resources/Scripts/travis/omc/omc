@@ -106,6 +106,6 @@ docker run \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
    ls -l /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} && \
-  cd \"/mnt/shared/${bas_nam}\" &&
+  cd \"/mnt/shared\" &&
   omc ${arg_lis}"
 exit $?
