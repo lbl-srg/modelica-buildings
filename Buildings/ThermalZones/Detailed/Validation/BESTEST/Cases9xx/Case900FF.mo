@@ -4,9 +4,9 @@ model Case900FF "Case 600FF, but with high thermal mass"
     matExtWal = extWalCase900,
     matFlo =    floorCase900,
     redeclare Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating staRes(
-      minT( Min=-6.4+273.15, Max=-1.6+273.15, Mean=-4.2+273.15),
-      maxT( Min=41.6+273.15, Max=44.8+273.15, Mean=43.1+273.15),
-      meanT(Min=24.5+273.15, Max=25.9+273.15, Mean=25.2+273.15)));
+      minT( Min=0.6+273.15, Max=2.2+273.15, Mean=1.3+273.15),
+      maxT( Min=43.3+273.15, Max=46.0+273.15, Mean=44.6+273.15),
+      meanT(Min=24.5+273.15, Max=25.7+273.15, Mean=25.2+273.15)));
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.ExteriorWallCase900
      extWalCase900 "Exterior wall"

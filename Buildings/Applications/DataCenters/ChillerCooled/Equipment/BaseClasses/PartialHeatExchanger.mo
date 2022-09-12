@@ -6,6 +6,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
     final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics,
     final mSenFac=1,
     redeclare final package Medium=Medium2);
   extends
@@ -74,7 +75,6 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final fraK=fraK_ThrWayVal,
     final dpFixed_nominal={dp2_nominal,0},
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final C_start=C_start,

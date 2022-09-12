@@ -296,7 +296,8 @@ model System7
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTROut(t=273.15
          + 17) "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-160},{-400,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
+  Controls.OBC.CDL.Logical.Or or1
+    "Switch off system if outside is sufficiently warm, or room is sufficiently warm"
     annotation (Placement(transformation(extent={{-380,-152},{-360,-132}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
@@ -450,11 +451,11 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(temRoo.T, lessThreshold.u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-10},{-440,-10},{-440,-200},{-422,-200}},
+      points={{-51,30},{-270,30},{-270,-10},{-440,-10},{-440,-200},{-422,-200}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(lessThreshold1.u, senTOut.T) annotation (Line(
-      points={{-422,-230},{-446,-230},{-446,10},{-298,10},{-298,30}},
+      points={{-422,-230},{-446,-230},{-446,10},{-297,10},{-297,30}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -483,20 +484,20 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(temRoo.T, greThrTRoo.u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-10},{-440,-10},{-440,-120},{-422,-120}},
+      points={{-51,30},{-270,30},{-270,-10},{-440,-10},{-440,-120},{-422,-120}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(senTOut.T, greThrTROut.u) annotation (Line(
-      points={{-298,30},{-298,10},{-446,10},{-446,-150},{-422,-150}},
+      points={{-297,30},{-297,10},{-446,10},{-446,-150},{-422,-150}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(greThrTRoo.y, and1.u1) annotation (Line(
+  connect(greThrTRoo.y, or1.u1) annotation (Line(
       points={{-398,-120},{-392,-120},{-392,-142},{-382,-142}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(greThrTROut.y, and1.u2) annotation (Line(
+  connect(greThrTROut.y, or1.u2) annotation (Line(
       points={{-398,-150},{-382,-150}},
       color={255,0,255},
       smooth=Smooth.None));
@@ -539,7 +540,7 @@ equation
           {-102,-330},{-218,-330},{-218,-201}}, color={255,0,255}));
   connect(lessThreshold2.y, T2.condition) annotation (Line(points={{-398,-280},
           {-398,-280},{-332,-280},{-248,-280},{-248,-202}},color={255,0,255}));
-  connect(T4.condition, and1.y) annotation (Line(points={{-260,-162},{-260,-162},
+  connect(T4.condition, or1.y) annotation (Line(points={{-260,-162},{-260,-162},
           {-260,-170},{-260,-216},{-338,-216},{-338,-142},{-358,-142}}, color={255,
           0,255}));
   connect(T3.condition, greThrBoi.y) annotation (Line(points={{-186,-202},{-186,
@@ -573,7 +574,7 @@ equation
   connect(TSupMin.y,TSetSup. x2) annotation (Line(points={{-238,-90},{-230,-90},
           {-230,-64},{-222,-64}}, color={0,0,127}));
   connect(TSetSup.u, temRoo.T) annotation (Line(points={{-222,-60},{-270,-60},{-270,
-          30},{-50,30}}, color={0,0,127}));
+          30},{-51,30}}, color={0,0,127}));
   connect(conPIDRad.u_s,TSetSup. y) annotation (Line(points={{-182,-10},{-188,-10},
           {-188,-60},{-198,-60}}, color={0,0,127}));
   annotation (Documentation(info="<html>
@@ -662,6 +663,11 @@ response shown below should be seen.
 </html>", revisions="<html>
 <ul>
 <li>
+February 15, 2022, by Michael Wetter:<br/>
+Changed block downstream of <code>greThrTRoo</code> from <code>and</code> to <code>or</code> block.
+This ensures that the system is off when the outdoor air or room air is sufficiently warm.
+</li>
+<li>
 March 6, 2017, by Michael Wetter:<br/>
 Added missing density to computation of air mass flow rate.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\">#673</a>.
@@ -704,5 +710,7 @@ First implementation.
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System7.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=172800));
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-07));
 end System7;

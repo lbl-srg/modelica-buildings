@@ -1,0 +1,5 @@
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
+simulateModel("Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings", stopTime=172800, method="Cvode", tolerance=1e-06, resultFile="TwoIdenticalOneZoneBuildings");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
+createPlot(id=1, position={75, 75, 542, 347}, y={"bui[1].zon.TAir", "bui[2].zon.TAir"}, range={0.0, 200000.0, 10.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});

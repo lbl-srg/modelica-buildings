@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.BoundaryConditions.GroundTemperature.Examples.UndisturbedSoilTemperature", tolerance=1e-6, stopTime=31536000, method="Cvode", resultFile="UndisturbedSoilTemperature");
+simulateModel("Buildings.BoundaryConditions.GroundTemperature.Examples.UndisturbedSoilTemperature", tolerance=1e-6, stopTime=31536000, method="Cvode", resultFile="UndisturbedSoilTemperature");
 createPlot(id=1, 
   position={16, 11, 592, 372}, 
   y={"TSoi[1].T", "TSoi[2].T", "TSoi[3].T", "TSoi[4].T"},

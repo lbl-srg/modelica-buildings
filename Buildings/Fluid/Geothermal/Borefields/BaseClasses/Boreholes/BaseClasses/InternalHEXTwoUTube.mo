@@ -19,7 +19,7 @@ model InternalHEXTwoUTube
     final tau4=VTubSeg*rho4_nominal/m4_flow_nominal,
     vol1(
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
+      final massDynamics=energyDynamics,
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
@@ -27,14 +27,14 @@ model InternalHEXTwoUTube
       final mSenFac=mSenFac),
     vol2(
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
+      final massDynamics=energyDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
       final V=VTubSeg,
       final mSenFac=mSenFac),
     vol3(
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
+      final massDynamics=energyDynamics,
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal3,
       final m_flow_small=m3_flow_small,
@@ -42,7 +42,7 @@ model InternalHEXTwoUTube
       final mSenFac=mSenFac),
     vol4(
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
+      final massDynamics=energyDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m4_flow_small,
       final V=VTubSeg,
@@ -153,8 +153,7 @@ initial equation
       kMed=kMed,
       muMed=muMed,
       cpMed=cpMed,
-      m_flow_nominal=m1_flow_nominal,
-      printDebug=false);
+      m_flow_nominal=m1_flow_nominal);
 
 equation
   assert(borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
@@ -253,6 +252,20 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
+February 28, 2022, by Massimo Cimmino:<br/>
+Removed <code>printDebug</code> parameter from call to
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1582\">IBPSA, #1582</a>.
+</li>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
 Updated documentation following major changes to the Buildings.Fluid.HeatExchangers.Ground package.

@@ -20,7 +20,7 @@ model DryCoilCounterFlow
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Modelica.Units.SI.Time tau1=10
     "Time constant at nominal flow for medium 1" annotation (Dialog(group=
@@ -45,8 +45,8 @@ model DryCoilCounterFlow
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
 
-  parameter Modelica.Units.SI.ThermalConductance GDif=1E-2*UA_nominal/(nEle - 1)
-    "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates"
+  parameter Modelica.Units.SI.ThermalConductance GDif=1E-2*UA_nominal/max(1, (nEle - 1))
+    "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates)"
     annotation (Dialog(tab="Experimental"));
   Modelica.Units.SI.HeatFlowRate Q1_flow=sum(ele[i].Q1_flow for i in 1:nEle)
     "Heat transferred from solid into medium 1";
