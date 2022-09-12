@@ -4,37 +4,37 @@ block FanSpeed
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe(
     final have_cooCoi=true,
-    final have_heatingCoil=true)
+    final have_heaCoi=true)
     "Instance demonstrating variation of heating loop signal"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe2(
     final have_cooCoi=true,
-    final have_heatingCoil=true)
+    final have_heaCoi=true)
     "Instance demonstrating variation of operating mode"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe1(
     final have_cooCoi=true,
-    final have_heatingCoil=true)
+    final have_heaCoi=true)
     "Instance demonstrating variation of cooling loop signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe3(
     final have_cooCoi=true,
-    final have_heatingCoil=false)
+    final have_heaCoi=false)
     "Instance demonstrating variation of cooling loop signal with no heating coil"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe4(
     final have_cooCoi=false,
-    final have_heatingCoil=true)
+    final have_heaCoi=true)
     "Instance demonstrating variation of heating loop signal with no cooling coil"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe5(
     final have_cooCoi=false,
-    final have_heatingCoil=false)
+    final have_heaCoi=false)
     "Instance demonstrating variation of operating mode with no heating and cooling coils"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
 

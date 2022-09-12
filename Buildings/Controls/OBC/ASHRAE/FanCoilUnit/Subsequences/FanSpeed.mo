@@ -5,7 +5,7 @@ block FanSpeed
   parameter Boolean have_cooCoi
     "Does the fan coil unit have a cooling coil?";
 
-  parameter Boolean have_heatingCoil
+  parameter Boolean have_heaCoi
     "Does the fan coil unit have a heating coil?";
 
   parameter Real deaSpe(
@@ -19,28 +19,28 @@ block FanSpeed
     displayUnit="1") = 0.1
     "Minimum heating mode fan speed"
     annotation(Dialog(group="Heating loop parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real heaPerMin(
     final unit="1",
     displayUnit="1") = 0.5
     "Minimum heating loop signal at which fan speed is modified"
     annotation(Dialog(group="Heating loop parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real heaSpeMax(
     final unit="1",
     displayUnit="1") = 0.6
     "Maximum heating mode fan speed"
     annotation(Dialog(group="Heating loop parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real heaPerMax(
     final unit="1",
     displayUnit="1") = 1
     "Maximum heating loop signal at which fan speed is modified"
     annotation(Dialog(group="Heating loop parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real cooSpeMin(
     final unit="1",
@@ -75,7 +75,7 @@ block FanSpeed
     displayUnit="1") = 0.05
     "Heating loop signal limit at which deadband mode transitions to heating mode"
     annotation(Dialog(group="Transition parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real cooDea(
     final unit="1",
@@ -102,7 +102,7 @@ block FanSpeed
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
     final unit="1",
-    displayUnit="1") if have_heatingCoil
+    displayUnit="1") if have_heaCoi
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -206,7 +206,7 @@ protected
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZerHeaMod(
-    final k=0) if not have_heatingCoil
+    final k=0) if not have_heaCoi
     "Constant zero signal for heating mode"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 

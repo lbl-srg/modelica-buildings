@@ -5,7 +5,7 @@ block SupplyAirTemperature
   parameter Boolean have_cooCoi
     "Does the fan coil unit have a cooling coil?";
 
-  parameter Boolean have_heatingCoil
+  parameter Boolean have_heaCoi
     "Does the fan coil unit have a heating coil?";
 
   parameter Real heaPerMin(
@@ -13,21 +13,21 @@ block SupplyAirTemperature
     displayUnit="1") = heaDea
     "Minimum heating loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Heating loop parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real THeaSupAirMax(
     final unit="K",
     displayUnit="degC") = 273.15 + 32
     "Supply air temperature setpoint at maximum heating loop signal"
     annotation(Dialog(group="Heating loop parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real heaPerMax(
     final unit="1",
     displayUnit="1") = 0.5
     "Maximum heating loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Heating loop parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real cooPerMin(
     final unit="1",
@@ -55,7 +55,7 @@ block SupplyAirTemperature
     displayUnit="1") = 0.05
     "Heating loop signal limit at which deadband mode transitions to heating mode"
     annotation(Dialog(group="Transition parameters",
-      enable = have_heatingCoil));
+      enable = have_heaCoi));
 
   parameter Real cooDea(
     final unit="1",
@@ -133,7 +133,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
     final unit="1",
-    displayUnit="1") if have_heatingCoil
+    displayUnit="1") if have_heaCoi
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -156,7 +156,7 @@ block SupplyAirTemperature
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetHea(
     final unit="K",
     displayUnit="K",
-    quantity="ThermodynamicTemperature") if have_heatingCoil
+    quantity="ThermodynamicTemperature") if have_heaCoi
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
@@ -171,7 +171,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final unit="1",
-    displayUnit="1") if have_heatingCoil
+    displayUnit="1") if have_heaCoi
     "Heating coil signal"
     annotation (Placement(transformation(extent={{120,40},{160,80}}),
       iconTransformation(extent={{100,40},{140,80}})));
@@ -254,7 +254,7 @@ protected
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZerHeaMod(
-    final k=0) if not have_heatingCoil
+    final k=0) if not have_heaCoi
     "Constant zero signal for heating mode"
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
 

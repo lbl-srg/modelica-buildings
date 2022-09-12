@@ -4,25 +4,25 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir(
     final have_cooCoi=true,
-    final have_heatingCoil=true)
+    final have_heaCoi=true)
     "Instance demonstrating heating signal operation"
     annotation (Placement(transformation(extent={{-50,60},{-30,84}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir3(
     final have_cooCoi=true,
-    final have_heatingCoil=false)
+    final have_heaCoi=false)
     "Instance demonstrating cooling signal operation when heating coil is absent"
     annotation (Placement(transformation(extent={{60,-80},{80,-56}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir2(
     final have_cooCoi=false,
-    final have_heatingCoil=true)
+    final have_heaCoi=true)
     "Instance demonstrating heating signal operation when cooling coil is absent"
     annotation (Placement(transformation(extent={{-50,-100},{-30,-76}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir1(
     final have_cooCoi=true,
-    final have_heatingCoil=true)
+    final have_heaCoi=true)
     "Instance demonstrating cooling signal operation"
     annotation (Placement(transformation(extent={{80,60},{100,84}})));
 

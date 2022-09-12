@@ -136,7 +136,7 @@ block PlantRequests
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Cooling supply air temperature setpoint"
+    "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 

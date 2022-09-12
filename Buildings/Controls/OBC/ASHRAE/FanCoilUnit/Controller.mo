@@ -5,8 +5,11 @@ block Controller
   parameter Boolean have_cooCoi
     "Does the fan coil unit have a cooling coil?";
 
-  parameter Boolean have_heatingCoil
-    "Does the fan coil unit have a heating coil?";
+  parameter Boolean have_hotWatCoi
+    "Does the fan coil unit have a hot-water heating coil?";
+
+  parameter Boolean have_eleHeaCoi
+    "Does the fan coil unit have an electric heating coil?";
 
   parameter Boolean have_winSen
     "Check if the zone has window status sensor";
@@ -91,7 +94,7 @@ block Controller
     final quantity="Time")=900
     "Time constant of integrator block for heating control loop signal"
     annotation(Dialog(tab="PID parameters", group="Heating loop control",
-    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real TdHea(
@@ -381,47 +384,47 @@ block Controller
     final unit = "1",
     displayUnit="1")=0.1
     "Valve position limit below which zero hot water plant requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim0(
     final unit = "1",
     displayUnit="1")=0.85
     "Valve position limit below which zero hot water reset requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
 
   parameter Real hotWatPlaReqLim1(
     final unit = "1",
     displayUnit="1")=0.95
     "Valve position limit above which one hot water plant request is sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim2(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference")=8
     "Temperature difference limit between setpoint and supply air temperature above which two hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqTimLim2(
     final unit="s",
     displayUnit="s",
     final quantity="Time")=300
     "Time period for which hotWatResReqLim2 has to be exceeded before two hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim3(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference")=17
     "Temperature difference limit between setpoint and supply air temperature above which three hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqTimLim3(
     final unit="s",
     displayUnit="s",
     final quantity="Time")=300
     "Time period for which hotWatResReqLim3 has to be exceeded before three hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_heatingCoil));
+    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
 
   parameter Real uLow(
     final unit="1",
@@ -553,7 +556,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final unit="1",
-    displayUnit="1") if have_heatingCoil
+    displayUnit="1") if have_hotWatCoi
     "Measured heating coil control action"
     annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
         iconTransformation(extent={{-240,-260},{-200,-220}})));
@@ -580,12 +583,12 @@ block Controller
     annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
         iconTransformation(extent={{200,-140},{240,-100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_heatingCoil
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_hotWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{200,-200},{240,-160}}),
         iconTransformation(extent={{200,-180},{240,-140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_heatingCoil
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
     "Hot water plant requests"
     annotation (Placement(transformation(extent={{200,-240},{240,-200}}),
         iconTransformation(extent={{200,-220},{240,-180}})));
@@ -633,7 +636,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_heatingCoil
+    final unit="1") if have_heaCoi
     "Heating coil control signal"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
       iconTransformation(extent={{200,20},{240,60}})));
@@ -687,13 +690,11 @@ block Controller
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0) if not have_cooCoi
-    "Constant zero signal source if cooling coil is absent"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  final parameter Boolean have_heaCoi = have_hotWatCoi or have_eleHeaCoi
+    "Does the fan coil unit have a heating coil?";
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.PlantRequests fcuPlaReq(
-    final have_hotWatCoi=have_heatingCoil,
+    final have_hotWatCoi=have_hotWatCoi,
     final have_chiWatCoi=have_cooCoi,
     final cooSpeMax=cooSpeMax,
     final heaSpeMax=heaSpeMax,
@@ -713,7 +714,7 @@ protected
     final hotWatResReqTimLim3=hotWatResReqTimLim3,
     final Thys=Thys,
     final posHys=posHys,
-    final dFanSpe=dFanSpe)
+    final dFanSpe=dFanSpe) if have_cooCoi or have_hotWatCoi
     "Block for generating chilled water requests and hot water requests for their respective plants"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
@@ -742,7 +743,7 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir(
     final have_cooCoi=have_cooCoi,
-    final have_heatingCoil=have_heatingCoil,
+    final have_heaCoi=have_heaCoi,
     final THeaSupAirMax=TSupSetMax,
     final TCooSupAirMin=TSupSetMin,
     final heaPerMax=heaPerMin,
@@ -763,7 +764,7 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe(
     final have_cooCoi=have_cooCoi,
-    final have_heatingCoil=have_heatingCoil,
+    final have_heaCoi=have_heaCoi,
     final deaSpe=deaSpe,
     final heaSpeMin=heaSpeMin,
     final heaPerMin=heaPerMin,
@@ -779,12 +780,9 @@ protected
     "Fan speed controller"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=0) if not have_heatingCoil
-    "Constant zero signal source if heating coil is absent"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-
 equation
+  assert((not (have_hotWatCoi and have_eleHeaCoi)), "One of have_hotWatCoi and have_eleHeaCoi has to be set to false");
+
   connect(unOccMod.y, isUnOcc.u2) annotation (Line(points={{-138,-170},{-120,-170},
           {-120,-178},{-102,-178}}, color={255,127,0}));
 
@@ -914,9 +912,6 @@ equation
   connect(uHeaCoi, fcuPlaReq.uHeaCoi_actual) annotation (Line(points={{-220,-200},
           {90,-200},{90,-98},{98,-98}},           color={0,0,127}));
 
-  connect(con.y, fcuPlaReq.uCooCoi_actual) annotation (Line(points={{62,-50},{80,
-          -50},{80,-93.8},{98,-93.8}},       color={0,0,127}));
-
   connect(fcuPlaReq.yChiWatResReq, yChiWatResReq) annotation (Line(points={{122,-84},
           {160,-84},{160,-100},{220,-100}},      color={255,127,0}));
 
@@ -935,9 +930,6 @@ equation
   connect(fanSpe.yFanSpe, fcuPlaReq.uFanSpe) annotation (Line(points={{142,178},
           {150,178},{150,-60},{90,-60},{90,-82},{98,-82}},           color={0,0,
           127}));
-
-  connect(con1.y, fcuPlaReq.uHeaCoi_actual) annotation (Line(points={{62,-120},{
-          90,-120},{90,-98},{98,-98}}, color={0,0,127}));
 
 annotation (defaultComponentName="conFCU",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{200,300}}),

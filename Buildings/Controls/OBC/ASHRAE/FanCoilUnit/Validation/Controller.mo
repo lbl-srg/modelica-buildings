@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Validation;
 model Controller
     "Validation of the top-level controller"
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller conFCU(
+    final have_hotWatCoi=true,
+    final have_eleHeaCoi=false,
     final have_winSen=false,
     final kHea=1,
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -10,7 +12,6 @@ model Controller
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
     final have_cooCoi=true,
-    final have_heatingCoil=true,
     final heaSpeMax=0.6,
     final heaSpeMin=0.2,
     final cooSpeMin=0.2)
@@ -18,6 +19,8 @@ model Controller
     annotation (Placement(transformation(extent={{20,76},{60,136}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller conFCU1(
+    final have_hotWatCoi=true,
+    final have_eleHeaCoi=false,
     final have_winSen=true,
     final kCoo=1,
     final kHea=1,
@@ -27,7 +30,6 @@ model Controller
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
     final have_cooCoi=true,
-    final have_heatingCoil=true,
     final heaSpeMax=0.6,
     final heaSpeMin=0.2,
     final cooSpeMin=0.2)
@@ -35,6 +37,8 @@ model Controller
     annotation (Placement(transformation(extent={{20,0},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller conFCU2(
+    final have_hotWatCoi=true,
+    final have_eleHeaCoi=false,
     final have_winSen=false,
     final kCoo=1,
     final kHea=1,
@@ -44,7 +48,6 @@ model Controller
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
     final have_cooCoi=true,
-    final have_heatingCoil=true,
     final heaSpeMax=0.6,
     final heaSpeMin=0.2,
     final cooSpeMin=0.2)
@@ -52,6 +55,8 @@ model Controller
     annotation (Placement(transformation(extent={{20,-78},{60,-18}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Controller conFCU3(
+    final have_hotWatCoi=true,
+    final have_eleHeaCoi=false,
     final have_winSen=true,
     final kCoo=1,
     final kHea=1,
@@ -61,7 +66,6 @@ model Controller
     final TSupSetMax=297.15,
     final TSupSetMin=285.15,
     final have_cooCoi=true,
-    final have_heatingCoil=true,
     final heaSpeMax=0.6,
     final heaSpeMin=0.2,
     final cooSpeMin=0.2)
