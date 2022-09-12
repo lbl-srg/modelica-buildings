@@ -99,7 +99,7 @@ docker run \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  -v /home/travis/build/lbl-srg/modelica-buildings/Buildings:/home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION}:z \
+  -v /home/travis/build/lbl-srg/modelica-buildings/Buildings:/home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} \
   -v ${sha_dir}:/mnt/shared \
   ${MOD_MOUNT} \
   --rm \
