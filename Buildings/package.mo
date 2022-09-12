@@ -433,6 +433,13 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
   <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.PrimarySystem
+    </td>
+    <td valign=\"top\">Package with models for the chilled water plants control.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2293\">issue 2293</a>
+    </td>
+</tr>
+
   <tr><td valign=\"top\">Buildings.Media.Steam
       </td>
       <td valign=\"top\">Package with medium model for steam heating applications.
