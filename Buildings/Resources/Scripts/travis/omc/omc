@@ -80,9 +80,9 @@ do
     shift
 done
 
-LIB_VERSION=`grep -Po ^version=\".+\" ${TRAVIS_BUILD_DIR}/Buildings/package.mo | \
-  sed -s 's/version=\"//g' | \
-  sed -s 's/\",//g'`
+LIB_VERSION=`grep -Po ^version=\".+\" ${TRAVIS_BUILD_DIR}/Buildings/package.mo | sed -s 's/version=\"//g' | sed -s 's/\",//g'`
+
+echo "LIB VERSION is ---${LIB_VERSION}---"
 
 docker run \
   --user=developer \
