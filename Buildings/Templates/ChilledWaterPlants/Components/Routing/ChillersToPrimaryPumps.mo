@@ -28,6 +28,21 @@ model ChillersToPrimaryPumps
   parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal
     "Primary CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
+  parameter Buildings.Templates.Components.Data.Valve datValChiWatChiBypSer[nChi](
+    each final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+    each final m_flow_nominal=mChiWatPri_flow_nominal,
+    each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
+    "Series chillers CHW bypass valve parameters"
+    annotation (Dialog(enable=
+    typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series));
+  parameter Buildings.Templates.Components.Data.Valve datValChiWatChiBypPar(
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
+    "Parallel chillers CHW bypass valve parameters"
+    annotation (Dialog(enable=
+    typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+     and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -85,25 +100,25 @@ model ChillersToPrimaryPumps
           extent={{-20,180},{20,220}}), iconTransformation(extent={{-20,580},{
             20,620}})));
 
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiBypSer[nChi](
-      redeclare each final package Medium = Medium, final dat=datValChiBypSer)
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypSer[nChi](
+    redeclare each final package Medium = Medium,
+    final dat=datValChiWatChiBypSer)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
     "Series chillers CHW bypass valve" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-140,0})));
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiBypPar(
+        origin={-160,0})));
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypPar(
     redeclare final package Medium = Medium,
-    final dat=datValChiBypPar)
-    if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
-      and typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+    final dat=datValChiWatChiBypPar)
+    if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+     and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     "Parallel chillers CHW bypass valve (only if WSE)"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=270)));
+    annotation (Placement(
+        transformation(extent={{10,10},{-10,-10}}, rotation=270)));
   Buildings.Templates.Components.Routing.MultipleToMultiple rouSupPar(
     redeclare final package Medium = Medium,
-    final nPorts_a=nPorts,
+    final nPorts_a=nChi,
     final nPorts_b=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -113,10 +128,10 @@ model ChillersToPrimaryPumps
     if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     "Hydronic routing  - Supply side - Parallel arrangement"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
-  Buildings.Templates.Components.Routing.PassThroughFluid rouRetSerEco(
-    redeclare final package Medium = Medium)
-    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-    "Hydronic routing - Return side - Parallel or series arrangement with WSE"
+  Buildings.Templates.Components.Routing.PassThroughFluid rouRetEco(redeclare
+      final package Medium = Medium)
+    if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+    "Hydronic routing to WSE retrun - Parallel or series arrangement with WSE"
     annotation (Placement(transformation(extent={{160,-130},{140,-110}})));
   Buildings.Templates.Components.Routing.PassThroughFluid rouRetNoECo(
     redeclare final package Medium = Medium)
@@ -126,14 +141,13 @@ model ChillersToPrimaryPumps
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={180,-70})));
-  Buildings.Templates.Components.Routing.SingleToMultiple rouRetPar(
+  Buildings.Templates.Components.Routing.SingleToMultiple rouRetChiPar(
     redeclare final package Medium = Medium,
-    final nPorts=nPorts,
+    final nPorts=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
-    final tau=tau)
-    if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
-    "Hydronic routing - Return side - Parallel arrangement"
+    final tau=tau) if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    "Hydronic routing to chiller return - Parallel arrangement"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatEcoBef(
     redeclare final package Medium = Medium,
@@ -163,7 +177,7 @@ model ChillersToPrimaryPumps
     "CHW return temperature after WSE"
     annotation (Placement(
         transformation(
-        extent={{70,-10},{90,10}},
+        extent={{70,50},{90,70}},
         rotation=0)));
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiEnt(
     redeclare final package Medium = Medium,
@@ -174,9 +188,9 @@ model ChillersToPrimaryPumps
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={80,-100})));
-  Buildings.Templates.Components.Routing.PassThroughFluid rouRetSer(
-    redeclare final package Medium = Medium) if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
-    "Hydronic routing - Return side - Series arrangement"
+  Buildings.Templates.Components.Routing.PassThroughFluid rouRetChiSer(
+      redeclare final package Medium = Medium) if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
+    "Hydronic routing to chiller return - Series arrangement"
     annotation (Placement(transformation(extent={{10,-82},{-10,-62}})));
 
   Buildings.Templates.Components.Routing.PassThroughFluid rouSupRetSer[nChi - 1](
@@ -186,75 +200,104 @@ model ChillersToPrimaryPumps
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-180,0})));
+        origin={-120,0})));
+  Fluid.FixedResistances.Junction junSupChiSer[nChi](
+    redeclare each final package Medium = Medium,
+    each final tau=tau,
+    each final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,1},
+    each final energyDynamics=energyDynamics,
+    each dp_nominal=fill(0, 3),
+    each final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    each final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    each final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering) if typArrChi ==
+    Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
+    "Fluid junction at chiller supply - Series arrangement"
+    annotation (Placement(transformation(extent={{-170,130},{-150,150}})));
+  Fluid.FixedResistances.Junction junByp(
+    redeclare final package Medium = Medium,
+    final tau=tau,
+    final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,1},
+    final energyDynamics=energyDynamics,
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    "Fluid junction at minimum flow bypass or common leg" annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={140,0})));
 protected
-  parameter Buildings.Templates.Components.Data.Valve datValChiBypSer[nChi](
-    each final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-    each final m_flow_nominal=mChiWatPri_flow_nominal,
-    each dpValve_nominal=5E3)
-    "Series chillers CHW bypass valve parameters";
-  parameter Buildings.Templates.Components.Data.Valve datValChiBypPar(
-    final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-    final m_flow_nominal=mChiWatPri_flow_nominal,
-    dpValve_nominal=5E3)
-    "Parallel chillers CHW bypass valve parameters";
-
+  parameter Boolean have_controlVolume=
+    energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
+    "Boolean flag used to remove conditional components"
+    annotation(Evaluate=true);
 equation
   /* Control point connection - start */
-  connect(bus.valChiBypSer, valChiBypSer.bus);
-  connect(bus.valChiBypPar,valChiBypPar.bus);
+  connect(bus.valChiWatChiByp, valChiWatChiBypSer.bus);
+  connect(bus.valChiWatChiByp, valChiWatChiBypPar.bus);
   connect(bus.TChiWatEcoAft,TChiWatEcoAft.y);
   connect(bus.TChiWatEcoBef,TChiWatEcoBef.y);
   connect(bus.TChiWatChiEnt,TChiWatChiEnt.y);
   /* Control point connection - stop */
-  connect(ports_aSup, rouSupPar.ports_a)
-    annotation (Line(points={{-200,120},{-10,120}}, color={0,127,255}));
   connect(rouSupPar.ports_b, ports_bSup)
     annotation (Line(points={{10,120},{200,120}}, color={0,127,255}));
-  connect(valChiBypPar.port_b, rouSupPar.port_aComLeg)
-    annotation (Line(points={{1.77636e-15,10},{0,10},{0,120}},
-                                                         color={0,127,255}));
-  connect(ports_bRet[1:nChi], valChiBypSer[1:nChi].port_a) annotation (Line(
-        points={{-200,-100},{-200,-80},{-140,-80},{-140,-10}}, color={0,127,255}));
-  connect(valChiBypSer[1:nChi].port_b, ports_aSup[1:nChi]) annotation (Line(
-        points={{-140,10},{-140,120},{-200,120}}, color={0,127,255}));
-  connect(rouRetPar.ports_b[1:nChi], ports_bRet[1:nChi])
-    annotation (Line(points={{-10,-100},{-200,-100}}, color={0,127,255}));
+  connect(valChiWatChiBypPar.port_b, rouSupPar.port_aComLeg) annotation (Line(
+        points={{1.77636e-15,10},{0,10},{0,120}}, color={0,127,255}));
+  connect(ports_bRet[1:nChi], valChiWatChiBypSer[1:nChi].port_a) annotation (
+      Line(points={{-200,-100},{-200,-80},{-160,-80},{-160,-10}}, color={0,127,255}));
   connect(TChiWatEcoBef.port_b, ports_bRet[nChi + 1]) annotation (Line(points={{-150,
           -120},{-200,-120},{-200,-100}},                  color={0,127,255}));
-  connect(ports_aSup[1], rouSupSer.port_a) annotation (Line(points={{-200,120},{
-          -200,140},{-10,140}}, color={0,127,255}));
-  connect(rouSupSer.ports_b, ports_bSup) annotation (Line(points={{10,140},{20,140},
-          {20,120},{200,120}}, color={0,127,255}));
+  connect(rouSupSer.ports_b, ports_bSup) annotation (Line(points={{10,140},{180,
+          140},{180,120},{200,120}},
+                               color={0,127,255}));
   connect(ports_aSup[nChi + 1], TChiWatEcoAft.port_a) annotation (Line(points={{-200,
-          120},{-200,100},{60,100},{60,0},{70,0}},           color={0,127,255}));
-  connect(TChiWatEcoAft.port_b, port_aByp) annotation (Line(points={{90,0},{200,
-          0}},                color={0,127,255}));
-  connect(port_aByp, TChiWatChiEnt.port_a) annotation (Line(points={{200,0},{
-          140,0},{140,-100},{90,-100}},
-                                   color={0,127,255}));
-  connect(port_aRet, rouRetNoECo.port_a) annotation (Line(points={{200,-100},{
-          180,-100},{180,-80}},
-                            color={0,127,255}));
-  connect(rouRetNoECo.port_b, port_aByp) annotation (Line(points={{180,-60},{
-          180,0},{200,0}},       color={0,127,255}));
-  connect(port_aRet, rouRetSerEco.port_a) annotation (Line(points={{200,-100},{
-          180,-100},{180,-120},{160,-120}},
-                                        color={0,127,255}));
-  connect(rouRetSerEco.port_b, TChiWatEcoBef.port_a)
+          120},{-80,120},{-80,60},{70,60}},                  color={0,127,255}));
+  connect(port_aRet, rouRetNoECo.port_a) annotation (Line(points={{200,-100},{180,
+          -100},{180,-80}}, color={0,127,255}));
+  connect(port_aRet, rouRetEco.port_a) annotation (Line(points={{200,-100},{180,
+          -100},{180,-120},{160,-120}}, color={0,127,255}));
+  connect(rouRetEco.port_b, TChiWatEcoBef.port_a)
     annotation (Line(points={{140,-120},{-130,-120}}, color={0,127,255}));
-  connect(TChiWatChiEnt.port_b, rouRetPar.port_a)
+  connect(TChiWatChiEnt.port_b, rouRetChiPar.port_a)
     annotation (Line(points={{70,-100},{10,-100}}, color={0,127,255}));
-  connect(TChiWatChiEnt.port_b, rouRetSer.port_a) annotation (Line(points={{70,-100},
-          {20,-100},{20,-72},{10,-72}}, color={0,127,255}));
-  connect(rouRetSer.port_b, ports_bRet[nChi]) annotation (Line(points={{-10,-72},
-          {-20,-72},{-20,-100},{-200,-100}}, color={0,127,255}));
-  connect(TChiWatChiEnt.port_b, valChiBypPar.port_a) annotation (Line(points={{
-          70,-100},{40,-100},{40,-40},{0,-40},{0,-10}}, color={0,127,255}));
-  connect(ports_aSup[2:nChi], rouSupRetSer.port_a) annotation (Line(points={{-200,
-          120},{-180,120},{-180,10}}, color={0,127,255}));
-  connect(rouSupRetSer.port_b, ports_bRet[1:nChi - 1]) annotation (Line(points=
-          {{-180,-10},{-180,-100},{-200,-100}}, color={0,127,255}));
+  connect(TChiWatChiEnt.port_b, rouRetChiSer.port_a) annotation (Line(points={{
+          70,-100},{20,-100},{20,-72},{10,-72}}, color={0,127,255}));
+  connect(rouRetChiSer.port_b, ports_bRet[nChi]) annotation (Line(points={{-10,
+          -72},{-20,-72},{-20,-100},{-200,-100}}, color={0,127,255}));
+  connect(TChiWatChiEnt.port_b, valChiWatChiBypPar.port_a) annotation (Line(
+        points={{70,-100},{40,-100},{40,-40},{0,-40},{0,-10}}, color={0,127,255}));
+  connect(rouSupRetSer.port_b, ports_bRet[1:nChi - 1])
+    annotation (Line(points={{-120,-10},{-120,-100},{-200,-100}}, color={0,127,255}));
+  connect(ports_aSup[1:nChi], junSupChiSer.port_1) annotation (Line(points={{-200,
+          120},{-180,120},{-180,140},{-170,140}}, color={0,127,255}));
+  connect(valChiWatChiBypSer.port_b, junSupChiSer.port_3)
+    annotation (Line(points={{-160,10},{-160,130}}, color={0,127,255}));
+  connect(junSupChiSer[1].port_2, rouSupSer.port_a)
+    annotation (Line(points={{-150,140},{-10,140}}, color={0,127,255}));
+  connect(junSupChiSer[2:nChi].port_2, rouSupRetSer.port_a) annotation (Line(
+        points={{-150,140},{-120,140},{-120,10}}, color={0,127,255}));
+  connect(junByp.port_2, TChiWatChiEnt.port_a) annotation (Line(points={{140,-10},
+          {140,-100},{90,-100}}, color={0,127,255}));
+  connect(port_aByp, junByp.port_3)
+    annotation (Line(points={{200,0},{150,0}}, color={0,127,255}));
+  connect(TChiWatEcoAft.port_b, junByp.port_1)
+    annotation (Line(points={{90,60},{140,60},{140,10}}, color={0,127,255}));
+  connect(rouRetNoECo.port_b, junByp.port_1) annotation (Line(points={{180,-60},
+          {180,60},{140,60},{140,10}}, color={0,127,255}));
+  connect(rouRetChiPar.ports_b, ports_bRet[1:nChi])
+    annotation (Line(points={{-10,-100},{-200,-100}}, color={0,127,255}));
+  connect(ports_aSup[1:nChi], rouSupPar.ports_a)
+    annotation (Line(points={{-200,120},{-10,120}}, color={0,127,255}));
 annotation (
   defaultComponentName="rou",
   Icon(coordinateSystem(preserveAspectRatio=false,

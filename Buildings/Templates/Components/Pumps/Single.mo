@@ -23,17 +23,17 @@ model Single "Single pump"
         rotation=-90,
         origin={0,30})));
   Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
-    each t=1E-2,
-    each h=0.5E-2)
+    t=1E-2,
+    h=0.5E-2)
     "Evaluate pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-50})));
   Fluid.FixedResistances.CheckValve valChe(
-    redeclare final package Medium=Medium,
-    dpValve_nominal=5E3,
-    final m_flow_nominal=dat.m_flow_nominal) if have_valChe
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=dat.m_flow_nominal,
+    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValChe) if have_valChe
     "Check valve"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Routing.PassThroughFluid pas(

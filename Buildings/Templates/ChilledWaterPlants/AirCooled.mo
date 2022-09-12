@@ -3,7 +3,6 @@ model AirCooled "Air-cooled plants"
   extends
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     final typ=Buildings.Templates.ChilledWaterPlants.Types.Configuration.AirCooled,
-
     final have_eco=eco.have_eco,
     dat(eco(typ=eco.typ, have_valChiWatEcoByp=eco.have_valChiWatEcoByp)));
 
@@ -16,7 +15,7 @@ model AirCooled "Air-cooled plants"
 
 equation
   connect(VSecRet_flow.port_a,eco. port_a2)
-    annotation (Line(points={{60,-180},{-20,-180},{-20,-160},{-24,-160}},
+    annotation (Line(points={{158,-240},{-20,-240},{-20,-160},{-24,-160}},
                                                         color={0,127,255}));
   connect(eco.port_b2, chiSec.port_a2)
     annotation (Line(points={{-24,-140},{-20,-140},{-20,-110},{-24,-110}},

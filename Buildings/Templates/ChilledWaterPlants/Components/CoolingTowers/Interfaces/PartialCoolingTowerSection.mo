@@ -21,8 +21,8 @@ partial model PartialCoolingTowerSection "Partial cooling tower section model"
     Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.Data
     dat(final typ=typ, final nCooTow=nCooTow) "Cooling tower section data";
 
-  Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busCon(final nChi=nChi,
-      final nCooTow=nCooTow) "Control bus" annotation (Placement(transformation(
+  Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busCon
+                             "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

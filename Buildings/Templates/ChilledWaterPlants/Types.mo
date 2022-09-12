@@ -36,8 +36,8 @@ package Types
       "Enumeration to specify the type of CHW distribution system";
   type Economizer = enumeration(
       None "No waterside economizer",
-      EconomizerWithPump "Heat exchanger with pump for CHW flow control",
-      EconomizerWithValve "Heat exchanger with bypass valve for CHW flow control")
+      HeatExchangerWithPump "Heat exchanger with pump for CHW flow control",
+      HeatExchangerWithValve "Heat exchanger with bypass valve for CHW flow control")
       "Enumeration to configure the WSE";
   type PumpArrangement = enumeration(
       Dedicated "Dedicated pumps",

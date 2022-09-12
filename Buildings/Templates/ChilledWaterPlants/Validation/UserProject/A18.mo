@@ -17,7 +17,7 @@ model A18
       Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Headered
       pumCon(final nPum=2),
     redeclare
-      Buildings.Templates.ChilledWaterPlants.Components.Economizers.EconomizerWithPump
+      Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump
       eco(final have_valChiWatEcoByp=false),
     final have_chiWatChiByp=false);
 
