@@ -97,7 +97,7 @@ docker run \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ln -s /mnt/modelica_lib/Buildings /home/developer/.openmodelica/libraries/Buildings\ 9.1.0 && \
-  ls -l /home/developer/.openmodelica/libraries >> /mnt/modelica_lib/Buildings/ls_output.log && \
+  ls -l /home/developer/.openmodelica/libraries >> /mnt/shared/Buildings/ls_output.log && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?
