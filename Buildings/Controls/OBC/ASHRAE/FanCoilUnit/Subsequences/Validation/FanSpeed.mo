@@ -3,37 +3,37 @@ block FanSpeed
   "Validation model for fan speed subsequence"
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe(
-    final have_coolingCoil=true,
+    final have_cooCoi=true,
     final have_heatingCoil=true)
     "Instance demonstrating variation of heating loop signal"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe2(
-    final have_coolingCoil=true,
+    final have_cooCoi=true,
     final have_heatingCoil=true)
     "Instance demonstrating variation of operating mode"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe1(
-    final have_coolingCoil=true,
+    final have_cooCoi=true,
     final have_heatingCoil=true)
     "Instance demonstrating variation of cooling loop signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe3(
-    final have_coolingCoil=true,
+    final have_cooCoi=true,
     final have_heatingCoil=false)
     "Instance demonstrating variation of cooling loop signal with no heating coil"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe4(
-    final have_coolingCoil=false,
+    final have_cooCoi=false,
     final have_heatingCoil=true)
     "Instance demonstrating variation of heating loop signal with no cooling coil"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe5(
-    final have_coolingCoil=false,
+    final have_cooCoi=false,
     final have_heatingCoil=false)
     "Instance demonstrating variation of operating mode with no heating and cooling coils"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
@@ -184,11 +184,11 @@ block FanSpeed
 
 equation
   connect(reaToInt.y, fanSpe.opeMod) annotation (Line(points={{-48,170},{-46,170},
-          {-46,138},{-42,138}},
+          {-46,136},{-42,136}},
                               color={255,127,0}));
 
   connect(booPul.y, fanSpe.uFanPro) annotation (Line(points={{-78,140},{-50,140},
-          {-50,134},{-42,134}},
+          {-50,132},{-42,132}},
                              color={255,0,255}));
 
   connect(sin.y, abs.u)
@@ -205,11 +205,11 @@ equation
   connect(con1.y, reaToInt.u)
     annotation (Line(points={{-78,170},{-72,170}}, color={0,0,127}));
 
-  connect(reaToInt1.y, fanSpe2.opeMod) annotation (Line(points={{72,170},{74,
-          170},{74,138},{78,138}}, color={255,127,0}));
+  connect(reaToInt1.y, fanSpe2.opeMod) annotation (Line(points={{72,170},{74,170},
+          {74,136},{78,136}},      color={255,127,0}));
 
   connect(booPul1.y, fanSpe2.uFanPro) annotation (Line(points={{42,140},{70,140},
-          {70,134},{78,134}}, color={255,0,255}));
+          {70,132},{78,132}}, color={255,0,255}));
 
   connect(con2.y, fanSpe2.uCoo) annotation (Line(points={{42,80},{76,80},{76,
           124},{78,124}}, color={0,0,127}));
@@ -218,10 +218,10 @@ equation
     annotation (Line(points={{42,170},{48,170}}, color={0,0,127}));
 
   connect(reaToInt2.y,fanSpe1. opeMod) annotation (Line(points={{-48,40},{-46,40},
-          {-46,8},{-42,8}},     color={255,127,0}));
+          {-46,6},{-42,6}},     color={255,127,0}));
 
   connect(booPul2.y,fanSpe1. uFanPro) annotation (Line(points={{-78,10},{-50,10},
-          {-50,4},{-42,4}},     color={255,0,255}));
+          {-50,2},{-42,2}},     color={255,0,255}));
 
   connect(sin2.y, abs2.u)
     annotation (Line(points={{-78,-50},{-72,-50}},   color={0,0,127}));
@@ -239,10 +239,10 @@ equation
           128},{78,128}}, color={0,0,127}));
 
   connect(reaToInt3.y,fanSpe3. opeMod) annotation (Line(points={{72,40},{74,40},
-          {74,8},{78,8}},       color={255,127,0}));
+          {74,6},{78,6}},       color={255,127,0}));
 
   connect(booPul3.y,fanSpe3. uFanPro) annotation (Line(points={{42,10},{70,10},{
-          70,4},{78,4}},        color={255,0,255}));
+          70,2},{78,2}},        color={255,0,255}));
 
   connect(sin1.y,abs1. u)
     annotation (Line(points={{42,-20},{48,-20}},     color={0,0,127}));
@@ -253,12 +253,12 @@ equation
   connect(abs1.y,fanSpe3. uCoo) annotation (Line(points={{72,-20},{74,-20},{74,-6},
           {78,-6}},            color={0,0,127}));
 
-  connect(reaToInt4.y, fanSpe4.opeMod) annotation (Line(points={{-48,-90},{-46,
-          -90},{-46,-122},{-42,-122}},
+  connect(reaToInt4.y, fanSpe4.opeMod) annotation (Line(points={{-48,-90},{-46,-90},
+          {-46,-124},{-42,-124}},
                                 color={255,127,0}));
 
-  connect(booPul4.y, fanSpe4.uFanPro) annotation (Line(points={{-78,-120},{-50,
-          -120},{-50,-126},{-42,-126}},
+  connect(booPul4.y, fanSpe4.uFanPro) annotation (Line(points={{-78,-120},{-50,-120},
+          {-50,-128},{-42,-128}},
                                 color={255,0,255}));
 
   connect(sin3.y, abs3.u)
@@ -271,11 +271,11 @@ equation
   connect(con8.y, reaToInt4.u)
     annotation (Line(points={{-78,-90},{-72,-90}}, color={0,0,127}));
 
-  connect(reaToInt5.y, fanSpe5.opeMod) annotation (Line(points={{72,-90},{74,
-          -90},{74,-122},{78,-122}}, color={255,127,0}));
+  connect(reaToInt5.y, fanSpe5.opeMod) annotation (Line(points={{72,-90},{74,-90},
+          {74,-124},{78,-124}},      color={255,127,0}));
 
-  connect(booPul5.y, fanSpe5.uFanPro) annotation (Line(points={{42,-120},{70,
-          -120},{70,-126},{78,-126}}, color={255,0,255}));
+  connect(booPul5.y, fanSpe5.uFanPro) annotation (Line(points={{42,-120},{70,-120},
+          {70,-128},{78,-128}},       color={255,0,255}));
 
   connect(ram1.y, reaToInt5.u)
     annotation (Line(points={{42,-90},{48,-90}}, color={0,0,127}));
