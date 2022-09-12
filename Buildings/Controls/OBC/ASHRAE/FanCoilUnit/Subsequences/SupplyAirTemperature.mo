@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences;
 block SupplyAirTemperature
   "Subsequence for calculating supply air temperature setpoint"
 
-  parameter Boolean have_coolingCoil
+  parameter Boolean have_cooCoi
     "Does the fan coil unit have a cooling coil?";
 
   parameter Boolean have_heatingCoil
@@ -34,21 +34,21 @@ block SupplyAirTemperature
     displayUnit="1") = cooDea
     "Minimum cooling loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Cooling loop parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real TCooSupAirMin(
     final unit="K",
     displayUnit="degC") = 273.15+12.8
     "Supply air temperature setpoint at maximum cooling loop signal"
     annotation(Dialog(group="Cooling loop parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real cooPerMax(
     final unit="1",
     displayUnit="1") = 0.5
     "Maximum cooling loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Cooling loop parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real heaDea(
     final unit="1",
@@ -62,7 +62,7 @@ block SupplyAirTemperature
     displayUnit="1") = 0.05
     "Cooling loop signal limit at which deadband mode transitions to cooling mode"
     annotation(Dialog(group="Transition parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Controller type"
@@ -140,7 +140,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final unit="1",
-    displayUnit="1") if have_coolingCoil
+    displayUnit="1") if have_cooCoi
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -164,7 +164,7 @@ block SupplyAirTemperature
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetCoo(
     final unit="K",
     displayUnit="K",
-    quantity="ThermodynamicTemperature") if have_coolingCoil
+    quantity="ThermodynamicTemperature") if have_cooCoi
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-160,-140},{-120,-100}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -178,7 +178,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final unit="1",
-    displayUnit="1") if have_coolingCoil
+    displayUnit="1") if have_cooCoi
     "Cooling coil signal"
     annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
@@ -269,7 +269,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZerCooMod(
-    final k=0) if not have_coolingCoil
+    final k=0) if not have_cooCoi
     "Constant zero signal for cooling mode"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
 

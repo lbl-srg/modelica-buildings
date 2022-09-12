@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.FanCoilUnit;
 block Controller
   "Fan coil unit controller that comprises subsequences for controlling fan speed and supply air temperature"
 
-  parameter Boolean have_coolingCoil
+  parameter Boolean have_cooCoi
     "Does the fan coil unit have a cooling coil?";
 
   parameter Boolean have_heatingCoil
@@ -335,47 +335,47 @@ block Controller
     final unit = "1",
     displayUnit="1")=0.1
     "Valve position limit below which zero chilled water plant requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_cooCoi));
 
   parameter Real chiWatResReqLim0(
     final unit = "1",
     displayUnit="1")=0.85
     "Valve position limit below which zero chilled water reset requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_cooCoi));
 
   parameter Real chiWatPlaReqLim1(
     final unit = "1",
     displayUnit="1")=0.95
     "Valve position limit above which one chilled water plant request is sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_cooCoi));
 
   parameter Real chiWatResReqLim2(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference")=2.78
     "Temperature difference limit between setpoint and supply air temperature above which two chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_cooCoi));
 
   parameter Real chiWatResReqTimLim2(
     final unit="s",
     displayUnit="s",
     final quantity="Time")=300
     "Time period for which chiWatResReqLim2 has to be exceeded before two chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_cooCoi));
 
   parameter Real chiWatResReqLim3(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference")=5.56
     "Temperature difference limit between setpoint and supply air temperature above which three chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_cooCoi));
 
   parameter Real chiWatResReqTimLim3(
     final unit="s",
     displayUnit="s",
     final quantity="Time")=300
     "Time period for which chiWatResReqLim3 has to be exceeded before three chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_coolingCoil));
+    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_cooCoi));
 
   parameter Real hotWatPlaReqLim0(
     final unit = "1",
@@ -560,7 +560,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final unit="1",
-    displayUnit="1") if have_coolingCoil
+    displayUnit="1") if have_cooCoi
     "Measured cooling coil control action"
     annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
         iconTransformation(extent={{-240,-300},{-200,-260}})));
@@ -570,12 +570,12 @@ block Controller
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
       iconTransformation(extent={{200,180},{240,220}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq if have_coolingCoil
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq if have_cooCoi
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{200,-120},{240,-80}}),
         iconTransformation(extent={{200,-100},{240,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq if have_coolingCoil
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq if have_cooCoi
     "Chiller plant requests"
     annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
         iconTransformation(extent={{200,-140},{240,-100}})));
@@ -625,7 +625,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_coolingCoil
+    final unit="1") if have_cooCoi
     "Cooling coil control signal"
     annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
       iconTransformation(extent={{200,-20},{240,20}})));
@@ -688,13 +688,13 @@ block Controller
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0) if not have_coolingCoil
+    final k=0) if not have_cooCoi
     "Constant zero signal source if cooling coil is absent"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.PlantRequests fcuPlaReq(
     final have_hotWatCoi=have_heatingCoil,
-    final have_chiWatCoi=have_coolingCoil,
+    final have_chiWatCoi=have_cooCoi,
     final cooSpeMax=cooSpeMax,
     final heaSpeMax=heaSpeMax,
     final chiWatPlaReqLim0=chiWatPlaReqLim0,
@@ -741,7 +741,7 @@ protected
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature TSupAir(
-    final have_coolingCoil=have_coolingCoil,
+    final have_cooCoi=have_cooCoi,
     final have_heatingCoil=have_heatingCoil,
     final THeaSupAirMax=TSupSetMax,
     final TCooSupAirMin=TSupSetMin,
@@ -762,7 +762,7 @@ protected
     annotation (Placement(transformation(extent={{100,-2},{120,22}})));
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.FanSpeed fanSpe(
-    final have_coolingCoil=have_coolingCoil,
+    final have_cooCoi=have_cooCoi,
     final have_heatingCoil=have_heatingCoil,
     final deaSpe=deaSpe,
     final heaSpeMin=heaSpeMin,

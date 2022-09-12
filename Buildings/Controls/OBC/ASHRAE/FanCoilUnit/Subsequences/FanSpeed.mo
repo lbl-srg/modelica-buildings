@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences;
 block FanSpeed
   "Fan speed setpoint subsequence"
 
-  parameter Boolean have_coolingCoil
+  parameter Boolean have_cooCoi
     "Does the fan coil unit have a cooling coil?";
 
   parameter Boolean have_heatingCoil
@@ -47,28 +47,28 @@ block FanSpeed
     displayUnit="1") = 0.2
     "Minimum cooling mode fan speed"
     annotation(Dialog(group="Cooling loop parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real cooPerMin(
     final unit="1",
     displayUnit="1") = 0.5
     "Minimum cooling loop signal at which fan speed is modified"
     annotation(Dialog(group="Cooling loop parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real cooSpeMax(
     final unit="1",
     displayUnit="1") = 1
     "Maximum cooling mode fan speed"
     annotation(Dialog(group="Cooling loop parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real cooPerMax(
     final unit="1",
     displayUnit="1") = 1
     "Maximum cooling loop signal at which fan speed is modified"
     annotation(Dialog(group="Cooling loop parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real heaDea(
     final unit="1",
@@ -82,7 +82,7 @@ block FanSpeed
     displayUnit="1") = 0.05
     "Cooling loop signal limit at which deadband mode transitions to cooling mode"
     annotation(Dialog(group="Transition parameters",
-      enable = have_coolingCoil));
+      enable = have_cooCoi));
 
   parameter Real deaHysLim(
     final unit="1",
@@ -109,7 +109,7 @@ block FanSpeed
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final unit="1",
-    displayUnit="1") if have_coolingCoil
+    displayUnit="1") if have_cooCoi
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -211,7 +211,7 @@ protected
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZerCooMod(
-    final k=0) if not have_coolingCoil
+    final k=0) if not have_cooCoi
     "Constant zero signal for cooling mode"
     annotation (Placement(transformation(extent={{-30,-160},{-10,-140}})));
 
