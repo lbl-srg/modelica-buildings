@@ -39,7 +39,7 @@ env:
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
-   - "TEST_ARG=123"
+   - "TEST_ARG=test-openmodelica"
 
   ## - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Controls.Continuous.Examples\""
   #  - TEST_ARG="make test-cdl-conformance"
@@ -149,7 +149,7 @@ install:
 
 # Execute tests
 script:
-  - echo "loadModel(Modelica, {\"4.0.0\"}); loadModel(Buildings); getErrorString(); simulate(Buildings.Controls.Continuous.Examples.LimPID); getErrorString();" > test.mos && Buildings/Resources/Scripts/travis/omc/omc test.mos
+  - echo "loadModel(Modelica, {\"4.0.0\"}); loadModel(Buildings); getErrorString(); simulate(Buildings.Controls.Continuous.Examples.LimPID); getErrorString();" > test.mos && omc test.mos
 ##  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
 
 after_failure:

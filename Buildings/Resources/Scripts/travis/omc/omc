@@ -89,7 +89,7 @@ LIB_VERSION=`\
 echo "LIB VERSION is ---${LIB_VERSION}---"
 
 #Buildings\ ${LIB_VERSION}
-#omc ${arg_lis}
+
 
 docker run \
   --user=developer \
@@ -104,5 +104,5 @@ docker run \
   "ls -l /home/developer/.openmodelica/libraries/ && \
   ls -l /home/developer/.openmodelica/libraries/someTestString && \
   cd \"/mnt/shared/${bas_nam}\" &&
-  pwd"
+  omc ${arg_lis}"
 exit $?
