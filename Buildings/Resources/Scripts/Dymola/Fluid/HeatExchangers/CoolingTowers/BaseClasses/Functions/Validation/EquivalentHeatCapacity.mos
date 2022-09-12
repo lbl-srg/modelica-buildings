@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.Validation.EquivalentHeatCapacity", startTime=10, stopTime=20, method="CVode", tolerance=1e-6, resultFile="EquivalentHeatCapacity");
 // Plot commands
 removePlots(false);
