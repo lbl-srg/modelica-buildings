@@ -98,7 +98,7 @@ docker run \
   $DOCKER_INTERACTIVE \
   --detach=false \
   ${MOD_MOUNT} \
-  -v ${sha_dir}/Buildings:/home/developer/.openmodelica/libraries/someTestString \
+  -v ${sha_dir}/Buildings:/home/developer/.openmodelica/libraries/someTestString:z \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
