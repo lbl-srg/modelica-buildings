@@ -84,11 +84,26 @@ model TankBranch
     "Heat port that connects to the control volumes of the tank"
     annotation (Placement(transformation(extent={{-26,-36},{-14,-24}}),
         iconTransformation(extent={{-6,-6},{6,6}})));
+  Buildings.Fluid.FixedResistances.Junction junSup(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=nom.T_CHWS_nominal,
+    tau=30,
+    m_flow_nominal={-nom.mChi_flow_nominal,nom.mTan_flow_nominal,nom.m_flow_nominal},
+    dp_nominal={0,0,0}) "Junction on the supply side"
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+  Buildings.Fluid.FixedResistances.Junction junRet(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=nom.T_CHWR_nominal,
+    tau=30,
+    m_flow_nominal={-nom.m_flow_nominal,nom.mChi_flow_nominal,nom.mTan_flow_nominal},
+    dp_nominal={0,0,0}) "Junction on the return side" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-50,-60})));
 equation
-  connect(port_aFroChi, port_bToNet)
-    annotation (Line(points={{-100,60},{100,60}}, color={0,127,255}));
-  connect(port_bToChi, port_aFroNet)
-    annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
   connect(atm.ports[1], tan.port_a)
     annotation (Line(points={{-10,20},{-10,10},{-10,10},{-10,0}},
                                                 color={0,127,255}));
@@ -98,8 +113,6 @@ equation
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   connect(preDroTanTop.port_a, senFlo.port_b)
     annotation (Line(points={{-40,0},{-50,0},{-50,-20}}, color={0,127,255}));
-  connect(senFlo.port_a, port_bToChi) annotation (Line(points={{-50,-40},{-50,-60},
-          {-100,-60}}, color={0,127,255}));
   connect(senFlo.m_flow, mTan_flow) annotation (Line(points={{-61,-30},{-66,-30},
           {-66,70},{50,70},{50,110}}, color={0,0,127}));
   connect(tan.Ql_flow, Ql_flow)
@@ -113,8 +126,18 @@ equation
     annotation (Line(points={{2,-7.4},{2,-50},{20,-50}}, color={191,0,0}));
   connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-30},{-8,-30},
           {-8,-4},{0,-4},{0,0}}, color={191,0,0}));
-  connect(preDroTanBot.port_b, port_bToNet) annotation (Line(points={{40,0},{50,
-          0},{50,60},{100,60}}, color={0,127,255}));
+  connect(port_aFroChi, junSup.port_1)
+    annotation (Line(points={{-100,60},{40,60}}, color={0,127,255}));
+  connect(junSup.port_2, port_bToNet)
+    annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
+  connect(junSup.port_3, preDroTanBot.port_b)
+    annotation (Line(points={{50,50},{50,0},{40,0}}, color={0,127,255}));
+  connect(port_bToChi, junRet.port_2)
+    annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
+  connect(junRet.port_3, senFlo.port_a)
+    annotation (Line(points={{-50,-50},{-50,-40}}, color={0,127,255}));
+  connect(junRet.port_1, port_aFroNet)
+    annotation (Line(points={{-40,-60},{100,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
