@@ -113,5 +113,5 @@ docker run \
   "ls -l /home/developer/.openmodelica/libraries/ && \
    ls -l /home/developer/.openmodelica/libraries/${LIBRARY_NAME}\ ${LIB_VERSION} && \
   cd \"/mnt/shared/${bas_nam}\" &&
-  omc ${arg_lis}"
+  omc ${arg_lis} >> omc.log 2>&1"
 exit $?
