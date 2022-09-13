@@ -267,7 +267,7 @@ equation
           {70,-120},{70,-158},{12,-158},{12,-148},{18,-148}}, color={0,0,127}));
   connect(conFCU3.yCooCoi, conFCU3.uCooCoi) annotation (Line(points={{62,-124},
           {68,-124},{68,-156},{14,-156},{14,-152},{18,-152}}, color={0,0,127}));
-annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
+annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/FanCoilUnit/Validation/Controller.mos"
     "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

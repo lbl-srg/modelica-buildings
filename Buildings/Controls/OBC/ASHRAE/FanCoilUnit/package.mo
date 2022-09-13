@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE;
-
-package FanCoilUnit
-    "Control sequences for fan coil unit"
+package FanCoilUnit "Control sequences for fan coil unit"
 
 
 annotation(Icon(graphics={
@@ -37,6 +35,18 @@ annotation(Icon(graphics={
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
-
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+  Documentation(info="<html>
+  <p>
+  This package implements control modules for the fan coil unit as per the sequence
+  of operations defined in ASHRAE Guideline 36-2021, section 5.22.
+  </p>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  March 22, 2022, by Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end FanCoilUnit;

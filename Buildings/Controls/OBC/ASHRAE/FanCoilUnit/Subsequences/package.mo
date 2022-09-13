@@ -34,5 +34,17 @@ package Subsequences "Package of subsequences for fan coil unit controls"
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+  Documentation(info="<html>
+  <p>
+  This package contains the subsequences used in the fan coil unit controller.
+  </p>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  March 22, 2022, by Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end Subsequences;

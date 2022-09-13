@@ -218,7 +218,5 @@ equation
       </html>"),
     experiment(
       StopTime=100,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end SupplyAirTemperature;

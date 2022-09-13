@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.Validation;
 model PlantRequests
-  "Validate model for calculating the plant requests"
+  "Validation model for subsequence for calculating the plant requests"
 
   Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.PlantRequests plaReq
     "Calculate plant request"

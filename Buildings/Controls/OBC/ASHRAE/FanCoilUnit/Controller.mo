@@ -663,7 +663,6 @@ block Controller
     final decTSetDem_1=decTSetDem_1,
     final decTSetDem_2=decTSetDem_2,
     final decTSetDem_3=decTSetDem_3,
-    bouLim=Thys,
     final uLow=uLow,
     final uHigh=uHigh,
     preWarCooTim=preWarCooTim)
@@ -1106,7 +1105,7 @@ the supply air temperature setpoint, the zone air heating and cooling setpoints,
 and valve positions of heating and cooling coils.
 </p>
 <p>
-It is implemented according to the ASHRAE Guideline 36, Part 5.22.
+It is implemented according to the ASHRAE Guideline 36-2021, Part 5.22.
 </p>
 <p>
 The sequences consist of the following subsequences.
