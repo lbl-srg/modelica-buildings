@@ -3,20 +3,24 @@ model TwoWayTwoPosition "Two-way two-position valve"
   extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition);
 
-  replaceable Buildings.Fluid.Actuators.Valves.TwoWayButterfly val
+  replaceable Buildings.Fluid.Actuators.Valves.TwoWayPolynomial val(
+    c={0,1.101898284705380E-01, 2.217227395456580, -7.483401207660790, 1.277617623360130E+01, -6.618045307070130})
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
       redeclare final package Medium=Medium,
+      final CvData = Buildings.Fluid.Types.CvTypes.OpPoint,
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
       final dpFixed_nominal=dpFixed_nominal)
-    "Valve"
+    "Valve (butterfly valve characteristic)"
     annotation (
       choicesAllMatching=true,
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaOpe(t=0.99, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaOpe(
+    t=0.99,
+    h=0.5E-2)
     "Return true if open (open end switch contact)"
     annotation (Placement(
         transformation(
@@ -66,7 +70,9 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(booToRea.y, val.y) annotation (Line(points={{-2.22045e-15,38},{-2.22045e-15,
           25},{0,25},{0,12}}, color={0,0,127}));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="val",
+  Documentation(info="<html>
 <p>
 This is a model for a two-way two-position (isolation) valve.
 </p>

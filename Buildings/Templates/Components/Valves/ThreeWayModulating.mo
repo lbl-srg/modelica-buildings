@@ -3,8 +3,7 @@ model ThreeWayModulating "Three-way modulating valve"
   extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.ThreeWayModulating);
 
-  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+  replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
       redeclare final package Medium=Medium,
       final m_flow_nominal=m_flow_nominal,
@@ -38,7 +37,9 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="val",
+  Documentation(info="<html>
 <p>
 This is a model for a three-way modulating valve.
 </p>

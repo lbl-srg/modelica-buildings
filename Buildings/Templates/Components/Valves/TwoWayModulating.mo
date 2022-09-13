@@ -35,7 +35,9 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="val",
+  Documentation(info="<html>
 <p>
 This is a model for a two-way modulating valve.
 </p>

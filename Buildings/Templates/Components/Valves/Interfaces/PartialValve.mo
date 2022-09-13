@@ -38,7 +38,7 @@ partial model PartialValve "Interface class for valve"
     "Fluid connector with bypass line"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Templates.Components.Interfaces.Bus bus
-    if typ <> Buildings.Templates.Components.Types.Valve.None
+    if typ<>Buildings.Templates.Components.Types.Valve.None
     "Control bus"
     annotation (Placement(
       transformation(
