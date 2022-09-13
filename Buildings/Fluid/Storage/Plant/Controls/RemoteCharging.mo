@@ -102,8 +102,8 @@ block RemoteCharging
         origin={-110,40})));
   Buildings.Controls.Continuous.LimPID conPI_valCha(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=5,
-    Ti=10,
+    k=500,
+    Ti=50,
     reverseActing=false)                   "PI controller"
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -111,7 +111,7 @@ block RemoteCharging
         origin={70,10})));
   Buildings.Controls.Continuous.LimPID conPI_pumSup(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=5,
+    k=1,
     Ti=10,
     reverseActing=true)  "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
