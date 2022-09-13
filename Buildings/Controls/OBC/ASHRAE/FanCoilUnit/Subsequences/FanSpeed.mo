@@ -338,7 +338,45 @@ equation
         Text(
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-98,32},{-36,12}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uFanPro"),
+        Text(
+          extent={{54,32},{100,12}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yFan"),
+        Text(
+          extent={{-100,70},{-36,50}},
+          textColor={255,127,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="opeMod"),
+        Text(
+          extent={{-100,-10},{-52,-32}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uHea",
+          visible=have_heaCoi),
+        Text(
+          extent={{-100,-50},{-52,-72}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uCoo",
+          visible=have_cooCoi),
+        Text(
+          extent={{36,-8},{98,-30}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yFanSpe")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-180},{120,120}})),
     Documentation(info="<html>

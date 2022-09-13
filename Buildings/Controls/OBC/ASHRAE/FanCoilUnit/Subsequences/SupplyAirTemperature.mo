@@ -421,7 +421,67 @@ equation
         Text(
           extent={{-110,160},{110,120}},
           textString="%name",
-          textColor={0,0,255})}),         Diagram(coordinateSystem(
+          textColor={0,0,255}),
+        Text(
+          extent={{-100,110},{-54,90}},
+          textColor={255,0,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uFan"),
+        Text(
+          extent={{-96,70},{-20,48}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="TZonSetHea",
+          visible=have_heaCoi),
+        Text(
+          extent={{-100,30},{-52,10}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uHea",
+          visible=have_heaCoi),
+        Text(
+          extent={{-96,-10},{-46,-28}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="TAirSup"),
+        Text(
+          extent={{-100,-50},{-52,-70}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uCoo",
+          visible=have_cooCoi),
+        Text(
+          extent={{38,70},{96,50}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yHeaCoi",
+          visible=have_heaCoi),
+        Text(
+          extent={{-96,-90},{-20,-112}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="TZonSetCoo",
+          visible=have_cooCoi),
+        Text(
+          extent={{20,12},{96,-10}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="TAirSupSet"),
+        Text(
+          extent={{38,-50},{96,-70}},
+          textColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yCooCoi",
+          visible=have_cooCoi)}),        Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-160},{120,160}})),
   Documentation(info="<html>
     <p>
