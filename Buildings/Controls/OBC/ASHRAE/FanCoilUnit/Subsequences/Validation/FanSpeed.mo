@@ -38,6 +38,7 @@ block FanSpeed
     "Instance demonstrating variation of operating mode with no heating and cooling coils"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
     final height=6,
     final duration=70,
