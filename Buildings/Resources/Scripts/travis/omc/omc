@@ -112,6 +112,7 @@ docker run \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
    ls -l /home/developer/.openmodelica/libraries/${LIBRARY_NAME}\ ${LIB_VERSION} && \
+  export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   cd \"/mnt/shared/${bas_nam}\" &&
-  omc ${arg_lis} >> /home/developer/.openmodelica/libraries/${LIBRARY_NAME}\ ${LIB_VERSION}/omc-out.log 2>&1"
+  omc ${arg_lis}"
 exit $?
