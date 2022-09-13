@@ -178,7 +178,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaSysEff(final k=1E-4)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaSysEff(
+    final k=1E-4)
     "Set system ventilation efficiency to small value to avoid division by zero"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
@@ -186,7 +187,7 @@ protected
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
 
-  CDL.Continuous.Max sysVenEffNonZero
+  Buildings.Controls.OBC.CDL.Continuous.Max sysVenEffNonZero
     "Current system ventilation efficiency, bounded away from zero"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
@@ -265,7 +266,6 @@ equation
   connect(sysVenEff.u2, uOutAirFra_max)
     annotation (Line(points={{-42,-16},{-50,-16},{-50,-100},{-240,-100}},
       color={0,0,127}));
-
   connect(and1.y, yReqOutAir)
     annotation (Line(points={{142,-140},{260,-140}}, color={255,0,255}));
   connect(aveOutAirFra.u, unCorOutAirInk.y) annotation (Line(points={{58,130},{40,
