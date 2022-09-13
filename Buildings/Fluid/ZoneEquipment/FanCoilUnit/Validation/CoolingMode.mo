@@ -28,11 +28,12 @@ model CoolingMode
       rotation=90,origin={-40,-80})));
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
-    final heatingCoilType=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeatingCoil.heatingHotWater,
-    final dpAirTot_nominal(displayUnit="Pa") = 100,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
+    final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
-    redeclare package MediumW = MediumW,
+    redeclare package MediumCW = MediumW,
+    redeclare package MediumHW = MediumW,
     final mAir_flow_nominal=FCUSizing.mAir_flow_nominal,
     final QHeaCoi_flow_nominal=13866,
     final mHotWat_flow_nominal=FCUSizing.mHotWat_flow_nominal,
@@ -145,19 +146,18 @@ equation
   connect(sinAir.ports[1], fanCoiUni.port_Air_b) annotation (Line(points={{80,-30},
           {90,-30},{90,-4},{50,-4}}, color={0,127,255}));
 
-  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{
-          -20,12},{8,12}},
-                      color={0,0,127}));
+  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{-20,
+          12},{8,12}},color={0,0,127}));
 
-  connect(addPar[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},
-          {-16,54},{58,54}}, color={0,0,127}));
+  connect(addPar[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},{
+          -16,54},{58,54}},  color={0,0,127}));
 
   connect(addPar[2].y, souHea.T_in) annotation (Line(points={{-58,70},{-16,70},{
           -16,-120},{6,-120},{6,-102}},
                                color={0,0,127}));
 
-  connect(addPar[3].y, souCoo.T_in) annotation (Line(points={{-58,70},{-16,70},
-          {-16,-120},{66,-120},{66,-102}},color={0,0,127}));
+  connect(addPar[3].y, souCoo.T_in) annotation (Line(points={{-58,70},{-16,70},{
+          -16,-120},{66,-120},{66,-102}}, color={0,0,127}));
 
   connect(weaDat.weaBus, fanCoiUni.weaBus) annotation (Line(
       points={{-60,110},{-10,110},{-10,17.6},{12.8,17.6}},
@@ -178,21 +178,20 @@ equation
           -126},{-62,-126}}, color={0,0,127}));
   connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
           {-26,46},{58,46}}, color={0,0,127}));
-  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},
-          {-30,-4},{8,-4}},   color={0,0,127}));
-  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},
-          {-30,-12},{8,-12}}, color={0,0,127}));
+  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},{
+          -30,-4},{8,-4}},    color={0,0,127}));
+  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},{
+          -30,-12},{8,-12}},  color={0,0,127}));
   connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{-110,
           0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}},      color={
           0,0,127}));
-  connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{
-          -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}},color=
+  connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{-110,
+          0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}},     color=
           {0,0,127}));
   connect(datRea.y[6], gai.u)
     annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
-  connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,
-          4},{8,4}},
-                   color={0,0,127}));
+  connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,4},
+          {8,4}},  color={0,0,127}));
   connect(sinCoo.ports[1], fanCoiUni.port_CW_b) annotation (Line(points={{36,-80},
           {36,-20}},                   color={0,127,255}));
   connect(souCoo.ports[1], fanCoiUni.port_CW_a) annotation (Line(points={{70,-80},

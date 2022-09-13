@@ -7,7 +7,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
   replaceable package MediumHW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for hot water"
     annotation(Dialog(enable=false));
-   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
+   replaceable package MediumCW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for chilled water"
     annotation(Dialog(enable=false));
 
@@ -74,13 +74,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
             {210,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_CW_b(redeclare final package
       Medium =
-        MediumCHW) "Chilled water return port" annotation (Placement(
+        MediumCW) "Chilled water return port" annotation (Placement(
         transformation(extent={{94,-190},{114,-170}}), iconTransformation(
           extent={{50,-210},{70,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_CW_a(redeclare final package
       Medium =
-        MediumCHW) "Chilled water supply port" annotation (Placement(
+        MediumCW) "Chilled water supply port" annotation (Placement(
         transformation(extent={{134,-190},{154,-170}}), iconTransformation(
           extent={{110,-210},{130,-190}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(redeclare final package
@@ -191,7 +191,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
         rotation=90,
         origin={4,-114})));
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
-    redeclare final package Medium1 = MediumCHW,
+    redeclare final package Medium1 = MediumCW,
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
@@ -204,7 +204,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
         rotation=180,
         origin={130,-10})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valCHW(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumCW,
     final m_flow_nominal=mChiWat_flow_nominal,
     final dpValve_nominal=50)
     "Chilled-water flow control valve"
@@ -212,21 +212,21 @@ model FourPipe "System model for a four-pipe fan coil unit"
       rotation=90,
       origin={104,-34})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLvg(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumCW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water return temperature sensor"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
       origin={104,-64})));
   Buildings.Fluid.Sensors.VolumeFlowRate VCHW_flow(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumCW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water volume flowrate sensor"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={144,-44})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWEnt(
-    redeclare final package Medium = MediumCHW,
+    redeclare final package Medium = MediumCW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water supply temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
