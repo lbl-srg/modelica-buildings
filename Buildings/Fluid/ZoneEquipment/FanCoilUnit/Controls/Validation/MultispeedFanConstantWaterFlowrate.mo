@@ -21,32 +21,28 @@ model MultispeedFanConstantWaterFlowrate
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=273.15 + 25)
-    "Zone cooling setpoint temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(final k=
+        273.15 + 25) "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=273.15 + 23)
-    "Zone heating setpoint temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(final k=
+        273.15 + 23) "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final amplitude=2,
     final freqHz=1/60,
-    final offset=273.15 + 24)
-    "Measured zone temperature signal"
+    final offset=273.15 + 24) "Measured zone temperature signal"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
-  connect(con.y, conMulSpeFanConWat.TCooSet)
-    annotation (Line(points={{-18,0},{-6,0},{-6,-2},{18,-2}},
-                                             color={0,0,127}));
-  connect(con1.y, conMulSpeFanConWat.THeaSet) annotation (Line(points={{-18,-40},
-          {0,-40},{0,-6},{18,-6}},color={0,0,127}));
+  connect(cooSetPoi.y, conMulSpeFanConWat.TCooSet) annotation (Line(points={{-18,
+          0},{-6,0},{-6,-2},{18,-2}}, color={0,0,127}));
+  connect(heaSetPoi.y, conMulSpeFanConWat.THeaSet) annotation (Line(points={{-18,
+          -40},{0,-40},{0,-6},{18,-6}}, color={0,0,127}));
   connect(conMulSpeFanConWat.yFan, conMulSpeFanConWat.uFan) annotation (Line(
         points={{42,-6},{50,-6},{50,20},{10,20},{10,6},{18,6}}, color={255,0,255}));
-  connect(sin.y, conMulSpeFanConWat.TZon)
+  connect(TZon.y, conMulSpeFanConWat.TZon)
     annotation (Line(points={{-18,40},{0,40},{0,2},{18,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
