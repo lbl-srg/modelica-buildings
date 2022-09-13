@@ -102,6 +102,7 @@ model ChillersToPrimaryPumps
 
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypSer[nChi](
     redeclare each final package Medium = Medium,
+    each final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiBypSer)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
     "Series chillers CHW bypass valve" annotation (Placement(transformation(
@@ -110,6 +111,7 @@ model ChillersToPrimaryPumps
         origin={-160,0})));
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypPar(
     redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiBypPar)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
      and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None

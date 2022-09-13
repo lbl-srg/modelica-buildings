@@ -238,8 +238,8 @@ model ChillersToPrimaryPumpsParallel
         rotation=-90,
         origin={-20,-40})));
   Fluid.Sources.PropertySource_T coo1
-                                    [nChi](redeclare each final package Medium
-      = Medium, each final use_T_in=true)
+                                    [nChi](redeclare each final package Medium =
+        Medium, each final use_T_in=true)
     "Ideal cooling to input set point (representing chiller evaporator)"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri1
@@ -255,8 +255,8 @@ model ChillersToPrimaryPumpsParallel
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-200,-90})));
-  Fluid.Sensors.TemperatureTwoPort TChiWatEcoEnt(redeclare final package Medium
-      = Medium, final m_flow_nominal=mChiWatEco_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TChiWatEcoEnt(redeclare final package Medium =
+        Medium, final m_flow_nominal=mChiWatEco_flow_nominal)
     "WSE entering CHW return temperature"
     annotation (Placement(transformation(extent={{-170,-130},{-190,-110}})));
   Fluid.Sensors.MassFlowRate mChiWatEco_flow(redeclare final package Medium =
@@ -284,8 +284,8 @@ model ChillersToPrimaryPumpsParallel
     "WSE CHW bypass valve opening signal"
     annotation (Placement(transformation(extent={{-250,230},{-230,250}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiByp
-    "CHW bypass valves control bus" annotation (Placement(transformation(extent
-          ={{220,80},{260,120}}), iconTransformation(extent={{-316,184},{-276,
+    "CHW bypass valves control bus" annotation (Placement(transformation(extent=
+           {{220,80},{260,120}}), iconTransformation(extent={{-316,184},{-276,
             224}})));
   Interfaces.Bus busPla "Plant control bus" annotation (Placement(
         transformation(extent={{220,60},{260,100}}),iconTransformation(extent={{

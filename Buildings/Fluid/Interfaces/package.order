@@ -7,7 +7,6 @@ LumpedVolumeDeclarations
 PartialEightPortInterface
 PartialFourPort
 PartialFourPortInterface
-PartialOptionalFourPortInterface
 PartialFourPortParallel
 PartialTwoPort
 PartialTwoPortInterface

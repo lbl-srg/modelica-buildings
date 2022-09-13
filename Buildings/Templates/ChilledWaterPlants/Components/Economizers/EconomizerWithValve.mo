@@ -1,3 +1,0 @@
-within Buildings.Templates.ChilledWaterPlants.Components.Economizers;
-class EconomizerWithValve
-end EconomizerWithValve;
