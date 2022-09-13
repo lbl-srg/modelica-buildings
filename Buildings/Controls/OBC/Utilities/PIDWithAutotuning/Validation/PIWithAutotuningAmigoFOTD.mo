@@ -4,7 +4,7 @@ model PIWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD
-    PIDWitTun(
+    PIWitTun(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yHig=1,
     yLow=0.1,
@@ -48,13 +48,13 @@ model PIWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
 equation
   connect(resSig.y, PI.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
           40},{-16,40},{-16,48}}, color={255,0,255}));
-  connect(PIDWitTun.tri, PI.trigger) annotation (Line(points={{-16,-32},{-16,-38},
+  connect(PIWitTun.tri, PI.trigger) annotation (Line(points={{-16,-32},{-16,-38},
           {-30,-38},{-30,40},{-16,40},{-16,48}}, color={255,0,255}));
-  connect(PIDWitTun.u_s, PI.u_s) annotation (Line(points={{-22,-20},{-48,-20},{-48,
+  connect(PIWitTun.u_s, PI.u_s) annotation (Line(points={{-22,-20},{-48,-20},{-48,
           60},{-22,60}}, color={0,0,127}));
   connect(SetPoint.y, PI.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
           {-22,60}}, color={0,0,127}));
-  connect(PIDWitTun.y, uniDel2.u)
+  connect(PIWitTun.y, uniDel2.u)
     annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
   connect(uniDel1.u, PI.y)
     annotation (Line(points={{8,60},{2,60}}, color={0,0,127}));
@@ -73,7 +73,7 @@ equation
   connect(derivative2.y,sub2. u2) annotation (Line(points={{58,-50},{52,-50},{
           52,-16},{58,-16}},
                           color={0,0,127}));
-  connect(sub2.y, PIDWitTun.u_m) annotation (Line(points={{82,-10},{88,-10},{88,
+  connect(sub2.y, PIWitTun.u_m) annotation (Line(points={{82,-10},{88,-10},{88,
           -26},{46,-26},{46,-38},{-10,-38},{-10,-32}}, color={0,0,127}));
   connect(derivative2.k, derivative1.k) annotation (Line(points={{82,-42},{92,-42},
           {92,44},{80,44}}, color={0,0,127}));
