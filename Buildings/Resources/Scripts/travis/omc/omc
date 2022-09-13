@@ -12,6 +12,9 @@ set -e
 IMG_NAME=${OMC_VERSION}
 DOCKER_USERNAME=michaelwetter
 
+REPO_NAME=lbl-srg/modelica-buildings
+LIBRARY_NAME=Buildings
+
 # Function declarations
 function create_mount_command()
 {
@@ -82,16 +85,19 @@ done
 
 # Get library version number which is needed for OpenModelica to load the library.
 LIB_VERSION=`\
-  grep -Po ^version=\".+\" ${TRAVIS_BUILD_DIR}/Buildings/package.mo | \
+  grep -Po ^version=\".+\" ${TRAVIS_BUILD_DIR}/${LIBRARY_NAME}/package.mo | \
   sed -s 's/version=\"//g' | \
   sed -s 's/\"//g'`
 
 echo "LIB VERSION is ---${LIB_VERSION}---"
 
-echo "Content of Buildings: "
-ls /home/travis/build/lbl-srg/modelica-buildings/Buildings
+echo "Content of ${LIBRARY_NAME}: "
+ls /home/travis/build/${REPO_NAME}/${LIBRARY_NAME}
 echo "-----------------"
-#Buildings\ ${LIB_VERSION}
+echo "BaseName"
+echo ${bas_nam}
+echo "--------"
+#${LIBRARY_NAME}\ ${LIB_VERSION}
 
 
 docker run \
@@ -99,13 +105,13 @@ docker run \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  -v /home/travis/build/lbl-srg/modelica-buildings/Buildings:/home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} \
+  -v /home/travis/build/${REPO_NAME}/${LIBRARY_NAME}:/home/developer/.openmodelica/libraries/${LIBRARY_NAME}\ ${LIB_VERSION} \
   -v ${sha_dir}:/mnt/shared \
   ${MOD_MOUNT} \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "ls -l /home/developer/.openmodelica/libraries/ && \
-   ls -l /home/developer/.openmodelica/libraries/Buildings\ ${LIB_VERSION} && \
+   ls -l /home/developer/.openmodelica/libraries/${LIBRARY_NAME}\ ${LIB_VERSION} && \
   cd \"/mnt/shared/${bas_nam}\" &&
   omc ${arg_lis}"
 exit $?
