@@ -5,10 +5,21 @@ simulateModel("Buildings.Fluid.Storage.Plant.Validation.ClosedRemote",
  resultFile="ClosedRemote");
 // Plot commands
 createPlot(id=1,
- position={15, 15, 929, 372},
+ position={15, 15, 929, 516},
  y={"ideChiBra.m_flow", "tanBra.mTan_flow", "netCon.pumSup.m_flow"},
- range={0.0, 3600.0, -4.0, 3.0},
+ range={0.0, 3600.0, -4.0, 4.0},
  grid=true,
+ subPlot=101,
  colors={{28,108,200}, {238,46,47}, {0,140,72}},
  timeUnit="s",
  displayUnits={"kg/s", "kg/s", "kg/s"});
+createPlot(id=1,
+ position={15, 15, 929, 516},
+ y={"netCon.pumSup.y_actual", "netCon.intValSup.valToNet.y_actual", "netCon.intValSup.valFroNet.y_actual"},
+ range={0.0, 3600.0, -0.5, 1.5},
+ grid=true,
+ subPlot=102,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ timeUnit="s",
+ displayUnits={"1", "1", "1"});
+
