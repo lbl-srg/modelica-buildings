@@ -95,7 +95,6 @@ partial model PartialEconomizer "Partial waterside economizer model"
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+     Diagram(coordinateSystem(preserveAspectRatio=false)));
 
 end PartialEconomizer;

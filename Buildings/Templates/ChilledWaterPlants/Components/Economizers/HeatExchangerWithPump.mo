@@ -26,7 +26,7 @@ model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,50})));
-  Fluid.FixedResistances.PressureDrop resByp(
+  Fluid.FixedResistances.PressureDrop resChiWatByp(
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWat_flow_nominal,
     from_dp=true,
@@ -45,9 +45,9 @@ equation
                                                color={0,127,255}));
   connect(port_a, TChiWatEcoEnt.port_a)
     annotation (Line(points={{-100,0},{-20,0},{-20,10}}, color={0,127,255}));
-  connect(port_a, resByp.port_a)
+  connect(port_a, resChiWatByp.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(resByp.port_b, port_b)
+  connect(resChiWatByp.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
 annotation (
  defaultComponentName="eco",

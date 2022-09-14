@@ -27,12 +27,12 @@ record Chillers "Data for chillers"
     "CW design mass flow rate for each chiller"
     annotation(Dialog(group="Nominal condition",
     enable=typ == Buildings.Templates.ChilledWaterPlants.Types.Chiller.WaterCooled));
-  parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nChi](each
-      final min=0, each start=Buildings.Templates.Data.Defaults.dpChiWatChi)
+  parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nChi](each final
+            min=0, each start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "CHW design pressure drop for each chiller"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpConWat_nominal[nChi](each
-      final min=0, each start=Buildings.Templates.Data.Defaults.dpConWatChi)
+  parameter Modelica.Units.SI.PressureDifference dpConWat_nominal[nChi](each final
+            min=0, each start=Buildings.Templates.Data.Defaults.dpConWatChi)
     "CW design pressure drop for each chiller" annotation (Dialog(group=
           "Nominal condition", enable=typ == Buildings.Templates.ChilledWaterPlants.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.HeatFlowRate cap_nominal[nChi](

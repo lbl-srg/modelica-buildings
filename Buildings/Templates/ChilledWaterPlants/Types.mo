@@ -43,4 +43,9 @@ package Types
       Dedicated "Dedicated pumps",
       Headered "Headered pumps")
       "Enumeration to specify the pump arrangement";
+  type ValveOption = enumeration(
+      Choices "Modulating or two-position valve possible",
+      Modulating "Modulating valve required",
+      NoValve "No valve")
+      "Enumeration to specify the possible options for isolation valves";
 end Types;

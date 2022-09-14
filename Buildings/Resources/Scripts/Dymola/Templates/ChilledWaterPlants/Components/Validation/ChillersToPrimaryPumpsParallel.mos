@@ -1,0 +1,17 @@
+
+simulateModel("Buildings.Templates.ChilledWaterPlants.Components.Validation.ChillersToPrimaryPumpsParallel",
+  method="cvode",
+  tolerance=1e-6,
+  stopTime=2000.0,
+  resultFile="ChillersToPrimaryPumpsParallel");
+createPlot(id=1,
+  position={15, 15, 1184, 919},
+  y={"mChiWatPri_flow.m_flow", "mChiWatChi_flow[1].m_flow", "mChiWatChi_flow[2].m_flow", "mChiWatChi_flow[3].m_flow"},
+  subPlot=1,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"TChiWatChiEnt[1].T", "TChiWatChiEnt[2].T", "TChiWatChiEnt[3].T"},
+  subPlot=2,
+  autoscale=true,
+  grid=true);
