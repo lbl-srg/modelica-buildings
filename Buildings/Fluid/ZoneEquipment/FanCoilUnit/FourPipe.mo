@@ -2,19 +2,19 @@ within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
 model FourPipe "System model for a four-pipe fan coil unit"
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
-    "Medium model for air"
-    annotation(Dialog(enable=false));
+    "Medium model for air";
+
   replaceable package MediumHW = Modelica.Media.Interfaces.PartialMedium
-    "Medium model for hot water"
-    annotation(Dialog(enable=false));
-   replaceable package MediumCW = Modelica.Media.Interfaces.PartialMedium
-    "Medium model for chilled water"
-    annotation(Dialog(enable=false));
+    "Medium model for hot water";
+
+   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
+    "Medium model for chilled water";
 
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
     heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
     "Type of heating coil used in the FCU"
     annotation (Dialog(group="System parameters"));
+
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)
     "Heat flow rate of electric heating coil at full power"
@@ -72,15 +72,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
         MediumA) "Supply air port to the zone" annotation (Placement(
         transformation(extent={{350,-50},{370,-30}}), iconTransformation(extent={{190,-50},
             {210,-30}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_CW_b(redeclare final package
-      Medium =
-        MediumCW) "Chilled water return port" annotation (Placement(
+  Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(redeclare final package
+      Medium = MediumCHW) "Chilled water return port" annotation (Placement(
         transformation(extent={{94,-190},{114,-170}}), iconTransformation(
           extent={{50,-210},{70,-190}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_CW_a(redeclare final package
-      Medium =
-        MediumCW) "Chilled water supply port" annotation (Placement(
+  Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(redeclare package Medium =
+        MediumCHW)       "Chilled water supply port" annotation (Placement(
         transformation(extent={{134,-190},{154,-170}}), iconTransformation(
           extent={{110,-210},{130,-190}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(redeclare final package
@@ -167,13 +165,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-36,-74})));
-  Buildings.Fluid.Sensors.VolumeFlowRate VHHW_flow(
-    redeclare final package Medium = MediumHW,
-    final m_flow_nominal=mHotWat_flow_nominal) if has_HW
-    "Hot water volume flowrate sensor"
-    annotation(Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={4,-84})));
+  Buildings.Fluid.Sensors.VolumeFlowRate VHW_flow(redeclare final package
+      Medium = MediumHW, final m_flow_nominal=mHotWat_flow_nominal) if
+                                                  has_HW
+    "Hot water volume flowrate sensor" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={4,-84})));
   Buildings.Fluid.Sensors.TemperatureTwoPort THWRet(redeclare final package
       Medium =
         MediumHW, final m_flow_nominal=mHotWat_flow_nominal) if
@@ -191,7 +189,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
         rotation=90,
         origin={4,-114})));
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
-    redeclare final package Medium1 = MediumCW,
+    redeclare final package Medium1 = MediumCHW,
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
@@ -204,7 +202,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
         rotation=180,
         origin={130,-10})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valCHW(
-    redeclare final package Medium = MediumCW,
+    redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal,
     final dpValve_nominal=50)
     "Chilled-water flow control valve"
@@ -212,21 +210,21 @@ model FourPipe "System model for a four-pipe fan coil unit"
       rotation=90,
       origin={104,-34})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLvg(
-    redeclare final package Medium = MediumCW,
+    redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water return temperature sensor"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
       origin={104,-64})));
   Buildings.Fluid.Sensors.VolumeFlowRate VCHW_flow(
-    redeclare final package Medium = MediumCW,
+    redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water volume flowrate sensor"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={144,-44})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWEnt(
-    redeclare final package Medium = MediumCW,
+    redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water supply temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -308,11 +306,11 @@ equation
           -4},{-140,-10}}, color={0,127,255}));
   connect(valHW.port_b, heaCoiHW.port_b1) annotation (Line(points={{-36,-64},{-36,
           -56},{-20,-56}}, color={0,127,255}));
-  connect(VHHW_flow.port_b, heaCoiHW.port_a1)
+  connect(VHW_flow.port_b, heaCoiHW.port_a1)
     annotation (Line(points={{4,-74},{4,-56},{0,-56}}, color={0,127,255}));
   connect(THWRet.port_a, valHW.port_a)
     annotation (Line(points={{-36,-94},{-36,-84}}, color={0,127,255}));
-  connect(THWSup.port_b, VHHW_flow.port_a)
+  connect(THWSup.port_b, VHW_flow.port_a)
     annotation (Line(points={{4,-104},{4,-94}}, color={0,127,255}));
   connect(vAirMix.port_b, heaCoiHW.port_a2) annotation (Line(points={{-90,-10},{
           -40,-10},{-40,-44},{-20,-44}}, color={0,127,255}));
@@ -334,9 +332,8 @@ equation
     annotation (Line(points={{144,-64},{144,-54}}, color={0,127,255}));
   connect(TAirHea.port_b, cooCoi.port_a2) annotation (Line(points={{50,-10},{80,
           -10},{80,-4},{120,-4}}, color={0,127,255}));
-  connect(port_CW_b, TCHWLvg.port_b)
-    annotation (Line(points={{104,-180},{104,-122},{104,-74},{104,-74}},
-                                                    color={0,127,255}));
+  connect(port_CHW_b, TCHWLvg.port_b) annotation (Line(points={{104,-180},{104,-122},
+          {104,-74},{104,-74}}, color={0,127,255}));
   connect(fan.port_b, TAirLvg.port_a)
     annotation (Line(points={{220,-10},{240,-10}}, color={0,127,255}));
   connect(uCoo, valCHW.y) annotation (Line(points={{-380,-80},{-80,-80},{-80,-34},
@@ -365,7 +362,7 @@ equation
     annotation (Line(points={{-380,80},{-22,80}}, color={0,0,127}));
   connect(gai.y, fan.m_flow_in)
     annotation (Line(points={{1,80},{210,80},{210,2}}, color={0,0,127}));
-  connect(TCHWEnt.port_a, port_CW_a)
+  connect(TCHWEnt.port_a, port_CHW_a)
     annotation (Line(points={{144,-84},{144,-180}}, color={0,127,255}));
   connect(eco.port_Exh, TAirExh.port_a) annotation (Line(points={{-180,-16},{-180,
           -40},{-190,-40}}, color={0,127,255}));
@@ -388,15 +385,19 @@ equation
       extent={{-360,-180},{360,140}})),
     Documentation(info="<html>
     <p>
+    This is a conventional four-pipe fan coil unit system model. The system contains
+    a variable speed supply fan, electric or hot-water heating coil, chilled-water cooling coil,
+    and an economizer. 
+    </p>
+    <p>
     This is a system model for a fan coil unit consisting of the following components:
-    <br>
     <ul>
     <li>
     Outdoor air economizer <code>eco</code>: <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.MixingBox\">
     Buildings.Fluid.Actuators.Dampers.MixingBox</a>
     </li>
     <li>
-    Chilled-water cooling coil <code>cooCoiCHW</code>: <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+    Chilled-water cooling coil <code>cooCoi</code>: <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
     Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
     </li>
     <li>
@@ -411,12 +412,12 @@ equation
     Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>
     </li>
     <li>
-    a hot-water heating coil <code>heaCoiHHW</code>: <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+    a hot-water heating coil <code>heaCoiHW</code>: <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
     Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>
     </li>
     </ul>
     <br>
-    The heating coil type parameter <code>heatingCoilType</code> is used to pick 
+    The heating coil type parameter <code>heaCoiTyp</code> is used to pick 
     between the two types of heating coils.
     </li>
     <li>
@@ -434,6 +435,11 @@ equation
     chilled-water loop and hot-water loop. The sensors are all replaceable instances
     and can be redeclared as required.
     </li>
+    <li>
+    Pressure drops through the system are collected into a single instance <code>totRes</code>
+    of class <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+    Buildings.Fluid.FixedResistances.PressureDrop</a>.
+    </li>
     </ul>
     </p>
     <p>
@@ -442,6 +448,39 @@ equation
     and the outdoor air damper position <code>uOA</code>. The system controls 
     the flowrate of the chilled-water and heating hot-water using the valves, and 
     assumes pressurized water supply from the hot-water and chilled-water loops.
+    </p>
+    <p>
+    The control modules for the system are implemented separately in
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls\">
+    Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls</a>. They are as follows:
+    <ul>
+    <li>
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate\">
+    ConstantFanVariableWaterFlowrate</a>:
+    Modifies the cooling coil and heating coil valve positions to regulate the zone temperature
+    between the heating and cooling setpoints. The fan is enabled and run at the 
+    maximum speed when there are zone heating or cooling loads. It is run at minimum speed when
+    zone is occupied but there are no loads.
+    </li>
+    <li>
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate\">
+    VariableFanConstantWaterFlowrate</a>:
+    Modifies the fan speed to regulate the zone temperature between the heating 
+    and cooling setpoints. It is run at minimum speed when zone is occupied but 
+    there are no loads. The heating and cooling coil valves are completely opened 
+    when there are zone heating or cooling loads, respectively.
+    </li>
+    <li>
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFanConstantWaterFlowrate\">
+    MultispeedFanConstantWaterFlowrate</a>:
+    Modifies the fan speed to regulate the zone temperature between the heating 
+    and cooling setpoints. It is set at a range of fixed values between the maximum 
+    and minimum speed, based on the heating and cooling loop signals generated. 
+    It is run at minimum speed when zone is occupied but there are no loads. The 
+    heating and cooling coil valves are completely opened when there are zone 
+    heating or cooling loads, respectively.
+    </li>
+    </ul>
     </p>
     </html>
     ", revisions="<html>

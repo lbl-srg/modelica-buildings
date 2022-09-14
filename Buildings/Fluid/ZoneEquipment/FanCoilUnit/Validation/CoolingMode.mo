@@ -71,7 +71,7 @@ model CoolingMode
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
     final fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+      "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     final columns=2:19,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -108,7 +108,7 @@ model CoolingMode
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+      "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
@@ -192,9 +192,9 @@ equation
     annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
   connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,4},
           {8,4}},  color={0,0,127}));
-  connect(sinCoo.ports[1], fanCoiUni.port_CW_b) annotation (Line(points={{36,-80},
-          {36,-20}},                   color={0,127,255}));
-  connect(souCoo.ports[1], fanCoiUni.port_CW_a) annotation (Line(points={{70,-80},
+  connect(sinCoo.ports[1], fanCoiUni.port_CHW_b)
+    annotation (Line(points={{36,-80},{36,-20}}, color={0,127,255}));
+  connect(souCoo.ports[1], fanCoiUni.port_CHW_a) annotation (Line(points={{70,-80},
           {70,-60},{42,-60},{42,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})),
