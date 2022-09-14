@@ -1,4 +1,4 @@
-within Buildings.Templates.Components.Pumps.Interfaces;
+within Buildings.Templates.Components.Interfaces;
 model PartialPump "Base class for all pump models"
   parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Pumps;
 model Multiple "Multiple pumps in parallel"
-  extends Buildings.Templates.Components.Pumps.Interfaces.PartialMultiple(
+  extends Buildings.Templates.Components.Interfaces.PartialPumpMultiple(
     final typ=Buildings.Templates.Components.Types.Pump.Multiple);
 
   replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](

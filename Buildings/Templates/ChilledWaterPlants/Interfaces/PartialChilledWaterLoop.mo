@@ -56,20 +56,15 @@ model PartialChilledWaterLoop "Interface class for CHW plant - Including CHW sid
           chiSec "Chillers in parallel"), choice(redeclare
           Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Series
           chiSec "Chillers in series")));
-  inner replaceable
-    Buildings.Templates.Components.Pumps.None pumSec
-      constrainedby Buildings.Templates.Pumps.Interfaces.PartialPump(
-      redeclare final package Medium=MediumChiWat,
-      final dat=dat.pumSec)
-    "Chilled water secondary pumps (centralized)"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})),
-      choices(
-      choice(redeclare replaceable
-        Buildings.Templates.Components.Pumps.MultipleVariable
-        pumSec "No secondary pumping"),
-      choice(redeclare replaceable
-        Buildings.Templates.Components.Pumps.MultipleVariable
-        pumSec "Variable speed pumps")));
+  inner replaceable Buildings.Templates.Components.Pumps.NoneMultiple pumSec
+    constrainedby Buildings.Templates.Pumps.Interfaces.PartialPump(redeclare
+      final package Medium = MediumChiWat, final dat=dat.pumSec)
+    "Chilled water secondary pumps (centralized)" annotation (Placement(
+        transformation(extent={{80,-10},{100,10}})), choices(choice(redeclare
+          replaceable Buildings.Templates.Components.Pumps.MultipleVariable
+          pumSec "No secondary pumping"), choice(redeclare replaceable
+          Buildings.Templates.Components.Pumps.MultipleVariable pumSec
+          "Variable speed pumps")));
   inner replaceable
     Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctr
     constrainedby

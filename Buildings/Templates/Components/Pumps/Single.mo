@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Pumps;
 model Single "Single pump"
-  extends Buildings.Templates.Components.Pumps.Interfaces.PartialSingle(
+  extends Buildings.Templates.Components.Interfaces.PartialPumpSingle(
     final typ=Buildings.Templates.Components.Types.Pump.Single);
 
   replaceable Buildings.Fluid.Movers.SpeedControlled_y pum(
@@ -109,11 +109,11 @@ This is a model for a single pump.
 </p>
 <ul>
 <li>
-The pump is commanded On with a dedicated Boolean signal <code>y1</code> 
+The pump is commanded On with a dedicated Boolean signal <code>y1</code>
 (VFD Run or starter contact).
 </li>
 <li>
-For a variable speed pump, the speed is modulated with the fractional speed signal 
+For a variable speed pump, the speed is modulated with the fractional speed signal
 <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to 0 Hz.
 <code>y = 1</code> corresponds to the maximum speed set in the VFD.

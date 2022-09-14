@@ -442,6 +442,6 @@ equation
   experiment(
     StopTime=2000,
     Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/ChillersToPrimaryPumps.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/ChillersToPrimaryPumpsParallel.mos"
     "Simulate and plot"));
 end ChillersToPrimaryPumpsParallel;

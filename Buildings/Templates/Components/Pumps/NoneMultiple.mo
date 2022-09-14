@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Pumps;
-model None "No pump"
-  extends Buildings.Templates.Components.Pumps.Interfaces.PartialMultiple(
+model NoneMultiple "No pump - Multiple fluid ports"
+  extends Buildings.Templates.Components.Interfaces.PartialPumpMultiple(
     final nPum=0,
     final typ=Buildings.Templates.Components.Types.Pump.None);
 equation
@@ -20,4 +20,4 @@ This is a direct fluid pass-through model representing
 a configuration with no pump.
 </p>
 </html>"));
-end None;
+end NoneMultiple;
