@@ -40,7 +40,7 @@ block SumZone "Calculate the sum of zone level setpoints"
     final unit=fill("m3/s",nZon),
     final quantity=fill("VolumeFlowRate", nZon))
     "Minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-260,-104},{-220,-64}}),
+    annotation (Placement(transformation(extent={{-260,-120},{-220,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSumAdjPopBreZon_flow(
     final min=0,
@@ -108,13 +108,7 @@ block SumZone "Calculate the sum of zone level setpoints"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1[nZon]
     "Zone outdoor air fraction"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nZon]
-    "Ensure non zero value being divided"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nZon](
-    final k=fill(1e5,nZon)) "Large value"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain groFlo3(
     final K=zonGroMatTra)
     "Vector of zones in occupied mode"
@@ -133,11 +127,14 @@ block SumZone "Calculate the sum of zone level setpoints"
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nGro]
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nZon](
-    final t=fill(0.01, nZon),
-    final h=fill(0.005, nZon))
-    "Check if the flow rate is near zero"
-    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max2[nZon] "Avoid devide by zero"
+    annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer[nZon](
+    final k=fill(1E-4, nZon))
+    "Near zero value"
+    annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
+  Buildings.Controls.OBC.CDL.Continuous.Min min1[nZon] "Use smaller value"
+    annotation (Placement(transformation(extent={{-120,-104},{-100,-84}})));
 equation
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-240,180},{-102,180}}, color={255,127,0}));
@@ -175,28 +172,28 @@ equation
     annotation (Line(points={{42,0},{78,0}},     color={0,0,127}));
   connect(mulSum2.y, VSumZonPri_flow)
     annotation (Line(points={{102,0},{240,0}},      color={0,0,127}));
-  connect(VMinOA_flow, div1.u1)
-    annotation (Line(points={{-240,-84},{18,-84}},    color={0,0,127}));
-  connect(swi.y, div1.u2) annotation (Line(points={{-18,-130},{0,-130},{0,-96},{
-          18,-96}},   color={0,0,127}));
-  connect(VZonPri_flow, swi.u3) annotation (Line(points={{-240,-20},{-200,-20},{
-          -200,-138},{-42,-138}},  color={0,0,127}));
-  connect(con.y, swi.u1) annotation (Line(points={{-118,-110},{-100,-110},{-100,
-          -122},{-42,-122}},  color={0,0,127}));
   connect(booToRea.y, groFlo3.u) annotation (Line(points={{-18,180},{0,180},{0,-50},
           {18,-50}}, color={0,0,127}));
-  connect(div1.y, mul3.u2) annotation (Line(points={{42,-90},{60,-90},{60,-76},{
-          78,-76}},  color={0,0,127}));
+  connect(div1.y, mul3.u2) annotation (Line(points={{-18,-100},{60,-100},{60,-76},
+          {78,-76}}, color={0,0,127}));
   connect(groFlo3.y, mul3.u1) annotation (Line(points={{42,-50},{60,-50},{60,-64},
           {78,-64}}, color={0,0,127}));
   connect(mul3.y, mulMax.u)
     annotation (Line(points={{102,-70},{138,-70}},   color={0,0,127}));
   connect(mulMax.y, uOutAirFra_max)
     annotation (Line(points={{162,-70},{240,-70}},   color={0,0,127}));
-  connect(lesThr.y, swi.u2) annotation (Line(points={{-78,-160},{-60,-160},{-60,
-          -130},{-42,-130}}, color={255,0,255}));
-  connect(VZonPri_flow, lesThr.u) annotation (Line(points={{-240,-20},{-200,-20},
-          {-200,-160},{-102,-160}}, color={0,0,127}));
+  connect(neaZer.y, max2.u2) annotation (Line(points={{-138,-170},{-120,-170},{-120,
+          -146},{-102,-146}}, color={0,0,127}));
+  connect(VZonPri_flow, max2.u1) annotation (Line(points={{-240,-20},{-160,-20},
+          {-160,-134},{-102,-134}}, color={0,0,127}));
+  connect(max2.y, div1.u2) annotation (Line(points={{-78,-140},{-60,-140},{-60,-106},
+          {-42,-106}}, color={0,0,127}));
+  connect(min1.y, div1.u1)
+    annotation (Line(points={{-98,-94},{-42,-94}}, color={0,0,127}));
+  connect(VMinOA_flow, min1.u2)
+    annotation (Line(points={{-240,-100},{-122,-100}}, color={0,0,127}));
+  connect(VZonPri_flow, min1.u1) annotation (Line(points={{-240,-20},{-160,-20},
+          {-160,-88},{-122,-88}}, color={0,0,127}));
 annotation (
   defaultComponentName="sumZon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

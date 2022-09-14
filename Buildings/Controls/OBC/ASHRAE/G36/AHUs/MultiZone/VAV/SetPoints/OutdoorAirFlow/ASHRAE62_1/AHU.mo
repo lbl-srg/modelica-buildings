@@ -114,8 +114,8 @@ block AHU "Outdoor airflow related calculations at the AHU level"
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Normalization for outdoor air flow rate"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(
-    final k=1E-3) "Near zero value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(final k=1E-4)
+    "Near zero value"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max2
     "Avoid devide by zero"
