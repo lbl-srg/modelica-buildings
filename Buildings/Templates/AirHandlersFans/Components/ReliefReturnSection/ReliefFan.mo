@@ -17,7 +17,7 @@ model ReliefFan "Relief fan with two-position relief damper"
         rotation=0,
         origin={-150,0})));
   replaceable Buildings.Templates.Components.Fans.SingleVariable fanRel
-    constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
     redeclare final package Medium = MediumAir,
     final dat=dat.fanRel,
     final have_senFlo=false,

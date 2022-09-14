@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model Temperature "Temperature sensor"
-  extends Buildings.Templates.Components.Sensors.Interfaces.PartialSensor(
+  extends Buildings.Templates.Components.Interfaces.PartialSensor(
     y(final unit="K", displayUnit="degC"),
     final isDifPreSen=false);
 

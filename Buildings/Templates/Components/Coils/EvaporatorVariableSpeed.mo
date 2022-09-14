@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Coils;
 model EvaporatorVariableSpeed
   "Evaporator coil with variable speed compressor"
-  extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+  extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed,
     final typVal=Buildings.Templates.Components.Types.Valve.None);
 

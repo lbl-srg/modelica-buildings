@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Valves;
 model ThreeWayTwoPosition "Three-way two-position valve"
-  extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+  extends Buildings.Templates.Components.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition);
 
   replaceable Buildings.Fluid.Actuators.Valves.ThreeWayLinear val

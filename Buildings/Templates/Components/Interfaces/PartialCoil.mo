@@ -1,4 +1,4 @@
-within Buildings.Templates.Components.Coils.Interfaces;
+within Buildings.Templates.Components.Interfaces;
 partial model PartialCoil "Interface class for coil"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumAir,

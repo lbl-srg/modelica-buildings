@@ -18,7 +18,7 @@ model VAVBox "Interface class for VAV terminal unit"
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
       redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
       "Two-way modulating valve")
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
       final dat=datCoiHea)
     "Heating coil"
@@ -36,7 +36,7 @@ model VAVBox "Interface class for VAV terminal unit"
 
   inner replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
     constrainedby
-    Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
+    Buildings.Templates.Components.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
       final dat=datDamVAV)
     "VAV damper"

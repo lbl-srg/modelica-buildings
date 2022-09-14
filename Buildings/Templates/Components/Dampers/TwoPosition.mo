@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Dampers;
 model TwoPosition "Two-position damper"
-  extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
+  extends Buildings.Templates.Components.Interfaces.PartialDamper(
     final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed);
 

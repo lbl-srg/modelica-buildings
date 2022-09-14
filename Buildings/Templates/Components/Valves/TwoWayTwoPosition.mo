@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Valves;
 model TwoWayTwoPosition "Two-way two-position valve"
-  extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+  extends Buildings.Templates.Components.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition);
 
   replaceable Buildings.Fluid.Actuators.Valves.TwoWayPolynomial val(

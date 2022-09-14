@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Coils;
 model WaterBasedHeating "Hot water coil"
-  extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+  extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
     final typVal=val.typ,
     port_aSou(redeclare final package Medium = MediumHeaWat),
@@ -20,7 +20,7 @@ model WaterBasedHeating "Hot water coil"
     "Nominal pressure drop across fully open valve";
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
-    Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+    Buildings.Templates.Components.Interfaces.PartialValve(
       redeclare final package Medium = MediumHeaWat,
       final dat=datVal)
     "Valve"

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Valves;
 model ThreeWayModulating "Three-way modulating valve"
-  extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+  extends Buildings.Templates.Components.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.ThreeWayModulating);
 
   replaceable Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val

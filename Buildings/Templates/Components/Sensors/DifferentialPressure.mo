@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model DifferentialPressure "Differential pressure sensor"
-  extends Buildings.Templates.Components.Sensors.Interfaces.PartialSensor(
+  extends Buildings.Templates.Components.Interfaces.PartialSensor(
     y(final unit="Pa", displayUnit="Pa"),
     final m_flow_nominal=0,
     final isDifPreSen=true);
