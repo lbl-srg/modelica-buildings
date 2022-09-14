@@ -12,8 +12,7 @@ partial model PartialSingle "Interface class for single pump"
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
   parameter Buildings.Templates.Components.Data.PumpSingle dat(
-    final typ=typ,
-    final rho_default=1200)
+    final typ=typ)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal(

@@ -14,6 +14,7 @@ model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
     "WSE entering CHW temperature"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Templates.Components.Pumps.Single pumChiWat(
+    have_valChe=false,
     redeclare final package Medium=MediumChiWat,
     final allowFlowReversal=allowFlowReversal,
     final typCtrSpe=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable,
@@ -31,4 +32,7 @@ equation
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(pumChiWat.port_b, hex.port_a2)
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+No check valve by default
+</html>"));
 end HeatExchangerWithPump;
