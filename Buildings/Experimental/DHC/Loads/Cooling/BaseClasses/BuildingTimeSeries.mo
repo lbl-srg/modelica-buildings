@@ -128,17 +128,17 @@ model BuildingTimeSeries
   replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     final k=k,
     final Ti=Ti) if have_heaWat
-  constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
-    final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulHea,
-    final facMulZon=1,
-    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
-    final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
-    final T_aHeaWat_nominal=T_aHeaWat_nominal,
-    final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal)
+    constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
+      redeclare final package Medium1=Medium,
+      redeclare final package Medium2=Medium2,
+      final allowFlowReversal=allowFlowReversal,
+      final facMul=facMulHea,
+      final facMulZon=1,
+      final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
+      final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
+      final T_aHeaWat_nominal=T_aHeaWat_nominal,
+      final T_bHeaWat_nominal=T_bHeaWat_nominal,
+      final T_aLoaHea_nominal=T_aLoaHea_nominal)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-22},{90,-2}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
@@ -171,18 +171,18 @@ model BuildingTimeSeries
     final Ti=Ti,
     final TRooHea_nominal=T_aLoaHea_nominal,
     final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
-  constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
-    final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulCoo,
-    final facMulZon=1,
-    final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
-    final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
-    final T_aChiWat_nominal=T_aChiWat_nominal,
-    final T_bChiWat_nominal=T_bChiWat_nominal,
-    final T_aLoaCoo_nominal=T_aLoaCoo_nominal,
-    final w_aLoaCoo_nominal=w_aLoaCoo_nominal)
+    constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
+      redeclare final package Medium1=Medium,
+      redeclare final package Medium2=Medium2,
+      final allowFlowReversal=allowFlowReversal,
+      final facMul=facMulCoo,
+      final facMulZon=1,
+      final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
+      final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
+      final T_aChiWat_nominal=T_aChiWat_nominal,
+      final T_bChiWat_nominal=T_bChiWat_nominal,
+      final T_aLoaCoo_nominal=T_aLoaCoo_nominal,
+      final w_aLoaCoo_nominal=w_aLoaCoo_nominal)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,36},{90,56}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPPum

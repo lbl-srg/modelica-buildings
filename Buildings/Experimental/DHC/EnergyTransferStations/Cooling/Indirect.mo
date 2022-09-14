@@ -150,6 +150,7 @@ model Indirect
     final Q_flow_nominal=Q_flow_nominal,
     final T_a1_nominal=T_a1_nominal,
     final T_a2_nominal=T_a2_nominal)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{0,-200},{20,-220}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
     redeclare final package Medium=MediumSer,
