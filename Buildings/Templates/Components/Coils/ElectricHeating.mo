@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Coils;
 model ElectricHeating "Modulating electric heating coil"
-  extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+  extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.ElectricHeating,
     final typVal=Buildings.Templates.Components.Types.Valve.None);
 

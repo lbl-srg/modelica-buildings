@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Fans;
 model SingleVariable "Single fan - Variable speed"
-  extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+  extends Buildings.Templates.Components.Interfaces.PartialFan(
     final typ=Buildings.Templates.Components.Types.Fan.SingleVariable);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(

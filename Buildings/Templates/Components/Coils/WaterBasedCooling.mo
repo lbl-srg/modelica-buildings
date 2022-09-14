@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Coils;
 model WaterBasedCooling "Chilled water coil"
-  extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+  extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
     final typVal=val.typ,
     port_aSou(redeclare final package Medium = MediumChiWat),
@@ -25,7 +25,7 @@ model WaterBasedCooling "Chilled water coil"
     annotation (Evaluate=true);
 
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
-    Buildings.Templates.Components.Valves.Interfaces.PartialValve(redeclare
+    Buildings.Templates.Components.Interfaces.PartialValve(       redeclare
       final package Medium = MediumChiWat,
       final dat=datVal)
     "Valve"

@@ -8,7 +8,7 @@ model NoRelief "No relief branch"
     final typFanRet=fanRet.typ);
 
   replaceable Buildings.Templates.Components.Fans.None fanRet
-    constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final dat=dat.fanRet,
       final have_senFlo=

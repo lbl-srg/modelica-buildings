@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model SpecificEnthalpy "Specific enthalpy sensor"
-  extends Buildings.Templates.Components.Sensors.Interfaces.PartialSensor(
+  extends Buildings.Templates.Components.Interfaces.PartialSensor(
     y(final unit="J/kg"),
     final isDifPreSen=false);
 

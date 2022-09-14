@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Coils;
 model EvaporatorMultiStage
   "Evaporator coil with multi-stage compressor"
-  extends Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+  extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage,
     final typVal=Buildings.Templates.Components.Types.Valve.None);
 

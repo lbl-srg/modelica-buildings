@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Fans;
 model None "No fan"
-  extends Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+  extends Buildings.Templates.Components.Interfaces.PartialFan(
     final typ=Buildings.Templates.Components.Types.Fan.None);
 
 equation

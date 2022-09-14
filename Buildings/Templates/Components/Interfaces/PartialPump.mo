@@ -1,4 +1,4 @@
-within Buildings.Templates.Components.Pumps.Interfaces;
+within Buildings.Templates.Components.Interfaces;
 partial model PartialPump "Interface class for pump"
   extends Fluid.Interfaces.PartialTwoPortInterface
     annotation(__Linkage(enable=false));

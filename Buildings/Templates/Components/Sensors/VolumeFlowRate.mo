@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Sensors;
 model VolumeFlowRate "Volume flow rate sensor"
-  extends Buildings.Templates.Components.Sensors.Interfaces.PartialSensor(
+  extends Buildings.Templates.Components.Interfaces.PartialSensor(
     y(final unit="m3/s"),
     final isDifPreSen=false);
 

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Valves;
 model TwoWayModulating "Two-way modulating valve"
-  extends Buildings.Templates.Components.Valves.Interfaces.PartialValve(
+  extends Buildings.Templates.Components.Interfaces.PartialValve(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating);
 
   replaceable Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val

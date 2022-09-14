@@ -1,4 +1,4 @@
-within Buildings.Templates.Components.Sensors.Interfaces;
+within Buildings.Templates.Components.Interfaces;
 partial model PartialSensor "Interface class for sensor"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface
     annotation(__Linkage(enable=false));

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Pumps;
 model None "No pump"
-  extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+  extends Buildings.Templates.Components.Interfaces.PartialPump(
     final typ=Buildings.Templates.Types.Pump.None,
     final nPum=1,
     dp_nominal=0);

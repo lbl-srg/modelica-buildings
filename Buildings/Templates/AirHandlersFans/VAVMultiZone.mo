@@ -83,7 +83,7 @@ model VAVMultiZone "Multiple-zone VAV"
         transformation(extent={{-110,-210},{-90,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
-    constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
@@ -122,7 +122,7 @@ model VAVMultiZone "Multiple-zone VAV"
       Placement(transformation(extent={{100,-210},{120,-190}})));
 
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
-    constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
@@ -215,7 +215,7 @@ model VAVMultiZone "Multiple-zone VAV"
       Placement(transformation(extent={{250,-90},{230,-70}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
       redeclare final package MediumAir=MediumAir)
     "Heating coil in preheat position"
@@ -236,7 +236,7 @@ model VAVMultiZone "Multiple-zone VAV"
     Placement(transformation(extent={{10,-210},{30,-190}})));
 
   inner replaceable Buildings.Templates.Components.Coils.None coiCoo
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
       redeclare final package MediumAir=MediumAir)
     "Cooling coil"
@@ -252,7 +252,7 @@ model VAVMultiZone "Multiple-zone VAV"
     Dialog(group="Cooling coil"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
-    constrainedby Buildings.Templates.Components.Coils.Interfaces.PartialCoil(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaReh,
       redeclare final package MediumAir=MediumAir)
     "Heating coil in reheat position"

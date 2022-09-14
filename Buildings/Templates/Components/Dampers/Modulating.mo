@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Dampers;
 model Modulating "Modulating damper"
-  extends Buildings.Templates.Components.Dampers.Interfaces.PartialDamper(
+  extends Buildings.Templates.Components.Interfaces.PartialDamper(
     final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Parallel);
 

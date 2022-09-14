@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Pumps;
 model ParallelVariable "Parallel pumps (identical) - Variable speed"
-  extends Buildings.Templates.Components.Pumps.Interfaces.PartialPump(
+  extends Buildings.Templates.Components.Interfaces.PartialPump(
     final typ=Buildings.Templates.Components.Types.Pump.ParallelVariable);
 
   replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](

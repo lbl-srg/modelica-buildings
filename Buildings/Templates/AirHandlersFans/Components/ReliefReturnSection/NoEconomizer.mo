@@ -16,7 +16,7 @@ model NoEconomizer "No air economizer"
         rotation=0,
         origin={-150,0})));
   replaceable Buildings.Templates.Components.Fans.SingleVariable fanRet
-    constrainedby Buildings.Templates.Components.Fans.Interfaces.PartialFan(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final dat=dat.fanRet,
       final have_senFlo=

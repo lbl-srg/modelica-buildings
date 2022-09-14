@@ -1,4 +1,4 @@
-within Buildings.Templates.Components.Valves.Interfaces;
+within Buildings.Templates.Components.Interfaces;
 partial model PartialValve "Interface class for valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.m_flow_nominal)

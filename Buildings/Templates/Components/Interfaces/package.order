@@ -1,1 +1,7 @@
 Bus
+PartialCoil
+PartialDamper
+PartialFan
+PartialPump
+PartialSensor
+PartialValve
