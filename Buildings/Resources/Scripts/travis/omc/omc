@@ -10,7 +10,9 @@
 #################################################
 set -e
 
+#IMG_NAME=ubuntu-2004-omc:1.20.0_dev-250-gb17e1a0-1
 IMG_NAME=${OMC_VERSION}
+
 DOCKER_USERNAME=michaelwetter
 
 # Function declarations
@@ -95,5 +97,4 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
-fi
 exit $?
