@@ -3,7 +3,7 @@ model ChillersToPrimaryPumpsParallel
   "Validation model for hydronic interface between parallel chillers and primary pumps"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.Water
+  replaceable package MediumChiWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium";
 
@@ -11,7 +11,8 @@ model ChillersToPrimaryPumpsParallel
     "Number of chillers";
 
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=
-    fill(30, nChi)
+    capChi_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
+    (TChiWatRet_nominal-TChiWatSup_nominal)
     "CHW mass flow rate for each chiller"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=
@@ -23,18 +24,23 @@ model ChillersToPrimaryPumpsParallel
     "WSE CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi]=
-    fill(4E4, nChi)
+    fill(Buildings.Templates.Data.Defaults.dpChiWatChi, nChi)
     "CHW pressure drop for each chiller"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatEco_nominal=4E4
+  parameter Modelica.Units.SI.PressureDifference dpChiWatEco_nominal=
+    Buildings.Templates.Data.Defaults.dpChiWatEco
     "WSE CHW pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal[nChi](
+  parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](
     each min=0)=fill(1e6, nChi)
-    "Design cooling load for each chiller (>0)"
+    "Cooling capacity for each chiller (>0)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=6+273.15
+  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
+    Buildings.Templates.Data.Defaults.TChiWatSup
+    "CHW supply temperature";
+  parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
+    Buildings.Templates.Data.Defaults.TChiWatRet
     "CHW supply temperature";
 
   parameter Modelica.Units.SI.Time tau=10
@@ -49,18 +55,18 @@ model ChillersToPrimaryPumpsParallel
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nChi,
     final m_flow_nominal=mChiWatChi_flow_nominal,
-    dp_nominal=2*dpChiWatChi_nominal);
+    dp_nominal=1.5*dpChiWatChi_nominal);
   parameter Buildings.Templates.Components.Data.PumpSingle datPumChiWatEco(
     final typ=Buildings.Templates.Components.Types.Pump.Single,
     final m_flow_nominal=mChiWatEco_flow_nominal,
-    dp_nominal=2*dpChiWatEco_nominal);
+    dp_nominal=1.5*dpChiWatEco_nominal);
   parameter Buildings.Templates.Components.Data.Valve datValChiWatEcoByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final m_flow_nominal=mChiWatEco_flow_nominal,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso);
 
   Routing.ChillersToPrimaryPumps rou(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumChiWat,
     final nChi=nChi,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -71,7 +77,7 @@ model ChillersToPrimaryPumpsParallel
     "Parallel chillers, dedicated pumps, no WSE"
     annotation (Placement(transformation(extent={{-80,90},{-40,210}})));
   Fluid.FixedResistances.PressureDrop resEva[nChi](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal,
     final dp_nominal=dpChiWatChi_nominal)
     "Flow resistance for chiller evaporator" annotation (Placement(
@@ -80,7 +86,7 @@ model ChillersToPrimaryPumpsParallel
         rotation=90,
         origin={-200,150})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final nPorts=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -88,7 +94,7 @@ model ChillersToPrimaryPumpsParallel
     "Primary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{16,170},{36,190}})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWatPri(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumChiWat,
     final dat=datPumChiWatChi,
     final nPum=nChi,
     final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon)
@@ -99,12 +105,12 @@ model ChillersToPrimaryPumpsParallel
     annotation (Placement(transformation(extent={{180,200},{220,240}}),
         iconTransformation(extent={{-316,184},{-276,224}})));
   Fluid.Sensors.TemperatureTwoPort TChiWatChiEnt[nChi](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal)
     "Chiller entering CHW return temperature"
     annotation (Placement(transformation(extent={{-170,110},{-190,130}})));
   Fluid.Sensors.MassFlowRate mChiWatChi_flow[nChi](
-    redeclare each final package Medium=Medium) "Chiller CHW flow"
+    redeclare each final package Medium=MediumChiWat) "Chiller CHW flow"
     annotation (Placement(transformation(extent={{-130,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatPri[nChi](
     each table=[0,0; 1,0; 1,1; 2,1],
@@ -115,10 +121,10 @@ model ChillersToPrimaryPumpsParallel
     k=1) "Primary CHW pumps speed signal"
     annotation (Placement(transformation(extent={{-250,350},{-230,370}})));
   Fluid.HeatExchangers.HeaterCooler_u loa(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=sum(mChiWatChi_flow_nominal),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final Q_flow_nominal=sum(Q_flow_nominal),
+    final Q_flow_nominal=sum(capChi_nominal),
     dp_nominal=0)
     "Cooling load"
     annotation (Placement(transformation(extent={{10,110},{-10,130}})));
@@ -127,18 +133,18 @@ model ChillersToPrimaryPumpsParallel
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-10,124},{10,144}})));
   Fluid.Sensors.TemperatureTwoPort TChiWatPriSup(
-    redeclare final package Medium =Medium,
+    redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=sum(mChiWatChi_flow_nominal))
     "Primary CHW supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={60,180})));
   Fluid.Sensors.MassFlowRate mChiWatPri_flow(
-    redeclare final package Medium = Medium)
+    redeclare final package Medium=MediumChiWat)
     "Primary CHW flow"
     annotation (Placement(transformation(extent={{90,170},{110,190}})));
   Fluid.Sources.Boundary_pT bouChiWat(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=MediumChiWat,
     final nPorts=1)
     "CHW pressure boundary condition"
     annotation (
@@ -147,7 +153,7 @@ model ChillersToPrimaryPumpsParallel
         rotation=-90,
         origin={-20,100})));
   Fluid.Sources.PropertySource_T coo[nChi](
-    redeclare each final package Medium=Medium,
+    redeclare each final package Medium=MediumChiWat,
     each final use_T_in=true)
     "Ideal cooling to input set point (representing chiller evaporator)"
     annotation (Placement(transformation(extent={{-180,170},{-160,190}})));
@@ -162,7 +168,7 @@ model ChillersToPrimaryPumpsParallel
     annotation (Placement(transformation(extent={{-250,270},{-230,290}})));
 
   Routing.ChillersToPrimaryPumps rou1(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final nChi=nChi,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -173,9 +179,8 @@ model ChillersToPrimaryPumpsParallel
     "Parallel chillers, headered pumps, WSE with CHW bypass valve"
     annotation (Placement(transformation(extent={{-80,-50},{-40,70}})));
 
-  Fluid.FixedResistances.PressureDrop resEva1
-                                            [nChi](
-    redeclare each final package Medium = Medium,
+  Fluid.FixedResistances.PressureDrop resEva1[nChi](
+    redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal,
     final dp_nominal=dpChiWatChi_nominal)
     "Flow resistance for chiller evaporator" annotation (Placement(
@@ -184,7 +189,7 @@ model ChillersToPrimaryPumpsParallel
         rotation=90,
         origin={-200,10})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri1(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final nPorts=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -192,54 +197,55 @@ model ChillersToPrimaryPumpsParallel
     "Primary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{16,30},{36,50}})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWatPri1(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final dat=datPumChiWatChi,
     final nPum=nChi,
     final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Fluid.Sensors.TemperatureTwoPort TChiWatChiEnt1
-                                                [nChi](redeclare each final
-      package Medium = Medium, final m_flow_nominal=mChiWatChi_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TChiWatChiEnt1[nChi](
+    redeclare each final package Medium=MediumChiWat,
+    final m_flow_nominal=mChiWatChi_flow_nominal)
     "Chiller entering CHW return temperature"
     annotation (Placement(transformation(extent={{-170,-30},{-190,-10}})));
-  Fluid.Sensors.MassFlowRate mChiWatChi_flow1
-                                            [nChi](redeclare each final package
-      Medium = Medium)                          "Chiller CHW flow"
+  Fluid.Sensors.MassFlowRate mChiWatChi_flow1[nChi](
+    redeclare each final package Medium=MediumChiWat)
+    "Chiller CHW flow"
     annotation (Placement(transformation(extent={{-130,-30},{-150,-10}})));
   Fluid.HeatExchangers.HeaterCooler_u loa1(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=sum(mChiWatChi_flow_nominal),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final Q_flow_nominal=sum(Q_flow_nominal),
+    final Q_flow_nominal=sum(capChi_nominal),
     dp_nominal=0)
     "Cooling load"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
-  Modelica.Blocks.Sources.RealExpression sigModLoa1(y=sum(pumChiWatPri.sigCon.y)
-        /nChi)
+  Modelica.Blocks.Sources.RealExpression sigModLoa1(
+    y=sum(pumChiWatPri.sigCon.y)/nChi)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  Fluid.Sensors.TemperatureTwoPort TChiWatPriSup1(redeclare final package
-      Medium = Medium, final m_flow_nominal=sum(mChiWatChi_flow_nominal))
+  Fluid.Sensors.TemperatureTwoPort TChiWatPriSup1(
+    redeclare final package Medium=MediumChiWat,
+    final m_flow_nominal=sum(mChiWatChi_flow_nominal))
     "Primary CHW supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={60,40})));
-  Fluid.Sensors.MassFlowRate mChiWatPri_flow1(redeclare final package Medium =
-        Medium)
+  Fluid.Sensors.MassFlowRate mChiWatPri_flow1(
+    redeclare final package Medium=MediumChiWat)
     "Primary CHW flow"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
-  Fluid.Sources.Boundary_pT bouChiWat1(redeclare final package Medium = Medium,
-      final nPorts=1)
-    "CHW pressure boundary condition"
+  Fluid.Sources.Boundary_pT bouChiWat1(
+    redeclare final package Medium=MediumChiWat,
+    final nPorts=1) "CHW pressure boundary condition"
     annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-20,-40})));
-  Fluid.Sources.PropertySource_T coo1
-                                    [nChi](redeclare each final package Medium =
-        Medium, each final use_T_in=true)
+  Fluid.Sources.PropertySource_T coo1[nChi](
+    redeclare each final package Medium=MediumChiWat,
+    each final use_T_in=true)
     "Ideal cooling to input set point (representing chiller evaporator)"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri1
@@ -247,7 +253,7 @@ model ChillersToPrimaryPumpsParallel
     annotation (Placement(transformation(extent={{180,60},{220,100}}),
         iconTransformation(extent={{-316,184},{-276,224}})));
   Fluid.FixedResistances.PressureDrop resEco(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatEco_flow_nominal,
     final dp_nominal=dpChiWatEco_nominal)
     "Flow resistance for WSE HX"
@@ -255,39 +261,43 @@ model ChillersToPrimaryPumpsParallel
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-200,-90})));
-  Fluid.Sensors.TemperatureTwoPort TChiWatEcoEnt(redeclare final package Medium =
-        Medium, final m_flow_nominal=mChiWatEco_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TChiWatEcoEnt(
+    redeclare final package Medium=MediumChiWat,
+    final m_flow_nominal=mChiWatEco_flow_nominal)
     "WSE entering CHW return temperature"
     annotation (Placement(transformation(extent={{-170,-130},{-190,-110}})));
-  Fluid.Sensors.MassFlowRate mChiWatEco_flow(redeclare final package Medium =
-        Medium)
+  Fluid.Sensors.MassFlowRate mChiWatEco_flow(
+    redeclare final package Medium=MediumChiWat)
     "WSE CHW flow"
     annotation (Placement(transformation(extent={{-130,-130},{-150,-110}})));
-  Fluid.Sources.PropertySource_T cooEco(redeclare final package Medium = Medium,
-      final use_T_in=true)
+  Fluid.Sources.PropertySource_T cooEco(
+    redeclare final package Medium=MediumChiWat,
+    final use_T_in=true)
     "Ideal cooling to input set point (representing WSE)"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
   Buildings.Templates.Components.Valves.TwoWayModulating valChiWatEcoByp(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=MediumChiWat,
     final dat=datValChiWatEcoByp)
     "WSE CHW bypass valve" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-120,-90})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatEcoByp
-    "WSE CHW bypass valve control bus" annotation (Placement(transformation(
+    "WSE CHW bypass valve control bus"
+    annotation (Placement(transformation(
           extent={{180,20},{220,60}}), iconTransformation(extent={{-316,184},{-276,
             224}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable y1ValChiWatEcoByp(table=[0,
-        1; 1.5,1; 1.5,0; 2,0],
-    timeScale=1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable yValChiWatEcoByp(table=[0,
+        1; 1.5,1; 1.5,0; 2,0], timeScale=1000)
     "WSE CHW bypass valve opening signal"
     annotation (Placement(transformation(extent={{-250,230},{-230,250}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiByp
-    "CHW bypass valves control bus" annotation (Placement(transformation(extent=
+    "CHW bypass valves control bus"
+    annotation (Placement(transformation(extent=
            {{220,80},{260,120}}), iconTransformation(extent={{-316,184},{-276,
             224}})));
-  Interfaces.Bus busPla "Plant control bus" annotation (Placement(
+  Interfaces.Bus busPla "Plant control bus"
+  annotation (Placement(
         transformation(extent={{220,60},{260,100}}),iconTransformation(extent={{
             -432,12},{-412,32}})));
 equation
@@ -408,8 +418,8 @@ equation
       points={{200,40},{200,-90},{-110,-90}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1ValChiWatEcoByp.y[1], busValChiWatEcoByp.y) annotation (Line(points={{-228,
-          240},{150,240},{150,40},{200,40}},       color={0,0,127}));
+  connect(yValChiWatEcoByp.y[1], busValChiWatEcoByp.y) annotation (Line(points=
+          {{-228,240},{150,240},{150,40},{200,40}}, color={0,0,127}));
   connect(busPla, rou1.bus) annotation (Line(
       points={{240,80},{240,70},{-60,70}},
       color={255,204,51},

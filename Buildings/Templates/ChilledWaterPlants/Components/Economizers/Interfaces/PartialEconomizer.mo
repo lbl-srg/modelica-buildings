@@ -41,7 +41,8 @@ partial model PartialEconomizer "Partial waterside economizer model"
     then Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition else
     Buildings.Templates.Components.Types.Valve.None,
     final m_flow_nominal=mConWat_flow_nominal,
-    final dpValve_nominal=dat.dpValConWatIso_nominal)
+    final dpValve_nominal=dat.dpValConWatIso_nominal,
+    final dpFixed_nominal=dpConWat_nominal)
     "WSE CW isolation valve";
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatByp(
     final typ=if typ==Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithValve

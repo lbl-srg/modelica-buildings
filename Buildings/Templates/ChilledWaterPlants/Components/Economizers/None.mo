@@ -6,7 +6,8 @@ model None "No economizer"
 equation
   connect(port_a, port_b)
     annotation (Line(points={{-100,0},{100,0}}, color={0,127,255}));
-  annotation (
+annotation (
+ defaultComponentName="eco",
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Icon(graphics={
       Line(
