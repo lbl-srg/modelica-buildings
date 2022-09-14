@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.Examples.Cooling.DirectUncontrolledETS", tolerance=1e-6, startTime=15724800, stopTime=16329600, method="Dassl", numberOfIntervals=500, resultFile="DirectUncontrolledETS");
+simulateModel("Buildings.Experimental.DHC.Examples.Cooling.DirectUncontrolledETS", tolerance=1e-6, startTime=15724800, stopTime=16329600, method="Dassl", resultFile="DirectUncontrolledETS");
 // Plot commands
 removePlots(true);
 createPlot(id=1, 
@@ -7,12 +7,10 @@ createPlot(id=1,
   y={"buiETS[1].bui.loa.y[1]"}, 
   range={-30000, 0},  
   grid=true, 
-  filename="DistrictCooling.mat",
+  filename="DirectUncontrolledETS.mat",
   colors={{28,108,200}},  
   timeUnit="d", 
-  displayUnits={"W"});
-  plotExpression(apply(DistrictCooling[end].buiETS[1].bui.loa.y[1]+DistrictCooling[end].buiETS[2].bui.loa.y[1]+DistrictCooling[end].buiETS[3].bui.loa.y[1]), false, "loaTot [W]", 1);
-  plotExpression(apply(DistrictCooling[end].buiETS[1].ets.Q_flow+DistrictCooling[end].buiETS[2].ets.Q_flow+DistrictCooling[end].buiETS[3].ets.Q_flow), false, "Q_tot_flow [W]", 1); 
+  displayUnits={"W"}); 
 createPlot(id=2, 
   position={734, 19, 720, 581}, 
   y={"dis.mCon_flow[1]", "pla.senMasFlo.m_flow"}, 
