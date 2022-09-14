@@ -24,11 +24,13 @@ model DirectUncontrolled "Direct cooling ETS model for district energy systems
   parameter Modelica.Units.SI.PressureDifference dpSup(
     final min=0,
     displayUnit="Pa")=5000
-    "Pressure drop in the ETS supply side";
+    "Pressure drop in the ETS supply side"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpRet(
     final min=0,
     displayUnit="Pa")=5000
-    "Pressure drop in the ETS return side";
+    "Pressure drop in the ETS return side"
+    annotation(Dialog(group="Nominal condition"));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
     final unit="W",

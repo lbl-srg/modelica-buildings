@@ -42,6 +42,9 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     displayUnit="Pa")=6000
     "Nominal pressure drop in the check valve"
     annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
+    "Nominal pressure drop in pipe junctions"
+    annotation(Dialog(group="Nominal condition"));
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
@@ -68,9 +71,8 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     annotation (Dialog(group="PID controller"));
   // Advanced parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state";
-  parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
-    "Nominal pressure drop in pipe junctions";
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Advanced"));
   parameter Real bandwidth=0.2
     "Bandwidth around reference signal for on/off controller"
     annotation (Dialog(tab="Advanced"));
