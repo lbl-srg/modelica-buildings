@@ -9,11 +9,9 @@
 # required directories.
 #################################################
 set -e
+
 IMG_NAME=${OMC_VERSION}
 DOCKER_USERNAME=michaelwetter
-
-REPO_NAME=lbl-srg/modelica-buildings
-LIBRARY_NAME=Buildings
 
 # Function declarations
 function create_mount_command()
@@ -22,7 +20,7 @@ function create_mount_command()
    # Each entry in pat will be a mounted read-only volume
    local mnt_cmd=""
    for ele in ${pat//:/ }; do
-      mnt_cmd="${mnt_cmd} -v ${ele}:/mnt${ele}"
+      mnt_cmd="${mnt_cmd} -v ${ele}:/mnt${ele}:ro"
    done
 
    # On Darwin, the exported temporary folder needs to be /private/var/folders, not /var/folders
@@ -83,36 +81,19 @@ do
     shift
 done
 
-# Get library version number which is needed for OpenModelica to load the library.
-LIB_VERSION=`\
-  grep -Po ^version=\".+\" ${TRAVIS_BUILD_DIR}/${LIBRARY_NAME}/package.mo | \
-  sed -s 's/version=\"//g' | \
-  sed -s 's/\"//g'`
-
-echo "LIB VERSION is ---${LIB_VERSION}---"
-
-echo "Content of ${LIBRARY_NAME}: "
-ls /home/travis/build/${REPO_NAME}/${LIBRARY_NAME}
-echo "-----------------"
-echo "BaseName"
-echo ${bas_nam}
-echo "--------"
-#${LIBRARY_NAME}\ ${LIB_VERSION}
-
+# --user=${UID} \
 
 docker run \
-  --user=developer \
+  --user=${UID} \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  -v /home/travis/build/${REPO_NAME}/${LIBRARY_NAME}:/home/developer/.openmodelica/libraries/${LIBRARY_NAME}\ ${LIB_VERSION} \
-  -v ${sha_dir}:/mnt/shared \
   ${MOD_MOUNT} \
+  -v ${sha_dir}:/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
-  "ls -l /home/developer/.openmodelica/libraries/ && \
-   ls -l /home/developer/.openmodelica/libraries/${LIBRARY_NAME}\ ${LIB_VERSION} && \
-  export MODELICAPATH=${DOCKER_MODELICAPATH} && \
-  cd \"/mnt/shared/${bas_nam}\" &&
+  "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
+  cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
+fi
 exit $?
