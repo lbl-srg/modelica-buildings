@@ -79,9 +79,9 @@ model DirectUncontrolledETS
     TMin=288.15,
     PFan_nominal=5000,
     use_inputFilter=true,
-    riseTimePump=15,
+    riseTimePump=120,
     yCHWP_start=fill(0.5, 2),
-    yCWP_start=fill(0.5, 2),
+    yCWP_start=fill(0, 2),
     dpCooTowVal_nominal=6000,
     dpCHWPumVal_nominal=6000,
     dpCWPumVal_nominal=6000,
@@ -113,7 +113,8 @@ model DirectUncontrolledETS
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     filNam=filNam,
-    mBui_flow_nominal=mBui_flow_nominal)
+    mBui_flow_nominal=mBui_flow_nominal,
+    each bui(w_aLoaCoo_nominal=0.015))
     "Vectorized time series building load model connected with ETS for cooling"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
