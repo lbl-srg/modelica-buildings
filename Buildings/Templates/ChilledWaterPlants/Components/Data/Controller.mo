@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Data;
-record Controller "Data for plant controller"
+record Controller "Record for plant controller"
   extends Modelica.Icons.Record;
 
   // Structure parameters

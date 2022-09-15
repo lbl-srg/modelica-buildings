@@ -1,5 +1,5 @@
-within Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces;
-record Data "Data for cooling tower section"
+within Buildings.Templates.ChilledWaterPlants.Components.Data;
+record CoolingTowers "Record for cooling tower section"
   extends Modelica.Icons.Record;
 
   // Structure parameters
@@ -31,4 +31,4 @@ record Data "Data for cooling tower section"
   final parameter Modelica.Units.SI.MassFlowRate mTow_flow_nominal=
     m_flow_nominal/nCooTow "Single tower nominal mass flow rate";
 
-end Data;
+end CoolingTowers;

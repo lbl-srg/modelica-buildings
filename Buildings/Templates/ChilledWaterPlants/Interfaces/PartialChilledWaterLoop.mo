@@ -39,36 +39,19 @@ model PartialChilledWaterLoop "Interface class for CHW plant - Including CHW sid
   replaceable package MediumChiWat=Buildings.Media.Water
     "Chilled water medium";
 
-  inner replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Parallel chiSec
-    constrainedby
-    Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Interfaces.PartialChillerSection(
-    redeclare final package MediumChiWat = MediumChiWat,
-    final dat=dat.chiSec,
-    final datPumPri=dat.pumPri,
-    final have_TPriRet=have_TPriRet) "Chiller section" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={-72,-120})),
-                         choices(choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Parallel
-          chiSec "Chillers in parallel"), choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Series
-          chiSec "Chillers in series")));
   inner replaceable Buildings.Templates.Components.Pumps.NoneMultiple pumSec
     constrainedby Buildings.Templates.Pumps.Interfaces.PartialPump(redeclare
       final package Medium = MediumChiWat, final dat=dat.pumSec)
     "Chilled water secondary pumps (centralized)" annotation (Placement(
-        transformation(extent={{80,-10},{100,10}})), choices(choice(redeclare
-          replaceable Buildings.Templates.Components.Pumps.MultipleVariable
+        transformation(extent={{80,-10},{100,10}})), choices(choice(redeclare replaceable
+                      Buildings.Templates.Components.Pumps.MultipleVariable
           pumSec "No secondary pumping"), choice(redeclare replaceable
           Buildings.Templates.Components.Pumps.MultipleVariable pumSec
           "Variable speed pumps")));
   inner replaceable
     Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctr
     constrainedby
-    Buildings.Templates.ChilledWaterPlants.Components.Controls.Interfaces.PartialController(
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialController(
      final dat=dat.ctr) "Plant controller" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -151,6 +134,14 @@ model PartialChilledWaterLoop "Interface class for CHW plant - Including CHW sid
       redeclare final package Medium = MediumChiWat, final nPorts=nPumSec)
     "CHW secondary pumps outlet manifold"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Components.ChillerGroups.Compression chi
+    annotation (Placement(transformation(extent={{-100,-180},{-60,-60}})));
+  Components.Routing.ChillersToPrimaryPumps rou
+    annotation (Placement(transformation(extent={{-40,-180},{0,-60}})));
+  Components.Economizers.None eco annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-80,-210})));
 equation
   // Sensors
   connect(TSecSup.y, bus.TSecSup);
@@ -163,7 +154,6 @@ equation
   connect(TWetAirOut.y, bus.TWetAirOut);
 
   // Bus connection
-  connect(chiSec.bus, bus);
   connect(pumSec.busCon, bus);
 
   connect(busWea.TDryBul, TAirOut.u)

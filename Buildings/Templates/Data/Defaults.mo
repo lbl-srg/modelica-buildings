@@ -4,6 +4,8 @@ package Defaults "Package with default sizing parameters"
 
   constant Modelica.Units.SI.Temperature TChiWatSup=7+273.15
     "CHW supply temperature";
+  constant Modelica.Units.SI.Temperature TChiWatSup_max=16+273.15
+    "Maximum CHW supply temperature";
   constant Modelica.Units.SI.Temperature TChiWatRet=12+273.15
     "CHW return temperature";
   constant Modelica.Units.SI.Temperature TConWatSup=30+273.15
@@ -18,6 +20,12 @@ package Defaults "Package with default sizing parameters"
     "WSE entering CW temperature";
   constant Modelica.Units.SI.Temperature TConWatEcoLvg=16+273.15
     "WSE leaving CW temperature";
+  constant Real mConAirByCap(unit="(kg/s)/W")=1E-4
+    "Air mass flow rate at condenser per cooling capacity";
+  constant Real COPChiAirCoo(unit="1")=3.0
+    "Air-cooled chiller COP";
+  constant Real COPChiWatCoo(unit="1")=5.0
+    "Water-cooled chiller COP";
   constant Modelica.Units.SI.PressureDifference dpValIso=1E3
     "Isolation or bypass valve pressure drop";
   constant Modelica.Units.SI.PressureDifference dpValChe=1E4
@@ -34,5 +42,4 @@ package Defaults "Package with default sizing parameters"
     "CHW circuit minimum pressure";
   constant Modelica.Units.SI.PressureDifference pHeaWat_rel_min=1.5E5
     "HHW circuit minimum pressure";
-
 end Defaults;

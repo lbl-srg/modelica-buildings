@@ -1,7 +1,7 @@
-within Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces;
+within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
 model PartialEconomizerHX "Partial model of WSE with plate heat exchanger"
   extends
-    Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces.PartialEconomizer;
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer;
 
   Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1=MediumConWat,

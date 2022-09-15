@@ -191,7 +191,8 @@ model ChillersToPrimaryPumps
         rotation=0,
         origin={80,-100})));
   Buildings.Templates.Components.Routing.PassThroughFluid rouRetChiSer(
-      redeclare final package Medium = Medium) if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
+    redeclare final package Medium = Medium)
+    if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
     "Hydronic routing to chiller return - Series arrangement"
     annotation (Placement(transformation(extent={{10,-82},{-10,-62}})));
 

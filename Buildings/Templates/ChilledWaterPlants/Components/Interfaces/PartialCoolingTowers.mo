@@ -1,5 +1,5 @@
-within Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces;
-partial model PartialCoolingTowerSection "Partial cooling tower section model"
+within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
+partial model PartialCoolingTowers "Partial cooling tower section model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Water,
     final m_flow_nominal = dat.m_flow_nominal);
@@ -18,8 +18,8 @@ partial model PartialCoolingTowerSection "Partial cooling tower section model"
   // Record
 
   parameter
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.Data
-    dat(final typ=typ, final nCooTow=nCooTow) "Cooling tower section data";
+    Buildings.Templates.ChilledWaterPlants.Components.Data.CoolingTowers dat(
+      final typ=typ, final nCooTow=nCooTow) "Cooling tower section data";
 
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busCon
                              "Control bus" annotation (Placement(transformation(
@@ -41,4 +41,4 @@ partial model PartialCoolingTowerSection "Partial cooling tower section model"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialCoolingTowerSection;
+end PartialCoolingTowers;

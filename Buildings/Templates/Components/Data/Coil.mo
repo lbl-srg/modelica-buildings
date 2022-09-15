@@ -4,13 +4,13 @@ record Coil "Record for coil model"
 
   parameter Buildings.Templates.Components.Types.Coil typ
     "Equipment type"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration", enable=false));
   parameter Boolean have_sou
     "Set to true for fluid ports on the source side"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration", enable=false));
 
   /*
 For evaporator coils this is also provided by the performance data record.

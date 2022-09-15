@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Economizers;
 model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
   extends
-    Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces.PartialEconomizerHX(
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizerHX(
     final typ=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithPump, hex(
         from_dp2=true));
 

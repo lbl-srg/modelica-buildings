@@ -4,7 +4,7 @@ record Damper "Record for damper model"
 
   parameter Buildings.Templates.Components.Types.Damper typ
     "Equipment type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,

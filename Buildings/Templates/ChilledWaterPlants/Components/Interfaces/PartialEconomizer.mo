@@ -1,4 +1,4 @@
-within Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces;
+within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
 partial model PartialEconomizer "Partial waterside economizer model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumChiWat,

@@ -1,6 +1,12 @@
 within Buildings.Templates.Components;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
+  type Chiller = enumeration(
+      AirCooled
+      "Air-cooled compression chiller",
+      WaterCooled
+      "Water-cooled compression chiller")
+    "Enumeration to specify the type of chiller";
   type Coil = enumeration(
       ElectricHeating
       "Modulating electric heating coil",
@@ -128,6 +134,11 @@ package Types "Package with type definitions"
       TwoWayTwoPosition
       "Two-way two-position valve")
     "Enumeration to configure the valve";
+  type ValveOption = enumeration(
+      Choices "Modulating or two-position valve possible",
+      Modulating "Modulating valve required",
+      NoValve "No valve")
+    "Enumeration to specify the possible options for isolation valves";
   annotation (Documentation(info="<html>
 <p>
 This package contains type definitions.

@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers;
 model Parallel "Cooling tower in parallel"
   extends
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.PartialCoolingTowerSection(
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolingTowers(
       final typ=Buildings.Templates.ChilledWaterPlants.Types.CoolingTowerSection.CoolingTowerParallel);
 
   inner replaceable Buildings.Templates.Components.CoolingTowers.Merkel cooTow[

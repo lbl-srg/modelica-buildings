@@ -1,12 +1,6 @@
 within Buildings.Templates.ChilledWaterPlants;
 package Types
   extends Modelica.Icons.TypesPackage;
-  type Chiller = enumeration(
-      AirCooled
-      "Air-cooled compression chiller",
-      WaterCooled
-      "Water-cooled compression chiller")
-      "Enumeration to specify the type of chiller";
   type ChillerArrangement = enumeration(
       Parallel
       "Parallel chillers",
@@ -43,9 +37,4 @@ package Types
       Dedicated "Dedicated pumps",
       Headered "Headered pumps")
       "Enumeration to specify the pump arrangement";
-  type ValveOption = enumeration(
-      Choices "Modulating or two-position valve possible",
-      Modulating "Modulating valve required",
-      NoValve "No valve")
-      "Enumeration to specify the possible options for isolation valves";
 end Types;

@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlants.Components.Economizers;
 model HeatExchangerWithValve
   "Heat exchanger with bypass valve for CHW flow control"
   extends
-    Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces.PartialEconomizerHX(
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizerHX(
     final typ=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithValve, hex(
         from_dp2=true));
 

@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Data;
-record Economizer "Data for waterside economizer"
+record Economizer "Record for waterside economizer model"
   extends Modelica.Icons.Record;
 
   parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typ

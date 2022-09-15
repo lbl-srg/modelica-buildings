@@ -1,4 +1,4 @@
-within Buildings.Templates.ChilledWaterPlants.Components.Controls.Interfaces;
+within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
 block PartialController "Partial controller for chilled water plant"
 
   // Structure parameters
@@ -53,10 +53,10 @@ block PartialController "Partial controller for chilled water plant"
     final have_ctrHeaPre=have_ctrHeaPre) "Controller data";
 
   outer replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.Economizers.Interfaces.PartialEconomizer
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer
     eco "Waterside economizer";
   outer replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.PartialCoolingTowerSection
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolingTowers
     cooTowSec if isAirCoo "Cooling towers";
   outer replaceable
     Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Interfaces.PartialCondenserPump

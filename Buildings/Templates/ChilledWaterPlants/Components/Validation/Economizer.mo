@@ -33,13 +33,13 @@ model Economizer "Validation model for WSE components"
 
   parameter Modelica.Units.SI.Temperature TChiWatEcoEnt_nominal=
     Buildings.Templates.Data.Defaults.TChiWatEcoEnt
-    "CHW supply temperature";
+    "WSE entering CHW temperature";
   parameter Modelica.Units.SI.Temperature TChiWatEcoLvg_nominal=
     Buildings.Templates.Data.Defaults.TChiWatEcoLvg
-    "CHW supply temperature";
+    "WSE leaving CHW temperature";
   parameter Modelica.Units.SI.Temperature TConWatEcoEnt_nominal=
     Buildings.Templates.Data.Defaults.TConWatEcoEnt
-    "CHW supply temperature";
+    "WSE entering CW temperature";
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -105,13 +105,12 @@ model Economizer "Validation model for WSE components"
         origin={80,50})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatEcoByp
     "WSE CHW bypass valve control bus"
-    annotation (Placement(transformation(extent={{-20,60},{20,100}}),
+    annotation (Placement(transformation(extent={{-20,80},{20,120}}),
                                   iconTransformation(extent={{-316,184},{-276,
             224}})));
-  Interfaces.Bus busPla "Plant control bus"
-  annotation (Placement(
-        transformation(extent={{-20,40},{20,80}}),  iconTransformation(extent={{
-            -432,12},{-412,32}})));
+  .Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busPla
+    "Plant control bus" annotation (Placement(transformation(extent={{-20,40},{
+            20,80}}), iconTransformation(extent={{-432,12},{-412,32}})));
   Economizers.HeatExchangerWithPump  ecoPum(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumConWat = MediumConWat,
@@ -119,8 +118,8 @@ model Economizer "Validation model for WSE components"
     hex(show_T=true))    "WSE with HX pump"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatEco
-    "WSE CHW pump control bus" annotation (Placement(transformation(extent={{-20,-60},
-            {20,-20}}),      iconTransformation(extent={{-316,184},{-276,224}})));
+    "WSE CHW pump control bus" annotation (Placement(transformation(extent={{-20,-40},
+            {20,0}}),        iconTransformation(extent={{-316,184},{-276,224}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatEco(
     table=[0,0; 1,0; 1,1; 2,1],
     timeScale=1000,
@@ -129,11 +128,9 @@ model Economizer "Validation model for WSE components"
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable yPumChiWatEco(table=[0,
         0; 1,0; 1.5,1; 2,1], timeScale=1000) "WSE CHW pump speed signal"
     annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
-  Interfaces.Bus busPla1
-                        "Plant control bus"
-  annotation (Placement(
-        transformation(extent={{-20,-80},{20,-40}}),iconTransformation(extent={{
-            -432,12},{-412,32}})));
+  .Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busPla1
+    "Plant control bus" annotation (Placement(transformation(extent={{-20,-80},
+            {20,-40}}), iconTransformation(extent={{-432,12},{-412,32}})));
   Buildings.Templates.Components.Interfaces.Bus busValConWatEcoIso
     "WSE CW isolation valve control bus" annotation (Placement(transformation(
           extent={{20,60},{60,100}}),  iconTransformation(extent={{-316,184},{-276,
@@ -177,7 +174,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(yValChiWatEcoByp.y[1], busValChiWatEcoByp.y)
-    annotation (Line(points={{-108,0},{-100,0},{-100,76},{0,76},{0,80}},
+    annotation (Line(points={{-108,0},{-100,0},{-100,76},{0,76},{0,100}},
                                                           color={0,0,127}));
   connect(bouConWatSup.ports[2], ecoPum.port_aConWat) annotation (Line(points={{81,40},
           {60,40},{60,-71},{10,-71}},        color={0,127,255}));
@@ -185,11 +182,11 @@ equation
           {-60,-71},{-60,40},{-79,40}},                            color={0,127,
           255}));
   connect(y1PumChiWatEco.y[1], busPumChiWatEco.y1) annotation (Line(points={{-108,40},
-          {-50,40},{-50,-40},{0,-40}},         color={255,0,255}));
+          {-50,40},{-50,-20},{0,-20}},         color={255,0,255}));
   connect(yPumChiWatEco.y[1], busPumChiWatEco.y) annotation (Line(points={{-108,80},
-          {-40,80},{-40,-36},{0,-36},{0,-40}},         color={0,0,127}));
+          {-40,80},{-40,-36},{0,-36},{0,-20}},         color={0,0,127}));
   connect(busPumChiWatEco, busPla1.pumChiWatEco) annotation (Line(
-      points={{0,-40},{0,-60}},
+      points={{0,-20},{0,-60}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla1, ecoPum.bus) annotation (Line(
@@ -205,7 +202,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatEcoByp, busPla.valChiWatEcoByp) annotation (Line(
-      points={{0,80},{0,60}},
+      points={{0,100},{0,60}},
       color={255,204,51},
       thickness=0.5));
   connect(y1ValConWatEcoIso.y[1], busValConWatEcoIso.y1) annotation (Line(

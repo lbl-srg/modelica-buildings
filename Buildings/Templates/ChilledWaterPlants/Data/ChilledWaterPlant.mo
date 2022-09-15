@@ -2,8 +2,7 @@ within Buildings.Templates.ChilledWaterPlants.Data;
 record ChilledWaterPlant "Record for chilled water plant model"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Chiller typ
-    "Type of chillers"
+  parameter Buildings.Templates.Components.Types.Chiller typ "Type of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Controller
@@ -14,13 +13,12 @@ record ChilledWaterPlant "Record for chilled water plant model"
     final TChiWatSup_nominal=chiSec.chi[1].TChiWatSup_nominal)
     "Controller"
     annotation (Dialog(group="Controller"));
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Chillers
+  parameter Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup
     chi(
     final isAirCoo=isAirCoo,
     final valChiWatChiIso=pumPri.valChiWatChiIso,
     m2_flow_nominal=mPri_flow_nominal,
-    m1_flow_nominal=mCon_flow_nominal)
-    "Chillers"
+    m1_flow_nominal=mCon_flow_nominal) "Chillers"
     annotation (Dialog(group="Equipment"));
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.PumpsPrimary
     pumPri(final nChi=chiSec.nChi, m_flow_nominal=mPri_flow_nominal)
@@ -39,7 +37,7 @@ record ChilledWaterPlant "Record for chilled water plant model"
         chiSec.nChi, m_flow_nominal=mCon_flow_nominal) "CW pumps"
     annotation (Dialog(group="Equipment", enable=not isAirCoo));
   parameter
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Interfaces.Data
+    Buildings.Templates.ChilledWaterPlants.Components.Data.CoolingTowers
     cooTowSec(m_flow_nominal=mCon_flow_nominal) "Cooling tower section"
     annotation (Dialog(group="Equipment", enable=not isAirCoo));
 

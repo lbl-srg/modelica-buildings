@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components;
-package PumpsPrimary "Models for primary CHW pumps"
+package ChillerGroups "Models for chiller groups"
   extends Modelica.Icons.VariantsPackage;
 
-end PumpsPrimary;
+end ChillerGroups;
